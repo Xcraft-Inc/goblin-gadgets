@@ -1,0 +1,21 @@
+{
+  "name": "goblin-gadgets",
+  "version": "0.0.1",
+  "description": "Gadgets library",
+  "main": "button.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "config": {
+    "xcraft": {
+      "commands": true,
+      "hot": true
+    }
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "xcraft-dev-rules": "^0.1.8"
+  }
+}
