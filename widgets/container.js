@@ -1,23 +1,22 @@
-import {React, Trace} from 'electrum';
+import React from 'react';
 import Widget from 'laboratory/widget';
 
 /******************************************************************************/
 
 class Container extends Widget {
-
   constructor (props) {
     super (props);
     this.state = {
-      managedChildren: null,  // TODO!!!
+      managedChildren: null, // TODO!!!
     };
     this.panelBottoms = [];
   }
 
   get wiring () {
     return {
-      id:    'id',
-      kind:  'kind',
-      text:  'text',
+      id: 'id',
+      kind: 'kind',
+      text: 'text',
       glyph: 'glyph',
     };
   }
@@ -28,16 +27,18 @@ class Container extends Widget {
 
   componentWillMount () {
     const dragController = this.read ('drag-controller');
-    const dragSource     = this.read ('drag-source');
-    const dragOwnerId    = this.read ('drag-owner-id');
+    const dragSource = this.read ('drag-source');
+    const dragOwnerId = this.read ('drag-owner-id');
     let count = 0;
     count += dragController ? 1 : 0;
-    count += dragSource     ? 1 : 0;
-    count += dragOwnerId    ? 1 : 0;
+    count += dragSource ? 1 : 0;
+    count += dragOwnerId ? 1 : 0;
     if (count !== 0 && count !== 3) {
       // These 3 properties must exist all together, or none !
-      Trace.error ('Container has invalid properties:' +
-        ` dragController=${dragController} dragSource=${dragSource} dragOwnerId=${dragOwnerId}`);
+      console.err (
+        'Container has invalid properties:' +
+          ` dragController=${dragController} dragSource=${dragSource} dragOwnerId=${dragOwnerId}`
+      );
     }
     const navFor = this.read ('navigation-for');
     if (navFor) {
@@ -48,7 +49,9 @@ class Container extends Widget {
   componentDidMount () {
     const navFor = this.read ('navigation-for');
     if (navFor) {
-      const panelElem = document.querySelectorAll (`[data-navigation-name="${navFor}"]`)[0];
+      const panelElem = document.querySelectorAll (
+        `[data-navigation-name="${navFor}"]`
+      )[0];
       if (panelElem) {
         this.computePanelBottoms (panelElem);
         panelElem.addEventListener ('scroll', this.handleScroll, true);
@@ -80,7 +83,9 @@ class Container extends Widget {
   componentWillUnmount () {
     const navFor = this.read ('navigation-for');
     if (navFor) {
-      const panelElem = document.querySelectorAll (`[data-navigation-name="${navFor}"]`)[0];
+      const panelElem = document.querySelectorAll (
+        `[data-navigation-name="${navFor}"]`
+      )[0];
       if (panelElem) {
         panelElem.removeEventListener ('scroll', this.handleScroll, true);
       }
@@ -117,7 +122,7 @@ class Container extends Widget {
       if (first === -1) {
         first = c.offsetTop;
       } else {
-        this.panelBottoms.push (c.offsetTop - first - (c.offsetHeight / 2));
+        this.panelBottoms.push (c.offsetTop - first - c.offsetHeight / 2);
       }
     });
     this.panelBottoms.push (1000000);
@@ -125,7 +130,8 @@ class Container extends Widget {
 
   // Return the index of the top panel, according to  scroll position.
   getPanelIndex (scrollTop, scrollMax) {
-    if (scrollTop >= scrollMax - 4) {  // 4 = chouia for mouse wheel
+    if (scrollTop >= scrollMax - 4) {
+      // 4 = chouia for mouse wheel
       // If scroller is on bottom, return the last index.
       return this.panelBottoms.length - 1;
     } else {
@@ -141,11 +147,11 @@ class Container extends Widget {
   setNavigation (index) {
     const children = React.Children.map (this.props.children, (child, i) => {
       const active = {
-        active: i === index ? 'true' : 'false'
+        active: i === index ? 'true' : 'false',
       };
       return React.cloneElement (child, active);
     });
-    this.setState ({managedChildren: children});  // TODO!!!
+    this.setState ({managedChildren: children}); // TODO!!!
   }
 
   initNavigation () {
@@ -166,8 +172,7 @@ class Container extends Widget {
       } else {
         return child;
       }
-    }
-    );
+    });
   }
 
   widget () {
@@ -175,15 +180,15 @@ class Container extends Widget {
       const {state} = this.props;
 
       const disabled = this.read ('disabled');
-      const kind     = this.read ('kind');
-      const anchor   = this.read ('anchor');
-      const navName  = this.read ('navigation-name');
-      const hidden   = this.read ('hidden');
-      const show     = this.read ('show');
-      const index    = this.read ('index');
+      const kind = this.read ('kind');
+      const anchor = this.read ('anchor');
+      const navName = this.read ('navigation-name');
+      const hidden = this.read ('hidden');
+      const show = this.read ('show');
+      const index = this.read ('index');
       const selected = this.read ('selected');
 
-      const boxStyle      = this.styles.box;
+      const boxStyle = this.styles.box;
       const triangleStyle = this.styles.triangle;
 
       if (hidden) {
@@ -193,38 +198,36 @@ class Container extends Widget {
       const useManagedChildren = [
         'pane-navigator',
         'pane-vnavigator',
-        'pane-hnavigator'
+        'pane-hnavigator',
       ];
 
       if (show === 'false') {
         return null;
       } else if (kind === 'flying-balloon' || kind === 'flying-dialog') {
         return (
-          <div
-            key      = {index}
-            disabled = {disabled}
-            style    = {boxStyle}
-            id       = {anchor}
-            >
-            <div style = {triangleStyle}/>
+          <div key={index} disabled={disabled} style={boxStyle} id={anchor}>
+            <div style={triangleStyle} />
             {this.applySelectedToChildren (selected)}
           </div>
         );
       } else {
         return (
           <div
-            key                  = {index}
-            disabled             = {disabled}
-            style                = {boxStyle}
-            id                   = {anchor}
-            data-navigation-name = {navName}
-            >
-            {useManagedChildren.includes (kind) ? this.state.managedChildren : this.applySelectedToChildren (selected)}
+            key={index}
+            disabled={disabled}
+            style={boxStyle}
+            id={anchor}
+            data-navigation-name={navName}
+          >
+            {useManagedChildren.includes (kind)
+              ? this.state.managedChildren
+              : this.applySelectedToChildren (selected)}
           </div>
         );
       }
-    }
+    };
   }
 }
 
 /******************************************************************************/
+export default Container;
