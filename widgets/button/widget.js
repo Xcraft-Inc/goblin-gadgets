@@ -36,10 +36,7 @@ class Button extends Widget {
   }
 
   onClicked (e) {
-    const x = this.read ('on-click');
-    if (x) {
-      x (e);
-    } else {
+    if (this.props.onClick) {
       this.props.onClick (e);
     }
   }
