@@ -1,21 +1,20 @@
-import {React} from 'electrum';
-import {ReactDOM} from 'electrum';
+import React from 'react';
+import {ReactDOM} from 'react';
 import Widget from 'laboratory/widget';
 // import {FlyingBalloon} from '../../../all-components.js';
 
 /******************************************************************************/
 
 class TextField extends Widget {
-
   constructor (props) {
     super (props);
   }
 
   get wiring () {
     return {
-      id:    'id',
-      kind:  'kind',
-      text:  'text',
+      id: 'id',
+      kind: 'kind',
+      text: 'text',
       glyph: 'glyph',
     };
   }
@@ -84,12 +83,12 @@ class TextField extends Widget {
   }
 
   renderInput () {
-    const state    = this.props.state.find ();
+    const state = this.props.state.find ();
     const disabled = this.read ('disabled');
-    const id       = this.read ('id');
-    const value    = this.read ('value');
+    const id = this.read ('id');
+    const value = this.read ('value');
     const hintText = this.read ('hint-text');
-    const rows     = this.read ('rows');
+    const rows = this.read ('rows');
     const readonly = this.read ('readonly');
     const tabIndex = this.props['tab-index'];
 
@@ -102,62 +101,62 @@ class TextField extends Widget {
       const textareaStyle = this.styles.textarea;
       return (
         <textarea
-          ref         = 'inputTag'
-          id          = {id}
-          style       = {textareaStyle}
-          onChange    = {::this.onChange}
-          onFocus     = {::this.onMyFocus}
-          onBlur      = {::this.onMyBlur}
-          onMouseDown = {::this.onMyMouseDown}
-          onKeyDown   = {::this.onKeyDown}
-          onKeyUp     = {::this.onKeyUp}
-          onSelect    = {::this.onSelect}
-          disabled    = {disabled}
-          rows        = {rows}
-          tabIndex    = {tabIndex}
-          value       = {value || ''}
+          ref="inputTag"
+          id={id}
+          style={textareaStyle}
+          onChange={::this.onChange}
+          onFocus={::this.onMyFocus}
+          onBlur={::this.onMyBlur}
+          onMouseDown={::this.onMyMouseDown}
+          onKeyDown={::this.onKeyDown}
+          onKeyUp={::this.onKeyUp}
+          onSelect={::this.onSelect}
+          disabled={disabled}
+          rows={rows}
+          tabIndex={tabIndex}
+          value={value || ''}
           {...options}
-          />
+        />
       );
     } else {
       const fieldStyle = this.styles.field;
       return (
         <input
-          ref         = 'inputTag'
-          id          = {id}
-          onChange    = {::this.onChange}
-          onFocus     = {::this.onMyFocus}
-          onBlur      = {::this.onMyBlur}
-          onMouseDown = {::this.onMyMouseDown}
-          onKeyDown   = {::this.onKeyDown}
-          onKeyUp     = {::this.onKeyUp}
-          onSelect    = {::this.onSelect}
-          disabled    = {disabled}
-          maxLength   = {this.props.maxLength}
-          placeholder = {hintText}
-          size        = {this.props.size || 'size'}
-          style       = {fieldStyle}
-          type        = {this.props.type || 'text'}
-          key         = 'input'
-          tabIndex    = {tabIndex}
-          value       = {value || ''}
+          ref="inputTag"
+          id={id}
+          onChange={::this.onChange}
+          onFocus={::this.onMyFocus}
+          onBlur={::this.onMyBlur}
+          onMouseDown={::this.onMyMouseDown}
+          onKeyDown={::this.onKeyDown}
+          onKeyUp={::this.onKeyUp}
+          onSelect={::this.onSelect}
+          disabled={disabled}
+          maxLength={this.props.maxLength}
+          placeholder={hintText}
+          size={this.props.size || 'size'}
+          style={fieldStyle}
+          type={this.props.type || 'text'}
+          key="input"
+          tabIndex={tabIndex}
+          value={value || ''}
           {...options}
-          />
+        />
       );
     }
   }
 
   renderFlyingBalloon () {
-    const messageWarning      = this.read ('message-warning');
-    const messageInfo         = this.read ('message-info');
+    const messageWarning = this.read ('message-warning');
+    const messageInfo = this.read ('message-info');
     const flyingBalloonAnchor = this.read ('flying-balloon-anchor');
     // Conversion from flying-balloon-anchor to triangle-position.
     const trianglePosition = {
       bottom: 'top',
-      top:    'bottom',
-      left:   'right',
-      right:  'left',
-    } [flyingBalloonAnchor];
+      top: 'bottom',
+      left: 'right',
+      right: 'left',
+    }[flyingBalloonAnchor];
 
     if (messageWarning || messageInfo) {
       // return (
@@ -177,21 +176,17 @@ class TextField extends Widget {
     return props => {
       const {state} = this.props;
       const disabled = this.read ('disabled');
-      const tooltip  = this.read ('tooltip');
+      const tooltip = this.read ('tooltip');
 
       const boxStyle = this.styles.box;
 
       return (
-      <span
-        disabled = {disabled}
-        style    = {boxStyle}
-        title    = {tooltip}
-        >
-        {this.renderInput ()}
-        {this.renderFlyingBalloon ()}
-      </span>
+        <span disabled={disabled} style={boxStyle} title={tooltip}>
+          {this.renderInput ()}
+          {this.renderFlyingBalloon ()}
+        </span>
       );
-    }
+    };
   }
 }
 

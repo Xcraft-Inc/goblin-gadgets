@@ -5,10 +5,11 @@
  *
  * @returns {Object} The list and definitions of commands.
  */
+const servicePath = './widgets/container/service.js';
 exports.xcraftCommands = function () {
   return {
-    handlers: require ('./lib/container.js').handlers,
-    context: require ('./lib/container.js').context,
+    handlers: require (servicePath).handlers,
+    context: require (servicePath).context,
     rc: {
       create: {
         parallel: true,

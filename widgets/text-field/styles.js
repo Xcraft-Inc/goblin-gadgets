@@ -3,17 +3,17 @@ import {Unit} from 'electrum-theme';
 /******************************************************************************/
 
 export default function styles (theme, props) {
-  const inputGrow     = props.grow;
-  const inputSpacing  = props.spacing;
-  const inputWidth    = props.width;
-  const inputShape    = props.shape;
+  const inputGrow = props.grow;
+  const inputSpacing = props.spacing;
+  const inputWidth = props.width;
+  const inputShape = props.shape;
   const inputReadonly = props.readonly;
-  const inputActive   = props.active;
+  const inputActive = props.active;
 
-  let flexGrow    = inputGrow;
-  let flexShrink  = null;
-  let flexBasis   = null;
-  let width       = inputWidth;
+  let flexGrow = inputGrow;
+  let flexShrink = null;
+  let flexBasis = null;
+  let width = inputWidth;
 
   const m = Unit.multiply (theme.shapes.containerMargin, 0.5);
 
@@ -22,13 +22,13 @@ export default function styles (theme, props) {
   }
   if (flexGrow) {
     flexShrink = '1';
-    flexBasis  = '0%';
+    flexBasis = '0%';
   }
 
   if (!width) {
-    width = '10px';  // any non-zero width
+    width = '10px'; // any non-zero width
   } else {
-    width = null;  // if specific with exist, don't fill
+    width = null; // if specific with exist, don't fill
   }
 
   // If component has specific width and border, reduce the width to
@@ -37,9 +37,9 @@ export default function styles (theme, props) {
     width = Unit.sub (width, '2px');
   }
 
-  let marginLeft   = '0px';
-  let marginRight  = '0px';
-  let padding      = '0px';
+  let marginLeft = '0px';
+  let marginRight = '0px';
+  let padding = '0px';
   let borderRadius = '0px';
 
   if (inputSpacing === 'overlap') {
@@ -54,23 +54,23 @@ export default function styles (theme, props) {
     borderRadius = r + ' 0px 0px ' + r;
     if (inputShape === 'left-rounded') {
       borderRadius = r + ' 0px 0px ' + r;
-      padding      = '0px 0px 0px ' + r;
+      padding = '0px 0px 0px ' + r;
     } else if (inputShape === 'right-rounded') {
       borderRadius = '0px ' + r + ' ' + r + ' 0px';
-      padding      = '0px ' + r + ' 0px 0px';
+      padding = '0px ' + r + ' 0px 0px';
     } else if (inputShape === 'left-smooth') {
       borderRadius = s + ' 0px 0px ' + s;
-      padding      = '0px 0px 0px ' + s;
+      padding = '0px 0px 0px ' + s;
     } else if (inputShape === 'right-smooth') {
       borderRadius = '0px ' + s + ' ' + s + ' 0px';
-      padding      = '0px ' + s + ' 0px 0px';
+      padding = '0px ' + s + ' 0px 0px';
     }
   }
 
-  let color           = theme.palette.textColor;
+  let color = theme.palette.textColor;
   let backgroundColor = theme.palette.textFieldBackground;
   if (inputActive === 'true') {
-    color           = theme.palette.comboActiveGlyph;
+    color = theme.palette.comboActiveGlyph;
     backgroundColor = theme.palette.comboActiveBackground;
   } else if (inputReadonly === 'true') {
     backgroundColor = theme.palette.textFieldReadonlyBackground;
@@ -79,46 +79,46 @@ export default function styles (theme, props) {
   }
 
   const boxStyle = {
-    display:         'flex',
-    flexDirection:   'row',
-    justifyContent:  'flex-start',
-    alignItems:      'flex-start',
-    flexGrow:        flexGrow,
-    flexShrink:      flexShrink,
-    flexBasis:       flexBasis,
-    border:          '1px solid ' + theme.palette.buttonBorder,
-    borderRadius:    borderRadius,
-    color:           color,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    flexGrow: flexGrow,
+    flexShrink: flexShrink,
+    flexBasis: flexBasis,
+    border: '1px solid ' + theme.palette.buttonBorder,
+    borderRadius: borderRadius,
+    color: color,
     backgroundColor: backgroundColor,
-    padding:         padding,
-    marginTop:       '0px',
-    marginRight:     marginRight,
-    marginBottom:    '0px',
-    marginLeft:      marginLeft,
-    position:        'relative',
+    padding: padding,
+    marginTop: '0px',
+    marginRight: marginRight,
+    marginBottom: '0px',
+    marginLeft: marginLeft,
+    position: 'relative',
   };
 
   const fieldStyle = {
-    flexGrow:        1,
-    width:           width,
-    height:          theme.shapes.lineHeight,
-    border:          'none',
-    padding:         '10px',
-    margin:          '0px',
-    color:           color,
+    flexGrow: 1,
+    width: width,
+    height: theme.shapes.lineHeight,
+    border: 'none',
+    padding: '10px',
+    margin: '0px',
+    color: color,
     backgroundColor: backgroundColor,
   };
 
   const textareaStyle = {
     flexGrow: 1,
-    padding:  '10px',
-    resize:   'none',
-    border:   'none',
+    padding: '10px',
+    resize: 'none',
+    border: 'none',
   };
 
   return {
-    box:      boxStyle,
-    field:    fieldStyle,
+    box: boxStyle,
+    field: fieldStyle,
     textarea: textareaStyle,
   };
 }

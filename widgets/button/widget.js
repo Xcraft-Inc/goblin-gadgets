@@ -20,9 +20,9 @@ class Button extends Widget {
 
   get wiring () {
     return {
-      id:    'id',
-      kind:  'kind',
-      text:  'text',
+      id: 'id',
+      kind: 'kind',
+      text: 'text',
       glyph: 'glyph',
     };
   }
@@ -135,9 +135,9 @@ class Button extends Widget {
     const glyph = this.read ('glyph');
     if (glyph) {
       const rotate = this.read ('rotate');
-      const flip   = this.read ('flip');
-      const spin   = this.read ('spin');
-      const style  = this.styles.glyph;
+      const flip = this.read ('flip');
+      const spin = this.read ('spin');
+      const style = this.styles.glyph;
       return (
         <i
           key="icon"
@@ -201,13 +201,13 @@ class Button extends Widget {
 
   widget () {
     return props => {
-      const index    = this.read ('index');
-      const kind     = this.read ('kind');
-      const menu     = this.read ('menu');
+      const index = this.read ('index');
+      const kind = this.read ('kind');
+      const menu = this.read ('menu');
       const toAnchor = this.read ('to-anchor');
-      const show     = this.read ('show');
-      const text     = this.read ('text');
-      let tooltip    = this.read ('tooltip');
+      const show = this.read ('show');
+      const text = this.read ('text');
+      let tooltip = this.read ('tooltip');
 
       if (kind === 'pane-navigator') {
         tooltip = text;
@@ -220,14 +220,14 @@ class Button extends Widget {
       } else if (kind === 'container' || kind === 'box') {
         return (
           <div
-            key          = {index}
-            onClick      = {::this.onClicked} // voir (*)
-            onMouseDown  = {::this.onMouseDown}
-            onMouseUp    = {::this.onMouseUp}
-            onTouchStart = {::this.onMouseDown}
-            onTouchEnd   = {::this.onMouseUp}
-            style        = {style}
-            title        = {tooltip}
+            key={index}
+            onClick={::this.onClicked} // voir (*)
+            onMouseDown={::this.onMouseDown}
+            onMouseUp={::this.onMouseUp}
+            onTouchStart={::this.onMouseDown}
+            onTouchEnd={::this.onMouseUp}
+            style={style}
+            title={tooltip}
           >
             {this.props.children}
           </div>
@@ -235,14 +235,14 @@ class Button extends Widget {
       } else if (menu) {
         return (
           <div
-            key          = {index}
-            onClick      = {::this.onShowMenu} // voir (*)
-            onMouseDown  = {::this.onMouseDown}
-            onMouseUp    = {::this.onMouseUp}
-            onTouchStart = {::this.onMouseDown}
-            onTouchEnd   = {::this.onMouseUp}
-            style        = {style}
-            title        = {tooltip}
+            key={index}
+            onClick={::this.onShowMenu} // voir (*)
+            onMouseDown={::this.onMouseDown}
+            onMouseUp={::this.onMouseUp}
+            onTouchStart={::this.onMouseDown}
+            onTouchEnd={::this.onMouseUp}
+            style={style}
+            title={tooltip}
           >
             {this.renderLayout ()}
             {this.renderTriangle ()}
@@ -254,15 +254,15 @@ class Button extends Widget {
       } else if (toAnchor) {
         return (
           <a
-            key          = {index}
-            onClick      = {::this.onClicked} // voir (*)
-            onMouseDown  = {::this.onMouseDown}
-            onMouseUp    = {::this.onMouseUp}
-            onTouchStart = {::this.onMouseDown}
-            onTouchEnd   = {::this.onMouseUp}
-            style        = {style}
-            title        = {tooltip}
-            href         = {'#' + toAnchor}
+            key={index}
+            onClick={::this.onClicked} // voir (*)
+            onMouseDown={::this.onMouseDown}
+            onMouseUp={::this.onMouseUp}
+            onTouchStart={::this.onMouseDown}
+            onTouchEnd={::this.onMouseUp}
+            style={style}
+            title={tooltip}
+            href={'#' + toAnchor}
           >
             {this.renderLayout ()}
             {this.renderTriangle ()}
@@ -274,14 +274,14 @@ class Button extends Widget {
       } else {
         return (
           <div
-            key          = {index}
-            onClick      = {::this.onClicked} // voir (*)
-            onMouseDown  = {::this.onMouseDown}
-            onMouseUp    = {::this.onMouseUp}
-            onTouchStart = {::this.onMouseDown}
-            onTouchEnd   = {::this.onMouseUp}
-            style        = {style}
-            title        = {tooltip}
+            key={index}
+            onClick={::this.onClicked} // voir (*)
+            onMouseDown={::this.onMouseDown}
+            onMouseUp={::this.onMouseUp}
+            onTouchStart={::this.onMouseDown}
+            onTouchEnd={::this.onMouseUp}
+            style={style}
+            title={tooltip}
           >
             {this.renderLayout ()}
             {this.renderTriangle ()}

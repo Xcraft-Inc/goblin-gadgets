@@ -5,10 +5,11 @@
  *
  * @returns {Object} The list and definitions of commands.
  */
+const servicePath = './widgets/text-field/service.js';
 exports.xcraftCommands = function () {
   return {
-    handlers: require ('./lib/text-field.js').handlers,
-    context: require ('./lib/text-field.js').context,
+    handlers: require (servicePath).handlers,
+    context: require (servicePath).context,
     rc: {
       create: {
         parallel: true,
