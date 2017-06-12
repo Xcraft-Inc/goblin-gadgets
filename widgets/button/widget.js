@@ -1,9 +1,26 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
+import * as ShortcutHelpers from '../helpers/shortcut-helpers.js';
+
+import Menu from 'gadgets/menu/widget';
+import Badge from 'gadgets/badge/widget';
 
 class Button extends Widget {
   constructor (props) {
     super (props);
+    this.state = {
+      isMenuVisible: false,
+    };
+  }
+
+  get isMenuVisible () {
+    return this.state.isMenuVisible;
+  }
+
+  set isMenuVisible (value) {
+    this.setState ({
+      isMenuVisible: value,
+    });
   }
 
   readActive () {
@@ -44,14 +61,7 @@ class Button extends Widget {
   // Called when the button is clicked.
   onShowMenu () {
     // Trace.log ('>>>> showMenu <<<<');
-    /*const internalState = this.getInternalState ();
-    let isMenuVisible = internalState.get ('isMenuVisible');
-    if (isMenuVisible === 'true') {
-      isMenuVisible = 'false';
-    } else {
-      isMenuVisible = 'true';
-    }
-    internalState.set ('isMenuVisible', isMenuVisible);*/
+    this.isMenuVisible = !this.isMenuVisible;
   }
 
   onMouseDown (e) {
@@ -77,25 +87,10 @@ class Button extends Widget {
     }
   }
 
-  isMenuVisible () {
-    // Get or create the internalState.
-    const menu = this.read ('menu');
-    if (menu) {
-      let internalState = this.getInternalState ();
-      if (!internalState.get ('isMenuVisible')) {
-        // At first time, initialize internalState.isMenuVisible with false.
-        internalState = internalState.set ('isMenuVisible', 'false');
-      }
-      return internalState.get ('isMenuVisible');
-    } else {
-      return 'false';
-    }
-  }
-
   renderBadge () {
     const badgeValue = this.read ('badge-value');
     if (badgeValue) {
-      return null; //FIXME: <Badge value={badgeValue} layer="over" {...this.link ()} />;
+      return <Badge value={badgeValue} layer="over" />;
     } else {
       return null;
     }
@@ -113,14 +108,12 @@ class Button extends Widget {
   }
 
   renderMenu () {
-    if (this.isMenuVisible () === 'true') {
+    if (this.isMenuVisible) {
       const menu = this.read ('menu');
       const style = this.styles.menuBox;
       return (
         <div style={style} key="menu">
-          {
-            //FIXME: <Menu items={menu} {...this.link ()} />
-          }
+          {<Menu items={menu} />}
         </div>
       );
     } else {
@@ -171,9 +164,7 @@ class Button extends Widget {
       const style = this.mergeStyles ('shortcut');
       return (
         <label key="shortcut" style={style}>
-          {
-            //FIXME: ShortcutHelpers.getShortcut (shortcut)
-          }
+          {ShortcutHelpers.getShortcut (shortcut)}
         </label>
       );
     } else {

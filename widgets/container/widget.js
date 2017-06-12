@@ -7,7 +7,7 @@ class Container extends Widget {
   constructor (props) {
     super (props);
     this.state = {
-      managedChildren: null, // TODO!!!
+      managedChildren: null,
     };
     this.panelBottoms = [];
   }
@@ -151,7 +151,7 @@ class Container extends Widget {
       };
       return React.cloneElement (child, active);
     });
-    this.setState ({managedChildren: children}); // TODO!!!
+    this.setState ({managedChildren: children});
   }
 
   initNavigation () {

@@ -1,7 +1,8 @@
 import React from 'react';
 import {ReactDOM} from 'react';
 import Widget from 'laboratory/widget';
-// import {FlyingBalloon} from '../../../all-components.js';
+
+import FlyingBalloon from 'gadgets/flying-balloon/widget';
 
 /******************************************************************************/
 
@@ -159,13 +160,13 @@ class TextField extends Widget {
     }[flyingBalloonAnchor];
 
     if (messageWarning || messageInfo) {
-      // return (
-      //   <FlyingBalloon
-      //     primary-text      = {messageWarning}
-      //     secondary-text    = {messageInfo}
-      //     triangle-position = {trianglePosition}
-      //     {...this.link ()} />
-      // );
+      return (
+        <FlyingBalloon
+          primary-text={messageWarning}
+          secondary-text={messageInfo}
+          triangle-position={trianglePosition}
+        />
+      );
       return null;
     } else {
       return null;
