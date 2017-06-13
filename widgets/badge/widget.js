@@ -19,10 +19,10 @@ class Badge extends Widget {
         truncatedValue = truncatedValue.substring (0, 3) + '...';
       }
 
-      const boxStyle = this.mergeStyles ('box');
-      const labelStyle = this.mergeStyles ('label');
+      const boxStyle = this.styles.box;
+      const labelStyle = this.styles.label;
 
-      return  (
+      return (
         <div key="badge" disabled={disabled} style={boxStyle}>
           <label style={labelStyle}>
             {truncatedValue}
@@ -34,3 +34,4 @@ class Badge extends Widget {
 }
 
 /******************************************************************************/
+export default Badge;

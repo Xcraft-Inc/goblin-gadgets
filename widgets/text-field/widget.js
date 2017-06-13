@@ -100,7 +100,7 @@ class TextField extends Widget {
 
     if (rows) {
       const textareaStyle = this.styles.textarea;
-      return  (
+      return (
         <textarea
           ref="inputTag"
           id={id}
@@ -121,7 +121,7 @@ class TextField extends Widget {
       );
     } else {
       const fieldStyle = this.styles.field;
-      return  (
+      return (
         <input
           ref="inputTag"
           id={id}
@@ -160,7 +160,7 @@ class TextField extends Widget {
     }[flyingBalloonAnchor];
 
     if (messageWarning || messageInfo) {
-      return  (
+      return (
         <FlyingBalloon
           primary-text={messageWarning}
           secondary-text={messageInfo}
@@ -181,7 +181,7 @@ class TextField extends Widget {
 
       const boxStyle = this.styles.box;
 
-      return  (
+      return (
         <span disabled={disabled} style={boxStyle} title={tooltip}>
           {this.renderInput ()}
           {this.renderFlyingBalloon ()}
@@ -192,3 +192,4 @@ class TextField extends Widget {
 }
 
 /******************************************************************************/
+export default TextField;

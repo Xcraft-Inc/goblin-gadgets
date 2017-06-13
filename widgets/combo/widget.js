@@ -120,7 +120,7 @@ class Combo extends Widget {
       const g = GlyphHelpers.getGlyph (item.glyph);
       const color = ColorHelpers.getMarkColor (this.props.theme, g.color);
       const active = focused ? 'focused' : item.active;
-      return  (
+      return (
         <Button
           key={index}
           kind="menu-item"
@@ -155,16 +155,18 @@ class Combo extends Widget {
       const fullScreenStyle = this.styles.fullScreen;
       const comboStyle = this.styles.combo;
 
-      return  (
+      return (
         <div
           style={fullScreenStyle}
           onMouseDown={::this.onMyMouseDown}
-          onTouchStart={::this.onMyMouseDown}>
+          onTouchStart={::this.onMyMouseDown}
+        >
           <div style={comboStyle}>
             <Container
               kind="flying-balloon"
               triangle-position={top ? 'top' : 'bottom'}
-              width={width}>
+              width={width}
+            >
               {this.renderCombo ()}
             </Container>
           </div>
@@ -175,3 +177,4 @@ class Combo extends Widget {
 }
 
 /******************************************************************************/
+export default Combo;

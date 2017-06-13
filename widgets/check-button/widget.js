@@ -35,7 +35,7 @@ class CheckButton extends Widget {
         glyph = checked === 'true' ? 'check-square' : 'square-o'; // [v] [ ]
       }
 
-      return  (
+      return (
         <Button
           on-click={::this.onButtonClicked}
           glyph={glyph}
@@ -49,3 +49,4 @@ class CheckButton extends Widget {
 }
 
 /******************************************************************************/
+export default CheckButton;

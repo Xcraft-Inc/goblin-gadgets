@@ -12,7 +12,7 @@ class Gauge extends Widget {
       const boxStyle = this.styles.box;
       const contentStyle = this.styles.content;
 
-      return  (
+      return (
         <div style={boxStyle}>
           <div style={contentStyle} />
         </div>
@@ -22,3 +22,4 @@ class Gauge extends Widget {
 }
 
 /******************************************************************************/
+export default Gauge;

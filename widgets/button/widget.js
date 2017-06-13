@@ -161,7 +161,7 @@ class Button extends Widget {
   renderShortcut () {
     const shortcut = this.read ('shortcut');
     if (shortcut) {
-      const style = this.mergeStyles ('shortcut');
+      const style = this.styles.shortcut;
       return (
         <label key="shortcut" style={style}>
           {ShortcutHelpers.getShortcut (shortcut)}

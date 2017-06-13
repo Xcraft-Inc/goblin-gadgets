@@ -50,31 +50,34 @@ class DialogModal extends Widget {
 
       if (top || bottom) {
         const comboStyle = this.styles.combo;
-        return  (
+        return (
           <div
             style={fullScreenStyle}
             onMouseDown={::this.onMyMouseDown}
-            onTouchStart={::this.onMyMouseDown}>
+            onTouchStart={::this.onMyMouseDown}
+          >
             <div style={comboStyle}>
               <Container
                 kind="flying-dialog"
                 triangle-position={top ? 'top' : 'bottom'}
                 width={width}
                 height={height}
-                cursor="default">
+                cursor="default"
+              >
                 {this.props.children}
               </Container>
             </div>
           </div>
         );
       } else {
-        return  (
+        return (
           <div style={fullScreenStyle} onMouseDown={::this.onMyMouseDown}>
             <Container
               kind="floating"
               cursor="default"
               width={width}
-              height={height}>
+              height={height}
+            >
               {this.props.children}
             </Container>
           </div>
@@ -85,3 +88,4 @@ class DialogModal extends Widget {
 }
 
 /******************************************************************************/
+export default DialogModal;

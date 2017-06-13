@@ -126,7 +126,7 @@ class TextFieldTyped extends Widget {
       const selectAllOnFocus = this.read ('select-all-on-focus');
       const defaultFocus = this.read ('default-focus');
 
-      return  (
+      return (
         <LabelTextField
           hint-text={hintText}
           tooltip={tooltip}
@@ -148,3 +148,4 @@ class TextFieldTyped extends Widget {
 }
 
 /******************************************************************************/
+export default TextFieldTyped;

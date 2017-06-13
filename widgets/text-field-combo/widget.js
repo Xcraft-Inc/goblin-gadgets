@@ -143,7 +143,7 @@ class TextFieldCombo extends Widget {
 
     const isComboVisible = this.showCombo ? 'true' : 'false';
 
-    return  (
+    return (
       <TextField
         {...props}
         active={isComboVisible}
@@ -167,7 +167,7 @@ class TextFieldCombo extends Widget {
 
     const isComboVisible = this.showCombo ? 'true' : 'false';
 
-    return  (
+    return (
       <Button
         kind="combo"
         glyph={glyph}
@@ -181,7 +181,7 @@ class TextFieldCombo extends Widget {
   renderCombo () {
     const list = this.read ('list');
     if (list && this.showCombo) {
-      return  (
+      return (
         <Combo
           center={::this.comboLocation.center}
           top={::this.comboLocation.top}
@@ -202,7 +202,7 @@ class TextFieldCombo extends Widget {
 
       const boxStyle = this.styles.box;
 
-      return  (
+      return (
         <span disabled={disabled} style={boxStyle}>
           {this.renderTextField ()}
           {this.renderButton ()}
@@ -214,3 +214,4 @@ class TextFieldCombo extends Widget {
 }
 
 /******************************************************************************/
+export default TextFieldCombo;

@@ -41,7 +41,7 @@ class Ticket extends Widget {
     const text = this.read ('background-text');
     if (text) {
       const backgroundTextStyle = this.styles.backgroundText;
-      return  (
+      return (
         <div style={backgroundTextStyle}>
           {text}
         </div>
@@ -57,7 +57,7 @@ class Ticket extends Widget {
     const hudGlyphShadowNoneStyle = this.styles.hudGlyphShadowNone;
     const hudGlyphBoxStyle = this.styles.hudGlyphBox;
     const hudGlyphContentStyle = this.styles.hudGlyphContent;
-    return  (
+    return (
       <div style={hudGlyph ? hudGlyphShadowStyle : hudGlyphShadowNoneStyle}>
         <div style={hudGlyphBoxStyle}>
           <i style={hudGlyphContentStyle} className={`fa fa-${hudGlyph}`} />
@@ -83,12 +83,12 @@ class Ticket extends Widget {
     if (!w || !h) {
       throw new Error ('Undefined ticket width or height');
     }
-    const htmlShadow =  (
+    const htmlShadow = (
       <svg width={w} height={h} style={shadowStyle}>
         <path d={svgStyle.path} />
       </svg>
     );
-    const htmlShape =  (
+    const htmlShape = (
       <svg width={w} height={h} style={shapeStyle}>
         <path d={svgStyle.path} />
       </svg>
@@ -105,7 +105,8 @@ class Ticket extends Widget {
               width={ht}
               height={ht}
               patternTransform="rotate(45)"
-              patternUnits="userSpaceOnUse">
+              patternUnits="userSpaceOnUse"
+            >
               <rect
                 x="0px"
                 y="0px"
@@ -125,7 +126,7 @@ class Ticket extends Widget {
         </svg>
       : null;
 
-    return  (
+    return (
       <div
         style={boxStyle}
         onMouseOver={::this.onMyMouseOver}
@@ -133,7 +134,8 @@ class Ticket extends Widget {
         onMouseDown={::this.onMyMouseDown}
         onMouseUp={::this.onMyMouseUp}
         onTouchStart={::this.onMyMouseDown}
-        onTouchEnd={::this.onMyMouseUp}>
+        onTouchEnd={::this.onMyMouseUp}
+      >
         {htmlShadow}
         {htmlShape}
         {htmlHatch}
@@ -158,7 +160,7 @@ class Ticket extends Widget {
     const contentStyle = this.styles.content;
     const rectContentHatchStyle = this.styles.rectContentHatch;
 
-    return  (
+    return (
       <div
         style={rectShadowStyle}
         onMouseOver={::this.onMyMouseOver}
@@ -166,7 +168,8 @@ class Ticket extends Widget {
         onMouseDown={::this.onMyMouseDown}
         onMouseUp={::this.onMyMouseUp}
         onTouchStart={::this.onMyMouseDown}
-        onTouchEnd={::this.onMyMouseUp}>
+        onTouchEnd={::this.onMyMouseUp}
+      >
         <div style={rectStyle}>
           <div style={hatch === 'true' ? rectContentHatchStyle : contentStyle}>
             {this.renderBackgroundText ()}
@@ -182,12 +185,13 @@ class Ticket extends Widget {
   renderSubpane () {
     const subkind = this.read ('subkind');
 
-    const rectStyle = this.mergeStyles (
-      subkind === 'dragged' ? 'subpaneDragged' : 'subpaneRect'
-    );
+    const rectStyle = subkind === 'dragged'
+      ? this.styles.subpaneDragged
+      : this.styles.subpaneRect;
+
     const contentStyle = this.styles.subpaneContent;
 
-    return  (
+    return (
       <div
         style={rectStyle}
         onMouseOver={::this.onMyMouseOver}
@@ -195,7 +199,8 @@ class Ticket extends Widget {
         onMouseDown={::this.onMyMouseDown}
         onMouseUp={::this.onMyMouseUp}
         onTouchStart={::this.onMyMouseDown}
-        onTouchEnd={::this.onMyMouseUp}>
+        onTouchEnd={::this.onMyMouseUp}
+      >
         <div style={contentStyle}>
           {this.props.children}
         </div>
@@ -207,7 +212,7 @@ class Ticket extends Widget {
     const coverStyle = this.styles.cover;
     const coverContentStyle = this.styles.coverContent;
 
-    return  (
+    return (
       <div
         style={coverStyle}
         onMouseOver={::this.onMyMouseOver}
@@ -215,7 +220,8 @@ class Ticket extends Widget {
         onMouseDown={::this.onMyMouseDown}
         onMouseUp={::this.onMyMouseUp}
         onTouchStart={::this.onMyMouseDown}
-        onTouchEnd={::this.onMyMouseUp}>
+        onTouchEnd={::this.onMyMouseUp}
+      >
         <div style={coverContentStyle}>
           {this.props.children}
         </div>
@@ -241,3 +247,4 @@ class Ticket extends Widget {
 }
 
 /******************************************************************************/
+export default Ticket;

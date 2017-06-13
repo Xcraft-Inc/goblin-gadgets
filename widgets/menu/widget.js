@@ -16,7 +16,7 @@ class Menu extends Widget {
 
       const boxStyle = this.styles.box;
 
-      return  (
+      return (
         <div disabled={disabled} style={boxStyle}>
           {inputItems.map (item => item ())}
         </div>
@@ -26,3 +26,4 @@ class Menu extends Widget {
 }
 
 /******************************************************************************/
+export default Menu;

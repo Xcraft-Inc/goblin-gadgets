@@ -21,3 +21,4 @@ class Separator extends Widget {
 }
 
 /******************************************************************************/
+export default Separator;
