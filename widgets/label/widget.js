@@ -202,7 +202,7 @@ class Label extends Widget {
         return (
           <marquee
             key={index}
-            onClick={::this.onClick}
+            onClick={this.props.onClick}
             disabled={disabled}
             style={style}
             title={tooltip}
@@ -215,7 +215,7 @@ class Label extends Widget {
         return (
           <div
             key={index}
-            onClick={::this.onClick}
+            onClick={this.props.onClick}
             disabled={disabled}
             style={style}
             title={tooltip}

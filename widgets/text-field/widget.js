@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
-
+import {Control} from 'react-redux-form/immutable';
 import FlyingBalloon from 'gadgets/flying-balloon/widget';
 
 /******************************************************************************/
@@ -84,10 +84,9 @@ class TextField extends Widget {
   }
 
   renderInput () {
-    const state = this.props.state.find ();
     const disabled = this.read ('disabled');
     const id = this.read ('id');
-    const value = this.read ('value');
+    const model = this.read ('model');
     const hintText = this.read ('hint-text');
     const rows = this.read ('rows');
     const readonly = this.read ('readonly');
@@ -101,37 +100,24 @@ class TextField extends Widget {
     if (rows) {
       const textareaStyle = this.styles.textarea;
       return (
-        <textarea
-          ref="inputTag"
+        <Control
+          type="textarea"
           id={id}
           style={textareaStyle}
-          onChange={::this.onChange}
-          onFocus={::this.onMyFocus}
-          onBlur={::this.onMyBlur}
-          onMouseDown={::this.onMyMouseDown}
-          onKeyDown={::this.onKeyDown}
-          onKeyUp={::this.onKeyUp}
-          onSelect={::this.onSelect}
+          onChange={this.props.onChange}
           disabled={disabled}
           rows={rows}
           tabIndex={tabIndex}
-          value={value || ''}
+          model={model}
           {...options}
         />
       );
     } else {
       const fieldStyle = this.styles.field;
       return (
-        <input
-          ref="inputTag"
+        <Control
           id={id}
-          onChange={::this.onChange}
-          onFocus={::this.onMyFocus}
-          onBlur={::this.onMyBlur}
-          onMouseDown={::this.onMyMouseDown}
-          onKeyDown={::this.onKeyDown}
-          onKeyUp={::this.onKeyUp}
-          onSelect={::this.onSelect}
+          onChange={this.props.onChange}
           disabled={disabled}
           maxLength={this.props.maxLength}
           placeholder={hintText}
@@ -140,7 +126,7 @@ class TextField extends Widget {
           type={this.props.type || 'text'}
           key="input"
           tabIndex={tabIndex}
-          value={value || ''}
+          model={model}
           {...options}
         />
       );
@@ -167,7 +153,6 @@ class TextField extends Widget {
           triangle-position={trianglePosition}
         />
       );
-      return null;
     } else {
       return null;
     }
@@ -175,7 +160,6 @@ class TextField extends Widget {
 
   widget () {
     return props => {
-      const {state} = this.props;
       const disabled = this.read ('disabled');
       const tooltip = this.read ('tooltip');
 
