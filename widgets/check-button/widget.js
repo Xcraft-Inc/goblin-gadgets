@@ -1,4 +1,4 @@
-import {React} from 'electrum';
+import React from 'react';
 import Widget from 'laboratory/widget';
 
 import Button from 'gadgets/button/widget';
@@ -35,7 +35,7 @@ class CheckButton extends Widget {
         glyph = checked === 'true' ? 'check-square' : 'square-o'; // [v] [ ]
       }
 
-      return (
+      return  (
         <Button
           on-click={::this.onButtonClicked}
           glyph={glyph}

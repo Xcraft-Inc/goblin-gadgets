@@ -1,4 +1,4 @@
-import {React} from 'electrum';
+import React from 'react';
 import Widget from 'laboratory/widget';
 
 import Button from 'gadgets/button/widget';
@@ -75,7 +75,7 @@ class LabelTextField extends Widget {
     };
     const buttonShape = buttonShapes[s];
 
-    return (
+    return  (
       <Button
         glyph={labelGlyph}
         text={labelText}
@@ -151,7 +151,7 @@ class LabelTextField extends Widget {
       props.value = displayValue;
     }
 
-    return (
+    return  (
       <TextField
         {...props}
         onFocus={::this.onMyFocus}
@@ -163,7 +163,7 @@ class LabelTextField extends Widget {
   renderAction () {
     if (this.hasActionButton ()) {
       const actionGlyph = this.read ('action-glyph');
-      return (
+      return  (
         <Button
           kind="combo"
           glyph={actionGlyph}
@@ -182,7 +182,7 @@ class LabelTextField extends Widget {
 
       const boxStyle = this.styles.box;
 
-      return (
+      return  (
         <span disabled={disabled} style={boxStyle}>
           {this.renderButton ()}
           {this.renderInput ()}

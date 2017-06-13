@@ -1,4 +1,4 @@
-import {React} from 'electrum';
+import React from 'react';
 
 /******************************************************************************/
 
@@ -12,7 +12,7 @@ class Gauge extends Widget {
       const boxStyle = this.styles.box;
       const contentStyle = this.styles.content;
 
-      return (
+      return  (
         <div style={boxStyle}>
           <div style={contentStyle} />
         </div>

@@ -14,5 +14,8 @@
       "hot": true
     }
   },
-  "dependencies": {}
+  "dependencies": {
+    "linq": "^3.0.8",
+    "mousetrap": "^1.6.1"
+  }
 }

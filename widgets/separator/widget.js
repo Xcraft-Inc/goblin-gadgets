@@ -1,4 +1,4 @@
-import {React} from 'electrum';
+import React from 'react';
 import Widget from 'laboratory/widget';
 
 /******************************************************************************/

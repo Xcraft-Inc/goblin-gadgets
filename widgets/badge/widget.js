@@ -1,4 +1,4 @@
-import {React} from 'electrum';
+import React from 'react';
 import Widget from 'laboratory/widget';
 
 /******************************************************************************/
@@ -22,7 +22,7 @@ class Badge extends Widget {
       const boxStyle = this.mergeStyles ('box');
       const labelStyle = this.mergeStyles ('label');
 
-      return (
+      return  (
         <div key="badge" disabled={disabled} style={boxStyle}>
           <label style={labelStyle}>
             {truncatedValue}

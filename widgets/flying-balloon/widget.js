@@ -1,4 +1,4 @@
-import {React} from 'electrum';
+import React from 'react';
 import Widget from 'laboratory/widget';
 
 import Container from 'gadgets/container/widget';
@@ -26,12 +26,11 @@ class FlyingBalloon extends Widget {
         primaryBottomSpacing = 'large';
       }
 
-      return (
+      return  (
         <span disabled={disabled} style={boxStyle}>
           <Container
             kind="flying-balloon"
-            triangle-position={inputTrianglePosition}
-          >
+            triangle-position={inputTrianglePosition}>
 
             <Label
               text={inputPrimaryText}

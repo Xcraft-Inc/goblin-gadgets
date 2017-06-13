@@ -1,4 +1,4 @@
-import {React} from 'electrum';
+import React from 'react';
 import Widget from 'laboratory/widget';
 
 /******************************************************************************/
@@ -15,7 +15,7 @@ class Dialog extends Widget {
 
       const boxStyle = this.styles.box;
 
-      return (
+      return  (
         <div disabled={disabled} style={boxStyle}>
           {this.props.children}
         </div>

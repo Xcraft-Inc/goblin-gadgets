@@ -1,4 +1,4 @@
-import {React, Store} from 'electrum';
+import React from 'react';
 import Widget from 'laboratory/widget';
 import * as Converters from '../helpers/converters';
 
@@ -126,7 +126,7 @@ class TextFieldTyped extends Widget {
       const selectAllOnFocus = this.read ('select-all-on-focus');
       const defaultFocus = this.read ('default-focus');
 
-      return (
+      return  (
         <LabelTextField
           hint-text={hintText}
           tooltip={tooltip}

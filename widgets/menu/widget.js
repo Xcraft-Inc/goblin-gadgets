@@ -1,4 +1,4 @@
-import {React} from 'electrum';
+import React from 'react';
 import Widget from 'laboratory/widget';
 
 /******************************************************************************/
@@ -16,7 +16,7 @@ class Menu extends Widget {
 
       const boxStyle = this.styles.box;
 
-      return (
+      return  (
         <div disabled={disabled} style={boxStyle}>
           {inputItems.map (item => item ())}
         </div>
