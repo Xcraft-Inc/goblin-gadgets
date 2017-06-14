@@ -86,7 +86,7 @@ class TextField extends Widget {
   renderInput () {
     const disabled = this.read ('disabled');
     const id = this.read ('id');
-    const model = this.read ('model');
+    const value = this.read ('value');
     const hintText = this.read ('hint-text');
     const rows = this.read ('rows');
     const readonly = this.read ('readonly');
@@ -100,7 +100,7 @@ class TextField extends Widget {
     if (rows) {
       const textareaStyle = this.styles.textarea;
       return (
-        <Control
+        <input
           type="textarea"
           id={id}
           style={textareaStyle}
@@ -108,14 +108,14 @@ class TextField extends Widget {
           disabled={disabled}
           rows={rows}
           tabIndex={tabIndex}
-          model={model}
+          value={value}
           {...options}
         />
       );
     } else {
       const fieldStyle = this.styles.field;
       return (
-        <Control
+        <input
           id={id}
           onChange={this.props.onChange}
           disabled={disabled}
@@ -126,7 +126,7 @@ class TextField extends Widget {
           type={this.props.type || 'text'}
           key="input"
           tabIndex={tabIndex}
-          model={model}
+          value={value}
           {...options}
         />
       );
