@@ -26,12 +26,12 @@ class Button extends Widget {
   readActive () {
     const active = this.read ('active');
     const selected = this.read ('selected');
-    if (active || active !== false) {
+    if (active || active !== 'false') {
       return active;
-    } else if (selected || selected !== false) {
+    } else if (selected || selected !== 'false') {
       return selected;
     } else {
-      return false;
+      return 'false';
     }
   }
 
@@ -99,7 +99,7 @@ class Button extends Widget {
   renderTriangle () {
     const kind = this.read ('kind');
     const active = this.readActive ();
-    if (kind === 'main-tab' && active === true) {
+    if (kind === 'main-tab' && active === 'true') {
       const style = this.styles.triangle;
       return <div style={style} key="triangle" />;
     } else {
