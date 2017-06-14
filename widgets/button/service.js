@@ -12,28 +12,17 @@ const logicState = {};
 // Define logic handlers according rc.json
 const logicHandlers = {
   create: (state, action) => {
-    return state.set ('id', action.get ('id'));
-  },
-  text: (state, action) => {
-    return state.set ('text', action.get ('text'));
-  },
-  kind: (state, action) => {
-    return state.set ('kind', action.get ('kind'));
+    return state
+      .set ('id', action.get ('id'))
+      .set ('text', action.get ('text'))
+      .set ('kind', action.get ('kind'));
   },
 };
 
 // Register quest's according rc.json
-Goblin.registerQuest (goblinName, 'create', function (quest) {
-  quest.do ({id: quest.goblin.id});
+Goblin.registerQuest (goblinName, 'create', function (quest, text, kind) {
+  quest.do ({id: quest.goblin.id, text, kind});
   return quest.goblin.id;
-});
-
-Goblin.registerQuest (goblinName, 'text', function (quest) {
-  quest.do ();
-});
-
-Goblin.registerQuest (goblinName, 'kind', function (quest) {
-  quest.do ();
 });
 
 Goblin.registerQuest (goblinName, 'delete', function () {});
