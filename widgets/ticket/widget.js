@@ -93,7 +93,7 @@ class Ticket extends Widget {
         <path d={svgStyle.path} />
       </svg>
     );
-    const hs = this.props.theme.shapes.ticketHatchSize;
+    const hs = this.context.theme.shapes.ticketHatchSize;
     const ht = Unit.multiply (hs, 2);
     const htmlHatch = hatch === 'true'
       ? <svg width={w} height={h} style={hatchStyle}>
