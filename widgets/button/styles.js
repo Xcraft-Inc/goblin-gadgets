@@ -4,56 +4,22 @@ import {Unit} from 'electrum-theme';
 /******************************************************************************/
 
 export default function styles (theme, props) {
-  const inputGlyph = props.glyph;
-  const inputGlyphColor = props.glyphColor;
-  const inputText = props.text;
-  const inputTextColor = props.textColor;
-  const inputShortcut = props.shortcut;
-  const inputBorder = props.border;
-  const inputGlyphPosition = props.glyphPosition;
-  const inputSpacing = props.spacing;
-  const inputGrow = props.grow;
-  const inputWidth = props.width;
-  const inputHeight = props.height;
-  const inputLeft = props.left;
-  const inputRight = props.right;
-  const inputTop = props.top;
-  const inputBottom = props.bottom;
-  const inputKind = props.kind;
-  const inputSubkind = props.subkind;
-  const inputDimmed = props.dimmed;
-  const inputWeekend = props.weekend;
-  const inputPlace = props.place;
-  const inputActive = props.active;
-  const inputActiveColor = props.activeColor;
-  const inputBadgeValue = props.badgeValue;
-  const inputShape = props.shape;
-  const inputMenuDirection = props.menuDirection;
-  const inputTextTransform = props.textTransform;
-  const inputBackgroundColor = props.backgroundColor;
-  const inputZIndex = props.zIndex;
-  const inputCursor = props.cursor;
-  const inputPosition = props.position;
-  const inputDisabled = props.disabled === 'true';
-  const inputJustify = props.justify;
-  const inputVisibility = props.visibility;
-
   const m = Unit.multiply (theme.shapes.containerMargin, 0.5);
 
   // Initialize all variables for a standard button.
-  let boxWidth = inputWidth;
-  let boxHeight = inputHeight ? inputHeight : theme.shapes.lineHeight;
+  let boxWidth = props.width;
+  let boxHeight = props.height ? props.height : theme.shapes.lineHeight;
   let boxMinHeight = null;
   let boxFlexDirection = 'row';
-  let boxFlexGrow = inputGrow;
+  let boxFlexGrow = props.grow;
   let boxFlexShrink = null;
   let boxFlexBasis = null;
-  let boxJustifyContent = inputJustify ? inputJustify : 'center';
+  let boxJustifyContent = props.justify ? props.justify : 'center';
   let boxAlignItems = 'center';
   let boxMargin = '0px';
   let boxPadding = '0px';
-  let boxZIndex = inputZIndex;
-  let boxOpacity = inputVisibility === 'false' ? 0 : null;
+  let boxZIndex = props.zIndex;
+  let boxOpacity = props.visibility === 'false' ? 0 : null;
   let borderWidth = '1px';
   let borderColor = theme.palette.buttonBorder;
   let borderStyle = 'solid';
@@ -64,44 +30,44 @@ export default function styles (theme, props) {
   let backgroundHoverColor = null;
   let glyphWidth = theme.shapes.lineHeight;
   let glyphHeight = theme.shapes.lineHeight;
-  let glyphColor = inputGlyphColor;
+  let glyphColor = props.glyphColor;
   let glyphSize = null;
   let glyphTransform = null;
   let glyphMargin = null;
   let textWidth = null;
   let textGrow = null;
-  let textColor = inputTextColor;
+  let textColor = props.textColor;
   let textMargin = '0px ' + m + ' 0px ' + m;
   let textWeight = null;
-  let textTransform = inputTextTransform;
+  let textTransform = props.textTransform;
   let textSize = theme.shapes.buttonTextSize;
   let actif = true;
-  let boxPosition = inputPosition ? inputPosition : 'relative';
-  let cursor = inputCursor;
+  let boxPosition = props.position ? props.position : 'relative';
+  let cursor = props.cursor;
   let transition = theme.transitions.easeOut ();
 
   // Initialize variables for button without border.
-  if (inputBorder === 'none') {
+  if (props.border === 'none') {
     // Button without border must have same backgroundColor as parent !
     borderStyle = 'none';
     backgroundColor = null;
   }
 
   // Initialise right margin according to spacing.
-  if (inputSpacing) {
+  if (props.spacing) {
     let spacingType = {
       overlap: '0px -1px 0px 0px',
       tiny: '0px 1px 0px 0px',
       large: '0px ' + m + ' 0px 0px',
     };
-    boxMargin = spacingType[inputSpacing];
+    boxMargin = spacingType[props.spacing];
   }
 
   // Decrease space between glyph and text.
-  if (inputGlyph && inputText) {
-    if (inputGlyphPosition === 'right') {
+  if (props.glyph && props.text) {
+    if (props.glyphPosition === 'right') {
       textMargin = '0px 0px 0px ' + m;
-      if (inputWidth) {
+      if (props.width) {
         // A button with text and glyph (in this order) and a specific width must
         // have a text push to left border and glyph push to right border:
         // |text........glyph|
@@ -113,7 +79,7 @@ export default function styles (theme, props) {
     }
   }
 
-  if (inputKind === 'label') {
+  if (props.kind === 'label') {
     boxJustifyContent = null;
     boxHeight = null;
     backgroundColor = theme.palette.labelButtonBackground;
@@ -121,26 +87,26 @@ export default function styles (theme, props) {
   }
 
   // task-logo button (usual parent container with kind='task-bar').
-  if (inputKind === 'task-logo') {
+  if (props.kind === 'task-logo') {
     boxHeight = theme.shapes.taskButtonHeight;
     boxFlexDirection = 'column';
     boxMargin = '0px';
     borderStyle = 'none';
-    if (inputActive === 'true') {
+    if (props.active === 'true') {
       backgroundColor = theme.palette.taskTabActiveBackground;
       textColor = theme.palette.taskTabActiveText;
     } else {
       backgroundColor = theme.palette.taskLogoBackground;
     }
     textMargin = '0px';
-    textTransform = inputTextTransform ? inputTextTransform : 'uppercase';
+    textTransform = props.textTransform ? props.textTransform : 'uppercase';
     textWeight = 'bold';
     textSize = theme.shapes.taskLogoTextSize;
     glyphSize = theme.shapes.taskLogoGlyphSize;
   }
 
   // Task button (usual parent is container with kind='task-bar').
-  if (inputKind === 'task-bar') {
+  if (props.kind === 'task-bar') {
     boxHeight = theme.shapes.taskButtonHeight;
     boxFlexDirection = 'column';
     boxMargin = '0px';
@@ -153,14 +119,14 @@ export default function styles (theme, props) {
   }
 
   // main-tab button (usual parent is container with kind='main-tab').
-  if (inputKind === 'main-tab') {
+  if (props.kind === 'main-tab') {
     boxHeight = theme.shapes.mainTabHeight;
     boxMargin = '0px 1px 0px 0px';
     borderStyle = 'none';
     textTransform = 'uppercase';
     textWeight = 'bold';
     textSize = theme.shapes.mainTabTextSize;
-    if (inputActive === 'true') {
+    if (props.active === 'true') {
       backgroundColor = theme.palette.mainTabButtonActiveBackground;
     } else {
       backgroundColor = theme.palette.mainTabButtonInactiveBackground;
@@ -168,11 +134,11 @@ export default function styles (theme, props) {
     textColor = theme.palette.mainTabText;
   }
 
-  if (inputKind === 'main-tab-right') {
+  if (props.kind === 'main-tab-right') {
     boxHeight = theme.shapes.mainTabHeight;
     borderStyle = 'none';
     textColor = theme.palette.mainTabText;
-    if (inputActive === 'true') {
+    if (props.active === 'true') {
       backgroundColor = theme.palette.mainTabButtonActiveBackground;
     } else {
       backgroundColor = null;
@@ -181,9 +147,9 @@ export default function styles (theme, props) {
   }
 
   // view-tab button (usual parent is container with kind='view-tab').
-  if (inputKind === 'view-tab') {
+  if (props.kind === 'view-tab') {
     boxHeight = theme.shapes.viewTabHeight;
-    if (inputText) {
+    if (props.text) {
       boxMargin = '0px 1px 0px 0px';
     } else {
       // When a text button is followed by a glyph button, the glyph button must
@@ -193,14 +159,14 @@ export default function styles (theme, props) {
     borderStyle = 'none';
     textSize = theme.shapes.viewTabTextSize;
     glyphColor = theme.palette.viewTabGlyph;
-    if (inputActive === 'true') {
+    if (props.active === 'true') {
       backgroundColor = theme.palette.viewTabButtonActiveBackground;
     } else {
       backgroundColor = theme.palette.viewTabButtonInactiveBackground;
     }
   }
 
-  if (inputKind === 'view-tab-right') {
+  if (props.kind === 'view-tab-right') {
     boxHeight = Unit.add (
       theme.shapes.containerMargin,
       theme.shapes.viewTabHeight
@@ -209,7 +175,7 @@ export default function styles (theme, props) {
     textWeight = 'bold';
     textColor = theme.palette.viewTabRightText;
     glyphColor = theme.palette.viewTabRightText;
-    if (inputText) {
+    if (props.text) {
       backgroundColor = theme.palette.viewTabRightTextBackground;
     } else {
       backgroundColor = theme.palette.viewTabBackground;
@@ -217,10 +183,10 @@ export default function styles (theme, props) {
   }
 
   // task-tab button (usual parent is container with kind='task-bar').
-  if (inputKind === 'task-tab') {
+  if (props.kind === 'task-tab') {
     boxHeight = theme.shapes.taskTabHeight;
     boxJustifyContent = 'flex-start';
-    if (inputActive === 'true') {
+    if (props.active === 'true') {
       backgroundColor = theme.palette.taskTabActiveBackground;
       textColor = theme.palette.taskTabActiveText;
       textWeight = 'bold';
@@ -231,14 +197,14 @@ export default function styles (theme, props) {
     boxMargin = '0px';
     borderStyle = 'none none solid none';
     borderColor = theme.palette.taskButtonBorder;
-    const mm = inputGlyph ? '0px' : theme.shapes.taskTabLeftMargin;
+    const mm = props.glyph ? '0px' : theme.shapes.taskTabLeftMargin;
     textMargin = '0px 0px 0px ' + mm;
     textSize = theme.shapes.taskTabTextSize;
     glyphSize = theme.shapes.taskTabGlyphSize;
   }
 
   // pane-navigator button (usual parent is container with kind='pane-navigator').
-  if (inputKind === 'pane-navigator') {
+  if (props.kind === 'pane-navigator') {
     boxHeight = theme.shapes.paneNavigatorHeight;
     boxMargin = '0px 0px -1px 0px';
     backgroundColor = theme.palette.paneNavigatorBackground;
@@ -246,10 +212,10 @@ export default function styles (theme, props) {
     textWeight = 'bold';
     borderStyle = 'none none solid none';
     textSize = theme.shapes.paneNavigatorTextSize;
-    if (inputActive === 'false') {
+    if (props.active === 'false') {
       borderColor = theme.palette.paneNavigatorInactiveBorder;
       textColor = theme.palette.paneNavigatorInactiveText;
-    } else if (inputActive === 'true') {
+    } else if (props.active === 'true') {
       borderColor = theme.palette.paneNavigatorActiveBorder;
     }
     borderHoverColor = theme.palette.paneNavigatorBorderHover;
@@ -257,16 +223,16 @@ export default function styles (theme, props) {
   }
 
   // pane-hnavigator button (usual parent is container with kind='pane-hnavigator').
-  if (inputKind === 'pane-hnavigator') {
+  if (props.kind === 'pane-hnavigator') {
     boxHeight = theme.shapes.paneNavigatorHeight;
     boxMargin = '0px 0px -1px 0px';
     backgroundColor = theme.palette.paneNavigatorBackground;
     borderStyle = 'none none solid none';
     textSize = theme.shapes.paneNavigatorTextSize;
-    if (inputActive === 'false') {
+    if (props.active === 'false') {
       borderColor = theme.palette.paneNavigatorInactiveBorder;
       textColor = theme.palette.paneNavigatorInactiveText;
-    } else if (inputActive === 'true') {
+    } else if (props.active === 'true') {
       borderColor = theme.palette.paneNavigatorActiveBorder;
     }
     borderHoverColor = theme.palette.paneNavigatorBorderHover;
@@ -274,27 +240,27 @@ export default function styles (theme, props) {
   }
 
   // pane-vnavigator button (usual parent is container with kind='pane-vnavigator').
-  if (inputKind === 'pane-vnavigator') {
+  if (props.kind === 'pane-vnavigator') {
     boxWidth = theme.shapes.vnavigatorButtonSize;
     boxHeight = theme.shapes.vnavigatorButtonSize;
     boxMargin = '0px 0px 1px 0px';
     borderStyle = 'none';
     textSize = theme.shapes.paneNavigatorTextSize;
-    if (inputActive === 'false') {
+    if (props.active === 'false') {
       backgroundColor = theme.palette.vnavigatorButtonInactiveBackground;
-    } else if (inputActive === 'true') {
+    } else if (props.active === 'true') {
       backgroundColor = theme.palette.vnavigatorButtonActiveBackground;
     }
   }
 
   // Footer button (usual parent is container with kind='footer').
-  if (inputKind === 'footer') {
+  if (props.kind === 'footer') {
     boxHeight = theme.shapes.footerHeight;
     boxMargin = '0px 1px 0px 0px';
     boxPadding = '0px ' + m + ' 0px ' + m;
     textSize = theme.shapes.footerTextSize;
     glyphSize = theme.shapes.footerGlyphSize;
-    if (inputText) {
+    if (props.text) {
       backgroundColor = theme.palette.footerTextBackground;
     } else {
       backgroundColor = theme.palette.footerBackground;
@@ -303,7 +269,7 @@ export default function styles (theme, props) {
   }
 
   // Notification button (usual parent is container with kind='notification-header').
-  if (inputKind === 'notification') {
+  if (props.kind === 'notification') {
     boxHeight = '32px';
     glyphHeight = null;
     textSize = theme.shapes.notificationButtonTextSize;
@@ -316,7 +282,7 @@ export default function styles (theme, props) {
     textHoverColor = theme.palette.notificationTextHover;
     backgroundHoverColor = 'transparent';
   }
-  if (inputKind === 'notification-close') {
+  if (props.kind === 'notification-close') {
     boxMargin =
       Unit.multiply (theme.shapes.containerMargin, -1) + ' 0px 0px 0px';
     glyphColor = theme.palette.notificationText;
@@ -328,7 +294,7 @@ export default function styles (theme, props) {
   }
 
   // Warning button (usual parent is container with kind='footer').
-  if (inputKind === 'warning') {
+  if (props.kind === 'warning') {
     boxHeight = theme.shapes.footerHeight;
     boxPadding = '0px 0px 0px ' + theme.shapes.warningLeftPadding;
     textWeight = 'bold';
@@ -340,8 +306,8 @@ export default function styles (theme, props) {
   }
 
   // Action button (usual parent is container with kind='actions').
-  if (inputKind === 'action') {
-    let place = inputPlace;
+  if (props.kind === 'action') {
+    let place = props.place;
     if (place === '1/1') {
       place = 'single';
     } else if (place.indexOf ('/') !== -1) {
@@ -378,7 +344,7 @@ export default function styles (theme, props) {
   }
 
   // Subaction button (usual parent is container with kind='row-pane' and subkind='box').
-  if (inputKind === 'subaction') {
+  if (props.kind === 'subaction') {
     borderStyle = 'none';
     backgroundColor = theme.palette.subactionButtonBackground;
     textColor = theme.palette.subactionButtonText;
@@ -388,14 +354,14 @@ export default function styles (theme, props) {
   }
 
   // Combo button, place to the right of a TextFieldCombo component.
-  if (inputKind === 'combo') {
-    if (inputActive === 'true') {
+  if (props.kind === 'combo') {
+    if (props.active === 'true') {
       backgroundColor = theme.palette.comboActiveBackground;
       glyphColor = theme.palette.comboActiveGlyph;
     }
   }
 
-  if (inputKind === 'round') {
+  if (props.kind === 'round') {
     const r = theme.shapes.actionRadius;
     borderRadius = r;
     borderStyle = 'none';
@@ -404,7 +370,7 @@ export default function styles (theme, props) {
     glyphColor = theme.palette.roundButtonGlyph;
   }
 
-  if (inputKind === 'identity') {
+  if (props.kind === 'identity') {
     const r = theme.shapes.actionRadius;
     boxWidth = theme.shapes.identityHeight;
     boxHeight = theme.shapes.identityHeight;
@@ -416,7 +382,7 @@ export default function styles (theme, props) {
     glyphColor = theme.palette.identityButtonGlyph;
   }
 
-  if (inputKind === 'thin-left') {
+  if (props.kind === 'thin-left') {
     const r = theme.shapes.thinRadius;
     boxHeight = null;
     borderStyle = 'none solid none none';
@@ -424,7 +390,7 @@ export default function styles (theme, props) {
     borderColor = theme.palette.buttonBorder;
     backgroundColor = null;
   }
-  if (inputKind === 'thin-right') {
+  if (props.kind === 'thin-right') {
     const r = theme.shapes.thinRadius;
     boxHeight = null;
     borderStyle = 'none none none solid';
@@ -433,11 +399,11 @@ export default function styles (theme, props) {
     backgroundColor = null;
   }
 
-  if (inputKind === 'frameless') {
+  if (props.kind === 'frameless') {
     borderStyle = 'none';
   }
 
-  if (inputKind === 'menu-item') {
+  if (props.kind === 'menu-item') {
     textWidth = 'max-content';
     boxHeight = theme.shapes.menuButtonHeight;
     boxMargin = '0px 0px 1px 0px';
@@ -456,24 +422,24 @@ export default function styles (theme, props) {
     textTransform = 'uppercase';
     textWeight = 'bold';
     borderStyle = 'none';
-    if (inputActive === 'true') {
-      glyphColor = inputGlyphColor ? inputGlyphColor : theme.palette.menuText;
+    if (props.active === 'true') {
+      glyphColor = props.glyphColor ? props.glyphColor : theme.palette.menuText;
       textColor = theme.palette.menuText;
       backgroundColor = theme.palette.menuItemActiveBackground;
-    } else if (inputActive === 'focused') {
-      glyphColor = inputGlyphColor
-        ? inputGlyphColor
+    } else if (props.active === 'focused') {
+      glyphColor = props.glyphColor
+        ? props.glyphColor
         : theme.palette.menuFocusText;
       textColor = theme.palette.menuFocusText;
       backgroundColor = theme.palette.menuItemFocusBackground;
     } else {
-      glyphColor = inputGlyphColor ? inputGlyphColor : theme.palette.menuText;
+      glyphColor = props.glyphColor ? props.glyphColor : theme.palette.menuText;
       textColor = theme.palette.menuText;
       backgroundColor = theme.palette.menuItemInactiveBackground;
     }
   }
 
-  if (inputKind === 'glyph-item') {
+  if (props.kind === 'glyph-item') {
     boxWidth = theme.shapes.glyphsDialogButtonWidth;
     textWidth = 'max-content';
     boxHeight = theme.shapes.menuButtonHeight;
@@ -485,12 +451,12 @@ export default function styles (theme, props) {
       ' 0px';
     boxJustifyContent = 'flex-start';
     glyphSize = '120%';
-    if (inputActive === 'true') {
+    if (props.active === 'true') {
       backgroundColor = theme.palette.boxActiveBackground;
     }
   }
 
-  if (inputKind === 'tray-title') {
+  if (props.kind === 'tray-title') {
     boxHeight = Unit.add (theme.shapes.lineHeight, '2px'); // same as TextField with 2px for borders
     borderStyle = 'none';
     boxJustifyContent = 'flex-start';
@@ -501,7 +467,7 @@ export default function styles (theme, props) {
   }
 
   // Button with a day in Calendar component.
-  if (inputKind === 'calendar') {
+  if (props.kind === 'calendar') {
     borderStyle = 'none';
     boxWidth = theme.shapes.calendarButtonWidth;
     boxHeight = theme.shapes.calendarButtonHeight;
@@ -509,21 +475,21 @@ export default function styles (theme, props) {
     transition = null;
     backgroundColor = theme.palette.calendarBackground;
     textColor = theme.palette.calendarText;
-    if (inputWeekend === 'true') {
+    if (props.weekend === 'true') {
       backgroundColor = theme.palette.calendarWeekendBackground;
     }
-    if (inputActive === 'true') {
+    if (props.active === 'true') {
       backgroundColor = theme.palette.calendarActiveBackground;
       textColor = theme.palette.calendarActiveText;
     }
-    if (inputDimmed === 'true') {
+    if (props.dimmed === 'true') {
       backgroundColor = theme.palette.calendarBackground;
       backgroundHoverColor = theme.palette.calendarBackground; // no visible hover effect
       textColor = theme.palette.calendarDimmedText;
     }
   }
   // Button for month navigation in Calendar component.
-  if (inputKind === 'calendar-navigation') {
+  if (props.kind === 'calendar-navigation') {
     boxWidth = theme.shapes.calendarButtonWidth;
     boxHeight = theme.shapes.calendarButtonHeight;
     borderColor = 'transparent';
@@ -532,7 +498,7 @@ export default function styles (theme, props) {
     glyphSize = theme.palette.calendarGlyphSize;
   }
 
-  if (inputKind === 'container') {
+  if (props.kind === 'container') {
     boxHeight = null;
     boxAlignItems = 'stretch';
     borderStyle = 'none';
@@ -540,7 +506,7 @@ export default function styles (theme, props) {
     backgroundColor = null;
   }
 
-  if (inputKind === 'container-start') {
+  if (props.kind === 'container-start') {
     boxHeight = null;
     boxJustifyContent = 'flex-start';
     boxAlignItems = 'stretch';
@@ -549,26 +515,26 @@ export default function styles (theme, props) {
     backgroundColor = null;
   }
 
-  if (inputKind === 'box') {
+  if (props.kind === 'box') {
     boxAlignItems = 'stretch';
     borderStyle = 'none';
     boxMargin = '0px ' + m + ' ' + m + ' ' + ' 0px';
-    if (inputActive === 'true') {
+    if (props.active === 'true') {
       backgroundColor = theme.palette.boxActiveBackground;
     } else {
       backgroundColor = theme.palette.boxBackground;
     }
   }
 
-  if (inputKind === 'chronos-navigator') {
+  if (props.kind === 'chronos-navigator') {
     boxMinHeight = boxHeight;
     boxMargin = '0px 0px 1px 0px';
-    if (inputSubkind === 'with-badge') {
+    if (props.subkind === 'with-badge') {
       boxJustifyContent = 'flex-start';
       textGrow = '1';
     }
     borderRadius = theme.shapes.smoothRadius;
-    if (inputActive === 'true') {
+    if (props.active === 'true') {
       backgroundColor = theme.palette.boxActiveBackground;
     } else {
       glyphColor = theme.palette.chronoNavigatorText;
@@ -580,13 +546,13 @@ export default function styles (theme, props) {
     }
   }
 
-  if (inputKind === 'recurrence') {
-    if (inputActive === 'true') {
+  if (props.kind === 'recurrence') {
+    if (props.active === 'true') {
       glyphColor = theme.palette.calendarActiveText;
       textColor = theme.palette.calendarActiveText;
-      if (inputActiveColor) {
-        backgroundColor = inputActiveColor;
-        borderColor = inputActiveColor;
+      if (props.activeColor) {
+        backgroundColor = props.activeColor;
+        borderColor = props.activeColor;
       } else {
         backgroundColor = theme.palette.calendarActiveBackground;
         borderColor = theme.palette.calendarActiveBackground;
@@ -594,7 +560,7 @@ export default function styles (theme, props) {
     }
   }
 
-  if (inputKind === 'hover') {
+  if (props.kind === 'hover') {
     boxOpacity = 0;
     borderWidth = theme.shapes.lineSpacing;
     borderColor = theme.palette.taskBackground;
@@ -602,29 +568,29 @@ export default function styles (theme, props) {
     boxZIndex = 3;
   }
 
-  if (!inputKind) {
+  if (!props.kind) {
     borderRadius = theme.shapes.smoothRadius;
-    if (inputActive === 'true') {
+    if (props.active === 'true') {
       backgroundColor = theme.palette.boxActiveBackground;
     }
   }
 
-  if (inputShape) {
+  if (props.shape) {
     const r = Unit.multiply (theme.shapes.lineHeight, 0.5);
     const s = theme.shapes.smoothRadius;
-    if (inputShape === 'left-rounded') {
+    if (props.shape === 'left-rounded') {
       borderRadius = r + ' 0px 0px ' + r;
-    } else if (inputShape === 'right-rounded') {
+    } else if (props.shape === 'right-rounded') {
       borderRadius = '0px ' + r + ' ' + r + ' 0px';
-    } else if (inputShape === 'left-smooth') {
+    } else if (props.shape === 'left-smooth') {
       borderRadius = s + ' 0px 0px ' + s;
-    } else if (inputShape === 'right-smooth') {
+    } else if (props.shape === 'right-smooth') {
       borderRadius = '0px ' + s + ' ' + s + ' 0px';
     }
   }
 
-  if (inputBackgroundColor) {
-    backgroundColor = inputBackgroundColor;
+  if (props.backgroundColor) {
+    backgroundColor = props.backgroundColor;
   }
 
   // Compute colors for glyph, text and hover if necessary.
@@ -646,7 +612,7 @@ export default function styles (theme, props) {
   }
 
   // Alter colors if component is disable.
-  if (inputDisabled) {
+  if (props.disabled) {
     borderColor = theme.palette.buttonDisableBorder;
     if (backgroundColor) {
       backgroundColor = theme.palette.buttonDisableBackground;
@@ -673,10 +639,10 @@ export default function styles (theme, props) {
     width: boxWidth,
     height: boxHeight,
     minHeight: boxMinHeight,
-    left: inputLeft,
-    right: inputRight,
-    top: inputTop,
-    bottom: inputBottom,
+    left: props.left,
+    right: props.right,
+    top: props.top,
+    bottom: props.bottom,
     display: 'flex',
     flexDirection: boxFlexDirection,
     flexGrow: boxFlexGrow,
@@ -712,8 +678,8 @@ export default function styles (theme, props) {
       glyphMargin = '0px ' + mm + ' 0px ' + mm;
     }
   } else if (
-    inputGlyphPosition === 'right' &&
-    inputBadgeValue &&
+    props.glyphPosition === 'right' &&
+    props.badgeValue &&
     !glyphMargin
   ) {
     glyphMargin = '0px 10px 0px 0px';
@@ -735,7 +701,7 @@ export default function styles (theme, props) {
   const textStyle = {
     width: textWidth,
     margin: textMargin,
-    flexGrow: inputShortcut ? '1' : textGrow,
+    flexGrow: props.shortcut ? '1' : textGrow,
     color: textColor,
     fontWeight: textWeight,
     textTransform: textTransform,
@@ -757,7 +723,7 @@ export default function styles (theme, props) {
     wordWrap: 'break-word',
   };
 
-  if (!inputDisabled && actif && boxOpacity !== 0 && props.isHover) {
+  if (!props.disabled && actif && boxOpacity !== 0 && props.isHover) {
     // FIXME
     boxStyle.color = textHoverColor; // (*)
     boxStyle.borderColor = borderHoverColor;
@@ -787,8 +753,8 @@ export default function styles (theme, props) {
 
   const menuBoxStyle = {
     position: 'absolute',
-    top: inputMenuDirection === 'top' ? null : boxHeight,
-    bottom: inputMenuDirection === 'top' ? boxHeight : null,
+    top: props.menuDirection === 'top' ? null : boxHeight,
+    bottom: props.menuDirection === 'top' ? boxHeight : null,
     padding: '1px 0px 1px 0px',
     left: '0px',
     backgroundColor: theme.palette.menuBackground,
