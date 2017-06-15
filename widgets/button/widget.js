@@ -9,8 +9,19 @@ class Button extends Widget {
   constructor (props) {
     super (props);
     this.state = {
+      isHover: false,
       isMenuVisible: false,
     };
+  }
+
+  get isHover () {
+    return this.state.isHover;
+  }
+
+  set isHover (value) {
+    this.setState ({
+      isHover: value,
+    });
   }
 
   get isMenuVisible () {
@@ -50,6 +61,14 @@ class Button extends Widget {
   onShowMenu () {
     // Trace.log ('>>>> showMenu <<<<');
     this.isMenuVisible = !this.isMenuVisible;
+  }
+
+  onMouseOver (e) {
+    this.isHover = true;
+  }
+
+  onMouseOut (e) {
+    this.isHover = false;
   }
 
   onMouseDown (e) {
@@ -109,13 +128,12 @@ class Button extends Widget {
     }
   }
 
-  renderGlyph () {
+  renderGlyph (style) {
     const glyph = this.read ('glyph');
     if (glyph) {
       const rotate = this.read ('rotate');
       const flip = this.read ('flip');
       const spin = this.read ('spin');
-      const style = this.styles.glyph;
       return (
         <i
           key="icon"
@@ -132,10 +150,9 @@ class Button extends Widget {
     }
   }
 
-  renderText () {
+  renderText (style) {
     const text = this.read ('text');
     if (text) {
-      const style = this.styles.text;
       return (
         <label key="text" style={style}>
           {text}
@@ -160,16 +177,16 @@ class Button extends Widget {
     }
   }
 
-  renderLayout () {
+  renderLayout (glyphStyle, textStyle) {
     const result = [];
     const glyphPosition = this.read ('glyph-position');
     if (glyphPosition === 'right') {
-      result.push (this.renderText ());
+      result.push (this.renderText (textStyle));
       result.push (this.renderShortcut ());
-      result.push (this.renderGlyph ());
+      result.push (this.renderGlyph (glyphStyle));
     } else {
-      result.push (this.renderGlyph ());
-      result.push (this.renderText ());
+      result.push (this.renderGlyph (glyphStyle));
+      result.push (this.renderText (textStyle));
       result.push (this.renderShortcut ());
     }
     return result;
@@ -189,7 +206,13 @@ class Button extends Widget {
         tooltip = text;
       }
 
-      const style = this.styles.box;
+      const boxStyle = this.styles.box;
+      const glyphStyle = this.styles.glyph;
+      const textStyle = this.styles.text;
+
+      if (this.isHover) {
+        boxStyle.backgroundColor = '#ccc'; // FIXME
+      }
 
       if (show === 'false') {
         return null;
@@ -198,11 +221,13 @@ class Button extends Widget {
           <div
             key={index}
             onClick={::this.onClicked} // voir (*)
+            onMouseOver={::this.onMouseOver}
+            onMouseOut={::this.onMouseOut}
             onMouseDown={::this.onMouseDown}
             onMouseUp={::this.onMouseUp}
             onTouchStart={::this.onMouseDown}
             onTouchEnd={::this.onMouseUp}
-            style={style}
+            style={boxStyle}
             title={tooltip}
           >
             {this.props.children}
@@ -213,14 +238,16 @@ class Button extends Widget {
           <div
             key={index}
             onClick={::this.onShowMenu} // voir (*)
+            onMouseOver={::this.onMouseOver}
+            onMouseOut={::this.onMouseOut}
             onMouseDown={::this.onMouseDown}
             onMouseUp={::this.onMouseUp}
             onTouchStart={::this.onMouseDown}
             onTouchEnd={::this.onMouseUp}
-            style={style}
+            style={boxStyle}
             title={tooltip}
           >
-            {this.renderLayout ()}
+            {this.renderLayout (glyphStyle, textStyle)}
             {this.renderTriangle ()}
             {this.renderBadge ()}
             {this.renderMenu ()}
@@ -232,15 +259,17 @@ class Button extends Widget {
           <a
             key={index}
             onClick={::this.onClicked} // voir (*)
+            onMouseOver={::this.onMouseOver}
+            onMouseOut={::this.onMouseOut}
             onMouseDown={::this.onMouseDown}
             onMouseUp={::this.onMouseUp}
             onTouchStart={::this.onMouseDown}
             onTouchEnd={::this.onMouseUp}
-            style={style}
+            style={boxStyle}
             title={tooltip}
             href={'#' + toAnchor}
           >
-            {this.renderLayout ()}
+            {this.renderLayout (glyphStyle, textStyle)}
             {this.renderTriangle ()}
             {this.renderBadge ()}
             {this.renderMenu ()}
@@ -252,14 +281,16 @@ class Button extends Widget {
           <div
             key={index}
             onClick={::this.onClicked} // voir (*)
+            onMouseOver={::this.onMouseOver}
+            onMouseOut={::this.onMouseOut}
             onMouseDown={::this.onMouseDown}
             onMouseUp={::this.onMouseUp}
             onTouchStart={::this.onMouseDown}
             onTouchEnd={::this.onMouseUp}
-            style={style}
+            style={boxStyle}
             title={tooltip}
           >
-            {this.renderLayout ()}
+            {this.renderLayout (glyphStyle, textStyle)}
             {this.renderTriangle ()}
             {this.renderBadge ()}
             {this.renderMenu ()}
