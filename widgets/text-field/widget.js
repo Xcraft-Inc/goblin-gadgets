@@ -56,7 +56,7 @@ class TextField extends Widget {
     this.forceUpdate ();
   }
 
-  onMyFocus (e) {
+  onFocus (e) {
     this.onFocus (e);
     const selectAllOnFocus = this.read ('select-all-on-focus');
     if (selectAllOnFocus === 'true') {
@@ -68,7 +68,7 @@ class TextField extends Widget {
     }
   }
 
-  onMyBlur (e) {
+  onBlur (e) {
     this.onBlur (e);
     const x = this.read ('onBlur');
     if (x) {
@@ -76,7 +76,7 @@ class TextField extends Widget {
     }
   }
 
-  onMyMouseDown (e) {
+  onMouseDown (e) {
     const x = this.read ('onMouseDown');
     if (x) {
       x (e);

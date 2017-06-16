@@ -9,19 +9,8 @@ class Button extends Widget {
   constructor (props) {
     super (props);
     this.state = {
-      isHover: false,
       isMenuVisible: false,
     };
-  }
-
-  get isHover () {
-    return this.state.isHover;
-  }
-
-  set isHover (value) {
-    this.setState ({
-      isHover: value,
-    });
   }
 
   get isMenuVisible () {
@@ -61,14 +50,6 @@ class Button extends Widget {
   onShowMenu () {
     // Trace.log ('>>>> showMenu <<<<');
     this.isMenuVisible = !this.isMenuVisible;
-  }
-
-  onMouseOver (e) {
-    this.isHover = true;
-  }
-
-  onMouseOut (e) {
-    this.isHover = false;
   }
 
   onMouseDown (e) {
@@ -210,10 +191,6 @@ class Button extends Widget {
       const glyphStyle = this.styles.glyph;
       const textStyle = this.styles.text;
 
-      if (this.isHover) {
-        boxStyle.backgroundColor = '#ccc'; // FIXME
-      }
-
       if (show === 'false') {
         return null;
       } else if (kind === 'container' || kind === 'box') {
@@ -221,8 +198,6 @@ class Button extends Widget {
           <div
             key={index}
             onClick={::this.onClicked} // voir (*)
-            onMouseOver={::this.onMouseOver}
-            onMouseOut={::this.onMouseOut}
             onMouseDown={::this.onMouseDown}
             onMouseUp={::this.onMouseUp}
             onTouchStart={::this.onMouseDown}
@@ -238,8 +213,6 @@ class Button extends Widget {
           <div
             key={index}
             onClick={::this.onShowMenu} // voir (*)
-            onMouseOver={::this.onMouseOver}
-            onMouseOut={::this.onMouseOut}
             onMouseDown={::this.onMouseDown}
             onMouseUp={::this.onMouseUp}
             onTouchStart={::this.onMouseDown}
@@ -259,8 +232,6 @@ class Button extends Widget {
           <a
             key={index}
             onClick={::this.onClicked} // voir (*)
-            onMouseOver={::this.onMouseOver}
-            onMouseOut={::this.onMouseOut}
             onMouseDown={::this.onMouseDown}
             onMouseUp={::this.onMouseUp}
             onTouchStart={::this.onMouseDown}
@@ -281,8 +252,6 @@ class Button extends Widget {
           <div
             key={index}
             onClick={::this.onClicked} // voir (*)
-            onMouseOver={::this.onMouseOver}
-            onMouseOut={::this.onMouseOut}
             onMouseDown={::this.onMouseDown}
             onMouseUp={::this.onMouseUp}
             onTouchStart={::this.onMouseDown}

@@ -99,7 +99,7 @@ class Combo extends Widget {
     }
   }
 
-  onMyMouseDown (e) {
+  onMouseDown (e) {
     const node = ReactDOM.findDOMNode (this);
     const rect = node.children[0].getBoundingClientRect ();
     if (!RectHelpers.isInside (rect, e.clientX, e.clientY)) {
@@ -158,8 +158,8 @@ class Combo extends Widget {
       return (
         <div
           style={fullScreenStyle}
-          onMouseDown={::this.onMyMouseDown}
-          onTouchStart={::this.onMyMouseDown}
+          onMouseDown={::this.onMouseDown}
+          onTouchStart={::this.onMouseDown}
         >
           <div style={comboStyle}>
             <Container

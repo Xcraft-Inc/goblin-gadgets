@@ -61,7 +61,7 @@ class TextFieldCombo extends Widget {
     }
   }
 
-  onMyChange (e) {
+  onChange (e) {
     this.onChange (e);
     const x = this.read ('onChange');
     if (x) {
@@ -69,15 +69,15 @@ class TextFieldCombo extends Widget {
     }
   }
 
-  onMyFocus () {
+  onFocus () {
     this.readonly = false;
   }
 
-  onMyBlur () {
+  onBlur () {
     this.readonly = true;
   }
 
-  onMyMouseDown () {
+  onMouseDown () {
     const readonly = this.read ('readonly');
     if (readonly === 'true') {
       this.onButtonClicked ();
@@ -147,9 +147,9 @@ class TextFieldCombo extends Widget {
       <TextField
         {...props}
         active={isComboVisible}
-        onFocus={::this.onMyFocus}
-        onBlur={::this.onMyBlur}
-        onMouseDown={::this.onMyMouseDown}
+        onFocus={::this.onFocus}
+        onBlur={::this.onBlur}
+        onMouseDown={::this.onMouseDown}
       />
     );
   }

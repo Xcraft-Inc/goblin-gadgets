@@ -9,28 +9,28 @@ class Ticket extends Widget {
     super (props);
   }
 
-  onMyMouseOver () {
+  onMouseOver () {
     const x = this.read ('mouse-over');
     if (x) {
       x ();
     }
   }
 
-  onMyMouseOut () {
+  onMouseOut () {
     const x = this.read ('mouse-out');
     if (x) {
       x ();
     }
   }
 
-  onMyMouseDown (e) {
+  onMouseDown (e) {
     const x = this.read ('mouse-down');
     if (x) {
       x (e);
     }
   }
 
-  onMyMouseUp (e) {
+  onMouseUp (e) {
     const x = this.read ('mouse-up');
     if (x) {
       x (e);
@@ -129,12 +129,12 @@ class Ticket extends Widget {
     return (
       <div
         style={boxStyle}
-        onMouseOver={::this.onMyMouseOver}
-        onMouseOut={::this.onMyMouseOut}
-        onMouseDown={::this.onMyMouseDown}
-        onMouseUp={::this.onMyMouseUp}
-        onTouchStart={::this.onMyMouseDown}
-        onTouchEnd={::this.onMyMouseUp}
+        onMouseOver={::this.onMouseOver}
+        onMouseOut={::this.onMouseOut}
+        onMouseDown={::this.onMouseDown}
+        onMouseUp={::this.onMouseUp}
+        onTouchStart={::this.onMouseDown}
+        onTouchEnd={::this.onMouseUp}
       >
         {htmlShadow}
         {htmlShape}
@@ -163,12 +163,12 @@ class Ticket extends Widget {
     return (
       <div
         style={rectShadowStyle}
-        onMouseOver={::this.onMyMouseOver}
-        onMouseOut={::this.onMyMouseOut}
-        onMouseDown={::this.onMyMouseDown}
-        onMouseUp={::this.onMyMouseUp}
-        onTouchStart={::this.onMyMouseDown}
-        onTouchEnd={::this.onMyMouseUp}
+        onMouseOver={::this.onMouseOver}
+        onMouseOut={::this.onMouseOut}
+        onMouseDown={::this.onMouseDown}
+        onMouseUp={::this.onMouseUp}
+        onTouchStart={::this.onMouseDown}
+        onTouchEnd={::this.onMouseUp}
       >
         <div style={rectStyle}>
           <div style={hatch === 'true' ? rectContentHatchStyle : contentStyle}>
@@ -194,12 +194,12 @@ class Ticket extends Widget {
     return (
       <div
         style={rectStyle}
-        onMouseOver={::this.onMyMouseOver}
-        onMouseOut={::this.onMyMouseOut}
-        onMouseDown={::this.onMyMouseDown}
-        onMouseUp={::this.onMyMouseUp}
-        onTouchStart={::this.onMyMouseDown}
-        onTouchEnd={::this.onMyMouseUp}
+        onMouseOver={::this.onMouseOver}
+        onMouseOut={::this.onMouseOut}
+        onMouseDown={::this.onMouseDown}
+        onMouseUp={::this.onMouseUp}
+        onTouchStart={::this.onMouseDown}
+        onTouchEnd={::this.onMouseUp}
       >
         <div style={contentStyle}>
           {this.props.children}
@@ -215,12 +215,12 @@ class Ticket extends Widget {
     return (
       <div
         style={coverStyle}
-        onMouseOver={::this.onMyMouseOver}
-        onMouseOut={::this.onMyMouseOut}
-        onMouseDown={::this.onMyMouseDown}
-        onMouseUp={::this.onMyMouseUp}
-        onTouchStart={::this.onMyMouseDown}
-        onTouchEnd={::this.onMyMouseUp}
+        onMouseOver={::this.onMouseOver}
+        onMouseOut={::this.onMouseOut}
+        onMouseDown={::this.onMouseDown}
+        onMouseUp={::this.onMouseUp}
+        onTouchStart={::this.onMouseDown}
+        onTouchEnd={::this.onMouseUp}
       >
         <div style={coverContentStyle}>
           {this.props.children}
