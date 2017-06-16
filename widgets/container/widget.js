@@ -169,9 +169,8 @@ class Container extends Widget {
       if (selected && React.isValidElement (child)) {
         const props = {selected: selected};
         return React.cloneElement (child, props);
-      } else {
-        return child;
       }
+      return child;
     });
   }
 
