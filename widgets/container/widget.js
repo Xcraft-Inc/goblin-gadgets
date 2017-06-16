@@ -54,7 +54,7 @@ class Container extends Widget {
       )[0];
       if (panelElem) {
         this.computePanelBottoms (panelElem);
-        panelElem.addEventListener ('scroll', this.handleScroll, true);
+        panelElem.addEventListener ('scroll', ::this.handleScroll, true);
       }
     }
     const dragController = this.read ('drag-controller');
@@ -128,7 +128,7 @@ class Container extends Widget {
     this.panelBottoms.push (1000000);
   }
 
-  // Return the index of the top panel, according to  scroll position.
+  // Return the index of the top panel, according to scroll position.
   getPanelIndex (scrollTop, scrollMax) {
     if (scrollTop >= scrollMax - 4) {
       // 4 = chouia for mouse wheel
