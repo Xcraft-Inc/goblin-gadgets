@@ -103,7 +103,7 @@ export default function styles (theme, props) {
     width: width,
     height: theme.shapes.lineHeight,
     border: 'none',
-    padding: '10px',
+    padding: '0px 10px',
     margin: '0px',
     color: color,
     backgroundColor: backgroundColor,
@@ -111,7 +111,7 @@ export default function styles (theme, props) {
 
   const textareaStyle = {
     flexGrow: 1,
-    padding: '10px',
+    padding: '0px 10px',
     resize: 'none',
     border: 'none',
   };
