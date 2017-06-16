@@ -25,7 +25,7 @@ class LabelTextField extends Widget {
     });
   }
 
-  onMyChange (e) {
+  onChange (e) {
     this.onChange (e);
     const x = this.read ('onChange');
     if (x) {
@@ -33,7 +33,7 @@ class LabelTextField extends Widget {
     }
   }
 
-  onMyFocus () {
+  onFocus () {
     this.readonly = false;
     const x = this.read ('onFocus');
     if (x) {
@@ -41,7 +41,7 @@ class LabelTextField extends Widget {
     }
   }
 
-  onMyBlur () {
+  onBlur () {
     this.readonly = true;
     const x = this.read ('onBlur');
     if (x) {
@@ -152,11 +152,7 @@ class LabelTextField extends Widget {
     }
 
     return (
-      <TextField
-        {...props}
-        onFocus={::this.onMyFocus}
-        onBlur={::this.onMyBlur}
-      />
+      <TextField {...props} onFocus={::this.onFocus} onBlur={::this.onBlur} />
     );
   }
 

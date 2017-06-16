@@ -30,7 +30,7 @@ class DialogModal extends Widget {
     }
   }
 
-  onMyMouseDown (e) {
+  onMouseDown (e) {
     const node = ReactDOM.findDOMNode (this);
     const rect = node.children[0].getBoundingClientRect ();
     if (!RectHelpers.isInside (rect, e.clientX, e.clientY)) {
@@ -53,8 +53,8 @@ class DialogModal extends Widget {
         return (
           <div
             style={fullScreenStyle}
-            onMouseDown={::this.onMyMouseDown}
-            onTouchStart={::this.onMyMouseDown}
+            onMouseDown={::this.onMouseDown}
+            onTouchStart={::this.onMouseDown}
           >
             <div style={comboStyle}>
               <Container
@@ -71,7 +71,7 @@ class DialogModal extends Widget {
         );
       } else {
         return (
-          <div style={fullScreenStyle} onMouseDown={::this.onMyMouseDown}>
+          <div style={fullScreenStyle} onMouseDown={::this.onMouseDown}>
             <Container
               kind="floating"
               cursor="default"
