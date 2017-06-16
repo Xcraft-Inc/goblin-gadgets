@@ -9,8 +9,6 @@ export default function styles (theme, props) {
 
   const leftPaneStyle = {
     display: 'flex',
-    width: props.kind === 'vertical' ? '200px' : null,
-    height: props.kind === 'horizontal' ? '200px' : null,
   };
 
   const resizerStyle = {

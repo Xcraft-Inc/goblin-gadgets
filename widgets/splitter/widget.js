@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
+import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
 
@@ -8,7 +9,7 @@ class Splitter extends Widget {
   constructor (props) {
     super (props);
     this.state = {
-      splitterValue: '200px',
+      splitterValue: this.read ('default-size'),
     };
   }
 
@@ -38,6 +39,27 @@ class Splitter extends Widget {
     return -1;
   }
 
+  getScalarValue (name) {
+    const v = this.read (name);
+    if (v) {
+      return Unit.parse (v).value;
+    } else {
+      return null;
+    }
+  }
+
+  getNormalizedValue (value) {
+    const min = this.getScalarValue ('min-size');
+    if (min) {
+      value = Math.max (value, min);
+    }
+    const max = this.getScalarValue ('max-size');
+    if (max) {
+      value = Math.min (value, max);
+    }
+    return value;
+  }
+
   onMouseMove (e) {
     const x = e.clientX;
     const y = e.clientY;
@@ -55,9 +77,11 @@ class Splitter extends Widget {
         const rect = node.getBoundingClientRect ();
         const kind = this.read ('kind');
         if (kind === 'vertical') {
-          this.splitterValue = x - this.offset - rect.left + 'px';
+          const value = x - this.offset - rect.left;
+          this.splitterValue = this.getNormalizedValue (value) + 'px';
         } else {
-          this.splitterValue = y - this.offset - rect.top + 'px';
+          const value = y - this.offset - rect.top;
+          this.splitterValue = this.getNormalizedValue (value) + 'px';
         }
       }
     } else {
@@ -72,6 +96,8 @@ class Splitter extends Widget {
 
       if (!kind) {
         throw new Error ('Undefined splitter kind');
+      } else if (kind !== 'vertical' && kind !== 'horizontal') {
+        throw new Error (`Wrong splitter kind ${kind}`);
       }
 
       const children = this.props.children;
