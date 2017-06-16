@@ -3,12 +3,7 @@ import {Unit} from 'electrum-theme';
 /******************************************************************************/
 
 export default function styles (theme, props) {
-  const inputGrow = props.grow;
-  const inputWidth = props.width;
-  const inputSpacing = props.spacing;
-  const comboDirection = props.comboDirection;
-
-  let flexGrow = inputGrow;
+  let flexGrow = props.grow;
   let flexShrink = null;
   let flexBasis = null;
   let marginRight = '0px';
@@ -18,9 +13,9 @@ export default function styles (theme, props) {
     flexBasis = '0%';
   }
 
-  if (inputSpacing === 'overlap') {
+  if (props.spacing === 'overlap') {
     marginRight = '-1px';
-  } else if (inputSpacing === 'large') {
+  } else if (props.spacing === 'large') {
     marginRight = theme.shapes.lineSpacing;
   }
 
@@ -29,7 +24,7 @@ export default function styles (theme, props) {
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    width: inputWidth,
+    width: props.width,
     flexGrow: flexGrow,
     flexShrink: flexShrink,
     flexBasis: flexBasis,
@@ -43,8 +38,8 @@ export default function styles (theme, props) {
 
   const comboBoxStyle = {
     position: 'absolute',
-    right: comboDirection === 'right' ? null : '0px',
-    left: comboDirection === 'right' ? '0px' : null,
+    right: props.comboDirection === 'right' ? null : '0px',
+    left: props.comboDirection === 'right' ? '0px' : null,
     top: Unit.add (theme.shapes.lineHeight, '1px'),
     marginTop: theme.shapes.lineSpacing,
     zIndex: 1,

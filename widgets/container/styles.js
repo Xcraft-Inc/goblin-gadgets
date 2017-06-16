@@ -4,31 +4,12 @@ import {ColorHelpers} from 'electrum-theme';
 /******************************************************************************/
 
 export default function styles (theme, props) {
-  const inputWidth = props.width;
-  const inputHeight = props.height;
-  const inputMinWidth = props.minWidth;
-  const inputMinHeight = props.minHeight;
-  const inputMaxWidth = props.maxWidth;
-  const inputMaxHeight = props.maxHeight;
-  const inputMarginBottom = props.marginBottom;
-  const inputFloatingHeight = props.floatingHeight;
-  const inputKind = props.kind;
-  const inputSubkind = props.subkind;
-  const inputMarkColor = props.markColor;
-  const inputSpacing = props.spacing;
-  const inputTrianglePosition = props.trianglePosition;
-  const inputGrow = props.grow;
-  const inputSelected = props.selected;
-  const inputBorder = props.border;
-  const inputCursor = props.cursor;
-  const inputPosition = props.position;
-
-  let width = inputWidth;
-  let height = inputHeight;
-  let minWidth = inputMinWidth;
-  let minHeight = inputMinHeight;
-  let maxWidth = inputMaxWidth;
-  let maxHeight = inputMaxHeight;
+  let width = props.width;
+  let height = props.height;
+  let minWidth = props.minWidth;
+  let minHeight = props.minHeight;
+  let maxWidth = props.maxWidth;
+  let maxHeight = props.maxHeight;
   let display = null;
   let overflowX = null;
   let overflowY = null;
@@ -59,15 +40,15 @@ export default function styles (theme, props) {
   let borderLeftColor = null;
   let borderRadius = null;
   let boxShadow = null;
-  let margin = inputMarginBottom
-    ? '0px 0px ' + inputMarginBottom + ' 0px'
+  let margin = props.marginBottom
+    ? '0px 0px ' + props.marginBottom + ' 0px'
     : '0px';
   let padding = '0px';
   let backgroundColor = null;
   let color = null;
   let fontWeight = null;
   let zIndex = null;
-  let position = inputPosition;
+  let position = props.position;
   let left = null;
   let right = null;
   let top = null;
@@ -81,7 +62,7 @@ export default function styles (theme, props) {
   const s = theme.shapes.lineSpacing;
   const d = Unit.multiply (m, 0.5);
 
-  if (inputKind === 'root') {
+  if (props.kind === 'root') {
     fontFamily = theme.typo.font;
     position = 'relative';
     display = 'flex';
@@ -91,7 +72,7 @@ export default function styles (theme, props) {
     color = theme.palette.text;
   }
 
-  if (inputKind === 'floating') {
+  if (props.kind === 'floating') {
     position = 'fixed';
     left = '50%';
     top = '50%';
@@ -109,8 +90,8 @@ export default function styles (theme, props) {
     zIndex = '10';
   }
 
-  if (inputKind === 'floating-header') {
-    if (!inputFloatingHeight) {
+  if (props.kind === 'floating-header') {
+    if (!props.floatingHeight) {
       throw new Error (
         'Container with kind=floating-header must have a floating-height'
       );
@@ -118,7 +99,7 @@ export default function styles (theme, props) {
     // The property floating-height must correspond to the floating Container height !
     // The calculate height of floating-header Container fill the space on top of floating Container.
     const hh = Unit.add (
-      Unit.multiply (inputFloatingHeight, 0.5),
+      Unit.multiply (props.floatingHeight, 0.5),
       theme.shapes.floatingPadding
     );
     height = 'calc(50vh - ' + hh + ')';
@@ -137,7 +118,7 @@ export default function styles (theme, props) {
     zIndex = '2';
   }
 
-  if (inputKind === 'floating-footer') {
+  if (props.kind === 'floating-footer') {
     position = 'absolute';
     left = '0px';
     right = '0px';
@@ -152,7 +133,7 @@ export default function styles (theme, props) {
     alignItems = 'center';
   }
 
-  if (inputKind === 'mandats') {
+  if (props.kind === 'mandats') {
     position = 'absolute';
     left = '0px';
     right = '0px';
@@ -171,7 +152,7 @@ export default function styles (theme, props) {
     zIndex = '1';
   }
 
-  if (inputKind === 'left-bar') {
+  if (props.kind === 'left-bar') {
     zIndex = 2;
     display = 'flex';
     flexDirection = 'column';
@@ -179,13 +160,13 @@ export default function styles (theme, props) {
     boxShadow = theme.shapes.taskShadow;
   }
 
-  if (inputKind === 'task-bar') {
+  if (props.kind === 'task-bar') {
     minWidth = theme.shapes.taskButtonWidth;
     display = 'flex';
     flexDirection = 'column';
   }
 
-  if (inputKind === 'right') {
+  if (props.kind === 'right') {
     display = 'flex';
     flexDirection = 'column';
     flexGrow = 1;
@@ -193,20 +174,20 @@ export default function styles (theme, props) {
     overflowX = 'hidden';
   }
 
-  if (inputKind === 'content') {
+  if (props.kind === 'content') {
     display = 'flex';
     flexDirection = 'column';
     flexGrow = 1;
     overflowX = 'hidden';
   }
 
-  if (inputKind === 'top-bar') {
+  if (props.kind === 'top-bar') {
     display = 'flex';
     flexDirection = 'row';
     backgroundColor = theme.palette.mainTabBackground;
   }
 
-  if (inputKind === 'main-tab') {
+  if (props.kind === 'main-tab') {
     minHeight = theme.shapes.mainTabHeight;
     display = 'flex';
     flexDirection = 'row';
@@ -215,7 +196,7 @@ export default function styles (theme, props) {
     alignItems = 'center';
   }
 
-  if (inputKind === 'main-tab-right') {
+  if (props.kind === 'main-tab-right') {
     minHeight = theme.shapes.mainTabHeight;
     display = 'flex';
     flexDirection = 'row';
@@ -224,14 +205,14 @@ export default function styles (theme, props) {
     backgroundColor = theme.palette.mainTabBackground;
   }
 
-  if (inputKind === 'second-bar') {
+  if (props.kind === 'second-bar') {
     display = 'flex';
     flexDirection = 'row';
     justifyContent = 'flex-end';
     backgroundColor = theme.palette.viewTabBackground;
   }
 
-  if (inputKind === 'view-tab') {
+  if (props.kind === 'view-tab') {
     minHeight = theme.shapes.viewTabHeight;
     display = 'flex';
     flexDirection = 'row';
@@ -242,7 +223,7 @@ export default function styles (theme, props) {
     borderStyle = 'none';
   }
 
-  if (inputKind === 'view-tab-right') {
+  if (props.kind === 'view-tab-right') {
     display = 'flex';
     flexDirection = 'row';
     justifyContent = 'flex-start';
@@ -250,24 +231,24 @@ export default function styles (theme, props) {
     backgroundColor = theme.palette.viewTabBackground;
   }
 
-  if (inputKind === 'views') {
+  if (props.kind === 'views') {
     display = 'flex';
     flexDirection = 'row';
     flexGrow = 1;
     overflowX = 'auto';
   }
 
-  if (inputKind === 'view') {
+  if (props.kind === 'view') {
     minWidth = width;
     position = 'relative';
     display = 'flex';
     flexDirection = 'column';
-    flexGrow = inputGrow;
+    flexGrow = props.grow;
     margin = '0px ' + theme.shapes.viewSpacing + ' 0px 0px';
     backgroundColor = theme.palette.viewBackground;
   }
 
-  if (inputKind === 'view-stretch') {
+  if (props.kind === 'view-stretch') {
     minWidth = width;
     position = 'relative';
     display = 'flex';
@@ -277,7 +258,7 @@ export default function styles (theme, props) {
     backgroundColor = theme.palette.viewBackground;
   }
 
-  if (inputKind === 'view-short') {
+  if (props.kind === 'view-short') {
     minWidth = width;
     position = 'relative';
     display = 'flex';
@@ -288,7 +269,7 @@ export default function styles (theme, props) {
     alignSelf = 'flex-start';
   }
 
-  if (inputKind === 'view-right') {
+  if (props.kind === 'view-right') {
     minWidth = width;
     position = 'relative';
     display = 'flex';
@@ -297,11 +278,11 @@ export default function styles (theme, props) {
     backgroundColor = theme.palette.viewBackground;
   }
 
-  if (inputKind === 'view-wedge') {
+  if (props.kind === 'view-wedge') {
     flexGrow = 1;
   }
 
-  if (inputKind === 'full-view') {
+  if (props.kind === 'full-view') {
     width = '10000px';
     position = 'relative';
     display = 'flex';
@@ -309,7 +290,7 @@ export default function styles (theme, props) {
     margin = '0px';
   }
 
-  if (inputKind === 'pane-header') {
+  if (props.kind === 'pane-header') {
     minHeight = height;
     flexDirection = 'row';
     justifyContent = 'space-between';
@@ -318,7 +299,7 @@ export default function styles (theme, props) {
     backgroundColor = theme.palette.paneHeaderBackground;
   }
 
-  if (inputKind === 'pane-navigator') {
+  if (props.kind === 'pane-navigator') {
     minHeight = h;
     display = 'flex';
     flexDirection = 'row';
@@ -332,7 +313,7 @@ export default function styles (theme, props) {
     backgroundColor = theme.palette.paneNavigatorBackground;
   }
 
-  if (inputKind === 'pane-top') {
+  if (props.kind === 'pane-top') {
     minHeight = h;
     display = 'flex';
     flexDirection = 'row';
@@ -344,7 +325,7 @@ export default function styles (theme, props) {
     backgroundColor = theme.palette.paneNavigatorBackground;
   }
 
-  if (inputKind === 'pane-hnavigator') {
+  if (props.kind === 'pane-hnavigator') {
     minHeight = h;
     display = 'flex';
     flexDirection = 'row';
@@ -357,7 +338,7 @@ export default function styles (theme, props) {
     backgroundColor = theme.palette.paneNavigatorBackground;
   }
 
-  if (inputKind === 'pane-vnavigator') {
+  if (props.kind === 'pane-vnavigator') {
     position = 'absolute';
     minHeight = h;
     display = 'flex';
@@ -369,7 +350,7 @@ export default function styles (theme, props) {
     zIndex = 4;
   }
 
-  if (inputKind === 'actions') {
+  if (props.kind === 'actions') {
     minHeight = theme.shapes.actionHeight;
     display = 'flex';
     flexDirection = 'row';
@@ -381,28 +362,30 @@ export default function styles (theme, props) {
     borderTopWidth = '1px';
     borderTopStyle = 'solid';
     borderTopColor = theme.palette.actionBorder;
-    boxShadow = inputSubkind === 'no-shadow' ? null : theme.shapes.actionShadow;
+    boxShadow = props.subkind === 'no-shadow'
+      ? null
+      : theme.shapes.actionShadow;
     // zIndex          = 2;
   }
 
-  if (inputKind === 'panes') {
+  if (props.kind === 'panes') {
     overflowY = 'auto';
     flexGrow = 1;
     padding = '0px ' + m + ' 0px ' + m;
-    if (inputSubkind === 'top-margin') {
+    if (props.subkind === 'top-margin') {
       margin = m + ' 0px 0px 0px';
     }
   }
 
-  if (inputKind === 'panes-short') {
+  if (props.kind === 'panes-short') {
     overflowY = 'auto';
     padding = '0px ' + m + ' 0px ' + m;
-    if (inputSubkind === 'top-margin') {
+    if (props.subkind === 'top-margin') {
       margin = m + ' 0px 0px 0px';
     }
   }
 
-  if (inputKind === 'pane') {
+  if (props.kind === 'pane') {
     display = 'flex';
     flexDirection = 'column';
     justifyContent = 'flex-start';
@@ -413,7 +396,7 @@ export default function styles (theme, props) {
     backgroundColor = theme.palette.paneBackground;
   }
 
-  if (inputKind === 'row-pane') {
+  if (props.kind === 'row-pane') {
     const halfMargin = Unit.multiply (m, 0.5);
     display = 'flex';
     flexDirection = 'row';
@@ -423,19 +406,19 @@ export default function styles (theme, props) {
     let rightMargin = '0px';
     let bottomMargin = s;
     let leftMargin = '0px';
-    if (inputSubkind === 'info') {
+    if (props.subkind === 'info') {
       height = theme.shapes.lineHeight;
       backgroundColor = theme.palette.infoBackground;
       borderRadius = theme.shapes.smoothRadius;
       fontWeight = 'bold';
       padding = '0px ' + halfMargin;
-    } else if (inputSubkind === 'wide-info') {
+    } else if (props.subkind === 'wide-info') {
       rightMargin = Unit.multiply (m, -1);
       leftMargin = Unit.multiply (m, -1);
       padding = '0px ' + m;
       backgroundColor = theme.palette.infoBackground;
       fontWeight = 'bold';
-    } else if (inputSubkind === 'box') {
+    } else if (props.subkind === 'box') {
       rightMargin = Unit.multiply (m, -1);
       leftMargin = Unit.multiply (m, -1);
       let topPadding = halfMargin;
@@ -450,10 +433,10 @@ export default function styles (theme, props) {
       borderBottomStyle = 'solid';
       topMargin = halfMargin;
       bottomMargin = Unit.sub (Unit.multiply (halfMargin, -1), '1px');
-      if (inputMarkColor) {
+      if (props.markColor) {
         borderLeftWidth = theme.shapes.markWidth;
         borderLeftStyle = 'solid';
-        borderLeftColor = ColorHelpers.getMarkColor (theme, inputMarkColor);
+        borderLeftColor = ColorHelpers.getMarkColor (theme, props.markColor);
         leftPadding = Unit.sub (leftPadding, theme.shapes.markWidth);
       }
       padding =
@@ -464,12 +447,12 @@ export default function styles (theme, props) {
         bottomPadding +
         ' ' +
         leftPadding;
-    } else if (inputSubkind === 'light-box') {
+    } else if (props.subkind === 'light-box') {
       rightMargin = Unit.multiply (m, -1);
       leftMargin = Unit.multiply (m, -1);
       topMargin = Unit.multiply (halfMargin, -1);
       bottomMargin = Unit.sub (Unit.multiply (halfMargin, -1), '1px');
-    } else if (inputSubkind === 'large-box') {
+    } else if (props.subkind === 'large-box') {
       rightMargin = Unit.multiply (m, -1);
       leftMargin = Unit.multiply (m, -1);
       let topPadding = '0px';
@@ -484,7 +467,7 @@ export default function styles (theme, props) {
       borderBottomStyle = 'solid';
       topMargin = halfMargin;
       bottomMargin = Unit.sub (Unit.multiply (halfMargin, -1), '1px');
-      if (inputSelected === 'true') {
+      if (props.selected === 'true') {
         borderLeftWidth = theme.shapes.markWidth;
         borderLeftStyle = 'solid';
         borderLeftColor = ColorHelpers.getMarkColor (theme, 'base');
@@ -498,19 +481,19 @@ export default function styles (theme, props) {
         bottomPadding +
         ' ' +
         leftPadding;
-    } else if (inputSubkind === 'list') {
+    } else if (props.subkind === 'list') {
       borderBottomColor = theme.palette.paneNavigatorInactiveBorder;
       borderBottomWidth = '1px';
       borderBottomStyle = 'solid';
       padding = '0px';
       bottomMargin = '0px';
-    } else if (inputSubkind === 'footer') {
+    } else if (props.subkind === 'footer') {
       rightMargin = Unit.multiply (m, -1);
       leftMargin = Unit.multiply (m, -1);
       topMargin = halfMargin;
       bottomMargin = Unit.sub (Unit.multiply (halfMargin, -1), '1px');
       padding = '0px';
-    } else if (inputSubkind === 'wrap') {
+    } else if (props.subkind === 'wrap') {
       display = 'flex';
       flexDirection = 'row';
       flexWrap = 'wrap';
@@ -521,14 +504,14 @@ export default function styles (theme, props) {
       topMargin = Unit.multiply (m, -0.25);
       bottomMargin = Unit.multiply (m, 0.25);
     }
-    if (inputSpacing === 'compact') {
+    if (props.spacing === 'compact') {
       height = theme.shapes.lineHeight;
       bottomMargin = '0px';
-    } else if (inputSpacing === 'glued') {
+    } else if (props.spacing === 'glued') {
       height = theme.shapes.lineHeight;
       bottomMargin = Unit.multiply (halfMargin, -1);
     }
-    if (inputSelected === 'true' && inputSubkind !== 'large-box') {
+    if (props.selected === 'true' && props.subkind !== 'large-box') {
       backgroundColor = theme.palette.paneSelectedBackground;
       color = theme.palette.paneSelectedText;
     }
@@ -536,7 +519,7 @@ export default function styles (theme, props) {
       topMargin + ' ' + rightMargin + ' ' + bottomMargin + ' ' + leftMargin;
   }
 
-  if (inputKind === 'row-pane-drag') {
+  if (props.kind === 'row-pane-drag') {
     display = 'flex';
     flexDirection = 'column';
     margin =
@@ -549,11 +532,11 @@ export default function styles (theme, props) {
       Unit.multiply (m, -1);
   }
 
-  if (inputKind === 'row-wrap') {
+  if (props.kind === 'row-wrap') {
     margin = Unit.multiply (m, 0.25);
   }
 
-  if (inputKind === 'compact-row') {
+  if (props.kind === 'compact-row') {
     display = 'flex';
     flexDirection = 'row';
     justifyContent = 'flex-start';
@@ -562,7 +545,7 @@ export default function styles (theme, props) {
     padding = '0px';
   }
 
-  if (inputKind === 'footer') {
+  if (props.kind === 'footer') {
     minHeight = theme.shapes.footerHeight;
     display = 'flex';
     flexDirection = 'row';
@@ -572,7 +555,7 @@ export default function styles (theme, props) {
     backgroundColor = theme.palette.footerBackground;
   }
 
-  if (inputKind === 'tickets') {
+  if (props.kind === 'tickets') {
     const mm = Unit.multiply (m, 0.5);
     overflowY = 'auto';
     padding = '0px ' + mm + ' 0px ' + mm;
@@ -582,21 +565,21 @@ export default function styles (theme, props) {
     backgroundColor = theme.palette.ticketsBackground;
   }
 
-  if (inputKind === 'tickets-root') {
+  if (props.kind === 'tickets-root') {
     display = 'flex';
     flexDirection = 'column';
     flexGrow = 1;
     overflowX = 'hidden';
   }
 
-  if (inputKind === 'tickets-messengers') {
+  if (props.kind === 'tickets-messengers') {
     display = 'flex';
     flexDirection = 'row';
     flexGrow = 1;
     overflowX = 'auto';
   }
 
-  if (inputKind === 'tickets-messenger') {
+  if (props.kind === 'tickets-messenger') {
     const mm = Unit.multiply (m, 0.5);
     padding = '0px ' + mm + ' 0px ' + mm;
     display = 'flex';
@@ -606,7 +589,7 @@ export default function styles (theme, props) {
     backgroundColor = theme.palette.ticketsBackground;
   }
 
-  if (inputKind === 'tickets-trips') {
+  if (props.kind === 'tickets-trips') {
     display = 'flex';
     flexDirection = 'column';
     flexGrow = 1;
@@ -614,7 +597,7 @@ export default function styles (theme, props) {
     overflowY = 'auto';
   }
 
-  if (inputKind === 'tickets-desk') {
+  if (props.kind === 'tickets-desk') {
     position = 'relative';
     display = 'flex';
     flexDirection = 'row';
@@ -623,29 +606,31 @@ export default function styles (theme, props) {
     overflowY = 'auto';
   }
 
-  if (inputKind === 'tickets-tray') {
-    minWidth = inputWidth ? inputWidth : theme.shapes.dispatchTicketWidth;
-    maxWidth = inputWidth ? inputWidth : theme.shapes.dispatchTicketWidth;
-    minHeight = inputHeight ? inputHeight : theme.shapes.dispatchTicketsHeight;
+  if (props.kind === 'tickets-tray') {
+    minWidth = props.width ? props.width : theme.shapes.dispatchTicketWidth;
+    maxWidth = props.width ? props.width : theme.shapes.dispatchTicketWidth;
+    minHeight = props.height
+      ? props.height
+      : theme.shapes.dispatchTicketsHeight;
   }
 
-  if (inputKind === 'ticket-row') {
+  if (props.kind === 'ticket-row') {
     display = 'flex';
     flexDirection = 'row';
-    flexGrow = inputGrow;
+    flexGrow = props.grow;
     alignItems = 'baseline';
   }
 
-  if (inputKind === 'ticket-column') {
+  if (props.kind === 'ticket-column') {
     display = 'flex';
     flexDirection = 'column';
-    flexGrow = inputGrow;
+    flexGrow = props.grow;
     overflowX = 'hidden';
     overflowY = 'hidden';
     margin = '-5px 0px';
   }
 
-  if (inputKind === 'drag-too-many') {
+  if (props.kind === 'drag-too-many') {
     margin = '5px 0px 0px 0px';
     padding = '8px 12px';
     borderWidth = '1px';
@@ -655,7 +640,7 @@ export default function styles (theme, props) {
     backgroundColor = theme.palette.ticketsBackground;
   }
 
-  if (inputKind === 'notifications-panel') {
+  if (props.kind === 'notifications-panel') {
     // TODO: improve this code !
     // Subtracting the current items supposed to be present at the total height
     // (main-tab, view-tab and footer).
@@ -669,7 +654,7 @@ export default function styles (theme, props) {
     maxHeight = 'calc(100vh - ' + hh + ')';
     position = 'fixed';
     top = y;
-    right = inputSubkind === 'hidden' ? Unit.multiply (width, -1) : '0px';
+    right = props.subkind === 'hidden' ? Unit.multiply (width, -1) : '0px';
     display = 'flex';
     flexDirection = 'column';
     margin = '0px';
@@ -678,7 +663,7 @@ export default function styles (theme, props) {
     zIndex = 4;
   }
 
-  if (inputKind === 'notification-header') {
+  if (props.kind === 'notification-header') {
     display = 'inline';
     padding = Unit.multiply (m, 0.5) + ' ' + m;
     margin = '0px 0px ' + Unit.multiply (s, 0.4) + ' 0px';
@@ -686,13 +671,13 @@ export default function styles (theme, props) {
     color = theme.palette.notificationText;
   }
 
-  if (inputKind === 'notification-header-row') {
+  if (props.kind === 'notification-header-row') {
     minHeight = '32px';
     display = 'flex';
     flexDirection = 'row';
   }
 
-  if (inputKind === 'notifications') {
+  if (props.kind === 'notifications') {
     display = 'flex';
     flexDirection = 'column';
     margin = '0px';
@@ -700,7 +685,7 @@ export default function styles (theme, props) {
     overflowY = 'auto';
   }
 
-  if (inputKind === 'notification-box') {
+  if (props.kind === 'notification-box') {
     let topPadding = m;
     let rightPadding = '0px';
     let bottomPadding = m;
@@ -709,7 +694,7 @@ export default function styles (theme, props) {
     display = 'flex';
     flexDirection = 'row';
     color = theme.palette.notificationText;
-    if (inputSubkind === 'not-read') {
+    if (props.subkind === 'not-read') {
       margin = '0px 0px ' + Unit.multiply (s, 0.4) + ' 0px';
       leftPadding = Unit.sub (leftPadding, theme.shapes.notificationMarkWidth);
       borderLeftWidth = theme.shapes.notificationMarkWidth;
@@ -724,7 +709,7 @@ export default function styles (theme, props) {
       topPadding + ' ' + rightPadding + ' ' + bottomPadding + ' ' + leftPadding;
   }
 
-  if (inputKind === 'chronos-events') {
+  if (props.kind === 'chronos-events') {
     display = 'flex';
     flexDirection = 'column';
     flexGrow = 1;
@@ -733,33 +718,33 @@ export default function styles (theme, props) {
     backgroundColor = theme.palette.eventBackground;
   }
 
-  if (inputKind === 'column-full') {
+  if (props.kind === 'column-full') {
     display = 'flex';
     flexDirection = 'column';
     flexGrow = '1';
     overflowX = 'hidden';
   }
 
-  if (inputKind === 'column') {
+  if (props.kind === 'column') {
     display = 'flex';
     flexDirection = 'column';
-    flexGrow = inputGrow;
+    flexGrow = props.grow;
   }
 
-  if (inputKind === 'row') {
+  if (props.kind === 'row') {
     display = 'flex';
     flexDirection = 'row';
-    flexGrow = inputGrow;
+    flexGrow = props.grow;
   }
 
-  if (inputKind === 'wrap') {
+  if (props.kind === 'wrap') {
     display = 'flex';
     flexDirection = 'row';
     flexWrap = 'wrap';
-    flexGrow = inputGrow;
+    flexGrow = props.grow;
   }
 
-  if (inputKind === 'boxes') {
+  if (props.kind === 'boxes') {
     display = 'flex';
     flexDirection = 'row';
     flexWrap = 'wrap';
@@ -767,26 +752,26 @@ export default function styles (theme, props) {
     alignItems = 'center';
   }
 
-  if (inputKind === 'box') {
+  if (props.kind === 'box') {
     width = '100%';
     display = 'flex';
     flexDirection = 'column';
-    flexGrow = inputGrow;
+    flexGrow = props.grow;
     justifyContent = 'center';
     borderWidth = '1px';
-    borderStyle = inputSubkind ? inputSubkind : 'solid';
+    borderStyle = props.subkind ? props.subkind : 'solid';
     borderRadius = theme.shapes.boxRadius;
     padding = s;
   }
 
-  if (inputKind === 'ticket-mode') {
+  if (props.kind === 'ticket-mode') {
     display = 'flex';
     flexDirection = 'column';
-    flexGrow = inputGrow;
+    flexGrow = props.grow;
     margin = '0px -20px 0px 0px';
   }
 
-  if (inputKind === 'glyph-samples') {
+  if (props.kind === 'glyph-samples') {
     display = 'flex';
     flexDirection = 'row';
     alignItems = 'center';
@@ -796,15 +781,15 @@ export default function styles (theme, props) {
     margin = '0px 20px 0px 0px';
   }
 
-  if (inputKind && inputKind.startsWith ('thin-')) {
-    if (inputBorder) {
-      if (inputBorder === 'top') {
+  if (props.kind && props.kind.startsWith ('thin-')) {
+    if (props.border) {
+      if (props.border === 'top') {
         borderStyle = 'solid none none none';
-      } else if (inputBorder === 'right') {
+      } else if (props.border === 'right') {
         borderStyle = 'none solid none none';
-      } else if (inputBorder === 'bottom') {
+      } else if (props.border === 'bottom') {
         borderStyle = 'none none solid none';
-      } else if (inputBorder === 'left') {
+      } else if (props.border === 'left') {
         borderStyle = 'none none none solid';
       }
       borderWidth = '1px';
@@ -814,17 +799,17 @@ export default function styles (theme, props) {
     }
   }
 
-  if (inputKind === 'thin-main') {
+  if (props.kind === 'thin-main') {
     position = 'relative';
     display = 'flex';
     flexDirection = 'row';
-    flexGrow = inputGrow;
+    flexGrow = props.grow;
     justifyContent = 'center';
     borderWidth = '1px';
     borderStyle = 'solid';
     borderColor = theme.palette.buttonBorder;
     borderRadius = theme.shapes.thinRadius;
-    if (inputSelected === 'true') {
+    if (props.selected === 'true') {
       backgroundColor = theme.palette.paneSelectedBackground;
       color = theme.palette.paneSelectedText;
     } else {
@@ -832,31 +817,31 @@ export default function styles (theme, props) {
     }
   }
 
-  if (inputKind === 'thin-center') {
+  if (props.kind === 'thin-center') {
     display = 'flex';
     flexDirection = 'column';
-    flexGrow = inputGrow;
+    flexGrow = props.grow;
     justifyContent = 'center';
     alignItems = 'center';
   }
 
-  if (inputKind === 'thin-column') {
+  if (props.kind === 'thin-column') {
     display = 'flex';
     flexDirection = 'column';
-    flexGrow = inputGrow;
+    flexGrow = props.grow;
     justifyContent = 'center';
   }
 
-  if (inputKind === 'thin-row') {
+  if (props.kind === 'thin-row') {
     display = 'flex';
     flexDirection = 'row';
-    flexGrow = inputGrow;
+    flexGrow = props.grow;
     justifyContent = 'flex-start';
     alignItems = 'center';
     padding = '0px ' + theme.shapes.thinLeftMargin;
   }
 
-  if (inputKind === 'flying-balloon') {
+  if (props.kind === 'flying-balloon') {
     const fbp = theme.shapes.flyingBalloonPadding;
     display = 'flex';
     flexDirection = 'column';
@@ -869,7 +854,7 @@ export default function styles (theme, props) {
     borderRadius = theme.shapes.flyingBalloonRadius;
   }
 
-  if (inputKind === 'flying-dialog') {
+  if (props.kind === 'flying-dialog') {
     display = 'flex';
     flexDirection = 'column';
     flexWrap = 'wrap';
@@ -937,15 +922,15 @@ export default function styles (theme, props) {
     bottom: bottom,
     transform: transform,
     transition: transition,
-    cursor: inputCursor,
+    cursor: props.cursor,
   };
 
   // A Container with kind='flying-balloon' has a standard behavior. It behaves like
   // a box with a small triangle which overlaps with the upper part (for example).
   let triangleStyle = null;
-  if (inputKind === 'flying-balloon' || inputKind === 'flying-dialog') {
+  if (props.kind === 'flying-balloon' || props.kind === 'flying-dialog') {
     let triangleSize, triangleColor;
-    if (inputKind === 'flying-balloon') {
+    if (props.kind === 'flying-balloon') {
       triangleSize = theme.shapes.flyingBalloonTriangleSize;
       triangleColor = theme.palette.flyingBalloonBackground;
     } else {
@@ -954,7 +939,7 @@ export default function styles (theme, props) {
     }
     const t = Unit.add (triangleSize, '1px', 0); // round (suppress decimals)
     const p = triangleSize;
-    if (inputTrianglePosition === 'left') {
+    if (props.trianglePosition === 'left') {
       triangleStyle = {
         position: 'absolute',
         height: '0px',
@@ -964,7 +949,7 @@ export default function styles (theme, props) {
         borderBottom: t + ' solid transparent',
         borderRight: t + ' solid ' + triangleColor,
       };
-    } else if (inputTrianglePosition === 'right') {
+    } else if (props.trianglePosition === 'right') {
       triangleStyle = {
         position: 'absolute',
         height: '0px',
@@ -974,7 +959,7 @@ export default function styles (theme, props) {
         borderBottom: t + ' solid transparent',
         borderLeft: t + ' solid ' + triangleColor,
       };
-    } else if (inputTrianglePosition === 'bottom') {
+    } else if (props.trianglePosition === 'bottom') {
       triangleStyle = {
         position: 'absolute',
         width: '0px',

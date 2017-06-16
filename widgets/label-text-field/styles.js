@@ -3,10 +3,7 @@ import {Unit} from 'electrum-theme';
 /******************************************************************************/
 
 export default function styles (theme, props) {
-  const inputGrow = props.grow;
-  const inputSpacing = props.spacing;
-
-  let flexGrow = inputGrow;
+  let flexGrow = props.grow;
   let flexShrink = null;
   let flexBasis = null;
   let marginRight = null;
@@ -21,9 +18,9 @@ export default function styles (theme, props) {
     flexBasis = '0%';
   }
 
-  if (inputSpacing === 'overlap') {
+  if (props.spacing === 'overlap') {
     marginRight = '-1px';
-  } else if (inputSpacing === 'large') {
+  } else if (props.spacing === 'large') {
     marginRight = m;
   }
 

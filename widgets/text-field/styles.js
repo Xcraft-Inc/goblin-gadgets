@@ -3,17 +3,10 @@ import {Unit} from 'electrum-theme';
 /******************************************************************************/
 
 export default function styles (theme, props) {
-  const inputGrow = props.grow;
-  const inputSpacing = props.spacing;
-  const inputWidth = props.width;
-  const inputShape = props.shape;
-  const inputReadonly = props.readonly;
-  const inputActive = props.active;
-
-  let flexGrow = inputGrow;
+  let flexGrow = props.grow;
   let flexShrink = null;
   let flexBasis = null;
-  let width = inputWidth;
+  let width = props.width;
 
   const m = Unit.multiply (theme.shapes.containerMargin, 0.5);
 
@@ -42,26 +35,26 @@ export default function styles (theme, props) {
   let padding = '0px';
   let borderRadius = '0px';
 
-  if (inputSpacing === 'overlap') {
+  if (props.spacing === 'overlap') {
     marginRight = '-1px';
-  } else if (inputSpacing === 'large') {
+  } else if (props.spacing === 'large') {
     marginRight = m;
   }
 
-  if (inputShape) {
+  if (props.shape) {
     const r = Unit.multiply (theme.shapes.lineHeight, 0.5);
     const s = theme.shapes.smoothRadius;
     borderRadius = r + ' 0px 0px ' + r;
-    if (inputShape === 'left-rounded') {
+    if (props.shape === 'left-rounded') {
       borderRadius = r + ' 0px 0px ' + r;
       padding = '0px 0px 0px ' + r;
-    } else if (inputShape === 'right-rounded') {
+    } else if (props.shape === 'right-rounded') {
       borderRadius = '0px ' + r + ' ' + r + ' 0px';
       padding = '0px ' + r + ' 0px 0px';
-    } else if (inputShape === 'left-smooth') {
+    } else if (props.shape === 'left-smooth') {
       borderRadius = s + ' 0px 0px ' + s;
       padding = '0px 0px 0px ' + s;
-    } else if (inputShape === 'right-smooth') {
+    } else if (props.shape === 'right-smooth') {
       borderRadius = '0px ' + s + ' ' + s + ' 0px';
       padding = '0px ' + s + ' 0px 0px';
     }
@@ -69,10 +62,10 @@ export default function styles (theme, props) {
 
   let color = theme.palette.textColor;
   let backgroundColor = theme.palette.textFieldBackground;
-  if (inputActive === 'true') {
+  if (props.active === 'true') {
     color = theme.palette.comboActiveGlyph;
     backgroundColor = theme.palette.comboActiveBackground;
-  } else if (inputReadonly === 'true') {
+  } else if (props.readonly === 'true') {
     backgroundColor = theme.palette.textFieldReadonlyBackground;
   } else {
     backgroundColor = theme.palette.textFieldBackground;

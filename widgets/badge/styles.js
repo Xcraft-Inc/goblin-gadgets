@@ -3,9 +3,6 @@ import {Unit} from 'electrum-theme';
 /******************************************************************************/
 
 export default function styles (theme, props) {
-  const kind = props.kind;
-  const layer = props.layer;
-
   let boxWidth = theme.shapes.lineHeight;
   let boxHeight = theme.shapes.lineHeight;
   let boxAlignSelf = null;
@@ -17,12 +14,12 @@ export default function styles (theme, props) {
   let labelRadius = theme.shapes.badgeRadius;
   let backgroundColor = theme.palette.badgeBackground;
 
-  if (kind === 'chronos-count') {
+  if (props.kind === 'chronos-count') {
     backgroundColor = theme.palette.chronoBadge;
   }
 
   // If badge has layer='over', place it on top-right corner of parent.
-  if (layer === 'over') {
+  if (props.layer === 'over') {
     boxPosition = 'absolute';
     boxRight = '0px';
     boxTop = '0px';

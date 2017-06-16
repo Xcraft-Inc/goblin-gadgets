@@ -1,11 +1,6 @@
 /******************************************************************************/
 
 export default function styles (theme, props) {
-  const center = props.center;
-  const right = props.right;
-  const top = props.top;
-  const bottom = props.bottom;
-
   const fullScreenStyle = {
     visibility: 'visible',
     position: 'fixed',
@@ -26,10 +21,10 @@ export default function styles (theme, props) {
     zIndex: 11,
     display: 'flex',
     flexDirection: 'column',
-    left: center,
-    right: right,
-    top: top,
-    bottom: bottom,
+    left: props.center,
+    right: props.right,
+    top: props.top,
+    bottom: props.bottom,
     opacity: 1.0,
     cursor: 'default',
     userSelect: 'none',

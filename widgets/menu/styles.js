@@ -1,12 +1,10 @@
 /******************************************************************************/
 
 export default function styles (theme, props) {
-  const inputWidth = props.width;
-
   let minWidth = null;
 
-  if (inputWidth) {
-    minWidth = inputWidth;
+  if (props.width) {
+    minWidth = props.width;
   }
 
   const boxStyle = {

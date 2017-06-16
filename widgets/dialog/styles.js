@@ -1,11 +1,8 @@
 /******************************************************************************/
 
 export default function styles (theme, props) {
-  const inputWidth = props.width;
-  const inputHeight = props.height;
-
-  let width = inputWidth;
-  let height = inputHeight;
+  let width = props.width;
+  let height = props.height;
   let backgroundColor = theme.palette.dialogBackground;
   let boxShadow = theme.shapes.dialogShadow;
 

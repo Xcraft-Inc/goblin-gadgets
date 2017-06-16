@@ -4,41 +4,20 @@ import {ColorHelpers} from 'electrum-theme';
 /******************************************************************************/
 
 export default function styles (theme, props) {
-  const inputGrow = props.grow;
-  const inputKind = props.kind;
-  const inputJustify = props.justify;
-  const inputWidth = props.width;
-  const inputHeight = props.height;
-  const inputSpacing = props.spacing;
-  const inputWrap = props.wrap;
-  const inputVpos = props.vpos;
-  const inputGlyphColor = props.glyphColor;
-  const inputGlyphSize = props.glyphSize;
-  const inputTextColor = props.textColor;
-  const inputTextTransform = props.textTransform;
-  const inputFontWeight = props.fontWeight;
-  const inputFontStyle = props.fontStyle;
-  const inputFontSize = props.fontSize;
-  const inputBottomSpacing = props.bottomSpacing;
-  const inputZIndex = props.zIndex;
-  const inputIsDragged = props.isDragged;
-  const inputHasHeLeft = props.hasHeLeft;
-  const inputCursor = props.cursor;
-
-  let boxWidth = inputWidth;
-  let boxHeight = inputHeight;
+  let boxWidth = props.width;
+  let boxHeight = props.height;
   let textHeight = null;
   let backgroundColor = null;
   let padding = null;
   let margin = null;
-  let fontSize = inputFontSize ? inputFontSize : theme.shapes.labelTextSize;
+  let fontSize = props.fontSize ? props.fontSize : theme.shapes.labelTextSize;
   let fontWeight = null;
   let boxJustifyContent = null;
   let boxAlignSelf = null;
-  let textTransform = inputTextTransform ? inputTextTransform : null;
+  let textTransform = props.textTransform ? props.textTransform : null;
   let glyphHeight = theme.shapes.lineHeight;
   let glyphMinWidth = theme.shapes.lineHeight;
-  let glyphSize = inputGlyphSize;
+  let glyphSize = props.glyphSize;
   let glyphColor = null;
   let textColor = null;
   let linesOverflow = null;
@@ -46,34 +25,34 @@ export default function styles (theme, props) {
   let textTextOverflow = null;
   let textWhiteSpace = null;
   let textWordBreak = null;
-  let flexGrow = inputGrow;
+  let flexGrow = props.grow;
   let flexShrink = null;
   let flexBasis = null;
-  let opacity = !inputIsDragged && inputHasHeLeft ? 0.1 : 1.0;
-  let cursor = inputCursor;
+  let opacity = !props.isDragged && props.hasHeLeft ? 0.1 : 1.0;
+  let cursor = props.cursor;
 
   const m = Unit.multiply (theme.shapes.containerMargin, 0.5);
 
   // Initialise bottom margin according to bottom-spacing.
   let bottomMargin = '0px';
-  if (inputBottomSpacing === 'large') {
+  if (props.bottomSpacing === 'large') {
     bottomMargin = m;
   }
   // Initialise right margin according to spacing.
-  if (inputSpacing === 'overlap') {
+  if (props.spacing === 'overlap') {
     margin = '0px -1px ' + bottomMargin + ' 0px';
-  } else if (inputSpacing === 'tiny') {
+  } else if (props.spacing === 'tiny') {
     margin = '0px 1px ' + bottomMargin + ' 0px';
-  } else if (inputSpacing === 'large') {
+  } else if (props.spacing === 'large') {
     margin = '0px ' + m + ' ' + bottomMargin + ' 0px';
-  } else if (inputSpacing === 'compact') {
+  } else if (props.spacing === 'compact') {
     margin = '0px 5px ' + bottomMargin + ' 0px';
     glyphMinWidth = null;
   } else {
     margin = '0px 0px ' + bottomMargin + ' 0px';
   }
 
-  if (inputKind === 'pane-header') {
+  if (props.kind === 'pane-header') {
     fontSize = theme.shapes.paneHeaderTextSize;
     fontWeight = 'bold';
     textTransform = 'uppercase';
@@ -81,24 +60,24 @@ export default function styles (theme, props) {
     textColor = theme.palette.paneHeaderText;
   }
 
-  if (inputKind === 'title') {
+  if (props.kind === 'title') {
     fontSize = theme.shapes.labelTitleTextSize;
     fontWeight = 'bold';
     textTransform = 'uppercase';
   }
 
-  if (inputKind === 'title-recurrence') {
+  if (props.kind === 'title-recurrence') {
     padding = '0px ' + theme.shapes.lineSpacing;
   }
 
-  if (inputKind === 'big-center') {
+  if (props.kind === 'big-center') {
     fontSize = theme.shapes.labelBigTextSize;
     fontWeight = 'bold';
     textTransform = 'uppercase';
     boxJustifyContent = 'center';
   }
 
-  if (inputKind === 'floating-header') {
+  if (props.kind === 'floating-header') {
     glyphMinWidth = null;
     glyphHeight = theme.shapes.floatingHeaderGlyphHeight;
     glyphSize = theme.shapes.floatingHeaderGlyphSize;
@@ -106,50 +85,50 @@ export default function styles (theme, props) {
     textColor = theme.palette.floatingBackground;
   }
 
-  if (inputKind === 'floating-footer') {
+  if (props.kind === 'floating-footer') {
     glyphMinWidth = null;
     fontSize = theme.shapes.floatingFooterTextSize;
     glyphColor = theme.palette.floatingSecondary;
     textColor = theme.palette.floatingSecondary;
   }
 
-  if (inputKind === 'info') {
+  if (props.kind === 'info') {
     backgroundColor = theme.palette.infoBackground;
     boxJustifyContent = 'center';
     padding = '0 10px 0 10px';
   }
 
-  if (inputJustify === 'left') {
+  if (props.justify === 'left') {
     boxJustifyContent = 'flex-start';
   }
 
-  if (inputJustify === 'center') {
+  if (props.justify === 'center') {
     boxJustifyContent = 'center';
   }
 
-  if (inputJustify === 'right') {
+  if (props.justify === 'right') {
     boxJustifyContent = 'flex-end';
   }
 
-  if (inputKind === 'footer') {
+  if (props.kind === 'footer') {
     padding = '0 20px 0 20px';
     glyphColor = theme.palette.footerText;
     textColor = theme.palette.footerText;
   }
 
-  if (inputKind === 'notification') {
+  if (props.kind === 'notification') {
     margin = '0px 0px 0px ' + m;
     glyphColor = theme.palette.notificationMessage;
     textColor = theme.palette.notificationMessage;
   }
 
-  if (inputKind === 'flying-balloon') {
+  if (props.kind === 'flying-balloon') {
     glyphColor = theme.palette.flyingBalloonText;
     textColor = theme.palette.flyingBalloonText;
     fontSize = theme.shapes.flyingBalloonTextSize;
   }
 
-  if (inputKind === 'task') {
+  if (props.kind === 'task') {
     padding =
       theme.shapes.taskLabelTopMargin +
       ' 0px ' +
@@ -164,34 +143,34 @@ export default function styles (theme, props) {
     glyphSize = theme.shapes.taskTabGlyphSize;
   }
 
-  if (inputKind === 'center-to-box') {
+  if (props.kind === 'center-to-box') {
     glyphMinWidth = null;
     boxJustifyContent = 'center';
     margin = m + ' 0px';
   }
 
-  if (inputKind === 'large-left') {
+  if (props.kind === 'large-left') {
     const hm = Unit.multiply (m, 0.5);
     margin = hm + ' 0px ' + hm + ' ' + m;
   }
-  if (inputKind === 'large-right') {
+  if (props.kind === 'large-right') {
     const hm = Unit.multiply (m, 0.5);
     margin = hm + ' ' + m + ' ' + hm + ' 0px';
   }
 
-  if (inputKind === 'ticket-warning') {
+  if (props.kind === 'ticket-warning') {
     margin = '5px 0px 0px 0px';
   }
 
-  if (inputKind === 'one-line-height') {
+  if (props.kind === 'one-line-height') {
     boxHeight = theme.shapes.lineHeight;
   }
 
-  if (inputVpos === 'top') {
+  if (props.vpos === 'top') {
     boxAlignSelf = 'flex-start';
   }
 
-  if (inputWrap === 'no') {
+  if (props.wrap === 'no') {
     linesOverflow = 'hidden';
     textOverflow = 'hidden';
     textTextOverflow = 'ellipsis';
@@ -200,21 +179,21 @@ export default function styles (theme, props) {
     if (!flexGrow) {
       flexGrow = '1';
     }
-  } else if (inputWrap === 'stretch') {
+  } else if (props.wrap === 'stretch') {
     linesOverflow = 'hidden';
     textOverflow = 'hidden';
     textTextOverflow = 'ellipsis';
     textWhiteSpace = 'nowrap';
-  } else if (inputWrap === 'break-word') {
+  } else if (props.wrap === 'break-word') {
     textWordBreak = 'break-word';
   }
 
-  if (inputGlyphColor) {
-    glyphColor = ColorHelpers.getMarkColor (theme, inputGlyphColor);
+  if (props.glyphColor) {
+    glyphColor = ColorHelpers.getMarkColor (theme, props.glyphColor);
   }
 
-  if (inputTextColor) {
-    textColor = ColorHelpers.getMarkColor (theme, inputTextColor);
+  if (props.textColor) {
+    textColor = ColorHelpers.getMarkColor (theme, props.textColor);
   }
 
   if (flexGrow) {
@@ -222,8 +201,8 @@ export default function styles (theme, props) {
     flexBasis = '0%';
   }
 
-  if (inputFontWeight) {
-    fontWeight = inputFontWeight;
+  if (props.fontWeight) {
+    fontWeight = props.fontWeight;
   }
 
   let glyphTransform = null;
@@ -252,7 +231,7 @@ export default function styles (theme, props) {
     flexBasis: flexBasis,
     backgroundColor: backgroundColor,
     opacity: opacity,
-    zIndex: inputZIndex,
+    zIndex: props.zIndex,
     userSelect: 'none',
     cursor: cursor,
   };
@@ -279,7 +258,7 @@ export default function styles (theme, props) {
     height: textHeight,
     fontSize: Unit.multiply (fontSize, theme.typo.fontScale),
     fontWeight: fontWeight,
-    fontStyle: inputFontStyle,
+    fontStyle: props.fontStyle,
     color: textColor,
     textTransform: textTransform,
     overflow: textOverflow,

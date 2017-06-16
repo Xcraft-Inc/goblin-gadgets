@@ -3,10 +3,6 @@ import {Unit} from 'electrum-theme';
 /******************************************************************************/
 
 export default function styles (theme, props) {
-  const inputKind = props.kind;
-  const inputWidth = props.width;
-  const inputHeight = props.height;
-
   let width = null;
   let height = '1px';
   let borderWidth = '1px 0px 0px 0px';
@@ -18,21 +14,21 @@ export default function styles (theme, props) {
 
   const s = theme.shapes.lineSpacing;
 
-  if (inputWidth) {
-    width = inputWidth;
+  if (props.width) {
+    width = props.width;
   }
 
   let topMargin = '0px';
   let bottomMargin = s;
-  if (inputHeight) {
-    const h = Unit.multiply (inputHeight, 0.5);
+  if (props.height) {
+    const h = Unit.multiply (props.height, 0.5);
     topMargin = Unit.add (topMargin, h);
     bottomMargin = Unit.add (bottomMargin, h);
   }
 
   margin = topMargin + ' 0px ' + bottomMargin + ' 0px';
 
-  if (inputKind === 'task') {
+  if (props.kind === 'task') {
     height = theme.shapes.taskSeparatorHeight;
     margin = '0px';
     borderWidth = '0px';
@@ -40,23 +36,23 @@ export default function styles (theme, props) {
     backgroundColor = theme.palette.taskSeparatorBackground;
   }
 
-  if (inputKind === 'space') {
+  if (props.kind === 'space') {
     borderWidth = '0px';
     borderStyle = 'none';
   }
 
-  if (inputKind === 'menu-separator') {
+  if (props.kind === 'menu-separator') {
     height = theme.shapes.flyingBalloonPadding;
     margin = '0px';
     borderWidth = '0px';
     borderStyle = 'none';
   }
 
-  if (inputKind === 'floating-footer') {
+  if (props.kind === 'floating-footer') {
     borderColor = theme.palette.floatingSecondary;
   }
 
-  if (inputKind === 'ticket-warning') {
+  if (props.kind === 'ticket-warning') {
     borderColor = theme.palette.text;
     margin = '0px 0px 5px 0px';
   }
