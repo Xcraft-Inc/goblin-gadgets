@@ -238,7 +238,7 @@ class Button extends Widget {
             onTouchEnd={::this.onMouseUp}
             style={boxStyle}
             title={tooltip}
-            href={'#' + toAnchor}
+            href={window.location.href + '#' + toAnchor}
           >
             {this.renderLayout (glyphStyle, textStyle)}
             {this.renderTriangle ()}
