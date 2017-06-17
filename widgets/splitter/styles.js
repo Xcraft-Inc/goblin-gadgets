@@ -7,8 +7,11 @@ export default function styles (theme, props) {
     flexGrow: '1',
   };
 
-  const leftPaneStyle = {
+  const firstPaneStyle = {
     display: 'flex',
+    flexGrow: '1',
+    flexShrink: '1',
+    flexBasis: '0%',
   };
 
   const resizerStyle = {
@@ -19,16 +22,18 @@ export default function styles (theme, props) {
     backgroundColor: theme.palette.splitterBackground,
   };
 
-  const rightPaneStyle = {
+  const lastPaneStyle = {
     display: 'flex',
     flexGrow: '1',
+    flexShrink: '1',
+    flexBasis: '0%',
   };
 
   return {
     container: containerStyle,
-    leftPane: leftPaneStyle,
+    firstPane: firstPaneStyle,
     resizer: resizerStyle,
-    rightPane: rightPaneStyle,
+    lastPane: lastPaneStyle,
   };
 }
 

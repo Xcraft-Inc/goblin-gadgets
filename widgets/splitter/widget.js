@@ -8,18 +8,24 @@ import {Unit} from 'electrum-theme';
 class Splitter extends Widget {
   constructor (props) {
     super (props);
+
+    const firstGrow = this.read ('first-grow');
+    if (firstGrow[firstGrow.length - 1] !== '%') {
+      throw new Error (`Wrong splitter first-grow ${firstGrow}`);
+    }
+
     this.state = {
-      splitterValue: this.read ('default-size'),
+      firstGrow: firstGrow.substring (0, firstGrow.length - 1),
     };
   }
 
-  get splitterValue () {
-    return this.state.splitterValue;
+  get firstGrow () {
+    return this.state.firstGrow;
   }
 
-  set splitterValue (value) {
+  set firstGrow (value) {
     this.setState ({
-      splitterValue: value,
+      firstGrow: value,
     });
   }
 
@@ -61,27 +67,35 @@ class Splitter extends Widget {
   }
 
   onMouseMove (e) {
-    const x = e.clientX;
-    const y = e.clientY;
     if (e.buttons === 1) {
       // Mouse left button pressed ?
+      const x = e.clientX;
+      const y = e.clientY;
+
       if (!this.isDragging) {
         const offset = this.getOffset (x, y);
         if (offset !== -1) {
           this.offset = offset;
+
+          const firstPaneNode = ReactDOM.findDOMNode (this.firstPane);
+          this.firstPaneRect = firstPaneNode.getBoundingClientRect ();
+
+          const lastPaneNode = ReactDOM.findDOMNode (this.lastPane);
+          this.lastPaneRect = firstPaneNode.getBoundingClientRect ();
+
           this.isDragging = true;
         }
       }
       if (this.isDragging) {
-        const node = ReactDOM.findDOMNode (this.leftPane);
-        const rect = node.getBoundingClientRect ();
         const kind = this.read ('kind');
         if (kind === 'vertical') {
-          const value = x - this.offset - rect.left;
-          this.splitterValue = this.getNormalizedValue (value) + 'px';
+          const rx = x - this.offset - this.firstPaneRect.left;
+          this.firstGrow =
+            100 * rx / (this.firstPaneRect.width + this.lastPaneRect.width);
         } else {
-          const value = y - this.offset - rect.top;
-          this.splitterValue = this.getNormalizedValue (value) + 'px';
+          const ry = y - this.offset - this.firstPaneRect.top;
+          this.firstGrow =
+            100 * ry / (this.firstPaneRect.height + this.lastPaneRect.height);
         }
       }
     } else {
@@ -106,23 +120,20 @@ class Splitter extends Widget {
       }
 
       const containerStyle = this.styles.container;
-      const leftPaneStyle = this.styles.leftPane;
+      const firstPaneStyle = this.styles.firstPane;
       const resizerStyle = this.styles.resizer;
-      const rightPaneStyle = this.styles.rightPane;
+      const lastPaneStyle = this.styles.lastPane;
 
-      if (kind === 'vertical') {
-        leftPaneStyle.width = this.splitterValue;
-      } else {
-        leftPaneStyle.height = this.splitterValue;
-      }
+      firstPaneStyle.flexGrow = this.firstGrow;
+      lastPaneStyle.flexGrow = 100 - this.firstGrow;
 
       return (
         <div style={containerStyle} onMouseMove={::this.onMouseMove}>
-          <div style={leftPaneStyle} ref={node => (this.leftPane = node)}>
+          <div style={firstPaneStyle} ref={node => (this.firstPane = node)}>
             {children[0]}
           </div>
           <div style={resizerStyle} ref={node => (this.resizer = node)} />
-          <div style={rightPaneStyle} ref={node => (this.rightPane = node)}>
+          <div style={lastPaneStyle} ref={node => (this.lastPane = node)}>
             {children[1]}
           </div>
         </div>
