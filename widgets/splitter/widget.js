@@ -66,6 +66,40 @@ class Splitter extends Widget {
     return value;
   }
 
+  mouseDown (x, y) {
+    const offset = this.getOffset (x, y);
+    if (offset !== -1) {
+      this.offset = offset;
+
+      const containerNode = ReactDOM.findDOMNode (this.container);
+      this.containerRect = containerNode.getBoundingClientRect ();
+
+      const firstPaneNode = ReactDOM.findDOMNode (this.firstPane);
+      this.firstPaneRect = firstPaneNode.getBoundingClientRect ();
+
+      const resizerNode = ReactDOM.findDOMNode (this.resizer);
+      this.resizerRect = resizerNode.getBoundingClientRect ();
+
+      const lastPaneNode = ReactDOM.findDOMNode (this.lastPane);
+      this.lastPaneRect = firstPaneNode.getBoundingClientRect ();
+
+      this.isDragging = true;
+    }
+  }
+
+  mouseMove (x, y) {
+    const kind = this.read ('kind');
+    if (kind === 'vertical') {
+      const rx = x - this.offset - this.firstPaneRect.left;
+      this.firstGrow =
+        100 * rx / (this.containerRect.width - this.resizerRect.width);
+    } else {
+      const ry = y - this.offset - this.firstPaneRect.top;
+      this.firstGrow =
+        100 * ry / (this.containerRect.height - this.resizerRect.height);
+    }
+  }
+
   onMouseMove (e) {
     if (e.buttons === 1) {
       // Mouse left button pressed ?
@@ -73,36 +107,10 @@ class Splitter extends Widget {
       const y = e.clientY;
 
       if (!this.isDragging) {
-        const offset = this.getOffset (x, y);
-        if (offset !== -1) {
-          this.offset = offset;
-
-          const containerNode = ReactDOM.findDOMNode (this.container);
-          this.containerRect = containerNode.getBoundingClientRect ();
-
-          const firstPaneNode = ReactDOM.findDOMNode (this.firstPane);
-          this.firstPaneRect = firstPaneNode.getBoundingClientRect ();
-
-          const resizerNode = ReactDOM.findDOMNode (this.resizer);
-          this.resizerRect = resizerNode.getBoundingClientRect ();
-
-          const lastPaneNode = ReactDOM.findDOMNode (this.lastPane);
-          this.lastPaneRect = firstPaneNode.getBoundingClientRect ();
-
-          this.isDragging = true;
-        }
+        this.mouseDown (x, y);
       }
       if (this.isDragging) {
-        const kind = this.read ('kind');
-        if (kind === 'vertical') {
-          const rx = x - this.offset - this.firstPaneRect.left;
-          this.firstGrow =
-            100 * rx / (this.containerRect.width - this.resizerRect.width);
-        } else {
-          const ry = y - this.offset - this.firstPaneRect.top;
-          this.firstGrow =
-            100 * ry / (this.containerRect.height - this.resizerRect.height);
-        }
+        this.mouseMove (x, y);
       }
     } else {
       // Mouse left button released ?
