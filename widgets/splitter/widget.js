@@ -1,7 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
-import {Unit} from 'electrum-theme';
+
+/******************************************************************************/
+
+// With '45%', return '45'.
+function getPercentValue (text) {
+  const len = text.length;
+  if (!text || len < 2 || text[len - 1] != '%') {
+    throw new Error (`Invalid Splitter value ${text}`);
+  }
+  return text.substring (0, len - 1);
+}
 
 /******************************************************************************/
 
@@ -10,13 +20,14 @@ class Splitter extends Widget {
     super (props);
 
     const firstGrow = this.read ('first-grow');
-    if (firstGrow[firstGrow.length - 1] !== '%') {
-      throw new Error (`Wrong splitter first-grow ${firstGrow}`);
-    }
-
     this.state = {
-      firstGrow: firstGrow.substring (0, firstGrow.length - 1),
+      firstGrow: getPercentValue (firstGrow),
     };
+
+    this.kind = this.read ('kind');
+    if (this.kind !== 'vertical' && this.kind !== 'horizontal') {
+      throw new Error (`Wrong Splitter kind ${this.kind}`);
+    }
   }
 
   get firstGrow () {
@@ -32,8 +43,7 @@ class Splitter extends Widget {
   getOffset (x, y) {
     const node = ReactDOM.findDOMNode (this.resizer);
     const rect = node.getBoundingClientRect ();
-    const kind = this.read ('kind');
-    if (kind === 'vertical') {
+    if (this.kind === 'vertical') {
       if (x >= rect.left && x <= rect.right) {
         return x - rect.left;
       }
@@ -43,27 +53,6 @@ class Splitter extends Widget {
       }
     }
     return -1;
-  }
-
-  getScalarValue (name) {
-    const v = this.read (name);
-    if (v) {
-      return Unit.parse (v).value;
-    } else {
-      return null;
-    }
-  }
-
-  getNormalizedValue (value) {
-    const min = this.getScalarValue ('min-size');
-    if (min) {
-      value = Math.max (value, min);
-    }
-    const max = this.getScalarValue ('max-size');
-    if (max) {
-      value = Math.min (value, max);
-    }
-    return value;
   }
 
   mouseDown (x, y) {
@@ -88,8 +77,7 @@ class Splitter extends Widget {
   }
 
   mouseMove (x, y) {
-    const kind = this.read ('kind');
-    if (kind === 'vertical') {
+    if (this.kind === 'vertical') {
       const rx = x - this.offset - this.firstPaneRect.left;
       this.firstGrow =
         100 * rx / (this.containerRect.width - this.resizerRect.width);
@@ -120,14 +108,6 @@ class Splitter extends Widget {
 
   widget () {
     return props => {
-      const kind = this.read ('kind');
-
-      if (!kind) {
-        throw new Error ('Undefined splitter kind');
-      } else if (kind !== 'vertical' && kind !== 'horizontal') {
-        throw new Error (`Wrong splitter kind ${kind}`);
-      }
-
       const children = this.props.children;
       if (children.length !== 2) {
         throw new Error ('Splitter must have 2 children');
