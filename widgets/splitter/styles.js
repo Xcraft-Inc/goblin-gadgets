@@ -9,6 +9,7 @@ export default function styles (theme, props) {
 
   const firstPaneStyle = {
     display: 'flex',
+    overflow: 'hidden',
   };
 
   const resizerStyle = {
@@ -21,6 +22,7 @@ export default function styles (theme, props) {
 
   const lastPaneStyle = {
     display: 'flex',
+    overflow: 'hidden',
   };
 
   return {
