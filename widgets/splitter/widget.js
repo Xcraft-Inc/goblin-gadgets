@@ -55,6 +55,18 @@ class Splitter extends Widget {
     return -1;
   }
 
+  getLimitedValue (value) {
+    const minGrow = this.read ('min-grow');
+    const min = minGrow ? getPercentValue (minGrow) : 0;
+    value = Math.max (value, min);
+
+    const maxGrow = this.read ('max-grow');
+    const max = maxGrow ? getPercentValue (maxGrow) : 100;
+    value = Math.min (value, max);
+
+    return value;
+  }
+
   mouseDown (x, y) {
     const offset = this.getOffset (x, y);
     if (offset !== -1) {
@@ -79,12 +91,14 @@ class Splitter extends Widget {
   mouseMove (x, y) {
     if (this.kind === 'vertical') {
       const rx = x - this.offset - this.firstPaneRect.left;
-      this.firstGrow =
-        100 * rx / (this.containerRect.width - this.resizerRect.width);
+      this.firstGrow = this.getLimitedValue (
+        100 * rx / (this.containerRect.width - this.resizerRect.width)
+      );
     } else {
       const ry = y - this.offset - this.firstPaneRect.top;
-      this.firstGrow =
-        100 * ry / (this.containerRect.height - this.resizerRect.height);
+      this.firstGrow = this.getLimitedValue (
+        100 * ry / (this.containerRect.height - this.resizerRect.height)
+      );
     }
   }
 
