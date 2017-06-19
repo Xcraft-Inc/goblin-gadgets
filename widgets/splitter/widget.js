@@ -1,17 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
-
-/******************************************************************************/
-
-// With '45%', return '45'.
-function getPercentValue (text) {
-  const len = text.length;
-  if (!text || len < 2 || text[len - 1] != '%') {
-    throw new Error (`Invalid Splitter value ${text}`);
-  }
-  return text.substring (0, len - 1);
-}
+import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
 
@@ -19,10 +9,32 @@ class Splitter extends Widget {
   constructor (props) {
     super (props);
 
-    const firstGrow = this.read ('first-grow');
     this.state = {
-      firstGrow: getPercentValue (firstGrow),
+      firstValue: null,
+      minValue: null,
+      maxValue: null,
     };
+
+    this.firstValue = this.getValue ('first-value', {value: 50, unit: '%'});
+    if (this.firstValue.unit !== '%' && this.firstValue.unit !== 'px') {
+      throw new Error (`Wrong Splitter unit value ${this.firstValue.unit}`);
+    }
+    this.minValue = this.getValue ('min-value', {
+      value: 0,
+      unit: this.firstValue.unit,
+    });
+    if (this.minValue.unit !== '%' && this.minValue.unit !== 'px') {
+      throw new Error (`Wrong Splitter unit value ${this.minValue.unit}`);
+    }
+
+    const max = this.firstValue.unit === '%' ? 100 : 1000000;
+    this.maxValue = this.getValue ('max-value', {
+      value: max,
+      unit: this.firstValue.unit,
+    });
+    if (this.maxValue.unit !== '%' && this.maxValue.unit !== 'px') {
+      throw new Error (`Wrong Splitter unit value ${this.maxValue.unit}`);
+    }
 
     this.kind = this.read ('kind');
     if (this.kind !== 'vertical' && this.kind !== 'horizontal') {
@@ -30,14 +42,43 @@ class Splitter extends Widget {
     }
   }
 
-  get firstGrow () {
-    return this.state.firstGrow;
-  }
+  // get firstValue () {
+  //   return this.state.firstValue;
+  // }
+  //
+  // set firstValue (value) {
+  //   this.setState ({
+  //     firstValue: value,
+  //   });
+  // }
+  //
+  // get minValue () {
+  //   return this.state.minValue;
+  // }
+  //
+  // set minValue (value) {
+  //   this.setState ({
+  //     minValue: value,
+  //   });
+  // }
+  //
+  // get maxValue () {
+  //   return this.state.maxValue;
+  // }
+  //
+  // set maxValue (value) {
+  //   this.setState ({
+  //     maxValue: value,
+  //   });
+  // }
 
-  set firstGrow (value) {
-    this.setState ({
-      firstGrow: value,
-    });
+  getValue (name, def) {
+    const value = this.read (name);
+    if (value) {
+      return Unit.parse (value);
+    } else {
+      return def;
+    }
   }
 
   getOffset (x, y) {
@@ -56,14 +97,8 @@ class Splitter extends Widget {
   }
 
   getLimitedValue (value) {
-    const minGrow = this.read ('min-grow');
-    const min = minGrow ? getPercentValue (minGrow) : 0;
-    value = Math.max (value, min);
-
-    const maxGrow = this.read ('max-grow');
-    const max = maxGrow ? getPercentValue (maxGrow) : 100;
-    value = Math.min (value, max);
-
+    value = Math.max (value, this.minValue.value);
+    value = Math.min (value, this.maxValue.value);
     return value;
   }
 
@@ -88,18 +123,39 @@ class Splitter extends Widget {
     }
   }
 
-  mouseMove (x, y) {
+  mouseMovePercents (x, y) {
     if (this.kind === 'vertical') {
       const rx = x - this.offset - this.firstPaneRect.left;
-      this.firstGrow = this.getLimitedValue (
+      this.firstValue.value = this.getLimitedValue (
         100 * rx / (this.containerRect.width - this.resizerRect.width)
       );
     } else {
       const ry = y - this.offset - this.firstPaneRect.top;
-      this.firstGrow = this.getLimitedValue (
+      this.firstValue.value = this.getLimitedValue (
         100 * ry / (this.containerRect.height - this.resizerRect.height)
       );
     }
+  }
+
+  mouseMovePixels (x, y) {
+    if (this.kind === 'vertical') {
+      this.firstValue.value = this.getLimitedValue (
+        x - this.offset - this.firstPaneRect.left
+      );
+    } else {
+      this.firstValue.value = this.getLimitedValue (
+        y - this.offset - this.firstPaneRect.top
+      );
+    }
+  }
+
+  mouseMove (x, y) {
+    if (this.firstValue.unit === '%') {
+      this.mouseMovePercents (x, y);
+    } else {
+      this.mouseMovePixels (x, y);
+    }
+    this.forceUpdate ();
   }
 
   onMouseMove (e) {
@@ -132,8 +188,28 @@ class Splitter extends Widget {
       const resizerStyle = this.styles.resizer;
       const lastPaneStyle = this.styles.lastPane;
 
-      firstPaneStyle.flexGrow = this.firstGrow;
-      lastPaneStyle.flexGrow = 100 - this.firstGrow;
+      if (this.firstValue.unit === '%') {
+        firstPaneStyle.display = 'flex';
+        firstPaneStyle.flexGrow = this.firstValue.value;
+        firstPaneStyle.flexShrink = '1';
+        firstPaneStyle.flexBasis = '0%';
+
+        lastPaneStyle.display = 'flex';
+        lastPaneStyle.flexGrow = 100 - this.firstValue.value;
+        lastPaneStyle.flexShrink = '1';
+        lastPaneStyle.flexBasis = '0%';
+      } else {
+        if (this.kind === 'vertical') {
+          firstPaneStyle.width = this.firstValue.value + this.firstValue.unit;
+        } else {
+          firstPaneStyle.height = this.firstValue.value + this.firstValue.unit;
+        }
+
+        lastPaneStyle.display = 'flex';
+        lastPaneStyle.flexGrow = '1';
+        lastPaneStyle.flexShrink = '1';
+        lastPaneStyle.flexBasis = '0%';
+      }
 
       return (
         <div

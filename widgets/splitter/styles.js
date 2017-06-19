@@ -7,12 +7,7 @@ export default function styles (theme, props) {
     flexGrow: '1',
   };
 
-  const firstPaneStyle = {
-    display: 'flex',
-    flexGrow: '1',
-    flexShrink: '1',
-    flexBasis: '0%',
-  };
+  const firstPaneStyle = {};
 
   const resizerStyle = {
     zIndex: 1,
@@ -22,12 +17,7 @@ export default function styles (theme, props) {
     backgroundColor: theme.palette.splitterBackground,
   };
 
-  const lastPaneStyle = {
-    display: 'flex',
-    flexGrow: '1',
-    flexShrink: '1',
-    flexBasis: '0%',
-  };
+  const lastPaneStyle = {};
 
   return {
     container: containerStyle,
