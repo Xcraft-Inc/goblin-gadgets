@@ -75,16 +75,6 @@ class Button extends Widget {
     }
   }
 
-  get route () {
-    const route = window.location.href;
-    const i = route.indexOf ('#');
-    if (i === -1) {
-      return route;
-    } else {
-      return route.substring (0, i);
-    }
-  }
-
   renderBadge () {
     const badgeValue = this.read ('badge-value');
     if (badgeValue) {
@@ -240,14 +230,14 @@ class Button extends Widget {
       return (
         <a
           key={index}
-          onClick={::this.onClicked} // voir (*)
+          onClick={::this.onClicked}
           onMouseDown={::this.onMouseDown}
           onMouseUp={::this.onMouseUp}
           onTouchStart={::this.onMouseDown}
           onTouchEnd={::this.onMouseUp}
           style={boxStyle}
           title={tooltip}
-          href={this.route + '#' + toAnchor}
+          href={window.location.hash + '#' + toAnchor}
         >
           {this.renderLayout (glyphStyle, textStyle)}
           {this.renderTriangle ()}
