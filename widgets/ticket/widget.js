@@ -229,20 +229,18 @@ class Ticket extends Widget {
     );
   }
 
-  widget () {
-    return props => {
-      const kind = this.read ('kind');
-      if (kind === 'ticket') {
-        return this.renderTicket ();
-      } else if (kind === 'cover') {
-        return this.renderCover ();
-      } else if (kind === 'subpane') {
-        return this.renderSubpane ();
-      } else {
-        // 'rect' 'thin' 'event' ... ?
-        return this.renderRect ();
-      }
-    };
+  render () {
+    const kind = this.read ('kind');
+    if (kind === 'ticket') {
+      return this.renderTicket ();
+    } else if (kind === 'cover') {
+      return this.renderCover ();
+    } else if (kind === 'subpane') {
+      return this.renderSubpane ();
+    } else {
+      // 'rect' 'thin' 'event' ... ?
+      return this.renderRect ();
+    }
   }
 }
 

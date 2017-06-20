@@ -8,28 +8,26 @@ class Badge extends Widget {
     super (props);
   }
 
-  widget () {
-    return props => {
-      const {state} = this.props;
-      const disabled = this.read ('disabled');
-      const inputValue = this.read ('value');
+  render () {
+    const {state} = this.props;
+    const disabled = this.read ('disabled');
+    const inputValue = this.read ('value');
 
-      let truncatedValue = inputValue ? inputValue.toString () : '';
-      if (truncatedValue.length > 3) {
-        truncatedValue = truncatedValue.substring (0, 3) + '...';
-      }
+    let truncatedValue = inputValue ? inputValue.toString () : '';
+    if (truncatedValue.length > 3) {
+      truncatedValue = truncatedValue.substring (0, 3) + '...';
+    }
 
-      const boxStyle = this.styles.box;
-      const labelStyle = this.styles.label;
+    const boxStyle = this.styles.box;
+    const labelStyle = this.styles.label;
 
-      return (
-        <div key="badge" disabled={disabled} style={boxStyle}>
-          <label style={labelStyle}>
-            {truncatedValue}
-          </label>
-        </div>
-      );
-    };
+    return (
+      <div key="badge" disabled={disabled} style={boxStyle}>
+        <label style={labelStyle}>
+          {truncatedValue}
+        </label>
+      </div>
+    );
   }
 }
 

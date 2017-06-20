@@ -7,17 +7,15 @@ class Gauge extends Widget {
     super (props);
   }
 
-  widget () {
-    return props => {
-      const boxStyle = this.styles.box;
-      const contentStyle = this.styles.content;
+  render () {
+    const boxStyle = this.styles.box;
+    const contentStyle = this.styles.content;
 
-      return (
-        <div style={boxStyle}>
-          <div style={contentStyle} />
-        </div>
-      );
-    };
+    return (
+      <div style={boxStyle}>
+        <div style={contentStyle} />
+      </div>
+    );
   }
 }
 

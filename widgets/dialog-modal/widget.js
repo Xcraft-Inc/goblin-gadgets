@@ -39,51 +39,49 @@ class DialogModal extends Widget {
     }
   }
 
-  widget () {
-    return props => {
-      const width = this.read ('width');
-      const height = this.read ('height');
-      const top = this.read ('top');
-      const bottom = this.read ('bottom');
+  render () {
+    const width = this.read ('width');
+    const height = this.read ('height');
+    const top = this.read ('top');
+    const bottom = this.read ('bottom');
 
-      const fullScreenStyle = this.styles.fullScreen;
+    const fullScreenStyle = this.styles.fullScreen;
 
-      if (top || bottom) {
-        const comboStyle = this.styles.combo;
-        return (
-          <div
-            style={fullScreenStyle}
-            onMouseDown={::this.onMouseDown}
-            onTouchStart={::this.onMouseDown}
-          >
-            <div style={comboStyle}>
-              <Container
-                kind="flying-dialog"
-                triangle-position={top ? 'top' : 'bottom'}
-                width={width}
-                height={height}
-                cursor="default"
-              >
-                {this.props.children}
-              </Container>
-            </div>
-          </div>
-        );
-      } else {
-        return (
-          <div style={fullScreenStyle} onMouseDown={::this.onMouseDown}>
+    if (top || bottom) {
+      const comboStyle = this.styles.combo;
+      return (
+        <div
+          style={fullScreenStyle}
+          onMouseDown={::this.onMouseDown}
+          onTouchStart={::this.onMouseDown}
+        >
+          <div style={comboStyle}>
             <Container
-              kind="floating"
-              cursor="default"
+              kind="flying-dialog"
+              triangle-position={top ? 'top' : 'bottom'}
               width={width}
               height={height}
+              cursor="default"
             >
               {this.props.children}
             </Container>
           </div>
-        );
-      }
-    };
+        </div>
+      );
+    } else {
+      return (
+        <div style={fullScreenStyle} onMouseDown={::this.onMouseDown}>
+          <Container
+            kind="floating"
+            cursor="default"
+            width={width}
+            height={height}
+          >
+            {this.props.children}
+          </Container>
+        </div>
+      );
+    }
   }
 }
 

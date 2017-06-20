@@ -147,32 +147,30 @@ class Combo extends Widget {
     return result;
   }
 
-  widget () {
-    return props => {
-      const top = this.read ('top');
-      const width = this.read ('width');
+  render () {
+    const top = this.read ('top');
+    const width = this.read ('width');
 
-      const fullScreenStyle = this.styles.fullScreen;
-      const comboStyle = this.styles.combo;
+    const fullScreenStyle = this.styles.fullScreen;
+    const comboStyle = this.styles.combo;
 
-      return (
-        <div
-          style={fullScreenStyle}
-          onMouseDown={::this.onMouseDown}
-          onTouchStart={::this.onMouseDown}
-        >
-          <div style={comboStyle}>
-            <Container
-              kind="flying-balloon"
-              triangle-position={top ? 'top' : 'bottom'}
-              width={width}
-            >
-              {this.renderCombo ()}
-            </Container>
-          </div>
+    return (
+      <div
+        style={fullScreenStyle}
+        onMouseDown={::this.onMouseDown}
+        onTouchStart={::this.onMouseDown}
+      >
+        <div style={comboStyle}>
+          <Container
+            kind="flying-balloon"
+            triangle-position={top ? 'top' : 'bottom'}
+            width={width}
+          >
+            {this.renderCombo ()}
+          </Container>
         </div>
-      );
-    };
+      </div>
+    );
   }
 }
 

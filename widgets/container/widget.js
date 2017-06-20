@@ -6,13 +6,10 @@ import Widget from 'laboratory/widget';
 class Container extends Widget {
   constructor (props) {
     super (props);
-    this.state = {
-      managedChildren: null,
-    };
     this.panelBottoms = [];
   }
 
-  get wiring () {
+  static get wiring () {
     return {
       id: 'id',
       kind: 'kind',
@@ -151,7 +148,6 @@ class Container extends Widget {
       };
       return React.cloneElement (child, active);
     });
-    this.setState ({managedChildren: children});
   }
 
   initNavigation () {
@@ -164,68 +160,53 @@ class Container extends Widget {
     this.setNavigation (index);
   }
 
-  applySelectedToChildren (selected) {
-    return React.Children.map (this.props.children, child => {
-      if (selected && React.isValidElement (child)) {
-        const props = {selected: selected};
-        return React.cloneElement (child, props);
-      } else {
-        return child;
-      }
-    });
-  }
+  render () {
+    const {state} = this.props;
 
-  widget () {
-    return props => {
-      const {state} = this.props;
+    const disabled = this.read ('disabled');
+    const kind = this.read ('kind');
+    const anchor = this.read ('anchor');
+    const navName = this.read ('navigation-name');
+    const hidden = this.read ('hidden');
+    const show = this.read ('show');
+    const index = this.read ('index');
+    const selected = this.read ('selected');
 
-      const disabled = this.read ('disabled');
-      const kind = this.read ('kind');
-      const anchor = this.read ('anchor');
-      const navName = this.read ('navigation-name');
-      const hidden = this.read ('hidden');
-      const show = this.read ('show');
-      const index = this.read ('index');
-      const selected = this.read ('selected');
+    const boxStyle = this.styles.box;
+    const triangleStyle = this.styles.triangle;
 
-      const boxStyle = this.styles.box;
-      const triangleStyle = this.styles.triangle;
+    if (hidden) {
+      boxStyle.display = 'none';
+    }
 
-      if (hidden) {
-        boxStyle.display = 'none';
-      }
+    const useManagedChildren = [
+      'pane-navigator',
+      'pane-vnavigator',
+      'pane-hnavigator',
+    ];
 
-      const useManagedChildren = [
-        'pane-navigator',
-        'pane-vnavigator',
-        'pane-hnavigator',
-      ];
-
-      if (show === 'false') {
-        return null;
-      } else if (kind === 'flying-balloon' || kind === 'flying-dialog') {
-        return (
-          <div key={index} disabled={disabled} style={boxStyle} id={anchor}>
-            <div style={triangleStyle} />
-            {this.applySelectedToChildren (selected)}
-          </div>
-        );
-      } else {
-        return (
-          <div
-            key={index}
-            disabled={disabled}
-            style={boxStyle}
-            id={anchor}
-            data-navigation-name={navName}
-          >
-            {useManagedChildren.includes (kind)
-              ? this.state.managedChildren
-              : this.applySelectedToChildren (selected)}
-          </div>
-        );
-      }
-    };
+    if (show === 'false') {
+      return null;
+    } else if (kind === 'flying-balloon' || kind === 'flying-dialog') {
+      return (
+        <div key={index} disabled={disabled} style={boxStyle} id={anchor}>
+          <div style={triangleStyle} />
+          {this.props.children}
+        </div>
+      );
+    } else {
+      return (
+        <div
+          key={index}
+          disabled={disabled}
+          style={boxStyle}
+          id={anchor}
+          data-navigation-name={navName}
+        >
+          {this.props.children}
+        </div>
+      );
+    }
   }
 }
 

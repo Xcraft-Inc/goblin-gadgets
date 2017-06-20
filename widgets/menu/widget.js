@@ -8,20 +8,18 @@ class Menu extends Widget {
     super (props);
   }
 
-  widget () {
-    return props => {
-      const {state} = this.props;
-      const disabled = this.read ('disabled');
-      const inputItems = this.read ('items');
+  render () {
+    const {state} = this.props;
+    const disabled = this.read ('disabled');
+    const inputItems = this.read ('items');
 
-      const boxStyle = this.styles.box;
+    const boxStyle = this.styles.box;
 
-      return (
-        <div disabled={disabled} style={boxStyle}>
-          {inputItems.map (item => item ())}
-        </div>
-      );
-    };
+    return (
+      <div disabled={disabled} style={boxStyle}>
+        {inputItems.map (item => item ())}
+      </div>
+    );
   }
 }
 

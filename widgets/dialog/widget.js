@@ -8,19 +8,17 @@ class Dialog extends Widget {
     super (props);
   }
 
-  widget () {
-    return props => {
-      const {state} = this.props;
-      const disabled = this.read ('disabled');
+  render () {
+    const {state} = this.props;
+    const disabled = this.read ('disabled');
 
-      const boxStyle = this.styles.box;
+    const boxStyle = this.styles.box;
 
-      return (
-        <div disabled={disabled} style={boxStyle}>
-          {this.props.children}
-        </div>
-      );
-    };
+    return (
+      <div disabled={disabled} style={boxStyle}>
+        {this.props.children}
+      </div>
+    );
   }
 }
 

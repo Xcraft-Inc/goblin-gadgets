@@ -11,7 +11,7 @@ class TextField extends Widget {
     super (props);
   }
 
-  get wiring () {
+  static get wiring () {
     return {
       id: 'id',
       kind: 'kind',
@@ -158,20 +158,18 @@ class TextField extends Widget {
     }
   }
 
-  widget () {
-    return props => {
-      const disabled = this.read ('disabled');
-      const tooltip = this.read ('tooltip');
+  render () {
+    const disabled = this.read ('disabled');
+    const tooltip = this.read ('tooltip');
 
-      const boxStyle = this.styles.box;
+    const boxStyle = this.styles.box;
 
-      return (
-        <span disabled={disabled} style={boxStyle} title={tooltip}>
-          {this.renderInput ()}
-          {this.renderFlyingBalloon ()}
-        </span>
-      );
-    };
+    return (
+      <span disabled={disabled} style={boxStyle} title={tooltip}>
+        {this.renderInput ()}
+        {this.renderFlyingBalloon ()}
+      </span>
+    );
   }
 }
 

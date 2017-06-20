@@ -171,21 +171,19 @@ class LabelTextField extends Widget {
     }
   }
 
-  widget () {
-    return props => {
-      const {state} = this.props;
-      const disabled = this.read ('disabled');
+  render () {
+    const {state} = this.props;
+    const disabled = this.read ('disabled');
 
-      const boxStyle = this.styles.box;
+    const boxStyle = this.styles.box;
 
-      return (
-        <span disabled={disabled} style={boxStyle}>
-          {this.renderButton ()}
-          {this.renderInput ()}
-          {this.renderAction ()}
-        </span>
-      );
-    };
+    return (
+      <span disabled={disabled} style={boxStyle}>
+        {this.renderButton ()}
+        {this.renderInput ()}
+        {this.renderAction ()}
+      </span>
+    );
   }
 }
 

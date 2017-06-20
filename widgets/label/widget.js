@@ -8,7 +8,7 @@ class Label extends Widget {
     super (props);
   }
 
-  get wiring () {
+  static get wiring () {
     return {
       id: 'id',
       kind: 'kind',
@@ -188,44 +188,42 @@ class Label extends Widget {
     }
   }
 
-  widget () {
-    return props => {
-      const {state} = this.props;
-      const disabled = this.read ('disabled');
-      const index = this.read ('index');
-      const tooltip = this.read ('tooltip');
-      const marquee = this.read ('marquee');
+  render () {
+    const {state} = this.props;
+    const disabled = this.read ('disabled');
+    const index = this.read ('index');
+    const tooltip = this.read ('tooltip');
+    const marquee = this.read ('marquee');
 
-      const style = this.styles.box;
+    const style = this.styles.box;
 
-      if (marquee === 'true') {
-        return (
-          <marquee
-            key={index}
-            onClick={this.props.onClick}
-            disabled={disabled}
-            style={style}
-            title={tooltip}
-          >
-            {this.getGlyphAndText ()}
-            {this.props.children}
-          </marquee>
-        );
-      } else {
-        return (
-          <div
-            key={index}
-            onClick={this.props.onClick}
-            disabled={disabled}
-            style={style}
-            title={tooltip}
-          >
-            {this.getGlyphAndText ()}
-            {this.props.children}
-          </div>
-        );
-      }
-    };
+    if (marquee === 'true') {
+      return (
+        <marquee
+          key={index}
+          onClick={this.props.onClick}
+          disabled={disabled}
+          style={style}
+          title={tooltip}
+        >
+          {this.getGlyphAndText ()}
+          {this.props.children}
+        </marquee>
+      );
+    } else {
+      return (
+        <div
+          key={index}
+          onClick={this.props.onClick}
+          disabled={disabled}
+          style={style}
+          title={tooltip}
+        >
+          {this.getGlyphAndText ()}
+          {this.props.children}
+        </div>
+      );
+    }
   }
 }
 

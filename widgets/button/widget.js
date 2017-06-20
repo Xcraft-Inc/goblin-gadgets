@@ -23,7 +23,7 @@ class Button extends Widget {
     });
   }
 
-  get wiring () {
+  static get wiring () {
     return {
       id: 'id',
       kind: 'kind',
@@ -183,103 +183,101 @@ class Button extends Widget {
     return result;
   }
 
-  widget () {
-    return props => {
-      const index = this.read ('index');
-      const kind = this.read ('kind');
-      const menu = this.read ('menu');
-      const toAnchor = this.read ('to-anchor');
-      const show = this.read ('show');
-      const text = this.read ('text');
-      let tooltip = this.read ('tooltip');
+  render () {
+    const index = this.read ('index');
+    const kind = this.read ('kind');
+    const menu = this.read ('menu');
+    const toAnchor = this.read ('to-anchor');
+    const show = this.read ('show');
+    const text = this.read ('text');
+    let tooltip = this.read ('tooltip');
 
-      if (kind === 'pane-navigator') {
-        tooltip = text;
-      }
+    if (kind === 'pane-navigator') {
+      tooltip = text;
+    }
 
-      const boxStyle = this.styles.box;
-      const glyphStyle = this.styles.glyph;
-      const textStyle = this.styles.text;
+    const boxStyle = this.styles.box;
+    const glyphStyle = this.styles.glyph;
+    const textStyle = this.styles.text;
 
-      if (show === 'false') {
-        return null;
-      } else if (kind === 'container' || kind === 'box') {
-        return (
-          <div
-            key={index}
-            onClick={::this.onClicked} // voir (*)
-            onMouseDown={::this.onMouseDown}
-            onMouseUp={::this.onMouseUp}
-            onTouchStart={::this.onMouseDown}
-            onTouchEnd={::this.onMouseUp}
-            style={boxStyle}
-            title={tooltip}
-          >
-            {this.props.children}
-          </div>
-        );
-      } else if (menu) {
-        return (
-          <div
-            key={index}
-            onClick={::this.onShowMenu} // voir (*)
-            onMouseDown={::this.onMouseDown}
-            onMouseUp={::this.onMouseUp}
-            onTouchStart={::this.onMouseDown}
-            onTouchEnd={::this.onMouseUp}
-            style={boxStyle}
-            title={tooltip}
-          >
-            {this.renderLayout (glyphStyle, textStyle)}
-            {this.renderTriangle ()}
-            {this.renderBadge ()}
-            {this.renderMenu ()}
-            {this.props.children}
-          </div>
-        );
-      } else if (toAnchor) {
-        return (
-          <a
-            key={index}
-            onClick={::this.onClicked} // voir (*)
-            onMouseDown={::this.onMouseDown}
-            onMouseUp={::this.onMouseUp}
-            onTouchStart={::this.onMouseDown}
-            onTouchEnd={::this.onMouseUp}
-            style={boxStyle}
-            title={tooltip}
-            href={this.route + '#' + toAnchor}
-          >
-            {this.renderLayout (glyphStyle, textStyle)}
-            {this.renderTriangle ()}
-            {this.renderBadge ()}
-            {this.renderMenu ()}
-            {this.props.children}
-          </a>
-        );
-      } else {
-        return (
-          <div
-            key={index}
-            onClick={::this.onClicked} // voir (*)
-            onMouseDown={::this.onMouseDown}
-            onMouseUp={::this.onMouseUp}
-            onTouchStart={::this.onMouseDown}
-            onTouchEnd={::this.onMouseUp}
-            style={boxStyle}
-            title={tooltip}
-          >
-            {this.renderLayout (glyphStyle, textStyle)}
-            {this.renderTriangle ()}
-            {this.renderBadge ()}
-            {this.renderMenu ()}
-            {this.props.children}
-          </div>
-        );
-      }
-    };
-    // (*) je n'arrive pas à généraliser cela !!!
+    if (show === 'false') {
+      return null;
+    } else if (kind === 'container' || kind === 'box') {
+      return (
+        <div
+          key={index}
+          onClick={::this.onClicked} // voir (*)
+          onMouseDown={::this.onMouseDown}
+          onMouseUp={::this.onMouseUp}
+          onTouchStart={::this.onMouseDown}
+          onTouchEnd={::this.onMouseUp}
+          style={boxStyle}
+          title={tooltip}
+        >
+          {this.props.children}
+        </div>
+      );
+    } else if (menu) {
+      return (
+        <div
+          key={index}
+          onClick={::this.onShowMenu} // voir (*)
+          onMouseDown={::this.onMouseDown}
+          onMouseUp={::this.onMouseUp}
+          onTouchStart={::this.onMouseDown}
+          onTouchEnd={::this.onMouseUp}
+          style={boxStyle}
+          title={tooltip}
+        >
+          {this.renderLayout (glyphStyle, textStyle)}
+          {this.renderTriangle ()}
+          {this.renderBadge ()}
+          {this.renderMenu ()}
+          {this.props.children}
+        </div>
+      );
+    } else if (toAnchor) {
+      return (
+        <a
+          key={index}
+          onClick={::this.onClicked} // voir (*)
+          onMouseDown={::this.onMouseDown}
+          onMouseUp={::this.onMouseUp}
+          onTouchStart={::this.onMouseDown}
+          onTouchEnd={::this.onMouseUp}
+          style={boxStyle}
+          title={tooltip}
+          href={this.route + '#' + toAnchor}
+        >
+          {this.renderLayout (glyphStyle, textStyle)}
+          {this.renderTriangle ()}
+          {this.renderBadge ()}
+          {this.renderMenu ()}
+          {this.props.children}
+        </a>
+      );
+    } else {
+      return (
+        <div
+          key={index}
+          onClick={::this.onClicked} // voir (*)
+          onMouseDown={::this.onMouseDown}
+          onMouseUp={::this.onMouseUp}
+          onTouchStart={::this.onMouseDown}
+          onTouchEnd={::this.onMouseUp}
+          style={boxStyle}
+          title={tooltip}
+        >
+          {this.renderLayout (glyphStyle, textStyle)}
+          {this.renderTriangle ()}
+          {this.renderBadge ()}
+          {this.renderMenu ()}
+          {this.props.children}
+        </div>
+      );
+    }
   }
+  // (*) je n'arrive pas à généraliser cela !!!
 }
 
 export default Button;

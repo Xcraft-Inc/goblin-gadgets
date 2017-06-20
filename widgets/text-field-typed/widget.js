@@ -113,37 +113,35 @@ class TextFieldTyped extends Widget {
     }
   }
 
-  widget () {
-    return props => {
-      const hintText = this.read ('hint-text');
-      const tooltip = this.read ('tooltip');
-      const labelGlyph = this.read ('label-glyph');
-      const labelText = this.read ('label-text');
-      const labelWidth = this.read ('label-width');
-      const grow = this.read ('grow');
-      const spacing = this.read ('spacing');
-      const readonly = this.read ('readonly');
-      const selectAllOnFocus = this.read ('select-all-on-focus');
-      const defaultFocus = this.read ('default-focus');
+  render () {
+    const hintText = this.read ('hint-text');
+    const tooltip = this.read ('tooltip');
+    const labelGlyph = this.read ('label-glyph');
+    const labelText = this.read ('label-text');
+    const labelWidth = this.read ('label-width');
+    const grow = this.read ('grow');
+    const spacing = this.read ('spacing');
+    const readonly = this.read ('readonly');
+    const selectAllOnFocus = this.read ('select-all-on-focus');
+    const defaultFocus = this.read ('default-focus');
 
-      return (
-        <LabelTextField
-          hint-text={hintText}
-          tooltip={tooltip}
-          label-glyph={labelGlyph}
-          label-text={labelText}
-          label-width={labelWidth}
-          grow={grow}
-          spacing={spacing}
-          readonly={readonly}
-          select-all-on-focus={selectAllOnFocus}
-          default-focus={defaultFocus}
-          message-warning={this.getMessageWarning ()}
-          message-info={this.getMessageInfo ()}
-          {...this.linkValueEdited ()}
-        />
-      );
-    };
+    return (
+      <LabelTextField
+        hint-text={hintText}
+        tooltip={tooltip}
+        label-glyph={labelGlyph}
+        label-text={labelText}
+        label-width={labelWidth}
+        grow={grow}
+        spacing={spacing}
+        readonly={readonly}
+        select-all-on-focus={selectAllOnFocus}
+        default-focus={defaultFocus}
+        message-warning={this.getMessageWarning ()}
+        message-info={this.getMessageInfo ()}
+        {...this.linkValueEdited ()}
+      />
+    );
   }
 }
 
