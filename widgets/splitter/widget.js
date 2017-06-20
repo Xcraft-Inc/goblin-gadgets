@@ -173,72 +173,70 @@ class Splitter extends Widget {
     }
   }
 
-  widget () {
-    return props => {
-      const children = this.props.children;
-      if (children.length !== 2) {
-        throw new Error ('Splitter must have 2 children');
+  render () {
+    const children = this.props.children;
+    if (children.length !== 2) {
+      throw new Error ('Splitter must have 2 children');
+    }
+
+    const containerStyle = this.styles.container;
+    const firstPaneStyle = this.styles.firstPane;
+    const resizerStyle = this.styles.resizer;
+    const lastPaneStyle = this.styles.lastPane;
+
+    if (this.unit === '%') {
+      if (this.master === 'first') {
+        firstPaneStyle.flexGrow = this.firstValue;
+        lastPaneStyle.flexGrow = 100 - this.firstValue;
+      } else {
+        lastPaneStyle.flexGrow = this.lastValue;
+        firstPaneStyle.flexGrow = 100 - this.lastValue;
       }
 
-      const containerStyle = this.styles.container;
-      const firstPaneStyle = this.styles.firstPane;
-      const resizerStyle = this.styles.resizer;
-      const lastPaneStyle = this.styles.lastPane;
+      firstPaneStyle.flexShrink = '1';
+      firstPaneStyle.flexBasis = '0%';
 
-      if (this.unit === '%') {
-        if (this.master === 'first') {
-          firstPaneStyle.flexGrow = this.firstValue;
-          lastPaneStyle.flexGrow = 100 - this.firstValue;
+      lastPaneStyle.flexShrink = '1';
+      lastPaneStyle.flexBasis = '0%';
+    } else {
+      if (this.master === 'first') {
+        if (this.kind === 'vertical') {
+          firstPaneStyle.width = this.firstValue + this.unit;
         } else {
-          lastPaneStyle.flexGrow = this.lastValue;
-          firstPaneStyle.flexGrow = 100 - this.lastValue;
+          firstPaneStyle.height = this.firstValue + this.unit;
         }
 
-        firstPaneStyle.flexShrink = '1';
-        firstPaneStyle.flexBasis = '0%';
-
+        lastPaneStyle.flexGrow = '1';
         lastPaneStyle.flexShrink = '1';
         lastPaneStyle.flexBasis = '0%';
       } else {
-        if (this.master === 'first') {
-          if (this.kind === 'vertical') {
-            firstPaneStyle.width = this.firstValue + this.unit;
-          } else {
-            firstPaneStyle.height = this.firstValue + this.unit;
-          }
-
-          lastPaneStyle.flexGrow = '1';
-          lastPaneStyle.flexShrink = '1';
-          lastPaneStyle.flexBasis = '0%';
+        if (this.kind === 'vertical') {
+          lastPaneStyle.width = this.lastValue + this.unit;
         } else {
-          if (this.kind === 'vertical') {
-            lastPaneStyle.width = this.lastValue + this.unit;
-          } else {
-            lastPaneStyle.height = this.lastValue + this.unit;
-          }
-
-          firstPaneStyle.flexGrow = '1';
-          firstPaneStyle.flexShrink = '1';
-          firstPaneStyle.flexBasis = '0%';
+          lastPaneStyle.height = this.lastValue + this.unit;
         }
-      }
 
-      return (
-        <div
-          style={containerStyle}
-          ref={node => (this.container = node)}
-          onMouseMove={::this.onMouseMove}
-        >
-          <div style={firstPaneStyle} ref={node => (this.firstPane = node)}>
-            {children[0]}
-          </div>
-          <div style={resizerStyle} ref={node => (this.resizer = node)} />
-          <div style={lastPaneStyle} ref={node => (this.lastPane = node)}>
-            {children[1]}
-          </div>
+        firstPaneStyle.flexGrow = '1';
+        firstPaneStyle.flexShrink = '1';
+        firstPaneStyle.flexBasis = '0%';
+      }
+    }
+
+    return (
+      <div
+        style={containerStyle}
+        ref={node => (this.container = node)}
+        onMouseMove={::this.onMouseMove}
+      >
+        <div style={firstPaneStyle} ref={node => (this.firstPane = node)}>
+          {children[0]}
         </div>
-      );
-    };
+        <div style={resizerStyle} ref={node => (this.resizer = node)} />
+        <div style={lastPaneStyle} ref={node => (this.lastPane = node)}>
+          {children[1]}
+        </div>
+      </div>
+    );
   }
 }
 
