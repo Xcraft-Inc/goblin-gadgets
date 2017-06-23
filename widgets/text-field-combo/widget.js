@@ -123,6 +123,8 @@ class TextFieldCombo extends Widget {
     const textFieldShape = textFieldShapes[s];
     const props = {
       id: id,
+      value: this.props.value,
+      hinter: this.props.hinter,
       'hint-text': hintText,
       tooltip: tooltip,
       'filter-keys': filterKeys,

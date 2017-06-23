@@ -134,6 +134,8 @@ class LabelTextField extends Widget {
       type: type,
       width: fieldWidth,
       'hint-text': hintText,
+      value: this.props.value,
+      hinter: this.props.hinter,
       tooltip: tooltip,
       'message-info': messageInfo,
       'message-warning': messageWarning,

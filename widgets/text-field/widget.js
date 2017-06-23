@@ -52,19 +52,14 @@ class TextField extends Widget {
     }
   }
 
-  onChange () {
-    this.forceUpdate ();
-  }
+  onChange () {}
 
-  onFocus (e) {
-    this.onFocus (e);
+  onFieldFocus (e) {
+    this.onFocusHinter (e);
+
     const selectAllOnFocus = this.read ('select-all-on-focus');
     if (selectAllOnFocus === 'true') {
       this.selectAll ();
-    }
-    const x = this.read ('onFocus');
-    if (x) {
-      x (e);
     }
   }
 
@@ -97,12 +92,30 @@ class TextField extends Widget {
       options.readOnly = 'readOnly';
     }
 
+    let useHinter = null;
+    if (this.props.hinter) {
+      useHinter = {
+        ref: input => {
+          const hid = this.getHinterId ();
+          if (hid && input) {
+            if (this.props.hinter === hid) {
+              const sel = this.getSelectionStateInParams ();
+              input.focus ();
+              input.setSelectionRange (sel.ss, sel.se, sel.sd);
+            }
+          }
+        },
+      };
+    }
+
     if (rows) {
       const textareaStyle = this.styles.textarea;
       return (
         <input
           type="textarea"
           id={id}
+          {...useHinter}
+          onFocus={::this.onFieldFocus}
           style={textareaStyle}
           onChange={this.props.onChange}
           disabled={disabled}
@@ -117,6 +130,8 @@ class TextField extends Widget {
       return (
         <input
           id={id}
+          {...useHinter}
+          onFocus={::this.onFieldFocus}
           onChange={this.props.onChange}
           disabled={disabled}
           maxLength={this.props.maxLength}
