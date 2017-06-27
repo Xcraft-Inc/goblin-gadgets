@@ -127,6 +127,7 @@ class TextFieldTyped extends Widget {
 
     return (
       <LabelTextField
+        model={this.props.model}
         hint-text={hintText}
         tooltip={tooltip}
         label-glyph={labelGlyph}

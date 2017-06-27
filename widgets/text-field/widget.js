@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
-import {Control} from 'react-redux-form/immutable';
+import {Control} from 'react-redux-form';
 import FlyingBalloon from 'gadgets/flying-balloon/widget';
 
 /******************************************************************************/
@@ -80,7 +80,7 @@ class TextField extends Widget {
 
   renderInput () {
     const disabled = this.read ('disabled');
-    const id = this.read ('id');
+    const model = this.props.model;
     const value = this.read ('value');
     const hintText = this.read ('hint-text');
     const rows = this.read ('rows');
@@ -99,9 +99,7 @@ class TextField extends Widget {
           const hid = this.getHinterId ();
           if (hid && input) {
             if (this.props.hinter === hid) {
-              const sel = this.getSelectionStateInParams ();
-              input.focus ();
-              input.setSelectionRange (sel.ss, sel.se, sel.sd);
+              this.formFocus ();
             }
           }
         },
@@ -111,9 +109,9 @@ class TextField extends Widget {
     if (rows) {
       const textareaStyle = this.styles.textarea;
       return (
-        <input
-          type="textarea"
-          id={id}
+        <Control.textarea
+          id={model}
+          model={model}
           {...useHinter}
           onFocus={::this.onFieldFocus}
           style={textareaStyle}
@@ -121,18 +119,17 @@ class TextField extends Widget {
           disabled={disabled}
           rows={rows}
           tabIndex={tabIndex}
-          value={value}
           {...options}
         />
       );
     } else {
       const fieldStyle = this.styles.field;
       return (
-        <input
-          id={id}
+        <Control.text
+          id={model}
+          model={model}
           {...useHinter}
           onFocus={::this.onFieldFocus}
-          onChange={this.props.onChange}
           disabled={disabled}
           maxLength={this.props.maxLength}
           placeholder={hintText}
@@ -141,7 +138,6 @@ class TextField extends Widget {
           type={this.props.type || 'text'}
           key="input"
           tabIndex={tabIndex}
-          value={value}
           {...options}
         />
       );

@@ -89,7 +89,6 @@ class LabelTextField extends Widget {
   }
 
   renderInput () {
-    const id = this.read ('id');
     const field = this.read ('field');
     const type = this.read ('type');
     const shape = this.read ('shape');
@@ -129,7 +128,7 @@ class LabelTextField extends Widget {
     };
     const textFieldShape = textFieldShapes[s];
     const props = {
-      id: id,
+      model: this.props.model,
       field: field,
       type: type,
       width: fieldWidth,

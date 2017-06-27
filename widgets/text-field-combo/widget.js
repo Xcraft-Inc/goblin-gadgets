@@ -85,7 +85,6 @@ class TextFieldCombo extends Widget {
   }
 
   renderTextField () {
-    const id = this.read ('id');
     const width = this.read ('width');
     const shape = this.read ('shape');
 
@@ -122,7 +121,7 @@ class TextFieldCombo extends Widget {
     };
     const textFieldShape = textFieldShapes[s];
     const props = {
-      id: id,
+      model: this.props.model,
       value: this.props.value,
       hinter: this.props.hinter,
       'hint-text': hintText,
