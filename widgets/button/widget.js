@@ -105,12 +105,14 @@ class Button extends Widget {
       return (
         <i
           key="icon"
-          className={css (style)}
-          className={`fa
+          className={
+            css (style) +
+              ` fa
             fa-${glyph}
             fa-rotate-${rotate}
             fa-flip-${flip}
-            ${spin ? 'fa-spin' : ''}`}
+            ${spin ? 'fa-spin' : ''}`
+          }
         />
       );
     } else {
