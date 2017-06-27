@@ -55,7 +55,7 @@ class TextField extends Widget {
   onChange () {}
 
   onFieldFocus (e) {
-    this.onFocusHinter (e);
+    this.navToHinter ();
 
     const selectAllOnFocus = this.props['select-all-on-focus'];
     if (selectAllOnFocus === 'true') {
@@ -92,27 +92,12 @@ class TextField extends Widget {
       options.readOnly = 'readOnly';
     }
 
-    let useHinter = null;
-    if (this.props.hinter) {
-      useHinter = {
-        ref: input => {
-          const hid = this.getHinterId ();
-          if (hid && input) {
-            if (this.props.hinter === hid) {
-              this.formFocus ();
-            }
-          }
-        },
-      };
-    }
-
     if (rows) {
       const textareaStyle = this.styles.textarea;
       return (
         <Control.textarea
           id={model}
           model={model}
-          {...useHinter}
           onFocus={::this.onFieldFocus}
           style={textareaStyle}
           onChange={this.props.onChange}
@@ -128,7 +113,6 @@ class TextField extends Widget {
         <Control.text
           id={model}
           model={model}
-          {...useHinter}
           onFocus={::this.onFieldFocus}
           disabled={disabled}
           maxLength={this.props.maxLength}
