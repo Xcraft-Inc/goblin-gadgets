@@ -157,6 +157,10 @@ export default function styles (theme, props) {
     const hm = Unit.multiply (m, 0.5);
     margin = hm + ' ' + m + ' ' + hm + ' 0px';
   }
+  if (props.kind === 'large-single') {
+    const hm = Unit.multiply (m, 0.5);
+    margin = hm + ' ' + m + ' ' + hm + ' ' + m;
+  }
 
   if (props.kind === 'ticket-warning') {
     margin = '5px 0px 0px 0px';
