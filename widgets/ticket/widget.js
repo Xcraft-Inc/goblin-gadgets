@@ -10,35 +10,35 @@ class Ticket extends Widget {
   }
 
   onMouseOver () {
-    const x = this.read ('mouse-over');
+    const x = this.props['mouse-over'];
     if (x) {
       x ();
     }
   }
 
   onMouseOut () {
-    const x = this.read ('mouse-out');
+    const x = this.props['mouse-out'];
     if (x) {
       x ();
     }
   }
 
   onMouseDown (e) {
-    const x = this.read ('mouse-down');
+    const x = this.props['mouse-down'];
     if (x) {
       x (e);
     }
   }
 
   onMouseUp (e) {
-    const x = this.read ('mouse-up');
+    const x = this.props['mouse-up'];
     if (x) {
       x (e);
     }
   }
 
   renderBackgroundText () {
-    const text = this.read ('background-text');
+    const text = this.props['background-text'];
     if (text) {
       const backgroundTextStyle = this.styles.backgroundText;
       return (
@@ -52,7 +52,7 @@ class Ticket extends Widget {
   }
 
   renderHud () {
-    const hudGlyph = this.read ('hud-glyph');
+    const hudGlyph = this.props['hud-glyph'];
     const hudGlyphShadowStyle = this.styles.hudGlyphShadow;
     const hudGlyphShadowNoneStyle = this.styles.hudGlyphShadowNone;
     const hudGlyphBoxStyle = this.styles.hudGlyphBox;
@@ -67,8 +67,8 @@ class Ticket extends Widget {
   }
 
   renderTicket () {
-    const hatch = this.read ('hatch');
-    const hoverShape = this.read ('hover-shape');
+    const hatch = this.props.hatch;
+    const hoverShape = this.props['hover-shape'];
 
     const boxStyle = this.styles.box;
     const shadowStyle = this.styles.shadow;
@@ -150,8 +150,8 @@ class Ticket extends Widget {
   }
 
   renderRect () {
-    const hatch = this.read ('hatch');
-    const hoverShape = this.read ('hover-shape');
+    const hatch = this.props.hatch;
+    const hoverShape = this.props['hover-shape'];
 
     const rectShadowStyle = this.styles.rectShadow;
     const rectStyle = this.styles.rect;
@@ -183,7 +183,7 @@ class Ticket extends Widget {
   }
 
   renderSubpane () {
-    const subkind = this.read ('subkind');
+    const subkind = this.props.subkind;
 
     const rectStyle = subkind === 'dragged'
       ? this.styles.subpaneDragged
@@ -230,7 +230,7 @@ class Ticket extends Widget {
   }
 
   render () {
-    const kind = this.read ('kind');
+    const kind = this.props.kind;
     if (kind === 'ticket') {
       return this.renderTicket ();
     } else if (kind === 'cover') {

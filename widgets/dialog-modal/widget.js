@@ -24,7 +24,7 @@ class DialogModal extends Widget {
   }
 
   onCloseCombo () {
-    const close = this.read ('close');
+    const close = this.props.close;
     if (close) {
       close ();
     }
@@ -40,10 +40,10 @@ class DialogModal extends Widget {
   }
 
   render () {
-    const width = this.read ('width');
-    const height = this.read ('height');
-    const top = this.read ('top');
-    const bottom = this.read ('bottom');
+    const width = this.props.width;
+    const height = this.props.height;
+    const top = this.props.top;
+    const bottom = this.props.bottom;
 
     const fullScreenStyle = this.styles.fullScreen;
 

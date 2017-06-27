@@ -10,8 +10,8 @@ class Badge extends Widget {
 
   render () {
     const {state} = this.props;
-    const disabled = this.read ('disabled');
-    const inputValue = this.read ('value');
+    const disabled = this.props.disabled;
+    const inputValue = this.props.value;
 
     let truncatedValue = inputValue ? inputValue.toString () : '';
     if (truncatedValue.length > 3) {

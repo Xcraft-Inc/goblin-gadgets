@@ -12,8 +12,8 @@ class TextFieldTyped extends Widget {
     this.internalStore = Store.create (); // FIXME
     this.localBus = this; // for access to property notify
 
-    this.type = this.read ('type');
-    const canonicalValue = this.read ('value');
+    this.type = this.props.type;
+    const canonicalValue = this.props.value;
     const displayedValue = this.canonicalToDisplayed (canonicalValue);
     this.internalStore.select ('value').set ('value', displayedValue);
   }
@@ -91,7 +91,7 @@ class TextFieldTyped extends Widget {
           parsed.warning
         );
 
-      if (parsed.canonicalValue !== this.read ('value')) {
+      if (parsed.canonicalValue !== this.props.value) {
         this.props.bus.notify (this.props, source, parsed.canonicalValue);
       }
 
@@ -114,16 +114,16 @@ class TextFieldTyped extends Widget {
   }
 
   render () {
-    const hintText = this.read ('hint-text');
-    const tooltip = this.read ('tooltip');
-    const labelGlyph = this.read ('label-glyph');
-    const labelText = this.read ('label-text');
-    const labelWidth = this.read ('label-width');
-    const grow = this.read ('grow');
-    const spacing = this.read ('spacing');
-    const readonly = this.read ('readonly');
-    const selectAllOnFocus = this.read ('select-all-on-focus');
-    const defaultFocus = this.read ('default-focus');
+    const hintText = this.props['hint-text'];
+    const tooltip = this.props.tooltip;
+    const labelGlyph = this.props['label-glyph'];
+    const labelText = this.props['label-text'];
+    const labelWidth = this.props['label-width'];
+    const grow = this.props.grow;
+    const spacing = this.props.spacing;
+    const readonly = this.props.readonly;
+    const selectAllOnFocus = this.props['select-all-on-focus'];
+    const defaultFocus = this.props['default-focus'];
 
     return (
       <LabelTextField

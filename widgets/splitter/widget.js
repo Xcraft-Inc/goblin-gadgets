@@ -9,13 +9,13 @@ class Splitter extends Widget {
   constructor (props) {
     super (props);
 
-    this.kind = this.read ('kind');
+    this.kind = this.props.kind;
     if (this.kind !== 'vertical' && this.kind !== 'horizontal') {
       throw new Error (`Wrong Splitter kind ${this.kind}`);
     }
 
-    const firstSize = this.read ('first-size');
-    const lastSize = this.read ('last-size');
+    const firstSize = this.props['first-size'];
+    const lastSize = this.props['last-size'];
     if (firstSize && lastSize) {
       throw new Error (
         `Splitter must have both first-size (${firstSize}) and last-size (${lastSize})`
@@ -44,7 +44,7 @@ class Splitter extends Widget {
   }
 
   getValue (name, type) {
-    const value = this.read (name);
+    const value = this.props[name];
     if (value) {
       const x = Unit.parse (value);
       if (x.unit !== this.unit) {

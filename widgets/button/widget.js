@@ -54,29 +54,29 @@ class Button extends Widget {
 
   onMouseDown (e) {
     // Trace.log ('Button.mouseDown');
-    const disabled = this.read ('disabled');
+    const disabled = this.props.disabled;
     if (disabled === 'true') {
       return;
     }
-    const mouseDown = this.read ('mouse-down');
+    const mouseDown = this.props['mouse-down'];
     if (mouseDown) {
       mouseDown (e);
     }
   }
 
   onMouseUp (e) {
-    const disabled = this.read ('disabled');
+    const disabled = this.props.disabled;
     if (disabled === 'true') {
       return;
     }
-    const mouseUp = this.read ('mouse-up');
+    const mouseUp = this.props['mouse-up'];
     if (mouseUp) {
       mouseUp (e);
     }
   }
 
   renderBadge () {
-    const badgeValue = this.read ('badge-value');
+    const badgeValue = this.props['badge-value'];
     if (badgeValue) {
       return <Badge value={badgeValue} layer="over" />;
     } else {
@@ -85,8 +85,8 @@ class Button extends Widget {
   }
 
   renderTriangle () {
-    const kind = this.read ('kind');
-    const active = this.read ('active');
+    const kind = this.props.kind;
+    const active = this.props.active;
     if (kind === 'main-tab' && active === 'true') {
       const style = this.styles.triangle;
       return <div style={style} key="triangle" />;
@@ -97,7 +97,7 @@ class Button extends Widget {
 
   renderMenu () {
     if (this.isMenuVisible) {
-      const menu = this.read ('menu');
+      const menu = this.props.menu;
       const style = this.styles.menuBox;
       return (
         <div style={style} key="menu">
@@ -110,11 +110,11 @@ class Button extends Widget {
   }
 
   renderGlyph (style) {
-    const glyph = this.read ('glyph');
+    const glyph = this.props.glyph;
     if (glyph) {
-      const rotate = this.read ('rotate');
-      const flip = this.read ('flip');
-      const spin = this.read ('spin');
+      const rotate = this.props.rotat;
+      const flip = this.props.flip;
+      const spin = this.props.spin;
       return (
         <i
           key="icon"
@@ -132,7 +132,7 @@ class Button extends Widget {
   }
 
   renderText (style) {
-    const text = this.read ('text');
+    const text = this.props.text;
     if (text) {
       return (
         <label key="text" style={style}>
@@ -145,7 +145,7 @@ class Button extends Widget {
   }
 
   renderShortcut () {
-    const shortcut = this.read ('shortcut');
+    const shortcut = this.props.shortcut;
     if (shortcut) {
       const style = this.styles.shortcut;
       return (
@@ -160,7 +160,7 @@ class Button extends Widget {
 
   renderLayout (glyphStyle, textStyle) {
     const result = [];
-    const glyphPosition = this.read ('glyph-position');
+    const glyphPosition = this.props['glyph-position'];
     if (glyphPosition === 'right') {
       result.push (this.renderText (textStyle));
       result.push (this.renderShortcut ());
@@ -174,13 +174,13 @@ class Button extends Widget {
   }
 
   render () {
-    const index = this.read ('index');
-    const kind = this.read ('kind');
-    const menu = this.read ('menu');
-    const toAnchor = this.read ('to-anchor');
-    const show = this.read ('show');
-    const text = this.read ('text');
-    let tooltip = this.read ('tooltip');
+    const index = this.props.index;
+    const kind = this.props.kind;
+    const menu = this.props.menu;
+    const toAnchor = this.props['to-anchor'];
+    const show = this.props.show;
+    const text = this.props.text;
+    let tooltip = this.props.tooltip;
 
     if (kind === 'pane-navigator') {
       tooltip = text;

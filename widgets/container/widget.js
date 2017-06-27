@@ -23,9 +23,9 @@ class Container extends Widget {
   }
 
   componentWillMount () {
-    const dragController = this.read ('drag-controller');
-    const dragSource = this.read ('drag-source');
-    const dragOwnerId = this.read ('drag-owner-id');
+    const dragController = this.props['drag-controller'];
+    const dragSource = this.props['drag-source'];
+    const dragOwnerId = this.props['drag-owner-id'];
     let count = 0;
     count += dragController ? 1 : 0;
     count += dragSource ? 1 : 0;
@@ -37,14 +37,14 @@ class Container extends Widget {
           ` dragController=${dragController} dragSource=${dragSource} dragOwnerId=${dragOwnerId}`
       );
     }
-    const navFor = this.read ('navigation-for');
+    const navFor = this.props['navigation-for'];
     if (navFor) {
       this.initNavigation ();
     }
   }
 
   componentDidMount () {
-    const navFor = this.read ('navigation-for');
+    const navFor = this.props['navigation-for'];
     if (navFor) {
       const panelElem = document.querySelectorAll (
         `[data-navigation-name="${navFor}"]`
@@ -54,21 +54,21 @@ class Container extends Widget {
         panelElem.addEventListener ('scroll', ::this.handleScroll, true);
       }
     }
-    const dragController = this.read ('drag-controller');
+    const dragController = this.props['drag-controller'];
     if (dragController) {
       if (!window.document.dragControllers) {
         window.document.dragControllers = [];
       }
       window.document.dragControllers.push (this);
     }
-    const dragParentId = this.read ('drag-parent-id');
+    const dragParentId = this.props['drag-parent-id'];
     if (dragParentId) {
       if (!window.document.dragParentControllers) {
         window.document.dragParentControllers = [];
       }
       window.document.dragParentControllers.push (this);
     }
-    const kind = this.read ('kind');
+    const kind = this.props.kind;
     if (kind === 'flying-dialog') {
       if (!window.document.flyingDialogs) {
         window.document.flyingDialogs = [];
@@ -78,7 +78,7 @@ class Container extends Widget {
   }
 
   componentWillUnmount () {
-    const navFor = this.read ('navigation-for');
+    const navFor = this.props['navigation-for'];
     if (navFor) {
       const panelElem = document.querySelectorAll (
         `[data-navigation-name="${navFor}"]`
@@ -87,21 +87,21 @@ class Container extends Widget {
         panelElem.removeEventListener ('scroll', this.handleScroll, true);
       }
     }
-    const dragController = this.read ('drag-controller');
+    const dragController = this.props['drag-controller'];
     if (dragController) {
       const index = window.document.dragControllers.indexOf (this);
       if (index !== -1) {
         window.document.dragControllers.splice (index, 1);
       }
     }
-    const dragParentId = this.read ('drag-parent-id');
+    const dragParentId = this.props['drag-parent-id'];
     if (dragParentId) {
       const index = window.document.dragParentControllers.indexOf (this);
       if (index !== -1) {
         window.document.dragParentControllers.splice (index, 1);
       }
     }
-    const kind = this.read ('kind');
+    const kind = this.props.kind;
     if (kind === 'flying-dialog') {
       const index = window.document.flyingDialogs.indexOf (this);
       if (index !== -1) {
@@ -163,14 +163,14 @@ class Container extends Widget {
   render () {
     const {state} = this.props;
 
-    const disabled = this.read ('disabled');
-    const kind = this.read ('kind');
-    const anchor = this.read ('anchor');
-    const navName = this.read ('navigation-name');
-    const hidden = this.read ('hidden');
-    const show = this.read ('show');
-    const index = this.read ('index');
-    const selected = this.read ('selected');
+    const disabled = this.props.disabled;
+    const kind = this.props.kind;
+    const anchor = this.props.anchor;
+    const navName = this.props.navigation - name;
+    const hidden = this.props.hidden;
+    const show = this.props.show;
+    const index = this.props.index;
+    const selected = this.props.selected;
 
     const boxStyle = this.styles.box;
     const triangleStyle = this.styles.triangle;

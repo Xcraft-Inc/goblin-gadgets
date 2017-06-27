@@ -10,7 +10,7 @@ class Dialog extends Widget {
 
   render () {
     const {state} = this.props;
-    const disabled = this.read ('disabled');
+    const disabled = this.props.disabled;
 
     const boxStyle = this.styles.box;
 

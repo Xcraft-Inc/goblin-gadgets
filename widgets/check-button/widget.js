@@ -11,7 +11,7 @@ class CheckButton extends Widget {
   }
 
   onButtonClicked (e) {
-    const x = this.read ('on-click');
+    const x = this.props['on-click'];
     if (x) {
       x (e);
     } else {
@@ -20,10 +20,10 @@ class CheckButton extends Widget {
   }
 
   render () {
-    const kind = this.read ('kind');
-    const text = this.read ('text');
-    const checked = this.read ('checked');
-    const spacing = this.read ('spacing');
+    const kind = this.props.kind;
+    const text = this.props.text;
+    const checked = this.props.checked;
+    const spacing = this.props.spacing;
 
     let glyph;
     if (kind === 'switch') {

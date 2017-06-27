@@ -27,7 +27,7 @@ class LabelTextField extends Widget {
 
   onChange (e) {
     this.onChange (e);
-    const x = this.read ('onChange');
+    const x = this.props.onChange;
     if (x) {
       x (e);
     }
@@ -35,7 +35,7 @@ class LabelTextField extends Widget {
 
   onFocus () {
     this.readonly = false;
-    const x = this.read ('onFocus');
+    const x = this.props.onFocus;
     if (x) {
       x ();
     }
@@ -43,7 +43,7 @@ class LabelTextField extends Widget {
 
   onBlur () {
     this.readonly = true;
-    const x = this.read ('onBlur');
+    const x = this.props.onBlur;
     if (x) {
       x ();
     }
@@ -54,7 +54,7 @@ class LabelTextField extends Widget {
   }
 
   hasActionButton () {
-    const actionGlyph = this.read ('action-glyph');
+    const actionGlyph = this.props['action-glyph'];
     if (actionGlyph) {
       return true;
     } else {
@@ -63,10 +63,10 @@ class LabelTextField extends Widget {
   }
 
   renderButton () {
-    const shape = this.read ('shape');
-    const labelGlyph = this.read ('label-glyph');
-    const labelText = this.read ('label-text');
-    const labelWidth = this.read ('label-width');
+    const shape = this.props.shape;
+    const labelGlyph = this.props['label-glyph'];
+    const labelText = this.props['label-text'];
+    const labelWidth = this.props['label-width'];
 
     const s = shape ? shape : 'smooth';
     const buttonShapes = {
@@ -89,10 +89,10 @@ class LabelTextField extends Widget {
   }
 
   renderInput () {
-    const field = this.read ('field');
-    const type = this.read ('type');
-    const shape = this.read ('shape');
-    const fieldWidth = this.read ('field-width');
+    const field = this.props.field;
+    const type = this.props.type;
+    const shape = this.props.shape;
+    const fieldWidth = this.props['field-width'];
 
     // @DR: Don't do this: setting the value as a `prop` rather than through
     // its state breaks React's forceUpdate() optimizations on the child
@@ -102,16 +102,16 @@ class LabelTextField extends Widget {
     // @DR: We should remove the `selected-value` property altogether and
     // use the state (based on `value`) instead; but since I am not sure
     // of all the implications, I prefer not to touch this logic for now:
-    const selectedValue = this.read ('selected-value');
+    const selectedValue = this.props['selected-value'];
 
-    const hintText = this.read ('hint-text');
-    const tooltip = this.read ('tooltip');
-    const messageInfo = this.read ('message-info');
-    const messageWarning = this.read ('message-warning');
-    const rows = this.read ('rows');
-    const readonly = this.read ('readonly');
-    const selectAllOnFocus = this.read ('select-all-on-focus');
-    const defaultFocus = this.read ('default-focus');
+    const hintText = this.props['hint-text'];
+    const tooltip = this.props.tooltip;
+    const messageInfo = this.props['message-info'];
+    const messageWarning = this.props['message-warning'];
+    const rows = this.props.rows;
+    const readonly = this.props.readonly;
+    const selectAllOnFocus = this.props['select-all-on-focus'];
+    const defaultFocus = this.props['default-focus'];
     const filterKeys = this.props['filter-keys'];
     const tabIndex = this.props['tab-index'];
 
@@ -159,7 +159,7 @@ class LabelTextField extends Widget {
 
   renderAction () {
     if (this.hasActionButton ()) {
-      const actionGlyph = this.read ('action-glyph');
+      const actionGlyph = this.props['action-glyph'];
       return (
         <Button
           kind="combo"
@@ -174,7 +174,7 @@ class LabelTextField extends Widget {
 
   render () {
     const {state} = this.props;
-    const disabled = this.read ('disabled');
+    const disabled = this.props.disabled;
 
     const boxStyle = this.styles.box;
 

@@ -48,16 +48,16 @@ class Combo extends Widget {
 
   get styleProps () {
     return {
-      center: this.read ('center'),
-      right: this.read ('right'),
-      top: this.read ('top'),
-      bottom: this.read ('bottom'),
-      width: this.read ('width'),
+      center: this.props.center,
+      right: this.props.right,
+      top: this.props.top,
+      bottom: this.props.bottom,
+      width: this.props.width,
     };
   }
 
   onNextIndex () {
-    const list = this.read ('list');
+    const list = this.props.list;
     let index = this.focusedIndex;
     while (index < list.length - 1) {
       index++;
@@ -69,7 +69,7 @@ class Combo extends Widget {
   }
 
   onPrevIndex () {
-    const list = this.read ('list');
+    const list = this.props.list;
     let index = this.focusedIndex;
     if (index === -1) {
       index = list.length;
@@ -86,14 +86,14 @@ class Combo extends Widget {
   onEnterAction () {
     const index = this.focusedIndex;
     if (index !== -1) {
-      const list = this.read ('list');
+      const list = this.props.list;
       const item = list[index];
       this.onActionAndClose (item);
     }
   }
 
   onCloseCombo () {
-    const close = this.read ('close');
+    const close = this.props.close;
     if (close) {
       close ();
     }
@@ -136,7 +136,7 @@ class Combo extends Widget {
   }
 
   renderCombo () {
-    const list = this.read ('list');
+    const list = this.props.list;
     const result = [];
     const focusedIndex = this.focusedIndex;
     let index = 0;
@@ -148,8 +148,8 @@ class Combo extends Widget {
   }
 
   render () {
-    const top = this.read ('top');
-    const width = this.read ('width');
+    const top = this.props.top;
+    const width = this.props.width;
 
     const fullScreenStyle = this.styles.fullScreen;
     const comboStyle = this.styles.combo;

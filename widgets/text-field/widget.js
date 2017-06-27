@@ -29,14 +29,14 @@ class TextField extends Widget {
   }
 
   componentDidMount () {
-    const defaultFocus = this.read ('default-focus');
+    const defaultFocus = this.props['default-focus'];
     if (defaultFocus === 'true') {
       this.selectAll ();
     }
   }
 
   selectAll () {
-    const selectAllOnFocus = this.read ('select-all-on-focus');
+    const selectAllOnFocus = this.props['select-all-on-focus'];
     const node = ReactDOM.findDOMNode (this.refs.inputTag);
     if (selectAllOnFocus === 'true') {
       // Set focus and select all to child <input>, asynchronously.
@@ -57,7 +57,7 @@ class TextField extends Widget {
   onFieldFocus (e) {
     this.onFocusHinter (e);
 
-    const selectAllOnFocus = this.read ('select-all-on-focus');
+    const selectAllOnFocus = this.props['select-all-on-focus'];
     if (selectAllOnFocus === 'true') {
       this.selectAll ();
     }
@@ -65,26 +65,26 @@ class TextField extends Widget {
 
   onBlur (e) {
     this.onBlur (e);
-    const x = this.read ('onBlur');
+    const x = this.props.onBlur;
     if (x) {
       x (e);
     }
   }
 
   onMouseDown (e) {
-    const x = this.read ('onMouseDown');
+    const x = this.props.onMouseDown;
     if (x) {
       x (e);
     }
   }
 
   renderInput () {
-    const disabled = this.read ('disabled');
+    const disabled = this.props.disabled;
     const model = this.props.model;
-    const value = this.read ('value');
-    const hintText = this.read ('hint-text');
-    const rows = this.read ('rows');
-    const readonly = this.read ('readonly');
+    const value = this.props.value;
+    const hintText = this.props['hint-text'];
+    const rows = this.props.rows;
+    const readonly = this.props.readonly;
     const tabIndex = this.props['tab-index'];
 
     const options = [];
@@ -145,9 +145,9 @@ class TextField extends Widget {
   }
 
   renderFlyingBalloon () {
-    const messageWarning = this.read ('message-warning');
-    const messageInfo = this.read ('message-info');
-    const flyingBalloonAnchor = this.read ('flying-balloon-anchor');
+    const messageWarning = this['props.message-warning'];
+    const messageInfo = this['props.message-info'];
+    const flyingBalloonAnchor = this.props['flying-balloon-anchor'];
     // Conversion from flying-balloon-anchor to triangle-position.
     const trianglePosition = {
       bottom: 'top',
@@ -170,8 +170,8 @@ class TextField extends Widget {
   }
 
   render () {
-    const disabled = this.read ('disabled');
-    const tooltip = this.read ('tooltip');
+    const disabled = this.props.disabled;
+    const tooltip = this.props.tooltip;
 
     const boxStyle = this.styles.box;
 

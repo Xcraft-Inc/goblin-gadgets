@@ -55,7 +55,7 @@ class TextFieldCombo extends Widget {
 
   // Called when the combo button is clicked.
   onButtonClicked () {
-    const list = this.read ('list');
+    const list = this.props.list;
     if (list) {
       this.doShowCombo ();
     }
@@ -63,7 +63,7 @@ class TextFieldCombo extends Widget {
 
   onChange (e) {
     this.onChange (e);
-    const x = this.read ('onChange');
+    const x = this.props.onChange;
     if (x) {
       x (e);
     }
@@ -78,15 +78,15 @@ class TextFieldCombo extends Widget {
   }
 
   onMouseDown () {
-    const readonly = this.read ('readonly');
+    const readonly = this.props.readonly;
     if (readonly === 'true') {
       this.onButtonClicked ();
     }
   }
 
   renderTextField () {
-    const width = this.read ('width');
-    const shape = this.read ('shape');
+    const width = this.props.width;
+    const shape = this.props.shape;
 
     // @DR: Don't do this: setting the value as a `prop` rather than through
     // its state breaks React's forceUpdate() optimizations on the child
@@ -96,15 +96,15 @@ class TextFieldCombo extends Widget {
     // @DR: We should remove the `selected-value` property altogether and
     // use the state (based on `value`) instead; but since I am not sure
     // of all the implications, I prefer not to touch this logic for now:
-    const selectedValue = this.read ('selected-value');
+    const selectedValue = this.props['selected-value'];
 
-    const hintText = this.read ('hint-text');
-    const tooltip = this.read ('tooltip');
-    const flyingBalloonAnchor = this.read ('flying-balloon-anchor');
-    const rows = this.read ('rows');
-    const readonly = this.read ('readonly');
-    const selectAllOnFocus = this.read ('select-all-on-focus');
-    const defaultFocus = this.read ('default-focus');
+    const hintText = this.props['hint-text'];
+    const tooltip = this.props.tooltip;
+    const flyingBalloonAnchor = this.props['flying-balloon-anchor'];
+    const rows = this.props.rows;
+    const readonly = this.props.readonly;
+    const selectAllOnFocus = this.props['select-all-on-focus'];
+    const defaultFocus = this.props['default-focus'];
     const filterKeys = this.props['filter-keys'];
     const tabIndex = this.props['tab-index'];
 
@@ -156,8 +156,8 @@ class TextFieldCombo extends Widget {
   }
 
   renderButton () {
-    const shape = this.read ('shape');
-    const glyph = this.read ('combo-glyph');
+    const shape = this.props.shape;
+    const glyph = this.props['combo-glyph'];
 
     const s = shape ? shape : 'smooth';
     const buttonShapes = {
@@ -180,7 +180,7 @@ class TextFieldCombo extends Widget {
   }
 
   renderCombo () {
-    const list = this.read ('list');
+    const list = this.props.list;
     if (list && this.showCombo) {
       return (
         <Combo
@@ -198,7 +198,7 @@ class TextFieldCombo extends Widget {
 
   render () {
     const {state} = this.props;
-    const disabled = this.read ('disabled');
+    const disabled = this.props.disabled;
 
     const boxStyle = this.styles.box;
 

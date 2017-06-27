@@ -132,7 +132,7 @@ class Label extends Widget {
         if (hasEol1 || hasEol2 || hasBr || hasEm) {
           // complex text ?
           const lines = text.split (hasBr ? '<br/>' : hasEol1 ? '\n' : '\\n');
-          const singleLine = this.read ('single-line');
+          const singleLine = this.props['single-line'];
           if (singleLine === 'true') {
             const line = lines.join (', ');
             return this.renderSimpleText (index, line);
@@ -151,9 +151,9 @@ class Label extends Widget {
   }
 
   renderGlyph (index, glyph) {
-    const rotate = this.read ('rotate');
-    const flip = this.read ('flip');
-    const spin = this.read ('spin');
+    const rotate = this.props.rotate;
+    const flip = this.props.flip;
+    const spin = this.props.spin;
 
     const style = this.styles.glyph;
 
@@ -171,8 +171,8 @@ class Label extends Widget {
   }
 
   getGlyphAndText () {
-    const text = this.read ('text');
-    const glyph = this.read ('glyph');
+    const text = this.props.text;
+    const glyph = this.props.glyph;
 
     if (glyph) {
       if (text) {
@@ -190,10 +190,10 @@ class Label extends Widget {
 
   render () {
     const {state} = this.props;
-    const disabled = this.read ('disabled');
-    const index = this.read ('index');
-    const tooltip = this.read ('tooltip');
-    const marquee = this.read ('marquee');
+    const disabled = this.props.disabled;
+    const index = this.props.index;
+    const tooltip = this.props.tooltip;
+    const marquee = this.props.marquee;
 
     const style = this.styles.box;
 

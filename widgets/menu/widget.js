@@ -10,8 +10,8 @@ class Menu extends Widget {
 
   render () {
     const {state} = this.props;
-    const disabled = this.read ('disabled');
-    const inputItems = this.read ('items');
+    const disabled = this.props.disabled;
+    const inputItems = this.props.items;
 
     const boxStyle = this.styles.box;
 
