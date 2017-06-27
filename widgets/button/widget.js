@@ -181,7 +181,6 @@ class Button extends Widget {
     const show = this.props.show;
     const text = this.props.text;
     let tooltip = this.props.tooltip;
-    console.log (`render Button ${text} ${this.props.active}`);
 
     if (kind === 'pane-navigator') {
       tooltip = text;
