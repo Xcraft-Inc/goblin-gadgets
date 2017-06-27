@@ -4,6 +4,7 @@ import Widget from 'laboratory/widget';
 import Container from 'gadgets/container/widget';
 import Label from 'gadgets/label/widget';
 import Button from 'gadgets/button/widget';
+import Calendar from 'gadgets/calendar/widget';
 
 /******************************************************************************/
 
@@ -22,7 +23,8 @@ class Hinter extends Widget {
     );
   }
 
-  renderRows (rows) {
+  renderRows () {
+    const rows = this.props.rows;
     const result = [];
     for (const row of rows) {
       result.push (this.renderRow (row));
@@ -30,25 +32,44 @@ class Hinter extends Widget {
     return result;
   }
 
+  renderDate () {
+    const date = this.props.date;
+    return <Calendar visible-date={date} date={date} />;
+  }
+
+  renderContent (kind) {
+    if (kind === 'list') {
+      return this.renderRows ();
+    } else if (kind === 'date') {
+      return this.renderDate ();
+    } else {
+      throw new Error (`Unknow kind ${kind} into Hinter`);
+    }
+  }
+
   render () {
     const {state} = this.props;
     const disabled = this.props.disabled;
+    const kind = this.props.kind;
     const titleGlyph = this.props['title-glyph'];
     const titleText = this.props['title-text'];
-    const rows = this.props.rows;
 
-    return (
-      <Container kind="view-short">
-        <Container kind="panes-short">
-          <Container kind="pane">
-            <Container kind="row-pane">
-              <Label glyph={titleGlyph} text={titleText} kind="title" />
+    if (kind === 'hide') {
+      return null;
+    } else {
+      return (
+        <Container kind="view-short">
+          <Container kind="panes-short">
+            <Container kind="pane">
+              <Container kind="row-pane">
+                <Label glyph={titleGlyph} text={titleText} kind="title" />
+              </Container>
+              {this.renderContent (kind)}
             </Container>
-            {this.renderRows (rows)}
           </Container>
         </Container>
-      </Container>
-    );
+      );
+    }
   }
 }
 
