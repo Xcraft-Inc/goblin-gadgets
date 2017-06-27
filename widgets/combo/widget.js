@@ -31,7 +31,6 @@ class Combo extends Widget {
   }
 
   componentWillMount () {
-    // Trace.log ('Combo.componentWillMount');
     MouseTrap.bind ('esc', this.onCloseCombo);
     MouseTrap.bind ('up', this.onPrevIndex);
     MouseTrap.bind ('down', this.onNextIndex);
@@ -39,7 +38,6 @@ class Combo extends Widget {
   }
 
   componentWillUnmount () {
-    // Trace.log ('Combo.componentWillUnmount');
     MouseTrap.unbind ('esc');
     MouseTrap.unbind ('up');
     MouseTrap.unbind ('down');

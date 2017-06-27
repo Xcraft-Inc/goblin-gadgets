@@ -8,19 +8,6 @@ import Badge from 'gadgets/badge/widget';
 class Button extends Widget {
   constructor (props) {
     super (props);
-    this.state = {
-      isMenuVisible: false,
-    };
-  }
-
-  get isMenuVisible () {
-    return this.state.isMenuVisible;
-  }
-
-  set isMenuVisible (value) {
-    this.setState ({
-      isMenuVisible: value,
-    });
   }
 
   static get wiring () {
@@ -48,12 +35,11 @@ class Button extends Widget {
 
   // Called when the button is clicked.
   onShowMenu () {
-    // Trace.log ('>>>> showMenu <<<<');
     this.isMenuVisible = !this.isMenuVisible;
+    this.forceUpdate ();
   }
 
   onMouseDown (e) {
-    // Trace.log ('Button.mouseDown');
     const disabled = this.props.disabled;
     if (disabled === 'true') {
       return;

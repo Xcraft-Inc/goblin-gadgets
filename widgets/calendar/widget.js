@@ -12,9 +12,6 @@ import Separator from 'gadgets/separator/widget';
 class Calendar extends Widget {
   constructor (props) {
     super (props);
-    this.state = {
-      visibleDate: null,
-    };
   }
 
   static get wiring () {
@@ -22,16 +19,6 @@ class Calendar extends Widget {
       id: 'id',
       msg: 'msg',
     };
-  }
-
-  get visibleDate () {
-    return this.state.visibleDate;
-  }
-
-  set visibleDate (value) {
-    this.setState ({
-      visibleDate: value,
-    });
   }
 
   componentWillMount () {
@@ -59,6 +46,7 @@ class Calendar extends Widget {
 
   changeDate (date) {
     this.visibleDate = date;
+    this.forceUpdate ();
     var x = this.props['visible-date-changed'];
     if (x) {
       x (date);
@@ -69,6 +57,7 @@ class Calendar extends Widget {
   // Modify internalState.visibleDate (fix visible year and month).
   onPrevMonth () {
     const visibleDate = this.visibleDate;
+    this.forceUpdate ();
     const newDate = Converters.addMonths (visibleDate, -1);
     this.changeDate (newDate);
   }
@@ -77,6 +66,7 @@ class Calendar extends Widget {
   // Modify internalState.visibleDate (fix visible year and month).
   onNextMonth () {
     const visibleDate = this.visibleDate;
+    this.forceUpdate ();
     const newDate = Converters.addMonths (visibleDate, 1);
     this.changeDate (newDate);
   }
