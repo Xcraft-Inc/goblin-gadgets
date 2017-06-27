@@ -1,5 +1,6 @@
 import {ColorManipulator} from 'electrum-theme';
 import {Unit} from 'electrum-theme';
+import {StyleSheet} from 'aphrodite';
 
 /******************************************************************************/
 
@@ -761,14 +762,14 @@ export default function styles (theme, props) {
     zIndex: 2,
   };
 
-  return {
+  return StyleSheet.create ({
     box: boxStyle,
     glyph: glyphStyle,
     text: textStyle,
     shortcut: shortcutStyle,
     triangle: triangleStyle,
     menuBox: menuBoxStyle,
-  };
+  });
 }
 
 /******************************************************************************/
