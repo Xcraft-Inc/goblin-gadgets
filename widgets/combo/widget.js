@@ -15,19 +15,6 @@ import Separator from 'gadgets/separator/widget';
 class Combo extends Widget {
   constructor (props) {
     super (props);
-    this.state = {
-      focusedIndex: -1,
-    };
-  }
-
-  get focusedIndex () {
-    return this.state.focusedIndex;
-  }
-
-  set focusedIndex (value) {
-    this.setState ({
-      focusedIndex: value,
-    });
   }
 
   componentWillMount () {
@@ -64,6 +51,7 @@ class Combo extends Widget {
       }
     }
     this.focusedIndex = index;
+    this.forceUpdate ();
   }
 
   onPrevIndex () {
@@ -79,6 +67,7 @@ class Combo extends Widget {
       }
     }
     this.focusedIndex = index;
+    this.forceUpdate ();
   }
 
   onEnterAction () {
@@ -136,10 +125,9 @@ class Combo extends Widget {
   renderCombo () {
     const list = this.props.list;
     const result = [];
-    const focusedIndex = this.focusedIndex;
     let index = 0;
     for (let item of list) {
-      const focused = index === focusedIndex;
+      const focused = index === this.focusedIndex;
       result.push (this.renderItem (item, focused, index++));
     }
     return result;
