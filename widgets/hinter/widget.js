@@ -29,7 +29,7 @@ class Hinter extends Widget {
     );
   }
 
-  renderRows () {
+  renderList () {
     const rows = this.props.rows;
     const result = [];
     for (const row of rows) {
@@ -47,39 +47,35 @@ class Hinter extends Widget {
     );
   }
 
-  renderContent (kind) {
-    if (kind === 'list') {
-      return this.renderRows ();
-    } else if (kind === 'date') {
-      return this.renderDate ();
-    } else {
-      throw new Error (`Unknow kind ${kind} into Hinter`);
+  renderContent () {
+    switch (this.props.kind) {
+      case 'list':
+        return this.renderList ();
+      case 'date':
+        return this.renderDate ();
+      default:
+        throw new Error (`Unknow kind ${this.props.kind} into Hinter`);
     }
   }
 
   render () {
     const {state} = this.props;
     const disabled = this.props.disabled;
-    const kind = this.props.kind;
     const titleGlyph = this.props['title-glyph'];
     const titleText = this.props['title-text'];
 
-    if (kind === 'hide') {
-      return null;
-    } else {
-      return (
-        <Container kind="view-short">
-          <Container kind="panes-short">
-            <Container kind="pane">
-              <Container kind="row-pane">
-                <Label glyph={titleGlyph} text={titleText} kind="title" />
-              </Container>
-              {this.renderContent (kind)}
+    return (
+      <Container kind="view-short">
+        <Container kind="panes-short">
+          <Container kind="pane">
+            <Container kind="row-pane">
+              <Label glyph={titleGlyph} text={titleText} kind="title" />
             </Container>
+            {this.renderContent ()}
           </Container>
         </Container>
-      );
-    }
+      </Container>
+    );
   }
 }
 
