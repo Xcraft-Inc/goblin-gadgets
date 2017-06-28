@@ -37,7 +37,7 @@ class Calendar extends Widget {
 
   get monthCount () {
     const monthCount = this.props['month-count'];
-    return monthCount ? monthCount : 1;
+    return monthCount ? parseInt (monthCount) : 1;
   }
 
   getDOW3Letters (dow) {
