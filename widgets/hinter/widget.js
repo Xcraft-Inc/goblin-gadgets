@@ -17,7 +17,13 @@ class Hinter extends Widget {
     return (
       <Container kind="row-pane" subkind="large-box">
         <Button kind="container" width="100%">
-          <Label text={row} kind="large-single" justify="left" grow="1" />
+          <Label
+            text={row}
+            kind="large-single"
+            justify="left"
+            grow="1"
+            wrap="no"
+          />
         </Button>
       </Container>
     );
@@ -34,7 +40,11 @@ class Hinter extends Widget {
 
   renderDate () {
     const date = this.props.date;
-    return <Calendar visible-date={date} date={date} />;
+    return (
+      <Container kind="row-pane" subkind="large-box">
+        <Calendar visible-date={date} date={date} />
+      </Container>
+    );
   }
 
   renderContent (kind) {

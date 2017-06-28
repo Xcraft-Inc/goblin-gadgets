@@ -279,7 +279,7 @@ export default function styles (theme, props) {
   }
 
   if (props.kind === 'view-wedge') {
-    flexGrow = 1;
+    width = 0;
   }
 
   if (props.kind === 'full-view') {
