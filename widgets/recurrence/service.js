@@ -16,7 +16,7 @@ const logicHandlers = {
       id: action.get ('id'),
       startDate: '2017-01-01',
       endDate: '2017-12-31',
-      cron: '',
+      cron: '0 0 0 * * *',
       deleteList: [],
       addList: [],
     };
