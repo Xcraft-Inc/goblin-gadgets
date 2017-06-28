@@ -146,6 +146,7 @@ class Recurrence extends Widget {
       deleteList,
       addList
     );
+    this.recurrenceDates = items;
 
     const dates = [];
     for (let item of items) {
@@ -161,7 +162,8 @@ class Recurrence extends Widget {
   }
 
   onDateClicked (date) {
-    this.do ('select-date', {date});
+    const item = getRecurrenceItem (date, this.recurrenceDates);
+    this.do ('select-date', {date: date, type: item.Type});
   }
 
   onEraseEvents () {
