@@ -1,12 +1,12 @@
 import React from 'react';
 import CronParser from 'cron-parser';
-import Widget from 'laboratory/widget';
+import Form from 'laboratory/form';
 import * as Converters from '../helpers/converters';
 import * as CronHelpers from '../helpers/cron-helpers';
 
 import Calendar from 'gadgets/calendar/widget';
 import LabelTextField from 'gadgets/label-text-field/widget';
-import TextField from 'gadgets/text-field/widget';
+import TextFieldTyped from 'gadgets/text-field-typed/widget';
 import Button from 'gadgets/button/widget';
 import Label from 'gadgets/label/widget';
 
@@ -95,7 +95,7 @@ function getRecurrenceItem (date, recurrenceList) {
 
 /******************************************************************************/
 
-class Recurrence extends Widget {
+class Recurrence extends Form {
   constructor (props) {
     super (props);
     this.visibleDate = this.props.visibleDate
@@ -200,9 +200,10 @@ class Recurrence extends Widget {
   renderEditor (extended) {
     if (extended) {
       const style = this.styles.editor;
+
       return (
         <div style={style}>
-          <TextField
+          <TextFieldTyped
             type="date"
             field="startDate"
             select-all-on-focus="true"
@@ -213,7 +214,7 @@ class Recurrence extends Widget {
             spacing="large"
             model=".startDate"
           />
-          <TextField
+          <TextFieldTyped
             type="date"
             field="endDate"
             select-all-on-focus="true"
@@ -288,12 +289,14 @@ class Recurrence extends Widget {
   render () {
     const extended = this.props.extended === 'true';
     const mainStyle = {}; //this.styles.main;
-
+    const Form = this.getForm (this.props.id);
     return (
       <div style={mainStyle}>
-        {this.renderInfo (extended)}
-        {this.renderEditor (extended)}
-        {this.renderCalendar (extended)}
+        <Form>
+          {this.renderInfo (extended)}
+          {this.renderEditor (extended)}
+          {this.renderCalendar (extended)}
+        </Form>
       </div>
     );
   }
