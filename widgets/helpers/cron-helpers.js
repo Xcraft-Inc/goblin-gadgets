@@ -49,7 +49,11 @@ export function getDisplayedDays (canonicalDays) {
 // mars et juin
 export function getDisplayedMonths (canonicalMonths) {
   let result = [];
-  if (canonicalMonths && canonicalMonths !== '*') {
+  if (
+    canonicalMonths &&
+    canonicalMonths !== '*' &&
+    canonicalMonths !== '1-12'
+  ) {
     let m = 0;
     for (let c of canonicalMonths) {
       if (c >= '0' && c <= '9') {
@@ -86,53 +90,17 @@ export function getDisplayedMonths (canonicalMonths) {
   return join (result, ' ');
 }
 
-// Return a recurrence of days. By example:
-// 1
-// 2-4
-// 3,5
-export function getCanonicalDays (cron) {
-  if (cron) {
-    const a = cron.split (' ');
-    if (a.length > 5) {
-      const f = a[5];
-      if (f === '*') {
-        return null;
-      }
-      return f;
-    }
-  }
-  return null;
-}
-
-// Return a recurrence of months. By example:
-// 1
-// 2-9
-// 3,6
-export function getCanonicalMonths (cron) {
-  if (cron) {
-    const a = cron.split (' ');
-    if (a.length > 4) {
-      const f = a[4];
-      if (f === '*') {
-        return null;
-      }
-      return f;
-    }
-  }
-  return null;
-}
-
 // Return a full description of recurrence. By example:
 // lun et jeu, mars à sept, -4, +5
-export function getDisplayedCron (cron, deleteList, addList) {
+export function getDisplayedCron (days, months, deleteList, addList) {
   const result = [];
 
-  const d = getDisplayedDays (getCanonicalDays (cron));
+  const d = getDisplayedDays (days);
   if (d && d !== '') {
     result.push (d);
   }
 
-  const m = getDisplayedMonths (getCanonicalMonths (cron));
+  const m = getDisplayedMonths (months);
   if (m && m !== '') {
     result.push (m);
   }

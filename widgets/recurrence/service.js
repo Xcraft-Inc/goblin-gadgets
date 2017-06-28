@@ -17,7 +17,7 @@ const logicHandlers = {
       startDate: '2017-01-01',
       endDate: '2017-12-31',
       days: '',
-      months: '',
+      months: '1-12',
       deleteList: [],
       addList: [],
     };

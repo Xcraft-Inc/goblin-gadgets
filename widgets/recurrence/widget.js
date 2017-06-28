@@ -49,7 +49,8 @@ function getRecurrenceItems (
   date,
   startDate,
   endDate,
-  cron,
+  days,
+  months,
   deleteList,
   addList
 ) {
@@ -61,8 +62,11 @@ function getRecurrenceItems (
     endDate = '2100-12-31';
   }
 
-  if (cron) {
-    pushCron (result, date, startDate, endDate, cron, deleteList);
+  if (days && days !== '' && months && months !== '') {
+    const cron = CronHelpers.getCron (days, months);
+    if (cron) {
+      pushCron (result, date, startDate, endDate, cron, deleteList);
+    }
   }
 
   for (var a of addList) {
@@ -111,10 +115,6 @@ class Recurrence extends Widget {
     };
   }
 
-  get cron () {
-    return CronHelpers.getCron (this.props.days, this.props.months);
-  }
-
   get periodInfo () {
     return Converters.getPeriodDescription (
       this.props.startDate,
@@ -124,7 +124,8 @@ class Recurrence extends Widget {
 
   get cronInfo () {
     return CronHelpers.getDisplayedCron (
-      this.cron,
+      this.props.days,
+      this.props.months,
       this.props.deleteList,
       this.props.addList
     );
@@ -137,7 +138,8 @@ class Recurrence extends Widget {
       this.visibleDate,
       this.props.startDate,
       this.props.endDate,
-      this.cron,
+      this.props.days,
+      this.props.months,
       deleteList,
       addList
     );
