@@ -102,47 +102,42 @@ class Recurrence extends Widget {
   static get wiring () {
     return {
       id: 'id',
-      StartDate: 'startDate',
-      EndDate: 'endDate',
-      Cron: 'cron',
-      Delete: 'deleteList',
-      Add: 'addList',
+      startDate: 'startDate',
+      endDate: 'endDate',
+      days: 'days',
+      months: 'months',
+      deleteList: 'deleteList',
+      addList: 'addList',
     };
   }
 
-  get days () {
-    return CronHelpers.getCanonicalDays (this.props.Cron);
-  }
-
-  get months () {
-    return CronHelpers.getCanonicalMonths (this.props.Cron);
+  get cron () {
+    return CronHelpers.getCron (this.props.days, this.props.months);
   }
 
   get periodInfo () {
     return Converters.getPeriodDescription (
-      this.props.StartDate,
-      this.props.EndDate
+      this.props.startDate,
+      this.props.endDate
     );
   }
 
   get cronInfo () {
-    const cron = CronHelpers.getCron (this.days, this.months);
     return CronHelpers.getDisplayedCron (
-      cron,
-      this.props.Delete,
-      this.props.Add
+      this.cron,
+      this.props.deleteList,
+      this.props.addList
     );
   }
 
   get dates () {
-    const deleteList = this.props.Delete.toArray ();
-    const addList = this.props.Add.toArray ();
-    const cron = CronHelpers.getCron (this.days, this.months);
+    const deleteList = this.props.deleteList.toArray ();
+    const addList = this.props.addList.toArray ();
     const items = getRecurrenceItems (
       this.visibleDate,
-      this.props.StartDate,
-      this.props.EndDate,
-      cron,
+      this.props.startDate,
+      this.props.endDate,
+      this.cron,
       deleteList,
       addList
     );
@@ -158,7 +153,7 @@ class Recurrence extends Widget {
   }
 
   get hasExceptions () {
-    return this.props.Add.length > 0 || this.props.Delete.length > 0;
+    return this.props.addList.length > 0 || this.props.deleteList.length > 0;
   }
 
   onDateClicked (date) {
@@ -207,45 +202,45 @@ class Recurrence extends Widget {
         <div style={style}>
           <TextField
             type="date"
-            field="StartDate"
+            field="startDate"
             select-all-on-focus="true"
             hint-text="Date de début"
             tooltip="Date de début"
             label-glyph="forward"
             grow="1"
             spacing="large"
-            model=".StartDate"
+            model=".startDate"
           />
           <TextField
             type="date"
-            field="EndDate"
+            field="endDate"
             select-all-on-focus="true"
             hint-text="Date de fin"
             tooltip="Date de fin"
             label-glyph="backward"
             grow="1"
             spacing="large"
-            model=".EndDate"
+            model=".endDate"
           />
           <LabelTextField
-            field="Days"
+            field="days"
             select-all-on-focus="true"
             hint-text="Jours de la semaine"
             tooltip="1..7 = lundi..dimanche   - = à   , = et"
             label-glyph="calendar"
             grow="1"
             spacing="large"
-            model=".Days"
+            model=".days"
           />
           <LabelTextField
-            field="Months"
+            field="months"
             select-all-on-focus="true"
             hint-text="Mois de l´année"
             tooltip="1..12 = janvier..décembre   - = à   , = et"
             label-glyph="calendar-o"
             grow="1"
             spacing="large"
-            model=".Months"
+            model=".months"
           />
           <Button
             glyph="eraser"
@@ -276,8 +271,8 @@ class Recurrence extends Widget {
             navigator="standard"
             visible-date={this.visibleDate}
             dates={this.dates}
-            start-date={this.props.StartDate}
-            end-date={this.props.EndDate}
+            start-date={this.props.startDate}
+            end-date={this.props.endDate}
             date-clicked={::this.onDateClicked}
             visible-date-changed={::this.onVisibleDateChanged}
           />
@@ -289,7 +284,6 @@ class Recurrence extends Widget {
   }
 
   render () {
-    const {StartDate} = this.props;
     const extended = this.props.extended === 'true';
     const mainStyle = {}; //this.styles.main;
 
