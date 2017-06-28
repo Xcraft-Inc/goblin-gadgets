@@ -1,6 +1,6 @@
 import {ColorManipulator} from 'electrum-theme';
 import {Unit} from 'electrum-theme';
-import {StyleSheet} from 'aphrodite';
+import {StyleSheet, css} from 'aphrodite/no-important';
 
 /******************************************************************************/
 
@@ -765,14 +765,26 @@ export default function styles (theme, props) {
     zIndex: 2,
   };
 
-  return StyleSheet.create ({
+  const styles = {
     box: boxStyle,
     glyph: glyphStyle,
     text: textStyle,
     shortcut: shortcutStyle,
     triangle: triangleStyle,
     menuBox: menuBoxStyle,
-  });
+  };
+
+  Object.keys (styles).forEach (type =>
+    Object.keys (styles[type]).forEach (
+      key =>
+        (styles[type][key] === undefined || styles[type][key] === null) &&
+        delete styles[type][key]
+    )
+  );
+
+  const sheet = StyleSheet.create (styles);
+  Object.keys (sheet).forEach (key => (sheet[key] = css (sheet[key])));
+  return sheet;
 }
 
 /******************************************************************************/

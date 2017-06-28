@@ -1,5 +1,4 @@
 import React from 'react';
-import {css} from 'aphrodite';
 import Widget from 'laboratory/widget';
 import * as ShortcutHelpers from '../helpers/shortcut-helpers.js';
 
@@ -76,7 +75,7 @@ class Button extends Widget {
     const active = this.props.active;
     if (kind === 'main-tab' && active === 'true') {
       const style = this.styles.triangle;
-      return <div className={css (style)} key="triangle" />;
+      return <div className={style} key="triangle" />;
     } else {
       return null;
     }
@@ -87,7 +86,7 @@ class Button extends Widget {
       const menu = this.props.menu;
       const style = this.styles.menuBox;
       return (
-        <div className={css (style)} key="menu">
+        <div className={style} key="menu">
           {<Menu items={menu} />}
         </div>
       );
@@ -106,7 +105,7 @@ class Button extends Widget {
         <i
           key="icon"
           className={
-            css (style) +
+            style +
               ` fa
             fa-${glyph}
             fa-rotate-${rotate}
@@ -124,7 +123,7 @@ class Button extends Widget {
     const text = this.props.text;
     if (text) {
       return (
-        <label key="text" className={css (style)}>
+        <label key="text" className={style}>
           {text}
         </label>
       );
@@ -138,7 +137,7 @@ class Button extends Widget {
     if (shortcut) {
       const style = this.styles.shortcut;
       return (
-        <label key="shortcut" className={css (style)}>
+        <label key="shortcut" className={style}>
           {ShortcutHelpers.getShortcut (shortcut)}
         </label>
       );
@@ -190,7 +189,7 @@ class Button extends Widget {
           onMouseUp={::this.onMouseUp}
           onTouchStart={::this.onMouseDown}
           onTouchEnd={::this.onMouseUp}
-          className={css (boxStyle)}
+          className={boxStyle}
           title={tooltip}
         >
           {this.props.children}
@@ -205,7 +204,7 @@ class Button extends Widget {
           onMouseUp={::this.onMouseUp}
           onTouchStart={::this.onMouseDown}
           onTouchEnd={::this.onMouseUp}
-          className={css (boxStyle)}
+          className={boxStyle}
           title={tooltip}
         >
           {this.renderLayout (glyphStyle, textStyle)}
@@ -224,7 +223,7 @@ class Button extends Widget {
           onMouseUp={::this.onMouseUp}
           onTouchStart={::this.onMouseDown}
           onTouchEnd={::this.onMouseUp}
-          className={css (boxStyle)}
+          className={boxStyle}
           title={tooltip}
           href={window.location.hash + '#' + toAnchor}
         >
@@ -244,7 +243,7 @@ class Button extends Widget {
           onMouseUp={::this.onMouseUp}
           onTouchStart={::this.onMouseDown}
           onTouchEnd={::this.onMouseUp}
-          className={css (boxStyle)}
+          className={boxStyle}
           title={tooltip}
         >
           {this.renderLayout (glyphStyle, textStyle)}
