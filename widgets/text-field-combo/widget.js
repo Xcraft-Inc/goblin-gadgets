@@ -122,6 +122,9 @@ class TextFieldCombo extends Widget {
     const textFieldShape = textFieldShapes[s];
     const props = {
       model: this.props.model,
+      parser: this.props.parser,
+      errors: this.props.errors,
+      updateOn: this.props.updateOn,
       value: this.props.value,
       hinter: this.props.hinter,
       'hint-text': hintText,

@@ -94,7 +94,9 @@ function getRecurrenceItem (date, recurrenceList) {
 class Recurrence extends Widget {
   constructor (props) {
     super (props);
-    this.visibleDate = '2017-06-01';
+    this.visibleDate = this.props.visibleDate
+      ? this.props.visibleDate
+      : Converters.getNowCanonicalDate ();
   }
 
   static get wiring () {
@@ -106,56 +108,6 @@ class Recurrence extends Widget {
       Delete: 'deleteList',
       Add: 'addList',
     };
-  }
-
-  updateComponent () {
-    const recurrence = this.props.value;
-    if (recurrence !== this.lastRecurrence) {
-      this.updateInternalState (recurrence);
-      this.lastRecurrence = recurrence;
-      this.updateInfo ();
-      this.updateDates ();
-    }
-  }
-
-  updateInternalState (recurrence) {
-    const startDate = recurrence.StartDate;
-    const endDate = recurrence.EndDate;
-    const cron = recurrence.Cron;
-    const deleteList = recurrence.Delete;
-    const addList = recurrence.Add;
-
-    this.recurrenceId = recurrence.id;
-
-    this.internalStore.select ('StartDate').set ('value', startDate);
-    this.internalStore.select ('EndDate').set ('value', endDate);
-
-    this.internalStore
-      .select ('Days')
-      .set ('value', CronHelpers.getCanonicalDays (cron));
-    this.internalStore
-      .select ('Months')
-      .set ('value', CronHelpers.getCanonicalMonths (cron));
-
-    this.internalStore.select ('Delete').set ('value', deleteList);
-    this.internalStore.select ('Add').set ('value', addList);
-
-    if (
-      !this.visibleDate ||
-      this.visibleDate < startDate ||
-      this.visibleDate > endDate
-    ) {
-      if (startDate) {
-        const year = Converters.getYear (startDate);
-        const month = Converters.getMonth (startDate);
-        this.visibleDate = Converters.getDate (year, month, 1);
-      } else {
-        const now = Converters.getNowCanonicalDate ();
-        const year = Converters.getYear (now);
-        const month = Converters.getMonth (now);
-        this.visibleDate = Converters.getDate (year, month, 1);
-      }
-    }
   }
 
   get days () {
@@ -182,43 +134,14 @@ class Recurrence extends Widget {
     );
   }
 
-  updateDates () {
-    const startDate = this.internalStore.select ('StartDate').get ('value');
-    const endDate = this.internalStore.select ('EndDate').get ('value');
-    const days = this.internalStore.select ('Days').get ('value');
-    const months = this.internalStore.select ('Months').get ('value');
-    const deleteList = this.internalStore.select ('Delete').get ('value');
-    const addList = this.internalStore.select ('Add').get ('value');
-    const cron = CronHelpers.getCron (days, months);
-    const items = getRecurrenceItems (
-      this.visibleDate,
-      startDate,
-      endDate,
-      cron,
-      deleteList,
-      addList
-    );
-    this.recurrenceDates = items;
-
-    const dates = [];
-    for (let item of items) {
-      if (item.Type === 'default' || item.Type === 'added') {
-        dates.push (item.Date);
-      }
-    }
-    this.dates = dates;
-  }
-
   get dates () {
-    const startDate = this.props.StartDate;
-    const endDate = this.props.EndDate;
     const deleteList = this.props.Delete.toArray ();
     const addList = this.props.Add.toArray ();
     const cron = CronHelpers.getCron (this.days, this.months);
     const items = getRecurrenceItems (
       this.visibleDate,
-      startDate,
-      endDate,
+      this.props.StartDate,
+      this.props.EndDate,
       cron,
       deleteList,
       addList
@@ -364,7 +287,6 @@ class Recurrence extends Widget {
   }
 
   render () {
-    // this.updateComponent ();
     const {StartDate} = this.props;
     const extended = this.props.extended === 'true';
     const mainStyle = {}; //this.styles.main;
