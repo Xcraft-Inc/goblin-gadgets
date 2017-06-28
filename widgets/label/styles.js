@@ -278,9 +278,11 @@ export default function styles (theme, props) {
   };
 
   const hilitedFragmentStyle = {
-    color: theme.palette.highlightedText,
-    backgroundColor: theme.palette.highlightedTextBackground,
-    padding: '2px',
+    // color: theme.palette.highlightedText,
+    // backgroundColor: theme.palette.highlightedTextBackground,
+    backgroundColor: theme.palette.boxActiveBackground,
+    // FIXME: modify highlightedTextBackground to electrum-theme
+    padding: '1px',
   };
 
   return {

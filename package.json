@@ -15,6 +15,7 @@
     }
   },
   "dependencies": {
+    "cron-parser": "^2.4.0",
     "linq": "^3.0.8",
     "mousetrap": "^1.6.1"
   }

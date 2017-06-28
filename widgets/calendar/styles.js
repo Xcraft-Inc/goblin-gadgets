@@ -76,6 +76,7 @@ export default function styles (theme, props) {
   };
 
   const navigatorStyle = {
+    maxWidth: '140px',
     display: 'flex',
     flexDirection: 'column',
     flexGrow: '1',

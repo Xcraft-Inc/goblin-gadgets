@@ -274,12 +274,12 @@ export default function styles (theme, props) {
     position = 'relative';
     display = 'flex';
     flexDirection = 'column';
-    margin = '0px';
+    margin = '0px 0px 0px ' + theme.shapes.viewSpacing;
     backgroundColor = theme.palette.viewBackground;
   }
 
   if (props.kind === 'view-wedge') {
-    flexGrow = 1;
+    width = 0;
   }
 
   if (props.kind === 'full-view') {
