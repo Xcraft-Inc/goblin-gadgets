@@ -9,29 +9,22 @@ import LabelTextField from 'gadgets/label-text-field/widget';
 class TextFieldTyped extends Widget {
   constructor (props) {
     super (props);
-    this.internalStore = Store.create (); // FIXME
-    this.localBus = this; // for access to property notify
-
-    this.type = this.props.type;
-    const canonicalValue = this.props.value;
-    const displayedValue = this.canonicalToDisplayed (canonicalValue);
-    this.internalStore.select ('value').set ('value', displayedValue);
   }
 
   canonicalToDisplayed (canonicalValue) {
-    switch (this.type) {
+    switch (this.props.type) {
       case 'date':
         return Converters.getDisplayedDate (canonicalValue);
       case 'time':
         return Converters.getDisplayedTime (canonicalValue);
       default:
-        throw new Error (`Invalid type ${this.type}`);
+        throw new Error (`Invalid type ${this.props.type}`);
     }
   }
 
   parseEditedValue (displayedValue) {
     let parsed;
-    switch (this.type) {
+    switch (this.props.type) {
       case 'date':
         parsed = Converters.parseEditedDate (displayedValue);
         break;
@@ -49,67 +42,21 @@ class TextFieldTyped extends Widget {
     };
   }
 
-  linkValueEdited () {
-    // FIXME
-    return {
-      ...this.link (),
-      state: this.internalStore.select ('value'),
-      bus: this.localBus,
-    };
-  }
-
   // Return the top line of FlyingBalloon, displayed in bold.
   // Contains the optional error message.
   getMessageWarning () {
-    return this.internalStore.select ('value').get ('warning');
+    return this.props.warning;
   }
 
   // Return the bottom line of FlyingBalloon.
   // Contains the final value.
   getMessageInfo () {
-    const displayedValue = this.internalStore.select ('value').get ('value');
-    const message = this.internalStore.select ('value').get ('info');
+    const displayedValue = this.props.value;
+    const message = this.props.message;
     if (message !== displayedValue) {
       return message;
     } else {
       return null;
-    }
-  }
-
-  // LocalBus.notify
-  notify (props, source, value) {
-    if (source.type === 'change') {
-      const parsed = this.parseEditedValue (value);
-      this.internalStore
-        .select ('value')
-        .set (
-          'value',
-          value,
-          'info',
-          parsed.displayedFinalValue,
-          'warning',
-          parsed.warning
-        );
-
-      if (parsed.canonicalValue !== this.props.value) {
-        this.props.bus.notify (this.props, source, parsed.canonicalValue);
-      }
-
-      this.forceUpdate (); // to update message-info
-    } else if (source.type === 'defocus') {
-      // When defocus, complete the edited value and hide the FlyingBalloon (which
-      // contains the message). By example, '12' is replaced by '12.05.2017'.
-      const displayedValue = this.internalStore.select ('value').get ('value');
-      const parsed = this.parseEditedValue (displayedValue);
-      this.internalStore.select ('value').set (
-        'value',
-        parsed.displayedFinalValue, // no 'info' -> hide FlyingBalloon
-        'info',
-        null,
-        'warning',
-        null
-      );
-      this.forceUpdate (); // to update message-info
     }
   }
 
@@ -127,6 +74,9 @@ class TextFieldTyped extends Widget {
 
     return (
       <LabelTextField
+        updateOn="blur"
+        parser={value => this.parseEditedValue (value).displayedFinalValue}
+        errors={{warning: val => this.parseEditedValue (val).warning}}
         model={this.props.model}
         hint-text={hintText}
         tooltip={tooltip}
@@ -140,7 +90,6 @@ class TextFieldTyped extends Widget {
         default-focus={defaultFocus}
         message-warning={this.getMessageWarning ()}
         message-info={this.getMessageInfo ()}
-        {...this.linkValueEdited ()}
       />
     );
   }

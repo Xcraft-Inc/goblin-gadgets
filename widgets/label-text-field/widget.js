@@ -129,6 +129,9 @@ class LabelTextField extends Widget {
     const textFieldShape = textFieldShapes[s];
     const props = {
       model: this.props.model,
+      parser: this.props.parser,
+      errors: this.props.errors,
+      updateOn: this.props.updateOn,
       field: field,
       type: type,
       width: fieldWidth,
