@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
-import {Control} from 'react-redux-form';
+import {Control, Errors} from 'react-redux-form';
 import FlyingBalloon from 'gadgets/flying-balloon/widget';
 
 /******************************************************************************/
@@ -97,6 +97,7 @@ class TextField extends Widget {
       return (
         <Control.textarea
           id={model}
+          updateOn={this.props.updateOn ? this.props.updateOn : 'change'}
           model={model}
           onFocus={::this.onFieldFocus}
           style={textareaStyle}
@@ -112,6 +113,9 @@ class TextField extends Widget {
       return (
         <Control.text
           id={model}
+          parser={this.props.parser}
+          errors={this.props.errors}
+          updateOn={this.props.updateOn ? this.props.updateOn : 'change'}
           model={model}
           onFocus={::this.onFieldFocus}
           disabled={disabled}
@@ -142,10 +146,17 @@ class TextField extends Widget {
 
     if (messageWarning || messageInfo) {
       return (
-        <FlyingBalloon
-          primary-text={messageWarning}
-          secondary-text={messageInfo}
-          triangle-position={trianglePosition}
+        <Errors
+          model={this.props.model}
+          show="touched"
+          messages={{warning: messageWarning}}
+          component={props => (
+            <FlyingBalloon
+              primary-text={props.children}
+              secondary-text={messageInfo}
+              triangle-position={trianglePosition}
+            />
+          )}
         />
       );
     } else {
