@@ -27,6 +27,10 @@ const logicHandlers = {
     const newValue = action.get ('newValue');
     return state.set ('startDate', newValue);
   },
+  'change-end-date': (state, action) => {
+    const newValue = action.get ('newValue');
+    return state.set ('endDate', newValue);
+  },
   'select-date': (state, action) => {
     const date = action.get ('date');
     const type = action.get ('type');
@@ -69,6 +73,13 @@ Goblin.registerQuest (goblinName, 'create', function (quest) {
 });
 
 Goblin.registerQuest (goblinName, 'change-start-date', function (
+  quest,
+  newValue
+) {
+  quest.do ({newValue});
+});
+
+Goblin.registerQuest (goblinName, 'change-end-date', function (
   quest,
   newValue
 ) {

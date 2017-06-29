@@ -131,6 +131,7 @@ class LabelTextField extends Widget {
       model: this.props.model,
       parser: this.props.parser,
       errors: this.props.errors,
+      beforeChange: this.props.beforeChange,
       updateOn: this.props.updateOn,
       field: field,
       type: type,

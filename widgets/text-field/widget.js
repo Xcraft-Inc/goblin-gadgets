@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
-import {Control, Errors} from 'react-redux-form';
+import {Control, Errors, actions} from 'react-redux-form';
 import FlyingBalloon from 'gadgets/flying-balloon/widget';
 
 /******************************************************************************/
