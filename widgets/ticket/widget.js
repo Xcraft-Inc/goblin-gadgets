@@ -68,7 +68,9 @@ class Ticket extends Widget {
 
   renderTicket () {
     const hatch = this.props.hatch;
-    const hoverShape = this.props['hover-shape'];
+    const hoverShape = this.props.hover === 'true'
+      ? this.props['hover-shape']
+      : null;
 
     const boxClass = this.styles.classNames.box;
     const shadowClass = this.styles.classNames.shadow;
@@ -151,7 +153,9 @@ class Ticket extends Widget {
 
   renderRect () {
     const hatch = this.props.hatch;
-    const hoverShape = this.props['hover-shape'];
+    const hoverShape = this.props.hover === 'true'
+      ? this.props['hover-shape']
+      : null;
 
     const rectShadowClass = this.styles.classNames.rectShadow;
     const rectClass = this.styles.classNames.rect;

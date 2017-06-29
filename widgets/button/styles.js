@@ -728,7 +728,6 @@ export default function styles (theme, props) {
   };
 
   if (!props.disabled && actif && boxOpacity !== 0) {
-    // FIXME
     boxStyle[':hover'] = {
       color: textHoverColor, // (*)
       borderColor: borderHoverColor,
