@@ -85,6 +85,12 @@ function tryParseInt (text) {
   }
 }
 
+function pad (n, width, z) {
+  z = z || '0';
+  n = n + '';
+  return n.length >= width ? n : new Array (width - n.length + 1).join (z) + n;
+}
+
 // value =  '1', decimals = 3  -> return '001'
 // value =  'a', decimals = 3  -> return null
 // value =    5, decimals = 3  -> return '005'
@@ -97,10 +103,7 @@ function padding (value, decimals) {
       return null;
     }
   }
-  const result = value.toLocaleString ('en-US', {
-    minimumIntegerDigits: decimals,
-    useGrouping: false,
-  });
+  const result = pad (value, decimals);
   if (result.length > decimals) {
     return null;
   } else {
