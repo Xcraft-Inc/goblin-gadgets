@@ -1,6 +1,7 @@
 import {ColorManipulator} from 'electrum-theme';
 import {Unit} from 'electrum-theme';
 import {StyleSheet, css} from 'aphrodite/no-important';
+import traverse from 'traverse';
 
 /******************************************************************************/
 
@@ -774,13 +775,11 @@ export default function styles (theme, props) {
     menuBox: menuBoxStyle,
   };
 
-  Object.keys (styles).forEach (type =>
-    Object.keys (styles[type]).forEach (
-      key =>
-        (styles[type][key] === undefined || styles[type][key] === null) &&
-        delete styles[type][key]
-    )
-  );
+  traverse (styles).forEach (function (style) {
+    if (style === undefined || style === null) {
+      this.delete ();
+    }
+  });
 
   const sheet = StyleSheet.create (styles);
   Object.keys (sheet).forEach (key => (sheet[key] = css (sheet[key])));
