@@ -272,9 +272,7 @@ export default function styles (theme, props) {
   const ht = Unit.multiply (hs, 2);
   const rectContentHatchStyle = {
     position: 'relative',
-    padding: theme.shapes.ticketVerticalPadding +
-      ' ' +
-      theme.shapes.ticketHorizontalPadding,
+    padding: vp + ' ' + hp,
     display: 'flex',
     flexDirection: 'row',
     transition: theme.transitions.easeOut (),
