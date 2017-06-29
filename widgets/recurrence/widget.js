@@ -1,12 +1,12 @@
 import React from 'react';
 import CronParser from 'cron-parser';
-import Widget from 'laboratory/widget';
+import Form from 'laboratory/form';
 import * as Converters from '../helpers/converters';
 import * as CronHelpers from '../helpers/cron-helpers';
 
 import Calendar from 'gadgets/calendar/widget';
 import LabelTextField from 'gadgets/label-text-field/widget';
-import TextField from 'gadgets/text-field/widget';
+import TextFieldTyped from 'gadgets/text-field-typed/widget';
 import Button from 'gadgets/button/widget';
 import Label from 'gadgets/label/widget';
 
@@ -49,7 +49,8 @@ function getRecurrenceItems (
   date,
   startDate,
   endDate,
-  cron,
+  days,
+  months,
   deleteList,
   addList
 ) {
@@ -61,8 +62,11 @@ function getRecurrenceItems (
     endDate = '2100-12-31';
   }
 
-  if (cron) {
-    pushCron (result, date, startDate, endDate, cron, deleteList);
+  if (days && days !== '' && months && months !== '') {
+    const cron = CronHelpers.getCron (days, months);
+    if (cron) {
+      pushCron (result, date, startDate, endDate, cron, deleteList);
+    }
   }
 
   for (var a of addList) {
@@ -91,7 +95,7 @@ function getRecurrenceItem (date, recurrenceList) {
 
 /******************************************************************************/
 
-class Recurrence extends Widget {
+class Recurrence extends Form {
   constructor (props) {
     super (props);
     this.visibleDate = this.props.visibleDate
@@ -102,50 +106,44 @@ class Recurrence extends Widget {
   static get wiring () {
     return {
       id: 'id',
-      StartDate: 'startDate',
-      EndDate: 'endDate',
-      Cron: 'cron',
-      Delete: 'deleteList',
-      Add: 'addList',
+      startDate: 'startDate',
+      endDate: 'endDate',
+      days: 'days',
+      months: 'months',
+      deleteList: 'deleteList',
+      addList: 'addList',
     };
-  }
-
-  get days () {
-    return CronHelpers.getCanonicalDays (this.props.Cron);
-  }
-
-  get months () {
-    return CronHelpers.getCanonicalMonths (this.props.Cron);
   }
 
   get periodInfo () {
     return Converters.getPeriodDescription (
-      this.props.StartDate,
-      this.props.EndDate
+      this.props.startDate,
+      this.props.endDate
     );
   }
 
   get cronInfo () {
-    const cron = CronHelpers.getCron (this.days, this.months);
     return CronHelpers.getDisplayedCron (
-      cron,
-      this.props.Delete,
-      this.props.Add
+      this.props.days,
+      this.props.months,
+      this.props.deleteList,
+      this.props.addList
     );
   }
 
   get dates () {
-    const deleteList = this.props.Delete.toArray ();
-    const addList = this.props.Add.toArray ();
-    const cron = CronHelpers.getCron (this.days, this.months);
+    const deleteList = this.props.deleteList.toArray ();
+    const addList = this.props.addList.toArray ();
     const items = getRecurrenceItems (
       this.visibleDate,
-      this.props.StartDate,
-      this.props.EndDate,
-      cron,
+      this.props.startDate,
+      this.props.endDate,
+      this.props.days,
+      this.props.months,
       deleteList,
       addList
     );
+    this.recurrenceDates = items;
 
     const dates = [];
     for (let item of items) {
@@ -157,11 +155,12 @@ class Recurrence extends Widget {
   }
 
   get hasExceptions () {
-    return this.props.Add.length > 0 || this.props.Delete.length > 0;
+    return this.props.addList.length > 0 || this.props.deleteList.length > 0;
   }
 
   onDateClicked (date) {
-    this.do ('select-date', {date});
+    const item = getRecurrenceItem (date, this.recurrenceDates);
+    this.do ('select-date', {date: date, type: item.Type});
   }
 
   onEraseEvents () {
@@ -203,47 +202,47 @@ class Recurrence extends Widget {
       const editorClass = this.styles.classNames.editor;
       return (
         <div className={editorClass}>
-          <TextField
+          <TextFieldTyped
             type="date"
-            field="StartDate"
+            field="startDate"
             select-all-on-focus="true"
             hint-text="Date de début"
             tooltip="Date de début"
             label-glyph="forward"
             grow="1"
             spacing="large"
-            model=".StartDate"
+            model=".startDate"
           />
-          <TextField
+          <TextFieldTyped
             type="date"
-            field="EndDate"
+            field="endDate"
             select-all-on-focus="true"
             hint-text="Date de fin"
             tooltip="Date de fin"
             label-glyph="backward"
             grow="1"
             spacing="large"
-            model=".EndDate"
+            model=".endDate"
           />
           <LabelTextField
-            field="Days"
+            field="days"
             select-all-on-focus="true"
             hint-text="Jours de la semaine"
             tooltip="1..7 = lundi..dimanche   - = à   , = et"
             label-glyph="calendar"
             grow="1"
             spacing="large"
-            model=".Days"
+            model=".days"
           />
           <LabelTextField
-            field="Months"
+            field="months"
             select-all-on-focus="true"
             hint-text="Mois de l´année"
             tooltip="1..12 = janvier..décembre   - = à   , = et"
             label-glyph="calendar-o"
             grow="1"
             spacing="large"
-            model=".Months"
+            model=".months"
           />
           <Button
             glyph="eraser"
@@ -274,8 +273,8 @@ class Recurrence extends Widget {
             navigator="standard"
             visible-date={this.visibleDate}
             dates={this.dates}
-            start-date={this.props.StartDate}
-            end-date={this.props.EndDate}
+            start-date={this.props.startDate}
+            end-date={this.props.endDate}
             date-clicked={::this.onDateClicked}
             visible-date-changed={::this.onVisibleDateChanged}
           />
@@ -287,15 +286,20 @@ class Recurrence extends Widget {
   }
 
   render () {
-    const {StartDate} = this.props;
     const extended = this.props.extended === 'true';
     const mainClass = ''; //this.styles.classNames.main;
-
+    const initialState = {
+      startDate: this.props.startDate,
+      endDate: this.props.endDate,
+    };
+    const Form = this.getForm (this.props.id);
     return (
       <div className={mainClass}>
-        {this.renderInfo (extended)}
-        {this.renderEditor (extended)}
-        {this.renderCalendar (extended)}
+        <Form initialState={initialState}>
+          {this.renderInfo (extended)}
+          {this.renderEditor (extended)}
+          {this.renderCalendar (extended)}
+        </Form>
       </div>
     );
   }

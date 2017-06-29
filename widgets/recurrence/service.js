@@ -16,7 +16,8 @@ const logicHandlers = {
       id: action.get ('id'),
       startDate: '2017-01-01',
       endDate: '2017-12-31',
-      cron: '0 0 0 * * *',
+      days: '',
+      months: '1-12',
       deleteList: [],
       addList: [],
     };
@@ -26,11 +27,39 @@ const logicHandlers = {
     const newValue = action.get ('newValue');
     return state.set ('startDate', newValue);
   },
+  'change-end-date': (state, action) => {
+    const newValue = action.get ('newValue');
+    return state.set ('endDate', newValue);
+  },
   'select-date': (state, action) => {
     const date = action.get ('date');
-    const list = state.get ('addList', []);
-    const newList = list.push (date);
-    return state.set ('addList', newList);
+    const type = action.get ('type');
+    switch (type) {
+      case 'default': {
+        // If click on recurrent event, add a date into section 'Delete' for canceled the recurrence.
+        const list = state.get ('deleteList', []);
+        const newList = list.push (date);
+        return state.set ('deleteList', newList);
+      }
+      case 'added': {
+        // If click on added event, simply remove it.
+        const list = state.get ('addList', []);
+        const newList = list.unpush (date);
+        return state.set ('addList', newList);
+      }
+      case 'deleted': {
+        // If click on deleted event, remove 'Delete' entry. That restore the recurrent event.
+        const list = state.get ('deleteList', []);
+        const newList = list.unpush (date);
+        return state.set ('deleteList', newList);
+      }
+      case 'none': {
+        // If click on free date, add a event.
+        const list = state.get ('addList', []);
+        const newList = list.push (date);
+        return state.set ('addList', newList);
+      }
+    }
   },
   'erase-events': (state, action) => {
     return state.set ('addList', []).set ('deleteList', []);
@@ -44,6 +73,13 @@ Goblin.registerQuest (goblinName, 'create', function (quest) {
 });
 
 Goblin.registerQuest (goblinName, 'change-start-date', function (
+  quest,
+  newValue
+) {
+  quest.do ({newValue});
+});
+
+Goblin.registerQuest (goblinName, 'change-end-date', function (
   quest,
   newValue
 ) {

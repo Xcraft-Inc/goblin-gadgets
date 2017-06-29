@@ -138,7 +138,7 @@ class Calendar extends Widget {
         active={active}
         dimmed={dimmed}
         weekend={weekend}
-        onClick={() => ::this.onDateClicked (date)}
+        onClick={() => this.onDateClicked (date)}
       />
     );
   }
@@ -342,13 +342,14 @@ class Calendar extends Widget {
     selectedDates,
     visibleDate,
     firstMonth,
-    lastMonth
+    lastMonth,
+    index
   ) {
     const monthClass = lastMonth
       ? this.styles.classNames.singleMonth
       : this.styles.classNames.month;
     return (
-      <div className={monthClass}>
+      <div className={monthClass} key={index}>
         {this.renderLines (
           selectedDate,
           selectedDates,
@@ -384,7 +385,8 @@ class Calendar extends Widget {
           selectedDates,
           date,
           firstMonth,
-          lastMonth
+          lastMonth,
+          m
         )
       );
     }
@@ -412,7 +414,7 @@ class Calendar extends Widget {
   renderLineOfMonths (month, visibleMonth) {
     const doubleClass = this.styles.classNames.double;
     return (
-      <div className={doubleClass}>
+      <div className={doubleClass} key={month}>
         {this.renderQuickMonth (month + 0, visibleMonth)}
         {this.renderQuickMonth (month + 1, visibleMonth)}
         {this.renderQuickMonth (month + 2, visibleMonth)}

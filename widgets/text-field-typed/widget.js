@@ -75,7 +75,7 @@ class TextFieldTyped extends Widget {
     return (
       <LabelTextField
         updateOn="blur"
-        parser={value => this.parseEditedValue (value).displayedFinalValue}
+        beforeChange={val => this.parseEditedValue (val).canonicalValue}
         errors={{warning: val => this.parseEditedValue (val).warning}}
         model={this.props.model}
         hint-text={hintText}
