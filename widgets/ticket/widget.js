@@ -113,7 +113,7 @@ class Ticket extends Widget {
                 width={hs}
                 height={ht}
                 fill="#000"
-                fillOpacity={this.props.theme.palette.ticketHatchOpacity}
+                fillOpacity={this.context.theme.palette.ticketHatchOpacity}
               />
             </pattern>
           </defs>
