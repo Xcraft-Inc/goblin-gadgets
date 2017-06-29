@@ -132,16 +132,14 @@ class Recurrence extends Form {
   }
 
   get dates () {
-    const deleteList = this.props.deleteList.toArray ();
-    const addList = this.props.addList.toArray ();
     const items = getRecurrenceItems (
       this.visibleDate,
       this.props.startDate,
       this.props.endDate,
       this.props.days,
       this.props.months,
-      deleteList,
-      addList
+      this.props.deleteList.toArray (),
+      this.props.addList.toArray ()
     );
     this.recurrenceDates = items;
 
