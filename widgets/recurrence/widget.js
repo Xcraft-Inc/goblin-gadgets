@@ -172,11 +172,11 @@ class Recurrence extends Form {
   }
 
   renderInfo (extended) {
-    const headerInfoStyle = this.styles.headerInfo;
-    const headerDragStyle = this.styles.headerDrag;
+    const headerInfoClass = this.styles.classNames.headerInfo;
+    const headerDragClass = this.styles.classNames.headerDrag;
     return (
-      <div style={headerInfoStyle}>
-        <div style={headerDragStyle}>
+      <div className={headerInfoClass}>
+        <div className={headerDragClass}>
           <Label text={this.periodInfo} kind="title-recurrence" grow="2" />
           <Label text={this.cronInfo} kind="title-recurrence" grow="2" />
         </div>
@@ -199,10 +199,9 @@ class Recurrence extends Form {
 
   renderEditor (extended) {
     if (extended) {
-      const style = this.styles.editor;
-
+      const editorClass = this.styles.classNames.editor;
       return (
-        <div style={style}>
+        <div className={editorClass}>
           <TextFieldTyped
             type="date"
             field="startDate"
@@ -266,9 +265,9 @@ class Recurrence extends Form {
 
   renderCalendar (extended) {
     if (extended) {
-      const style = this.styles.calendar;
+      const calClass = this.styles.classNames.calendar;
       return (
-        <div style={style}>
+        <div className={calClass}>
           <Calendar
             month-count={monthCount ()}
             navigator="standard"
@@ -288,14 +287,14 @@ class Recurrence extends Form {
 
   render () {
     const extended = this.props.extended === 'true';
-    const mainStyle = {}; //this.styles.main;
+    const mainClass = ''; //this.styles.classNames.main;
     const initialState = {
       startDate: this.props.startDate,
       endDate: this.props.endDate,
     };
     const Form = this.getForm (this.props.id);
     return (
-      <div style={mainStyle}>
+      <div className={mainClass}>
         <Form initialState={initialState}>
           {this.renderInfo (extended)}
           {this.renderEditor (extended)}

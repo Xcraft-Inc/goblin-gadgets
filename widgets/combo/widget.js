@@ -137,16 +137,16 @@ class Combo extends Widget {
     const top = this.props.top;
     const width = this.props.width;
 
-    const fullScreenStyle = this.styles.fullScreen;
-    const comboStyle = this.styles.combo;
+    const fullScreenClass = this.styles.classNames.fullScreen;
+    const comboClass = this.styles.classNames.combo;
 
     return (
       <div
-        style={fullScreenStyle}
+        className={fullScreenClass}
         onMouseDown={::this.onMouseDown}
         onTouchStart={::this.onMouseDown}
       >
-        <div style={comboStyle}>
+        <div className={comboClass}>
           <Container
             kind="flying-balloon"
             triangle-position={top ? 'top' : 'bottom'}

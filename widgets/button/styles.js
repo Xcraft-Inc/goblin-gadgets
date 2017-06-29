@@ -723,12 +723,15 @@ export default function styles (theme, props) {
     wordWrap: 'break-word',
   };
 
-  if (!props.disabled && actif && boxOpacity !== 0 && props.isHover) {
+  if (!props.disabled && actif && boxOpacity !== 0) {
     // FIXME
-    boxStyle.color = textHoverColor; // (*)
-    boxStyle.borderColor = borderHoverColor;
-    boxStyle.backgroundColor = backgroundHoverColor;
-    boxStyle.opacity = 1.0;
+    boxStyle[':hover'] = {
+      color: textHoverColor, // (*)
+      borderColor: borderHoverColor,
+      backgroundColor: backgroundHoverColor,
+      opacity: 1.0,
+    };
+
     if (textHoverColor) {
       textStyle.color = null; // (*)
       glyphStyle.color = null; // (*)

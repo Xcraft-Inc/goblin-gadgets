@@ -180,10 +180,10 @@ class LabelTextField extends Widget {
     const {state} = this.props;
     const disabled = this.props.disabled;
 
-    const boxStyle = this.styles.box;
+    const boxClass = this.styles.classNames.box;
 
     return (
-      <span disabled={disabled} style={boxStyle}>
+      <span disabled={disabled} className={boxClass}>
         {this.renderButton ()}
         {this.renderInput ()}
         {this.renderAction ()}

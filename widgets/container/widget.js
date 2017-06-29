@@ -172,9 +172,11 @@ class Container extends Widget {
     const index = this.props.index;
     const selected = this.props.selected;
 
-    const boxStyle = this.styles.box;
-    const triangleStyle = this.styles.triangle;
+    const boxClass = this.styles.classNames.box;
+    const boxStyle = {};
+    const triangleClass = this.styles.classNames.triangle;
 
+    // FIXME: must be computed by styles.js
     if (hidden) {
       boxStyle.display = 'none';
     }
@@ -189,8 +191,14 @@ class Container extends Widget {
       return null;
     } else if (kind === 'flying-balloon' || kind === 'flying-dialog') {
       return (
-        <div key={index} disabled={disabled} style={boxStyle} id={anchor}>
-          <div style={triangleStyle} />
+        <div
+          key={index}
+          disabled={disabled}
+          className={boxClass}
+          style={boxStyle}
+          id={anchor}
+        >
+          <div className={triangleClass} />
           {this.props.children}
         </div>
       );
@@ -199,6 +207,7 @@ class Container extends Widget {
         <div
           key={index}
           disabled={disabled}
+          className={boxClass}
           style={boxStyle}
           id={anchor}
           data-navigation-name={navName}

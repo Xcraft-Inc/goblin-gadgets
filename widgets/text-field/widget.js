@@ -99,7 +99,7 @@ class TextField extends Widget {
     };
 
     if (rows) {
-      const textareaStyle = this.styles.textarea;
+      const textareaClass = this.styles.classNames.textarea;
       return (
         <Control.textarea
           id={model}
@@ -113,7 +113,7 @@ class TextField extends Widget {
           updateOn={this.props.updateOn ? this.props.updateOn : 'change'}
           model={model}
           onFocus={::this.onFieldFocus}
-          style={textareaStyle}
+          className={textareaClass}
           onChange={this.props.onChange}
           disabled={disabled}
           rows={rows}
@@ -122,7 +122,16 @@ class TextField extends Widget {
         />
       );
     } else {
-      const fieldStyle = this.styles.field;
+      const fieldClass = this.styles.classNames.field;
+
+      const beforeChange = (model, value) => {
+        if (this.props.beforeChange) {
+          const newValue = this.props.beforeChange (value);
+          return actions.change (model, newValue);
+        } else {
+          return actions.change (model, value);
+        }
+      };
 
       return (
         <Control.text
@@ -141,7 +150,7 @@ class TextField extends Widget {
           maxLength={this.props.maxLength}
           placeholder={hintText}
           size={this.props.size || 'size'}
-          style={fieldStyle}
+          className={fieldClass}
           type={this.props.type || 'text'}
           key="input"
           tabIndex={tabIndex}
@@ -187,10 +196,10 @@ class TextField extends Widget {
     const disabled = this.props.disabled;
     const tooltip = this.props.tooltip;
 
-    const boxStyle = this.styles.box;
+    const boxClass = this.styles.classNames.box;
 
     return (
-      <span disabled={disabled} style={boxStyle} title={tooltip}>
+      <span disabled={disabled} className={boxClass} title={tooltip}>
         {this.renderInput ()}
         {this.renderFlyingBalloon ()}
       </span>

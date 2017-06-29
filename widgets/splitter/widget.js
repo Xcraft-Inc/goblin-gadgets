@@ -179,10 +179,14 @@ class Splitter extends Widget {
       throw new Error ('Splitter must have 2 children');
     }
 
-    const containerStyle = this.styles.container;
-    const firstPaneStyle = this.styles.firstPane;
-    const resizerStyle = this.styles.resizer;
-    const lastPaneStyle = this.styles.lastPane;
+    const containerClass = this.styles.classNames.container;
+    const firstPaneClass = this.styles.classNames.firstPane;
+    const resizerClass = this.styles.classNames.resizer;
+    const lastPaneClass = this.styles.classNames.lastPane;
+
+    // FIXME: it's a bad idea to mutate the styles in the render, see styles.js
+    const firstPaneStyle = Object.assign ({}, this.styles.props.firstPane);
+    const lastPaneStyle = Object.assign ({}, this.styles.props.lastPane);
 
     if (this.unit === '%') {
       if (this.master === 'first') {
@@ -224,15 +228,23 @@ class Splitter extends Widget {
 
     return (
       <div
-        style={containerStyle}
+        className={containerClass}
         ref={node => (this.container = node)}
         onMouseMove={::this.onMouseMove}
       >
-        <div style={firstPaneStyle} ref={node => (this.firstPane = node)}>
+        <div
+          className={firstPaneClass}
+          style={firstPaneStyle}
+          ref={node => (this.firstPane = node)}
+        >
           {children[0]}
         </div>
-        <div style={resizerStyle} ref={node => (this.resizer = node)} />
-        <div style={lastPaneStyle} ref={node => (this.lastPane = node)}>
+        <div className={resizerClass} ref={node => (this.resizer = node)} />
+        <div
+          className={lastPaneClass}
+          style={lastPaneStyle}
+          ref={node => (this.lastPane = node)}
+        >
           {children[1]}
         </div>
       </div>

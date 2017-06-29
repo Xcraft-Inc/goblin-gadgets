@@ -74,19 +74,17 @@ class Button extends Widget {
     const kind = this.props.kind;
     const active = this.props.active;
     if (kind === 'main-tab' && active === 'true') {
-      const style = this.styles.triangle;
-      return <div style={style} key="triangle" />;
-    } else {
-      return null;
+      const triangleClass = this.styles.classNames.triangle;
+      return <div className={triangleClass} key="triangle" />;
     }
   }
 
   renderMenu () {
     if (this.isMenuVisible) {
       const menu = this.props.menu;
-      const style = this.styles.menuBox;
+      const menuClass = this.styles.classNames.menuBox;
       return (
-        <div style={style} key="menu">
+        <div className={menuClass} key="menu">
           {<Menu items={menu} />}
         </div>
       );
@@ -95,7 +93,7 @@ class Button extends Widget {
     }
   }
 
-  renderGlyph (style) {
+  renderGlyph (className) {
     const glyph = this.props.glyph;
     if (glyph) {
       const rotate = this.props.rotat;
@@ -104,12 +102,14 @@ class Button extends Widget {
       return (
         <i
           key="icon"
-          style={style}
-          className={`fa
+          className={
+            className +
+              ` fa
             fa-${glyph}
             fa-rotate-${rotate}
             fa-flip-${flip}
-            ${spin ? 'fa-spin' : ''}`}
+            ${spin ? 'fa-spin' : ''}`
+          }
         />
       );
     } else {
@@ -117,11 +117,11 @@ class Button extends Widget {
     }
   }
 
-  renderText (style) {
+  renderText (className) {
     const text = this.props.text;
     if (text) {
       return (
-        <label key="text" style={style}>
+        <label key="text" className={className}>
           {text}
         </label>
       );
@@ -133,9 +133,9 @@ class Button extends Widget {
   renderShortcut () {
     const shortcut = this.props.shortcut;
     if (shortcut) {
-      const style = this.styles.shortcut;
+      const shortcutClass = this.styles.classNames.shortcut;
       return (
-        <label key="shortcut" style={style}>
+        <label key="shortcut" className={shortcutClass}>
           {ShortcutHelpers.getShortcut (shortcut)}
         </label>
       );
@@ -144,16 +144,16 @@ class Button extends Widget {
     }
   }
 
-  renderLayout (glyphStyle, textStyle) {
+  renderLayout (glyphClass, textClass) {
     const result = [];
     const glyphPosition = this.props['glyph-position'];
     if (glyphPosition === 'right') {
-      result.push (this.renderText (textStyle));
+      result.push (this.renderText (textClass));
       result.push (this.renderShortcut ());
-      result.push (this.renderGlyph (glyphStyle));
+      result.push (this.renderGlyph (glyphClass));
     } else {
-      result.push (this.renderGlyph (glyphStyle));
-      result.push (this.renderText (textStyle));
+      result.push (this.renderGlyph (glyphClass));
+      result.push (this.renderText (textClass));
       result.push (this.renderShortcut ());
     }
     return result;
@@ -172,9 +172,9 @@ class Button extends Widget {
       tooltip = text;
     }
 
-    const boxStyle = this.styles.box;
-    const glyphStyle = this.styles.glyph;
-    const textStyle = this.styles.text;
+    const boxClass = this.styles.classNames.box;
+    const glyphClass = this.styles.classNames.glyph;
+    const textClass = this.styles.classNames.text;
 
     if (show === 'false') {
       return null;
@@ -187,7 +187,7 @@ class Button extends Widget {
           onMouseUp={::this.onMouseUp}
           onTouchStart={::this.onMouseDown}
           onTouchEnd={::this.onMouseUp}
-          style={boxStyle}
+          className={boxClass}
           title={tooltip}
         >
           {this.props.children}
@@ -202,10 +202,10 @@ class Button extends Widget {
           onMouseUp={::this.onMouseUp}
           onTouchStart={::this.onMouseDown}
           onTouchEnd={::this.onMouseUp}
-          style={boxStyle}
+          className={boxClass}
           title={tooltip}
         >
-          {this.renderLayout (glyphStyle, textStyle)}
+          {this.renderLayout (glyphClass, textClass)}
           {this.renderTriangle ()}
           {this.renderBadge ()}
           {this.renderMenu ()}
@@ -221,11 +221,11 @@ class Button extends Widget {
           onMouseUp={::this.onMouseUp}
           onTouchStart={::this.onMouseDown}
           onTouchEnd={::this.onMouseUp}
-          style={boxStyle}
+          className={boxClass}
           title={tooltip}
           href={window.location.hash + '#' + toAnchor}
         >
-          {this.renderLayout (glyphStyle, textStyle)}
+          {this.renderLayout (glyphClass, textClass)}
           {this.renderTriangle ()}
           {this.renderBadge ()}
           {this.renderMenu ()}
@@ -241,10 +241,10 @@ class Button extends Widget {
           onMouseUp={::this.onMouseUp}
           onTouchStart={::this.onMouseDown}
           onTouchEnd={::this.onMouseUp}
-          style={boxStyle}
+          className={boxClass}
           title={tooltip}
         >
-          {this.renderLayout (glyphStyle, textStyle)}
+          {this.renderLayout (glyphClass, textClass)}
           {this.renderTriangle ()}
           {this.renderBadge ()}
           {this.renderMenu ()}

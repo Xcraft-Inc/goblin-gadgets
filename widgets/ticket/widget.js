@@ -40,9 +40,9 @@ class Ticket extends Widget {
   renderBackgroundText () {
     const text = this.props['background-text'];
     if (text) {
-      const backgroundTextStyle = this.styles.backgroundText;
+      const backgroundTextClass = this.styles.classNames.backgroundText;
       return (
-        <div style={backgroundTextStyle}>
+        <div className={backgroundTextClass}>
           {text}
         </div>
       );
@@ -53,14 +53,14 @@ class Ticket extends Widget {
 
   renderHud () {
     const hudGlyph = this.props['hud-glyph'];
-    const hudGlyphShadowStyle = this.styles.hudGlyphShadow;
-    const hudGlyphShadowNoneStyle = this.styles.hudGlyphShadowNone;
-    const hudGlyphBoxStyle = this.styles.hudGlyphBox;
-    const hudGlyphContentStyle = this.styles.hudGlyphContent;
+    const hudGlyphShadowClass = this.styles.classNames.hudGlyphShadow;
+    const hudGlyphShadowNoneClass = this.styles.classNames.hudGlyphShadowNone;
+    const hudGlyphBoxClass = this.styles.classNames.hudGlyphBox;
+    const hudGlyphContentClass = this.styles.classNames.hudGlyphContent;
     return (
-      <div style={hudGlyph ? hudGlyphShadowStyle : hudGlyphShadowNoneStyle}>
-        <div style={hudGlyphBoxStyle}>
-          <i style={hudGlyphContentStyle} className={`fa fa-${hudGlyph}`} />
+      <div className={hudGlyph ? hudGlyphShadowClass : hudGlyphShadowNoneClass}>
+        <div className={hudGlyphBoxClass}>
+          <i className={`${hudGlyphContentClass} fa fa-${hudGlyph}`} />
         </div>
       </div>
     );
@@ -70,33 +70,33 @@ class Ticket extends Widget {
     const hatch = this.props.hatch;
     const hoverShape = this.props['hover-shape'];
 
-    const boxStyle = this.styles.box;
-    const shadowStyle = this.styles.shadow;
-    const shapeStyle = this.styles.shape;
-    const hatchStyle = this.styles.hatch;
-    const svgStyle = this.styles.svg;
-    const hoverStyle = this.styles.hover;
-    const contentStyle = this.styles.content;
+    const boxClass = this.styles.classNames.box;
+    const shadowClass = this.styles.classNames.shadow;
+    const shapeClass = this.styles.classNames.shape;
+    const hatchClass = this.styles.classNames.hatch;
+    const svgClass = this.styles.classNames.svg;
+    const hoverClass = this.styles.classNames.hover;
+    const contentClass = this.styles.classNames.content;
 
-    const w = boxStyle.width;
-    const h = boxStyle.height;
+    const w = this.styles.props.box.width;
+    const h = this.styles.props.box.height;
     if (!w || !h) {
       throw new Error ('Undefined ticket width or height');
     }
     const htmlShadow = (
-      <svg width={w} height={h} style={shadowStyle}>
-        <path d={svgStyle.path} />
+      <svg width={w} height={h} className={shadowClass}>
+        <path d={this.styles.props.svg.path} />
       </svg>
     );
     const htmlShape = (
-      <svg width={w} height={h} style={shapeStyle}>
-        <path d={svgStyle.path} />
+      <svg width={w} height={h} className={shapeClass}>
+        <path d={this.styles.props.svg.path} />
       </svg>
     );
     const hs = this.context.theme.shapes.ticketHatchSize;
     const ht = Unit.multiply (hs, 2);
     const htmlHatch = hatch === 'true'
-      ? <svg width={w} height={h} style={hatchStyle}>
+      ? <svg width={w} height={h} className={hatchClass}>
           <defs>
             <pattern
               id="hatch"
@@ -117,18 +117,18 @@ class Ticket extends Widget {
               />
             </pattern>
           </defs>
-          <path d={svgStyle.path} />
+          <path d={this.styles.props.svg.path} />
         </svg>
       : null;
     const htmlHover = hoverShape
-      ? <svg width={w} height={h} style={hoverStyle}>
-          <path d={hoverStyle.path} />
+      ? <svg width={w} height={h} className={hoverClass}>
+          <path d={this.styles.props.hover.path} />
         </svg>
       : null;
 
     return (
       <div
-        style={boxStyle}
+        className={boxClass}
         onMouseOver={::this.onMouseOver}
         onMouseOut={::this.onMouseOut}
         onMouseDown={::this.onMouseDown}
@@ -141,7 +141,7 @@ class Ticket extends Widget {
         {htmlHatch}
         {this.renderBackgroundText ()}
         {htmlHover}
-        <div style={contentStyle}>
+        <div className={contentClass}>
           {this.props.children}
         </div>
         {this.renderHud ()}
@@ -153,16 +153,16 @@ class Ticket extends Widget {
     const hatch = this.props.hatch;
     const hoverShape = this.props['hover-shape'];
 
-    const rectShadowStyle = this.styles.rectShadow;
-    const rectStyle = this.styles.rect;
-    const rectEmptyStyle = this.styles.rectEmpty;
-    const rectHoverStyle = this.styles.rectHover;
-    const contentStyle = this.styles.content;
-    const rectContentHatchStyle = this.styles.rectContentHatch;
+    const rectShadowClass = this.styles.classNames.rectShadow;
+    const rectClass = this.styles.classNames.rect;
+    const rectEmptyClass = this.styles.classNames.rectEmpty;
+    const rectHoverClass = this.styles.classNames.rectHover;
+    const contentClass = this.styles.classNames.content;
+    const rectContentHatchClass = this.styles.classNames.rectContentHatch;
 
     return (
       <div
-        style={rectShadowStyle}
+        className={rectShadowClass}
         onMouseOver={::this.onMouseOver}
         onMouseOut={::this.onMouseOut}
         onMouseDown={::this.onMouseDown}
@@ -170,12 +170,14 @@ class Ticket extends Widget {
         onTouchStart={::this.onMouseDown}
         onTouchEnd={::this.onMouseUp}
       >
-        <div style={rectStyle}>
-          <div style={hatch === 'true' ? rectContentHatchStyle : contentStyle}>
+        <div className={rectClass}>
+          <div
+            className={hatch === 'true' ? rectContentHatchClass : contentClass}
+          >
             {this.renderBackgroundText ()}
             {this.props.children}
           </div>
-          <div style={hoverShape ? rectHoverStyle : rectEmptyStyle} />
+          <div className={hoverShape ? rectHoverClass : rectEmptyClass} />
         </div>
         {this.renderHud ()}
       </div>
@@ -185,15 +187,15 @@ class Ticket extends Widget {
   renderSubpane () {
     const subkind = this.props.subkind;
 
-    const rectStyle = subkind === 'dragged'
-      ? this.styles.subpaneDragged
-      : this.styles.subpaneRect;
+    const rectClass = subkind === 'dragged'
+      ? this.styles.classNames.subpaneDragged
+      : this.styles.classNames.subpaneRect;
 
-    const contentStyle = this.styles.subpaneContent;
+    const contentClass = this.styles.classNames.subpaneContent;
 
     return (
       <div
-        style={rectStyle}
+        className={rectClass}
         onMouseOver={::this.onMouseOver}
         onMouseOut={::this.onMouseOut}
         onMouseDown={::this.onMouseDown}
@@ -201,7 +203,7 @@ class Ticket extends Widget {
         onTouchStart={::this.onMouseDown}
         onTouchEnd={::this.onMouseUp}
       >
-        <div style={contentStyle}>
+        <div className={contentClass}>
           {this.props.children}
         </div>
       </div>
@@ -209,12 +211,12 @@ class Ticket extends Widget {
   }
 
   renderCover () {
-    const coverStyle = this.styles.cover;
-    const coverContentStyle = this.styles.coverContent;
+    const coverClass = this.styles.classNames.cover;
+    const coverContentClass = this.styles.classNames.coverContent;
 
     return (
       <div
-        style={coverStyle}
+        className={coverClass}
         onMouseOver={::this.onMouseOver}
         onMouseOut={::this.onMouseOut}
         onMouseDown={::this.onMouseDown}
@@ -222,7 +224,7 @@ class Ticket extends Widget {
         onTouchStart={::this.onMouseDown}
         onTouchEnd={::this.onMouseUp}
       >
-        <div style={coverContentStyle}>
+        <div className={coverContentClass}>
           {this.props.children}
         </div>
       </div>
