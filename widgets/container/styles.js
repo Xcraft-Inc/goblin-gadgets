@@ -758,7 +758,7 @@ export default function styles (theme, props) {
     flexDirection = 'column';
     flexGrow = props.grow;
     justifyContent = 'center';
-    borderWidth = '1px';
+    borderWidth = props.subkind ? '1px' : '0px';
     borderStyle = props.subkind ? props.subkind : 'solid';
     borderRadius = theme.shapes.boxRadius;
     padding = s;
