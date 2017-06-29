@@ -423,6 +423,7 @@ export default function styles (theme, props) {
     flexGrow: 1,
     justifyContent: 'flex-start',
     alignItems: 'stretch',
+    margin: '0px ' + horizontalSpacing + ' ' + verticalSpacing + ' 0px',
     padding: m + ' ' + m + ' ' + Unit.multiply (m, 0.5) + ' ' + m,
     borderWidth: '2px',
     borderStyle: 'dashed none none none',
