@@ -503,7 +503,11 @@ export default function styles (theme, props) {
     boxAlignItems = 'stretch';
     borderStyle = 'none';
     boxPadding = Unit.multiply (theme.shapes.lineSpacing, 0.5) + ' 0px';
-    backgroundColor = null;
+    if (props.active === 'true') {
+      backgroundColor = theme.palette.boxActiveBackground;
+    } else {
+      backgroundColor = null;
+    }
   }
 
   if (props.kind === 'container-start') {

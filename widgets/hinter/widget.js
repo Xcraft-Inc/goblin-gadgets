@@ -13,10 +13,22 @@ class Hinter extends Widget {
     super (props);
   }
 
-  renderRow (row) {
+  renderRow (row, index) {
+    let isActive = null;
+    if (this.props.selectedIndex && this.props.selectedIndex === `${index}`) {
+      isActive = {
+        active: 'true',
+      };
+    }
     return (
-      <Container kind="row-pane" subkind="large-box">
-        <Button kind="container" width="100%">
+      <Container key={index} kind="row-pane" subkind="large-box">
+        <Button
+          kind="container"
+          {...isActive}
+          width="100%"
+          onClick={() =>
+            this.props.onRowClick ? this.props.onRowClick (index, row) : null}
+        >
           <Label
             text={row}
             kind="large-single"
@@ -32,8 +44,10 @@ class Hinter extends Widget {
   renderList () {
     const rows = this.props.rows;
     const result = [];
+    let index = 0;
     for (const row of rows) {
-      result.push (this.renderRow (row));
+      result.push (this.renderRow (row, index));
+      index++;
     }
     return result;
   }
