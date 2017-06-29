@@ -89,11 +89,21 @@ class TextField extends Widget {
       options.readOnly = 'readOnly';
     }
 
+    const beforeChange = (model, value) => {
+      if (this.props.beforeChange) {
+        const newValue = this.props.beforeChange (value);
+        return actions.change (model, newValue);
+      } else {
+        return actions.change (model, value);
+      }
+    };
+
     if (rows) {
       const textareaStyle = this.styles.textarea;
       return (
         <Control.textarea
           id={model}
+          changeAction={beforeChange}
           getRef={node => (this.input = node)}
           parser={this.props.parser}
           errors={this.props.errors}
@@ -113,15 +123,7 @@ class TextField extends Widget {
       );
     } else {
       const fieldStyle = this.styles.field;
-      console.log (`${model}: updateOn=${this.props.updateOn}`);
-      const beforeChange = (model, value) => {
-        if (this.props.beforeChange) {
-          const newValue = this.props.beforeChange (value);
-          return actions.change (model, newValue);
-        } else {
-          return actions.change (model, value);
-        }
-      };
+
       return (
         <Control.text
           id={model}
