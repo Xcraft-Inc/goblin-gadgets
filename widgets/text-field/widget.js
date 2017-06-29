@@ -37,18 +37,15 @@ class TextField extends Widget {
 
   selectAll () {
     const selectAllOnFocus = this.props['select-all-on-focus'];
-    const node = ReactDOM.findDOMNode (this.refs.inputTag);
     if (selectAllOnFocus === 'true') {
-      // Set focus and select all to child <input>, asynchronously.
-      setTimeout (() => {
-        node.focus ();
-        node.select ();
-      }, 0);
+      if (this.input) {
+        this.input.focus ();
+        this.input.select ();
+      }
     } else {
-      // Set focus to child <input>, asynchronously.
-      setTimeout (() => {
-        node.focus ();
-      }, 0);
+      if (this.input) {
+        this.input.focus ();
+      }
     }
   }
 
@@ -97,6 +94,12 @@ class TextField extends Widget {
       return (
         <Control.textarea
           id={model}
+          getRef={node => (this.input = node)}
+          parser={this.props.parser}
+          errors={this.props.errors}
+          mapProps={{
+            value: props => props.viewValue,
+          }}
           updateOn={this.props.updateOn ? this.props.updateOn : 'change'}
           model={model}
           onFocus={::this.onFieldFocus}
@@ -110,11 +113,16 @@ class TextField extends Widget {
       );
     } else {
       const fieldStyle = this.styles.field;
+      console.log (`${model}: updateOn=${this.props.updateOn}`);
       return (
         <Control.text
           id={model}
+          getRef={node => (this.input = node)}
           parser={this.props.parser}
           errors={this.props.errors}
+          mapProps={{
+            value: props => props.viewValue,
+          }}
           updateOn={this.props.updateOn ? this.props.updateOn : 'change'}
           model={model}
           onFocus={::this.onFieldFocus}
