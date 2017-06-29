@@ -1,6 +1,5 @@
 import {ColorManipulator} from 'electrum-theme';
 import {Unit} from 'electrum-theme';
-import injectCSS from '../helpers/styles-helpers.js';
 
 /******************************************************************************/
 
@@ -765,14 +764,14 @@ export default function styles (theme, props) {
     zIndex: 2,
   };
 
-  return injectCSS ({
+  return {
     box: boxStyle,
     glyph: glyphStyle,
     text: textStyle,
     shortcut: shortcutStyle,
     triangle: triangleStyle,
     menuBox: menuBoxStyle,
-  });
+  };
 }
 
 /******************************************************************************/

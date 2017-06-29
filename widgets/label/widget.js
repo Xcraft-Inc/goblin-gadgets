@@ -64,11 +64,11 @@ class Label extends Widget {
 
   // Render a fragment with normal or hilited style.
   renderFragment (index, fragment) {
-    const style = fragment.em
-      ? this.styles.hilitedFragment
-      : this.styles.normalFragment;
+    const className = fragment.em
+      ? this.styles.classNames.hilitedFragment
+      : this.styles.classNames.normalFragment;
     return (
-      <span key={index} style={style}>
+      <span key={index} className={className}>
         {fragment.text}
       </span>
     );
@@ -86,9 +86,9 @@ class Label extends Widget {
   }
 
   renderLine (index, line) {
-    const style = this.styles.text;
+    const className = this.styles.classNames.text;
     return (
-      <div key={index} style={style}>
+      <div key={index} className={className}>
         {this.renderFragments (line)}
       </div>
     );
@@ -104,9 +104,9 @@ class Label extends Widget {
   }
 
   renderLines (index, lines) {
-    const style = this.styles.lines;
+    const className = this.styles.classNames.lines;
     return (
-      <div key={index} style={style}>
+      <div key={index} className={className}>
         {this.getLines (lines)}
       </div>
     );
@@ -114,9 +114,9 @@ class Label extends Widget {
 
   // Render a very simple text, that is to say a single line and without highlighting.
   renderSimpleText (index, text) {
-    const style = this.styles.text;
+    const className = this.styles.classNames.text;
     return (
-      <div key={index} style={style}>
+      <div key={index} className={className}>
         {text}
       </div>
     );
@@ -155,13 +155,12 @@ class Label extends Widget {
     const flip = this.props.flip;
     const spin = this.props.spin;
 
-    const style = this.styles.glyph;
+    const glyphClass = this.styles.classNames.glyph;
 
     return (
       <i
         key={index}
-        style={style}
-        className={`fa
+        className={`${glyphClass} fa
           fa-${glyph}
           fa-rotate-${rotate}
           fa-flip-${flip}
@@ -195,7 +194,7 @@ class Label extends Widget {
     const tooltip = this.props.tooltip;
     const marquee = this.props.marquee;
 
-    const style = this.styles.box;
+    const boxClass = this.styles.classNames.box;
 
     if (marquee === 'true') {
       return (
@@ -203,7 +202,7 @@ class Label extends Widget {
           key={index}
           onClick={this.props.onClick}
           disabled={disabled}
-          style={style}
+          className={boxClass}
           title={tooltip}
         >
           {this.getGlyphAndText ()}
@@ -216,7 +215,7 @@ class Label extends Widget {
           key={index}
           onClick={this.props.onClick}
           disabled={disabled}
-          style={style}
+          className={boxClass}
           title={tooltip}
         >
           {this.getGlyphAndText ()}

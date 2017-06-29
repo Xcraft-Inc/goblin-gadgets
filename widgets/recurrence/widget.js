@@ -173,11 +173,11 @@ class Recurrence extends Widget {
   }
 
   renderInfo (extended) {
-    const headerInfoStyle = this.styles.headerInfo;
-    const headerDragStyle = this.styles.headerDrag;
+    const headerInfoClass = this.styles.classNames.headerInfo;
+    const headerDragClass = this.styles.classNames.headerDrag;
     return (
-      <div style={headerInfoStyle}>
-        <div style={headerDragStyle}>
+      <div className={headerInfoClass}>
+        <div className={headerDragClass}>
           <Label text={this.periodInfo} kind="title-recurrence" grow="2" />
           <Label text={this.cronInfo} kind="title-recurrence" grow="2" />
         </div>
@@ -200,9 +200,9 @@ class Recurrence extends Widget {
 
   renderEditor (extended) {
     if (extended) {
-      const style = this.styles.editor;
+      const editorClass = this.styles.classNames.editor;
       return (
-        <div style={style}>
+        <div className={editorClass}>
           <TextField
             type="date"
             field="StartDate"
@@ -266,9 +266,9 @@ class Recurrence extends Widget {
 
   renderCalendar (extended) {
     if (extended) {
-      const style = this.styles.calendar;
+      const calClass = this.styles.classNames.calendar;
       return (
-        <div style={style}>
+        <div className={calClass}>
           <Calendar
             month-count={monthCount ()}
             navigator="standard"
@@ -289,10 +289,10 @@ class Recurrence extends Widget {
   render () {
     const {StartDate} = this.props;
     const extended = this.props.extended === 'true';
-    const mainStyle = {}; //this.styles.main;
+    const mainClass = ''; //this.styles.classNames.main;
 
     return (
-      <div style={mainStyle}>
+      <div className={mainClass}>
         {this.renderInfo (extended)}
         {this.renderEditor (extended)}
         {this.renderCalendar (extended)}

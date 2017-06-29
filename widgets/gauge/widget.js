@@ -8,12 +8,12 @@ class Gauge extends Widget {
   }
 
   render () {
-    const boxStyle = this.styles.box;
-    const contentStyle = this.styles.content;
+    const boxClass = this.styles.classNames.box;
+    const contentClass = this.styles.classNames.content;
 
     return (
-      <div style={boxStyle}>
-        <div style={contentStyle} />
+      <div className={boxClass}>
+        <div className={contentClass} />
       </div>
     );
   }

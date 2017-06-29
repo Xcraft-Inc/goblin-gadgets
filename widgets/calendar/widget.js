@@ -192,9 +192,9 @@ class Calendar extends Widget {
     selectedDates,
     index
   ) {
-    const style = this.styles.line;
+    const lineClass = this.styles.classNames.line;
     return (
-      <div style={style} key={index}>
+      <div className={lineClass} key={index}>
         {this.renderButtons (
           firstDate,
           visibleDate,
@@ -238,12 +238,12 @@ class Calendar extends Widget {
   // Return the html for the header, with 2 buttons next/prevMonth and the title.
   // By example: '<' mai 2016 '>'
   renderHeader (header, firstMonth, lastMonth) {
-    const style = this.styles.header;
-    const textStyle = this.styles.headerText;
+    const headerClass = this.styles.classNames.header;
+    const textClass = this.styles.classNames.headerText;
     return (
-      <div style={style} key="header">
+      <div className={headerClass} key="header">
         {this.renderPrevMonthButton (firstMonth)}
-        <div style={textStyle}>
+        <div className={textClass}>
           {header}
         </div>
         {this.renderNextMonthButton (lastMonth)}
@@ -253,9 +253,9 @@ class Calendar extends Widget {
 
   // Return the html for a [lun]..[dim] labels.
   renderDOW (text, index) {
-    const textStyle = this.styles.dowText;
+    const textClass = this.styles.classNames.dowText;
     return (
-      <div style={textStyle} key={index}>
+      <div className={textClass} key={index}>
         {text}
       </div>
     );
@@ -274,9 +274,9 @@ class Calendar extends Widget {
 
   // Return the html for the 7 days of week header.
   renderLineOfDOWs () {
-    const style = this.styles.dowLine;
+    const dowClass = this.styles.classNames.dowLine;
     return (
-      <div style={style} key="dows">
+      <div className={dowClass} key="dows">
         {this.renderDOWs ()}
       </div>
     );
@@ -321,9 +321,9 @@ class Calendar extends Widget {
     const firstDate = Converters.getCalendarStartDate (visibleDate);
     const header = Converters.getDisplayedDate (visibleDate, 'My'); // 'mai 2016' by example
 
-    const style = this.styles.column;
+    const columnClass = this.styles.classNames.column;
     return (
-      <div style={style}>
+      <div className={columnClass}>
         {this.renderColumnOfLines (
           header,
           firstDate,
@@ -344,9 +344,11 @@ class Calendar extends Widget {
     firstMonth,
     lastMonth
   ) {
-    const monthStyle = lastMonth ? this.styles.singleMonth : this.styles.month;
+    const monthClass = lastMonth
+      ? this.styles.classNames.singleMonth
+      : this.styles.classNames.month;
     return (
-      <div style={monthStyle}>
+      <div className={monthClass}>
         {this.renderLines (
           selectedDate,
           selectedDates,
@@ -408,9 +410,9 @@ class Calendar extends Widget {
   }
 
   renderLineOfMonths (month, visibleMonth) {
-    const style = this.styles.double;
+    const doubleClass = this.styles.classNames.double;
     return (
-      <div style={style}>
+      <div className={doubleClass}>
         {this.renderQuickMonth (month + 0, visibleMonth)}
         {this.renderQuickMonth (month + 1, visibleMonth)}
         {this.renderQuickMonth (month + 2, visibleMonth)}
@@ -429,9 +431,9 @@ class Calendar extends Widget {
   }
 
   renderPrevNext (title, leftGlyph, rightGlyph, leftAction, rightAction) {
-    const style = this.styles.double;
+    const doubleClass = this.styles.classNames.double;
     return (
-      <div style={style}>
+      <div className={doubleClass}>
         <Button
           glyph={leftGlyph}
           border="none"
@@ -452,9 +454,9 @@ class Calendar extends Widget {
   renderNavigator () {
     const navigator = this.props.navigator;
     if (navigator === 'standard') {
-      const style = this.styles.navigator;
+      const navClass = this.styles.classNames.navigator;
       return (
-        <div style={style}>
+        <div className={navClass}>
           {this.renderPrevNext (
             '2 mois',
             'chevron-left',
@@ -480,9 +482,9 @@ class Calendar extends Widget {
   }
 
   render () {
-    const style = this.styles.box;
+    const boxClass = this.styles.classNames.box;
     return (
-      <div style={style}>
+      <div className={boxClass}>
         {this.renderMonths ()}
         {this.renderNavigator ()}
       </div>

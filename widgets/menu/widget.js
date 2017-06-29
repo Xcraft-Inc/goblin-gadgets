@@ -13,10 +13,10 @@ class Menu extends Widget {
     const disabled = this.props.disabled;
     const inputItems = this.props.items;
 
-    const boxStyle = this.styles.box;
+    const boxClass = this.styles.classNames.box;
 
     return (
-      <div disabled={disabled} style={boxStyle}>
+      <div disabled={disabled} className={boxClass}>
         {inputItems.map (item => item ())}
       </div>
     );
