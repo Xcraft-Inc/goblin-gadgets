@@ -12,27 +12,19 @@ class HinterColumn extends Widget {
     super (props);
   }
 
-  renderHide () {
-    return <Container kind="row" grow="1" />;
-  }
-
   renderList () {
     return (
-      <Container kind="row" grow="1">
-        <Splitter kind="vertical" first-size="90%">
-          <Hinter {...this.props} />
-          <Container kind="row" />
-        </Splitter>
-      </Container>
+      <Splitter kind="vertical" first-size="90%">
+        <Hinter {...this.props} />
+        <Container kind="row" />
+      </Splitter>
     );
   }
 
   renderDate () {
     return (
-      <Container kind="row" grow="1">
-        <Container kind="row">
-          <Hinter {...this.props} />
-        </Container>
+      <Container kind="row">
+        <Hinter {...this.props} />
       </Container>
     );
   }
@@ -44,7 +36,7 @@ class HinterColumn extends Widget {
       case 'date':
         return this.renderDate ();
       default:
-        return this.renderHide ();
+        return null;
     }
   }
 }
