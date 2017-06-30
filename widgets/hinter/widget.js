@@ -17,14 +17,13 @@ class Hinter extends Widget {
     let isActive = null;
     if (this.props.selectedIndex && this.props.selectedIndex === `${index}`) {
       isActive = {
-        active: 'true',
+        selected: 'true',
       };
     }
     return (
-      <Container key={index} kind="row-pane" subkind="large-box">
+      <Container key={index} kind="row-pane" subkind="large-box" {...isActive}>
         <Button
           kind="container"
-          {...isActive}
           width="100%"
           onClick={() =>
             this.props.onRowClick ? this.props.onRowClick (index, row) : null}
