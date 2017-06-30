@@ -18,6 +18,7 @@ class Notifications extends Widget {
       id: 'id',
       show: 'showNotifications',
       data: 'notifications',
+      dnd: 'dnd',
     };
   }
 
@@ -26,9 +27,10 @@ class Notifications extends Widget {
       <Container kind="notification-header" grow="1">
         <Container kind="notification-header-row">
           <Button
-            glyph="toggle-off"
+            glyph={this.props.dnd === 'true' ? 'toggle-on' : 'toggle-off'}
             text="Ne pas me déranger"
             kind="notification"
+            onClick={() => this.doAs ('laboratory', 'toggle-dnd')}
           />
         </Container>
         <Container kind="notification-header-row">
@@ -38,27 +40,41 @@ class Notifications extends Widget {
             kind="notification"
           />
           <Label grow="1" />
-          <Button text="Tout effacer" kind="notification" />
+          <Button
+            text="Tout effacer"
+            kind="notification"
+            onClick={() => this.doAs ('laboratory', 'remove-notifications')}
+          />
         </Container>
       </Container>
     );
   }
 
   renderNotification (data, keyIndex) {
-    return <Notification key={keyIndex} data={data} />;
+    return (
+      <Notification
+        key={keyIndex}
+        data={data}
+        onClick={() =>
+          this.doAs ('laboratory', 'click-notification', {notification: data})}
+        onDelete={() =>
+          this.doAs ('laboratory', 'remove-notification', {notification: data})}
+      />
+    );
   }
 
   renderNotifications (notifications) {
-    var array = [];
     let keyIndex = 0;
     if (notifications.size === 0) {
       return null;
     }
+    const notifs = this.shred (notifications)
+      .reverse ()
+      .select ((k, v) => v.toJS ());
     // The most recent notification first (on top).
-    notifications.slice (0).reverse ().forEach (n => {
-      array.push (this.renderNotification (n, keyIndex++));
+    return notifs.map (n => {
+      return this.renderNotification (n, keyIndex++);
     });
-    return array;
   }
 
   render () {

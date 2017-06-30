@@ -16,21 +16,30 @@ class Notification extends Widget {
   render () {
     const data = this.props.data;
 
-    let glyphColor = data.Color;
+    let glyphColor = data.color;
     if (glyphColor) {
       glyphColor = ColorHelpers.getMarkColor (this.context.theme, glyphColor);
     }
 
     return (
-      <Container kind="notification-box" subkind={data.Status} grow="1">
+      <Container
+        kind="notification-box"
+        subkind={data.status}
+        grow="1"
+        onClick={this.props.onClick}
+      >
         <Button
-          glyph={data.Glyph.Glyph}
+          glyph={data.glyph}
           background-color={glyphColor}
           kind="round"
           spacing="large"
         />
-        <Label text={data.Message} kind="notification" grow="1" />
-        <Button glyph="close" kind="notification-close" />
+        <Label text={data.message} kind="notification" grow="1" />
+        <Button
+          glyph="close"
+          kind="notification-close"
+          onClick={this.props.onDelete}
+        />
       </Container>
     );
   }
