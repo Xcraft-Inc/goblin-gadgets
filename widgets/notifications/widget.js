@@ -71,7 +71,7 @@ class Notifications extends Widget {
     return this.shred (notifications)
       .reverse ()
       .select ((k, v) => v.toJS ())
-      .map (this.renderNotification);
+      .map (::this.renderNotification);
   }
 
   render () {
