@@ -155,22 +155,23 @@ class Splitter extends Widget {
     this.forceUpdate ();
   }
 
-  onMouseMove (e) {
+  onMouseDown (e) {
+    this.isMouseDown = true;
     if (e.buttons === 1) {
       // Mouse left button pressed ?
-      const x = e.clientX;
-      const y = e.clientY;
-
-      if (!this.isDragging) {
-        this.mouseDown (x, y);
-      }
-      if (this.isDragging) {
-        this.mouseMove (x, y);
-      }
-    } else {
-      // Mouse left button released ?
-      this.isDragging = false;
+      this.mouseDown (e.clientX, e.clientY);
     }
+  }
+
+  onMouseMove (e) {
+    if (this.isDragging) {
+      this.mouseMove (e.clientX, e.clientY);
+    }
+  }
+
+  onMouseUp (e) {
+    this.isDragging = false;
+    this.isMouseDown = false;
   }
 
   render () {
@@ -230,7 +231,9 @@ class Splitter extends Widget {
       <div
         className={containerClass}
         ref={node => (this.container = node)}
+        onMouseDown={::this.onMouseDown}
         onMouseMove={::this.onMouseMove}
+        onMouseUp={::this.onMouseUp}
       >
         <div
           className={firstPaneClass}
