@@ -67,11 +67,11 @@ class Notifications extends Widget {
     if (notifications.size === 0) {
       return null;
     }
-    const notifs = this.shred (notifications)
-      .reverse ()
-      .select ((k, v) => v.toJS ());
     // The most recent notification first (on top).
-    return notifs.map (this.renderNotification);
+    return this.shred (notifications)
+      .reverse ()
+      .select ((k, v) => v.toJS ())
+      .map (this.renderNotification);
   }
 
   render () {
