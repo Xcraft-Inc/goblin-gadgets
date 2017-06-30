@@ -19,5 +19,8 @@
     "linq": "^3.0.8",
     "mousetrap": "^1.6.1",
     "traverse": "^0.6.6"
+  },
+  "devDependencies": {
+    "xcraft-dev-rules": "^0.1.20"
   }
 }
