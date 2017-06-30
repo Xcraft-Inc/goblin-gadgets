@@ -99,7 +99,8 @@ class TextField extends Widget {
     };
 
     if (rows) {
-      const textareaClass = this.styles.classNames.textarea;
+      const textareaClass = this.styles.classNames.textarea + ' mousetrap';
+
       return (
         <Control.textarea
           id={model}
@@ -122,7 +123,7 @@ class TextField extends Widget {
         />
       );
     } else {
-      const fieldClass = this.styles.classNames.field;
+      const fieldClass = this.styles.classNames.field + ' mousetrap';
 
       const beforeChange = (model, value) => {
         if (this.props.beforeChange) {
