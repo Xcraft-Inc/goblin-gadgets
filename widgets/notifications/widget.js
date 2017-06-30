@@ -64,7 +64,6 @@ class Notifications extends Widget {
   }
 
   renderNotifications (notifications) {
-    let keyIndex = 0;
     if (notifications.size === 0) {
       return null;
     }
@@ -72,9 +71,7 @@ class Notifications extends Widget {
       .reverse ()
       .select ((k, v) => v.toJS ());
     // The most recent notification first (on top).
-    return notifs.map (n => {
-      return this.renderNotification (n, keyIndex++);
-    });
+    return notifs.map (this.renderNotification);
   }
 
   render () {
