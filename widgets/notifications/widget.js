@@ -13,6 +13,14 @@ class Notifications extends Widget {
     super (props);
   }
 
+  static get wiring () {
+    return {
+      id: 'id',
+      show: 'showNotifications',
+      data: 'notifications',
+    };
+  }
+
   renderHeader () {
     return (
       <Container kind="notification-header" grow="1">
@@ -43,6 +51,9 @@ class Notifications extends Widget {
   renderNotifications (notifications) {
     var array = [];
     let keyIndex = 0;
+    if (notifications.size === 0) {
+      return null;
+    }
     // The most recent notification first (on top).
     notifications.slice (0).reverse ().forEach (n => {
       array.push (this.renderNotification (n, keyIndex++));
@@ -53,7 +64,10 @@ class Notifications extends Widget {
   render () {
     const data = this.props.data;
     const show = this.props.show;
-    const subkind = show ? 'show' : 'hidden';
+    const subkind = show === 'true' ? 'show' : 'hidden';
+    if (!this.props.id) {
+      return null;
+    }
 
     return (
       <Container kind="notifications-panel" subkind={subkind} width="400px">
