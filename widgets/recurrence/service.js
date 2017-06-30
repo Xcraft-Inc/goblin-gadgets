@@ -61,7 +61,7 @@ const logicHandlers = {
       }
     }
   },
-  'erase-events': (state, action) => {
+  'erase-events': state => {
     return state.set ('addList', []).set ('deleteList', []);
   },
 };

@@ -142,6 +142,7 @@ class Container extends Widget {
   }
 
   setNavigation (index) {
+    // FIXME: what's the purpose of this? It's not used...
     const children = React.Children.map (this.props.children, (child, i) => {
       const active = {
         active: i === index ? 'true' : 'false',
@@ -161,16 +162,8 @@ class Container extends Widget {
   }
 
   render () {
-    const {state} = this.props;
-
-    const disabled = this.props.disabled;
-    const kind = this.props.kind;
-    const anchor = this.props.anchor;
+    const {disabled, kind, anchor, hidden, show, index} = this.props;
     const navName = this.props.navigation - name;
-    const hidden = this.props.hidden;
-    const show = this.props.show;
-    const index = this.props.index;
-    const selected = this.props.selected;
 
     const boxClass = this.styles.classNames.box;
     const boxStyle = {};
@@ -181,6 +174,7 @@ class Container extends Widget {
       boxStyle.display = 'none';
     }
 
+    // FIXME: unused
     const useManagedChildren = [
       'pane-navigator',
       'pane-vnavigator',

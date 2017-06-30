@@ -12,7 +12,6 @@ class FlyingBalloon extends Widget {
   }
 
   render () {
-    const {state} = this.props;
     const disabled = this.props.disabled;
     const inputPrimaryText = this.props['primary-text'];
     const inputSecondaryText = this.props['secondary-text'];

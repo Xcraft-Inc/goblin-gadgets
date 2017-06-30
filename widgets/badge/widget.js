@@ -9,7 +9,6 @@ class Badge extends Widget {
   }
 
   render () {
-    const {state} = this.props;
     const disabled = this.props.disabled;
     const inputValue = this.props.value;
 

@@ -188,7 +188,6 @@ class Label extends Widget {
   }
 
   render () {
-    const {state} = this.props;
     const disabled = this.props.disabled;
     const index = this.props.index;
     const tooltip = this.props.tooltip;

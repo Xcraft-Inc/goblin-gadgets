@@ -169,7 +169,7 @@ class Splitter extends Widget {
     }
   }
 
-  onMouseUp (e) {
+  onMouseUp () {
     this.isDragging = false;
     this.isMouseDown = false;
   }

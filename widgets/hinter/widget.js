@@ -72,8 +72,6 @@ class Hinter extends Widget {
   }
 
   render () {
-    const {state} = this.props;
-    const disabled = this.props.disabled;
     const titleGlyph = this.props['title-glyph'];
     const titleText = this.props['title-text'];
 

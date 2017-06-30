@@ -76,7 +76,6 @@ class Ticket extends Widget {
     const shadowClass = this.styles.classNames.shadow;
     const shapeClass = this.styles.classNames.shape;
     const hatchClass = this.styles.classNames.hatch;
-    const svgClass = this.styles.classNames.svg;
     const hoverClass = this.styles.classNames.hover;
     const contentClass = this.styles.classNames.content;
 

@@ -51,7 +51,7 @@ class TextField extends Widget {
 
   onChange () {}
 
-  onFieldFocus (e) {
+  onFieldFocus () {
     this.navToHinter ();
 
     const selectAllOnFocus = this.props['select-all-on-focus'];
@@ -78,7 +78,6 @@ class TextField extends Widget {
   renderInput () {
     const disabled = this.props.disabled;
     const model = this.props.model;
-    const value = this.props.value;
     const hintText = this.props['hint-text'];
     const rows = this.props.rows;
     const readonly = this.props.readonly;
