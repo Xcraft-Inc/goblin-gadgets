@@ -19,6 +19,9 @@ export default function styles (theme, props) {
     cursor: props.kind === 'vertical' ? 'col-resize' : 'row-resize',
     backgroundColor: theme.palette.splitterBackground,
   };
+  resizerStyle[':hover'] = {
+    backgroundColor: theme.palette.splitterBackgroundHover,
+  };
 
   const lastPaneStyle = {
     display: 'flex',
