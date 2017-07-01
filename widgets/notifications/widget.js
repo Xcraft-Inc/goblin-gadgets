@@ -19,6 +19,7 @@ class Notifications extends Widget {
       show: 'showNotifications',
       data: 'notifications',
       dnd: 'dnd',
+      onlyNews: 'onlyNews',
     };
   }
 
@@ -35,9 +36,10 @@ class Notifications extends Widget {
         </Container>
         <Container kind="notification-header-row">
           <Button
-            glyph="toggle-off"
+            glyph={this.props.onlyNews === 'true' ? 'toggle-on' : 'toggle-off'}
             text="Seulement les nouvelles"
             kind="notification"
+            onClick={() => this.doAs ('laboratory', 'toggle-only-news')}
           />
           <Label grow="1" />
           <Button
