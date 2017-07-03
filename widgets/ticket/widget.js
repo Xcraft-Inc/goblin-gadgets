@@ -137,11 +137,11 @@ class Ticket extends Widget {
         {htmlShadow}
         {htmlShape}
         {htmlHatch}
-        {this.renderBackgroundText ()}
         <div className={contentClass}>
+          {this.renderBackgroundText ()}
           {this.props.children}
+          {this.renderHud ()}
         </div>
-        {this.renderHud ()}
         {htmlHover}
       </div>
     );
@@ -172,9 +172,9 @@ class Ticket extends Widget {
           >
             {this.renderBackgroundText ()}
             {this.props.children}
+            {this.renderHud ()}
           </div>
         </div>
-        {this.renderHud ()}
         <div className={rectHoverClass} />
       </div>
     );
