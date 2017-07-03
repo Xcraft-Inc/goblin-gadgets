@@ -229,9 +229,11 @@ export default function styles (theme, props) {
 
   const hoverStyle = {
     position: 'absolute',
-    fill: theme.palette.ticketHover,
+    top: '0px',
+    fill: 'transparent',
     transition: theme.transitions.easeOut (),
     path: getHoverPath (theme, shape, hoverShape, width, height),
+    ':hover': {fill: theme.palette.ticketHover},
   };
 
   const vp = kind === 'thin' ? '0px' : theme.shapes.ticketVerticalPadding;
@@ -280,14 +282,6 @@ export default function styles (theme, props) {
     background: `repeating-linear-gradient(-45deg, ${hc}, ${hc} ${hs}, rgba(0,0,0,0) 0px, rgba(0,0,0,0) ${ht})`,
   };
 
-  const rectEmptyStyle = {
-    position: 'absolute',
-    width: '100%',
-    height: '100%',
-    top: '0px',
-    left: '0px',
-  };
-
   let rectHoverStyle;
   const t1 = theme.shapes.ticketHoverThickness;
   const t2 = Unit.multiply (theme.shapes.ticketHoverThickness, 2);
@@ -302,7 +296,7 @@ export default function styles (theme, props) {
       borderRadius: hoverRadius,
       borderWidth: t1,
       borderStyle: 'solid solid none solid',
-      borderColor: theme.palette.ticketHover,
+      borderColor: 'transparent',
     };
   } else if (hoverShape === 'last') {
     // u.
@@ -315,7 +309,7 @@ export default function styles (theme, props) {
       borderRadius: hoverRadius,
       borderWidth: t1,
       borderStyle: 'none solid solid solid',
-      borderColor: theme.palette.ticketHover,
+      borderColor: 'transparent',
     };
   } else {
     rectHoverStyle = {
@@ -327,9 +321,12 @@ export default function styles (theme, props) {
       borderRadius: hoverRadius,
       borderWidth: t1,
       borderStyle: 'solid',
-      borderColor: theme.palette.ticketHover,
+      borderColor: 'transparent',
     };
   }
+  rectHoverStyle[':hover'] = {
+    borderColor: theme.palette.ticketHover,
+  };
 
   const hudGlyphShadowStyle = {
     position: 'absolute',
@@ -457,7 +454,6 @@ export default function styles (theme, props) {
     rectShadow: rectShadowStyle,
     rect: rectStyle,
     rectContentHatch: rectContentHatchStyle,
-    rectEmpty: rectEmptyStyle,
     rectHover: rectHoverStyle,
     hudGlyphShadow: hudGlyphShadowStyle,
     hudGlyphShadowNone: hudGlyphShadowNoneStyle,

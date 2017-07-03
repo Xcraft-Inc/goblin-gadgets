@@ -68,9 +68,6 @@ class Ticket extends Widget {
 
   renderTicket () {
     const hatch = this.props.hatch;
-    const hoverShape = this.props.hover === 'true'
-      ? this.props['hover-shape']
-      : null;
 
     const boxClass = this.styles.classNames.box;
     const shadowClass = this.styles.classNames.shadow;
@@ -121,11 +118,11 @@ class Ticket extends Widget {
           <path d={this.styles.props.svg.path} />
         </svg>
       : null;
-    const htmlHover = hoverShape
-      ? <svg width={w} height={h} className={hoverClass}>
-          <path d={this.styles.props.hover.path} />
-        </svg>
-      : null;
+    const htmlHover = (
+      <svg width={w} height={h} className={hoverClass}>
+        <path d={this.styles.props.hover.path} />
+      </svg>
+    );
 
     return (
       <div
@@ -141,24 +138,20 @@ class Ticket extends Widget {
         {htmlShape}
         {htmlHatch}
         {this.renderBackgroundText ()}
-        {htmlHover}
         <div className={contentClass}>
           {this.props.children}
         </div>
         {this.renderHud ()}
+        {htmlHover}
       </div>
     );
   }
 
   renderRect () {
     const hatch = this.props.hatch;
-    const hoverShape = this.props.hover === 'true'
-      ? this.props['hover-shape']
-      : null;
 
     const rectShadowClass = this.styles.classNames.rectShadow;
     const rectClass = this.styles.classNames.rect;
-    const rectEmptyClass = this.styles.classNames.rectEmpty;
     const rectHoverClass = this.styles.classNames.rectHover;
     const contentClass = this.styles.classNames.content;
     const rectContentHatchClass = this.styles.classNames.rectContentHatch;
@@ -180,9 +173,9 @@ class Ticket extends Widget {
             {this.renderBackgroundText ()}
             {this.props.children}
           </div>
-          <div className={hoverShape ? rectHoverClass : rectEmptyClass} />
         </div>
         {this.renderHud ()}
+        <div className={rectHoverClass} />
       </div>
     );
   }
