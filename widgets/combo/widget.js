@@ -105,7 +105,7 @@ class Combo extends Widget {
       return <Separator key={index} kind="menu-separator" />;
     } else {
       const g = GlyphHelpers.getGlyph (item.glyph);
-      const color = ColorHelpers.getMarkColor (this.props.theme, g.color);
+      const color = ColorHelpers.getMarkColor (this.context.theme, g.color);
       const active = focused ? 'focused' : item.active;
       return (
         <Button
