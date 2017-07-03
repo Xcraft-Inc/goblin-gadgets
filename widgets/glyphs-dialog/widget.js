@@ -19,23 +19,32 @@ class GlyphsDialog extends Widget {
     super (props);
   }
 
+  static get wiring () {
+    return {
+      id: 'id',
+      allGlyphs: 'allGlyphs',
+      selectedGlyphs: 'selectedGlyphs',
+    };
+  }
+
   onClose () {
-    const x = this.props['close-dialog'];
+    const x = this.props.closeDialog;
     if (x) {
       x ();
     }
   }
 
   onToggleGlyph (glyph) {
-    // console.log ('GlyphsDialog.onToggleGlyph');
-    const x = this.props['glyph-clicked'];
+    this.do ('toggleGlyphs', {glyph});
+    const x = this.props.glyphClicked;
     if (x) {
       x (glyph);
     }
   }
 
   onClearGlyphs () {
-    const x = this.props['clear-glyphs'];
+    this.do ('clearGlyphs');
+    const x = this.props.clearGlyphs;
     if (x) {
       x ();
     }
@@ -43,7 +52,7 @@ class GlyphsDialog extends Widget {
 
   onDragEnding (selectedIds, toId) {
     // console.log (`GlyphsDialog.onDragEnding ${selectedIds} ${toId} ${ownerId} ${ownerKind}`);
-    const x = this.props['glyph-dragged'];
+    const x = this.props.glyphDragged;
     if (x) {
       x (selectedIds[0], toId);
     }
@@ -65,8 +74,8 @@ class GlyphsDialog extends Widget {
   }
 
   renderGlyphButtons () {
-    const allGlyphs = this.props['all-glyphs'];
-    const selectedGlyphs = this.props['selected-glyphs'];
+    const allGlyphs = this.props.allGlyphs;
+    const selectedGlyphs = this.props.selectedGlyphs;
     const result = [];
     for (var glyph of allGlyphs.glyphs) {
       const selected = Enumerable.from (selectedGlyphs)
@@ -141,7 +150,7 @@ class GlyphsDialog extends Widget {
   }
 
   renderGlyphSamples () {
-    const selectedGlyphs = this.props['selected-glyphs'];
+    const selectedGlyphs = this.props.selectedGlyphs;
     const result = [];
     let index = 0;
     const dndEnable = selectedGlyphs.length > 1;
