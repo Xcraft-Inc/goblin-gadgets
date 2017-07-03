@@ -23,7 +23,7 @@ class GlyphsDialog extends Widget {
     return {
       id: 'id',
       allGlyphs: 'allGlyphs',
-      selectedGlyphs: 'selectedGlyphs',
+      selectedIds: 'selectedIds',
     };
   }
 
@@ -74,14 +74,13 @@ class GlyphsDialog extends Widget {
   }
 
   renderGlyphButtons () {
-    const allGlyphs = this.props.allGlyphs;
-    const selectedGlyphs = this.props.selectedGlyphs;
+    const allGlyphs = this.shred (this.props.allGlyphs);
+    const selectedIds = this.props.selectedIds;
     const result = [];
-    for (var glyph of allGlyphs.glyphs) {
-      const selected = Enumerable.from (selectedGlyphs)
-        .where (x => x.id === glyph.id)
-        .any ();
-      result.push (this.renderGlyphButton (glyph, selected));
+    for (var glyph of allGlyphs.select ((k, v) => v.toJS ())) {
+      console.dir (glyph);
+      const selected = this.shred (selectedIds).toJS ()[glyph.id];
+      result.push (this.renderGlyphButton (glyph, selected ? true : false));
     }
     return result;
   }
@@ -106,7 +105,8 @@ class GlyphsDialog extends Widget {
     );
   }
 
-  renderGlyphSample (glyph, dndEnable, index) {
+  renderGlyphSample (id, dndEnable, index) {
+    const glyph = this.shred (this.props.allGlyphs).toJS ()[id];
     const g = GlyphHelpers.getGlyph (glyph.Glyph);
     if (dndEnable) {
       return (
@@ -150,12 +150,12 @@ class GlyphsDialog extends Widget {
   }
 
   renderGlyphSamples () {
-    const selectedGlyphs = this.props.selectedGlyphs;
+    const selectedIds = this.props.selectedIds;
     const result = [];
     let index = 0;
-    const dndEnable = selectedGlyphs.length > 1;
-    for (var glyph of selectedGlyphs) {
-      result.push (this.renderGlyphSample (glyph, dndEnable, index++));
+    const dndEnable = selectedIds.size > 1;
+    for (var id of this.shred (selectedIds).toJS ()) {
+      result.push (this.renderGlyphSample (id, dndEnable, index++));
     }
     return result;
   }

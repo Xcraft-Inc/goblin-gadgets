@@ -10,87 +10,84 @@ const Goblin = require ('xcraft-core-goblin');
 const logicState = {};
 
 const allGlyphs = {
-  id: 'glyphs-mock',
-  glyphs: [
-    {
-      id: 'g1',
-      Name: 'Pick',
-      Glyph: 'bookmark-primary',
-      Description: 'Marque pour pick',
-    },
-    {
-      id: 'g2',
-      Name: 'Drop',
-      Glyph: 'bookmark-secondary',
-      Description: 'Marque pour drop',
-    },
-    {
-      id: 'g3',
-      Name: 'Attention',
-      Glyph: 'warning',
-      Description: 'Triangle attention',
-    },
-    {
-      id: 'g3b',
-      Name: 'Alerte',
-      Glyph: 'warning-primary',
-      Description: 'Alerte niveau 5',
-    },
-    {
-      id: 'g6',
-      Name: 'Validation',
-      Glyph: 'check-#ad00ff',
-      Description: '',
-    },
-    {
-      id: 'g4',
-      Name: 'Vélo',
-      Glyph: 'bicycle',
-      Description: 'Petit vélo comme moyen de transport\nSuite...',
-    },
-    {
-      id: 'g5',
-      Name: 'Bus',
-      Glyph: 'bus',
-      Description: 'Autocar comme moyen de transport',
-    },
-    {
-      id: 'g7',
-      Name: 'Train',
-      Glyph: 'train',
-      Description: 'Train comme moyen de transport',
-    },
-    {
-      id: 'g7b',
-      Name: 'Voiture',
-      Glyph: 'car',
-      Description: 'Voiture comme moyen de transport',
-    },
-    {
-      id: 'g8',
-      Name: 'Fusée',
-      Glyph: 'rocket',
-      Description: 'Fusée interplanétaire',
-    },
-    {
-      id: 'g10',
-      Name: 'Pick',
-      Glyph: 'plus-square-pick',
-      Description: 'Prendre un colis',
-    },
-    {
-      id: 'g11',
-      Name: 'Drop',
-      Glyph: 'minus-square-drop',
-      Description: 'Déposer un colis',
-    },
-    {
-      id: 'g12',
-      Name: 'Task',
-      Glyph: 'square-base',
-      Description: 'Tâche',
-    },
-  ],
+  g1: {
+    id: 'g1',
+    Name: 'Pick',
+    Glyph: 'bookmark-primary',
+    Description: 'Marque pour pick',
+  },
+  g2: {
+    id: 'g2',
+    Name: 'Drop',
+    Glyph: 'bookmark-secondary',
+    Description: 'Marque pour drop',
+  },
+  g3: {
+    id: 'g3',
+    Name: 'Attention',
+    Glyph: 'warning',
+    Description: 'Triangle attention',
+  },
+  g3b: {
+    id: 'g3b',
+    Name: 'Alerte',
+    Glyph: 'warning-primary',
+    Description: 'Alerte niveau 5',
+  },
+  g6: {
+    id: 'g6',
+    Name: 'Validation',
+    Glyph: 'check-#ad00ff',
+    Description: '',
+  },
+  g4: {
+    id: 'g4',
+    Name: 'Vélo',
+    Glyph: 'bicycle',
+    Description: 'Petit vélo comme moyen de transport\nSuite...',
+  },
+  g5: {
+    id: 'g5',
+    Name: 'Bus',
+    Glyph: 'bus',
+    Description: 'Autocar comme moyen de transport',
+  },
+  g7: {
+    id: 'g7',
+    Name: 'Train',
+    Glyph: 'train',
+    Description: 'Train comme moyen de transport',
+  },
+  g7b: {
+    id: 'g7b',
+    Name: 'Voiture',
+    Glyph: 'car',
+    Description: 'Voiture comme moyen de transport',
+  },
+  g8: {
+    id: 'g8',
+    Name: 'Fusée',
+    Glyph: 'rocket',
+    Description: 'Fusée interplanétaire',
+  },
+  g10: {
+    id: 'g10',
+    Name: 'Pick',
+    Glyph: 'plus-square-pick',
+    Description: 'Prendre un colis',
+  },
+  g11: {
+    id: 'g11',
+    Name: 'Drop',
+    Glyph: 'minus-square-drop',
+    Description: 'Déposer un colis',
+  },
+  g12: {
+    id: 'g12',
+    Name: 'Task',
+    Glyph: 'square-base',
+    Description: 'Tâche',
+  },
 };
 
 // Define logic handlers according rc.json
@@ -99,29 +96,29 @@ const logicHandlers = {
     const initialState = {
       id: action.get ('id'),
       allGlyphs: allGlyphs,
-      selectedGlyphs: [],
+      selectedIds: {},
     };
     return state.set ('', initialState);
   },
   toggleGlyphs: (state, action) => {
     const glyph = action.get ('glyph');
-    const list = state.get ('selectedGlyphs', []);
-    if (list.indexOf (glyph) === -1) {
-      const newList = list.push (glyph);
-      return state.set ('selectedGlyphs', newList);
+    const selectedId = state.get (`selectedIds.${glyph.id}`, null);
+    if (selectedId) {
+      return state.del (`selectedIds.${glyph.id}`);
     } else {
-      const newList = list.unpush (glyph);
-      return state.set ('selectedGlyphs', newList);
+      return state.set (`selectedIds.${glyph.id}`, glyph.id);
     }
   },
   clearGlyphs: state => {
-    return state.set ('selectedGlyphs', []);
+    return state.set ('selectedIds', {});
   },
 };
 
 // Register quest's according rc.json
-Goblin.registerQuest (goblinName, 'create', function (quest) {
+Goblin.registerQuest (goblinName, 'create', function (quest, labId) {
   quest.do ({id: quest.goblin.id});
+  const lab = quest.useAs ('laboratory', labId);
+  lab.add ({widgetId: quest.goblin.id});
   return quest.goblin.id;
 });
 
