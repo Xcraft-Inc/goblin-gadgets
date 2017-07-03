@@ -59,7 +59,7 @@ class GlyphsDialog extends Widget {
         glyph-color={color}
         text={glyph.Name}
         active={selected ? 'true' : 'false'}
-        on-click={() => ::this.onToggleGlyph (glyph)}
+        onClick={() => ::this.onToggleGlyph (glyph)}
       />
     );
   }
@@ -87,7 +87,7 @@ class GlyphsDialog extends Widget {
           <Button
             glyph="trash"
             tooltip="Supprime tous les pictogrammes"
-            on-click={::this.onClearGlyphs}
+            onClick={::this.onClearGlyphs}
           />
         </Container>
         <div className={glyphsClass}>
@@ -156,7 +156,7 @@ class GlyphsDialog extends Widget {
     const top = this.props.top;
     const bottom = this.props.bottom;
 
-    const footerCLass = this.styles.classNames.footer;
+    const footerClass = this.styles.classNames.footer;
 
     const buttonWidth = Unit.add (
       this.context.theme.shapes.glyphsDialogButtonWidth,
@@ -190,7 +190,7 @@ class GlyphsDialog extends Widget {
             kind="action"
             width="150px"
             place="1/1"
-            on-click={::this.onClose}
+            onClick={::this.onClose}
           />
         </div>
       </DialogModal>

@@ -11,7 +11,7 @@ class CheckButton extends Widget {
   }
 
   onButtonClicked (e) {
-    const x = this.props['on-click'];
+    const x = this.props.onClick;
     if (x) {
       x (e);
     } else {
@@ -36,7 +36,7 @@ class CheckButton extends Widget {
 
     return (
       <Button
-        on-click={::this.onButtonClicked}
+        onClick={::this.onButtonClicked}
         glyph={glyph}
         text={text}
         border="none"

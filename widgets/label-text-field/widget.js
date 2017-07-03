@@ -168,7 +168,7 @@ class LabelTextField extends Widget {
         <Button
           kind="combo"
           glyph={actionGlyph}
-          on-click={::this.onActionClicked}
+          onClick={::this.onActionClicked}
         />
       );
     } else {

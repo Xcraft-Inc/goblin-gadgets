@@ -177,7 +177,7 @@ class TextFieldCombo extends Widget {
         glyph={glyph}
         shape={buttonShape}
         active={isComboVisible}
-        on-click={::this.onButtonClicked}
+        onClick={::this.onButtonClicked}
       />
     );
   }
