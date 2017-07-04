@@ -28,8 +28,8 @@ class TextField extends Widget {
     this.do ('kind', {kind});
   }
 
-  componentDidMount (...args) {
-    super.componentDidMount (...args);
+  componentDidMount () {
+    super.componentDidMount ();
 
     const defaultFocus = this.props['default-focus'];
     if (defaultFocus === 'true') {

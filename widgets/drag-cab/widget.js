@@ -72,8 +72,8 @@ class DragCab extends Widget {
     });
   }
 
-  componentDidMount (...args) {
-    super.componentDidMount (...args);
+  componentDidMount () {
+    super.componentDidMount ();
 
     const id = this.props['drag-owner-id'];
     if (!id) {

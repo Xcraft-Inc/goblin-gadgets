@@ -43,8 +43,8 @@ class Container extends Widget {
     }
   }
 
-  componentDidMount (...args) {
-    super.componentDidMount (...args);
+  componentDidMount () {
+    super.componentDidMount ();
 
     const navFor = this.props['navigation-for'];
     if (navFor) {
