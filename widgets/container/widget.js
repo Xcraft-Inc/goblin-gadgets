@@ -43,7 +43,9 @@ class Container extends Widget {
     }
   }
 
-  componentDidMount () {
+  componentDidMount (...args) {
+    super.componentDidMount (...args);
+
     const navFor = this.props['navigation-for'];
     if (navFor) {
       const panelElem = document.querySelectorAll (

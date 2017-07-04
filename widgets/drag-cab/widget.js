@@ -72,7 +72,9 @@ class DragCab extends Widget {
     });
   }
 
-  componentDidMount () {
+  componentDidMount (...args) {
+    super.componentDidMount (...args);
+
     const id = this.props['drag-owner-id'];
     if (!id) {
       throw new Error ('DragCab has not drag-owner-id');

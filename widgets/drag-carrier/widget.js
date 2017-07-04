@@ -105,7 +105,9 @@ class DragCarrier extends Widget {
     this.selectedIds = [];
   }
 
-  componentDidMount () {
+  componentDidMount (...args) {
+    super.componentDidMount (...args);
+
     if (
       window.document.flyingDialogs &&
       window.document.flyingDialogs.length > 0
