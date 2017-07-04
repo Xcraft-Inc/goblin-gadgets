@@ -1,6 +1,7 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 import * as GlyphHelpers from '../helpers/glyph-helpers.js';
+import * as ComboHelpers from '../helpers/combo-helpers.js';
 import {ColorHelpers} from 'electrum-theme';
 import {Unit} from 'electrum-theme';
 import Enumerable from 'linq';
@@ -11,33 +12,6 @@ import Button from 'gadgets/button/widget';
 import Label from 'gadgets/label/widget';
 import DragCab from 'gadgets/drag-cab/widget';
 import DragCapsule from 'gadgets/drag-capsule/widget';
-
-/******************************************************************************/
-
-function declipping (width, center, padding) {
-  if (width) {
-    // Computation is impossible if width is undefined.
-    const w = Unit.parse (width).value;
-    const c = Unit.parse (center).value;
-    const p = Unit.parse (padding).value;
-
-    // Compute shift if dialog is out of left window border.
-    const leftShift = w / 2 + p - c;
-    if (leftShift > 0) {
-      const newCenter = c + leftShift;
-      return {shift: leftShift + 'px', center: newCenter + 'px'};
-    }
-
-    // Compute shift if dialog is out of right window border.
-    const rightShift = c + w / 2 + p - window.innerWidth;
-    if (rightShift > 0) {
-      const newCenter = c - rightShift;
-      return {shift: '-' + rightShift + 'px', center: newCenter + 'px'};
-    }
-  }
-
-  return {shift: '0px', center: center};
-}
 
 /******************************************************************************/
 
@@ -203,7 +177,7 @@ class GlyphsDialog extends Widget {
     const buttonsWidth = Unit.multiply (buttonWidth, 3); // 3 columns of buttons
     const dialogWidth = Unit.add (buttonsWidth, '20px'); // add scroller width
 
-    const result = declipping (
+    const result = ComboHelpers.declipping (
       dialogWidth,
       center,
       this.context.theme.shapes.floatingPadding

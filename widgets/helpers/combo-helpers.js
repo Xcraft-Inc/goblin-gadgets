@@ -44,3 +44,29 @@ export function getComboLocation (node, theme, name, x, y) {
     bottom: underside ? null : topValue,
   };
 }
+
+// Declipping dialog-modal when it's out of window.
+export function declipping (width, center, padding) {
+  if (width) {
+    // Computation is impossible if width is undefined.
+    const w = Unit.parse (width).value;
+    const c = Unit.parse (center).value;
+    const p = Unit.parse (padding).value;
+
+    // Compute shift if dialog is out of left window border.
+    const leftShift = w / 2 + p - c;
+    if (leftShift > 0) {
+      const newCenter = c + leftShift;
+      return {shift: leftShift + 'px', center: newCenter + 'px'};
+    }
+
+    // Compute shift if dialog is out of right window border.
+    const rightShift = c + w / 2 + p - window.innerWidth;
+    if (rightShift > 0) {
+      const newCenter = c - rightShift;
+      return {shift: '-' + rightShift + 'px', center: newCenter + 'px'};
+    }
+  }
+
+  return {shift: '0px', center: center};
+}
