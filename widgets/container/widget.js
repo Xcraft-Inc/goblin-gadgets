@@ -44,39 +44,37 @@ class Container extends Widget {
   }
 
   componentDidMount () {
-    setTimeout (() => {
-      const navFor = this.props['navigation-for'];
-      if (navFor) {
-        const panelElem = document.querySelectorAll (
-          `[data-navigation-name="${navFor}"]`
-        )[0];
-        if (panelElem) {
-          this.computePanelBottoms (panelElem);
-          panelElem.addEventListener ('scroll', ::this.handleScroll, true);
-        }
+    const navFor = this.props['navigation-for'];
+    if (navFor) {
+      const panelElem = document.querySelectorAll (
+        `[data-navigation-name="${navFor}"]`
+      )[0];
+      if (panelElem) {
+        this.computePanelBottoms (panelElem);
+        panelElem.addEventListener ('scroll', ::this.handleScroll, true);
       }
-      const dragController = this.props['drag-controller'];
-      if (dragController) {
-        if (!window.document.dragControllers) {
-          window.document.dragControllers = [];
-        }
-        window.document.dragControllers.push (this);
+    }
+    const dragController = this.props['drag-controller'];
+    if (dragController) {
+      if (!window.document.dragControllers) {
+        window.document.dragControllers = [];
       }
-      const dragParentId = this.props['drag-parent-id'];
-      if (dragParentId) {
-        if (!window.document.dragParentControllers) {
-          window.document.dragParentControllers = [];
-        }
-        window.document.dragParentControllers.push (this);
+      window.document.dragControllers.push (this);
+    }
+    const dragParentId = this.props['drag-parent-id'];
+    if (dragParentId) {
+      if (!window.document.dragParentControllers) {
+        window.document.dragParentControllers = [];
       }
-      const kind = this.props.kind;
-      if (kind === 'flying-dialog') {
-        if (!window.document.flyingDialogs) {
-          window.document.flyingDialogs = [];
-        }
-        window.document.flyingDialogs.push (this);
+      window.document.dragParentControllers.push (this);
+    }
+    const kind = this.props.kind;
+    if (kind === 'flying-dialog') {
+      if (!window.document.flyingDialogs) {
+        window.document.flyingDialogs = [];
       }
-    }, 0);
+      window.document.flyingDialogs.push (this);
+    }
   }
 
   componentWillUnmount () {
