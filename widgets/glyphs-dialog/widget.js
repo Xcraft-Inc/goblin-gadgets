@@ -74,6 +74,7 @@ class GlyphsDialog extends Widget {
   }
 
   renderGlyphButtons () {
+    return null; //??
     const allGlyphs = this.shred (this.props.allGlyphs);
     const selectedIds = this.props.selectedIds;
     const result = [];
@@ -150,6 +151,7 @@ class GlyphsDialog extends Widget {
   }
 
   renderGlyphSamples () {
+    return null; //??
     const selectedIds = this.props.selectedIds;
     const result = [];
     let index = 0;
