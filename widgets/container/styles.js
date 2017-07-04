@@ -938,12 +938,13 @@ export default function styles (theme, props) {
       triangleColor = theme.palette.flyingDialogBackground;
     }
     const t = Unit.add (triangleSize, '1px', 0); // round (suppress decimals)
+    const tt = props.shift ? Unit.add (t, props.shift) : t;
     const p = triangleSize;
     if (props.trianglePosition === 'left') {
       triangleStyle = {
         position: 'absolute',
         height: '0px',
-        bottom: 'calc(50% - ' + t + ')',
+        bottom: 'calc(50% - ' + tt + ')',
         left: '-' + p,
         borderTop: t + ' solid transparent',
         borderBottom: t + ' solid transparent',
@@ -953,7 +954,7 @@ export default function styles (theme, props) {
       triangleStyle = {
         position: 'absolute',
         height: '0px',
-        bottom: 'calc(50% - ' + t + ')',
+        bottom: 'calc(50% - ' + tt + ')',
         right: '-' + p,
         borderTop: t + ' solid transparent',
         borderBottom: t + ' solid transparent',
@@ -963,7 +964,7 @@ export default function styles (theme, props) {
       triangleStyle = {
         position: 'absolute',
         width: '0px',
-        left: 'calc(50% - ' + t + ')',
+        left: 'calc(50% - ' + tt + ')',
         bottom: '-' + p,
         borderLeft: t + ' solid transparent',
         borderRight: t + ' solid transparent',
@@ -973,7 +974,7 @@ export default function styles (theme, props) {
       triangleStyle = {
         position: 'absolute',
         width: '0px',
-        left: 'calc(50% - ' + t + ')',
+        left: 'calc(50% - ' + tt + ')',
         top: '-' + p,
         borderLeft: t + ' solid transparent',
         borderRight: t + ' solid transparent',

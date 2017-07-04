@@ -14,6 +14,33 @@ import DragCapsule from 'gadgets/drag-capsule/widget';
 
 /******************************************************************************/
 
+function declipping (width, center, padding) {
+  if (width) {
+    // Computation is impossible if width is undefined.
+    const w = Unit.parse (width).value;
+    const c = Unit.parse (center).value;
+    const p = Unit.parse (padding).value;
+
+    // Compute shift if dialog is out of left window border.
+    const leftShift = w / 2 + p - c;
+    if (leftShift > 0) {
+      const newCenter = c + leftShift;
+      return {shift: leftShift + 'px', center: newCenter + 'px'};
+    }
+
+    // Compute shift if dialog is out of right window border.
+    const rightShift = c + w / 2 + p - window.innerWidth;
+    if (rightShift > 0) {
+      const newCenter = c - rightShift;
+      return {shift: '-' + rightShift + 'px', center: newCenter + 'px'};
+    }
+  }
+
+  return {shift: '0px', center: center};
+}
+
+/******************************************************************************/
+
 class GlyphsDialog extends Widget {
   constructor (props) {
     super (props);
@@ -176,10 +203,17 @@ class GlyphsDialog extends Widget {
     const buttonsWidth = Unit.multiply (buttonWidth, 3); // 3 columns of buttons
     const dialogWidth = Unit.add (buttonsWidth, '20px'); // add scroller width
 
+    const result = declipping (
+      dialogWidth,
+      center,
+      this.context.theme.shapes.floatingPadding
+    );
+
     return (
       <DialogModal
         width={dialogWidth}
-        center={center}
+        center={result.center}
+        shift={result.shift}
         top={top}
         bottom={bottom}
         close={::this.onClose}
