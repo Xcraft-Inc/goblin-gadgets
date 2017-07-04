@@ -10,6 +10,7 @@ export default function styles (theme, props) {
   let minHeight = props.minHeight;
   let maxWidth = props.maxWidth;
   let maxHeight = props.maxHeight;
+  let hidden = props.hidden;
   let display = null;
   let overflowX = null;
   let overflowY = null;
@@ -869,6 +870,10 @@ export default function styles (theme, props) {
   if (flexGrow) {
     flexShrink = '1';
     flexBasis = '0%';
+  }
+
+  if (hidden === 'true') {
+    display = 'none';
   }
 
   const boxStyle = {

@@ -47,7 +47,7 @@ export function getComboLocation (node, theme, name, x, y) {
 
 // Declipping dialog-modal when it's out of window.
 export function declipping (width, center, padding) {
-  if (width) {
+  if (width && center && padding) {
     // Computation is impossible if width is undefined.
     const w = Unit.parse (width).value;
     const c = Unit.parse (center).value;

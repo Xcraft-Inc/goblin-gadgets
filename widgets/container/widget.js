@@ -162,36 +162,17 @@ class Container extends Widget {
   }
 
   render () {
-    const {disabled, kind, anchor, hidden, show, index} = this.props;
+    const {disabled, kind, anchor, show, index} = this.props;
     const navName = this.props.navigation - name;
 
     const boxClass = this.styles.classNames.box;
-    const boxStyle = {};
     const triangleClass = this.styles.classNames.triangle;
-
-    // FIXME: must be computed by styles.js
-    if (hidden) {
-      boxStyle.display = 'none';
-    }
-
-    // FIXME: unused
-    const useManagedChildren = [
-      'pane-navigator',
-      'pane-vnavigator',
-      'pane-hnavigator',
-    ];
 
     if (show === 'false') {
       return null;
     } else if (kind === 'flying-balloon' || kind === 'flying-dialog') {
       return (
-        <div
-          key={index}
-          disabled={disabled}
-          className={boxClass}
-          style={boxStyle}
-          id={anchor}
-        >
+        <div key={index} disabled={disabled} className={boxClass} id={anchor}>
           <div className={triangleClass} />
           {this.props.children}
         </div>
@@ -202,7 +183,6 @@ class Container extends Widget {
           key={index}
           disabled={disabled}
           className={boxClass}
-          style={boxStyle}
           id={anchor}
           data-navigation-name={navName}
         >
