@@ -35,8 +35,8 @@ class GlyphsDialog extends Widget {
     }
   }
 
-  onToggleGlyph (id) {
-    this.do ('toggleGlyphs', {id});
+  onToggleGlyph (glyphId) {
+    this.do ('toggleGlyphs', {glyphId});
     const x = this.props.glyphClicked;
     if (x) {
       x (glyph);

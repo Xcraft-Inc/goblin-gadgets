@@ -122,16 +122,17 @@ const logicHandlers = {
     return state.set ('', initialState);
   },
   toggleGlyphs: (state, action) => {
-    const id = action.get ('id');
-    const selectedId = state.get (`selectedIds.${id}`, null);
-    if (selectedId) {
-      return state.del (`selectedIds.${id}`);
+    const id = action.get ('glyphId');
+    const selectedGlyphs = state.get (`selectedGlyphs.${id}`, null);
+    if (selectedGlyphs) {
+      return state.del (`selectedGlyphs.${id}`);
     } else {
-      return state.set (`selectedIds.${id}`, id);
+      const glyph = state.get (`allGlyphs.${id}`).toJS ();
+      return state.set (`selectedGlyphs.${id}`, glyph);
     }
   },
   clearGlyphs: state => {
-    return state.set ('selectedIds', {});
+    return state.set ('selectedGlyphs', {});
   },
 };
 
@@ -143,8 +144,8 @@ Goblin.registerQuest (goblinName, 'create', function (quest, labId) {
   return quest.goblin.id;
 });
 
-Goblin.registerQuest (goblinName, 'toggleGlyphs', function (quest, id) {
-  quest.do ({id});
+Goblin.registerQuest (goblinName, 'toggleGlyphs', function (quest, glyphId) {
+  quest.do ({glyphId});
 });
 
 Goblin.registerQuest (goblinName, 'clearGlyphs', function (quest) {
