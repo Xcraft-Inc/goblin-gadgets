@@ -28,18 +28,9 @@ export default function styles (theme, props) {
     cursor: 'default',
   };
 
-  const cellStyle = {
-    padding: theme.shapes.tablePadding + ' 0px',
-    fontWeight: 'bold',
-    textTransform: 'uppercase',
-    fontSize: theme.shapes.tableTextSize,
-    cursor: 'default',
-  };
-
   return {
     table: tableStyle,
     header: headerStyle,
-    cell: cellStyle,
   };
 }
 

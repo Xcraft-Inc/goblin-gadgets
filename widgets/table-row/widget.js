@@ -1,6 +1,8 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 
+import TableCell from 'gadgets/table-cell/widget';
+
 /******************************************************************************/
 
 class TableRow extends Widget {
@@ -8,55 +10,39 @@ class TableRow extends Widget {
     super (props);
   }
 
-  onMouseDown () {
-    const x = this.props.selectionChanged;
-    if (x) {
-      const row = this.props.row;
-      x (row.id);
-    }
-  }
-
-  /******************************************************************************/
-
-  renderRowColumn (description, column, last, index) {
-    const styleClass = this.styles.classNames.cell;
-    const style = Object.assign ({}, this.styles.props.cell);
-
-    if (column.Width) {
-      style.minWidth = column.Width;
-      style.maxWidth = column.Width;
-    } else if (column.Grow) {
-      style.flexGrow = column.Grow;
-      style.flexShrink = '0';
-      style.flexBasis = '0%';
-      style.minWidth = '0px';
-      style.overflow = 'hidden';
-    }
-    style.textAlign = column.TextAlign;
-
-    if (!last) {
-      style.marginRight = this.context.theme.shapes.tablePadding;
-    }
-
+  renderRowCell (rowId, width, grow, textAlign, isLast, text, index) {
     return (
-      <div
-        key={index}
-        className={styleClass}
-        style={style}
-        onMouseDown={::this.onMouseDown}
-      >
-        {description}
-      </div>
+      <TableCell
+        rowId={rowId}
+        index={index}
+        width={width}
+        grow={grow}
+        textAlign={textAlign}
+        isLast={isLast ? 'true' : 'false'}
+        isHeader="false"
+        text={text}
+        selectionChanged={::this.props.selectionChanged}
+      />
     );
   }
 
-  renderRowColumns (header, row) {
+  renderRowCells (header, row) {
     const result = [];
     let index = 0;
     for (var column of header) {
-      const description = row[column.Name];
-      const last = index === header.length - 1;
-      result.push (this.renderRowColumn (description, column, last, index++));
+      const text = row[column.Name];
+      const isLast = index === header.length - 1;
+      result.push (
+        this.renderRowCell (
+          row.id,
+          column.Width,
+          column.Grow,
+          column.TextAlign,
+          isLast,
+          text,
+          index++
+        )
+      );
     }
     return result;
   }
@@ -72,7 +58,7 @@ class TableRow extends Widget {
 
     return (
       <div key={index} className={rowStyleClass}>
-        {this.renderRowColumns (header, row)}
+        {this.renderRowCells (header, row)}
       </div>
     );
   }

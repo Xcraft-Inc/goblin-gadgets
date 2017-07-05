@@ -2,6 +2,7 @@ import React from 'react';
 import Widget from 'laboratory/widget';
 
 import TableRow from 'gadgets/table-row/widget';
+import TableCell from 'gadgets/table-cell/widget';
 
 /******************************************************************************/
 class Table extends Widget {
@@ -32,39 +33,26 @@ class Table extends Widget {
 
   /******************************************************************************/
 
-  renderHeaderColumn (column, last, index) {
-    const styleClass = this.styles.classNames.cell;
-    const style = Object.assign ({}, this.styles.props.cell);
-
-    if (column.Width) {
-      style.minWidth = column.Width;
-      style.maxWidth = column.Width;
-    } else if (column.Grow) {
-      style.flexGrow = column.Grow;
-      style.flexShrink = '0';
-      style.flexBasis = '0%';
-      style.minWidth = '0px';
-      style.overflow = 'hidden';
-    }
-    style.textAlign = column.TextAlign;
-
-    if (!last) {
-      style.marginRight = this.context.theme.shapes.tablePadding;
-    }
-
+  renderHeaderCell (column, isLast, index) {
     return (
-      <div key={index} className={styleClass} style={style}>
-        {column.Description}
-      </div>
+      <TableCell
+        index={index}
+        width={column.Width}
+        grow={column.Grow}
+        textAlign={column.TextAlign}
+        isLast={isLast ? 'true' : 'false'}
+        isHeader="true"
+        text={column.Description}
+      />
     );
   }
 
-  renderHeaderColumns (header) {
+  renderHeaderCells (header) {
     const result = [];
     let index = 0;
     for (var column of header) {
-      const last = index === header.length - 1;
-      result.push (this.renderHeaderColumn (column, last, index++));
+      const isLast = index === header.length - 1;
+      result.push (this.renderHeaderCell (column, isLast, index++));
     }
     return result;
   }
@@ -73,7 +61,7 @@ class Table extends Widget {
     const styleClass = this.styles.classNames.header;
     return (
       <div className={styleClass}>
-        {this.renderHeaderColumns (header)}
+        {this.renderHeaderCells (header)}
       </div>
     );
   }
