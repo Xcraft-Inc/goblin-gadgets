@@ -53,6 +53,7 @@ class GlyphsDialog extends Widget {
 
   onDragEnding (selectedIds, toId) {
     // console.log (`GlyphsDialog.onDragEnding ${selectedIds} ${toId} ${ownerId} ${ownerKind}`);
+    this.do ('dragGlyphs', {fromId: selectedIds[0], toId: toId});
     const x = this.props.glyphDragged;
     if (x) {
       x (selectedIds[0], toId);
@@ -77,10 +78,15 @@ class GlyphsDialog extends Widget {
 
   renderGlyphButtons () {
     const allGlyphs = this.shred (this.props.allGlyphs);
+    const selectedGlyphs = this.shred (this.props.selectedGlyphs);
     let index = 0;
     return allGlyphs.linq
+      .orderBy (glyph => glyph.get ('order'))
       .select (glyph => {
-        const selected = false;
+        const id = glyph.get ('id');
+        const selected = selectedGlyphs.linq
+          .where (x => x.get ('id') === id)
+          .any ();
         return this.renderGlyphButton (glyph, selected ? true : false, index++);
       })
       .toList ();
@@ -156,6 +162,7 @@ class GlyphsDialog extends Widget {
     const dndEnable = selectedGlyphs.count () > 1;
     let index = 0;
     return selectedGlyphs.linq
+      .orderBy (glyph => glyph.get ('order'))
       .select (glyph => {
         return this.renderGlyphSample (glyph, dndEnable, index++);
       })
@@ -179,7 +186,7 @@ class GlyphsDialog extends Widget {
     const result = ComboHelpers.declipping (
       dialogWidth,
       center,
-      this.context.theme.shapes.floatingPadding
+      Unit.add (this.context.theme.shapes.floatingPadding, '10px') // 10px -> Does not touch the edge of the window
     );
 
     return (
