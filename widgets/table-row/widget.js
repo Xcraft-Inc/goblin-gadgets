@@ -30,14 +30,14 @@ class TableRow extends Widget {
     const result = [];
     let index = 0;
     for (var column of header) {
-      const text = row[column.Name];
+      const text = row[column.name];
       const isLast = index === header.length - 1;
       result.push (
         this.renderRowCell (
           row.id,
-          column.Width,
-          column.Grow,
-          column.TextAlign,
+          column.width,
+          column.grow,
+          column.textAlign,
           isLast,
           text,
           index++

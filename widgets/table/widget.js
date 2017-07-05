@@ -37,12 +37,12 @@ class Table extends Widget {
     return (
       <TableCell
         index={index}
-        width={column.Width}
-        grow={column.Grow}
-        textAlign={column.TextAlign}
+        width={column.width}
+        grow={column.grow}
+        textAlign={column.textAlign}
         isLast={isLast ? 'true' : 'false'}
         isHeader="true"
-        text={column.Description}
+        text={column.description}
       />
     );
   }
@@ -81,8 +81,8 @@ class Table extends Widget {
   renderRows (data) {
     const result = [];
     let index = 0;
-    for (var row of data.Rows) {
-      result.push (this.renderRow (data.Header, row, index++));
+    for (var row of data.rows) {
+      result.push (this.renderRow (data.header, row, index++));
     }
     return result;
   }
@@ -93,7 +93,7 @@ class Table extends Widget {
 
     return (
       <div className={styleClass}>
-        {this.renderHeader (data.Header)}
+        {this.renderHeader (data.header)}
         {this.renderRows (data)}
       </div>
     );
