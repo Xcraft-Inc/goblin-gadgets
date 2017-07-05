@@ -24,7 +24,7 @@ class GlyphsDialog extends Widget {
     return {
       id: 'id',
       allGlyphs: 'allGlyphs',
-      selectedIds: 'selectedIds',
+      selectedGlyphs: 'selectedGlyphs',
     };
   }
 
@@ -35,8 +35,8 @@ class GlyphsDialog extends Widget {
     }
   }
 
-  onToggleGlyph (glyph) {
-    this.do ('toggleGlyphs', {glyph});
+  onToggleGlyph (id) {
+    this.do ('toggleGlyphs', {id});
     const x = this.props.glyphClicked;
     if (x) {
       x (glyph);
@@ -59,32 +59,31 @@ class GlyphsDialog extends Widget {
     }
   }
 
-  renderGlyphButton (glyph, selected) {
-    const g = GlyphHelpers.getGlyph (glyph.Glyph);
+  renderGlyphButton (glyph, selected, index) {
+    const g = GlyphHelpers.getGlyph (glyph.get ('glyph'));
     const color = ColorHelpers.getMarkColor (this.context.theme, g.color);
     return (
       <Button
+        key={index}
         kind="glyph-item"
         glyph={g.glyph}
         glyph-color={color}
-        text={glyph.Name}
+        text={glyph.get ('name')}
         active={selected ? 'true' : 'false'}
-        onClick={() => ::this.onToggleGlyph (glyph)}
+        onClick={() => ::this.onToggleGlyph (glyph.get ('id'))}
       />
     );
   }
 
   renderGlyphButtons () {
-    return null; //??
     const allGlyphs = this.shred (this.props.allGlyphs);
-    const selectedIds = this.props.selectedIds;
-    const result = [];
-    for (var glyph of allGlyphs.select ((k, v) => v.toJS ())) {
-      console.dir (glyph);
-      const selected = this.shred (selectedIds).toJS ()[glyph.id];
-      result.push (this.renderGlyphButton (glyph, selected ? true : false));
-    }
-    return result;
+    let index = 0;
+    return allGlyphs.linq
+      .select (glyph => {
+        const selected = false;
+        return this.renderGlyphButton (glyph, selected ? true : false, index++);
+      })
+      .toList ();
   }
 
   renderMain () {
@@ -107,15 +106,15 @@ class GlyphsDialog extends Widget {
     );
   }
 
-  renderGlyphSample (id, dndEnable, index) {
-    const glyph = this.shred (this.props.allGlyphs).toJS ()[id];
-    const g = GlyphHelpers.getGlyph (glyph.Glyph);
+  renderGlyphSample (glyph, dndEnable, index) {
+    const g = GlyphHelpers.getGlyph (glyph.get ('glyph'));
     if (dndEnable) {
       return (
         <DragCab
+          key={index}
           drag-controller="glyph-sample"
           direction="horizontal"
-          drag-owner-id={glyph.id}
+          drag-owner-id={glyph.get ('id')}
           color={this.context.theme.palette.dragAndDropHover}
           thickness={this.context.theme.shapes.dragAndDropTicketThickness}
           radius={this.context.theme.shapes.dragAndDropTicketThickness}
@@ -138,6 +137,7 @@ class GlyphsDialog extends Widget {
     } else {
       return (
         <Label
+          key={index}
           width="70px"
           height="80px"
           index={index}
@@ -152,15 +152,14 @@ class GlyphsDialog extends Widget {
   }
 
   renderGlyphSamples () {
-    return null; //??
-    const selectedIds = this.props.selectedIds;
-    const result = [];
+    const selectedGlyphs = this.shred (this.props.selectedGlyphs);
+    const dndEnable = selectedGlyphs.count () > 1;
     let index = 0;
-    const dndEnable = selectedIds.size > 1;
-    for (var id of this.shred (selectedIds).toJS ()) {
-      result.push (this.renderGlyphSample (id, dndEnable, index++));
-    }
-    return result;
+    return selectedGlyphs.linq
+      .select (glyph => {
+        return this.renderGlyphSample (glyph, dndEnable, index++);
+      })
+      .toList ();
   }
 
   render () {

@@ -190,7 +190,7 @@ class DragCab extends Widget {
         mode={mode}
         data={data}
         do-drag-ending={doDragEnding}
-        drag-ending={this.onDragEnding}
+        drag-ending={::this.onDragEnding}
         drag-height={this.dragHeight}
         drag-controller={dragController}
         drag-owner-id={dragOwnerId}
