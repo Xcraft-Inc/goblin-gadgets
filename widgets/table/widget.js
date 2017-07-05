@@ -24,11 +24,13 @@ class Table extends Widget {
   }
 
   onSelectionChanged (id) {
-    const currentId = this.selectedRow;
-    if (id === currentId) {
-      id = null;
+    if (this.props.enableSelection === 'true') {
+      const currentId = this.selectedRow;
+      if (id === currentId) {
+        id = null;
+      }
+      this.selectedRow = id;
     }
-    this.selectedRow = id;
   }
 
   /******************************************************************************/
