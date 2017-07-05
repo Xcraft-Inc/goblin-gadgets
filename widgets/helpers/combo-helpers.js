@@ -51,7 +51,7 @@ export function declipping (width, center, padding) {
     // Computation is impossible if width is undefined.
     const w = Unit.parse (width).value;
     const c = Unit.parse (center).value;
-    const p = Unit.parse (padding).value;
+    const p = Unit.parse (Unit.add (padding, '10px')).value; // 10px -> Does not touch the edge of the window, FIXME: move to theme
 
     // Compute shift if dialog is out of left window border.
     const leftShift = w / 2 + p - c;
