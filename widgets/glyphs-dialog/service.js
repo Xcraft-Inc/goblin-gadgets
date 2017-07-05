@@ -103,30 +103,6 @@ const allGlyphs = {
   },
 };
 
-const selectedGlyphs = {
-  g1: {
-    id: 'g1',
-    order: 0,
-    name: 'Pick',
-    glyph: 'bookmark-primary',
-    description: 'Marque pour pick',
-  },
-  g8: {
-    id: 'g8',
-    order: 1,
-    name: 'Fusée',
-    glyph: 'rocket',
-    description: 'Fusée interplanétaire',
-  },
-  g6: {
-    id: 'g6',
-    order: 2,
-    name: 'Validation',
-    glyph: 'check-#ad00ff',
-    description: '',
-  },
-};
-
 // Returns the order to insert an element before the one given the id.
 // If id is undefined, returns the order to insert at the end.
 function getGlyphOrder (list, id) {
@@ -158,7 +134,7 @@ const logicHandlers = {
     const initialState = {
       id: action.get ('id'),
       allGlyphs: allGlyphs,
-      selectedGlyphs: selectedGlyphs,
+      selectedGlyphs: {},
     };
     return state.set ('', initialState);
   },
