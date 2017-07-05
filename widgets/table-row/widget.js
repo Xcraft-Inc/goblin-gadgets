@@ -14,6 +14,7 @@ class TableRow extends Widget {
     return (
       <TableCell
         rowId={rowId}
+        key={index}
         index={index}
         width={width}
         grow={grow}
@@ -27,24 +28,24 @@ class TableRow extends Widget {
   }
 
   renderRowCells (header, row) {
-    const result = [];
     let index = 0;
-    for (var column of header) {
-      const text = row[column.name];
-      const isLast = index === header.length - 1;
-      result.push (
-        this.renderRowCell (
-          row.id,
-          column.width,
-          column.grow,
-          column.textAlign,
+    const h = this.shred (header);
+    return h.linq
+      .select (column => {
+        const text = row.get (column.get ('name'));
+        const isLast = index === h.size - 1;
+
+        return this.renderRowCell (
+          row.get ('id'),
+          column.get ('width'),
+          column.get ('grow'),
+          column.get ('textAlign'),
           isLast,
           text,
           index++
-        )
-      );
-    }
-    return result;
+        );
+      })
+      .toList ();
   }
 
   render () {
@@ -58,7 +59,7 @@ class TableRow extends Widget {
 
     return (
       <div key={index} className={rowStyleClass}>
-        {this.renderRowCells (header, row)}
+        {this.renderRowCells (header.toArray (), row)}
       </div>
     );
   }

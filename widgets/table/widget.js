@@ -25,11 +25,11 @@ class Table extends Widget {
 
   onSelectionChanged (id) {
     if (this.props.enableSelection === 'true') {
-      const currentId = this.selectedRow;
-      if (id === currentId) {
-        id = null;
+      if (id === this.selectedRow) {
+        this.selectedRow = null; // deselect the selected row
+      } else {
+        this.selectedRow = id; // select the row
       }
-      this.selectedRow = id;
     }
   }
 
@@ -38,25 +38,26 @@ class Table extends Widget {
   renderHeaderCell (column, isLast, index) {
     return (
       <TableCell
+        key={index}
         index={index}
-        width={column.width}
-        grow={column.grow}
-        textAlign={column.textAlign}
+        width={column.get ('width')}
+        grow={column.get ('grow')}
+        textAlign={column.get ('textAlign')}
         isLast={isLast ? 'true' : 'false'}
         isHeader="true"
-        text={column.description}
+        text={column.get ('description')}
       />
     );
   }
 
   renderHeaderCells (header) {
-    const result = [];
     let index = 0;
-    for (var column of header) {
-      const isLast = index === header.length - 1;
-      result.push (this.renderHeaderCell (column, isLast, index++));
-    }
-    return result;
+    return header.linq
+      .select (column => {
+        const isLast = index === header.size - 1;
+        return this.renderHeaderCell (column, isLast, index++);
+      })
+      .toList ();
   }
 
   renderHeader (header) {
@@ -71,31 +72,32 @@ class Table extends Widget {
   renderRow (header, row, index) {
     return (
       <TableRow
-        header={header}
+        header={header.state}
         row={row}
+        key={index}
         index={index}
-        selected={this.selectedRow === row.id ? 'true' : 'false'}
+        selected={this.selectedRow === row.get ('id', null) ? 'true' : 'false'}
         selectionChanged={::this.onSelectionChanged}
       />
     );
   }
 
   renderRows (data) {
-    const result = [];
     let index = 0;
-    for (var row of data.rows) {
-      result.push (this.renderRow (data.header, row, index++));
-    }
-    return result;
+    const rows = data.get ('rows');
+    const header = data.get ('header');
+    return rows.linq
+      .select (row => this.renderRow (header, row, index++))
+      .toList ();
   }
 
   render () {
-    const data = this.read ('data');
+    const data = this.shred (this.props.data);
     const styleClass = this.styles.classNames.table;
 
     return (
       <div className={styleClass}>
-        {this.renderHeader (data.header)}
+        {this.renderHeader (data.get ('header'))}
         {this.renderRows (data)}
       </div>
     );
