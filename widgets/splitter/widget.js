@@ -170,7 +170,10 @@ class Splitter extends Widget {
   }
 
   onMouseUp () {
-    this.isDragging = false;
+    if (this.isDragging) {
+      this.isDragging = false;
+      this.forceUpdate ();
+    }
     this.isMouseDown = false;
   }
 
@@ -182,7 +185,9 @@ class Splitter extends Widget {
 
     const containerClass = this.styles.classNames.container;
     const firstPaneClass = this.styles.classNames.firstPane;
-    const resizerClass = this.styles.classNames.resizer;
+    const resizerClass = this.isDragging
+      ? this.styles.classNames.resizerDragging
+      : this.styles.classNames.resizer;
     const lastPaneClass = this.styles.classNames.lastPane;
 
     // FIXME: it's a bad idea to mutate the styles in the render, see styles.js
