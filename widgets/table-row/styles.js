@@ -1,3 +1,5 @@
+import {ColorManipulator} from 'electrum-theme';
+
 /******************************************************************************/
 
 export default function styles (theme, props) {
@@ -9,15 +11,7 @@ export default function styles (theme, props) {
     flexDirection: 'row',
     padding: '0px ' + m,
     cursor: 'default',
-  };
-
-  const rowHoverStyle = {
-    borderBottom: '1px solid ' + theme.palette.tableBorder,
-    display: 'flex',
-    flexDirection: 'row',
-    padding: '0px ' + m,
-    backgroundColor: theme.palette.tableHoverBackground,
-    cursor: 'default',
+    ':hover': {backgroundColor: theme.palette.tableHoverBackground},
   };
 
   const rowSelectedStyle = {
@@ -28,6 +22,12 @@ export default function styles (theme, props) {
     backgroundColor: theme.palette.tableSelectedBackground,
     color: theme.palette.tableSelectedText,
     cursor: 'default',
+    ':hover': {
+      backgroundColor: ColorManipulator.emphasize (
+        theme.palette.tableSelectedBackground,
+        0.2
+      ),
+    },
   };
 
   const cellStyle = {
@@ -38,7 +38,6 @@ export default function styles (theme, props) {
 
   return {
     row: rowStyle,
-    rowHover: rowHoverStyle,
     rowSelected: rowSelectedStyle,
     cell: cellStyle,
   };

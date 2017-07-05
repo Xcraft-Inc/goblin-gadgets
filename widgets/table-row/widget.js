@@ -2,32 +2,10 @@ import React from 'react';
 import Widget from 'laboratory/widget';
 
 /******************************************************************************/
+
 class TableRow extends Widget {
   constructor (props) {
     super (props);
-    this.state = {
-      hover: false,
-    };
-  }
-
-  get hover () {
-    return this.state.hover;
-  }
-
-  set hover (value) {
-    this.setState ({
-      hover: value,
-    });
-  }
-
-  /******************************************************************************/
-
-  onMouseOver () {
-    this.hover = true;
-  }
-
-  onMouseOut () {
-    this.hover = false;
   }
 
   onMouseDown () {
@@ -65,8 +43,6 @@ class TableRow extends Widget {
         key={index}
         className={styleClass}
         style={style}
-        onMouseOver={::this.onMouseOver}
-        onMouseOut={::this.onMouseOut}
         onMouseDown={::this.onMouseDown}
       >
         {description}
@@ -91,9 +67,7 @@ class TableRow extends Widget {
     const index = this.props.index;
     const selected = this.props.selected;
 
-    var styleName = selected === 'true'
-      ? 'rowSelected'
-      : this.hover ? 'rowHover' : 'row';
+    var styleName = selected === 'true' ? 'rowSelected' : 'row';
     const rowStyleClass = this.styles.classNames[styleName];
 
     return (

@@ -18,9 +18,7 @@ export default function styles (theme, props) {
     height: props.kind === 'horizontal' ? theme.shapes.splitterSize : null,
     cursor: props.kind === 'vertical' ? 'col-resize' : 'row-resize',
     backgroundColor: theme.palette.splitterBackground,
-  };
-  resizerStyle[':hover'] = {
-    backgroundColor: theme.palette.splitterBackgroundHover,
+    ':hover': {backgroundColor: theme.palette.splitterBackgroundHover},
   };
 
   const resizerDraggingStyle = {
