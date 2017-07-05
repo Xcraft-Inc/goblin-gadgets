@@ -85,7 +85,7 @@ class Table extends Widget {
         row={row}
         index={index}
         selected={this.selectedRow === row.id ? 'true' : 'false'}
-        selectionChanged={this.onSelectionChanged}
+        selectionChanged={::this.onSelectionChanged}
       />
     );
   }
