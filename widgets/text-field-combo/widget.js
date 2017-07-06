@@ -103,7 +103,7 @@ class TextFieldCombo extends Widget {
     const flyingBalloonAnchor = this.props['flying-balloon-anchor'];
     const rows = this.props.rows;
     const readonly = this.props.readonly;
-    const selectAllOnFocus = this.props['select-all-on-focus'];
+    const selectAllOnFocus = this.props.selectAllOnFocus;
     const defaultFocus = this.props['default-focus'];
     const filterKeys = this.props['filter-keys'];
     const tabIndex = this.props['tab-index'];
@@ -137,7 +137,7 @@ class TextFieldCombo extends Widget {
       width: width,
       rows: rows,
       readonly: visibleReadonly,
-      'select-all-on-focus': selectAllOnFocus,
+      selectAllOnFocus: selectAllOnFocus,
       'default-focus': defaultFocus,
     };
 

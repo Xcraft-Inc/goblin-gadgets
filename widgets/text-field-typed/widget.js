@@ -69,7 +69,7 @@ class TextFieldTyped extends Widget {
     const grow = this.props.grow;
     const spacing = this.props.spacing;
     const readonly = this.props.readonly;
-    const selectAllOnFocus = this.props['select-all-on-focus'];
+    const selectAllOnFocus = this.props.selectAllOnFocus;
     const defaultFocus = this.props['default-focus'];
 
     return (
@@ -86,7 +86,7 @@ class TextFieldTyped extends Widget {
         grow={grow}
         spacing={spacing}
         readonly={readonly}
-        select-all-on-focus={selectAllOnFocus}
+        selectAllOnFocus={selectAllOnFocus}
         default-focus={defaultFocus}
         message-warning={this.getMessageWarning ()}
         message-info={this.getMessageInfo ()}

@@ -38,7 +38,7 @@ class TextField extends Widget {
   }
 
   selectAll () {
-    const selectAllOnFocus = this.props['select-all-on-focus'];
+    const selectAllOnFocus = this.props.selectAllOnFocus;
     if (selectAllOnFocus === 'true') {
       if (this.input) {
         this.input.focus ();
@@ -56,7 +56,7 @@ class TextField extends Widget {
   onFieldFocus () {
     this.navToHinter ();
 
-    const selectAllOnFocus = this.props['select-all-on-focus'];
+    const selectAllOnFocus = this.props.selectAllOnFocus;
     if (selectAllOnFocus === 'true') {
       this.selectAll ();
     }

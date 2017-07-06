@@ -203,7 +203,7 @@ class Recurrence extends Form {
           <TextFieldTyped
             type="date"
             field="startDate"
-            select-all-on-focus="true"
+            selectAllOnFocus="true"
             hintText="Date de début"
             tooltip="Date de début"
             labelGlyph="forward"
@@ -214,7 +214,7 @@ class Recurrence extends Form {
           <TextFieldTyped
             type="date"
             field="endDate"
-            select-all-on-focus="true"
+            selectAllOnFocus="true"
             hintText="Date de fin"
             tooltip="Date de fin"
             labelGlyph="backward"
@@ -224,7 +224,7 @@ class Recurrence extends Form {
           />
           <LabelTextField
             field="days"
-            select-all-on-focus="true"
+            selectAllOnFocus="true"
             hintText="Jours de la semaine"
             tooltip="1..7 = lundi..dimanche   - = à   , = et"
             labelGlyph="calendar"
@@ -234,7 +234,7 @@ class Recurrence extends Form {
           />
           <LabelTextField
             field="months"
-            select-all-on-focus="true"
+            selectAllOnFocus="true"
             hintText="Mois de l´année"
             tooltip="1..12 = janvier..décembre   - = à   , = et"
             labelGlyph="calendar-o"
