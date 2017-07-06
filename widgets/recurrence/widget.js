@@ -267,7 +267,7 @@ class Recurrence extends Form {
       return (
         <div className={calClass}>
           <Calendar
-            month-count={monthCount ()}
+            monthCount={monthCount ()}
             navigator="standard"
             visible-date={this.visibleDate}
             dates={this.dates}

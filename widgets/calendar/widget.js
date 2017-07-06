@@ -35,7 +35,7 @@ class Calendar extends Widget {
   /******************************************************************************/
 
   get monthCount () {
-    const monthCount = this.props['month-count'];
+    const monthCount = this.props.monthCount;
     return monthCount ? parseInt (monthCount) : 1;
   }
 
