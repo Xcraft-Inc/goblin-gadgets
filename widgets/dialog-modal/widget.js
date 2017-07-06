@@ -72,7 +72,11 @@ class DialogModal extends Widget {
       );
     } else {
       return (
-        <div className={fullScreenClass} onMouseDown={::this.onMouseDown}>
+        <div
+          className={fullScreenClass}
+          onMouseDown={::this.onMouseDown}
+          onTouchStart={::this.onMouseDown}
+        >
           <Container
             kind="floating"
             cursor="default"

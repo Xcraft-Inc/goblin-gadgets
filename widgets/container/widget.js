@@ -71,7 +71,7 @@ class Container extends Widget {
       window.document.dragParentControllers.push (this);
     }
     const kind = this.props.kind;
-    if (kind === 'flying-dialog') {
+    if (kind === 'flying-dialog' || kind === 'floating') {
       if (!window.document.flyingDialogs) {
         window.document.flyingDialogs = [];
       }
