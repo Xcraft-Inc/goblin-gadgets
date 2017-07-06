@@ -79,18 +79,21 @@ class Notifications extends Widget {
   render () {
     const data = this.props.data;
     const show = this.props.show;
-    const subkind = show === 'true' ? 'show' : 'hidden';
     if (!this.props.id) {
       return null;
     }
 
+    const panelClass = show === 'true'
+      ? this.styles.classNames.panel
+      : this.styles.classNames.panelHidden;
+
     return (
-      <Container kind="notifications-panel" subkind={subkind} width="400px">
+      <div className={panelClass}>
         {this.renderHeader ()}
         <Container kind="notifications">
           {this.renderNotifications (data)}
         </Container>
-      </Container>
+      </div>
     );
   }
 }

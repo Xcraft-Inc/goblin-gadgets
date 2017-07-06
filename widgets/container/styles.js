@@ -217,6 +217,7 @@ export default function styles (theme, props) {
     minHeight = theme.shapes.viewTabHeight;
     display = 'flex';
     flexDirection = 'row';
+    flexWrap = 'wrap;';
     flexGrow = 1;
     justifyContent = 'flex-start';
     alignItems = 'center';
@@ -228,7 +229,7 @@ export default function styles (theme, props) {
     display = 'flex';
     flexDirection = 'row';
     justifyContent = 'flex-start';
-    alignItems = 'center';
+    alignItems = 'flex-end';
     backgroundColor = theme.palette.viewTabBackground;
   }
 

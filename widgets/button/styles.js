@@ -150,11 +150,11 @@ export default function styles (theme, props) {
   if (props.kind === 'view-tab') {
     boxHeight = theme.shapes.viewTabHeight;
     if (props.text) {
-      boxMargin = '0px 1px 0px 0px';
+      boxMargin = '1px 1px 0px 0px';
     } else {
       // When a text button is followed by a glyph button, the glyph button must
       // be glued to the text button. Typically a close button: [Missions][x]
-      boxMargin = '0px 1px 0px -1px';
+      boxMargin = '1px 1px 0px -1px';
     }
     borderStyle = 'none';
     textSize = theme.shapes.viewTabTextSize;
