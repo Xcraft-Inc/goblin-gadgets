@@ -66,7 +66,7 @@ class Notifications extends Widget {
   }
 
   renderNotifications (notifications) {
-    if (notifications.size === 0) {
+    if (!notifications || notifications.size === 0) {
       return null;
     }
     // The most recent notification first (on top).
