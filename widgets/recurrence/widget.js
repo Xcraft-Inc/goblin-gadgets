@@ -269,12 +269,12 @@ class Recurrence extends Form {
           <Calendar
             monthCount={monthCount ()}
             navigator="standard"
-            visible-date={this.visibleDate}
+            visibleDate={this.visibleDate}
             dates={this.dates}
-            start-date={this.props.startDate}
-            end-date={this.props.endDate}
-            date-clicked={::this.onDateClicked}
-            visible-date-changed={::this.onVisibleDateChanged}
+            startDate={this.props.startDate}
+            endDate={this.props.endDate}
+            dateClicked={::this.onDateClicked}
+            visibleDateChanged={::this.onVisibleDateChanged}
           />
         </div>
       );

@@ -22,7 +22,7 @@ class Calendar extends Widget {
 
   componentWillMount () {
     // At first time, initialize internalState.visibleDate with current date.
-    var date = this.props['visible-date'];
+    var date = this.props.visibleDate;
     if (!date) {
       const now = Converters.getNowCanonicalDate ();
       const year = Converters.getYear (now);
@@ -46,7 +46,7 @@ class Calendar extends Widget {
   changeDate (date) {
     this.visibleDate = date;
     this.forceUpdate ();
-    var x = this.props['visible-date-changed'];
+    var x = this.props.visibleDateChanged;
     if (x) {
       x (date);
     }
@@ -113,10 +113,10 @@ class Calendar extends Widget {
   }
 
   onDateClicked (date) {
-    const startDate = this.props['start-date'];
-    const endDate = this.props['end-date'];
+    const startDate = this.props.startDate;
+    const endDate = this.props.endDate;
     if ((!startDate || date >= startDate) && (!endDate || date <= endDate)) {
-      const x = this.props['date-clicked'];
+      const x = this.props.dateClicked;
       if (x) {
         x (date);
       }
@@ -145,8 +145,8 @@ class Calendar extends Widget {
   // Return an array of 7 buttons, for a week.
   renderButtons (firstDate, visibleDate, selectedDate, selectedDates) {
     let line = [];
-    const startDate = this.props['start-date'];
-    const endDate = this.props['end-date'];
+    const startDate = this.props.startDate;
+    const endDate = this.props.endDate;
     let i = 0;
     for (i = 0; i < 7; ++i) {
       // monday..sunday
