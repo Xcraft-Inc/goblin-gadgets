@@ -88,8 +88,8 @@ class TextFieldTyped extends Widget {
         readonly={readonly}
         selectAllOnFocus={selectAllOnFocus}
         default-focus={defaultFocus}
-        message-warning={this.getMessageWarning ()}
-        message-info={this.getMessageInfo ()}
+        messageWarning={this.getMessageWarning ()}
+        messageInfo={this.getMessageInfo ()}
       />
     );
   }

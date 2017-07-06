@@ -106,8 +106,8 @@ class LabelTextField extends Widget {
 
     const hintText = this.props.hintText;
     const tooltip = this.props.tooltip;
-    const messageInfo = this.props['message-info'];
-    const messageWarning = this.props['message-warning'];
+    const messageInfo = this.props.messageInfo;
+    const messageWarning = this.props.messageWarning;
     const rows = this.props.rows;
     const readonly = this.props.readonly;
     const selectAllOnFocus = this.props.selectAllOnFocus;
@@ -140,8 +140,8 @@ class LabelTextField extends Widget {
       value: this.props.value,
       hinter: this.props.hinter,
       tooltip: tooltip,
-      'message-info': messageInfo,
-      'message-warning': messageWarning,
+      messageInfo: messageInfo,
+      messageWarning: messageWarning,
       'filter-keys': filterKeys,
       spacing: this.hasActionButton () ? 'overlap' : null,
       shape: textFieldShape,

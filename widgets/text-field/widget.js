@@ -163,8 +163,8 @@ class TextField extends Widget {
   }
 
   renderFlyingBalloon () {
-    const messageWarning = this['props.message-warning'];
-    const messageInfo = this['props.message-info'];
+    const messageWarning = this.props.messageWarning;
+    const messageInfo = this.props.messageInfo;
     const flyingBalloonAnchor = this.props['flying-balloon-anchor'];
     // Conversion from flying-balloon-anchor to triangle-position.
     const trianglePosition = {
