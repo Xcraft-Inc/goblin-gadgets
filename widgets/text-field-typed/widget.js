@@ -63,7 +63,7 @@ class TextFieldTyped extends Widget {
   render () {
     const hintText = this.props.hintText;
     const tooltip = this.props.tooltip;
-    const labelGlyph = this.props['label-glyph'];
+    const labelGlyph = this.props.labelGlyph;
     const labelText = this.props.labelText;
     const labelWidth = this.props.labelWidth;
     const grow = this.props.grow;
@@ -80,7 +80,7 @@ class TextFieldTyped extends Widget {
         model={this.props.model}
         hintText={hintText}
         tooltip={tooltip}
-        label-glyph={labelGlyph}
+        labelGlyph={labelGlyph}
         labelText={labelText}
         labelWidth={labelWidth}
         grow={grow}
