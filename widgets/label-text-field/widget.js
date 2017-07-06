@@ -66,7 +66,7 @@ class LabelTextField extends Widget {
     const shape = this.props.shape;
     const labelGlyph = this.props['label-glyph'];
     const labelText = this.props.labelText;
-    const labelWidth = this.props['label-width'];
+    const labelWidth = this.props.labelWidth;
 
     const s = shape ? shape : 'smooth';
     const buttonShapes = {
