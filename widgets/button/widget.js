@@ -163,7 +163,7 @@ class Button extends Widget {
     const index = this.props.index;
     const kind = this.props.kind;
     const menu = this.props.menu;
-    const toAnchor = this.props['to-anchor'];
+    const toAnchor = this.props.toAnchor;
     const show = this.props.show;
     const text = this.props.text;
     let tooltip = this.props.tooltip;
