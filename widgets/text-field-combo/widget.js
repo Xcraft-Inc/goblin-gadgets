@@ -98,7 +98,7 @@ class TextFieldCombo extends Widget {
     // of all the implications, I prefer not to touch this logic for now:
     const selectedValue = this.props['selected-value'];
 
-    const hintText = this.props['hint-text'];
+    const hintText = this.props.hintText;
     const tooltip = this.props.tooltip;
     const flyingBalloonAnchor = this.props['flying-balloon-anchor'];
     const rows = this.props.rows;
@@ -127,7 +127,7 @@ class TextFieldCombo extends Widget {
       updateOn: this.props.updateOn,
       value: this.props.value,
       hinter: this.props.hinter,
-      'hint-text': hintText,
+      hintText: hintText,
       tooltip: tooltip,
       'filter-keys': filterKeys,
       spacing: 'overlap',

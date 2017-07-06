@@ -80,7 +80,7 @@ class TextField extends Widget {
   renderInput () {
     const disabled = this.props.disabled;
     const model = this.props.model;
-    const hintText = this.props['hint-text'];
+    const hintText = this.props.hintText;
     const rows = this.props.rows;
     const readonly = this.props.readonly;
     const tabIndex = this.props['tab-index'];

@@ -104,7 +104,7 @@ class LabelTextField extends Widget {
     // of all the implications, I prefer not to touch this logic for now:
     const selectedValue = this.props['selected-value'];
 
-    const hintText = this.props['hint-text'];
+    const hintText = this.props.hintText;
     const tooltip = this.props.tooltip;
     const messageInfo = this.props['message-info'];
     const messageWarning = this.props['message-warning'];
@@ -136,7 +136,7 @@ class LabelTextField extends Widget {
       field: field,
       type: type,
       width: fieldWidth,
-      'hint-text': hintText,
+      hintText: hintText,
       value: this.props.value,
       hinter: this.props.hinter,
       tooltip: tooltip,

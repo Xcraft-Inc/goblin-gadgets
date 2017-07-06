@@ -61,7 +61,7 @@ class TextFieldTyped extends Widget {
   }
 
   render () {
-    const hintText = this.props['hint-text'];
+    const hintText = this.props.hintText;
     const tooltip = this.props.tooltip;
     const labelGlyph = this.props['label-glyph'];
     const labelText = this.props.labelText;
@@ -78,7 +78,7 @@ class TextFieldTyped extends Widget {
         beforeChange={val => this.parseEditedValue (val).canonicalValue}
         errors={{warning: val => this.parseEditedValue (val).warning}}
         model={this.props.model}
-        hint-text={hintText}
+        hintText={hintText}
         tooltip={tooltip}
         label-glyph={labelGlyph}
         labelText={labelText}
