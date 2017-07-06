@@ -217,11 +217,10 @@ export default function styles (theme, props) {
     minHeight = theme.shapes.viewTabHeight;
     display = 'flex';
     flexDirection = 'row';
-    flexWrap = 'wrap;';
+    flexWrap = 'wrap-reverse;';
     flexGrow = 1;
     justifyContent = 'flex-start';
-    alignItems = 'center';
-    padding = m + ' 0px 0px 0px';
+    alignItems = 'flex-start';
     borderStyle = 'none';
   }
 
