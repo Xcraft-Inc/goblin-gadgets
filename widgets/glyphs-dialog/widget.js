@@ -68,7 +68,7 @@ class GlyphsDialog extends Widget {
         key={index}
         kind="glyph-item"
         glyph={g.glyph}
-        glyph-color={color}
+        glyphColor={color}
         text={glyph.get ('name')}
         active={selected ? 'true' : 'false'}
         onClick={() => ::this.onToggleGlyph (glyph.get ('id'))}
@@ -132,8 +132,8 @@ class GlyphsDialog extends Widget {
             height="80px"
             index={index}
             glyph={g.glyph}
-            glyph-color={g.color}
-            glyph-size="300%"
+            glyphColor={g.color}
+            glyphSize="300%"
             spacing="compact"
             justify="center"
             cursor="ew-resize"
@@ -148,8 +148,8 @@ class GlyphsDialog extends Widget {
           height="80px"
           index={index}
           glyph={g.glyph}
-          glyph-color={g.color}
-          glyph-size="300%"
+          glyphColor={g.color}
+          glyphSize="300%"
           spacing="compact"
           justify="center"
         />

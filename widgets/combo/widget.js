@@ -112,7 +112,7 @@ class Combo extends Widget {
           key={index}
           kind="menu-item"
           glyph={g.glyph}
-          glyph-color={color}
+          glyphColor={color}
           text={item.text}
           shortcut={item.shortcut}
           active={active}

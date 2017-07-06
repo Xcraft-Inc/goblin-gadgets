@@ -438,14 +438,14 @@ class Calendar extends Widget {
         <Button
           glyph={leftGlyph}
           border="none"
-          glyph-color="none"
+          glyphColor="none"
           onClick={leftAction}
         />
         <Label text={title} grow="1" justify="center" />
         <Button
           glyph={rightGlyph}
           border="none"
-          glyph-color="none"
+          glyphColor="none"
           onClick={rightAction}
         />
       </div>
