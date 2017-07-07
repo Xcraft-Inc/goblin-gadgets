@@ -37,7 +37,7 @@ class Container extends Widget {
           ` dragController=${dragController} dragSource=${dragSource} dragOwnerId=${dragOwnerId}`
       );
     }
-    const navFor = this.props['navigation-for'];
+    const navFor = this.props.navigationFor;
     if (navFor) {
       this.initNavigation ();
     }
@@ -46,7 +46,7 @@ class Container extends Widget {
   componentDidMount () {
     super.componentDidMount ();
 
-    const navFor = this.props['navigation-for'];
+    const navFor = this.props.navigationFor;
     if (navFor) {
       const panelElem = document.querySelectorAll (
         `[data-navigation-name="${navFor}"]`
@@ -80,7 +80,7 @@ class Container extends Widget {
   }
 
   componentWillUnmount () {
-    const navFor = this.props['navigation-for'];
+    const navFor = this.props.navigationFor;
     if (navFor) {
       const panelElem = document.querySelectorAll (
         `[data-navigation-name="${navFor}"]`
