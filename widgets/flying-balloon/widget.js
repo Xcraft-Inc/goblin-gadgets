@@ -13,8 +13,8 @@ class FlyingBalloon extends Widget {
 
   render () {
     const disabled = this.props.disabled;
-    const inputPrimaryText = this.props['primary-text'];
-    const inputSecondaryText = this.props['secondary-text'];
+    const inputPrimaryText = this.props.primaryText;
+    const inputSecondaryText = this.props.secondaryText;
     const inputTrianglePosition = this.props.trianglePosition;
 
     const boxClass = this.styles.classNames.box;

@@ -182,8 +182,8 @@ class TextField extends Widget {
           messages={{warning: messageWarning}}
           component={props => (
             <FlyingBalloon
-              primary-text={props.children}
-              secondary-text={messageInfo}
+              primaryText={props.children}
+              secondaryText={messageInfo}
               trianglePosition={trianglePosition}
             />
           )}
