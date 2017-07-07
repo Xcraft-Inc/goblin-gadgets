@@ -111,7 +111,7 @@ class LabelTextField extends Widget {
     const rows = this.props.rows;
     const readonly = this.props.readonly;
     const selectAllOnFocus = this.props.selectAllOnFocus;
-    const defaultFocus = this.props['default-focus'];
+    const defaultFocus = this.props.defaultFocus;
     const filterKeys = this.props.filterKeys;
     const tabIndex = this.props['tab-index'];
 
@@ -149,7 +149,7 @@ class LabelTextField extends Widget {
       rows: rows,
       readonly: visibleReadonly,
       selectAllOnFocus: selectAllOnFocus,
-      'default-focus': defaultFocus,
+      defaultFocus: defaultFocus,
     };
 
     if (displayValue) {

@@ -70,7 +70,7 @@ class TextFieldTyped extends Widget {
     const spacing = this.props.spacing;
     const readonly = this.props.readonly;
     const selectAllOnFocus = this.props.selectAllOnFocus;
-    const defaultFocus = this.props['default-focus'];
+    const defaultFocus = this.props.defaultFocus;
 
     return (
       <LabelTextField
@@ -87,7 +87,7 @@ class TextFieldTyped extends Widget {
         spacing={spacing}
         readonly={readonly}
         selectAllOnFocus={selectAllOnFocus}
-        default-focus={defaultFocus}
+        defaultFocus={defaultFocus}
         messageWarning={this.getMessageWarning ()}
         messageInfo={this.getMessageInfo ()}
       />
