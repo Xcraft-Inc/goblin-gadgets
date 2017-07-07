@@ -210,7 +210,7 @@ class DragCab extends Widget {
   renderForDrag (isDragged, index) {
     const dragOwnerId = this.props.dragOwnerId;
     const direction = this.props.direction;
-    const verticalSpacing = this.props['vertical-spacing'];
+    const verticalSpacing = this.props.verticalSpacing;
     const dragInProcess = this.dragInProcess;
     const dragStarting = this.dragStarting;
 
