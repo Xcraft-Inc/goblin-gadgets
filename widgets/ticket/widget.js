@@ -38,7 +38,7 @@ class Ticket extends Widget {
   }
 
   renderBackgroundText () {
-    const text = this.props['background-text'];
+    const text = this.props.backgroundText;
     if (text) {
       const backgroundTextClass = this.styles.classNames.backgroundText;
       return (

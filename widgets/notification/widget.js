@@ -30,7 +30,7 @@ class Notification extends Widget {
       >
         <Button
           glyph={data.glyph}
-          background-color={glyphColor}
+          backgroundColor={glyphColor}
           kind="round"
           spacing="large"
         />
