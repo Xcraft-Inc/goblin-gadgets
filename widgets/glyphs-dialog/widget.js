@@ -118,9 +118,9 @@ class GlyphsDialog extends Widget {
       return (
         <DragCab
           key={index}
-          drag-controller="glyph-sample"
+          dragController="glyph-sample"
           direction="horizontal"
-          drag-owner-id={glyph.get ('id')}
+          dragOwnerId={glyph.get ('id')}
           color={this.context.theme.palette.dragAndDropHover}
           thickness={this.context.theme.shapes.dragAndDropTicketThickness}
           radius={this.context.theme.shapes.dragAndDropTicketThickness}
@@ -202,9 +202,9 @@ class GlyphsDialog extends Widget {
         <div className={footerClass}>
           <Container
             kind="glyph-samples"
-            drag-controller="glyph-sample"
-            drag-source="glyph-samples"
-            drag-owner-id="glyph-samples"
+            dragController="glyph-sample"
+            dragSource="glyph-samples"
+            dragOwnerId="glyph-samples"
           >
             {this.renderGlyphSamples ()}
           </Container>

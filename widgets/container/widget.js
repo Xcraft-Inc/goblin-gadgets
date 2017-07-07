@@ -23,9 +23,9 @@ class Container extends Widget {
   }
 
   componentWillMount () {
-    const dragController = this.props['drag-controller'];
-    const dragSource = this.props['drag-source'];
-    const dragOwnerId = this.props['drag-owner-id'];
+    const dragController = this.props.dragController;
+    const dragSource = this.props.dragSource;
+    const dragOwnerId = this.props.dragOwnerId;
     let count = 0;
     count += dragController ? 1 : 0;
     count += dragSource ? 1 : 0;
@@ -56,7 +56,7 @@ class Container extends Widget {
         panelElem.addEventListener ('scroll', ::this.handleScroll, true);
       }
     }
-    const dragController = this.props['drag-controller'];
+    const dragController = this.props.dragController;
     if (dragController) {
       if (!window.document.dragControllers) {
         window.document.dragControllers = [];
@@ -89,7 +89,7 @@ class Container extends Widget {
         panelElem.removeEventListener ('scroll', this.handleScroll, true);
       }
     }
-    const dragController = this.props['drag-controller'];
+    const dragController = this.props.dragController;
     if (dragController) {
       const index = window.document.dragControllers.indexOf (this);
       if (index !== -1) {

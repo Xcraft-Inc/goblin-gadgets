@@ -4,7 +4,7 @@ import {Unit} from 'electrum-theme';
 // opening, so as not to initiate a drag and drop.
 export function setDragCabHasCombo (id, value) {
   for (let dragCab of window.document.dragCabs) {
-    if (dragCab.props['drag-owner-id'] === id) {
+    if (dragCab.props.dragOwnerId === id) {
       dragCab.hasCombo = value;
       return;
     }
