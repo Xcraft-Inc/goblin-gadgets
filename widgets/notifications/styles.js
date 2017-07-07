@@ -1,4 +1,3 @@
-import ReactDOM from 'react-dom';
 import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
@@ -21,11 +20,20 @@ export default function styles (theme, props) {
   const s = theme.shapes.lineSpacing;
   const width = '400px';
 
+  let hh = '0px';
+  hh = Unit.add (hh, theme.shapes.mainTabHeight);
+  hh = Unit.add (hh, theme.shapes.containerMargin);
+  hh = Unit.add (hh, theme.shapes.viewTabHeight);
+  hh = Unit.add (hh, theme.shapes.footerHeight);
+  hh = Unit.add (hh, '50px'); // security margin if view-tabs has many lines
+  const mh = 'calc(100vh - ' + hh + ')';
+
   const panelStyle = {
     position: 'absolute',
     top: '0px',
     right: '0px',
     overflowY: 'hidden',
+    maxHeight: mh,
     minWidth: width,
     display: 'flex',
     flexDirection: 'column',
@@ -39,6 +47,7 @@ export default function styles (theme, props) {
     top: '0px',
     right: Unit.multiply (width, -1),
     overflowY: 'hidden',
+    maxHeight: mh,
     minWidth: width,
     display: 'flex',
     flexDirection: 'column',
