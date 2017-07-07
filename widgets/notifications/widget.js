@@ -54,16 +54,16 @@ class Notifications extends Widget {
     );
   }
 
-  renderNotification (data, keyIndex) {
+  renderNotification (notification, index) {
     return (
       <Notification
-        key={keyIndex}
-        data={data}
-        status={data.status}
+        key={index}
+        data={notification}
+        status={notification.status}
         onClick={() =>
-          this.doAs ('laboratory', 'click-notification', {notification: data})}
+          this.doAs ('laboratory', 'click-notification', {notification})}
         onDelete={() =>
-          this.doAs ('laboratory', 'remove-notification', {notification: data})}
+          this.doAs ('laboratory', 'remove-notification', {notification})}
       />
     );
   }
@@ -73,10 +73,17 @@ class Notifications extends Widget {
       return null;
     }
     // The most recent notification first (on top).
-    return this.shred (notifications)
-      .reverse ()
-      .select ((k, v) => v.toJS ())
-      .map (::this.renderNotification);
+    const nn = this.shred (notifications);
+    let index = 0;
+    return nn.linq
+      .where (
+        n => this.props.onlyNews === 'false' || n.get ('status') === 'not-read'
+      )
+      .orderByDescending (n => n.get ('order'))
+      .select (n => {
+        return this.renderNotification (n.toJS (), index++);
+      })
+      .toList ();
   }
 
   render () {
