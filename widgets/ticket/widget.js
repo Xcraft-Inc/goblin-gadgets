@@ -52,7 +52,7 @@ class Ticket extends Widget {
   }
 
   renderHud () {
-    const hudGlyph = this.props['hud-glyph'];
+    const hudGlyph = this.props.hudGlyph;
     const hudGlyphShadowClass = this.styles.classNames.hudGlyphShadow;
     const hudGlyphShadowNoneClass = this.styles.classNames.hudGlyphShadowNone;
     const hudGlyphBoxClass = this.styles.classNames.hudGlyphBox;
