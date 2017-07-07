@@ -187,7 +187,7 @@ class Recurrence extends Form {
               : 'Etend la récurrence pour la modifier'
           }
           active={extended ? 'true' : 'false'}
-          active-color={
+          activeColor={
             this.context.theme.palette.recurrenceExtendedBoxBackground
           }
         />
