@@ -62,7 +62,7 @@ class Button extends Widget {
   }
 
   renderBadge () {
-    const badgeValue = this.props['badge-value'];
+    const badgeValue = this.props.badgeValue;
     if (badgeValue) {
       return <Badge value={badgeValue} layer="over" />;
     } else {

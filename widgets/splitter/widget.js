@@ -14,11 +14,11 @@ class Splitter extends Widget {
       throw new Error (`Wrong Splitter kind ${this.kind}`);
     }
 
-    const firstSize = this.props['first-size'];
-    const lastSize = this.props['last-size'];
+    const firstSize = this.props.firstSize;
+    const lastSize = this.props.lastSize;
     if (firstSize && lastSize) {
       throw new Error (
-        `Splitter must have both first-size (${firstSize}) and last-size (${lastSize})`
+        `Splitter must have both firstSize (${firstSize}) and lastSize (${lastSize})`
       );
     }
     if (firstSize) {
@@ -33,14 +33,14 @@ class Splitter extends Widget {
       this.master = 'last';
     }
     if (this.unit !== '%' && this.unit !== 'px') {
-      throw new Error (`Wrong Splitter first-size unit ${this.unit}`);
+      throw new Error (`Wrong Splitter firstSize unit ${this.unit}`);
     }
 
-    this.firstMinSize = this.getValue ('first-min-size', 'min');
-    this.firstMaxSize = this.getValue ('first-max-size', 'max');
+    this.firstMinSize = this.getValue ('firstMinSize', 'min');
+    this.firstMaxSize = this.getValue ('firstMaxSize', 'max');
 
-    this.lastMinSize = this.getValue ('last-min-size', 'min');
-    this.lastMaxSize = this.getValue ('last-max-size', 'max');
+    this.lastMinSize = this.getValue ('lastMinSize', 'min');
+    this.lastMaxSize = this.getValue ('lastMaxSize', 'max');
   }
 
   getValue (name, type) {

@@ -22,7 +22,7 @@ function getBoundingRect (theme, container) {
   return node.getBoundingClientRect ();
 }
 
-// Return the property 'drag-controller' of the rectangle targeted by the
+// Return the property 'dragController' of the rectangle targeted by the
 // mouse (x, y). If there are several imbricated rectangles, it is necessary
 // to take the one whose surface is the smallest !
 function findDragController (theme, x, y) {
@@ -32,7 +32,7 @@ function findDragController (theme, x, y) {
     const rect = getBoundingRect (theme, container);
     const surface = rect.width * rect.height;
     if (isInside (rect, x, y) && surface < minSurface) {
-      dc = container.props['drag-controller'];
+      dc = container.props.dragController;
       minSurface = surface;
     }
   }
@@ -75,9 +75,9 @@ class DragCab extends Widget {
   componentDidMount () {
     super.componentDidMount ();
 
-    const id = this.props['drag-owner-id'];
+    const id = this.props.dragOwnerId;
     if (!id) {
-      throw new Error ('DragCab has not drag-owner-id');
+      throw new Error ('DragCab has not dragOwnerId');
     }
     if (!window.document.dragCabs) {
       window.document.dragCabs = [];
@@ -106,10 +106,10 @@ class DragCab extends Widget {
       return; // if drag prohibited, don't initiate drag & drop ?
     }
     const dc = findDragController (this.props.theme, e.clientX, e.clientY);
-    if (!dc || dc !== this.props['drag-controller']) {
+    if (!dc || dc !== this.props.dragController) {
       // When clicking in a ticket of a messenger, 2 different drags try to start.
-      // The first to move the ticket (drag-controller = 'ticket') and the second
-      // to move the messenger (drag-controller = 'roadbook').
+      // The first to move the ticket (dragController = 'ticket') and the second
+      // to move the messenger (dragController = 'roadbook').
       // The second one should not be started. It must start only when a click in
       // the header of the messenger !
       return;
@@ -177,8 +177,8 @@ class DragCab extends Widget {
     const overSpacing = this.props['over-spacing'];
     const mode = this.props.mode;
     const data = this.props.data;
-    const dragOwnerId = this.props['drag-owner-id'];
-    const dragController = this.props['drag-controller'];
+    const dragOwnerId = this.props.dragOwnerId;
+    const dragController = this.props.dragController;
     const doDragEnding = this.props['do-drag-ending'];
     return (
       <DragCarrier
@@ -192,8 +192,8 @@ class DragCab extends Widget {
         do-drag-ending={doDragEnding}
         drag-ending={::this.onDragEnding}
         drag-height={this.dragHeight}
-        drag-controller={dragController}
-        drag-owner-id={dragOwnerId}
+        dragController={dragController}
+        dragOwnerId={dragOwnerId}
       />
     );
   }
@@ -208,9 +208,9 @@ class DragCab extends Widget {
   }
 
   renderForDrag (isDragged, index) {
-    const dragOwnerId = this.props['drag-owner-id'];
+    const dragOwnerId = this.props.dragOwnerId;
     const direction = this.props.direction;
-    const verticalSpacing = this.props['vertical-spacing'];
+    const verticalSpacing = this.props.verticalSpacing;
     const dragInProcess = this.dragInProcess;
     const dragStarting = this.dragStarting;
 

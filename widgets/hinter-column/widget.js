@@ -14,7 +14,7 @@ class HinterColumn extends Widget {
 
   renderList () {
     return (
-      <Splitter kind="vertical" first-size="90%">
+      <Splitter kind="vertical" firstSize="90%">
         <Hinter {...this.props} />
         <Container kind="row" />
       </Splitter>

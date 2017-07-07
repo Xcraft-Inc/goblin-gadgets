@@ -26,7 +26,7 @@ class Notification extends Widget {
       <div className={boxClass} onClick={this.props.onClick}>
         <Button
           glyph={data.glyph}
-          background-color={glyphColor}
+          backgroundColor={glyphColor}
           kind="round"
           spacing="large"
         />
