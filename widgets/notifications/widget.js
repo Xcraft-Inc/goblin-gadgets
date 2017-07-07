@@ -65,9 +65,9 @@ class Notifications extends Widget {
         key={index}
         data={notification}
         status={notification.status}
-        onClick={() =>
+        onClickNotification={() =>
           this.doAs ('laboratory', 'click-notification', {notification})}
-        onDelete={() =>
+        onDeleteNotification={() =>
           this.doAs ('laboratory', 'remove-notification', {notification})}
       />
     );

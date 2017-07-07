@@ -29,12 +29,13 @@ class Notification extends Widget {
           backgroundColor={glyphColor}
           kind="round"
           spacing="large"
+          onClick={this.props.onClickNotification}
         />
         <Label text={data.message} kind="notification" grow="1" />
         <Button
           glyph="close"
           kind="notification-close"
-          onClick={this.props.onDelete}
+          onClick={this.props.onDeleteNotification}
         />
       </div>
     );
