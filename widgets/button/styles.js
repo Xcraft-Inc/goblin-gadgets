@@ -45,6 +45,7 @@ export default function styles (theme, props) {
   let boxPosition = props.position ? props.position : 'relative';
   let cursor = props.cursor;
   let transition = theme.transitions.easeOut ();
+  let specialDisabled = false;
 
   // Initialize variables for button without border.
   if (props.border === 'none') {
@@ -281,6 +282,14 @@ export default function styles (theme, props) {
     borderStyle = 'none';
     textHoverColor = theme.palette.notificationTextHover;
     backgroundHoverColor = 'transparent';
+    if (props.disabled === 'true') {
+      glyphColor = ColorManipulator.darken (
+        theme.palette.notificationText,
+        0.4
+      );
+      textColor = ColorManipulator.darken (theme.palette.notificationText, 0.4);
+    }
+    specialDisabled = true;
   }
   if (props.kind === 'notification-close') {
     boxMargin =
@@ -616,7 +625,7 @@ export default function styles (theme, props) {
   }
 
   // Alter colors if component is disable.
-  if (props.disabled) {
+  if (props.disabled === 'true' && !specialDisabled) {
     borderColor = theme.palette.buttonDisableBorder;
     if (backgroundColor) {
       backgroundColor = theme.palette.buttonDisableBackground;
@@ -727,7 +736,7 @@ export default function styles (theme, props) {
     wordWrap: 'break-word',
   };
 
-  if (!props.disabled && actif && boxOpacity !== 0) {
+  if (props.disabled !== 'true' && actif && boxOpacity !== 0) {
     boxStyle[':hover'] = {
       color: textHoverColor, // (*)
       borderColor: borderHoverColor,

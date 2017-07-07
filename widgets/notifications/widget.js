@@ -22,6 +22,10 @@ class Notifications extends Widget {
     };
   }
 
+  get hasNotifications () {
+    return this.props.data && this.props.data.size > 0;
+  }
+
   renderHeader () {
     const headerClass = this.styles.classNames.header;
     const headerRowClass = this.styles.classNames.headerRow;
@@ -45,6 +49,7 @@ class Notifications extends Widget {
           />
           <Label grow="1" />
           <Button
+            disabled={this.hasNotifications ? 'false' : 'true'}
             text="Tout effacer"
             kind="notification"
             onClick={() => this.doAs ('laboratory', 'remove-notifications')}
