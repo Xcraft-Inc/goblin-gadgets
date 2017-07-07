@@ -401,7 +401,7 @@ class Calendar extends Widget {
         text={Converters.getMonthDescription (month - 1, '1').toUpperCase ()}
         tooltip={Converters.getMonthDescription (month - 1)}
         border="none"
-        text-color="none"
+        textColor="none"
         grow="1"
         onClick={() => ::this.onVisibleDateMonth (month)}
         active={active ? 'true' : 'false'}
