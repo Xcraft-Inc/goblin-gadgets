@@ -100,7 +100,7 @@ class TextFieldCombo extends Widget {
 
     const hintText = this.props.hintText;
     const tooltip = this.props.tooltip;
-    const flyingBalloonAnchor = this.props['flying-balloon-anchor'];
+    const flyingBalloonAnchor = this.props.flyingBalloonAnchor;
     const rows = this.props.rows;
     const readonly = this.props.readonly;
     const selectAllOnFocus = this.props.selectAllOnFocus;
@@ -132,7 +132,7 @@ class TextFieldCombo extends Widget {
       'filter-keys': filterKeys,
       spacing: 'overlap',
       shape: textFieldShape,
-      'flying-balloon-anchor': flyingBalloonAnchor,
+      flyingBalloonAnchor: flyingBalloonAnchor,
       'tab-index': tabIndex,
       width: width,
       rows: rows,
