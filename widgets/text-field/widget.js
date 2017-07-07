@@ -83,7 +83,7 @@ class TextField extends Widget {
     const hintText = this.props.hintText;
     const rows = this.props.rows;
     const readonly = this.props.readonly;
-    const tabIndex = this.props['tab-index'];
+    const tabIndex = this.props.tabIndex;
 
     const options = [];
     if (readonly === 'true') {

@@ -106,7 +106,7 @@ class TextFieldCombo extends Widget {
     const selectAllOnFocus = this.props.selectAllOnFocus;
     const defaultFocus = this.props.defaultFocus;
     const filterKeys = this.props.filterKeys;
-    const tabIndex = this.props['tab-index'];
+    const tabIndex = this.props.tabIndex;
 
     const autoReadonly = this.readonly && selectedValue && selectedValue !== '';
     const displayValue = autoReadonly ? selectedValue : null;
@@ -133,7 +133,7 @@ class TextFieldCombo extends Widget {
       spacing: 'overlap',
       shape: textFieldShape,
       flyingBalloonAnchor: flyingBalloonAnchor,
-      'tab-index': tabIndex,
+      tabIndex: tabIndex,
       width: width,
       rows: rows,
       readonly: visibleReadonly,

@@ -113,7 +113,7 @@ class LabelTextField extends Widget {
     const selectAllOnFocus = this.props.selectAllOnFocus;
     const defaultFocus = this.props.defaultFocus;
     const filterKeys = this.props.filterKeys;
-    const tabIndex = this.props['tab-index'];
+    const tabIndex = this.props.tabIndex;
 
     const autoReadonly = this.readonly && selectedValue && selectedValue !== '';
     const displayValue = autoReadonly ? selectedValue : null;
@@ -145,7 +145,7 @@ class LabelTextField extends Widget {
       filterKeys: filterKeys,
       spacing: this.hasActionButton () ? 'overlap' : null,
       shape: textFieldShape,
-      'tab-index': tabIndex,
+      tabIndex: tabIndex,
       rows: rows,
       readonly: visibleReadonly,
       selectAllOnFocus: selectAllOnFocus,
