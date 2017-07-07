@@ -17,15 +17,16 @@ function getPosition (theme) {
 }
 
 export default function styles (theme, props) {
+  const m = theme.shapes.containerMargin;
+  const s = theme.shapes.lineSpacing;
   const width = '400px';
-  const p = getPosition (theme);
 
   const panelStyle = {
     position: 'absolute',
     top: '0px',
     right: '0px',
+    overflowY: 'hidden',
     minWidth: width,
-    maxHeight: 'calc(100vh - ' + p.hh + ')',
     display: 'flex',
     flexDirection: 'column',
     margin: '0px',
@@ -37,8 +38,8 @@ export default function styles (theme, props) {
     position: 'absolute',
     top: '0px',
     right: Unit.multiply (width, -1),
+    overflowY: 'hidden',
     minWidth: width,
-    maxHeight: 'calc(100vh - ' + p.hh + ')',
     display: 'flex',
     flexDirection: 'column',
     margin: '0px',
@@ -46,9 +47,35 @@ export default function styles (theme, props) {
     transition: theme.transitions.easeOut (),
   };
 
+  const headerStyle = {
+    display: 'inline',
+    flexGrow: '1',
+    padding: Unit.multiply (m, 0.5) + ' ' + m,
+    margin: '0px 0px ' + Unit.multiply (s, 0.4) + ' 0px',
+    backgroundColor: theme.palette.notificationBackgroundHeader,
+    color: theme.palette.notificationText,
+  };
+
+  const headerRowStyle = {
+    minHeight: '32px',
+    display: 'flex',
+    flexDirection: 'row',
+  };
+
+  const notificationsStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    margin: '0px',
+    backgroundColor: null,
+    overflowY: 'auto',
+  };
+
   return {
     panel: panelStyle,
     panelHidden: panelHiddenStyle,
+    header: headerStyle,
+    headerRow: headerRowStyle,
+    notifications: notificationsStyle,
   };
 }
 

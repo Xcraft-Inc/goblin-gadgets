@@ -1,7 +1,6 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 
-import Container from 'gadgets/container/widget';
 import Label from 'gadgets/label/widget';
 import Button from 'gadgets/button/widget';
 import Notification from 'gadgets/notification/widget';
@@ -24,17 +23,20 @@ class Notifications extends Widget {
   }
 
   renderHeader () {
+    const headerClass = this.styles.classNames.header;
+    const headerRowClass = this.styles.classNames.headerRow;
+
     return (
-      <Container kind="notification-header" grow="1">
-        <Container kind="notification-header-row">
+      <div className={headerClass}>
+        <div className={headerRowClass}>
           <Button
             glyph={this.props.dnd === 'true' ? 'toggle-on' : 'toggle-off'}
             text="Ne pas me déranger"
             kind="notification"
             onClick={() => this.doAs ('laboratory', 'toggle-dnd')}
           />
-        </Container>
-        <Container kind="notification-header-row">
+        </div>
+        <div className={headerRowClass}>
           <Button
             glyph={this.props.onlyNews === 'true' ? 'toggle-on' : 'toggle-off'}
             text="Seulement les nouvelles"
@@ -47,8 +49,8 @@ class Notifications extends Widget {
             kind="notification"
             onClick={() => this.doAs ('laboratory', 'remove-notifications')}
           />
-        </Container>
-      </Container>
+        </div>
+      </div>
     );
   }
 
@@ -57,6 +59,7 @@ class Notifications extends Widget {
       <Notification
         key={keyIndex}
         data={data}
+        status={data.status}
         onClick={() =>
           this.doAs ('laboratory', 'click-notification', {notification: data})}
         onDelete={() =>
@@ -86,13 +89,14 @@ class Notifications extends Widget {
     const panelClass = show === 'true'
       ? this.styles.classNames.panel
       : this.styles.classNames.panelHidden;
+    const notificationsClass = this.styles.classNames.notifications;
 
     return (
       <div className={panelClass}>
         {this.renderHeader ()}
-        <Container kind="notifications">
+        <div className={notificationsClass}>
           {this.renderNotifications (data)}
-        </Container>
+        </div>
       </div>
     );
   }

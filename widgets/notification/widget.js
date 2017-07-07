@@ -2,7 +2,6 @@ import React from 'react';
 import Widget from 'laboratory/widget';
 import {ColorHelpers} from 'electrum-theme';
 
-import Container from 'gadgets/container/widget';
 import Label from 'gadgets/label/widget';
 import Button from 'gadgets/button/widget';
 
@@ -21,13 +20,10 @@ class Notification extends Widget {
       glyphColor = ColorHelpers.getMarkColor (this.context.theme, glyphColor);
     }
 
+    const boxClass = this.styles.classNames.box;
+
     return (
-      <Container
-        kind="notification-box"
-        subkind={data.status}
-        grow="1"
-        onClick={this.props.onClick}
-      >
+      <div className={boxClass} onClick={this.props.onClick}>
         <Button
           glyph={data.glyph}
           background-color={glyphColor}
@@ -40,7 +36,7 @@ class Notification extends Widget {
           kind="notification-close"
           onClick={this.props.onDelete}
         />
-      </Container>
+      </div>
     );
   }
 }
