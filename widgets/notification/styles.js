@@ -42,6 +42,7 @@ export default function styles (theme, props) {
     borderLeftStyle: borderLeftStyle,
     borderLeftColor: borderLeftColor,
     backgroundColor: backgroundColor,
+    userSelect: 'none',
   };
 
   return {
