@@ -316,7 +316,7 @@ export default function styles (theme, props) {
 
   // Action button (usual parent is container with kind='actions').
   if (props.kind === 'action') {
-    let place = props.place;
+    let place = props.place ? props.place : 'middle';
     if (place === '1/1') {
       place = 'single';
     } else if (place.indexOf ('/') !== -1) {
