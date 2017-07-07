@@ -166,7 +166,7 @@ class TextField extends Widget {
     const messageWarning = this.props.messageWarning;
     const messageInfo = this.props.messageInfo;
     const flyingBalloonAnchor = this.props['flying-balloon-anchor'];
-    // Conversion from flying-balloon-anchor to triangle-position.
+    // Conversion from flying-balloon-anchor to trianglePosition.
     const trianglePosition = {
       bottom: 'top',
       top: 'bottom',
@@ -184,7 +184,7 @@ class TextField extends Widget {
             <FlyingBalloon
               primary-text={props.children}
               secondary-text={messageInfo}
-              triangle-position={trianglePosition}
+              trianglePosition={trianglePosition}
             />
           )}
         />

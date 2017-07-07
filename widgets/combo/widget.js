@@ -149,7 +149,7 @@ class Combo extends Widget {
         <div className={comboClass}>
           <Container
             kind="flying-balloon"
-            triangle-position={top ? 'top' : 'bottom'}
+            trianglePosition={top ? 'top' : 'bottom'}
             width={width}
           >
             {this.renderCombo ()}

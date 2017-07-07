@@ -6,7 +6,7 @@ export default function styles (theme, props) {
   const t = Unit.add (theme.shapes.flyingBalloonTriangleSize, '0px', 0); // round (suppress decimals)
 
   // This box is an invisible floating box that contains a component Container
-  // with kind='flying-balloon'. For example, if triangle-position='left', the
+  // with kind='flying-balloon'. For example, if trianglePosition='left', the
   // floating box is positioned to the right the parent box.
   const boxStyle = {
     width: props.width ? props.width : '100%',

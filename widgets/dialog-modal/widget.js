@@ -59,7 +59,7 @@ class DialogModal extends Widget {
           <div className={comboClass}>
             <Container
               kind="flying-dialog"
-              triangle-position={top ? 'top' : 'bottom'}
+              trianglePosition={top ? 'top' : 'bottom'}
               width={width}
               height={height}
               shift={shift}
