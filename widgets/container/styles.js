@@ -173,6 +173,7 @@ export default function styles (theme, props) {
     flexGrow = 1;
     justifyContent = 'flex-end';
     overflowX = 'hidden';
+    overflowY = 'hidden';
   }
 
   if (props.kind === 'content') {
@@ -180,6 +181,7 @@ export default function styles (theme, props) {
     flexDirection = 'column';
     flexGrow = 1;
     overflowX = 'hidden';
+    overflowY = 'hidden';
   }
 
   if (props.kind === 'top-bar') {
