@@ -132,7 +132,7 @@ class Label extends Widget {
         if (hasEol1 || hasEol2 || hasBr || hasEm) {
           // complex text ?
           const lines = text.split (hasBr ? '<br/>' : hasEol1 ? '\n' : '\\n');
-          const singleLine = this.props['single-line'];
+          const singleLine = this.props.singleLine;
           if (singleLine === 'true') {
             const line = lines.join (', ');
             return this.renderSimpleText (index, line);

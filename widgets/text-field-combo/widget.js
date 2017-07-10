@@ -87,16 +87,7 @@ class TextFieldCombo extends Widget {
   renderTextField () {
     const width = this.props.width;
     const shape = this.props.shape;
-
-    // @DR: Don't do this: setting the value as a `prop` rather than through
-    // its state breaks React's forceUpdate() optimizations on the child
-    // <input> element:
-    //  const value          = this.read ('value');
-
-    // @DR: We should remove the `selected-value` property altogether and
-    // use the state (based on `value`) instead; but since I am not sure
-    // of all the implications, I prefer not to touch this logic for now:
-    const selectedValue = this.props['selected-value'];
+    const selectedValue = this.props.selectedValue;
 
     const hintText = this.props.hintText;
     const tooltip = this.props.tooltip;
@@ -160,7 +151,7 @@ class TextFieldCombo extends Widget {
 
   renderButton () {
     const shape = this.props.shape;
-    const glyph = this.props['combo-glyph'];
+    const glyph = this.props.comboGlyph;
 
     const s = shape ? shape : 'smooth';
     const buttonShapes = {

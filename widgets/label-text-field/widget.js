@@ -54,7 +54,7 @@ class LabelTextField extends Widget {
   }
 
   hasActionButton () {
-    const actionGlyph = this.props['action-glyph'];
+    const actionGlyph = this.props.actionGlyph;
     if (actionGlyph) {
       return true;
     } else {
@@ -92,17 +92,8 @@ class LabelTextField extends Widget {
     const field = this.props.field;
     const type = this.props.type;
     const shape = this.props.shape;
-    const fieldWidth = this.props['field-width'];
-
-    // @DR: Don't do this: setting the value as a `prop` rather than through
-    // its state breaks React's forceUpdate() optimizations on the child
-    // <input> element:
-    //  const value            = this.read ('value');
-
-    // @DR: We should remove the `selected-value` property altogether and
-    // use the state (based on `value`) instead; but since I am not sure
-    // of all the implications, I prefer not to touch this logic for now:
-    const selectedValue = this.props['selected-value'];
+    const fieldWidth = this.props.fieldWidth;
+    const selectedValue = this.props.selectedValue;
 
     const hintText = this.props.hintText;
     const tooltip = this.props.tooltip;
@@ -163,7 +154,7 @@ class LabelTextField extends Widget {
 
   renderAction () {
     if (this.hasActionButton ()) {
-      const actionGlyph = this.props['action-glyph'];
+      const actionGlyph = this.props.actionGlyph;
       return (
         <Button
           kind="combo"
