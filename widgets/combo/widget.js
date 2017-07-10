@@ -116,7 +116,7 @@ class Combo extends Widget {
           text={item.text}
           shortcut={item.shortcut}
           active={active}
-          mouse-up={() => ::this.onActionAndClose (item)}
+          mouseUp={() => ::this.onActionAndClose (item)}
         />
       );
     }

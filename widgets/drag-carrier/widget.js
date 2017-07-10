@@ -159,7 +159,7 @@ class DragCarrier extends Widget {
   }
 
   getOverSpacing () {
-    const overSpacing = this.props['over-spacing'];
+    const overSpacing = this.props.overSpacing;
     if (overSpacing) {
       return Unit.parse (Unit.multiply (overSpacing, 1)).value;
     } else {
@@ -170,7 +170,7 @@ class DragCarrier extends Widget {
   findV (container, node, y, parentRect) {
     const thickness = this.getHalfThickness ();
     const overSpacing = this.getOverSpacing () / 2;
-    if (container.props['drag-mode'] === 'all') {
+    if (container.props.dragMode === 'all') {
       const rect = getBoundingRect (node);
       return {
         id: null,
@@ -243,7 +243,7 @@ class DragCarrier extends Widget {
   findH (container, node, x, parentRect) {
     const thickness = this.getHalfThickness ();
     const overSpacing = this.getOverSpacing () / 2;
-    if (container.props['drag-mode'] === 'all') {
+    if (container.props.dragMode === 'all') {
       const rect = getBoundingRect (node);
       return {
         id: null,
@@ -316,7 +316,7 @@ class DragCarrier extends Widget {
   findParentId (id) {
     if (id && window.document.dragParentControllers) {
       for (var c of window.document.dragParentControllers) {
-        const parentId = c.props['drag-parent-id'];
+        const parentId = c.props.dragParentId;
         if (parentId === id) {
           return c;
         }
@@ -348,7 +348,7 @@ class DragCarrier extends Widget {
   }
 
   getViewParentRect (container) {
-    const dragParentId = container.props['view-parent-id'];
+    const dragParentId = container.props.viewParentId;
     const parent = this.findViewId (dragParentId);
     if (parent) {
       const parentNode = ReactDOM.findDOMNode (parent);
@@ -544,14 +544,14 @@ class DragCarrier extends Widget {
 
   onMouseUp (e) {
     // Trace.log ('DragCarrier.mouseUp');
-    const dragEnding = this.props['drag-ending'];
+    const dragEnding = this.props.dragEnding;
     if (dragEnding) {
       dragEnding (e, this.isDragStarted ());
       if (this.isDragStarted ()) {
         this.selectMulti (false);
         const dest = this.dest;
         if (dest) {
-          const doDragEnding = this.props['do-drag-ending'];
+          const doDragEnding = this.props.doDragEnding;
           if (doDragEnding) {
             doDragEnding (
               this.selectedIds,
@@ -606,7 +606,7 @@ class DragCarrier extends Widget {
   render () {
     const color = this.props.color;
     const radius = this.props.radius;
-    const dragHeight = this.props['drag-height'];
+    const dragHeight = this.props.dragHeight;
 
     const fullScreenStyle = {
       visibility: 'visible',

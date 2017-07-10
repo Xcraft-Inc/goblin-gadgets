@@ -63,7 +63,7 @@ class Container extends Widget {
       }
       window.document.dragControllers.push (this);
     }
-    const dragParentId = this.props['drag-parent-id'];
+    const dragParentId = this.props.dragParentId;
     if (dragParentId) {
       if (!window.document.dragParentControllers) {
         window.document.dragParentControllers = [];
@@ -96,7 +96,7 @@ class Container extends Widget {
         window.document.dragControllers.splice (index, 1);
       }
     }
-    const dragParentId = this.props['drag-parent-id'];
+    const dragParentId = this.props.dragParentId;
     if (dragParentId) {
       const index = window.document.dragParentControllers.indexOf (this);
       if (index !== -1) {

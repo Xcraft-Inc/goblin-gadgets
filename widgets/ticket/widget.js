@@ -10,28 +10,28 @@ class Ticket extends Widget {
   }
 
   onMouseOver () {
-    const x = this.props['mouse-over'];
+    const x = this.props.mouseOver;
     if (x) {
       x ();
     }
   }
 
   onMouseOut () {
-    const x = this.props['mouse-out'];
+    const x = this.props.mouseOut;
     if (x) {
       x ();
     }
   }
 
   onMouseDown (e) {
-    const x = this.props['mouse-down'];
+    const x = this.props.mouseDown;
     if (x) {
       x (e);
     }
   }
 
   onMouseUp (e) {
-    const x = this.props['mouse-up'];
+    const x = this.props.mouseUp;
     if (x) {
       x (e);
     }
