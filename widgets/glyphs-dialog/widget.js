@@ -124,7 +124,7 @@ class GlyphsDialog extends Widget {
           color={this.context.theme.palette.dragAndDropHover}
           thickness={this.context.theme.shapes.dragAndDropTicketThickness}
           radius={this.context.theme.shapes.dragAndDropTicketThickness}
-          do-drag-ending={::this.onDragEnding}
+          doDragEnding={::this.onDragEnding}
         >
           <DragCapsule
             component="Label"

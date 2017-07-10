@@ -97,11 +97,11 @@ class DragCab extends Widget {
       // does a child have an open combo-menu ?
       return;
     }
-    const mouseDown = this.props['mouse-down'];
+    const mouseDown = this.props.mouseDown;
     if (mouseDown && mouseDown (e)) {
       return;
     }
-    const noDrag = this.props['no-drag'];
+    const noDrag = this.props.noDrag;
     if (noDrag === 'true') {
       return; // if drag prohibited, don't initiate drag & drop ?
     }
@@ -115,7 +115,7 @@ class DragCab extends Widget {
       return;
     }
     const node = ReactDOM.findDOMNode (this);
-    const dragWidthtDetect = this.props['drag-width-detect'];
+    const dragWidthtDetect = this.props.dragWidthDetect;
     if (dragWidthtDetect) {
       const w = Unit.parse (dragWidthtDetect).value;
       const rect = node.getBoundingClientRect ();
@@ -123,7 +123,7 @@ class DragCab extends Widget {
         return;
       }
     }
-    const dragHeightDetect = this.props['drag-height-detect'];
+    const dragHeightDetect = this.props.dragHeightDetect;
     if (dragHeightDetect) {
       const h = Unit.parse (dragHeightDetect).value;
       const rect = node.getBoundingClientRect ();
@@ -141,11 +141,11 @@ class DragCab extends Widget {
       // does a child have an open combo-menu ?
       return;
     }
-    const mouseUp = this.props['mouse-up'];
+    const mouseUp = this.props.mouseUp;
     if (mouseUp && mouseUp (e)) {
       return;
     }
-    const noDrag = this.props['no-drag'];
+    const noDrag = this.props.noDrag;
     if (noDrag === 'true') {
       // simple click when drag prohibited ?
       this.doClickAction (e);
@@ -163,7 +163,7 @@ class DragCab extends Widget {
   }
 
   doClickAction (e) {
-    const action = this.props['do-click-action'];
+    const action = this.props.doClickAction;
     if (action) {
       action (e);
     }
@@ -174,24 +174,24 @@ class DragCab extends Widget {
     const color = this.props.color;
     const thickness = this.props.thickness;
     const radius = this.props.radius;
-    const overSpacing = this.props['over-spacing'];
+    const overSpacing = this.props.overSpacing;
     const mode = this.props.mode;
     const data = this.props.data;
     const dragOwnerId = this.props.dragOwnerId;
     const dragController = this.props.dragController;
-    const doDragEnding = this.props['do-drag-ending'];
+    const doDragEnding = this.props.doDragEnding;
     return (
       <DragCarrier
         direction={direction}
         color={color}
         thickness={thickness}
         radius={radius}
-        over-spacing={overSpacing}
+        overSpacing={overSpacing}
         mode={mode}
         data={data}
-        do-drag-ending={doDragEnding}
-        drag-ending={::this.onDragEnding}
-        drag-height={this.dragHeight}
+        doDragEnding={doDragEnding}
+        dragEnding={::this.onDragEnding}
+        dragHeight={this.dragHeight}
         dragController={dragController}
         dragOwnerId={dragOwnerId}
       />

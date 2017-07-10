@@ -44,7 +44,7 @@ class Button extends Widget {
     if (disabled === 'true') {
       return;
     }
-    const mouseDown = this.props['mouse-down'];
+    const mouseDown = this.props.mouseDown;
     if (mouseDown) {
       mouseDown (e);
     }
@@ -55,7 +55,7 @@ class Button extends Widget {
     if (disabled === 'true') {
       return;
     }
-    const mouseUp = this.props['mouse-up'];
+    const mouseUp = this.props.mouseUp;
     if (mouseUp) {
       mouseUp (e);
     }
