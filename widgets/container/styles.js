@@ -247,7 +247,11 @@ export default function styles (theme, props) {
     display = 'flex';
     flexDirection = 'column';
     flexGrow = props.grow;
-    margin = '0px ' + theme.shapes.viewSpacing + ' 0px 0px';
+    if (props.spacing === 'large') {
+      margin = '0px ' + theme.shapes.viewSpacing + ' 0px 0px';
+    } else {
+      margin = '0px';
+    }
     backgroundColor = theme.palette.viewBackground;
   }
 
