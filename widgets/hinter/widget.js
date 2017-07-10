@@ -72,8 +72,8 @@ class Hinter extends Widget {
   }
 
   render () {
-    const titleGlyph = this.props['title-glyph'];
-    const titleText = this.props['title-text'];
+    const titleGlyph = this.props.titleGlyph;
+    const titleText = this.props.titleText;
 
     return (
       <Container kind="view-short">
