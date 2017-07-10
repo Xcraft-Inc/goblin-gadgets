@@ -174,7 +174,7 @@ class DragCarrier extends Widget {
       const rect = getBoundingRect (node);
       return {
         id: null,
-        ownerId: container.props['drag-owner-id'],
+        ownerId: container.props.dragOwnerId,
         ownerKind: container.props.dragSource,
         rect: rect.height === 0
           ? getVRect (rect, rect.top, rect.top + thickness * 2)
@@ -190,7 +190,7 @@ class DragCarrier extends Widget {
       const rect = getBoundingRect (node);
       return {
         id: null,
-        ownerId: container.props['drag-owner-id'],
+        ownerId: container.props.dragOwnerId,
         ownerKind: container.props.dragSource,
         rect: getVRect (rect, rect.top - thickness, rect.top + thickness),
         parentRect: parentRect,
@@ -215,7 +215,7 @@ class DragCarrier extends Widget {
           id: t.dataset.id,
           ownerId: t.dataset.ownerId
             ? t.dataset.ownerId
-            : container.props['drag-owner-id'],
+            : container.props.dragOwnerId,
           ownerKind: container.props.dragSource,
           rect: getVRect (rect, py - thickness, py + thickness),
           parentRect: parentRect,
@@ -228,7 +228,7 @@ class DragCarrier extends Widget {
     const rect = last.getBoundingClientRect ();
     return {
       id: null, // after last
-      ownerId: container.props['drag-owner-id'],
+      ownerId: container.props.dragOwnerId,
       ownerKind: container.props.dragSource,
       rect: getVRect (
         rect,
@@ -247,7 +247,7 @@ class DragCarrier extends Widget {
       const rect = getBoundingRect (node);
       return {
         id: null,
-        ownerId: container.props['drag-owner-id'],
+        ownerId: container.props.dragOwnerId,
         ownerKind: container.props.dragSource,
         rect: rect.width === 0
           ? getHRect (rect, rect.left, rect.left + thickness * 2)
@@ -263,7 +263,7 @@ class DragCarrier extends Widget {
       const rect = getBoundingRect (node);
       return {
         id: null,
-        ownerId: container.props['drag-owner-id'],
+        ownerId: container.props.dragOwnerId,
         ownerKind: container.props.dragSource,
         rect: getHRect (rect, rect.left - thickness, rect.left + thickness),
         parentRect: parentRect,
@@ -288,7 +288,7 @@ class DragCarrier extends Widget {
           id: t.dataset.id,
           ownerId: t.dataset.ownerId
             ? t.dataset.ownerId
-            : container.props['drag-owner-id'],
+            : container.props.dragOwnerId,
           ownerKind: container.props.dragSource,
           rect: getHRect (rect, px - thickness, px + thickness),
           parentRect: parentRect,
@@ -301,7 +301,7 @@ class DragCarrier extends Widget {
     const rect = last.getBoundingClientRect ();
     return {
       id: null, // after last
-      ownerId: container.props['drag-owner-id'],
+      ownerId: container.props.dragOwnerId,
       ownerKind: container.props.dragSource,
       rect: getHRect (
         rect,
@@ -326,7 +326,7 @@ class DragCarrier extends Widget {
   }
 
   getParentRect (container) {
-    const dragParentId = container.props['drag-owner-id'];
+    const dragParentId = container.props.dragOwnerId;
     const parent = this.findParentId (dragParentId);
     if (parent) {
       const parentNode = ReactDOM.findDOMNode (parent);
@@ -359,7 +359,7 @@ class DragCarrier extends Widget {
 
   find (x, y) {
     const direction = this.props.direction;
-    const dragOwnerId = this.props['drag-owner-id'];
+    const dragOwnerId = this.props.dragOwnerId;
     const dragCab = this.searchDragCab (dragOwnerId);
     const dragController = dragCab.read ('dragController');
     for (var container of window.document.dragControllers) {
@@ -399,7 +399,7 @@ class DragCarrier extends Widget {
           container: container,
           ticket: t,
           id: t.dataset.id,
-          ownerId: container.props['drag-owner-id'],
+          ownerId: container.props.dragOwnerId,
           rect: rect,
           parentRect: parentRect,
           index: i,
@@ -412,7 +412,7 @@ class DragCarrier extends Widget {
   // Return the description of origin, whith is the full rectangle of item origin.
   findOrigin () {
     const dragController = this.props.dragController;
-    const dragOwnerId = this.props['drag-owner-id'];
+    const dragOwnerId = this.props.dragOwnerId;
     for (var container of window.document.dragControllers) {
       const dc = container.props.dragController;
       if (dc === dragController) {
@@ -428,7 +428,7 @@ class DragCarrier extends Widget {
 
   searchDragCab (id) {
     for (let dragCab of window.document.dragCabs) {
-      if (dragCab.props['drag-owner-id'] === id) {
+      if (dragCab.props.dragOwnerId === id) {
         return dragCab;
       }
     }
@@ -439,13 +439,13 @@ class DragCarrier extends Widget {
     const container = this.rectOrigin.container;
     if (
       container.props.children.props &&
-      container.props.children.props['drag-owner-id'] === id
+      container.props.children.props.dragOwnerId === id
     ) {
       // Manages the case where there is only one child.
       return container.props.children;
     }
     for (let child of container.props.children) {
-      if (child.props['drag-owner-id'] === id) {
+      if (child.props.dragOwnerId === id) {
         return child;
       }
     }
@@ -504,7 +504,7 @@ class DragCarrier extends Widget {
       // first move ?
       this.startX = x;
       this.startY = y;
-      const dragOwnerId = this.props['drag-owner-id'];
+      const dragOwnerId = this.props.dragOwnerId;
       const dragCab = this.searchDragCab (dragOwnerId);
       const node = ReactDOM.findDOMNode (dragCab);
       const rect = node.getBoundingClientRect ();
