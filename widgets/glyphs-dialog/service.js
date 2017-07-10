@@ -68,10 +68,8 @@ const logicHandlers = {
 };
 
 // Register quest's according rc.json
-Goblin.registerQuest (goblinName, 'create', function (quest, labId, allGlyphs) {
+Goblin.registerQuest (goblinName, 'create', function (quest, allGlyphs) {
   quest.do ({id: quest.goblin.id, allGlyphs});
-  const lab = quest.useAs ('laboratory', labId);
-  lab.add ({widgetId: quest.goblin.id});
   return quest.goblin.id;
 });
 
