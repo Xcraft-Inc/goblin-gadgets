@@ -4,7 +4,6 @@ import * as GlyphHelpers from '../helpers/glyph-helpers.js';
 import * as ComboHelpers from '../helpers/combo-helpers.js';
 import {ColorHelpers} from 'electrum-theme';
 import {Unit} from 'electrum-theme';
-import Enumerable from 'linq';
 
 import DialogModal from 'gadgets/dialog-modal/widget';
 import Container from 'gadgets/container/widget';
