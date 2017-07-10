@@ -608,17 +608,7 @@ class DragCarrier extends Widget {
     const radius = this.props.radius;
     const dragHeight = this.props.dragHeight;
 
-    const fullScreenStyle = {
-      visibility: 'visible',
-      position: 'fixed',
-      zIndex: 10,
-      top: '0px',
-      left: '0px',
-      width: '100%',
-      height: '100%',
-      userSelect: 'none',
-      // backgroundColor: 'rgba(100, 0, 0, 0.2)',
-    };
+    const fullScreenClass = this.styles.classNames.fullScreen;
 
     const ox = this.flyingDialogRect ? this.flyingDialogRect.left : 0;
     const oy = this.flyingDialogRect ? this.flyingDialogRect.top : 0;
@@ -666,7 +656,7 @@ class DragCarrier extends Widget {
 
     return (
       <div
-        style={fullScreenStyle}
+        className={fullScreenClass}
         onMouseMove={::this.onMouseMove}
         onMouseUp={::this.onMouseUp}
         onTouchMove={::this.onMouseMove}
