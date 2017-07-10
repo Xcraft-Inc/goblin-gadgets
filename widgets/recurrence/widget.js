@@ -13,7 +13,7 @@ import Label from 'gadgets/label/widget';
 /******************************************************************************/
 
 function monthCount () {
-  return 2; // display 2 months simultaneously
+  return 1; // display 2 months simultaneously
 }
 
 function pushCron (result, date, startDate, endDate, cron, deleteList) {
@@ -281,7 +281,7 @@ class Recurrence extends Form {
 
   render () {
     const extended = this.props.extended === 'true';
-    const mainClass = ''; //this.styles.classNames.main;
+    const mainClass = this.styles.classNames.main;
     const initialState = {
       startDate: this.props.startDate,
       endDate: this.props.endDate,

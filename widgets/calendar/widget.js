@@ -452,19 +452,28 @@ class Calendar extends Widget {
     );
   }
 
+  renderNavigatorMonths () {
+    const monthCount = this.monthCount;
+    if (monthCount > 1) {
+      return this.renderPrevNext (
+        `${monthCount} mois`,
+        'chevron-left',
+        'chevron-right',
+        () => ::this.onVisibleDateAddMonths (-monthCount),
+        () => ::this.onVisibleDateAddMonths (monthCount)
+      );
+    } else {
+      return null;
+    }
+  }
+
   renderNavigator () {
     const navigator = this.props.navigator;
     if (navigator === 'standard') {
       const navClass = this.styles.classNames.navigator;
       return (
         <div className={navClass}>
-          {this.renderPrevNext (
-            '2 mois',
-            'chevron-left',
-            'chevron-right',
-            () => ::this.onVisibleDateAddMonths (-2),
-            () => ::this.onVisibleDateAddMonths (2)
-          )}
+          {this.renderNavigatorMonths ()}
           <Separator kind="space" height="20px" />
           {this.renderMonthsOfYear ()}
           <Separator kind="space" height="20px" />
