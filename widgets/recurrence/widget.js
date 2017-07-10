@@ -202,7 +202,6 @@ class Recurrence extends Form {
         <div className={editorClass}>
           <TextFieldTyped
             type="date"
-            field="startDate"
             selectAllOnFocus="true"
             hintText="Date de début"
             tooltip="Date de début"
@@ -213,7 +212,6 @@ class Recurrence extends Form {
           />
           <TextFieldTyped
             type="date"
-            field="endDate"
             selectAllOnFocus="true"
             hintText="Date de fin"
             tooltip="Date de fin"
@@ -223,7 +221,6 @@ class Recurrence extends Form {
             model=".endDate"
           />
           <LabelTextField
-            field="days"
             selectAllOnFocus="true"
             hintText="Jours de la semaine"
             tooltip="1..7 = lundi..dimanche   - = à   , = et"
@@ -233,7 +230,6 @@ class Recurrence extends Form {
             model=".days"
           />
           <LabelTextField
-            field="months"
             selectAllOnFocus="true"
             hintText="Mois de l´année"
             tooltip="1..12 = janvier..décembre   - = à   , = et"
@@ -293,7 +289,7 @@ class Recurrence extends Form {
     const Form = this.getForm (this.props.id);
     return (
       <div className={mainClass}>
-        <Form initialState={initialState}>
+        <Form>
           {this.renderInfo (extended)}
           {this.renderEditor (extended)}
           {this.renderCalendar (extended)}

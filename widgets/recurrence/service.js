@@ -12,14 +12,18 @@ const logicState = {};
 // Define logic handlers according rc.json
 const logicHandlers = {
   create: (state, action) => {
+    let r = action.get ('recurrence');
+    if (!r) {
+      r = {};
+    }
     const initialState = {
       id: action.get ('id'),
-      startDate: '2017-01-01',
-      endDate: '2017-12-31',
-      days: '',
-      months: '1-12',
-      deleteList: [],
-      addList: [],
+      startDate: r.startDate ? r.startDate : '2017-01-01',
+      endDate: r.endDate ? r.endDate : '2017-12-31',
+      days: r.days ? r.days : '',
+      months: r.months ? r.months : '1-12',
+      deleteList: r.deleteList ? r.deleteList : [],
+      addList: r.addList ? r.addList : [],
     };
     return state.set ('', initialState);
   },
@@ -67,8 +71,21 @@ const logicHandlers = {
 };
 
 // Register quest's according rc.json
-Goblin.registerQuest (goblinName, 'create', function (quest) {
-  quest.do ({id: quest.goblin.id});
+Goblin.registerQuest (goblinName, 'create', function (
+  quest,
+  desktopId,
+  recurrence
+) {
+  quest.do ({id: quest.goblin.id, recurrence});
+  const desk = quest.useAs ('desktop', desktopId);
+  const state = quest.goblin.getState ();
+  const value = {
+    startDate: state.get ('startDate'),
+    endDate: state.get ('endDate'),
+    days: state.get ('days'),
+    months: state.get ('months'),
+  };
+  desk.createFormFor ({workitemId: quest.goblin.id, value});
   return quest.goblin.id;
 });
 

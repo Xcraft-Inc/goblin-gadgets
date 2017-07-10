@@ -15,12 +15,19 @@ class Recurrences extends Widget {
     super (props);
   }
 
+  static get wiring () {
+    return {
+      id: 'id',
+      recurrences: 'recurrences',
+    };
+  }
+
   onCreateRecurrence () {
     this.do ('add');
   }
 
-  onDeleteRecurrence (recurrence) {
-    this.do ('remove', {recurrence});
+  onDeleteRecurrence (recurrenceId) {
+    this.do ('remove', {recurrenceId});
   }
 
   onSwapExtended (index) {
@@ -51,29 +58,28 @@ class Recurrences extends Widget {
     );
   }
 
-  renderRow (recurrence, extended, index) {
+  renderRow (recurrenceId, extended, index) {
     const dhd = Unit.add (
       this.context.theme.shapes.lineHeight,
       this.context.theme.shapes.containerMargin
     );
+    const WiredRecurrence = Widget.Wired (Recurrence) (recurrenceId);
     return (
       <DragCab
+        key={index}
         dragController="recurrence"
         dragHeightDetect={dhd}
         direction="vertical"
         color={this.context.theme.palette.dragAndDropHover}
         thickness={this.context.theme.shapes.dragAndDropTicketThickness}
         mode="corner-top-left"
-        dragOwnerId={recurrence.id}
+        dragOwnerId={recurrenceId}
         doClickAction={() => ::this.onSwapExtended (index)}
         doDragEnding={::this.onDragEnding}
       >
-        <Recurrence
-          index={index}
-          field={index}
-          value={recurrence}
+        <WiredRecurrence
           extended={extended ? 'true' : 'false'}
-          onDeleteRecurrence={() => ::this.onDeleteRecurrence (recurrence)}
+          onDeleteRecurrence={() => ::this.onDeleteRecurrence (recurrenceId)}
         />
       </DragCab>
     );
@@ -86,7 +92,7 @@ class Recurrences extends Widget {
       .orderBy (recurrence => recurrence.get ('order'))
       .select (recurrence => {
         const extended = this.extendedIndex === index;
-        return this.renderRow (recurrence, extended, index++);
+        return this.renderRow (recurrence.get ('id'), extended, index++);
       })
       .toList ();
   }
@@ -100,7 +106,7 @@ class Recurrences extends Widget {
           kind="column"
           dragController="recurrence"
           dragSource="recurrences"
-          dragOwnerId="FIXME:xyz"
+          dragOwnerId={this.props.id}
         >
           {this.renderRows ()}
         </Container>

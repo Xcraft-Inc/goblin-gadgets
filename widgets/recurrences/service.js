@@ -46,24 +46,12 @@ const logicHandlers = {
     return state.set ('', initialState);
   },
   add: (state, action) => {
-    const recurrence = action.get ('recurrence', {
-      id: uuidV4 (),
-      startDate: '2017-01-01',
-      endDate: '2017-12-31',
-      days: '',
-      months: '1-12',
-      deleteList: [],
-      addList: [],
-    });
-    const list = state.get ('recurrences', {});
-    const newList = list.unpush (recurrence);
-    return state.set ('recurrences', newList);
+    const recurrenceId = action.get ('recurrenceId');
+    return state.set (`recurrences.${recurrenceId}`, {id: recurrenceId});
   },
   remove: (state, action) => {
-    const recurrence = action.get ('recurrence');
-    const list = state.get ('recurrences', {});
-    const newList = list.unpush (recurrence);
-    return state.set ('recurrences', newList);
+    const recurrenceId = action.get ('recurrenceId');
+    return state.del (`recurrences.${recurrenceId}`);
   },
   drag: (state, action) => {
     const fromId = action.get ('fromId');
@@ -75,17 +63,38 @@ const logicHandlers = {
 };
 
 // Register quest's according rc.json
-Goblin.registerQuest (goblinName, 'create', function (quest) {
+Goblin.registerQuest (goblinName, 'create', function (
+  quest,
+  desktopId,
+  recurrences
+) {
   quest.do ({id: quest.goblin.id});
+  for (const r in recurrences) {
+    quest.cmd ('recurrences.add', {
+      id: quest.goblin.id,
+      desktopId,
+      recurrence: recurrences[r],
+    });
+  }
   return quest.goblin.id;
 });
 
-Goblin.registerQuest (goblinName, 'add', function (quest, recurrence) {
-  quest.do ({recurrence});
+Goblin.registerQuest (goblinName, 'add', function (
+  quest,
+  desktopId,
+  recurrence
+) {
+  const id = `recurrence@${recurrence.id}`;
+  quest.create (id, {
+    id,
+    desktopId,
+    recurrence,
+  });
+  quest.do ({recurrenceId: id});
 });
 
-Goblin.registerQuest (goblinName, 'remove', function (quest, recurrence) {
-  quest.do ({recurrence});
+Goblin.registerQuest (goblinName, 'remove', function (quest, recurrenceId) {
+  quest.do ({recurrenceId});
 });
 
 Goblin.registerQuest (goblinName, 'delete', function () {});
