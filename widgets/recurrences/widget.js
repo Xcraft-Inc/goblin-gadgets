@@ -23,11 +23,15 @@ class Recurrences extends Widget {
   }
 
   onCreateRecurrence () {
+    this.extendedIndex = this.props.recurrences.size;
     this.do ('add');
+    this.forceUpdate ();
   }
 
   onDeleteRecurrence (recurrenceId) {
     this.do ('remove', {recurrenceId});
+    this.extendedIndex = -1;
+    this.forceUpdate ();
   }
 
   onSwapExtended (index) {
