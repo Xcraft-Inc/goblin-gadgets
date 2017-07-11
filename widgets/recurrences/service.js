@@ -42,16 +42,35 @@ const logicHandlers = {
     const initialState = {
       id: action.get ('id'),
       recurrences: {},
+      extendedId: null,
     };
     return state.set ('', initialState);
   },
   add: (state, action) => {
     const recurrenceId = action.get ('recurrenceId');
-    return state.set (`recurrences.${recurrenceId}`, {id: recurrenceId});
+    const order = state.get ('recurrences').state.size;
+    return state
+      .set (`recurrences.${recurrenceId}`, {
+        id: recurrenceId,
+        order: order,
+      })
+      .set ('extendedId', recurrenceId); // extend added panel
   },
   remove: (state, action) => {
     const recurrenceId = action.get ('recurrenceId');
-    return state.del (`recurrences.${recurrenceId}`);
+    return state.del (`recurrences.${recurrenceId}`).set ('extendedId', null); // compact all panels
+  },
+  extend: (state, action) => {
+    const recurrenceId = action.get ('recurrenceId');
+    const currentId = state.get ('extendedId');
+    if (recurrenceId === currentId) {
+      return state.set ('extendedId', null); // compact panel
+    } else {
+      return state.set ('extendedId', recurrenceId); // extend panel
+    }
+  },
+  'compact-all': (state, action) => {
+    return state.set ('extendedId', null); // compact all panels
   },
   drag: (state, action) => {
     const fromId = action.get ('fromId');
@@ -68,6 +87,7 @@ Goblin.registerQuest (goblinName, 'create', function (
   desktopId,
   recurrences
 ) {
+  quest.goblin.setX ('desktopId', desktopId);
   quest.do ({id: quest.goblin.id});
   for (const r in recurrences) {
     quest.cmd ('recurrences.add', {
@@ -76,15 +96,17 @@ Goblin.registerQuest (goblinName, 'create', function (
       recurrence: recurrences[r],
     });
   }
+  quest.cmd ('recurrences.compact-all', {
+    id: quest.goblin.id,
+    desktopId,
+  });
   return quest.goblin.id;
 });
 
-Goblin.registerQuest (goblinName, 'add', function (
-  quest,
-  desktopId,
-  recurrence
-) {
-  const id = `recurrence@${recurrence.id}`;
+Goblin.registerQuest (goblinName, 'add', function (quest, recurrence) {
+  const desktopId = quest.goblin.getX ('desktopId');
+  const recurrenceId = recurrence ? recurrence.id : uuidV4 ();
+  const id = `recurrence@${recurrenceId}`;
   quest.create (id, {
     id,
     desktopId,
@@ -95,6 +117,18 @@ Goblin.registerQuest (goblinName, 'add', function (
 
 Goblin.registerQuest (goblinName, 'remove', function (quest, recurrenceId) {
   quest.do ({recurrenceId});
+});
+
+Goblin.registerQuest (goblinName, 'extend', function (quest, recurrenceId) {
+  quest.do ({recurrenceId});
+});
+
+Goblin.registerQuest (goblinName, 'compact-all', function (quest) {
+  quest.do ();
+});
+
+Goblin.registerQuest (goblinName, 'drag', function (quest, fromId, toId) {
+  quest.do ({fromId, toId});
 });
 
 Goblin.registerQuest (goblinName, 'delete', function () {});

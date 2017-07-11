@@ -105,12 +105,12 @@ export function getDisplayedCron (days, months, deleteList, addList) {
     result.push (m);
   }
 
-  if (deleteList && deleteList.length > 0) {
-    result.push ('-' + deleteList.length);
+  if (deleteList && deleteList.size > 0) {
+    result.push ('-' + deleteList.size);
   }
 
-  if (addList && addList.length > 0) {
-    result.push ('+' + addList.length);
+  if (addList && addList.size > 0) {
+    result.push ('+' + addList.size);
   }
 
   return join (result, ', ');

@@ -106,6 +106,7 @@ class Recurrence extends Form {
   static get wiring () {
     return {
       id: 'id',
+      order: 'order',
       startDate: 'startDate',
       endDate: 'endDate',
       days: 'days',
@@ -153,7 +154,7 @@ class Recurrence extends Form {
   }
 
   get hasExceptions () {
-    return this.props.addList.length > 0 || this.props.deleteList.length > 0;
+    return this.props.addList.size > 0 || this.props.deleteList.size > 0;
   }
 
   onDateClicked (date) {
@@ -280,14 +281,20 @@ class Recurrence extends Form {
   }
 
   render () {
+    if (!this.props.id) {
+      return null;
+    }
+
     const extended = this.props.extended === 'true';
     const mainClass = this.styles.classNames.main;
+
     const initialState = {
       startDate: this.props.startDate,
       endDate: this.props.endDate,
     };
-    console.log (`startDate: ${this.props.startDate}`);
+
     const Form = this.getForm (this.props.id, initialState);
+
     return (
       <div className={mainClass}>
         <Form>

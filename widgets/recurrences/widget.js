@@ -19,6 +19,7 @@ class Recurrences extends Widget {
     return {
       id: 'id',
       recurrences: 'recurrences',
+      extendedId: 'extendedId',
     };
   }
 
@@ -30,13 +31,8 @@ class Recurrences extends Widget {
     this.do ('remove', {recurrenceId});
   }
 
-  onSwapExtended (index) {
-    if (index === this.extendedIndex) {
-      // if panel extended ?
-      index = -1; // compact the panel
-    }
-    this.extendedIndex = index;
-    this.forceUpdate ();
+  onSwapExtended (recurrenceId) {
+    this.do ('extend', {recurrenceId});
   }
 
   onDragEnding (selectedIds, toId) {
@@ -74,7 +70,7 @@ class Recurrences extends Widget {
         thickness={this.context.theme.shapes.dragAndDropTicketThickness}
         mode="corner-top-left"
         dragOwnerId={recurrenceId}
-        doClickAction={() => ::this.onSwapExtended (index)}
+        doClickAction={() => ::this.onSwapExtended (recurrenceId)}
         doDragEnding={::this.onDragEnding}
       >
         <WiredRecurrence
@@ -91,13 +87,18 @@ class Recurrences extends Widget {
     return recurrences.linq
       .orderBy (recurrence => recurrence.get ('order'))
       .select (recurrence => {
-        const extended = this.extendedIndex === index;
-        return this.renderRow (recurrence.get ('id'), extended, index++);
+        const id = recurrence.get ('id');
+        const extended = id === this.props.extendedId;
+        return this.renderRow (id, extended, index++);
       })
       .toList ();
   }
 
   render () {
+    if (!this.props.id) {
+      return null;
+    }
+
     const boxClass = this.styles.classNames.box;
     return (
       <div className={boxClass}>
