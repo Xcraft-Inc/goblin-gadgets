@@ -236,6 +236,19 @@ export function getSeconds (time) {
   return d.getSeconds (); // 0..59
 }
 
+export function isCanonicalDate (canonicalDate) {
+  if (
+    !canonicalDate ||
+    canonicalDate.length !== 10 ||
+    canonicalDate[4] !== '-' ||
+    canonicalDate[7] !== '-'
+  ) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
 // With '2017-03-31', return {year: 2017, month: 03, day: 31}.
 export function splitDate (canonicalDate) {
   if (

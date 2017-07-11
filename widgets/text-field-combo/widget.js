@@ -116,7 +116,7 @@ class TextFieldCombo extends Widget {
       parser: this.props.parser,
       errors: this.props.errors,
       updateOn: this.props.updateOn,
-      value: this.props.value,
+      getDisplayValue: this.props.getDisplayValue,
       hinter: this.props.hinter,
       hintText: hintText,
       tooltip: tooltip,
@@ -133,7 +133,7 @@ class TextFieldCombo extends Widget {
     };
 
     if (displayValue) {
-      props.value = displayValue;
+      props.displayValue = displayValue;
     }
 
     const isComboVisible = this.showCombo ? 'true' : 'false';

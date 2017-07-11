@@ -93,6 +93,7 @@ class TextField extends Widget {
     const beforeChange = (model, value) => {
       if (this.props.beforeChange) {
         const newValue = this.props.beforeChange (value);
+        console.log (`beforeChange: ${newValue}`);
         return actions.change (model, newValue);
       } else {
         return actions.change (model, value);
@@ -110,7 +111,7 @@ class TextField extends Widget {
           parser={this.props.parser}
           errors={this.props.errors}
           mapProps={{
-            value: props => props.viewValue,
+            value: props => props.modelValue,
           }}
           updateOn={this.props.updateOn ? this.props.updateOn : 'change'}
           model={model}
@@ -128,6 +129,9 @@ class TextField extends Widget {
 
       const beforeChange = (model, value) => {
         if (this.props.beforeChange) {
+          if (!value) {
+            actions.change (model, value);
+          }
           const newValue = this.props.beforeChange (value);
           return actions.change (model, newValue);
         } else {
@@ -143,7 +147,21 @@ class TextField extends Widget {
           parser={this.props.parser}
           errors={this.props.errors}
           mapProps={{
-            value: props => props.viewValue,
+            value: props => {
+              if (this.props.displayValue) {
+                return this.props.displayValue;
+              }
+
+              if (this.props.getDisplayValue) {
+                return this.props.getDisplayValue (
+                  props.modelValue,
+                  props.viewValue,
+                  props.store.getState ()
+                );
+              }
+
+              return props.modelValue;
+            },
           }}
           updateOn={this.props.updateOn ? this.props.updateOn : 'change'}
           model={model}

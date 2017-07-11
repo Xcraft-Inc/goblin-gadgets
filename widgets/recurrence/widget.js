@@ -286,7 +286,8 @@ class Recurrence extends Form {
       startDate: this.props.startDate,
       endDate: this.props.endDate,
     };
-    const Form = this.getForm (this.props.id);
+    console.log (`startDate: ${this.props.startDate}`);
+    const Form = this.getForm (this.props.id, initialState);
     return (
       <div className={mainClass}>
         <Form>

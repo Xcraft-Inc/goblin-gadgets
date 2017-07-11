@@ -42,6 +42,8 @@ class TextFieldTyped extends Widget {
     };
   }
 
+  getDisplayValue (model, view) {}
+
   // Return the top line of FlyingBalloon, displayed in bold.
   // Contains the optional error message.
   getMessageWarning () {
@@ -75,8 +77,20 @@ class TextFieldTyped extends Widget {
     return (
       <LabelTextField
         updateOn="blur"
-        beforeChange={val => this.parseEditedValue (val).canonicalValue}
+        beforeChange={val => {
+          return this.parseEditedValue (val).canonicalValue;
+        }}
         errors={{warning: val => this.parseEditedValue (val).warning}}
+        getDisplayValue={(model, view, state) => {
+          console.log (`${this.props.model}: ${model} / ${view}`);
+          console.dir (state);
+          if (model && view) {
+            if (view === model) {
+              return this.canonicalToDisplayed (view);
+            }
+          }
+          return view ? view : '';
+        }}
         model={this.props.model}
         hintText={hintText}
         tooltip={tooltip}
