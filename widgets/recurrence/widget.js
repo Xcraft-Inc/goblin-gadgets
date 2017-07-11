@@ -153,7 +153,7 @@ class Recurrence extends Form {
   }
 
   get hasExceptions () {
-    return this.props.addList.length > 0 || this.props.deleteList.length > 0;
+    return this.props.addList.size > 0 || this.props.deleteList.size > 0;
   }
 
   onDateClicked (date) {
