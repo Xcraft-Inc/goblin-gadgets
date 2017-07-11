@@ -98,6 +98,10 @@ class Recurrences extends Widget {
   }
 
   render () {
+    if (!this.props.id) {
+      return null;
+    }
+
     const boxClass = this.styles.classNames.box;
     return (
       <div className={boxClass}>

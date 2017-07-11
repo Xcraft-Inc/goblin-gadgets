@@ -84,7 +84,8 @@ Goblin.registerQuest (goblinName, 'add', function (
   desktopId,
   recurrence
 ) {
-  const id = `recurrence@${recurrence.id}`;
+  const recurrenceId = recurrence ? recurrence.id : uuidV4 ();
+  const id = `recurrence@${recurrenceId}`;
   quest.create (id, {
     id,
     desktopId,

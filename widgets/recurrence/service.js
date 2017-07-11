@@ -20,7 +20,7 @@ const logicHandlers = {
       id: action.get ('id'),
       startDate: r.startDate ? r.startDate : '2017-01-01',
       endDate: r.endDate ? r.endDate : '2017-12-31',
-      days: r.days ? r.days : '',
+      days: r.days ? r.days : '1',
       months: r.months ? r.months : '1-12',
       deleteList: r.deleteList ? r.deleteList : [],
       addList: r.addList ? r.addList : [],
