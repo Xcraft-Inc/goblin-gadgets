@@ -68,6 +68,7 @@ Goblin.registerQuest (goblinName, 'create', function (
   desktopId,
   recurrences
 ) {
+  quest.goblin.setX ('desktopId', desktopId);
   quest.do ({id: quest.goblin.id});
   for (const r in recurrences) {
     quest.cmd ('recurrences.add', {
@@ -79,11 +80,8 @@ Goblin.registerQuest (goblinName, 'create', function (
   return quest.goblin.id;
 });
 
-Goblin.registerQuest (goblinName, 'add', function (
-  quest,
-  desktopId,
-  recurrence
-) {
+Goblin.registerQuest (goblinName, 'add', function (quest, recurrence) {
+  const desktopId = quest.goblin.getX ('desktopId');
   const recurrenceId = recurrence ? recurrence.id : uuidV4 ();
   const id = `recurrence@${recurrenceId}`;
   quest.create (id, {
