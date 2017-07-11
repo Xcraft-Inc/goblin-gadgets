@@ -106,6 +106,7 @@ class Recurrence extends Form {
   static get wiring () {
     return {
       id: 'id',
+      order: 'order',
       startDate: 'startDate',
       endDate: 'endDate',
       days: 'days',
