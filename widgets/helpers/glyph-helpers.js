@@ -1,6 +1,9 @@
 import Enumerable from 'linq';
 
 export function getGlyph (glyph) {
+  if (!glyph) {
+    return {};
+  }
   const prefixes = [
     // according with ColorHelpers.getMarkColor
     'base',

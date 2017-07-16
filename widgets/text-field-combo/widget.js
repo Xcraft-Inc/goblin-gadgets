@@ -43,7 +43,7 @@ class TextFieldCombo extends Widget {
     const node = ReactDOM.findDOMNode (this);
     this.comboLocation = ComboHelpers.getComboLocation (
       node,
-      this.props.theme,
+      this.context.theme,
       'flying-balloon'
     );
     this.showCombo = true;
@@ -81,6 +81,13 @@ class TextFieldCombo extends Widget {
     const readonly = this.props.readonly;
     if (readonly === 'true') {
       this.onButtonClicked ();
+    }
+  }
+
+  setText (text) {
+    const x = this.props.onSetText;
+    if (x) {
+      x (text.text); // FIXME???
     }
   }
 
@@ -176,12 +183,16 @@ class TextFieldCombo extends Widget {
   renderCombo () {
     const list = this.props.list;
     if (list && this.showCombo) {
+      const x = [];
+      for (var item of list) {
+        x.push ({text: item, action: item => this.setText (item)});
+      }
       return (
         <Combo
-          center={::this.comboLocation.center}
-          top={::this.comboLocation.top}
-          bottom={::this.comboLocation.bottom}
-          list={list}
+          center={this.comboLocation.center}
+          top={this.comboLocation.top}
+          bottom={this.comboLocation.bottom}
+          list={x}
           close={::this.onHideCombo}
         />
       );
