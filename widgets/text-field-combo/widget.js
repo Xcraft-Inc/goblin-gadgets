@@ -125,6 +125,7 @@ class TextFieldCombo extends Widget {
       shape: textFieldShape,
       flyingBalloonAnchor: flyingBalloonAnchor,
       tabIndex: tabIndex,
+      defaultValue: this.props.defaultValue,
       width: width,
       rows: rows,
       readonly: visibleReadonly,

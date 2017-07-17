@@ -121,6 +121,7 @@ class TextField extends Widget {
           disabled={disabled}
           rows={rows}
           tabIndex={tabIndex}
+          defaultValue={this.props.defaultValue}
           {...options}
         />
       );
@@ -174,6 +175,7 @@ class TextField extends Widget {
           type={this.props.type || 'text'}
           key="input"
           tabIndex={tabIndex}
+          defaultValue={this.props.defaultValue}
           {...options}
         />
       );

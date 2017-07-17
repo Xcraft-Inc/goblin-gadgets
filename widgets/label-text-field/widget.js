@@ -138,6 +138,7 @@ class LabelTextField extends Widget {
       spacing: this.hasActionButton () ? 'overlap' : null,
       shape: textFieldShape,
       tabIndex: tabIndex,
+      defaultValue: this.props.defaultValue,
       rows: rows,
       readonly: visibleReadonly,
       selectAllOnFocus: selectAllOnFocus,
