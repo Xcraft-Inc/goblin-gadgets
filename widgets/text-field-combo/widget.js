@@ -158,7 +158,7 @@ class TextFieldCombo extends Widget {
 
   renderButton () {
     const shape = this.props.shape;
-    const glyph = this.props.comboGlyph;
+    const glyph = this.props.comboGlyph ? this.props.comboGlyph : 'caret-down';
 
     const s = shape ? shape : 'smooth';
     const buttonShapes = {
