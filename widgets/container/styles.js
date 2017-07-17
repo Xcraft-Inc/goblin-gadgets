@@ -45,7 +45,7 @@ export default function styles (theme, props) {
     ? '0px 0px ' + props.marginBottom + ' 0px'
     : '0px';
   let padding = '0px';
-  let backgroundColor = null;
+  let backgroundColor = props.backgroundColor;
   let color = null;
   let fontWeight = null;
   let zIndex = null;
@@ -400,7 +400,9 @@ export default function styles (theme, props) {
     // boxShadow       = theme.shapes.paneShadow;
     margin = '0px 0px ' + m + ' 0px';
     padding = m + ' ' + m + ' ' + d + ' ' + m;
-    backgroundColor = theme.palette.paneBackground;
+    if (!backgroundColor) {
+      backgroundColor = theme.palette.paneBackground;
+    }
   }
 
   if (props.kind === 'row-pane') {
@@ -510,6 +512,8 @@ export default function styles (theme, props) {
       rightMargin = Unit.multiply (m, -0.25);
       topMargin = Unit.multiply (m, -0.25);
       bottomMargin = Unit.multiply (m, 0.25);
+    } else if (props.subkind === 'left') {
+      justifyContent = 'flex-start';
     }
     if (props.spacing === 'compact') {
       height = theme.shapes.lineHeight;
