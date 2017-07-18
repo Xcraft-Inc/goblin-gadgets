@@ -1,0 +1,239 @@
+import React from 'react';
+import Widget from 'laboratory/widget';
+import Form from 'laboratory/form';
+
+import Button from 'gadgets/button/widget';
+import Container from 'gadgets/container/widget';
+import Label from 'gadgets/label/widget';
+import TextField from 'gadgets/text-field/widget';
+import TextFieldCombo from 'gadgets/text-field-combo/widget';
+import LabelTextField from 'gadgets/label-text-field/widget';
+import Separator from 'gadgets/separator/widget';
+import Splitter from 'gadgets/splitter/widget';
+
+class WizardButton extends Form {
+  constructor (props, context) {
+    super (props, context);
+  }
+
+  static get wiring () {
+    return {
+      id: 'id',
+      params: 'params',
+    };
+  }
+
+  getParam (field) {
+    const params = this.shred (this.props.params);
+    const param = params.linq
+      .where (param => field === param.get ('field'))
+      .first ();
+    return param.get ('value');
+  }
+
+  setParam (field, value) {
+    //? this.state[field] = value;
+  }
+
+  getCode () {
+    var result = '<Button ';
+    const params = this.shred (this.props.params);
+    params.linq.orderBy (param => param.get ('order')).select (param => {
+      const field = param.get ('field');
+      const value = param.get ('value');
+      if (value !== '') {
+        result += `${field}="${value}" `;
+      }
+    });
+    result += '/>';
+    return result;
+  }
+
+  renderParam (param, index) {
+    const type = param.get ('type');
+    const field = param.get ('field');
+    const list = param.get ('list');
+    const value = param.get ('value');
+    const model = `.${field}.value`;
+    if (type === 'combo' || (type === 'text' && list)) {
+      return (
+        <Container kind="row-pane" key={index}>
+          <Label text={field} width="120px" />
+          <TextFieldCombo
+            model={model}
+            readonly={type === 'combo' ? 'true' : 'false'}
+            grow="1"
+            list={list}
+            onSetText={text => this.setParam (type, text)}
+          />
+        </Container>
+      );
+    } else if (type === 'bool') {
+      return (
+        <Container kind="row-pane" subkind="left" key={index}>
+          <Label text={field} width="120px" />
+          <Button
+            glyph={value === 'true' ? 'check' : null}
+            width="32px"
+            onClick={() => {
+              if (value === 'true') {
+                this.setParam (field, 'false');
+              } else {
+                this.setParam (field, 'true');
+              }
+              this.forceUpdate ();
+            }}
+          />
+        </Container>
+      );
+    } else {
+      return (
+        <Container kind="row-pane" key={index}>
+          <Label text={field} width="120px" />
+          <TextField model={model} />
+        </Container>
+      );
+    }
+  }
+
+  renderParams () {
+    let index = 0;
+    const params = this.shred (this.props.params);
+    return params.linq
+      .orderBy (param => param.get ('order'))
+      .select (param => {
+        return this.renderParam (param, index++);
+      })
+      .toList ();
+  }
+
+  renderParamsColumn () {
+    const Form = this.getForm (this.props.id, this.props.params);
+    return (
+      <Form>
+        <Container kind="view" width="500px" spacing="large">
+          <Container kind="pane-header">
+            <Label text="Paramètres" kind="pane-header" />
+          </Container>
+          <Container kind="panes">
+            <Container kind="pane">
+              {this.renderParams ()}
+            </Container>
+          </Container>
+        </Container>
+      </Form>
+    );
+  }
+
+  renderWidget () {
+    //? return this.getCode ();
+    return (
+      <Button
+        kind={this.getParam ('kind')}
+        text={this.getParam ('text')}
+        glyph={this.getParam ('glyph')}
+        tooltip={this.getParam ('tooltip')}
+        shortcut={this.getParam ('shortcut')}
+        justify={this.getParam ('justify')}
+        width={this.getParam ('width')}
+        height={this.getParam ('height')}
+        grow={this.getParam ('grow')}
+        spacing={this.getParam ('spacing')}
+        glyphColor={this.getParam ('glyphColor')}
+        textColor={this.getParam ('textColor')}
+        textTransform={this.getParam ('textTransform')}
+        badgeValue={this.getParam ('badgeValue')}
+        glyphPosition={this.getParam ('glyphPosition')}
+        place={this.getParam ('place')}
+        active={this.getParam ('active')}
+        show={this.getParam ('show')}
+        visibility={this.getParam ('visibility')}
+      />
+    );
+  }
+
+  renderResultSolo (backgroundColor) {
+    return (
+      <Container kind="pane" backgroundColor={backgroundColor}>
+        <Container kind="row-pane">
+          {this.renderWidget ()}
+        </Container>
+        <Container kind="row-pane" subkind="footer">
+          <Button
+            kind="subaction"
+            text={
+              this.showAll
+                ? 'Afficher moins de résultats'
+                : 'Afficher plus de résultats'
+            }
+            width="0px"
+            grow="1"
+            onClick={() => {
+              this.showAll = !this.showAll;
+              this.forceUpdate ();
+            }}
+          />
+        </Container>
+      </Container>
+    );
+  }
+
+  renderResultPane (backgroundColor) {
+    if (this.showAll) {
+      return (
+        <Container kind="pane" backgroundColor={backgroundColor}>
+          <Container kind="row-pane">
+            {this.renderWidget ()}
+            {this.renderWidget ()}
+            {this.renderWidget ()}
+          </Container>
+          <Container kind="row-pane" subkind="left">
+            {this.renderWidget ()}
+            {this.renderWidget ()}
+            {this.renderWidget ()}
+          </Container>
+        </Container>
+      );
+    } else {
+      return null;
+    }
+  }
+
+  renderResult () {
+    return (
+      <Container kind="view">
+        <Container kind="pane-header">
+          <Label text="Résultats" kind="pane-header" />
+        </Container>
+        <Container kind="panes">
+          <Container kind="pane">
+            <Container kind="row-pane">
+              <Label text={this.getCode ()} grow="1" />
+            </Container>
+          </Container>
+          {this.renderResultSolo ()}
+          {this.renderResultPane ()}
+          {this.renderResultPane (this.context.theme.palette.viewBackground)}
+          {this.renderResultPane (this.context.theme.palette.taskBackground)}
+          {this.renderResultPane (this.context.theme.palette.rootBackground)}
+          {this.renderResultPane (this.context.theme.palette.footerBackground)}
+        </Container>
+      </Container>
+    );
+  }
+
+  render () {
+    const {id, msg} = this.props;
+    return (
+      <Container kind="views">
+        {::this.renderParamsColumn ()}
+        <Splitter kind="vertical" firstSize="600px">
+          {::this.renderResult ()}
+          <Container kind="row" />
+        </Splitter>
+      </Container>
+    );
+  }
+}
+
+export default WizardButton;
