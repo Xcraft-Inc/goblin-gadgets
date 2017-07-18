@@ -139,6 +139,7 @@ class Combo extends Widget {
 
     const fullScreenClass = this.styles.classNames.fullScreen;
     const comboClass = this.styles.classNames.combo;
+    const insideClass = this.styles.classNames.inside;
 
     return (
       <div
@@ -152,7 +153,9 @@ class Combo extends Widget {
             trianglePosition={top ? 'top' : 'bottom'}
             width={width}
           >
-            {this.renderCombo ()}
+            <div className={insideClass}>
+              {this.renderCombo ()}
+            </div>
           </Container>
         </div>
       </div>

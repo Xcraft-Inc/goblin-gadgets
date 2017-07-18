@@ -30,9 +30,18 @@ export default function styles (theme, props) {
     userSelect: 'none',
   };
 
+  const insideStyle = {
+    maxHeight: '40vh',
+    display: 'flex',
+    flexDirection: 'column',
+    cursor: 'default',
+    userSelect: 'none',
+  };
+
   return {
     fullScreen: fullScreenStyle,
     combo: comboStyle,
+    inside: insideStyle,
   };
 }
 
