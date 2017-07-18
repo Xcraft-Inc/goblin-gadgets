@@ -11,6 +11,26 @@ import LabelTextField from 'gadgets/label-text-field/widget';
 import Separator from 'gadgets/separator/widget';
 import Splitter from 'gadgets/splitter/widget';
 
+function getOnlyDigits (value) {
+  let result = '';
+  for (let i = 0; i < value.length; i++) {
+    const c = value[i];
+    if (c >= '0' && c <= '9') {
+      result += c;
+    }
+  }
+  return result;
+}
+
+function getValue (param) {
+  const value = param.get ('value');
+  const unit = param.get ('unit');
+  if (value && unit) {
+    return getOnlyDigits (value) + unit;
+  }
+  return value;
+}
+
 class WizardButton extends Form {
   constructor (props, context) {
     super (props, context);
@@ -23,20 +43,12 @@ class WizardButton extends Form {
     };
   }
 
-  getParam (field) {
-    const params = this.shred (this.props.params);
-    const param = params.linq
-      .where (param => field === param.get ('field'))
-      .first ();
-    return param.get ('value');
-  }
-
   getCode () {
     var result = '<Button ';
     const params = this.shred (this.props.params);
     params.linq.orderBy (param => param.get ('order')).select (param => {
       const field = param.get ('field');
-      const value = param.get ('value');
+      const value = getValue (param);
       if (value !== '') {
         result += `${field}="${value}" `;
       }
@@ -49,7 +61,7 @@ class WizardButton extends Form {
     const type = param.get ('type');
     const field = param.get ('field');
     const list = param.get ('list');
-    const value = param.get ('value');
+    const value = getValue (param);
     const model = `.${field}`;
     if (type === 'combo' || (type === 'text' && list)) {
       return (
@@ -126,7 +138,7 @@ class WizardButton extends Form {
     const params = this.shred (this.props.params);
     const param = params.linq.select (param => {
       const field = param.get ('field');
-      const value = param.get ('value');
+      const value = getValue (param);
       props[field] = value;
     });
 
