@@ -182,22 +182,26 @@ class WizardButton extends Form {
 
   renderResult () {
     return (
-      <Container kind="view">
-        <Container kind="pane-header">
-          <Label text="Résultats" kind="pane-header" />
-        </Container>
-        <Container kind="panes">
-          <Container kind="pane">
-            <Container kind="row-pane">
-              <Label text={this.getCode ()} grow="1" />
-            </Container>
+      <Container kind="column">
+        <Container kind="view">
+          <Container kind="pane-header">
+            <Label text="Résultats" kind="pane-header" />
           </Container>
-          {this.renderResultSolo ()}
-          {this.renderResultPane ()}
-          {this.renderResultPane (this.context.theme.palette.viewBackground)}
-          {this.renderResultPane (this.context.theme.palette.taskBackground)}
-          {this.renderResultPane (this.context.theme.palette.rootBackground)}
-          {this.renderResultPane (this.context.theme.palette.footerBackground)}
+          <Container kind="panes">
+            <Container kind="pane">
+              <Container kind="row-pane">
+                <Label text={this.getCode ()} grow="1" />
+              </Container>
+            </Container>
+            {this.renderResultSolo ()}
+            {this.renderResultPane ()}
+            {this.renderResultPane (this.context.theme.palette.viewBackground)}
+            {this.renderResultPane (this.context.theme.palette.taskBackground)}
+            {this.renderResultPane (this.context.theme.palette.rootBackground)}
+            {this.renderResultPane (
+              this.context.theme.palette.footerBackground
+            )}
+          </Container>
         </Container>
       </Container>
     );

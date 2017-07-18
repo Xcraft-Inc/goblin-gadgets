@@ -113,7 +113,7 @@ const params = {
     order: 8,
     type: 'text',
     field: 'grow',
-    list: ['', '0.5', '1', '2'],
+    list: ['', '0.5', '1'],
     value: '',
   },
   spacing: {
@@ -169,7 +169,7 @@ const params = {
     order: 15,
     type: 'combo',
     field: 'place',
-    list: ['', '1/3', '2/3', '3/3'],
+    list: ['', '1/1', '1/3', '2/3', '3/3'],
     value: '',
   },
   active: {
