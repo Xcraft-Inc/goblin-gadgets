@@ -122,30 +122,15 @@ class WizardButton extends Form {
   }
 
   renderWidget () {
-    //? return this.getCode ();
-    return (
-      <Button
-        kind={this.getParam ('kind')}
-        text={this.getParam ('text')}
-        glyph={this.getParam ('glyph')}
-        tooltip={this.getParam ('tooltip')}
-        shortcut={this.getParam ('shortcut')}
-        justify={this.getParam ('justify')}
-        width={this.getParam ('width')}
-        height={this.getParam ('height')}
-        grow={this.getParam ('grow')}
-        spacing={this.getParam ('spacing')}
-        glyphColor={this.getParam ('glyphColor')}
-        textColor={this.getParam ('textColor')}
-        textTransform={this.getParam ('textTransform')}
-        badgeValue={this.getParam ('badgeValue')}
-        glyphPosition={this.getParam ('glyphPosition')}
-        place={this.getParam ('place')}
-        active={this.getParam ('active')}
-        show={this.getParam ('show')}
-        visibility={this.getParam ('visibility')}
-      />
-    );
+    const props = {};
+    const params = this.shred (this.props.params);
+    const param = params.linq.select (param => {
+      const field = param.get ('field');
+      const value = param.get ('value');
+      props[field] = value;
+    });
+
+    return <Button {...props} />;
   }
 
   renderResultSolo (backgroundColor) {
