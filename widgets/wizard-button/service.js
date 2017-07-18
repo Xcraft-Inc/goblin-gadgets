@@ -210,11 +210,28 @@ const logicHandlers = {
 Goblin.registerQuest (goblinName, 'create', function (quest, desktopId) {
   const desk = quest.useAs ('desktop', desktopId);
   desk.createFormFor ({workitemId: quest.goblin.id});
+  desk.addTab ({
+    name: 'Wizard',
+    contextId: 'test',
+    view: 'test-wizard',
+    workitemId: quest.goblin.id,
+  });
   quest.do ();
   return quest.goblin.id;
 });
 
 Goblin.registerQuest (goblinName, 'delete', function () {});
+
+Object.keys (params).forEach (p => {
+  const param = params[p];
+  Goblin.registerQuest (goblinName, `change-${param.field}`, function (quest) {
+    quest.do ();
+  });
+  logicHandlers[`change-${param.field}`] = (state, action) => {
+    param.value = action.get ('newValue');
+    return state.set (`params.${param.field}`, param);
+  };
+});
 
 // Create a Goblin with initial state and handlers
 module.exports = Goblin.configure (goblinName, logicState, logicHandlers);

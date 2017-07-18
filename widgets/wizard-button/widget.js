@@ -31,10 +31,6 @@ class WizardButton extends Form {
     return param.get ('value');
   }
 
-  setParam (field, value) {
-    //? this.state[field] = value;
-  }
-
   getCode () {
     var result = '<Button ';
     const params = this.shred (this.props.params);
@@ -54,17 +50,18 @@ class WizardButton extends Form {
     const field = param.get ('field');
     const list = param.get ('list');
     const value = param.get ('value');
-    const model = `.${field}.value`;
+    const model = `.${field}`;
     if (type === 'combo' || (type === 'text' && list)) {
       return (
         <Container kind="row-pane" key={index}>
           <Label text={field} width="120px" />
           <TextFieldCombo
             model={model}
+            defaultValue={value}
             readonly={type === 'combo' ? 'true' : 'false'}
             grow="1"
             list={list}
-            onSetText={text => this.setParam (type, text)}
+            onSetText={text => this.setModel (model, text)}
           />
         </Container>
       );
@@ -77,11 +74,10 @@ class WizardButton extends Form {
             width="32px"
             onClick={() => {
               if (value === 'true') {
-                this.setParam (field, 'false');
+                this.setModel (model, 'false');
               } else {
-                this.setParam (field, 'true');
+                this.setModel (model, 'true');
               }
-              this.forceUpdate ();
             }}
           />
         </Container>
@@ -90,7 +86,7 @@ class WizardButton extends Form {
       return (
         <Container kind="row-pane" key={index}>
           <Label text={field} width="120px" />
-          <TextField model={model} />
+          <TextField model={model} defaultValue={value} />
         </Container>
       );
     }
@@ -108,7 +104,7 @@ class WizardButton extends Form {
   }
 
   renderParamsColumn () {
-    const Form = this.getForm (this.props.id, this.props.params);
+    const Form = this.getForm (this.props.id);
     return (
       <Form>
         <Container kind="view" width="500px" spacing="large">
@@ -223,7 +219,11 @@ class WizardButton extends Form {
   }
 
   render () {
-    const {id, msg} = this.props;
+    const {id} = this.props;
+    if (!id) {
+      return null;
+    }
+
     return (
       <Container kind="views">
         {::this.renderParamsColumn ()}
