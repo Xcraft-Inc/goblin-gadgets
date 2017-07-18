@@ -186,7 +186,12 @@ class TextFieldCombo extends Widget {
     if (list && this.showCombo) {
       const x = [];
       for (var item of list) {
-        x.push ({text: item, action: item => this.setText (item)});
+        const glyph = this.props.defaultValue === item ? 'check' : 'none';
+        x.push ({
+          text: item,
+          glyph: glyph,
+          action: item => this.setText (item),
+        });
       }
       return (
         <Combo
