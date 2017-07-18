@@ -135,8 +135,8 @@ class Calendar extends Widget {
         tooltip={tooltip}
         kind="calendar"
         active={active}
-        dimmed={dimmed}
-        weekend={weekend}
+        calendarDimmed={dimmed}
+        calendarWeekend={weekend}
         onClick={() => this.onDateClicked (date)}
       />
     );

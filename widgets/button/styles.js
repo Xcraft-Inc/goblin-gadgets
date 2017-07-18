@@ -484,14 +484,14 @@ export default function styles (theme, props) {
     transition = null;
     backgroundColor = theme.palette.calendarBackground;
     textColor = theme.palette.calendarText;
-    if (props.weekend === 'true') {
+    if (props.calendarWeekend === 'true') {
       backgroundColor = theme.palette.calendarWeekendBackground;
     }
     if (props.active === 'true') {
       backgroundColor = theme.palette.calendarActiveBackground;
       textColor = theme.palette.calendarActiveText;
     }
-    if (props.dimmed === 'true') {
+    if (props.calendarDimmed === 'true') {
       backgroundColor = theme.palette.calendarBackground;
       backgroundHoverColor = theme.palette.calendarBackground; // no visible hover effect
       textColor = theme.palette.calendarDimmedText;

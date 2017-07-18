@@ -96,9 +96,9 @@ class Button extends Widget {
   renderGlyph (className) {
     const glyph = this.props.glyph;
     if (glyph) {
-      const rotate = this.props.rotat;
-      const flip = this.props.flip;
-      const spin = this.props.spin;
+      const rotate = this.props.glyphRotate;
+      const flip = this.props.glyphFlip;
+      const spin = this.props.glyphSpin;
       return (
         <i
           key="icon"
