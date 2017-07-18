@@ -117,7 +117,15 @@ const params = {
     order: 2.9,
     type: 'combo',
     field: 'shape',
-    list: ['', 'left-rounded', 'right-rounded', 'left-smooth', 'right-smooth'],
+    list: [
+      '',
+      'rounded',
+      'left-rounded',
+      'right-rounded',
+      'smooth',
+      'left-smooth',
+      'right-smooth',
+    ],
     value: '',
   },
   tooltip: {

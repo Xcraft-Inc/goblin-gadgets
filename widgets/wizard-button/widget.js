@@ -175,12 +175,12 @@ class WizardButton extends Form {
     if (this.showAll) {
       return (
         <Container kind="pane" backgroundColor={backgroundColor}>
-          <Container kind="row-pane">
+          <Container kind="row-pane" subkind="left">
             {this.renderWidget ()}
             {this.renderWidget ()}
             {this.renderWidget ()}
           </Container>
-          <Container kind="row-pane" subkind="left">
+          <Container kind="row-pane">
             {this.renderWidget ()}
             {this.renderWidget ()}
             {this.renderWidget ()}
