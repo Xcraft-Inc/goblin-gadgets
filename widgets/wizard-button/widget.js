@@ -1,6 +1,7 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 import Form from 'laboratory/form';
+import {Unit} from 'electrum-theme';
 
 import Button from 'gadgets/button/widget';
 import Container from 'gadgets/container/widget';
@@ -10,6 +11,7 @@ import TextFieldCombo from 'gadgets/text-field-combo/widget';
 import LabelTextField from 'gadgets/label-text-field/widget';
 import Separator from 'gadgets/separator/widget';
 import Splitter from 'gadgets/splitter/widget';
+import CheckButton from 'gadgets/check-button/widget';
 
 function getOnlyDigits (value) {
   let result = '';
@@ -34,6 +36,7 @@ function getValue (param) {
 class WizardButton extends Form {
   constructor (props, context) {
     super (props, context);
+    this.scale = 3;
   }
 
   static get wiring () {
@@ -146,11 +149,26 @@ class WizardButton extends Form {
   }
 
   renderResultSolo (backgroundColor) {
+    let h = this.props.params.get ('height').get ('value');
+    if (!h) {
+      h = '100px';
+    }
+    h = Unit.multiply (h, this.scale);
+    h = Unit.add (h, '20px');
+    const soloStyle = {
+      display: 'flex',
+      flexDirection: 'row',
+      transform: `scale(${this.scale})`,
+      transformOrigin: 'top left',
+      width: `${100 / this.scale}%`,
+      height: h,
+    };
+
     return (
       <Container kind="pane" backgroundColor={backgroundColor}>
-        <Container kind="row-pane">
+        <div style={soloStyle}>
           {this.renderWidget ()}
-        </Container>
+        </div>
         <Container kind="row-pane" subkind="footer">
           <Button
             kind="subaction"
@@ -192,19 +210,70 @@ class WizardButton extends Form {
     }
   }
 
+  renderResultChoices () {
+    return (
+      <Container kind="pane">
+        <Container kind="row-pane" subkind="left">
+          <CheckButton
+            text="×1"
+            kind="radio"
+            spacing="large"
+            checked={this.scale === 1 ? 'true' : 'false'}
+            onClick={() => {
+              this.scale = 1;
+              this.forceUpdate ();
+            }}
+          />
+          <CheckButton
+            text="×2"
+            kind="radio"
+            spacing="large"
+            checked={this.scale === 2 ? 'true' : 'false'}
+            onClick={() => {
+              this.scale = 2;
+              this.forceUpdate ();
+            }}
+          />
+          <CheckButton
+            text="×3"
+            kind="radio"
+            spacing="large"
+            checked={this.scale === 3 ? 'true' : 'false'}
+            onClick={() => {
+              this.scale = 3;
+              this.forceUpdate ();
+            }}
+          />
+          <CheckButton
+            text="×4"
+            kind="radio"
+            spacing="large"
+            checked={this.scale === 4 ? 'true' : 'false'}
+            onClick={() => {
+              this.scale = 4;
+              this.forceUpdate ();
+            }}
+          />
+        </Container>
+      </Container>
+    );
+  }
+
   renderResult () {
+    const classPanes = this.styles.classNames.panes;
     return (
       <Container kind="column">
         <Container kind="view">
           <Container kind="pane-header">
             <Label text="Résultats" kind="pane-header" />
           </Container>
-          <Container kind="panes">
+          <div className={classPanes}>
             <Container kind="pane">
               <Container kind="row-pane">
                 <Label text={this.getCode ()} grow="1" />
               </Container>
             </Container>
+            {this.renderResultChoices ()}
             {this.renderResultSolo ()}
             {this.renderResultPane ()}
             {this.renderResultPane (this.context.theme.palette.viewBackground)}
@@ -213,7 +282,7 @@ class WizardButton extends Form {
             {this.renderResultPane (
               this.context.theme.palette.footerBackground
             )}
-          </Container>
+          </div>
         </Container>
       </Container>
     );
