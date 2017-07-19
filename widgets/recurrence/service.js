@@ -27,11 +27,11 @@ const logicHandlers = {
     };
     return state.set ('', initialState);
   },
-  'change-start-date': (state, action) => {
+  'change-startDate': (state, action) => {
     const newValue = action.get ('newValue');
     return state.set ('startDate', newValue);
   },
-  'change-end-date': (state, action) => {
+  'change-endDate': (state, action) => {
     const newValue = action.get ('newValue');
     return state.set ('endDate', newValue);
   },
@@ -89,17 +89,14 @@ Goblin.registerQuest (goblinName, 'create', function (
   return quest.goblin.id;
 });
 
-Goblin.registerQuest (goblinName, 'change-start-date', function (
+Goblin.registerQuest (goblinName, 'change-startDate', function (
   quest,
   newValue
 ) {
   quest.do ({newValue});
 });
 
-Goblin.registerQuest (goblinName, 'change-end-date', function (
-  quest,
-  newValue
-) {
+Goblin.registerQuest (goblinName, 'change-endDate', function (quest, newValue) {
   quest.do ({newValue});
 });
 
