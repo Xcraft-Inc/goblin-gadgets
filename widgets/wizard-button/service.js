@@ -1,10 +1,9 @@
 'use strict';
 
 const path = require ('path');
-
 const goblinName = path.basename (module.parent.filename, '.js');
-
 const Goblin = require ('xcraft-core-goblin');
+const uuidV4 = require ('uuid/v4');
 
 // Define initial logic values
 const logicState = {};
@@ -299,6 +298,20 @@ const params = {
     value: 'true',
   },
 };
+
+function convertToMapWithIds (data) {
+  const result = {};
+  let order = 0;
+  for (const item of data) {
+    const id = uuidV4 ();
+    item.id = id;
+    item.order = order++;
+    result[id] = item;
+  }
+  return result;
+}
+
+//?const params = convertToMapWithIds (data);
 
 // Define logic handlers according rc.json
 const logicHandlers = {
