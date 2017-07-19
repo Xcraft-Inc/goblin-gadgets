@@ -591,10 +591,14 @@ export default function styles (theme, props) {
   if (props.shape) {
     const r = Unit.multiply (theme.shapes.lineHeight, 0.5);
     const s = theme.shapes.smoothRadius;
-    if (props.shape === 'left-rounded') {
+    if (props.shape === 'rounded') {
+      borderRadius = r;
+    } else if (props.shape === 'left-rounded') {
       borderRadius = r + ' 0px 0px ' + r;
     } else if (props.shape === 'right-rounded') {
       borderRadius = '0px ' + r + ' ' + r + ' 0px';
+    } else if (props.shape === 'smooth') {
+      borderRadius = s;
     } else if (props.shape === 'left-smooth') {
       borderRadius = s + ' 0px 0px ' + s;
     } else if (props.shape === 'right-smooth') {

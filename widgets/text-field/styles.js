@@ -45,12 +45,18 @@ export default function styles (theme, props) {
     const r = Unit.multiply (theme.shapes.lineHeight, 0.5);
     const s = theme.shapes.smoothRadius;
     borderRadius = r + ' 0px 0px ' + r;
-    if (props.shape === 'left-rounded') {
+    if (props.shape === 'rounded') {
+      borderRadius = r;
+      padding = r + ' 0px 0px ' + r;
+    } else if (props.shape === 'left-rounded') {
       borderRadius = r + ' 0px 0px ' + r;
       padding = '0px 0px 0px ' + r;
     } else if (props.shape === 'right-rounded') {
       borderRadius = '0px ' + r + ' ' + r + ' 0px';
       padding = '0px ' + r + ' 0px 0px';
+    } else if (props.shape === 'smooth') {
+      borderRadius = s;
+      padding = s + ' 0px 0px ' + s;
     } else if (props.shape === 'left-smooth') {
       borderRadius = s + ' 0px 0px ' + s;
       padding = '0px 0px 0px ' + s;
