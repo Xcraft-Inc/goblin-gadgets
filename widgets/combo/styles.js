@@ -19,8 +19,6 @@ export default function styles (theme, props) {
     position: 'absolute',
     transform: 'translate(-50%, 0%)',
     zIndex: 11,
-    display: 'flex',
-    flexDirection: 'column',
     left: props.center,
     right: props.right,
     top: props.top,
@@ -31,9 +29,8 @@ export default function styles (theme, props) {
   };
 
   const insideStyle = {
-    maxHeight: '40vh',
-    display: 'flex',
-    flexDirection: 'column',
+    maxHeight: '45vh',
+    overflowY: 'auto',
     cursor: 'default',
     userSelect: 'none',
   };
