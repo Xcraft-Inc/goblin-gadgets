@@ -169,12 +169,6 @@ class WizardButton extends Form {
       transition: this.context.theme.transitions.easeOut (),
     };
 
-    let h = this.props.params.get ('height').get ('value');
-    if (!h) {
-      h = '100px';
-    }
-    h = Unit.multiply (h, this.scale);
-    h = Unit.add (h, '20px');
     const soloStyle = {
       display: 'flex',
       flexDirection: 'row',

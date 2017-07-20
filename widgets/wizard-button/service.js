@@ -75,7 +75,7 @@ const params = {
     order: 2,
     type: 'text',
     field: 'glyph',
-    list: ['', 'check', 'bicycle', 'car', 'rocket', 'calendar'],
+    list: ['', 'check', 'close', 'bicycle', 'car', 'rocket', 'calendar'],
     value: 'check',
   },
   glyphRotate: {
