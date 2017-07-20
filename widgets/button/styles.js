@@ -630,6 +630,14 @@ export default function styles (theme, props) {
   if (props.badgePush === 'true') {
     boxPaddingRight = Unit.add (boxPaddingRight, theme.shapes.badgeHeight);
   }
+  if (
+    props.shortcut &&
+    props.kind !== 'menu-item' &&
+    props.kind !== 'task-bar' &&
+    props.kind !== 'task-logo'
+  ) {
+    boxPaddingRight = Unit.add (boxPaddingRight, m);
+  }
 
   if (props.shape) {
     const r = Unit.multiply (theme.shapes.lineHeight, 0.5);
