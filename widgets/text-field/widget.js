@@ -103,7 +103,24 @@ class TextField extends Widget {
           parser={this.props.parser}
           errors={this.props.errors}
           mapProps={{
-            value: props => props.modelValue,
+            value: props => {
+              if (this.props.displayValue) {
+                return this.props.displayValue;
+              }
+
+              if (this.props.getDisplayValue) {
+                return this.props.getDisplayValue (
+                  props.modelValue,
+                  props.viewValue
+                );
+              }
+
+              if (this.props.defaultValue) {
+                return this.props.defaultValue;
+              }
+
+              return props.modelValue;
+            },
           }}
           updateOn={this.props.updateOn ? this.props.updateOn : 'change'}
           model={model}
@@ -114,7 +131,6 @@ class TextField extends Widget {
           disabled={disabled}
           rows={rows}
           tabIndex={tabIndex}
-          defaultValue={this.props.defaultValue}
           {...options}
         />
       );
@@ -152,6 +168,10 @@ class TextField extends Widget {
                 );
               }
 
+              if (this.props.defaultValue) {
+                return this.props.defaultValue;
+              }
+
               return props.modelValue;
             },
           }}
@@ -167,7 +187,6 @@ class TextField extends Widget {
           type={this.props.type || 'text'}
           key="input"
           tabIndex={tabIndex}
-          defaultValue={this.props.defaultValue}
           {...options}
         />
       );
