@@ -77,15 +77,6 @@ Goblin.registerQuest (goblinName, 'create', function (
   recurrence
 ) {
   quest.do ({id: quest.goblin.id, recurrence});
-  const desk = quest.useAs ('desktop', desktopId);
-  const state = quest.goblin.getState ();
-  const value = {
-    startDate: state.get ('startDate'),
-    endDate: state.get ('endDate'),
-    days: state.get ('days'),
-    months: state.get ('months'),
-  };
-  desk.createFormFor ({workitemId: quest.goblin.id, value});
   return quest.goblin.id;
 });
 
