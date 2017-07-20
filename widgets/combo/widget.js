@@ -18,10 +18,10 @@ class Combo extends Widget {
   }
 
   componentWillMount () {
-    MouseTrap.bind ('esc', this.onCloseCombo);
-    MouseTrap.bind ('up', this.onPrevIndex);
-    MouseTrap.bind ('down', this.onNextIndex);
-    MouseTrap.bind ('enter', this.onEnterAction);
+    MouseTrap.bind ('esc', ::this.onCloseCombo);
+    MouseTrap.bind ('up', ::this.onPrevIndex);
+    MouseTrap.bind ('down', ::this.onNextIndex);
+    MouseTrap.bind ('enter', ::this.onEnterAction);
   }
 
   componentWillUnmount () {
