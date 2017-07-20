@@ -166,6 +166,7 @@ class WizardButton extends Form {
       marginBottom: this.context.theme.shapes.containerMargin,
       padding: this.context.theme.shapes.containerMargin,
       backgroundColor: this.context.theme.palette[this.color],
+      transition: this.context.theme.transitions.easeOut (),
     };
 
     let h = this.props.params.get ('height').get ('value');
@@ -180,6 +181,7 @@ class WizardButton extends Form {
       transform: `scale(${this.scale})`,
       transformOrigin: 'top left',
       width: `${100 / this.scale}%`,
+      transition: this.context.theme.transitions.easeOut (),
     };
 
     return (
@@ -201,6 +203,15 @@ class WizardButton extends Form {
           checked={this.scale === 1 ? 'true' : 'false'}
           onClick={() => {
             this.scale = 1;
+            this.forceUpdate ();
+          }}
+        />
+        <CheckButton
+          text="×1.5"
+          kind="active"
+          checked={this.scale === 1.5 ? 'true' : 'false'}
+          onClick={() => {
+            this.scale = 1.5;
             this.forceUpdate ();
           }}
         />
