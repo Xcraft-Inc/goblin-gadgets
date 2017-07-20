@@ -4,8 +4,8 @@ import Widget from 'laboratory/widget';
 /******************************************************************************/
 
 class Dialog extends Widget {
-  constructor (props) {
-    super (props);
+  constructor () {
+    super (...arguments);
   }
 
   render () {

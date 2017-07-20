@@ -6,8 +6,8 @@ import Label from 'gadgets/label/widget';
 /******************************************************************************/
 
 class DragCapsule extends Widget {
-  constructor (props) {
-    super (props);
+  constructor () {
+    super (...arguments);
   }
 
   render () {

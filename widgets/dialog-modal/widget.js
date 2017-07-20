@@ -9,8 +9,8 @@ import Container from 'gadgets/container/widget';
 /******************************************************************************/
 
 class DialogModal extends Widget {
-  constructor (props) {
-    super (props);
+  constructor () {
+    super (...arguments);
   }
 
   componentWillMount () {

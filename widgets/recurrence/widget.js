@@ -96,8 +96,8 @@ function getRecurrenceItem (date, recurrenceList) {
 /******************************************************************************/
 
 class Recurrence extends Form {
-  constructor (props) {
-    super (props);
+  constructor () {
+    super (...arguments);
     this.visibleDate = this.props.visibleDate
       ? this.props.visibleDate
       : Converters.getNowCanonicalDate ();

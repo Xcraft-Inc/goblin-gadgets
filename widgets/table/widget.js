@@ -6,8 +6,8 @@ import TableCell from 'gadgets/table-cell/widget';
 
 /******************************************************************************/
 class Table extends Widget {
-  constructor (props) {
-    super (props);
+  constructor () {
+    super (...arguments);
     this.state = {
       selectedRow: null,
     };

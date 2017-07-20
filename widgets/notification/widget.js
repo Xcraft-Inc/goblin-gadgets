@@ -8,8 +8,8 @@ import Button from 'gadgets/button/widget';
 /******************************************************************************/
 
 class Notification extends Widget {
-  constructor (props) {
-    super (props);
+  constructor () {
+    super (...arguments);
   }
 
   render () {

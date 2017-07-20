@@ -4,8 +4,8 @@ import Widget from 'laboratory/widget';
 /******************************************************************************/
 
 class Container extends Widget {
-  constructor (props) {
-    super (props);
+  constructor () {
+    super (...arguments);
     this.panelBottoms = [];
   }
 

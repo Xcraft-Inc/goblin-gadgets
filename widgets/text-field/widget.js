@@ -7,8 +7,8 @@ import FlyingBalloon from 'gadgets/flying-balloon/widget';
 /******************************************************************************/
 
 class TextField extends Widget {
-  constructor (props) {
-    super (props);
+  constructor () {
+    super (...arguments);
     this.onFieldFocus = this.onFieldFocus.bind (this);
   }
 
@@ -94,11 +94,15 @@ class TextField extends Widget {
           return this.props.getDisplayValue (props.modelValue, props.viewValue);
         }
 
-        if (this.props.defaultValue !== undefined) {
+        if (
+          this.props.defaultValue !== undefined &&
+          props.modelValue === undefined &&
+          props.viewValue === undefined
+        ) {
           return this.props.defaultValue;
         }
 
-        return props.modelValue;
+        return props.viewValue;
       },
     };
 

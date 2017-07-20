@@ -9,8 +9,8 @@ import Separator from 'gadgets/separator/widget';
 /******************************************************************************/
 
 class Calendar extends Widget {
-  constructor (props) {
-    super (props);
+  constructor () {
+    super (...arguments);
   }
 
   static get wiring () {

@@ -4,8 +4,8 @@ import Widget from 'laboratory/widget';
 /******************************************************************************/
 
 class Menu extends Widget {
-  constructor (props) {
-    super (props);
+  constructor () {
+    super (...arguments);
   }
 
   render () {

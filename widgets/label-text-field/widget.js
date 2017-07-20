@@ -7,8 +7,8 @@ import TextField from 'gadgets/text-field/widget';
 /******************************************************************************/
 
 class LabelTextField extends Widget {
-  constructor (props) {
-    super (props);
+  constructor () {
+    super (...arguments);
     this.state = {
       readonly: true,
     };

@@ -15,8 +15,8 @@ import DragCapsule from 'gadgets/drag-capsule/widget';
 /******************************************************************************/
 
 class GlyphsDialog extends Widget {
-  constructor (props) {
-    super (props);
+  constructor () {
+    super (...arguments);
   }
 
   static get wiring () {

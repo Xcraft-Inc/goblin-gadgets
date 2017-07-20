@@ -6,8 +6,8 @@ import Menu from 'gadgets/menu/widget';
 import Badge from 'gadgets/badge/widget';
 
 class Button extends Widget {
-  constructor (props) {
-    super (props);
+  constructor () {
+    super (...arguments);
   }
 
   static get wiring () {
