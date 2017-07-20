@@ -119,9 +119,9 @@ class WizardButton extends Form {
   }
 
   renderParamsColumn () {
-    const Form = this.getForm (this.props.id);
+    const Form = this.Form;
     return (
-      <Form>
+      <Form {...this.formConfig}>
         <Container kind="view" width="500px" spacing="large">
           <Container kind="pane-header">
             <Label text="Propriétés" kind="pane-header" />

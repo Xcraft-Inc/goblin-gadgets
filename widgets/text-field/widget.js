@@ -9,6 +9,7 @@ import FlyingBalloon from 'gadgets/flying-balloon/widget';
 class TextField extends Widget {
   constructor (props) {
     super (props);
+    this.onFieldFocus = this.onFieldFocus.bind (this);
   }
 
   static get wiring () {
@@ -93,7 +94,6 @@ class TextField extends Widget {
     const beforeChange = (model, value) => {
       if (this.props.beforeChange) {
         const newValue = this.props.beforeChange (value);
-        console.log (`beforeChange: ${newValue}`);
         return actions.change (model, newValue);
       } else {
         return actions.change (model, value);
@@ -102,7 +102,6 @@ class TextField extends Widget {
 
     if (rows) {
       const textareaClass = this.styles.classNames.textarea + ' mousetrap';
-
       return (
         <Control.textarea
           id={model}
@@ -115,7 +114,7 @@ class TextField extends Widget {
           }}
           updateOn={this.props.updateOn ? this.props.updateOn : 'change'}
           model={model}
-          onFocus={::this.onFieldFocus}
+          onFocus={this.onFieldFocus}
           className={textareaClass}
           onChange={this.props.onChange}
           disabled={disabled}
@@ -139,7 +138,6 @@ class TextField extends Widget {
           return actions.change (model, value);
         }
       };
-
       return (
         <Control.text
           id={model}
@@ -156,8 +154,7 @@ class TextField extends Widget {
               if (this.props.getDisplayValue) {
                 return this.props.getDisplayValue (
                   props.modelValue,
-                  props.viewValue,
-                  props.store.getState ()
+                  props.viewValue
                 );
               }
 
@@ -166,7 +163,7 @@ class TextField extends Widget {
           }}
           updateOn={this.props.updateOn ? this.props.updateOn : 'change'}
           model={model}
-          onFocus={::this.onFieldFocus}
+          onFocus={this.onFieldFocus}
           disabled={disabled}
           maxLength={this.props.maxLength}
           placeholder={hintText}
@@ -219,7 +216,6 @@ class TextField extends Widget {
     const tooltip = this.props.tooltip;
 
     const boxClass = this.styles.classNames.box;
-
     return (
       <span disabled={disabled} className={boxClass} title={tooltip}>
         {this.renderInput ()}
