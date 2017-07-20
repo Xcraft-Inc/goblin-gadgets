@@ -197,8 +197,7 @@ class WizardButton extends Form {
         <Label text="Scale" width="80px" />
         <CheckButton
           text="×1"
-          kind="radio"
-          spacing="large"
+          kind="active"
           checked={this.scale === 1 ? 'true' : 'false'}
           onClick={() => {
             this.scale = 1;
@@ -207,8 +206,7 @@ class WizardButton extends Form {
         />
         <CheckButton
           text="×2"
-          kind="radio"
-          spacing="large"
+          kind="active"
           checked={this.scale === 2 ? 'true' : 'false'}
           onClick={() => {
             this.scale = 2;
@@ -217,8 +215,7 @@ class WizardButton extends Form {
         />
         <CheckButton
           text="×3"
-          kind="radio"
-          spacing="large"
+          kind="active"
           checked={this.scale === 3 ? 'true' : 'false'}
           onClick={() => {
             this.scale = 3;
@@ -227,8 +224,7 @@ class WizardButton extends Form {
         />
         <CheckButton
           text="×4"
-          kind="radio"
-          spacing="large"
+          kind="active"
           checked={this.scale === 4 ? 'true' : 'false'}
           onClick={() => {
             this.scale = 4;
@@ -245,8 +241,7 @@ class WizardButton extends Form {
         <Label text="Color" width="80px" />
         <CheckButton
           text="pane"
-          kind="radio"
-          spacing="large"
+          kind="active"
           checked={this.color === 'paneBackground' ? 'true' : 'false'}
           onClick={() => {
             this.color = 'paneBackground';
@@ -255,8 +250,7 @@ class WizardButton extends Form {
         />
         <CheckButton
           text="view"
-          kind="radio"
-          spacing="large"
+          kind="active"
           checked={this.color === 'viewBackground' ? 'true' : 'false'}
           onClick={() => {
             this.color = 'viewBackground';
@@ -265,8 +259,7 @@ class WizardButton extends Form {
         />
         <CheckButton
           text="task"
-          kind="radio"
-          spacing="large"
+          kind="active"
           checked={this.color === 'taskBackground' ? 'true' : 'false'}
           onClick={() => {
             this.color = 'taskBackground';
@@ -275,8 +268,7 @@ class WizardButton extends Form {
         />
         <CheckButton
           text="root"
-          kind="radio"
-          spacing="large"
+          kind="active"
           checked={this.color === 'rootBackground' ? 'true' : 'false'}
           onClick={() => {
             this.color = 'rootBackground';
@@ -285,8 +277,7 @@ class WizardButton extends Form {
         />
         <CheckButton
           text="footer"
-          kind="radio"
-          spacing="large"
+          kind="active"
           checked={this.color === 'footerBackground' ? 'true' : 'false'}
           onClick={() => {
             this.color = 'footerBackground';
@@ -303,8 +294,7 @@ class WizardButton extends Form {
         <Label text="Items" width="80px" />
         <CheckButton
           text="1"
-          kind="radio"
-          spacing="large"
+          kind="active"
           checked={this.items === 1 ? 'true' : 'false'}
           onClick={() => {
             this.items = 1;
@@ -313,8 +303,7 @@ class WizardButton extends Form {
         />
         <CheckButton
           text="2"
-          kind="radio"
-          spacing="large"
+          kind="active"
           checked={this.items === 2 ? 'true' : 'false'}
           onClick={() => {
             this.items = 2;
@@ -323,8 +312,7 @@ class WizardButton extends Form {
         />
         <CheckButton
           text="3"
-          kind="radio"
-          spacing="large"
+          kind="active"
           checked={this.items === 3 ? 'true' : 'false'}
           onClick={() => {
             this.items = 3;
@@ -333,8 +321,7 @@ class WizardButton extends Form {
         />
         <CheckButton
           text="4"
-          kind="radio"
-          spacing="large"
+          kind="active"
           checked={this.items === 4 ? 'true' : 'false'}
           onClick={() => {
             this.items = 4;

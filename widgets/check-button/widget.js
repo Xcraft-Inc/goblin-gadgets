@@ -25,11 +25,14 @@ class CheckButton extends Widget {
     const checked = this.props.checked;
     const spacing = this.props.spacing;
 
-    let glyph;
+    let glyph, active;
     if (kind === 'switch') {
       glyph = checked === 'true' ? 'toggle-on' : 'toggle-off'; // [ o] [x ]
     } else if (kind === 'radio') {
       glyph = checked === 'true' ? 'stop-circle-o' : 'circle-o'; // o
+    } else if (kind === 'active') {
+      glyph = null;
+      active = checked;
     } else {
       glyph = checked === 'true' ? 'check-square' : 'square-o'; // [v] [ ]
     }
@@ -39,6 +42,7 @@ class CheckButton extends Widget {
         onClick={::this.onButtonClicked}
         glyph={glyph}
         text={text}
+        active={active}
         border="none"
         spacing={spacing}
       />
