@@ -33,9 +33,14 @@ export default function styles (theme, props) {
     ? convertJustify (props.justify)
     : 'center';
   let boxAlignItems = 'center';
-  let boxMargin = '0px';
-  let boxPadding = '0px';
-  let boxPaddingRight = null;
+  let boxMarginTop = '0px';
+  let boxMarginRight = '0px';
+  let boxMarginBottom = '0px';
+  let boxMarginLeft = '0px';
+  let boxPaddingTop = '0px';
+  let boxPaddingRight = '0px';
+  let boxPaddingBottom = '0px';
+  let boxPaddingLeft = '0px';
   let boxZIndex = props.zIndex;
   let boxOpacity = props.visibility === 'false' ? 0 : null;
   let borderWidth = '1px';
@@ -75,11 +80,11 @@ export default function styles (theme, props) {
   // Initialise right margin according to spacing.
   if (props.spacing) {
     let spacingType = {
-      overlap: '0px -1px 0px 0px',
-      tiny: '0px 1px 0px 0px',
-      large: '0px ' + m + ' 0px 0px',
+      overlap: '-1px',
+      tiny: '1px',
+      large: m,
     };
-    boxMargin = spacingType[props.spacing];
+    boxMarginRight = spacingType[props.spacing];
   }
 
   // Decrease space between glyph and text.
@@ -102,7 +107,6 @@ export default function styles (theme, props) {
   if (props.kind === 'task-logo') {
     boxHeight = theme.shapes.taskButtonHeight;
     boxFlexDirection = 'column';
-    boxMargin = '0px';
     borderStyle = 'none';
     if (props.active === 'true') {
       backgroundColor = props.activeColor
@@ -123,7 +127,6 @@ export default function styles (theme, props) {
   if (props.kind === 'task-bar') {
     boxHeight = theme.shapes.taskButtonHeight;
     boxFlexDirection = 'column';
-    boxMargin = '0px';
     borderStyle = 'none none solid none';
     borderColor = theme.palette.taskButtonBorder;
     backgroundColor = theme.palette.taskButtonBackground;
@@ -135,7 +138,7 @@ export default function styles (theme, props) {
   // main-tab button (usual parent is container with kind='main-tab').
   if (props.kind === 'main-tab') {
     boxHeight = theme.shapes.mainTabHeight;
-    boxMargin = '0px 1px 0px 0px';
+    boxMarginRight = '1px';
     borderStyle = 'none';
     textTransform = 'uppercase';
     textWeight = 'bold';
@@ -168,11 +171,14 @@ export default function styles (theme, props) {
   if (props.kind === 'view-tab') {
     boxHeight = theme.shapes.viewTabHeight;
     if (props.text) {
-      boxMargin = '1px 1px 0px 0px';
+      boxMarginTop = '1px';
+      boxMarginRight = '1px';
     } else {
       // When a text button is followed by a glyph button, the glyph button must
       // be glued to the text button. Typically a close button: [Missions][x]
-      boxMargin = '1px 1px 0px -1px';
+      boxMarginTop = '1px';
+      boxMarginRight = '1px';
+      boxMarginLeft = '-1px';
     }
     borderStyle = 'none';
     textSize = theme.shapes.viewTabTextSize;
@@ -216,7 +222,6 @@ export default function styles (theme, props) {
       backgroundColor = theme.palette.taskTabInactiveBackground;
       textColor = theme.palette.taskTabInactiveText;
     }
-    boxMargin = '0px';
     borderStyle = 'none none solid none';
     borderColor = theme.palette.taskButtonBorder;
     const mm = props.glyph ? '0px' : theme.shapes.taskTabLeftMargin;
@@ -228,7 +233,7 @@ export default function styles (theme, props) {
   // pane-navigator button (usual parent is container with kind='pane-navigator').
   if (props.kind === 'pane-navigator') {
     boxHeight = theme.shapes.paneNavigatorHeight;
-    boxMargin = '0px 0px -1px 0px';
+    boxMarginBottom = '-1px';
     backgroundColor = theme.palette.paneNavigatorBackground;
     textTransform = 'uppercase';
     textWeight = 'bold';
@@ -249,7 +254,7 @@ export default function styles (theme, props) {
   // pane-hnavigator button (usual parent is container with kind='pane-hnavigator').
   if (props.kind === 'pane-hnavigator') {
     boxHeight = theme.shapes.paneNavigatorHeight;
-    boxMargin = '0px 0px -1px 0px';
+    boxMarginBottom = '-1px';
     backgroundColor = theme.palette.paneNavigatorBackground;
     borderStyle = 'none none solid none';
     textSize = theme.shapes.paneNavigatorTextSize;
@@ -269,7 +274,7 @@ export default function styles (theme, props) {
   if (props.kind === 'pane-vnavigator') {
     boxWidth = theme.shapes.vnavigatorButtonSize;
     boxHeight = theme.shapes.vnavigatorButtonSize;
-    boxMargin = '0px 0px 1px 0px';
+    boxMarginBottom = '1px';
     borderStyle = 'none';
     textSize = theme.shapes.paneNavigatorTextSize;
     if (props.active === 'false') {
@@ -284,8 +289,9 @@ export default function styles (theme, props) {
   // Footer button (usual parent is container with kind='footer').
   if (props.kind === 'footer') {
     boxHeight = theme.shapes.footerHeight;
-    boxMargin = '0px 1px 0px 0px';
-    boxPadding = '0px ' + m + ' 0px ' + m;
+    boxMarginRight = '1px';
+    boxPaddingRight = m;
+    boxPaddingLeft = m;
     textSize = theme.shapes.footerTextSize;
     glyphSize = theme.shapes.footerGlyphSize;
     if (props.text) {
@@ -319,8 +325,7 @@ export default function styles (theme, props) {
     specialDisabled = true;
   }
   if (props.kind === 'notification-close') {
-    boxMargin =
-      Unit.multiply (theme.shapes.containerMargin, -1) + ' 0px 0px 0px';
+    boxMarginTop = Unit.multiply (theme.shapes.containerMargin, -1);
     glyphColor = theme.palette.notificationText;
     textColor = theme.palette.notificationText;
     borderStyle = 'none';
@@ -332,7 +337,7 @@ export default function styles (theme, props) {
   // Warning button (usual parent is container with kind='footer').
   if (props.kind === 'warning') {
     boxHeight = theme.shapes.footerHeight;
-    boxPadding = '0px 0px 0px ' + theme.shapes.warningLeftPadding;
+    boxPaddingLeft = theme.shapes.warningLeftPadding;
     textWeight = 'bold';
     borderStyle = 'none';
     textSize = theme.shapes.warningTextSize;
@@ -361,21 +366,21 @@ export default function styles (theme, props) {
     const h = Unit.multiply (theme.shapes.actionHeight, 0.1);
     const r = theme.shapes.actionRadius;
     boxHeight = theme.shapes.actionHeight;
-    boxPadding = '0px 0px 0px ' + h;
+    boxPaddingLeft = h;
     borderStyle = 'none';
     boxJustifyContent = null;
     backgroundColor = theme.palette.actionButtonBackground;
     textSize = theme.shapes.actionTextSize;
     glyphSize = theme.shapes.actionGlyphSize;
     if (place === 'left') {
-      boxMargin = '0px 1px 0px 0px';
+      boxMarginRight = '1px';
       borderRadius = r + ' 0px 0px ' + r;
     } else if (place === 'right') {
       borderRadius = '0px ' + r + ' ' + r + ' 0px';
     } else if (place === 'single') {
       borderRadius = r;
     } else {
-      boxMargin = '0px 1px 0px 0px';
+      boxMarginRight = '1px';
     }
   }
 
@@ -444,12 +449,9 @@ export default function styles (theme, props) {
   if (props.kind === 'menu-item') {
     textWidth = 'max-content';
     boxHeight = theme.shapes.menuButtonHeight;
-    boxMargin = '0px 0px 1px 0px';
-    boxPadding =
-      '0px ' +
-      theme.shapes.containerMargin +
-      ' 0px ' +
-      theme.shapes.containerMargin;
+    boxMarginBottom = '1px';
+    boxPaddingRight = theme.shapes.containerMargin;
+    boxPaddingLeft = theme.shapes.containerMargin;
     textMargin =
       '0px ' +
       theme.shapes.containerMargin +
@@ -483,12 +485,8 @@ export default function styles (theme, props) {
     boxWidth = theme.shapes.glyphsDialogButtonWidth;
     textWidth = 'max-content';
     boxHeight = theme.shapes.menuButtonHeight;
-    boxMargin =
-      '0px ' +
-      theme.shapes.glyphsDialogButtonMargin +
-      ' ' +
-      theme.shapes.glyphsDialogButtonMargin +
-      ' 0px';
+    boxMarginRight = theme.shapes.glyphsDialogButtonMargin;
+    boxMarginBottom = theme.shapes.glyphsDialogButtonMargin;
     boxJustifyContent = 'flex-start';
     glyphSize = '120%';
     if (props.active === 'true') {
@@ -546,7 +544,8 @@ export default function styles (theme, props) {
     boxHeight = null;
     boxAlignItems = 'stretch';
     borderStyle = 'none';
-    boxPadding = Unit.multiply (theme.shapes.lineSpacing, 0.5) + ' 0px';
+    boxPaddingTop = Unit.multiply (theme.shapes.lineSpacing, 0.5);
+    boxPaddingBottom = Unit.multiply (theme.shapes.lineSpacing, 0.5);
     if (props.active === 'true') {
       backgroundColor = props.activeColor
         ? props.activeColor
@@ -561,14 +560,16 @@ export default function styles (theme, props) {
     boxJustifyContent = 'flex-start';
     boxAlignItems = 'stretch';
     borderStyle = 'none';
-    boxPadding = Unit.multiply (theme.shapes.lineSpacing, 0.5) + ' 0px';
+    boxPaddingTop = Unit.multiply (theme.shapes.lineSpacing, 0.5);
+    boxPaddingBottom = Unit.multiply (theme.shapes.lineSpacing, 0.5);
     backgroundColor = null;
   }
 
   if (props.kind === 'box') {
     boxAlignItems = 'stretch';
     borderStyle = 'none';
-    boxMargin = '0px ' + m + ' ' + m + ' ' + ' 0px';
+    boxMarginRight = m;
+    boxMarginBottom = m;
     if (props.active === 'true') {
       backgroundColor = props.activeColor
         ? props.activeColor
@@ -580,7 +581,7 @@ export default function styles (theme, props) {
 
   if (props.kind === 'chronos-navigator') {
     boxMinHeight = boxHeight;
-    boxMargin = '0px 0px 1px 0px';
+    boxMarginBottom = '1px';
     borderRadius = theme.shapes.smoothRadius;
     if (props.active === 'true') {
       backgroundColor = props.activeColor
@@ -627,7 +628,7 @@ export default function styles (theme, props) {
   }
 
   if (props.badgePush === 'true') {
-    boxPaddingRight = theme.shapes.badgeHeight;
+    boxPaddingRight = Unit.add (boxPaddingRight, theme.shapes.badgeHeight);
   }
 
   if (props.shape) {
@@ -713,9 +714,14 @@ export default function styles (theme, props) {
     borderColor: borderColor,
     borderStyle: borderStyle,
     borderRadius: borderRadius,
-    padding: boxPadding,
+    paddingTop: boxPaddingTop,
     paddingRight: boxPaddingRight,
-    margin: boxMargin,
+    paddingBottom: boxPaddingBottom,
+    paddingLeft: boxPaddingLeft,
+    marginTop: boxMarginTop,
+    marginRight: boxMarginRight,
+    marginBottom: boxMarginBottom,
+    marginLeft: boxMarginLeft,
     backgroundColor: backgroundColor,
     position: boxPosition,
     transition: transition,
