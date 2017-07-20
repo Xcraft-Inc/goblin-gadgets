@@ -37,6 +37,8 @@ class WizardButton extends Form {
   constructor (props, context) {
     super (props, context);
     this.scale = 3;
+    this.color = 'paneBackground';
+    this.items = 1;
   }
 
   static get wiring () {
@@ -121,22 +123,22 @@ class WizardButton extends Form {
   renderParamsColumn () {
     const Form = this.getForm (this.props.id);
     return (
-      <Form>
-        <Container kind="view" width="500px" spacing="large">
-          <Container kind="pane-header">
-            <Label text="Propriétés" kind="pane-header" />
-          </Container>
-          <Container kind="panes">
-            <Container kind="pane">
+      <Container kind="view" width="500px" spacing="large">
+        <Container kind="pane-header">
+          <Label text="Properties" kind="pane-header" />
+        </Container>
+        <Container kind="panes">
+          <Container kind="pane">
+            <Form>
               {this.renderParams ()}
-            </Container>
+            </Form>
           </Container>
         </Container>
-      </Form>
+      </Container>
     );
   }
 
-  renderWidget () {
+  renderWidget (index) {
     const props = {};
     const params = this.shred (this.props.params);
     const param = params.linq.select (param => {
@@ -145,10 +147,27 @@ class WizardButton extends Form {
       props[field] = value;
     });
 
-    return <Button {...props} />;
+    return <Button key={index} {...props} />;
   }
 
-  renderResultSolo (backgroundColor) {
+  renderWidgets () {
+    const result = [];
+    for (let i = 0; i < this.items; i++) {
+      result.push (this.renderWidget (i));
+    }
+    return result;
+  }
+
+  renderPreviewSolo () {
+    const paneStyle = {
+      display: 'flex',
+      flexDirection: 'column',
+      flexGrow: '1',
+      marginBottom: this.context.theme.shapes.containerMargin,
+      padding: this.context.theme.shapes.containerMargin,
+      backgroundColor: this.context.theme.palette[this.color],
+    };
+
     let h = this.props.params.get ('height').get ('value');
     if (!h) {
       h = '100px';
@@ -158,114 +177,182 @@ class WizardButton extends Form {
     const soloStyle = {
       display: 'flex',
       flexDirection: 'row',
+      flexGrow: '1',
       transform: `scale(${this.scale})`,
       transformOrigin: 'top left',
       width: `${100 / this.scale}%`,
-      height: h,
     };
 
     return (
-      <Container kind="pane" backgroundColor={backgroundColor}>
+      <div style={paneStyle}>
         <div style={soloStyle}>
-          {this.renderWidget ()}
+          {this.renderWidgets ()}
         </div>
-        <Container kind="row-pane" subkind="footer">
-          <Button
-            kind="subaction"
-            text={
-              this.showAll
-                ? 'Afficher moins de résultats'
-                : 'Afficher plus de résultats'
-            }
-            width="0px"
-            grow="1"
-            onClick={() => {
-              this.showAll = !this.showAll;
-              this.forceUpdate ();
-            }}
-          />
-        </Container>
-      </Container>
+      </div>
     );
   }
 
-  renderResultPane (backgroundColor) {
-    if (this.showAll) {
-      return (
-        <Container kind="pane" backgroundColor={backgroundColor}>
-          <Container kind="row-pane" subkind="left">
-            {this.renderWidget ()}
-            {this.renderWidget ()}
-            {this.renderWidget ()}
-          </Container>
-          <Container kind="row-pane">
-            {this.renderWidget ()}
-            {this.renderWidget ()}
-            {this.renderWidget ()}
-          </Container>
-        </Container>
-      );
-    } else {
-      return null;
-    }
-  }
-
-  renderResultChoices () {
+  renderPreviewScale () {
     return (
-      <Container kind="pane">
-        <Container kind="row-pane" subkind="left">
-          <CheckButton
-            text="×1"
-            kind="radio"
-            spacing="large"
-            checked={this.scale === 1 ? 'true' : 'false'}
-            onClick={() => {
-              this.scale = 1;
-              this.forceUpdate ();
-            }}
-          />
-          <CheckButton
-            text="×2"
-            kind="radio"
-            spacing="large"
-            checked={this.scale === 2 ? 'true' : 'false'}
-            onClick={() => {
-              this.scale = 2;
-              this.forceUpdate ();
-            }}
-          />
-          <CheckButton
-            text="×3"
-            kind="radio"
-            spacing="large"
-            checked={this.scale === 3 ? 'true' : 'false'}
-            onClick={() => {
-              this.scale = 3;
-              this.forceUpdate ();
-            }}
-          />
-          <CheckButton
-            text="×4"
-            kind="radio"
-            spacing="large"
-            checked={this.scale === 4 ? 'true' : 'false'}
-            onClick={() => {
-              this.scale = 4;
-              this.forceUpdate ();
-            }}
-          />
-        </Container>
+      <Container kind="row-pane" subkind="left">
+        <Label text="Scale" width="80px" />
+        <CheckButton
+          text="×1"
+          kind="radio"
+          spacing="large"
+          checked={this.scale === 1 ? 'true' : 'false'}
+          onClick={() => {
+            this.scale = 1;
+            this.forceUpdate ();
+          }}
+        />
+        <CheckButton
+          text="×2"
+          kind="radio"
+          spacing="large"
+          checked={this.scale === 2 ? 'true' : 'false'}
+          onClick={() => {
+            this.scale = 2;
+            this.forceUpdate ();
+          }}
+        />
+        <CheckButton
+          text="×3"
+          kind="radio"
+          spacing="large"
+          checked={this.scale === 3 ? 'true' : 'false'}
+          onClick={() => {
+            this.scale = 3;
+            this.forceUpdate ();
+          }}
+        />
+        <CheckButton
+          text="×4"
+          kind="radio"
+          spacing="large"
+          checked={this.scale === 4 ? 'true' : 'false'}
+          onClick={() => {
+            this.scale = 4;
+            this.forceUpdate ();
+          }}
+        />
       </Container>
     );
   }
 
-  renderResult () {
+  renderPreviewColor () {
+    return (
+      <Container kind="row-pane" subkind="left">
+        <Label text="Color" width="80px" />
+        <CheckButton
+          text="pane"
+          kind="radio"
+          spacing="large"
+          checked={this.color === 'paneBackground' ? 'true' : 'false'}
+          onClick={() => {
+            this.color = 'paneBackground';
+            this.forceUpdate ();
+          }}
+        />
+        <CheckButton
+          text="view"
+          kind="radio"
+          spacing="large"
+          checked={this.color === 'viewBackground' ? 'true' : 'false'}
+          onClick={() => {
+            this.color = 'viewBackground';
+            this.forceUpdate ();
+          }}
+        />
+        <CheckButton
+          text="task"
+          kind="radio"
+          spacing="large"
+          checked={this.color === 'taskBackground' ? 'true' : 'false'}
+          onClick={() => {
+            this.color = 'taskBackground';
+            this.forceUpdate ();
+          }}
+        />
+        <CheckButton
+          text="root"
+          kind="radio"
+          spacing="large"
+          checked={this.color === 'rootBackground' ? 'true' : 'false'}
+          onClick={() => {
+            this.color = 'rootBackground';
+            this.forceUpdate ();
+          }}
+        />
+        <CheckButton
+          text="footer"
+          kind="radio"
+          spacing="large"
+          checked={this.color === 'footerBackground' ? 'true' : 'false'}
+          onClick={() => {
+            this.color = 'footerBackground';
+            this.forceUpdate ();
+          }}
+        />
+      </Container>
+    );
+  }
+
+  renderPreviewItems () {
+    return (
+      <Container kind="row-pane" subkind="left">
+        <Label text="Items" width="80px" />
+        <CheckButton
+          text="1"
+          kind="radio"
+          spacing="large"
+          checked={this.items === 1 ? 'true' : 'false'}
+          onClick={() => {
+            this.items = 1;
+            this.forceUpdate ();
+          }}
+        />
+        <CheckButton
+          text="2"
+          kind="radio"
+          spacing="large"
+          checked={this.items === 2 ? 'true' : 'false'}
+          onClick={() => {
+            this.items = 2;
+            this.forceUpdate ();
+          }}
+        />
+        <CheckButton
+          text="3"
+          kind="radio"
+          spacing="large"
+          checked={this.items === 3 ? 'true' : 'false'}
+          onClick={() => {
+            this.items = 3;
+            this.forceUpdate ();
+          }}
+        />
+        <CheckButton
+          text="4"
+          kind="radio"
+          spacing="large"
+          checked={this.items === 4 ? 'true' : 'false'}
+          onClick={() => {
+            this.items = 4;
+            this.forceUpdate ();
+          }}
+        />
+      </Container>
+    );
+  }
+
+  renderPreview () {
     const classPanes = this.styles.classNames.panes;
     return (
-      <Container kind="column">
+      <Container kind="views">
         <Container kind="view">
           <Container kind="pane-header">
-            <Label text="Résultats" kind="pane-header" />
+            <Label text="Preview" kind="pane-header" />
           </Container>
           <div className={classPanes}>
             <Container kind="pane">
@@ -273,15 +360,12 @@ class WizardButton extends Form {
                 <Label text={this.getCode ()} grow="1" />
               </Container>
             </Container>
-            {this.renderResultChoices ()}
-            {this.renderResultSolo ()}
-            {this.renderResultPane ()}
-            {this.renderResultPane (this.context.theme.palette.viewBackground)}
-            {this.renderResultPane (this.context.theme.palette.taskBackground)}
-            {this.renderResultPane (this.context.theme.palette.rootBackground)}
-            {this.renderResultPane (
-              this.context.theme.palette.footerBackground
-            )}
+            <Container kind="pane">
+              {this.renderPreviewScale ()}
+              {this.renderPreviewColor ()}
+              {this.renderPreviewItems ()}
+            </Container>
+            {this.renderPreviewSolo ()}
           </div>
         </Container>
       </Container>
@@ -298,7 +382,7 @@ class WizardButton extends Form {
       <Container kind="views">
         {::this.renderParamsColumn ()}
         <Splitter kind="vertical" firstSize="600px">
-          {::this.renderResult ()}
+          {::this.renderPreview ()}
           <Container kind="row" />
         </Splitter>
       </Container>
