@@ -10,8 +10,8 @@ import Combo from 'gadgets/combo/widget';
 /******************************************************************************/
 
 class TextFieldCombo extends Widget {
-  constructor (props) {
-    super (props);
+  constructor () {
+    super (...arguments);
     this.state = {
       showCombo: false,
       readonly: true,

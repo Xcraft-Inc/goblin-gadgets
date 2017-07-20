@@ -7,8 +7,8 @@ import LabelTextField from 'gadgets/label-text-field/widget';
 /******************************************************************************/
 
 class TextFieldTyped extends Widget {
-  constructor (props) {
-    super (props);
+  constructor () {
+    super (...arguments);
   }
 
   canonicalToDisplayed (canonicalValue) {

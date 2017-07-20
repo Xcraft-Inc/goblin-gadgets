@@ -34,8 +34,8 @@ function getValue (param) {
 }
 
 class WizardButton extends Form {
-  constructor (props, context) {
-    super (props, context);
+  constructor () {
+    super (...arguments);
     this.scale = 3;
     this.color = 'paneBackground';
     this.items = 1;

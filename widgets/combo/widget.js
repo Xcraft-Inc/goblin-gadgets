@@ -13,8 +13,8 @@ import Separator from 'gadgets/separator/widget';
 /******************************************************************************/
 
 class Combo extends Widget {
-  constructor (props) {
-    super (props);
+  constructor () {
+    super (...arguments);
   }
 
   componentWillMount () {

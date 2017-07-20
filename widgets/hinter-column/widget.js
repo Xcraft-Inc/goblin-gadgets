@@ -8,8 +8,8 @@ import Hinter from 'gadgets/hinter/widget';
 /******************************************************************************/
 
 class HinterColumn extends Widget {
-  constructor (props) {
-    super (props);
+  constructor () {
+    super (...arguments);
   }
 
   renderList () {

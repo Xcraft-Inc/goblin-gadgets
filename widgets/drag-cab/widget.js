@@ -42,8 +42,8 @@ function findDragController (theme, x, y) {
 /******************************************************************************/
 
 class DragCab extends Widget {
-  constructor (props) {
-    super (props);
+  constructor () {
+    super (...arguments);
     this.state = {
       dragInProcess: false,
       dragStarting: false,

@@ -1,6 +1,21 @@
 import {ColorManipulator} from 'electrum-theme';
 import {Unit} from 'electrum-theme';
 
+function convertJustify (justify) {
+  switch (justify) {
+    case 'start':
+      return 'flex-start';
+    case 'end':
+      return 'flex-end';
+    case 'around':
+      return 'space-around';
+    case 'between':
+      return 'space-between';
+    default:
+      return justify;
+  }
+}
+
 /******************************************************************************/
 
 export default function styles (theme, props) {
@@ -14,7 +29,9 @@ export default function styles (theme, props) {
   let boxFlexGrow = props.grow;
   let boxFlexShrink = null;
   let boxFlexBasis = null;
-  let boxJustifyContent = props.justify ? props.justify : 'center';
+  let boxJustifyContent = props.justify
+    ? convertJustify (props.justify)
+    : 'center';
   let boxAlignItems = 'center';
   let boxMargin = '0px';
   let boxPadding = '0px';
@@ -69,13 +86,6 @@ export default function styles (theme, props) {
   if (props.glyph && props.text) {
     if (props.glyphPosition === 'right') {
       textMargin = '0px 0px 0px ' + m;
-      if (props.width) {
-        // A button with text and glyph (in this order) and a specific width must
-        // have a text push to left border and glyph push to right border:
-        // |text........glyph|
-        // |<-----width----->|
-        textGrow = '1';
-      }
     } else {
       textMargin = '0px ' + m + ' 0px 0px';
     }

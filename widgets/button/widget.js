@@ -6,8 +6,8 @@ import Menu from 'gadgets/menu/widget';
 import Badge from 'gadgets/badge/widget';
 
 class Button extends Widget {
-  constructor (props) {
-    super (props);
+  constructor () {
+    super (...arguments);
   }
 
   static get wiring () {
@@ -146,8 +146,7 @@ class Button extends Widget {
 
   renderLayout (glyphClass, textClass) {
     const result = [];
-    const glyphPosition = this.props.glyphPosition;
-    if (glyphPosition === 'right') {
+    if (this.props.glyphPosition === 'right') {
       result.push (this.renderText (textClass));
       result.push (this.renderShortcut ());
       result.push (this.renderGlyph (glyphClass));

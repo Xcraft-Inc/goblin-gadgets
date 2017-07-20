@@ -6,8 +6,8 @@ import Button from 'gadgets/button/widget';
 /******************************************************************************/
 
 class CheckButton extends Widget {
-  constructor (props) {
-    super (props);
+  constructor () {
+    super (...arguments);
   }
 
   onButtonClicked (e) {

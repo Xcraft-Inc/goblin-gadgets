@@ -7,8 +7,8 @@ import Label from 'gadgets/label/widget';
 /******************************************************************************/
 
 class FlyingBalloon extends Widget {
-  constructor (props) {
-    super (props);
+  constructor () {
+    super (...arguments);
   }
 
   render () {

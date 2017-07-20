@@ -96,8 +96,8 @@ function getRecurrenceItem (date, recurrenceList) {
 /******************************************************************************/
 
 class Recurrence extends Form {
-  constructor (props) {
-    super (props);
+  constructor () {
+    super (...arguments);
     this.visibleDate = this.props.visibleDate
       ? this.props.visibleDate
       : Converters.getNowCanonicalDate ();
@@ -132,8 +132,8 @@ class Recurrence extends Form {
     );
   }
 
-  get dates () {
-    const items = getRecurrenceItems (
+  get items () {
+    return getRecurrenceItems (
       this.visibleDate,
       this.props.startDate,
       this.props.endDate,
@@ -142,10 +142,11 @@ class Recurrence extends Form {
       this.props.deleteList.toArray (),
       this.props.addList.toArray ()
     );
-    this.recurrenceDates = items;
+  }
 
+  get dates () {
     const dates = [];
-    for (let item of items) {
+    for (let item of this.items) {
       if (item.Type === 'default' || item.Type === 'added') {
         dates.push (item.Date);
       }
@@ -158,7 +159,7 @@ class Recurrence extends Form {
   }
 
   onDateClicked (date) {
-    const item = getRecurrenceItem (date, this.recurrenceDates);
+    const item = getRecurrenceItem (date, this.items);
     this.do ('select-date', {date: date, type: item.Type});
   }
 
