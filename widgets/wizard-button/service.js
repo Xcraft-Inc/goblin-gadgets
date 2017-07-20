@@ -287,6 +287,13 @@ const params = {
     list: ['', '1', '2', '99'],
     value: '',
   },
+  badgePush: {
+    id: 'badgePush',
+    order: 13.1,
+    type: 'bool',
+    field: 'badgePush',
+    value: '',
+  },
   place: {
     id: 'place',
     order: 15,
@@ -307,14 +314,6 @@ const params = {
     order: 15.2,
     type: 'bool',
     field: 'calendarDimmed',
-    value: '',
-  },
-  subkind: {
-    id: 'subkind',
-    order: 15.3,
-    type: 'combo',
-    field: 'subkind',
-    list: ['', 'with-badge'],
     value: '',
   },
   cursor: {
