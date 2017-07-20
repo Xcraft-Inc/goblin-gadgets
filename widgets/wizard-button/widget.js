@@ -121,7 +121,7 @@ class WizardButton extends Form {
   }
 
   renderParamsColumn () {
-    const Form = this.getForm (this.props.id);
+    const Form = this.Form;
     return (
       <Container kind="view" width="500px" spacing="large">
         <Container kind="pane-header">
@@ -129,7 +129,7 @@ class WizardButton extends Form {
         </Container>
         <Container kind="panes">
           <Container kind="pane">
-            <Form>
+            <Form {...this.formConfig}>
               {this.renderParams ()}
             </Form>
           </Container>

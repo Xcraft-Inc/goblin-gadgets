@@ -81,9 +81,7 @@ class TextFieldTyped extends Widget {
           return this.parseEditedValue (val).canonicalValue;
         }}
         errors={{warning: val => this.parseEditedValue (val).warning}}
-        getDisplayValue={(model, view, state) => {
-          console.log (`${this.props.model}: ${model} / ${view}`);
-          console.dir (state);
+        getDisplayValue={(model, view) => {
           if (model && view) {
             if (view === model) {
               return this.canonicalToDisplayed (view);
