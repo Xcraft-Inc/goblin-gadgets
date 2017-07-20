@@ -78,8 +78,7 @@ class TextFieldCombo extends Widget {
   }
 
   onMouseDown () {
-    const readonly = this.props.readonly;
-    if (readonly === 'true') {
+    if (this.props.readonly === 'true') {
       this.onButtonClicked ();
     }
   }

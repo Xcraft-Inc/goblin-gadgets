@@ -70,13 +70,6 @@ class TextField extends Widget {
     }
   }
 
-  onMouseDown (e) {
-    const x = this.props.onMouseDown;
-    if (x) {
-      x (e);
-    }
-  }
-
   renderInput () {
     const disabled = this.props.disabled;
     const model = this.props.model;
@@ -118,6 +111,7 @@ class TextField extends Widget {
           onFocus={::this.onFieldFocus}
           className={textareaClass}
           onChange={this.props.onChange}
+          onMouseDown={this.props.onMouseDown}
           disabled={disabled}
           rows={rows}
           tabIndex={tabIndex}
@@ -167,6 +161,7 @@ class TextField extends Widget {
           updateOn={this.props.updateOn ? this.props.updateOn : 'change'}
           model={model}
           onFocus={::this.onFieldFocus}
+          onMouseDown={this.props.onMouseDown}
           disabled={disabled}
           maxLength={this.props.maxLength}
           placeholder={hintText}
