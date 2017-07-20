@@ -177,7 +177,6 @@ class WizardButton extends Form {
     const soloStyle = {
       display: 'flex',
       flexDirection: 'row',
-      flexGrow: '1',
       transform: `scale(${this.scale})`,
       transformOrigin: 'top left',
       width: `${100 / this.scale}%`,
