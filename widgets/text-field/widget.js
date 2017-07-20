@@ -94,7 +94,10 @@ class TextField extends Widget {
           return this.props.getDisplayValue (props.modelValue, props.viewValue);
         }
 
-        if (this.props.defaultValue !== undefined) {
+        if (
+          this.props.defaultValue !== undefined &&
+          props.modelValue === undefined
+        ) {
           return this.props.defaultValue;
         }
 
