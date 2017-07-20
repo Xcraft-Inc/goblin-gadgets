@@ -146,8 +146,7 @@ class Button extends Widget {
 
   renderLayout (glyphClass, textClass) {
     const result = [];
-    const glyphPosition = this.props.glyphPosition;
-    if (glyphPosition === 'right') {
+    if (this.props.glyphPosition === 'right') {
       result.push (this.renderText (textClass));
       result.push (this.renderShortcut ());
       result.push (this.renderGlyph (glyphClass));

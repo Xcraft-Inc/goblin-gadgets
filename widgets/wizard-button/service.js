@@ -146,7 +146,7 @@ const params = {
     order: 5,
     type: 'combo',
     field: 'justify',
-    list: ['', 'flex-start', 'center', 'flex-end'],
+    list: ['', 'start', 'center', 'end', 'around', 'between'],
     value: '',
   },
   width: {
