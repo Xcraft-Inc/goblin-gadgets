@@ -4,8 +4,8 @@ import Widget from 'laboratory/widget';
 /******************************************************************************/
 
 class Label extends Widget {
-  constructor (props) {
-    super (props);
+  constructor () {
+    super (...arguments);
   }
 
   static get wiring () {

@@ -11,8 +11,8 @@ import DragCab from 'gadgets/drag-cab/widget';
 /******************************************************************************/
 
 class Recurrences extends Widget {
-  constructor (props) {
-    super (props);
+  constructor () {
+    super (...arguments);
   }
 
   static get wiring () {

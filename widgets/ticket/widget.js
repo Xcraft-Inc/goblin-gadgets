@@ -5,8 +5,8 @@ import {Unit} from 'electrum-theme';
 /******************************************************************************/
 
 class Ticket extends Widget {
-  constructor (props) {
-    super (props);
+  constructor () {
+    super (...arguments);
   }
 
   onMouseOver () {

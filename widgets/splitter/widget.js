@@ -6,8 +6,8 @@ import {Unit} from 'electrum-theme';
 /******************************************************************************/
 
 class Splitter extends Widget {
-  constructor (props) {
-    super (props);
+  constructor () {
+    super (...arguments);
 
     this.kind = this.props.kind;
     if (this.kind !== 'vertical' && this.kind !== 'horizontal') {

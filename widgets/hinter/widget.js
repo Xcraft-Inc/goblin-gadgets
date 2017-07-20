@@ -9,8 +9,8 @@ import Calendar from 'gadgets/calendar/widget';
 /******************************************************************************/
 
 class Hinter extends Widget {
-  constructor (props) {
-    super (props);
+  constructor () {
+    super (...arguments);
   }
 
   renderRow (row, index) {

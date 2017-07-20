@@ -7,8 +7,8 @@ import FlyingBalloon from 'gadgets/flying-balloon/widget';
 /******************************************************************************/
 
 class TextField extends Widget {
-  constructor (props) {
-    super (props);
+  constructor () {
+    super (...arguments);
     this.onFieldFocus = this.onFieldFocus.bind (this);
   }
 

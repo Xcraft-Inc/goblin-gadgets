@@ -88,8 +88,8 @@ function clip (rect, box) {
 /******************************************************************************/
 
 class DragCarrier extends Widget {
-  constructor (props) {
-    super (props);
+  constructor () {
+    super (...arguments);
     this.state = {
       x: 0,
       y: 0,

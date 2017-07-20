@@ -6,8 +6,8 @@ import TableCell from 'gadgets/table-cell/widget';
 /******************************************************************************/
 
 class TableRow extends Widget {
-  constructor (props) {
-    super (props);
+  constructor () {
+    super (...arguments);
   }
 
   renderRowCell (rowId, width, grow, textAlign, isLast, text, index) {
