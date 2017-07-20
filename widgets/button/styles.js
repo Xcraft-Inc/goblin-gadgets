@@ -18,6 +18,7 @@ export default function styles (theme, props) {
   let boxAlignItems = 'center';
   let boxMargin = '0px';
   let boxPadding = '0px';
+  let boxPaddingRight = null;
   let boxZIndex = props.zIndex;
   let boxOpacity = props.visibility === 'false' ? 0 : null;
   let borderWidth = '1px';
@@ -570,10 +571,6 @@ export default function styles (theme, props) {
   if (props.kind === 'chronos-navigator') {
     boxMinHeight = boxHeight;
     boxMargin = '0px 0px 1px 0px';
-    if (props.subkind === 'with-badge') {
-      boxJustifyContent = 'flex-start';
-      textGrow = '1';
-    }
     borderRadius = theme.shapes.smoothRadius;
     if (props.active === 'true') {
       backgroundColor = props.activeColor
@@ -617,6 +614,10 @@ export default function styles (theme, props) {
         ? props.activeColor
         : theme.palette.boxActiveBackground;
     }
+  }
+
+  if (props.badgePush === 'true') {
+    boxPaddingRight = theme.shapes.badgeHeight;
   }
 
   if (props.shape) {
@@ -703,6 +704,7 @@ export default function styles (theme, props) {
     borderStyle: borderStyle,
     borderRadius: borderRadius,
     padding: boxPadding,
+    paddingRight: boxPaddingRight,
     margin: boxMargin,
     backgroundColor: backgroundColor,
     position: boxPosition,
