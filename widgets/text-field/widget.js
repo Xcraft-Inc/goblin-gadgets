@@ -136,17 +136,6 @@ class TextField extends Widget {
     } else {
       const fieldClass = this.styles.classNames.field + ' mousetrap';
 
-      const beforeChange = (model, value) => {
-        if (this.props.beforeChange) {
-          if (!value) {
-            actions.change (model, value);
-          }
-          const newValue = this.props.beforeChange (value);
-          return actions.change (model, newValue);
-        } else {
-          return actions.change (model, value);
-        }
-      };
       return (
         <Control.text
           id={model}
