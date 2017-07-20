@@ -293,11 +293,11 @@ class Recurrence extends Form {
       endDate: this.props.endDate,
     };
 
-    const Form = this.getForm (this.props.id, initialState);
+    const Form = this.Form;
 
     return (
       <div className={mainClass}>
-        <Form>
+        <Form {...this.formConfig}>
           {this.renderInfo (extended)}
           {this.renderEditor (extended)}
           {this.renderCalendar (extended)}
