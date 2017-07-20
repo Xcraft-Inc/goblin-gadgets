@@ -163,6 +163,7 @@ class WizardButton extends Form {
       display: 'flex',
       flexDirection: 'column',
       flexGrow: '1',
+      flexBasis: '0',
       marginBottom: this.context.theme.shapes.containerMargin,
       padding: this.context.theme.shapes.containerMargin,
       backgroundColor: this.context.theme.palette[this.color],
