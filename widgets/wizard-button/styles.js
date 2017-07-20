@@ -8,19 +8,12 @@ export default function styles (theme, props) {
   const panesStyle = {
     overflow: 'hidden',
     padding: '0px ' + m + ' 0px ' + m,
-  };
-
-  const soloStyle = {
     display: 'flex',
-    flexDirection: 'row',
-    transform: 'scale(3)',
-    transformOrigin: 'top left',
-    width: '33%',
-    height: '200px',
+    flexDirection: 'column',
+    flexGrow: '1',
   };
 
   return {
-    solo: soloStyle,
     panes: panesStyle,
   };
 }
