@@ -98,7 +98,7 @@ class TextField extends Widget {
           return this.props.defaultValue;
         }
 
-        return props.modelValue;
+        return props.viewValue;
       },
     };
 
