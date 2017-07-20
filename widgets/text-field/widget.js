@@ -84,6 +84,24 @@ class TextField extends Widget {
       options.readOnly = 'readOnly';
     }
 
+    const mapProps = {
+      value: props => {
+        if (this.props.displayValue) {
+          return this.props.displayValue;
+        }
+
+        if (this.props.getDisplayValue) {
+          return this.props.getDisplayValue (props.modelValue, props.viewValue);
+        }
+
+        if (this.props.defaultValue !== undefined) {
+          return this.props.defaultValue;
+        }
+
+        return props.modelValue;
+      },
+    };
+
     const beforeChange = (model, value) => {
       if (this.props.beforeChange) {
         const newValue = this.props.beforeChange (value);
@@ -102,26 +120,7 @@ class TextField extends Widget {
           getRef={node => (this.input = node)}
           parser={this.props.parser}
           errors={this.props.errors}
-          mapProps={{
-            value: props => {
-              if (this.props.displayValue) {
-                return this.props.displayValue;
-              }
-
-              if (this.props.getDisplayValue) {
-                return this.props.getDisplayValue (
-                  props.modelValue,
-                  props.viewValue
-                );
-              }
-
-              if (this.props.defaultValue) {
-                return this.props.defaultValue;
-              }
-
-              return props.modelValue;
-            },
-          }}
+          mapProps={mapProps}
           updateOn={this.props.updateOn ? this.props.updateOn : 'change'}
           model={model}
           onFocus={this.onFieldFocus}
@@ -155,26 +154,7 @@ class TextField extends Widget {
           getRef={node => (this.input = node)}
           parser={this.props.parser}
           errors={this.props.errors}
-          mapProps={{
-            value: props => {
-              if (this.props.displayValue) {
-                return this.props.displayValue;
-              }
-
-              if (this.props.getDisplayValue) {
-                return this.props.getDisplayValue (
-                  props.modelValue,
-                  props.viewValue
-                );
-              }
-
-              if (this.props.defaultValue) {
-                return this.props.defaultValue;
-              }
-
-              return props.modelValue;
-            },
-          }}
+          mapProps={mapProps}
           updateOn={this.props.updateOn ? this.props.updateOn : 'change'}
           model={model}
           onFocus={this.onFieldFocus}
