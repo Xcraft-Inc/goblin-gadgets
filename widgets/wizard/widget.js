@@ -210,6 +210,8 @@ class Wizard extends Form {
         return <Button key={index} {...props} />;
       case 'Label':
         return <Label key={index} {...props} />;
+      case 'TextField':
+        return <TextField key={index} model=".x" {...props} />;
       case 'LabelTextField':
         return <LabelTextField key={index} model=".x" {...props} />;
       case 'TextFieldCombo':

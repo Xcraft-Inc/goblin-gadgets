@@ -9,15 +9,21 @@ export default function styles (theme, props) {
   let marginRight = '0px';
   let opacity = props.visibility === 'false' ? 0 : null;
 
+  const m = Unit.multiply (theme.shapes.containerMargin, 0.5);
+
   if (flexGrow) {
     flexShrink = '1';
     flexBasis = '0%';
   }
 
-  if (props.spacing === 'overlap') {
-    marginRight = '-1px';
-  } else if (props.spacing === 'large') {
-    marginRight = theme.shapes.lineSpacing;
+  // Initialise right margin according to spacing.
+  if (props.spacing) {
+    let spacingType = {
+      overlap: '-1px',
+      tiny: '1px',
+      large: m,
+    };
+    marginRight = spacingType[props.spacing];
   }
 
   const boxStyle = {

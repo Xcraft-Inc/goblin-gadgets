@@ -36,10 +36,14 @@ export default function styles (theme, props) {
   let padding = '0px';
   let borderRadius = '0px';
 
-  if (props.spacing === 'overlap') {
-    marginRight = '-1px';
-  } else if (props.spacing === 'large') {
-    marginRight = m;
+  // Initialise right margin according to spacing.
+  if (props.spacing) {
+    let spacingType = {
+      overlap: '-1px',
+      tiny: '1px',
+      large: m,
+    };
+    marginRight = spacingType[props.spacing];
   }
 
   if (props.shape) {
@@ -48,16 +52,13 @@ export default function styles (theme, props) {
     borderRadius = r + ' 0px 0px ' + r;
     if (props.shape === 'rounded') {
       borderRadius = r;
-      padding = r + ' 0px 0px ' + r;
+      padding = '0px ' + r;
     } else if (props.shape === 'left-rounded') {
       borderRadius = r + ' 0px 0px ' + r;
       padding = '0px 0px 0px ' + r;
     } else if (props.shape === 'right-rounded') {
       borderRadius = '0px ' + r + ' ' + r + ' 0px';
       padding = '0px ' + r + ' 0px 0px';
-    } else if (props.shape === 'smooth') {
-      borderRadius = s;
-      padding = s + ' 0px 0px ' + s;
     } else if (props.shape === 'left-smooth') {
       borderRadius = s + ' 0px 0px ' + s;
       padding = '0px 0px 0px ' + s;

@@ -646,8 +646,6 @@ export default function styles (theme, props) {
       borderRadius = r + ' 0px 0px ' + r;
     } else if (props.shape === 'right-rounded') {
       borderRadius = '0px ' + r + ' ' + r + ' 0px';
-    } else if (props.shape === 'smooth') {
-      borderRadius = s;
     } else if (props.shape === 'left-smooth') {
       borderRadius = s + ' 0px 0px ' + s;
     } else if (props.shape === 'right-smooth') {
