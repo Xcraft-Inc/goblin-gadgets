@@ -37,9 +37,10 @@ class Wizard extends Form {
   constructor () {
     super (...arguments);
     this.wizard = 'Button';
-    this.scale = 3;
+    this.scale = 2;
     this.color = 'paneBackground';
     this.items = 1;
+    this.layout = 'row';
     this.showFrame = false;
   }
 
@@ -274,9 +275,26 @@ class Wizard extends Form {
       transition: this.context.theme.transitions.easeOut (),
     };
 
+    let direction, wrap;
+    switch (this.layout) {
+      case 'row':
+        direction = 'row';
+        wrap = 'nowrap';
+        break;
+      case 'column':
+        direction = 'column';
+        wrap = 'nowrap';
+        break;
+      case 'wrap':
+        direction = 'row';
+        wrap = 'wrap';
+        break;
+    }
+
     const soloStyle = {
       display: 'flex',
-      flexDirection: 'row',
+      flexDirection: direction,
+      flexWrap: wrap,
       transform: `scale(${this.scale})`,
       transformOrigin: 'top left',
       width: `${100 / this.scale}%`,
@@ -438,6 +456,68 @@ class Wizard extends Form {
             this.forceUpdate ();
           }}
         />
+        <CheckButton
+          text="5"
+          kind="active"
+          checked={this.items === 5 ? 'true' : 'false'}
+          onClick={() => {
+            this.items = 5;
+            this.forceUpdate ();
+          }}
+        />
+        <CheckButton
+          text="10"
+          kind="active"
+          checked={this.items === 10 ? 'true' : 'false'}
+          onClick={() => {
+            this.items = 10;
+            this.forceUpdate ();
+          }}
+        />
+        <CheckButton
+          text="11"
+          kind="active"
+          checked={this.items === 11 ? 'true' : 'false'}
+          onClick={() => {
+            this.items = 11;
+            this.forceUpdate ();
+          }}
+        />
+      </Container>
+    );
+  }
+
+  renderPreviewLayout () {
+    return (
+      <Container kind="row-pane" subkind="left">
+        <Label text="Layout" width="80px" />
+        <CheckButton
+          text="row"
+          kind="active"
+          checked={this.layout === 'row' ? 'true' : 'false'}
+          onClick={() => {
+            this.layout = 'row';
+            this.forceUpdate ();
+          }}
+        />
+        <CheckButton
+          text="column"
+          kind="active"
+          checked={this.layout === 'column' ? 'true' : 'false'}
+          onClick={() => {
+            this.layout = 'column';
+            this.forceUpdate ();
+          }}
+        />
+        <CheckButton
+          text="wrap"
+          kind="active"
+          checked={this.layout === 'wrap' ? 'true' : 'false'}
+          onClick={() => {
+            this.layout = 'wrap';
+            this.forceUpdate ();
+          }}
+        />
       </Container>
     );
   }
@@ -476,6 +556,7 @@ class Wizard extends Form {
               {this.renderPreviewScale ()}
               {this.renderPreviewColor ()}
               {this.renderPreviewItems ()}
+              {this.renderPreviewLayout ()}
               {this.renderPreviewFrame ()}
             </Container>
             {this.renderPreviewSolo ()}

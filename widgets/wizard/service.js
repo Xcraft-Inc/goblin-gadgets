@@ -778,7 +778,7 @@ const params = {
       type: 'text',
       field: 'grow',
       list: ['', '0.5', '1'],
-      value: '',
+      value: '1',
     },
     spacing: {
       id: 'spacing',
@@ -952,7 +952,7 @@ const params = {
       type: 'text',
       field: 'grow',
       list: ['', '0.5', '1'],
-      value: '',
+      value: '1',
     },
     spacing: {
       id: 'spacing',
