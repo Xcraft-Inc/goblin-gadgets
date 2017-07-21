@@ -7,6 +7,7 @@ export default function styles (theme, props) {
   let flexShrink = null;
   let flexBasis = null;
   let marginRight = null;
+  let opacity = props.visibility === 'false' ? 0 : null;
 
   const m = Unit.multiply (theme.shapes.containerMargin, 0.5);
 
@@ -41,6 +42,7 @@ export default function styles (theme, props) {
     marginLeft: '0px',
     marginBottom: '0px',
     marginRight: marginRight,
+    opacity: opacity,
   };
 
   return {
