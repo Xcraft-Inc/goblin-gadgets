@@ -11,6 +11,7 @@ const logicState = {};
 const params = {
   Button: {
     id: 'Button',
+    order: 0,
     kind: {
       id: 'kind',
       order: 0,
@@ -364,6 +365,7 @@ const params = {
   },
   Label: {
     id: 'Label',
+    order: 1,
     kind: {
       id: 'kind',
       order: 0,
@@ -661,6 +663,7 @@ const params = {
   },
   LabelTextField: {
     id: 'LabelTextField',
+    order: 2,
     disabled: {
       id: 'disabled',
       order: 0,
@@ -688,8 +691,8 @@ const params = {
       order: 3,
       type: 'text',
       field: 'labelText',
-      list: ['', 'LabelTextField'],
-      value: 'Label',
+      list: ['', 'Label', 'Nom', 'Prénom', 'Adresse', 'Ville'],
+      value: '',
     },
     labelGlyph: {
       id: 'labelGlyph',
@@ -697,7 +700,7 @@ const params = {
       type: 'text',
       field: 'labelGlyph',
       list: ['', 'check', 'close', 'bicycle', 'car', 'rocket', 'calendar'],
-      value: '',
+      value: 'car',
     },
     shape: {
       id: 'shape',
@@ -826,6 +829,7 @@ const params = {
   },
   TextFieldCombo: {
     id: 'TextFieldCombo',
+    order: 3,
     disabled: {
       id: 'disabled',
       order: 0,

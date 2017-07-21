@@ -70,11 +70,40 @@ class Wizard extends Form {
     return result;
   }
 
+  renderMenuItem (wizard, index) {
+    return (
+      <Button
+        key={index}
+        text={wizard}
+        kind="menu-item"
+        glyph={this.wizard === wizard ? 'chevron-right' : 'none'}
+        glyphPosition="right"
+        justify="between"
+        textTransform="none"
+        onClick={() => {
+          this.wizard = wizard;
+          this.forceUpdate ();
+        }}
+      />
+    );
+  }
+
+  renderMenuItems () {
+    const wizards = this.shred (this.props.params);
+    let index = 0;
+    return wizards.linq
+      .orderBy (wizard => wizard.get ('order'))
+      .select (wizard => {
+        return this.renderMenuItem (wizard.get ('id'), index++);
+      })
+      .toList ();
+  }
+
   renderMenu () {
     return (
       <Container
         kind="view"
-        width="300px"
+        width="270px"
         spacing="large"
         backgroundColor={this.context.theme.palette.footerBackground}
       >
@@ -82,54 +111,7 @@ class Wizard extends Form {
           <Label text="Widget" kind="pane-header" />
         </Container>
         <Container kind="panes">
-          <Button
-            text="Button"
-            kind="menu-item"
-            glyph={this.wizard === 'Button' ? 'chevron-right' : 'none'}
-            glyphPosition="right"
-            justify="between"
-            textTransform="none"
-            onClick={() => {
-              this.wizard = 'Button';
-              this.forceUpdate ();
-            }}
-          />
-          <Button
-            text="Label"
-            kind="menu-item"
-            glyph={this.wizard === 'Label' ? 'chevron-right' : 'none'}
-            glyphPosition="right"
-            justify="between"
-            textTransform="none"
-            onClick={() => {
-              this.wizard = 'Label';
-              this.forceUpdate ();
-            }}
-          />
-          <Button
-            text="LabelTextField"
-            kind="menu-item"
-            glyph={this.wizard === 'LabelTextField' ? 'chevron-right' : 'none'}
-            glyphPosition="right"
-            justify="between"
-            textTransform="none"
-            onClick={() => {
-              this.wizard = 'LabelTextField';
-              this.forceUpdate ();
-            }}
-          />
-          <Button
-            text="TextFieldCombo"
-            kind="menu-item"
-            glyph={this.wizard === 'TextFieldCombo' ? 'chevron-right' : 'none'}
-            glyphPosition="right"
-            justify="between"
-            textTransform="none"
-            onClick={() => {
-              this.wizard = 'TextFieldCombo';
-              this.forceUpdate ();
-            }}
-          />
+          {this.renderMenuItems ()}
         </Container>
       </Container>
     );
