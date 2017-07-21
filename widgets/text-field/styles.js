@@ -7,6 +7,7 @@ export default function styles (theme, props) {
   let flexShrink = null;
   let flexBasis = null;
   let width = props.width;
+  let opacity = props.visibility === 'false' ? 0 : null;
 
   const m = Unit.multiply (theme.shapes.containerMargin, 0.5);
 
@@ -95,6 +96,7 @@ export default function styles (theme, props) {
     marginBottom: '0px',
     marginLeft: marginLeft,
     position: 'relative',
+    opacity: opacity,
   };
 
   const fieldStyle = {

@@ -7,6 +7,7 @@ export default function styles (theme, props) {
   let flexShrink = null;
   let flexBasis = null;
   let marginRight = '0px';
+  let opacity = props.visibility === 'false' ? 0 : null;
 
   if (flexGrow) {
     flexShrink = '1';
@@ -34,6 +35,7 @@ export default function styles (theme, props) {
     marginBottom: '0px',
     marginRight: marginRight,
     position: 'relative',
+    opacity: opacity,
   };
 
   const comboBoxStyle = {

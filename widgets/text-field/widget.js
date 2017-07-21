@@ -199,6 +199,10 @@ class TextField extends Widget {
   }
 
   render () {
+    if (this.props.show === 'false') {
+      return null;
+    }
+
     const disabled = this.props.disabled;
     const tooltip = this.props.tooltip;
 

@@ -137,6 +137,7 @@ class TextFieldCombo extends Widget {
       readonly: visibleReadonly,
       selectAllOnFocus: selectAllOnFocus,
       defaultFocus: defaultFocus,
+      visibility: this.props.visibility,
     };
 
     if (displayValue) {
@@ -208,6 +209,10 @@ class TextFieldCombo extends Widget {
   }
 
   render () {
+    if (this.props.show === 'false') {
+      return null;
+    }
+
     const disabled = this.props.disabled;
     const boxClass = this.styles.classNames.box;
 

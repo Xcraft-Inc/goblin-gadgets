@@ -70,6 +70,10 @@ class Wizard extends Form {
     return result;
   }
 
+  /******************************************************************************/
+  // First column WIDGET
+  /******************************************************************************/
+
   renderMenuItem (wizard, index) {
     return (
       <Button
@@ -103,7 +107,6 @@ class Wizard extends Form {
     return (
       <Container
         kind="view"
-        width="270px"
         spacing="large"
         backgroundColor={this.context.theme.palette.footerBackground}
       >
@@ -116,6 +119,10 @@ class Wizard extends Form {
       </Container>
     );
   }
+
+  /******************************************************************************/
+  // Second column PROPERTIES
+  /******************************************************************************/
 
   renderParam (param, index) {
     const type = param.get ('type');
@@ -192,6 +199,10 @@ class Wizard extends Form {
       </Container>
     );
   }
+
+  /******************************************************************************/
+  // Last column PREVIEW
+  /******************************************************************************/
 
   renderWidgetBase (index, props) {
     switch (this.wizard) {
@@ -292,6 +303,10 @@ class Wizard extends Form {
     );
   }
 
+  /******************************************************************************/
+  // Panel with switches in column WIDGET
+  /******************************************************************************/
+
   renderSwitch (text, value, getter, setter) {
     return (
       <CheckButton
@@ -306,7 +321,7 @@ class Wizard extends Form {
     );
   }
 
-  renderPreviewScale () {
+  renderScaleSwitches () {
     return (
       <Container kind="row-pane" subkind="left">
         <Label text="Scale" width="80px" />
@@ -344,7 +359,7 @@ class Wizard extends Form {
     );
   }
 
-  renderPreviewColor () {
+  renderColorSwitches () {
     return (
       <Container kind="row-pane" subkind="left">
         <Label text="Color" width="80px" />
@@ -382,7 +397,7 @@ class Wizard extends Form {
     );
   }
 
-  renderPreviewItems () {
+  renderItemsSwitches () {
     return (
       <Container kind="row-pane" subkind="left">
         <Label text="Items" width="80px" />
@@ -432,7 +447,7 @@ class Wizard extends Form {
     );
   }
 
-  renderPreviewLayout () {
+  renderLayoutSwitches () {
     return (
       <Container kind="row-pane" subkind="left">
         <Label text="Layout" width="80px" />
@@ -458,7 +473,7 @@ class Wizard extends Form {
     );
   }
 
-  renderPreviewFrame () {
+  renderFrameSwitch () {
     return (
       <Container kind="row-pane" subkind="left">
         <Label text="Frame" width="80px" />
@@ -473,6 +488,10 @@ class Wizard extends Form {
       </Container>
     );
   }
+
+  /******************************************************************************/
+  // Main
+  /******************************************************************************/
 
   renderPreview () {
     const classPanes = this.styles.classNames.panes;
@@ -489,11 +508,11 @@ class Wizard extends Form {
               </Container>
             </Container>
             <Container kind="pane">
-              {this.renderPreviewScale ()}
-              {this.renderPreviewColor ()}
-              {this.renderPreviewItems ()}
-              {this.renderPreviewLayout ()}
-              {this.renderPreviewFrame ()}
+              {this.renderScaleSwitches ()}
+              {this.renderColorSwitches ()}
+              {this.renderItemsSwitches ()}
+              {this.renderLayoutSwitches ()}
+              {this.renderFrameSwitch ()}
             </Container>
             {this.renderPreviewSolo ()}
           </div>
