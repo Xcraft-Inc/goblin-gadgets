@@ -39,6 +39,7 @@ class WizardButton extends Form {
     this.scale = 3;
     this.color = 'paneBackground';
     this.items = 1;
+    this.showFrame = false;
   }
 
   static get wiring () {
@@ -147,7 +148,16 @@ class WizardButton extends Form {
       props[field] = value;
     });
 
-    return <Button key={index} {...props} />;
+    if (this.showFrame) {
+      const frameClass = this.styles.classNames.frame;
+      return (
+        <div className={frameClass}>
+          <Button key={index} {...props} />
+        </div>
+      );
+    } else {
+      return <Button key={index} {...props} />;
+    }
   }
 
   renderWidgets () {
@@ -338,6 +348,22 @@ class WizardButton extends Form {
     );
   }
 
+  renderPreviewFrame () {
+    return (
+      <Container kind="row-pane" subkind="left">
+        <Label text="Frame" width="80px" />
+        <CheckButton
+          kind="switch"
+          checked={this.showFrame ? 'true' : 'false'}
+          onClick={() => {
+            this.showFrame = !this.showFrame;
+            this.forceUpdate ();
+          }}
+        />
+      </Container>
+    );
+  }
+
   renderPreview () {
     const classPanes = this.styles.classNames.panes;
     return (
@@ -356,6 +382,7 @@ class WizardButton extends Form {
               {this.renderPreviewScale ()}
               {this.renderPreviewColor ()}
               {this.renderPreviewItems ()}
+              {this.renderPreviewFrame ()}
             </Container>
             {this.renderPreviewSolo ()}
           </div>

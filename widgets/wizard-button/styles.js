@@ -13,8 +13,13 @@ export default function styles (theme, props) {
     flexGrow: '1',
   };
 
+  const frameStyle = {
+    border: '1px solid #f00',
+  };
+
   return {
     panes: panesStyle,
+    frame: frameStyle,
   };
 }
 
