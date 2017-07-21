@@ -400,9 +400,9 @@ class WizardButton extends Form {
 
     return (
       <Container kind="views">
-        {::this.renderParamsColumn ()}
+        {this.renderParamsColumn ()}
         <Splitter kind="vertical" firstSize="600px">
-          {::this.renderPreview ()}
+          {this.renderPreview ()}
           <Container kind="row" />
         </Splitter>
       </Container>
