@@ -151,9 +151,9 @@ class Label extends Widget {
   }
 
   renderGlyph (index, glyph) {
-    const rotate = this.props.rotate;
-    const flip = this.props.flip;
-    const spin = this.props.spin;
+    const rotate = this.props.glyphRotate;
+    const flip = this.props.glyphFlip;
+    const spin = this.props.glyphSpin;
 
     const glyphClass = this.styles.classNames.glyph;
 
@@ -188,6 +188,10 @@ class Label extends Widget {
   }
 
   render () {
+    if (this.props.show === 'false') {
+      return null;
+    }
+
     const disabled = this.props.disabled;
     const index = this.props.index;
     const tooltip = this.props.tooltip;

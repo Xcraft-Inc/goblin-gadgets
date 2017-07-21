@@ -7,7 +7,7 @@ export default function styles (theme, props) {
   let boxWidth = props.width;
   let boxHeight = props.height;
   let textHeight = null;
-  let backgroundColor = null;
+  let backgroundColor = props.backgroundColor;
   let padding = null;
   let margin = null;
   let fontSize = props.fontSize ? props.fontSize : theme.shapes.labelTextSize;
@@ -32,6 +32,10 @@ export default function styles (theme, props) {
   let cursor = props.cursor;
 
   const m = Unit.multiply (theme.shapes.containerMargin, 0.5);
+
+  if (props.visibility === 'false') {
+    opacity = 0;
+  }
 
   // Initialise bottom margin according to bottom-spacing.
   let bottomMargin = '0px';
@@ -100,14 +104,16 @@ export default function styles (theme, props) {
 
   if (props.justify === 'left') {
     boxJustifyContent = 'flex-start';
-  }
-
-  if (props.justify === 'center') {
+  } else if (props.justify === 'center') {
     boxJustifyContent = 'center';
-  }
-
-  if (props.justify === 'right') {
+  } else if (props.justify === 'right') {
     boxJustifyContent = 'flex-end';
+  } else if (props.justify === 'around') {
+    boxJustifyContent = 'space-around';
+  } else if (props.justify === 'between') {
+    boxJustifyContent = 'space-between';
+  } else if (props.justify) {
+    boxJustifyContent = props.justify;
   }
 
   if (props.kind === 'footer') {
