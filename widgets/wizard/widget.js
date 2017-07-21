@@ -33,9 +33,10 @@ function getValue (param) {
   return value;
 }
 
-class WizardLabel extends Form {
+class Wizard extends Form {
   constructor () {
     super (...arguments);
+    this.wizard = 'Button';
     this.scale = 3;
     this.color = 'paneBackground';
     this.items = 1;
@@ -49,10 +50,15 @@ class WizardLabel extends Form {
     };
   }
 
+  get params () {
+    return this.shred (this.props.params.get (this.wizard)).linq.where (
+      param => param.size > 0
+    );
+  }
+
   getCode () {
-    var result = '<Label ';
-    const params = this.shred (this.props.params);
-    params.linq.orderBy (param => param.get ('order')).select (param => {
+    var result = `<${this.wizard} `;
+    this.params.orderBy (param => param.get ('order')).select (param => {
       const field = param.get ('field');
       const value = getValue (param);
       if (value !== '') {
@@ -63,12 +69,77 @@ class WizardLabel extends Form {
     return result;
   }
 
+  renderMenu () {
+    return (
+      <Container
+        kind="view"
+        width="300px"
+        spacing="large"
+        backgroundColor={this.context.theme.palette.footerBackground}
+      >
+        <Container kind="pane-header">
+          <Label text="Widget" kind="pane-header" />
+        </Container>
+        <Container kind="panes">
+          <Button
+            text="Button"
+            kind="menu-item"
+            glyph={this.wizard === 'Button' ? 'chevron-right' : 'none'}
+            glyphPosition="right"
+            justify="between"
+            textTransform="none"
+            onClick={() => {
+              this.wizard = 'Button';
+              this.forceUpdate ();
+            }}
+          />
+          <Button
+            text="Label"
+            kind="menu-item"
+            glyph={this.wizard === 'Label' ? 'chevron-right' : 'none'}
+            glyphPosition="right"
+            justify="between"
+            textTransform="none"
+            onClick={() => {
+              this.wizard = 'Label';
+              this.forceUpdate ();
+            }}
+          />
+          <Button
+            text="LabelTextField"
+            kind="menu-item"
+            glyph={this.wizard === 'LabelTextField' ? 'chevron-right' : 'none'}
+            glyphPosition="right"
+            justify="between"
+            textTransform="none"
+            onClick={() => {
+              this.wizard = 'LabelTextField';
+              this.forceUpdate ();
+            }}
+          />
+          <Button
+            text="TextFieldCombo"
+            kind="menu-item"
+            glyph={this.wizard === 'TextFieldCombo' ? 'chevron-right' : 'none'}
+            glyphPosition="right"
+            justify="between"
+            textTransform="none"
+            onClick={() => {
+              this.wizard = 'TextFieldCombo';
+              this.forceUpdate ();
+            }}
+          />
+        </Container>
+      </Container>
+    );
+  }
+
   renderParam (param, index) {
     const type = param.get ('type');
     const field = param.get ('field');
     const list = param.get ('list');
     const value = getValue (param);
-    const model = `.${field}`;
+    const model = `.${this.wizard}.${field}`;
     if (type === 'combo' || (type === 'text' && list)) {
       return (
         <Container kind="row-pane" key={index}>
@@ -113,8 +184,7 @@ class WizardLabel extends Form {
 
   renderParams () {
     let index = 0;
-    const params = this.shred (this.props.params);
-    return params.linq
+    return this.params
       .orderBy (param => param.get ('order'))
       .select (param => {
         return this.renderParam (param, index++);
@@ -140,10 +210,33 @@ class WizardLabel extends Form {
     );
   }
 
+  renderWidgetBase (index, props) {
+    switch (this.wizard) {
+      case 'Button':
+        return <Button key={index} {...props} />;
+      case 'Label':
+        return <Label key={index} {...props} />;
+      case 'LabelTextField':
+        return <LabelTextField key={index} model=".x" {...props} />;
+      case 'TextFieldCombo':
+        const list = [
+          'Lundi',
+          'Mardi',
+          'Mercredi',
+          'Jeudi',
+          'Vendredi',
+          'Samedi',
+          'Dimanche',
+        ];
+        return <TextFieldCombo key={index} model=".x" list={list} {...props} />;
+      default:
+        return null;
+    }
+  }
+
   renderWidget (index) {
     const props = {};
-    const params = this.shred (this.props.params);
-    const param = params.linq.select (param => {
+    const param = this.params.select (param => {
       const field = param.get ('field');
       const value = getValue (param);
       props[field] = value;
@@ -153,11 +246,11 @@ class WizardLabel extends Form {
       const frameClass = this.styles.classNames.frame;
       return (
         <div className={frameClass}>
-          <Label key={index} {...props} />
+          {this.renderWidgetBase (index, props)}
         </div>
       );
     } else {
-      return <Label key={index} {...props} />;
+      return this.renderWidgetBase (index, props);
     }
   }
 
@@ -400,6 +493,7 @@ class WizardLabel extends Form {
 
     return (
       <Container kind="views">
+        {::this.renderMenu ()}
         {::this.renderParamsColumn ()}
         <Splitter kind="vertical" firstSize="600px">
           {::this.renderPreview ()}
@@ -410,4 +504,4 @@ class WizardLabel extends Form {
   }
 }
 
-export default WizardLabel;
+export default Wizard;
