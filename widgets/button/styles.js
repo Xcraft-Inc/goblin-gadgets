@@ -29,9 +29,7 @@ export default function styles (theme, props) {
   let boxFlexGrow = props.grow;
   let boxFlexShrink = null;
   let boxFlexBasis = null;
-  let boxJustifyContent = props.justify
-    ? convertJustify (props.justify)
-    : 'center';
+  let boxJustifyContent = convertJustify (props.justify);
   let boxAlignItems = 'center';
   let boxMarginTop = '0px';
   let boxMarginRight = '0px';
@@ -97,7 +95,7 @@ export default function styles (theme, props) {
   }
 
   if (props.kind === 'label') {
-    boxJustifyContent = null;
+    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'none';
     boxHeight = null;
     backgroundColor = theme.palette.labelButtonBackground;
     actif = false;
@@ -211,7 +209,7 @@ export default function styles (theme, props) {
   // task-tab button (usual parent is container with kind='task-bar').
   if (props.kind === 'task-tab') {
     boxHeight = theme.shapes.taskTabHeight;
-    boxJustifyContent = 'flex-start';
+    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     if (props.active === 'true') {
       backgroundColor = props.activeColor
         ? props.activeColor
@@ -368,7 +366,7 @@ export default function styles (theme, props) {
     boxHeight = theme.shapes.actionHeight;
     boxPaddingLeft = h;
     borderStyle = 'none';
-    boxJustifyContent = null;
+    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'none';
     backgroundColor = theme.palette.actionButtonBackground;
     textSize = theme.shapes.actionTextSize;
     glyphSize = theme.shapes.actionGlyphSize;
@@ -457,7 +455,7 @@ export default function styles (theme, props) {
       theme.shapes.containerMargin +
       ' 0px ' +
       theme.shapes.containerMargin;
-    boxJustifyContent = 'flex-start';
+    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     textSize = theme.shapes.menuTextSize;
     textTransform = 'uppercase';
     textWeight = 'bold';
@@ -487,7 +485,7 @@ export default function styles (theme, props) {
     boxHeight = theme.shapes.menuButtonHeight;
     boxMarginRight = theme.shapes.glyphsDialogButtonMargin;
     boxMarginBottom = theme.shapes.glyphsDialogButtonMargin;
-    boxJustifyContent = 'flex-start';
+    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     glyphSize = '120%';
     if (props.active === 'true') {
       backgroundColor = props.activeColor
@@ -499,7 +497,7 @@ export default function styles (theme, props) {
   if (props.kind === 'tray-title') {
     boxHeight = Unit.add (theme.shapes.lineHeight, '2px'); // same as TextField with 2px for borders
     borderStyle = 'none';
-    boxJustifyContent = 'flex-start';
+    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     textColor = theme.palette.ticketGlueTitle;
     textWeight = 'bold';
     textSize = theme.shapes.ticketGlueTitleSize;
@@ -557,7 +555,7 @@ export default function styles (theme, props) {
 
   if (props.kind === 'container-start') {
     boxHeight = null;
-    boxJustifyContent = 'flex-start';
+    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     boxAlignItems = 'stretch';
     borderStyle = 'none';
     boxPaddingTop = Unit.multiply (theme.shapes.lineSpacing, 0.5);
@@ -700,6 +698,13 @@ export default function styles (theme, props) {
   if (boxFlexGrow) {
     boxFlexShrink = '1';
     boxFlexBasis = '0%';
+  }
+
+  if (!boxJustifyContent) {
+    boxJustifyContent = 'center';
+  }
+  if (boxJustifyContent === 'none') {
+    boxJustifyContent = null;
   }
 
   const boxStyle = {
