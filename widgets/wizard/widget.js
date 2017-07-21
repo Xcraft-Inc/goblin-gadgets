@@ -292,55 +292,54 @@ class Wizard extends Form {
     );
   }
 
+  renderSwitch (text, value, getter, setter) {
+    return (
+      <CheckButton
+        text={text}
+        kind="active"
+        checked={getter () === value ? 'true' : 'false'}
+        onClick={() => {
+          setter (value);
+          this.forceUpdate ();
+        }}
+      />
+    );
+  }
+
   renderPreviewScale () {
     return (
       <Container kind="row-pane" subkind="left">
         <Label text="Scale" width="80px" />
-        <CheckButton
-          text="×1"
-          kind="active"
-          checked={this.scale === 1 ? 'true' : 'false'}
-          onClick={() => {
-            this.scale = 1;
-            this.forceUpdate ();
-          }}
-        />
-        <CheckButton
-          text="×1.5"
-          kind="active"
-          checked={this.scale === 1.5 ? 'true' : 'false'}
-          onClick={() => {
-            this.scale = 1.5;
-            this.forceUpdate ();
-          }}
-        />
-        <CheckButton
-          text="×2"
-          kind="active"
-          checked={this.scale === 2 ? 'true' : 'false'}
-          onClick={() => {
-            this.scale = 2;
-            this.forceUpdate ();
-          }}
-        />
-        <CheckButton
-          text="×3"
-          kind="active"
-          checked={this.scale === 3 ? 'true' : 'false'}
-          onClick={() => {
-            this.scale = 3;
-            this.forceUpdate ();
-          }}
-        />
-        <CheckButton
-          text="×4"
-          kind="active"
-          checked={this.scale === 4 ? 'true' : 'false'}
-          onClick={() => {
-            this.scale = 4;
-            this.forceUpdate ();
-          }}
-        />
+        {this.renderSwitch (
+          '×1',
+          1,
+          () => this.scale,
+          value => (this.scale = value)
+        )}
+        {this.renderSwitch (
+          '×1.5',
+          1.5,
+          () => this.scale,
+          value => (this.scale = value)
+        )}
+        {this.renderSwitch (
+          '×2',
+          2,
+          () => this.scale,
+          value => (this.scale = value)
+        )}
+        {this.renderSwitch (
+          '×3',
+          3,
+          () => this.scale,
+          value => (this.scale = value)
+        )}
+        {this.renderSwitch (
+          '×4',
+          4,
+          () => this.scale,
+          value => (this.scale = value)
+        )}
       </Container>
     );
   }
@@ -349,51 +348,36 @@ class Wizard extends Form {
     return (
       <Container kind="row-pane" subkind="left">
         <Label text="Color" width="80px" />
-        <CheckButton
-          text="pane"
-          kind="active"
-          checked={this.color === 'paneBackground' ? 'true' : 'false'}
-          onClick={() => {
-            this.color = 'paneBackground';
-            this.forceUpdate ();
-          }}
-        />
-        <CheckButton
-          text="view"
-          kind="active"
-          checked={this.color === 'viewBackground' ? 'true' : 'false'}
-          onClick={() => {
-            this.color = 'viewBackground';
-            this.forceUpdate ();
-          }}
-        />
-        <CheckButton
-          text="task"
-          kind="active"
-          checked={this.color === 'taskBackground' ? 'true' : 'false'}
-          onClick={() => {
-            this.color = 'taskBackground';
-            this.forceUpdate ();
-          }}
-        />
-        <CheckButton
-          text="root"
-          kind="active"
-          checked={this.color === 'rootBackground' ? 'true' : 'false'}
-          onClick={() => {
-            this.color = 'rootBackground';
-            this.forceUpdate ();
-          }}
-        />
-        <CheckButton
-          text="footer"
-          kind="active"
-          checked={this.color === 'footerBackground' ? 'true' : 'false'}
-          onClick={() => {
-            this.color = 'footerBackground';
-            this.forceUpdate ();
-          }}
-        />
+        {this.renderSwitch (
+          'pane',
+          'paneBackground',
+          () => this.color,
+          value => (this.color = value)
+        )}
+        {this.renderSwitch (
+          'view',
+          'viewBackground',
+          () => this.color,
+          value => (this.color = value)
+        )}
+        {this.renderSwitch (
+          'task',
+          'taskBackground',
+          () => this.color,
+          value => (this.color = value)
+        )}
+        {this.renderSwitch (
+          'root',
+          'rootBackground',
+          () => this.color,
+          value => (this.color = value)
+        )}
+        {this.renderSwitch (
+          'footer',
+          'footerBackground',
+          () => this.color,
+          value => (this.color = value)
+        )}
       </Container>
     );
   }
@@ -402,69 +386,48 @@ class Wizard extends Form {
     return (
       <Container kind="row-pane" subkind="left">
         <Label text="Items" width="80px" />
-        <CheckButton
-          text="1"
-          kind="active"
-          checked={this.items === 1 ? 'true' : 'false'}
-          onClick={() => {
-            this.items = 1;
-            this.forceUpdate ();
-          }}
-        />
-        <CheckButton
-          text="2"
-          kind="active"
-          checked={this.items === 2 ? 'true' : 'false'}
-          onClick={() => {
-            this.items = 2;
-            this.forceUpdate ();
-          }}
-        />
-        <CheckButton
-          text="3"
-          kind="active"
-          checked={this.items === 3 ? 'true' : 'false'}
-          onClick={() => {
-            this.items = 3;
-            this.forceUpdate ();
-          }}
-        />
-        <CheckButton
-          text="4"
-          kind="active"
-          checked={this.items === 4 ? 'true' : 'false'}
-          onClick={() => {
-            this.items = 4;
-            this.forceUpdate ();
-          }}
-        />
-        <CheckButton
-          text="5"
-          kind="active"
-          checked={this.items === 5 ? 'true' : 'false'}
-          onClick={() => {
-            this.items = 5;
-            this.forceUpdate ();
-          }}
-        />
-        <CheckButton
-          text="10"
-          kind="active"
-          checked={this.items === 10 ? 'true' : 'false'}
-          onClick={() => {
-            this.items = 10;
-            this.forceUpdate ();
-          }}
-        />
-        <CheckButton
-          text="11"
-          kind="active"
-          checked={this.items === 11 ? 'true' : 'false'}
-          onClick={() => {
-            this.items = 11;
-            this.forceUpdate ();
-          }}
-        />
+        {this.renderSwitch (
+          '1',
+          1,
+          () => this.items,
+          value => (this.items = value)
+        )}
+        {this.renderSwitch (
+          '2',
+          2,
+          () => this.items,
+          value => (this.items = value)
+        )}
+        {this.renderSwitch (
+          '3',
+          3,
+          () => this.items,
+          value => (this.items = value)
+        )}
+        {this.renderSwitch (
+          '4',
+          4,
+          () => this.items,
+          value => (this.items = value)
+        )}
+        {this.renderSwitch (
+          '5',
+          5,
+          () => this.items,
+          value => (this.items = value)
+        )}
+        {this.renderSwitch (
+          '10',
+          10,
+          () => this.items,
+          value => (this.items = value)
+        )}
+        {this.renderSwitch (
+          '11',
+          11,
+          () => this.items,
+          value => (this.items = value)
+        )}
       </Container>
     );
   }
@@ -473,33 +436,24 @@ class Wizard extends Form {
     return (
       <Container kind="row-pane" subkind="left">
         <Label text="Layout" width="80px" />
-        <CheckButton
-          text="row"
-          kind="active"
-          checked={this.layout === 'row' ? 'true' : 'false'}
-          onClick={() => {
-            this.layout = 'row';
-            this.forceUpdate ();
-          }}
-        />
-        <CheckButton
-          text="column"
-          kind="active"
-          checked={this.layout === 'column' ? 'true' : 'false'}
-          onClick={() => {
-            this.layout = 'column';
-            this.forceUpdate ();
-          }}
-        />
-        <CheckButton
-          text="wrap"
-          kind="active"
-          checked={this.layout === 'wrap' ? 'true' : 'false'}
-          onClick={() => {
-            this.layout = 'wrap';
-            this.forceUpdate ();
-          }}
-        />
+        {this.renderSwitch (
+          'row',
+          'row',
+          () => this.layout,
+          value => (this.layout = value)
+        )}
+        {this.renderSwitch (
+          'column',
+          'column',
+          () => this.layout,
+          value => (this.layout = value)
+        )}
+        {this.renderSwitch (
+          'wrap',
+          'wrap',
+          () => this.layout,
+          value => (this.layout = value)
+        )}
       </Container>
     );
   }
