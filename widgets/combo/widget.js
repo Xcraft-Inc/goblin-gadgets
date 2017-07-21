@@ -115,6 +115,7 @@ class Combo extends Widget {
           glyphColor={color}
           text={item.text}
           shortcut={item.shortcut}
+          textTransform="none"
           active={active}
           mouseUp={() => ::this.onActionAndClose (item)}
         />

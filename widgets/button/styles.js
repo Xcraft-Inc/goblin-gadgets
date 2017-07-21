@@ -115,7 +115,7 @@ export default function styles (theme, props) {
       backgroundColor = theme.palette.taskLogoBackground;
     }
     textMargin = '0px';
-    textTransform = props.textTransform ? props.textTransform : 'uppercase';
+    textTransform = textTransform ? textTransform : 'uppercase';
     textWeight = 'bold';
     textSize = theme.shapes.taskLogoTextSize;
     glyphSize = theme.shapes.taskLogoGlyphSize;
@@ -138,7 +138,7 @@ export default function styles (theme, props) {
     boxHeight = theme.shapes.mainTabHeight;
     boxMarginRight = '1px';
     borderStyle = 'none';
-    textTransform = 'uppercase';
+    textTransform = textTransform ? textTransform : 'uppercase';
     textWeight = 'bold';
     textSize = theme.shapes.mainTabTextSize;
     if (props.active === 'true') {
@@ -233,7 +233,7 @@ export default function styles (theme, props) {
     boxHeight = theme.shapes.paneNavigatorHeight;
     boxMarginBottom = '-1px';
     backgroundColor = theme.palette.paneNavigatorBackground;
-    textTransform = 'uppercase';
+    textTransform = textTransform ? textTransform : 'uppercase';
     textWeight = 'bold';
     borderStyle = 'none none solid none';
     textSize = theme.shapes.paneNavigatorTextSize;
@@ -388,7 +388,7 @@ export default function styles (theme, props) {
     backgroundColor = theme.palette.subactionButtonBackground;
     textColor = theme.palette.subactionButtonText;
     textSize = theme.shapes.subactionTextSize;
-    textTransform = 'uppercase';
+    textTransform = textTransform ? textTransform : 'uppercase';
     textWeight = 'bold';
   }
 
@@ -457,7 +457,7 @@ export default function styles (theme, props) {
       theme.shapes.containerMargin;
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     textSize = theme.shapes.menuTextSize;
-    textTransform = 'uppercase';
+    textTransform = textTransform ? textTransform : 'uppercase';
     textWeight = 'bold';
     borderStyle = 'none';
     if (props.active === 'true') {
@@ -705,6 +705,10 @@ export default function styles (theme, props) {
   }
   if (boxJustifyContent === 'none') {
     boxJustifyContent = null;
+  }
+
+  if (textTransform === 'none') {
+    textTransform = null;
   }
 
   const boxStyle = {

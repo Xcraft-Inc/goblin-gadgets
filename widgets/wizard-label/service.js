@@ -101,7 +101,7 @@ const params = {
     order: 5,
     type: 'combo',
     field: 'justify',
-    list: ['', 'start', 'center', 'end', 'around', 'between'],
+    list: ['', 'start', 'center', 'end', 'around', 'between', 'none'],
     value: '',
   },
   width: {
@@ -257,7 +257,7 @@ const params = {
     order: 14,
     type: 'combo',
     field: 'textTransform',
-    list: ['', 'uppercase'],
+    list: ['', 'uppercase', 'none'],
     value: '',
   },
   wrap: {

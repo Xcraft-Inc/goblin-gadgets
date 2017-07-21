@@ -79,6 +79,7 @@ class WizardButton extends Form {
             readonly={type === 'combo' ? 'true' : 'false'}
             grow="1"
             list={list}
+            comboTextTransform="none"
             onSetText={text => this.setModel (model, text)}
           />
         </Container>

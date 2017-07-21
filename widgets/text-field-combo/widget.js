@@ -198,6 +198,7 @@ class TextFieldCombo extends Widget {
           top={this.comboLocation.top}
           bottom={this.comboLocation.bottom}
           list={x}
+          comboTextTransform={this.props.comboTextTransform}
           close={::this.onHideCombo}
         />
       );
