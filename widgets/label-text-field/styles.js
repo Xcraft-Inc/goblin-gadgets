@@ -18,10 +18,14 @@ export default function styles (theme, props) {
     flexBasis = '0%';
   }
 
-  if (props.spacing === 'overlap') {
-    marginRight = '-1px';
-  } else if (props.spacing === 'large') {
-    marginRight = m;
+  // Initialise right margin according to spacing.
+  if (props.spacing) {
+    let spacingType = {
+      overlap: '-1px',
+      tiny: '1px',
+      large: m,
+    };
+    marginRight = spacingType[props.spacing];
   }
 
   let boxStyle = {
