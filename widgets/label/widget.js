@@ -172,9 +172,6 @@ class Label extends Widget {
   getGlyphAndText () {
     let text = this.props.text;
     const glyph = this.props.glyph;
-    if (this.props.model) {
-      text = this.getModelValue (this.props.model);
-    }
     if (glyph) {
       if (text) {
         // Glyph followed by text.
