@@ -68,7 +68,7 @@ const params = {
     },
     text: {
       id: 'text',
-      group: 'Content',
+      group: 'Text',
       type: 'text',
       field: 'text',
       list: [
@@ -83,7 +83,7 @@ const params = {
     },
     glyph: {
       id: 'glyph',
-      group: 'Content',
+      group: 'Glyph',
       type: 'text',
       field: 'glyph',
       list: ['', 'check', 'close', 'bicycle', 'car', 'rocket', 'calendar'],
@@ -91,7 +91,7 @@ const params = {
     },
     glyphRotate: {
       id: 'glyphRotate',
-      group: 'Aspect',
+      group: 'Glyph',
       type: 'combo',
       field: 'glyphRotate',
       list: ['', '90', '180', '270'],
@@ -99,7 +99,7 @@ const params = {
     },
     glyphFlip: {
       id: 'glyphFlip',
-      group: 'Aspect',
+      group: 'Glyph',
       type: 'combo',
       field: 'glyphFlip',
       list: ['', 'horizontal', 'vertical'],
@@ -107,7 +107,7 @@ const params = {
     },
     glyphSpin: {
       id: 'glyphSpin',
-      group: 'Aspect',
+      group: 'Glyph',
       type: 'combo',
       field: 'glyphSpin',
       list: ['', 'yes'],
@@ -115,7 +115,7 @@ const params = {
     },
     glyphPosition: {
       id: 'glyphPosition',
-      group: 'Aspect',
+      group: 'Glyph',
       type: 'combo',
       field: 'glyphPosition',
       list: ['', 'left', 'right'],
@@ -138,14 +138,14 @@ const params = {
     },
     tooltip: {
       id: 'tooltip',
-      group: 'Content',
+      group: 'Aspect',
       type: 'text',
       field: 'tooltip',
       value: '',
     },
     shortcut: {
       id: 'shortcut',
-      group: 'Content',
+      group: 'Aspect',
       type: 'text',
       field: 'shortcut',
       list: ['', '_ctrl_+A', '_shift_+A', '_alt_+A'],
@@ -195,7 +195,7 @@ const params = {
     },
     glyphColor: {
       id: 'glyphColor',
-      group: 'Aspect',
+      group: 'Glyph',
       type: 'text',
       field: 'glyphColor',
       list: [
@@ -217,7 +217,7 @@ const params = {
     },
     textColor: {
       id: 'textColor',
-      group: 'Aspect',
+      group: 'Text',
       type: 'text',
       field: 'textColor',
       list: [
@@ -283,7 +283,7 @@ const params = {
     },
     textTransform: {
       id: 'textTransform',
-      group: 'Aspect',
+      group: 'Text',
       type: 'combo',
       field: 'textTransform',
       list: ['', 'uppercase', 'none'],
@@ -291,7 +291,7 @@ const params = {
     },
     badgeValue: {
       id: 'badgeValue',
-      group: 'Content',
+      group: 'Badge',
       type: 'text',
       field: 'badgeValue',
       list: ['', '1', '2', '99'],
@@ -299,7 +299,7 @@ const params = {
     },
     badgePush: {
       id: 'badgePush',
-      group: 'Aspect',
+      group: 'Badge',
       type: 'bool',
       field: 'badgePush',
       value: '',
@@ -314,14 +314,14 @@ const params = {
     },
     calendarWeekend: {
       id: 'calendarWeekend',
-      group: 'Special',
+      group: 'Calendar',
       type: 'bool',
       field: 'calendarWeekend',
       value: '',
     },
     calendarDimmed: {
       id: 'calendarDimmed',
-      group: 'Special',
+      group: 'Calendar',
       type: 'bool',
       field: 'calendarDimmed',
       value: '',
@@ -401,7 +401,7 @@ const params = {
     },
     text: {
       id: 'text',
-      group: 'Content',
+      group: 'Text',
       type: 'text',
       field: 'text',
       list: [
@@ -415,7 +415,7 @@ const params = {
     },
     glyph: {
       id: 'glyph',
-      group: 'Content',
+      group: 'Glyph',
       type: 'text',
       field: 'glyph',
       list: ['', 'check', 'close', 'bicycle', 'car', 'rocket', 'calendar'],
@@ -423,7 +423,7 @@ const params = {
     },
     glyphRotate: {
       id: 'glyphRotate',
-      group: 'Aspect',
+      group: 'Glyph',
       type: 'combo',
       field: 'glyphRotate',
       list: ['', '90', '180', '270'],
@@ -431,7 +431,7 @@ const params = {
     },
     glyphFlip: {
       id: 'glyphFlip',
-      group: 'Aspect',
+      group: 'Glyph',
       type: 'combo',
       field: 'glyphFlip',
       list: ['', 'horizontal', 'vertical'],
@@ -439,7 +439,7 @@ const params = {
     },
     glyphSpin: {
       id: 'glyphSpin',
-      group: 'Aspect',
+      group: 'Glyph',
       type: 'combo',
       field: 'glyphSpin',
       list: ['', 'yes'],
@@ -447,7 +447,7 @@ const params = {
     },
     tooltip: {
       id: 'tooltip',
-      group: 'Content',
+      group: 'Aspect',
       type: 'text',
       field: 'tooltip',
       value: '',
@@ -512,7 +512,7 @@ const params = {
     },
     glyphColor: {
       id: 'glyphColor',
-      group: 'Aspect',
+      group: 'Glyph',
       type: 'text',
       field: 'glyphColor',
       list: [
@@ -534,7 +534,7 @@ const params = {
     },
     textColor: {
       id: 'textColor',
-      group: 'Aspect',
+      group: 'Text',
       type: 'text',
       field: 'textColor',
       list: [
@@ -578,7 +578,7 @@ const params = {
     },
     glyphSize: {
       id: 'glyphSize',
-      group: 'Aspect',
+      group: 'Glyph',
       type: 'combo',
       field: 'glyphSize',
       list: ['', '50%', '75%', '100%', '150%', '200%'],
@@ -586,7 +586,7 @@ const params = {
     },
     fontSize: {
       id: 'fontSize',
-      group: 'Aspect',
+      group: 'Text',
       type: 'combo',
       field: 'fontSize',
       list: ['', '50%', '75%', '100%', '150%', '200%'],
@@ -594,7 +594,7 @@ const params = {
     },
     fontWeight: {
       id: 'fontWeight',
-      group: 'Aspect',
+      group: 'Text',
       type: 'combo',
       field: 'fontWeight',
       list: ['', 'bold'],
@@ -602,7 +602,7 @@ const params = {
     },
     fontStyle: {
       id: 'fontStyle',
-      group: 'Aspect',
+      group: 'Text',
       type: 'combo',
       field: 'fontStyle',
       list: ['', 'italic', 'oblique'],
@@ -610,7 +610,7 @@ const params = {
     },
     textTransform: {
       id: 'textTransform',
-      group: 'Aspect',
+      group: 'Text',
       type: 'combo',
       field: 'textTransform',
       list: ['', 'uppercase', 'none'],
@@ -618,7 +618,7 @@ const params = {
     },
     wrap: {
       id: 'wrap',
-      group: 'Aspect',
+      group: 'Text',
       type: 'combo',
       field: 'wrap',
       list: ['', 'no', 'stretch', 'break-word'],
@@ -679,14 +679,14 @@ const params = {
     },
     readonly: {
       id: 'readonly',
-      group: 'Aspect',
+      group: 'Text',
       type: 'bool',
       field: 'readonly',
       value: 'false',
     },
     defaultValue: {
       id: 'defaultValue',
-      group: 'Content',
+      group: 'Text',
       type: 'text',
       field: 'defaultValue',
       list: ['', 'TextField', 'Jean Dupond', 'Lausanne'],
@@ -694,7 +694,7 @@ const params = {
     },
     hintText: {
       id: 'hintText',
-      group: 'Content',
+      group: 'Text',
       type: 'text',
       field: 'hintText',
       list: ['', 'Prénom et nom', 'Adresse', 'Ville'],
@@ -702,7 +702,7 @@ const params = {
     },
     tooltip: {
       id: 'tooltip',
-      group: 'Content',
+      group: 'Aspect',
       type: 'text',
       field: 'tooltip',
       value: '',
@@ -724,7 +724,7 @@ const params = {
     },
     rows: {
       id: 'rows',
-      group: 'Aspect',
+      group: 'Text',
       type: 'combo',
       field: 'rows',
       list: ['', '1', '2', '3', '4', '5', '10'],
@@ -732,7 +732,7 @@ const params = {
     },
     size: {
       id: 'size',
-      group: 'Aspect',
+      group: 'Text',
       type: 'combo',
       field: 'size',
       list: ['', '1', '10', '100'],
@@ -740,7 +740,7 @@ const params = {
     },
     maxLength: {
       id: 'maxLength',
-      group: 'Aspect',
+      group: 'Text',
       type: 'combo',
       field: 'maxLength',
       list: ['', '1', '10', '20', '100'],
@@ -748,21 +748,21 @@ const params = {
     },
     messageInfo: {
       id: 'messageInfo',
-      group: 'Content',
+      group: 'Message',
       type: 'text',
       field: 'messageInfo',
       value: '',
     },
     messageWarning: {
       id: 'messageWarning',
-      group: 'Content',
+      group: 'Message',
       type: 'text',
       field: 'messageWarning',
       value: '',
     },
     flyingBalloonAnchor: {
       id: 'flyingBalloonAnchor',
-      group: 'Aspect',
+      group: 'Message',
       type: 'combo',
       field: 'flyingBalloonAnchor',
       list: ['left', 'right', 'top', 'bottom'],
@@ -841,14 +841,14 @@ const params = {
     },
     readonly: {
       id: 'readonly',
-      group: 'Aspect',
+      group: 'Text',
       type: 'bool',
       field: 'readonly',
       value: 'false',
     },
     defaultValue: {
       id: 'defaultValue',
-      group: 'Content',
+      group: 'Text',
       type: 'text',
       field: 'defaultValue',
       list: ['', 'LabelTextField', 'Jean Dupond'],
@@ -856,7 +856,7 @@ const params = {
     },
     labelText: {
       id: 'labelText',
-      group: 'Content',
+      group: 'Label',
       type: 'text',
       field: 'labelText',
       list: ['', 'Label', 'Nom', 'Prénom', 'Adresse', 'Ville'],
@@ -864,7 +864,7 @@ const params = {
     },
     labelGlyph: {
       id: 'labelGlyph',
-      group: 'Content',
+      group: 'Label',
       type: 'text',
       field: 'labelGlyph',
       list: ['', 'check', 'close', 'bicycle', 'car', 'rocket', 'calendar'],
@@ -880,21 +880,21 @@ const params = {
     },
     messageInfo: {
       id: 'messageInfo',
-      group: 'Content',
+      group: 'Message',
       type: 'text',
       field: 'messageInfo',
       value: '',
     },
     messageWarning: {
       id: 'messageWarning',
-      group: 'Content',
+      group: 'Message',
       type: 'text',
       field: 'messageWarning',
       value: '',
     },
     hintText: {
       id: 'hintText',
-      group: 'Content',
+      group: 'Text',
       type: 'text',
       field: 'hintText',
       list: ['', 'Prénom et nom', 'Adresse'],
@@ -902,7 +902,7 @@ const params = {
     },
     tooltip: {
       id: 'tooltip',
-      group: 'Content',
+      group: 'Aspect',
       type: 'text',
       field: 'tooltip',
       value: '',
@@ -918,7 +918,7 @@ const params = {
     },
     labelWidth: {
       id: 'labelWidth',
-      group: 'Layout',
+      group: 'Label',
       type: 'text',
       unit: 'px',
       field: 'labelWidth',
@@ -927,7 +927,7 @@ const params = {
     },
     fieldWidth: {
       id: 'fieldWidth',
-      group: 'Layout',
+      group: 'Text',
       type: 'text',
       unit: 'px',
       field: 'fieldWidth',
@@ -998,14 +998,14 @@ const params = {
     },
     readonly: {
       id: 'readonly',
-      group: 'Aspect',
+      group: 'Text',
       type: 'bool',
       field: 'readonly',
       value: 'false',
     },
     defaultValue: {
       id: 'defaultValue',
-      group: 'Content',
+      group: 'Text',
       type: 'text',
       field: 'defaultValue',
       list: ['', 'TextFieldCombo', 'Jean Dupond', 'Lausanne'],
@@ -1013,7 +1013,7 @@ const params = {
     },
     selectedValue: {
       id: 'selectedValue',
-      group: 'Content',
+      group: 'Text',
       type: 'text',
       field: 'selectedValue',
       list: [
@@ -1030,7 +1030,7 @@ const params = {
     },
     comboGlyph: {
       id: 'comboGlyph',
-      group: 'Content',
+      group: 'Aspect',
       type: 'text',
       field: 'comboGlyph',
       list: ['', 'check', 'close', 'bicycle', 'car', 'rocket', 'calendar'],
@@ -1046,21 +1046,21 @@ const params = {
     },
     messageInfo: {
       id: 'messageInfo',
-      group: 'Content',
+      group: 'Message',
       type: 'text',
       field: 'messageInfo',
       value: '',
     },
     messageWarning: {
       id: 'messageWarning',
-      group: 'Content',
+      group: 'Message',
       type: 'text',
       field: 'messageWarning',
       value: '',
     },
     hintText: {
       id: 'hintText',
-      group: 'Content',
+      group: 'Text',
       type: 'text',
       field: 'hintText',
       list: ['', 'Jour de la semaine', 'Prénom et nom', 'Adresse'],
@@ -1068,7 +1068,7 @@ const params = {
     },
     tooltip: {
       id: 'tooltip',
-      group: 'Content',
+      group: 'Aspect',
       type: 'text',
       field: 'tooltip',
       value: '',
