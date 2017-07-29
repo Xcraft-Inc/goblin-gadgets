@@ -59,13 +59,16 @@ class Wizard extends Form {
 
   getCode () {
     var result = `<${this.wizard} `;
-    this.params.orderBy (param => param.get ('order')).select (param => {
-      const field = param.get ('field');
-      const value = getValue (param);
-      if (value !== '') {
-        result += `${field}="${value}" `;
-      }
-    });
+    this.params
+      .orderBy (param => param.get ('group'))
+      .orderBy (param => param.get ('field'))
+      .select (param => {
+        const field = param.get ('field');
+        const value = getValue (param);
+        if (value !== '') {
+          result += `${field}="${value}" `;
+        }
+      });
     result += '/>';
     return result;
   }
@@ -172,14 +175,42 @@ class Wizard extends Form {
     }
   }
 
-  renderParams () {
+  renderParams (group) {
     let index = 0;
     return this.params
-      .orderBy (param => param.get ('order'))
+      .where (param => param.get ('group') === group)
+      .orderBy (param => param.get ('field'))
       .select (param => {
         return this.renderParam (param, index++);
       })
       .toList ();
+  }
+
+  renderGroup (group, index) {
+    return (
+      <Container kind="pane" key={index}>
+        <Container kind="row-pane">
+          <Label text={group} grow="1" kind="title" />
+        </Container>
+        {this.renderParams (group)}
+      </Container>
+    );
+  }
+
+  renderGroups () {
+    const groups = [];
+    this.params.orderBy (param => param.get ('group')).select (param => {
+      const group = param.get ('group');
+      if (groups.indexOf (group) === -1) {
+        groups.push (group);
+      }
+    });
+    const result = [];
+    let index = 0;
+    for (const group of groups) {
+      result.push (this.renderGroup (group, index++));
+    }
+    return result;
   }
 
   renderParamsColumn () {
@@ -190,11 +221,9 @@ class Wizard extends Form {
           <Label text="Properties" kind="pane-header" />
         </Container>
         <Container kind="panes">
-          <Container kind="pane">
-            <Form {...this.formConfig}>
-              {this.renderParams ()}
-            </Form>
-          </Container>
+          <Form {...this.formConfig}>
+            {this.renderGroups ()}
+          </Form>
         </Container>
       </Container>
     );
