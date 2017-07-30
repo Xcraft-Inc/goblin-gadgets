@@ -1,23 +1,42 @@
 import {Unit} from 'electrum-theme';
 import {ColorHelpers} from 'electrum-theme';
 
+function convertJustify (justify) {
+  switch (justify) {
+    case 'start':
+    case 'left':
+      return 'flex-start';
+    case 'end':
+    case 'right':
+      return 'flex-end';
+    case 'around':
+      return 'space-around';
+    case 'between':
+      return 'space-between';
+    default:
+      return justify;
+  }
+}
+
 /******************************************************************************/
 
 export default function styles (theme, props) {
   let boxWidth = props.width;
   let boxHeight = props.height;
-  let textHeight = null;
+  //? let boxHeight = props.height ? props.height : theme.shapes.lineHeight;  // if Button
   let backgroundColor = props.backgroundColor;
   let padding = null;
   let margin = null;
   let fontSize = props.fontSize ? props.fontSize : theme.shapes.labelTextSize;
   let fontWeight = null;
-  let boxJustifyContent = null;
+  let boxJustifyContent = convertJustify (props.justify);
   let boxAlignSelf = null;
   let textTransform = props.textTransform ? props.textTransform : null;
   let glyphHeight = theme.shapes.lineHeight;
   let glyphMinWidth = theme.shapes.lineHeight;
   let glyphSize = props.glyphSize;
+  let glyphTransform = null;
+  let glyphMargin = null;
   let glyphColor = null;
   let textColor = null;
   let linesOverflow = null;
@@ -78,7 +97,7 @@ export default function styles (theme, props) {
     fontSize = theme.shapes.labelBigTextSize;
     fontWeight = 'bold';
     textTransform = 'uppercase';
-    boxJustifyContent = 'center';
+    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'center';
   }
 
   if (props.kind === 'floating-header') {
@@ -98,22 +117,8 @@ export default function styles (theme, props) {
 
   if (props.kind === 'info') {
     backgroundColor = theme.palette.infoBackground;
-    boxJustifyContent = 'center';
+    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'center';
     padding = '0 10px 0 10px';
-  }
-
-  if (props.justify === 'left') {
-    boxJustifyContent = 'flex-start';
-  } else if (props.justify === 'center') {
-    boxJustifyContent = 'center';
-  } else if (props.justify === 'right') {
-    boxJustifyContent = 'flex-end';
-  } else if (props.justify === 'around') {
-    boxJustifyContent = 'space-around';
-  } else if (props.justify === 'between') {
-    boxJustifyContent = 'space-between';
-  } else if (props.justify) {
-    boxJustifyContent = props.justify;
   }
 
   if (props.kind === 'footer') {
@@ -151,7 +156,7 @@ export default function styles (theme, props) {
 
   if (props.kind === 'center-to-box') {
     glyphMinWidth = null;
-    boxJustifyContent = 'center';
+    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'center';
     margin = m + ' 0px';
   }
 
@@ -215,14 +220,16 @@ export default function styles (theme, props) {
     fontWeight = props.fontWeight;
   }
 
-  let glyphTransform = null;
-  if (glyphSize) {
-    const s = Unit.parse (glyphSize);
-    if (s.unit !== '%') {
-      throw new Error (`GlyphSize '${glyphSize}' has an unexpected format`);
-    }
-    const ss = s.value / 100;
-    glyphTransform = 'scale(' + ss + ')';
+  if (!boxJustifyContent) {
+    boxJustifyContent = 'flex-start';
+    //? boxJustifyContent = 'center';  // if Button
+  }
+  if (boxJustifyContent === 'none') {
+    boxJustifyContent = null;
+  }
+
+  if (textTransform === 'none') {
+    textTransform = null;
   }
 
   const boxStyle = {
@@ -246,6 +253,21 @@ export default function styles (theme, props) {
     cursor: cursor,
   };
 
+  if (glyphSize) {
+    const s = Unit.parse (glyphSize);
+    if (s.unit !== '%') {
+      throw new Error (`GlyphSize '${glyphSize}' has an unexpected format`);
+    }
+    const ss = s.value / 100;
+    if (!glyphTransform) {
+      glyphTransform = 'scale(' + ss + ')';
+    }
+    if (!glyphMargin) {
+      const mm = Unit.multiply (m, ss);
+      glyphMargin = '0px ' + mm + ' 0px ' + mm;
+    }
+  }
+
   const glyphStyle = {
     display: 'flex',
     flexDirection: 'row',
@@ -253,6 +275,7 @@ export default function styles (theme, props) {
     minWidth: glyphMinWidth,
     height: glyphHeight,
     padding: '0px',
+    margin: glyphMargin,
     color: glyphColor,
     transform: glyphTransform,
     userSelect: 'none',
@@ -265,7 +288,6 @@ export default function styles (theme, props) {
   };
 
   const textStyle = {
-    height: textHeight,
     fontSize: Unit.multiply (fontSize, theme.typo.fontScale),
     fontWeight: fontWeight,
     fontStyle: props.fontStyle,

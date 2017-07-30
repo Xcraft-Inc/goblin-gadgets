@@ -268,9 +268,12 @@ class Wizard extends Form {
     });
 
     if (this.showFrame) {
-      const frameClass = this.styles.classNames.frame;
+      const frameStyle = {
+        border: '1px solid #f00',
+        flexGrow: props.grow,
+      };
       return (
-        <div className={frameClass}>
+        <div style={frameStyle} key={index}>
           {this.renderWidgetBase (index, props)}
         </div>
       );
