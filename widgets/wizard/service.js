@@ -443,6 +443,21 @@ const params = {
       list: ['', 'yes'],
       value: '',
     },
+    glyphPosition: {
+      id: 'glyphPosition',
+      group: 'Glyph',
+      type: 'combo',
+      field: 'glyphPosition',
+      list: ['', 'left', 'right'],
+      value: '',
+    },
+    insideButton: {
+      id: 'insideButton',
+      group: 'Aspect',
+      type: 'bool',
+      field: 'insideButton',
+      value: 'false',
+    },
     tooltip: {
       id: 'tooltip',
       group: 'Aspect',

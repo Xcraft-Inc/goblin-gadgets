@@ -21,9 +21,10 @@ function convertJustify (justify) {
 /******************************************************************************/
 
 export default function styles (theme, props) {
+  const m = Unit.multiply (theme.shapes.containerMargin, 0.5);
+
   let boxWidth = props.width;
   let boxHeight = props.height;
-  //? let boxHeight = props.height ? props.height : theme.shapes.lineHeight;  // if Button
   let boxMinHeight = null;
   let boxFlexDirection = 'row';
   let boxFlexGrow = props.grow;
@@ -41,18 +42,24 @@ export default function styles (theme, props) {
   let boxPaddingLeft = '0px';
   let boxZIndex = props.zIndex;
   let boxOpacity = props.visibility === 'false' ? 0 : null;
-
   let backgroundColor = props.backgroundColor;
+  let glyphJustify = 'center';
+  let glyphMinWidth = theme.shapes.lineHeight;
+  let glyphHeight = theme.shapes.lineHeight;
+  let glyphColor = null;
+  let glyphSize = props.glyphSize;
+  let glyphTransform = null;
+  let glyphMargin = null;
+  let textWidth = null;
+  let textMarginTop = '0px';
+  let textMarginRight = m;
+  let textMarginBottom = '0px';
+  let textMarginLeft = m;
+
   let fontSize = props.fontSize ? props.fontSize : theme.shapes.labelTextSize;
   let fontWeight = null;
   let boxAlignSelf = null;
   let textTransform = props.textTransform ? props.textTransform : null;
-  let glyphHeight = theme.shapes.lineHeight;
-  let glyphMinWidth = theme.shapes.lineHeight;
-  let glyphSize = props.glyphSize;
-  let glyphTransform = null;
-  let glyphMargin = null;
-  let glyphColor = null;
   let textColor = null;
   let linesOverflow = null;
   let textOverflow = null;
@@ -61,7 +68,9 @@ export default function styles (theme, props) {
   let textWordBreak = null;
   let cursor = props.cursor;
 
-  const m = Unit.multiply (theme.shapes.containerMargin, 0.5);
+  if (props.insideButton === 'true') {
+    boxHeight = props.height ? props.height : theme.shapes.lineHeight;
+  }
 
   if (!props.isDragged && props.hasHeLeft) {
     boxOpacity = 0.1;
@@ -71,7 +80,6 @@ export default function styles (theme, props) {
   if (props.bottomSpacing === 'large') {
     boxMarginBottom = m;
   }
-  // Initialise right margin according to spacing.
   // Initialise right margin according to spacing.
   if (props.spacing) {
     let spacingType = {
@@ -84,6 +92,35 @@ export default function styles (theme, props) {
   }
   if (props.spacing === 'compact') {
     glyphMinWidth = null;
+  }
+
+  // Decrease space between glyph and text.
+  if (props.glyph && props.text) {
+    if (props.glyphPosition === 'right') {
+      textMarginRight = '0px';
+    } else {
+      textMarginLeft = '0px';
+    }
+  }
+
+  if (props.insideButton !== 'true' && !props.glyph) {
+    // Label without glyph ?
+    if (props.glyphPosition === 'right') {
+      textMarginRight = '0px'; // push to right frame border
+    } else {
+      textMarginLeft = '0px'; // push to left frame border
+    }
+  }
+
+  // Choice glyph position into his square.
+  if (props.insideButton === 'true') {
+    glyphJustify = 'center';
+  } else {
+    if (props.glyphPosition === 'right') {
+      glyphJustify = 'flex-end'; // push to right frame border
+    } else {
+      glyphJustify = 'flex-start'; // push to left frame border
+    }
   }
 
   if (props.kind === 'pane-header') {
@@ -250,8 +287,11 @@ export default function styles (theme, props) {
   }
 
   if (!boxJustifyContent) {
-    boxJustifyContent = 'flex-start';
-    //? boxJustifyContent = 'center';  // if Button
+    if (props.insideButton === 'true') {
+      boxJustifyContent = 'center';
+    } else {
+      boxJustifyContent = 'flex-start';
+    }
   }
   if (boxJustifyContent === 'none') {
     boxJustifyContent = null;
@@ -307,6 +347,7 @@ export default function styles (theme, props) {
   const glyphStyle = {
     display: 'flex',
     flexDirection: 'row',
+    justifyContent: glyphJustify,
     alignItems: 'center',
     minWidth: glyphMinWidth,
     height: glyphHeight,
@@ -324,6 +365,11 @@ export default function styles (theme, props) {
   };
 
   const textStyle = {
+    width: textWidth,
+    marginTop: textMarginTop,
+    marginRight: textMarginRight,
+    marginBottom: textMarginBottom,
+    marginLeft: textMarginLeft,
     fontSize: Unit.multiply (fontSize, theme.typo.fontScale),
     fontWeight: fontWeight,
     fontStyle: props.fontStyle,

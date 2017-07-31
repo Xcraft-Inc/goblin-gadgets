@@ -136,7 +136,7 @@ class Wizard extends Form {
     if (type === 'combo' || (type === 'text' && list)) {
       return (
         <Container kind="row-pane" key={index}>
-          <Label text={field} width="150px" />
+          <Label text={field} width="180px" />
           <TextFieldCombo
             model={model}
             defaultValue={value}
@@ -151,7 +151,7 @@ class Wizard extends Form {
     } else if (type === 'bool') {
       return (
         <Container kind="row-pane" subkind="left" key={index}>
-          <Label text={field} width="150px" />
+          <Label text={field} width="180px" />
           <Button
             glyph={value === 'true' ? 'check' : null}
             width="32px"
@@ -168,7 +168,7 @@ class Wizard extends Form {
     } else {
       return (
         <Container kind="row-pane" key={index}>
-          <Label text={field} width="150px" />
+          <Label text={field} width="180px" />
           <TextField model={model} defaultValue={value} />
         </Container>
       );

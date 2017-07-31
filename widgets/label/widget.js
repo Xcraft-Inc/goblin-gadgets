@@ -175,7 +175,11 @@ class Label extends Widget {
     if (glyph) {
       if (text) {
         // Glyph followed by text.
-        return [this.renderGlyph (0, glyph), this.renderText (1, text)];
+        if (this.props.glyphPosition === 'right') {
+          return [this.renderText (0, text), this.renderGlyph (1, glyph)];
+        } else {
+          return [this.renderGlyph (0, glyph), this.renderText (1, text)];
+        }
       } else {
         // Glyph alone.
         return [this.renderGlyph (0, glyph)];
