@@ -251,7 +251,9 @@ export default function styles (theme, props) {
   if (props.kind === 'label-text-field') {
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'none';
     boxHeight = null;
-    backgroundColor = theme.palette.labelButtonBackground;
+    //?backgroundColor = theme.palette.labelButtonBackground;
+    //?glyphColor = theme.palette.taskLabelText;
+    //?textColor = theme.palette.taskLabelText;
   }
 
   if (props.vpos === 'top') {

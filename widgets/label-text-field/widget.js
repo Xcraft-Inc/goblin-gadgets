@@ -72,7 +72,6 @@ class LabelTextField extends Widget {
     return (
       <Label
         kind="label-text-field"
-        insideButton="true"
         glyph={this.props.labelGlyph}
         text={this.props.labelText}
         width={this.props.labelWidth}
