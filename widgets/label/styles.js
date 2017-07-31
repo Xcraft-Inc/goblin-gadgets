@@ -42,6 +42,7 @@ export default function styles (theme, props) {
   let boxPaddingLeft = '0px';
   let boxZIndex = props.zIndex;
   let boxOpacity = props.visibility === 'false' ? 0 : null;
+  let borderRadius = '0px';
   let backgroundColor = props.backgroundColor;
   let glyphJustify = 'center';
   let glyphMinWidth = theme.shapes.lineHeight;
@@ -55,11 +56,11 @@ export default function styles (theme, props) {
   let textMarginRight = m;
   let textMarginBottom = '0px';
   let textMarginLeft = m;
+  let textWeight = null;
+  let textTransform = props.textTransform ? props.textTransform : null;
 
   let fontSize = props.fontSize ? props.fontSize : theme.shapes.labelTextSize;
-  let fontWeight = null;
   let boxAlignSelf = null;
-  let textTransform = props.textTransform ? props.textTransform : null;
   let textColor = null;
   let linesOverflow = null;
   let textOverflow = null;
@@ -125,7 +126,7 @@ export default function styles (theme, props) {
 
   if (props.kind === 'pane-header') {
     fontSize = theme.shapes.paneHeaderTextSize;
-    fontWeight = 'bold';
+    textWeight = 'bold';
     textTransform = 'uppercase';
     glyphColor = theme.palette.paneHeaderText;
     textColor = theme.palette.paneHeaderText;
@@ -133,7 +134,7 @@ export default function styles (theme, props) {
 
   if (props.kind === 'title') {
     fontSize = theme.shapes.labelTitleTextSize;
-    fontWeight = 'bold';
+    textWeight = 'bold';
     textTransform = 'uppercase';
   }
 
@@ -146,7 +147,7 @@ export default function styles (theme, props) {
 
   if (props.kind === 'big-center') {
     fontSize = theme.shapes.labelBigTextSize;
-    fontWeight = 'bold';
+    textWeight = 'bold';
     textTransform = 'uppercase';
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'center';
   }
@@ -203,7 +204,7 @@ export default function styles (theme, props) {
     boxPaddingLeft = theme.shapes.taskTabLeftMargin;
     glyphColor = theme.palette.taskLabelText;
     textColor = theme.palette.taskLabelText;
-    fontWeight = 'bold';
+    textWeight = 'bold';
     fontSize = theme.shapes.taskTabTextSize;
     glyphSize = theme.shapes.taskTabGlyphSize;
   }
@@ -247,6 +248,12 @@ export default function styles (theme, props) {
     boxHeight = theme.shapes.lineHeight;
   }
 
+  if (props.kind === 'label-text-field') {
+    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'none';
+    boxHeight = null;
+    backgroundColor = theme.palette.labelButtonBackground;
+  }
+
   if (props.vpos === 'top') {
     boxAlignSelf = 'flex-start';
   }
@@ -269,6 +276,22 @@ export default function styles (theme, props) {
     textWordBreak = 'break-word';
   }
 
+  if (props.shape) {
+    const r = Unit.multiply (theme.shapes.lineHeight, 0.5);
+    const s = theme.shapes.smoothRadius;
+    if (props.shape === 'rounded') {
+      borderRadius = r;
+    } else if (props.shape === 'left-rounded') {
+      borderRadius = r + ' 0px 0px ' + r;
+    } else if (props.shape === 'right-rounded') {
+      borderRadius = '0px ' + r + ' ' + r + ' 0px';
+    } else if (props.shape === 'left-smooth') {
+      borderRadius = s + ' 0px 0px ' + s;
+    } else if (props.shape === 'right-smooth') {
+      borderRadius = '0px ' + s + ' ' + s + ' 0px';
+    }
+  }
+
   if (props.glyphColor) {
     glyphColor = ColorHelpers.getMarkColor (theme, props.glyphColor);
   }
@@ -283,7 +306,7 @@ export default function styles (theme, props) {
   }
 
   if (props.fontWeight) {
-    fontWeight = props.fontWeight;
+    textWeight = props.fontWeight;
   }
 
   if (!boxJustifyContent) {
@@ -322,6 +345,7 @@ export default function styles (theme, props) {
     flexGrow: boxFlexGrow,
     flexShrink: boxFlexShrink,
     flexBasis: boxFlexBasis,
+    borderRadius: borderRadius,
     backgroundColor: backgroundColor,
     opacity: boxOpacity,
     zIndex: boxZIndex,
@@ -371,7 +395,7 @@ export default function styles (theme, props) {
     marginBottom: textMarginBottom,
     marginLeft: textMarginLeft,
     fontSize: Unit.multiply (fontSize, theme.typo.fontScale),
-    fontWeight: fontWeight,
+    fontWeight: textWeight,
     fontStyle: props.fontStyle,
     color: textColor,
     textTransform: textTransform,

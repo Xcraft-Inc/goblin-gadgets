@@ -2,6 +2,7 @@ import React from 'react';
 import Widget from 'laboratory/widget';
 
 import Button from 'gadgets/button/widget';
+import Label from 'gadgets/label/widget';
 import TextField from 'gadgets/text-field/widget';
 
 /******************************************************************************/
@@ -62,7 +63,7 @@ class LabelTextField extends Widget {
     }
   }
 
-  renderButton () {
+  renderLabel () {
     const shape = this.props.shape;
     const labelGlyph = this.props.labelGlyph;
     const labelText = this.props.labelText;
@@ -76,12 +77,13 @@ class LabelTextField extends Widget {
     const buttonShape = buttonShapes[s];
 
     return (
-      <Button
+      <Label
+        kind="label-text-field"
+        insideButton="true"
         glyph={labelGlyph}
         text={labelText}
         width={labelWidth}
         shape={buttonShape}
-        kind="label"
         justify="left"
         spacing="overlap"
       />
@@ -180,7 +182,7 @@ class LabelTextField extends Widget {
 
     return (
       <span disabled={disabled} className={boxClass}>
-        {this.renderButton ()}
+        {this.renderLabel ()}
         {this.renderInput ()}
         {this.renderAction ()}
       </span>

@@ -62,7 +62,6 @@ export default function styles (theme, props) {
   let textWeight = null;
   let textTransform = props.textTransform;
   let textSize = theme.shapes.buttonTextSize;
-  let actif = true;
   let boxPosition = props.position ? props.position : 'relative';
   let cursor = props.cursor;
   let transition = theme.transitions.easeOut ();
@@ -92,13 +91,6 @@ export default function styles (theme, props) {
     } else {
       textMargin = '0px ' + m + ' 0px 0px';
     }
-  }
-
-  if (props.kind === 'label') {
-    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'none';
-    boxHeight = null;
-    backgroundColor = theme.palette.labelButtonBackground;
-    actif = false;
   }
 
   // task-logo button (usual parent container with kind='task-bar').
@@ -804,7 +796,7 @@ export default function styles (theme, props) {
     wordWrap: 'break-word',
   };
 
-  if (props.disabled !== 'true' && actif && boxOpacity !== 0) {
+  if (props.disabled !== 'true' && boxOpacity !== 0) {
     boxStyle[':hover'] = {
       color: textHoverColor, // (*)
       borderColor: borderHoverColor,

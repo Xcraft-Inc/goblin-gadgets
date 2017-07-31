@@ -451,6 +451,21 @@ const params = {
       list: ['', 'left', 'right'],
       value: '',
     },
+    shape: {
+      id: 'shape',
+      group: 'Aspect',
+      type: 'combo',
+      field: 'shape',
+      list: [
+        '',
+        'rounded',
+        'left-rounded',
+        'right-rounded',
+        'left-smooth',
+        'right-smooth',
+      ],
+      value: '',
+    },
     insideButton: {
       id: 'insideButton',
       group: 'Aspect',
