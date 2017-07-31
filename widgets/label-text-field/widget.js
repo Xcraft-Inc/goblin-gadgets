@@ -64,26 +64,19 @@ class LabelTextField extends Widget {
   }
 
   renderLabel () {
-    const shape = this.props.shape;
-    const labelGlyph = this.props.labelGlyph;
-    const labelText = this.props.labelText;
-    const labelWidth = this.props.labelWidth;
-
-    const s = shape ? shape : 'smooth';
-    const buttonShapes = {
+    const shape = {
       smooth: 'left-smooth',
       rounded: 'left-rounded',
-    };
-    const buttonShape = buttonShapes[s];
+    }[this.props.shape ? this.props.shape : 'smooth'];
 
     return (
       <Label
         kind="label-text-field"
         insideButton="true"
-        glyph={labelGlyph}
-        text={labelText}
-        width={labelWidth}
-        shape={buttonShape}
+        glyph={this.props.labelGlyph}
+        text={this.props.labelText}
+        width={this.props.labelWidth}
+        shape={shape}
         justify="left"
         spacing="overlap"
       />
