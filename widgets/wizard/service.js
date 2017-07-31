@@ -11,7 +11,6 @@ const logicState = {};
 const params = {
   Button: {
     id: 'Button',
-    order: 0,
     kind: {
       id: 'kind',
       group: 'Aspect',
@@ -364,7 +363,6 @@ const params = {
   },
   Label: {
     id: 'Label',
-    order: 1,
     kind: {
       id: 'kind',
       group: 'Aspect',
@@ -662,7 +660,6 @@ const params = {
   },
   TextField: {
     id: 'TextField',
-    order: 3,
     active: {
       id: 'active',
       group: 'Aspect',
@@ -831,7 +828,6 @@ const params = {
   },
   LabelTextField: {
     id: 'LabelTextField',
-    order: 3,
     disabled: {
       id: 'disabled',
       group: 'Aspect',
@@ -988,7 +984,6 @@ const params = {
   },
   TextFieldCombo: {
     id: 'TextFieldCombo',
-    order: 4,
     disabled: {
       id: 'disabled',
       group: 'Aspect',

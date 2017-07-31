@@ -99,7 +99,7 @@ class Wizard extends Form {
     const wizards = this.shred (this.props.params);
     let index = 0;
     return wizards.linq
-      .orderBy (wizard => wizard.get ('order'))
+      .orderBy (wizard => wizard.get ('id'))
       .select (wizard => {
         return this.renderMenuItem (wizard.get ('id'), index++);
       })
