@@ -24,12 +24,27 @@ export default function styles (theme, props) {
   let boxWidth = props.width;
   let boxHeight = props.height;
   //? let boxHeight = props.height ? props.height : theme.shapes.lineHeight;  // if Button
+  let boxMinHeight = null;
+  let boxFlexDirection = 'row';
+  let boxFlexGrow = props.grow;
+  let boxFlexShrink = null;
+  let boxFlexBasis = null;
+  let boxJustifyContent = convertJustify (props.justify);
+  let boxAlignItems = 'center';
+  let boxMarginTop = '0px';
+  let boxMarginRight = '0px';
+  let boxMarginBottom = '0px';
+  let boxMarginLeft = '0px';
+  let boxPaddingTop = '0px';
+  let boxPaddingRight = '0px';
+  let boxPaddingBottom = '0px';
+  let boxPaddingLeft = '0px';
+  let boxZIndex = props.zIndex;
+  let boxOpacity = props.visibility === 'false' ? 0 : null;
+
   let backgroundColor = props.backgroundColor;
-  let padding = null;
-  let margin = null;
   let fontSize = props.fontSize ? props.fontSize : theme.shapes.labelTextSize;
   let fontWeight = null;
-  let boxJustifyContent = convertJustify (props.justify);
   let boxAlignSelf = null;
   let textTransform = props.textTransform ? props.textTransform : null;
   let glyphHeight = theme.shapes.lineHeight;
@@ -44,35 +59,31 @@ export default function styles (theme, props) {
   let textTextOverflow = null;
   let textWhiteSpace = null;
   let textWordBreak = null;
-  let flexGrow = props.grow;
-  let flexShrink = null;
-  let flexBasis = null;
-  let opacity = !props.isDragged && props.hasHeLeft ? 0.1 : 1.0;
   let cursor = props.cursor;
 
   const m = Unit.multiply (theme.shapes.containerMargin, 0.5);
 
-  if (props.visibility === 'false') {
-    opacity = 0;
+  if (!props.isDragged && props.hasHeLeft) {
+    boxOpacity = 0.1;
   }
 
   // Initialise bottom margin according to bottom-spacing.
-  let bottomMargin = '0px';
   if (props.bottomSpacing === 'large') {
-    bottomMargin = m;
+    boxMarginBottom = m;
   }
   // Initialise right margin according to spacing.
-  if (props.spacing === 'overlap') {
-    margin = '0px -1px ' + bottomMargin + ' 0px';
-  } else if (props.spacing === 'tiny') {
-    margin = '0px 1px ' + bottomMargin + ' 0px';
-  } else if (props.spacing === 'large') {
-    margin = '0px ' + m + ' ' + bottomMargin + ' 0px';
-  } else if (props.spacing === 'compact') {
-    margin = '0px 5px ' + bottomMargin + ' 0px';
+  // Initialise right margin according to spacing.
+  if (props.spacing) {
+    let spacingType = {
+      overlap: '-1px',
+      tiny: '1px',
+      compact: '5px',
+      large: m,
+    };
+    boxMarginRight = spacingType[props.spacing];
+  }
+  if (props.spacing === 'compact') {
     glyphMinWidth = null;
-  } else {
-    margin = '0px 0px ' + bottomMargin + ' 0px';
   }
 
   if (props.kind === 'pane-header') {
@@ -90,7 +101,10 @@ export default function styles (theme, props) {
   }
 
   if (props.kind === 'title-recurrence') {
-    padding = '0px ' + theme.shapes.lineSpacing;
+    boxPaddingTop = '0px';
+    boxPaddingRight = theme.shapes.lineSpacing;
+    boxPaddingBottom = '0px';
+    boxPaddingLeft = theme.shapes.lineSpacing;
   }
 
   if (props.kind === 'big-center') {
@@ -118,17 +132,23 @@ export default function styles (theme, props) {
   if (props.kind === 'info') {
     backgroundColor = theme.palette.infoBackground;
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'center';
-    padding = '0 10px 0 10px';
+    boxPaddingTop = '0px';
+    boxPaddingRight = '10px';
+    boxPaddingBottom = '0px';
+    boxPaddingLeft = '10px';
   }
 
   if (props.kind === 'footer') {
-    padding = '0 20px 0 20px';
     glyphColor = theme.palette.footerText;
     textColor = theme.palette.footerText;
+    boxPaddingTop = '0px';
+    boxPaddingRight = '20px';
+    boxPaddingBottom = '0px';
+    boxPaddingLeft = '20px';
   }
 
   if (props.kind === 'notification') {
-    margin = '0px 0px 0px ' + m;
+    boxMarginLeft = m;
     glyphColor = theme.palette.notificationMessage;
     textColor = theme.palette.notificationMessage;
   }
@@ -140,13 +160,10 @@ export default function styles (theme, props) {
   }
 
   if (props.kind === 'task') {
-    padding =
-      theme.shapes.taskLabelTopMargin +
-      ' 0px ' +
-      theme.shapes.taskLabelBottomMargin +
-      ' ' +
-      theme.shapes.taskTabLeftMargin;
-
+    boxPaddingTop = theme.shapes.taskLabelTopMargin;
+    boxPaddingRight = '0px';
+    boxPaddingBottom = theme.shapes.taskLabelBottomMargin;
+    boxPaddingLeft = theme.shapes.taskTabLeftMargin;
     glyphColor = theme.palette.taskLabelText;
     textColor = theme.palette.taskLabelText;
     fontWeight = 'bold';
@@ -157,24 +174,36 @@ export default function styles (theme, props) {
   if (props.kind === 'center-to-box') {
     glyphMinWidth = null;
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'center';
-    margin = m + ' 0px';
+    boxMarginTop = m;
+    boxMarginRight = '0px';
+    boxMarginBottom = m;
+    boxMarginLeft = '0px';
   }
 
   if (props.kind === 'large-left') {
     const hm = Unit.multiply (m, 0.5);
-    margin = hm + ' 0px ' + hm + ' ' + m;
+    boxMarginTop = hm;
+    boxMarginRight = '0px';
+    boxMarginBottom = hm;
+    boxMarginLeft = m;
   }
   if (props.kind === 'large-right') {
     const hm = Unit.multiply (m, 0.5);
-    margin = hm + ' ' + m + ' ' + hm + ' 0px';
+    boxMarginTop = hm;
+    boxMarginRight = m;
+    boxMarginBottom = hm;
+    boxMarginLeft = '0px';
   }
   if (props.kind === 'large-single') {
     const hm = Unit.multiply (m, 0.5);
-    margin = hm + ' ' + m + ' ' + hm + ' ' + m;
+    boxMarginTop = hm;
+    boxMarginRight = m;
+    boxMarginBottom = hm;
+    boxMarginLeft = m;
   }
 
   if (props.kind === 'ticket-warning') {
-    margin = '5px 0px 0px 0px';
+    boxMarginTop = '5px';
   }
 
   if (props.kind === 'one-line-height') {
@@ -191,8 +220,8 @@ export default function styles (theme, props) {
     textTextOverflow = 'ellipsis';
     textWhiteSpace = 'nowrap';
     boxWidth = '0px';
-    if (!flexGrow) {
-      flexGrow = '1';
+    if (!boxFlexGrow) {
+      boxFlexGrow = '1';
     }
   } else if (props.wrap === 'stretch') {
     linesOverflow = 'hidden';
@@ -211,9 +240,9 @@ export default function styles (theme, props) {
     textColor = ColorHelpers.getMarkColor (theme, props.textColor);
   }
 
-  if (flexGrow) {
-    flexShrink = '0';
-    flexBasis = '0%';
+  if (boxFlexGrow) {
+    boxFlexShrink = '1';
+    boxFlexBasis = '0%';
   }
 
   if (props.fontWeight) {
@@ -236,19 +265,26 @@ export default function styles (theme, props) {
     width: boxWidth,
     minWidth: boxWidth ? boxWidth : '0px',
     height: boxHeight,
-    padding: padding,
-    margin: margin,
+    minHeight: boxMinHeight,
+    paddingTop: boxPaddingTop,
+    paddingRight: boxPaddingRight,
+    paddingBottom: boxPaddingBottom,
+    paddingLeft: boxPaddingLeft,
+    marginTop: boxMarginTop,
+    marginRight: boxMarginRight,
+    marginBottom: boxMarginBottom,
+    marginLeft: boxMarginLeft,
     display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: boxFlexDirection,
+    alignItems: boxAlignItems,
     justifyContent: boxJustifyContent,
     alignSelf: boxAlignSelf,
-    flexGrow: flexGrow,
-    flexShrink: flexShrink,
-    flexBasis: flexBasis,
+    flexGrow: boxFlexGrow,
+    flexShrink: boxFlexShrink,
+    flexBasis: boxFlexBasis,
     backgroundColor: backgroundColor,
-    opacity: opacity,
-    zIndex: props.zIndex,
+    opacity: boxOpacity,
+    zIndex: boxZIndex,
     userSelect: 'none',
     cursor: cursor,
   };
