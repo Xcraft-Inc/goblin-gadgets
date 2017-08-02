@@ -1,5 +1,6 @@
 import {Unit} from 'electrum-theme';
 import {ColorHelpers} from 'electrum-theme';
+import {ColorManipulator} from 'electrum-theme';
 
 function convertJustify (justify) {
   switch (justify) {
@@ -43,7 +44,8 @@ export default function styles (theme, props) {
   let boxZIndex = props.zIndex;
   let boxOpacity = props.visibility === 'false' ? 0 : null;
   let borderRadius = '0px';
-  let backgroundColor = props.backgroundColor;
+  let backgroundColor = null;
+  let textHoverColor = null;
   let glyphJustify = 'center';
   let glyphMinWidth = theme.shapes.lineHeight;
   let glyphHeight = theme.shapes.lineHeight;
@@ -58,7 +60,6 @@ export default function styles (theme, props) {
   let textMarginLeft = m;
   let textWeight = null;
   let textTransform = props.textTransform ? props.textTransform : null;
-
   let textSize = props.fontSize ? props.fontSize : theme.shapes.labelTextSize;
   let boxAlignSelf = null;
   let textColor = null;
@@ -67,10 +68,16 @@ export default function styles (theme, props) {
   let textTextOverflow = null;
   let textWhiteSpace = null;
   let textWordBreak = null;
-  let cursor = props.cursor;
+  let cursor = props.cursor ? props.cursor : 'default';
+  let spacing = props.spacing;
+  let specialDisabled = false;
 
   if (props.insideButton === 'true') {
     boxHeight = props.height ? props.height : theme.shapes.lineHeight;
+    spacing = null;
+    textOverflow = 'hidden';
+    textTextOverflow = 'ellipsis';
+    textWhiteSpace = 'nowrap';
   }
 
   if (!props.isDragged && props.hasHeLeft) {
@@ -82,14 +89,14 @@ export default function styles (theme, props) {
     boxMarginBottom = m;
   }
   // Initialise right margin according to spacing.
-  if (props.spacing) {
-    let spacingType = {
+  if (spacing) {
+    const spacingType = {
       overlap: '-1px',
       tiny: '1px',
       compact: '5px',
       large: m,
     };
-    boxMarginRight = spacingType[props.spacing];
+    boxMarginRight = spacingType[spacing];
   }
   if (props.spacing === 'compact') {
     glyphMinWidth = null;
@@ -259,11 +266,13 @@ export default function styles (theme, props) {
   // task-logo button (usual parent container with kind='task-bar').
   if (props.kind === 'task-logo') {
     boxFlexDirection = 'column';
-    borderStyle = 'none';
     if (props.active === 'true') {
       textColor = theme.palette.taskTabActiveText;
     }
-    textMargin = '0px';
+    textMarginTop = '0px';
+    textMarginRight = '0px';
+    textMarginBottom = '0px';
+    textMarginLeft = '0px';
     textTransform = textTransform ? textTransform : 'uppercase';
     textWeight = 'bold';
     textSize = theme.shapes.taskLogoTextSize;
@@ -273,7 +282,10 @@ export default function styles (theme, props) {
   // Task button (usual parent is container with kind='task-bar').
   if (props.kind === 'task-bar') {
     boxFlexDirection = 'column';
-    textMargin = '0px';
+    textMarginTop = '0px';
+    textMarginRight = '0px';
+    textMarginBottom = '0px';
+    textMarginLeft = '0px';
     textSize = theme.shapes.taskTextSize;
     glyphSize = theme.shapes.taskGlyphSize;
   }
@@ -312,7 +324,10 @@ export default function styles (theme, props) {
       textColor = theme.palette.taskTabInactiveText;
     }
     const mm = props.glyph ? '0px' : theme.shapes.taskTabLeftMargin;
-    textMargin = '0px 0px 0px ' + mm;
+    textMarginTop = '0px';
+    textMarginRight = '0px';
+    textMarginBottom = '0px';
+    textMarginLeft = mm;
     textSize = theme.shapes.taskTabTextSize;
     glyphSize = theme.shapes.taskTabGlyphSize;
   }
@@ -341,13 +356,13 @@ export default function styles (theme, props) {
   }
 
   // Footer button (usual parent is container with kind='footer').
-  if (props.kind === 'footer') {
+  if (props.kind === 'button-footer') {
     textSize = theme.shapes.footerTextSize;
     glyphSize = theme.shapes.footerGlyphSize;
   }
 
   // Notification button (usual parent is container with kind='notification-header').
-  if (props.kind === 'notification') {
+  if (props.kind === 'button-notification') {
     glyphHeight = null;
     textSize = theme.shapes.notificationButtonTextSize;
     glyphSize = theme.shapes.notificationButtonGlyphSize;
@@ -382,6 +397,7 @@ export default function styles (theme, props) {
   if (props.kind === 'action') {
     textSize = theme.shapes.actionTextSize;
     glyphSize = theme.shapes.actionGlyphSize;
+    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'none';
   }
 
   // Subaction button (usual parent is container with kind='row-pane' and subkind='box').
@@ -412,25 +428,22 @@ export default function styles (theme, props) {
 
   if (props.kind === 'menu-item') {
     textWidth = 'max-content';
-    textMargin =
-      '0px ' +
-      theme.shapes.containerMargin +
-      ' 0px ' +
-      theme.shapes.containerMargin;
+    textMarginTop = '0px';
+    textMarginRight = theme.shapes.containerMargin;
+    textMarginBottom = '0px';
+    textMarginLeft = theme.shapes.containerMargin;
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     textSize = theme.shapes.menuTextSize;
     textTransform = textTransform ? textTransform : 'uppercase';
     textWeight = 'bold';
     if (props.active === 'true') {
-      glyphColor = props.glyphColor ? props.glyphColor : theme.palette.menuText;
+      glyphColor = theme.palette.menuText;
       textColor = theme.palette.menuText;
     } else if (props.active === 'focused') {
-      glyphColor = props.glyphColor
-        ? props.glyphColor
-        : theme.palette.menuFocusText;
+      glyphColor = theme.palette.menuFocusText;
       textColor = theme.palette.menuFocusText;
     } else {
-      glyphColor = props.glyphColor ? props.glyphColor : theme.palette.menuText;
+      glyphColor = theme.palette.menuText;
       textColor = theme.palette.menuText;
     }
   }
@@ -539,12 +552,38 @@ export default function styles (theme, props) {
     }
   }
 
+  // Force colors according to properties glyphColor, textColor and backgroundColor.
   if (props.glyphColor) {
     glyphColor = ColorHelpers.getMarkColor (theme, props.glyphColor);
   }
-
   if (props.textColor) {
     textColor = ColorHelpers.getMarkColor (theme, props.textColor);
+  }
+  if (props.backgroundColor) {
+    backgroundColor = ColorHelpers.getMarkColor (theme, props.backgroundColor);
+  }
+
+  // Sets default colors if they are undefined
+  if (!glyphColor && glyphColor !== 'none') {
+    glyphColor = ColorManipulator.emphasize (props.buttonBackgroundColor, 0.8);
+  }
+  if (!textColor && textColor !== 'none') {
+    textColor = ColorManipulator.emphasize (props.buttonBackgroundColor, 0.9);
+  }
+
+  // Alter colors if component is disable.
+  if (props.disabled === 'true' && !specialDisabled) {
+    if (backgroundColor) {
+      backgroundColor = theme.palette.buttonDisableBackground;
+    }
+    glyphColor = theme.palette.buttonDisableGlyph;
+    textColor = theme.palette.buttonDisableText;
+  }
+
+  // If the Label is in a Button, it never has a backgroundColor.
+  // Indeed, the background color is drawn by the Button.
+  if (props.insideButton === 'true') {
+    backgroundColor = null;
   }
 
   if (boxFlexGrow) {
@@ -665,6 +704,21 @@ export default function styles (theme, props) {
     // FIXME: modify highlightedTextBackground to electrum-theme
     padding: '1px',
   };
+
+  if (props.disabled !== 'true' && boxOpacity !== 0) {
+    boxStyle[':hover'] = {
+      color: textHoverColor, // (*)
+      opacity: 1.0,
+    };
+
+    if (textHoverColor) {
+      textStyle.color = null; // (*)
+      glyphStyle.color = null; // (*)
+    }
+    // (*) If hover change the color of glyph and text, it is necessary to change
+    //     the color of parent (and not the glyph/text children). This system
+    //     causes the change simultaneously for the two children.
+  }
 
   return {
     box: boxStyle,

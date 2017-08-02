@@ -195,34 +195,27 @@ class Label extends Widget {
       return null;
     }
 
-    const disabled = this.props.disabled;
-    const index = this.props.index;
-    const tooltip = this.props.tooltip;
-    const marquee = this.props.marquee;
-
     const boxClass = this.styles.classNames.box;
 
-    if (marquee === 'true') {
+    if (this.props.insideButton === 'true') {
       return (
-        <marquee
-          key={index}
-          onClick={this.props.onClick}
-          disabled={disabled}
+        <div
           className={boxClass}
-          title={tooltip}
+          key={this.props.index}
+          disabled={this.props.disabled}
+          title={this.props.tooltip}
         >
           {this.getGlyphAndText ()}
-          {this.props.children}
-        </marquee>
+        </div>
       );
     } else {
       return (
         <div
-          key={index}
-          onClick={this.props.onClick}
-          disabled={disabled}
           className={boxClass}
-          title={tooltip}
+          key={this.props.index}
+          onClick={this.props.onClick}
+          disabled={this.props.disabled}
+          title={this.props.tooltip}
         >
           {this.getGlyphAndText ()}
           {this.props.children}

@@ -146,10 +146,22 @@ class Button extends Widget {
   }
 
   renderLabel () {
-    return <Label key="label" {...this.props} />;
+    const boxStyle = Object.assign ({}, this.styles.props.box);
+    return (
+      <Label
+        key="label"
+        {...this.props}
+        grow="1"
+        buttonBackgroundColor={boxStyle.backgroundColor}
+        insideButton="true"
+      />
+    );
   }
 
   renderNewLayout () {
+    if (this.props.kind === 'box' || this.props.kind === 'container') {
+      return null;
+    }
     const result = [];
     result.push (this.renderLabel ());
     result.push (this.renderShortcut ());
@@ -157,15 +169,23 @@ class Button extends Widget {
   }
 
   renderLayout (glyphClass, textClass) {
+    if (this.props.kind === 'box' || this.props.kind === 'container') {
+      return null;
+    }
     const result = [];
-    if (this.props.glyphPosition === 'right') {
-      result.push (this.renderText (textClass));
+    if (false) {
+      result.push (this.renderLabel ());
       result.push (this.renderShortcut ());
-      result.push (this.renderGlyph (glyphClass));
     } else {
-      result.push (this.renderGlyph (glyphClass));
-      result.push (this.renderText (textClass));
-      result.push (this.renderShortcut ());
+      if (this.props.glyphPosition === 'right') {
+        result.push (this.renderText (textClass));
+        result.push (this.renderShortcut ());
+        result.push (this.renderGlyph (glyphClass));
+      } else {
+        result.push (this.renderGlyph (glyphClass));
+        result.push (this.renderText (textClass));
+        result.push (this.renderShortcut ());
+      }
     }
     return result;
   }

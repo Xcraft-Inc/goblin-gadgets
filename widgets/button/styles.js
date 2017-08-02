@@ -1,5 +1,6 @@
-import {ColorManipulator} from 'electrum-theme';
 import {Unit} from 'electrum-theme';
+import {ColorHelpers} from 'electrum-theme';
+import {ColorManipulator} from 'electrum-theme';
 
 function convertJustify (justify) {
   switch (justify) {
@@ -51,19 +52,19 @@ export default function styles (theme, props) {
   let backgroundHoverColor = null;
   let glyphWidth = theme.shapes.lineHeight;
   let glyphHeight = theme.shapes.lineHeight;
-  let glyphColor = props.glyphColor;
+  let glyphColor = null;
   let glyphSize = null;
   let glyphTransform = null;
   let glyphMargin = null;
   let textWidth = null;
   let textGrow = null;
-  let textColor = props.textColor;
+  let textColor = null;
   let textMargin = '0px ' + m + ' 0px ' + m;
   let textWeight = null;
   let textTransform = props.textTransform;
   let textSize = theme.shapes.buttonTextSize;
   let boxPosition = props.position ? props.position : 'relative';
-  let cursor = props.cursor;
+  let cursor = props.cursor ? props.cursor : 'default';
   let transition = theme.transitions.easeOut ();
   let specialDisabled = false;
 
@@ -277,7 +278,7 @@ export default function styles (theme, props) {
   }
 
   // Footer button (usual parent is container with kind='footer').
-  if (props.kind === 'footer') {
+  if (props.kind === 'button-footer') {
     boxHeight = theme.shapes.footerHeight;
     boxMarginRight = '1px';
     boxPaddingRight = m;
@@ -293,7 +294,7 @@ export default function styles (theme, props) {
   }
 
   // Notification button (usual parent is container with kind='notification-header').
-  if (props.kind === 'notification') {
+  if (props.kind === 'button-notification') {
     boxHeight = '32px';
     glyphHeight = null;
     textSize = theme.shapes.notificationButtonTextSize;
@@ -453,19 +454,17 @@ export default function styles (theme, props) {
     textWeight = 'bold';
     borderStyle = 'none';
     if (props.active === 'true') {
-      glyphColor = props.glyphColor ? props.glyphColor : theme.palette.menuText;
+      glyphColor = theme.palette.menuText;
       textColor = theme.palette.menuText;
       backgroundColor = props.activeColor
         ? props.activeColor
         : theme.palette.menuItemActiveBackground;
     } else if (props.active === 'focused') {
-      glyphColor = props.glyphColor
-        ? props.glyphColor
-        : theme.palette.menuFocusText;
+      glyphColor = theme.palette.menuFocusText;
       textColor = theme.palette.menuFocusText;
       backgroundColor = theme.palette.menuItemFocusBackground;
     } else {
-      glyphColor = props.glyphColor ? props.glyphColor : theme.palette.menuText;
+      glyphColor = theme.palette.menuText;
       textColor = theme.palette.menuText;
       backgroundColor = theme.palette.menuItemInactiveBackground;
     }
@@ -645,8 +644,14 @@ export default function styles (theme, props) {
     }
   }
 
+  if (props.glyphColor) {
+    glyphColor = ColorHelpers.getMarkColor (theme, props.glyphColor);
+  }
+  if (props.textColor) {
+    textColor = ColorHelpers.getMarkColor (theme, props.textColor);
+  }
   if (props.backgroundColor) {
-    backgroundColor = props.backgroundColor;
+    backgroundColor = ColorHelpers.getMarkColor (theme, props.backgroundColor);
   }
 
   // Compute colors for glyph, text and hover if necessary.
@@ -734,6 +739,7 @@ export default function styles (theme, props) {
     transition: transition,
     zIndex: boxZIndex,
     textDecoration: 'none',
+    userSelect: 'none',
     cursor: cursor,
   };
 
@@ -769,6 +775,7 @@ export default function styles (theme, props) {
     margin: glyphMargin,
     color: glyphColor,
     transform: glyphTransform,
+    userSelect: 'none',
   };
 
   const textStyle = {
@@ -783,6 +790,7 @@ export default function styles (theme, props) {
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
     wordWrap: 'break-word',
+    userSelect: 'none',
   };
 
   const shortcutStyle = {
@@ -794,6 +802,7 @@ export default function styles (theme, props) {
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
     wordWrap: 'break-word',
+    userSelect: 'none',
   };
 
   if (props.disabled !== 'true' && boxOpacity !== 0) {
@@ -824,6 +833,7 @@ export default function styles (theme, props) {
     borderRight: d + ' solid transparent',
     borderBottom: d + ' solid ' + theme.palette.viewTabBackground,
     margin: '0px -' + d + ' 0px 0px',
+    userSelect: 'none',
   };
 
   const menuBoxStyle = {
@@ -834,6 +844,7 @@ export default function styles (theme, props) {
     left: '0px',
     backgroundColor: theme.palette.menuBackground,
     zIndex: 2,
+    userSelect: 'none',
   };
 
   return {
