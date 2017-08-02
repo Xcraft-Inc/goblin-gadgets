@@ -233,10 +233,10 @@ class Wizard extends Form {
   // Last column PREVIEW
   /******************************************************************************/
 
-  renderWidgetBase (index, props, newLook) {
+  renderWidgetBase (index, props) {
     switch (this.wizard) {
       case 'Button':
-        return <Button key={index} {...props} newLook={newLook} />;
+        return <Button key={index} {...props} />;
       case 'Label':
         return <Label key={index} {...props} />;
       case 'TextField':
@@ -259,7 +259,7 @@ class Wizard extends Form {
     }
   }
 
-  renderWidget (index, newLook) {
+  renderWidget (index) {
     const props = {};
     const param = this.params.select (param => {
       const field = param.get ('field');
@@ -274,23 +274,23 @@ class Wizard extends Form {
       };
       return (
         <div style={frameStyle} key={index}>
-          {this.renderWidgetBase (index, props, newLook)}
+          {this.renderWidgetBase (index, props)}
         </div>
       );
     } else {
-      return this.renderWidgetBase (index, props, newLook);
+      return this.renderWidgetBase (index, props);
     }
   }
 
-  renderWidgets (newLook) {
+  renderWidgets () {
     const result = [];
     for (let i = 0; i < this.items; i++) {
-      result.push (this.renderWidget (i, newLook));
+      result.push (this.renderWidget (i));
     }
     return result;
   }
 
-  renderPreviewSolo (newLook) {
+  renderPreviewSolo () {
     const paneStyle = {
       display: 'flex',
       flexDirection: 'column',
@@ -331,7 +331,7 @@ class Wizard extends Form {
     return (
       <div style={paneStyle}>
         <div style={soloStyle}>
-          {this.renderWidgets (newLook)}
+          {this.renderWidgets ()}
         </div>
       </div>
     );
@@ -548,8 +548,7 @@ class Wizard extends Form {
               {this.renderLayoutSwitches ()}
               {this.renderFrameSwitch ()}
             </Container>
-            {this.renderPreviewSolo ('false')}
-            {this.renderPreviewSolo ('true')}
+            {this.renderPreviewSolo ()}
           </div>
         </Container>
       </Container>

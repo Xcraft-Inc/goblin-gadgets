@@ -767,6 +767,35 @@ export default function styles (theme, props) {
     glyphMargin = '0px 10px 0px 0px';
   }
 
+  const glyphStyle = {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: glyphWidth,
+    height: glyphHeight,
+    padding: '0px',
+    margin: glyphMargin,
+    color: glyphColor,
+    transform: glyphTransform,
+    userSelect: 'none',
+  };
+
+  const textStyle = {
+    width: textWidth,
+    margin: textMargin,
+    flexGrow: props.shortcut ? '1' : textGrow,
+    color: textColor,
+    fontWeight: textWeight,
+    textTransform: textTransform,
+    fontSize: Unit.multiply (textSize, theme.typo.fontScale),
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    wordWrap: 'break-word',
+    userSelect: 'none',
+  };
+
   const shortcutStyle = {
     width: textWidth,
     flexGrow: textGrow,
@@ -786,6 +815,14 @@ export default function styles (theme, props) {
       backgroundColor: backgroundHoverColor,
       opacity: 1.0,
     };
+
+    if (textHoverColor) {
+      textStyle.color = null; // (*)
+      glyphStyle.color = null; // (*)
+    }
+    // (*) If hover change the color of glyph and text, it is necessary to change
+    //     the color of parent (and not the glyph/text children). This system
+    //     causes the change simultaneously for the two children.
   }
 
   // Generate a triangle with subtle css, see:
@@ -815,6 +852,8 @@ export default function styles (theme, props) {
 
   return {
     box: boxStyle,
+    glyph: glyphStyle,
+    text: textStyle,
     shortcut: shortcutStyle,
     triangle: triangleStyle,
     menuBox: menuBoxStyle,

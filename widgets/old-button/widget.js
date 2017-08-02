@@ -6,7 +6,7 @@ import Label from 'gadgets/label/widget';
 import Menu from 'gadgets/menu/widget';
 import Badge from 'gadgets/badge/widget';
 
-class Button extends Widget {
+class OldButton extends Widget {
   constructor () {
     super (...arguments);
   }
@@ -94,6 +94,43 @@ class Button extends Widget {
     }
   }
 
+  renderGlyph (className) {
+    const glyph = this.props.glyph;
+    if (glyph) {
+      const rotate = this.props.glyphRotate;
+      const flip = this.props.glyphFlip;
+      const spin = this.props.glyphSpin;
+      return (
+        <i
+          key="icon"
+          className={
+            className +
+              ` fa
+            fa-${glyph}
+            fa-rotate-${rotate}
+            fa-flip-${flip}
+            ${spin ? 'fa-spin' : ''}`
+          }
+        />
+      );
+    } else {
+      return null;
+    }
+  }
+
+  renderText (className) {
+    const text = this.props.text;
+    if (text) {
+      return (
+        <label key="text" className={className}>
+          {text}
+        </label>
+      );
+    } else {
+      return null;
+    }
+  }
+
   renderShortcut () {
     const shortcut = this.props.shortcut;
     if (shortcut) {
@@ -121,13 +158,35 @@ class Button extends Widget {
     );
   }
 
-  renderLayout () {
+  renderNewLayout () {
     if (this.props.kind === 'box' || this.props.kind === 'container') {
       return null;
     }
     const result = [];
     result.push (this.renderLabel ());
     result.push (this.renderShortcut ());
+    return result;
+  }
+
+  renderLayout (glyphClass, textClass) {
+    if (this.props.kind === 'box' || this.props.kind === 'container') {
+      return null;
+    }
+    const result = [];
+    if (false) {
+      result.push (this.renderLabel ());
+      result.push (this.renderShortcut ());
+    } else {
+      if (this.props.glyphPosition === 'right') {
+        result.push (this.renderText (textClass));
+        result.push (this.renderShortcut ());
+        result.push (this.renderGlyph (glyphClass));
+      } else {
+        result.push (this.renderGlyph (glyphClass));
+        result.push (this.renderText (textClass));
+        result.push (this.renderShortcut ());
+      }
+    }
     return result;
   }
 
@@ -148,6 +207,29 @@ class Button extends Widget {
     }
 
     const boxClass = this.styles.classNames.box;
+    const glyphClass = this.styles.classNames.glyph;
+    const textClass = this.styles.classNames.text;
+
+    if (this.props.newLook === 'true') {
+      return (
+        <div
+          key={index}
+          onClick={::this.onClicked} // voir (*)
+          onMouseDown={::this.onMouseDown}
+          onMouseUp={::this.onMouseUp}
+          onTouchStart={::this.onMouseDown}
+          onTouchEnd={::this.onMouseUp}
+          className={boxClass}
+          title={tooltip}
+        >
+          {this.renderNewLayout ()}
+          {this.renderTriangle ()}
+          {this.renderBadge ()}
+          {this.renderMenu ()}
+          {this.props.children}
+        </div>
+      );
+    }
 
     if (kind === 'container' || kind === 'box') {
       return (
@@ -176,7 +258,7 @@ class Button extends Widget {
           className={boxClass}
           title={tooltip}
         >
-          {this.renderLayout ()}
+          {this.renderLayout (glyphClass, textClass)}
           {this.renderTriangle ()}
           {this.renderBadge ()}
           {this.renderMenu ()}
@@ -196,7 +278,7 @@ class Button extends Widget {
           title={tooltip}
           href={window.location.hash + '#' + toAnchor}
         >
-          {this.renderLayout ()}
+          {this.renderLayout (glyphClass, textClass)}
           {this.renderTriangle ()}
           {this.renderBadge ()}
           {this.renderMenu ()}
@@ -215,7 +297,7 @@ class Button extends Widget {
           className={boxClass}
           title={tooltip}
         >
-          {this.renderLayout ()}
+          {this.renderLayout (glyphClass, textClass)}
           {this.renderTriangle ()}
           {this.renderBadge ()}
           {this.renderMenu ()}
@@ -227,4 +309,4 @@ class Button extends Widget {
   // (*) je n'arrive pas à généraliser cela !!!
 }
 
-export default Button;
+export default OldButton;
