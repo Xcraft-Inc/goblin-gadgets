@@ -2,6 +2,7 @@ import React from 'react';
 import Widget from 'laboratory/widget';
 import * as ShortcutHelpers from '../helpers/shortcut-helpers.js';
 
+import Label from 'gadgets/label/widget';
 import Menu from 'gadgets/menu/widget';
 import Badge from 'gadgets/badge/widget';
 
@@ -144,6 +145,17 @@ class Button extends Widget {
     }
   }
 
+  renderLabel () {
+    return <Label key="label" {...this.props} />;
+  }
+
+  renderNewLayout () {
+    const result = [];
+    result.push (this.renderLabel ());
+    result.push (this.renderShortcut ());
+    return result;
+  }
+
   renderLayout (glyphClass, textClass) {
     const result = [];
     if (this.props.glyphPosition === 'right') {
@@ -159,14 +171,17 @@ class Button extends Widget {
   }
 
   render () {
+    if (this.props.show === 'false') {
+      return null;
+    }
+
     const index = this.props.index;
     const kind = this.props.kind;
     const menu = this.props.menu;
     const toAnchor = this.props.toAnchor;
-    const show = this.props.show;
     const text = this.props.text;
-    let tooltip = this.props.tooltip;
 
+    let tooltip = this.props.tooltip;
     if (kind === 'pane-navigator') {
       tooltip = text;
     }
@@ -175,9 +190,28 @@ class Button extends Widget {
     const glyphClass = this.styles.classNames.glyph;
     const textClass = this.styles.classNames.text;
 
-    if (show === 'false') {
-      return null;
-    } else if (kind === 'container' || kind === 'box') {
+    if (this.props.newLook === 'true') {
+      return (
+        <div
+          key={index}
+          onClick={::this.onClicked} // voir (*)
+          onMouseDown={::this.onMouseDown}
+          onMouseUp={::this.onMouseUp}
+          onTouchStart={::this.onMouseDown}
+          onTouchEnd={::this.onMouseUp}
+          className={boxClass}
+          title={tooltip}
+        >
+          {this.renderNewLayout ()}
+          {this.renderTriangle ()}
+          {this.renderBadge ()}
+          {this.renderMenu ()}
+          {this.props.children}
+        </div>
+      );
+    }
+
+    if (kind === 'container' || kind === 'box') {
       return (
         <div
           key={index}

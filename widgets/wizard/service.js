@@ -51,6 +51,13 @@ const params = {
       ],
       value: '',
     },
+    newLook: {
+      id: 'newLook',
+      group: 'Aspect',
+      type: 'bool',
+      field: 'newLook',
+      value: 'false',
+    },
     active: {
       id: 'active',
       group: 'Aspect',
