@@ -66,6 +66,9 @@ export default function styles (theme, props) {
   let boxPosition = props.position ? props.position : 'relative';
   let cursor = props.cursor ? props.cursor : 'default';
   let transition = theme.transitions.easeOut ();
+  let activeColor = props.activeColor
+    ? ColorHelpers.getMarkColor (theme, props.activeColor)
+    : null;
   let specialDisabled = false;
 
   // Initialize variables for button without border.
@@ -100,8 +103,8 @@ export default function styles (theme, props) {
     boxFlexDirection = 'column';
     borderStyle = 'none';
     if (props.active === 'true') {
-      backgroundColor = props.activeColor
-        ? props.activeColor
+      backgroundColor = activeColor
+        ? activeColor
         : theme.palette.taskTabActiveBackground;
       textColor = theme.palette.taskTabActiveText;
     } else {
@@ -135,8 +138,8 @@ export default function styles (theme, props) {
     textWeight = 'bold';
     textSize = theme.shapes.mainTabTextSize;
     if (props.active === 'true') {
-      backgroundColor = props.activeColor
-        ? props.activeColor
+      backgroundColor = activeColor
+        ? activeColor
         : theme.palette.mainTabButtonActiveBackground;
     } else {
       backgroundColor = theme.palette.mainTabButtonInactiveBackground;
@@ -149,8 +152,8 @@ export default function styles (theme, props) {
     borderStyle = 'none';
     textColor = theme.palette.mainTabText;
     if (props.active === 'true') {
-      backgroundColor = props.activeColor
-        ? props.activeColor
+      backgroundColor = activeColor
+        ? activeColor
         : theme.palette.mainTabButtonActiveBackground;
     } else {
       backgroundColor = null;
@@ -175,8 +178,8 @@ export default function styles (theme, props) {
     textSize = theme.shapes.viewTabTextSize;
     glyphColor = theme.palette.viewTabGlyph;
     if (props.active === 'true') {
-      backgroundColor = props.activeColor
-        ? props.activeColor
+      backgroundColor = activeColor
+        ? activeColor
         : theme.palette.viewTabButtonActiveBackground;
     } else {
       backgroundColor = theme.palette.viewTabButtonInactiveBackground;
@@ -204,8 +207,8 @@ export default function styles (theme, props) {
     boxHeight = theme.shapes.taskTabHeight;
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     if (props.active === 'true') {
-      backgroundColor = props.activeColor
-        ? props.activeColor
+      backgroundColor = activeColor
+        ? activeColor
         : theme.palette.taskTabActiveBackground;
       textColor = theme.palette.taskTabActiveText;
       textWeight = 'bold';
@@ -234,8 +237,8 @@ export default function styles (theme, props) {
       borderColor = theme.palette.paneNavigatorInactiveBorder;
       textColor = theme.palette.paneNavigatorInactiveText;
     } else if (props.active === 'true') {
-      borderColor = props.activeColor
-        ? props.activeColor
+      borderColor = activeColor
+        ? activeColor
         : theme.palette.paneNavigatorActiveBorder;
     }
     borderHoverColor = theme.palette.paneNavigatorBorderHover;
@@ -253,8 +256,8 @@ export default function styles (theme, props) {
       borderColor = theme.palette.paneNavigatorInactiveBorder;
       textColor = theme.palette.paneNavigatorInactiveText;
     } else if (props.active === 'true') {
-      borderColor = props.activeColor
-        ? props.activeColor
+      borderColor = activeColor
+        ? activeColor
         : theme.palette.paneNavigatorActiveBorder;
     }
     borderHoverColor = theme.palette.paneNavigatorBorderHover;
@@ -271,8 +274,8 @@ export default function styles (theme, props) {
     if (props.active === 'false') {
       backgroundColor = theme.palette.vnavigatorButtonInactiveBackground;
     } else if (props.active === 'true') {
-      backgroundColor = props.activeColor
-        ? props.activeColor
+      backgroundColor = activeColor
+        ? activeColor
         : theme.palette.vnavigatorButtonActiveBackground;
     }
   }
@@ -388,8 +391,8 @@ export default function styles (theme, props) {
   // Combo button, place to the right of a TextFieldCombo component.
   if (props.kind === 'combo') {
     if (props.active === 'true') {
-      backgroundColor = props.activeColor
-        ? props.activeColor
+      backgroundColor = activeColor
+        ? activeColor
         : theme.palette.comboActiveBackground;
       glyphColor = theme.palette.comboActiveGlyph;
     }
@@ -456,8 +459,8 @@ export default function styles (theme, props) {
     if (props.active === 'true') {
       glyphColor = theme.palette.menuText;
       textColor = theme.palette.menuText;
-      backgroundColor = props.activeColor
-        ? props.activeColor
+      backgroundColor = activeColor
+        ? activeColor
         : theme.palette.menuItemActiveBackground;
     } else if (props.active === 'focused') {
       glyphColor = theme.palette.menuFocusText;
@@ -479,8 +482,8 @@ export default function styles (theme, props) {
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     glyphSize = '120%';
     if (props.active === 'true') {
-      backgroundColor = props.activeColor
-        ? props.activeColor
+      backgroundColor = activeColor
+        ? activeColor
         : theme.palette.boxActiveBackground;
     }
   }
@@ -508,8 +511,8 @@ export default function styles (theme, props) {
       backgroundColor = theme.palette.calendarWeekendBackground;
     }
     if (props.active === 'true') {
-      backgroundColor = props.activeColor
-        ? props.activeColor
+      backgroundColor = activeColor
+        ? activeColor
         : theme.palette.calendarActiveBackground;
       textColor = theme.palette.calendarActiveText;
     }
@@ -536,8 +539,8 @@ export default function styles (theme, props) {
     boxPaddingTop = Unit.multiply (theme.shapes.lineSpacing, 0.5);
     boxPaddingBottom = Unit.multiply (theme.shapes.lineSpacing, 0.5);
     if (props.active === 'true') {
-      backgroundColor = props.activeColor
-        ? props.activeColor
+      backgroundColor = activeColor
+        ? activeColor
         : theme.palette.boxActiveBackground;
     } else {
       backgroundColor = null;
@@ -560,8 +563,8 @@ export default function styles (theme, props) {
     boxMarginRight = m;
     boxMarginBottom = m;
     if (props.active === 'true') {
-      backgroundColor = props.activeColor
-        ? props.activeColor
+      backgroundColor = activeColor
+        ? activeColor
         : theme.palette.boxActiveBackground;
     } else {
       backgroundColor = theme.palette.boxBackground;
@@ -573,8 +576,8 @@ export default function styles (theme, props) {
     boxMarginBottom = '1px';
     borderRadius = theme.shapes.smoothRadius;
     if (props.active === 'true') {
-      backgroundColor = props.activeColor
-        ? props.activeColor
+      backgroundColor = activeColor
+        ? activeColor
         : theme.palette.boxActiveBackground;
     } else {
       glyphColor = theme.palette.chronoNavigatorText;
@@ -590,11 +593,11 @@ export default function styles (theme, props) {
     if (props.active === 'true') {
       glyphColor = theme.palette.calendarActiveText;
       textColor = theme.palette.calendarActiveText;
-      backgroundColor = props.activeColor
-        ? props.activeColor
+      backgroundColor = activeColor
+        ? activeColor
         : theme.palette.calendarActiveBackground;
-      borderColor = props.activeColor
-        ? props.activeColor
+      borderColor = activeColor
+        ? activeColor
         : theme.palette.calendarActiveBackground;
     }
   }
@@ -610,8 +613,8 @@ export default function styles (theme, props) {
   if (!props.kind) {
     borderRadius = theme.shapes.smoothRadius;
     if (props.active === 'true') {
-      backgroundColor = props.activeColor
-        ? props.activeColor
+      backgroundColor = activeColor
+        ? activeColor
         : theme.palette.boxActiveBackground;
     }
   }
