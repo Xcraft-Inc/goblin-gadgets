@@ -208,10 +208,10 @@ class TextField extends Widget {
 
     const boxClass = this.styles.classNames.box;
     return (
-      <span disabled={disabled} className={boxClass} title={tooltip}>
+      <div disabled={disabled} className={boxClass} title={tooltip}>
         {this.renderInput ()}
         {this.renderFlyingBalloon ()}
-      </span>
+      </div>
     );
   }
 }

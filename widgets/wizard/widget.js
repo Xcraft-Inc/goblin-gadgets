@@ -323,6 +323,7 @@ class Wizard extends Form {
       flexDirection: direction,
       flexWrap: wrap,
       justifyContent: 'flex-start',
+      alignItems: 'flex-start',
       transform: `scale(${this.scale})`,
       transformOrigin: 'top left',
       width: `${100 / this.scale}%`,
