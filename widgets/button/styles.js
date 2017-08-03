@@ -25,7 +25,6 @@ export default function styles (theme, props) {
   // Initialize all variables for a standard button.
   let boxWidth = props.width;
   let boxHeight = props.height ? props.height : theme.shapes.lineHeight;
-  let boxMinHeight = null;
   let boxFlexDirection = 'row';
   let boxFlexGrow = props.grow;
   let boxFlexShrink = null;
@@ -500,7 +499,6 @@ export default function styles (theme, props) {
   }
 
   if (props.kind === 'chronos-navigator') {
-    boxMinHeight = boxHeight;
     boxMarginBottom = '1px';
     borderRadius = theme.shapes.smoothRadius;
     if (props.active === 'true') {
@@ -626,9 +624,9 @@ export default function styles (theme, props) {
 
   const boxStyle = {
     opacity: boxOpacity,
+    overflow: 'hidden',
     width: boxWidth,
-    height: boxHeight,
-    minHeight: boxMinHeight,
+    minHeight: boxHeight,
     left: props.left,
     right: props.right,
     top: props.top,

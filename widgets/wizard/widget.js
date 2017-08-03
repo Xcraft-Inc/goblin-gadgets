@@ -322,6 +322,7 @@ class Wizard extends Form {
       display: 'flex',
       flexDirection: direction,
       flexWrap: wrap,
+      justifyContent: 'flex-start',
       transform: `scale(${this.scale})`,
       transformOrigin: 'top left',
       width: `${100 / this.scale}%`,
@@ -338,7 +339,7 @@ class Wizard extends Form {
   }
 
   /******************************************************************************/
-  // Panel with switches in column WIDGET
+  // Panel with switches in column PREVIEW
   /******************************************************************************/
 
   renderSwitch (text, value, getter, setter) {

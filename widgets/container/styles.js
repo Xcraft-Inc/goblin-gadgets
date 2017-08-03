@@ -467,7 +467,10 @@ export default function styles (theme, props) {
         ? backgroundColor
         : theme.palette.infoBackground;
       fontWeight = 'bold';
-    } else if (props.subkind === 'box') {
+    } else if (props.subkind === 'box' || props.subkind === 'box-left') {
+      if (props.subkind === 'box-left') {
+        justifyContent = 'flex-start';
+      }
       rightMargin = Unit.multiply (m, -1);
       leftMargin = Unit.multiply (m, -1);
       let topPadding = halfMargin;

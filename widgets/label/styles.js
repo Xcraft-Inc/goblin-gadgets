@@ -26,7 +26,6 @@ export default function styles (theme, props) {
 
   let boxWidth = props.width;
   let boxHeight = props.height;
-  let boxMinHeight = null;
   let boxFlexDirection = 'row';
   let boxFlexGrow = props.grow;
   let boxFlexShrink = null;
@@ -59,6 +58,7 @@ export default function styles (theme, props) {
   let textMarginBottom = '0px';
   let textMarginLeft = m;
   let textWeight = null;
+  let textWrap = props.wrap;
   let textTransform = props.textTransform ? props.textTransform : null;
   let textSize = props.fontSize ? props.fontSize : theme.shapes.labelTextSize;
   let boxAlignSelf = null;
@@ -75,9 +75,9 @@ export default function styles (theme, props) {
   if (props.insideButton === 'true') {
     boxHeight = props.height ? props.height : theme.shapes.lineHeight;
     spacing = null;
-    textOverflow = 'hidden';
-    textTextOverflow = 'ellipsis';
-    textWhiteSpace = 'nowrap';
+    textWrap = textWrap ? textWrap : 'no';
+  } else {
+    textWrap = textWrap ? textWrap : 'yes';
   }
 
   if (!props.isDragged && props.hasHeLeft) {
@@ -526,7 +526,12 @@ export default function styles (theme, props) {
     boxAlignSelf = 'flex-start';
   }
 
-  if (props.wrap === 'no') {
+  if (textWrap === 'no') {
+    linesOverflow = 'hidden';
+    textOverflow = 'hidden';
+    textTextOverflow = 'ellipsis';
+    textWhiteSpace = 'nowrap';
+  } else if (textWrap === 'no-strict') {
     linesOverflow = 'hidden';
     textOverflow = 'hidden';
     textTextOverflow = 'ellipsis';
@@ -535,12 +540,8 @@ export default function styles (theme, props) {
     if (!boxFlexGrow) {
       boxFlexGrow = '1';
     }
-  } else if (props.wrap === 'stretch') {
-    linesOverflow = 'hidden';
-    textOverflow = 'hidden';
-    textTextOverflow = 'ellipsis';
-    textWhiteSpace = 'nowrap';
-  } else if (props.wrap === 'break-word') {
+  } else if (textWrap === 'yes-permissive') {
+  } else if (textWrap === 'yes') {
     textWordBreak = 'break-word';
   }
 
@@ -621,8 +622,7 @@ export default function styles (theme, props) {
   const boxStyle = {
     width: boxWidth,
     minWidth: boxWidth ? boxWidth : '0px',
-    height: boxHeight,
-    minHeight: boxMinHeight,
+    minHeight: boxHeight,
     paddingTop: boxPaddingTop,
     paddingRight: boxPaddingRight,
     paddingBottom: boxPaddingBottom,
