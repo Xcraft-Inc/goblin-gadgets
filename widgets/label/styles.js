@@ -255,6 +255,10 @@ export default function styles (theme, props) {
     boxHeight = theme.shapes.lineHeight;
   }
 
+  /******************************************************************************/
+  // Styles for Labels inside LabelTextFields.
+  /******************************************************************************/
+
   if (props.kind === 'label-text-field') {
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'none';
     boxHeight = null;
@@ -262,6 +266,10 @@ export default function styles (theme, props) {
     //?glyphColor = theme.palette.taskLabelText;
     //?textColor = theme.palette.taskLabelText;
   }
+
+  /******************************************************************************/
+  // Styles for Labels inside Buttons.
+  /******************************************************************************/
 
   // task-logo button (usual parent container with kind='task-bar').
   if (props.kind === 'task-logo') {

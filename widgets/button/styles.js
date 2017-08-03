@@ -50,18 +50,7 @@ export default function styles (theme, props) {
   let textHoverColor = null;
   let borderHoverColor = null;
   let backgroundHoverColor = null;
-  let glyphWidth = theme.shapes.lineHeight;
-  let glyphHeight = theme.shapes.lineHeight;
-  let glyphColor = null;
-  let glyphSize = null;
-  let glyphTransform = null;
-  let glyphMargin = null;
-  let textWidth = null;
-  let textGrow = null;
   let textColor = null;
-  let textMargin = '0px ' + m + ' 0px ' + m;
-  let textWeight = null;
-  let textTransform = props.textTransform;
   let textSize = theme.shapes.buttonTextSize;
   let boxPosition = props.position ? props.position : 'relative';
   let cursor = props.cursor ? props.cursor : 'default';
@@ -88,15 +77,6 @@ export default function styles (theme, props) {
     boxMarginRight = spacingType[props.spacing];
   }
 
-  // Decrease space between glyph and text.
-  if (props.glyph && props.text) {
-    if (props.glyphPosition === 'right') {
-      textMargin = '0px 0px 0px ' + m;
-    } else {
-      textMargin = '0px ' + m + ' 0px 0px';
-    }
-  }
-
   // task-logo button (usual parent container with kind='task-bar').
   if (props.kind === 'task-logo') {
     boxHeight = theme.shapes.taskButtonHeight;
@@ -110,11 +90,7 @@ export default function styles (theme, props) {
     } else {
       backgroundColor = theme.palette.taskLogoBackground;
     }
-    textMargin = '0px';
-    textTransform = textTransform ? textTransform : 'uppercase';
-    textWeight = 'bold';
     textSize = theme.shapes.taskLogoTextSize;
-    glyphSize = theme.shapes.taskLogoGlyphSize;
   }
 
   // Task button (usual parent is container with kind='task-bar').
@@ -124,9 +100,7 @@ export default function styles (theme, props) {
     borderStyle = 'none none solid none';
     borderColor = theme.palette.taskButtonBorder;
     backgroundColor = theme.palette.taskButtonBackground;
-    textMargin = '0px';
     textSize = theme.shapes.taskTextSize;
-    glyphSize = theme.shapes.taskGlyphSize;
   }
 
   // main-tab button (usual parent is container with kind='main-tab').
@@ -134,8 +108,6 @@ export default function styles (theme, props) {
     boxHeight = theme.shapes.mainTabHeight;
     boxMarginRight = '1px';
     borderStyle = 'none';
-    textTransform = textTransform ? textTransform : 'uppercase';
-    textWeight = 'bold';
     textSize = theme.shapes.mainTabTextSize;
     if (props.active === 'true') {
       backgroundColor = activeColor
@@ -176,7 +148,6 @@ export default function styles (theme, props) {
     }
     borderStyle = 'none';
     textSize = theme.shapes.viewTabTextSize;
-    glyphColor = theme.palette.viewTabGlyph;
     if (props.active === 'true') {
       backgroundColor = activeColor
         ? activeColor
@@ -192,9 +163,7 @@ export default function styles (theme, props) {
       theme.shapes.viewTabHeight
     );
     borderStyle = 'none';
-    textWeight = 'bold';
     textColor = theme.palette.viewTabRightText;
-    glyphColor = theme.palette.viewTabRightText;
     if (props.text) {
       backgroundColor = theme.palette.viewTabRightTextBackground;
     } else {
@@ -211,17 +180,13 @@ export default function styles (theme, props) {
         ? activeColor
         : theme.palette.taskTabActiveBackground;
       textColor = theme.palette.taskTabActiveText;
-      textWeight = 'bold';
     } else {
       backgroundColor = theme.palette.taskTabInactiveBackground;
       textColor = theme.palette.taskTabInactiveText;
     }
     borderStyle = 'none none solid none';
     borderColor = theme.palette.taskButtonBorder;
-    const mm = props.glyph ? '0px' : theme.shapes.taskTabLeftMargin;
-    textMargin = '0px 0px 0px ' + mm;
     textSize = theme.shapes.taskTabTextSize;
-    glyphSize = theme.shapes.taskTabGlyphSize;
   }
 
   // pane-navigator button (usual parent is container with kind='pane-navigator').
@@ -229,8 +194,6 @@ export default function styles (theme, props) {
     boxHeight = theme.shapes.paneNavigatorHeight;
     boxMarginBottom = '-1px';
     backgroundColor = theme.palette.paneNavigatorBackground;
-    textTransform = textTransform ? textTransform : 'uppercase';
-    textWeight = 'bold';
     borderStyle = 'none none solid none';
     textSize = theme.shapes.paneNavigatorTextSize;
     if (props.active === 'false') {
@@ -287,7 +250,6 @@ export default function styles (theme, props) {
     boxPaddingRight = m;
     boxPaddingLeft = m;
     textSize = theme.shapes.footerTextSize;
-    glyphSize = theme.shapes.footerGlyphSize;
     if (props.text) {
       backgroundColor = theme.palette.footerTextBackground;
     } else {
@@ -299,28 +261,19 @@ export default function styles (theme, props) {
   // Notification button (usual parent is container with kind='notification-header').
   if (props.kind === 'button-notification') {
     boxHeight = '32px';
-    glyphHeight = null;
     textSize = theme.shapes.notificationButtonTextSize;
-    glyphSize = theme.shapes.notificationButtonGlyphSize;
-    glyphMargin = '10px 20px 10px 0px';
     backgroundColor = 'transparent';
-    glyphColor = theme.palette.notificationText;
     textColor = theme.palette.notificationText;
     borderStyle = 'none';
     textHoverColor = theme.palette.notificationTextHover;
     backgroundHoverColor = 'transparent';
     if (props.disabled === 'true') {
-      glyphColor = ColorManipulator.darken (
-        theme.palette.notificationText,
-        0.4
-      );
       textColor = ColorManipulator.darken (theme.palette.notificationText, 0.4);
     }
     specialDisabled = true;
   }
   if (props.kind === 'notification-close') {
     boxMarginTop = Unit.multiply (theme.shapes.containerMargin, -1);
-    glyphColor = theme.palette.notificationText;
     textColor = theme.palette.notificationText;
     borderStyle = 'none';
     backgroundColor = 'transparent';
@@ -332,10 +285,8 @@ export default function styles (theme, props) {
   if (props.kind === 'warning') {
     boxHeight = theme.shapes.footerHeight;
     boxPaddingLeft = theme.shapes.warningLeftPadding;
-    textWeight = 'bold';
     borderStyle = 'none';
     textSize = theme.shapes.warningTextSize;
-    glyphSize = theme.shapes.warningGlyphSize;
     backgroundColor = theme.palette.warningBackground;
     textColor = theme.palette.warningText;
   }
@@ -365,7 +316,6 @@ export default function styles (theme, props) {
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'none';
     backgroundColor = theme.palette.actionButtonBackground;
     textSize = theme.shapes.actionTextSize;
-    glyphSize = theme.shapes.actionGlyphSize;
     if (place === 'left') {
       boxMarginRight = '1px';
       borderRadius = r + ' 0px 0px ' + r;
@@ -384,8 +334,6 @@ export default function styles (theme, props) {
     backgroundColor = theme.palette.subactionButtonBackground;
     textColor = theme.palette.subactionButtonText;
     textSize = theme.shapes.subactionTextSize;
-    textTransform = textTransform ? textTransform : 'uppercase';
-    textWeight = 'bold';
   }
 
   // Combo button, place to the right of a TextFieldCombo component.
@@ -394,7 +342,6 @@ export default function styles (theme, props) {
       backgroundColor = activeColor
         ? activeColor
         : theme.palette.comboActiveBackground;
-      glyphColor = theme.palette.comboActiveGlyph;
     }
   }
 
@@ -404,7 +351,6 @@ export default function styles (theme, props) {
     borderStyle = 'none';
     backgroundColor = theme.palette.roundButtonBackground;
     textColor = theme.palette.roundButtonText;
-    glyphColor = theme.palette.roundButtonGlyph;
   }
 
   if (props.kind === 'identity') {
@@ -412,11 +358,9 @@ export default function styles (theme, props) {
     boxWidth = theme.shapes.identityHeight;
     boxHeight = theme.shapes.identityHeight;
     borderRadius = r;
-    glyphSize = theme.shapes.identityGlyphSize;
     borderStyle = 'none';
     backgroundColor = theme.palette.identityButtonBackground;
     textColor = theme.palette.identityButtonText;
-    glyphColor = theme.palette.identityButtonGlyph;
   }
 
   if (props.kind === 'thin-left') {
@@ -441,33 +385,22 @@ export default function styles (theme, props) {
   }
 
   if (props.kind === 'menu-item') {
-    textWidth = 'max-content';
     boxHeight = theme.shapes.menuButtonHeight;
     boxMarginBottom = '1px';
     boxPaddingRight = theme.shapes.containerMargin;
     boxPaddingLeft = theme.shapes.containerMargin;
-    textMargin =
-      '0px ' +
-      theme.shapes.containerMargin +
-      ' 0px ' +
-      theme.shapes.containerMargin;
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     textSize = theme.shapes.menuTextSize;
-    textTransform = textTransform ? textTransform : 'uppercase';
-    textWeight = 'bold';
     borderStyle = 'none';
     if (props.active === 'true') {
-      glyphColor = theme.palette.menuText;
       textColor = theme.palette.menuText;
       backgroundColor = activeColor
         ? activeColor
         : theme.palette.menuItemActiveBackground;
     } else if (props.active === 'focused') {
-      glyphColor = theme.palette.menuFocusText;
       textColor = theme.palette.menuFocusText;
       backgroundColor = theme.palette.menuItemFocusBackground;
     } else {
-      glyphColor = theme.palette.menuText;
       textColor = theme.palette.menuText;
       backgroundColor = theme.palette.menuItemInactiveBackground;
     }
@@ -475,12 +408,10 @@ export default function styles (theme, props) {
 
   if (props.kind === 'glyph-item') {
     boxWidth = theme.shapes.glyphsDialogButtonWidth;
-    textWidth = 'max-content';
     boxHeight = theme.shapes.menuButtonHeight;
     boxMarginRight = theme.shapes.glyphsDialogButtonMargin;
     boxMarginBottom = theme.shapes.glyphsDialogButtonMargin;
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
-    glyphSize = '120%';
     if (props.active === 'true') {
       backgroundColor = activeColor
         ? activeColor
@@ -493,7 +424,6 @@ export default function styles (theme, props) {
     borderStyle = 'none';
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     textColor = theme.palette.ticketGlueTitle;
-    textWeight = 'bold';
     textSize = theme.shapes.ticketGlueTitleSize;
     backgroundColor = null;
   }
@@ -528,8 +458,6 @@ export default function styles (theme, props) {
     boxHeight = theme.shapes.calendarButtonHeight;
     borderColor = 'transparent';
     backgroundColor = theme.palette.calendarBackground;
-    glyphColor = theme.palette.calendarHeaderText;
-    glyphSize = theme.palette.calendarGlyphSize;
   }
 
   if (props.kind === 'container') {
@@ -580,7 +508,6 @@ export default function styles (theme, props) {
         ? activeColor
         : theme.palette.boxActiveBackground;
     } else {
-      glyphColor = theme.palette.chronoNavigatorText;
       textColor = theme.palette.chronoNavigatorText;
       backgroundHoverColor = ColorManipulator.fade (
         theme.palette.buttonBackground,
@@ -591,7 +518,6 @@ export default function styles (theme, props) {
 
   if (props.kind === 'recurrence') {
     if (props.active === 'true') {
-      glyphColor = theme.palette.calendarActiveText;
       textColor = theme.palette.calendarActiveText;
       backgroundColor = activeColor
         ? activeColor
@@ -647,9 +573,6 @@ export default function styles (theme, props) {
     }
   }
 
-  if (props.glyphColor) {
-    glyphColor = ColorHelpers.getMarkColor (theme, props.glyphColor);
-  }
   if (props.textColor) {
     textColor = ColorHelpers.getMarkColor (theme, props.textColor);
   }
@@ -668,9 +591,6 @@ export default function styles (theme, props) {
       0.2
     );
   }
-  if (!glyphColor && glyphColor !== 'none') {
-    glyphColor = ColorManipulator.emphasize (buttonBackgroundColor, 0.8);
-  }
   if (!textColor && textColor !== 'none') {
     textColor = ColorManipulator.emphasize (buttonBackgroundColor, 0.9);
   }
@@ -681,7 +601,6 @@ export default function styles (theme, props) {
     if (backgroundColor) {
       backgroundColor = theme.palette.buttonDisableBackground;
     }
-    glyphColor = theme.palette.buttonDisableGlyph;
     textColor = theme.palette.buttonDisableText;
   }
 
@@ -703,10 +622,6 @@ export default function styles (theme, props) {
   }
   if (boxJustifyContent === 'none') {
     boxJustifyContent = null;
-  }
-
-  if (textTransform === 'none') {
-    textTransform = null;
   }
 
   const boxStyle = {
@@ -746,30 +661,7 @@ export default function styles (theme, props) {
     cursor: cursor,
   };
 
-  if (glyphSize) {
-    const s = Unit.parse (glyphSize);
-    if (s.unit !== '%') {
-      throw new Error (`GlyphSize '${glyphSize}' has an unexpected format`);
-    }
-    const ss = s.value / 100;
-    if (!glyphTransform) {
-      glyphTransform = 'scale(' + ss + ')';
-    }
-    if (!glyphMargin) {
-      const mm = Unit.multiply (m, ss);
-      glyphMargin = '0px ' + mm + ' 0px ' + mm;
-    }
-  } else if (
-    props.glyphPosition === 'right' &&
-    props.badgeValue &&
-    !glyphMargin
-  ) {
-    glyphMargin = '0px 10px 0px 0px';
-  }
-
   const shortcutStyle = {
-    width: textWidth,
-    flexGrow: textGrow,
     color: textColor,
     fontSize: Unit.multiply (textSize, theme.typo.fontScale * 0.9),
     overflow: 'hidden',
