@@ -254,6 +254,8 @@ class Wizard extends Form {
           'Dimanche',
         ];
         return <TextFieldCombo key={index} model=".x" list={list} {...props} />;
+      case 'CheckButton':
+        return <CheckButton key={index} {...props} />;
       default:
         return null;
     }

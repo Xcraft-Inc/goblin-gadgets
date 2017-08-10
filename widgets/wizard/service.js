@@ -1214,6 +1214,47 @@ const params = {
       value: 'true',
     },
   },
+  CheckButton: {
+    id: 'CheckButton',
+    kind: {
+      id: 'kind',
+      group: 'Aspect',
+      type: 'combo',
+      field: 'kind',
+      list: ['', 'switch', 'radio', 'active'],
+      value: '',
+    },
+    checked: {
+      id: 'checked',
+      group: 'Aspect',
+      type: 'bool',
+      field: 'checked',
+      value: 'false',
+    },
+    disabled: {
+      id: 'disabled',
+      group: 'Aspect',
+      type: 'bool',
+      field: 'disabled',
+      value: 'false',
+    },
+    text: {
+      id: 'text',
+      group: 'Text',
+      type: 'text',
+      field: 'text',
+      list: ['', 'CheckButton', 'Mise à jour automatique', 'Mode avancé'],
+      value: 'CheckButton',
+    },
+    spacing: {
+      id: 'spacing',
+      group: 'Layout',
+      type: 'combo',
+      field: 'spacing',
+      list: ['', 'overlap', 'tiny', 'large'],
+      value: '',
+    },
+  },
 };
 
 function convertToMapWithIds (data) {
