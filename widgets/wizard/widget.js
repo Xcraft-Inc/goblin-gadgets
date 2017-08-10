@@ -270,6 +270,8 @@ class Wizard extends Form {
     if (this.showFrame) {
       const frameStyle = {
         border: '1px solid #f00',
+        display: 'flex',
+        width: props.width,
         flexGrow: props.grow,
       };
       return (
