@@ -341,6 +341,7 @@ export default function styles (theme, props) {
       backgroundColor = activeColor
         ? activeColor
         : theme.palette.comboActiveBackground;
+      borderColor = theme.palette.comboActiveBackground;
     }
   }
 

@@ -11,6 +11,7 @@ export default function styles (theme, props) {
   let marginRight = '0px';
   let padding = '0px';
   let borderRadius = '0px';
+  let borderColor = theme.palette.buttonBorder;
   let fieldPaddingLeft = '10px';
   let fieldPaddingRight = '10px';
   let opacity = props.visibility === 'false' ? 0 : null;
@@ -54,6 +55,7 @@ export default function styles (theme, props) {
   if (props.active === 'true') {
     color = theme.palette.comboActiveGlyph;
     backgroundColor = theme.palette.comboActiveBackground;
+    borderColor = theme.palette.comboActiveBackground;
   } else if (props.readonly === 'true') {
     backgroundColor = theme.palette.textFieldReadonlyBackground;
   } else {
@@ -74,7 +76,7 @@ export default function styles (theme, props) {
     flexGrow: flexGrow,
     flexShrink: flexShrink,
     flexBasis: flexBasis,
-    border: '1px solid ' + theme.palette.buttonBorder,
+    border: '1px solid ' + borderColor,
     borderRadius: borderRadius,
     color: color,
     backgroundColor: backgroundColor,
