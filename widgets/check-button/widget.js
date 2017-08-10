@@ -14,8 +14,6 @@ class CheckButton extends Widget {
     const x = this.props.onClick;
     if (x) {
       x (e);
-    } else {
-      this.onClick (e);
     }
   }
 
@@ -38,6 +36,7 @@ class CheckButton extends Widget {
         glyph={glyph}
         text={this.props.text}
         active={active}
+        disabled={this.props.disabled}
         border="none"
         spacing={this.props.spacing}
       />
