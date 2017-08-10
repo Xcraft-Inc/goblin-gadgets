@@ -87,16 +87,8 @@ export default function styles (theme, props) {
     opacity: opacity,
   };
 
-  let fieldWidth = '100%';
-  if (width) {
-    fieldWidth = width;
-    fieldWidth = Unit.sub (fieldWidth, '2px');
-    fieldWidth = Unit.sub (fieldWidth, fieldPaddingLeft);
-    fieldWidth = Unit.sub (fieldWidth, fieldPaddingRight);
-  }
-
   const fieldStyle = {
-    width: fieldWidth,
+    width: '100%',
     flexGrow: 1,
     height: theme.shapes.lineHeight,
     paddingTop: '0px',
@@ -110,7 +102,7 @@ export default function styles (theme, props) {
   };
 
   const textareaStyle = {
-    width: fieldWidth,
+    width: '100%',
     flexGrow: 1,
     paddingTop: '0px',
     paddingRight: fieldPaddingRight,
