@@ -991,7 +991,7 @@ const params = {
     },
     labelWidth: {
       id: 'labelWidth',
-      group: 'Label',
+      group: 'Layout',
       type: 'text',
       unit: 'px',
       field: 'labelWidth',
@@ -1000,7 +1000,7 @@ const params = {
     },
     fieldWidth: {
       id: 'fieldWidth',
-      group: 'Text',
+      group: 'Layout',
       type: 'text',
       unit: 'px',
       field: 'fieldWidth',

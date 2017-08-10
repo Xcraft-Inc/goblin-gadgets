@@ -83,35 +83,24 @@ class LabelTextField extends Widget {
   }
 
   renderInput () {
-    const field = this.props.field;
-    const type = this.props.type;
-    const shape = this.props.shape;
-    const fieldWidth = this.props.fieldWidth;
-    const selectedValue = this.props.selectedValue;
-
-    const hintText = this.props.hintText;
-    const tooltip = this.props.tooltip;
-    const messageInfo = this.props.messageInfo;
-    const messageWarning = this.props.messageWarning;
-    const rows = this.props.rows;
-    const readonly = this.props.readonly;
-    const selectAllOnFocus = this.props.selectAllOnFocus;
-    const defaultFocus = this.props.defaultFocus;
-    const filterKeys = this.props.filterKeys;
-    const tabIndex = this.props.tabIndex;
-
-    const autoReadonly = this.readonly && selectedValue && selectedValue !== '';
-    const displayValue = autoReadonly ? selectedValue : null;
-    const visibleReadonly = readonly
-      ? readonly
+    const autoReadonly =
+      this.readonly &&
+      this.props.selectedValue &&
+      this.props.selectedValue !== '';
+    const displayValue = autoReadonly ? this.props.selectedValue : null;
+    const visibleReadonly = this.props.readonly
+      ? this.props.readonly
       : autoReadonly ? 'true' : 'false';
 
-    const s = shape ? shape : 'smooth';
+    const s = this.props.shape ? this.props.shape : 'smooth';
     const textFieldShapes = {
       smooth: 'right-smooth',
       rounded: 'right-rounded',
     };
     const textFieldShape = textFieldShapes[s];
+
+    const fieldGrow = this.props.fieldWidth ? null : '1';
+
     const props = {
       model: this.props.model,
       parser: this.props.parser,
@@ -119,24 +108,25 @@ class LabelTextField extends Widget {
       beforeChange: this.props.beforeChange,
       updateOn: this.props.updateOn,
       getDisplayValue: this.props.getDisplayValue,
-      field: field,
-      type: type,
-      width: fieldWidth,
-      hintText: hintText,
+      field: this.props.field,
+      type: this.props.type,
+      grow: fieldGrow,
+      width: this.props.fieldWidth,
+      hintText: this.props.hintText,
       value: this.props.value,
       hinter: this.props.hinter,
-      tooltip: tooltip,
-      messageInfo: messageInfo,
-      messageWarning: messageWarning,
-      filterKeys: filterKeys,
+      tooltip: this.props.tooltip,
+      messageInfo: this.props.messageInfo,
+      messageWarning: this.props.messageWarning,
+      filterKeys: this.props.filterKeys,
       spacing: this.hasActionButton () ? 'overlap' : null,
       shape: textFieldShape,
-      tabIndex: tabIndex,
+      tabIndex: this.props.tabIndex,
       defaultValue: this.props.defaultValue,
-      rows: rows,
+      rows: this.props.rows,
       readonly: visibleReadonly,
-      selectAllOnFocus: selectAllOnFocus,
-      defaultFocus: defaultFocus,
+      selectAllOnFocus: this.props.selectAllOnFocus,
+      defaultFocus: this.props.defaultFocus,
       visibility: this.props.visibility,
     };
 
