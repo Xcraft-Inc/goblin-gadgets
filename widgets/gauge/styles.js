@@ -17,7 +17,7 @@ function getColor (value) {
 }
 
 export default function styles (theme, props) {
-  const inputValue = Math.max (Math.min (props.value, 100), 0); // 0..100
+  const value = Math.max (Math.min (props.value, 100), 0); // 0..100
 
   const boxStyle = {
     display: 'flex',
@@ -26,16 +26,14 @@ export default function styles (theme, props) {
   };
 
   //  Compute radius at left border, for including into left of Ticket kind='thin'.
-  const topLeftRadius = inputValue >= 90
-    ? theme.shapes.ticketRectRadius
-    : '0px';
+  const topLeftRadius = value >= 90 ? theme.shapes.ticketRectRadius : '0px';
   const bottomLeftRadius = theme.shapes.ticketRectRadius;
 
   const contentStyle = {
-    height: inputValue + '%',
+    height: value + '%',
     width: '100%',
     borderRadius: `${topLeftRadius} 0px 0px ${bottomLeftRadius}`,
-    backgroundColor: getColor (inputValue),
+    backgroundColor: getColor (value),
   };
 
   return {

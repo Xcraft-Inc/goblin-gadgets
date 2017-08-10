@@ -12,6 +12,7 @@ import LabelTextField from 'gadgets/label-text-field/widget';
 import Separator from 'gadgets/separator/widget';
 import Splitter from 'gadgets/splitter/widget';
 import CheckButton from 'gadgets/check-button/widget';
+import Gauge from 'gadgets/gauge/widget';
 
 function getOnlyDigits (value) {
   let result = '';
@@ -256,6 +257,18 @@ class Wizard extends Form {
         return <TextFieldCombo key={index} model=".x" list={list} {...props} />;
       case 'CheckButton':
         return <CheckButton key={index} {...props} />;
+      case 'Gauge':
+        return (
+          <Container
+            key={index}
+            kind="column"
+            border="right"
+            width="10px"
+            height="50px"
+          >
+            <Gauge key={index} {...props} />
+          </Container>
+        );
       default:
         return null;
     }
