@@ -120,7 +120,7 @@ class TextField extends Widget {
           errors={this.props.errors}
           mapProps={mapProps}
           updateOn={this.props.updateOn ? this.props.updateOn : 'change'}
-          model={this.props.model}
+          model={this.props.hinter ? `.${this.props.hinter}` : this.props.model}
           onFocus={this.onFieldFocus}
           onChange={this.props.onChange}
           onMouseDown={this.props.onMouseDown}
@@ -142,7 +142,7 @@ class TextField extends Widget {
           errors={this.props.errors}
           mapProps={mapProps}
           updateOn={this.props.updateOn ? this.props.updateOn : 'change'}
-          model={this.props.model}
+          model={this.props.hinter ? `.${this.props.hinter}` : this.props.model}
           onFocus={this.onFieldFocus}
           onMouseDown={this.props.onMouseDown}
           disabled={this.props.disabled}
