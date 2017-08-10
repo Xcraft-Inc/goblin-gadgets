@@ -97,7 +97,7 @@ export default function styles (theme, props) {
     paddingLeft: fieldPaddingLeft,
     margin: '0px',
     color: color,
-    backgroundColor: backgroundColor,
+    backgroundColor: 'transparent',
     border: 'none',
   };
 
@@ -110,7 +110,7 @@ export default function styles (theme, props) {
     paddingLeft: fieldPaddingLeft,
     margin: '0px',
     color: color,
-    backgroundColor: backgroundColor,
+    backgroundColor: 'transparent',
     resize: 'none',
     border: 'none',
   };
