@@ -1105,7 +1105,15 @@ const params = {
       group: 'Aspect',
       type: 'text',
       field: 'comboGlyph',
-      list: ['', 'check', 'close', 'bicycle', 'car', 'rocket', 'calendar'],
+      list: [
+        '',
+        'caret-down',
+        'arrow-down',
+        'chevron-down',
+        'angle-down',
+        'chevron-circle-down',
+        'arrow-circle-down',
+      ],
       value: '',
     },
     shape: {
