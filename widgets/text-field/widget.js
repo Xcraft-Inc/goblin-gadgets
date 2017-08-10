@@ -159,32 +159,41 @@ class TextField extends Widget {
   }
 
   renderFlyingBalloon () {
-    const messageWarning = this.props.messageWarning;
-    const messageInfo = this.props.messageInfo;
-    const flyingBalloonAnchor = this.props.flyingBalloonAnchor;
     // Conversion from flyingBalloonAnchor to trianglePosition.
     const trianglePosition = {
       bottom: 'top',
       top: 'bottom',
       left: 'right',
       right: 'left',
-    }[flyingBalloonAnchor];
+    }[this.props.flyingBalloonAnchor];
 
-    if (messageWarning || messageInfo) {
-      return (
-        <Errors
-          model={this.props.model}
-          show="touched"
-          messages={{warning: messageWarning}}
-          component={props => (
-            <FlyingBalloon
-              primaryText={props.children}
-              secondaryText={messageInfo}
-              trianglePosition={trianglePosition}
-            />
-          )}
-        />
-      );
+    if (this.props.messageWarning || this.props.messageInfo) {
+      if (true) {
+        // FIXME: This configuration is never displyed !
+        return (
+          <Errors
+            model={this.props.model}
+            show="touched"
+            messages={{warning: this.props.messageWarning}}
+            component={props => (
+              <FlyingBalloon
+                primaryText={props.children}
+                secondaryText={this.props.messageInfo}
+                trianglePosition={trianglePosition}
+              />
+            )}
+          />
+        );
+      } else {
+        // FIXME: This configuration is correctly displyed !
+        return (
+          <FlyingBalloon
+            primaryText={this.props.messageWarning}
+            secondaryText={this.props.messageInfo}
+            trianglePosition={trianglePosition}
+          />
+        );
+      }
     } else {
       return null;
     }

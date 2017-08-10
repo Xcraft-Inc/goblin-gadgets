@@ -14,24 +14,27 @@ export default function styles (theme, props) {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    alignItems: 'flex-start',
     position: 'absolute',
     zIndex: props.zIndex ? props.zIndex : 1,
   };
   if (props.trianglePosition === 'left') {
     boxStyle.left = '100%';
     boxStyle.margin = '0px 0px 0px ' + t;
+    boxStyle.alignItems = 'flex-start';
   } else if (props.trianglePosition === 'right') {
     boxStyle.right = '100%';
     boxStyle.margin = '0px ' + t + ' 0px 0px';
+    boxStyle.alignItems = 'flex-end';
   } else if (props.trianglePosition === 'bottom') {
     boxStyle.left = '-1px';
     boxStyle.bottom = '100%';
     boxStyle.margin = '0px 0px ' + t + ' 0px';
+    boxStyle.alignItems = 'flex-start';
   } else {
     boxStyle.left = '-1px';
     boxStyle.top = '100%';
     boxStyle.margin = t + ' 0px 0px 0px';
+    boxStyle.alignItems = 'flex-start';
   }
 
   return {
