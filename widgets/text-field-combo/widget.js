@@ -91,32 +91,22 @@ class TextFieldCombo extends Widget {
   }
 
   renderTextField () {
-    const width = this.props.width;
-    const shape = this.props.shape;
-    const selectedValue = this.props.selectedValue;
-
-    const hintText = this.props.hintText;
-    const tooltip = this.props.tooltip;
-    const flyingBalloonAnchor = this.props.flyingBalloonAnchor;
-    const rows = this.props.rows;
-    const readonly = this.props.readonly;
-    const selectAllOnFocus = this.props.selectAllOnFocus;
-    const defaultFocus = this.props.defaultFocus;
-    const filterKeys = this.props.filterKeys;
-    const tabIndex = this.props.tabIndex;
-
-    const autoReadonly = this.readonly && selectedValue && selectedValue !== '';
-    const displayValue = autoReadonly ? selectedValue : null;
-    const visibleReadonly = readonly
-      ? readonly
+    const autoReadonly =
+      this.readonly &&
+      this.props.selectedValue &&
+      this.props.selectedValue !== '';
+    const displayValue = autoReadonly ? this.props.selectedValue : null;
+    const visibleReadonly = this.props.readonly
+      ? this.props.readonly
       : autoReadonly ? 'true' : 'false';
 
-    const s = shape ? shape : 'smooth';
+    const s = this.props.shape ? this.props.shape : 'smooth';
     const textFieldShapes = {
       smooth: 'left-smooth',
       rounded: 'left-rounded',
     };
     const textFieldShape = textFieldShapes[s];
+
     const props = {
       model: this.props.model,
       parser: this.props.parser,
@@ -124,19 +114,19 @@ class TextFieldCombo extends Widget {
       updateOn: this.props.updateOn,
       getDisplayValue: this.props.getDisplayValue,
       hinter: this.props.hinter,
-      hintText: hintText,
-      tooltip: tooltip,
-      filterKeys: filterKeys,
+      hintText: this.props.hintText,
+      tooltip: this.props.tooltip,
+      filterKeys: this.props.filterKeys,
       spacing: 'overlap',
       shape: textFieldShape,
-      flyingBalloonAnchor: flyingBalloonAnchor,
-      tabIndex: tabIndex,
+      flyingBalloonAnchor: this.props.flyingBalloonAnchor,
+      tabIndex: this.props.tabIndex,
       defaultValue: this.props.defaultValue,
-      width: width,
-      rows: rows,
+      grow: '1',
+      rows: this.props.rows,
       readonly: visibleReadonly,
-      selectAllOnFocus: selectAllOnFocus,
-      defaultFocus: defaultFocus,
+      selectAllOnFocus: this.props.selectAllOnFocus,
+      defaultFocus: this.props.defaultFocus,
       visibility: this.props.visibility,
     };
 

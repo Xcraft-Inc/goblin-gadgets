@@ -11,9 +11,6 @@ export default function styles (theme, props) {
 
   const m = Unit.multiply (theme.shapes.containerMargin, 0.5);
 
-  if (!flexGrow) {
-    flexGrow = 1;
-  }
   if (flexGrow) {
     flexShrink = '1';
     flexBasis = '0%';
@@ -34,6 +31,7 @@ export default function styles (theme, props) {
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'stretch',
+    width: props.width,
     flexGrow: flexGrow,
     flexShrink: flexShrink,
     flexBasis: flexBasis,

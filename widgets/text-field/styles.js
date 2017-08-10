@@ -87,7 +87,7 @@ export default function styles (theme, props) {
     opacity: opacity,
   };
 
-  let fieldWidth = null;
+  let fieldWidth = '100%';
   if (width) {
     fieldWidth = width;
     fieldWidth = Unit.sub (fieldWidth, '2px');

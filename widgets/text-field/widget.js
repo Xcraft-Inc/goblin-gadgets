@@ -72,15 +72,8 @@ class TextField extends Widget {
   }
 
   renderInput () {
-    const disabled = this.props.disabled;
-    const model = this.props.model;
-    const hintText = this.props.hintText;
-    const rows = this.props.rows;
-    const readonly = this.props.readonly;
-    const tabIndex = this.props.tabIndex;
-
     const options = [];
-    if (readonly === 'true') {
+    if (this.props.readonly === 'true') {
       options.readOnly = 'readOnly';
     }
 
@@ -115,25 +108,25 @@ class TextField extends Widget {
       }
     };
 
-    if (rows) {
+    if (this.props.rows) {
       const textareaClass = this.styles.classNames.textarea + ' mousetrap';
       return (
         <Control.textarea
           className={textareaClass}
-          id={model}
+          id={this.props.model}
           changeAction={beforeChange}
           getRef={node => (this.input = node)}
           parser={this.props.parser}
           errors={this.props.errors}
           mapProps={mapProps}
           updateOn={this.props.updateOn ? this.props.updateOn : 'change'}
-          model={model}
+          model={this.props.model}
           onFocus={this.onFieldFocus}
           onChange={this.props.onChange}
           onMouseDown={this.props.onMouseDown}
-          disabled={disabled}
-          rows={rows}
-          tabIndex={tabIndex}
+          disabled={this.props.disabled}
+          rows={this.props.rows}
+          tabIndex={this.props.tabIndex}
           {...options}
         />
       );
@@ -142,23 +135,23 @@ class TextField extends Widget {
       return (
         <Control.text
           className={fieldClass}
-          id={model}
+          id={this.props.model}
           changeAction={beforeChange}
           getRef={node => (this.input = node)}
           parser={this.props.parser}
           errors={this.props.errors}
           mapProps={mapProps}
           updateOn={this.props.updateOn ? this.props.updateOn : 'change'}
-          model={model}
+          model={this.props.model}
           onFocus={this.onFieldFocus}
           onMouseDown={this.props.onMouseDown}
-          disabled={disabled}
+          disabled={this.props.disabled}
           maxLength={this.props.maxLength}
-          placeholder={hintText}
+          placeholder={this.props.hintText}
           size={this.props.size || 'size'}
           type={this.props.type || 'text'}
           key="input"
-          tabIndex={tabIndex}
+          tabIndex={this.props.tabIndex}
           {...options}
         />
       );
