@@ -13,6 +13,7 @@ import Separator from 'gadgets/separator/widget';
 import Splitter from 'gadgets/splitter/widget';
 import CheckButton from 'gadgets/check-button/widget';
 import Gauge from 'gadgets/gauge/widget';
+import Ticket from 'gadgets/ticket/widget';
 
 function getOnlyDigits (value) {
   let result = '';
@@ -269,6 +270,8 @@ class Wizard extends Form {
             <Gauge key={index} {...props} />
           </Container>
         );
+      case 'Ticket':
+        return <Ticket key={index} {...props} />;
       default:
         return null;
     }
