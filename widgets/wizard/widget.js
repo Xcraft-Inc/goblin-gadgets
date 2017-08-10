@@ -169,7 +169,7 @@ class Wizard extends Form {
       return (
         <Container kind="row-pane" key={index}>
           <Label text={field} width="180px" />
-          <TextField model={model} defaultValue={value} />
+          <TextField model={model} defaultValue={value} grow="1" />
         </Container>
       );
     }

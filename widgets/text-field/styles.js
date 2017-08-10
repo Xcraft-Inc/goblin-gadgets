@@ -7,34 +7,15 @@ export default function styles (theme, props) {
   let flexShrink = null;
   let flexBasis = null;
   let width = props.width;
-  let opacity = props.visibility === 'false' ? 0 : null;
-
-  const m = Unit.multiply (theme.shapes.containerMargin, 0.5);
-
-  if (!flexGrow) {
-    flexGrow = 1;
-  }
-  if (flexGrow) {
-    flexShrink = '1';
-    flexBasis = '0%';
-  }
-
-  if (!width) {
-    width = '10px'; // any non-zero width
-  } else {
-    width = null; // if specific with exist, don't fill
-  }
-
-  // If component has specific width and border, reduce the width to
-  // take into account the thickness of the borders left and right.
-  if (width) {
-    width = Unit.sub (width, '2px');
-  }
-
   let marginLeft = '0px';
   let marginRight = '0px';
   let padding = '0px';
   let borderRadius = '0px';
+  let fieldPaddingLeft = '10px';
+  let fieldPaddingRight = '10px';
+  let opacity = props.visibility === 'false' ? 0 : null;
+
+  const m = Unit.multiply (theme.shapes.containerMargin, 0.5);
 
   // Initialise right margin according to spacing.
   if (props.spacing) {
@@ -79,7 +60,13 @@ export default function styles (theme, props) {
     backgroundColor = theme.palette.textFieldBackground;
   }
 
+  if (flexGrow) {
+    flexShrink = '1';
+    flexBasis = '0%';
+  }
+
   const boxStyle = {
+    width: width,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -100,20 +87,38 @@ export default function styles (theme, props) {
     opacity: opacity,
   };
 
+  let fieldWidth = null;
+  if (width) {
+    fieldWidth = width;
+    fieldWidth = Unit.sub (fieldWidth, '2px');
+    fieldWidth = Unit.sub (fieldWidth, fieldPaddingLeft);
+    fieldWidth = Unit.sub (fieldWidth, fieldPaddingRight);
+  }
+
   const fieldStyle = {
+    width: fieldWidth,
     flexGrow: 1,
-    width: width,
     height: theme.shapes.lineHeight,
-    border: 'none',
-    padding: '0px 10px',
+    paddingTop: '0px',
+    paddingRight: fieldPaddingRight,
+    paddingBottom: '0px',
+    paddingLeft: fieldPaddingLeft,
     margin: '0px',
     color: color,
     backgroundColor: backgroundColor,
+    border: 'none',
   };
 
   const textareaStyle = {
+    width: fieldWidth,
     flexGrow: 1,
-    padding: '0px 10px',
+    paddingTop: '0px',
+    paddingRight: fieldPaddingRight,
+    paddingBottom: '0px',
+    paddingLeft: fieldPaddingLeft,
+    margin: '0px',
+    color: color,
+    backgroundColor: backgroundColor,
     resize: 'none',
     border: 'none',
   };

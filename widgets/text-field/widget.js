@@ -119,6 +119,7 @@ class TextField extends Widget {
       const textareaClass = this.styles.classNames.textarea + ' mousetrap';
       return (
         <Control.textarea
+          className={textareaClass}
           id={model}
           changeAction={beforeChange}
           getRef={node => (this.input = node)}
@@ -128,7 +129,6 @@ class TextField extends Widget {
           updateOn={this.props.updateOn ? this.props.updateOn : 'change'}
           model={model}
           onFocus={this.onFieldFocus}
-          className={textareaClass}
           onChange={this.props.onChange}
           onMouseDown={this.props.onMouseDown}
           disabled={disabled}
@@ -139,9 +139,9 @@ class TextField extends Widget {
       );
     } else {
       const fieldClass = this.styles.classNames.field + ' mousetrap';
-
       return (
         <Control.text
+          className={fieldClass}
           id={model}
           changeAction={beforeChange}
           getRef={node => (this.input = node)}
@@ -156,7 +156,6 @@ class TextField extends Widget {
           maxLength={this.props.maxLength}
           placeholder={hintText}
           size={this.props.size || 'size'}
-          className={fieldClass}
           type={this.props.type || 'text'}
           key="input"
           tabIndex={tabIndex}
