@@ -63,6 +63,7 @@ class Wizard extends Form {
     this.ticketLines = 1;
     this.containerType = 'Label';
     this.containerItems = 1;
+    this.textFieldComboMenu = 'Days';
   }
 
   static get wiring () {
@@ -346,15 +347,41 @@ class Wizard extends Form {
       case 'LabelTextField':
         return <LabelTextField key={index} model=".x" {...props} />;
       case 'TextFieldCombo':
-        const list = [
-          'Lundi',
-          'Mardi',
-          'Mercredi',
-          'Jeudi',
-          'Vendredi',
-          'Samedi',
-          'Dimanche',
-        ];
+        const list = this.textFieldComboMenu === 'Colors'
+          ? [
+              'Rouge',
+              'Vert',
+              'Bleu',
+              'Jaune',
+              'Orange',
+              'Cyan',
+              'Magenta',
+              'Blanc',
+              'Noir',
+              'Brun',
+              'Violet',
+              'Lilas',
+              'Rose',
+              'Gris',
+              'Antracite',
+              'Olive',
+              'Beige',
+              'Turquoise',
+              'Maron',
+              'Fuchsia',
+              'Ivoire',
+              'Argent',
+              'Doré',
+            ]
+          : [
+              'Lundi',
+              'Mardi',
+              'Mercredi',
+              'Jeudi',
+              'Vendredi',
+              'Samedi',
+              'Dimanche',
+            ];
         return <TextFieldCombo key={index} model=".x" list={list} {...props} />;
       case 'CheckButton':
         return <CheckButton key={index} {...props} />;
@@ -764,12 +791,34 @@ class Wizard extends Form {
     );
   }
 
+  renderKindSwitchesTextFieldCombo () {
+    return (
+      <Container kind="row-pane" subkind="left">
+        <Label text="Menu" width="80px" />
+        {this.renderSwitch (
+          'Days',
+          'Days',
+          () => this.textFieldComboMenu,
+          value => (this.textFieldComboMenu = value)
+        )}
+        {this.renderSwitch (
+          'Colors',
+          'Colors',
+          () => this.textFieldComboMenu,
+          value => (this.textFieldComboMenu = value)
+        )}
+      </Container>
+    );
+  }
+
   renderKindSwitches () {
     switch (this.wizard) {
       case 'Ticket':
         return this.renderKindSwitchesTicket ();
       case 'Container':
         return this.renderKindSwitchesContainer ();
+      case 'TextFieldCombo':
+        return this.renderKindSwitchesTextFieldCombo ();
       default:
         return null;
     }

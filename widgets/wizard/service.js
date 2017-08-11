@@ -1009,6 +1009,13 @@ const params = {
       field: 'readonly',
       value: 'false',
     },
+    useSelect: {
+      id: 'useSelect',
+      group: 'Aspect',
+      type: 'bool',
+      field: 'useSelect',
+      value: 'true',
+    },
     defaultValue: {
       id: 'defaultValue',
       group: 'Text',

@@ -49,8 +49,8 @@ export function getComboLocation (node, theme, name, x, y) {
 export function getSelectLocation (node, theme) {
   const rect = node.getBoundingClientRect ();
 
-  const topValue = Unit.sub (window.innerHeight - rect.top + 'px', '1px');
-  const bottomValue = Unit.sub (rect.bottom + 'px', '1px');
+  const topValue = Unit.sub (window.innerHeight - rect.top + 'px', '2px');
+  const bottomValue = Unit.sub (rect.bottom + 'px', '2px');
   const my = (rect.top + rect.bottom) / 2;
   const underside = my < window.innerHeight / 2;
 
