@@ -31,7 +31,7 @@ export default function styles (theme, props) {
 
   const insideStyle = {
     display: 'flex',
-    maxHeight: '45vh',
+    maxHeight: props.maxHeight,
     cursor: 'default',
     userSelect: 'none',
   };

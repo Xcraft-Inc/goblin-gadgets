@@ -29,7 +29,7 @@ export default function styles (theme, props) {
   };
 
   const insideStyle = {
-    maxHeight: '45vh',
+    maxHeight: props.maxHeight,
     overflowY: 'auto',
     cursor: 'default',
     userSelect: 'none',

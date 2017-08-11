@@ -28,13 +28,22 @@ export function getComboLocation (node, theme, name, x, y) {
   const t = name === 'flying-balloon'
     ? theme.shapes.flyingBalloonTriangleSize
     : theme.shapes.flyingDialogTriangleSize;
-  let topValue, bottomValue;
+  const tv = Unit.parse (t).value;
+  let topValue, bottomValue, underMax, overMax;
   if (y) {
     topValue = Unit.add (window.innerHeight - y + 'px', t);
     bottomValue = Unit.add (y + 'px', t);
+    underMax =
+      (window.innerHeight - y - tv) / window.innerHeight * 100 - 2 + 'vh';
+    overMax = (y - tv) / window.innerHeight * 100 - 2 + 'vh';
   } else {
     topValue = Unit.add (window.innerHeight - rect.top + 'px', t);
     bottomValue = Unit.add (rect.bottom + 'px', t);
+    underMax =
+      (window.innerHeight - rect.bottom - tv) / window.innerHeight * 100 -
+      2 +
+      'vh';
+    overMax = (rect.top - tv) / window.innerHeight * 100 - 2 + 'vh';
   }
   const my = (rect.top + rect.bottom) / 2;
   const underside = my < window.innerHeight / 2;
@@ -42,6 +51,7 @@ export function getComboLocation (node, theme, name, x, y) {
     center: center,
     top: underside ? bottomValue : null,
     bottom: underside ? null : topValue,
+    maxHeight: underside ? underMax : overMax,
   };
 }
 
@@ -51,6 +61,9 @@ export function getSelectLocation (node, theme) {
 
   const topValue = Unit.sub (window.innerHeight - rect.top + 'px', '2px');
   const bottomValue = Unit.sub (rect.bottom + 'px', '2px');
+  const underMax =
+    (window.innerHeight - rect.bottom) / window.innerHeight * 100 - 2 + 'vh';
+  const overMax = rect.top / window.innerHeight * 100 - 2 + 'vh';
   const my = (rect.top + rect.bottom) / 2;
   const underside = my < window.innerHeight / 2;
 
@@ -59,6 +72,7 @@ export function getSelectLocation (node, theme) {
     width: rect.width + 'px',
     top: underside ? bottomValue : null,
     bottom: underside ? null : topValue,
+    maxHeight: underside ? underMax : overMax,
   };
 }
 

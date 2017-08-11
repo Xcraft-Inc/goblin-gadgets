@@ -195,6 +195,7 @@ class TextFieldCombo extends Widget {
         center={this.comboLocation.center}
         top={this.comboLocation.top}
         bottom={this.comboLocation.bottom}
+        maxHeight={this.comboLocation.maxHeight}
         list={x}
         comboTextTransform={this.props.comboTextTransform}
         close={::this.onHideCombo}
@@ -223,6 +224,7 @@ class TextFieldCombo extends Widget {
         width={this.selectLocation.width}
         top={this.selectLocation.top}
         bottom={this.selectLocation.bottom}
+        maxHeight={this.selectLocation.maxHeight}
         list={x}
         defaultIndex={defaultIndex}
         comboTextTransform={this.props.comboTextTransform}
