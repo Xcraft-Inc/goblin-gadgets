@@ -26,11 +26,27 @@ function getOnlyDigits (value) {
   return result;
 }
 
-function getValue (param) {
+function getOnlyColor (value) {
+  const i = value.indexOf (' —');
+  if (i > 0) {
+    return value.substring (0, i);
+  }
+  return value;
+}
+
+function getValue (param, finalValue) {
   const value = param.get ('value');
   const unit = param.get ('unit');
   if (value && unit) {
-    return getOnlyDigits (value) + unit;
+    if (unit === 'color') {
+      if (finalValue) {
+        return getOnlyColor (value);
+      } else {
+        return value;
+      }
+    } else {
+      return getOnlyDigits (value) + unit;
+    }
   }
   return value;
 }
@@ -69,7 +85,7 @@ class Wizard extends Form {
       .orderBy (param => param.get ('field'))
       .select (param => {
         const field = param.get ('field');
-        const value = getValue (param);
+        const value = getValue (param, true);
         if (value !== '') {
           result += `${field}="${value}" `;
         }
@@ -136,7 +152,7 @@ class Wizard extends Form {
     const type = param.get ('type');
     const field = param.get ('field');
     const list = param.get ('list');
-    const value = getValue (param);
+    const value = getValue (param, false);
     const model = `.${this.wizard}.${field}`;
     if (type === 'combo' || (type === 'text' && list)) {
       return (
@@ -376,7 +392,7 @@ class Wizard extends Form {
     const props = {};
     const param = this.params.select (param => {
       const field = param.get ('field');
-      const value = getValue (param);
+      const value = getValue (param, true);
       props[field] = value;
     });
 
