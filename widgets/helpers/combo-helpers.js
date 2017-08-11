@@ -45,6 +45,23 @@ export function getComboLocation (node, theme, name, x, y) {
   };
 }
 
+// Compute the location for a select-menu.
+export function getSelectLocation (node, theme) {
+  const rect = node.getBoundingClientRect ();
+
+  const topValue = Unit.sub (window.innerHeight - rect.top + 'px', '1px');
+  const bottomValue = Unit.sub (rect.bottom + 'px', '1px');
+  const my = (rect.top + rect.bottom) / 2;
+  const underside = my < window.innerHeight / 2;
+
+  return {
+    left: rect.left + 'px',
+    width: rect.width + 'px',
+    top: underside ? bottomValue : null,
+    bottom: underside ? null : topValue,
+  };
+}
+
 // Declipping dialog-modal when it's out of window.
 export function declipping (width, center, padding) {
   if (width && center && padding) {

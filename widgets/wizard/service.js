@@ -1443,7 +1443,7 @@ const params = {
       group: 'Aspect',
       type: 'combo',
       field: 'trianglePosition',
-      list: ['', 'top', 'right', 'bottom', 'left'],
+      list: ['', 'top', 'right', 'bottom', 'left', 'none'],
       value: '',
     },
     triangleShift: {

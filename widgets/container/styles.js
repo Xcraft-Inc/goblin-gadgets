@@ -922,7 +922,7 @@ export default function styles (theme, props) {
         borderRight: t + ' solid transparent',
         borderTop: t + ' solid ' + triangleColor,
       };
-    } else {
+    } else if (props.trianglePosition === 'top') {
       triangleStyle = {
         position: 'absolute',
         width: '0px',
@@ -932,6 +932,8 @@ export default function styles (theme, props) {
         borderRight: t + ' solid transparent',
         borderBottom: t + ' solid ' + triangleColor,
       };
+    } else {
+      triangleStyle = {};
     }
   }
 

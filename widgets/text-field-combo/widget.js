@@ -6,6 +6,7 @@ import * as ComboHelpers from '../helpers/combo-helpers.js';
 import Button from 'gadgets/button/widget';
 import TextField from 'gadgets/text-field/widget';
 import Combo from 'gadgets/combo/widget';
+import Select from 'gadgets/select/widget';
 
 /******************************************************************************/
 
@@ -41,11 +42,19 @@ class TextFieldCombo extends Widget {
 
   doShowCombo () {
     const node = ReactDOM.findDOMNode (this);
-    this.comboLocation = ComboHelpers.getComboLocation (
-      node,
-      this.context.theme,
-      'flying-balloon'
-    );
+    if (this.props.useSelect === 'true') {
+      this.selectLocation = ComboHelpers.getSelectLocation (
+        node,
+        this.context.theme
+      );
+    } else {
+      this.comboLocation = ComboHelpers.getComboLocation (
+        node,
+        this.context.theme,
+        'flying-balloon'
+      );
+    }
+
     this.showCombo = true;
   }
 
@@ -163,7 +172,7 @@ class TextFieldCombo extends Widget {
     return (
       <Button
         kind="combo"
-        glyph={glyph}
+        glyph={this.showCombo ? 'none' : glyph}
         shape={buttonShape}
         active={isComboVisible}
         onClick={::this.onButtonClicked}
@@ -171,28 +180,64 @@ class TextFieldCombo extends Widget {
     );
   }
 
+  renderComboCombo (list) {
+    const x = [];
+    for (var item of list) {
+      const glyph = this.props.defaultValue === item ? 'check' : 'none';
+      x.push ({
+        text: item,
+        glyph: glyph,
+        action: item => this.setText (item),
+      });
+    }
+    return (
+      <Combo
+        center={this.comboLocation.center}
+        top={this.comboLocation.top}
+        bottom={this.comboLocation.bottom}
+        list={x}
+        comboTextTransform={this.props.comboTextTransform}
+        close={::this.onHideCombo}
+      />
+    );
+  }
+
+  renderComboSelect (list) {
+    const x = [];
+    let index = 0;
+    let defaultIndex = null;
+    for (var item of list) {
+      if (this.props.defaultValue === item) {
+        defaultIndex = index;
+      }
+      x.push ({
+        text: item,
+        action: item => this.setText (item),
+      });
+      index++;
+    }
+    return (
+      <Select
+        left={this.selectLocation.left}
+        width={this.selectLocation.width}
+        top={this.selectLocation.top}
+        bottom={this.selectLocation.bottom}
+        list={x}
+        defaultIndex={defaultIndex}
+        comboTextTransform={this.props.comboTextTransform}
+        close={::this.onHideCombo}
+      />
+    );
+  }
+
   renderCombo () {
     const list = this.props.list;
     if (list && this.showCombo) {
-      const x = [];
-      for (var item of list) {
-        const glyph = this.props.defaultValue === item ? 'check' : 'none';
-        x.push ({
-          text: item,
-          glyph: glyph,
-          action: item => this.setText (item),
-        });
+      if (this.props.useSelect === 'true') {
+        return this.renderComboSelect (list);
+      } else {
+        return this.renderComboCombo (list);
       }
-      return (
-        <Combo
-          center={this.comboLocation.center}
-          top={this.comboLocation.top}
-          bottom={this.comboLocation.bottom}
-          list={x}
-          comboTextTransform={this.props.comboTextTransform}
-          close={::this.onHideCombo}
-        />
-      );
     } else {
       return null;
     }
