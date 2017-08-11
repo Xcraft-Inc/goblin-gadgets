@@ -1009,12 +1009,13 @@ const params = {
       field: 'readonly',
       value: 'false',
     },
-    useSelect: {
-      id: 'useSelect',
+    menuType: {
+      id: 'menuType',
       group: 'Aspect',
-      type: 'bool',
-      field: 'useSelect',
-      value: 'true',
+      type: 'combo',
+      field: 'menuType',
+      list: ['', 'select', 'combo'],
+      value: 'select',
     },
     defaultValue: {
       id: 'defaultValue',

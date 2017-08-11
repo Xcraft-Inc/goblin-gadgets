@@ -162,7 +162,7 @@ class Wizard extends Form {
           <TextFieldCombo
             model={model}
             defaultValue={value}
-            useSelect="true"
+            menuType="select"
             readonly={type === 'combo' ? 'true' : 'false'}
             grow="1"
             list={list}
