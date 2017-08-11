@@ -44,6 +44,7 @@ class Wizard extends Form {
     this.items = 1;
     this.layout = 'row';
     this.showFrame = false;
+    this.ticketLines = 1;
   }
 
   static get wiring () {
@@ -235,6 +236,26 @@ class Wizard extends Form {
   // Last column PREVIEW
   /******************************************************************************/
 
+  renderWidgetBaseTicket () {
+    const result = [];
+    const lines = [
+      'Ticket',
+      'Deuxième ligne',
+      'Troisième ligne',
+      'Quatrième ligne',
+      'Cinquième ligne',
+      'Sixième ligne',
+      'Septième ligne',
+      'Huitième ligne',
+      'Neuvième ligne',
+      'Dixième ligne plus longue que les autres',
+    ];
+    for (let i = 0; i < this.ticketLines; i++) {
+      result.push (<Label key={i} text={lines[i]} wrap="no" />);
+    }
+    return result;
+  }
+
   renderWidgetBase (index, props) {
     switch (this.wizard) {
       case 'Button':
@@ -273,8 +294,8 @@ class Wizard extends Form {
       case 'Ticket':
         return (
           <Ticket key={index} {...props}>
-            <Container kind="column" grow="1">
-              <Label text="Ticket" />
+            <Container kind="box" grow="1">
+              {this.renderWidgetBaseTicket ()}
             </Container>
           </Ticket>
         );
@@ -551,6 +572,59 @@ class Wizard extends Form {
     );
   }
 
+  renderKindSwitchesTicket () {
+    return (
+      <Container kind="row-pane" subkind="left">
+        <Label text="Lines" width="80px" />
+        {this.renderSwitch (
+          '1',
+          1,
+          () => this.ticketLines,
+          value => (this.ticketLines = value)
+        )}
+        {this.renderSwitch (
+          '2',
+          2,
+          () => this.ticketLines,
+          value => (this.ticketLines = value)
+        )}
+        {this.renderSwitch (
+          '3',
+          3,
+          () => this.ticketLines,
+          value => (this.ticketLines = value)
+        )}
+        {this.renderSwitch (
+          '4',
+          4,
+          () => this.ticketLines,
+          value => (this.ticketLines = value)
+        )}
+        {this.renderSwitch (
+          '5',
+          5,
+          () => this.ticketLines,
+          value => (this.ticketLines = value)
+        )}
+        {this.renderSwitch (
+          '10',
+          10,
+          () => this.ticketLines,
+          value => (this.ticketLines = value)
+        )}
+      </Container>
+    );
+  }
+
+  renderKindSwitches () {
+    switch (this.wizard) {
+      case 'Ticket':
+        return this.renderKindSwitchesTicket ();
+      default:
+        return null;
+    }
+  }
+
   /******************************************************************************/
   // Main
   /******************************************************************************/
@@ -575,6 +649,7 @@ class Wizard extends Form {
               {this.renderItemsSwitches ()}
               {this.renderLayoutSwitches ()}
               {this.renderFrameSwitch ()}
+              {this.renderKindSwitches ()}
             </Container>
             {this.renderPreviewSolo ()}
           </div>
