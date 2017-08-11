@@ -19,7 +19,7 @@ function getOnlyDigits (value) {
   let result = '';
   for (let i = 0; i < value.length; i++) {
     const c = value[i];
-    if (c >= '0' && c <= '9') {
+    if (c === '-' || (c >= '0' && c <= '9')) {
       result += c;
     }
   }
@@ -45,6 +45,8 @@ class Wizard extends Form {
     this.layout = 'row';
     this.showFrame = false;
     this.ticketLines = 1;
+    this.containerType = 'Label';
+    this.containerItems = 1;
   }
 
   static get wiring () {
@@ -256,6 +258,66 @@ class Wizard extends Form {
     return result;
   }
 
+  renderWidgetBaseContainer () {
+    const result = [];
+    if (this.containerType === 'Button') {
+      const lines = [
+        'Janvier',
+        'Février',
+        'Mars',
+        'Avril',
+        'Main',
+        'Juin',
+        'Juillet',
+        'Août',
+        'Septembre',
+        'Octobre',
+        'Novembre',
+        'Décembre',
+      ];
+      for (let i = 0; i < this.containerItems; i++) {
+        result.push (<Button key={i} text={lines[i]} wrap="no" />);
+      }
+    } else if (this.containerType === 'Glyph') {
+      const lines = [
+        'bicycle',
+        'ship',
+        'subway',
+        'bus',
+        'truck',
+        'taxi',
+        'motorcycle',
+        'car',
+        'train',
+        'plane',
+        'fighter-jet',
+        'rocket',
+      ];
+      for (let i = 0; i < this.containerItems; i++) {
+        result.push (<Button key={i} glyph={lines[i]} wrap="no" />);
+      }
+    } else {
+      const lines = [
+        'Container',
+        'Deuxième ligne',
+        'Troisième ligne',
+        'Quatrième ligne',
+        'Cinquième ligne',
+        'Sixième ligne',
+        'Septième ligne',
+        'Huitième ligne',
+        'Neuvième ligne',
+        'Dixième ligne plus longue que les autres',
+        'Onzième ligne',
+        'Douzième ligne',
+      ];
+      for (let i = 0; i < this.containerItems; i++) {
+        result.push (<Label key={i} text={lines[i]} wrap="no" />);
+      }
+    }
+    return result;
+  }
+
   renderWidgetBase (index, props) {
     switch (this.wizard) {
       case 'Button':
@@ -298,6 +360,12 @@ class Wizard extends Form {
               {this.renderWidgetBaseTicket ()}
             </Container>
           </Ticket>
+        );
+      case 'Container':
+        return (
+          <Container key={index} {...props}>
+            {this.renderWidgetBaseContainer ()}
+          </Container>
         );
       default:
         return null;
@@ -616,10 +684,75 @@ class Wizard extends Form {
     );
   }
 
+  renderKindSwitchesContainer () {
+    return (
+      <Container kind="row-pane" subkind="left">
+        <Label text="Content" width="80px" />
+        {this.renderSwitch (
+          'Label',
+          'Label',
+          () => this.containerType,
+          value => (this.containerType = value)
+        )}
+        {this.renderSwitch (
+          'Button',
+          'Button',
+          () => this.containerType,
+          value => (this.containerType = value)
+        )}
+        {this.renderSwitch (
+          'Glyph',
+          'Glyph',
+          () => this.containerType,
+          value => (this.containerType = value)
+        )}
+        <Label text="" width="20px" />
+        {this.renderSwitch (
+          '1',
+          1,
+          () => this.containerItems,
+          value => (this.containerItems = value)
+        )}
+        {this.renderSwitch (
+          '2',
+          2,
+          () => this.containerItems,
+          value => (this.containerItems = value)
+        )}
+        {this.renderSwitch (
+          '3',
+          3,
+          () => this.containerItems,
+          value => (this.containerItems = value)
+        )}
+        {this.renderSwitch (
+          '4',
+          4,
+          () => this.containerItems,
+          value => (this.containerItems = value)
+        )}
+        {this.renderSwitch (
+          '5',
+          5,
+          () => this.containerItems,
+          value => (this.containerItems = value)
+        )}
+        {this.renderSwitch (
+          '12',
+          12,
+          () => this.containerItems,
+          value => (this.containerItems = value)
+        )}
+      </Container>
+    );
+  }
+
   renderKindSwitches () {
     switch (this.wizard) {
       case 'Ticket':
         return this.renderKindSwitchesTicket ();
+      case 'Container':
+        return this.renderKindSwitchesContainer ();
       default:
         return null;
     }

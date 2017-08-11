@@ -949,7 +949,7 @@ export default function styles (theme, props) {
       triangleColor = theme.palette.flyingDialogBackground;
     }
     const t = Unit.add (triangleSize, '1px', 0); // round (suppress decimals)
-    const tt = props.shift ? Unit.add (t, props.shift) : t;
+    const tt = props.triangleShift ? Unit.add (t, props.triangleShift) : t;
     const p = triangleSize;
     if (props.trianglePosition === 'left') {
       triangleStyle = {

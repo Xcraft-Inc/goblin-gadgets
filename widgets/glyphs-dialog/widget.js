@@ -192,7 +192,7 @@ class GlyphsDialog extends Widget {
       <DialogModal
         width={dialogWidth}
         center={result.center}
-        shift={result.shift}
+        triangleShift={result.triangleShift}
         top={top}
         bottom={bottom}
         close={::this.onClose}

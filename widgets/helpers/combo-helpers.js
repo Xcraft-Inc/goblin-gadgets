@@ -53,20 +53,20 @@ export function declipping (width, center, padding) {
     const c = Unit.parse (center).value;
     const p = Unit.parse (Unit.add (padding, '10px')).value; // 10px -> Does not touch the edge of the window, FIXME: move to theme
 
-    // Compute shift if dialog is out of left window border.
+    // Compute triangleShift if dialog is out of left window border.
     const leftShift = w / 2 + p - c;
     if (leftShift > 0) {
       const newCenter = c + leftShift;
-      return {shift: leftShift + 'px', center: newCenter + 'px'};
+      return {triangleShift: leftShift + 'px', center: newCenter + 'px'};
     }
 
-    // Compute shift if dialog is out of right window border.
+    // Compute triangleShift if dialog is out of right window border.
     const rightShift = c + w / 2 + p - window.innerWidth;
     if (rightShift > 0) {
       const newCenter = c - rightShift;
-      return {shift: '-' + rightShift + 'px', center: newCenter + 'px'};
+      return {triangleShift: '-' + rightShift + 'px', center: newCenter + 'px'};
     }
   }
 
-  return {shift: '0px', center: center};
+  return {triangleShift: '0px', center: center};
 }

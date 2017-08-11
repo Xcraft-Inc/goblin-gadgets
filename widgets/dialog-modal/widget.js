@@ -44,7 +44,7 @@ class DialogModal extends Widget {
     const height = this.props.height;
     const top = this.props.top;
     const bottom = this.props.bottom;
-    const shift = this.props.shift;
+    const triangleShift = this.props.triangleShift;
 
     const fullScreenClass = this.styles.classNames.fullScreen;
 
@@ -62,7 +62,7 @@ class DialogModal extends Widget {
               trianglePosition={top ? 'top' : 'bottom'}
               width={width}
               height={height}
-              shift={shift}
+              triangleShift={triangleShift}
               cursor="default"
             >
               {this.props.children}
