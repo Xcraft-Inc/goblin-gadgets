@@ -1,5 +1,6 @@
 import {Unit} from 'electrum-theme';
 import {ColorHelpers} from 'electrum-theme';
+import {ColorManipulator} from 'electrum-theme';
 
 /******************************************************************************/
 
@@ -45,7 +46,7 @@ export default function styles (theme, props) {
     ? '0px 0px ' + props.marginBottom + ' 0px'
     : '0px';
   let padding = '0px';
-  let backgroundColor = props.backgroundColor;
+  let backgroundColor = null;
   let color = null;
   let fontWeight = null;
   let zIndex = null;
@@ -69,9 +70,7 @@ export default function styles (theme, props) {
     display = 'flex';
     flexDirection = 'row';
     height = '100vh';
-    backgroundColor = backgroundColor
-      ? backgroundColor
-      : theme.palette.rootBackground;
+    backgroundColor = theme.palette.rootBackground;
     color = theme.palette.text;
   }
 
@@ -88,9 +87,7 @@ export default function styles (theme, props) {
     display = 'flex';
     flexDirection = 'column';
     justifyContent = 'center';
-    backgroundColor = backgroundColor
-      ? backgroundColor
-      : theme.palette.floatingBackground;
+    backgroundColor = theme.palette.floatingBackground;
     boxShadow = theme.shapes.floatingShadow;
     zIndex = '10';
   }
@@ -152,9 +149,7 @@ export default function styles (theme, props) {
     display = 'flex';
     flexDirection = 'column';
     justifyContent = 'center';
-    backgroundColor = backgroundColor
-      ? backgroundColor
-      : theme.palette.floatingBackground;
+    backgroundColor = theme.palette.floatingBackground;
     boxShadow = theme.shapes.floatingShadow;
     zIndex = '1';
   }
@@ -163,9 +158,7 @@ export default function styles (theme, props) {
     zIndex = 2;
     display = 'flex';
     flexDirection = 'column';
-    backgroundColor = backgroundColor
-      ? backgroundColor
-      : theme.palette.taskBackground;
+    backgroundColor = theme.palette.taskBackground;
     boxShadow = theme.shapes.taskShadow;
   }
 
@@ -195,9 +188,7 @@ export default function styles (theme, props) {
   if (props.kind === 'top-bar') {
     display = 'flex';
     flexDirection = 'row';
-    backgroundColor = backgroundColor
-      ? backgroundColor
-      : theme.palette.mainTabBackground;
+    backgroundColor = theme.palette.mainTabBackground;
   }
 
   if (props.kind === 'main-tab') {
@@ -215,18 +206,14 @@ export default function styles (theme, props) {
     flexDirection = 'row';
     justifyContent = 'flex-start';
     alignItems = 'center';
-    backgroundColor = backgroundColor
-      ? backgroundColor
-      : theme.palette.mainTabBackground;
+    backgroundColor = theme.palette.mainTabBackground;
   }
 
   if (props.kind === 'second-bar') {
     display = 'flex';
     flexDirection = 'row';
     justifyContent = 'flex-end';
-    backgroundColor = backgroundColor
-      ? backgroundColor
-      : theme.palette.viewTabBackground;
+    backgroundColor = theme.palette.viewTabBackground;
   }
 
   if (props.kind === 'view-tab') {
@@ -245,9 +232,7 @@ export default function styles (theme, props) {
     flexDirection = 'row';
     justifyContent = 'flex-start';
     alignItems = 'flex-end';
-    backgroundColor = backgroundColor
-      ? backgroundColor
-      : theme.palette.viewTabBackground;
+    backgroundColor = theme.palette.viewTabBackground;
   }
 
   if (props.kind === 'views') {
@@ -268,9 +253,7 @@ export default function styles (theme, props) {
     } else {
       margin = '0px';
     }
-    backgroundColor = backgroundColor
-      ? backgroundColor
-      : theme.palette.viewBackground;
+    backgroundColor = theme.palette.viewBackground;
   }
 
   if (props.kind === 'view-stretch') {
@@ -280,9 +263,7 @@ export default function styles (theme, props) {
     flexDirection = 'column';
     flexGrow = 1;
     margin = '0px';
-    backgroundColor = backgroundColor
-      ? backgroundColor
-      : theme.palette.viewBackground;
+    backgroundColor = theme.palette.viewBackground;
   }
 
   if (props.kind === 'view-short') {
@@ -292,9 +273,7 @@ export default function styles (theme, props) {
     flexDirection = 'column';
     flexGrow = 1;
     margin = '0px';
-    backgroundColor = backgroundColor
-      ? backgroundColor
-      : theme.palette.viewBackground;
+    backgroundColor = theme.palette.viewBackground;
     alignSelf = 'flex-start';
   }
 
@@ -304,9 +283,7 @@ export default function styles (theme, props) {
     display = 'flex';
     flexDirection = 'column';
     margin = '0px 0px 0px ' + theme.shapes.viewSpacing;
-    backgroundColor = backgroundColor
-      ? backgroundColor
-      : theme.palette.viewBackground;
+    backgroundColor = theme.palette.viewBackground;
   }
 
   if (props.kind === 'view-wedge') {
@@ -327,9 +304,7 @@ export default function styles (theme, props) {
     justifyContent = 'space-between';
     padding = m;
     margin = '0px 0px ' + m + ' 0px';
-    backgroundColor = backgroundColor
-      ? backgroundColor
-      : theme.palette.paneHeaderBackground;
+    backgroundColor = theme.palette.paneHeaderBackground;
   }
 
   if (props.kind === 'pane-navigator') {
@@ -343,9 +318,7 @@ export default function styles (theme, props) {
     borderWidth = '1px';
     borderStyle = 'none none solid none';
     borderColor = theme.palette.paneNavigatorInactiveBorder;
-    backgroundColor = backgroundColor
-      ? backgroundColor
-      : theme.palette.paneNavigatorBackground;
+    backgroundColor = theme.palette.paneNavigatorBackground;
   }
 
   if (props.kind === 'pane-top') {
@@ -357,9 +330,7 @@ export default function styles (theme, props) {
     margin = '0px 0px ' + m + ' 0px';
     borderStyle = 'none';
     borderColor = theme.palette.paneNavigatorInactiveBorder;
-    backgroundColor = backgroundColor
-      ? backgroundColor
-      : theme.palette.paneNavigatorBackground;
+    backgroundColor = theme.palette.paneNavigatorBackground;
   }
 
   if (props.kind === 'pane-hnavigator') {
@@ -372,9 +343,7 @@ export default function styles (theme, props) {
     borderWidth = '1px';
     borderStyle = 'none none solid none';
     borderColor = theme.palette.paneNavigatorInactiveBorder;
-    backgroundColor = backgroundColor
-      ? backgroundColor
-      : theme.palette.paneNavigatorBackground;
+    backgroundColor = theme.palette.paneNavigatorBackground;
   }
 
   if (props.kind === 'pane-vnavigator') {
@@ -385,9 +354,7 @@ export default function styles (theme, props) {
     padding = '0px';
     margin =
       '0px 0px 0px ' + Unit.multiply (theme.shapes.vnavigatorButtonSize, -1);
-    backgroundColor = backgroundColor
-      ? backgroundColor
-      : theme.palette.vnavigatorButtonBackground;
+    backgroundColor = theme.palette.vnavigatorButtonBackground;
     zIndex = 4;
   }
 
@@ -399,9 +366,7 @@ export default function styles (theme, props) {
     alignItems = 'center';
     padding = m;
     borderStyle = 'none';
-    backgroundColor = backgroundColor
-      ? backgroundColor
-      : theme.shapes.actionBackground;
+    backgroundColor = theme.shapes.actionBackground;
     borderTopWidth = '1px';
     borderTopStyle = 'solid';
     borderTopColor = theme.palette.actionBorder;
@@ -436,9 +401,7 @@ export default function styles (theme, props) {
     // boxShadow       = theme.shapes.paneShadow;
     margin = '0px 0px ' + m + ' 0px';
     padding = m + ' ' + m + ' ' + d + ' ' + m;
-    backgroundColor = backgroundColor
-      ? backgroundColor
-      : theme.palette.paneBackground;
+    backgroundColor = theme.palette.paneBackground;
   }
 
   if (props.kind === 'row-pane') {
@@ -453,9 +416,7 @@ export default function styles (theme, props) {
     let leftMargin = '0px';
     if (props.subkind === 'info') {
       height = theme.shapes.lineHeight;
-      backgroundColor = backgroundColor
-        ? backgroundColor
-        : theme.palette.infoBackground;
+      backgroundColor = theme.palette.infoBackground;
       borderRadius = theme.shapes.smoothRadius;
       fontWeight = 'bold';
       padding = '0px ' + halfMargin;
@@ -463,9 +424,7 @@ export default function styles (theme, props) {
       rightMargin = Unit.multiply (m, -1);
       leftMargin = Unit.multiply (m, -1);
       padding = '0px ' + m;
-      backgroundColor = backgroundColor
-        ? backgroundColor
-        : theme.palette.infoBackground;
+      backgroundColor = theme.palette.infoBackground;
       fontWeight = 'bold';
     } else if (props.subkind === 'box' || props.subkind === 'box-left') {
       if (props.subkind === 'box-left') {
@@ -566,9 +525,7 @@ export default function styles (theme, props) {
       bottomMargin = Unit.multiply (halfMargin, -1);
     }
     if (props.selected === 'true' && props.subkind !== 'large-box') {
-      backgroundColor = backgroundColor
-        ? backgroundColor
-        : theme.palette.paneSelectedBackground;
+      backgroundColor = theme.palette.paneSelectedBackground;
       color = theme.palette.paneSelectedText;
     }
     margin =
@@ -608,9 +565,7 @@ export default function styles (theme, props) {
     flexGrow = 0;
     justifyContent = 'flex-start';
     alignItems = 'center';
-    backgroundColor = backgroundColor
-      ? backgroundColor
-      : theme.palette.footerBackground;
+    backgroundColor = theme.palette.footerBackground;
   }
 
   if (props.kind === 'tickets') {
@@ -620,9 +575,7 @@ export default function styles (theme, props) {
     display = 'flex';
     flexDirection = 'column';
     flexGrow = '1';
-    backgroundColor = backgroundColor
-      ? backgroundColor
-      : theme.palette.ticketsBackground;
+    backgroundColor = theme.palette.ticketsBackground;
   }
 
   if (props.kind === 'tickets-root') {
@@ -646,9 +599,7 @@ export default function styles (theme, props) {
     flexDirection = 'column';
     flexGrow = 0;
     margin = '0px ' + theme.shapes.viewSpacing + ' 0px 0px';
-    backgroundColor = backgroundColor
-      ? backgroundColor
-      : theme.palette.ticketsBackground;
+    backgroundColor = theme.palette.ticketsBackground;
   }
 
   if (props.kind === 'tickets-trips') {
@@ -664,9 +615,7 @@ export default function styles (theme, props) {
     display = 'flex';
     flexDirection = 'row';
     flexGrow = 1;
-    backgroundColor = backgroundColor
-      ? backgroundColor
-      : theme.palette.ticketsBackground;
+    backgroundColor = theme.palette.ticketsBackground;
     overflowY = 'auto';
   }
 
@@ -701,9 +650,7 @@ export default function styles (theme, props) {
     borderStyle = 'solid';
     borderRadius = '50px';
     borderColor = theme.palette.buttonBorder;
-    backgroundColor = backgroundColor
-      ? backgroundColor
-      : theme.palette.ticketsBackground;
+    backgroundColor = theme.palette.ticketsBackground;
   }
 
   if (props.kind === 'chronos-events') {
@@ -712,9 +659,7 @@ export default function styles (theme, props) {
     flexGrow = 1;
     overflowX = 'hidden';
     overflowY = 'auto';
-    backgroundColor = backgroundColor
-      ? backgroundColor
-      : theme.palette.eventBackground;
+    backgroundColor = theme.palette.eventBackground;
   }
 
   if (props.kind === 'column-full') {
@@ -809,14 +754,10 @@ export default function styles (theme, props) {
     borderColor = theme.palette.buttonBorder;
     borderRadius = theme.shapes.thinRadius;
     if (props.selected === 'true') {
-      backgroundColor = backgroundColor
-        ? backgroundColor
-        : theme.palette.paneSelectedBackground;
+      backgroundColor = theme.palette.paneSelectedBackground;
       color = theme.palette.paneSelectedText;
     } else {
-      backgroundColor = backgroundColor
-        ? backgroundColor
-        : theme.palette.paneBackground;
+      backgroundColor = theme.palette.paneBackground;
     }
   }
 
@@ -850,9 +791,7 @@ export default function styles (theme, props) {
     flexDirection = 'column';
     flexWrap = 'wrap';
     padding = Unit.add (fbp, '1px') + ' ' + fbp + ' ' + fbp + ' ' + fbp;
-    backgroundColor = backgroundColor
-      ? backgroundColor
-      : theme.palette.flyingBalloonBackground;
+    backgroundColor = theme.palette.flyingBalloonBackground;
     color = theme.palette.text;
     position = 'relative';
     boxShadow = theme.shapes.flyingShadow;
@@ -864,9 +803,7 @@ export default function styles (theme, props) {
     flexDirection = 'column';
     flexWrap = 'wrap';
     padding = theme.shapes.floatingPadding;
-    backgroundColor = backgroundColor
-      ? backgroundColor
-      : theme.palette.flyingDialogBackground;
+    backgroundColor = theme.palette.flyingDialogBackground;
     color = theme.palette.text;
     position = 'relative';
     boxShadow = theme.shapes.flyingShadow;
@@ -880,6 +817,10 @@ export default function styles (theme, props) {
 
   if (hidden === 'true') {
     display = 'none';
+  }
+
+  if (props.backgroundColor) {
+    backgroundColor = ColorHelpers.getMarkColor (theme, props.backgroundColor);
   }
 
   const boxStyle = {
