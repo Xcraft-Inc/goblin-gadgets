@@ -239,7 +239,6 @@ export default function styles (theme, props) {
   const vp = kind === 'thin' ? '0px' : theme.shapes.ticketVerticalPadding;
   const hp = kind === 'thin' ? '0px' : theme.shapes.ticketHorizontalPadding;
   const contentStyle = {
-    height: height,
     position: 'relative',
     padding: vp + ' ' + hp,
     display: 'flex',
@@ -251,6 +250,7 @@ export default function styles (theme, props) {
 
   const rectShadowStyle = {
     width: width,
+    height: height,
     margin: '0px ' + horizontalSpacing + ' ' + verticalSpacing + ' 0px',
     position: 'relative',
     top: theme.shapes.ticketShadowShift,
@@ -261,6 +261,7 @@ export default function styles (theme, props) {
   };
 
   const rectStyle = {
+    height: height,
     position: 'relative',
     top: '-' + theme.shapes.ticketShadowShift,
     cursor: cursor,
@@ -273,6 +274,7 @@ export default function styles (theme, props) {
   const hs = theme.shapes.ticketHatchSize;
   const ht = Unit.multiply (hs, 2);
   const rectContentHatchStyle = {
+    height: height ? Unit.sub (height, Unit.multiply (vp, 2)) : null,
     position: 'relative',
     padding: vp + ' ' + hp,
     display: 'flex',

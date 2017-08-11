@@ -271,7 +271,13 @@ class Wizard extends Form {
           </Container>
         );
       case 'Ticket':
-        return <Ticket key={index} {...props} />;
+        return (
+          <Ticket key={index} {...props}>
+            <Container kind="column" grow="1">
+              <Label text="Ticket" />
+            </Container>
+          </Ticket>
+        );
       default:
         return null;
     }
