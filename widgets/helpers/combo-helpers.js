@@ -33,17 +33,13 @@ export function getComboLocation (node, theme, name, x, y) {
   if (y) {
     topValue = Unit.add (window.innerHeight - y + 'px', t);
     bottomValue = Unit.add (y + 'px', t);
-    underMax =
-      (window.innerHeight - y - tv) / window.innerHeight * 100 - 2 + 'vh';
-    overMax = (y - tv) / window.innerHeight * 100 - 2 + 'vh';
+    underMax = window.innerHeight - y - tv - 20 + 'px';
+    overMax = y - tv - 20 + 'px';
   } else {
     topValue = Unit.add (window.innerHeight - rect.top + 'px', t);
     bottomValue = Unit.add (rect.bottom + 'px', t);
-    underMax =
-      (window.innerHeight - rect.bottom - tv) / window.innerHeight * 100 -
-      2 +
-      'vh';
-    overMax = (rect.top - tv) / window.innerHeight * 100 - 2 + 'vh';
+    underMax = window.innerHeight - rect.bottom - tv - 20 + 'px';
+    overMax = rect.top - tv - 20 + 'px';
   }
   const my = (rect.top + rect.bottom) / 2;
   const underside = my < window.innerHeight / 2;
@@ -61,9 +57,8 @@ export function getSelectLocation (node, theme) {
 
   const topValue = Unit.sub (window.innerHeight - rect.top + 'px', '2px');
   const bottomValue = Unit.sub (rect.bottom + 'px', '2px');
-  const underMax =
-    (window.innerHeight - rect.bottom) / window.innerHeight * 100 - 2 + 'vh';
-  const overMax = rect.top / window.innerHeight * 100 - 2 + 'vh';
+  const underMax = window.innerHeight - rect.bottom - 10 + 'px';
+  const overMax = rect.top - 10 + 'px';
   const my = (rect.top + rect.bottom) / 2;
   const underside = my < window.innerHeight / 2;
 
