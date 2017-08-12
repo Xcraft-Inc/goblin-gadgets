@@ -792,9 +792,10 @@ export default function styles (theme, props) {
     backgroundColor = '#fff';
     color = theme.palette.text;
     position = 'relative';
-    boxShadow = props.place === 'over'
-      ? '0px -10px 20px rgba(0, 0, 0, 0.30)' // FIXME: move to theme
-      : theme.shapes.flyingShadow;
+    //? boxShadow = props.place === 'over'
+    //?   ? '0px -10px 20px rgba(0, 0, 0, 0.30)' // FIXME: move to theme
+    //?   : theme.shapes.flyingShadow;
+    boxShadow = '0px 0px 20px rgba(0, 0, 0, 0.30)'; // FIXME: move to theme
     borderWidth = '1px';
     borderStyle = 'solid';
     borderColor = theme.palette.buttonBorder;

@@ -44,6 +44,25 @@ export default function styles (theme, props) {
     opacity: opacity,
   };
 
+  const shadowBoxStyle = {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    width: props.width,
+    flexGrow: flexGrow,
+    flexShrink: flexShrink,
+    flexBasis: flexBasis,
+    padding: '0px',
+    marginTop: '0px',
+    marginLeft: '0px',
+    marginBottom: '0px',
+    marginRight: marginRight,
+    position: 'relative',
+    opacity: opacity,
+    boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.30)', // FIXME: move to theme
+  };
+
   const comboBoxStyle = {
     position: 'absolute',
     right: props.comboDirection === 'right' ? null : '0px',
@@ -62,6 +81,7 @@ export default function styles (theme, props) {
 
   return {
     box: boxStyle,
+    shadowBox: shadowBoxStyle,
     comboBox: comboBoxStyle,
     emptyCombo: emptyComboStyle,
   };

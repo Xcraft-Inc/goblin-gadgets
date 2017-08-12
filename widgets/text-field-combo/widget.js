@@ -248,7 +248,9 @@ class TextFieldCombo extends Widget {
       return null;
     }
 
-    const boxClass = this.styles.classNames.box;
+    const boxClass = this.showCombo
+      ? this.styles.classNames.shadowBox
+      : this.styles.classNames.box;
 
     return (
       <span disabled={this.props.disabled} className={boxClass}>
