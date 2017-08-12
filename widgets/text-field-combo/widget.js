@@ -143,13 +143,9 @@ class TextFieldCombo extends Widget {
       props.displayValue = displayValue;
     }
 
-    //? const isComboVisible = this.showCombo ? 'true' : 'false';
-    const isComboVisible = 'false';
-
     return (
       <TextField
         {...props}
-        active={isComboVisible}
         onFocus={::this.onFocus}
         onBlur={::this.onBlur}
         onMouseDown={::this.onMouseDown}
@@ -171,15 +167,11 @@ class TextFieldCombo extends Widget {
     };
     const buttonShape = buttonShapes[s];
 
-    //? const isComboVisible = this.showCombo ? 'true' : 'false';
-    const isComboVisible = 'false';
-
     return (
       <Button
         kind="combo"
         glyph={glyph}
         shape={buttonShape}
-        active={isComboVisible}
         onClick={::this.onButtonClicked}
       />
     );
