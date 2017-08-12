@@ -45,16 +45,15 @@ export default function styles (theme, props) {
   };
 
   const optionStyle = {
+    //? padding: '10px 20px',
+    //? borderBottom: '1px solid ' + theme.palette.flyingBalloonBackground,
+    //? color: theme.palette.menuText,
+    //? backgroundColor: theme.palette.menuItemInactiveBackground,
     padding: '10px 20px',
-    borderBottom: '1px solid ' + theme.palette.flyingBalloonBackground,
-    color: theme.palette.menuText,
-    backgroundColor: theme.palette.menuItemInactiveBackground,
+    backgroundColor: '#fff', // FIXME: move to theme
   };
   optionStyle[':hover'] = {
-    backgroundColor: ColorManipulator.emphasize (
-      theme.palette.menuItemInactiveBackground,
-      0.2
-    ),
+    backgroundColor: '#eee', // FIXME: move to theme
   };
   //? optionStyle[':active'] = {
   //?   backgroundColor: '#f00',

@@ -785,6 +785,22 @@ export default function styles (theme, props) {
     padding = '0px ' + theme.shapes.thinLeftMargin;
   }
 
+  if (props.kind === 'flying-combo') {
+    display = 'flex';
+    flexDirection = 'column';
+    flexWrap = 'wrap';
+    backgroundColor = '#fff';
+    color = theme.palette.text;
+    position = 'relative';
+    boxShadow = props.place === 'over'
+      ? '0px -10px 20px rgba(0, 0, 0, 0.30)' // FIXME: move to theme
+      : theme.shapes.flyingShadow;
+    borderWidth = '1px';
+    borderStyle = 'solid';
+    borderColor = theme.palette.buttonBorder;
+    borderRadius = theme.shapes.flyingBalloonRadius;
+  }
+
   if (props.kind === 'flying-balloon') {
     const fbp = theme.shapes.flyingBalloonPadding;
     display = 'flex';

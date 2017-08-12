@@ -143,7 +143,8 @@ class TextFieldCombo extends Widget {
       props.displayValue = displayValue;
     }
 
-    const isComboVisible = this.showCombo ? 'true' : 'false';
+    //? const isComboVisible = this.showCombo ? 'true' : 'false';
+    const isComboVisible = 'false';
 
     return (
       <TextField
@@ -158,7 +159,8 @@ class TextFieldCombo extends Widget {
 
   renderButton () {
     const shape = this.props.shape;
-    const glyph = this.props.comboGlyph ? this.props.comboGlyph : 'caret-down';
+    //? const glyph = this.props.comboGlyph ? this.props.comboGlyph : 'caret-down';
+    const glyph = this.showCombo ? 'caret-up' : 'caret-down';
 
     const s = shape ? shape : 'smooth';
     const buttonShapes = {
@@ -167,12 +169,13 @@ class TextFieldCombo extends Widget {
     };
     const buttonShape = buttonShapes[s];
 
-    const isComboVisible = this.showCombo ? 'true' : 'false';
+    //? const isComboVisible = this.showCombo ? 'true' : 'false';
+    const isComboVisible = 'false';
 
     return (
       <Button
         kind="combo"
-        glyph={this.showCombo ? 'none' : glyph}
+        glyph={glyph}
         shape={buttonShape}
         active={isComboVisible}
         onClick={::this.onButtonClicked}
