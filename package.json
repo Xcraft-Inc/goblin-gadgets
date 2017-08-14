@@ -15,10 +15,7 @@
     }
   },
   "dependencies": {
-    "cron-parser": "^2.4.1",
-    "linq": "^3.0.8",
-    "mousetrap": "^1.6.1",
-    "traverse": "^0.6.6"
+    "xcraft-core-goblin": "^2.0.0"
   },
   "devDependencies": {
     "xcraft-dev-rules": "^0.1.20"
