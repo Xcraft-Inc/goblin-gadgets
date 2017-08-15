@@ -1656,10 +1656,13 @@ Object.keys (params).forEach (w => {
 
 Object.keys (previews).forEach (p => {
   const preview = previews[p];
-  Goblin.registerQuest (goblinName, `change-${p}`, function (quest) {
-    quest.do ();
+  Goblin.registerQuest (goblinName, `changePreview-${p}`, function (
+    quest,
+    newValue
+  ) {
+    quest.do ({newValue});
   });
-  logicHandlers[`change-${p}`] = (state, action) => {
+  logicHandlers[`changePreview-${p}`] = (state, action) => {
     preview.value = action.get ('newValue');
     return state.set (`previews.${p}`, preview);
   };

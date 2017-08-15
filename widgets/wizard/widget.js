@@ -55,15 +55,6 @@ class Wizard extends Form {
   constructor () {
     super (...arguments);
     this.wizard = 'Button';
-    this.scale = 2;
-    this.color = 'paneBackground';
-    this.items = 1;
-    this.layout = 'row';
-    this.showFrame = false;
-    this.ticketLines = 1;
-    this.containerType = 'Label';
-    this.containerItems = 1;
-    this.textFieldComboMenu = 'Days';
   }
 
   static get wiring () {
@@ -86,11 +77,15 @@ class Wizard extends Form {
     );
   }
 
-  getPreviewValue (value) {
+  getPreviewValue (id) {
     const x = this.previews
-      .where (preview => preview.get ('id') === value)
+      .where (preview => preview.get ('id') === id)
       .first ();
     return x.get ('value');
+  }
+
+  setPreviewValue (id, value) {
+    this.do (`changePreview-${id}`, {newValue: value});
   }
 
   getCode () {
@@ -284,7 +279,7 @@ class Wizard extends Form {
       'Neuvième ligne',
       'Dixième ligne plus longue que les autres',
     ];
-    for (let i = 0; i < this.ticketLines; i++) {
+    for (let i = 0; i < this.getPreviewValue ('ticketLines'); i++) {
       result.push (<Label key={i} text={lines[i]} wrap="no" />);
     }
     return result;
@@ -292,7 +287,8 @@ class Wizard extends Form {
 
   renderWidgetBaseContainer () {
     const result = [];
-    if (this.containerType === 'Button') {
+    const type = this.getPreviewValue ('containerType');
+    if (type === 'button') {
       const lines = [
         'Janvier',
         'Février',
@@ -307,10 +303,10 @@ class Wizard extends Form {
         'Novembre',
         'Décembre',
       ];
-      for (let i = 0; i < this.containerItems; i++) {
+      for (let i = 0; i < this.getPreviewValue ('containerItems'); i++) {
         result.push (<Button key={i} text={lines[i]} wrap="no" />);
       }
-    } else if (this.containerType === 'Glyph') {
+    } else if (type === 'glyph') {
       const lines = [
         'bicycle',
         'ship',
@@ -325,7 +321,7 @@ class Wizard extends Form {
         'fighter-jet',
         'rocket',
       ];
-      for (let i = 0; i < this.containerItems; i++) {
+      for (let i = 0; i < this.getPreviewValue ('containerItems'); i++) {
         result.push (<Button key={i} glyph={lines[i]} wrap="no" />);
       }
     } else {
@@ -343,7 +339,7 @@ class Wizard extends Form {
         'Onzième ligne',
         'Douzième ligne',
       ];
-      for (let i = 0; i < this.containerItems; i++) {
+      for (let i = 0; i < this.getPreviewValue ('containerItems'); i++) {
         result.push (<Label key={i} text={lines[i]} wrap="no" />);
       }
     }
@@ -361,7 +357,7 @@ class Wizard extends Form {
       case 'LabelTextField':
         return <LabelTextField key={index} model=".x" {...props} />;
       case 'TextFieldCombo':
-        const list = this.textFieldComboMenu === 'Colors'
+        const list = this.getPreviewValue ('textFieldComboMenu') === 'colors'
           ? [
               'Rouge',
               'Vert',
@@ -438,7 +434,7 @@ class Wizard extends Form {
       props[field] = value;
     });
 
-    if (this.showFrame) {
+    if (this.getPreviewValue ('showFrame')) {
       const frameStyle = {
         border: '1px solid #f00',
         display: 'flex',
@@ -457,7 +453,7 @@ class Wizard extends Form {
 
   renderWidgets () {
     const result = [];
-    for (let i = 0; i < this.items; i++) {
+    for (let i = 0; i < this.getPreviewValue ('items'); i++) {
       result.push (this.renderWidget (i));
     }
     return result;
@@ -502,8 +498,8 @@ class Wizard extends Form {
       flexWrap: wrap,
       justifyContent: 'flex-start',
       alignItems: 'flex-start',
-      transform: scale === '1' ? null : `scale(${scale})`,
-      transformOrigin: scale === '1' ? null : 'top left',
+      transform: scale === 1 ? null : `scale(${scale})`,
+      transformOrigin: scale === 1 ? null : 'top left',
       width: `${100 / scale}%`,
       transition: this.context.theme.transitions.easeOut (),
     };
@@ -521,329 +517,7 @@ class Wizard extends Form {
   // Panel with switches in column PREVIEW
   /******************************************************************************/
 
-  renderSwitch (text, value, getter, setter) {
-    return (
-      <CheckButton
-        text={text}
-        kind="active"
-        checked={getter () === value ? 'true' : 'false'}
-        onClick={() => {
-          setter (value);
-          this.forceUpdate ();
-        }}
-      />
-    );
-  }
-
-  renderScaleSwitches () {
-    return (
-      <Container kind="row-pane" subkind="left">
-        <Label text="Scale" width="80px" />
-        {this.renderSwitch (
-          '×1',
-          1,
-          () => this.scale,
-          value => (this.scale = value)
-        )}
-        {this.renderSwitch (
-          '×1.5',
-          1.5,
-          () => this.scale,
-          value => (this.scale = value)
-        )}
-        {this.renderSwitch (
-          '×2',
-          2,
-          () => this.scale,
-          value => (this.scale = value)
-        )}
-        {this.renderSwitch (
-          '×3',
-          3,
-          () => this.scale,
-          value => (this.scale = value)
-        )}
-        {this.renderSwitch (
-          '×4',
-          4,
-          () => this.scale,
-          value => (this.scale = value)
-        )}
-      </Container>
-    );
-  }
-
-  renderColorSwitches () {
-    return (
-      <Container kind="row-pane" subkind="left">
-        <Label text="Color" width="80px" />
-        {this.renderSwitch (
-          'pane',
-          'paneBackground',
-          () => this.color,
-          value => (this.color = value)
-        )}
-        {this.renderSwitch (
-          'view',
-          'viewBackground',
-          () => this.color,
-          value => (this.color = value)
-        )}
-        {this.renderSwitch (
-          'task',
-          'taskBackground',
-          () => this.color,
-          value => (this.color = value)
-        )}
-        {this.renderSwitch (
-          'root',
-          'rootBackground',
-          () => this.color,
-          value => (this.color = value)
-        )}
-        {this.renderSwitch (
-          'footer',
-          'footerBackground',
-          () => this.color,
-          value => (this.color = value)
-        )}
-      </Container>
-    );
-  }
-
-  renderItemsSwitches () {
-    return (
-      <Container kind="row-pane" subkind="left">
-        <Label text="Items" width="80px" />
-        {this.renderSwitch (
-          '1',
-          1,
-          () => this.items,
-          value => (this.items = value)
-        )}
-        {this.renderSwitch (
-          '2',
-          2,
-          () => this.items,
-          value => (this.items = value)
-        )}
-        {this.renderSwitch (
-          '3',
-          3,
-          () => this.items,
-          value => (this.items = value)
-        )}
-        {this.renderSwitch (
-          '4',
-          4,
-          () => this.items,
-          value => (this.items = value)
-        )}
-        {this.renderSwitch (
-          '5',
-          5,
-          () => this.items,
-          value => (this.items = value)
-        )}
-        {this.renderSwitch (
-          '10',
-          10,
-          () => this.items,
-          value => (this.items = value)
-        )}
-        {this.renderSwitch (
-          '11',
-          11,
-          () => this.items,
-          value => (this.items = value)
-        )}
-      </Container>
-    );
-  }
-
-  renderLayoutSwitches () {
-    return (
-      <Container kind="row-pane" subkind="left">
-        <Label text="Layout" width="80px" />
-        {this.renderSwitch (
-          'row',
-          'row',
-          () => this.layout,
-          value => (this.layout = value)
-        )}
-        {this.renderSwitch (
-          'column',
-          'column',
-          () => this.layout,
-          value => (this.layout = value)
-        )}
-        {this.renderSwitch (
-          'wrap',
-          'wrap',
-          () => this.layout,
-          value => (this.layout = value)
-        )}
-      </Container>
-    );
-  }
-
-  renderFrameSwitch () {
-    return (
-      <Container kind="row-pane" subkind="left">
-        <Label text="Frame" width="80px" />
-        <CheckButton
-          kind="switch"
-          checked={this.showFrame ? 'true' : 'false'}
-          onClick={() => {
-            this.showFrame = !this.showFrame;
-            this.forceUpdate ();
-          }}
-        />
-      </Container>
-    );
-  }
-
-  renderKindSwitchesTicket () {
-    return (
-      <Container kind="row-pane" subkind="left">
-        <Label text="Lines" width="80px" />
-        {this.renderSwitch (
-          '1',
-          1,
-          () => this.ticketLines,
-          value => (this.ticketLines = value)
-        )}
-        {this.renderSwitch (
-          '2',
-          2,
-          () => this.ticketLines,
-          value => (this.ticketLines = value)
-        )}
-        {this.renderSwitch (
-          '3',
-          3,
-          () => this.ticketLines,
-          value => (this.ticketLines = value)
-        )}
-        {this.renderSwitch (
-          '4',
-          4,
-          () => this.ticketLines,
-          value => (this.ticketLines = value)
-        )}
-        {this.renderSwitch (
-          '5',
-          5,
-          () => this.ticketLines,
-          value => (this.ticketLines = value)
-        )}
-        {this.renderSwitch (
-          '10',
-          10,
-          () => this.ticketLines,
-          value => (this.ticketLines = value)
-        )}
-      </Container>
-    );
-  }
-
-  renderKindSwitchesContainer () {
-    return (
-      <Container kind="row-pane" subkind="left">
-        <Label text="Content" width="80px" />
-        {this.renderSwitch (
-          'Label',
-          'Label',
-          () => this.containerType,
-          value => (this.containerType = value)
-        )}
-        {this.renderSwitch (
-          'Button',
-          'Button',
-          () => this.containerType,
-          value => (this.containerType = value)
-        )}
-        {this.renderSwitch (
-          'Glyph',
-          'Glyph',
-          () => this.containerType,
-          value => (this.containerType = value)
-        )}
-        <Label text="" width="20px" />
-        {this.renderSwitch (
-          '1',
-          1,
-          () => this.containerItems,
-          value => (this.containerItems = value)
-        )}
-        {this.renderSwitch (
-          '2',
-          2,
-          () => this.containerItems,
-          value => (this.containerItems = value)
-        )}
-        {this.renderSwitch (
-          '3',
-          3,
-          () => this.containerItems,
-          value => (this.containerItems = value)
-        )}
-        {this.renderSwitch (
-          '4',
-          4,
-          () => this.containerItems,
-          value => (this.containerItems = value)
-        )}
-        {this.renderSwitch (
-          '5',
-          5,
-          () => this.containerItems,
-          value => (this.containerItems = value)
-        )}
-        {this.renderSwitch (
-          '12',
-          12,
-          () => this.containerItems,
-          value => (this.containerItems = value)
-        )}
-      </Container>
-    );
-  }
-
-  renderKindSwitchesTextFieldCombo () {
-    return (
-      <Container kind="row-pane" subkind="left">
-        <Label text="Menu" width="80px" />
-        {this.renderSwitch (
-          'Days',
-          'Days',
-          () => this.textFieldComboMenu,
-          value => (this.textFieldComboMenu = value)
-        )}
-        {this.renderSwitch (
-          'Colors',
-          'Colors',
-          () => this.textFieldComboMenu,
-          value => (this.textFieldComboMenu = value)
-        )}
-      </Container>
-    );
-  }
-
-  renderKindSwitches () {
-    switch (this.wizard) {
-      case 'Ticket':
-        return this.renderKindSwitchesTicket ();
-      case 'Container':
-        return this.renderKindSwitchesContainer ();
-      case 'TextFieldCombo':
-        return this.renderKindSwitchesTextFieldCombo ();
-      default:
-        return null;
-    }
-  }
-
-  renderSwitch2 (value, getter, setter, index) {
+  renderSwitch (value, getter, setter, index) {
     return (
       <CheckButton
         key={index}
@@ -863,10 +537,10 @@ class Wizard extends Form {
     let i = 0;
     for (const item of preview.get ('list')) {
       result.push (
-        this.renderSwitch2 (
+        this.renderSwitch (
           item,
           () => preview.get ('value'),
-          value => preview.set ('value', value),
+          value => this.setPreviewValue (preview.get ('id'), value),
           index * 100 + i++
         )
       );
@@ -881,7 +555,7 @@ class Wizard extends Form {
         kind="switch"
         checked={preview.get ('value') ? 'true' : 'false'}
         onClick={() => {
-          preview.set ('value', !preview.get ('value'));
+          this.setPreviewValue (preview.get ('id'), !preview.get ('value'));
           this.forceUpdate ();
         }}
       />
@@ -943,36 +617,7 @@ class Wizard extends Form {
   // Main
   /******************************************************************************/
 
-  renderPreview1 () {
-    const classPanes = this.styles.classNames.panes;
-    return (
-      <Container kind="views">
-        <Container kind="view">
-          <Container kind="pane-header">
-            <Label text="Preview" kind="pane-header" />
-          </Container>
-          <div className={classPanes}>
-            <Container kind="pane">
-              <Container kind="row-pane">
-                <Label text={this.getCode ()} grow="1" />
-              </Container>
-            </Container>
-            <Container kind="pane">
-              {this.renderScaleSwitches ()}
-              {this.renderColorSwitches ()}
-              {this.renderItemsSwitches ()}
-              {this.renderLayoutSwitches ()}
-              {this.renderFrameSwitch ()}
-              {this.renderKindSwitches ()}
-            </Container>
-            {this.renderPreviewSolo ()}
-          </div>
-        </Container>
-      </Container>
-    );
-  }
-
-  renderPreview2 () {
+  renderPreviewPanel () {
     const classPanes = this.styles.classNames.panes;
     return (
       <Container kind="views">
@@ -1007,7 +652,7 @@ class Wizard extends Form {
         {::this.renderMenu ()}
         {::this.renderParamsColumn ()}
         <Splitter kind="vertical" firstSize="600px">
-          {::this.renderPreview2 ()}
+          {::this.renderPreviewPanel ()}
           <Container kind="row" />
         </Splitter>
       </Container>
