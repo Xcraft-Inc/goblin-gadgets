@@ -47,7 +47,7 @@ class Container extends Widget {
 
     if (this.props.navigationFor) {
       const panelElem = document.querySelectorAll (
-        `[data-navigation-name="${navFor}"]`
+        `[data-navigation-name="${this.props.navigationFor}"]`
       )[0];
       if (panelElem) {
         this.computePanelBottoms (panelElem);
@@ -77,7 +77,7 @@ class Container extends Widget {
   componentWillUnmount () {
     if (this.props.navigationFor) {
       const panelElem = document.querySelectorAll (
-        `[data-navigation-name="${navFor}"]`
+        `[data-navigation-name="${this.props.navigationFor}"]`
       )[0];
       if (panelElem) {
         panelElem.removeEventListener ('scroll', this.handleScroll, true);
