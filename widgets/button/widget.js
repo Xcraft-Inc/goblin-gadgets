@@ -41,8 +41,7 @@ class Button extends Widget {
   }
 
   onMouseDown (e) {
-    const disabled = this.props.disabled;
-    if (disabled === 'true') {
+    if (this.props.disabled === 'true') {
       return;
     }
     const mouseDown = this.props.mouseDown;
@@ -52,8 +51,7 @@ class Button extends Widget {
   }
 
   onMouseUp (e) {
-    const disabled = this.props.disabled;
-    if (disabled === 'true') {
+    if (this.props.disabled === 'true') {
       return;
     }
     const mouseUp = this.props.mouseUp;
@@ -63,18 +61,15 @@ class Button extends Widget {
   }
 
   renderBadge () {
-    const badgeValue = this.props.badgeValue;
-    if (badgeValue) {
-      return <Badge value={badgeValue} layer="over" />;
+    if (this.props.disabledbadgeValue) {
+      return <Badge value={this.props.disabledbadgeValue} layer="over" />;
     } else {
       return null;
     }
   }
 
   renderTriangle () {
-    const kind = this.props.kind;
-    const active = this.props.active;
-    if (kind === 'main-tab' && active === 'true') {
+    if (this.props.kind === 'main-tab' && this.props.active === 'true') {
       const triangleClass = this.styles.classNames.triangle;
       return <div className={triangleClass} key="triangle" />;
     }
@@ -82,11 +77,10 @@ class Button extends Widget {
 
   renderMenu () {
     if (this.isMenuVisible) {
-      const menu = this.props.menu;
       const menuClass = this.styles.classNames.menuBox;
       return (
         <div className={menuClass} key="menu">
-          {<Menu items={menu} />}
+          {<Menu items={this.props.menu} />}
         </div>
       );
     } else {
@@ -95,12 +89,11 @@ class Button extends Widget {
   }
 
   renderShortcut () {
-    const shortcut = this.props.shortcut;
-    if (shortcut) {
+    if (this.props.shortcut) {
       const shortcutClass = this.styles.classNames.shortcut;
       return (
         <label key="shortcut" className={shortcutClass}>
-          {ShortcutHelpers.getShortcut (shortcut)}
+          {ShortcutHelpers.getShortcut (this.props.shortcut)}
         </label>
       );
     } else {
@@ -136,23 +129,17 @@ class Button extends Widget {
       return null;
     }
 
-    const index = this.props.index;
-    const kind = this.props.kind;
-    const menu = this.props.menu;
-    const toAnchor = this.props.toAnchor;
-    const text = this.props.text;
-
     let tooltip = this.props.tooltip;
-    if (kind === 'pane-navigator') {
-      tooltip = text;
+    if (this.props.kind === 'pane-navigator') {
+      tooltip = this.props.text;
     }
 
     const boxClass = this.styles.classNames.box;
 
-    if (kind === 'container' || kind === 'box') {
+    if (this.props.kind === 'container' || this.props.kind === 'box') {
       return (
         <div
-          key={index}
+          key={this.props.index}
           onClick={::this.onClicked} // voir (*)
           onMouseDown={::this.onMouseDown}
           onMouseUp={::this.onMouseUp}
@@ -164,10 +151,10 @@ class Button extends Widget {
           {this.props.children}
         </div>
       );
-    } else if (menu) {
+    } else if (this.props.menu) {
       return (
         <div
-          key={index}
+          key={this.props.index}
           onClick={::this.onShowMenu} // voir (*)
           onMouseDown={::this.onMouseDown}
           onMouseUp={::this.onMouseUp}
@@ -183,10 +170,10 @@ class Button extends Widget {
           {this.props.children}
         </div>
       );
-    } else if (toAnchor) {
+    } else if (this.props.toAnchor) {
       return (
         <a
-          key={index}
+          key={this.props.index}
           onClick={::this.onClicked}
           onMouseDown={::this.onMouseDown}
           onMouseUp={::this.onMouseUp}
@@ -194,7 +181,7 @@ class Button extends Widget {
           onTouchEnd={::this.onMouseUp}
           className={boxClass}
           title={tooltip}
-          href={window.location.hash + '#' + toAnchor}
+          href={window.location.hash + '#' + this.props.toAnchor}
         >
           {this.renderLayout ()}
           {this.renderTriangle ()}
@@ -206,7 +193,7 @@ class Button extends Widget {
     } else {
       return (
         <div
-          key={index}
+          key={this.props.index}
           onClick={::this.onClicked} // voir (*)
           onMouseDown={::this.onMouseDown}
           onMouseUp={::this.onMouseUp}

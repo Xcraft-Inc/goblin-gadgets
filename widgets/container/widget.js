@@ -37,8 +37,7 @@ class Container extends Widget {
           ` dragController=${dragController} dragSource=${dragSource} dragOwnerId=${dragOwnerId}`
       );
     }
-    const navFor = this.props.navigationFor;
-    if (navFor) {
+    if (this.props.navigationFor) {
       this.initNavigation ();
     }
   }
@@ -46,8 +45,7 @@ class Container extends Widget {
   componentDidMount () {
     super.componentDidMount ();
 
-    const navFor = this.props.navigationFor;
-    if (navFor) {
+    if (this.props.navigationFor) {
       const panelElem = document.querySelectorAll (
         `[data-navigation-name="${navFor}"]`
       )[0];
@@ -56,22 +54,19 @@ class Container extends Widget {
         panelElem.addEventListener ('scroll', ::this.handleScroll, true);
       }
     }
-    const dragController = this.props.dragController;
-    if (dragController) {
+    if (this.props.dragController) {
       if (!window.document.dragControllers) {
         window.document.dragControllers = [];
       }
       window.document.dragControllers.push (this);
     }
-    const dragParentId = this.props.dragParentId;
-    if (dragParentId) {
+    if (this.props.dragParentId) {
       if (!window.document.dragParentControllers) {
         window.document.dragParentControllers = [];
       }
       window.document.dragParentControllers.push (this);
     }
-    const kind = this.props.kind;
-    if (kind === 'flying-dialog' || kind === 'floating') {
+    if (this.props.kind === 'flying-dialog' || this.props.kind === 'floating') {
       if (!window.document.flyingDialogs) {
         window.document.flyingDialogs = [];
       }
@@ -80,8 +75,7 @@ class Container extends Widget {
   }
 
   componentWillUnmount () {
-    const navFor = this.props.navigationFor;
-    if (navFor) {
+    if (this.props.navigationFor) {
       const panelElem = document.querySelectorAll (
         `[data-navigation-name="${navFor}"]`
       )[0];
@@ -89,22 +83,19 @@ class Container extends Widget {
         panelElem.removeEventListener ('scroll', this.handleScroll, true);
       }
     }
-    const dragController = this.props.dragController;
-    if (dragController) {
+    if (this.props.dragController) {
       const index = window.document.dragControllers.indexOf (this);
       if (index !== -1) {
         window.document.dragControllers.splice (index, 1);
       }
     }
-    const dragParentId = this.props.dragParentId;
-    if (dragParentId) {
+    if (this.props.dragParentId) {
       const index = window.document.dragParentControllers.indexOf (this);
       if (index !== -1) {
         window.document.dragParentControllers.splice (index, 1);
       }
     }
-    const kind = this.props.kind;
-    if (kind === 'flying-dialog') {
+    if (this.props.kind === 'flying-dialog' || this.props.kind === 'floating') {
       const index = window.document.flyingDialogs.indexOf (this);
       if (index !== -1) {
         window.document.flyingDialogs.splice (index, 1);

@@ -151,42 +151,41 @@ class Label extends Widget {
   }
 
   renderGlyph (index, glyph) {
-    const rotate = this.props.glyphRotate;
-    const flip = this.props.glyphFlip;
-    const spin = this.props.glyphSpin;
-
     const glyphClass = this.styles.classNames.glyph;
-
     return (
       <i
         key={index}
         className={`${glyphClass} fa
           fa-${glyph}
-          fa-rotate-${rotate}
-          fa-flip-${flip}
-          ${spin ? 'fa-spin' : ''}`}
+          fa-rotate-${this.props.glyphRotate}
+          fa-flip-${this.props.glyphFlip}
+          ${this.props.glyphSpin ? 'fa-spin' : ''}`}
       />
     );
   }
 
   getGlyphAndText () {
-    let text = this.props.text;
-    const glyph = this.props.glyph;
-    if (glyph) {
-      if (text) {
+    if (this.props.glyph) {
+      if (this.props.text) {
         // Glyph followed by text.
         if (this.props.glyphPosition === 'right') {
-          return [this.renderText (0, text), this.renderGlyph (1, glyph)];
+          return [
+            this.renderText (0, this.props.text),
+            this.renderGlyph (1, this.props.glyph),
+          ];
         } else {
-          return [this.renderGlyph (0, glyph), this.renderText (1, text)];
+          return [
+            this.renderGlyph (0, this.props.glyph),
+            this.renderText (1, this.props.text),
+          ];
         }
       } else {
         // Glyph alone.
-        return [this.renderGlyph (0, glyph)];
+        return [this.renderGlyph (0, this.props.glyph)];
       }
     } else {
       // Text alone.
-      return [this.renderText (0, text)];
+      return [this.renderText (0, this.props.text)];
     }
   }
 
