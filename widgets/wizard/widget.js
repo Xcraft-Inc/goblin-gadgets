@@ -54,19 +54,27 @@ function getValue (param, finalValue) {
 class Wizard extends Form {
   constructor () {
     super (...arguments);
-    this.wizard = 'Button';
   }
 
   static get wiring () {
     return {
       id: 'id',
+      globalSettings: 'globalSettings',
       params: 'params',
       previews: 'previews',
     };
   }
 
+  get widget () {
+    return this.props.globalSettings.get ('widget').get ('value');
+  }
+
+  set widget (value) {
+    this.do ('change-global-settings-widget', {newValue: value});
+  }
+
   get params () {
-    return this.shred (this.props.params.get (this.wizard)).linq.where (
+    return this.shred (this.props.params.get (this.widget)).linq.where (
       param => param.size > 0
     );
   }
@@ -85,11 +93,11 @@ class Wizard extends Form {
   }
 
   setPreviewValue (id, value) {
-    this.do (`changePreview-${id}`, {newValue: value});
+    this.do (`change-preview-${id}`, {newValue: value});
   }
 
   getCode () {
-    var result = `<${this.wizard} `;
+    var result = `<${this.widget} `;
     this.params
       .orderBy (param => param.get ('group'))
       .orderBy (param => param.get ('field'))
@@ -108,31 +116,28 @@ class Wizard extends Form {
   // First column WIDGET
   /******************************************************************************/
 
-  renderMenuItem (wizard, index) {
+  renderMenuItem (widget, index) {
     return (
       <Button
         key={index}
-        text={wizard}
+        text={widget}
         kind="menu-item"
-        glyph={this.wizard === wizard ? 'chevron-right' : 'none'}
+        glyph={this.widget === widget ? 'chevron-right' : 'none'}
         glyphPosition="right"
         justify="between"
         textTransform="none"
-        onClick={() => {
-          this.wizard = wizard;
-          this.forceUpdate ();
-        }}
+        onClick={() => (this.widget = widget)}
       />
     );
   }
 
   renderMenuItems () {
-    const wizards = this.shred (this.props.params);
+    const widgets = this.shred (this.props.params);
     let index = 0;
-    return wizards.linq
-      .orderBy (wizard => wizard.get ('id'))
-      .select (wizard => {
-        return this.renderMenuItem (wizard.get ('id'), index++);
+    return widgets.linq
+      .orderBy (widget => widget.get ('id'))
+      .select (widget => {
+        return this.renderMenuItem (widget.get ('id'), index++);
       })
       .toList ();
   }
@@ -163,7 +168,7 @@ class Wizard extends Form {
     const field = param.get ('field');
     const list = param.get ('list');
     const value = getValue (param, false);
-    const model = `.${this.wizard}.${field}`;
+    const model = `.${this.widget}.${field}`;
     if (type === 'combo' || (type === 'text' && list)) {
       return (
         <Container kind="row-pane" key={index}>
@@ -347,7 +352,7 @@ class Wizard extends Form {
   }
 
   renderWidgetBase (index, props) {
-    switch (this.wizard) {
+    switch (this.widget) {
       case 'Button':
         return <Button key={index} {...props} />;
       case 'Label':
@@ -526,7 +531,6 @@ class Wizard extends Form {
         checked={getter () === value ? 'true' : 'false'}
         onClick={() => {
           setter (value);
-          this.forceUpdate ();
         }}
       />
     );
@@ -556,7 +560,6 @@ class Wizard extends Form {
         checked={preview.get ('value') ? 'true' : 'false'}
         onClick={() => {
           this.setPreviewValue (preview.get ('id'), !preview.get ('value'));
-          this.forceUpdate ();
         }}
       />
     );
@@ -596,7 +599,7 @@ class Wizard extends Form {
     this.previews
       .where (preview => {
         const f = preview.get ('for');
-        return !f || f === this.wizard;
+        return !f || f === this.widget;
       })
       .orderBy (preview => preview.get ('order'))
       .select (preview => {

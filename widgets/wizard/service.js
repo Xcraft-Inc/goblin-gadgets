@@ -8,6 +8,13 @@ const uuidV4 = require ('uuid/v4');
 // Define initial logic values
 const logicState = {};
 
+const globalSettings = {
+  widget: {
+    id: 'widget',
+    value: 'Button',
+  },
+};
+
 const colorList = [
   '',
   'base',
@@ -1616,6 +1623,7 @@ const logicHandlers = {
   create: (state, action) => {
     const initialState = {
       id: action.get ('id'),
+      globalSettings: globalSettings,
       params: params,
       previews: previews,
     };
@@ -1638,6 +1646,19 @@ Goblin.registerQuest (goblinName, 'create', function (quest, desktopId) {
 
 Goblin.registerQuest (goblinName, 'delete', function () {});
 
+// Manage global settings.
+Goblin.registerQuest (goblinName, 'change-global-settings-widget', function (
+  quest,
+  newValue
+) {
+  quest.do ({newValue});
+});
+logicHandlers['change-global-settings-widget'] = (state, action) => {
+  globalSettings.widget.value = action.get ('newValue');
+  return state.set ('globalSettings', globalSettings);
+};
+
+// Manage properties of widget.
 Object.keys (params).forEach (w => {
   const wizard = params[w];
   Object.keys (wizard).forEach (p => {
@@ -1654,15 +1675,16 @@ Object.keys (params).forEach (w => {
   });
 });
 
+// Manage preview settings.
 Object.keys (previews).forEach (p => {
   const preview = previews[p];
-  Goblin.registerQuest (goblinName, `changePreview-${p}`, function (
+  Goblin.registerQuest (goblinName, `change-preview-${p}`, function (
     quest,
     newValue
   ) {
     quest.do ({newValue});
   });
-  logicHandlers[`changePreview-${p}`] = (state, action) => {
+  logicHandlers[`change-preview-${p}`] = (state, action) => {
     preview.value = action.get ('newValue');
     return state.set (`previews.${p}`, preview);
   };
