@@ -901,10 +901,14 @@ export default function styles (theme, props) {
     let triangleSize, triangleColor;
     if (props.kind === 'flying-balloon') {
       triangleSize = theme.shapes.flyingBalloonTriangleSize;
-      triangleColor = theme.palette.flyingBalloonBackground;
+      triangleColor = backgroundColor
+        ? backgroundColor
+        : theme.palette.flyingBalloonBackground;
     } else {
       triangleSize = theme.shapes.flyingDialogTriangleSize;
-      triangleColor = theme.palette.flyingDialogBackground;
+      triangleColor = backgroundColor
+        ? backgroundColor
+        : theme.palette.flyingDialogBackground;
     }
     const t = Unit.add (triangleSize, '1px', 0); // round (suppress decimals)
     const tt = props.triangleShift ? Unit.add (t, props.triangleShift) : t;
