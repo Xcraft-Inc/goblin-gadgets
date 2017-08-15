@@ -70,6 +70,7 @@ class Wizard extends Form {
     return {
       id: 'id',
       params: 'params',
+      previews: 'previews',
     };
   }
 
@@ -77,6 +78,19 @@ class Wizard extends Form {
     return this.shred (this.props.params.get (this.wizard)).linq.where (
       param => param.size > 0
     );
+  }
+
+  get previews () {
+    return this.shred (this.props.previews).linq.where (
+      preview => preview.size > 0
+    );
+  }
+
+  getPreviewValue (value) {
+    const x = this.previews
+      .where (preview => preview.get ('id') === value)
+      .first ();
+    return x.get ('value');
   }
 
   getCode () {
@@ -457,12 +471,15 @@ class Wizard extends Form {
       flexBasis: '0',
       marginBottom: this.context.theme.shapes.containerMargin,
       padding: this.context.theme.shapes.containerMargin,
-      backgroundColor: this.context.theme.palette[this.color],
+      //? backgroundColor: this.context.theme.palette[this.color],
+      backgroundColor: this.context.theme.palette[
+        this.getPreviewValue ('color') + 'Background'
+      ],
       transition: this.context.theme.transitions.easeOut (),
     };
 
     let direction, wrap;
-    switch (this.layout) {
+    switch (this.getPreviewValue ('layout')) {
       case 'row':
         direction = 'row';
         wrap = 'nowrap';
@@ -477,15 +494,17 @@ class Wizard extends Form {
         break;
     }
 
+    const scale = this.getPreviewValue ('scale');
+
     const soloStyle = {
       display: 'flex',
       flexDirection: direction,
       flexWrap: wrap,
       justifyContent: 'flex-start',
       alignItems: 'flex-start',
-      transform: this.scale === 1 ? null : `scale(${this.scale})`,
-      transformOrigin: this.scale === 1 ? null : 'top left',
-      width: `${100 / this.scale}%`,
+      transform: scale === '1' ? null : `scale(${scale})`,
+      transformOrigin: scale === '1' ? null : 'top left',
+      width: `${100 / scale}%`,
       transition: this.context.theme.transitions.easeOut (),
     };
 
@@ -824,11 +843,107 @@ class Wizard extends Form {
     }
   }
 
+  renderSwitch2 (value, getter, setter, index) {
+    return (
+      <CheckButton
+        key={index}
+        text={value}
+        kind="active"
+        checked={getter () === value ? 'true' : 'false'}
+        onClick={() => {
+          setter (value);
+          this.forceUpdate ();
+        }}
+      />
+    );
+  }
+
+  renderPreviewList (preview, index) {
+    const result = [];
+    let i = 0;
+    for (const item of preview.get ('list')) {
+      result.push (
+        this.renderSwitch2 (
+          item,
+          () => preview.get ('value'),
+          value => preview.set ('value', value),
+          index * 100 + i++
+        )
+      );
+    }
+    return result;
+  }
+
+  renderPreviewBool (preview, index) {
+    return (
+      <CheckButton
+        key={index * 100}
+        kind="switch"
+        checked={preview.get ('value') ? 'true' : 'false'}
+        onClick={() => {
+          preview.set ('value', !preview.get ('value'));
+          this.forceUpdate ();
+        }}
+      />
+    );
+  }
+
+  renderPreview (preview, index) {
+    const type = preview.get ('type');
+    if (type === 'bool') {
+      return [this.renderPreviewBool (preview, index), <Label width="20px" />];
+    } else {
+      return [this.renderPreviewList (preview, index), <Label width="20px" />];
+    }
+  }
+
+  renderPreviewLine (group) {
+    let index = 0;
+    return this.previews
+      .where (preview => preview.get ('group') === group)
+      .orderBy (preview => preview.get ('order'))
+      .select (preview => {
+        return this.renderPreview (preview, index++);
+      })
+      .toList ();
+  }
+
+  renderPreviewGroup (group, index) {
+    return (
+      <Container key={index} kind="row-pane" subkind="left">
+        <Label text={group} width="80px" />
+        {this.renderPreviewLine (group)}
+      </Container>
+    );
+  }
+
+  renderPreviews () {
+    const groups = [];
+    this.previews
+      .where (preview => {
+        const f = preview.get ('for');
+        return !f || f === this.wizard;
+      })
+      .orderBy (preview => preview.get ('order'))
+      .select (preview => {
+        const group = preview.get ('group');
+        if (groups.indexOf (group) === -1) {
+          groups.push (group);
+        }
+      });
+    const result = [];
+    let index = 0;
+    for (const group of groups) {
+      result.push (this.renderPreviewGroup (group, index++));
+    }
+    return result;
+  }
+
   /******************************************************************************/
   // Main
   /******************************************************************************/
 
-  renderPreview () {
+  renderPreview1 () {
     const classPanes = this.styles.classNames.panes;
     return (
       <Container kind="views">
@@ -857,6 +972,30 @@ class Wizard extends Form {
     );
   }
 
+  renderPreview2 () {
+    const classPanes = this.styles.classNames.panes;
+    return (
+      <Container kind="views">
+        <Container kind="view">
+          <Container kind="pane-header">
+            <Label text="Preview" kind="pane-header" />
+          </Container>
+          <div className={classPanes}>
+            <Container kind="pane">
+              <Container kind="row-pane">
+                <Label text={this.getCode ()} grow="1" />
+              </Container>
+            </Container>
+            <Container kind="pane">
+              {this.renderPreviews ()}
+            </Container>
+            {this.renderPreviewSolo ()}
+          </div>
+        </Container>
+      </Container>
+    );
+  }
+
   render () {
     const {id} = this.props;
     if (!id) {
@@ -868,7 +1007,7 @@ class Wizard extends Form {
         {::this.renderMenu ()}
         {::this.renderParamsColumn ()}
         <Splitter kind="vertical" firstSize="600px">
-          {::this.renderPreview ()}
+          {::this.renderPreview2 ()}
           <Container kind="row" />
         </Splitter>
       </Container>

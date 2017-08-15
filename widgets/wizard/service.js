@@ -1519,6 +1519,84 @@ const params = {
   },
 };
 
+const previews = {
+  scale: {
+    id: 'scale',
+    order: 1,
+    group: 'Scale',
+    type: 'list',
+    list: [1, 1.5, 2, 3, 4],
+    value: 2,
+  },
+  color: {
+    id: 'color',
+    order: 2,
+    group: 'Color',
+    type: 'list',
+    list: ['pane', 'view', 'task', 'root', 'footer'],
+    value: 'pane',
+  },
+  items: {
+    id: 'items',
+    order: 3,
+    group: 'Items',
+    type: 'list',
+    list: [1, 2, 3, 4, 5, 10, 11],
+    value: 1,
+  },
+  layout: {
+    id: 'layout',
+    order: 4,
+    group: 'Layout',
+    type: 'list',
+    list: ['row', 'column', 'wrap'],
+    value: 'row',
+  },
+  showFrame: {
+    id: 'showFrame',
+    order: 5,
+    group: 'Frame',
+    type: 'bool',
+    value: false,
+  },
+  ticketLines: {
+    id: 'ticketLines',
+    for: 'Ticket',
+    order: 10,
+    group: 'Lines',
+    type: 'list',
+    list: [1, 2, 3, 4, 5, 10],
+    value: 1,
+  },
+  containerType: {
+    id: 'containerType',
+    for: 'Container',
+    order: 10,
+    group: 'Content',
+    type: 'list',
+    list: ['label', 'button', 'glyph'],
+    value: 'label',
+  },
+  containerItems: {
+    id: 'containerItems',
+    for: 'Container',
+    order: 11,
+    group: 'Content',
+    type: 'list',
+    list: [1, 2, 3, 4, 5, 12],
+    value: 1,
+  },
+  textFieldComboMenu: {
+    id: 'textFieldComboMenu',
+    for: 'TextFieldCombo',
+    order: 10,
+    group: 'Menu',
+    type: 'list',
+    list: ['days', 'colors'],
+    value: 'days',
+  },
+};
+
 function convertToMapWithIds (data) {
   const result = {};
   let order = 0;
@@ -1539,6 +1617,7 @@ const logicHandlers = {
     const initialState = {
       id: action.get ('id'),
       params: params,
+      previews: previews,
     };
     return state.set ('', initialState);
   },
@@ -1573,6 +1652,17 @@ Object.keys (params).forEach (w => {
       return state.set (`params.${w}.${param.field}`, param);
     };
   });
+});
+
+Object.keys (previews).forEach (p => {
+  const preview = previews[p];
+  Goblin.registerQuest (goblinName, `change-${p}`, function (quest) {
+    quest.do ();
+  });
+  logicHandlers[`change-${p}`] = (state, action) => {
+    preview.value = action.get ('newValue');
+    return state.set (`previews.${p}`, preview);
+  };
 });
 
 // Create a Goblin with initial state and handlers
