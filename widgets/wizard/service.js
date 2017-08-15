@@ -40,7 +40,7 @@ const colorList = [
   '#74f7a9 — green',
 ];
 
-const params = {
+const properties = {
   Button: {
     id: 'Button',
     kind: {
@@ -1604,27 +1604,13 @@ const previewSettings = {
   },
 };
 
-function convertToMapWithIds (data) {
-  const result = {};
-  let order = 0;
-  for (const item of data) {
-    const id = uuidV4 ();
-    item.id = id;
-    item.order = order++;
-    result[id] = item;
-  }
-  return result;
-}
-
-//?const params = convertToMapWithIds (data);
-
 // Define logic handlers according rc.json
 const logicHandlers = {
   create: (state, action) => {
     const initialState = {
       id: action.get ('id'),
       globalSettings: globalSettings,
-      params: params,
+      properties: properties,
       previewSettings: previewSettings,
     };
     return state.set ('', initialState);
@@ -1659,18 +1645,20 @@ logicHandlers['change-global-settings-widget'] = (state, action) => {
 };
 
 // Manage properties of widget.
-Object.keys (params).forEach (w => {
-  const wizard = params[w];
+Object.keys (properties).forEach (w => {
+  const wizard = properties[w];
   Object.keys (wizard).forEach (p => {
-    const param = wizard[p];
-    Goblin.registerQuest (goblinName, `change-${w}.${param.field}`, function (
-      quest
-    ) {
-      quest.do ();
-    });
-    logicHandlers[`change-${w}.${param.field}`] = (state, action) => {
-      param.value = action.get ('newValue');
-      return state.set (`params.${w}.${param.field}`, param);
+    const property = wizard[p];
+    Goblin.registerQuest (
+      goblinName,
+      `change-${w}.${property.field}`,
+      function (quest) {
+        quest.do ();
+      }
+    );
+    logicHandlers[`change-${w}.${property.field}`] = (state, action) => {
+      property.value = action.get ('newValue');
+      return state.set (`properties.${w}.${property.field}`, property);
     };
   });
 });

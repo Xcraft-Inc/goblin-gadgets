@@ -34,12 +34,12 @@ function getOnlyColor (value) {
   return value;
 }
 
-function getValue (param, finalValue) {
-  const value = param.get ('value');
-  const unit = param.get ('unit');
+function getPropertyValue (property, mode) {
+  const value = property.get ('value');
+  const unit = property.get ('unit');
   if (value && unit) {
     if (unit === 'color') {
-      if (finalValue) {
+      if (mode === 'finalValue') {
         return getOnlyColor (value);
       } else {
         return value;
@@ -60,7 +60,7 @@ class Wizard extends Form {
     return {
       id: 'id',
       globalSettings: 'globalSettings',
-      params: 'params',
+      properties: 'properties',
       previewSettings: 'previewSettings',
     };
   }
@@ -73,9 +73,9 @@ class Wizard extends Form {
     this.do ('change-global-settings-widget', {newValue: value});
   }
 
-  get params () {
-    return this.shred (this.props.params.get (this.widget)).linq.where (
-      param => param.size > 0
+  get properties () {
+    return this.shred (this.props.properties.get (this.widget)).linq.where (
+      property => property.size > 0
     );
   }
 
@@ -85,22 +85,22 @@ class Wizard extends Form {
     );
   }
 
-  getPreviewSetting (id) {
+  getPreviewSettingValue (id) {
     return this.props.previewSettings.get (id).get ('value');
   }
 
-  setPreviewSetting (id, value) {
+  setPreviewSettingValue (id, value) {
     this.do (`change-preview-setting-${id}`, {newValue: value});
   }
 
   getCode () {
     var result = `<${this.widget} `;
-    this.params
-      .orderBy (param => param.get ('group'))
-      .orderBy (param => param.get ('field'))
-      .select (param => {
-        const field = param.get ('field');
-        const value = getValue (param, true);
+    this.properties
+      .orderBy (property => property.get ('group'))
+      .orderBy (property => property.get ('field'))
+      .select (property => {
+        const field = property.get ('field');
+        const value = getPropertyValue (property, 'finalValue');
         if (value !== '') {
           result += `${field}="${value}" `;
         }
@@ -129,7 +129,7 @@ class Wizard extends Form {
   }
 
   renderMenuItems () {
-    const widgets = this.shred (this.props.params);
+    const widgets = this.shred (this.props.properties);
     let index = 0;
     return widgets.linq
       .orderBy (widget => widget.get ('id'))
@@ -160,11 +160,11 @@ class Wizard extends Form {
   // Second column PROPERTIES
   /******************************************************************************/
 
-  renderParam (param, index) {
-    const type = param.get ('type');
-    const field = param.get ('field');
-    const list = param.get ('list');
-    const value = getValue (param, false);
+  renderProperty (property, index) {
+    const type = property.get ('type');
+    const field = property.get ('field');
+    const list = property.get ('list');
+    const value = getPropertyValue (property, 'brutValue');
     const model = `.${this.widget}.${field}`;
     if (type === 'combo' || (type === 'text' && list)) {
       return (
@@ -209,45 +209,47 @@ class Wizard extends Form {
     }
   }
 
-  renderParams (group) {
+  renderPropertyList (group) {
     let index = 0;
-    return this.params
-      .where (param => param.get ('group') === group)
-      .orderBy (param => param.get ('field'))
-      .select (param => {
-        return this.renderParam (param, index++);
+    return this.properties
+      .where (property => property.get ('group') === group)
+      .orderBy (property => property.get ('field'))
+      .select (property => {
+        return this.renderProperty (property, index++);
       })
       .toList ();
   }
 
-  renderGroup (group, index) {
+  renderPropertyGroup (group, index) {
     return (
       <Container kind="pane" key={index}>
         <Container kind="row-pane">
           <Label text={group} grow="1" kind="title" />
         </Container>
-        {this.renderParams (group)}
+        {this.renderPropertyList (group)}
       </Container>
     );
   }
 
-  renderGroups () {
+  renderPropertyGroups () {
     const groups = [];
-    this.params.orderBy (param => param.get ('group')).select (param => {
-      const group = param.get ('group');
-      if (groups.indexOf (group) === -1) {
-        groups.push (group);
-      }
-    });
+    this.properties
+      .orderBy (property => property.get ('group'))
+      .select (property => {
+        const group = property.get ('group');
+        if (groups.indexOf (group) === -1) {
+          groups.push (group);
+        }
+      });
     const result = [];
     let index = 0;
     for (const group of groups) {
-      result.push (this.renderGroup (group, index++));
+      result.push (this.renderPropertyGroup (group, index++));
     }
     return result;
   }
 
-  renderParamsColumn () {
+  renderProperties () {
     const Form = this.Form;
     return (
       <Container kind="view" width="500px" spacing="large">
@@ -256,7 +258,7 @@ class Wizard extends Form {
         </Container>
         <Container kind="panes">
           <Form {...this.formConfig}>
-            {this.renderGroups ()}
+            {this.renderPropertyGroups ()}
           </Form>
         </Container>
       </Container>
@@ -281,7 +283,7 @@ class Wizard extends Form {
       'Neuvième ligne',
       'Dixième ligne plus longue que les autres',
     ];
-    for (let i = 0; i < this.getPreviewSetting ('ticketLines'); i++) {
+    for (let i = 0; i < this.getPreviewSettingValue ('ticketLines'); i++) {
       result.push (<Label key={i} text={lines[i]} wrap="no" />);
     }
     return result;
@@ -289,7 +291,7 @@ class Wizard extends Form {
 
   renderWidgetBaseContainer () {
     const result = [];
-    const type = this.getPreviewSetting ('containerType');
+    const type = this.getPreviewSettingValue ('containerType');
     if (type === 'button') {
       const lines = [
         'Janvier',
@@ -305,7 +307,7 @@ class Wizard extends Form {
         'Novembre',
         'Décembre',
       ];
-      for (let i = 0; i < this.getPreviewSetting ('containerItems'); i++) {
+      for (let i = 0; i < this.getPreviewSettingValue ('containerItems'); i++) {
         result.push (<Button key={i} text={lines[i]} wrap="no" />);
       }
     } else if (type === 'glyph') {
@@ -323,7 +325,7 @@ class Wizard extends Form {
         'fighter-jet',
         'rocket',
       ];
-      for (let i = 0; i < this.getPreviewSetting ('containerItems'); i++) {
+      for (let i = 0; i < this.getPreviewSettingValue ('containerItems'); i++) {
         result.push (<Button key={i} glyph={lines[i]} wrap="no" />);
       }
     } else {
@@ -341,7 +343,7 @@ class Wizard extends Form {
         'Onzième ligne',
         'Douzième ligne',
       ];
-      for (let i = 0; i < this.getPreviewSetting ('containerItems'); i++) {
+      for (let i = 0; i < this.getPreviewSettingValue ('containerItems'); i++) {
         result.push (<Label key={i} text={lines[i]} wrap="no" />);
       }
     }
@@ -359,7 +361,8 @@ class Wizard extends Form {
       case 'LabelTextField':
         return <LabelTextField key={index} model=".x" {...props} />;
       case 'TextFieldCombo':
-        const list = this.getPreviewSetting ('textFieldComboMenu') === 'colors'
+        const list = this.getPreviewSettingValue ('textFieldComboMenu') ===
+          'colors'
           ? [
               'Rouge',
               'Vert',
@@ -430,13 +433,13 @@ class Wizard extends Form {
 
   renderWidget (index) {
     const props = {};
-    const param = this.params.select (param => {
-      const field = param.get ('field');
-      const value = getValue (param, true);
+    const property = this.properties.select (property => {
+      const field = property.get ('field');
+      const value = getPropertyValue (property, 'finalValue');
       props[field] = value;
     });
 
-    if (this.getPreviewSetting ('showFrame')) {
+    if (this.getPreviewSettingValue ('showFrame')) {
       const frameStyle = {
         border: '1px solid #f00',
         display: 'flex',
@@ -455,7 +458,7 @@ class Wizard extends Form {
 
   renderWidgets () {
     const result = [];
-    for (let i = 0; i < this.getPreviewSetting ('items'); i++) {
+    for (let i = 0; i < this.getPreviewSettingValue ('items'); i++) {
       result.push (this.renderWidget (i));
     }
     return result;
@@ -471,13 +474,13 @@ class Wizard extends Form {
       padding: this.context.theme.shapes.containerMargin,
       //? backgroundColor: this.context.theme.palette[this.color],
       backgroundColor: this.context.theme.palette[
-        this.getPreviewSetting ('color') + 'Background'
+        this.getPreviewSettingValue ('color') + 'Background'
       ],
       transition: this.context.theme.transitions.easeOut (),
     };
 
     let direction, wrap;
-    switch (this.getPreviewSetting ('layout')) {
+    switch (this.getPreviewSettingValue ('layout')) {
       case 'row':
         direction = 'row';
         wrap = 'nowrap';
@@ -492,7 +495,7 @@ class Wizard extends Form {
         break;
     }
 
-    const scale = this.getPreviewSetting ('scale');
+    const scale = this.getPreviewSettingValue ('scale');
 
     const soloStyle = {
       display: 'flex',
@@ -541,7 +544,7 @@ class Wizard extends Form {
         this.renderPreviewSettingSwitch (
           item,
           () => preview.get ('value'),
-          value => this.setPreviewSetting (preview.get ('id'), value),
+          value => this.setPreviewSettingValue (preview.get ('id'), value),
           index * 100 + i++
         )
       );
@@ -556,7 +559,10 @@ class Wizard extends Form {
         kind="switch"
         checked={preview.get ('value') ? 'true' : 'false'}
         onClick={() => {
-          this.setPreviewSetting (preview.get ('id'), !preview.get ('value'));
+          this.setPreviewSettingValue (
+            preview.get ('id'),
+            !preview.get ('value')
+          );
         }}
       />
     );
@@ -656,7 +662,7 @@ class Wizard extends Form {
     return (
       <Container kind="views">
         {::this.renderMenu ()}
-        {::this.renderParamsColumn ()}
+        {::this.renderProperties ()}
         <Splitter kind="vertical" firstSize="600px">
           {::this.renderPreview ()}
           <Container kind="row" />
