@@ -1029,7 +1029,17 @@ const properties = {
       group: 'Text',
       type: 'text',
       field: 'defaultValue',
-      list: ['', 'TextFieldCombo', 'Jean Dupond', 'Lausanne'],
+      list: [
+        '',
+        'TextFieldCombo',
+        'Lundi',
+        'Mardi',
+        'Mercredi',
+        'Jeudi',
+        'Vendredi',
+        'Samedi',
+        'Dimanche',
+      ],
       value: 'TextFieldCombo',
     },
     selectedValue: {

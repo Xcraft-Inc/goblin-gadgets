@@ -358,6 +358,48 @@ class Wizard extends Form {
     return result;
   }
 
+  renderWidgetBaseTextFieldCombo (index, props) {
+    const menu = this.getPreviewSettingValue ('textFieldComboMenu');
+    const list = menu === 'colors'
+      ? [
+          'TextFieldCombo',
+          'Rouge',
+          'Vert',
+          'Bleu',
+          'Jaune',
+          'Orange',
+          'Cyan',
+          'Magenta',
+          'Blanc',
+          'Noir',
+          'Brun',
+          'Violet',
+          'Lilas',
+          'Rose',
+          'Gris',
+          'Antracite',
+          'Olive',
+          'Beige',
+          'Turquoise',
+          'Maron',
+          'Fuchsia',
+          'Ivoire',
+          'Argent',
+          'Doré',
+        ]
+      : [
+          'TextFieldCombo',
+          'Lundi',
+          'Mardi',
+          'Mercredi',
+          'Jeudi',
+          'Vendredi',
+          'Samedi',
+          'Dimanche',
+        ];
+    return <TextFieldCombo key={index} model=".x" list={list} {...props} />;
+  }
+
   renderWidgetBase (index, props) {
     switch (this.widget) {
       case 'Button':
@@ -369,43 +411,7 @@ class Wizard extends Form {
       case 'LabelTextField':
         return <LabelTextField key={index} model=".x" {...props} />;
       case 'TextFieldCombo':
-        const list = this.getPreviewSettingValue ('textFieldComboMenu') ===
-          'colors'
-          ? [
-              'Rouge',
-              'Vert',
-              'Bleu',
-              'Jaune',
-              'Orange',
-              'Cyan',
-              'Magenta',
-              'Blanc',
-              'Noir',
-              'Brun',
-              'Violet',
-              'Lilas',
-              'Rose',
-              'Gris',
-              'Antracite',
-              'Olive',
-              'Beige',
-              'Turquoise',
-              'Maron',
-              'Fuchsia',
-              'Ivoire',
-              'Argent',
-              'Doré',
-            ]
-          : [
-              'Lundi',
-              'Mardi',
-              'Mercredi',
-              'Jeudi',
-              'Vendredi',
-              'Samedi',
-              'Dimanche',
-            ];
-        return <TextFieldCombo key={index} model=".x" list={list} {...props} />;
+        return this.renderWidgetBaseTextFieldCombo (index, props);
       case 'CheckButton':
         return <CheckButton key={index} {...props} />;
       case 'Gauge':
