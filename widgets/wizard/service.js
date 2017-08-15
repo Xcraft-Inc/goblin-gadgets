@@ -1526,7 +1526,7 @@ const params = {
   },
 };
 
-const previews = {
+const previewSettings = {
   scale: {
     id: 'scale',
     order: 1,
@@ -1625,7 +1625,7 @@ const logicHandlers = {
       id: action.get ('id'),
       globalSettings: globalSettings,
       params: params,
-      previews: previews,
+      previewSettings: previewSettings,
     };
     return state.set ('', initialState);
   },
@@ -1676,17 +1676,17 @@ Object.keys (params).forEach (w => {
 });
 
 // Manage preview settings.
-Object.keys (previews).forEach (p => {
-  const preview = previews[p];
-  Goblin.registerQuest (goblinName, `change-preview-${p}`, function (
+Object.keys (previewSettings).forEach (p => {
+  const previewSetting = previewSettings[p];
+  Goblin.registerQuest (goblinName, `change-preview-setting-${p}`, function (
     quest,
     newValue
   ) {
     quest.do ({newValue});
   });
-  logicHandlers[`change-preview-${p}`] = (state, action) => {
-    preview.value = action.get ('newValue');
-    return state.set (`previews.${p}`, preview);
+  logicHandlers[`change-preview-setting-${p}`] = (state, action) => {
+    previewSetting.value = action.get ('newValue');
+    return state.set (`previewSettings.${p}`, previewSetting);
   };
 });
 
