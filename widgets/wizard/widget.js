@@ -65,12 +65,20 @@ class Wizard extends Form {
     };
   }
 
+  getGlobalSettingValue (id) {
+    return this.props.globalSettings.get (id).get ('value');
+  }
+
+  setGlobalSettingValue (id, value) {
+    this.do (`change-global-setting-${id}`, {newValue: value});
+  }
+
   get widget () {
-    return this.props.globalSettings.get ('widget').get ('value');
+    return this.getGlobalSettingValue ('widget');
   }
 
   set widget (value) {
-    this.do ('change-global-settings-widget', {newValue: value});
+    this.setGlobalSettingValue ('widget', value);
   }
 
   get properties () {
@@ -472,7 +480,6 @@ class Wizard extends Form {
       flexBasis: '0',
       marginBottom: this.context.theme.shapes.containerMargin,
       padding: this.context.theme.shapes.containerMargin,
-      //? backgroundColor: this.context.theme.palette[this.color],
       backgroundColor: this.context.theme.palette[
         this.getPreviewSettingValue ('color') + 'Background'
       ],
@@ -496,7 +503,6 @@ class Wizard extends Form {
     }
 
     const scale = this.getPreviewSettingValue ('scale');
-
     const soloStyle = {
       display: 'flex',
       flexDirection: direction,

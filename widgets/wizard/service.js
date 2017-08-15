@@ -1633,16 +1633,19 @@ Goblin.registerQuest (goblinName, 'create', function (quest, desktopId) {
 Goblin.registerQuest (goblinName, 'delete', function () {});
 
 // Manage global settings.
-Goblin.registerQuest (goblinName, 'change-global-settings-widget', function (
-  quest,
-  newValue
-) {
-  quest.do ({newValue});
+Object.keys (globalSettings).forEach (p => {
+  const globalSetting = globalSettings[p];
+  Goblin.registerQuest (goblinName, `change-global-setting-${p}`, function (
+    quest,
+    newValue
+  ) {
+    quest.do ({newValue});
+  });
+  logicHandlers[`change-global-setting-${p}`] = (state, action) => {
+    globalSetting.value = action.get ('newValue');
+    return state.set (`globalSettings.${p}`, globalSetting);
+  };
 });
-logicHandlers['change-global-settings-widget'] = (state, action) => {
-  globalSettings.widget.value = action.get ('newValue');
-  return state.set ('globalSettings', globalSettings);
-};
 
 // Manage properties of widget.
 Object.keys (properties).forEach (w => {
