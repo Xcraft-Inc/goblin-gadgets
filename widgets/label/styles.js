@@ -456,6 +456,17 @@ export default function styles (theme, props) {
     }
   }
 
+  if (props.kind === 'combo-item') {
+    textWidth = 'max-content';
+    textMarginTop = '0px';
+    textMarginRight = theme.shapes.containerMargin;
+    textMarginBottom = '0px';
+    textMarginLeft = theme.shapes.containerMargin;
+    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
+    textSize = theme.shapes.menuTextSize;
+    textTransform = textTransform ? textTransform : 'uppercase';
+  }
+
   if (props.kind === 'glyph-item') {
     textWidth = 'max-content';
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';

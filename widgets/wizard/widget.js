@@ -396,6 +396,8 @@ class Wizard extends Form {
           'Vendredi',
           'Samedi',
           'Dimanche',
+          "Ceci est un long texte pour tester la mise en page, tellement long qu'il semble ne jamais finir !",
+          'Première ligne<br/>Deuxième ligne<br/>Troisième ligne<br/>Quatrième ligne<br/>Cinquième ligne',
         ];
     return <TextFieldCombo key={index} model=".x" list={list} {...props} />;
   }

@@ -110,7 +110,7 @@ class Combo extends Widget {
       return (
         <Button
           key={index}
-          kind="menu-item"
+          kind="combo-item"
           glyph={g.glyph}
           glyphColor={color}
           text={item.text}
@@ -150,7 +150,7 @@ class Combo extends Widget {
       >
         <div className={comboClass}>
           <Container
-            kind="flying-balloon"
+            kind="flying-combo"
             trianglePosition={top ? 'top' : 'bottom'}
             width={width}
           >

@@ -166,7 +166,11 @@ class Container extends Widget {
 
     if (show === 'false') {
       return null;
-    } else if (kind === 'flying-balloon' || kind === 'flying-dialog') {
+    } else if (
+      kind === 'flying-combo' ||
+      kind === 'flying-balloon' ||
+      kind === 'flying-dialog'
+    ) {
       return (
         <div key={index} disabled={disabled} className={boxClass} id={anchor}>
           <div className={triangleClass} />

@@ -406,6 +406,23 @@ export default function styles (theme, props) {
     }
   }
 
+  if (props.kind === 'combo-item') {
+    boxHeight = theme.shapes.menuButtonHeight;
+    boxMarginBottom = '1px';
+    boxPaddingRight = theme.shapes.containerMargin;
+    boxPaddingLeft = theme.shapes.containerMargin;
+    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
+    textSize = theme.shapes.menuTextSize;
+    borderStyle = 'none';
+    if (props.active === 'true') {
+      backgroundColor = activeColor ? activeColor : '#ddd';
+    } else if (props.active === 'focused') {
+      backgroundColor = '#eee';
+    } else {
+      backgroundColor = '#fff';
+    }
+  }
+
   if (props.kind === 'glyph-item') {
     boxWidth = theme.shapes.glyphsDialogButtonWidth;
     boxHeight = theme.shapes.menuButtonHeight;
@@ -550,6 +567,7 @@ export default function styles (theme, props) {
   if (
     props.shortcut &&
     props.kind !== 'menu-item' &&
+    props.kind !== 'combo-item' &&
     props.kind !== 'task-bar' &&
     props.kind !== 'task-logo'
   ) {

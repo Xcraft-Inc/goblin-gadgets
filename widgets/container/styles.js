@@ -789,7 +789,7 @@ export default function styles (theme, props) {
     display = 'flex';
     flexDirection = 'column';
     flexWrap = 'wrap';
-    backgroundColor = '#fff';
+    backgroundColor = '#fff'; // FIXME: move to theme
     color = theme.palette.text;
     position = 'relative';
     //? boxShadow = props.place === 'over'
@@ -897,9 +897,13 @@ export default function styles (theme, props) {
   // A Container with kind='flying-balloon' has a standard behavior. It behaves like
   // a box with a small triangle which overlaps with the upper part (for example).
   let triangleStyle = null;
-  if (props.kind === 'flying-balloon' || props.kind === 'flying-dialog') {
+  if (
+    props.kind === 'flying-combo' ||
+    props.kind === 'flying-balloon' ||
+    props.kind === 'flying-dialog'
+  ) {
     let triangleSize, triangleColor;
-    if (props.kind === 'flying-balloon') {
+    if (props.kind === 'flying-combo' || props.kind === 'flying-balloon') {
       triangleSize = theme.shapes.flyingBalloonTriangleSize;
       triangleColor = backgroundColor
         ? backgroundColor
