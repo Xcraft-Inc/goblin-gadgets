@@ -83,19 +83,22 @@ class Container extends Widget {
         panelElem.removeEventListener ('scroll', this.handleScroll, true);
       }
     }
-    if (this.props.dragController) {
+    if (this.props.dragController && window.document.dragControllers) {
       const index = window.document.dragControllers.indexOf (this);
       if (index !== -1) {
         window.document.dragControllers.splice (index, 1);
       }
     }
-    if (this.props.dragParentId) {
+    if (this.props.dragParentId && window.document.dragParentControllers) {
       const index = window.document.dragParentControllers.indexOf (this);
       if (index !== -1) {
         window.document.dragParentControllers.splice (index, 1);
       }
     }
-    if (this.props.kind === 'flying-dialog' || this.props.kind === 'floating') {
+    if (
+      (this.props.kind === 'flying-dialog' || this.props.kind === 'floating') &&
+      window.document.flyingDialogs
+    ) {
       const index = window.document.flyingDialogs.indexOf (this);
       if (index !== -1) {
         window.document.flyingDialogs.splice (index, 1);
