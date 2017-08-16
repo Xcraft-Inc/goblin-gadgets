@@ -42,7 +42,7 @@ class TextFieldCombo extends Widget {
 
   doShowCombo () {
     const node = ReactDOM.findDOMNode (this);
-    if (this.props.menuType === 'combo') {
+    if (this.props.menuType === 'combo' || this.props.menuType === 'wrap') {
       this.comboLocation = ComboHelpers.getComboLocation (
         node,
         this.context.theme,
@@ -189,6 +189,8 @@ class TextFieldCombo extends Widget {
     }
     return (
       <Combo
+        menuType={this.props.menuType}
+        menuItemWidth={this.props.menuItemWidth}
         center={this.comboLocation.center}
         top={this.comboLocation.top}
         bottom={this.comboLocation.bottom}
@@ -217,6 +219,7 @@ class TextFieldCombo extends Widget {
     return (
       <Select
         menuType={this.props.menuType}
+        menuItemWidth={this.props.menuItemWidth}
         left={this.selectLocation.left}
         width={this.selectLocation.width}
         top={this.selectLocation.top}
@@ -233,7 +236,7 @@ class TextFieldCombo extends Widget {
   renderCombo () {
     const list = this.props.list;
     if (list && this.showCombo) {
-      if (this.props.menuType === 'combo') {
+      if (this.props.menuType === 'combo' || this.props.menuType === 'wrap') {
         return this.renderComboCombo (list);
       } else {
         return this.renderComboSelect (list);

@@ -104,30 +104,46 @@ class Combo extends Widget {
     if (item.separator) {
       return <Separator key={index} kind="menu-separator" />;
     } else {
-      const g = GlyphHelpers.getGlyph (item.glyph);
-      const color = ColorHelpers.getMarkColor (this.context.theme, g.color);
-      const active = focused ? 'focused' : item.active;
-      return (
-        <Button
-          key={index}
-          kind="combo-item"
-          glyph={g.glyph}
-          glyphColor={color}
-          text={item.text}
-          shortcut={item.shortcut}
-          textTransform="none"
-          active={active}
-          mouseUp={() => ::this.onActionAndClose (item)}
-        />
-      );
+      if (this.props.menuType === 'wrap') {
+        const active = item.glyph === 'none' ? 'false' : 'true';
+        return (
+          <Button
+            key={index}
+            kind="combo-wrap-item"
+            width={this.props.menuItemWidth}
+            text={item.text}
+            shortcut={item.shortcut}
+            textTransform="none"
+            active={active}
+            mouseUp={() => ::this.onActionAndClose (item)}
+          />
+        );
+      } else {
+        const g = GlyphHelpers.getGlyph (item.glyph);
+        const color = ColorHelpers.getMarkColor (this.context.theme, g.color);
+        const active = focused ? 'focused' : item.active;
+        return (
+          <Button
+            key={index}
+            kind="combo-item"
+            width={this.props.menuItemWidth}
+            glyph={g.glyph}
+            glyphColor={color}
+            text={item.text}
+            shortcut={item.shortcut}
+            textTransform="none"
+            active={active}
+            mouseUp={() => ::this.onActionAndClose (item)}
+          />
+        );
+      }
     }
   }
 
   renderCombo () {
-    const list = this.props.list;
     const result = [];
     let index = 0;
-    for (let item of list) {
+    for (let item of this.props.list) {
       const focused = index === this.focusedIndex;
       result.push (this.renderItem (item, focused, index++));
     }
@@ -135,12 +151,11 @@ class Combo extends Widget {
   }
 
   render () {
-    const top = this.props.top;
-    const width = this.props.width;
-
     const fullScreenClass = this.styles.classNames.fullScreen;
     const comboClass = this.styles.classNames.combo;
-    const insideClass = this.styles.classNames.inside;
+    const insideClass = this.props.menuType === 'wrap'
+      ? this.styles.classNames.insideWrap
+      : this.styles.classNames.inside;
 
     return (
       <div
@@ -151,8 +166,8 @@ class Combo extends Widget {
         <div className={comboClass}>
           <Container
             kind="flying-combo"
-            trianglePosition={top ? 'top' : 'bottom'}
-            width={width}
+            trianglePosition={this.props.top ? 'top' : 'bottom'}
+            width={this.props.width}
           >
             <div className={insideClass}>
               {this.renderCombo ()}

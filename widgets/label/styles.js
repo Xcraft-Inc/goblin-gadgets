@@ -467,6 +467,17 @@ export default function styles (theme, props) {
     textTransform = textTransform ? textTransform : 'uppercase';
   }
 
+  if (props.kind === 'combo-wrap-item') {
+    textWidth = 'max-content';
+    textMarginTop = '0px';
+    textMarginRight = '0px';
+    textMarginBottom = '0px';
+    textMarginLeft = '0px';
+    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
+    textSize = theme.shapes.menuTextSize;
+    textTransform = textTransform ? textTransform : 'uppercase';
+  }
+
   if (props.kind === 'glyph-item') {
     textWidth = 'max-content';
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';

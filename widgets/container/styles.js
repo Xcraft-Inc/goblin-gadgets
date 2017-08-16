@@ -789,6 +789,7 @@ export default function styles (theme, props) {
     display = 'flex';
     flexDirection = 'column';
     flexWrap = 'wrap';
+    padding = theme.shapes.flyingBalloonPadding;
     backgroundColor = '#fff'; // FIXME: move to theme
     color = theme.palette.text;
     position = 'relative';

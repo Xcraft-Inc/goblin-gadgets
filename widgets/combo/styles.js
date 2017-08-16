@@ -35,10 +35,20 @@ export default function styles (theme, props) {
     userSelect: 'none',
   };
 
+  const insideWrapStyle = {
+    maxHeight: props.maxHeight,
+    overflowY: 'auto',
+    cursor: 'default',
+    userSelect: 'none',
+    display: 'flex',
+    flexWrap: 'wrap',
+  };
+
   return {
     fullScreen: fullScreenStyle,
     combo: comboStyle,
     inside: insideStyle,
+    insideWrap: insideWrapStyle,
   };
 }
 

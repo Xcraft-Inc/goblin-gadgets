@@ -78,9 +78,6 @@ class Select extends Widget {
   }
 
   render () {
-    const top = this.props.top;
-    const width = Unit.sub (this.props.width, '2px');
-
     const fullScreenClass = this.styles.classNames.fullScreen;
     const comboClass = this.styles.classNames.combo;
     const insideClass = this.styles.classNames.inside;
@@ -95,8 +92,8 @@ class Select extends Widget {
         <div className={comboClass}>
           <Container
             kind="flying-combo"
-            trianglePosition={'none'}
-            width={width}
+            trianglePosition={this.props.top ? 'top' : 'bottom'}
+            width={this.props.width}
             place={this.props.bottom ? 'over' : 'under'}
           >
             <div className={insideClass}>

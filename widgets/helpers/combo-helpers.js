@@ -55,18 +55,23 @@ export function getComboLocation (node, theme, name, x, y) {
 export function getSelectLocation (node, theme) {
   const rect = node.getBoundingClientRect ();
 
-  const topValue = Unit.add (window.innerHeight - rect.top + 'px', '2px');
-  const bottomValue = Unit.add (rect.bottom + 'px', '2px');
-  //? const topValue = Unit.sub (window.innerHeight - rect.top + 'px', '1px');
-  //? const bottomValue = Unit.sub (rect.bottom + 'px', '1px');
-  const underMax = window.innerHeight - rect.bottom - 10 + 'px';
-  const overMax = rect.top - 10 + 'px';
+  const t = theme.shapes.flyingBalloonTriangleSize;
+  const tv = Unit.parse (t).value;
+
+  const topValue = Unit.add (window.innerHeight - rect.top + 'px', t);
+  const bottomValue = Unit.add (rect.bottom + 'px', t);
+  const underMax = window.innerHeight - rect.bottom - tv - 20 + 'px';
+  const overMax = rect.top - tv - 20 + 'px';
   const my = (rect.top + rect.bottom) / 2;
   const underside = my < window.innerHeight / 2;
+  const width = Unit.sub (
+    rect.width + 'px',
+    Unit.multiply (theme.shapes.flyingBalloonPadding, 2)
+  );
 
   return {
     left: rect.left + 'px',
-    width: rect.width + 'px',
+    width: width,
     top: underside ? bottomValue : null,
     bottom: underside ? null : topValue,
     maxHeight: underside ? underMax : overMax,

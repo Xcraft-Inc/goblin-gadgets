@@ -175,13 +175,15 @@ class Wizard extends Form {
     const value = getPropertyValue (property, 'brutValue');
     const model = `.${this.widget}.${field}`;
     if (type === 'combo' || (type === 'text' && list)) {
+      const long = list.size > 30;
       return (
         <Container kind="row-pane" key={index}>
           <Label text={field} width="180px" />
           <TextFieldCombo
             model={model}
             defaultValue={value}
-            menuType="select"
+            menuType={long ? 'wrap' : 'select'}
+            menuItemWidth={long ? '120px' : null}
             readonly={type === 'combo' ? 'true' : 'false'}
             grow="1"
             list={list}
@@ -359,35 +361,88 @@ class Wizard extends Form {
   }
 
   renderWidgetBaseTextFieldCombo (index, props) {
-    const menu = this.getPreviewSettingValue ('textFieldComboMenu');
-    const list = menu === 'colors'
-      ? [
+    let list = [];
+    switch (this.getPreviewSettingValue ('textFieldComboMenu')) {
+      case 'names':
+        list = [
+          'TextFieldCombo',
+          'Adrien',
+          'André',
+          'Albert',
+          'Alfred',
+          'Anne',
+          'Béatrice',
+          'Bernard',
+          'Bruno',
+          'Christian',
+          'Christine',
+          'Christiane',
+          'Christophe',
+          'Claire',
+          'Daniel',
+          'Denis',
+          'Didier',
+          'Eléonore',
+          'Eric',
+          'François',
+          'Francine',
+          'Géraldine',
+          'Grégoire',
+          'Hypolite',
+          'Jean',
+          'Jean-Daniel',
+          'Jean-Louis',
+          'Jean-Bernard',
+          'Jean-Frédérique-Louis-Bernard-André',
+          'Jérémie',
+          'Jonny',
+          'Judas',
+          'Julien',
+          'Karl',
+          'Louis',
+          'Lucette',
+          'Marianne',
+          'Maurice',
+          'Marcel',
+          'Marie',
+          'Nicolas',
+          'Nicole',
+          'Nolvène',
+          'Odile',
+          'Orson',
+          'Paul',
+          'Pauline',
+          'Pierre',
+          'Pierrette',
+          'Raymond',
+          'René',
+          'Régine',
+          'Sandra',
+          'Sophie',
+          'Stéphane',
+          'Théodore',
+          'Thérèse',
+          'Timotée',
+          'Tristan',
+          'Ursula',
+          'Victor',
+          'Walter',
+          'Xavier',
+          'Zoé',
+        ];
+        break;
+      case 'special':
+        list = [
           'TextFieldCombo',
           'Rouge',
           'Vert',
           'Bleu',
-          'Jaune',
-          'Orange',
-          'Cyan',
-          'Magenta',
-          'Blanc',
-          'Noir',
-          'Brun',
-          'Violet',
-          'Lilas',
-          'Rose',
-          'Gris',
-          'Antracite',
-          'Olive',
-          'Beige',
-          'Turquoise',
-          'Maron',
-          'Fuchsia',
-          'Ivoire',
-          'Argent',
-          'Doré',
-        ]
-      : [
+          "Ceci est un long texte pour tester la mise en page, tellement long qu'il semble ne jamais finir !",
+          'Première ligne<br/>Deuxième ligne<br/>Troisième ligne<br/>Quatrième ligne<br/>Cinquième ligne',
+        ];
+        break;
+      default:
+        list = [
           'TextFieldCombo',
           'Lundi',
           'Mardi',
@@ -396,9 +451,9 @@ class Wizard extends Form {
           'Vendredi',
           'Samedi',
           'Dimanche',
-          "Ceci est un long texte pour tester la mise en page, tellement long qu'il semble ne jamais finir !",
-          'Première ligne<br/>Deuxième ligne<br/>Troisième ligne<br/>Quatrième ligne<br/>Cinquième ligne',
         ];
+        break;
+    }
     return <TextFieldCombo key={index} model=".x" list={list} {...props} />;
   }
 
