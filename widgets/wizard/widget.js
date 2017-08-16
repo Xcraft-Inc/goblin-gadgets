@@ -175,15 +175,14 @@ class Wizard extends Form {
     const value = getPropertyValue (property, 'brutValue');
     const model = `.${this.widget}.${field}`;
     if (type === 'combo' || (type === 'text' && list)) {
-      const long = list.size > 30;
       return (
         <Container kind="row-pane" key={index}>
           <Label text={field} width="180px" />
           <TextFieldCombo
             model={model}
             defaultValue={value}
-            menuType={long ? 'wrap' : 'select'}
-            menuItemWidth={long ? '120px' : null}
+            menuType="auto"
+            menuItemWidth="120px"
             readonly={type === 'combo' ? 'true' : 'false'}
             grow="1"
             list={list}

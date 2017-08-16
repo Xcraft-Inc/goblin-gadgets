@@ -42,18 +42,17 @@ class TextFieldCombo extends Widget {
 
   doShowCombo () {
     const node = ReactDOM.findDOMNode (this);
-    if (this.props.menuType === 'combo' || this.props.menuType === 'wrap') {
-      this.comboLocation = ComboHelpers.getComboLocation (
-        node,
-        this.context.theme,
-        'flying-balloon'
-      );
-    } else {
-      this.selectLocation = ComboHelpers.getSelectLocation (
-        node,
-        this.context.theme
-      );
-    }
+
+    this.comboLocation = ComboHelpers.getComboLocation (
+      node,
+      this.context.theme,
+      'flying-balloon'
+    );
+
+    this.selectLocation = ComboHelpers.getSelectLocation (
+      node,
+      this.context.theme
+    );
 
     this.showCombo = true;
   }
@@ -177,7 +176,7 @@ class TextFieldCombo extends Widget {
     );
   }
 
-  renderComboCombo (list) {
+  renderComboCombo (list, menuType, menuItemWidth) {
     const x = [];
     for (var item of list) {
       const glyph = this.props.defaultValue === item ? 'check' : 'none';
@@ -189,8 +188,8 @@ class TextFieldCombo extends Widget {
     }
     return (
       <Combo
-        menuType={this.props.menuType}
-        menuItemWidth={this.props.menuItemWidth}
+        menuType={menuType}
+        menuItemWidth={menuItemWidth}
         center={this.comboLocation.center}
         top={this.comboLocation.top}
         bottom={this.comboLocation.bottom}
@@ -202,7 +201,7 @@ class TextFieldCombo extends Widget {
     );
   }
 
-  renderComboSelect (list) {
+  renderComboSelect (list, menuType, menuItemWidth) {
     const x = [];
     let index = 0;
     let defaultIndex = null;
@@ -218,8 +217,8 @@ class TextFieldCombo extends Widget {
     }
     return (
       <Select
-        menuType={this.props.menuType}
-        menuItemWidth={this.props.menuItemWidth}
+        menuType={menuType}
+        menuItemWidth={menuItemWidth}
         left={this.selectLocation.left}
         width={this.selectLocation.width}
         top={this.selectLocation.top}
@@ -236,10 +235,19 @@ class TextFieldCombo extends Widget {
   renderCombo () {
     const list = this.props.list;
     if (list && this.showCombo) {
-      if (this.props.menuType === 'combo' || this.props.menuType === 'wrap') {
-        return this.renderComboCombo (list);
+      let menuType = this.props.menuType;
+      let menuItemWidth = this.props.menuItemWidth;
+      if (!menuType || menuType === 'auto') {
+        const long = list.size > 30;
+        menuType = long ? 'wrap' : 'select';
+        if (!long) {
+          menuItemWidth = null;
+        }
+      }
+      if (menuType === 'combo' || menuType === 'wrap') {
+        return this.renderComboCombo (list, menuType, menuItemWidth);
       } else {
-        return this.renderComboSelect (list);
+        return this.renderComboSelect (list, menuType, menuItemWidth);
       }
     } else {
       return null;

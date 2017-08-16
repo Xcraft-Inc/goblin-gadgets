@@ -1023,8 +1023,8 @@ const properties = {
       group: 'Menu',
       type: 'combo',
       field: 'menuType',
-      list: ['', 'select', 'combo', 'wrap'],
-      value: 'select',
+      list: ['', 'auto', 'select', 'combo', 'wrap'],
+      value: 'auto',
     },
     menuItemWidth: {
       id: 'menuItemWidth',
