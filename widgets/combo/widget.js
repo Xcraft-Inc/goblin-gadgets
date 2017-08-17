@@ -5,6 +5,7 @@ import MouseTrap from 'mousetrap';
 import {ColorHelpers} from 'electrum-theme';
 import * as GlyphHelpers from '../helpers/glyph-helpers.js';
 import * as RectHelpers from '../helpers/rect-helpers.js';
+import {Unit} from 'electrum-theme';
 
 import Container from 'gadgets/container/widget';
 import Button from 'gadgets/button/widget';
@@ -29,16 +30,6 @@ class Combo extends Widget {
     MouseTrap.unbind ('up');
     MouseTrap.unbind ('down');
     MouseTrap.unbind ('enter');
-  }
-
-  get styleProps () {
-    return {
-      center: this.props.center,
-      right: this.props.right,
-      top: this.props.top,
-      bottom: this.props.bottom,
-      width: this.props.width,
-    };
   }
 
   onNextIndex () {
@@ -106,12 +97,19 @@ class Combo extends Widget {
     } else {
       if (this.props.menuType === 'wrap') {
         const active = item.glyph === 'none' ? 'false' : 'true';
+        const width = this.props.menuItemWidth
+          ? Unit.sub (
+              this.props.menuItemWidth,
+              Unit.multiply (this.context.theme.shapes.containerMargin, 2) // padding of Button kind='combo-wrap-item'
+            )
+          : null;
         return (
           <Button
             key={index}
             kind="combo-wrap-item"
-            width={this.props.menuItemWidth}
+            width={width}
             text={item.text}
+            tooltip={this.props.menuItemTooltips === 'true' ? item.text : null}
             shortcut={item.shortcut}
             textTransform="none"
             active={active}
@@ -167,7 +165,6 @@ class Combo extends Widget {
           <Container
             kind="flying-combo"
             trianglePosition={this.props.top ? 'top' : 'bottom'}
-            width={this.props.width}
           >
             <div className={insideClass}>
               {this.renderCombo ()}

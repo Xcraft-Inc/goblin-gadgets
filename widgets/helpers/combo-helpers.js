@@ -12,62 +12,73 @@ export function setDragCabHasCombo (id, value) {
 }
 
 // Compute the location for a combo-menu.
-// If x or y are undefined, the location is based on bounding rect of node.
-export function getComboLocation (node, theme, name, x, y) {
+export function getComboLocation (
+  node,
+  triangleSize,
+  padding,
+  itemCount,
+  itemWidth,
+  itemHeight
+) {
   const rect = node.getBoundingClientRect ();
 
-  // Compute horizontal position according to mouse or component.
-  let center;
-  if (x) {
-    center = x + 'px';
-  } else {
-    center = (rect.left + rect.right) / 2 + 'px';
-  }
+  // Compute horizontal position according to component.
+  const center = (rect.left + rect.right) / 2 + 'px';
 
   // Puts the menu under the component if it's in the upper half of the window.
-  const t = name === 'flying-balloon'
-    ? theme.shapes.flyingBalloonTriangleSize
-    : theme.shapes.flyingDialogTriangleSize;
-  const tv = Unit.parse (t).value;
-  let topValue, bottomValue, underMax, overMax;
-  if (y) {
-    topValue = Unit.add (window.innerHeight - y + 'px', t);
-    bottomValue = Unit.add (y + 'px', t);
-    underMax = window.innerHeight - y - tv - 20 + 'px';
-    overMax = y - tv - 20 + 'px';
-  } else {
-    topValue = Unit.add (window.innerHeight - rect.top + 'px', t);
-    bottomValue = Unit.add (rect.bottom + 'px', t);
-    underMax = window.innerHeight - rect.bottom - tv - 20 + 'px';
-    overMax = rect.top - tv - 20 + 'px';
+  const topValue = Unit.add (
+    window.innerHeight - rect.top + 'px',
+    triangleSize
+  );
+  const bottomValue = Unit.add (rect.bottom + 'px', triangleSize);
+
+  const tv = Unit.parse (triangleSize).value;
+  const underMax = window.innerHeight - rect.bottom - tv - 20 + 'px';
+  const overMax = rect.top - tv - 20 + 'px';
+  const underside = (rect.top + rect.bottom) / 2 < window.innerHeight / 2;
+  let maxHeight = underside ? underMax : overMax;
+
+  let width = null;
+  if (itemCount && itemHeight) {
+    if (!itemWidth) {
+      // If itemWidth is undefined, take the width of component.
+      itemWidth = Unit.sub (rect.width + 'px', Unit.multiply (padding, 2));
+    }
+    let maxRows = Math.floor (
+      Unit.parse (maxHeight).value / Unit.parse (itemHeight).value
+    );
+    const columnCount = Math.max (Math.ceil (itemCount / maxRows), 1);
+    width = Unit.parse (itemWidth).value * columnCount + 'px';
+    maxRows = Math.ceil (itemCount / columnCount);
+    maxHeight = maxRows * Unit.parse (itemHeight).value + 'px';
   }
-  const my = (rect.top + rect.bottom) / 2;
-  const underside = my < window.innerHeight / 2;
+
   return {
     center: center,
     top: underside ? bottomValue : null,
     bottom: underside ? null : topValue,
-    maxHeight: underside ? underMax : overMax,
+    maxHeight: maxHeight,
+    width: width,
+    menuItemWidth: itemWidth,
   };
 }
 
 // Compute the location for a select-menu.
-export function getSelectLocation (node, theme) {
+export function getSelectLocation (node, triangleSize, padding) {
   const rect = node.getBoundingClientRect ();
 
-  const t = theme.shapes.flyingBalloonTriangleSize;
-  const tv = Unit.parse (t).value;
+  const topValue = Unit.add (
+    window.innerHeight - rect.top + 'px',
+    triangleSize
+  );
+  const bottomValue = Unit.add (rect.bottom + 'px', triangleSize);
 
-  const topValue = Unit.add (window.innerHeight - rect.top + 'px', t);
-  const bottomValue = Unit.add (rect.bottom + 'px', t);
+  const tv = Unit.parse (triangleSize).value;
   const underMax = window.innerHeight - rect.bottom - tv - 20 + 'px';
   const overMax = rect.top - tv - 20 + 'px';
-  const my = (rect.top + rect.bottom) / 2;
-  const underside = my < window.innerHeight / 2;
-  const width = Unit.sub (
-    rect.width + 'px',
-    Unit.multiply (theme.shapes.flyingBalloonPadding, 2)
-  );
+  const underside = (rect.top + rect.bottom) / 2 < window.innerHeight / 2;
+
+  const width = Unit.sub (rect.width + 'px', Unit.multiply (padding, 2));
 
   return {
     left: rect.left + 'px',

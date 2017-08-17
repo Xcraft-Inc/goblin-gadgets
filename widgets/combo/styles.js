@@ -37,10 +37,12 @@ export default function styles (theme, props) {
 
   const insideWrapStyle = {
     maxHeight: props.maxHeight,
+    width: props.width,
     overflowY: 'auto',
     cursor: 'default',
     userSelect: 'none',
     display: 'flex',
+    flexDirection: 'column',
     flexWrap: 'wrap',
   };
 

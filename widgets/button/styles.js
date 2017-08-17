@@ -25,6 +25,8 @@ export default function styles (theme, props) {
   // Initialize all variables for a standard button.
   let boxWidth = props.width;
   let boxHeight = props.height ? props.height : theme.shapes.lineHeight;
+  let boxMaxWidth = null;
+  let boxMaxHeight = null;
   let boxFlexDirection = 'row';
   let boxFlexGrow = props.grow;
   let boxFlexShrink = null;
@@ -408,36 +410,38 @@ export default function styles (theme, props) {
 
   if (props.kind === 'combo-item') {
     boxHeight = theme.shapes.menuButtonHeight;
-    boxMarginBottom = '1px';
     boxPaddingRight = theme.shapes.containerMargin;
     boxPaddingLeft = theme.shapes.containerMargin;
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     textSize = theme.shapes.menuTextSize;
     borderStyle = 'none';
     if (props.active === 'true') {
-      backgroundColor = activeColor ? activeColor : '#ddd';
+      backgroundColor = activeColor ? activeColor : '#ddd'; // FIXME: set to theme.palette
     } else if (props.active === 'focused') {
-      backgroundColor = '#eee';
+      backgroundColor = '#eee'; // FIXME: set to theme.palette
     } else {
-      backgroundColor = '#fff';
+      backgroundColor = '#fff'; // FIXME: set to theme.palette
     }
+    backgroundHoverColor = '#eee'; // FIXME: set to theme.palette
   }
 
   if (props.kind === 'combo-wrap-item') {
+    boxMaxWidth = boxWidth ? boxWidth : null;
     boxHeight = theme.shapes.menuButtonHeight;
-    boxMarginBottom = '1px';
+    boxMaxHeight = theme.shapes.menuButtonHeight;
     boxPaddingRight = theme.shapes.containerMargin;
     boxPaddingLeft = theme.shapes.containerMargin;
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     textSize = theme.shapes.menuTextSize;
     borderStyle = 'none';
     if (props.active === 'true') {
-      backgroundColor = activeColor ? activeColor : '#ddd';
+      backgroundColor = activeColor ? activeColor : '#ddd'; // FIXME: set to theme.palette
     } else if (props.active === 'focused') {
-      backgroundColor = '#eee';
+      backgroundColor = '#eee'; // FIXME: set to theme.palette
     } else {
-      backgroundColor = '#fff';
+      backgroundColor = '#fff'; // FIXME: set to theme.palette
     }
+    backgroundHoverColor = '#eee'; // FIXME: set to theme.palette
   }
 
   if (props.kind === 'glyph-item') {
@@ -662,7 +666,9 @@ export default function styles (theme, props) {
     opacity: boxOpacity,
     overflow: 'hidden',
     width: boxWidth,
+    maxWidth: boxMaxWidth,
     minHeight: boxHeight,
+    maxHeight: boxMaxHeight,
     left: props.left,
     right: props.right,
     top: props.top,

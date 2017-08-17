@@ -1023,8 +1023,8 @@ const properties = {
       group: 'Menu',
       type: 'combo',
       field: 'menuType',
-      list: ['', 'auto', 'select', 'combo', 'wrap'],
-      value: 'auto',
+      list: ['', 'select', 'combo', 'wrap'],
+      value: 'wrap',
     },
     menuItemWidth: {
       id: 'menuItemWidth',
@@ -1032,8 +1032,15 @@ const properties = {
       type: 'text',
       unit: 'px',
       field: 'menuItemWidth',
-      list: ['', '50px', '100px', '150px', '200px'],
+      list: ['', '100px', '150px', '200px', '300px'],
       value: '',
+    },
+    menuItemTooltips: {
+      id: 'menuItemTooltips',
+      group: 'Menu',
+      type: 'bool',
+      field: 'menuItemTooltips',
+      value: 'false',
     },
     defaultValue: {
       id: 'defaultValue',
@@ -1620,8 +1627,8 @@ const previewSettings = {
     order: 10,
     group: 'Menu',
     type: 'list',
-    list: ['days', 'names', 'special'],
-    value: 'days',
+    list: ['short', 'long', 'special1', 'special2'],
+    value: 'short',
   },
 };
 

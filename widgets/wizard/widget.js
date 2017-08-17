@@ -181,8 +181,7 @@ class Wizard extends Form {
           <TextFieldCombo
             model={model}
             defaultValue={value}
-            menuType="auto"
-            menuItemWidth="120px"
+            menuType="wrap"
             readonly={type === 'combo' ? 'true' : 'false'}
             grow="1"
             list={list}
@@ -362,16 +361,18 @@ class Wizard extends Form {
   renderWidgetBaseTextFieldCombo (index, props) {
     let list = [];
     switch (this.getPreviewSettingValue ('textFieldComboMenu')) {
-      case 'names':
+      case 'long':
         list = [
           'TextFieldCombo',
           'Adrien',
-          'André',
           'Albert',
           'Alfred',
+          'André',
           'Anne',
+          'Arnaud',
           'Béatrice',
           'Bernard',
+          'Bertrand',
           'Bruno',
           'Christian',
           'Christine',
@@ -379,13 +380,17 @@ class Wizard extends Form {
           'Christophe',
           'Claire',
           'Daniel',
+          'David',
           'Denis',
           'Didier',
           'Eléonore',
           'Eric',
+          'Esther',
+          'Fabien',
           'François',
           'Francine',
           'Géraldine',
+          'Georges',
           'Grégoire',
           'Hypolite',
           'Jean',
@@ -394,10 +399,12 @@ class Wizard extends Form {
           'Jean-Bernard',
           'Jean-Frédérique-Louis-Bernard-André',
           'Jérémie',
-          'Jonny',
+          'Jimmy',
+          'Johnny',
           'Judas',
           'Julien',
           'Karl',
+          'Karinne',
           'Louis',
           'Lucette',
           'Marianne',
@@ -430,7 +437,7 @@ class Wizard extends Form {
           'Zoé',
         ];
         break;
-      case 'special':
+      case 'special1':
         list = [
           'TextFieldCombo',
           'Rouge',
@@ -438,6 +445,25 @@ class Wizard extends Form {
           'Bleu',
           "Ceci est un long texte pour tester la mise en page, tellement long qu'il semble ne jamais finir !",
           'Première ligne<br/>Deuxième ligne<br/>Troisième ligne<br/>Quatrième ligne<br/>Cinquième ligne',
+          'Jaune',
+        ];
+        break;
+      case 'special2':
+        list = [
+          'TextFieldCombo',
+          'Janvier',
+          'Février',
+          'Mars',
+          'Avril',
+          'Mai',
+          'Juin',
+          'Juillet',
+          'Août',
+          'Septembre',
+          'Octobre',
+          'Novembre',
+          'Décembre',
+          "Ceci est un long texte pour tester la mise en page, tellement long qu'il semble ne jamais finir !",
         ];
         break;
       default:
