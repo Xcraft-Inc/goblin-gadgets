@@ -10,6 +10,9 @@ class TextField extends Widget {
   constructor () {
     super (...arguments);
     this.onFieldFocus = this.onFieldFocus.bind (this);
+    this.selectAll = this.selectAll.bind (this);
+    this.renderInput = this.renderInput.bind (this);
+    this.renderFlyingBalloon = this.renderFlyingBalloon.bind (this);
   }
 
   static get wiring () {
@@ -39,8 +42,8 @@ class TextField extends Widget {
   }
 
   selectAll () {
-    const selectAllOnFocus = this.props.selectAllOnFocus;
-    if (selectAllOnFocus === 'true') {
+    const selectAllOnFocus = this.props.selectAllOnFocus || !!this.props.hinter;
+    if (selectAllOnFocus === 'true' || selectAllOnFocus === true) {
       if (this.input) {
         this.input.focus ();
         this.input.select ();
@@ -56,9 +59,8 @@ class TextField extends Widget {
 
   onFieldFocus () {
     this.navToHinter ();
-
-    const selectAllOnFocus = this.props.selectAllOnFocus;
-    if (selectAllOnFocus === 'true') {
+    const selectAllOnFocus = this.props.selectAllOnFocus || !!this.props.hinter;
+    if (selectAllOnFocus === 'true' || selectAllOnFocus === true) {
       this.selectAll ();
     }
   }
@@ -115,7 +117,9 @@ class TextField extends Widget {
           className={textareaClass}
           id={this.props.model}
           changeAction={beforeChange}
-          getRef={node => (this.input = node)}
+          getRef={node => {
+            this.input = node;
+          }}
           parser={this.props.parser}
           errors={this.props.errors}
           mapProps={mapProps}
@@ -137,7 +141,9 @@ class TextField extends Widget {
           className={fieldClass}
           id={this.props.model}
           changeAction={beforeChange}
-          getRef={node => (this.input = node)}
+          getRef={node => {
+            this.input = node;
+          }}
           parser={this.props.parser}
           errors={this.props.errors}
           mapProps={mapProps}
