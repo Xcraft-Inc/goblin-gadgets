@@ -427,12 +427,14 @@ export default function styles (theme, props) {
     if (Bool.isTrue (props.calendarWeekend)) {
       backgroundColor = theme.palette.calendarWeekendBackground;
     }
-    activeColor = theme.palette.calendarActiveBackground;
-    textActiveColor = theme.palette.calendarActiveText;
     if (Bool.isTrue (props.calendarDimmed)) {
       backgroundColor = theme.palette.calendarBackground;
+      activeColor = theme.palette.calendarBackground;
       backgroundHoverColor = theme.palette.calendarBackground; // no visible hover effect
       textColor = theme.palette.calendarDimmedText;
+    } else {
+      activeColor = theme.palette.calendarActiveBackground;
+      textActiveColor = theme.palette.calendarActiveText;
     }
   }
   // Button for month navigation in Calendar component.
@@ -486,7 +488,9 @@ export default function styles (theme, props) {
   if (props.kind === 'recurrence') {
     textActiveColor = theme.palette.calendarActiveText;
     activeColor = theme.palette.calendarActiveBackground;
-    borderActiveColor = theme.palette.calendarActiveBackground;
+    borderActiveColor = props.activeColor
+      ? props.activeColor
+      : theme.palette.calendarActiveBackground;
   }
 
   if (props.kind === 'hover') {
