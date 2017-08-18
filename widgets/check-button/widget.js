@@ -1,5 +1,6 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
+import * as Bool from '../helpers/boolean-helpers.js';
 
 import Button from 'gadgets/button/widget';
 
@@ -19,15 +20,16 @@ class CheckButton extends Widget {
 
   render () {
     let glyph, active;
+    const checked = Bool.isTrue (this.props.checked);
     if (this.props.kind === 'switch') {
-      glyph = this.props.checked === 'true' ? 'toggle-on' : 'toggle-off'; // [ o] [x ]
+      glyph = checked ? 'toggle-on' : 'toggle-off'; // [ o] [x ]
     } else if (this.props.kind === 'radio') {
-      glyph = this.props.checked === 'true' ? 'stop-circle-o' : 'circle-o'; // o
+      glyph = checked ? 'stop-circle-o' : 'circle-o'; // o
     } else if (this.props.kind === 'active') {
       glyph = null;
-      active = this.props.checked;
+      active = Bool.toString (checked);
     } else {
-      glyph = this.props.checked === 'true' ? 'check-square' : 'square-o'; // [v] [ ]
+      glyph = checked ? 'check-square' : 'square-o'; // [v] [ ]
     }
 
     return (
