@@ -28,6 +28,7 @@ class Notification extends Widget {
           glyph={data.glyph}
           backgroundColor={glyphColor}
           kind="round"
+          vpos="top"
           spacing="large"
           onClick={this.props.onClickNotification}
         />
@@ -35,6 +36,7 @@ class Notification extends Widget {
         <Button
           glyph="close"
           kind="notification-close"
+          vpos="top"
           onClick={this.props.onDeleteNotification}
         />
       </div>

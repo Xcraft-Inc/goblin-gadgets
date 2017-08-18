@@ -34,6 +34,7 @@ export default function styles (theme, props) {
   let boxFlexBasis = null;
   let boxJustifyContent = convertJustify (props.justify);
   let boxAlignItems = 'center';
+  let boxAlignSelf = null;
   let boxMarginTop = '0px';
   let boxMarginRight = '0px';
   let boxMarginBottom = '0px';
@@ -656,6 +657,10 @@ export default function styles (theme, props) {
     boxFlexBasis = '0%';
   }
 
+  if (props.vpos === 'top') {
+    boxAlignSelf = 'flex-start';
+  }
+
   if (!boxJustifyContent) {
     boxJustifyContent = 'center';
   }
@@ -681,6 +686,7 @@ export default function styles (theme, props) {
     flexBasis: boxFlexBasis,
     justifyContent: boxJustifyContent,
     alignItems: boxAlignItems,
+    alignSelf: boxAlignSelf,
     borderWidth: borderWidth,
     borderColor: borderColor,
     borderStyle: borderStyle,
