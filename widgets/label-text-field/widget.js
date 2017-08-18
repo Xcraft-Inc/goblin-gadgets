@@ -76,6 +76,7 @@ class LabelTextField extends Widget {
         glyph={this.props.labelGlyph}
         text={this.props.labelText}
         width={this.props.labelWidth}
+        wrap="no"
         shape={shape}
         justify="left"
         spacing="overlap"

@@ -1,5 +1,5 @@
 // WARNING:
-// isTrue (x) !== !isFalse(x)
+// isTrue (x) !== !isFalse (x)
 
 export function isTrue (value) {
   const type = typeof value;
