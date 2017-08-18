@@ -1,6 +1,7 @@
 import {Unit} from 'electrum-theme';
 import {ColorHelpers} from 'electrum-theme';
 import {ColorManipulator} from 'electrum-theme';
+import * as Bool from '../helpers/boolean-helpers.js';
 
 function convertJustify (justify) {
   switch (justify) {
@@ -83,7 +84,7 @@ export default function styles (theme, props) {
     boxHeight = theme.shapes.taskButtonHeight;
     boxFlexDirection = 'column';
     borderStyle = 'none';
-    if (props.active === 'true') {
+    if (Bool.isTrue (props.active)) {
       backgroundColor = activeColor
         ? activeColor
         : theme.palette.taskTabActiveBackground;
@@ -110,7 +111,7 @@ export default function styles (theme, props) {
     boxMarginRight = '1px';
     borderStyle = 'none';
     textSize = theme.shapes.mainTabTextSize;
-    if (props.active === 'true') {
+    if (Bool.isTrue (props.active)) {
       backgroundColor = activeColor
         ? activeColor
         : theme.palette.mainTabButtonActiveBackground;
@@ -124,7 +125,7 @@ export default function styles (theme, props) {
     boxHeight = theme.shapes.mainTabHeight;
     borderStyle = 'none';
     textColor = theme.palette.mainTabText;
-    if (props.active === 'true') {
+    if (Bool.isTrue (props.active)) {
       backgroundColor = activeColor
         ? activeColor
         : theme.palette.mainTabButtonActiveBackground;
@@ -149,7 +150,7 @@ export default function styles (theme, props) {
     }
     borderStyle = 'none';
     textSize = theme.shapes.viewTabTextSize;
-    if (props.active === 'true') {
+    if (Bool.isTrue (props.active)) {
       backgroundColor = activeColor
         ? activeColor
         : theme.palette.viewTabButtonActiveBackground;
@@ -176,7 +177,7 @@ export default function styles (theme, props) {
   if (props.kind === 'task-tab') {
     boxHeight = theme.shapes.taskTabHeight;
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
-    if (props.active === 'true') {
+    if (Bool.isTrue (props.active)) {
       backgroundColor = activeColor
         ? activeColor
         : theme.palette.taskTabActiveBackground;
@@ -200,7 +201,7 @@ export default function styles (theme, props) {
     if (props.active === 'false') {
       borderColor = theme.palette.paneNavigatorInactiveBorder;
       textColor = theme.palette.paneNavigatorInactiveText;
-    } else if (props.active === 'true') {
+    } else if (Bool.isTrue (props.active)) {
       borderColor = activeColor
         ? activeColor
         : theme.palette.paneNavigatorActiveBorder;
@@ -219,7 +220,7 @@ export default function styles (theme, props) {
     if (props.active === 'false') {
       borderColor = theme.palette.paneNavigatorInactiveBorder;
       textColor = theme.palette.paneNavigatorInactiveText;
-    } else if (props.active === 'true') {
+    } else if (Bool.isTrue (props.active)) {
       borderColor = activeColor
         ? activeColor
         : theme.palette.paneNavigatorActiveBorder;
@@ -237,7 +238,7 @@ export default function styles (theme, props) {
     textSize = theme.shapes.paneNavigatorTextSize;
     if (props.active === 'false') {
       backgroundColor = theme.palette.vnavigatorButtonInactiveBackground;
-    } else if (props.active === 'true') {
+    } else if (Bool.isTrue (props.active)) {
       backgroundColor = activeColor
         ? activeColor
         : theme.palette.vnavigatorButtonActiveBackground;
@@ -268,7 +269,7 @@ export default function styles (theme, props) {
     borderStyle = 'none';
     textHoverColor = theme.palette.notificationTextHover;
     backgroundHoverColor = 'transparent';
-    if (props.disabled === 'true') {
+    if (Bool.isTrue (props.disabled)) {
       textColor = ColorManipulator.darken (theme.palette.notificationText, 0.4);
     }
     specialDisabled = true;
@@ -339,7 +340,7 @@ export default function styles (theme, props) {
 
   // Combo button, place to the right of a TextFieldCombo component.
   if (props.kind === 'combo') {
-    if (props.active === 'true') {
+    if (Bool.isTrue (props.active)) {
       backgroundColor = activeColor
         ? activeColor
         : theme.palette.comboActiveBackground;
@@ -394,7 +395,7 @@ export default function styles (theme, props) {
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     textSize = theme.shapes.menuTextSize;
     borderStyle = 'none';
-    if (props.active === 'true') {
+    if (Bool.isTrue (props.active)) {
       textColor = theme.palette.menuText;
       backgroundColor = activeColor
         ? activeColor
@@ -415,7 +416,7 @@ export default function styles (theme, props) {
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     textSize = theme.shapes.menuTextSize;
     borderStyle = 'none';
-    if (props.active === 'true') {
+    if (Bool.isTrue (props.active)) {
       backgroundColor = activeColor ? activeColor : '#ddd'; // FIXME: set to theme.palette
     } else if (props.active === 'focused') {
       backgroundColor = '#eee'; // FIXME: set to theme.palette
@@ -434,7 +435,7 @@ export default function styles (theme, props) {
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     textSize = theme.shapes.menuTextSize;
     borderStyle = 'none';
-    if (props.active === 'true') {
+    if (Bool.isTrue (props.active)) {
       backgroundColor = activeColor ? activeColor : '#ddd'; // FIXME: set to theme.palette
     } else if (props.active === 'focused') {
       backgroundColor = '#eee'; // FIXME: set to theme.palette
@@ -450,7 +451,7 @@ export default function styles (theme, props) {
     boxMarginRight = theme.shapes.glyphsDialogButtonMargin;
     boxMarginBottom = theme.shapes.glyphsDialogButtonMargin;
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
-    if (props.active === 'true') {
+    if (Bool.isTrue (props.active)) {
       backgroundColor = activeColor
         ? activeColor
         : theme.palette.boxActiveBackground;
@@ -475,16 +476,16 @@ export default function styles (theme, props) {
     transition = null;
     backgroundColor = theme.palette.calendarBackground;
     textColor = theme.palette.calendarText;
-    if (props.calendarWeekend === 'true') {
+    if (Bool.isTrue (props.calendarWeekend)) {
       backgroundColor = theme.palette.calendarWeekendBackground;
     }
-    if (props.active === 'true') {
+    if (Bool.isTrue (props.active)) {
       backgroundColor = activeColor
         ? activeColor
         : theme.palette.calendarActiveBackground;
       textColor = theme.palette.calendarActiveText;
     }
-    if (props.calendarDimmed === 'true') {
+    if (Bool.isTrue (props.calendarDimmed)) {
       backgroundColor = theme.palette.calendarBackground;
       backgroundHoverColor = theme.palette.calendarBackground; // no visible hover effect
       textColor = theme.palette.calendarDimmedText;
@@ -504,7 +505,7 @@ export default function styles (theme, props) {
     borderStyle = 'none';
     boxPaddingTop = Unit.multiply (theme.shapes.lineSpacing, 0.5);
     boxPaddingBottom = Unit.multiply (theme.shapes.lineSpacing, 0.5);
-    if (props.active === 'true') {
+    if (Bool.isTrue (props.active)) {
       backgroundColor = activeColor
         ? activeColor
         : theme.palette.boxActiveBackground;
@@ -528,7 +529,7 @@ export default function styles (theme, props) {
     borderStyle = 'none';
     boxMarginRight = m;
     boxMarginBottom = m;
-    if (props.active === 'true') {
+    if (Bool.isTrue (props.active)) {
       backgroundColor = activeColor
         ? activeColor
         : theme.palette.boxActiveBackground;
@@ -540,7 +541,7 @@ export default function styles (theme, props) {
   if (props.kind === 'chronos-navigator') {
     boxMarginBottom = '1px';
     borderRadius = theme.shapes.smoothRadius;
-    if (props.active === 'true') {
+    if (Bool.isTrue (props.active)) {
       backgroundColor = activeColor
         ? activeColor
         : theme.palette.boxActiveBackground;
@@ -554,7 +555,7 @@ export default function styles (theme, props) {
   }
 
   if (props.kind === 'recurrence') {
-    if (props.active === 'true') {
+    if (Bool.isTrue (props.active)) {
       textColor = theme.palette.calendarActiveText;
       backgroundColor = activeColor
         ? activeColor
@@ -575,14 +576,14 @@ export default function styles (theme, props) {
 
   if (!props.kind) {
     borderRadius = theme.shapes.smoothRadius;
-    if (props.active === 'true') {
+    if (Bool.isTrue (props.active)) {
       backgroundColor = activeColor
         ? activeColor
         : theme.palette.boxActiveBackground;
     }
   }
 
-  if (props.badgePush === 'true') {
+  if (Bool.isTrue (props.badgePush)) {
     boxPaddingRight = Unit.add (boxPaddingRight, theme.shapes.badgeHeight);
   }
   if (
@@ -634,7 +635,7 @@ export default function styles (theme, props) {
   }
 
   // Alter colors if component is disable.
-  if (props.disabled === 'true' && !specialDisabled) {
+  if (Bool.isTrue (props.disabled) && !specialDisabled) {
     borderColor = theme.palette.buttonDisableBorder;
     if (backgroundColor) {
       backgroundColor = theme.palette.buttonDisableBackground;
@@ -711,7 +712,7 @@ export default function styles (theme, props) {
     userSelect: 'none',
   };
 
-  if (props.disabled !== 'true' && boxOpacity !== 0) {
+  if (Bool.isFalse (props.disabled) && boxOpacity !== 0) {
     boxStyle[':hover'] = {
       color: textHoverColor, // (*)
       borderColor: borderHoverColor,

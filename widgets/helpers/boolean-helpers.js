@@ -5,8 +5,12 @@ export function isTrue (value) {
   } else if (type === 'string') {
     return value === 'true';
   } else {
-    return !value;
+    return value;
   }
+}
+
+export function isFalse (value) {
+  return !isTrue (value);
 }
 
 export function toString (value) {
