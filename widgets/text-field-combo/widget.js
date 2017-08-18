@@ -71,8 +71,7 @@ class TextFieldCombo extends Widget {
 
   // Called when the combo button is clicked.
   onButtonClicked () {
-    const list = this.props.list;
-    if (list) {
+    if (this.props.list) {
       this.doShowCombo ();
     }
   }

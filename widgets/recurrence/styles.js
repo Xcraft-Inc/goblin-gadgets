@@ -5,8 +5,6 @@ import * as Bool from '../helpers/boolean-helpers.js';
 
 export default function styles (theme, props) {
   const extended = Bool.isTrue (props.extended);
-  const isDragged = props.isDragged;
-  const hasHeLeft = props.hasHeLeft;
 
   const m = theme.shapes.containerMargin;
   const halfMargin = Unit.multiply (m, 0.5);
@@ -32,11 +30,11 @@ export default function styles (theme, props) {
     backgroundColor = theme.palette.recurrenceExtendedBoxBackground;
     color = theme.palette.recurrenceHeaderInfoExtendedText;
   }
-  if (!isDragged && hasHeLeft) {
+  if (!props.isDragged && props.hasHeLeft) {
     backgroundColor = theme.palette.paneBackground;
     opacity = 0.0;
   }
-  if (isDragged) {
+  if (props.isDragged) {
     width = '730px';
     borderBottomColor = theme.palette.paneNavigatorInactiveBorder;
     borderBottomWidth = '1px';

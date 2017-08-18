@@ -1,18 +1,13 @@
 /******************************************************************************/
 
 export default function styles (theme, props) {
-  let width = props.width;
-  let height = props.height;
-  let backgroundColor = theme.palette.dialogBackground;
-  let boxShadow = theme.shapes.dialogShadow;
-
   const boxStyle = {
-    width: width,
-    height: height,
+    width: props.width,
+    height: props.height,
     display: 'flex',
     flexDirection: 'row',
-    backgroundColor: backgroundColor,
-    boxShadow: boxShadow,
+    backgroundColor: props.backgroundColor,
+    boxShadow: props.boxShadow,
     zIndex: '2',
     position: 'absolute',
     left: '0px',

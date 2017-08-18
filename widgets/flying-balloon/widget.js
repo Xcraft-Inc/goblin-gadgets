@@ -12,33 +12,25 @@ class FlyingBalloon extends Widget {
   }
 
   render () {
-    const disabled = this.props.disabled;
-    const inputPrimaryText = this.props.primaryText;
-    const inputSecondaryText = this.props.secondaryText;
-    const inputTrianglePosition = this.props.trianglePosition;
-
     const boxClass = this.styles.classNames.box;
 
-    let primaryBottomSpacing = null;
-    if (inputPrimaryText) {
-      primaryBottomSpacing = 'large';
-    }
+    const primaryBottomSpacing = this.props.primaryText ? 'large' : null;
 
     return (
-      <span disabled={disabled} className={boxClass}>
+      <span disabled={this.props.disabled} className={boxClass}>
         <Container
           kind="flying-balloon"
-          trianglePosition={inputTrianglePosition}
+          trianglePosition={this.props.trianglePosition}
         >
 
           <Label
-            text={inputPrimaryText}
+            text={this.props.primaryText}
             kind="flying-balloon"
             font-weight="bold"
             bottom-spacing={primaryBottomSpacing}
           />
 
-          <Label text={inputSecondaryText} kind="flying-balloon" />
+          <Label text={this.props.secondaryText} kind="flying-balloon" />
         </Container>
       </span>
     );

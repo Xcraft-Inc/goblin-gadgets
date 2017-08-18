@@ -40,15 +40,9 @@ class DialogModal extends Widget {
   }
 
   render () {
-    const width = this.props.width;
-    const height = this.props.height;
-    const top = this.props.top;
-    const bottom = this.props.bottom;
-    const triangleShift = this.props.triangleShift;
-
     const fullScreenClass = this.styles.classNames.fullScreen;
 
-    if (top || bottom) {
+    if (this.props.top || this.props.bottom) {
       const comboClass = this.styles.classNames.combo;
       return (
         <div
@@ -59,10 +53,10 @@ class DialogModal extends Widget {
           <div className={comboClass}>
             <Container
               kind="flying-dialog"
-              trianglePosition={top ? 'top' : 'bottom'}
-              width={width}
-              height={height}
-              triangleShift={triangleShift}
+              trianglePosition={this.props.top ? 'top' : 'bottom'}
+              width={this.props.width}
+              height={this.props.height}
+              triangleShift={this.props.triangleShift}
               cursor="default"
             >
               {this.props.children}
@@ -80,8 +74,8 @@ class DialogModal extends Widget {
           <Container
             kind="floating"
             cursor="default"
-            width={width}
-            height={height}
+            width={this.props.width}
+            height={this.props.height}
           >
             {this.props.children}
           </Container>

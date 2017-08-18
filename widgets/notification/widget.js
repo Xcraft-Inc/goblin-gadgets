@@ -13,9 +13,7 @@ class Notification extends Widget {
   }
 
   render () {
-    const data = this.props.data;
-
-    let glyphColor = data.color;
+    let glyphColor = this.props.data.color;
     if (glyphColor) {
       glyphColor = ColorHelpers.getMarkColor (this.context.theme, glyphColor);
     }
@@ -25,14 +23,14 @@ class Notification extends Widget {
     return (
       <div className={boxClass} onClick={this.props.onClick}>
         <Button
-          glyph={data.glyph}
+          glyph={this.props.data.glyph}
           backgroundColor={glyphColor}
           kind="round"
           vpos="top"
           spacing="large"
           onClick={this.props.onClickNotification}
         />
-        <Label text={data.message} kind="notification" grow="1" />
+        <Label text={this.props.data.message} kind="notification" grow="1" />
         <Button
           glyph="close"
           kind="notification-close"

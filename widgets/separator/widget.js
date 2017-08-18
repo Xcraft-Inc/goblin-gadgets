@@ -9,10 +9,9 @@ class Separator extends Widget {
   }
 
   render () {
-    const disabled = this.props.disabled;
     const boxClass = this.styles.classNames.box;
 
-    return <div disabled={disabled} className={boxClass} />;
+    return <div disabled={this.props.disabled} className={boxClass} />;
   }
 }
 

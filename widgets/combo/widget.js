@@ -34,11 +34,10 @@ class Combo extends Widget {
   }
 
   onNextIndex () {
-    const list = this.props.list;
     let index = this.focusedIndex;
-    while (index < list.length - 1) {
+    while (index < this.props.list.length - 1) {
       index++;
-      if (!list[index].separator) {
+      if (!this.props.list[index].separator) {
         break;
       }
     }
@@ -47,14 +46,13 @@ class Combo extends Widget {
   }
 
   onPrevIndex () {
-    const list = this.props.list;
     let index = this.focusedIndex;
     if (index === -1) {
-      index = list.length;
+      index = this.props.list.length;
     }
     while (index > 0) {
       index--;
-      if (!list[index].separator) {
+      if (!this.props.list[index].separator) {
         break;
       }
     }
@@ -65,8 +63,7 @@ class Combo extends Widget {
   onEnterAction () {
     const index = this.focusedIndex;
     if (index !== -1) {
-      const list = this.props.list;
-      const item = list[index];
+      const item = this.props.list[index];
       this.onActionAndClose (item);
     }
   }

@@ -318,7 +318,7 @@ const properties = {
       group: 'Badge',
       type: 'text',
       field: 'badgeValue',
-      list: ['', '1', '2', '99'],
+      list: ['', '1', '2', '99', '123456'],
       value: '',
     },
     badgePush: {

@@ -50,17 +50,12 @@ class TableRow extends Widget {
   }
 
   render () {
-    const header = this.props.header;
-    const row = this.props.row;
-    const index = this.props.index;
-    const selected = this.props.selected;
-
-    var styleName = Bool.isTrue (selected) ? 'rowSelected' : 'row';
+    var styleName = Bool.isTrue (this.props.selected) ? 'rowSelected' : 'row';
     const rowStyleClass = this.styles.classNames[styleName];
 
     return (
-      <div key={index} className={rowStyleClass}>
-        {this.renderRowCells (header.toArray (), row)}
+      <div key={this.props.index} className={rowStyleClass}>
+        {this.renderRowCells (this.props.header.toArray (), this.props.row)}
       </div>
     );
   }

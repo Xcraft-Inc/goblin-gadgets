@@ -9,10 +9,7 @@ class Badge extends Widget {
   }
 
   render () {
-    const disabled = this.props.disabled;
-    const inputValue = this.props.value;
-
-    let truncatedValue = inputValue ? inputValue.toString () : '';
+    let truncatedValue = this.props.value ? this.props.value.toString () : '';
     if (truncatedValue.length > 3) {
       truncatedValue = truncatedValue.substring (0, 3) + '...';
     }
@@ -21,7 +18,7 @@ class Badge extends Widget {
     const labelClass = this.styles.classNames.label;
 
     return (
-      <div key="badge" disabled={disabled} className={boxClass}>
+      <div key="badge" disabled={this.props.disabled} className={boxClass}>
         <label className={labelClass}>
           {truncatedValue}
         </label>

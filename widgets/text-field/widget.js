@@ -212,12 +212,13 @@ class TextField extends Widget {
       return null;
     }
 
-    const disabled = this.props.disabled;
-    const tooltip = this.props.tooltip;
-
     const boxClass = this.styles.classNames.box;
     return (
-      <div disabled={disabled} className={boxClass} title={tooltip}>
+      <div
+        disabled={this.props.disabled}
+        className={boxClass}
+        title={this.props.tooltip}
+      >
         {this.renderInput ()}
         {this.renderFlyingBalloon ()}
       </div>

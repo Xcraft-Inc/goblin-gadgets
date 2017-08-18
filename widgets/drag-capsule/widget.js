@@ -11,17 +11,17 @@ class DragCapsule extends Widget {
   }
 
   render () {
-    const component = this.props.component;
-    const isDragged = this.props.isDragged;
-    const hasHeLeft = this.props.hasHeLeft;
-
-    switch (component) {
+    switch (this.props.component) {
       case 'Label':
         return (
-          <Label {...this.props} isDragged={isDragged} hasHeLeft={hasHeLeft} />
+          <Label
+            {...this.props}
+            isDragged={this.props.isDragged}
+            hasHeLeft={this.props.hasHeLeft}
+          />
         );
       default:
-        throw new Error (`Unsupported component ${component}`);
+        throw new Error (`Unsupported component ${this.props.component}`);
     }
   }
 }

@@ -49,8 +49,7 @@ class Select extends Widget {
 
   onChange (element) {
     const index = element.target.value;
-    const list = this.props.list;
-    const item = list[index];
+    const item = this.props.list[index];
     this.onActionAndClose (item);
   }
 
@@ -68,10 +67,9 @@ class Select extends Widget {
   }
 
   renderCombo () {
-    const list = this.props.list;
     const result = [];
     let index = 0;
-    for (let item of list) {
+    for (let item of this.props.list) {
       result.push (this.renderItem (item, index++));
     }
     return result;

@@ -154,14 +154,12 @@ class DragCarrier extends Widget {
   }
 
   getHalfThickness () {
-    const thickness = this.props.thickness;
-    return Unit.parse (Unit.multiply (thickness, 0.5)).value;
+    return Unit.parse (Unit.multiply (this.props.thickness, 0.5)).value;
   }
 
   getOverSpacing () {
-    const overSpacing = this.props.overSpacing;
-    if (overSpacing) {
-      return Unit.parse (Unit.multiply (overSpacing, 1)).value;
+    if (this.props.overSpacing) {
+      return Unit.parse (Unit.multiply (this.props.overSpacing, 1)).value;
     } else {
       return 0;
     }
@@ -316,8 +314,7 @@ class DragCarrier extends Widget {
   findParentId (id) {
     if (id && window.document.dragParentControllers) {
       for (var c of window.document.dragParentControllers) {
-        const parentId = c.props.dragParentId;
-        if (parentId === id) {
+        if (c.props.dragParentId === id) {
           return c;
         }
       }
@@ -338,8 +335,7 @@ class DragCarrier extends Widget {
   findViewId (id) {
     if (id) {
       for (var c of window.document.viewIds) {
-        const viewId = c.props.viewId;
-        if (viewId === id) {
+        if (c.props.viewId === id) {
           return c;
         }
       }
@@ -358,9 +354,7 @@ class DragCarrier extends Widget {
   }
 
   find (x, y) {
-    const direction = this.props.direction;
-    const dragOwnerId = this.props.dragOwnerId;
-    const dragCab = this.searchDragCab (dragOwnerId);
+    const dragCab = this.searchDragCab (this.props.dragOwnerId);
     const dragController = dragCab.read ('dragController');
     for (var container of window.document.dragControllers) {
       const dc = container.props.dragController;
@@ -371,7 +365,7 @@ class DragCarrier extends Widget {
         const pr = this.getParentRect (container);
         const parentRect = clip (vpr, pr);
         if (isInside (parentRect, x, y) && isInside (rect, x, y)) {
-          if (direction === 'horizontal') {
+          if (this.props.direction === 'horizontal') {
             return this.findH (container, n, x, parentRect);
           } else {
             return this.findV (container, n, y, parentRect);
@@ -383,16 +377,22 @@ class DragCarrier extends Widget {
   }
 
   findNodeOrigin (container, node, id) {
-    const direction = this.props.direction;
-    const overSpacing = this.getOverSpacing ();
     for (var i = 0, len = node.children.length; i < len; i++) {
       const t = node.children[i];
       if (t.dataset.id === id) {
         let rect = getBoundingRect (t);
-        if (direction === 'horizontal') {
-          rect = getHRect (rect, rect.left, rect.right - overSpacing);
+        if (this.props.direction === 'horizontal') {
+          rect = getHRect (
+            rect,
+            rect.left,
+            rect.right - this.props.overSpacing
+          );
         } else {
-          rect = getVRect (rect, rect.top, rect.bottom - overSpacing);
+          rect = getVRect (
+            rect,
+            rect.top,
+            rect.bottom - this.props.overSpacing
+          );
         }
         const parentRect = this.getViewParentRect (container);
         return {
@@ -411,13 +411,11 @@ class DragCarrier extends Widget {
 
   // Return the description of origin, whith is the full rectangle of item origin.
   findOrigin () {
-    const dragController = this.props.dragController;
-    const dragOwnerId = this.props.dragOwnerId;
     for (var container of window.document.dragControllers) {
       const dc = container.props.dragController;
-      if (dc === dragController) {
+      if (dc === this.props.dragController) {
         const n = ReactDOM.findDOMNode (container);
-        const rect = this.findNodeOrigin (container, n, dragOwnerId);
+        const rect = this.findNodeOrigin (container, n, this.props.dragOwnerId);
         if (rect) {
           return rect;
         }
@@ -469,17 +467,16 @@ class DragCarrier extends Widget {
   selectMulti (value) {
     // Trace.log ('DragCarrier.selectMulti');
     if (this.rectOrigin) {
-      const data = this.props.data;
       const origin = this.searchChildren (this.rectOrigin.id);
       if (
         origin &&
         origin.props.ticket &&
-        this.isSelected (data, origin.props.ticket.id)
+        this.isSelected (this.props.data, origin.props.ticket.id)
       ) {
         // Drag all selected items.
         const container = this.rectOrigin.container;
         for (let child of container.props.children) {
-          if (this.isSelected (data, child.props.ticket.id)) {
+          if (this.isSelected (this.props.data, child.props.ticket.id)) {
             this.selectOne (child.props.ticket.id, value);
           }
         }
@@ -504,8 +501,7 @@ class DragCarrier extends Widget {
       // first move ?
       this.startX = x;
       this.startY = y;
-      const dragOwnerId = this.props.dragOwnerId;
-      const dragCab = this.searchDragCab (dragOwnerId);
+      const dragCab = this.searchDragCab (this.props.dragOwnerId);
       const node = ReactDOM.findDOMNode (dragCab);
       const rect = node.getBoundingClientRect ();
       this.offsetX = x - rect.left;
@@ -514,8 +510,7 @@ class DragCarrier extends Widget {
     }
     this.moveCount++;
 
-    const mode = this.props.mode;
-    if (mode === 'corner-top-left') {
+    if (this.props.mode === 'corner-top-left') {
       this.x = x;
       this.y = y;
     } else {
@@ -604,10 +599,6 @@ class DragCarrier extends Widget {
   }
 
   render () {
-    const color = this.props.color;
-    const radius = this.props.radius;
-    const dragHeight = this.props.dragHeight;
-
     const fullScreenClass = this.styles.classNames.fullScreen;
 
     const ox = this.flyingDialogRect ? this.flyingDialogRect.left : 0;
@@ -624,9 +615,9 @@ class DragCarrier extends Widget {
         width: rect.width,
         top: rect.top - oy,
         height: rect.height,
-        borderRadius: dest.radius ? dest.radius : radius,
+        borderRadius: dest.radius ? dest.radius : this.props.radius,
         transition: 'all 0.2s ease-out',
-        backgroundColor: color,
+        backgroundColor: this.props.color,
         opacity: dest.opacity ? dest.opacity : 1.0,
         userSelect: 'none',
       };
@@ -634,9 +625,9 @@ class DragCarrier extends Widget {
       hilitedStyle = {
         visibility: 'hidden',
         position: 'absolute',
-        borderRadius: radius,
+        borderRadius: this.props.radius,
         transition: 'all 0.2s ease-out',
-        backgroundColor: color,
+        backgroundColor: this.props.color,
         opacity: 0,
         userSelect: 'none',
       };
@@ -647,7 +638,7 @@ class DragCarrier extends Widget {
       position: 'absolute',
       display: 'flex',
       flexDirection: 'column',
-      height: dragHeight,
+      height: this.props.dragHeight,
       left: this.x - ox,
       top: this.y - oy,
       opacity: 0.9,

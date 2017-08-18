@@ -170,10 +170,6 @@ class GlyphsDialog extends Widget {
   }
 
   render () {
-    const center = this.props.center;
-    const top = this.props.top;
-    const bottom = this.props.bottom;
-
     const footerClass = this.styles.classNames.footer;
 
     const buttonWidth = Unit.add (
@@ -185,7 +181,7 @@ class GlyphsDialog extends Widget {
 
     const result = ComboHelpers.declipping (
       dialogWidth,
-      center,
+      this.props.center,
       this.context.theme.shapes.floatingPadding
     );
 
@@ -194,8 +190,8 @@ class GlyphsDialog extends Widget {
         width={dialogWidth}
         center={result.center}
         triangleShift={result.triangleShift}
-        top={top}
-        bottom={bottom}
+        top={this.props.top}
+        bottom={this.props.bottom}
         close={::this.onClose}
       >
         {this.renderMain ()}

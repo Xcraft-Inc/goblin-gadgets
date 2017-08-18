@@ -112,7 +112,7 @@ export default function styles (theme, props) {
     }
   }
 
-  if (Bool.isFalse (props.insideButton) && !props.glyph) {
+  if (!Bool.isTrue (props.insideButton) && !props.glyph) {
     // Label without glyph ?
     if (props.glyphPosition === 'right') {
       textMarginRight = '0px'; // push to right frame border

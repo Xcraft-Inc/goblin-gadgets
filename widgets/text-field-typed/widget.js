@@ -53,27 +53,14 @@ class TextFieldTyped extends Widget {
   // Return the bottom line of FlyingBalloon.
   // Contains the final value.
   getMessageInfo () {
-    const displayedValue = this.props.value;
-    const message = this.props.message;
-    if (message !== displayedValue) {
-      return message;
+    if (this.props.message !== this.props.value) {
+      return this.props.message;
     } else {
       return null;
     }
   }
 
   render () {
-    const hintText = this.props.hintText;
-    const tooltip = this.props.tooltip;
-    const labelGlyph = this.props.labelGlyph;
-    const labelText = this.props.labelText;
-    const labelWidth = this.props.labelWidth;
-    const grow = this.props.grow;
-    const spacing = this.props.spacing;
-    const readonly = this.props.readonly;
-    const selectAllOnFocus = this.props.selectAllOnFocus;
-    const defaultFocus = this.props.defaultFocus;
-
     return (
       <LabelTextField
         updateOn="blur"
@@ -90,16 +77,16 @@ class TextFieldTyped extends Widget {
           return view ? view : '';
         }}
         model={this.props.model}
-        hintText={hintText}
-        tooltip={tooltip}
-        labelGlyph={labelGlyph}
-        labelText={labelText}
-        labelWidth={labelWidth}
-        grow={grow}
-        spacing={spacing}
-        readonly={readonly}
-        selectAllOnFocus={selectAllOnFocus}
-        defaultFocus={defaultFocus}
+        hintText={this.props.hintText}
+        tooltip={this.props.tooltip}
+        labelGlyph={this.props.labelGlyph}
+        labelText={this.props.labelText}
+        labelWidth={this.props.labelWidth}
+        grow={this.props.grow}
+        spacing={this.props.spacing}
+        readonly={this.props.readonly}
+        selectAllOnFocus={this.props.selectAllOnFocus}
+        defaultFocus={this.props.defaultFocus}
         messageWarning={this.getMessageWarning ()}
         messageInfo={this.getMessageInfo ()}
       />

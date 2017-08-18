@@ -41,10 +41,9 @@ class Hinter extends Widget {
   }
 
   renderList () {
-    const rows = this.props.rows;
     const result = [];
     let index = 0;
-    for (const row of rows) {
+    for (const row of this.props.rows) {
       result.push (this.renderRow (row, index));
       index++;
     }
@@ -52,10 +51,9 @@ class Hinter extends Widget {
   }
 
   renderDate () {
-    const date = this.props.date;
     return (
       <Container kind="row-pane" subkind="large-box">
-        <Calendar visibleDate={date} date={date} />
+        <Calendar visibleDate={this.props.date} date={this.props.date} />
       </Container>
     );
   }
@@ -72,15 +70,16 @@ class Hinter extends Widget {
   }
 
   render () {
-    const titleGlyph = this.props.titleGlyph;
-    const titleText = this.props.titleText;
-
     return (
       <Container kind="view-short">
         <Container kind="panes-short">
           <Container kind="pane">
             <Container kind="row-pane">
-              <Label glyph={titleGlyph} text={titleText} kind="title" />
+              <Label
+                glyph={this.props.titleGlyph}
+                text={this.props.titleText}
+                kind="title"
+              />
             </Container>
             {this.renderContent ()}
           </Container>

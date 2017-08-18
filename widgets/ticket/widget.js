@@ -54,23 +54,26 @@ class Ticket extends Widget {
   }
 
   renderHud () {
-    const hudGlyph = this.props.hudGlyph;
     const hudGlyphShadowClass = this.styles.classNames.hudGlyphShadow;
     const hudGlyphShadowNoneClass = this.styles.classNames.hudGlyphShadowNone;
     const hudGlyphBoxClass = this.styles.classNames.hudGlyphBox;
     const hudGlyphContentClass = this.styles.classNames.hudGlyphContent;
     return (
-      <div className={hudGlyph ? hudGlyphShadowClass : hudGlyphShadowNoneClass}>
+      <div
+        className={
+          this.props.hudGlyph ? hudGlyphShadowClass : hudGlyphShadowNoneClass
+        }
+      >
         <div className={hudGlyphBoxClass}>
-          <i className={`${hudGlyphContentClass} fa fa-${hudGlyph}`} />
+          <i
+            className={`${hudGlyphContentClass} fa fa-${this.props.hudGlyph}`}
+          />
         </div>
       </div>
     );
   }
 
   renderTicket () {
-    const hatch = this.props.hatch;
-
     const boxClass = this.styles.classNames.box;
     const shadowClass = this.styles.classNames.shadow;
     const shapeClass = this.styles.classNames.shape;
@@ -95,7 +98,7 @@ class Ticket extends Widget {
     );
     const hs = this.context.theme.shapes.ticketHatchSize;
     const ht = Unit.multiply (hs, 2);
-    const htmlHatch = Bool.isTrue (hatch)
+    const htmlHatch = Bool.isTrue (this.props.hatch)
       ? <svg width={w} height={h} className={hatchClass}>
           <defs>
             <pattern
@@ -150,8 +153,6 @@ class Ticket extends Widget {
   }
 
   renderRect () {
-    const hatch = this.props.hatch;
-
     const rectShadowClass = this.styles.classNames.rectShadow;
     const rectClass = this.styles.classNames.rect;
     const rectHoverClass = this.styles.classNames.rectHover;
@@ -171,7 +172,9 @@ class Ticket extends Widget {
         <div className={rectClass}>
           <div
             className={
-              Bool.isTrue (hatch) ? rectContentHatchClass : contentClass
+              Bool.isTrue (this.props.hatch)
+                ? rectContentHatchClass
+                : contentClass
             }
           >
             {this.renderBackgroundText ()}
@@ -185,9 +188,7 @@ class Ticket extends Widget {
   }
 
   renderSubpane () {
-    const subkind = this.props.subkind;
-
-    const rectClass = subkind === 'dragged'
+    const rectClass = this.props.subkind === 'dragged'
       ? this.styles.classNames.subpaneDragged
       : this.styles.classNames.subpaneRect;
 
@@ -232,12 +233,11 @@ class Ticket extends Widget {
   }
 
   render () {
-    const kind = this.props.kind;
-    if (kind === 'ticket') {
+    if (this.props.kind === 'ticket') {
       return this.renderTicket ();
-    } else if (kind === 'cover') {
+    } else if (this.props.kind === 'cover') {
       return this.renderCover ();
-    } else if (kind === 'subpane') {
+    } else if (this.props.kind === 'subpane') {
       return this.renderSubpane ();
     } else {
       // 'rect' 'thin' 'event' ... ?

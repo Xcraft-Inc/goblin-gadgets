@@ -3,12 +3,10 @@ import {Unit} from 'electrum-theme';
 /******************************************************************************/
 
 export default function styles (theme, props) {
-  const navigator = props.navigator;
-
   const m = theme.shapes.containerMargin;
   const halfMargin = Unit.multiply (m, 0.5);
 
-  const boxGrow = navigator ? '1' : null;
+  const boxGrow = props.navigator ? '1' : null;
 
   const boxStyle = {
     display: 'flex',

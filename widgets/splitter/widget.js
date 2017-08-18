@@ -14,20 +14,18 @@ class Splitter extends Widget {
       throw new Error (`Wrong Splitter kind ${this.kind}`);
     }
 
-    const firstSize = this.props.firstSize;
-    const lastSize = this.props.lastSize;
-    if (firstSize && lastSize) {
+    if (this.props.firstSize && this.props.lastSize) {
       throw new Error (
-        `Splitter must have both firstSize (${firstSize}) and lastSize (${lastSize})`
+        `Splitter must have both firstSize (${this.props.firstSize}) and lastSize (${this.props.lastSize})`
       );
     }
-    if (firstSize) {
-      const x = Unit.parse (firstSize);
+    if (this.props.firstSize) {
+      const x = Unit.parse (this.props.firstSize);
       this.firstSize = x.value;
       this.unit = x.unit;
       this.master = 'first';
     } else {
-      const x = Unit.parse (lastSize);
+      const x = Unit.parse (this.props.lastSize);
       this.lastSize = x.value;
       this.unit = x.unit;
       this.master = 'last';

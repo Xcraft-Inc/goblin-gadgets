@@ -163,45 +163,36 @@ function getHoverPath (theme, shape, hoverShape, width, height) {
 }
 
 export default function styles (theme, props) {
-  const width = props.width;
-  const height = props.height;
-  const kind = props.kind;
-  const shape = props.shape;
-  const hoverShape = props.hoverShape;
-  const color = props.color;
-  const cursor = props.cursor;
-  const verticalSpacing = props.verticalSpacing;
   const horizontalSpacing = props.horizontalSpacing
     ? props.horizontalSpacing
     : '0px';
-  const hideContent = props.hideContent;
 
-  const r = kind === 'thin' || kind === 'event'
+  const r = props.kind === 'thin' || props.kind === 'event'
     ? theme.shapes.ticketRectRadius
     : theme.shapes.ticketCornerRadius;
   let radius;
-  if (shape === 'first') {
+  if (props.shape === 'first') {
     radius = r + ' ' + r + ' 0px 0px';
-  } else if (shape === 'last') {
+  } else if (props.shape === 'last') {
     radius = '0px 0px ' + r + ' ' + r;
   } else {
     radius = r;
   }
   let hoverRadius;
-  if (hoverShape === 'first') {
+  if (props.hoverShape === 'first') {
     hoverRadius = r + ' ' + r + ' 0px 0px';
-  } else if (hoverShape === 'last') {
+  } else if (props.hoverShape === 'last') {
     hoverRadius = '0px 0px ' + r + ' ' + r;
   } else {
     hoverRadius = r;
   }
 
   const boxStyle = {
-    width: width,
-    height: height,
-    margin: '0px ' + horizontalSpacing + ' ' + verticalSpacing + ' 0px',
+    width: props.width,
+    height: props.height,
+    margin: '0px ' + horizontalSpacing + ' ' + props.verticalSpacing + ' 0px',
     position: 'relative',
-    cursor: cursor,
+    cursor: props.cursor,
     transition: theme.transitions.easeOut (),
     userSelect: 'none',
   };
@@ -214,7 +205,7 @@ export default function styles (theme, props) {
 
   const shapeStyle = {
     position: 'absolute',
-    fill: color,
+    fill: props.color,
     transition: theme.transitions.easeOut (),
   };
 
@@ -225,7 +216,7 @@ export default function styles (theme, props) {
   };
 
   const svgStyle = {
-    path: getOutlinePath (theme, shape, width, height),
+    path: getOutlinePath (theme, props.shape, props.width, props.height),
   };
 
   const hoverStyle = {
@@ -233,12 +224,20 @@ export default function styles (theme, props) {
     top: '0px',
     fill: 'transparent',
     transition: theme.transitions.easeOut (),
-    path: getHoverPath (theme, shape, hoverShape, width, height),
+    path: getHoverPath (
+      theme,
+      props.shape,
+      props.hoverShape,
+      props.width,
+      props.height
+    ),
     ':hover': {fill: theme.palette.ticketHover},
   };
 
-  const vp = kind === 'thin' ? '0px' : theme.shapes.ticketVerticalPadding;
-  const hp = kind === 'thin' ? '0px' : theme.shapes.ticketHorizontalPadding;
+  const vp = props.kind === 'thin' ? '0px' : theme.shapes.ticketVerticalPadding;
+  const hp = props.kind === 'thin'
+    ? '0px'
+    : theme.shapes.ticketHorizontalPadding;
   const contentStyle = {
     position: 'relative',
     padding: vp + ' ' + hp,
@@ -246,36 +245,38 @@ export default function styles (theme, props) {
     flexDirection: 'row',
     transition: theme.transitions.easeOut (),
     userSelect: 'none',
-    visibility: Bool.isTrue (hideContent) ? 'hidden' : 'visible',
+    visibility: Bool.isTrue (props.hideContent) ? 'hidden' : 'visible',
   };
 
   const rectShadowStyle = {
-    width: width,
-    height: height,
-    margin: '0px ' + horizontalSpacing + ' ' + verticalSpacing + ' 0px',
+    width: props.width,
+    height: props.height,
+    margin: '0px ' + horizontalSpacing + ' ' + props.verticalSpacing + ' 0px',
     position: 'relative',
     top: theme.shapes.ticketShadowShift,
-    cursor: cursor,
+    cursor: props.cursor,
     transition: theme.transitions.easeOut (),
     borderRadius: radius,
     backgroundColor: theme.palette.ticketShadow,
   };
 
   const rectStyle = {
-    height: height,
+    height: props.height,
     position: 'relative',
     top: '-' + theme.shapes.ticketShadowShift,
-    cursor: cursor,
+    cursor: props.cursor,
     transition: theme.transitions.easeOut (),
     borderRadius: radius,
-    backgroundColor: color,
+    backgroundColor: props.color,
   };
 
   const hc = 'rgba(0,0,0,' + theme.palette.ticketHatchOpacity + ')';
   const hs = theme.shapes.ticketHatchSize;
   const ht = Unit.multiply (hs, 2);
   const rectContentHatchStyle = {
-    height: height ? Unit.sub (height, Unit.multiply (vp, 2)) : null,
+    height: props.height
+      ? Unit.sub (props.height, Unit.multiply (vp, 2))
+      : null,
     position: 'relative',
     padding: vp + ' ' + hp,
     display: 'flex',
@@ -288,7 +289,7 @@ export default function styles (theme, props) {
   let rectHoverStyle;
   const t1 = theme.shapes.ticketHoverThickness;
   const t2 = Unit.multiply (theme.shapes.ticketHoverThickness, 2);
-  if (hoverShape === 'first') {
+  if (props.hoverShape === 'first') {
     // n.
     rectHoverStyle = {
       position: 'absolute',
@@ -301,7 +302,7 @@ export default function styles (theme, props) {
       borderStyle: 'solid solid none solid',
       borderColor: 'transparent',
     };
-  } else if (hoverShape === 'last') {
+  } else if (props.hoverShape === 'last') {
     // u.
     rectHoverStyle = {
       position: 'absolute',
@@ -385,23 +386,23 @@ export default function styles (theme, props) {
 
   const coverStyle = {
     display: 'flex',
-    width: width,
+    width: props.width,
     height: '100%',
     margin: '0px',
     position: 'relative',
-    cursor: cursor,
+    cursor: props.cursor,
     transition: theme.transitions.easeOut (),
-    backgroundColor: color,
+    backgroundColor: props.color,
   };
 
-  const w = width ? Unit.multiply (width, 0.5) : null;
+  const w = props.width ? Unit.multiply (props.width, 0.5) : null;
   const coverContentStyle = {
     display: 'flex',
-    height: width,
-    lineHeight: width,
+    height: props.width,
+    lineHeight: props.width,
     margin: theme.shapes.ticketCoverTopMargin + ' 0px 0px 0px',
     position: 'relative',
-    cursor: cursor,
+    cursor: props.cursor,
     transition: theme.transitions.easeOut (),
     transform: 'rotate(90deg)', // 90 deg CW, from top to bottom
     transformOrigin: w + ' ' + w,
@@ -423,12 +424,12 @@ export default function styles (theme, props) {
     flexGrow: 1,
     justifyContent: 'flex-start',
     alignItems: 'stretch',
-    margin: '0px ' + horizontalSpacing + ' ' + verticalSpacing + ' 0px',
+    margin: '0px ' + horizontalSpacing + ' ' + props.verticalSpacing + ' 0px',
     padding: m + ' ' + m + ' ' + Unit.multiply (m, 0.5) + ' ' + m,
     borderWidth: '2px',
     borderStyle: 'dashed none none none',
     borderColor: theme.palette.ticketSubpaneBorder,
-    backgroundColor: color,
+    backgroundColor: props.color,
   };
   const subpaneDraggedStyle = {
     display: 'flex',
@@ -440,10 +441,10 @@ export default function styles (theme, props) {
     borderWidth: '2px',
     borderStyle: 'solid',
     borderColor: theme.palette.ticketSubpaneBorder,
-    backgroundColor: color,
+    backgroundColor: props.color,
   };
   const subpaneContentStyle = {
-    visibility: Bool.isTrue (hideContent) ? 'hidden' : 'visible',
+    visibility: Bool.isTrue (props.hideContent) ? 'hidden' : 'visible',
   };
 
   return {
