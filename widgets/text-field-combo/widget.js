@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
 import * as ComboHelpers from '../helpers/combo-helpers.js';
+import * as Bool from '../helpers/boolean-helpers.js';
 
 import Button from 'gadgets/button/widget';
 import TextField from 'gadgets/text-field/widget';
@@ -93,7 +94,7 @@ class TextFieldCombo extends Widget {
   }
 
   onMouseDown () {
-    if (this.props.readonly === 'true') {
+    if (Bool.isTrue (this.props.readonly)) {
       this.onButtonClicked ();
     }
   }
@@ -113,7 +114,7 @@ class TextFieldCombo extends Widget {
     const displayValue = autoReadonly ? this.props.selectedValue : null;
     const visibleReadonly = this.props.readonly
       ? this.props.readonly
-      : autoReadonly ? 'true' : 'false';
+      : Bool.toString (autoReadonly);
 
     const s = this.props.shape ? this.props.shape : 'smooth';
     const textFieldShapes = {
@@ -259,7 +260,7 @@ class TextFieldCombo extends Widget {
   }
 
   render () {
-    if (this.props.show === 'false') {
+    if (Bool.isFalse (this.props.show)) {
       return null;
     }
 

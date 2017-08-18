@@ -1,5 +1,6 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
+import * as Bool from '../helpers/boolean-helpers.js';
 
 import TableRow from 'gadgets/table-row/widget';
 import TableCell from 'gadgets/table-cell/widget';
@@ -24,7 +25,7 @@ class Table extends Widget {
   }
 
   onSelectionChanged (id) {
-    if (this.props.enableSelection === 'true') {
+    if (Bool.isTrue (this.props.enableSelection)) {
       if (id === this.selectedRow) {
         this.selectedRow = null; // deselect the selected row
       } else {
@@ -43,7 +44,7 @@ class Table extends Widget {
         width={column.get ('width')}
         grow={column.get ('grow')}
         textAlign={column.get ('textAlign')}
-        isLast={isLast ? 'true' : 'false'}
+        isLast={Bool.toString (isLast)}
         isHeader="true"
         text={column.get ('description')}
       />
@@ -76,7 +77,7 @@ class Table extends Widget {
         row={row}
         key={index}
         index={index}
-        selected={this.selectedRow === row.get ('id', null) ? 'true' : 'false'}
+        selected={Bool.toString (this.selectedRow === row.get ('id', null))}
         selectionChanged={::this.onSelectionChanged}
       />
     );

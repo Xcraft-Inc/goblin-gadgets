@@ -43,7 +43,7 @@ export default function styles (theme, props) {
   let boxPaddingBottom = '0px';
   let boxPaddingLeft = '0px';
   let boxZIndex = props.zIndex;
-  let boxOpacity = props.visibility === 'false' ? 0 : null;
+  let boxOpacity = Bool.isFalse (props.visibility) ? 0 : null;
   let borderWidth = '1px';
   let borderColor = theme.palette.buttonBorder;
   let borderStyle = 'solid';
@@ -198,7 +198,7 @@ export default function styles (theme, props) {
     backgroundColor = theme.palette.paneNavigatorBackground;
     borderStyle = 'none none solid none';
     textSize = theme.shapes.paneNavigatorTextSize;
-    if (props.active === 'false') {
+    if (Bool.isFalse (props.active)) {
       borderColor = theme.palette.paneNavigatorInactiveBorder;
       textColor = theme.palette.paneNavigatorInactiveText;
     } else if (Bool.isTrue (props.active)) {
@@ -217,7 +217,7 @@ export default function styles (theme, props) {
     backgroundColor = theme.palette.paneNavigatorBackground;
     borderStyle = 'none none solid none';
     textSize = theme.shapes.paneNavigatorTextSize;
-    if (props.active === 'false') {
+    if (Bool.isFalse (props.active)) {
       borderColor = theme.palette.paneNavigatorInactiveBorder;
       textColor = theme.palette.paneNavigatorInactiveText;
     } else if (Bool.isTrue (props.active)) {
@@ -236,7 +236,7 @@ export default function styles (theme, props) {
     boxMarginBottom = '1px';
     borderStyle = 'none';
     textSize = theme.shapes.paneNavigatorTextSize;
-    if (props.active === 'false') {
+    if (Bool.isFalse (props.active)) {
       backgroundColor = theme.palette.vnavigatorButtonInactiveBackground;
     } else if (Bool.isTrue (props.active)) {
       backgroundColor = activeColor
@@ -712,7 +712,7 @@ export default function styles (theme, props) {
     userSelect: 'none',
   };
 
-  if (Bool.isFalse (props.disabled) && boxOpacity !== 0) {
+  if (!Bool.isTrue (props.disabled) && boxOpacity !== 0) {
     boxStyle[':hover'] = {
       color: textHoverColor, // (*)
       borderColor: borderHoverColor,

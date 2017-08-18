@@ -2,6 +2,7 @@ import React from 'react';
 import Widget from 'laboratory/widget';
 import * as GlyphHelpers from '../helpers/glyph-helpers.js';
 import * as ComboHelpers from '../helpers/combo-helpers.js';
+import * as Bool from '../helpers/boolean-helpers.js';
 import {ColorHelpers} from 'electrum-theme';
 import {Unit} from 'electrum-theme';
 
@@ -69,7 +70,7 @@ class GlyphsDialog extends Widget {
         glyph={g.glyph}
         glyphColor={color}
         text={glyph.get ('name')}
-        active={selected ? 'true' : 'false'}
+        active={Bool.toString (selected)}
         onClick={() => ::this.onToggleGlyph (glyph.get ('id'))}
       />
     );

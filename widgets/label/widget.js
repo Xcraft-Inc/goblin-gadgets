@@ -1,5 +1,6 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
+import * as Bool from '../helpers/boolean-helpers.js';
 
 /******************************************************************************/
 
@@ -132,8 +133,7 @@ class Label extends Widget {
         if (hasEol1 || hasEol2 || hasBr || hasEm) {
           // complex text ?
           const lines = text.split (hasBr ? '<br/>' : hasEol1 ? '\n' : '\\n');
-          const singleLine = this.props.singleLine;
-          if (singleLine === 'true') {
+          if (Bool.isTrue (this.props.singleLine)) {
             const line = lines.join (', ');
             return this.renderSimpleText (index, line);
           } else {
@@ -190,13 +190,13 @@ class Label extends Widget {
   }
 
   render () {
-    if (this.props.show === 'false') {
+    if (Bool.isFalse (this.props.show)) {
       return null;
     }
 
     const boxClass = this.styles.classNames.box;
 
-    if (this.props.insideButton === 'true') {
+    if (Bool.isTrue (this.props.insideButton)) {
       return (
         <div
           className={boxClass}

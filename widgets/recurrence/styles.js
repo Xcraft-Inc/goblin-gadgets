@@ -1,9 +1,10 @@
 import {Unit} from 'electrum-theme';
+import * as Bool from '../helpers/boolean-helpers.js';
 
 /******************************************************************************/
 
 export default function styles (theme, props) {
-  const extended = props.extended === 'true';
+  const extended = Bool.isTrue (props.extended);
   const isDragged = props.isDragged;
   const hasHeLeft = props.hasHeLeft;
 

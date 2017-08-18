@@ -1,3 +1,6 @@
+// WARNING:
+// isTrue (x) !== !isFalse(x)
+
 export function isTrue (value) {
   const type = typeof value;
   if (type === 'boolean') {
@@ -5,12 +8,19 @@ export function isTrue (value) {
   } else if (type === 'string') {
     return value === 'true';
   } else {
-    return value;
+    return false; // if undefined, never true
   }
 }
 
 export function isFalse (value) {
-  return !isTrue (value);
+  const type = typeof value;
+  if (type === 'boolean') {
+    return !value;
+  } else if (type === 'string') {
+    return value === 'false';
+  } else {
+    return false; // if undefined, never false
+  }
 }
 
 export function toString (value) {

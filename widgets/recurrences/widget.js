@@ -1,6 +1,7 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 import {Unit} from 'electrum-theme';
+import * as Bool from '../helpers/boolean-helpers.js';
 
 import Recurrence from 'gadgets/recurrence/widget';
 import Container from 'gadgets/container/widget';
@@ -74,7 +75,7 @@ class Recurrences extends Widget {
         doDragEnding={::this.onDragEnding}
       >
         <WiredRecurrence
-          extended={extended ? 'true' : 'false'}
+          extended={Bool.toString (extended)}
           onDeleteRecurrence={() => ::this.onDeleteRecurrence (recurrenceId)}
         />
       </DragCab>

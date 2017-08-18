@@ -1,3 +1,4 @@
+import * as Bool from '../helpers/boolean-helpers.js';
 import {ColorManipulator} from 'electrum-theme';
 
 /******************************************************************************/
@@ -24,10 +25,10 @@ export default function styles (theme, props) {
     minWidth = '0px';
     overflow = 'hidden';
   }
-  if (props.isLast === 'false') {
+  if (Bool.isFalse (props.isLast)) {
     marginRight = theme.shapes.tablePadding;
   }
-  if (props.isHeader === 'true') {
+  if (Bool.isTrue (props.isHeader)) {
     fontWeight = 'bold';
     textTransform = 'uppercase';
   }

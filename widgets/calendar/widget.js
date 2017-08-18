@@ -1,6 +1,7 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 import * as Converters from '../helpers/converters';
+import * as Bool from '../helpers/boolean-helpers.js';
 
 import Label from 'gadgets/label/widget';
 import Button from 'gadgets/button/widget';
@@ -404,7 +405,7 @@ class Calendar extends Widget {
         textColor="none"
         grow="1"
         onClick={() => ::this.onVisibleDateMonth (month)}
-        active={active ? 'true' : 'false'}
+        active={Bool.toString (active)}
         spacing="tiny"
       />
     );

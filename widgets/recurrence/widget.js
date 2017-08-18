@@ -3,6 +3,7 @@ import CronParser from 'cron-parser';
 import Form from 'laboratory/form';
 import * as Converters from '../helpers/converters';
 import * as CronHelpers from '../helpers/cron-helpers';
+import * as Bool from '../helpers/boolean-helpers.js';
 
 import Calendar from 'gadgets/calendar/widget';
 import LabelTextField from 'gadgets/label-text-field/widget';
@@ -188,7 +189,7 @@ class Recurrence extends Form {
               ? 'Compacte la récurrence'
               : 'Etend la récurrence pour la modifier'
           }
-          active={extended ? 'true' : 'false'}
+          active={Bool.toString (extended)}
           activeColor={
             this.context.theme.palette.recurrenceExtendedBoxBackground
           }
@@ -244,7 +245,7 @@ class Recurrence extends Form {
             glyph="eraser"
             tooltip="Supprime toutes les exceptions"
             spacing="overlap"
-            visibility={this.hasExceptions ? 'true' : 'false'}
+            visibility={Bool.toString (this.hasExceptions)}
             onClick={::this.onEraseEvents}
           />
           <Button
@@ -286,7 +287,7 @@ class Recurrence extends Form {
       return null;
     }
 
-    const extended = this.props.extended === 'true';
+    const extended = Bool.isTrue (this.props.extended);
     const mainClass = this.styles.classNames.main;
 
     const initialState = {

@@ -1,5 +1,7 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
+
+import * as Bool from '../helpers/boolean-helpers.js';
 import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
@@ -93,7 +95,7 @@ class Ticket extends Widget {
     );
     const hs = this.context.theme.shapes.ticketHatchSize;
     const ht = Unit.multiply (hs, 2);
-    const htmlHatch = hatch === 'true'
+    const htmlHatch = Bool.isTrue (hatch)
       ? <svg width={w} height={h} className={hatchClass}>
           <defs>
             <pattern
@@ -168,7 +170,9 @@ class Ticket extends Widget {
       >
         <div className={rectClass}>
           <div
-            className={hatch === 'true' ? rectContentHatchClass : contentClass}
+            className={
+              Bool.isTrue (hatch) ? rectContentHatchClass : contentClass
+            }
           >
             {this.renderBackgroundText ()}
             {this.props.children}

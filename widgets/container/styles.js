@@ -1,6 +1,7 @@
 import {Unit} from 'electrum-theme';
 import {ColorHelpers} from 'electrum-theme';
 import {ColorManipulator} from 'electrum-theme';
+import * as Bool from '../helpers/boolean-helpers.js';
 
 /******************************************************************************/
 
@@ -478,7 +479,7 @@ export default function styles (theme, props) {
       borderBottomStyle = 'solid';
       topMargin = halfMargin;
       bottomMargin = Unit.sub (Unit.multiply (halfMargin, -1), '1px');
-      if (props.selected === 'true') {
+      if (Bool.isTrue (props.selected)) {
         borderLeftWidth = theme.shapes.markWidth;
         borderLeftStyle = 'solid';
         borderLeftColor = ColorHelpers.getMarkColor (theme, 'base');
@@ -524,7 +525,7 @@ export default function styles (theme, props) {
       height = theme.shapes.lineHeight;
       bottomMargin = Unit.multiply (halfMargin, -1);
     }
-    if (props.selected === 'true' && props.subkind !== 'large-box') {
+    if (Bool.isTrue (props.selected) && props.subkind !== 'large-box') {
       backgroundColor = theme.palette.paneSelectedBackground;
       color = theme.palette.paneSelectedText;
     }
@@ -753,7 +754,7 @@ export default function styles (theme, props) {
     borderStyle = 'solid';
     borderColor = theme.palette.buttonBorder;
     borderRadius = theme.shapes.thinRadius;
-    if (props.selected === 'true') {
+    if (Bool.isTrue (props.selected)) {
       backgroundColor = theme.palette.paneSelectedBackground;
       color = theme.palette.paneSelectedText;
     } else {
@@ -833,7 +834,7 @@ export default function styles (theme, props) {
     flexBasis = '0%';
   }
 
-  if (hidden === 'true') {
+  if (Bool.isTrue (hidden)) {
     display = 'none';
   }
 

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
 import {Unit} from 'electrum-theme';
+import * as Bool from '../helpers/boolean-helpers.js';
 
 import DragCarrier from 'gadgets/drag-carrier/widget';
 
@@ -101,8 +102,7 @@ class DragCab extends Widget {
     if (mouseDown && mouseDown (e)) {
       return;
     }
-    const noDrag = this.props.noDrag;
-    if (noDrag === 'true') {
+    if (Bool.isTrue (this.props.noDrag)) {
       return; // if drag prohibited, don't initiate drag & drop ?
     }
     const dc = findDragController (this.props.theme, e.clientX, e.clientY);
@@ -145,8 +145,7 @@ class DragCab extends Widget {
     if (mouseUp && mouseUp (e)) {
       return;
     }
-    const noDrag = this.props.noDrag;
-    if (noDrag === 'true') {
+    if (Bool.isTrue (this.props.noDrag)) {
       // simple click when drag prohibited ?
       this.doClickAction (e);
     }

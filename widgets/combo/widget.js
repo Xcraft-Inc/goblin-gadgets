@@ -5,6 +5,7 @@ import MouseTrap from 'mousetrap';
 import {ColorHelpers} from 'electrum-theme';
 import * as GlyphHelpers from '../helpers/glyph-helpers.js';
 import * as RectHelpers from '../helpers/rect-helpers.js';
+import * as Bool from '../helpers/boolean-helpers.js';
 import {Unit} from 'electrum-theme';
 
 import Container from 'gadgets/container/widget';
@@ -96,7 +97,7 @@ class Combo extends Widget {
       return <Separator key={index} kind="menu-separator" />;
     } else {
       if (this.props.menuType === 'wrap') {
-        const active = item.glyph === 'none' ? 'false' : 'true';
+        const active = Bool.toString (item.glyph !== 'none');
         const width = this.props.menuItemWidth
           ? Unit.sub (
               this.props.menuItemWidth,
@@ -109,7 +110,9 @@ class Combo extends Widget {
             kind="combo-wrap-item"
             width={width}
             text={item.text}
-            tooltip={this.props.menuItemTooltips === 'true' ? item.text : null}
+            tooltip={
+              Bool.isTrue (this.props.menuItemTooltips) ? item.text : null
+            }
             shortcut={item.shortcut}
             textTransform="none"
             active={active}

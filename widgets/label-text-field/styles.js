@@ -1,3 +1,4 @@
+import * as Bool from '../helpers/boolean-helpers.js';
 import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
@@ -7,7 +8,7 @@ export default function styles (theme, props) {
   let flexShrink = null;
   let flexBasis = null;
   let marginRight = null;
-  let opacity = props.visibility === 'false' ? 0 : null;
+  let opacity = Bool.isFalse (props.visibility) ? 0 : null;
 
   const m = Unit.multiply (theme.shapes.containerMargin, 0.5);
 

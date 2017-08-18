@@ -1,3 +1,4 @@
+import * as Bool from '../helpers/boolean-helpers.js';
 import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
@@ -245,7 +246,7 @@ export default function styles (theme, props) {
     flexDirection: 'row',
     transition: theme.transitions.easeOut (),
     userSelect: 'none',
-    visibility: hideContent === 'true' ? 'hidden' : 'visible',
+    visibility: Bool.isTrue (hideContent) ? 'hidden' : 'visible',
   };
 
   const rectShadowStyle = {
@@ -442,7 +443,7 @@ export default function styles (theme, props) {
     backgroundColor: color,
   };
   const subpaneContentStyle = {
-    visibility: hideContent === 'true' ? 'hidden' : 'visible',
+    visibility: Bool.isTrue (hideContent) ? 'hidden' : 'visible',
   };
 
   return {

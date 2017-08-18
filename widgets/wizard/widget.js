@@ -1,6 +1,7 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 import Form from 'laboratory/form';
+import * as Bool from '../helpers/boolean-helpers.js';
 import {Unit} from 'electrum-theme';
 
 import Button from 'gadgets/button/widget';
@@ -182,7 +183,7 @@ class Wizard extends Form {
             model={model}
             defaultValue={value}
             menuType="wrap"
-            readonly={type === 'combo' ? 'true' : 'false'}
+            readonly={Bool.toString (type === 'combo')}
             grow="1"
             list={list}
             comboTextTransform="none"
@@ -195,14 +196,10 @@ class Wizard extends Form {
         <Container kind="row-pane" subkind="left" key={index}>
           <Label text={field} width="180px" />
           <Button
-            glyph={value === 'true' ? 'check' : null}
+            glyph={Bool.isTrue (value) ? 'check' : null}
             width="32px"
             onClick={() => {
-              if (value === 'true') {
-                this.setModel (model, 'false');
-              } else {
-                this.setModel (model, 'true');
-              }
+              this.setModel (model, Bool.toString (Bool.isFalse (value)));
             }}
           />
         </Container>
@@ -622,7 +619,7 @@ class Wizard extends Form {
         key={index}
         text={value}
         kind="active"
-        checked={getter () === value ? 'true' : 'false'}
+        checked={Bool.toString (getter () === value)}
         onClick={() => {
           setter (value);
         }}
@@ -651,7 +648,7 @@ class Wizard extends Form {
       <CheckButton
         key={index * 100}
         kind="switch"
-        checked={preview.get ('value') ? 'true' : 'false'}
+        checked={Bool.toString (preview.get ('value'))}
         onClick={() => {
           this.setPreviewSettingValue (
             preview.get ('id'),

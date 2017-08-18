@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
 import {Control, Errors, actions} from 'react-redux-form/immutable';
+import * as Bool from '../helpers/boolean-helpers.js';
+
 import FlyingBalloon from 'gadgets/flying-balloon/widget';
 
 /******************************************************************************/
@@ -36,14 +38,14 @@ class TextField extends Widget {
     super.componentDidMount ();
 
     const defaultFocus = this.props.defaultFocus;
-    if (defaultFocus === 'true') {
+    if (Bool.isTrue (this.props.defaultFocus)) {
       this.selectAll ();
     }
   }
 
   selectAll () {
     const selectAllOnFocus = this.props.selectAllOnFocus || !!this.props.hinter;
-    if (selectAllOnFocus === 'true' || selectAllOnFocus === true) {
+    if (Bool.isTrue (selectAllOnFocus)) {
       if (this.input) {
         this.input.focus ();
         this.input.select ();
@@ -60,7 +62,7 @@ class TextField extends Widget {
   onFieldFocus () {
     this.navToHinter ();
     const selectAllOnFocus = this.props.selectAllOnFocus || !!this.props.hinter;
-    if (selectAllOnFocus === 'true' || selectAllOnFocus === true) {
+    if (Bool.isTrue (selectAllOnFocus)) {
       this.selectAll ();
     }
   }
@@ -75,7 +77,7 @@ class TextField extends Widget {
 
   renderInput () {
     const options = [];
-    if (this.props.readonly === 'true') {
+    if (Bool.isTrue (this.props.readonly)) {
       options.readOnly = 'readOnly';
     }
 
@@ -206,7 +208,7 @@ class TextField extends Widget {
   }
 
   render () {
-    if (this.props.show === 'false') {
+    if (Bool.isFalse (this.props.show)) {
       return null;
     }
 

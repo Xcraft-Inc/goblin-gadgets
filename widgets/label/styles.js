@@ -1,6 +1,7 @@
 import {Unit} from 'electrum-theme';
 import {ColorHelpers} from 'electrum-theme';
 import {ColorManipulator} from 'electrum-theme';
+import * as Bool from '../helpers/boolean-helpers.js';
 
 function convertJustify (justify) {
   switch (justify) {
@@ -41,7 +42,7 @@ export default function styles (theme, props) {
   let boxPaddingBottom = '0px';
   let boxPaddingLeft = '0px';
   let boxZIndex = props.zIndex;
-  let boxOpacity = props.visibility === 'false' ? 0 : null;
+  let boxOpacity = Bool.isFalse (props.visibility) ? 0 : null;
   let borderRadius = '0px';
   let backgroundColor = null;
   let textHoverColor = null;
@@ -72,7 +73,7 @@ export default function styles (theme, props) {
   let spacing = props.spacing;
   let specialDisabled = false;
 
-  if (props.insideButton === 'true') {
+  if (Bool.isTrue (props.insideButton)) {
     boxHeight = props.height ? props.height : theme.shapes.lineHeight;
     spacing = null;
     textWrap = textWrap ? textWrap : 'no';
@@ -111,7 +112,7 @@ export default function styles (theme, props) {
     }
   }
 
-  if (props.insideButton !== 'true' && !props.glyph) {
+  if (Bool.isFalse (props.insideButton) && !props.glyph) {
     // Label without glyph ?
     if (props.glyphPosition === 'right') {
       textMarginRight = '0px'; // push to right frame border
@@ -121,7 +122,7 @@ export default function styles (theme, props) {
   }
 
   // Choice glyph position into his square.
-  if (props.insideButton === 'true') {
+  if (Bool.isTrue (props.insideButton)) {
     glyphJustify = 'center';
   } else {
     if (props.glyphPosition === 'right') {
@@ -274,7 +275,7 @@ export default function styles (theme, props) {
   // task-logo button (usual parent container with kind='task-bar').
   if (props.kind === 'task-logo') {
     boxFlexDirection = 'column';
-    if (props.active === 'true') {
+    if (Bool.isTrue (props.active)) {
       textColor = theme.palette.taskTabActiveText;
     }
     textMarginTop = '0px';
@@ -325,7 +326,7 @@ export default function styles (theme, props) {
   // task-tab button (usual parent is container with kind='task-bar').
   if (props.kind === 'task-tab') {
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
-    if (props.active === 'true') {
+    if (Bool.isTrue (props.active)) {
       textColor = theme.palette.taskTabActiveText;
       textWeight = 'bold';
     } else {
@@ -345,7 +346,7 @@ export default function styles (theme, props) {
     textTransform = textTransform ? textTransform : 'uppercase';
     textWeight = 'bold';
     textSize = theme.shapes.paneNavigatorTextSize;
-    if (props.active === 'false') {
+    if (Bool.isFalse (props.active)) {
       textColor = theme.palette.paneNavigatorInactiveText;
     }
   }
@@ -353,7 +354,7 @@ export default function styles (theme, props) {
   // pane-hnavigator button (usual parent is container with kind='pane-hnavigator').
   if (props.kind === 'pane-hnavigator') {
     textSize = theme.shapes.paneNavigatorTextSize;
-    if (props.active === 'false') {
+    if (Bool.isFalse (props.active)) {
       textColor = theme.palette.paneNavigatorInactiveText;
     }
   }
@@ -378,7 +379,7 @@ export default function styles (theme, props) {
     glyphColor = theme.palette.notificationText;
     textColor = theme.palette.notificationText;
     textHoverColor = theme.palette.notificationTextHover;
-    if (props.disabled === 'true') {
+    if (Bool.isTrue (props.disabled)) {
       glyphColor = ColorManipulator.darken (
         theme.palette.notificationText,
         0.4
@@ -418,7 +419,7 @@ export default function styles (theme, props) {
 
   // Combo button, place to the right of a TextFieldCombo component.
   if (props.kind === 'combo') {
-    if (props.active === 'true') {
+    if (Bool.isTrue (props.active)) {
       glyphColor = theme.palette.comboActiveGlyph;
     }
   }
@@ -444,7 +445,7 @@ export default function styles (theme, props) {
     textSize = theme.shapes.menuTextSize;
     textTransform = textTransform ? textTransform : 'uppercase';
     textWeight = 'bold';
-    if (props.active === 'true') {
+    if (Bool.isTrue (props.active)) {
       glyphColor = theme.palette.menuText;
       textColor = theme.palette.menuText;
     } else if (props.active === 'focused') {
@@ -495,10 +496,10 @@ export default function styles (theme, props) {
   if (props.kind === 'calendar') {
     textSize = theme.shapes.calendarTextSize;
     textColor = theme.palette.calendarText;
-    if (props.active === 'true') {
+    if (Bool.isTrue (props.active)) {
       textColor = theme.palette.calendarActiveText;
     }
-    if (props.calendarDimmed === 'true') {
+    if (Bool.isTrue (props.calendarDimmed)) {
       textColor = theme.palette.calendarDimmedText;
     }
   }
@@ -522,14 +523,14 @@ export default function styles (theme, props) {
   }
 
   if (props.kind === 'chronos-navigator') {
-    if (props.active !== 'true') {
+    if (Bool.isFalse (props.active)) {
       glyphColor = theme.palette.chronoNavigatorText;
       textColor = theme.palette.chronoNavigatorText;
     }
   }
 
   if (props.kind === 'recurrence') {
-    if (props.active === 'true') {
+    if (Bool.isTrue (props.active)) {
       glyphColor = theme.palette.calendarActiveText;
       textColor = theme.palette.calendarActiveText;
     }
@@ -537,7 +538,7 @@ export default function styles (theme, props) {
 
   if (!props.kind) {
     borderRadius = theme.shapes.smoothRadius;
-    if (props.active === 'true') {
+    if (Bool.isTrue (props.active)) {
       backgroundColor = props.activeColor
         ? props.activeColor
         : theme.palette.boxActiveBackground;
@@ -603,7 +604,7 @@ export default function styles (theme, props) {
   }
 
   // Alter colors if component is disable.
-  if (props.disabled === 'true' && !specialDisabled) {
+  if (Bool.isTrue (props.disabled) && !specialDisabled) {
     if (backgroundColor) {
       backgroundColor = theme.palette.buttonDisableBackground;
     }
@@ -613,7 +614,7 @@ export default function styles (theme, props) {
 
   // If the Label is in a Button, it never has a backgroundColor.
   // Indeed, the background color is drawn by the Button.
-  if (props.insideButton === 'true') {
+  if (Bool.isTrue (props.insideButton)) {
     backgroundColor = null;
   }
 
@@ -627,7 +628,7 @@ export default function styles (theme, props) {
   }
 
   if (!boxJustifyContent) {
-    if (props.insideButton === 'true') {
+    if (Bool.isTrue (props.insideButton)) {
       boxJustifyContent = 'center';
     } else {
       boxJustifyContent = 'flex-start';
@@ -736,7 +737,7 @@ export default function styles (theme, props) {
     padding: '1px',
   };
 
-  if (props.disabled !== 'true' && boxOpacity !== 0) {
+  if (!Bool.isTrue (props.disabled) && boxOpacity !== 0) {
     boxStyle[':hover'] = {
       color: textHoverColor, // (*)
       opacity: 1.0,

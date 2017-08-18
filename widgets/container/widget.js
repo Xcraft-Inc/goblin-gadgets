@@ -1,5 +1,6 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
+import * as Bool from '../helpers/boolean-helpers.js';
 
 /******************************************************************************/
 
@@ -141,7 +142,7 @@ class Container extends Widget {
     // FIXME: what's the purpose of this? It's not used...
     const children = React.Children.map (this.props.children, (child, i) => {
       const active = {
-        active: i === index ? 'true' : 'false',
+        active: Bool.toString (i === index),
       };
       return React.cloneElement (child, active);
     });
@@ -164,7 +165,7 @@ class Container extends Widget {
     const boxClass = this.styles.classNames.box;
     const triangleClass = this.styles.classNames.triangle;
 
-    if (show === 'false') {
+    if (Bool.isFalse (show)) {
       return null;
     } else if (
       kind === 'flying-combo' ||

@@ -1,3 +1,4 @@
+import * as Bool from '../helpers/boolean-helpers.js';
 import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
@@ -14,7 +15,7 @@ export default function styles (theme, props) {
   let borderColor = theme.palette.buttonBorder;
   let fieldPaddingLeft = '10px';
   let fieldPaddingRight = '10px';
-  let opacity = props.visibility === 'false' ? 0 : null;
+  let opacity = Bool.isFalse (props.visibility) ? 0 : null;
 
   const m = Unit.multiply (theme.shapes.containerMargin, 0.5);
 
@@ -52,11 +53,11 @@ export default function styles (theme, props) {
 
   let color = theme.palette.textColor;
   let backgroundColor = theme.palette.textFieldBackground;
-  if (props.active === 'true') {
+  if (Bool.isTrue (props.active)) {
     color = theme.palette.comboActiveGlyph;
     backgroundColor = theme.palette.comboActiveBackground;
     borderColor = theme.palette.comboActiveBackground;
-  } else if (props.readonly === 'true') {
+  } else if (Bool.isTrue (props.readonly)) {
     backgroundColor = theme.palette.textFieldReadonlyBackground;
   } else {
     backgroundColor = theme.palette.textFieldBackground;

@@ -1,5 +1,6 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
+import * as Bool from '../helpers/boolean-helpers.js';
 
 import Button from 'gadgets/button/widget';
 import Label from 'gadgets/label/widget';
@@ -90,7 +91,7 @@ class LabelTextField extends Widget {
     const displayValue = autoReadonly ? this.props.selectedValue : null;
     const visibleReadonly = this.props.readonly
       ? this.props.readonly
-      : autoReadonly ? 'true' : 'false';
+      : Bool.toString (autoReadonly);
 
     const s = this.props.shape ? this.props.shape : 'smooth';
     const textFieldShapes = {
@@ -155,7 +156,7 @@ class LabelTextField extends Widget {
   }
 
   render () {
-    if (this.props.show === 'false') {
+    if (Bool.isFalse (this.props.show)) {
       return null;
     }
 

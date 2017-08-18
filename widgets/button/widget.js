@@ -1,6 +1,7 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 import * as ShortcutHelpers from '../helpers/shortcut-helpers.js';
+import * as Bool from '../helpers/boolean-helpers.js';
 
 import Label from 'gadgets/label/widget';
 import Menu from 'gadgets/menu/widget';
@@ -41,7 +42,7 @@ class Button extends Widget {
   }
 
   onMouseDown (e) {
-    if (this.props.disabled === 'true') {
+    if (Bool.isTrue (this.props.disabled)) {
       return;
     }
     const mouseDown = this.props.mouseDown;
@@ -51,7 +52,7 @@ class Button extends Widget {
   }
 
   onMouseUp (e) {
-    if (this.props.disabled === 'true') {
+    if (Bool.isTrue (this.props.disabled)) {
       return;
     }
     const mouseUp = this.props.mouseUp;
@@ -69,7 +70,7 @@ class Button extends Widget {
   }
 
   renderTriangle () {
-    if (this.props.kind === 'main-tab' && this.props.active === 'true') {
+    if (this.props.kind === 'main-tab' && Bool.isTrue (this.props.active)) {
       const triangleClass = this.styles.classNames.triangle;
       return <div className={triangleClass} key="triangle" />;
     }
@@ -125,7 +126,7 @@ class Button extends Widget {
   }
 
   render () {
-    if (this.props.show === 'false') {
+    if (Bool.isFalse (this.props.show)) {
       return null;
     }
 
