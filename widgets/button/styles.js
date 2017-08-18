@@ -47,20 +47,20 @@ export default function styles (theme, props) {
   let boxOpacity = Bool.isFalse (props.visibility) ? 0 : null;
   let borderWidth = '1px';
   let borderColor = theme.palette.buttonBorder;
+  let borderActiveColor = theme.palette.buttonBorder;
   let borderStyle = 'solid';
   let borderRadius = '0px';
   let backgroundColor = theme.palette.buttonBackground;
+  let activeColor = theme.palette.boxActiveBackground;
   let textHoverColor = null;
   let borderHoverColor = null;
   let backgroundHoverColor = null;
   let textColor = null;
+  let textActiveColor = null;
   let textSize = theme.shapes.buttonTextSize;
   let boxPosition = props.position ? props.position : 'relative';
   let cursor = props.cursor ? props.cursor : 'default';
   let transition = theme.transitions.easeOut ();
-  let activeColor = props.activeColor
-    ? ColorHelpers.getMarkColor (theme, props.activeColor)
-    : null;
   let specialDisabled = false;
 
   // Initialize variables for button without border.
@@ -85,14 +85,9 @@ export default function styles (theme, props) {
     boxHeight = theme.shapes.taskButtonHeight;
     boxFlexDirection = 'column';
     borderStyle = 'none';
-    if (Bool.isTrue (props.active)) {
-      backgroundColor = activeColor
-        ? activeColor
-        : theme.palette.taskTabActiveBackground;
-      textColor = theme.palette.taskTabActiveText;
-    } else {
-      backgroundColor = theme.palette.taskLogoBackground;
-    }
+    backgroundColor = theme.palette.taskLogoBackground;
+    activeColor = theme.palette.taskTabActiveBackground;
+    textActiveColor = theme.palette.taskTabActiveText;
     textSize = theme.shapes.taskLogoTextSize;
   }
 
@@ -112,13 +107,8 @@ export default function styles (theme, props) {
     boxMarginRight = '1px';
     borderStyle = 'none';
     textSize = theme.shapes.mainTabTextSize;
-    if (Bool.isTrue (props.active)) {
-      backgroundColor = activeColor
-        ? activeColor
-        : theme.palette.mainTabButtonActiveBackground;
-    } else {
-      backgroundColor = theme.palette.mainTabButtonInactiveBackground;
-    }
+    backgroundColor = theme.palette.mainTabButtonInactiveBackground;
+    activeColor = theme.palette.mainTabButtonActiveBackground;
     textColor = theme.palette.mainTabText;
   }
 
@@ -126,13 +116,8 @@ export default function styles (theme, props) {
     boxHeight = theme.shapes.mainTabHeight;
     borderStyle = 'none';
     textColor = theme.palette.mainTabText;
-    if (Bool.isTrue (props.active)) {
-      backgroundColor = activeColor
-        ? activeColor
-        : theme.palette.mainTabButtonActiveBackground;
-    } else {
-      backgroundColor = null;
-    }
+    backgroundColor = null;
+    activeColor = theme.palette.mainTabButtonActiveBackground;
     backgroundHoverColor = theme.palette.mainTabButtonActiveBackground;
   }
 
@@ -151,13 +136,8 @@ export default function styles (theme, props) {
     }
     borderStyle = 'none';
     textSize = theme.shapes.viewTabTextSize;
-    if (Bool.isTrue (props.active)) {
-      backgroundColor = activeColor
-        ? activeColor
-        : theme.palette.viewTabButtonActiveBackground;
-    } else {
-      backgroundColor = theme.palette.viewTabButtonInactiveBackground;
-    }
+    backgroundColor = theme.palette.viewTabButtonInactiveBackground;
+    activeColor = theme.palette.viewTabButtonActiveBackground;
   }
 
   if (props.kind === 'view-tab-right') {
@@ -178,15 +158,10 @@ export default function styles (theme, props) {
   if (props.kind === 'task-tab') {
     boxHeight = theme.shapes.taskTabHeight;
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
-    if (Bool.isTrue (props.active)) {
-      backgroundColor = activeColor
-        ? activeColor
-        : theme.palette.taskTabActiveBackground;
-      textColor = theme.palette.taskTabActiveText;
-    } else {
-      backgroundColor = theme.palette.taskTabInactiveBackground;
-      textColor = theme.palette.taskTabInactiveText;
-    }
+    backgroundColor = theme.palette.taskTabInactiveBackground;
+    activeColor = theme.palette.taskTabActiveBackground;
+    textColor = theme.palette.taskTabInactiveText;
+    textActiveColor = theme.palette.taskTabActiveText;
     borderStyle = 'none none solid none';
     borderColor = theme.palette.taskButtonBorder;
     textSize = theme.shapes.taskTabTextSize;
@@ -198,15 +173,10 @@ export default function styles (theme, props) {
     boxMarginBottom = '-1px';
     backgroundColor = theme.palette.paneNavigatorBackground;
     borderStyle = 'none none solid none';
+    borderColor = theme.palette.paneNavigatorInactiveBorder;
+    borderActiveColor = theme.palette.paneNavigatorActiveBorder;
     textSize = theme.shapes.paneNavigatorTextSize;
-    if (Bool.isFalse (props.active)) {
-      borderColor = theme.palette.paneNavigatorInactiveBorder;
-      textColor = theme.palette.paneNavigatorInactiveText;
-    } else if (Bool.isTrue (props.active)) {
-      borderColor = activeColor
-        ? activeColor
-        : theme.palette.paneNavigatorActiveBorder;
-    }
+    textColor = theme.palette.paneNavigatorInactiveText;
     borderHoverColor = theme.palette.paneNavigatorBorderHover;
     backgroundHoverColor = '#ffffff00'; // transparent
   }
@@ -217,15 +187,10 @@ export default function styles (theme, props) {
     boxMarginBottom = '-1px';
     backgroundColor = theme.palette.paneNavigatorBackground;
     borderStyle = 'none none solid none';
+    borderColor = theme.palette.paneNavigatorInactiveBorder;
+    borderActiveColor = theme.palette.paneNavigatorActiveBorder;
     textSize = theme.shapes.paneNavigatorTextSize;
-    if (Bool.isFalse (props.active)) {
-      borderColor = theme.palette.paneNavigatorInactiveBorder;
-      textColor = theme.palette.paneNavigatorInactiveText;
-    } else if (Bool.isTrue (props.active)) {
-      borderColor = activeColor
-        ? activeColor
-        : theme.palette.paneNavigatorActiveBorder;
-    }
+    textColor = theme.palette.paneNavigatorInactiveText;
     borderHoverColor = theme.palette.paneNavigatorBorderHover;
     backgroundHoverColor = '#ffffff00'; // transparent
   }
@@ -235,15 +200,10 @@ export default function styles (theme, props) {
     boxWidth = theme.shapes.vnavigatorButtonSize;
     boxHeight = theme.shapes.vnavigatorButtonSize;
     boxMarginBottom = '1px';
+    backgroundColor = theme.palette.vnavigatorButtonInactiveBackground;
     borderStyle = 'none';
     textSize = theme.shapes.paneNavigatorTextSize;
-    if (Bool.isFalse (props.active)) {
-      backgroundColor = theme.palette.vnavigatorButtonInactiveBackground;
-    } else if (Bool.isTrue (props.active)) {
-      backgroundColor = activeColor
-        ? activeColor
-        : theme.palette.vnavigatorButtonActiveBackground;
-    }
+    activeColor = theme.palette.vnavigatorButtonActiveBackground;
   }
 
   // Footer button (usual parent is container with kind='footer').
@@ -341,12 +301,8 @@ export default function styles (theme, props) {
 
   // Combo button, place to the right of a TextFieldCombo component.
   if (props.kind === 'combo') {
-    if (Bool.isTrue (props.active)) {
-      backgroundColor = activeColor
-        ? activeColor
-        : theme.palette.comboActiveBackground;
-      borderColor = theme.palette.comboActiveBackground;
-    }
+    activeColor = theme.palette.comboActiveBackground;
+    borderActiveColor = theme.palette.comboActiveBackground;
   }
 
   if (props.kind === 'round') {
@@ -396,17 +352,14 @@ export default function styles (theme, props) {
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     textSize = theme.shapes.menuTextSize;
     borderStyle = 'none';
-    if (Bool.isTrue (props.active)) {
-      textColor = theme.palette.menuText;
-      backgroundColor = activeColor
-        ? activeColor
-        : theme.palette.menuItemActiveBackground;
-    } else if (props.active === 'focused') {
-      textColor = theme.palette.menuFocusText;
-      backgroundColor = theme.palette.menuItemFocusBackground;
+    textColor = theme.palette.menuText;
+    backgroundColor = theme.palette.menuItemInactiveBackground;
+    if (props.active === 'focused') {
+      textActiveColor = theme.palette.menuFocusText;
+      activeColor = theme.palette.menuItemFocusBackground;
     } else {
-      textColor = theme.palette.menuText;
-      backgroundColor = theme.palette.menuItemInactiveBackground;
+      textActiveColor = theme.palette.menuText;
+      activeColor = theme.palette.menuItemActiveBackground;
     }
   }
 
@@ -417,12 +370,11 @@ export default function styles (theme, props) {
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     textSize = theme.shapes.menuTextSize;
     borderStyle = 'none';
-    if (Bool.isTrue (props.active)) {
-      backgroundColor = activeColor ? activeColor : '#ddd'; // FIXME: set to theme.palette
-    } else if (props.active === 'focused') {
-      backgroundColor = '#eee'; // FIXME: set to theme.palette
+    backgroundColor = '#fff'; // FIXME: set to theme.palette
+    if (props.active === 'focused') {
+      activeColor = '#eee'; // FIXME: set to theme.palette
     } else {
-      backgroundColor = '#fff'; // FIXME: set to theme.palette
+      activeColor = '#ddd'; // FIXME: set to theme.palette
     }
     backgroundHoverColor = '#eee'; // FIXME: set to theme.palette
   }
@@ -436,12 +388,11 @@ export default function styles (theme, props) {
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     textSize = theme.shapes.menuTextSize;
     borderStyle = 'none';
-    if (Bool.isTrue (props.active)) {
-      backgroundColor = activeColor ? activeColor : '#ddd'; // FIXME: set to theme.palette
-    } else if (props.active === 'focused') {
-      backgroundColor = '#eee'; // FIXME: set to theme.palette
+    backgroundColor = '#fff'; // FIXME: set to theme.palette
+    if (props.active === 'focused') {
+      activeColor = '#eee'; // FIXME: set to theme.palette
     } else {
-      backgroundColor = '#fff'; // FIXME: set to theme.palette
+      activeColor = '#ddd'; // FIXME: set to theme.palette
     }
     backgroundHoverColor = '#eee'; // FIXME: set to theme.palette
   }
@@ -452,11 +403,7 @@ export default function styles (theme, props) {
     boxMarginRight = theme.shapes.glyphsDialogButtonMargin;
     boxMarginBottom = theme.shapes.glyphsDialogButtonMargin;
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
-    if (Bool.isTrue (props.active)) {
-      backgroundColor = activeColor
-        ? activeColor
-        : theme.palette.boxActiveBackground;
-    }
+    activeColor = theme.palette.boxActiveBackground;
   }
 
   if (props.kind === 'tray-title') {
@@ -480,12 +427,8 @@ export default function styles (theme, props) {
     if (Bool.isTrue (props.calendarWeekend)) {
       backgroundColor = theme.palette.calendarWeekendBackground;
     }
-    if (Bool.isTrue (props.active)) {
-      backgroundColor = activeColor
-        ? activeColor
-        : theme.palette.calendarActiveBackground;
-      textColor = theme.palette.calendarActiveText;
-    }
+    activeColor = theme.palette.calendarActiveBackground;
+    textActiveColor = theme.palette.calendarActiveText;
     if (Bool.isTrue (props.calendarDimmed)) {
       backgroundColor = theme.palette.calendarBackground;
       backgroundHoverColor = theme.palette.calendarBackground; // no visible hover effect
@@ -506,13 +449,8 @@ export default function styles (theme, props) {
     borderStyle = 'none';
     boxPaddingTop = Unit.multiply (theme.shapes.lineSpacing, 0.5);
     boxPaddingBottom = Unit.multiply (theme.shapes.lineSpacing, 0.5);
-    if (Bool.isTrue (props.active)) {
-      backgroundColor = activeColor
-        ? activeColor
-        : theme.palette.boxActiveBackground;
-    } else {
-      backgroundColor = null;
-    }
+    backgroundColor = null;
+    activeColor = theme.palette.boxActiveBackground;
   }
 
   if (props.kind === 'container-start') {
@@ -530,41 +468,25 @@ export default function styles (theme, props) {
     borderStyle = 'none';
     boxMarginRight = m;
     boxMarginBottom = m;
-    if (Bool.isTrue (props.active)) {
-      backgroundColor = activeColor
-        ? activeColor
-        : theme.palette.boxActiveBackground;
-    } else {
-      backgroundColor = theme.palette.boxBackground;
-    }
+    backgroundColor = theme.palette.boxBackground;
+    activeColor = theme.palette.boxActiveBackground;
   }
 
   if (props.kind === 'chronos-navigator') {
     boxMarginBottom = '1px';
     borderRadius = theme.shapes.smoothRadius;
-    if (Bool.isTrue (props.active)) {
-      backgroundColor = activeColor
-        ? activeColor
-        : theme.palette.boxActiveBackground;
-    } else {
-      textColor = theme.palette.chronoNavigatorText;
-      backgroundHoverColor = ColorManipulator.fade (
-        theme.palette.buttonBackground,
-        0.3
-      );
-    }
+    textColor = theme.palette.chronoNavigatorText;
+    backgroundHoverColor = ColorManipulator.fade (
+      theme.palette.buttonBackground,
+      0.3
+    );
+    activeColor = theme.palette.boxActiveBackground;
   }
 
   if (props.kind === 'recurrence') {
-    if (Bool.isTrue (props.active)) {
-      textColor = theme.palette.calendarActiveText;
-      backgroundColor = activeColor
-        ? activeColor
-        : theme.palette.calendarActiveBackground;
-      borderColor = activeColor
-        ? activeColor
-        : theme.palette.calendarActiveBackground;
-    }
+    textActiveColor = theme.palette.calendarActiveText;
+    activeColor = theme.palette.calendarActiveBackground;
+    borderActiveColor = theme.palette.calendarActiveBackground;
   }
 
   if (props.kind === 'hover') {
@@ -577,11 +499,7 @@ export default function styles (theme, props) {
 
   if (!props.kind) {
     borderRadius = theme.shapes.smoothRadius;
-    if (Bool.isTrue (props.active)) {
-      backgroundColor = activeColor
-        ? activeColor
-        : theme.palette.boxActiveBackground;
-    }
+    activeColor = theme.palette.boxActiveBackground;
   }
 
   if (Bool.isTrue (props.badgePush)) {
@@ -618,6 +536,15 @@ export default function styles (theme, props) {
   }
   if (props.backgroundColor) {
     backgroundColor = ColorHelpers.getMarkColor (theme, props.backgroundColor);
+  }
+  if (props.activeColor) {
+    activeColor = ColorHelpers.getMarkColor (theme, props.activeColor);
+  }
+
+  if (Bool.isTrue (props.active) || props.active === 'focused') {
+    backgroundColor = activeColor;
+    textColor = textActiveColor;
+    borderColor = borderActiveColor;
   }
 
   // Compute colors for glyph, text and hover if necessary.
