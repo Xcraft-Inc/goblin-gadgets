@@ -42,24 +42,6 @@ class TextFieldTyped extends Widget {
     };
   }
 
-  getDisplayValue (model, view) {}
-
-  // Return the top line of FlyingBalloon, displayed in bold.
-  // Contains the optional error message.
-  getMessageWarning () {
-    return this.props.warning;
-  }
-
-  // Return the bottom line of FlyingBalloon.
-  // Contains the final value.
-  getMessageInfo () {
-    if (this.props.message !== this.props.value) {
-      return this.props.message;
-    } else {
-      return null;
-    }
-  }
-
   render () {
     return (
       <LabelTextField
@@ -67,7 +49,6 @@ class TextFieldTyped extends Widget {
         beforeChange={val => {
           return this.parseEditedValue (val).canonicalValue;
         }}
-        errors={{warning: val => this.parseEditedValue (val).warning}}
         getDisplayValue={(model, view) => {
           if (model && view) {
             if (view === model) {
@@ -75,6 +56,17 @@ class TextFieldTyped extends Widget {
             }
           }
           return view ? view : '';
+        }}
+        getWarning={(model, view) => {
+          return this.parseEditedValue (view).warning;
+        }}
+        getInfo={(model, view) => {
+          const parsed = this.parseEditedValue (view);
+          const canon = parsed.canonicalValue;
+          if (canon !== model) {
+            return parsed.displayedFinalValue;
+          }
+          return null;
         }}
         model={this.props.model}
         hintText={this.props.hintText}
@@ -87,8 +79,6 @@ class TextFieldTyped extends Widget {
         readonly={this.props.readonly}
         selectAllOnFocus={this.props.selectAllOnFocus}
         defaultFocus={this.props.defaultFocus}
-        messageWarning={this.getMessageWarning ()}
-        messageInfo={this.getMessageInfo ()}
       />
     );
   }

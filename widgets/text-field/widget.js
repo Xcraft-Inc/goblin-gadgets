@@ -14,7 +14,6 @@ class TextField extends Widget {
     this.onFieldFocus = this.onFieldFocus.bind (this);
     this.selectAll = this.selectAll.bind (this);
     this.renderInput = this.renderInput.bind (this);
-    this.renderFlyingBalloon = this.renderFlyingBalloon.bind (this);
   }
 
   static get wiring () {
@@ -101,6 +100,22 @@ class TextField extends Widget {
 
         return props.viewValue;
       },
+      warning: props => {
+        if (props.modelValue === props.viewValue) {
+          return null;
+        }
+        if (props.getWarning) {
+          return props.getWarning (props.modelValue, props.viewValue);
+        }
+      },
+      info: props => {
+        if (props.modelValue === props.viewValue) {
+          return null;
+        }
+        if (props.getInfo) {
+          return props.getInfo (props.modelValue, props.viewValue);
+        }
+      },
     };
 
     const beforeChange = (model, value) => {
@@ -112,117 +127,80 @@ class TextField extends Widget {
       }
     };
 
-    if (this.props.rows) {
-      const textareaClass = this.styles.classNames.textarea + ' mousetrap';
-      return (
-        <Control.textarea
-          className={textareaClass}
-          id={this.props.model}
-          changeAction={beforeChange}
-          getRef={node => {
-            this.input = node;
-          }}
-          parser={this.props.parser}
-          errors={this.props.errors}
-          mapProps={mapProps}
-          updateOn={this.props.updateOn ? this.props.updateOn : 'change'}
-          model={this.props.hinter ? `.${this.props.hinter}` : this.props.model}
-          onFocus={this.onFieldFocus}
-          onChange={this.props.onChange}
-          onMouseDown={this.props.onMouseDown}
-          disabled={this.props.disabled}
-          rows={this.props.rows}
-          tabIndex={this.props.tabIndex}
-          {...options}
-        />
-      );
-    } else {
-      const fieldClass = this.styles.classNames.field + ' mousetrap';
-      return (
-        <Control.text
-          className={fieldClass}
-          id={this.props.model}
-          changeAction={beforeChange}
-          getRef={node => {
-            this.input = node;
-          }}
-          parser={this.props.parser}
-          errors={this.props.errors}
-          mapProps={mapProps}
-          updateOn={this.props.updateOn ? this.props.updateOn : 'change'}
-          model={this.props.hinter ? `.${this.props.hinter}` : this.props.model}
-          onFocus={this.onFieldFocus}
-          onMouseDown={this.props.onMouseDown}
-          disabled={this.props.disabled}
-          maxLength={this.props.maxLength}
-          placeholder={this.props.hintText}
-          size={this.props.size || 'size'}
-          type={this.props.type || 'text'}
-          key="input"
-          tabIndex={this.props.tabIndex}
-          {...options}
-        />
-      );
-    }
-  }
+    const fieldClass = this.styles.classNames.field + ' mousetrap';
+    return (
+      <Control
+        className={fieldClass}
+        component={props => {
+          const type = props.rows ? 'textarea' : 'text';
+          const boxClass = this.styles.classNames.box;
+          if (props.warning || props.info) {
+            const trianglePosition = {
+              bottom: 'top',
+              top: 'bottom',
+              left: 'right',
+              right: 'left',
+              undefined: 'top',
+            }[props.flyingBalloonAnchor];
 
-  renderFlyingBalloon () {
-    // Conversion from flyingBalloonAnchor to trianglePosition.
-    const trianglePosition = {
-      bottom: 'top',
-      top: 'bottom',
-      left: 'right',
-      right: 'left',
-    }[this.props.flyingBalloonAnchor];
-
-    if (this.props.messageWarning || this.props.messageInfo) {
-      if (true) {
-        // FIXME: This configuration is never displyed !
-        return (
-          <Errors
-            model={this.props.model}
-            show="touched"
-            messages={{warning: this.props.messageWarning}}
-            component={props => (
-              <FlyingBalloon
-                primaryText={props.children}
-                secondaryText={this.props.messageInfo}
-                trianglePosition={trianglePosition}
-              />
-            )}
-          />
-        );
-      } else {
-        // FIXME: This configuration is correctly displyed !
-        return (
-          <FlyingBalloon
-            primaryText={this.props.messageWarning}
-            secondaryText={this.props.messageInfo}
-            trianglePosition={trianglePosition}
-          />
-        );
-      }
-    } else {
-      return null;
-    }
+            return (
+              <div
+                disabled={props.disabled}
+                className={boxClass}
+                title={props.tooltip}
+              >
+                <input type={type} {...props} />
+                <FlyingBalloon
+                  primaryText={props.warning}
+                  secondaryText={props.info}
+                  trianglePosition={trianglePosition}
+                />
+              </div>
+            );
+          } else {
+            return (
+              <div
+                disabled={props.disabled}
+                className={boxClass}
+                title={props.tooltip}
+              >
+                <input type={type} {...props} />
+              </div>
+            );
+          }
+        }}
+        id={this.props.model}
+        changeAction={beforeChange}
+        getRef={node => {
+          this.input = node;
+        }}
+        getInfo={this.props.getInfo}
+        getWarning={this.props.getWarning}
+        parser={this.props.parser}
+        errors={this.props.errors}
+        mapProps={mapProps}
+        updateOn={this.props.updateOn ? this.props.updateOn : 'change'}
+        model={this.props.hinter ? `.${this.props.hinter}` : this.props.model}
+        onFocus={this.onFieldFocus}
+        onMouseDown={this.props.onMouseDown}
+        disabled={this.props.disabled}
+        maxLength={this.props.maxLength}
+        placeholder={this.props.hintText}
+        size={this.props.size || 'size'}
+        type={this.props.type || 'text'}
+        key={this.props.model}
+        rows={this.props.rows}
+        tabIndex={this.props.tabIndex}
+        {...options}
+      />
+    );
   }
 
   render () {
     if (Bool.isFalse (this.props.show)) {
       return null;
     }
-
-    const boxClass = this.styles.classNames.box;
-    return (
-      <div
-        disabled={this.props.disabled}
-        className={boxClass}
-        title={this.props.tooltip}
-      >
-        {this.renderInput ()}
-        {this.renderFlyingBalloon ()}
-      </div>
-    );
+    return this.renderInput ();
   }
 }
 
