@@ -43,6 +43,7 @@ export function getComboLocation (
     if (!itemWidth) {
       // If itemWidth is undefined, take the width of component.
       itemWidth = Unit.sub (rect.width + 'px', Unit.multiply (padding, 2));
+      itemWidth = Unit.sub (itemWidth, '1px');
     }
     let maxRows = Math.floor (
       Unit.parse (maxHeight).value / Unit.parse (itemHeight).value
