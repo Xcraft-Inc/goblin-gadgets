@@ -10,6 +10,7 @@ import Label from 'gadgets/label/widget';
 import TextField from 'gadgets/text-field/widget';
 import TextFieldCombo from 'gadgets/text-field-combo/widget';
 import LabelTextField from 'gadgets/label-text-field/widget';
+import TextFieldTyped from 'gadgets/text-field-typed/widget';
 import Separator from 'gadgets/separator/widget';
 import Splitter from 'gadgets/splitter/widget';
 import CheckButton from 'gadgets/check-button/widget';
@@ -490,6 +491,8 @@ class Wizard extends Form {
         return <LabelTextField key={index} model=".x" {...props} />;
       case 'TextFieldCombo':
         return this.renderWidgetBaseTextFieldCombo (index, props);
+      case 'TextFieldTyped':
+        return <TextFieldTyped key={index} model=".x" {...props} />;
       case 'CheckButton':
         return <CheckButton key={index} {...props} />;
       case 'Gauge':
