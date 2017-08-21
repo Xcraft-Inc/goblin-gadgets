@@ -174,14 +174,13 @@ class Wizard extends Form {
     const field = property.get ('field');
     const list = property.get ('list');
     const value = getPropertyValue (property, 'brutValue');
-    const model = `.${this.widget}.${field}`;
+    const model = `.properties.${this.widget}.${field}.value`;
     if (type === 'combo' || (type === 'text' && list)) {
       return (
         <Container kind="row-pane" key={index}>
           <Label text={field} width="180px" />
           <TextFieldCombo
             model={model}
-            defaultValue={value}
             menuType="wrap"
             readonly={Bool.toString (type === 'combo')}
             grow="1"
@@ -208,7 +207,7 @@ class Wizard extends Form {
       return (
         <Container kind="row-pane" key={index}>
           <Label text={field} width="180px" />
-          <TextField model={model} defaultValue={value} grow="1" />
+          <TextField model={model} grow="1" />
         </Container>
       );
     }
