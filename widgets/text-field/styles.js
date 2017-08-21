@@ -101,6 +101,7 @@ export default function styles (theme, props) {
     margin: '0px',
     color: color,
     backgroundColor: 'transparent',
+    outline: 'none',
     border: 'none',
   };
 
@@ -114,6 +115,7 @@ export default function styles (theme, props) {
     margin: '0px',
     color: color,
     backgroundColor: 'transparent',
+    outline: 'none',
     resize: 'none',
     border: 'none',
   };
