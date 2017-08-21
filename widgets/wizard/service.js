@@ -1682,12 +1682,15 @@ Object.keys (properties).forEach (w => {
     const property = wizard[p];
     Goblin.registerQuest (
       goblinName,
-      `change-${w}.${property.field}`,
+      `change-properties.${w}.${property.field}.value`,
       function (quest) {
         quest.do ();
       }
     );
-    logicHandlers[`change-${w}.${property.field}`] = (state, action) => {
+    logicHandlers[`change-properties.${w}.${property.field}.value`] = (
+      state,
+      action
+    ) => {
       property.value = action.get ('newValue');
       return state.set (`properties.${w}.${property.field}`, property);
     };

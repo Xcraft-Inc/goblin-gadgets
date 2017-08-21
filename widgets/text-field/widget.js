@@ -176,7 +176,7 @@ class TextField extends Widget {
     }[this.props.flyingBalloonAnchor];
 
     if (this.props.messageWarning || this.props.messageInfo) {
-      if (true) {
+      if (false) {
         // FIXME: This configuration is never displyed !
         return (
           <Errors
