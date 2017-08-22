@@ -12,13 +12,22 @@ const logicState = {};
 // Define logic handlers according rc.json
 const logicHandlers = {
   create: (state, action) => {
-    return state.set ('id', action.get ('id'));
+    let login = action.get ('login');
+    if (!login) {
+      login = {};
+    }
+    const initialState = {
+      id: action.get ('id'),
+      user: login.user.value,
+      password: login.password.value,
+    };
+    return state.set ('', initialState);
   },
 };
 
 // Register quest's according rc.json
-Goblin.registerQuest (goblinName, 'create', function (quest) {
-  quest.do ({id: quest.goblin.id});
+Goblin.registerQuest (goblinName, 'create', function (quest, desktopId, login) {
+  quest.do ({id: quest.goblin.id, login});
   return quest.goblin.id;
 });
 
