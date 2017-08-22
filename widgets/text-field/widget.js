@@ -191,6 +191,7 @@ class TextField extends Widget {
         key={this.props.model}
         rows={this.props.rows}
         tabIndex={this.props.tabIndex}
+        onKeyDown={this.props.onKeyDown}
         {...options}
       />
     );
