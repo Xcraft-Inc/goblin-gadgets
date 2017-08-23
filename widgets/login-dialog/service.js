@@ -45,13 +45,13 @@ const logicHandlers = {
     }
     const initialState = {
       id: action.get ('id'),
-      user: login.user.value,
-      password: login.password.value,
-      tryCounter: login.tryCounter.value,
-      maxTry: login.maxTry.value,
-      error: login.error.value,
+      user: null,
+      password: null,
+      tryCounter: 0,
+      maxTry: 5,
+      error: null,
       close: false,
-      login: login.login.value,
+      login: login.value,
     };
     return state.set ('', initialState);
   },
