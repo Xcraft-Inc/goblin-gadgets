@@ -786,6 +786,15 @@ class Wizard extends Form {
       };
     }) ('.properties');
 
+    const PreviewSettings = this.WithModel (
+      () => (
+        <Container kind="pane">
+          {this.renderPreviewSettings ()}
+        </Container>
+      ),
+      _ => _
+    ) ('.globalSettings.widget.value');
+
     return (
       <Container kind="view">
         <Container kind="pane-header">
@@ -797,9 +806,7 @@ class Wizard extends Form {
               <Code grow="1" />
             </Container>
           </Container>
-          <Container kind="pane">
-            {this.renderPreviewSettings ()}
-          </Container>
+          <PreviewSettings />
           {this.renderPreviewSolo ()}
         </div>
       </Container>
