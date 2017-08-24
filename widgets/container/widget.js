@@ -170,6 +170,7 @@ class Container extends Widget {
     } else if (
       kind === 'flying-combo' ||
       kind === 'flying-balloon' ||
+      kind === 'flying-chat' ||
       kind === 'flying-dialog'
     ) {
       return (
