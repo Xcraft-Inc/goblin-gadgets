@@ -13,7 +13,6 @@ class TextField extends Widget {
     super (...arguments);
     this.onFieldFocus = this.onFieldFocus.bind (this);
     this.selectAll = this.selectAll.bind (this);
-    this.renderInput = this.renderInput.bind (this);
   }
 
   static get wiring () {
@@ -98,7 +97,12 @@ class TextField extends Widget {
           return this.props.defaultValue;
         }
 
-        return props.viewValue;
+        if (props.viewValue) {
+          return props.viewValue;
+        }
+
+        const val = this.getModelValue (props.model);
+        return val;
       },
       warning: props => {
         if (props.modelValue === props.viewValue) {
@@ -129,7 +133,7 @@ class TextField extends Widget {
 
     const fieldClass = this.styles.classNames.field + ' mousetrap';
 
-    const WiredTextField = this.WithModel (props => {
+    const Field = props => {
       const type = props.rows ? 'textarea' : 'text';
       const boxClass = this.styles.classNames.box;
       if (props.warning || props.info) {
@@ -166,13 +170,14 @@ class TextField extends Widget {
           </div>
         );
       }
-    }) (this.props.model);
+    };
+
+    const WiredTextField = this.WithModel (Field) (this.props.model);
 
     return (
       <Control
         className={fieldClass}
         component={WiredTextField}
-        id={this.props.model}
         changeAction={beforeChange}
         getRef={node => {
           this.input = node;
@@ -191,7 +196,11 @@ class TextField extends Widget {
         placeholder={this.props.hintText}
         size={this.props.size || 'size'}
         type={this.props.type || 'text'}
-        key={this.props.model}
+        key={
+          typeof this.props.model === 'string'
+            ? this.props.model
+            : this.props.model ()
+        }
         rows={this.props.rows}
         tabIndex={this.props.tabIndex}
         onKeyDown={this.props.onKeyDown}

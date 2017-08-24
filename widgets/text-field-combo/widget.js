@@ -146,7 +146,7 @@ class TextFieldCombo extends Widget {
     };
 
     if (displayValue) {
-      props.displayValue = displayValue;
+      props.value = displayValue;
     }
 
     return (

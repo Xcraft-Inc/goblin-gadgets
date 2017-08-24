@@ -32,8 +32,8 @@ class LoginDialog extends Form {
   }
 
   clearFields () {
-    this.setModel ('.user', null);
-    this.setModel ('.password', null);
+    this.setModelValue ('.user', null);
+    this.setModelValue ('.password', null);
   }
 
   onClose () {

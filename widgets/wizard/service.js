@@ -1837,7 +1837,7 @@ Goblin.registerQuest (goblinName, 'create', function (quest, desktopId) {
 Goblin.registerQuest (goblinName, 'delete', function () {});
 
 // Manage global settings.
-Object.keys (globalSettings).forEach (p => {
+/*Object.keys (globalSettings).forEach (p => {
   const globalSetting = globalSettings[p];
   Goblin.registerQuest (goblinName, `change-global-setting-${p}`, function (
     quest,
@@ -1849,10 +1849,10 @@ Object.keys (globalSettings).forEach (p => {
     globalSetting.value = action.get ('newValue');
     return state.set (`globalSettings.${p}`, globalSetting);
   };
-});
+});*/
 
 // Manage properties of widget.
-Object.keys (properties).forEach (w => {
+/*Object.keys (properties).forEach (w => {
   const wizard = properties[w];
   Object.keys (wizard).forEach (p => {
     const property = wizard[p];
@@ -1871,10 +1871,10 @@ Object.keys (properties).forEach (w => {
       return state.set (`properties.${w}.${property.field}`, property);
     };
   });
-});
+});*/
 
 // Manage preview settings.
-Object.keys (previewSettings).forEach (p => {
+/*Object.keys (previewSettings).forEach (p => {
   const previewSetting = previewSettings[p];
   Goblin.registerQuest (goblinName, `change-preview-setting-${p}`, function (
     quest,
@@ -1886,7 +1886,7 @@ Object.keys (previewSettings).forEach (p => {
     previewSetting.value = action.get ('newValue');
     return state.set (`previewSettings.${p}`, previewSetting);
   };
-});
+});*/
 
 // Create a Goblin with initial state and handlers
 module.exports = Goblin.configure (goblinName, logicState, logicHandlers);
