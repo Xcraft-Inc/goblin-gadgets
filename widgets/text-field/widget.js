@@ -128,47 +128,50 @@ class TextField extends Widget {
     };
 
     const fieldClass = this.styles.classNames.field + ' mousetrap';
+
+    const WiredTextField = this.WithModel (props => {
+      const type = props.rows ? 'textarea' : 'text';
+      const boxClass = this.styles.classNames.box;
+      if (props.warning || props.info) {
+        const trianglePosition = {
+          bottom: 'top',
+          top: 'bottom',
+          left: 'right',
+          right: 'left',
+          undefined: 'top',
+        }[props.flyingBalloonAnchor];
+
+        return (
+          <div
+            disabled={props.disabled}
+            className={boxClass}
+            title={props.tooltip}
+          >
+            <input type={type} {...props} />
+            <FlyingBalloon
+              primaryText={props.warning}
+              secondaryText={props.info}
+              trianglePosition={trianglePosition}
+            />
+          </div>
+        );
+      } else {
+        return (
+          <div
+            disabled={props.disabled}
+            className={boxClass}
+            title={props.tooltip}
+          >
+            <input type={type} {...props} />
+          </div>
+        );
+      }
+    }) (this.props.model);
+
     return (
       <Control
         className={fieldClass}
-        component={props => {
-          const type = props.rows ? 'textarea' : 'text';
-          const boxClass = this.styles.classNames.box;
-          if (props.warning || props.info) {
-            const trianglePosition = {
-              bottom: 'top',
-              top: 'bottom',
-              left: 'right',
-              right: 'left',
-              undefined: 'top',
-            }[props.flyingBalloonAnchor];
-
-            return (
-              <div
-                disabled={props.disabled}
-                className={boxClass}
-                title={props.tooltip}
-              >
-                <input type={type} {...props} />
-                <FlyingBalloon
-                  primaryText={props.warning}
-                  secondaryText={props.info}
-                  trianglePosition={trianglePosition}
-                />
-              </div>
-            );
-          } else {
-            return (
-              <div
-                disabled={props.disabled}
-                className={boxClass}
-                title={props.tooltip}
-              >
-                <input type={type} {...props} />
-              </div>
-            );
-          }
-        }}
+        component={WiredTextField}
         id={this.props.model}
         changeAction={beforeChange}
         getRef={node => {
