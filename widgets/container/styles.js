@@ -817,6 +817,19 @@ export default function styles (theme, props) {
     borderRadius = theme.shapes.flyingBalloonRadius;
   }
 
+  if (props.kind === 'flying-chat') {
+    const fbp = '20px'; // FIXME: add to theme
+    display = 'flex';
+    flexDirection = 'column';
+    flexWrap = 'wrap';
+    margin = '0px 0px 10px 0px'; // FIXME: add to theme
+    padding = fbp + ' ' + fbp + ' ' + fbp + ' ' + fbp;
+    backgroundColor = props.subkind === 'me' ? '#aea' : '#eca'; // FIXME: add to theme
+    color = theme.palette.text;
+    position = 'relative';
+    borderRadius = theme.shapes.flyingBalloonRadius;
+  }
+
   if (props.kind === 'flying-dialog') {
     display = 'flex';
     flexDirection = 'column';
@@ -902,10 +915,15 @@ export default function styles (theme, props) {
   if (
     props.kind === 'flying-combo' ||
     props.kind === 'flying-balloon' ||
+    props.kind === 'flying-chat' ||
     props.kind === 'flying-dialog'
   ) {
     let triangleSize, triangleColor;
-    if (props.kind === 'flying-combo' || props.kind === 'flying-balloon') {
+    if (
+      props.kind === 'flying-combo' ||
+      props.kind === 'flying-balloon' ||
+      props.kind === 'flying-chat'
+    ) {
       triangleSize = theme.shapes.flyingBalloonTriangleSize;
       triangleColor = backgroundColor
         ? backgroundColor
