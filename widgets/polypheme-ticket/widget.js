@@ -13,6 +13,7 @@ import Gauge from 'gadgets/gauge/widget';
 
 /******************************************************************************/
 
+// Single ticket, compacted or extended, showed in roadbook or desk.
 class PolyphemeTicket extends Widget {
   constructor () {
     super (...arguments);

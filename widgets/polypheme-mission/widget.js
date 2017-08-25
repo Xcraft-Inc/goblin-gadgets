@@ -13,6 +13,7 @@ import Gauge from 'gadgets/gauge/widget';
 
 /******************************************************************************/
 
+// Rectangular box with multiple tickets (one per line), showed in backlog.
 class PolyphemeMission extends Widget {
   constructor () {
     super (...arguments);

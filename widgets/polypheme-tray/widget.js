@@ -52,6 +52,7 @@ class PolyphemeTray extends Widget {
           dragController="ticket"
           dragSource="tray"
           dragOwnerId={this.props.data.id}
+          height={Unit.multiply ('65px', 2)}
         >
           {this.props.children}
         </Container>
