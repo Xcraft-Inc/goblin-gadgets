@@ -18,10 +18,11 @@ class PolyphemeMission extends Widget {
     super (...arguments);
   }
 
-  renderGlyph (glyph) {
+  renderGlyph (glyph, index) {
     const g = GlyphHelpers.getGlyph (glyph);
     return (
       <Label
+        key={index}
         glyph={g.glyph}
         glyphColor={g.color}
         zIndex={0}
@@ -35,9 +36,10 @@ class PolyphemeMission extends Widget {
       return null;
     } else {
       let line = [];
+      let index = 0;
       for (var glyph of note.Glyphs) {
         if (glyph.Glyph) {
-          line.push (this.renderGlyph (glyph.Glyph));
+          line.push (this.renderGlyph (glyph.Glyph, index++));
         }
       }
       return line;

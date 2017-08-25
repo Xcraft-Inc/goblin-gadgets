@@ -18,10 +18,11 @@ class PolyphemeTicket extends Widget {
     super (...arguments);
   }
 
-  renderGlyph (glyph) {
+  renderGlyph (glyph, index) {
     const g = GlyphHelpers.getGlyph (glyph);
     return (
       <Label
+        key={index}
         glyph={g.glyph}
         glyphColor={g.color}
         zIndex={0}
@@ -30,14 +31,15 @@ class PolyphemeTicket extends Widget {
     );
   }
 
-  renderNoteGlyph (note) {
+  renderNoteGlyph (note, i) {
     if (!note || !note.Glyphs) {
       return null;
     } else {
       let line = [];
+      let index = 0;
       for (var glyph of note.Glyphs) {
         if (glyph.Glyph) {
-          line.push (this.renderGlyph (glyph.Glyph));
+          line.push (this.renderGlyph (glyph.Glyph, i * 100 + index++));
         }
       }
       return line;
@@ -49,29 +51,9 @@ class PolyphemeTicket extends Widget {
       return null;
     } else {
       let line = [];
-      for (var note of notes) {
-        line.push (this.renderNoteGlyph (note));
-      }
-      return line;
-    }
-  }
-
-  renderNote (note, index) {
-    let glyph = null;
-    if (note.Glyphs.length >= 1) {
-      glyph = note.Glyphs[0].Glyph; // only first glyph !
-    }
-    return this.renderLine (glyph, note.Content, index);
-  }
-
-  renderNotes (notes) {
-    if (!notes) {
-      return null;
-    } else {
-      let line = [];
       let index = 0;
       for (var note of notes) {
-        line.push (this.renderNote (note, index++));
+        line.push (this.renderNoteGlyph (note, index++));
       }
       return line;
     }
@@ -94,6 +76,27 @@ class PolyphemeTicket extends Widget {
           />
         </Container>
       );
+    }
+  }
+
+  renderNote (note, index) {
+    let glyph = null;
+    if (note.Glyphs.length >= 1) {
+      glyph = note.Glyphs[0].Glyph; // only first glyph !
+    }
+    return this.renderLine (glyph, note.Content, index);
+  }
+
+  renderNotes (notes) {
+    if (!notes) {
+      return null;
+    } else {
+      let line = [];
+      let index = 0;
+      for (var note of notes) {
+        line.push (this.renderNote (note, index++));
+      }
+      return line;
     }
   }
 
