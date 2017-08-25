@@ -65,6 +65,29 @@ function getPeriod (startTime, endTime) {
   }
 }
 
+function getPackageDescription (ticket) {
+  let desc = getPackageCount (ticket);
+  if (ticket.Weight) {
+    desc += ` — ${ticket.Weight}`;
+  }
+  if (ticket.Product) {
+    desc += ` — ${ticket.Product}`;
+  }
+  return desc;
+}
+
+function getStatusDescription (ticket) {
+  if (ticket.Status === 'pre-dispatched') {
+    return 'Pré-dispatché';
+  } else if (ticket.Status === 'dispatched') {
+    return 'Dispatché';
+  } else if (ticket.Status === 'delivered') {
+    return 'Livré';
+  } else {
+    return ticket.Status;
+  }
+}
+
 /******************************************************************************/
 
 class PolyphemeTicket extends Widget {
@@ -82,6 +105,73 @@ class PolyphemeTicket extends Widget {
         spacing="compact"
       />
     );
+  }
+
+  renderNoteGlyph (note) {
+    if (!note || !note.Glyphs) {
+      return null;
+    } else {
+      let line = [];
+      for (var glyph of note.Glyphs) {
+        if (glyph.Glyph) {
+          line.push (this.renderGlyph (glyph.Glyph));
+        }
+      }
+      return line;
+    }
+  }
+
+  renderNoteGlyphs (notes) {
+    if (!notes) {
+      return null;
+    } else {
+      let line = [];
+      for (var note of notes) {
+        line.push (this.renderNoteGlyph (note));
+      }
+      return line;
+    }
+  }
+
+  renderLine (glyph, text, index) {
+    if (!text) {
+      return null;
+    } else {
+      const g = GlyphHelpers.getGlyph (glyph);
+      return (
+        <Container key={index} kind="ticket-row">
+          <Label width="15px" />
+          <Label glyph={g.glyph} glyphColor={g.color} width="35px" />
+          <Label
+            text={text}
+            fontSize={this.context.theme.shapes.ticketExtendedTextSize}
+            wrap="yes"
+            grow="1"
+          />
+        </Container>
+      );
+    }
+  }
+
+  renderWarning (text) {
+    if (!text) {
+      return null;
+    } else {
+      return (
+        <Container kind="column">
+          <Container kind="row">
+            <Label
+              kind="ticket-warning"
+              text={text}
+              font-style="italic"
+              wrap="no"
+              grow="1"
+            />
+          </Container>
+          <Separator kind="ticket-warning" />
+        </Container>
+      );
+    }
   }
 
   renderShortNote (note) {
@@ -110,8 +200,119 @@ class PolyphemeTicket extends Widget {
     }
   }
 
+  renderRoadbookCompacted (ticket, directionGlyph, delivered) {
+    let topTime, bottomTime;
+    if (delivered) {
+      topTime = ticket.MeetingPoint.RealisedTime;
+      bottomTime = null;
+    } else {
+      topTime = ticket.MeetingPoint.StartPlanedTime;
+      bottomTime = ticket.MeetingPoint.EndPlanedTime;
+    }
+
+    return (
+      <Container kind="ticket-column" grow="1">
+        {this.renderWarning (ticket.Warning)}
+        <Container kind="ticket-row" marginBottom="-10px">
+          <Label
+            text={Converters.getDisplayedTime (topTime)}
+            fontWeight="bold"
+            width="55px"
+          />
+          <Label
+            glyph={directionGlyph.glyph}
+            glyphColor={directionGlyph.color}
+            width="25px"
+          />
+          <Label
+            text={ticket.MeetingPoint.ShortDescription}
+            fontWeight="bold"
+            wrap="no"
+            grow="1"
+          />
+        </Container>
+        <Container kind="ticket-row">
+          <Label
+            text={Converters.getDisplayedTime (bottomTime)}
+            fontWeight="bold"
+            width="55px"
+          />
+          <Label text="" width="25px" />
+          <Label glyph="cube" spacing="compact" />
+          <Label text={getPackageCount (ticket)} grow="1" />
+          {this.renderNoteGlyphs (ticket.MeetingPoint.Notes)}
+        </Container>
+      </Container>
+    );
+  }
+
+  renderRoadbookExtended (ticket, directionGlyph, delivered) {
+    let topTime;
+    if (delivered) {
+      topTime = ticket.MeetingPoint.RealisedTime;
+    } else {
+      topTime = ticket.MeetingPoint.StartPlanedTime;
+    }
+
+    return (
+      <Container kind="ticket-column" grow="1">
+        {this.renderWarning (ticket.Warning)}
+        <Container kind="ticket-row">
+          <Label
+            text={Converters.getDisplayedTime (topTime)}
+            fontWeight="bold"
+            width="50px"
+          />
+          <Label
+            glyph={directionGlyph.glyph}
+            glyphColor={directionGlyph.color}
+            width="25px"
+          />
+          <Label
+            text={ticket.MeetingPoint.ShortDescription}
+            fontWeight="bold"
+            wrap="no"
+            grow="1"
+          />
+        </Container>
+        {this.renderLine ('building', ticket.MeetingPoint.LongDescription)}
+        {this.renderLine ('map-marker', ticket.MeetingPoint.Zone)}
+        {this.renderNotes (ticket.MeetingPoint.Notes)}
+        {this.renderLine ('cube', getPackageDescription (ticket))}
+        {this.renderLine ('money', ticket.MeetingPoint.NetPrice)}
+        {this.renderLine ('info-circle', getStatusDescription (ticket))}
+        {this.renderNotes (ticket.MeetingPoint.Notes)}
+      </Container>
+    );
+  }
+
   renderRoadbook () {
-    return null;
+    const ticket = this.props.data;
+    const directionGlyph = getDirectionGlyph (this.context.theme, ticket.Type);
+    const delivered = false;
+    const color = this.context.theme.palette.ticketBackground;
+    const width = this.context.theme.shapes.dispatchTicketWidth;
+
+    if (this.props.state === 'extended') {
+      return (
+        <Ticket kind="rect" width={width} verticalSpacing="2px" color={color}>
+          {this.renderRoadbookExtended (ticket, directionGlyph, delivered)}
+        </Ticket>
+      );
+    } else {
+      const height = ticket.Warning ? '90px' : '60px';
+      return (
+        <Ticket
+          kind="ticket"
+          width={width}
+          height={height}
+          verticalSpacing="2px"
+          color={color}
+        >
+          {this.renderRoadbookCompacted (ticket, directionGlyph, delivered)}
+        </Ticket>
+      );
+    }
   }
 
   renderMeetingPoint (meetingPoint, border, index) {
@@ -130,7 +331,7 @@ class PolyphemeTicket extends Widget {
                 meetingPoint.StartPlanedTime,
                 meetingPoint.EndPlanedTime
               )}
-              font-weight="bold"
+              fontWeight="bold"
               wrap="no"
             />
           </Container>
@@ -176,7 +377,7 @@ class PolyphemeTicket extends Widget {
   }
 
   renderBacklog () {
-    const ticket = this.props.data[0];
+    const ticket = this.props.data[0]; // use first ticket for common data
     const dimmedColor = this.context.theme.palette.ticketDimmed;
     const dimmedSize = this.context.theme.shapes.ticketDimmedSize;
 

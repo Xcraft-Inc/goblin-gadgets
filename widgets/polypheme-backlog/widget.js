@@ -5,7 +5,6 @@ import Button from 'gadgets/button/widget';
 import Container from 'gadgets/container/widget';
 import Label from 'gadgets/label/widget';
 import TextFieldCombo from 'gadgets/text-field-combo/widget';
-import Ticket from 'gadgets/ticket/widget';
 import PolyphemeTicket from 'gadgets/polypheme-ticket/widget';
 
 /******************************************************************************/
@@ -82,15 +81,15 @@ class PolyphemeBacklog extends Widget {
     );
   }
 
-  renderGroupedTicket (tickets, index) {
+  renderMission (tickets, index) {
     return <PolyphemeTicket key={index} kind="backlog" data={tickets} />;
   }
 
-  renderGroupedTickets () {
+  renderMissions () {
     const result = [];
     let index = 0;
     for (const tickets of this.sortedMissions) {
-      result.push (this.renderGroupedTicket (tickets, index++));
+      result.push (this.renderMission (tickets, index++));
     }
     return result;
   }
@@ -117,7 +116,7 @@ class PolyphemeBacklog extends Widget {
             dragOwnerId={this.props.data.id}
             viewParentId="view-backlog"
           >
-            {this.renderGroupedTickets ()}
+            {this.renderMissions ()}
           </Container>
         </Container>
         {this.renderHoverButton ()}
