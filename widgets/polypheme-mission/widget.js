@@ -31,7 +31,7 @@ class PolyphemeMission extends Widget {
     );
   }
 
-  renderShortNote (note) {
+  renderShortNote (note, i) {
     if (!note || !note.Glyphs) {
       return null;
     } else {
@@ -39,7 +39,7 @@ class PolyphemeMission extends Widget {
       let index = 0;
       for (var glyph of note.Glyphs) {
         if (glyph.Glyph) {
-          line.push (this.renderGlyph (glyph.Glyph, index++));
+          line.push (this.renderGlyph (glyph.Glyph, i * 100 + index++));
         }
       }
       return line;
@@ -51,8 +51,9 @@ class PolyphemeMission extends Widget {
       return null;
     } else {
       let line = [];
+      let index = 0;
       for (var note of notes) {
-        line.push (this.renderShortNote (note));
+        line.push (this.renderShortNote (note, index++));
       }
       return line;
     }
