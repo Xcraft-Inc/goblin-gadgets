@@ -195,7 +195,7 @@ class TextField extends Widget {
         maxLength={this.props.maxLength}
         placeholder={this.props.hintText}
         size={this.props.size || 'size'}
-        type={this.props.type || 'text'}
+        type={this.props.rows ? 'textarea' : 'text'}
         key={
           typeof this.props.model === 'string'
             ? this.props.model
