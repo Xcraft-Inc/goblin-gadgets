@@ -3,90 +3,13 @@ import Widget from 'laboratory/widget';
 import {ColorHelpers} from 'electrum-theme';
 import * as GlyphHelpers from '../helpers/glyph-helpers.js';
 import * as Converters from '../helpers/converters';
+import * as PolyphemeHelpers from '../helpers/polypheme-helpers.js';
 
 import Button from 'gadgets/button/widget';
 import Container from 'gadgets/container/widget';
 import Label from 'gadgets/label/widget';
 import Ticket from 'gadgets/ticket/widget';
 import Gauge from 'gadgets/gauge/widget';
-
-/******************************************************************************/
-
-function getDirectionGlyph (theme, type) {
-  const transit = type.endsWith ('-transit');
-  const color = ColorHelpers.getMarkColor (theme, type);
-  if (type.startsWith ('pick')) {
-    if (transit) {
-      return {
-        glyph: 'plus-square-o',
-        color: color,
-      };
-    } else {
-      return {
-        glyph: 'plus-square',
-        color: color,
-      };
-    }
-  } else if (type.startsWith ('drop')) {
-    if (transit) {
-      return {
-        glyph: 'minus-square-o',
-        color: color,
-      };
-    } else {
-      return {
-        glyph: 'minus-square',
-        color: color,
-      };
-    }
-  } else {
-    return {
-      glyph: 'square',
-      color: color,
-    };
-  }
-}
-
-function getPackageCount (ticket) {
-  if (ticket.Packages) {
-    return ticket.Packages.length + 'x';
-  } else {
-    return '';
-  }
-}
-
-function getPeriod (startTime, endTime) {
-  const s = Converters.getDisplayedTime (startTime);
-  const e = Converters.getDisplayedTime (endTime);
-  if (s === e) {
-    return s;
-  } else {
-    return `${s} — ${e}`;
-  }
-}
-
-function getPackageDescription (ticket) {
-  let desc = getPackageCount (ticket);
-  if (ticket.Weight) {
-    desc += ` — ${ticket.Weight}`;
-  }
-  if (ticket.Product) {
-    desc += ` — ${ticket.Product}`;
-  }
-  return desc;
-}
-
-function getStatusDescription (ticket) {
-  if (ticket.Status === 'pre-dispatched') {
-    return 'Pré-dispatché';
-  } else if (ticket.Status === 'dispatched') {
-    return 'Dispatché';
-  } else if (ticket.Status === 'delivered') {
-    return 'Livré';
-  } else {
-    return ticket.Status;
-  }
-}
 
 /******************************************************************************/
 
@@ -234,7 +157,7 @@ class PolyphemeTicket extends Widget {
           />
           <Label text="" width="25px" />
           <Label glyph="cube" spacing="compact" />
-          <Label text={getPackageCount (ticket)} grow="1" />
+          <Label text={PolyphemeHelpers.getPackageCount (ticket)} grow="1" />
           {this.renderNoteGlyphs (ticket.MeetingPoint.Notes)}
         </Container>
       </Container>
@@ -273,9 +196,15 @@ class PolyphemeTicket extends Widget {
         {this.renderLine ('building', ticket.MeetingPoint.LongDescription)}
         {this.renderLine ('map-marker', ticket.MeetingPoint.Zone)}
         {this.renderNotes (ticket.MeetingPoint.Notes)}
-        {this.renderLine ('cube', getPackageDescription (ticket))}
+        {this.renderLine (
+          'cube',
+          PolyphemeHelpers.getPackageDescription (ticket)
+        )}
         {this.renderLine ('money', ticket.MeetingPoint.NetPrice)}
-        {this.renderLine ('info-circle', getStatusDescription (ticket))}
+        {this.renderLine (
+          'info-circle',
+          PolyphemeHelpers.getStatusDescription (ticket)
+        )}
         {this.renderNotes (ticket.MeetingPoint.Notes)}
       </Container>
     );
@@ -283,7 +212,10 @@ class PolyphemeTicket extends Widget {
 
   render () {
     const ticket = this.props.data;
-    const directionGlyph = getDirectionGlyph (this.context.theme, ticket.Type);
+    const directionGlyph = PolyphemeHelpers.getDirectionGlyph (
+      this.context.theme,
+      ticket.Type
+    );
     const delivered = false;
     const color = this.context.theme.palette.ticketBackground;
     const width = this.context.theme.shapes.dispatchTicketWidth;

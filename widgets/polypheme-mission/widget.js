@@ -3,67 +3,13 @@ import Widget from 'laboratory/widget';
 import {ColorHelpers} from 'electrum-theme';
 import * as GlyphHelpers from '../helpers/glyph-helpers.js';
 import * as Converters from '../helpers/converters';
+import * as PolyphemeHelpers from '../helpers/polypheme-helpers.js';
 
 import Button from 'gadgets/button/widget';
 import Container from 'gadgets/container/widget';
 import Label from 'gadgets/label/widget';
 import Ticket from 'gadgets/ticket/widget';
 import Gauge from 'gadgets/gauge/widget';
-
-/******************************************************************************/
-
-function getDirectionGlyph (theme, type) {
-  const transit = type.endsWith ('-transit');
-  const color = ColorHelpers.getMarkColor (theme, type);
-  if (type.startsWith ('pick')) {
-    if (transit) {
-      return {
-        glyph: 'plus-square-o',
-        color: color,
-      };
-    } else {
-      return {
-        glyph: 'plus-square',
-        color: color,
-      };
-    }
-  } else if (type.startsWith ('drop')) {
-    if (transit) {
-      return {
-        glyph: 'minus-square-o',
-        color: color,
-      };
-    } else {
-      return {
-        glyph: 'minus-square',
-        color: color,
-      };
-    }
-  } else {
-    return {
-      glyph: 'square',
-      color: color,
-    };
-  }
-}
-
-function getPackageCount (ticket) {
-  if (ticket.Packages) {
-    return ticket.Packages.length + 'x';
-  } else {
-    return '';
-  }
-}
-
-function getPeriod (startTime, endTime) {
-  const s = Converters.getDisplayedTime (startTime);
-  const e = Converters.getDisplayedTime (endTime);
-  if (s === e) {
-    return s;
-  } else {
-    return `${s} — ${e}`;
-  }
-}
 
 /******************************************************************************/
 
@@ -112,7 +58,7 @@ class PolyphemeMission extends Widget {
 
   renderMeetingPoint (meetingPoint, border, index) {
     if (meetingPoint) {
-      const directionGlyph = getDirectionGlyph (
+      const directionGlyph = PolyphemeHelpers.getDirectionGlyph (
         this.context.theme,
         meetingPoint.Type
       );
@@ -122,7 +68,7 @@ class PolyphemeMission extends Widget {
         <Container index={index} kind="thin-row" border={border} grow="1">
           <Container kind="thin-row" width="120px">
             <Label
-              text={getPeriod (
+              text={PolyphemeHelpers.getPeriod (
                 meetingPoint.StartPlanedTime,
                 meetingPoint.EndPlanedTime
               )}
@@ -198,7 +144,7 @@ class PolyphemeMission extends Widget {
               </Container>
               <Container kind="thin-row" grow="3">
                 <Label
-                  text={getPackageCount (ticket)}
+                  text={PolyphemeHelpers.getPackageCount (ticket)}
                   justify="right"
                   grow="1"
                   wrap="no"
