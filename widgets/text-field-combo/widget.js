@@ -111,9 +111,9 @@ class TextFieldCombo extends Widget {
       this.props.selectedValue &&
       this.props.selectedValue !== '';
     const displayValue = autoReadonly ? this.props.selectedValue : null;
-    const visibleReadonly = this.props.readonly
-      ? this.props.readonly
-      : Bool.toString (autoReadonly);
+    const visibleReadonly = Bool.isTrue (this.props.readonly)
+      ? Bool.isTrue (this.props.readonly)
+      : autoReadonly;
 
     const s = this.props.shape ? this.props.shape : 'smooth';
     const textFieldShapes = {
@@ -139,7 +139,7 @@ class TextFieldCombo extends Widget {
       defaultValue: this.props.defaultValue,
       grow: '1',
       rows: this.props.rows,
-      readonly: visibleReadonly,
+      readonly: Bool.toString (visibleReadonly),
       selectAllOnFocus: this.props.selectAllOnFocus,
       defaultFocus: this.props.defaultFocus,
       visibility: this.props.visibility,
