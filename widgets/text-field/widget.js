@@ -172,7 +172,13 @@ class TextField extends Widget {
       }
     };
 
-    const WiredTextField = this.WithModel (Field) (this.props.model);
+    const WiredTextField = this.WithModel (Field) (
+      this.props.hinter ? `.${this.props.hinter}` : this.props.model
+    );
+
+    let key = typeof this.props.model === 'string'
+      ? this.props.model
+      : this.props.hinter ? this.props.hinter : this.props.model ();
 
     return (
       <Control
@@ -195,12 +201,8 @@ class TextField extends Widget {
         maxLength={this.props.maxLength}
         placeholder={this.props.hintText}
         size={this.props.size || 'size'}
-        type={this.props.rows ? 'textarea' : 'text'}
-        key={
-          typeof this.props.model === 'string'
-            ? this.props.model
-            : this.props.model ()
-        }
+        type={this.props.type || 'text'}
+        key={key}
         rows={this.props.rows}
         tabIndex={this.props.tabIndex}
         onKeyDown={this.props.onKeyDown}
