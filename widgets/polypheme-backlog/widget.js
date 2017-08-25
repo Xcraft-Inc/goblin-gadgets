@@ -5,7 +5,7 @@ import Button from 'gadgets/button/widget';
 import Container from 'gadgets/container/widget';
 import Label from 'gadgets/label/widget';
 import TextFieldCombo from 'gadgets/text-field-combo/widget';
-import PolyphemeTicket from 'gadgets/polypheme-ticket/widget';
+import PolyphemeMission from 'gadgets/polypheme-mission/widget';
 
 /******************************************************************************/
 
@@ -82,7 +82,7 @@ class PolyphemeBacklog extends Widget {
   }
 
   renderMission (tickets, index) {
-    return <PolyphemeTicket key={index} kind="backlog" data={tickets} />;
+    return <PolyphemeMission key={index} data={tickets} />;
   }
 
   renderMissions () {

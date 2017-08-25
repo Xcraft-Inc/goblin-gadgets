@@ -27,7 +27,7 @@ class PolyphemeDesk extends Widget {
   }
 
   renderTicket (ticket, index) {
-    return <PolyphemeTicket key={index} kind="roadbook" data={ticket} />;
+    return <PolyphemeTicket key={index} data={ticket} />;
   }
 
   renderTrayTickets (tickets) {
