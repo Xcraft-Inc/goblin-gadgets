@@ -133,6 +133,53 @@ class PolyphemeTicket extends Widget {
     }
   }
 
+  renderShortNote (note) {
+    if (!note || !note.Glyphs) {
+      return null;
+    } else {
+      let line = [];
+      for (var glyph of note.Glyphs) {
+        if (glyph.Glyph) {
+          line.push (this.renderGlyph (glyph.Glyph));
+        }
+      }
+      return line;
+    }
+  }
+
+  renderShortNotes (notes) {
+    if (!notes) {
+      return null;
+    } else {
+      let line = [];
+      for (var note of notes) {
+        line.push (this.renderShortNote (note));
+      }
+      return line;
+    }
+  }
+
+  renderNote (note, index) {
+    let glyph = null;
+    if (note.Glyphs.length >= 1) {
+      glyph = note.Glyphs[0].Glyph; // only first glyph !
+    }
+    return this.renderLine (glyph, note.Content, index);
+  }
+
+  renderNotes (notes) {
+    if (!notes) {
+      return null;
+    } else {
+      let line = [];
+      let index = 0;
+      for (var note of notes) {
+        line.push (this.renderNote (note, index++));
+      }
+      return line;
+    }
+  }
+
   renderLine (glyph, text, index) {
     if (!text) {
       return null;
@@ -171,32 +218,6 @@ class PolyphemeTicket extends Widget {
           <Separator kind="ticket-warning" />
         </Container>
       );
-    }
-  }
-
-  renderShortNote (note) {
-    if (!note || !note.Glyphs) {
-      return null;
-    } else {
-      let line = [];
-      for (var glyph of note.Glyphs) {
-        if (glyph.Glyph) {
-          line.push (this.renderGlyph (glyph.Glyph));
-        }
-      }
-      return line;
-    }
-  }
-
-  renderShortNotes (notes) {
-    if (!notes) {
-      return null;
-    } else {
-      let line = [];
-      for (var note of notes) {
-        line.push (this.renderShortNote (note));
-      }
-      return line;
     }
   }
 
@@ -261,7 +282,7 @@ class PolyphemeTicket extends Widget {
           <Label
             text={Converters.getDisplayedTime (topTime)}
             fontWeight="bold"
-            width="50px"
+            width="55px"
           />
           <Label
             glyph={directionGlyph.glyph}
@@ -292,15 +313,23 @@ class PolyphemeTicket extends Widget {
     const delivered = false;
     const color = this.context.theme.palette.ticketBackground;
     const width = this.context.theme.shapes.dispatchTicketWidth;
+    const shape = ticket.Type === 'pick' ? 'first' : 'last';
 
     if (this.props.state === 'extended') {
       return (
-        <Ticket kind="rect" width={width} verticalSpacing="2px" color={color}>
+        <Ticket
+          kind="rect"
+          width={width}
+          verticalSpacing="2px"
+          color={color}
+          shape={shape}
+          hoverShape={shape}
+        >
           {this.renderRoadbookExtended (ticket, directionGlyph, delivered)}
         </Ticket>
       );
     } else {
-      const height = ticket.Warning ? '90px' : '60px';
+      const height = ticket.Warning ? '95px' : '65px';
       return (
         <Ticket
           kind="ticket"
@@ -308,6 +337,8 @@ class PolyphemeTicket extends Widget {
           height={height}
           verticalSpacing="2px"
           color={color}
+          shape={shape}
+          hoverShape={shape}
         >
           {this.renderRoadbookCompacted (ticket, directionGlyph, delivered)}
         </Ticket>

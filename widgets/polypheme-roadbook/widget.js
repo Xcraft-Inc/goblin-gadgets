@@ -93,7 +93,9 @@ class PolyphemeRoadbook extends Widget {
     return (
       <div className={boxClass}>
         {this.renderMessengerExtended (this.props.data)}
-        {this.renderTickets ()}
+        <Container kind="tickets-trips">
+          {this.renderTickets ()}
+        </Container>
       </div>
     );
   }
