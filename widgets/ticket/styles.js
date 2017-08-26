@@ -386,6 +386,7 @@ export default function styles (theme, props) {
 
   const coverStyle = {
     display: 'flex',
+    flexGrow: 1,
     width: props.width,
     height: '100%',
     margin: '0px',

@@ -12,7 +12,10 @@ class PolyphemeRoadbooks extends Widget {
   }
 
   renderRoadbook (roadbook, index) {
-    return <PolyphemeRoadbook key={index} data={roadbook} />;
+    const compacted = false;
+    return (
+      <PolyphemeRoadbook key={index} data={roadbook} compacted={compacted} />
+    );
   }
 
   renderRoadbooks () {

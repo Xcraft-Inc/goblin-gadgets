@@ -7,6 +7,7 @@ import Container from 'gadgets/container/widget';
 import Label from 'gadgets/label/widget';
 import Ticket from 'gadgets/ticket/widget';
 import PolyphemeTicket from 'gadgets/polypheme-ticket/widget';
+import DragCab from 'gadgets/drag-cab/widget';
 
 /******************************************************************************/
 
@@ -16,13 +17,11 @@ class PolyphemeRoadbook extends Widget {
   }
 
   mouseOver (ticket) {
-    console.log ('mouseOver');
     window.document.hilitedTicket = ticket.id;
     this.forceUpdate ();
   }
 
   mouseOut (ticket) {
-    console.log ('mouseOut');
     window.document.hilitedTicket = null;
     this.forceUpdate ();
   }
@@ -133,11 +132,22 @@ class PolyphemeRoadbook extends Widget {
   }
 
   render () {
-    if (Bool.isTrue (this.props.compacted)) {
-      return this.renderCompacted ();
-    } else {
-      return this.renderExtended ();
-    }
+    return (
+      <DragCab
+        dragController="roadbook"
+        dragOwnerId={this.props.data.id}
+        direction="horizontal"
+        color={this.context.theme.palette.roadbookDragAndDropHover}
+        thickness={this.context.theme.shapes.dragAndDropRoadbookThickness}
+        overSpacing={this.context.theme.shapes.viewSpacing}
+        radius="0px"
+        data={this.props.data}
+      >
+        {Bool.isTrue (this.props.compacted)
+          ? this.renderCompacted ()
+          : this.renderExtended ()}
+      </DragCab>
+    );
   }
 }
 
