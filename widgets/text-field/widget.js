@@ -45,12 +45,12 @@ class TextField extends Widget {
     const selectAllOnFocus = this.props.selectAllOnFocus || !!this.props.hinter;
     if (Bool.isTrue (selectAllOnFocus)) {
       if (this.input) {
-        this.input.focus ();
-        this.input.select ();
+        // this.input.focus (); // FIXME...
+        // this.input.select ();
       }
     } else {
       if (this.input) {
-        this.input.focus ();
+        // this.input.focus (); // FIXME...
       }
     }
   }

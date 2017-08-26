@@ -21,8 +21,8 @@ class PolyphemeTray extends Widget {
       return (
         <Container kind="row">
           <TextField
-            select-all-on-focus="true"
-            default-focus="true"
+            selectAllOnFocus="true"
+            defaultFocus="true"
             spacing="overlap"
           />
           <Button glyph="check" spacing="overlap" mouseDown={this.onAccept} />
