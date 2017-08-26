@@ -13,20 +13,36 @@ import PolyphemeTicket from 'gadgets/polypheme-ticket/widget';
 class PolyphemeTray extends Widget {
   constructor () {
     super (...arguments);
+    this.isEdit = false;
+  }
+
+  onStartEdition () {
+    this.isEdit = true;
+    this.forceUpdate ();
+  }
+
+  onAccept () {
+    this.isEdit = false;
+    this.forceUpdate ();
+  }
+
+  onCancel () {
+    this.isEdit = false;
+    this.forceUpdate ();
   }
 
   renderHeader () {
-    const edit = false;
-    if (edit) {
+    if (this.isEdit) {
       return (
         <Container kind="row">
           <TextField
+            model=".x"
             selectAllOnFocus="true"
             defaultFocus="true"
             spacing="overlap"
           />
-          <Button glyph="check" spacing="overlap" mouseDown={this.onAccept} />
-          <Button glyph="close" mouseDown={this.onCancel} />
+          <Button glyph="check" spacing="overlap" onClick={::this.onAccept} />
+          <Button glyph="close" onClick={::this.onCancel} />
         </Container>
       );
     } else {
@@ -35,7 +51,7 @@ class PolyphemeTray extends Widget {
           kind="tray-title"
           grow={1}
           text={this.props.data.Name}
-          mouseDown={this.onMyMouseDown}
+          onClick={::this.onStartEdition}
         />
       );
     }
