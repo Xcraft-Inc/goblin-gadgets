@@ -15,6 +15,18 @@ class PolyphemeRoadbook extends Widget {
     super (...arguments);
   }
 
+  mouseOver (ticket) {
+    console.log ('mouseOver');
+    window.document.hilitedTicket = ticket.id;
+    this.forceUpdate ();
+  }
+
+  mouseOut (ticket) {
+    console.log ('mouseOut');
+    window.document.hilitedTicket = null;
+    this.forceUpdate ();
+  }
+
   renderMessengerExtended (roadbook) {
     const width = this.context.theme.shapes.dispatchTicketWidth;
     const height = this.context.theme.shapes.messengerHeight;
@@ -76,7 +88,18 @@ class PolyphemeRoadbook extends Widget {
   }
 
   renderTicket (ticket, index) {
-    return <PolyphemeTicket key={index} state="compacted" data={ticket} />;
+    return (
+      <PolyphemeTicket
+        key={index}
+        state="compacted"
+        data={ticket}
+        backgroundText={
+          ticket.id === window.document.hilitedTicket ? ticket.Order + 1 : null
+        }
+        mouseOver={() => ::this.mouseOver (ticket)}
+        mouseOut={() => ::this.mouseOut (ticket)}
+      />
+    );
   }
 
   renderTickets () {

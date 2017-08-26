@@ -122,7 +122,7 @@ class PolyphemeTicket extends Widget {
     }
   }
 
-  renderRoadbookCompacted (ticket, directionGlyph, delivered) {
+  renderCompacted (ticket, directionGlyph, delivered) {
     let topTime, bottomTime;
     if (delivered) {
       topTime = ticket.MeetingPoint.RealisedTime;
@@ -168,7 +168,7 @@ class PolyphemeTicket extends Widget {
     );
   }
 
-  renderRoadbookExtended (ticket, directionGlyph, delivered) {
+  renderExtended (ticket, directionGlyph, delivered) {
     let topTime;
     if (delivered) {
       topTime = ticket.MeetingPoint.RealisedTime;
@@ -234,8 +234,11 @@ class PolyphemeTicket extends Widget {
           color={color}
           shape={shape}
           hoverShape={shape}
+          backgroundText={this.props.backgroundText}
+          mouseOver={this.props.mouseOver}
+          mouseOut={this.props.mouseOut}
         >
-          {this.renderRoadbookExtended (ticket, directionGlyph, delivered)}
+          {this.renderExtended (ticket, directionGlyph, delivered)}
         </Ticket>
       );
     } else {
@@ -249,8 +252,11 @@ class PolyphemeTicket extends Widget {
           color={color}
           shape={shape}
           hoverShape={shape}
+          backgroundText={this.props.backgroundText}
+          mouseOver={this.props.mouseOver}
+          mouseOut={this.props.mouseOut}
         >
-          {this.renderRoadbookCompacted (ticket, directionGlyph, delivered)}
+          {this.renderCompacted (ticket, directionGlyph, delivered)}
         </Ticket>
       );
     }
