@@ -75,8 +75,8 @@ class PolyphemeRoadbook extends Widget {
     );
   }
 
-  renderTicket (ticket) {
-    return <PolyphemeTicket state="compacted" data={ticket} />;
+  renderTicket (ticket, index) {
+    return <PolyphemeTicket key={index} state="compacted" data={ticket} />;
   }
 
   renderTickets () {

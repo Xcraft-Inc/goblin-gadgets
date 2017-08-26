@@ -69,7 +69,7 @@ class PolyphemeMission extends Widget {
       const dimmedSize = this.context.theme.shapes.ticketDimmedSize;
 
       return (
-        <Container index={index} kind="thin-row" border={border} grow="1">
+        <Container key={index} kind="thin-row" border={border} grow="1">
           <Container kind="thin-row" width="120px">
             <Label
               text={PolyphemeHelpers.getPeriod (

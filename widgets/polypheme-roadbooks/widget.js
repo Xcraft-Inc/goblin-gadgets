@@ -11,8 +11,8 @@ class PolyphemeRoadbooks extends Widget {
     super (...arguments);
   }
 
-  renderRoadbook (roadbook) {
-    return <PolyphemeRoadbook data={roadbook} />;
+  renderRoadbook (roadbook, index) {
+    return <PolyphemeRoadbook key={index} data={roadbook} />;
   }
 
   renderRoadbooks () {
