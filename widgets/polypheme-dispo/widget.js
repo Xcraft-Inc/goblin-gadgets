@@ -16,11 +16,7 @@ class PolyphemeDispo extends Widget {
   }
 
   renderTop () {
-    return (
-      <Container kind="tickets-root">
-        <PolyphemeRoadbooks data={this.props.data.Roadbooks} />
-      </Container>
-    );
+    return <PolyphemeRoadbooks data={this.props.data.Roadbooks} />;
   }
 
   renderBottom () {
@@ -46,11 +42,21 @@ class PolyphemeDispo extends Widget {
   }
 
   render () {
-    return (
-      <Container kind="views">
-        {this.renderSplitter ()}
-      </Container>
-    );
+    if (true) {
+      // FIXME: horizontal scroll ok, splitter ko
+      return (
+        <Container kind="tickets-root">
+          {this.renderSplitter ()}
+        </Container>
+      );
+    } else {
+      // FIXME: horizontal scroll ko, splitter ko
+      return (
+        <Container kind="views">
+          {this.renderSplitter ()}
+        </Container>
+      );
+    }
   }
 }
 
