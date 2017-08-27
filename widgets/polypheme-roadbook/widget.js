@@ -115,7 +115,12 @@ class PolyphemeRoadbook extends Widget {
     return (
       <div className={boxClass}>
         {this.renderMessengerExtended (this.props.data)}
-        <Container kind="tickets-trips">
+        <Container
+          kind="tickets-trips"
+          dragController="ticket"
+          dragSource="roadbook"
+          dragOwnerId={this.props.data.id}
+        >
           {this.renderTickets ()}
         </Container>
       </div>

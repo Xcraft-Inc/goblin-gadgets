@@ -3,9 +3,7 @@ import {Unit} from 'electrum-theme';
 /******************************************************************************/
 
 export default function styles (theme, props) {
-  const hasHeLeft = props.hasHeLeft;
-  const isDragged = props.isDragged;
-  const x = hasHeLeft && !isDragged;
+  const x = props.hasHeLeft && !props.isDragged;
 
   const m = theme.shapes.containerMargin;
   const mm = Unit.multiply (m, 0.5);
@@ -18,7 +16,7 @@ export default function styles (theme, props) {
   const border =
     theme.shapes.viewSpacing + ' solid ' + theme.palette.rootBackground;
   const borderRight = border;
-  const borderOther = isDragged ? border : 'none';
+  const borderOther = props.isDragged ? border : 'none';
 
   const extendedBoxStyle = {
     padding: '0px ' + mm + ' 0px ' + mm,

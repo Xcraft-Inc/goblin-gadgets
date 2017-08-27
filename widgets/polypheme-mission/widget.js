@@ -10,6 +10,7 @@ import Container from 'gadgets/container/widget';
 import Label from 'gadgets/label/widget';
 import Ticket from 'gadgets/ticket/widget';
 import Gauge from 'gadgets/gauge/widget';
+import DragCab from 'gadgets/drag-cab/widget';
 
 /******************************************************************************/
 
@@ -121,7 +122,7 @@ class PolyphemeMission extends Widget {
     return result;
   }
 
-  render () {
+  renderMission () {
     const ticket = this.props.data[0]; // use first ticket for common data
     const dimmedColor = this.context.theme.palette.ticketDimmed;
     const dimmedSize = this.context.theme.shapes.ticketDimmedSize;
@@ -130,7 +131,7 @@ class PolyphemeMission extends Widget {
       <Ticket
         kind="thin"
         color={this.context.theme.palette.ticketBackground}
-        verticalSpacing="10px"
+        verticalSpacing={this.context.theme.shapes.ticketBacklogVerticalSpacing}
       >
         <Container kind="row" grow="1">
           <Container kind="thin-column" border="right" width="10px">
@@ -194,6 +195,24 @@ class PolyphemeMission extends Widget {
 
         </Container>
       </Ticket>
+    );
+  }
+
+  render () {
+    return (
+      <DragCab
+        dragController="ticket"
+        direction="vertical"
+        color={this.context.theme.palette.dragAndDropHover}
+        thickness={this.context.theme.shapes.dragAndDropTicketThickness}
+        radius={this.context.theme.shapes.dragAndDropTicketThickness}
+        mode="corner-top-left"
+        dragOwnerId={this.props.data[0].id}
+        noDrag={false}
+        verticalSpacing={this.context.theme.shapes.ticketBacklogVerticalSpacing}
+      >
+        {this.renderMission ()}
+      </DragCab>
     );
   }
 }

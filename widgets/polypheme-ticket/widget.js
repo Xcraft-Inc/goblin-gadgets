@@ -10,6 +10,7 @@ import Container from 'gadgets/container/widget';
 import Label from 'gadgets/label/widget';
 import Ticket from 'gadgets/ticket/widget';
 import Gauge from 'gadgets/gauge/widget';
+import DragCab from 'gadgets/drag-cab/widget';
 
 /******************************************************************************/
 
@@ -214,7 +215,7 @@ class PolyphemeTicket extends Widget {
     );
   }
 
-  render () {
+  renderTicket () {
     const ticket = this.props.data;
     const directionGlyph = PolyphemeHelpers.getDirectionGlyph (
       this.context.theme,
@@ -230,7 +231,7 @@ class PolyphemeTicket extends Widget {
         <Ticket
           kind="rect"
           width={width}
-          verticalSpacing="2px"
+          verticalSpacing={this.context.theme.shapes.ticketVerticalSpacing}
           color={color}
           shape={shape}
           hoverShape={shape}
@@ -260,6 +261,24 @@ class PolyphemeTicket extends Widget {
         </Ticket>
       );
     }
+  }
+
+  render () {
+    return (
+      <DragCab
+        dragController="ticket"
+        direction="vertical"
+        color={this.context.theme.palette.dragAndDropHover}
+        thickness={this.context.theme.shapes.dragAndDropTicketThickness}
+        radius={this.context.theme.shapes.dragAndDropTicketThickness}
+        mode="corner-top-left"
+        dragOwnerId={this.props.data.id}
+        noDrag={false}
+        verticalSpacing={this.context.theme.shapes.ticketVerticalSpacing}
+      >
+        {this.renderTicket ()}
+      </DragCab>
+    );
   }
 }
 
