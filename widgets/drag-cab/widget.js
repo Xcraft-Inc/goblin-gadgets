@@ -229,8 +229,8 @@ class DragCab extends Widget {
       <div
         key={index}
         style={boxStyle}
-        data-id={dragOwnerId}
-        data-vertical-spacing={verticalSpacing}
+        dataId={dragOwnerId}
+        dataVerticalSpacing={verticalSpacing}
         onMouseDown={::this.onMouseDown}
         onMouseUp={::this.onMouseUp}
         onTouchStart={::this.onMouseDown}
