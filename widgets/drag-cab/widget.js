@@ -168,30 +168,20 @@ class DragCab extends Widget {
   }
 
   renderDragCarrier () {
-    const direction = this.props.direction;
-    const color = this.props.color;
-    const thickness = this.props.thickness;
-    const radius = this.props.radius;
-    const overSpacing = this.props.overSpacing;
-    const mode = this.props.mode;
-    const data = this.props.data;
-    const dragOwnerId = this.props.dragOwnerId;
-    const dragController = this.props.dragController;
-    const doDragEnding = this.props.doDragEnding;
     return (
       <DragCarrier
-        direction={direction}
-        color={color}
-        thickness={thickness}
-        radius={radius}
-        overSpacing={overSpacing}
-        mode={mode}
-        data={data}
-        doDragEnding={doDragEnding}
+        direction={this.props.direction}
+        color={this.props.color}
+        thickness={this.props.thickness}
+        radius={this.props.radius}
+        overSpacing={this.props.overSpacing}
+        mode={this.props.mode}
+        data={dthis.props.ata}
+        doDragEnding={this.props.doDragEnding}
         dragEnding={::this.onDragEnding}
         dragHeight={this.dragHeight}
-        dragController={dragController}
-        dragOwnerId={dragOwnerId}
+        dragController={this.props.dragController}
+        dragOwnerId={this.props.dragOwnerId}
       />
     );
   }
@@ -206,37 +196,31 @@ class DragCab extends Widget {
   }
 
   renderForDrag (isDragged, index) {
-    const dragOwnerId = this.props.dragOwnerId;
-    const direction = this.props.direction;
-    const verticalSpacing = this.props.verticalSpacing;
-    const dragInProcess = this.dragInProcess;
-    const dragStarting = this.dragStarting;
-
-    const htmlDragCarrier = dragInProcess && !isDragged
+    const htmlDragCarrier = this.props.dragInProcess && !isDragged
       ? this.renderDragCarrier ()
       : null;
 
     const boxStyle = {
       userSelect: 'none',
     };
-    if (direction === 'horizontal') {
+    if (this.props.direction === 'horizontal') {
       boxStyle.display = 'flex';
       boxStyle.flexDirection = 'column';
-      boxStyle.flexGrow = isDragged && dragStarting ? 1 : null;
+      boxStyle.flexGrow = isDragged && this.props.dragStarting ? 1 : null;
     }
 
     return (
       <div
         key={index}
         style={boxStyle}
-        dataId={dragOwnerId}
-        dataVerticalSpacing={verticalSpacing}
+        dataId={this.props.dragOwnerId}
+        dataVerticalSpacing={this.props.verticalSpacing}
         onMouseDown={::this.onMouseDown}
         onMouseUp={::this.onMouseUp}
         onTouchStart={::this.onMouseDown}
         onTouchEnd={::this.onMouseUp}
       >
-        {this.renderChildren (isDragged, dragStarting)}
+        {this.renderChildren (isDragged, this.props.dragStarting)}
         {htmlDragCarrier}
       </div>
     );
