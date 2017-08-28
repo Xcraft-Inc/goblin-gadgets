@@ -210,7 +210,7 @@ class DragCab extends Widget {
       boxStyle.flexGrow = isDragged && this.dragStarting ? 1 : null;
     }
 
-    // The use of "data-id" sets a property "id" read later by "node.dataset.id"
+    // The use of "data-id" sets a property "id" accessed later by "node.dataset.id"
     // "data-vertical-spacing" is accessed by "node.dataset.verticalSpacing".
     // Don't rename "data-id" to "dataId" !
     return (
