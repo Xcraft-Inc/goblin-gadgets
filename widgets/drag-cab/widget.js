@@ -168,7 +168,6 @@ class DragCab extends Widget {
   }
 
   renderDragCarrier () {
-    const doDragEnding = this.props.doDragEnding;
     return (
       <DragCarrier
         direction={this.props.direction}
@@ -178,7 +177,7 @@ class DragCab extends Widget {
         overSpacing={this.props.overSpacing}
         mode={this.props.mode}
         data={this.props.data}
-        doDragEnding={doDragEnding}
+        doDragEnding={this.props.doDragEnding}
         dragEnding={::this.onDragEnding}
         dragHeight={this.dragHeight}
         dragController={this.props.dragController}
