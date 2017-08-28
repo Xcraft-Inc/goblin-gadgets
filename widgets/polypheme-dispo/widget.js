@@ -34,7 +34,7 @@ class PolyphemeDispo extends Widget {
 
   renderSplitter () {
     return (
-      <Splitter kind="horizontal" firstSize="60%">
+      <Splitter kind="horizontal" lastSize="500px">
         {this.renderTop ()}
         {this.renderBottom ()}
       </Splitter>
@@ -42,21 +42,11 @@ class PolyphemeDispo extends Widget {
   }
 
   render () {
-    if (true) {
-      // FIXME: horizontal scroll ok, splitter ko
-      return (
-        <Container kind="tickets-root">
-          {this.renderSplitter ()}
-        </Container>
-      );
-    } else {
-      // FIXME: horizontal scroll ko, splitter ko
-      return (
-        <Container kind="views">
-          {this.renderSplitter ()}
-        </Container>
-      );
-    }
+    return (
+      <Container kind="tickets-root">
+        {this.renderSplitter ()}
+      </Container>
+    );
   }
 }
 
