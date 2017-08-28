@@ -168,6 +168,7 @@ class DragCab extends Widget {
   }
 
   renderDragCarrier () {
+    const doDragEnding = this.props.doDragEnding;
     return (
       <DragCarrier
         direction={this.props.direction}
@@ -176,8 +177,8 @@ class DragCab extends Widget {
         radius={this.props.radius}
         overSpacing={this.props.overSpacing}
         mode={this.props.mode}
-        data={dthis.props.ata}
-        doDragEnding={this.props.doDragEnding}
+        data={this.props.data}
+        doDragEnding={doDragEnding}
         dragEnding={::this.onDragEnding}
         dragHeight={this.dragHeight}
         dragController={this.props.dragController}
@@ -196,7 +197,7 @@ class DragCab extends Widget {
   }
 
   renderForDrag (isDragged, index) {
-    const htmlDragCarrier = this.props.dragInProcess && !isDragged
+    const htmlDragCarrier = this.dragInProcess && !isDragged
       ? this.renderDragCarrier ()
       : null;
 
@@ -206,21 +207,24 @@ class DragCab extends Widget {
     if (this.props.direction === 'horizontal') {
       boxStyle.display = 'flex';
       boxStyle.flexDirection = 'column';
-      boxStyle.flexGrow = isDragged && this.props.dragStarting ? 1 : null;
+      boxStyle.flexGrow = isDragged && this.dragStarting ? 1 : null;
     }
 
+    // The use of "data-id" sets a property "id" read later by "node.dataset.id"
+    // "data-vertical-spacing" is accessed by "node.dataset.verticalSpacing".
+    // Don't rename "data-id" to "dataId" !
     return (
       <div
         key={index}
         style={boxStyle}
-        dataId={this.props.dragOwnerId}
-        dataVerticalSpacing={this.props.verticalSpacing}
+        data-id={this.props.dragOwnerId}
+        data-vertical-spacing={this.props.verticalSpacing}
         onMouseDown={::this.onMouseDown}
         onMouseUp={::this.onMouseUp}
         onTouchStart={::this.onMouseDown}
         onTouchEnd={::this.onMouseUp}
       >
-        {this.renderChildren (isDragged, this.props.dragStarting)}
+        {this.renderChildren (isDragged, this.dragStarting)}
         {htmlDragCarrier}
       </div>
     );
