@@ -243,7 +243,7 @@ const properties = {
       group: 'Layout',
       type: 'combo',
       field: 'spacing',
-      list: ['', 'overlap', 'tiny', 'large'],
+      list: ['', 'overlap', 'tiny', 'large', 'double'],
       value: '',
     },
     textColor: {
@@ -565,7 +565,7 @@ const properties = {
       group: 'Layout',
       type: 'combo',
       field: 'spacing',
-      list: ['', 'overlap', 'tiny', 'large'],
+      list: ['', 'overlap', 'tiny', 'large', 'double'],
       value: '',
     },
     bottomSpacing: {
@@ -813,7 +813,7 @@ const properties = {
       group: 'Layout',
       type: 'combo',
       field: 'spacing',
-      list: ['', 'overlap', 'tiny', 'large'],
+      list: ['', 'overlap', 'tiny', 'large', 'double'],
       value: '',
     },
     cursor: {
@@ -974,7 +974,7 @@ const properties = {
       group: 'Layout',
       type: 'combo',
       field: 'spacing',
-      list: ['', 'overlap', 'tiny', 'large'],
+      list: ['', 'overlap', 'tiny', 'large', 'double'],
       value: '',
     },
     cursor: {
@@ -1156,7 +1156,7 @@ const properties = {
       group: 'Layout',
       type: 'combo',
       field: 'spacing',
-      list: ['', 'overlap', 'tiny', 'large'],
+      list: ['', 'overlap', 'tiny', 'large', 'double'],
       value: '',
     },
     cursor: {
@@ -1332,7 +1332,7 @@ const properties = {
       group: 'Layout',
       type: 'combo',
       field: 'spacing',
-      list: ['', 'overlap', 'tiny', 'large'],
+      list: ['', 'overlap', 'tiny', 'large', 'double'],
       value: '',
     },
     cursor: {
@@ -1408,7 +1408,7 @@ const properties = {
       group: 'Layout',
       type: 'combo',
       field: 'spacing',
-      list: ['', 'overlap', 'tiny', 'large'],
+      list: ['', 'overlap', 'tiny', 'large', 'double'],
       value: '',
     },
   },
