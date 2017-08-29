@@ -34,8 +34,6 @@ class TextField extends Widget {
 
   componentDidMount () {
     super.componentDidMount ();
-
-    const defaultFocus = this.props.defaultFocus;
     if (Bool.isTrue (this.props.defaultFocus)) {
       this.selectAll ();
     }
