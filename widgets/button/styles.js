@@ -371,13 +371,13 @@ export default function styles (theme, props) {
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     textSize = theme.shapes.menuTextSize;
     borderStyle = 'none';
-    backgroundColor = '#fff'; // FIXME: set to theme.palette
+    backgroundColor = theme.palette.comboItemBackground;
     if (props.active === 'focused') {
-      activeColor = '#eee'; // FIXME: set to theme.palette
+      activeColor = theme.palette.comboItemFocused;
     } else {
-      activeColor = '#ddd'; // FIXME: set to theme.palette
+      activeColor = theme.palette.comboItemActive;
     }
-    backgroundHoverColor = '#eee'; // FIXME: set to theme.palette
+    backgroundHoverColor = theme.palette.comboItemHover;
   }
 
   if (props.kind === 'combo-wrap-item') {
@@ -389,13 +389,13 @@ export default function styles (theme, props) {
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     textSize = theme.shapes.menuTextSize;
     borderStyle = 'none';
-    backgroundColor = '#fff'; // FIXME: set to theme.palette
+    backgroundColor = theme.palette.comboItemBackground;
     if (props.active === 'focused') {
-      activeColor = '#eee'; // FIXME: set to theme.palette
+      activeColor = theme.palette.comboItemFocused;
     } else {
-      activeColor = '#ddd'; // FIXME: set to theme.palette
+      activeColor = theme.palette.comboItemActive;
     }
-    backgroundHoverColor = '#eee'; // FIXME: set to theme.palette
+    backgroundHoverColor = theme.palette.comboItemHover;
   }
 
   if (props.kind === 'glyph-item') {
