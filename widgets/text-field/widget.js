@@ -43,12 +43,12 @@ class TextField extends Widget {
     const selectAllOnFocus = this.props.selectAllOnFocus || !!this.props.hinter;
     if (Bool.isTrue (selectAllOnFocus)) {
       if (this.input) {
-        // this.input.focus (); // FIXME...
-        // this.input.select ();
+        this.input.focus ();
+        this.input.select ();
       }
     } else {
       if (this.input) {
-        // this.input.focus (); // FIXME...
+        this.input.focus ();
       }
     }
   }
@@ -149,7 +149,13 @@ class TextField extends Widget {
             className={boxClass}
             title={props.tooltip}
           >
-            <input type={type} {...props} />
+            <input
+              type={type}
+              {...props}
+              ref={node => {
+                this.input = node;
+              }}
+            />
             <FlyingBalloon
               primaryText={props.warning}
               secondaryText={props.info}
@@ -164,7 +170,13 @@ class TextField extends Widget {
             className={boxClass}
             title={props.tooltip}
           >
-            <input type={type} {...props} />
+            <input
+              type={type}
+              ref={node => {
+                this.input = node;
+              }}
+              {...props}
+            />
           </div>
         );
       }
@@ -183,9 +195,6 @@ class TextField extends Widget {
         className={fieldClass}
         component={WiredTextField}
         changeAction={beforeChange}
-        getRef={node => {
-          this.input = node;
-        }}
         getInfo={this.props.getInfo}
         getWarning={this.props.getWarning}
         parser={this.props.parser}
