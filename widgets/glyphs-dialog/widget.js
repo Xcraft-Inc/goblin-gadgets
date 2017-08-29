@@ -11,7 +11,6 @@ import Container from 'gadgets/container/widget';
 import Button from 'gadgets/button/widget';
 import Label from 'gadgets/label/widget';
 import DragCab from 'gadgets/drag-cab/widget';
-import DragCapsule from 'gadgets/drag-capsule/widget';
 
 /******************************************************************************/
 
@@ -126,11 +125,10 @@ class GlyphsDialog extends Widget {
           radius={this.context.theme.shapes.dragAndDropTicketThickness}
           doDragEnding={::this.onDragEnding}
         >
-          <DragCapsule
-            component="Label"
+          <Label
+            key={index}
             width="70px"
             height="80px"
-            index={index}
             glyph={g.glyph}
             glyphColor={g.color}
             glyphSize="300%"
@@ -146,7 +144,6 @@ class GlyphsDialog extends Widget {
           key={index}
           width="70px"
           height="80px"
-          index={index}
           glyph={g.glyph}
           glyphColor={g.color}
           glyphSize="300%"
