@@ -9,9 +9,12 @@ import TableCell from 'gadgets/table-cell/widget';
 class Table extends Widget {
   constructor () {
     super (...arguments);
+
     this.state = {
       selectedRow: null,
     };
+
+    this.onSelectionChanged = this.onSelectionChanged.bind (this);
   }
 
   get selectedRow () {
@@ -82,7 +85,7 @@ class Table extends Widget {
         key={index}
         index={index}
         selected={Bool.toString (this.selectedRow === row.get ('id', null))}
-        selectionChanged={::this.onSelectionChanged}
+        selectionChanged={this.onSelectionChanged}
       />
     );
   }

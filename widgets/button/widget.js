@@ -10,6 +10,13 @@ import Badge from 'gadgets/badge/widget';
 class Button extends Widget {
   constructor () {
     super (...arguments);
+
+    // FIXME: why don't work ?
+    //? this.onClick = this.onClicked.bind (this);
+    //? this.onMouseDown = this.onMouseDown.bind (this);
+    //? this.onMouseUp = this.onMouseUp.bind (this);
+    //? this.onTouchStart = this.onMouseDown.bind (this);
+    //? this.onTouchEnd = this.onMouseUp.bind (this);
   }
 
   static get wiring () {
