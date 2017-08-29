@@ -96,6 +96,7 @@ export default function styles (theme, props) {
       tiny: '1px',
       compact: '5px',
       large: m,
+      double: theme.shapes.containerMargin,
     };
     boxMarginRight = spacingType[spacing];
   }

@@ -71,7 +71,6 @@ function clipDot (p, box) {
 
 function clip (rect, box) {
   if (rect && box) {
-    //- if (box) {
     const tl = clipDot ({x: rect.left, y: rect.top}, box);
     const br = clipDot ({x: rect.right, y: rect.bottom}, box);
     return {
@@ -335,7 +334,6 @@ class DragCarrier extends Widget {
 
   findViewId (id) {
     if (id && window.document.viewIds) {
-      //- if (id) {
       for (var c of window.document.viewIds) {
         if (c.props.viewId === id) {
           return c;
@@ -610,7 +608,6 @@ class DragCarrier extends Widget {
     const dest = this.dest;
     let hilitedStyle;
     if (dest && dest.rect && this.isDragStarted ()) {
-      //- if (dest && this.isDragStarted ()) {
       const rect = clip (dest.rect, dest.parentRect);
       hilitedStyle = {
         visibility: 'visible',
