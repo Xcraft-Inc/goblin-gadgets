@@ -6,6 +6,22 @@ import * as Bool from '../helpers/boolean-helpers.js';
 
 import FlyingBalloon from 'gadgets/flying-balloon/widget';
 
+function omit (object, props) {
+  if (object === null) {
+    return {};
+  }
+  const newObject = {...object};
+
+  if (typeof props === 'string') {
+    delete newObject[props];
+  } else {
+    props.forEach (prop => {
+      delete newObject[prop];
+    });
+  }
+
+  return newObject;
+}
 /******************************************************************************/
 
 class TextField extends Widget {
@@ -134,6 +150,19 @@ class TextField extends Widget {
     const Field = props => {
       const type = props.rows ? 'textarea' : 'text';
       const boxClass = this.styles.classNames.box;
+      let finalProps = omit (props, [
+        'getInfo',
+        'getWarning',
+        'warning',
+        'info',
+        'model',
+        'dispatch',
+      ]);
+
+      if (props.value === null) {
+        finalProps.value = '';
+      }
+
       if (props.warning || props.info) {
         const trianglePosition = {
           bottom: 'top',
@@ -151,7 +180,8 @@ class TextField extends Widget {
           >
             <input
               type={type}
-              {...props}
+              rows={this.props.rows}
+              {...finalProps}
               ref={node => {
                 this.input = node;
               }}
@@ -172,10 +202,11 @@ class TextField extends Widget {
           >
             <input
               type={type}
+              rows={this.props.rows}
               ref={node => {
                 this.input = node;
               }}
-              {...props}
+              {...finalProps}
             />
           </div>
         );
@@ -210,7 +241,6 @@ class TextField extends Widget {
         size={this.props.size || 'size'}
         type={this.props.type || 'text'}
         key={key}
-        rows={this.props.rows}
         tabIndex={this.props.tabIndex}
         onKeyDown={this.props.onKeyDown}
         {...options}
