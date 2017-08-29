@@ -27,10 +27,14 @@ class Table extends Widget {
   onSelectionChanged (id) {
     if (Bool.isTrue (this.props.enableSelection)) {
       if (id === this.selectedRow) {
-        this.selectedRow = null; // deselect the selected row
-      } else {
-        this.selectedRow = id; // select the row
+        id = null; // deselect the selected row
       }
+      this.selectedRow = id;
+    }
+
+    const x = this.props.onSelectionChanged;
+    if (x) {
+      x (id);
     }
   }
 
