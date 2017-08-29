@@ -190,6 +190,7 @@ class Wizard extends Form {
             readonly={Bool.toString (type === 'combo')}
             grow="1"
             list={list}
+            defaultValue={property.get ('value')}
             comboTextTransform="none"
             onSetText={text => {
               this.setModelValue (model, text);
