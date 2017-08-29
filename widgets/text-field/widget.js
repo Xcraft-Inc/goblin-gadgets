@@ -6,6 +6,22 @@ import * as Bool from '../helpers/boolean-helpers.js';
 
 import FlyingBalloon from 'gadgets/flying-balloon/widget';
 
+function omit (object, props) {
+  if (object === null) {
+    return {};
+  }
+  const newObject = {...object};
+
+  if (typeof props === 'string') {
+    delete newObject[props];
+  } else {
+    props.forEach (prop => {
+      delete newObject[prop];
+    });
+  }
+
+  return newObject;
+}
 /******************************************************************************/
 
 class TextField extends Widget {
@@ -34,8 +50,6 @@ class TextField extends Widget {
 
   componentDidMount () {
     super.componentDidMount ();
-
-    const defaultFocus = this.props.defaultFocus;
     if (Bool.isTrue (this.props.defaultFocus)) {
       this.selectAll ();
     }
@@ -45,12 +59,12 @@ class TextField extends Widget {
     const selectAllOnFocus = this.props.selectAllOnFocus || !!this.props.hinter;
     if (Bool.isTrue (selectAllOnFocus)) {
       if (this.input) {
-        // this.input.focus (); // FIXME...
-        // this.input.select ();
+        this.input.focus ();
+        this.input.select ();
       }
     } else {
       if (this.input) {
-        // this.input.focus (); // FIXME...
+        this.input.focus ();
       }
     }
   }
@@ -136,6 +150,19 @@ class TextField extends Widget {
     const Field = props => {
       const type = props.rows ? 'textarea' : 'text';
       const boxClass = this.styles.classNames.box;
+      let finalProps = omit (props, [
+        'getInfo',
+        'getWarning',
+        'warning',
+        'info',
+        'model',
+        'dispatch',
+      ]);
+
+      if (props.value === null) {
+        finalProps.value = '';
+      }
+
       if (props.warning || props.info) {
         const trianglePosition = {
           bottom: 'top',
@@ -151,7 +178,14 @@ class TextField extends Widget {
             className={boxClass}
             title={props.tooltip}
           >
-            <input type={type} {...props} />
+            <input
+              type={type}
+              rows={this.props.rows}
+              {...finalProps}
+              ref={node => {
+                this.input = node;
+              }}
+            />
             <FlyingBalloon
               primaryText={props.warning}
               secondaryText={props.info}
@@ -166,7 +200,14 @@ class TextField extends Widget {
             className={boxClass}
             title={props.tooltip}
           >
-            <input type={type} {...props} />
+            <input
+              type={type}
+              rows={this.props.rows}
+              ref={node => {
+                this.input = node;
+              }}
+              {...finalProps}
+            />
           </div>
         );
       }
@@ -185,9 +226,6 @@ class TextField extends Widget {
         className={fieldClass}
         component={WiredTextField}
         changeAction={beforeChange}
-        getRef={node => {
-          this.input = node;
-        }}
         getInfo={this.props.getInfo}
         getWarning={this.props.getWarning}
         parser={this.props.parser}
@@ -203,7 +241,6 @@ class TextField extends Widget {
         size={this.props.size || 'size'}
         type={this.props.type || 'text'}
         key={key}
-        rows={this.props.rows}
         tabIndex={this.props.tabIndex}
         onKeyDown={this.props.onKeyDown}
         {...options}
