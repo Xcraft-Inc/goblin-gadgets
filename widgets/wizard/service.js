@@ -59,6 +59,7 @@ const properties = {
         'combo',
         'combo-item',
         'combo-wrap-item',
+        'disabled-light',
         'frameless',
         'glyph-item',
         'identity',

@@ -81,6 +81,10 @@ export default function styles (theme, props) {
     boxMarginRight = spacingType[props.spacing];
   }
 
+  if (props.kind === 'disabled-light') {
+    specialDisabled = true;
+  }
+
   // task-logo button (usual parent container with kind='task-bar').
   if (props.kind === 'task-logo') {
     boxHeight = theme.shapes.taskButtonHeight;
