@@ -1538,6 +1538,20 @@ const properties = {
       list: ['', '1', '2', '3', '4', 'Abc'],
       value: '',
     },
+    show: {
+      id: 'show',
+      group: 'Aspect',
+      type: 'bool',
+      field: 'show',
+      value: 'true',
+    },
+    visibility: {
+      id: 'visibility',
+      group: 'Aspect',
+      type: 'bool',
+      field: 'visibility',
+      value: 'true',
+    },
   },
   Container: {
     id: 'Container',

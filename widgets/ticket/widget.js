@@ -232,6 +232,10 @@ class Ticket extends Widget {
   }
 
   render () {
+    if (Bool.isFalse (this.props.show)) {
+      return null;
+    }
+
     if (this.props.kind === 'ticket') {
       return this.renderTicket ();
     } else if (this.props.kind === 'cover') {

@@ -187,6 +187,8 @@ export default function styles (theme, props) {
     hoverRadius = r;
   }
 
+  let boxOpacity = Bool.isFalse (props.visibility) ? 0 : null;
+
   const boxStyle = {
     width: props.width,
     height: props.height,
@@ -195,6 +197,7 @@ export default function styles (theme, props) {
     cursor: props.cursor,
     transition: theme.transitions.easeOut (),
     userSelect: 'none',
+    opacity: boxOpacity,
   };
 
   const shadowStyle = {
@@ -258,6 +261,7 @@ export default function styles (theme, props) {
     transition: theme.transitions.easeOut (),
     borderRadius: radius,
     backgroundColor: theme.palette.ticketShadow,
+    opacity: boxOpacity,
   };
 
   const rectStyle = {
@@ -394,6 +398,7 @@ export default function styles (theme, props) {
     cursor: props.cursor,
     transition: theme.transitions.easeOut (),
     backgroundColor: props.color,
+    opacity: boxOpacity,
   };
 
   const w = props.width ? Unit.multiply (props.width, 0.5) : null;
@@ -431,6 +436,7 @@ export default function styles (theme, props) {
     borderStyle: 'dashed none none none',
     borderColor: theme.palette.ticketSubpaneBorder,
     backgroundColor: props.color,
+    opacity: boxOpacity,
   };
   const subpaneDraggedStyle = {
     display: 'flex',
@@ -443,6 +449,7 @@ export default function styles (theme, props) {
     borderStyle: 'solid',
     borderColor: theme.palette.ticketSubpaneBorder,
     backgroundColor: props.color,
+    opacity: boxOpacity,
   };
   const subpaneContentStyle = {
     visibility: Bool.isTrue (props.hideContent) ? 'hidden' : 'visible',
