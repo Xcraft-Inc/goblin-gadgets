@@ -73,6 +73,12 @@ class Container extends Widget {
       }
       window.document.flyingDialogs.push (this);
     }
+    if (this.props.viewId) {
+      if (!window.document.viewIds) {
+        window.document.viewIds = [];
+      }
+      window.document.viewIds.push (this);
+    }
   }
 
   componentWillUnmount () {
@@ -103,6 +109,12 @@ class Container extends Widget {
       const index = window.document.flyingDialogs.indexOf (this);
       if (index !== -1) {
         window.document.flyingDialogs.splice (index, 1);
+      }
+    }
+    if (this.props.viewId) {
+      const index = window.document.viewIds.indexOf (this);
+      if (index !== -1) {
+        window.document.viewIds.splice (index, 1);
       }
     }
   }

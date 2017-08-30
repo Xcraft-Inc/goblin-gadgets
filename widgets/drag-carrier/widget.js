@@ -347,7 +347,17 @@ class DragCarrier extends Widget {
     const dragParentId = container.props.viewParentId;
     const parent = this.findViewId (dragParentId);
     if (parent) {
-      const parentNode = ReactDOM.findDOMNode (parent);
+      let parentNode = ReactDOM.findDOMNode (parent);
+      if (parent.props.backToClass) {
+        // Moves back to a parent whose class begins with a given name.
+        // Typically, "firstPane" finds the name "firstPane_1pucuno".
+        // See note [DispatchBacklogDetail.1]
+        while (
+          !parentNode.classList[0].startsWith (parent.props.backToClass + '_')
+        ) {
+          parentNode = parentNode.parentNode;
+        }
+      }
       return parentNode.getBoundingClientRect ();
     }
     return null;
