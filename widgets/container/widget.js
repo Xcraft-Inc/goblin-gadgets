@@ -33,7 +33,7 @@ class Container extends Widget {
     count += dragOwnerId ? 1 : 0;
     if (count !== 0 && count !== 3) {
       // These 3 properties must exist all together, or none !
-      console.err (
+      console.error (
         'Container has invalid properties:' +
           ` dragController=${dragController} dragSource=${dragSource} dragOwnerId=${dragOwnerId}`
       );
