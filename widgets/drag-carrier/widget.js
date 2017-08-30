@@ -552,7 +552,7 @@ class DragCarrier extends Widget {
         dest.index === -1)
     ) {
       //? this.dest = this.rectOrigin;
-      this.dest = null;
+      this.dest = null; // if dest = himself -> no feedback
     } else {
       this.dest = dest;
     }
