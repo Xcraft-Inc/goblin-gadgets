@@ -8,6 +8,7 @@ export default function styles (theme, props) {
   let flexShrink = null;
   let flexBasis = null;
   let marginRight = '0px';
+  let borderRadius = '0px';
   let opacity = Bool.isFalse (props.visibility) ? 0 : null;
 
   const m = Unit.multiply (theme.shapes.containerMargin, 0.5);
@@ -26,6 +27,10 @@ export default function styles (theme, props) {
       double: theme.shapes.containerMargin,
     };
     marginRight = spacingType[props.spacing];
+  }
+
+  if (props.shape === 'rounded') {
+    borderRadius = theme.shapes.actionRadius;
   }
 
   const boxStyle = {
@@ -62,7 +67,8 @@ export default function styles (theme, props) {
     marginRight: marginRight,
     position: 'relative',
     opacity: opacity,
-    boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.30)', // FIXME: move to theme
+    boxShadow: theme.shapes.comboShadow,
+    borderRadius: borderRadius,
   };
 
   const comboBoxStyle = {

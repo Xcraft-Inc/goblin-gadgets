@@ -45,31 +45,14 @@ export default function styles (theme, props) {
   };
 
   const optionStyle = {
-    //? padding: '10px 20px',
-    //? borderBottom: '1px solid ' + theme.palette.flyingBalloonBackground,
-    //? color: theme.palette.menuText,
-    //? backgroundColor: theme.palette.menuItemInactiveBackground,
-    padding: '10px 20px',
-    backgroundColor: '#fff', // FIXME: move to theme
+    padding: theme.shapes.selectVerticalPadding +
+      ' ' +
+      theme.shapes.selectHorizontalPadding,
+    backgroundColor: theme.palette.comboItemBackground,
   };
   optionStyle[':hover'] = {
-    backgroundColor: '#eee', // FIXME: move to theme
+    backgroundColor: theme.palette.comboItemHover,
   };
-  //? optionStyle[':active'] = {
-  //?   backgroundColor: '#f00',
-  //? };
-  //? optionStyle[':after'] = {
-  //?   backgroundColor: '#0f0',
-  //? };
-  //? optionStyle[':focus'] = {
-  //?   backgroundColor: '#ff0',
-  //? };
-  //? optionStyle[':select'] = {
-  //?   backgroundColor: '#0ff',
-  //? };
-  //? optionStyle[':checked'] = {
-  //?   backgroundColor: '#0ff',
-  //? };
 
   return {
     fullScreen: fullScreenStyle,

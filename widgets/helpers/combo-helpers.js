@@ -91,12 +91,12 @@ export function getSelectLocation (node, triangleSize, padding) {
 }
 
 // Declipping dialog-modal when it's out of window.
-export function declipping (width, center, padding) {
+export function declipping (width, center, padding, distanceFromEdge) {
   if (width && center && padding) {
     // Computation is impossible if width is undefined.
     const w = Unit.parse (width).value;
     const c = Unit.parse (center).value;
-    const p = Unit.parse (Unit.add (padding, '10px')).value; // 10px -> Does not touch the edge of the window, FIXME: move to theme
+    const p = Unit.parse (Unit.add (padding, distanceFromEdge)).value; // does not touch the edge of the window
 
     // Compute triangleShift if dialog is out of left window border.
     const leftShift = w / 2 + p - c;

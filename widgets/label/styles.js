@@ -730,11 +730,8 @@ export default function styles (theme, props) {
   };
 
   const hilitedFragmentStyle = {
-    // color: theme.palette.highlightedText,
-    // backgroundColor: theme.palette.highlightedTextBackground,
-    color: '#444',
-    backgroundColor: theme.palette.boxActiveBackground,
-    // FIXME: modify highlightedText and highlightedTextBackground to electrum-theme
+    color: theme.palette.highlightedText,
+    backgroundColor: theme.palette.highlightedTextBackground,
     padding: '1px',
   };
 

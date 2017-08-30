@@ -179,7 +179,8 @@ class GlyphsDialog extends Widget {
     const result = ComboHelpers.declipping (
       dialogWidth,
       this.props.center,
-      this.context.theme.shapes.floatingPadding
+      this.context.theme.shapes.floatingPadding,
+      this.context.theme.shapes.dialogDistanceFromEdge
     );
 
     return (

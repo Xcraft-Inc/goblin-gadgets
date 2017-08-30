@@ -791,13 +791,10 @@ export default function styles (theme, props) {
     flexDirection = 'column';
     flexWrap = 'wrap';
     padding = theme.shapes.flyingBalloonPadding;
-    backgroundColor = '#fff'; // FIXME: move to theme
+    backgroundColor = theme.palette.comboItemBackground;
     color = theme.palette.text;
     position = 'relative';
-    //? boxShadow = props.place === 'over'
-    //?   ? '0px -10px 20px rgba(0, 0, 0, 0.30)' // FIXME: move to theme
-    //?   : theme.shapes.flyingShadow;
-    boxShadow = '0px 0px 20px rgba(0, 0, 0, 0.30)'; // FIXME: move to theme
+    boxShadow = theme.shapes.comboShadow;
     borderWidth = '1px';
     borderStyle = 'solid';
     borderColor = theme.palette.buttonBorder;
@@ -818,13 +815,15 @@ export default function styles (theme, props) {
   }
 
   if (props.kind === 'flying-chat') {
-    const fbp = '20px'; // FIXME: add to theme
+    const fbp = theme.shapes.chatPadding;
     display = 'flex';
     flexDirection = 'column';
     flexWrap = 'wrap';
-    margin = '0px 0px 10px 0px'; // FIXME: add to theme
+    margin = '0px 0px ' + theme.shapes.chatVerticalSpacing + ' 0px';
     padding = fbp + ' ' + fbp + ' ' + fbp + ' ' + fbp;
-    backgroundColor = props.subkind === 'me' ? '#aea' : '#eca'; // FIXME: add to theme
+    backgroundColor = props.subkind === 'me'
+      ? theme.palette.chatMeBackground
+      : theme.palette.chatOtherBackground;
     color = theme.palette.text;
     position = 'relative';
     borderRadius = theme.shapes.flyingBalloonRadius;
