@@ -372,16 +372,16 @@ class DragCarrier extends Widget {
     for (var container of window.document.dragControllers) {
       const dc = container.props.dragController;
       if (dc === dragController) {
-        const n = ReactDOM.findDOMNode (container);
-        const rect = n.getBoundingClientRect ();
+        const node = ReactDOM.findDOMNode (container);
+        const rect = node.getBoundingClientRect ();
         const vpr = this.getViewParentRect (container);
         const pr = this.getParentRect (container);
         const parentRect = clip (vpr, pr);
         if (isInside (parentRect, x, y) && isInside (rect, x, y)) {
           if (this.props.direction === 'horizontal') {
-            return this.findH (container, n, x, parentRect);
+            return this.findH (container, node, x, parentRect);
           } else {
-            return this.findV (container, n, y, parentRect);
+            return this.findV (container, node, y, parentRect);
           }
         }
       }
@@ -394,19 +394,19 @@ class DragCarrier extends Widget {
       const t = node.children[i];
       if (t.dataset.id === id) {
         let rect = getBoundingRect (t);
-        if (this.props.direction === 'horizontal') {
-          rect = getHRect (
-            rect,
-            rect.left,
-            rect.right - this.props.overSpacing
-          );
-        } else {
-          rect = getVRect (
-            rect,
-            rect.top,
-            rect.bottom - this.props.overSpacing
-          );
-        }
+        //? if (this.props.direction === 'horizontal') {
+        //?   rect = getHRect (
+        //?     rect,
+        //?     rect.left,
+        //?     rect.right - this.props.overSpacing
+        //?   );
+        //? } else {
+        //?   rect = getVRect (
+        //?     rect,
+        //?     rect.top,
+        //?     rect.bottom - this.props.overSpacing
+        //?   );
+        //? }
         const parentRect = this.getViewParentRect (container);
         return {
           container: container,
@@ -427,8 +427,12 @@ class DragCarrier extends Widget {
     for (var container of window.document.dragControllers) {
       const dc = container.props.dragController;
       if (dc === this.props.dragController) {
-        const n = ReactDOM.findDOMNode (container);
-        const rect = this.findNodeOrigin (container, n, this.props.dragOwnerId);
+        const node = ReactDOM.findDOMNode (container);
+        const rect = this.findNodeOrigin (
+          container,
+          node,
+          this.props.dragOwnerId
+        );
         if (rect) {
           return rect;
         }
@@ -533,14 +537,22 @@ class DragCarrier extends Widget {
     }
 
     const dest = this.find (x, y);
+    if (dest) {
+      console.log (
+        `this.rectOrigin: ${this.rectOrigin.ownerId} ${this.rectOrigin.index}`
+      );
+      console.log (`dest: ${dest.ownerId} ${dest.index}`);
+    }
     if (
       dest &&
       this.rectOrigin &&
       dest.ownerId === this.rectOrigin.ownerId &&
       (dest.index === this.rectOrigin.index ||
-        dest.index === this.rectOrigin.index + 1)
+        dest.index === this.rectOrigin.index + 1 ||
+        dest.index === -1)
     ) {
-      this.dest = this.rectOrigin;
+      //? this.dest = this.rectOrigin;
+      this.dest = null;
     } else {
       this.dest = dest;
     }
