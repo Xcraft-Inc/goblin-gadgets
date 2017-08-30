@@ -103,6 +103,9 @@ class DragCarrier extends Widget {
     this.rectOrigin = null;
     this.lastDragStarted = false;
     this.selectedIds = [];
+
+    this.onMouseMove = this.onMouseMove.bind (this);
+    this.onMouseUp = this.onMouseUp.bind (this);
   }
 
   componentDidMount () {
@@ -659,10 +662,10 @@ class DragCarrier extends Widget {
     return (
       <div
         className={fullScreenClass}
-        onMouseMove={::this.onMouseMove}
-        onMouseUp={::this.onMouseUp}
-        onTouchMove={::this.onMouseMove}
-        onTouchEnd={::this.onMouseUp}
+        onMouseMove={this.onMouseMove}
+        onMouseUp={this.onMouseUp}
+        onTouchMove={this.onMouseMove}
+        onTouchEnd={this.onMouseUp}
       >
         <div style={hilitedStyle} />
         <div style={draggedStyle}>

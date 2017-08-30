@@ -51,6 +51,10 @@ class DragCab extends Widget {
     };
     this.dragHeight = 0;
     this.hasCombo = false;
+
+    this.onMouseDown = this.onMouseDown.bind (this);
+    this.onMouseUp = this.onMouseUp.bind (this);
+    this.onDragEnding = this.onDragEnding.bind (this);
   }
 
   get dragInProcess () {
@@ -178,7 +182,7 @@ class DragCab extends Widget {
         mode={this.props.mode}
         data={this.props.data}
         doDragEnding={this.props.doDragEnding}
-        dragEnding={::this.onDragEnding}
+        dragEnding={this.onDragEnding}
         dragHeight={this.dragHeight}
         dragController={this.props.dragController}
         dragOwnerId={this.props.dragOwnerId}
@@ -218,10 +222,10 @@ class DragCab extends Widget {
         style={boxStyle}
         data-id={this.props.dragOwnerId}
         data-vertical-spacing={this.props.verticalSpacing}
-        onMouseDown={::this.onMouseDown}
-        onMouseUp={::this.onMouseUp}
-        onTouchStart={::this.onMouseDown}
-        onTouchEnd={::this.onMouseUp}
+        onMouseDown={this.onMouseDown}
+        onMouseUp={this.onMouseUp}
+        onTouchStart={this.onMouseDown}
+        onTouchEnd={this.onMouseUp}
       >
         {this.renderChildren (isDragged, this.dragStarting)}
         {htmlDragCarrier}
