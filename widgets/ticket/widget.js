@@ -9,6 +9,11 @@ import {Unit} from 'electrum-theme';
 class Ticket extends Widget {
   constructor () {
     super (...arguments);
+
+    this.onMouseOver = this.onMouseOver.bind (this);
+    this.onMouseOut = this.onMouseOut.bind (this);
+    this.onMouseDown = this.onMouseDown.bind (this);
+    this.onMouseUp = this.onMouseUp.bind (this);
   }
 
   onMouseOver () {
@@ -131,12 +136,12 @@ class Ticket extends Widget {
     return (
       <div
         className={boxClass}
-        onMouseOver={::this.onMouseOver}
-        onMouseOut={::this.onMouseOut}
-        onMouseDown={::this.onMouseDown}
-        onMouseUp={::this.onMouseUp}
-        onTouchStart={::this.onMouseDown}
-        onTouchEnd={::this.onMouseUp}
+        onMouseOver={this.onMouseOver}
+        onMouseOut={this.onMouseOut}
+        onMouseDown={this.onMouseDown}
+        onMouseUp={this.onMouseUp}
+        onTouchStart={this.onMouseDown}
+        onTouchEnd={this.onMouseUp}
       >
         {htmlShadow}
         {htmlShape}
@@ -161,12 +166,12 @@ class Ticket extends Widget {
     return (
       <div
         className={rectShadowClass}
-        onMouseOver={::this.onMouseOver}
-        onMouseOut={::this.onMouseOut}
-        onMouseDown={::this.onMouseDown}
-        onMouseUp={::this.onMouseUp}
-        onTouchStart={::this.onMouseDown}
-        onTouchEnd={::this.onMouseUp}
+        onMouseOver={this.onMouseOver}
+        onMouseOut={this.onMouseOut}
+        onMouseDown={this.onMouseDown}
+        onMouseUp={this.onMouseUp}
+        onTouchStart={this.onMouseDown}
+        onTouchEnd={this.onMouseUp}
       >
         <div className={rectClass}>
           <div
@@ -196,12 +201,12 @@ class Ticket extends Widget {
     return (
       <div
         className={rectClass}
-        onMouseOver={::this.onMouseOver}
-        onMouseOut={::this.onMouseOut}
-        onMouseDown={::this.onMouseDown}
-        onMouseUp={::this.onMouseUp}
-        onTouchStart={::this.onMouseDown}
-        onTouchEnd={::this.onMouseUp}
+        onMouseOver={this.onMouseOver}
+        onMouseOut={this.onMouseOut}
+        onMouseDown={this.onMouseDown}
+        onMouseUp={this.onMouseUp}
+        onTouchStart={this.onMouseDown}
+        onTouchEnd={this.onMouseUp}
       >
         <div className={contentClass}>
           {this.props.children}
@@ -217,12 +222,12 @@ class Ticket extends Widget {
     return (
       <div
         className={coverClass}
-        onMouseOver={::this.onMouseOver}
-        onMouseOut={::this.onMouseOut}
-        onMouseDown={::this.onMouseDown}
-        onMouseUp={::this.onMouseUp}
-        onTouchStart={::this.onMouseDown}
-        onTouchEnd={::this.onMouseUp}
+        onMouseOver={this.onMouseOver}
+        onMouseOut={this.onMouseOut}
+        onMouseDown={this.onMouseDown}
+        onMouseUp={this.onMouseUp}
+        onTouchStart={this.onMouseDown}
+        onTouchEnd={this.onMouseUp}
       >
         <div className={coverContentClass}>
           {this.props.children}
