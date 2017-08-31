@@ -537,12 +537,6 @@ class DragCarrier extends Widget {
     }
 
     const dest = this.find (x, y);
-    if (dest) {
-      console.log (
-        `this.rectOrigin: ${this.rectOrigin.ownerId} ${this.rectOrigin.index}`
-      );
-      console.log (`dest: ${dest.ownerId} ${dest.index}`);
-    }
     if (
       dest &&
       this.rectOrigin &&
