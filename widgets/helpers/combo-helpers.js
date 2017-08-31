@@ -19,7 +19,8 @@ export function getComboLocation (
   itemCount,
   itemWidth,
   itemHeight,
-  x
+  x,
+  y
 ) {
   const rect = node.getBoundingClientRect ();
 
@@ -32,11 +33,14 @@ export function getComboLocation (
   }
 
   // Puts the menu under the component if it's in the upper half of the window.
-  const topValue = Unit.add (
-    window.innerHeight - rect.top + 'px',
-    triangleSize
-  );
-  const bottomValue = Unit.add (rect.bottom + 'px', triangleSize);
+  let topValue, bottomValue;
+  if (y) {
+    topValue = Unit.add (window.innerHeight - y + 'px', triangleSize);
+    bottomValue = Unit.add (y + 'px', triangleSize);
+  } else {
+    topValue = Unit.add (window.innerHeight - rect.top + 'px', triangleSize);
+    bottomValue = Unit.add (rect.bottom + 'px', triangleSize);
+  }
 
   const tv = Unit.parse (triangleSize).value;
   const underMax = window.innerHeight - rect.bottom - tv - 20 + 'px';
