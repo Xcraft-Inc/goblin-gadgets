@@ -123,13 +123,13 @@ class Combo extends Widget {
         return (
           <Button
             key={index}
-            kind="combo-item"
+            kind={this.props.menuType === 'menu' ? 'menu-item' : 'combo-item'}
             width={this.props.menuItemWidth}
             glyph={g.glyph}
             glyphColor={color}
             text={item.text}
             shortcut={item.shortcut}
-            textTransform="none"
+            textTransform={this.props.menuType === 'menu' ? null : 'none'}
             active={active}
             mouseUp={() => ::this.onActionAndClose (item)}
           />
@@ -163,7 +163,9 @@ class Combo extends Widget {
       >
         <div className={comboClass}>
           <Container
-            kind="flying-combo"
+            kind={
+              this.props.menuType === 'menu' ? 'flying-balloon' : 'flying-combo'
+            }
             trianglePosition={this.props.top ? 'top' : 'bottom'}
           >
             <div className={insideClass}>

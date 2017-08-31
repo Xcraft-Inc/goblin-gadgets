@@ -18,12 +18,18 @@ export function getComboLocation (
   padding,
   itemCount,
   itemWidth,
-  itemHeight
+  itemHeight,
+  x
 ) {
   const rect = node.getBoundingClientRect ();
 
   // Compute horizontal position according to component.
-  const center = (rect.left + rect.right) / 2 + 'px';
+  let center;
+  if (x) {
+    center = x + 'px';
+  } else {
+    center = (rect.left + rect.right) / 2 + 'px';
+  }
 
   // Puts the menu under the component if it's in the upper half of the window.
   const topValue = Unit.add (
