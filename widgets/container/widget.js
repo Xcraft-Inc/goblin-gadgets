@@ -183,7 +183,8 @@ class Container extends Widget {
       kind === 'flying-combo' ||
       kind === 'flying-balloon' ||
       kind === 'flying-chat' ||
-      kind === 'flying-dialog'
+      kind === 'flying-dialog' ||
+      kind === 'flying-task-menu'
     ) {
       return (
         <div key={index} disabled={disabled} className={boxClass} id={anchor}>

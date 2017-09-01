@@ -100,6 +100,19 @@ export function getSelectLocation (node, triangleSize, padding) {
   };
 }
 
+// Compute the location for a task-menu.
+export function getTaskMenuLocation (node, triangleSize) {
+  const rect = node.getBoundingClientRect ();
+
+  const left = Unit.add (rect.right + 'px', triangleSize);
+  const center = (rect.top + rect.bottom) / 2 + 'px';
+
+  return {
+    left: left,
+    center: center,
+  };
+}
+
 // Declipping dialog-modal when it's out of window.
 export function declipping (width, center, padding, distanceFromEdge) {
   if (width && center && padding) {

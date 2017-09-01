@@ -14,16 +14,29 @@ export default function styles (_theme, props) {
     backgroundColor: 'rgba(0, 0, 0, 0.2)',
   };
 
+  let top, right, bottom, left, transform;
+  if (props.left || props.right) {
+    transform = 'translate(0%, -50%)';
+    left = props.left;
+    top = props.center;
+  } else {
+    transform = 'translate(-50%, 0%)';
+    left = props.center;
+    top = props.top;
+    bottom = props.bottom;
+  }
+
   const comboStyle = {
     visibility: 'visible',
     position: 'absolute',
-    transform: 'translate(-50%, 0%)',
+    transform: transform,
     zIndex: 10,
     display: 'flex',
     flexDirection: 'column',
-    left: props.center,
-    top: props.top,
-    bottom: props.bottom,
+    left: left,
+    right: right,
+    top: top,
+    bottom: bottom,
     opacity: 1.0,
     cursor: 'default',
     userSelect: 'none',
