@@ -831,6 +831,7 @@ export default function styles (theme, props) {
   if (props.kind === 'flying-dialog') {
     display = 'flex';
     flexDirection = 'column';
+    flexGrow = '1';
     padding = theme.shapes.floatingPadding;
     backgroundColor = theme.palette.flyingDialogBackground;
     color = theme.palette.text;
@@ -948,7 +949,7 @@ export default function styles (theme, props) {
       triangleStyle = {
         position: 'absolute',
         height: '0px',
-        bottom: 'calc(50% - ' + tt + ')',
+        bottom: 'calc(50% + ' + tt + ')',
         left: '-' + p,
         borderTop: t + ' solid transparent',
         borderBottom: t + ' solid transparent',
@@ -958,7 +959,7 @@ export default function styles (theme, props) {
       triangleStyle = {
         position: 'absolute',
         height: '0px',
-        bottom: 'calc(50% - ' + tt + ')',
+        bottom: 'calc(50% + ' + tt + ')',
         right: '-' + p,
         borderTop: t + ' solid transparent',
         borderBottom: t + ' solid transparent',

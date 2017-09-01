@@ -67,10 +67,9 @@ class DialogModal extends Widget {
         >
           <div className={comboClass}>
             <Container
-              kind={this.props.kind ? this.props.kind : 'flying-dialog'}
+              kind="flying-dialog"
               trianglePosition={tp}
               width={this.props.width}
-              height={this.props.height}
               triangleShift={this.props.triangleShift}
               cursor="default"
             >
@@ -86,12 +85,7 @@ class DialogModal extends Widget {
           onMouseDown={::this.onMouseDown}
           onTouchStart={::this.onMouseDown}
         >
-          <Container
-            kind="floating"
-            cursor="default"
-            width={this.props.width}
-            height={this.props.height}
-          >
+          <Container kind="floating" cursor="default" width={this.props.width}>
             {this.props.children}
           </Container>
         </div>

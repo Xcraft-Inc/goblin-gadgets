@@ -114,7 +114,12 @@ export function getTaskMenuLocation (node, triangleSize) {
 }
 
 // Declipping dialog-modal when it's out of window.
-export function declipping (width, center, padding, distanceFromEdge) {
+export function horizontalDeclipping (
+  width,
+  center,
+  padding,
+  distanceFromEdge
+) {
   if (width && center && padding) {
     // Computation is impossible if width is undefined.
     const w = Unit.parse (width).value;
@@ -133,6 +138,35 @@ export function declipping (width, center, padding, distanceFromEdge) {
     if (rightShift > 0) {
       const newCenter = c - rightShift;
       return {triangleShift: '-' + rightShift + 'px', center: newCenter + 'px'};
+    }
+  }
+
+  return {triangleShift: '0px', center: center};
+}
+
+// Declipping dialog-modal when it's out of window.
+export function verticalDeclipping (height, center, padding, distanceFromEdge) {
+  if (height && center && padding) {
+    // Computation is impossible if height is undefined.
+    const h = Unit.parse (height).value;
+    const c = Unit.parse (center).value;
+    const p = Unit.parse (Unit.add (padding, distanceFromEdge)).value; // does not touch the edge of the window
+
+    // Compute triangleShift if dialog is out of top window border.
+    const topShift = h / 2 + p - c;
+    if (topShift > 0) {
+      const newCenter = c + topShift;
+      return {triangleShift: topShift + 'px', center: newCenter + 'px'};
+    }
+
+    // Compute triangleShift if dialog is out of bottom window border.
+    const bottomShift = c + h / 2 + p - window.innerHeight;
+    if (bottomShift > 0) {
+      const newCenter = c - bottomShift;
+      return {
+        triangleShift: '-' + bottomShift + 'px',
+        center: newCenter + 'px',
+      };
     }
   }
 

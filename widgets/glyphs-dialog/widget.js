@@ -176,7 +176,7 @@ class GlyphsDialog extends Widget {
     const buttonsWidth = Unit.multiply (buttonWidth, 3); // 3 columns of buttons
     const dialogWidth = Unit.add (buttonsWidth, '20px'); // add scroller width
 
-    const result = ComboHelpers.declipping (
+    const result = ComboHelpers.horizontalDeclipping (
       dialogWidth,
       this.props.center,
       this.context.theme.shapes.floatingPadding,

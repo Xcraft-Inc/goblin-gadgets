@@ -42,29 +42,45 @@ class TaskMenu extends Widget {
     );
   }
 
-  render () {
+  renderFooter () {
     const footerClass = this.styles.classNames.footer;
+    return (
+      <div className={footerClass}>
+        <Label grow="1" />
+        <Button
+          glyph="check"
+          text="Ouvrir"
+          kind="action"
+          width="150px"
+          place="1/1"
+          onClick={::this.onClose}
+        />
+      </div>
+    );
+  }
+
+  render () {
+    const n = Object.keys (this.props.data.rows).length;
+    const h = Math.min (n * 38, 800) + 300; // 38 is approximative height per line
+    const menuHeight = h + 'px';
+    const result = ComboHelpers.verticalDeclipping (
+      menuHeight,
+      this.props.center,
+      this.context.theme.shapes.floatingPadding,
+      this.context.theme.shapes.dialogDistanceFromEdge
+    );
 
     return (
       <DialogModal
         width={this.props.width}
-        height="400px"
-        center={this.props.center}
+        height={menuHeight}
+        center={result.center}
+        triangleShift={result.triangleShift}
         left={this.props.left}
         close={::this.onClose}
       >
         {this.renderMain ()}
-        <div className={footerClass}>
-          <Label grow="1" />
-          <Button
-            glyph="check"
-            text="Ouvrir"
-            kind="action"
-            width="150px"
-            place="1/1"
-            onClick={::this.onClose}
-          />
-        </div>
+        {this.renderFooter ()}
       </DialogModal>
     );
   }

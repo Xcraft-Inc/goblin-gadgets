@@ -4,6 +4,7 @@ export default function styles (_theme, _props) {
   const mainStyle = {
     display: 'flex',
     flexDirection: 'column',
+    flexGrow: '1',
   };
 
   const tableStyle = {
@@ -18,7 +19,7 @@ export default function styles (_theme, _props) {
     height: '80px',
     overflowX: 'hidden',
     overflowY: 'hidden',
-    marginTop: '10px',
+    marginTop: '30px',
   };
 
   return {
