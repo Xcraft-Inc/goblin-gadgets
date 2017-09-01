@@ -1598,6 +1598,7 @@ const properties = {
         'flying-balloon',
         'flying-chat',
         'flying-dialog',
+        'flying-task-menu',
         'footer',
         'full-view',
         'glyph-samples',

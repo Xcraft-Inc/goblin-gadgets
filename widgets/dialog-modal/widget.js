@@ -42,7 +42,22 @@ class DialogModal extends Widget {
   render () {
     const fullScreenClass = this.styles.classNames.fullScreen;
 
-    if (this.props.top || this.props.bottom) {
+    if (
+      this.props.top ||
+      this.props.bottom ||
+      this.props.left ||
+      this.props.right
+    ) {
+      let tp = null;
+      if (this.props.top) {
+        tp = 'top';
+      } else if (this.props.bottom) {
+        tp = 'bottom';
+      } else if (this.props.left) {
+        tp = 'left';
+      } else if (this.props.right) {
+        tp = 'right';
+      }
       const comboClass = this.styles.classNames.combo;
       return (
         <div
@@ -52,8 +67,8 @@ class DialogModal extends Widget {
         >
           <div className={comboClass}>
             <Container
-              kind="flying-dialog"
-              trianglePosition={this.props.top ? 'top' : 'bottom'}
+              kind={this.props.kind ? this.props.kind : 'flying-dialog'}
+              trianglePosition={tp}
               width={this.props.width}
               height={this.props.height}
               triangleShift={this.props.triangleShift}
