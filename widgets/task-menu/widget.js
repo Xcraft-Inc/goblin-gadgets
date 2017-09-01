@@ -27,8 +27,6 @@ class TaskMenu extends Widget {
     }
   }
 
-  onSelectAll () {}
-
   renderMain () {
     const mainClass = this.styles.classNames.main;
     const tableClass = this.styles.classNames.table;
@@ -36,14 +34,9 @@ class TaskMenu extends Widget {
       <div className={mainClass}>
         <Container kind="row">
           <Label text="Activités" grow="1" kind="title" />
-          <Button
-            glyph="check"
-            tooltip="Sélectionne tout"
-            onClick={::this.onSelectAll}
-          />
         </Container>
         <div className={tableClass}>
-          <Table height="200px" data={this.props.data} enableSelection="true" />
+          <Table data={this.props.data} frame="true" enableSelection="true" />
         </div>
       </div>
     );
@@ -55,6 +48,7 @@ class TaskMenu extends Widget {
     return (
       <DialogModal
         width={this.props.width}
+        height="400px"
         center={this.props.center}
         left={this.props.left}
         close={::this.onClose}

@@ -818,7 +818,6 @@ export default function styles (theme, props) {
     const fbp = theme.shapes.chatPadding;
     display = 'flex';
     flexDirection = 'column';
-    flexWrap = 'wrap';
     margin = '0px 0px ' + theme.shapes.chatVerticalSpacing + ' 0px';
     padding = fbp + ' ' + fbp + ' ' + fbp + ' ' + fbp;
     backgroundColor = props.subkind === 'me'
@@ -832,13 +831,22 @@ export default function styles (theme, props) {
   if (props.kind === 'flying-dialog') {
     display = 'flex';
     flexDirection = 'column';
-    flexWrap = 'wrap';
     padding = theme.shapes.floatingPadding;
     backgroundColor = theme.palette.flyingDialogBackground;
     color = theme.palette.text;
     position = 'relative';
     boxShadow = theme.shapes.flyingShadow;
     borderRadius = theme.shapes.flyingDialogRadius;
+  }
+
+  if (props.kind === 'push-to-edge') {
+    margin =
+      '0px ' +
+      Unit.multiply (m, -1) +
+      ' ' +
+      Unit.multiply (m, -1) +
+      ' ' +
+      Unit.multiply (m, -1);
   }
 
   if (flexGrow) {
