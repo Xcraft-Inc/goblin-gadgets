@@ -81,11 +81,18 @@ class Hinter extends Widget {
                 kind="title"
               />
             </Container>
-            <Button
-              text={this.props.newButtonTitle}
-              onClick={this.props.onNew}
-            />
             {this.renderContent ()}
+            {this.props.onNew
+              ? <Button
+                  kind="subaction"
+                  text={
+                    this.props.newButtonTitle
+                      ? this.props.newButtonTitle
+                      : `Nouveau ${this.props.titleText}`
+                  }
+                  onClick={this.props.onNew}
+                />
+              : null}
           </Container>
         </Container>
       </Container>
