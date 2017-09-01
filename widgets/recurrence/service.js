@@ -41,27 +41,19 @@ const logicHandlers = {
     switch (type) {
       case 'default': {
         // If click on recurrent event, add a date into section 'Delete' for canceled the recurrence.
-        const list = state.get ('deleteList', []);
-        const newList = list.push (date);
-        return state.set ('deleteList', newList);
+        return state.push ('deleteList', date);
       }
       case 'added': {
         // If click on added event, simply remove it.
-        const list = state.get ('addList', []);
-        const newList = list.unpush (date);
-        return state.set ('addList', newList);
+        return state.unpush ('addList', date);
       }
       case 'deleted': {
         // If click on deleted event, remove 'Delete' entry. That restore the recurrent event.
-        const list = state.get ('deleteList', []);
-        const newList = list.unpush (date);
-        return state.set ('deleteList', newList);
+        return state.unpush ('deleteList', date);
       }
       case 'none': {
         // If click on free date, add a event.
-        const list = state.get ('addList', []);
-        const newList = list.push (date);
-        return state.set ('addList', newList);
+        return state.push ('addList', date);
       }
     }
   },
