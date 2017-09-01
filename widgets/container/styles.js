@@ -841,18 +841,6 @@ export default function styles (theme, props) {
     borderRadius = theme.shapes.flyingDialogRadius;
   }
 
-  if (props.kind === 'flying-task-menu') {
-    display = 'flex';
-    flexDirection = 'column';
-    flexWrap = 'wrap';
-    padding = '5px'; // FIXME: move to theme
-    backgroundColor = theme.palette.flyingDialogBackground;
-    color = theme.palette.text;
-    position = 'relative';
-    boxShadow = theme.shapes.flyingShadow;
-    borderRadius = theme.shapes.flyingDialogRadius;
-  }
-
   if (flexGrow) {
     flexShrink = '1';
     flexBasis = '0%';
@@ -927,8 +915,7 @@ export default function styles (theme, props) {
     props.kind === 'flying-combo' ||
     props.kind === 'flying-balloon' ||
     props.kind === 'flying-chat' ||
-    props.kind === 'flying-dialog' ||
-    props.kind === 'flying-task-menu'
+    props.kind === 'flying-dialog'
   ) {
     let triangleSize, triangleColor;
     if (
