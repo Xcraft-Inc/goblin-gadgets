@@ -8,6 +8,7 @@ export default function styles (_theme, _props) {
 
   const tableStyle = {
     marginTop: '20px',
+    display: 'flex',
   };
 
   const footerStyle = {

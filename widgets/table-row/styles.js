@@ -4,9 +4,11 @@ import {ColorManipulator} from 'electrum-theme';
 
 export default function styles (theme, props) {
   const m = theme.shapes.containerMargin;
+  const last = props.index >= props.count - 1;
+  const border = last ? null : '1px solid ' + theme.palette.tableBorder;
 
   const rowStyle = {
-    borderBottom: '1px solid ' + theme.palette.tableBorder,
+    borderBottom: border,
     display: 'flex',
     flexDirection: 'row',
     padding: '0px ' + m,
@@ -15,7 +17,7 @@ export default function styles (theme, props) {
   };
 
   const rowSelectedStyle = {
-    borderBottom: '1px solid ' + theme.palette.tableBorder,
+    borderBottom: border,
     display: 'flex',
     flexDirection: 'row',
     padding: '0px ' + m,

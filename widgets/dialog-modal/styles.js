@@ -29,6 +29,7 @@ export default function styles (_theme, props) {
   const comboStyle = {
     visibility: 'visible',
     position: 'absolute',
+    maxHeight: props.height,
     transform: transform,
     zIndex: 10,
     display: 'flex',

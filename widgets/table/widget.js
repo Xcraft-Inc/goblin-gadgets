@@ -77,13 +77,14 @@ class Table extends Widget {
     );
   }
 
-  renderRow (header, row, index) {
+  renderRow (header, row, count, index) {
     return (
       <TableRow
         header={header.state}
         row={row}
         key={index}
         index={index}
+        count={count}
         selected={Bool.toString (this.selectedRow === row.get ('id', null))}
         selectionChanged={this.onSelectionChanged}
       />
@@ -93,9 +94,10 @@ class Table extends Widget {
   renderRows (data) {
     let index = 0;
     const rows = data.get ('rows');
+    const count = rows.count ();
     const header = data.get ('header');
     return rows.linq
-      .select (row => this.renderRow (header, row, index++))
+      .select (row => this.renderRow (header, row, count, index++))
       .toList ();
   }
 
