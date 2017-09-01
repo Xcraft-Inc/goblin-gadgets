@@ -6,9 +6,7 @@ export default function styles (theme, props) {
   const m = theme.shapes.containerMargin;
 
   const tableStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    flexGrow: '1',
+    height: props.height,
     margin: '0px ' +
       Unit.multiply (m, -1) +
       ' ' +
@@ -16,8 +14,7 @@ export default function styles (theme, props) {
       ' ' +
       Unit.multiply (m, -1),
     cursor: 'default',
-    overflowX: 'auto',
-    overflowY: 'hidden',
+    overflowY: 'auto',
   };
 
   const headerStyle = {
