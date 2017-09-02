@@ -18,6 +18,20 @@ import LabelTextField from 'gadgets/label-text-field/widget';
 class WorkMenu extends Widget {
   constructor () {
     super (...arguments);
+
+    this.state = {
+      hasSelection: false,
+    };
+  }
+
+  get hasSelection () {
+    return this.state.hasSelection;
+  }
+
+  set hasSelection (value) {
+    this.setState ({
+      hasSelection: value,
+    });
   }
 
   onClose () {
@@ -25,6 +39,10 @@ class WorkMenu extends Widget {
     if (x) {
       x ();
     }
+  }
+
+  onSelectionChanged (ids) {
+    this.hasSelection = ids.length > 0;
   }
 
   renderMain () {
@@ -36,7 +54,12 @@ class WorkMenu extends Widget {
           <Label text="Activités" grow="1" kind="title" />
         </Container>
         <div className={tableClass}>
-          <Table data={this.props.data} frame="true" selectionMode="multi" />
+          <Table
+            data={this.props.data}
+            frame="true"
+            selectionMode="multi"
+            onSelectionChanged={ids => ::this.onSelectionChanged (ids)}
+          />
         </div>
       </div>
     );
@@ -53,6 +76,7 @@ class WorkMenu extends Widget {
           kind="action"
           width="150px"
           place="1/1"
+          disabled={!this.hasSelection}
           onClick={::this.onClose}
         />
       </div>
@@ -61,7 +85,7 @@ class WorkMenu extends Widget {
 
   render () {
     const n = Object.keys (this.props.data.rows).length;
-    const h = Math.min (n * 38, 800) + 240; // 38 is approximative height per line
+    const h = Math.min (n * 38, 800) + 250; // 38 is approximative height per line
     const menuHeight = h + 'px';
     const result = ComboHelpers.verticalDeclipping (
       menuHeight,
