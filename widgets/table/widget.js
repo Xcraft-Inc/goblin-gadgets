@@ -12,6 +12,7 @@ class Table extends Widget {
 
     this.state = {
       selectedRow: null,
+      selectedRows: [],
     };
 
     this.onSelectionChanged = this.onSelectionChanged.bind (this);
@@ -27,17 +28,50 @@ class Table extends Widget {
     });
   }
 
+  get selectedRows () {
+    return this.state.selectedRows;
+  }
+
+  set selectedRows (value) {
+    this.setState ({
+      selectedRows: value,
+    });
+  }
+
   onSelectionChanged (id) {
     if (this.props.selectionMode === 'single') {
       if (id === this.selectedRow) {
         id = null; // deselect the selected row
       }
       this.selectedRow = id;
-    }
 
-    const x = this.props.onSelectionChanged;
-    if (x) {
-      x (id);
+      const x = this.props.onSelectionChanged;
+      if (x) {
+        x (id);
+      }
+    } else if (this.props.selectionMode === 'multi') {
+      const i = this.selectedRows.indexOf (id);
+      if (i === -1) {
+        this.selectedRows.push (id);
+      } else {
+        this.selectedRows.splice (i, 1);
+      }
+      this.forceUpdate ();
+
+      const x = this.props.onSelectionChanged;
+      if (x) {
+        x (this.selectedRows);
+      }
+    }
+  }
+
+  isSelected (id) {
+    if (this.props.selectionMode === 'single') {
+      return this.selectedRow === id;
+    } else if (this.props.selectionMode === 'multi') {
+      return this.selectedRows.indexOf (id) !== -1;
+    } else {
+      return false;
     }
   }
 
@@ -85,7 +119,7 @@ class Table extends Widget {
         key={index}
         index={index}
         count={count}
-        selected={Bool.toString (this.selectedRow === row.get ('id', null))}
+        selected={Bool.toString (this.isSelected (row.get ('id', null)))}
         selectionChanged={this.onSelectionChanged}
       />
     );
