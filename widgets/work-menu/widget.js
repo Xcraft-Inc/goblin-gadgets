@@ -15,7 +15,7 @@ import LabelTextField from 'gadgets/label-text-field/widget';
 
 /******************************************************************************/
 
-class TaskMenu extends Widget {
+class WorkMenu extends Widget {
   constructor () {
     super (...arguments);
   }
@@ -87,4 +87,4 @@ class TaskMenu extends Widget {
 }
 
 /******************************************************************************/
-export default TaskMenu;
+export default WorkMenu;

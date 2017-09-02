@@ -100,8 +100,8 @@ export function getSelectLocation (node, triangleSize, padding) {
   };
 }
 
-// Compute the location for a task-menu.
-export function getTaskMenuLocation (node, triangleSize) {
+// Compute the location for a work-menu.
+export function getWorkMenuLocation (node, triangleSize) {
   const rect = node.getBoundingClientRect ();
 
   const left = Unit.add (rect.right + 'px', triangleSize);
