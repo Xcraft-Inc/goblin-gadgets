@@ -75,6 +75,10 @@ class Table extends Widget {
     }
   }
 
+  hasHeader (header) {
+    return header.linq.where (column => column.get ('description')).any ();
+  }
+
   /******************************************************************************/
 
   renderHeaderCell (column, isLast, index) {
@@ -103,12 +107,16 @@ class Table extends Widget {
   }
 
   renderHeader (header) {
-    const styleClass = this.styles.classNames.header;
-    return (
-      <div className={styleClass}>
-        {this.renderHeaderCells (header)}
-      </div>
-    );
+    if (this.hasHeader (header)) {
+      const styleClass = this.styles.classNames.header;
+      return (
+        <div className={styleClass}>
+          {this.renderHeaderCells (header)}
+        </div>
+      );
+    } else {
+      return null;
+    }
   }
 
   renderRow (header, row, count, index) {
