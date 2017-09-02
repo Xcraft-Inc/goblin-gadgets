@@ -36,7 +36,7 @@ class WorkMenu extends Widget {
           <Label text="Activités" grow="1" kind="title" />
         </Container>
         <div className={tableClass}>
-          <Table data={this.props.data} frame="true" enableSelection="true" />
+          <Table data={this.props.data} frame="true" selectionMode="multi" />
         </div>
       </div>
     );

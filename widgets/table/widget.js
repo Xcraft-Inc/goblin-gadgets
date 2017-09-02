@@ -28,7 +28,7 @@ class Table extends Widget {
   }
 
   onSelectionChanged (id) {
-    if (Bool.isTrue (this.props.enableSelection)) {
+    if (this.props.selectionMode === 'single') {
       if (id === this.selectedRow) {
         id = null; // deselect the selected row
       }
