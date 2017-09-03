@@ -156,7 +156,7 @@ export function verticalDeclipping (height, center, padding, distanceFromEdge) {
     const topShift = h / 2 + p - c;
     if (topShift > 0) {
       const newCenter = c + topShift;
-      return {triangleShift: topShift + 'px', center: newCenter + 'px'};
+      return {triangleShift: '-' + topShift + 'px', center: newCenter + 'px'};
     }
 
     // Compute triangleShift if dialog is out of bottom window border.
@@ -164,7 +164,7 @@ export function verticalDeclipping (height, center, padding, distanceFromEdge) {
     if (bottomShift > 0) {
       const newCenter = c - bottomShift;
       return {
-        triangleShift: '-' + bottomShift + 'px',
+        triangleShift: bottomShift + 'px',
         center: newCenter + 'px',
       };
     }
