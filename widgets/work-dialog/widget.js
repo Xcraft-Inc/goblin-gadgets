@@ -15,7 +15,7 @@ import LabelTextField from 'gadgets/label-text-field/widget';
 
 /******************************************************************************/
 
-class WorkMenu extends Widget {
+class WorkDialog extends Widget {
   constructor () {
     super (...arguments);
 
@@ -86,9 +86,9 @@ class WorkMenu extends Widget {
   render () {
     const n = Object.keys (this.props.data.rows).length;
     const h = Math.min (n * 38, 800) + 210; // 38 is approximative height per line
-    const menuHeight = h + 'px';
+    const dialogHeight = h + 'px';
     const result = ComboHelpers.verticalDeclipping (
-      menuHeight,
+      dialogHeight,
       this.props.center,
       this.context.theme.shapes.floatingPadding,
       this.context.theme.shapes.dialogDistanceFromEdge
@@ -97,7 +97,7 @@ class WorkMenu extends Widget {
     return (
       <DialogModal
         width={this.props.width}
-        height={menuHeight}
+        height={dialogHeight}
         center={result.center}
         triangleShift={result.triangleShift}
         left={this.props.left}
@@ -111,4 +111,4 @@ class WorkMenu extends Widget {
 }
 
 /******************************************************************************/
-export default WorkMenu;
+export default WorkDialog;
