@@ -16,10 +16,9 @@ export default function styles (_theme, _props) {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'flex-end',
-    height: '80px',
+    minHeight: '50px',
     overflowX: 'hidden',
     overflowY: 'hidden',
-    marginTop: '30px',
   };
 
   return {

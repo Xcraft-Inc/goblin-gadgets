@@ -85,7 +85,7 @@ class WorkMenu extends Widget {
 
   render () {
     const n = Object.keys (this.props.data.rows).length;
-    const h = Math.min (n * 38, 800) + 250; // 38 is approximative height per line
+    const h = Math.min (n * 38, 800) + 210; // 38 is approximative height per line
     const menuHeight = h + 'px';
     const result = ComboHelpers.verticalDeclipping (
       menuHeight,
