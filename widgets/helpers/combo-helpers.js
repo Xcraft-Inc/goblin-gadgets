@@ -1,3 +1,4 @@
+import ReactDOM from 'react-dom';
 import {Unit} from 'electrum-theme';
 
 // Set the DragCab.hasCombo parent to true or false. It will be informed that a combo is
@@ -8,6 +9,27 @@ export function setDragCabHasCombo (id, value) {
       dragCab.hasCombo = value;
       return;
     }
+  }
+}
+
+function getFlyingOffset () {
+  if (
+    window.document.flyingDialogs &&
+    window.document.flyingDialogs.length > 0
+  ) {
+    const flyingDialog =
+      window.document.flyingDialogs[window.document.flyingDialogs.length - 1];
+    const node = ReactDOM.findDOMNode (flyingDialog);
+    const rect = node.getBoundingClientRect ();
+    return {
+      left: rect.left + 'px',
+      top: rect.top + 'px',
+    };
+  } else {
+    return {
+      left: '0px',
+      top: '0px',
+    };
   }
 }
 
@@ -64,14 +86,17 @@ export function getComboLocation (
     maxHeight = maxRows * Unit.parse (itemHeight).value + 'px';
   }
 
-  return {
-    center: center,
-    top: underside ? bottomValue : null,
-    bottom: underside ? null : topValue,
+  const offset = getFlyingOffset ();
+
+  const xx = {
+    center: Unit.sub (center, offset.left),
+    top: underside ? Unit.sub (bottomValue, offset.top) : null,
+    bottom: underside ? null : Unit.sub (topValue, offset.top),
     maxHeight: maxHeight,
     width: width,
     menuItemWidth: itemWidth,
   };
+  return xx;
 }
 
 // Compute the location for a select-menu.
@@ -91,11 +116,13 @@ export function getSelectLocation (node, triangleSize, padding) {
 
   const width = Unit.sub (rect.width + 'px', Unit.multiply (padding, 2));
 
+  const offset = getFlyingOffset ();
+
   return {
-    left: rect.left + 'px',
+    left: Unit.sub (rect.left + 'px', offset.left),
     width: width,
-    top: underside ? bottomValue : null,
-    bottom: underside ? null : topValue,
+    top: underside ? Unit.sub (bottomValue, offset.top) : null,
+    bottom: underside ? null : Unit.sub (topValue, offset.top),
     maxHeight: underside ? underMax : overMax,
   };
 }
