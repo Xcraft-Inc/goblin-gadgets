@@ -45,6 +45,38 @@ class WorkDialog extends Widget {
     this.hasSelection = ids.length > 0;
   }
 
+  get tableData () {
+    const data = {
+      header: {
+        column0: {
+          id: 'column0',
+          name: 'title',
+          width: '200px',
+          textAlign: 'left',
+        },
+        column1: {
+          id: 'column1',
+          name: 'description',
+          width: '300px',
+          textAlign: 'left',
+        },
+      },
+      rows: {},
+    };
+
+    let index = 0;
+    for (const item of this.props.data) {
+      const id = 'row' + index++;
+      data.rows[id] = {
+        id: id,
+        title: item.title,
+        description: item.description,
+      };
+    }
+
+    return data;
+  }
+
   renderMain () {
     const mainClass = this.styles.classNames.main;
     const tableClass = this.styles.classNames.table;
@@ -55,7 +87,7 @@ class WorkDialog extends Widget {
         </Container>
         <div className={tableClass}>
           <Table
-            data={this.props.data}
+            data={this.tableData}
             frame="true"
             selectionMode="multi"
             onSelectionChanged={ids => ::this.onSelectionChanged (ids)}
@@ -84,7 +116,7 @@ class WorkDialog extends Widget {
   }
 
   render () {
-    const n = Object.keys (this.props.data.rows).length;
+    const n = this.props.data.length;
     const dialogHeight = Unit.add (
       Math.min (n * 38, 800) + 130 + 'px', // 38 is approximative height per line
       Unit.multiply (this.context.theme.shapes.floatingPadding, 2)
