@@ -70,12 +70,12 @@ class Button extends Widget {
 
   renderBusy () {
     if (Bool.isTrue (this.props.busy)) {
-      // return null; // TOOD:DR
       const busyClass = this.styles.classNames.busy;
       return (
-        <div className={busyClass}>
-          <Label glyph="spinner" glyphSpin="yes" />
-        </div>
+        <i
+          className={`${busyClass} fa
+        fa-spinner fa-2x fa-pulse`}
+        />
       );
     } else {
       return null;

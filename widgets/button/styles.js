@@ -18,6 +18,10 @@ function convertJustify (justify) {
   }
 }
 
+function isDisabled (props) {
+  return Bool.isTrue (props.disabled) || Bool.isTrue (props.busy);
+}
+
 /******************************************************************************/
 
 export default function styles (theme, props) {
@@ -235,7 +239,7 @@ export default function styles (theme, props) {
     borderStyle = 'none';
     textHoverColor = theme.palette.notificationTextHover;
     backgroundHoverColor = 'transparent';
-    if (Bool.isTrue (props.disabled)) {
+    if (isDisabled (props)) {
       textColor = ColorManipulator.darken (theme.palette.notificationText, 0.4);
     }
     specialDisabled = true;
@@ -572,7 +576,7 @@ export default function styles (theme, props) {
   }
 
   // Alter colors if component is disable.
-  if (Bool.isTrue (props.disabled) && !specialDisabled) {
+  if (isDisabled (props) && !specialDisabled) {
     borderColor = theme.palette.buttonDisableBorder;
     if (backgroundColor) {
       backgroundColor = theme.palette.buttonDisableBackground;
@@ -655,7 +659,7 @@ export default function styles (theme, props) {
     opacity: Bool.isTrue (props.busy) ? 0 : 1,
   };
 
-  if (!Bool.isTrue (props.disabled) && boxOpacity !== 0) {
+  if (!isDisabled (props) && boxOpacity !== 0) {
     boxStyle[':hover'] = {
       color: textHoverColor, // (*)
       borderColor: borderHoverColor,
@@ -690,11 +694,8 @@ export default function styles (theme, props) {
   };
 
   const busyStyle = {
-    // TOOD:DR
     position: 'absolute',
-    width: '100%',
-    height: '100%',
-    opacity: 1,
+    color: textColor,
   };
 
   return {
