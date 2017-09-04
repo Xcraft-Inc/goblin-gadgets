@@ -24,6 +24,10 @@ class WorkDialog extends Widget {
     };
 
     this.selectedIds = null;
+
+    this.onOpen = this.onOpen.bind (this);
+    this.onClose = this.onClose.bind (this);
+    this.onSelectionChanged = this.onSelectionChanged.bind (this);
   }
 
   get hasSelection () {
@@ -102,7 +106,7 @@ class WorkDialog extends Widget {
             data={this.tableData}
             frame="true"
             selectionMode="multi"
-            onSelectionChanged={ids => ::this.onSelectionChanged (ids)}
+            onSelectionChanged={ids => this.onSelectionChanged (ids)}
           />
         </div>
       </div>
@@ -121,7 +125,7 @@ class WorkDialog extends Widget {
           width="150px"
           place="1/1"
           disabled={!this.hasSelection}
-          onClick={::this.onOpen}
+          onClick={this.onOpen}
         />
       </div>
     );
@@ -146,7 +150,7 @@ class WorkDialog extends Widget {
         center={result.center}
         triangleShift={result.triangleShift}
         left={this.props.left}
-        close={::this.onClose}
+        close={this.onClose}
       >
         {this.renderMain ()}
         {this.renderFooter ()}
