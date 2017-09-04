@@ -688,11 +688,19 @@ export default function styles (theme, props) {
     userSelect: 'none',
   };
 
+  const busyStyle = {
+    // TOOD:DR
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+  };
+
   return {
     box: boxStyle,
     shortcut: shortcutStyle,
     triangle: triangleStyle,
     menuBox: menuBoxStyle,
+    busy: busyStyle,
   };
 }
 

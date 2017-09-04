@@ -68,6 +68,20 @@ class Button extends Widget {
     }
   }
 
+  renderBusy () {
+    if (Bool.isTrue (this.props.busy)) {
+      // return null; // TOOD:DR
+      const busyClass = this.styles.classNames.busy;
+      return (
+        <div className={busyClass}>
+          <Label glyph="spinner" />
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
+
   renderBadge () {
     if (this.props.badgeValue) {
       return <Badge value={this.props.badgeValue} layer="over" />;
@@ -175,6 +189,7 @@ class Button extends Widget {
           {this.renderTriangle ()}
           {this.renderBadge ()}
           {this.renderMenu ()}
+          {this.renderBusy ()}
           {this.props.children}
         </div>
       );
@@ -195,6 +210,7 @@ class Button extends Widget {
           {this.renderTriangle ()}
           {this.renderBadge ()}
           {this.renderMenu ()}
+          {this.renderBusy ()}
           {this.props.children}
         </a>
       );
@@ -214,6 +230,7 @@ class Button extends Widget {
           {this.renderTriangle ()}
           {this.renderBadge ()}
           {this.renderMenu ()}
+          {this.renderBusy ()}
           {this.props.children}
         </div>
       );

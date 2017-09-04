@@ -100,6 +100,13 @@ const properties = {
       field: 'disabled',
       value: 'false',
     },
+    busy: {
+      id: 'busy',
+      group: 'Aspect',
+      type: 'bool',
+      field: 'busy',
+      value: 'false',
+    },
     text: {
       id: 'text',
       group: 'Text',
