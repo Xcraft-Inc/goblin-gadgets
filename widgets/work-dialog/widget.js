@@ -85,8 +85,10 @@ class WorkDialog extends Widget {
 
   render () {
     const n = Object.keys (this.props.data.rows).length;
-    const h = Math.min (n * 38, 800) + 210; // 38 is approximative height per line
-    const dialogHeight = h + 'px';
+    const dialogHeight = Unit.add (
+      Math.min (n * 38, 800) + 130 + 'px', // 38 is approximative height per line
+      Unit.multiply (this.context.theme.shapes.floatingPadding, 2)
+    );
     const result = ComboHelpers.verticalDeclipping (
       dialogHeight,
       this.props.center,
