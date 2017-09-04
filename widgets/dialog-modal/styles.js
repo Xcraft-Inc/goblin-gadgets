@@ -1,6 +1,6 @@
 /******************************************************************************/
 
-export default function styles (_theme, props) {
+export default function styles (theme, props) {
   const fullScreenStyle = {
     visibility: 'visible',
     position: 'fixed',
@@ -18,6 +18,7 @@ export default function styles (_theme, props) {
   if (props.left || props.right) {
     transform = 'translate(0%, -50%)';
     left = props.left;
+    right = props.right;
     top = props.center;
   } else {
     transform = 'translate(-50%, 0%)';
@@ -29,6 +30,7 @@ export default function styles (_theme, props) {
   const comboStyle = {
     visibility: 'visible',
     position: 'absolute',
+    width: props.width,
     height: props.height,
     transform: transform,
     zIndex: 10,

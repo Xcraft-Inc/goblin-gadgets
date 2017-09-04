@@ -69,7 +69,6 @@ class DialogModal extends Widget {
             <Container
               kind="flying-dialog"
               trianglePosition={tp}
-              width={this.props.width}
               triangleShift={this.props.triangleShift}
               cursor="default"
             >

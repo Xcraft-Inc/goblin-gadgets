@@ -90,7 +90,6 @@ class WorkDialog extends Widget {
     const result = ComboHelpers.verticalDeclipping (
       dialogHeight,
       this.props.center,
-      this.context.theme.shapes.floatingPadding,
       this.context.theme.shapes.dialogDistanceFromEdge
     );
 

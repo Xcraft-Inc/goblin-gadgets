@@ -114,17 +114,12 @@ export function getVerticalDialogLocation (node, triangleSize) {
 }
 
 // Declipping dialog-modal when it's out of window.
-export function horizontalDeclipping (
-  width,
-  center,
-  padding,
-  distanceFromEdge
-) {
-  if (width && center && padding) {
+export function horizontalDeclipping (width, center, distanceFromEdge) {
+  if (width && center && distanceFromEdge) {
     // Computation is impossible if width is undefined.
     const w = Unit.parse (width).value;
     const c = Unit.parse (center).value;
-    const p = Unit.parse (Unit.add (padding, distanceFromEdge)).value; // does not touch the edge of the window
+    const p = Unit.parse (distanceFromEdge).value; // does not touch the edge of the window
 
     // Compute triangleShift if dialog is out of left window border.
     const leftShift = w / 2 + p - c;
@@ -145,12 +140,12 @@ export function horizontalDeclipping (
 }
 
 // Declipping dialog-modal when it's out of window.
-export function verticalDeclipping (height, center, padding, distanceFromEdge) {
-  if (height && center && padding) {
+export function verticalDeclipping (height, center, distanceFromEdge) {
+  if (height && center && distanceFromEdge) {
     // Computation is impossible if height is undefined.
     const h = Unit.parse (height).value;
     const c = Unit.parse (center).value;
-    const p = Unit.parse (Unit.add (padding, distanceFromEdge)).value; // does not touch the edge of the window
+    const p = Unit.parse (distanceFromEdge).value; // does not touch the edge of the window
 
     // Compute triangleShift if dialog is out of top window border.
     const topShift = h / 2 + p - c;

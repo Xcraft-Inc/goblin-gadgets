@@ -174,12 +174,14 @@ class GlyphsDialog extends Widget {
       this.context.theme.shapes.glyphsDialogButtonMargin
     );
     const buttonsWidth = Unit.multiply (buttonWidth, 3); // 3 columns of buttons
-    const dialogWidth = Unit.add (buttonsWidth, '20px'); // add scroller width
+    const dialogWidth = Unit.add (
+      Unit.add (buttonsWidth, '20px'),
+      Unit.multiply (this.context.theme.shapes.floatingPadding, 2)
+    ); // add scroller width
 
     const result = ComboHelpers.horizontalDeclipping (
       dialogWidth,
       this.props.center,
-      this.context.theme.shapes.floatingPadding,
       this.context.theme.shapes.dialogDistanceFromEdge
     );
 
