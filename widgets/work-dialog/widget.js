@@ -22,6 +22,8 @@ class WorkDialog extends Widget {
     this.state = {
       hasSelection: false,
     };
+
+    this.selectedIds = null;
   }
 
   get hasSelection () {
@@ -41,7 +43,18 @@ class WorkDialog extends Widget {
     }
   }
 
+  onOpen () {
+    if (this.hasSelection) {
+      const x = this.props.action;
+      if (x) {
+        x (this.selectedIds);
+      }
+      this.onClose ();
+    }
+  }
+
   onSelectionChanged (ids) {
+    this.selectedIds = ids;
     this.hasSelection = ids.length > 0;
   }
 
@@ -64,9 +77,8 @@ class WorkDialog extends Widget {
       rows: {},
     };
 
-    let index = 0;
     for (const item of this.props.data) {
-      const id = 'row' + index++;
+      const id = item.id;
       data.rows[id] = {
         id: id,
         title: item.title,
@@ -109,7 +121,7 @@ class WorkDialog extends Widget {
           width="150px"
           place="1/1"
           disabled={!this.hasSelection}
-          onClick={::this.onClose}
+          onClick={::this.onOpen}
         />
       </div>
     );
