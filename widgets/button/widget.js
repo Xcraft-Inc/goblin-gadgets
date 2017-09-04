@@ -120,11 +120,7 @@ class Button extends Widget {
     if (this.props.shortcut) {
       const shortcutClass = this.styles.classNames.shortcut;
       return (
-        <label
-          key="shortcut"
-          opacity={Bool.isTrue (this.props.busy) ? 0 : 1}
-          className={shortcutClass}
-        >
+        <label key="shortcut" className={shortcutClass}>
           {ShortcutHelpers.getShortcut (this.props.shortcut)}
         </label>
       );
