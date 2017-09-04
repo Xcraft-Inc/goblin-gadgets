@@ -652,6 +652,7 @@ export default function styles (theme, props) {
     whiteSpace: 'nowrap',
     wordWrap: 'break-word',
     userSelect: 'none',
+    opacity: Bool.isTrue (props.busy) ? 0 : 1,
   };
 
   if (!Bool.isTrue (props.disabled) && boxOpacity !== 0) {
@@ -693,6 +694,7 @@ export default function styles (theme, props) {
     position: 'absolute',
     width: '100%',
     height: '100%',
+    opacity: 1,
   };
 
   return {

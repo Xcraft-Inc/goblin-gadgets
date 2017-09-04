@@ -74,7 +74,7 @@ class Button extends Widget {
       const busyClass = this.styles.classNames.busy;
       return (
         <div className={busyClass}>
-          <Label glyph="spinner" />
+          <Label glyph="spinner" glyphSpin="yes" />
         </div>
       );
     } else {
@@ -84,7 +84,13 @@ class Button extends Widget {
 
   renderBadge () {
     if (this.props.badgeValue) {
-      return <Badge value={this.props.badgeValue} layer="over" />;
+      return (
+        <Badge
+          value={this.props.badgeValue}
+          layer="over"
+          visibility={!Bool.isTrue (this.props.busy)}
+        />
+      );
     } else {
       return null;
     }
@@ -114,7 +120,11 @@ class Button extends Widget {
     if (this.props.shortcut) {
       const shortcutClass = this.styles.classNames.shortcut;
       return (
-        <label key="shortcut" className={shortcutClass}>
+        <label
+          key="shortcut"
+          opacity={Bool.isTrue (this.props.busy) ? 0 : 1}
+          className={shortcutClass}
+        >
           {ShortcutHelpers.getShortcut (this.props.shortcut)}
         </label>
       );
@@ -132,6 +142,7 @@ class Button extends Widget {
         grow="1"
         buttonBackgroundColor={boxStyle.backgroundColor}
         insideButton="true"
+        visibility={!Bool.isTrue (this.props.busy)}
       />
     );
   }
