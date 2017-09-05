@@ -165,6 +165,7 @@ export default function styles (theme, props) {
 
   if (props.kind === 'task-bar') {
     minWidth = theme.shapes.taskButtonWidth;
+    maxWidth = theme.shapes.taskButtonWidth;
     display = 'flex';
     flexDirection = 'column';
   }

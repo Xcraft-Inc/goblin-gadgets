@@ -91,6 +91,8 @@ export default function styles (theme, props) {
 
   // task-logo button (usual parent container with kind='task-bar').
   if (props.kind === 'task-logo') {
+    boxWidth = theme.shapes.taskButtonWidth;
+    boxMaxWidth = theme.shapes.taskButtonWidth;
     boxHeight = theme.shapes.taskButtonHeight;
     boxFlexDirection = 'column';
     borderStyle = 'none';
@@ -102,6 +104,8 @@ export default function styles (theme, props) {
 
   // Task button (usual parent is container with kind='task-bar').
   if (props.kind === 'task-bar') {
+    boxWidth = theme.shapes.taskButtonWidth;
+    boxMaxWidth = theme.shapes.taskButtonWidth;
     boxHeight = theme.shapes.taskButtonHeight;
     boxFlexDirection = 'column';
     borderStyle = 'none none solid none';

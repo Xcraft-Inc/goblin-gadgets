@@ -69,6 +69,7 @@ export default function styles (theme, props) {
   let textTextOverflow = null;
   let textWhiteSpace = null;
   let textWordBreak = null;
+  let textAlign = null;
   let cursor = props.cursor ? props.cursor : 'default';
   let spacing = props.spacing;
   let specialDisabled = false;
@@ -276,6 +277,8 @@ export default function styles (theme, props) {
   // task-logo button (usual parent container with kind='task-bar').
   if (props.kind === 'task-logo') {
     boxFlexDirection = 'column';
+    textWidth = theme.shapes.taskButtonWidth;
+    textAlign = 'center';
     if (Bool.isTrue (props.active)) {
       textColor = theme.palette.taskTabActiveText;
     }
@@ -292,6 +295,8 @@ export default function styles (theme, props) {
   // Task button (usual parent is container with kind='task-bar').
   if (props.kind === 'task-bar') {
     boxFlexDirection = 'column';
+    textWidth = theme.shapes.taskButtonWidth;
+    textAlign = 'center';
     textMarginTop = '0px';
     textMarginRight = '0px';
     textMarginBottom = '0px';
@@ -722,6 +727,7 @@ export default function styles (theme, props) {
     whiteSpace: textWhiteSpace,
     wordWrap: 'break-word',
     wordBreak: textWordBreak,
+    textAlign: textAlign,
     userSelect: 'none',
   };
 
