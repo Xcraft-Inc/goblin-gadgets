@@ -70,12 +70,12 @@ class Button extends Widget {
 
   renderBusy () {
     if (Bool.isTrue (this.props.busy)) {
-      const busyClass = this.styles.classNames.busy;
+      const busyBoxClass = this.styles.classNames.busyBox;
+      const busyGlyphClass = this.styles.classNames.busyGlyph;
       return (
-        <i
-          className={`${busyClass} fa
-        fa-spinner fa-2x fa-pulse`}
-        />
+        <div className={busyBoxClass}>
+          <i className={`${busyGlyphClass} fa fa-spinner fa-2x fa-pulse`} />
+        </div>
       );
     } else {
       return null;
@@ -84,13 +84,7 @@ class Button extends Widget {
 
   renderBadge () {
     if (this.props.badgeValue) {
-      return (
-        <Badge
-          value={this.props.badgeValue}
-          layer="over"
-          visibility={!Bool.isTrue (this.props.busy)}
-        />
-      );
+      return <Badge value={this.props.badgeValue} layer="over" />;
     } else {
       return null;
     }
@@ -138,7 +132,6 @@ class Button extends Widget {
         grow="1"
         buttonBackgroundColor={boxStyle.backgroundColor}
         insideButton="true"
-        visibility={!Bool.isTrue (this.props.busy)}
       />
     );
   }

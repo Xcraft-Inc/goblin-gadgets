@@ -18,10 +18,6 @@ function convertJustify (justify) {
   }
 }
 
-function isDisabled (props) {
-  return Bool.isTrue (props.disabled) || Bool.isTrue (props.busy);
-}
-
 /******************************************************************************/
 
 export default function styles (theme, props) {
@@ -243,7 +239,7 @@ export default function styles (theme, props) {
     borderStyle = 'none';
     textHoverColor = theme.palette.notificationTextHover;
     backgroundHoverColor = 'transparent';
-    if (isDisabled (props)) {
+    if (Bool.isTrue (props.disabled)) {
       textColor = ColorManipulator.darken (theme.palette.notificationText, 0.4);
     }
     specialDisabled = true;
@@ -580,7 +576,7 @@ export default function styles (theme, props) {
   }
 
   // Alter colors if component is disable.
-  if (isDisabled (props) && !specialDisabled) {
+  if (Bool.isTrue (props.disabled) && !specialDisabled) {
     borderColor = theme.palette.buttonDisableBorder;
     if (backgroundColor) {
       backgroundColor = theme.palette.buttonDisableBackground;
@@ -663,7 +659,11 @@ export default function styles (theme, props) {
     opacity: Bool.isTrue (props.busy) ? 0 : 1,
   };
 
-  if (!isDisabled (props) && boxOpacity !== 0) {
+  if (
+    !Bool.isTrue (props.disabled) &&
+    !Bool.isTrue (props.busy) &&
+    boxOpacity !== 0
+  ) {
     boxStyle[':hover'] = {
       color: textHoverColor, // (*)
       borderColor: borderHoverColor,
@@ -697,9 +697,17 @@ export default function styles (theme, props) {
     userSelect: 'none',
   };
 
-  const busyStyle = {
+  const busyBoxStyle = {
     position: 'absolute',
-    color: textColor,
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+  };
+
+  const busyGlyphStyle = {
+    margin: 'auto',
+    color: '#444',
   };
 
   return {
@@ -707,7 +715,8 @@ export default function styles (theme, props) {
     shortcut: shortcutStyle,
     triangle: triangleStyle,
     menuBox: menuBoxStyle,
-    busy: busyStyle,
+    busyBox: busyBoxStyle,
+    busyGlyph: busyGlyphStyle,
   };
 }
 

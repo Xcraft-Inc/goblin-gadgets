@@ -170,6 +170,20 @@ class Container extends Widget {
     this.setNavigation (index);
   }
 
+  renderBusy () {
+    if (Bool.isTrue (this.props.busy)) {
+      const busyBoxClass = this.styles.classNames.busyBox;
+      const busyGlyphClass = this.styles.classNames.busyGlyph;
+      return (
+        <div className={busyBoxClass}>
+          <i className={`${busyGlyphClass} fa fa-spinner fa-2x fa-pulse`} />
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
+
   render () {
     const {disabled, kind, anchor, show, index} = this.props;
     const navName = this.props.navigation - name;
@@ -201,6 +215,7 @@ class Container extends Widget {
           data-navigation-name={navName}
         >
           {this.props.children}
+          {this.renderBusy ()}
         </div>
       );
     }

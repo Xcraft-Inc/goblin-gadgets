@@ -1583,6 +1583,13 @@ const properties = {
       field: 'selected',
       value: 'false',
     },
+    busy: {
+      id: 'busy',
+      group: 'Aspect',
+      type: 'bool',
+      field: 'busy',
+      value: 'false',
+    },
     kind: {
       id: 'kind',
       group: 'Aspect',

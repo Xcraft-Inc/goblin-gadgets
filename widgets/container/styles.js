@@ -51,7 +51,7 @@ export default function styles (theme, props) {
   let color = null;
   let fontWeight = null;
   let zIndex = null;
-  let position = props.position;
+  let position = props.position ? props.position : 'relative';
   let left = null;
   let right = null;
   let top = null;
@@ -991,9 +991,24 @@ export default function styles (theme, props) {
     }
   }
 
+  const busyBoxStyle = {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+  };
+
+  const busyGlyphStyle = {
+    margin: 'auto',
+    color: '#444',
+  };
+
   return {
     box: boxStyle,
     triangle: triangleStyle,
+    busyBox: busyBoxStyle,
+    busyGlyph: busyGlyphStyle,
   };
 }
 
