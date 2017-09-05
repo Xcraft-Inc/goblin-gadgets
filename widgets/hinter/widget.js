@@ -69,6 +69,28 @@ class Hinter extends Widget {
     }
   }
 
+  renderButtonNew () {
+    if (this.props.onNew) {
+      return (
+        <Container kind="row-pane" subkind="footer">
+          <Button
+            kind="subaction"
+            text={
+              this.props.newButtonTitle
+                ? this.props.newButtonTitle
+                : `Nouveau ${this.props.titleText}`
+            }
+            width="0px"
+            grow="1"
+            onClick={this.props.onNew}
+          />
+        </Container>
+      );
+    } else {
+      return null;
+    }
+  }
+
   render () {
     return (
       <Container kind="view-short">
@@ -82,17 +104,7 @@ class Hinter extends Widget {
               />
             </Container>
             {this.renderContent ()}
-            {this.props.onNew
-              ? <Button
-                  kind="subaction"
-                  text={
-                    this.props.newButtonTitle
-                      ? this.props.newButtonTitle
-                      : `Nouveau ${this.props.titleText}`
-                  }
-                  onClick={this.props.onNew}
-                />
-              : null}
+            {this.renderButtonNew ()}
           </Container>
         </Container>
       </Container>
