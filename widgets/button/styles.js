@@ -702,12 +702,12 @@ export default function styles (theme, props) {
     width: '100%',
     height: '100%',
     display: 'flex',
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    backgroundColor: theme.palette.busyBackground,
   };
 
   const busyGlyphStyle = {
     margin: 'auto',
-    color: '#444',
+    color: theme.palette.busyForeground,
   };
 
   return {
