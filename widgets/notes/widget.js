@@ -19,7 +19,7 @@ class Notes extends Form {
     super (...arguments);
 
     this.state = {
-      extendedIndex: -1,
+      extendedIndex: 1,
     };
 
     this.onCreate = this.onCreate.bind (this);
@@ -68,31 +68,46 @@ class Notes extends Form {
   }
 
   renderRow (note, extended, index) {
-    const dhd = Unit.add (
-      this.context.theme.shapes.lineHeight,
-      this.context.theme.shapes.containerMargin
-    );
-    return (
-      <DragCab
-        key={index}
-        dragController="note"
-        dragHeightDetect={dhd}
-        direction="vertical"
-        color={this.context.theme.palette.dragAndDropHover}
-        thickness={this.context.theme.shapes.dragAndDropTicketThickness}
-        mode="corner-top-left"
-        dragOwnerId={note.id}
-        doClickAction={() => this.onSwapExtended (index)}
-        doDragEnding={this.onDragEnding}
-      >
+    if (extended) {
+      return (
         <Note
           id={note.id}
           allGlyphs={this.props.allGlyphs}
           data={note}
+          index={index}
           extended={Bool.toString (extended)}
+          swapExtended={() => this.onSwapExtended (index)}
         />
-      </DragCab>
-    );
+      );
+    } else {
+      const dhd = Unit.add (
+        this.context.theme.shapes.lineHeight,
+        this.context.theme.shapes.containerMargin
+      );
+      return (
+        <DragCab
+          key={index}
+          dragController="note"
+          dragHeightDetect={dhd}
+          direction="vertical"
+          color={this.context.theme.palette.dragAndDropHover}
+          thickness={this.context.theme.shapes.dragAndDropTicketThickness}
+          mode="corner-top-left"
+          dragOwnerId={note.id}
+          doDragEnding={this.onDragEnding}
+          doClickAction={() => this.onSwapExtended (index)}
+        >
+          <Note
+            id={note.id}
+            allGlyphs={this.props.allGlyphs}
+            data={note}
+            index={index}
+            extended={Bool.toString (extended)}
+            swapExtended={() => this.onSwapExtended (index)}
+          />
+        </DragCab>
+      );
+    }
   }
 
   renderRows () {

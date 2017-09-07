@@ -22,6 +22,7 @@ class Note extends Form {
 
     this.glyphDialogButton = null;
 
+    this.onSwapExtended = this.onSwapExtended.bind (this);
     this.onDeleteNote = this.onDeleteNote.bind (this);
     this.onGlyphClicked = this.onGlyphClicked.bind (this);
     this.onClearGlyphs = this.onClearGlyphs.bind (this);
@@ -38,6 +39,13 @@ class Note extends Form {
     this.setState ({
       showGlyphsDialog: value,
     });
+  }
+
+  onSwapExtended (index) {
+    const x = this.props.swapExtended;
+    if (x) {
+      x (index);
+    }
   }
 
   onDeleteNote () {}
@@ -107,6 +115,26 @@ class Note extends Form {
     return result;
   }
 
+  renderInfoGlyphsButton (extended, glyphs) {
+    if (extended) {
+      if (glyphs.length == 0) {
+        glyphs = [{id: 'pencil', glyph: 'pencil'}];
+      }
+      return (
+        <Button
+          kind="container"
+          tooltip="Choix des pictogrammes"
+          onClick={this.onOpenGlyphsDialog}
+          ref={x => (this.glyphDialogButton = x)}
+        >
+          {this.renderInfoGlyphs (glyphs)}
+        </Button>
+      );
+    } else {
+      return this.renderInfoGlyphs (glyphs);
+    }
+  }
+
   renderInfo (extended) {
     const headerInfoClass = this.styles.classNames.headerInfo;
     const headerDragClass = this.styles.classNames.headerDrag;
@@ -122,7 +150,7 @@ class Note extends Form {
             grow="1"
           />
           <div className={glyphsClass}>
-            {this.renderInfoGlyphs (this.props.data.glyphs)}
+            {this.renderInfoGlyphsButton (extended, this.props.data.glyphs)}
           </div>
         </div>
         <Button
@@ -135,6 +163,7 @@ class Note extends Form {
           activeColor={
             this.context.theme.palette.recurrenceExtendedBoxBackground
           }
+          onClick={() => this.onSwapExtended (this.props.index)}
         />
       </div>
     );
@@ -155,16 +184,6 @@ class Note extends Form {
             spacing="large"
             rows="4"
             model=".x"
-          />
-          <Button
-            height="auto"
-            kind="combo"
-            glyph="pencil"
-            tooltip="Choix des pictogrammes"
-            active={this.showGlyphsDialog ? 'true' : 'false'}
-            onClick={this.onOpenGlyphsDialog}
-            spacing="large"
-            ref={x => (this.glyphDialogButton = x)}
           />
           <Button
             glyph="trash"
