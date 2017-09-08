@@ -123,7 +123,7 @@ class Note extends Form {
       return (
         <DragCab
           key={index}
-          dragController="glyph-sample"
+          dragController="glyph-sample-note"
           direction="horizontal"
           dragOwnerId={glyph.id}
           color={this.context.theme.palette.dragAndDropHover}
@@ -180,9 +180,9 @@ class Note extends Form {
           <Container kind="row">
             <Container
               kind="glyph-samples-note"
-              dragController="glyph-sample"
-              dragSource="glyph-samples"
-              dragOwnerId="glyph-samples"
+              dragController="glyph-sample-note"
+              dragSource="glyph-samples-note"
+              dragOwnerId="glyph-samples-note"
             >
               {this.renderInfoButtonGlyphs (this.props.data.glyphs)}
             </Container>

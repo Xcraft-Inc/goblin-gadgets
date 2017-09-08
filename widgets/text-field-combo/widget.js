@@ -14,10 +14,12 @@ import Select from 'gadgets/select/widget';
 class TextFieldCombo extends Widget {
   constructor () {
     super (...arguments);
+
     this.state = {
       showCombo: false,
       readonly: true,
     };
+
     this.comboLocation = null;
   }
 
@@ -186,10 +188,11 @@ class TextFieldCombo extends Widget {
   renderComboCombo (list) {
     const x = [];
     for (var item of list) {
-      const glyph = this.props.defaultValue === item ? 'check' : 'none';
+      const active = this.props.defaultValue === item;
       x.push ({
         text: item,
-        glyph: glyph,
+        glyph: active ? 'check' : 'none',
+        active: Bool.toString (active),
         action: item => this.setText (item),
       });
     }

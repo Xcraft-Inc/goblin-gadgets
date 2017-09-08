@@ -17,13 +17,44 @@ import Separator from 'gadgets/separator/widget';
 class Combo extends Widget {
   constructor () {
     super (...arguments);
+
+    this.state = {
+      activeIndex: -1,
+    };
+
+    this.onCloseCombo = this.onCloseCombo.bind (this);
+    this.onPrevIndex = this.onPrevIndex.bind (this);
+    this.onNextIndex = this.onNextIndex.bind (this);
+    this.onEnterAction = this.onEnterAction.bind (this);
+    this.onActionAndClose = this.onActionAndClose.bind (this);
+    this.onMouseDown = this.onMouseDown.bind (this);
+  }
+
+  get activeIndex () {
+    return this.state.activeIndex;
+  }
+
+  set activeIndex (value) {
+    this.setState ({
+      activeIndex: value,
+    });
   }
 
   componentWillMount () {
-    MouseTrap.bind ('esc', ::this.onCloseCombo);
-    MouseTrap.bind ('up', ::this.onPrevIndex);
-    MouseTrap.bind ('down', ::this.onNextIndex);
-    MouseTrap.bind ('enter', ::this.onEnterAction);
+    MouseTrap.bind ('esc', this.onCloseCombo);
+    MouseTrap.bind ('up', this.onPrevIndex);
+    MouseTrap.bind ('down', this.onNextIndex);
+    MouseTrap.bind ('enter', this.onEnterAction);
+
+    let index = 0;
+    for (let item of this.props.list) {
+      if (!this.props.list[index].separator) {
+        if (Bool.isTrue (item.active)) {
+          this.activeIndex = index;
+        }
+        index++;
+      }
+    }
   }
 
   componentWillUnmount () {
@@ -34,19 +65,18 @@ class Combo extends Widget {
   }
 
   onNextIndex () {
-    let index = this.focusedIndex;
+    let index = this.activeIndex;
     while (index < this.props.list.length - 1) {
       index++;
       if (!this.props.list[index].separator) {
         break;
       }
     }
-    this.focusedIndex = index;
-    this.forceUpdate ();
+    this.activeIndex = index;
   }
 
   onPrevIndex () {
-    let index = this.focusedIndex;
+    let index = this.activeIndex;
     if (index === -1) {
       index = this.props.list.length;
     }
@@ -56,12 +86,11 @@ class Combo extends Widget {
         break;
       }
     }
-    this.focusedIndex = index;
-    this.forceUpdate ();
+    this.activeIndex = index;
   }
 
   onEnterAction () {
-    const index = this.focusedIndex;
+    const index = this.activeIndex;
     if (index !== -1) {
       const item = this.props.list[index];
       this.onActionAndClose (item);
@@ -89,12 +118,12 @@ class Combo extends Widget {
     this.onCloseCombo ();
   }
 
-  renderItem (item, focused, index) {
+  renderItem (item, index) {
     if (item.separator) {
       return <Separator key={index} kind="menu-separator" />;
     } else {
+      const active = Bool.toString (this.activeIndex === index);
       if (this.props.menuType === 'wrap') {
-        const active = Bool.toString (item.glyph !== 'none');
         const width = this.props.menuItemWidth
           ? Unit.sub (
               this.props.menuItemWidth,
@@ -113,13 +142,12 @@ class Combo extends Widget {
             shortcut={item.shortcut}
             textTransform="none"
             active={active}
-            mouseUp={() => ::this.onActionAndClose (item)}
+            mouseUp={() => this.onActionAndClose (item)}
           />
         );
       } else {
         const g = GlyphHelpers.getGlyph (item.glyph);
         const color = ColorHelpers.getMarkColor (this.context.theme, g.color);
-        const active = focused ? 'focused' : item.active;
         return (
           <Button
             key={index}
@@ -131,7 +159,7 @@ class Combo extends Widget {
             shortcut={item.shortcut}
             textTransform={this.props.menuType === 'menu' ? null : 'none'}
             active={active}
-            mouseUp={() => ::this.onActionAndClose (item)}
+            mouseUp={() => this.onActionAndClose (item)}
           />
         );
       }
@@ -142,8 +170,7 @@ class Combo extends Widget {
     const result = [];
     let index = 0;
     for (let item of this.props.list) {
-      const focused = index === this.focusedIndex;
-      result.push (this.renderItem (item, focused, index++));
+      result.push (this.renderItem (item, index++));
     }
     return result;
   }
@@ -158,8 +185,8 @@ class Combo extends Widget {
     return (
       <div
         className={fullScreenClass}
-        onMouseDown={::this.onMouseDown}
-        onTouchStart={::this.onMouseDown}
+        onMouseDown={this.onMouseDown}
+        onTouchStart={this.onMouseDown}
       >
         <div className={comboClass}>
           <Container
