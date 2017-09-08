@@ -26,8 +26,8 @@ class Note extends Form {
 
     this.onSwapExtended = this.onSwapExtended.bind (this);
     this.onDeleteNote = this.onDeleteNote.bind (this);
-    this.onGlyphClicked = this.onGlyphClicked.bind (this);
     this.onClearGlyphs = this.onClearGlyphs.bind (this);
+    this.onAddGlyph = this.onAddGlyph.bind (this);
     this.onGlyphDragged = this.onGlyphDragged.bind (this);
     this.onOpenCombo = this.onOpenCombo.bind (this);
     this.onCloseCombo = this.onCloseCombo.bind (this);
@@ -61,9 +61,12 @@ class Note extends Form {
 
   onDeleteNote () {}
 
-  onGlyphClicked (glyph) {}
-
   onClearGlyphs () {}
+
+  onAddGlyph (glyphId) {
+    const glyph = this.props.allGlyphs[glyphId];
+    this.do ('add', {glyph});
+  }
 
   onGlyphDragged (selectedIds, toId) {
     this.do ('drag', {fromId: selectedIds[0], toId: toId});
@@ -105,7 +108,7 @@ class Note extends Form {
         list.push ({
           text: glyph.get ('description'),
           glyph: glyph.get ('glyph'),
-          //? action: item => this.setText (item),
+          action: () => this.onAddGlyph (glyph.get ('id')),
         });
       });
     return list;

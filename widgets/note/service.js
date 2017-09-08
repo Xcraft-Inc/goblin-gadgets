@@ -49,6 +49,11 @@ const logicHandlers = {
     };
     return state.set ('', initialState);
   },
+  add: (state, action) => {
+    const glyph = action.get ('glyph');
+    glyph.order = state.get ('glyphs').state.size;
+    return state.set (`glyphs.${glyph.id}`, glyph);
+  },
   drag: (state, action) => {
     const fromId = action.get ('fromId');
     const toId = action.get ('toId');
@@ -62,6 +67,10 @@ const logicHandlers = {
 Goblin.registerQuest (goblinName, 'create', function (quest, desktopId, note) {
   quest.do ({id: quest.goblin.id, note});
   return quest.goblin.id;
+});
+
+Goblin.registerQuest (goblinName, 'add', function (quest, glyph) {
+  quest.do ({glyph});
 });
 
 Goblin.registerQuest (goblinName, 'drag', function (quest, fromId, toId) {
