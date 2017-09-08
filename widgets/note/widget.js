@@ -10,7 +10,7 @@ import Button from 'gadgets/button/widget';
 import Label from 'gadgets/label/widget';
 import Container from 'gadgets/container/widget';
 import DragCab from 'gadgets/drag-cab/widget';
-import GlyphsDialog from 'gadgets/glyphs-dialog/widget';
+import Combo from 'gadgets/combo/widget';
 
 /******************************************************************************/
 
@@ -19,7 +19,7 @@ class Note extends Form {
     super (...arguments);
 
     this.state = {
-      showGlyphsDialog: false,
+      showCombo: false,
     };
 
     this.glyphDialogButton = null;
@@ -29,17 +29,17 @@ class Note extends Form {
     this.onGlyphClicked = this.onGlyphClicked.bind (this);
     this.onClearGlyphs = this.onClearGlyphs.bind (this);
     this.onGlyphDragged = this.onGlyphDragged.bind (this);
-    this.onOpenGlyphsDialog = this.onOpenGlyphsDialog.bind (this);
-    this.onCloseGlyphsDialog = this.onCloseGlyphsDialog.bind (this);
+    this.onOpenCombo = this.onOpenCombo.bind (this);
+    this.onCloseCombo = this.onCloseCombo.bind (this);
   }
 
-  get showGlyphsDialog () {
-    return this.state.showGlyphsDialog;
+  get showCombo () {
+    return this.state.showCombo;
   }
 
-  set showGlyphsDialog (value) {
+  set showCombo (value) {
     this.setState ({
-      showGlyphsDialog: value,
+      showCombo: value,
     });
   }
 
@@ -58,34 +58,65 @@ class Note extends Form {
 
   onGlyphDragged (selectedId, toId) {}
 
-  onOpenGlyphsDialog () {
+  onOpenCombo () {
     const node = ReactDOM.findDOMNode (this.glyphDialogButton);
+    const itemCount = this.glyphsList.length;
     this.comboLocation = ComboHelpers.getComboLocation (
       node,
-      this.context.theme.shapes.flyingDialogTriangleSize
+      this.context.theme.shapes.flyingBalloonTriangleSize,
+      this.context.theme.shapes.flyingBalloonPadding,
+      itemCount,
+      '300px',
+      this.context.theme.shapes.menuButtonHeight // height of Button kind='combo-wrap-item'
     );
-    this.showGlyphsDialog = true;
+    this.showCombo = true;
   }
 
-  onCloseGlyphsDialog () {
-    this.showGlyphsDialog = false;
+  onCloseCombo () {
+    this.showCombo = false;
+  }
+
+  get glyphsList () {
+    const glyphIds = [];
+    for (var glyph of this.props.data.glyphs) {
+      glyphIds.push (glyph.id);
+    }
+
+    const list = [];
+    const allGlyphs = this.shred (this.props.allGlyphs);
+    const selectedGlyphs = this.shred (this.props.selectedGlyphs);
+    let index = 0;
+    allGlyphs.linq
+      .orderBy (glyph => glyph.get ('order'))
+      .where (glyph => {
+        const id = glyph.get ('id');
+        return glyphIds.indexOf (id) === -1;
+      })
+      .select (glyph => {
+        list.push ({
+          text: glyph.get ('description'),
+          glyph: glyph.get ('glyph'),
+          //? action: item => this.setText (item),
+        });
+      });
+    return list;
   }
 
   /******************************************************************************/
 
-  renderGlyphsDialog () {
-    if (this.showGlyphsDialog) {
+  renderCombo () {
+    if (this.showCombo) {
       return (
-        <GlyphsDialog
+        <Combo
+          menuType="combo"
+          menuItemWidth={this.comboLocation.menuItemWidth}
           center={this.comboLocation.center}
           top={this.comboLocation.top}
           bottom={this.comboLocation.bottom}
-          allGlyphs={this.props.allGlyphs}
-          selectedGlyphs={this.props.data.glyphs}
-          glyphClicked={this.onGlyphClicked}
-          clearGlyphs={this.onClearGlyphs}
-          glyphDragged={this.onGlyphDragged}
-          closeDialog={this.onCloseGlyphsDialog}
+          maxHeight={this.comboLocation.maxHeight}
+          width={this.comboLocation.width}
+          list={this.glyphsList}
+          close={::this.onCloseCombo}
         />
       );
     } else {
@@ -192,11 +223,11 @@ class Note extends Form {
               tooltip="Ajoute un pictogramme"
               active="true"
               activeColor={
-                this.showGlyphsDialog
+                this.showCombo
                   ? null
                   : this.context.theme.palette.recurrenceExtendedBoxBackground
               }
-              onClick={this.onOpenGlyphsDialog}
+              onClick={this.onOpenCombo}
               ref={x => (this.glyphDialogButton = x)}
             />
           </Container>
@@ -294,7 +325,7 @@ class Note extends Form {
       <div className={mainClass}>
         {this.renderInfo (extended)}
         {this.renderEditor (extended)}
-        {this.renderGlyphsDialog ()}
+        {this.renderCombo ()}
       </div>
     );
   }
