@@ -101,6 +101,7 @@ class Recurrences extends Widget {
     }
 
     const boxClass = this.styles.classNames.box;
+
     return (
       <div className={boxClass}>
         {this.renderHeader ()}

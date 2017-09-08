@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import Form from 'laboratory/form';
+import Widget from 'laboratory/widget';
 import {Unit} from 'electrum-theme';
 import * as GlyphHelpers from '../helpers/glyph-helpers.js';
 import * as ComboHelpers from '../helpers/combo-helpers.js';
@@ -14,40 +14,34 @@ import DragCab from 'gadgets/drag-cab/widget';
 
 /******************************************************************************/
 
-class Notes extends Form {
+class Notes extends Widget {
   constructor () {
     super (...arguments);
 
-    this.state = {
-      extendedIndex: -1,
-    };
-
-    this.onCreate = this.onCreate.bind (this);
+    this.onCreateNote = this.onCreateNote.bind (this);
     this.onSwapExtended = this.onSwapExtended.bind (this);
     this.onDragEnding = this.onDragEnding.bind (this);
   }
 
-  get extendedIndex () {
-    return this.state.extendedIndex;
+  static get wiring () {
+    return {
+      id: 'id',
+      notes: 'notes',
+      extendedId: 'extendedId',
+    };
   }
 
-  set extendedIndex (value) {
-    this.setState ({
-      extendedIndex: value,
-    });
+  onCreateNote () {
+    this.do ('add');
   }
 
-  onCreate () {}
-
-  onSwapExtended (index) {
-    if (index === this.extendedIndex) {
-      // if panel extended ?
-      index = -1; // compact the panel
-    }
-    this.extendedIndex = index;
+  onSwapExtended (noteId) {
+    this.do ('extend', {noteId});
   }
 
-  onDragEnding (selectedIds, toId) {}
+  onDragEnding (selectedIds, toId) {
+    this.do ('drag', {fromId: selectedIds[0], toId: toId});
+  }
 
   /******************************************************************************/
 
@@ -61,23 +55,21 @@ class Notes extends Form {
           glyph="plus"
           text="Ajouter"
           glyphPosition="right"
-          onClick={this.onCreate}
+          onClick={this.onCreateNote}
         />
       </div>
     );
   }
 
-  renderRow (note, extended, index) {
+  renderRow (noteId, extended, index) {
+    const WiredNote = Widget.Wired (Note) (noteId);
     if (extended) {
       return (
-        <Note
+        <WiredNote
           key={index}
-          id={note.id}
           allGlyphs={this.props.allGlyphs}
-          data={note}
-          index={index}
           extended={Bool.toString (extended)}
-          swapExtended={() => this.onSwapExtended (index)}
+          swapExtended={() => this.onSwapExtended (noteId)}
         />
       );
     } else {
@@ -94,17 +86,14 @@ class Notes extends Form {
           color={this.context.theme.palette.dragAndDropHover}
           thickness={this.context.theme.shapes.dragAndDropTicketThickness}
           mode="corner-top-left"
-          dragOwnerId={note.id}
+          dragOwnerId={noteId}
+          doClickAction={() => this.onSwapExtended (noteId)}
           doDragEnding={this.onDragEnding}
-          doClickAction={() => this.onSwapExtended (index)}
         >
-          <Note
-            id={note.id}
+          <WiredNote
             allGlyphs={this.props.allGlyphs}
-            data={note}
-            index={index}
             extended={Bool.toString (extended)}
-            swapExtended={() => this.onSwapExtended (index)}
+            swapExtended={() => this.onSwapExtended (noteId)}
           />
         </DragCab>
       );
@@ -112,13 +101,16 @@ class Notes extends Form {
   }
 
   renderRows () {
-    const result = [];
+    const notes = this.shred (this.props.notes);
     let index = 0;
-    for (var note of this.props.data.notes) {
-      const extended = this.extendedIndex === index;
-      result.push (this.renderRow (note, extended, index++));
-    }
-    return result;
+    return notes.linq
+      .orderBy (note => note.get ('order'))
+      .select (note => {
+        const id = note.get ('id');
+        const extended = id === this.props.extendedId;
+        return this.renderRow (id, extended, index++);
+      })
+      .toList ();
   }
 
   render () {
@@ -135,7 +127,7 @@ class Notes extends Form {
           kind="column"
           dragController="note"
           dragSource="notes"
-          dragOwnerId={this.props.data.id}
+          dragOwnerId={this.props.id}
         >
           {this.renderRows ()}
         </Container>

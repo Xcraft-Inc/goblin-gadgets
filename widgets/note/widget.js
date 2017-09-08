@@ -33,6 +33,15 @@ class Note extends Form {
     this.onCloseCombo = this.onCloseCombo.bind (this);
   }
 
+  static get wiring () {
+    return {
+      id: 'id',
+      order: 'order',
+      content: 'content',
+      glyphs: 'glyphs',
+    };
+  }
+
   get showCombo () {
     return this.state.showCombo;
   }
@@ -43,10 +52,10 @@ class Note extends Form {
     });
   }
 
-  onSwapExtended (index) {
+  onSwapExtended (noteId) {
     const x = this.props.swapExtended;
     if (x) {
-      x (index);
+      x (noteId);
     }
   }
 
@@ -77,14 +86,12 @@ class Note extends Form {
   }
 
   get glyphsList () {
-    const glyphIds = [];
-    for (var glyph of this.props.data.glyphs) {
-      glyphIds.push (glyph.id);
-    }
+    const glyphIds = this.shred (this.props.glyphs)
+      .linq.select (glyph => glyph.get ('id'))
+      .toArray ();
 
     const list = [];
     const allGlyphs = this.shred (this.props.allGlyphs);
-    const selectedGlyphs = this.shred (this.props.selectedGlyphs);
     let index = 0;
     allGlyphs.linq
       .orderBy (glyph => glyph.get ('order'))
@@ -125,7 +132,7 @@ class Note extends Form {
   }
 
   renderInfoSampleGlyph (glyph, index) {
-    const g = GlyphHelpers.getGlyph (glyph.glyph);
+    const g = GlyphHelpers.getGlyph (glyph.get ('glyph'));
     return (
       <Label
         key={index}
@@ -139,31 +146,33 @@ class Note extends Form {
     );
   }
 
-  renderInfoSampleGlyphs (glyphs) {
-    const result = [];
+  renderInfoSampleGlyphs () {
+    const glyphs = this.shred (this.props.glyphs);
     let index = 0;
-    for (var glyph of glyphs) {
-      result.push (this.renderInfoSampleGlyph (glyph, index++));
-    }
-    return result;
+    return glyphs.linq
+      .orderBy (glyph => glyph.get ('order'))
+      .select (glyph => {
+        const id = glyph.get ('id');
+        return this.renderInfoSampleGlyph (glyph, index++);
+      })
+      .toList ();
   }
 
   renderInfoButtonGlyph (glyph, dndEnable, index) {
-    const g = GlyphHelpers.getGlyph (glyph.glyph);
+    const g = GlyphHelpers.getGlyph (glyph.get ('glyph'));
     if (dndEnable) {
       return (
         <DragCab
           key={index}
           dragController="glyph-sample-note"
           direction="horizontal"
-          dragOwnerId={glyph.id}
+          dragOwnerId={glyph.get ('id')}
           color={this.context.theme.palette.dragAndDropHover}
           thickness="4px"
           radius="4px"
           doDragEnding={this.onGlyphDragged}
         >
           <Label
-            key={index}
             width="28px"
             glyph={g.glyph}
             glyphColor={g.color}
@@ -189,14 +198,17 @@ class Note extends Form {
     }
   }
 
-  renderInfoButtonGlyphs (glyphs) {
-    const result = [];
+  renderInfoButtonGlyphs () {
+    const glyphs = this.shred (this.props.glyphs);
+    const dndEnable = glyphs.count () > 1;
     let index = 0;
-    const dndEnable = glyphs.length > 1;
-    for (var glyph of glyphs) {
-      result.push (this.renderInfoButtonGlyph (glyph, dndEnable, index++));
-    }
-    return result;
+    return glyphs.linq
+      .orderBy (glyph => glyph.get ('order'))
+      .select (glyph => {
+        const id = glyph.get ('id');
+        return this.renderInfoButtonGlyph (glyph, dndEnable, index++);
+      })
+      .toList ();
   }
 
   renderInfoExtended () {
@@ -215,7 +227,7 @@ class Note extends Form {
               dragSource="glyph-samples-note"
               dragOwnerId="glyph-samples-note"
             >
-              {this.renderInfoButtonGlyphs (this.props.data.glyphs)}
+              {this.renderInfoButtonGlyphs ()}
             </Container>
             <Button
               kind="recurrence"
@@ -240,7 +252,7 @@ class Note extends Form {
           activeColor={
             this.context.theme.palette.recurrenceExtendedBoxBackground
           }
-          onClick={() => this.onSwapExtended (this.props.index)}
+          onClick={() => this.onSwapExtended (this.props.id)}
         />
       </div>
     );
@@ -255,13 +267,13 @@ class Note extends Form {
       <div className={headerInfoClass}>
         <div className={headerDragClass}>
           <Label
-            text={this.props.data.content}
+            text={this.props.content}
             wrap="no"
             singleLine="true"
             grow="1"
           />
           <div className={glyphsClass}>
-            {this.renderInfoSampleGlyphs (this.props.data.glyphs)}
+            {this.renderInfoSampleGlyphs ()}
           </div>
         </div>
         <Button
@@ -272,7 +284,7 @@ class Note extends Form {
           activeColor={
             this.context.theme.palette.recurrenceExtendedBoxBackground
           }
-          onClick={() => this.onSwapExtended (this.props.index)}
+          onClick={() => this.onSwapExtended (this.props.id)}
         />
       </div>
     );
@@ -299,7 +311,7 @@ class Note extends Form {
             grow="1"
             spacing="large"
             rows="4"
-            model=".x"
+            model=".content"
           />
           <Button
             glyph="trash"
@@ -321,11 +333,15 @@ class Note extends Form {
     const mainClass = this.styles.classNames.main;
     const extended = Bool.isTrue (this.props.extended);
 
+    const Form = this.Form;
+
     return (
       <div className={mainClass}>
-        {this.renderInfo (extended)}
-        {this.renderEditor (extended)}
-        {this.renderCombo ()}
+        <Form {...this.formConfig}>
+          {this.renderInfo (extended)}
+          {this.renderEditor (extended)}
+          {this.renderCombo ()}
+        </Form>
       </div>
     );
   }
