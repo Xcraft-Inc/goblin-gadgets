@@ -101,7 +101,7 @@ export default function styles (theme, props) {
     display: 'flex',
     flexDirection: 'row',
     overflowY: 'hidden',
-    margin: '0px ' + m,
+    margin: '0px ' + halfMargin,
   };
 
   return {

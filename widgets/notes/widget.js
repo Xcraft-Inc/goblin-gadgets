@@ -19,7 +19,7 @@ class Notes extends Form {
     super (...arguments);
 
     this.state = {
-      extendedIndex: 1,
+      extendedIndex: -1,
     };
 
     this.onCreate = this.onCreate.bind (this);
@@ -71,6 +71,7 @@ class Notes extends Form {
     if (extended) {
       return (
         <Note
+          key={index}
           id={note.id}
           allGlyphs={this.props.allGlyphs}
           data={note}

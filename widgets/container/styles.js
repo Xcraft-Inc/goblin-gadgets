@@ -727,6 +727,15 @@ export default function styles (theme, props) {
     margin = '0px 20px 0px 0px';
   }
 
+  if (props.kind === 'glyph-samples-note') {
+    display = 'flex';
+    flexDirection = 'row';
+    alignItems = 'center';
+    overflowX = 'auto';
+    overflowY = 'hidden';
+    margin = '0px 10px 0px 0px';
+  }
+
   if (props.kind && props.kind.startsWith ('thin-')) {
     if (props.border) {
       if (props.border === 'top') {

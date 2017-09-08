@@ -5,9 +5,11 @@ import * as GlyphHelpers from '../helpers/glyph-helpers.js';
 import * as ComboHelpers from '../helpers/combo-helpers.js';
 import * as Bool from '../helpers/boolean-helpers.js';
 
-import LabelTextField from 'gadgets/label-text-field/widget';
+import TextField from 'gadgets/text-field/widget';
 import Button from 'gadgets/button/widget';
 import Label from 'gadgets/label/widget';
+import Container from 'gadgets/container/widget';
+import DragCab from 'gadgets/drag-cab/widget';
 import GlyphsDialog from 'gadgets/glyphs-dialog/widget';
 
 /******************************************************************************/
@@ -91,7 +93,7 @@ class Note extends Form {
     }
   }
 
-  renderInfoGlyph (glyph, index) {
+  renderInfoSampleGlyph (glyph, index) {
     const g = GlyphHelpers.getGlyph (glyph.glyph);
     return (
       <Label
@@ -106,36 +108,114 @@ class Note extends Form {
     );
   }
 
-  renderInfoGlyphs (glyphs) {
+  renderInfoSampleGlyphs (glyphs) {
     const result = [];
     let index = 0;
     for (var glyph of glyphs) {
-      result.push (this.renderInfoGlyph (glyph, index++));
+      result.push (this.renderInfoSampleGlyph (glyph, index++));
     }
     return result;
   }
 
-  renderInfoGlyphsButton (extended, glyphs) {
-    if (extended) {
-      if (glyphs.length == 0) {
-        glyphs = [{id: 'pencil', glyph: 'pencil'}];
-      }
+  renderInfoButtonGlyph (glyph, dndEnable, index) {
+    const g = GlyphHelpers.getGlyph (glyph.glyph);
+    if (dndEnable) {
       return (
-        <Button
-          kind="container"
-          tooltip="Choix des pictogrammes"
-          onClick={this.onOpenGlyphsDialog}
-          ref={x => (this.glyphDialogButton = x)}
+        <DragCab
+          key={index}
+          dragController="glyph-sample"
+          direction="horizontal"
+          dragOwnerId={glyph.id}
+          color={this.context.theme.palette.dragAndDropHover}
+          thickness="4px"
+          radius="4px"
+          doDragEnding={this.onGlyphDragged}
         >
-          {this.renderInfoGlyphs (glyphs)}
-        </Button>
+          <Label
+            key={index}
+            width="28px"
+            glyph={g.glyph}
+            glyphColor={g.color}
+            glyphSize="150%"
+            spacing="compact"
+            justify="center"
+            cursor="ew-resize"
+          />
+        </DragCab>
       );
     } else {
-      return this.renderInfoGlyphs (glyphs);
+      return (
+        <Label
+          key={index}
+          width="28px"
+          glyph={g.glyph}
+          glyphColor={g.color}
+          glyphSize="150%"
+          spacing="compact"
+          justify="center"
+        />
+      );
     }
   }
 
-  renderInfo (extended) {
+  renderInfoButtonGlyphs (glyphs) {
+    const result = [];
+    let index = 0;
+    const dndEnable = glyphs.length > 1;
+    for (var glyph of glyphs) {
+      result.push (this.renderInfoButtonGlyph (glyph, dndEnable, index++));
+    }
+    return result;
+  }
+
+  renderInfoExtended () {
+    const headerInfoClass = this.styles.classNames.headerInfo;
+    const headerDragClass = this.styles.classNames.headerDrag;
+    const glyphsClass = this.styles.classNames.glyphs;
+
+    return (
+      <div className={headerInfoClass}>
+        <Label grow="1" />
+        <div className={glyphsClass}>
+          <Container kind="row">
+            <Container
+              kind="glyph-samples-note"
+              dragController="glyph-sample"
+              dragSource="glyph-samples"
+              dragOwnerId="glyph-samples"
+            >
+              {this.renderInfoButtonGlyphs (this.props.data.glyphs)}
+            </Container>
+            <Button
+              kind="recurrence"
+              glyph="plus"
+              tooltip="Ajoute un pictogramme"
+              active="true"
+              activeColor={
+                this.showGlyphsDialog
+                  ? null
+                  : this.context.theme.palette.recurrenceExtendedBoxBackground
+              }
+              onClick={this.onOpenGlyphsDialog}
+              ref={x => (this.glyphDialogButton = x)}
+            />
+          </Container>
+        </div>
+        <Button
+          kind="recurrence"
+          glyph="caret-up"
+          tooltip="Compacte la note"
+          active="true"
+          activeColor={
+            this.context.theme.palette.recurrenceExtendedBoxBackground
+          }
+          onClick={() => this.onSwapExtended (this.props.index)}
+        />
+      </div>
+    );
+  }
+
+  renderInfoCompacted () {
     const headerInfoClass = this.styles.classNames.headerInfo;
     const headerDragClass = this.styles.classNames.headerDrag;
     const glyphsClass = this.styles.classNames.glyphs;
@@ -150,16 +230,14 @@ class Note extends Form {
             grow="1"
           />
           <div className={glyphsClass}>
-            {this.renderInfoGlyphsButton (extended, this.props.data.glyphs)}
+            {this.renderInfoSampleGlyphs (this.props.data.glyphs)}
           </div>
         </div>
         <Button
           kind="recurrence"
-          glyph={extended ? 'caret-up' : 'caret-down'}
-          tooltip={
-            extended ? 'Compacte la note' : 'Etend la note pour la modifier'
-          }
-          active={extended ? 'true' : 'false'}
+          glyph="caret-down"
+          tooltip="Etend la note pour la modifier"
+          active="false"
           activeColor={
             this.context.theme.palette.recurrenceExtendedBoxBackground
           }
@@ -169,17 +247,24 @@ class Note extends Form {
     );
   }
 
+  renderInfo (extended) {
+    if (extended) {
+      return this.renderInfoExtended ();
+    } else {
+      return this.renderInfoCompacted ();
+    }
+  }
+
   renderEditor (extended) {
     if (extended) {
       const editorClass = this.styles.classNames.editor;
 
       return (
         <div className={editorClass}>
-          <LabelTextField
+          <TextField
             field="Content"
             selectAllOnFocus="true"
             hintText="Texte de la note"
-            labelGlyph="comment-o"
             grow="1"
             spacing="large"
             rows="4"
