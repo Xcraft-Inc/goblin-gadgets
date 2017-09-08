@@ -65,7 +65,9 @@ class Note extends Form {
 
   onClearGlyphs () {}
 
-  onGlyphDragged (selectedId, toId) {}
+  onGlyphDragged (selectedIds, toId) {
+    this.do ('drag', {fromId: selectedIds[0], toId: toId});
+  }
 
   onOpenCombo () {
     const node = ReactDOM.findDOMNode (this.glyphDialogButton);

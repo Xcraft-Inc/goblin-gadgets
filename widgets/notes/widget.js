@@ -20,7 +20,7 @@ class Notes extends Widget {
 
     this.onCreateNote = this.onCreateNote.bind (this);
     this.onSwapExtended = this.onSwapExtended.bind (this);
-    this.onDragEnding = this.onDragEnding.bind (this);
+    this.onNoteDragged = this.onNoteDragged.bind (this);
   }
 
   static get wiring () {
@@ -39,7 +39,7 @@ class Notes extends Widget {
     this.do ('extend', {noteId});
   }
 
-  onDragEnding (selectedIds, toId) {
+  onNoteDragged (selectedIds, toId) {
     this.do ('drag', {fromId: selectedIds[0], toId: toId});
   }
 
@@ -88,7 +88,7 @@ class Notes extends Widget {
           mode="corner-top-left"
           dragOwnerId={noteId}
           doClickAction={() => this.onSwapExtended (noteId)}
-          doDragEnding={this.onDragEnding}
+          doDragEnding={this.onNoteDragged}
         >
           <WiredNote
             allGlyphs={this.props.allGlyphs}
