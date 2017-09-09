@@ -58,8 +58,12 @@ const logicHandlers = {
     const fromId = action.get ('fromId');
     const toId = action.get ('toId');
     const glyph = state.get (`glyphs.${fromId}`).toJS ();
-    glyph.order = getGlyphOrder (state.get ('glyphs'), toId); // FIXME factorize with glyphs.dialog !
-    return state.set (`glyphs.${fromId}`, glyph);
+    if (toId) {
+      glyph.order = getGlyphOrder (state.get ('glyphs'), toId); // FIXME factorize with glyphs.dialog !
+      return state.set (`glyphs.${fromId}`, glyph);
+    } else {
+      return state.del (`glyphs.${fromId}`);
+    }
   },
 };
 

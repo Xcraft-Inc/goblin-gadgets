@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
 import {Unit} from 'electrum-theme';
+import * as Bool from '../helpers/boolean-helpers.js';
 
 import Container from 'gadgets/container/widget';
 import Label from 'gadgets/label/widget';
@@ -564,16 +565,18 @@ class DragCarrier extends Widget {
       dragEnding (e, this.isDragStarted ());
       if (this.isDragStarted ()) {
         this.selectMulti (false);
-        const dest = this.dest;
-        if (dest) {
-          const doDragEnding = this.props.doDragEnding;
-          if (doDragEnding) {
+        const doDragEnding = this.props.doDragEnding;
+        if (doDragEnding) {
+          const dest = this.dest;
+          if (dest) {
             doDragEnding (
               this.selectedIds,
               dest.id,
               dest.ownerId,
               dest.ownerKind
             );
+          } else if (Bool.isTrue (this.props.dragDelete)) {
+            doDragEnding (this.selectedIds, null, null, null);
           }
         }
       }

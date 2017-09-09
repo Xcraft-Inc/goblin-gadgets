@@ -163,55 +163,41 @@ class Note extends Form {
       .toList ();
   }
 
-  renderInfoButtonGlyph (glyph, dndEnable, index) {
+  renderInfoButtonGlyph (glyph, index) {
     const g = GlyphHelpers.getGlyph (glyph.get ('glyph'));
-    if (dndEnable) {
-      return (
-        <DragCab
-          key={index}
-          dragController="glyph-sample-note"
-          direction="horizontal"
-          dragOwnerId={glyph.get ('id')}
-          color={this.context.theme.palette.dragAndDropHover}
-          thickness="4px"
-          radius="4px"
-          doDragEnding={this.onGlyphDragged}
-        >
-          <Label
-            width="28px"
-            glyph={g.glyph}
-            glyphColor={g.color}
-            glyphSize="150%"
-            spacing="compact"
-            justify="center"
-            cursor="ew-resize"
-          />
-        </DragCab>
-      );
-    } else {
-      return (
+    return (
+      <DragCab
+        key={index}
+        dragController="glyph-sample-note"
+        direction="horizontal"
+        dragOwnerId={glyph.get ('id')}
+        dragDelete="true"
+        color={this.context.theme.palette.dragAndDropHover}
+        thickness="4px"
+        radius="4px"
+        doDragEnding={this.onGlyphDragged}
+      >
         <Label
-          key={index}
           width="28px"
           glyph={g.glyph}
           glyphColor={g.color}
           glyphSize="150%"
           spacing="compact"
           justify="center"
+          cursor="ew-resize"
         />
-      );
-    }
+      </DragCab>
+    );
   }
 
   renderInfoButtonGlyphs () {
     const glyphs = this.shred (this.props.glyphs);
-    const dndEnable = glyphs.count () > 1;
     let index = 0;
     return glyphs.linq
       .orderBy (glyph => glyph.get ('order'))
       .select (glyph => {
         const id = glyph.get ('id');
-        return this.renderInfoButtonGlyph (glyph, dndEnable, index++);
+        return this.renderInfoButtonGlyph (glyph, index++);
       })
       .toList ();
   }
