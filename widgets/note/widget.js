@@ -147,6 +147,7 @@ class Note extends Form {
         glyph={g.glyph}
         glyphColor={g.color}
         glyphSize="150%"
+        tooltip={glyph.get ('description')}
         spacing="compact"
         justify="center"
         cursor="ns-resize"
@@ -260,13 +261,7 @@ class Note extends Form {
     return (
       <div className={headerInfoClass}>
         <div className={headerDragClass}>
-          <Label
-            text={this.props.content}
-            wrap="no"
-            singleLine="true"
-            grow="1"
-            cursor="ns-resize"
-          />
+          <Label text={this.props.content} grow="1" cursor="ns-resize" />
           <div className={glyphsClass}>
             {this.renderInfoSampleGlyphs ()}
           </div>

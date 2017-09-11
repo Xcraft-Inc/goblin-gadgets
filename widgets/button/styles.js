@@ -25,6 +25,7 @@ export default function styles (theme, props) {
 
   // Initialize all variables for a standard button.
   let boxWidth = props.width;
+  let boxMinWidth = null;
   let boxHeight = props.height ? props.height : theme.shapes.lineHeight;
   let boxMaxWidth = null;
   let boxMaxHeight = null;
@@ -495,6 +496,8 @@ export default function styles (theme, props) {
   }
 
   if (props.kind === 'recurrence') {
+    boxMinWidth = theme.shapes.lineHeight;
+    boxMaxHeight = theme.shapes.lineHeight;
     textActiveColor = theme.palette.calendarActiveText;
     activeColor = theme.palette.calendarActiveBackground;
     borderActiveColor = props.activeColor
@@ -612,6 +615,7 @@ export default function styles (theme, props) {
     opacity: boxOpacity,
     overflow: 'hidden',
     width: boxWidth,
+    minWidth: boxMinWidth,
     maxWidth: boxMaxWidth,
     minHeight: boxHeight,
     maxHeight: boxMaxHeight,

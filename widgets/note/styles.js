@@ -98,6 +98,7 @@ export default function styles (theme, props) {
   };
 
   const glyphsCompactedStyle = {
+    height: theme.shapes.lineHeight,
     display: 'flex',
     flexDirection: 'row',
     overflowY: 'hidden',
