@@ -208,7 +208,6 @@ class Note extends Form {
 
   renderInfoExtended () {
     const headerInfoClass = this.styles.classNames.headerInfo;
-    const headerDragClass = this.styles.classNames.headerDrag;
     const glyphsClass = this.styles.classNames.glyphsExtended;
 
     return (
@@ -255,16 +254,13 @@ class Note extends Form {
 
   renderInfoCompacted () {
     const headerInfoClass = this.styles.classNames.headerInfo;
-    const headerDragClass = this.styles.classNames.headerDrag;
     const glyphsClass = this.styles.classNames.glyphsCompacted;
 
     return (
       <div className={headerInfoClass}>
-        <div className={headerDragClass}>
-          <Label text={this.props.content} grow="1" cursor="ns-resize" />
-          <div className={glyphsClass}>
-            {this.renderInfoSampleGlyphs ()}
-          </div>
+        <Label text={this.props.content} cursor="ns-resize" />
+        <div className={glyphsClass}>
+          {this.renderInfoSampleGlyphs ()}
         </div>
         <Button
           kind="recurrence"

@@ -78,19 +78,13 @@ class Notes extends Widget {
         />
       );
     } else {
-      const dhd = Unit.add (
-        this.context.theme.shapes.lineHeight,
-        this.context.theme.shapes.containerMargin
-      );
       return (
         <DragCab
           key={index}
           dragController="note"
-          dragHeightDetect={dhd}
           direction="vertical"
           color={this.context.theme.palette.dragAndDropHover}
           thickness={this.context.theme.shapes.dragAndDropTicketThickness}
-          mode="corner-top-left"
           dragOwnerId={noteId}
           doClickAction={() => this.onSwapExtended (noteId)}
           doDragEnding={this.onNoteDragged}

@@ -79,13 +79,9 @@ export default function styles (theme, props) {
   const headerInfoStyle = {
     display: 'flex',
     flexDirection: 'row',
-    opacity: opacity,
-  };
-
-  const headerDragStyle = {
-    display: 'flex',
-    flexDirection: 'row',
     flexGrow: '1',
+    alignItems: 'center',
+    opacity: opacity,
     cursor: 'ns-resize',
   };
 
@@ -98,9 +94,11 @@ export default function styles (theme, props) {
   };
 
   const glyphsCompactedStyle = {
-    height: theme.shapes.lineHeight,
     display: 'flex',
     flexDirection: 'row',
+    flexGrow: '1',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-end',
     overflowY: 'hidden',
     margin: '0px ' + halfMargin,
     cursor: 'ns-resize',
@@ -116,7 +114,6 @@ export default function styles (theme, props) {
   return {
     main: mainStyle,
     headerInfo: headerInfoStyle,
-    headerDrag: headerDragStyle,
     editor: editorStyle,
     glyphsCompacted: glyphsCompactedStyle,
     glyphsExtended: glyphsExtendedStyle,
