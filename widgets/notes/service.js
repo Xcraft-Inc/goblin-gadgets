@@ -47,7 +47,7 @@ const logicHandlers = {
   },
   add: (state, action) => {
     const noteId = action.get ('noteId');
-    const order = state.get ('notes').state.size;
+    const order = getGlyphOrder (state.get ('notes'), null); // FIXME factorize with glyphs.dialog !
     return state
       .set (`notes.${noteId}`, {
         id: noteId,
