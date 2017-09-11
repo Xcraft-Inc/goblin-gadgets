@@ -97,7 +97,15 @@ export default function styles (theme, props) {
     opacity: opacity,
   };
 
-  const glyphsStyle = {
+  const glyphsCompactedStyle = {
+    display: 'flex',
+    flexDirection: 'row',
+    overflowY: 'hidden',
+    margin: '0px ' + halfMargin,
+    cursor: 'ns-resize',
+  };
+
+  const glyphsExtendedStyle = {
     display: 'flex',
     flexDirection: 'row',
     overflowY: 'hidden',
@@ -109,7 +117,8 @@ export default function styles (theme, props) {
     headerInfo: headerInfoStyle,
     headerDrag: headerDragStyle,
     editor: editorStyle,
-    glyphs: glyphsStyle,
+    glyphsCompacted: glyphsCompactedStyle,
+    glyphsExtended: glyphsExtendedStyle,
   };
 }
 

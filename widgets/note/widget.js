@@ -147,6 +147,7 @@ class Note extends Form {
         glyphSize="150%"
         spacing="compact"
         justify="center"
+        cursor="ns-resize"
       />
     );
   }
@@ -205,7 +206,7 @@ class Note extends Form {
   renderInfoExtended () {
     const headerInfoClass = this.styles.classNames.headerInfo;
     const headerDragClass = this.styles.classNames.headerDrag;
-    const glyphsClass = this.styles.classNames.glyphs;
+    const glyphsClass = this.styles.classNames.glyphsExtended;
 
     return (
       <div className={headerInfoClass}>
@@ -252,7 +253,7 @@ class Note extends Form {
   renderInfoCompacted () {
     const headerInfoClass = this.styles.classNames.headerInfo;
     const headerDragClass = this.styles.classNames.headerDrag;
-    const glyphsClass = this.styles.classNames.glyphs;
+    const glyphsClass = this.styles.classNames.glyphsCompacted;
 
     return (
       <div className={headerInfoClass}>
@@ -262,6 +263,7 @@ class Note extends Form {
             wrap="no"
             singleLine="true"
             grow="1"
+            cursor="ns-resize"
           />
           <div className={glyphsClass}>
             {this.renderInfoSampleGlyphs ()}
