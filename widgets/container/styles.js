@@ -656,8 +656,8 @@ export default function styles (theme, props) {
   }
 
   if (props.kind === 'drag-to-delete') {
-    width = '30px';
-    minHeight = '30px';
+    width = '24px';
+    minHeight = '24px';
     display = 'flex';
     padding = '10px';
     borderWidth = '1px';

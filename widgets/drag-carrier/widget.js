@@ -598,10 +598,10 @@ class DragCarrier extends Widget {
       <Container kind="drag-to-delete">
         <Label
           glyph="trash"
-          glyphSize="200%"
-          justify="center"
-          width="30px"
-          height="30px"
+          glyphSize="150%"
+          insideButton="true"
+          width="24px"
+          height="24px"
         />
       </Container>
     );
