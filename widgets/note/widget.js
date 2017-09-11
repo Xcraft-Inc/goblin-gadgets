@@ -26,7 +26,6 @@ class Note extends Form {
 
     this.onSwapExtended = this.onSwapExtended.bind (this);
     this.onDeleteNote = this.onDeleteNote.bind (this);
-    this.onClearGlyphs = this.onClearGlyphs.bind (this);
     this.onAddGlyph = this.onAddGlyph.bind (this);
     this.onGlyphDragged = this.onGlyphDragged.bind (this);
     this.onOpenCombo = this.onOpenCombo.bind (this);
@@ -59,9 +58,12 @@ class Note extends Form {
     }
   }
 
-  onDeleteNote () {}
-
-  onClearGlyphs () {}
+  onDeleteNote (noteId) {
+    const x = this.props.deleteNote;
+    if (x) {
+      x (noteId);
+    }
+  }
 
   onAddGlyph (glyphId) {
     const glyph = this.props.allGlyphs[glyphId];
@@ -299,6 +301,7 @@ class Note extends Form {
         <div className={editorClass}>
           <TextField
             field="Content"
+            defaultFocus="true"
             selectAllOnFocus="true"
             hintText="Texte de la note"
             grow="1"
@@ -309,7 +312,7 @@ class Note extends Form {
           <Button
             glyph="trash"
             tooltip="Supprime la note"
-            onClick={this.onDeleteNote}
+            onClick={() => this.onDeleteNote (this.props.id)}
           />
         </div>
       );

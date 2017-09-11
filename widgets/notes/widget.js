@@ -39,6 +39,10 @@ class Notes extends Widget {
     this.do ('extend', {noteId});
   }
 
+  onDeleteNote (noteId) {
+    this.do ('remove', {noteId});
+  }
+
   onNoteDragged (selectedIds, toId) {
     this.do ('drag', {fromId: selectedIds[0], toId: toId});
   }
@@ -70,6 +74,7 @@ class Notes extends Widget {
           allGlyphs={this.props.allGlyphs}
           extended={Bool.toString (extended)}
           swapExtended={() => this.onSwapExtended (noteId)}
+          deleteNote={() => this.onDeleteNote (noteId)}
         />
       );
     } else {
@@ -94,6 +99,7 @@ class Notes extends Widget {
             allGlyphs={this.props.allGlyphs}
             extended={Bool.toString (extended)}
             swapExtended={() => this.onSwapExtended (noteId)}
+            deleteNote={() => this.onDeleteNote (noteId)}
           />
         </DragCab>
       );
