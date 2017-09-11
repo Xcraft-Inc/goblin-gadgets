@@ -240,7 +240,7 @@ class DragCarrier extends Widget {
     const last = node.children[node.children.length - 1];
     const rect = last.getBoundingClientRect ();
     return {
-      id: null, // after last
+      id: 'after-last',
       ownerId: container.props.dragOwnerId,
       ownerKind: container.props.dragSource,
       rect: getVRect (
@@ -313,7 +313,7 @@ class DragCarrier extends Widget {
     const last = node.children[node.children.length - 1];
     const rect = last.getBoundingClientRect ();
     return {
-      id: null, // after last
+      id: 'after-last',
       ownerId: container.props.dragOwnerId,
       ownerKind: container.props.dragSource,
       rect: getHRect (
