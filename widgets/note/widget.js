@@ -172,7 +172,7 @@ class Note extends Form {
         dragController="glyph-sample-note"
         direction="horizontal"
         dragOwnerId={glyph.get ('id')}
-        dragDelete="true"
+        dragToDelete="true"
         color={this.context.theme.palette.dragAndDropHover}
         thickness="4px"
         radius="4px"

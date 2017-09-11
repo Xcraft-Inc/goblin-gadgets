@@ -1605,6 +1605,7 @@ const properties = {
         'column-full',
         'compact-row',
         'content',
+        'drag-to-delete',
         'drag-too-many',
         'floating',
         'floating-footer',

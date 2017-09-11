@@ -95,6 +95,7 @@ class DragCarrier extends Widget {
       x: 0,
       y: 0,
       dest: null,
+      toDelete: false,
     };
     this.moveCount = 0;
     this.startX = 0;
@@ -150,6 +151,16 @@ class DragCarrier extends Widget {
   set dest (value) {
     this.setState ({
       dest: value,
+    });
+  }
+
+  get toDelete () {
+    return this.state.toDelete;
+  }
+
+  set toDelete (value) {
+    this.setState ({
+      toDelete: value,
     });
   }
 
@@ -469,7 +480,6 @@ class DragCarrier extends Widget {
   }
 
   selectOne (id, value) {
-    // Trace.log ('DragCarrier.selectOne');
     const dragCab = this.searchDragCab (id);
     dragCab.dragStarting = value;
     if (value) {
@@ -483,7 +493,6 @@ class DragCarrier extends Widget {
   }
 
   selectMulti (value) {
-    // Trace.log ('DragCarrier.selectMulti');
     if (this.rectOrigin) {
       const origin = this.searchChildren (this.rectOrigin.id);
       if (
@@ -548,8 +557,10 @@ class DragCarrier extends Widget {
     ) {
       //? this.dest = this.rectOrigin;
       this.dest = null; // if dest = himself -> no feedback
+      this.toDelete = false;
     } else {
       this.dest = dest;
+      this.toDelete = Bool.isTrue (this.props.dragToDelete) && !dest;
     }
 
     if (!this.lastDragStarted && this.isDragStarted ()) {
@@ -559,7 +570,6 @@ class DragCarrier extends Widget {
   }
 
   onMouseUp (e) {
-    // Trace.log ('DragCarrier.mouseUp');
     const dragEnding = this.props.dragEnding;
     if (dragEnding) {
       dragEnding (e, this.isDragStarted ());
@@ -575,12 +585,26 @@ class DragCarrier extends Widget {
               dest.ownerId,
               dest.ownerKind
             );
-          } else if (Bool.isTrue (this.props.dragDelete)) {
+          } else if (this.toDelete) {
             doDragEnding (this.selectedIds, null, null, null);
           }
         }
       }
     }
+  }
+
+  renderDelete () {
+    return (
+      <Container kind="drag-to-delete">
+        <Label
+          glyph="trash"
+          glyphSize="200%"
+          justify="center"
+          width="30px"
+          height="30px"
+        />
+      </Container>
+    );
   }
 
   renderTooMany (n, index) {
@@ -604,17 +628,21 @@ class DragCarrier extends Widget {
   renderComponentToDrag () {
     const result = [];
     if (this.isDragStarted ()) {
-      const n = this.selectedIds.length;
-      for (let i = 0; i < n; i++) {
-        const id = this.selectedIds[i];
-        const r = this.renderOneComponentToDrag (id, i);
-        if (r) {
-          const rest = n - i;
-          if (i > 5 && rest > 1) {
-            result.push (this.renderTooMany (rest, i));
-            break;
+      if (this.toDelete) {
+        return this.renderDelete ();
+      } else {
+        const n = this.selectedIds.length;
+        for (let i = 0; i < n; i++) {
+          const id = this.selectedIds[i];
+          const r = this.renderOneComponentToDrag (id, i);
+          if (r) {
+            const rest = n - i;
+            if (i > 5 && rest > 1) {
+              result.push (this.renderTooMany (rest, i));
+              break;
+            }
+            result.push (r);
           }
-          result.push (r);
         }
       }
     }

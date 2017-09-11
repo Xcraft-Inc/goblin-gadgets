@@ -655,6 +655,21 @@ export default function styles (theme, props) {
     backgroundColor = theme.palette.ticketsBackground;
   }
 
+  if (props.kind === 'drag-to-delete') {
+    width = '30px';
+    minHeight = '30px';
+    display = 'flex';
+    padding = '10px';
+    borderWidth = '1px';
+    borderStyle = 'solid';
+    borderRadius = '50px';
+    borderColor = theme.palette.buttonBorder;
+    backgroundColor = theme.palette.ticketsBackground;
+    alignItems = 'center';
+    justifyContent = 'center';
+    color = theme.palette.text;
+  }
+
   if (props.kind === 'chronos-events') {
     display = 'flex';
     flexDirection = 'column';
