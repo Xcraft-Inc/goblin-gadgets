@@ -500,9 +500,7 @@ export default function styles (theme, props) {
     boxMaxHeight = theme.shapes.lineHeight;
     textActiveColor = theme.palette.calendarActiveText;
     activeColor = theme.palette.calendarActiveBackground;
-    borderActiveColor = props.activeColor
-      ? props.activeColor
-      : theme.palette.calendarActiveBackground;
+    borderActiveColor = theme.palette.calendarActiveText;
   }
 
   if (props.kind === 'hover') {

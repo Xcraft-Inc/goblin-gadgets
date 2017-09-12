@@ -227,11 +227,10 @@ class Note extends Form {
               kind="recurrence"
               glyph="plus"
               tooltip="Ajoute un pictogramme"
-              active="true"
-              activeColor={
+              backgroundColor={
                 this.showCombo
-                  ? null
-                  : this.context.theme.palette.recurrenceExtendedBoxBackground
+                  ? this.context.theme.palette.calendarActiveBackground
+                  : null
               }
               onClick={this.onOpenCombo}
               ref={x => (this.glyphDialogButton = x)}
@@ -296,7 +295,6 @@ class Note extends Form {
           <TextField
             field="Content"
             defaultFocus="true"
-            selectAllOnFocus="true"
             hintText="Texte de la note"
             grow="1"
             spacing="large"
