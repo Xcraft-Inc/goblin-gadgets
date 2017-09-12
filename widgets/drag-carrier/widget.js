@@ -593,20 +593,6 @@ class DragCarrier extends Widget {
     }
   }
 
-  renderDelete () {
-    return (
-      <Container kind="drag-to-delete">
-        <Label
-          glyph="trash"
-          glyphSize="150%"
-          insideButton="true"
-          width="24px"
-          height="24px"
-        />
-      </Container>
-    );
-  }
-
   renderTooMany (n, index) {
     const text = `Et encore ${n} autres...`;
     return (
@@ -628,25 +614,75 @@ class DragCarrier extends Widget {
   renderComponentToDrag () {
     const result = [];
     if (this.isDragStarted ()) {
-      if (this.toDelete) {
-        return this.renderDelete ();
-      } else {
-        const n = this.selectedIds.length;
-        for (let i = 0; i < n; i++) {
-          const id = this.selectedIds[i];
-          const r = this.renderOneComponentToDrag (id, i);
-          if (r) {
-            const rest = n - i;
-            if (i > 5 && rest > 1) {
-              result.push (this.renderTooMany (rest, i));
-              break;
-            }
-            result.push (r);
+      const n = this.selectedIds.length;
+      for (let i = 0; i < n; i++) {
+        const id = this.selectedIds[i];
+        const r = this.renderOneComponentToDrag (id, i);
+        if (r) {
+          const rest = n - i;
+          if (i > 5 && rest > 1) {
+            result.push (this.renderTooMany (rest, i));
+            break;
           }
+          result.push (r);
         }
       }
     }
     return result;
+  }
+
+  renderComponentsToDrag (ox, oy) {
+    const padding = this.toDelete ? 10 : 0;
+
+    const draggedStyle = {
+      visibility: 'visible',
+      position: 'absolute',
+      display: 'flex',
+      flexDirection: 'column',
+      width: this.props.dragWidth,
+      height: this.props.dragHeight,
+      left: this.x - ox - padding,
+      top: this.y - oy - padding,
+      opacity: 0.9,
+      backgroundColor: this.toDelete ? 'rgba(255, 0, 0, 0.5)' : null,
+      padding: padding,
+      borderRadius: this.toDelete ? '100px' : null,
+      border: this.toDelete ? '2px solid #555' : null,
+      userSelect: 'none',
+    };
+
+    return (
+      <div style={draggedStyle}>
+        {this.renderComponentToDrag ()}
+      </div>
+    );
+  }
+
+  renderToDelete (ox, oy) {
+    const padding = 10;
+    const thickness = 4;
+    const shift = (this.props.dragHeight - thickness) / 2;
+
+    const toDeleteStyle = {
+      visibility: 'visible',
+      position: 'absolute',
+      display: 'flex',
+      flexDirection: 'column',
+      width: this.props.dragWidth + padding * 2,
+      height: thickness,
+      left: this.x - ox - padding,
+      top: this.y - oy + shift,
+      opacity: 0.9,
+      backgroundColor: '#555',
+      transform: 'rotate(-45deg)',
+      userSelect: 'none',
+    };
+
+    if (this.toDelete) {
+      return <div style={toDeleteStyle} />;
+    } else {
+      return null;
+    }
   }
 
   render () {
@@ -684,19 +720,6 @@ class DragCarrier extends Widget {
       };
     }
 
-    const draggedStyle = {
-      visibility: 'visible',
-      position: 'absolute',
-      display: 'flex',
-      flexDirection: 'column',
-      width: this.props.dragWidth,
-      height: this.props.dragHeight,
-      left: this.x - ox,
-      top: this.y - oy,
-      opacity: 0.9,
-      userSelect: 'none',
-    };
-
     return (
       <div
         className={fullScreenClass}
@@ -706,9 +729,8 @@ class DragCarrier extends Widget {
         onTouchEnd={this.onMouseUp}
       >
         <div style={hilitedStyle} />
-        <div style={draggedStyle}>
-          {this.renderComponentToDrag ()}
-        </div>
+        {this.renderComponentsToDrag (ox, oy)}
+        {this.renderToDelete (ox, oy)}
       </div>
     );
   }
