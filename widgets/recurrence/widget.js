@@ -178,8 +178,18 @@ class Recurrence extends Form {
     return (
       <div className={headerInfoClass}>
         <div className={headerDragClass}>
-          <Label text={this.periodInfo} kind="title-recurrence" grow="2" />
-          <Label text={this.cronInfo} kind="title-recurrence" grow="2" />
+          <Label
+            text={this.periodInfo}
+            kind="title-recurrence"
+            grow="2"
+            cursor="ns-resize"
+          />
+          <Label
+            text={this.cronInfo}
+            kind="title-recurrence"
+            grow="2"
+            cursor="ns-resize"
+          />
         </div>
         <Button
           kind="recurrence"
