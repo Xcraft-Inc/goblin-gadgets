@@ -14,6 +14,10 @@ import DragCab from 'gadgets/drag-cab/widget';
 class Recurrences extends Widget {
   constructor () {
     super (...arguments);
+
+    this.onSwapExtended = this.onSwapExtended.bind (this);
+    this.onDeleteRecurrence = this.onSwapExtended.bind (this);
+    this.onDragEnding = this.onDragEnding.bind (this);
   }
 
   static get wiring () {
@@ -42,43 +46,66 @@ class Recurrences extends Widget {
 
   renderHeader () {
     const headerClass = this.styles.classNames.header;
-    return (
-      <div className={headerClass}>
-        <Label text="Récurrences" grow="1" kind="title" />
-        <Button
-          glyph="plus"
-          text="Ajouter"
-          glyphPosition="right"
-          onClick={::this.onCreateRecurrence}
-        />
-      </div>
-    );
+
+    if (Bool.isTrue (this.props.readonly)) {
+      return (
+        <div className={headerClass}>
+          <Label text="Récurrences" grow="1" kind="title" />
+        </div>
+      );
+    } else {
+      return (
+        <div className={headerClass}>
+          <Label text="Récurrences" grow="1" kind="title" />
+          <Button
+            glyph="plus"
+            text="Ajouter"
+            glyphPosition="right"
+            onClick={this.onCreateNote}
+          />
+        </div>
+      );
+    }
   }
 
   renderRow (recurrenceId, extended, index) {
-    const dhd = Unit.add (
-      this.context.theme.shapes.lineHeight,
-      this.context.theme.shapes.containerMargin
-    );
     const WiredRecurrence = Widget.Wired (Recurrence) (recurrenceId);
-    return (
-      <DragCab
-        key={index}
-        dragController="recurrence"
-        dragHeightDetect={dhd}
-        direction="vertical"
-        color={this.context.theme.palette.dragAndDropHover}
-        thickness={this.context.theme.shapes.dragAndDropTicketThickness}
-        dragOwnerId={recurrenceId}
-        doClickAction={() => ::this.onSwapExtended (recurrenceId)}
-        doDragEnding={::this.onDragEnding}
-      >
+    if (Bool.isTrue (this.props.readonly)) {
+      return (
         <WiredRecurrence
+          key={index}
           extended={Bool.toString (extended)}
-          onDeleteRecurrence={() => ::this.onDeleteRecurrence (recurrenceId)}
+          readonly={Bool.toString (this.props.readonly)}
+          swapExtended={() => this.onSwapExtended (recurrenceId)}
+          deleteRecurrence={() => this.onDeleteRecurrence (recurrenceId)}
         />
-      </DragCab>
-    );
+      );
+    } else {
+      const dhd = Unit.add (
+        this.context.theme.shapes.lineHeight,
+        this.context.theme.shapes.containerMargin
+      );
+      return (
+        <DragCab
+          key={index}
+          dragController="recurrence"
+          dragHeightDetect={dhd}
+          direction="vertical"
+          color={this.context.theme.palette.dragAndDropHover}
+          thickness={this.context.theme.shapes.dragAndDropTicketThickness}
+          dragOwnerId={recurrenceId}
+          doClickAction={() => this.onSwapExtended (recurrenceId)}
+          doDragEnding={this.onDragEnding}
+        >
+          <WiredRecurrence
+            extended={Bool.toString (extended)}
+            readonly={Bool.toString (this.props.readonly)}
+            swapExtended={() => this.onSwapExtended (recurrenceId)}
+            deleteRecurrence={() => this.onDeleteRecurrence (recurrenceId)}
+          />
+        </DragCab>
+      );
+    }
   }
 
   renderRows () {

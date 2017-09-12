@@ -99,9 +99,15 @@ function getRecurrenceItem (date, recurrenceList) {
 class Recurrence extends Form {
   constructor () {
     super (...arguments);
+
     this.visibleDate = this.props.visibleDate
       ? this.props.visibleDate
       : Converters.getNowCanonicalDate ();
+
+    this.onEraseEvents = this.onEraseEvents.bind (this);
+    this.onDateClicked = this.onDateClicked.bind (this);
+    this.onVisibleDateChanged = this.onVisibleDateChanged.bind (this);
+    this.onSwapExtended = this.onSwapExtended.bind (this);
   }
 
   static get wiring () {
@@ -160,8 +166,10 @@ class Recurrence extends Form {
   }
 
   onDateClicked (date) {
-    const item = getRecurrenceItem (date, this.items);
-    this.do ('select-date', {date: date, type: item.Type});
+    if (!Bool.isTrue (this.props.readonly)) {
+      const item = getRecurrenceItem (date, this.items);
+      this.do ('select-date', {date: date, type: item.Type});
+    }
   }
 
   onEraseEvents () {
@@ -171,6 +179,23 @@ class Recurrence extends Form {
   onVisibleDateChanged (date) {
     this.visibleDate = date;
   }
+
+  onSwapExtended (recurrenceId) {
+    const x = this.props.swapExtended;
+    if (x) {
+      x (recurrenceId);
+    }
+  }
+
+  get cursor () {
+    if (Bool.isTrue (this.props.readonly)) {
+      return 'default';
+    } else {
+      return 'ns-resize';
+    }
+  }
+
+  /******************************************************************************/
 
   renderInfo (extended) {
     const headerInfoClass = this.styles.classNames.headerInfo;
@@ -182,13 +207,13 @@ class Recurrence extends Form {
             text={this.periodInfo}
             kind="title-recurrence"
             grow="2"
-            cursor="ns-resize"
+            cursor={this.cursor}
           />
           <Label
             text={this.cronInfo}
             kind="title-recurrence"
             grow="2"
-            cursor="ns-resize"
+            cursor={this.cursor}
           />
         </div>
         <Button
@@ -203,13 +228,14 @@ class Recurrence extends Form {
           activeColor={
             this.context.theme.palette.recurrenceExtendedBoxBackground
           }
+          onClick={() => this.onSwapExtended (this.props.id)}
         />
       </div>
     );
   }
 
   renderEditor (extended) {
-    if (extended) {
+    if (extended && !Bool.isTrue (this.props.readonly)) {
       const editorClass = this.styles.classNames.editor;
       return (
         <div className={editorClass}>
@@ -256,12 +282,12 @@ class Recurrence extends Form {
             tooltip="Supprime toutes les exceptions"
             spacing="overlap"
             visibility={Bool.toString (this.hasExceptions)}
-            onClick={::this.onEraseEvents}
+            onClick={this.onEraseEvents}
           />
           <Button
             glyph="trash"
             tooltip="Supprime la récurrence"
-            onClick={this.props.onDeleteRecurrence}
+            onClick={this.props.deleteRecurrence}
           />
         </div>
       );
@@ -282,8 +308,8 @@ class Recurrence extends Form {
             dates={this.dates}
             startDate={this.props.startDate}
             endDate={this.props.endDate}
-            dateClicked={::this.onDateClicked}
-            visibleDateChanged={::this.onVisibleDateChanged}
+            dateClicked={this.onDateClicked}
+            visibleDateChanged={this.onVisibleDateChanged}
           />
         </div>
       );
