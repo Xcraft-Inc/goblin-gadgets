@@ -254,11 +254,14 @@ class Note extends Form {
 
   renderInfoCompacted () {
     const headerInfoClass = this.styles.classNames.headerInfo;
+    const textClass = this.styles.classNames.textCompacted;
     const glyphsClass = this.styles.classNames.glyphsCompacted;
 
     return (
       <div className={headerInfoClass}>
-        <Label text={this.props.content} cursor="ns-resize" />
+        <div className={textClass}>
+          <Label text={this.props.content} grow="1" cursor="ns-resize" />
+        </div>
         <div className={glyphsClass}>
           {this.renderInfoSampleGlyphs ()}
         </div>

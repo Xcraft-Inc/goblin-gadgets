@@ -93,13 +93,21 @@ export default function styles (theme, props) {
     opacity: opacity,
   };
 
+  const textCompactedStyle = {
+    display: 'flex',
+    flexDirection: 'row',
+    flexGrow: '1',
+    justifyContent: 'flex-start',
+    margin: '0px ' + halfMargin,
+    cursor: 'ns-resize',
+  };
+
   const glyphsCompactedStyle = {
     display: 'flex',
     flexDirection: 'row',
     flexGrow: '1',
     flexWrap: 'wrap',
     justifyContent: 'flex-end',
-    overflowY: 'hidden',
     margin: '0px ' + halfMargin,
     cursor: 'ns-resize',
   };
@@ -115,6 +123,7 @@ export default function styles (theme, props) {
     main: mainStyle,
     headerInfo: headerInfoStyle,
     editor: editorStyle,
+    textCompacted: textCompactedStyle,
     glyphsCompacted: glyphsCompactedStyle,
     glyphsExtended: glyphsExtendedStyle,
   };
