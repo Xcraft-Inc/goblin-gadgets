@@ -634,6 +634,7 @@ class DragCarrier extends Widget {
   // Draw dragging components. With toDelete mode, the background is a red circle.
   renderComponentsToDrag (ox, oy) {
     const padding = this.toDelete ? 10 : 0;
+    const border = 2;
 
     const draggedStyle = {
       visibility: 'visible',
@@ -648,7 +649,7 @@ class DragCarrier extends Widget {
       backgroundColor: this.toDelete ? 'rgba(255, 0, 0, 0.5)' : null,
       padding: padding,
       borderRadius: this.toDelete ? '100px' : null,
-      border: this.toDelete ? '2px solid #555' : null,
+      border: this.toDelete ? `${border}px solid #555` : null,
       userSelect: 'none',
     };
 
@@ -662,9 +663,10 @@ class DragCarrier extends Widget {
   // Drag a oblique bar with toDelete mode, to complete the red circle. Thus, one obtains
   // (from the back to the front) a red circle, the dragging components and an oblique bar.
   renderToDelete (ox, oy) {
+    const border = 2;
     const padding = 10;
-    const thickness = 4;
-    const shift = (this.props.dragHeight - thickness) / 2;
+    const thickness = 2;
+    const shift = (this.props.dragHeight - thickness) / 2 + border;
 
     const toDeleteStyle = {
       visibility: 'visible',
@@ -673,7 +675,7 @@ class DragCarrier extends Widget {
       flexDirection: 'column',
       width: this.props.dragWidth + padding * 2,
       height: thickness, // horizontal line
-      left: this.x - ox - padding,
+      left: this.x - ox - padding + border,
       top: this.y - oy + shift,
       opacity: 0.9,
       backgroundColor: '#555',
