@@ -1,14 +1,18 @@
 import {Unit} from 'electrum-theme';
+import * as Bool from '../helpers/boolean-helpers.js';
 
 /******************************************************************************/
 
 export default function styles (theme, props) {
-  const extended = props.extended === 'true';
+  const extended =
+    Bool.isTrue (props.extended) && !Bool.isTrue (props.readonly);
   const isDragged = props.isDragged;
   const hasHeLeft = props.hasHeLeft;
 
   const m = theme.shapes.containerMargin;
   const halfMargin = Unit.multiply (m, 0.5);
+
+  const cursor = Bool.isTrue (props.readonly) ? 'default' : 'ns-resize';
 
   let width = null;
   let backgroundColor = 'transparent';
@@ -81,7 +85,7 @@ export default function styles (theme, props) {
     flexGrow: '1',
     alignItems: 'center',
     opacity: opacity,
-    cursor: 'ns-resize',
+    cursor: cursor,
   };
 
   const editorStyle = {
@@ -98,7 +102,7 @@ export default function styles (theme, props) {
     flexGrow: '1',
     justifyContent: 'flex-start',
     margin: '0px ' + halfMargin,
-    cursor: 'ns-resize',
+    cursor: cursor,
   };
 
   const glyphsCompactedStyle = {
@@ -108,7 +112,7 @@ export default function styles (theme, props) {
     flexWrap: 'wrap',
     justifyContent: 'flex-end',
     margin: '0px ' + halfMargin,
-    cursor: 'ns-resize',
+    cursor: cursor,
   };
 
   const glyphsExtendedStyle = {

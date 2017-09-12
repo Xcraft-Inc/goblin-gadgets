@@ -116,6 +116,14 @@ class Note extends Form {
     return list;
   }
 
+  get cursor () {
+    if (Bool.isTrue (this.props.readonly)) {
+      return 'default';
+    } else {
+      return 'ns-resize';
+    }
+  }
+
   /******************************************************************************/
 
   renderCombo () {
@@ -150,7 +158,7 @@ class Note extends Form {
         tooltip={glyph.get ('description')}
         spacing="compact"
         justify="center"
-        cursor="ns-resize"
+        cursor={this.cursor}
       />
     );
   }
@@ -259,21 +267,23 @@ class Note extends Form {
     return (
       <div className={headerInfoClass}>
         <div className={textClass}>
-          <Label text={this.props.content} grow="1" cursor="ns-resize" />
+          <Label text={this.props.content} grow="1" cursor={this.cursor} />
         </div>
         <div className={glyphsClass}>
           {this.renderInfoSampleGlyphs ()}
         </div>
-        <Button
-          kind="recurrence"
-          glyph="caret-down"
-          tooltip="Etend la note pour la modifier"
-          active="false"
-          activeColor={
-            this.context.theme.palette.recurrenceExtendedBoxBackground
-          }
-          onClick={() => this.onSwapExtended (this.props.id)}
-        />
+        {Bool.isTrue (this.props.readonly)
+          ? null
+          : <Button
+              kind="recurrence"
+              glyph="caret-down"
+              tooltip="Etend la note pour la modifier"
+              active="false"
+              activeColor={
+                this.context.theme.palette.recurrenceExtendedBoxBackground
+              }
+              onClick={() => this.onSwapExtended (this.props.id)}
+            />}
       </div>
     );
   }
@@ -319,7 +329,8 @@ class Note extends Form {
     }
 
     const mainClass = this.styles.classNames.main;
-    const extended = Bool.isTrue (this.props.extended);
+    const extended =
+      Bool.isTrue (this.props.extended) && !Bool.isTrue (this.props.readonly);
 
     const Form = this.Form;
 

@@ -52,26 +52,35 @@ class Notes extends Widget {
   renderHeader () {
     const headerClass = this.styles.classNames.header;
 
-    return (
-      <div className={headerClass}>
-        <Label text="Notes" grow="1" kind="title" />
-        <Button
-          glyph="plus"
-          text="Ajouter"
-          glyphPosition="right"
-          onClick={this.onCreateNote}
-        />
-      </div>
-    );
+    if (Bool.isTrue (this.props.readonly)) {
+      return (
+        <div className={headerClass}>
+          <Label text="Notes" grow="1" kind="title" />
+        </div>
+      );
+    } else {
+      return (
+        <div className={headerClass}>
+          <Label text="Notes" grow="1" kind="title" />
+          <Button
+            glyph="plus"
+            text="Ajouter"
+            glyphPosition="right"
+            onClick={this.onCreateNote}
+          />
+        </div>
+      );
+    }
   }
 
   renderRow (noteId, extended, index) {
     const WiredNote = Widget.Wired (Note) (noteId);
-    if (extended) {
+    if (extended || Bool.isTrue (this.props.readonly)) {
       return (
         <WiredNote
           key={index}
           allGlyphs={this.props.allGlyphs}
+          readonly={Bool.toString (this.props.readonly)}
           extended={Bool.toString (extended)}
           swapExtended={() => this.onSwapExtended (noteId)}
           deleteNote={() => this.onDeleteNote (noteId)}
@@ -91,6 +100,7 @@ class Notes extends Widget {
         >
           <WiredNote
             allGlyphs={this.props.allGlyphs}
+            readonly={Bool.toString (this.props.readonly)}
             extended={Bool.toString (extended)}
             swapExtended={() => this.onSwapExtended (noteId)}
             deleteNote={() => this.onDeleteNote (noteId)}

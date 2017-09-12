@@ -9,6 +9,8 @@ import Button from 'gadgets/button/widget';
 class CheckButton extends Widget {
   constructor () {
     super (...arguments);
+
+    this.onButtonClicked = this.onButtonClicked.bind (this);
   }
 
   onButtonClicked (e) {
@@ -34,7 +36,7 @@ class CheckButton extends Widget {
 
     return (
       <Button
-        onClick={::this.onButtonClicked}
+        onClick={this.onButtonClicked}
         glyph={glyph}
         text={this.props.text}
         active={active}
