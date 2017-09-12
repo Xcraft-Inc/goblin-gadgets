@@ -69,7 +69,6 @@ class Recurrences extends Widget {
         direction="vertical"
         color={this.context.theme.palette.dragAndDropHover}
         thickness={this.context.theme.shapes.dragAndDropTicketThickness}
-        mode="corner-top-left"
         dragOwnerId={recurrenceId}
         doClickAction={() => ::this.onSwapExtended (recurrenceId)}
         doDragEnding={::this.onDragEnding}

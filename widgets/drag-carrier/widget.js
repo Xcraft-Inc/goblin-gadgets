@@ -689,6 +689,7 @@ class DragCarrier extends Widget {
       position: 'absolute',
       display: 'flex',
       flexDirection: 'column',
+      width: this.props.dragWidth,
       height: this.props.dragHeight,
       left: this.x - ox,
       top: this.y - oy,

@@ -35,7 +35,6 @@ export default function styles (theme, props) {
     opacity = 0.0;
   }
   if (props.isDragged) {
-    width = '730px';
     borderBottomColor = theme.palette.paneNavigatorInactiveBorder;
     borderBottomWidth = '1px';
     borderBottomStyle = 'solid';

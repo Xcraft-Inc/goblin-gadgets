@@ -45,10 +45,13 @@ function findDragController (theme, x, y) {
 class DragCab extends Widget {
   constructor () {
     super (...arguments);
+
     this.state = {
       dragInProcess: false,
       dragStarting: false,
     };
+
+    this.dragWidth = 0;
     this.dragHeight = 0;
     this.hasCombo = false;
 
@@ -118,22 +121,21 @@ class DragCab extends Widget {
       return;
     }
     const node = ReactDOM.findDOMNode (this);
-    const dragWidthtDetect = this.props.dragWidthDetect;
-    if (dragWidthtDetect) {
-      const w = Unit.parse (dragWidthtDetect).value;
+    if (this.props.dragWidthtDetect) {
+      const w = Unit.parse (this.props.dragWidthtDetect).value;
       const rect = node.getBoundingClientRect ();
       if (e.clientX > rect.left + w) {
         return;
       }
     }
-    const dragHeightDetect = this.props.dragHeightDetect;
-    if (dragHeightDetect) {
-      const h = Unit.parse (dragHeightDetect).value;
+    if (this.props.dragHeightDetect) {
+      const h = Unit.parse (this.props.dragHeightDetect).value;
       const rect = node.getBoundingClientRect ();
       if (e.clientY > rect.top + h) {
         return;
       }
     }
+    this.dragWidth = node.clientWidth;
     this.dragHeight = node.clientHeight;
     this.dragInProcess = true;
   }
@@ -183,6 +185,7 @@ class DragCab extends Widget {
         data={this.props.data}
         doDragEnding={this.props.doDragEnding}
         dragEnding={this.onDragEnding}
+        dragWidth={this.dragWidth}
         dragHeight={this.dragHeight}
         dragController={this.props.dragController}
         dragOwnerId={this.props.dragOwnerId}
