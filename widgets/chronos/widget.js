@@ -570,12 +570,14 @@ class Chronos extends Form {
     const Form = this.Form;
 
     return (
-      <Form {...this.formConfig}>
-        <div className={mainClass}>
-          {this.renderNavigation ()}
-          {this.renderEvents ()}
-        </div>
-      </Form>
+      <Form
+        {...this.formConfigWithComponent (() => (
+          <div className={mainClass}>
+            {this.renderNavigation ()}
+            {this.renderEvents ()}
+          </div>
+        ))}
+      />
     );
   }
 }
