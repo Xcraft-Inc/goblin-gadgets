@@ -15,6 +15,20 @@ import ChronoLine from 'gadgets/chrono-line/widget';
 
 /******************************************************************************/
 
+function getSortingKey (e) {
+  const fromDate = e.get ('fromDate');
+  const fromTime = e.get ('fromTime');
+  const startFromTime = e.get ('startFromTime');
+
+  if (fromDate && fromTime) {
+    return fromDate + ' ' + fromTime;
+  } else if (fromDate && startFromTime) {
+    return fromDate + ' ' + startFromTime;
+  } else {
+    return 'zzz'; // to end
+  }
+}
+
 function getFlatEvents (events, filters) {
   const lines = [];
   const groups = new Map ();
@@ -23,7 +37,7 @@ function getFlatEvents (events, filters) {
   var notesCount = 0;
   var minHour = 8;
   var maxHour = 18;
-  events.linq.forEach (e => {
+  events.linq.orderBy (e => getSortingKey (e)).forEach (e => {
     const event = e.toJS ();
     hasDates = event.fromDate || event.startFromDate;
     let group;
