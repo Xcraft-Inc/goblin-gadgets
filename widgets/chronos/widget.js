@@ -37,8 +37,6 @@ function getFlatEvents (events, filters) {
     .select (e => e.toJS ())
     .orderBy (event => getSortingKey (event))
     .forEach (event => {
-      console.log (`${event.id}`);
-      console.dir (event);
       hasDates = event.fromDate || event.startFromDate;
       let group;
       if (hasDates) {

@@ -76,7 +76,8 @@ class ChronoLabel extends Widget {
     if (note) {
       const result = [];
       let index = 0;
-      for (var glyph of note.glyphs) {
+      for (var key in note.glyphs) {
+        const glyph = note.glyphs[key];
         result.push (this.renderGlyph (glyph, index++));
       }
       return result;
