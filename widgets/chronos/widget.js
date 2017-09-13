@@ -516,7 +516,7 @@ class Chronos extends Form {
 
   renderContentSep (ownerId, index) {
     const sepClass = this.styles.classNames.sep;
-    return <div className={sepClass} key={index} dataOwnerId={ownerId} />;
+    return <div className={sepClass} key={index} data-owner-id={ownerId} />;
   }
 
   renderEventsList () {
