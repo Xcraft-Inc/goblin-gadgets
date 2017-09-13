@@ -63,7 +63,7 @@ class ChronoLine extends Widget {
   renderLabel (note, isDragged, hasHeLeft, index) {
     return (
       <ChronoLabel
-        index={index}
+        key={index}
         isDragged={isDragged}
         hasHeLeft={hasHeLeft}
         note={note}
@@ -117,15 +117,15 @@ class ChronoLine extends Widget {
     lineStyle.cursor = cursor;
 
     return (
-      <div className={lineClass} style={lineStyle} key={this.props.index}>
-        <div className={lineLabelClass} key="label">
+      <div className={lineClass} style={lineStyle}>
+        <div className={lineLabelClass}>
           {this.renderLabels (
             this.props.event,
             this.props.isDragged,
             this.props.hasHeLeft
           )}
         </div>
-        <div className={lineEventClass} key="event">
+        <div className={lineEventClass}>
           <ChronoEvent
             event={this.props.event}
             isDragged={this.props.isDragged}

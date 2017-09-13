@@ -165,7 +165,6 @@ class ChronoEvent extends Widget {
         {this.renderGrid (isDragged)}
         {this.renderBar (this.props.event, isDragged)}
         <div
-          key="front"
           className={frontClass}
           onMouseOver={this.onMouseOver}
           onMouseOut={this.onMouseOut}
@@ -176,7 +175,7 @@ class ChronoEvent extends Widget {
 
   renderEmpty () {
     const lineClass = this.styles.classNames.empty;
-    return <div className={lineClass} key={this.props.index} />;
+    return <div className={lineClass} />;
   }
 
   render () {

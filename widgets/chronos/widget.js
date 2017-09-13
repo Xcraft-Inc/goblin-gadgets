@@ -406,7 +406,7 @@ class Chronos extends Form {
     } else {
       const navigationClass = this.styles.classNames.navigation;
       return (
-        <div className={navigationClass} key="navigation">
+        <div className={navigationClass}>
           {this.renderNavigationButtons ()}
         </div>
       );
@@ -476,10 +476,10 @@ class Chronos extends Form {
 
     return (
       <div className={topClass} key={index} data-owner-id={ownerId}>
-        <div className={topLabelClass} style={topLabelStyle} key="label">
+        <div className={topLabelClass} style={topLabelStyle}>
           <Label text={text} textColor="#fff" grow="1" />
         </div>
-        <div className={topEventClass} key="event">
+        <div className={topEventClass}>
           {this.renderContentTopTimes ()}
         </div>
       </div>
@@ -501,7 +501,6 @@ class Chronos extends Form {
       >
         <ChronoLine
           id={event.id}
-          index={index}
           event={event}
           lineWidth={this.props.lineWidth}
           glyphWidth={this.props.glyphWidth}

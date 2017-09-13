@@ -51,8 +51,8 @@ class ChronoLabel extends Widget {
     if (!isDragged && this.hover && text) {
       const style = this.styles.classNames.tooltip;
       return (
-        <div className={style} key="tooltip">
-          <Label index="2" text={text} grow="1" wrap="no" />
+        <div className={style}>
+          <Label text={text} grow="1" wrap="no" />
         </div>
       );
     } else {
@@ -64,7 +64,7 @@ class ChronoLabel extends Widget {
     const g = GlyphHelpers.getGlyph (glyph.get ('glyph'));
     return (
       <Label
-        index={index}
+        key={index}
         glyph={g.glyph}
         glyphColor={g.color}
         spacing="compact"
@@ -95,14 +95,13 @@ class ChronoLabel extends Widget {
     const frontClass = this.styles.classNames.front;
 
     return (
-      <div className={lineClass} key={this.props.index}>
-        <div className={glyphsClass} key="glyphs">
+      <div className={lineClass}>
+        <div className={glyphsClass}>
           {this.renderGlyphs (this.props.note)}
         </div>
-        <Label index="1" text={text} grow="1" wrap="no" />
+        <Label text={text} grow="1" wrap="no" />
         {this.renderTooltip (text, isDragged)}
         <div
-          key="front"
           className={frontClass}
           onMouseOver={this.onMouseOver}
           onMouseOut={this.onMouseOut}
@@ -113,7 +112,7 @@ class ChronoLabel extends Widget {
 
   renderEmpty () {
     const lineClass = this.styles.classNames.empty;
-    return <div className={lineClass} key={this.props.index} />;
+    return <div className={lineClass} />;
   }
 
   render () {
