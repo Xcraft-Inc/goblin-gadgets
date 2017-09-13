@@ -116,9 +116,9 @@ export default function styles (theme, props) {
 
   if (!Bool.isTrue (props.insideButton) && !props.glyph) {
     // Label without glyph ?
-    if (props.glyphPosition === 'right') {
+    if (boxJustifyContent === 'flex-end') {
       textMarginRight = '0px'; // push to right frame border
-    } else {
+    } else if (!boxJustifyContent || boxJustifyContent === 'flex-start') {
       textMarginLeft = '0px'; // push to left frame border
     }
   }
