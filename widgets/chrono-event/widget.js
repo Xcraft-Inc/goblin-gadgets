@@ -146,7 +146,7 @@ class ChronoEvent extends Widget {
         endFrom={endFrom}
         startTo={startTo}
         endTo={endTo}
-        color={event.Color}
+        color={event.color}
         tricolor={tricolor ? 'true' : 'false'}
         leftTooltip={this.getLeftTooltip (event, tricolor, isTextToLeft)}
         rightTooltip={this.getRightTooltip (event, tricolor, isTextToLeft)}

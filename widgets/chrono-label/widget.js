@@ -52,7 +52,7 @@ class ChronoLabel extends Widget {
       const style = this.styles.classNames.tooltip;
       return (
         <div className={style} key="tooltip">
-          <Label index="2" text={text} grow="1" wrap="stretch" />
+          <Label index="2" text={text} grow="1" wrap="no" />
         </div>
       );
     } else {
@@ -61,7 +61,7 @@ class ChronoLabel extends Widget {
   }
 
   renderGlyph (glyph, index) {
-    const g = GlyphHelpers.getGlyph (glyph.Glyph);
+    const g = GlyphHelpers.getGlyph (glyph.glyph);
     return (
       <Label
         index={index}
@@ -76,7 +76,7 @@ class ChronoLabel extends Widget {
     if (note) {
       const result = [];
       let index = 0;
-      for (var glyph of note.Glyphs) {
+      for (var glyph of note.glyphs) {
         result.push (this.renderGlyph (glyph, index++));
       }
       return result;
@@ -86,7 +86,7 @@ class ChronoLabel extends Widget {
   }
 
   renderFull (isDragged) {
-    const text = this.props.note ? this.props.note.Content : null;
+    const text = this.props.note ? this.props.note.content : null;
 
     const lineClass = this.styles.classNames.line;
     const glyphsClass = this.styles.classNames.glyphs;
@@ -115,10 +115,6 @@ class ChronoLabel extends Widget {
   }
 
   render () {
-    if (!this.props.id) {
-      return null;
-    }
-
     if (this.props.hasHeLeft && !this.props.isDragged) {
       return this.renderEmpty ();
     } else {

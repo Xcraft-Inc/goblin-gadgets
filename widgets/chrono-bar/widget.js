@@ -15,8 +15,8 @@ class ChronoBar extends Widget {
 
   renderThin (dotStyleName, lineStyleName) {
     const result = [];
-    const dotStyle = this.styles.classNames.dotStyleName;
-    const lineStyle = this.styles.classNames.lineStyleName;
+    const dotStyle = this.styles.classNames[dotStyleName];
+    const lineStyle = this.styles.classNames[lineStyleName];
     result.push (<div className={dotStyle} key="dot" />);
     result.push (<div className={lineStyle} key="line" />);
     return result;
@@ -55,7 +55,7 @@ class ChronoBar extends Widget {
       const style = this.styles.classNames.leftTooltip;
       return (
         <div className={style} key="leftTooltip">
-          <Label text={this.props.tooltip} wrap="stretch" />
+          <Label text={this.props.leftTooltip} wrap="no" />
         </div>
       );
     } else {
@@ -69,7 +69,7 @@ class ChronoBar extends Widget {
       const style = this.styles.classNames.rightTooltip;
       return (
         <div className={style} key="rightTooltip">
-          <Label text={this.props.tooltip} wrap="stretch" />
+          <Label text={this.props.rightTooltip} wrap="no" />
         </div>
       );
     } else {
@@ -78,7 +78,7 @@ class ChronoBar extends Widget {
   }
 
   renderStart (styleName, hover) {
-    const style = this.styles.classNames.styleName;
+    const style = this.styles.classNames[styleName];
     return (
       <div className={style} key="start">
         {this.renderLeftTooltip (hover === 'true')}
@@ -94,7 +94,7 @@ class ChronoBar extends Widget {
   }
 
   renderEnd (styleName, hover) {
-    const style = this.styles.classNames.styleName;
+    const style = this.styles.classNames[styleName];
     return (
       <div className={style} key="end">
         {this.renderRightTooltip (hover === 'true')}

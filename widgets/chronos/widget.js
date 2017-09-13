@@ -15,15 +15,11 @@ import ChronoLine from 'gadgets/chrono-line/widget';
 
 /******************************************************************************/
 
-function getSortingKey (e) {
-  const fromDate = e.get ('fromDate');
-  const fromTime = e.get ('fromTime');
-  const startFromTime = e.get ('startFromTime');
-
-  if (fromDate && fromTime) {
-    return fromDate + ' ' + fromTime;
-  } else if (fromDate && startFromTime) {
-    return fromDate + ' ' + startFromTime;
+function getSortingKey (event) {
+  if (event.fromDate && event.fromTime) {
+    return event.fromDate + ' ' + event.fromTime;
+  } else if (event.fromDate && event.startFromTime) {
+    return event.fromDate + ' ' + event.startFromTime;
   } else {
     return 'zzz'; // to end
   }
@@ -37,73 +33,77 @@ function getFlatEvents (events, filters) {
   var notesCount = 0;
   var minHour = 8;
   var maxHour = 18;
-  events.linq.orderBy (e => getSortingKey (e)).forEach (e => {
-    const event = e.toJS ();
-    hasDates = event.fromDate || event.startFromDate;
-    let group;
-    if (hasDates) {
-      if (event.startFromDate) {
-        group = event.startFromDate;
-      } else {
-        group = event.fromDate;
-      }
-    } else {
-      group = event.group;
-    }
-    if (filters.length === 0 || filters.indexOf (group) !== -1) {
-      if (!lastGroup || lastGroup !== group) {
-        if (lastGroup) {
-          lines.push ({type: 'sep'});
+  events.linq
+    .select (e => e.toJS ())
+    .orderBy (event => getSortingKey (event))
+    .forEach (event => {
+      console.log (`${event.id}`);
+      console.dir (event);
+      hasDates = event.fromDate || event.startFromDate;
+      let group;
+      if (hasDates) {
+        if (event.startFromDate) {
+          group = event.startFromDate;
+        } else {
+          group = event.fromDate;
         }
-        lines.push ({
-          type: 'top',
-          date: event.fromDate,
-          group: event.group,
-        });
-        lastGroup = group;
+      } else {
+        group = event.group;
       }
-      lines.push ({type: 'event', event: event});
+      if (filters.length === 0 || filters.indexOf (group) !== -1) {
+        if (!lastGroup || lastGroup !== group) {
+          if (lastGroup) {
+            lines.push ({type: 'sep'});
+          }
+          lines.push ({
+            type: 'top',
+            date: event.fromDate,
+            group: event.group,
+          });
+          lastGroup = group;
+        }
+        lines.push ({type: 'event', event: event});
 
-      if (event.fromTime) {
-        minHour = Math.min (
-          minHour,
-          Converters.splitTime (event.fromTime).hour - 1
-        );
-      }
-      if (event.startFromTime) {
-        minHour = Math.min (
-          minHour,
-          Converters.splitTime (event.startFromTime).hour - 1
-        );
-      }
-      if (event.toTime) {
-        maxHour = Math.max (
-          maxHour,
-          Converters.splitTime (event.toTime).hour + 1
-        );
-      }
-      if (event.endToTime) {
-        maxHour = Math.max (
-          maxHour,
-          Converters.splitTime (event.endToTime).hour + 1
-        );
-      }
+        if (event.fromTime) {
+          minHour = Math.min (
+            minHour,
+            Converters.splitTime (event.fromTime).hour - 1
+          );
+        }
+        if (event.startFromTime) {
+          minHour = Math.min (
+            minHour,
+            Converters.splitTime (event.startFromTime).hour - 1
+          );
+        }
+        if (event.toTime) {
+          maxHour = Math.max (
+            maxHour,
+            Converters.splitTime (event.toTime).hour + 1
+          );
+        }
+        if (event.endToTime) {
+          maxHour = Math.max (
+            maxHour,
+            Converters.splitTime (event.endToTime).hour + 1
+          );
+        }
 
-      var noteCount = 0;
-      if (event.note) {
-        noteCount = 1;
-      } else if (event.notes) {
-        noteCount = event.notes.length;
-      }
-      notesCount = Math.max (notesCount, noteCount);
+        var noteCount = 0;
+        if (event.note) {
+          noteCount = 1;
+        } else if (event.notes) {
+          noteCount = event.notes.length;
+        }
+        notesCount = Math.max (notesCount, noteCount);
 
-      if (!groups.has (group)) {
-        groups.set (group, 0);
+        if (!groups.has (group)) {
+          groups.set (group, 0);
+        }
+        const n = groups.get (group);
+        groups.set (group, n + 1);
       }
-      const n = groups.get (group);
-      groups.set (group, n + 1);
-    }
-  });
+    });
 
   const g = [];
   const n = [];

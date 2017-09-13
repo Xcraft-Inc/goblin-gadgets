@@ -83,7 +83,7 @@ class ChronoLine extends Widget {
       result.push (
         this.renderLabel (event.note, isDragged, hasHeLeft, index++)
       );
-    } else if (event.Notes) {
+    } else if (event.notes) {
       // collection of notes ?
       for (var note of event.notes) {
         result.push (this.renderLabel (note, isDragged, hasHeLeft, index++));
