@@ -474,6 +474,8 @@ class Chronos extends Form {
       this.context.theme.shapes.chronosLabelMargin
     );
 
+    // The use of "data-owner-id" sets a property "ownerId" accessed later by "node.dataset.ownerId".
+    // Don't rename "data-owner-id" to "dataOwnerId" !
     return (
       <div className={topClass} key={index} data-owner-id={ownerId}>
         <div className={topLabelClass} style={topLabelStyle}>
@@ -515,6 +517,8 @@ class Chronos extends Form {
   }
 
   renderContentSep (ownerId, index) {
+    // The use of "data-owner-id" sets a property "ownerId" accessed later by "node.dataset.ownerId".
+    // Don't rename "data-owner-id" to "dataOwnerId" !
     const sepClass = this.styles.classNames.sep;
     return <div className={sepClass} key={index} data-owner-id={ownerId} />;
   }
