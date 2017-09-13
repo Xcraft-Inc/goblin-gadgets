@@ -1,28 +1,11 @@
 import {Unit} from 'electrum-theme';
+import {ColorHelpers} from 'electrum-theme';
 
 /******************************************************************************/
 
 function getMainColor (theme, props) {
-  if (props.color) {
-    if (props.color.startsWith ('#') || props.color.startsWith ('rgb')) {
-      //  Bypass this colors:
-      //  #f00
-      //  #123456
-      //  rgb(100,100,100)
-      //  rgba(0,0,0,0.5)
-      return props.color;
-    } else {
-      const fix = {
-        main: theme.palette.chronoEventMainBackground,
-        start: theme.palette.chronoEventStartBackground,
-        middle: theme.palette.chronoEventMiddleBackground,
-        end: theme.palette.chronoEventEndBackground,
-      };
-      return fix[props.color];
-    }
-  } else {
-    return theme.palette.chronoEventMainBackground;
-  }
+  const color = ColorHelpers.getMarkColor (theme, props.color);
+  return color ? color : theme.palette.chronoEventMainBackground;
 }
 
 export default function styles (theme, props) {
