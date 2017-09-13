@@ -429,10 +429,12 @@ class Chronos extends Form {
     return (
       <div style={style} key={index}>
         <Label
+          kind="compact"
           text={text}
           justify="center"
           textColor="#fff"
           grow="1"
+          wrap="no"
           height="100%"
         />
       </div>

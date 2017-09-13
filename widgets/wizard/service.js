@@ -405,6 +405,7 @@ const properties = {
         '',
         'big-center',
         'center-to-box',
+        'compact',
         'floating-footer',
         'floating-header',
         'flying-balloon',

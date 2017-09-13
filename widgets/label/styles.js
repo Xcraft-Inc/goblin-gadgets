@@ -134,6 +134,11 @@ export default function styles (theme, props) {
     }
   }
 
+  if (props.kind === 'compact') {
+    textMarginLeft = '0px';
+    textMarginRight = '0px';
+  }
+
   if (props.kind === 'pane-header') {
     textSize = theme.shapes.paneHeaderTextSize;
     textWeight = 'bold';
