@@ -119,7 +119,11 @@ class ChronoLine extends Widget {
     return (
       <div className={lineClass} style={lineStyle} key={this.props.index}>
         <div className={lineLabelClass} key="label">
-          {this.renderLabels (event, this.props.isDragged, hasHeLeft)}
+          {this.renderLabels (
+            this.props.event,
+            this.props.isDragged,
+            this.props.hasHeLeft
+          )}
         </div>
         <div className={lineEventClass} key="event">
           <ChronoEvent

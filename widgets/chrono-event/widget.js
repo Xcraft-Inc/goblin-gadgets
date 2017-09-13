@@ -1,5 +1,6 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
+import * as Converters from '../helpers/converters';
 import * as GlyphHelpers from '../helpers/glyph-helpers.js';
 import * as Bool from '../helpers/boolean-helpers.js';
 
@@ -120,12 +121,14 @@ class ChronoEvent extends Widget {
       startToPos = Converters.getTotalMinutes (event.startToTime);
       endToPos = Converters.getTotalMinutes (event.endToTime);
       tricolor = true;
-    } else {
+    } else if (event.fromTime) {
       startFromPos = Converters.getTotalMinutes (event.fromTime);
       endFromPos = Converters.getTotalMinutes (event.fromTime);
       startToPos = Converters.getTotalMinutes (event.toTime);
       endToPos = Converters.getTotalMinutes (event.toTime);
       tricolor = false;
+    } else {
+      return null;
     }
     const middle = (startFromPos + endFromPos + startToPos + endToPos) / 4;
     const isTextToLeft = middle > minMinute + lenMinute / 2;
@@ -149,7 +152,6 @@ class ChronoEvent extends Widget {
         rightTooltip={this.getRightTooltip (event, tricolor, isTextToLeft)}
         isDragged={isDragged}
         hover={this.hover ? 'true' : 'false'}
-        {...this.link ()}
       />
     );
   }

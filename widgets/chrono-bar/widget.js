@@ -1,5 +1,6 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
+import {Unit} from 'electrum-theme';
 import * as GlyphHelpers from '../helpers/glyph-helpers.js';
 import * as Bool from '../helpers/boolean-helpers.js';
 
@@ -64,7 +65,7 @@ class ChronoBar extends Widget {
 
   // If hover. draw a 'tooltip' on the right side of bar.
   renderRightTooltip (hover) {
-    if (!isDragged && hover) {
+    if (!this.props.isDragged && hover) {
       const style = this.styles.classNames.rightTooltip;
       return (
         <div className={style} key="rightTooltip">

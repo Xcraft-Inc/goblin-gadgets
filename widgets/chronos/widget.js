@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Form from 'laboratory/form';
+import {Unit} from 'electrum-theme';
+import * as Converters from '../helpers/converters';
 import * as GlyphHelpers from '../helpers/glyph-helpers.js';
 import * as Bool from '../helpers/boolean-helpers.js';
 
@@ -21,17 +23,18 @@ function getFlatEvents (events, filters) {
   var notesCount = 0;
   var minHour = 8;
   var maxHour = 18;
-  events.linq.forEach (event => {
-    hasDates = event.get ('fromDate') || event.get ('startFromDate');
+  events.linq.forEach (e => {
+    const event = e.toJS ();
+    hasDates = event.fromDate || event.startFromDate;
     let group;
     if (hasDates) {
-      if (event.get ('startFromDate')) {
-        group = event.get ('startFromDate');
+      if (event.startFromDate) {
+        group = event.startFromDate;
       } else {
-        group = event.get ('fromDate');
+        group = event.fromDate;
       }
     } else {
-      group = event.get ('group');
+      group = event.group;
     }
     if (filters.length === 0 || filters.indexOf (group) !== -1) {
       if (!lastGroup || lastGroup !== group) {
@@ -40,42 +43,42 @@ function getFlatEvents (events, filters) {
         }
         lines.push ({
           type: 'top',
-          date: event.get ('fromDate'),
-          group: event.get ('group'),
+          date: event.fromDate,
+          group: event.group,
         });
         lastGroup = group;
       }
       lines.push ({type: 'event', event: event});
 
-      if (event.get ('fromTime')) {
+      if (event.fromTime) {
         minHour = Math.min (
           minHour,
-          Converters.splitTime (event.get ('fromTime')).hour - 1
+          Converters.splitTime (event.fromTime).hour - 1
         );
       }
-      if (event.get ('startFromTime')) {
+      if (event.startFromTime) {
         minHour = Math.min (
           minHour,
-          Converters.splitTime (event.get ('startFromTime')).hour - 1
+          Converters.splitTime (event.startFromTime).hour - 1
         );
       }
-      if (event.get ('toTime')) {
+      if (event.toTime) {
         maxHour = Math.max (
           maxHour,
-          Converters.splitTime (event.get ('toTime')).hour + 1
+          Converters.splitTime (event.toTime).hour + 1
         );
       }
-      if (event.get ('endToTime')) {
+      if (event.endToTime) {
         maxHour = Math.max (
           maxHour,
-          Converters.splitTime (event.get ('endToTime')).hour + 1
+          Converters.splitTime (event.endToTime).hour + 1
         );
       }
 
       var noteCount = 0;
-      if (event.get ('note')) {
+      if (event.note) {
         noteCount = 1;
-      } else if (event.get ('notes')) {
+      } else if (event.notes) {
         noteCount = event.notes.length;
       }
       notesCount = Math.max (notesCount, noteCount);
@@ -113,9 +116,9 @@ function updateHover (event, state) {
     if (line.props.event === event) {
       line.hover = state;
     } else if (
-      event.Link &&
-      line.props.event.Link &&
-      event.Link === line.props.event.Link
+      event.link &&
+      line.props.event.link &&
+      event.link === line.props.event.link
     ) {
       line.hover = state;
     }
@@ -280,7 +283,7 @@ class Chronos extends Form {
     if (count) {
       return (
         <Button
-          index={index}
+          key={index}
           kind="chronos-navigator"
           subkind="with-badge"
           glyph={glyph}
@@ -297,7 +300,7 @@ class Chronos extends Form {
     } else {
       return (
         <Button
-          index={index}
+          key={index}
           kind="chronos-navigator"
           glyph={glyph}
           text={text}
@@ -520,7 +523,7 @@ class Chronos extends Form {
         result.push (this.renderContentTop (text, ownerId, index++));
       } else if (item.type === 'event') {
         result.push (this.renderContentEvent (item.event, index++));
-        ownerId = item.event.GroupId;
+        ownerId = item.event.groupId;
       } else if (item.type === 'sep') {
         result.push (this.renderContentSep (ownerId, index++));
       }
@@ -552,12 +555,12 @@ class Chronos extends Form {
     const Form = this.Form;
 
     return (
-      <div className={mainClass}>
-        <Form {...this.formConfig}>
+      <Form {...this.formConfig}>
+        <div className={mainClass}>
           {this.renderNavigation ()}
           {this.renderEvents ()}
-        </Form>
-      </div>
+        </div>
+      </Form>
     );
   }
 }
