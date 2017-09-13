@@ -61,7 +61,7 @@ class ChronoLabel extends Widget {
   }
 
   renderGlyph (glyph, index) {
-    const g = GlyphHelpers.getGlyph (glyph.glyph);
+    const g = GlyphHelpers.getGlyph (glyph.get ('glyph'));
     return (
       <Label
         index={index}
@@ -74,13 +74,14 @@ class ChronoLabel extends Widget {
 
   renderGlyphs (note) {
     if (note) {
-      const result = [];
+      const glyphs = this.shred (note.glyphs);
       let index = 0;
-      for (var key in note.glyphs) {
-        const glyph = note.glyphs[key];
-        result.push (this.renderGlyph (glyph, index++));
-      }
-      return result;
+      return glyphs.linq
+        .orderBy (glyph => glyph.get ('order'))
+        .select (glyph => {
+          return this.renderGlyph (glyph, index++);
+        })
+        .toList ();
     } else {
       return null;
     }
