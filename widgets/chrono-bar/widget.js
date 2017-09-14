@@ -22,7 +22,7 @@ class ChronoBar extends Widget {
   }
 
   renderDot () {
-    if (this.props.tricolor === 'false') {
+    if (Bool.isFalse (this.props.tricolor)) {
       if (this.props.startFrom === this.props.endTo) {
         return this.renderThin ('dot', 'line');
       }
@@ -31,7 +31,7 @@ class ChronoBar extends Widget {
   }
 
   renderFromDot () {
-    if (this.props.tricolor === 'true') {
+    if (Bool.isTrue (this.props.tricolor)) {
       if (this.props.startFrom === this.props.endFrom) {
         return this.renderThin ('fromDot', 'fromLine');
       }
@@ -40,7 +40,7 @@ class ChronoBar extends Widget {
   }
 
   renderToDot () {
-    if (this.props.tricolor === 'true') {
+    if (Bool.isTrue (this.props.tricolor)) {
       if (this.props.startTo === this.props.endTo) {
         return this.renderThin ('toDot', 'toLine');
       }
@@ -80,13 +80,13 @@ class ChronoBar extends Widget {
     const style = this.styles.classNames[styleName];
     return (
       <div className={style} key="start">
-        {this.renderLeftTooltip (hover === 'true')}
+        {this.renderLeftTooltip (Bool.isTrue (hover))}
       </div>
     );
   }
 
   renderMain () {
-    const style = this.props.tricolor === 'true'
+    const style = Bool.isTrue (this.props.tricolor)
       ? this.styles.classNames.middleDistinct
       : this.styles.classNames.mainDistinct;
     return <div className={style} key="main" />;
@@ -96,7 +96,7 @@ class ChronoBar extends Widget {
     const style = this.styles.classNames[styleName];
     return (
       <div className={style} key="end">
-        {this.renderRightTooltip (hover === 'true')}
+        {this.renderRightTooltip (Bool.isTrue (hover))}
       </div>
     );
   }

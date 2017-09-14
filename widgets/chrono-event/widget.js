@@ -146,11 +146,11 @@ class ChronoEvent extends Widget {
         startTo={startTo}
         endTo={endTo}
         color={event.color}
-        tricolor={tricolor ? 'true' : 'false'}
+        tricolor={Bool.toString (tricolor)}
         leftTooltip={this.getLeftTooltip (event, tricolor, isTextToLeft)}
         rightTooltip={this.getRightTooltip (event, tricolor, isTextToLeft)}
         isDragged={isDragged}
-        hover={this.hover ? 'true' : 'false'}
+        hover={Bool.toString (this.hover)}
       />
     );
   }

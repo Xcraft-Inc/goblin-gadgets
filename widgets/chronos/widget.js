@@ -301,8 +301,8 @@ class Chronos extends Form {
           text={text}
           tooltip={tooltip}
           border="none"
-          disabled={disabled ? 'true' : 'false'}
-          active={active ? 'true' : 'false'}
+          disabled={Bool.toString (disabled)}
+          active={Bool.toString (active)}
           onClick={onAction}
         >
           <Badge value={count} kind="chronos-count" />
@@ -317,8 +317,8 @@ class Chronos extends Form {
           text={text}
           tooltip={tooltip}
           border="none"
-          disabled={disabled ? 'true' : 'false'}
-          active={active ? 'true' : 'false'}
+          disabled={Bool.toString (disabled)}
+          active={Bool.toString (active)}
           onClick={onAction}
         />
       );
