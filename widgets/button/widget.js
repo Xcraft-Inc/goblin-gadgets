@@ -11,12 +11,10 @@ class Button extends Widget {
   constructor () {
     super (...arguments);
 
-    // FIXME: why don't work ?
-    //? this.onClick = this.onClicked.bind (this);
-    //? this.onMouseDown = this.onMouseDown.bind (this);
-    //? this.onMouseUp = this.onMouseUp.bind (this);
-    //? this.onTouchStart = this.onMouseDown.bind (this);
-    //? this.onTouchEnd = this.onMouseUp.bind (this);
+    this.onClick = this.onClick.bind (this);
+    this.onMouseDown = this.onMouseDown.bind (this);
+    this.onMouseUp = this.onMouseUp.bind (this);
+    this.onShowMenu = this.onShowMenu.bind (this);
   }
 
   static get wiring () {
@@ -36,7 +34,7 @@ class Button extends Widget {
     this.do ('kind', {kind});
   }
 
-  onClicked (e) {
+  onClick (e) {
     if (this.props.onClick) {
       this.props.onClick (e);
     }
@@ -162,11 +160,11 @@ class Button extends Widget {
       return (
         <div
           key={this.props.index}
-          onClick={::this.onClicked} // voir (*)
-          onMouseDown={::this.onMouseDown}
-          onMouseUp={::this.onMouseUp}
-          onTouchStart={::this.onMouseDown}
-          onTouchEnd={::this.onMouseUp}
+          onClick={this.onClick} // voir (*)
+          onMouseDown={this.onMouseDown}
+          onMouseUp={this.onMouseUp}
+          onTouchStart={this.onMouseDown}
+          onTouchEnd={this.onMouseUp}
           className={boxClass}
           title={tooltip}
         >
@@ -177,11 +175,11 @@ class Button extends Widget {
       return (
         <div
           key={this.props.index}
-          onClick={::this.onShowMenu} // voir (*)
-          onMouseDown={::this.onMouseDown}
-          onMouseUp={::this.onMouseUp}
-          onTouchStart={::this.onMouseDown}
-          onTouchEnd={::this.onMouseUp}
+          onClick={this.onShowMenu} // voir (*)
+          onMouseDown={this.onMouseDown}
+          onMouseUp={this.onMouseUp}
+          onTouchStart={this.onMouseDown}
+          onTouchEnd={this.onMouseUp}
           className={boxClass}
           title={tooltip}
         >
@@ -197,11 +195,11 @@ class Button extends Widget {
       return (
         <a
           key={this.props.index}
-          onClick={::this.onClicked}
-          onMouseDown={::this.onMouseDown}
-          onMouseUp={::this.onMouseUp}
-          onTouchStart={::this.onMouseDown}
-          onTouchEnd={::this.onMouseUp}
+          onClick={this.onClick}
+          onMouseDown={this.onMouseDown}
+          onMouseUp={this.onMouseUp}
+          onTouchStart={this.onMouseDown}
+          onTouchEnd={this.onMouseUp}
           className={boxClass}
           title={tooltip}
           href={window.location.hash + '#' + this.props.toAnchor}
@@ -218,11 +216,11 @@ class Button extends Widget {
       return (
         <div
           key={this.props.index}
-          onClick={::this.onClicked} // voir (*)
-          onMouseDown={::this.onMouseDown}
-          onMouseUp={::this.onMouseUp}
-          onTouchStart={::this.onMouseDown}
-          onTouchEnd={::this.onMouseUp}
+          onClick={this.onClick} // voir (*)
+          onMouseDown={this.onMouseDown}
+          onMouseUp={this.onMouseUp}
+          onTouchStart={this.onMouseDown}
+          onTouchEnd={this.onMouseUp}
           className={boxClass}
           title={tooltip}
         >
