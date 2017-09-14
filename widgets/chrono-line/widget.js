@@ -1,6 +1,5 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
-import * as GlyphHelpers from '../helpers/glyph-helpers.js';
 import * as Bool from '../helpers/boolean-helpers.js';
 
 import ChronoLabel from 'gadgets/chrono-label/widget';

@@ -4,7 +4,6 @@ import Widget from 'laboratory/widget';
 import MouseTrap from 'mousetrap';
 import {Unit} from 'electrum-theme';
 import {ColorHelpers} from 'electrum-theme';
-import * as GlyphHelpers from '../helpers/glyph-helpers.js';
 import * as RectHelpers from '../helpers/rect-helpers.js';
 
 import Container from 'gadgets/container/widget';

@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
 import MouseTrap from 'mousetrap';
 import {ColorHelpers} from 'electrum-theme';
-import * as GlyphHelpers from '../helpers/glyph-helpers.js';
 import * as RectHelpers from '../helpers/rect-helpers.js';
 import * as Bool from '../helpers/boolean-helpers.js';
 import {Unit} from 'electrum-theme';

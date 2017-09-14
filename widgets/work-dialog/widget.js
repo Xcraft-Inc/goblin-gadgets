@@ -1,6 +1,5 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
-import * as GlyphHelpers from '../helpers/glyph-helpers.js';
 import * as ComboHelpers from '../helpers/combo-helpers.js';
 import * as Bool from '../helpers/boolean-helpers.js';
 import {ColorHelpers} from 'electrum-theme';

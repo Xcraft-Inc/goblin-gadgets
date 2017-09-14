@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import Widget from 'laboratory/widget';
 import {Unit} from 'electrum-theme';
-import * as GlyphHelpers from '../helpers/glyph-helpers.js';
 import * as ComboHelpers from '../helpers/combo-helpers.js';
 import * as Bool from '../helpers/boolean-helpers.js';
 

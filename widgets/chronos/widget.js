@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import Form from 'laboratory/form';
 import {Unit} from 'electrum-theme';
 import * as Converters from '../helpers/converters';
-import * as GlyphHelpers from '../helpers/glyph-helpers.js';
 import * as Bool from '../helpers/boolean-helpers.js';
 
 import Button from 'gadgets/button/widget';
