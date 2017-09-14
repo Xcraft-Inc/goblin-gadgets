@@ -147,13 +147,12 @@ class Note extends Form {
   }
 
   renderInfoSampleGlyph (glyph, index) {
-    const g = GlyphHelpers.getGlyph (glyph.get ('glyph'));
     return (
       <Label
         key={index}
         width="28px"
-        glyph={g.glyph}
-        glyphColor={g.color}
+        glyph={glyph.get ('glyph')}
+        glyphColor={glyph.get ('color')}
         glyphSize="150%"
         tooltip={glyph.get ('description')}
         spacing="compact"
@@ -176,7 +175,6 @@ class Note extends Form {
   }
 
   renderInfoButtonGlyph (glyph, index) {
-    const g = GlyphHelpers.getGlyph (glyph.get ('glyph'));
     return (
       <DragCab
         key={index}
@@ -191,8 +189,8 @@ class Note extends Form {
       >
         <Label
           width="28px"
-          glyph={g.glyph}
-          glyphColor={g.color}
+          glyph={glyph.get ('glyph')}
+          glyphColor={glyph.get ('color')}
           glyphSize="150%"
           spacing="compact"
           justify="center"

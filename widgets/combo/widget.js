@@ -146,14 +146,16 @@ class Combo extends Widget {
           />
         );
       } else {
-        const g = GlyphHelpers.getGlyph (item.glyph);
-        const color = ColorHelpers.getMarkColor (this.context.theme, g.color);
+        const color = ColorHelpers.getMarkColor (
+          this.context.theme,
+          item.color
+        );
         return (
           <Button
             key={index}
             kind={this.props.menuType === 'menu' ? 'menu-item' : 'combo-item'}
             width={this.props.menuItemWidth}
-            glyph={g.glyph}
+            glyph={item.glyph}
             glyphColor={color}
             text={item.text}
             shortcut={item.shortcut}

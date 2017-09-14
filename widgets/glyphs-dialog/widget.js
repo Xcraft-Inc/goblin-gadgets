@@ -60,13 +60,15 @@ class GlyphsDialog extends Widget {
   }
 
   renderGlyphButton (glyph, selected, index) {
-    const g = GlyphHelpers.getGlyph (glyph.get ('glyph'));
-    const color = ColorHelpers.getMarkColor (this.context.theme, g.color);
+    const color = ColorHelpers.getMarkColor (
+      this.context.theme,
+      glyph.get ('color')
+    );
     return (
       <Button
         key={index}
         kind="glyph-item"
-        glyph={g.glyph}
+        glyph={glyph.get ('glyph')}
         glyphColor={color}
         text={glyph.get ('name')}
         active={Bool.toString (selected)}
@@ -112,7 +114,6 @@ class GlyphsDialog extends Widget {
   }
 
   renderGlyphSample (glyph, dndEnable, index) {
-    const g = GlyphHelpers.getGlyph (glyph.get ('glyph'));
     if (dndEnable) {
       return (
         <DragCab
@@ -129,8 +130,8 @@ class GlyphsDialog extends Widget {
             key={index}
             width="70px"
             height="80px"
-            glyph={g.glyph}
-            glyphColor={g.color}
+            glyph={glyph.get ('glyph')}
+            glyphColor={glyph.get ('color')}
             glyphSize="300%"
             spacing="compact"
             justify="center"
@@ -144,8 +145,8 @@ class GlyphsDialog extends Widget {
           key={index}
           width="70px"
           height="80px"
-          glyph={g.glyph}
-          glyphColor={g.color}
+          glyph={glyph.get ('glyph')}
+          glyphColor={glyph.get ('color')}
           glyphSize="300%"
           spacing="compact"
           justify="center"

@@ -61,12 +61,11 @@ class ChronoLabel extends Widget {
   }
 
   renderGlyph (glyph, index) {
-    const g = GlyphHelpers.getGlyph (glyph.get ('glyph'));
     return (
       <Label
         key={index}
-        glyph={g.glyph}
-        glyphColor={g.color}
+        glyph={glyph.get ('glyph')}
+        glyphColor={glyph.get ('color')}
         spacing="compact"
       />
     );

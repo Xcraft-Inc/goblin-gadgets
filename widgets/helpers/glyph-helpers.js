@@ -3,9 +3,15 @@ import Enumerable from 'linq';
 // If glyph='warning-base', return glyph='warning' and color='base'.
 // If glyph='warning-#123', return glyph='warning' and color='#123'.
 // If glyph='air-plane', return glyph='air-plane' and color=undefined.
-export function getGlyph (glyph) {
+export function getGlyph (glyph, color) {
   if (!glyph) {
     return {};
+  }
+  if (color) {
+    return {
+      glyph: glyph,
+      color: color,
+    };
   }
   const postfixes = [
     // according with ColorHelpers.getMarkColor
@@ -19,6 +25,7 @@ export function getGlyph (glyph) {
   ];
   const i = glyph.lastIndexOf ('-');
   if (i !== -1) {
+    console.log (`getGlyph error: ${glyph}`);
     const postfix = glyph.substring (i + 1);
     if (
       postfix.startsWith ('#') || // '#f00' or '#123456'
