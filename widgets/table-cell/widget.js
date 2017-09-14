@@ -6,6 +6,8 @@ import Widget from 'laboratory/widget';
 class TableCell extends Widget {
   constructor () {
     super (...arguments);
+
+    this.onMouseDown = this.onMouseDown.bind (this);
   }
 
   onMouseDown () {
@@ -22,7 +24,7 @@ class TableCell extends Widget {
       <div
         key={this.props.index}
         className={styleClass}
-        onMouseDown={::this.onMouseDown}
+        onMouseDown={this.onMouseDown}
       >
         {this.props.text}
       </div>

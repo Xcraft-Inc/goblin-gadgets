@@ -9,6 +9,10 @@ class Splitter extends Widget {
   constructor () {
     super (...arguments);
 
+    this.onMouseDown = this.onMouseDown.bind (this);
+    this.onMouseMove = this.onMouseMove.bind (this);
+    this.onMouseUp = this.onMouseUp.bind (this);
+
     this.kind = this.props.kind;
     if (this.kind !== 'vertical' && this.kind !== 'horizontal') {
       throw new Error (`Wrong Splitter kind ${this.kind}`);
@@ -234,9 +238,9 @@ class Splitter extends Widget {
       <div
         className={containerClass}
         ref={node => (this.container = node)}
-        onMouseDown={::this.onMouseDown}
-        onMouseMove={::this.onMouseMove}
-        onMouseUp={::this.onMouseUp}
+        onMouseDown={this.onMouseDown}
+        onMouseMove={this.onMouseMove}
+        onMouseUp={this.onMouseUp}
       >
         <div
           className={firstPaneClass}

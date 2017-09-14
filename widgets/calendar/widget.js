@@ -12,6 +12,13 @@ import Separator from 'gadgets/separator/widget';
 class Calendar extends Widget {
   constructor () {
     super (...arguments);
+
+    this.onPrevMonth = this.onPrevMonth.bind (this);
+    this.onNextMonth = this.onNextMonth.bind (this);
+    this.onVisibleDateMonth = this.onVisibleDateMonth.bind (this);
+    this.onVisibleDateAddMonths = this.onVisibleDateAddMonths.bind (this);
+    this.onVisibleDatePrevYear = this.onVisibleDatePrevYear.bind (this);
+    this.onVisibleDateNextYear = this.onVisibleDateNextYear.bind (this);
   }
 
   static get wiring () {
@@ -212,7 +219,7 @@ class Calendar extends Widget {
           glyph="chevron-left"
           kind="calendar-navigation"
           key="prevMonth"
-          onClick={::this.onPrevMonth}
+          onClick={this.onPrevMonth}
         />
       );
     } else {
@@ -227,7 +234,7 @@ class Calendar extends Widget {
           glyph="chevron-right"
           kind="calendar-navigation"
           key="nextMonth"
-          onClick={::this.onNextMonth}
+          onClick={this.onNextMonth}
         />
       );
     } else {
@@ -404,7 +411,7 @@ class Calendar extends Widget {
         border="none"
         textColor="none"
         grow="1"
-        onClick={() => ::this.onVisibleDateMonth (month)}
+        onClick={() => this.onVisibleDateMonth (month)}
         active={Bool.toString (active)}
         spacing="tiny"
       />
@@ -460,8 +467,8 @@ class Calendar extends Widget {
         `${monthCount} mois`,
         'chevron-left',
         'chevron-right',
-        () => ::this.onVisibleDateAddMonths (-monthCount),
-        () => ::this.onVisibleDateAddMonths (monthCount)
+        () => this.onVisibleDateAddMonths (-monthCount),
+        () => this.onVisibleDateAddMonths (monthCount)
       );
     } else {
       return null;
@@ -482,8 +489,8 @@ class Calendar extends Widget {
             'année',
             'step-backward',
             'step-forward',
-            ::this.onVisibleDatePrevYear,
-            ::this.onVisibleDateNextYear
+            this.onVisibleDatePrevYear,
+            this.onVisibleDateNextYear
           )}
         </div>
       );

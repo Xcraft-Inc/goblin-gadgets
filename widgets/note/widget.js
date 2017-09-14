@@ -137,7 +137,7 @@ class Note extends Form {
           maxHeight={this.comboLocation.maxHeight}
           width={this.comboLocation.width}
           list={this.glyphsList}
-          close={::this.onCloseCombo}
+          close={this.onCloseCombo}
         />
       );
     } else {

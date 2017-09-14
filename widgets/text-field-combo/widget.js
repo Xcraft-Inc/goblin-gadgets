@@ -21,6 +21,12 @@ class TextFieldCombo extends Widget {
     };
 
     this.comboLocation = null;
+
+    this.onFocus = this.onFocus.bind (this);
+    this.onBlur = this.onBlur.bind (this);
+    this.onMouseDown = this.onMouseDown.bind (this);
+    this.onButtonClicked = this.onButtonClicked.bind (this);
+    this.onHideCombo = this.onHideCombo.bind (this);
   }
 
   get showCombo () {
@@ -154,9 +160,9 @@ class TextFieldCombo extends Widget {
     return (
       <TextField
         {...props}
-        onFocus={::this.onFocus}
-        onBlur={::this.onBlur}
-        onMouseDown={::this.onMouseDown}
+        onFocus={this.onFocus}
+        onBlur={this.onBlur}
+        onMouseDown={this.onMouseDown}
       />
     );
   }
@@ -180,7 +186,7 @@ class TextFieldCombo extends Widget {
         kind="combo"
         glyph={glyph}
         shape={buttonShape}
-        onClick={::this.onButtonClicked}
+        onClick={this.onButtonClicked}
       />
     );
   }
@@ -212,7 +218,7 @@ class TextFieldCombo extends Widget {
         width={this.comboLocation.width}
         list={x}
         comboTextTransform={this.props.comboTextTransform}
-        close={::this.onHideCombo}
+        close={this.onHideCombo}
       />
     );
   }
@@ -243,7 +249,7 @@ class TextFieldCombo extends Widget {
         list={x}
         defaultIndex={defaultIndex}
         comboTextTransform={this.props.comboTextTransform}
-        close={::this.onHideCombo}
+        close={this.onHideCombo}
       />
     );
   }

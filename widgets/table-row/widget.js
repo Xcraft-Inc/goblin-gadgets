@@ -9,6 +9,15 @@ import TableCell from 'gadgets/table-cell/widget';
 class TableRow extends Widget {
   constructor () {
     super (...arguments);
+
+    this.onSelectionChanged = this.onSelectionChanged.bind (this);
+  }
+
+  onSelectionChanged (id) {
+    const x = this.props.selectionChanged;
+    if (x) {
+      x (id);
+    }
   }
 
   renderRowCell (rowId, width, grow, textAlign, isLast, text, index) {
@@ -23,7 +32,7 @@ class TableRow extends Widget {
         isLast={Bool.toString (isLast)}
         isHeader="false"
         text={text}
-        selectionChanged={::this.props.selectionChanged}
+        selectionChanged={() => this.onSelectionChanged (rowId)}
       />
     );
   }

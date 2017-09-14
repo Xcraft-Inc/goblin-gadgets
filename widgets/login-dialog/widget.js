@@ -15,10 +15,9 @@ class LoginDialog extends Form {
   constructor () {
     super (...arguments);
     this.error = null;
-    // this.submit = this.submit.bind (this);
-    // this.submit = ::this.submit;
-    this.onOk = ::this.onOk;
-    this.onCancel = ::this.onCancel;
+
+    this.onOk = this.onOk.bind (this);
+    this.onCancel = this.onCancel.bind (this);
   }
 
   static get wiring () {

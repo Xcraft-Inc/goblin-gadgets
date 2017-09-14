@@ -15,10 +15,14 @@ import Separator from 'gadgets/separator/widget';
 class Select extends Widget {
   constructor () {
     super (...arguments);
+
+    this.onMouseDown = this.onMouseDown.bind (this);
+    this.onChange = this.onChange.bind (this);
+    this.onCloseCombo = this.onCloseCombo.bind (this);
   }
 
   componentWillMount () {
-    MouseTrap.bind ('esc', ::this.onCloseCombo);
+    MouseTrap.bind ('esc', this.onCloseCombo);
   }
 
   componentWillUnmount () {
@@ -83,8 +87,8 @@ class Select extends Widget {
     return (
       <div
         className={fullScreenClass}
-        onMouseDown={::this.onMouseDown}
-        onTouchStart={::this.onMouseDown}
+        onMouseDown={this.onMouseDown}
+        onTouchStart={this.onMouseDown}
       >
         <div className={comboClass}>
           <Container
@@ -97,7 +101,7 @@ class Select extends Widget {
               <select
                 className={selectClass}
                 size={this.props.list.length}
-                onChange={::this.onChange}
+                onChange={this.onChange}
                 defaultValue={this.props.defaultIndex}
               >
                 {this.renderCombo ()}

@@ -16,6 +16,11 @@ import DragCab from 'gadgets/drag-cab/widget';
 class GlyphsDialog extends Widget {
   constructor () {
     super (...arguments);
+
+    this.onToggleGlyph = this.onToggleGlyph.bind (this);
+    this.onClearGlyphs = this.onClearGlyphs.bind (this);
+    this.onDragEnding = this.onDragEnding.bind (this);
+    this.onClose = this.onClose.bind (this);
   }
 
   static get wiring () {
@@ -71,7 +76,7 @@ class GlyphsDialog extends Widget {
         glyphColor={color}
         text={glyph.get ('name')}
         active={Bool.toString (selected)}
-        onClick={() => ::this.onToggleGlyph (glyph.get ('id'))}
+        onClick={() => this.onToggleGlyph (glyph.get ('id'))}
       />
     );
   }
@@ -102,7 +107,7 @@ class GlyphsDialog extends Widget {
           <Button
             glyph="trash"
             tooltip="Supprime tous les pictogrammes"
-            onClick={::this.onClearGlyphs}
+            onClick={this.onClearGlyphs}
           />
         </Container>
         <div className={glyphsClass}>
@@ -123,7 +128,7 @@ class GlyphsDialog extends Widget {
           color={this.context.theme.palette.dragAndDropHover}
           thickness={this.context.theme.shapes.dragAndDropTicketThickness}
           radius={this.context.theme.shapes.dragAndDropTicketThickness}
-          doDragEnding={::this.onDragEnding}
+          doDragEnding={this.onDragEnding}
         >
           <Label
             key={index}
@@ -192,7 +197,7 @@ class GlyphsDialog extends Widget {
         triangleShift={result.triangleShift}
         top={this.props.top}
         bottom={this.props.bottom}
-        close={::this.onClose}
+        close={this.onClose}
       >
         {this.renderMain ()}
         <div className={footerClass}>
@@ -211,7 +216,7 @@ class GlyphsDialog extends Widget {
             kind="action"
             width="150px"
             place="1/1"
-            onClick={::this.onClose}
+            onClick={this.onClose}
           />
         </div>
       </DialogModal>

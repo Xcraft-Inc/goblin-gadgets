@@ -11,10 +11,16 @@ import TextField from 'gadgets/text-field/widget';
 class LabelTextField extends Widget {
   constructor () {
     super (...arguments);
+
     this.state = {
       readonly: true,
     };
+
     this.comboLocation = null;
+
+    this.onFocus = this.onFocus.bind (this);
+    this.onBlur = this.onBlur.bind (this);
+    this.onActionClicked = this.onActionClicked.bind (this);
   }
 
   get readonly () {
@@ -25,14 +31,6 @@ class LabelTextField extends Widget {
     this.setState ({
       readonly: value,
     });
-  }
-
-  onChange (e) {
-    this.onChange (e);
-    const x = this.props.onChange;
-    if (x) {
-      x (e);
-    }
   }
 
   onFocus () {
@@ -138,9 +136,7 @@ class LabelTextField extends Widget {
       props.value = displayValue;
     }
 
-    return (
-      <TextField {...props} onFocus={::this.onFocus} onBlur={::this.onBlur} />
-    );
+    return <TextField {...props} onFocus={this.onFocus} onBlur={this.onBlur} />;
   }
 
   renderAction () {
@@ -150,7 +146,7 @@ class LabelTextField extends Widget {
         <Button
           kind="combo"
           glyph={actionGlyph}
-          onClick={::this.onActionClicked}
+          onClick={this.onActionClicked}
         />
       );
     } else {

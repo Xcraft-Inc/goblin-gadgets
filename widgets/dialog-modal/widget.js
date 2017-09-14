@@ -11,6 +11,8 @@ import Container from 'gadgets/container/widget';
 class DialogModal extends Widget {
   constructor () {
     super (...arguments);
+
+    this.onMouseDown = this.onMouseDown.bind (this);
   }
 
   componentWillMount () {
@@ -62,8 +64,8 @@ class DialogModal extends Widget {
       return (
         <div
           className={fullScreenClass}
-          onMouseDown={::this.onMouseDown}
-          onTouchStart={::this.onMouseDown}
+          onMouseDown={this.onMouseDown}
+          onTouchStart={this.onMouseDown}
         >
           <div className={comboClass}>
             <Container
@@ -81,8 +83,8 @@ class DialogModal extends Widget {
       return (
         <div
           className={fullScreenClass}
-          onMouseDown={::this.onMouseDown}
-          onTouchStart={::this.onMouseDown}
+          onMouseDown={this.onMouseDown}
+          onTouchStart={this.onMouseDown}
         >
           <Container kind="floating" cursor="default" width={this.props.width}>
             {this.props.children}
