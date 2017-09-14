@@ -148,7 +148,7 @@ class TextField extends Widget {
     const fieldClass = this.styles.classNames.field + ' mousetrap';
 
     const Field = props => {
-      const type = props.rows ? 'textarea' : 'text';
+      const type = this.props.rows ? 'textarea' : 'text';
       const boxClass = this.styles.classNames.box;
       let finalProps = omit (props, [
         'getInfo',
@@ -221,6 +221,7 @@ class TextField extends Widget {
       ? this.props.model
       : this.props.hinter ? this.props.hinter : this.props.model ();
 
+    const defaultUpdateOn = this.props.hinter ? 'change' : 'blur';
     return (
       <Control
         className={fieldClass}
@@ -231,7 +232,7 @@ class TextField extends Widget {
         parser={this.props.parser}
         errors={this.props.errors}
         mapProps={mapProps}
-        updateOn={this.props.updateOn ? this.props.updateOn : 'change'}
+        updateOn={this.props.updateOn ? this.props.updateOn : defaultUpdateOn}
         model={this.props.hinter ? `.${this.props.hinter}` : this.props.model}
         onFocus={this.onFieldFocus}
         onMouseDown={this.props.onMouseDown}
