@@ -12,10 +12,10 @@ class ChatDialog extends Widget {
     super (...arguments);
   }
 
-  renderMessage (message) {
+  renderMessage (message, index) {
     if (message.state === 'title') {
       return (
-        <div>
+        <div key={index}>
           <Separator kind="space" />
           <Label text={message.message} />
           <Separator kind="space" />
@@ -25,6 +25,7 @@ class ChatDialog extends Widget {
       const triangle = message.state === 'me' ? 'right' : 'left';
       return (
         <Container
+          key={index}
           kind="flying-chat"
           subkind={message.state}
           trianglePosition={triangle}
@@ -38,8 +39,9 @@ class ChatDialog extends Widget {
 
   renderMessages (messages) {
     const result = [];
+    let index = 0;
     for (const message of messages) {
-      result.push (this.renderMessage (message));
+      result.push (this.renderMessage (message, index++));
     }
     return result;
   }
