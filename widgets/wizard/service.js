@@ -62,6 +62,7 @@ const properties = {
         'disabled-light',
         'frameless',
         'glyph-item',
+        'hover',
         'identity',
         'label',
         'main-tab',
