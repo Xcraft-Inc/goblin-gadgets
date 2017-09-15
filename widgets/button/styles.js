@@ -504,10 +504,11 @@ export default function styles (theme, props) {
   }
 
   if (props.kind === 'hover') {
-    boxOpacity = 0.00001;
+    boxOpacity = Bool.isTrue (props.active) ? 1 : 0.00001;
     borderWidth = theme.shapes.lineSpacing;
     borderColor = theme.palette.taskBackground;
     backgroundHoverColor = theme.palette.buttonBackground;
+    borderActiveColor = theme.palette.taskBackground;
     boxZIndex = 3;
   }
 

@@ -194,7 +194,11 @@ class Combo extends Widget {
             kind={
               this.props.menuType === 'menu' ? 'flying-balloon' : 'flying-combo'
             }
-            trianglePosition={this.props.top ? 'top' : 'bottom'}
+            trianglePosition={
+              this.props.trianglePosition
+                ? this.props.trianglePosition
+                : this.props.top ? 'top' : 'bottom'
+            }
           >
             <div className={insideClass}>
               {this.renderCombo ()}

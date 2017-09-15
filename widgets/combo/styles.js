@@ -17,9 +17,9 @@ export default function styles (theme, props) {
   const comboStyle = {
     visibility: 'visible',
     position: 'absolute',
-    transform: 'translate(-50%, 0%)',
+    transform: props.trianglePosition ? null : 'translate(-50%, 0%)',
     zIndex: 11,
-    left: props.center,
+    left: props.left,
     right: props.right,
     top: props.top,
     bottom: props.bottom,

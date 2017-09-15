@@ -33,6 +33,30 @@ function getFlyingOffset () {
   }
 }
 
+export function getComboRightLocation (
+  node,
+  triangleSize,
+  padding,
+  itemCount,
+  itemHeight
+) {
+  const rect = node.getBoundingClientRect ();
+
+  const left = Unit.add (rect.right + 'px', triangleSize);
+  const height = itemCount * Unit.parse (itemHeight).value;
+  const top = Unit.add (
+    rect.top - height / 2 + 'px',
+    Unit.multiply (padding, 2)
+  );
+
+  const offset = getFlyingOffset ();
+
+  return {
+    left: Unit.sub (left, offset.left),
+    top: Unit.sub (top, offset.top),
+  };
+}
+
 // Compute the location for a combo-menu.
 export function getComboLocation (
   node,

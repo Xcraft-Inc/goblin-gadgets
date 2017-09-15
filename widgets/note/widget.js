@@ -131,7 +131,7 @@ class Note extends Form {
         <Combo
           menuType="combo"
           menuItemWidth={this.comboLocation.menuItemWidth}
-          center={this.comboLocation.center}
+          left={this.comboLocation.center}
           top={this.comboLocation.top}
           bottom={this.comboLocation.bottom}
           maxHeight={this.comboLocation.maxHeight}

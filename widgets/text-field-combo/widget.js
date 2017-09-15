@@ -211,7 +211,7 @@ class TextFieldCombo extends Widget {
             : this.props.menuItemWidth
         }
         menuItemTooltips={this.props.menuItemTooltips}
-        center={this.comboLocation.center}
+        left={this.comboLocation.center}
         top={this.comboLocation.top}
         bottom={this.comboLocation.bottom}
         maxHeight={this.comboLocation.maxHeight}
