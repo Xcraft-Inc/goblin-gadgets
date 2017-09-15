@@ -193,13 +193,24 @@ class Chronos extends Form {
     this.setState ({
       filters: value,
     });
+    this.updateFilter ();
   }
 
   componentWillMount () {
     const events = this.shred (this.props.chronos);
-    const filters = this.filters;
-    this.flatEvents = getFlatEvents (events, filters);
-    this.updateFilter (filters);
+    this.flatEvents = getFlatEvents (events, this.filters);
+    this.updateFilter ();
+  }
+
+  updateFilter () {
+    if (this.filters.length === 0) {
+      // show all events ?
+      this.flatFilteredEvents = this.flatEvents;
+    } else {
+      // has filter ?
+      const events = this.shred (this.props.chronos);
+      this.flatFilteredEvents = getFlatEvents (events, this.filters);
+    }
   }
 
   onMouseOver (event) {
@@ -217,20 +228,11 @@ class Chronos extends Form {
     }
   }
 
-  updateFilter (filters) {
-    if (filters.length === 0) {
-      // show all events ?
-      this.flatFilteredEvents = this.flatEvents;
-    } else {
-      // has filter ?
-      const events = this.shred (this.props.chronos);
-      this.flatFilteredEvents = getFlatEvents (events, filters);
-    }
-  }
-
   onActionAll () {
-    this.updateFilter ([]);
-    this.filters = [];
+    //this.filters = [];
+    const filters = this.filters;
+    filtersFlush (filters);
+    this.filters = filters.slice ();
   }
 
   onActionFilter (e, date) {
@@ -251,7 +253,6 @@ class Chronos extends Form {
       filtersFlush (filters);
       filtersSet (filters, date, true);
     }
-    this.updateFilter (filters);
     this.filters = filters.slice ();
   }
 
@@ -261,8 +262,11 @@ class Chronos extends Form {
       const index = this.flatEvents.groups.indexOf (filters[0]);
       if (index !== -1 && index > 0) {
         const newDate = this.flatEvents.groups[index - 1];
-        this.updateFilter ([newDate]);
-        this.filters = [newDate];
+
+        const filters = this.filters;
+        filtersFlush (filters);
+        filtersSet (filters, newDate, true);
+        this.filters = filters.slice ();
       }
     }
   }
@@ -273,8 +277,11 @@ class Chronos extends Form {
       const index = this.flatEvents.groups.indexOf (filters[0]);
       if (index !== -1 && index < this.flatEvents.groups.length - 1) {
         const newDate = this.flatEvents.groups[index + 1];
-        this.updateFilter ([newDate]);
-        this.filters = [newDate];
+
+        const filters = this.filters;
+        filtersFlush (filters);
+        filtersSet (filters, newDate, true);
+        this.filters = filters.slice ();
       }
     }
   }
