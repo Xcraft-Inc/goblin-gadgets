@@ -509,7 +509,6 @@ export default function styles (theme, props) {
     borderColor = theme.palette.taskBackground;
     backgroundHoverColor = theme.palette.buttonBackground;
     borderActiveColor = theme.palette.taskBackground;
-    boxZIndex = 3;
   }
 
   if (!props.kind) {
