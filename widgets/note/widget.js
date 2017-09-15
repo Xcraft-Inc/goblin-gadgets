@@ -109,6 +109,7 @@ class Note extends Form {
         list.push ({
           text: glyph.get ('description'),
           glyph: glyph.get ('glyph'),
+          color: glyph.get ('color'),
           action: () => this.onAddGlyph (glyph.get ('id')),
         });
       });
