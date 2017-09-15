@@ -196,12 +196,6 @@ class Chronos extends Form {
     this.updateFilter ();
   }
 
-  componentWillMount () {
-    //?const events = this.shred (this.props.chronos);
-    //?this.flatEvents = getFlatEvents (events, this.filters);
-    //?this.updateFilter ();
-  }
-
   updateFilter () {
     const events = this.shred (this.props.chronos);
     this.flatEvents = getFlatEvents (events, []);
