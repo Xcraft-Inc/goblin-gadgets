@@ -197,18 +197,20 @@ class Chronos extends Form {
   }
 
   componentWillMount () {
-    const events = this.shred (this.props.chronos);
-    this.flatEvents = getFlatEvents (events, this.filters);
-    this.updateFilter ();
+    //?const events = this.shred (this.props.chronos);
+    //?this.flatEvents = getFlatEvents (events, this.filters);
+    //?this.updateFilter ();
   }
 
   updateFilter () {
+    const events = this.shred (this.props.chronos);
+    this.flatEvents = getFlatEvents (events, []);
+
     if (this.filters.length === 0) {
       // show all events ?
       this.flatFilteredEvents = this.flatEvents;
     } else {
       // has filter ?
-      const events = this.shred (this.props.chronos);
       this.flatFilteredEvents = getFlatEvents (events, this.filters);
     }
   }
@@ -573,6 +575,8 @@ class Chronos extends Form {
     if (!this.props.id) {
       return null;
     }
+
+    this.updateFilter ();
 
     const mainClass = this.styles.classNames.main;
     const Form = this.Form;
