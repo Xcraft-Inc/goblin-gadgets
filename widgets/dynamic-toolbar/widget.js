@@ -8,8 +8,8 @@ import Button from 'gadgets/button/widget';
 
 /******************************************************************************/
 
-// Dynamic palette, which comes out of its hole (from left to right) when the
-// mouse hovers over a small button '>'. Initially, the palette is hidden.
+// Dynamic toolbar, which comes out of its hole (from left to right) when the
+// mouse hovers over a small button '>'. Initially, the toolbar is hidden.
 // This component draws the small button and the toolbar, and handles all
 // interactions related.
 class DynamicToolbar extends Widget {
@@ -77,6 +77,8 @@ class DynamicToolbar extends Widget {
   }
 
   // Draws the discrete small button.
+  // light '>' when the toolbar is hidden.
+  // dark '<' when the toolbar is showed.
   renderHoverButton () {
     const style = this.styles.classNames.hoverButton;
     const h = Unit.add (
