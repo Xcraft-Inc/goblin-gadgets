@@ -547,6 +547,19 @@ export default function styles (theme, props) {
     }
   }
 
+  if (props.kind === 'dynamic-toolbar') {
+    glyphColor = theme.palette.dynamicToolbarButtonGlyph;
+  }
+  if (props.kind === 'toolbar') {
+    if (Bool.isTrue (props.active)) {
+      glyphColor = theme.palette.toolbarActiveText;
+      textColor = theme.palette.toolbarActiveText;
+    } else {
+      glyphColor = theme.palette.toolbarInactiveText;
+      textColor = theme.palette.toolbarInactiveText;
+    }
+  }
+
   if (!props.kind) {
     borderRadius = theme.shapes.smoothRadius;
     if (Bool.isTrue (props.active)) {

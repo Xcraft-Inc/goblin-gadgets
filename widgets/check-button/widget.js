@@ -26,7 +26,7 @@ class CheckButton extends Widget {
     if (this.props.kind === 'switch') {
       glyph = checked ? 'toggle-on' : 'toggle-off'; // [ o] [x ]
     } else if (this.props.kind === 'radio') {
-      glyph = checked ? 'stop-circle-o' : 'circle-o'; // o
+      glyph = checked ? 'dot-circle-o' : 'circle-o'; // o
     } else if (this.props.kind === 'active') {
       glyph = null;
       active = Bool.toString (checked);

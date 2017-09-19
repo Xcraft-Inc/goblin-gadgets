@@ -14,6 +14,8 @@ class Button extends Widget {
     this.onClick = this.onClick.bind (this);
     this.onMouseDown = this.onMouseDown.bind (this);
     this.onMouseUp = this.onMouseUp.bind (this);
+    this.onMouseOver = this.onMouseOver.bind (this);
+    this.onMouseOut = this.onMouseOut.bind (this);
     this.onShowMenu = this.onShowMenu.bind (this);
   }
 
@@ -50,9 +52,9 @@ class Button extends Widget {
     if (Bool.isTrue (this.props.disabled)) {
       return;
     }
-    const mouseDown = this.props.mouseDown;
-    if (mouseDown) {
-      mouseDown (e);
+    const x = this.props.mouseDown;
+    if (x) {
+      x (e);
     }
   }
 
@@ -60,9 +62,29 @@ class Button extends Widget {
     if (Bool.isTrue (this.props.disabled)) {
       return;
     }
-    const mouseUp = this.props.mouseUp;
-    if (mouseUp) {
-      mouseUp (e);
+    const x = this.props.mouseUp;
+    if (x) {
+      x (e);
+    }
+  }
+
+  onMouseOver (e) {
+    if (Bool.isTrue (this.props.disabled)) {
+      return;
+    }
+    const x = this.props.mouseOver;
+    if (x) {
+      x (e);
+    }
+  }
+
+  onMouseOut (e) {
+    if (Bool.isTrue (this.props.disabled)) {
+      return;
+    }
+    const x = this.props.mouseOut;
+    if (x) {
+      x (e);
     }
   }
 
@@ -165,6 +187,8 @@ class Button extends Widget {
           onMouseUp={this.onMouseUp}
           onTouchStart={this.onMouseDown}
           onTouchEnd={this.onMouseUp}
+          onMouseOver={this.onMouseOver}
+          onMouseOut={this.onMouseOut}
           className={boxClass}
           title={tooltip}
         >
@@ -180,6 +204,8 @@ class Button extends Widget {
           onMouseUp={this.onMouseUp}
           onTouchStart={this.onMouseDown}
           onTouchEnd={this.onMouseUp}
+          onMouseOver={this.onMouseOver}
+          onMouseOut={this.onMouseOut}
           className={boxClass}
           title={tooltip}
         >
@@ -200,6 +226,8 @@ class Button extends Widget {
           onMouseUp={this.onMouseUp}
           onTouchStart={this.onMouseDown}
           onTouchEnd={this.onMouseUp}
+          onMouseOver={this.onMouseOver}
+          onMouseOut={this.onMouseOut}
           className={boxClass}
           title={tooltip}
           href={window.location.hash + '#' + this.props.toAnchor}
@@ -221,6 +249,8 @@ class Button extends Widget {
           onMouseUp={this.onMouseUp}
           onTouchStart={this.onMouseDown}
           onTouchEnd={this.onMouseUp}
+          onMouseOver={this.onMouseOver}
+          onMouseOut={this.onMouseOut}
           className={boxClass}
           title={tooltip}
         >
