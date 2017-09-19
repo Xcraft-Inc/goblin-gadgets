@@ -628,6 +628,7 @@ export default function styles (theme, props) {
     width: boxWidth,
     minWidth: boxMinWidth,
     maxWidth: boxMaxWidth,
+    height: boxHeight,
     minHeight: boxHeight,
     maxHeight: boxMaxHeight,
     left: props.left,
