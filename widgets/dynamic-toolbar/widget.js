@@ -8,6 +8,10 @@ import Button from 'gadgets/button/widget';
 
 /******************************************************************************/
 
+// Dynamic palette, which comes out of its hole (from left to right) when the
+// mouse hovers over a small button '>'. Initially, the palette is hidden.
+// This component draws the small button and the toolbar, and handles all
+// interactions related.
 class DynamicToolbar extends Widget {
   constructor () {
     super (...arguments);
@@ -16,12 +20,12 @@ class DynamicToolbar extends Widget {
       showToolbar: false,
     };
 
-    this.box = null;
+    this.toolbar = null;
     this.counter = 0;
 
     this.onShowToolbar = this.onShowToolbar.bind (this);
     this.onHideToolbar = this.onHideToolbar.bind (this);
-    this.onMouseOut = this.onMouseOut.bind (this);
+    this.onMouseMove = this.onMouseMove.bind (this);
   }
 
   get showToolbar () {
@@ -48,8 +52,10 @@ class DynamicToolbar extends Widget {
     this.showToolbar = false;
   }
 
-  onMouseOut (e) {
+  // When the mouse moves out the toolbar, hide the toolbar.
+  onMouseMove (e) {
     if (this.counter > 0) {
+      // For prevent quick show / hide sequences.
       this.counter--;
       return;
     }
@@ -57,7 +63,7 @@ class DynamicToolbar extends Widget {
     let x = e.clientX;
     let y = e.clientY;
 
-    const node = ReactDOM.findDOMNode (this.box);
+    const node = ReactDOM.findDOMNode (this.toolbar);
     const rect = node.getBoundingClientRect ();
     const margin = this.props.detectMargin ? this.props.detectMargin : 20;
     if (
@@ -70,6 +76,7 @@ class DynamicToolbar extends Widget {
     }
   }
 
+  // Draws the discrete small button.
   renderHoverButton () {
     const style = this.styles.classNames.hoverButton;
     const h = Unit.add (
@@ -84,28 +91,31 @@ class DynamicToolbar extends Widget {
           kind="dynamic-toolbar"
           glyph="caret-right"
           mouseOver={this.onShowToolbar}
-          ref={x => (this.ToolbarButton = x)}
+          ref={w => (this.ToolbarButton = w)}
         />
       </div>
     );
   }
 
+  // Draws a full-screen area behind the toolbar, for the mechanism to hide the toolbar.
   renderFullScreen () {
     if (this.showToolbar) {
       const fullScreenClass = this.styles.classNames.fullScreen;
-      return <div className={fullScreenClass} onMouseMove={this.onMouseOut} />;
+      return <div className={fullScreenClass} onMouseMove={this.onMouseMove} />;
     } else {
-      return null;
+      return null; // nothing if toolbar is hidden
     }
   }
 
+  // Draws the toolbar and the buttons it contains.
+  // It is always present, to allow a show / hide animation.
   renderToolbar () {
     const boxClass = this.showToolbar
-      ? this.styles.classNames.boxVisible
-      : this.styles.classNames.boxHidden;
+      ? this.styles.classNames.boxVisible // toolbar visible
+      : this.styles.classNames.boxHidden; // toolbar hidden to left
 
     return (
-      <div className={boxClass} ref={x => (this.box = x)}>
+      <div className={boxClass} ref={x => (this.toolbar = x)}>
         {this.props.children}
       </div>
     );
