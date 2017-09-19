@@ -145,10 +145,12 @@ class TextField extends Widget {
       }
     };
 
-    const fieldClass = this.styles.classNames.field + ' mousetrap';
+    const type = this.props.rows ? 'textarea' : 'text';
+    const fieldClass = type === 'textarea'
+      ? this.styles.classNames.textarea + ' mousetrap'
+      : this.styles.classNames.field + ' mousetrap';
 
     const Field = props => {
-      const type = this.props.rows ? 'textarea' : 'text';
       const boxClass = this.styles.classNames.box;
       let finalProps = omit (props, [
         'getInfo',
