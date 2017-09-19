@@ -109,16 +109,17 @@ export default function styles (theme, props) {
   const textareaStyle = {
     width: '100%',
     flexGrow: 1,
-    paddingTop: '0px',
+    paddingTop: '8px',
     paddingRight: fieldPaddingRight,
-    paddingBottom: '0px',
+    paddingBottom: '8px',
     paddingLeft: fieldPaddingLeft,
     margin: '0px',
     color: color,
     backgroundColor: 'transparent',
     outline: 'none',
-    resize: 'none',
     border: 'none',
+    resize: 'none',
+    fontFamily: 'sans-serif',
   };
 
   return {
