@@ -310,6 +310,7 @@ class Note extends Form {
             model=".content"
           />
           <Button
+            height={this.context.theme.shapes.lineHeight}
             glyph="trash"
             tooltip="Supprime la note"
             onClick={() => this.onDeleteNote (this.props.id)}
