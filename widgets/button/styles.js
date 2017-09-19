@@ -514,6 +514,7 @@ export default function styles (theme, props) {
   if (props.kind === 'dynamic-toolbar') {
     borderStyle = 'none';
     backgroundColor = 'transparent';
+    activeColor = theme.palette.dynamicToolbarBackground;
   }
   if (props.kind === 'toolbar') {
     boxMinWidth = theme.shapes.toolbarButtonWidth;

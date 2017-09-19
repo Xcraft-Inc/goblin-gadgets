@@ -89,7 +89,8 @@ class DynamicToolbar extends Widget {
           width={this.context.theme.shapes.dynamicToolbarButtonWidth}
           height={h}
           kind="dynamic-toolbar"
-          glyph="caret-right"
+          glyph={this.showToolbar ? 'caret-left' : 'caret-right'}
+          active={Bool.toString (this.showToolbar)}
           mouseOver={this.onShowToolbar}
           ref={w => (this.ToolbarButton = w)}
         />
@@ -126,8 +127,8 @@ class DynamicToolbar extends Widget {
     return (
       <div className={mainClass}>
         {this.renderFullScreen ()}
-        {this.renderHoverButton ()}
         {this.renderToolbar ()}
+        {this.renderHoverButton ()}
       </div>
     );
   }

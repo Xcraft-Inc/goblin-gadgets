@@ -36,8 +36,8 @@ export default function styles (theme, props) {
     flexDirection: 'row',
     padding: theme.shapes.dynamicToolbarMargin,
     backgroundColor: theme.palette.dynamicToolbarBackground,
-    transform: `translate(0%, -${h})`,
-    transition: theme.transitions.easeOut (500),
+    transform: `translate(${theme.shapes.dynamicToolbarButtonWidth}, 0%)`,
+    transition: theme.transitions.easeOut (700),
   };
 
   const boxHiddenStyle = {
@@ -47,8 +47,8 @@ export default function styles (theme, props) {
     flexDirection: 'row',
     padding: theme.shapes.dynamicToolbarMargin,
     backgroundColor: theme.palette.dynamicToolbarBackground,
-    transform: `translate(-100%, -${h})`,
-    transition: theme.transitions.easeOut (500),
+    transform: `translate(-100%, 0%)`,
+    transition: theme.transitions.easeOut (700),
   };
 
   return {
