@@ -178,14 +178,21 @@ class TextField extends Widget {
             className={boxClass}
             title={props.tooltip}
           >
-            <input
-              type={type}
-              rows={this.props.rows}
-              {...finalProps}
-              ref={node => {
-                this.input = node;
-              }}
-            />
+            {type === 'textarea'
+              ? <textarea
+                  rows={this.props.rows}
+                  ref={node => {
+                    this.input = node;
+                  }}
+                  {...finalProps}
+                />
+              : <input
+                  type={type}
+                  ref={node => {
+                    this.input = node;
+                  }}
+                  {...finalProps}
+                />}
             <FlyingBalloon
               primaryText={props.warning}
               secondaryText={props.info}
@@ -200,14 +207,21 @@ class TextField extends Widget {
             className={boxClass}
             title={props.tooltip}
           >
-            <input
-              type={type}
-              rows={this.props.rows}
-              ref={node => {
-                this.input = node;
-              }}
-              {...finalProps}
-            />
+            {type === 'textarea'
+              ? <textarea
+                  rows={this.props.rows}
+                  ref={node => {
+                    this.input = node;
+                  }}
+                  {...finalProps}
+                />
+              : <input
+                  type={type}
+                  ref={node => {
+                    this.input = node;
+                  }}
+                  {...finalProps}
+                />}
           </div>
         );
       }
