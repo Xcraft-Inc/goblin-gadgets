@@ -1474,6 +1474,13 @@ const properties = {
       list: ['', 'first', 'last'],
       value: '',
     },
+    forceHover: {
+      id: 'forceHover',
+      group: 'Aspect',
+      type: 'bool',
+      field: 'forceHover',
+      value: 'false',
+    },
     width: {
       id: 'width',
       group: 'Layout',
