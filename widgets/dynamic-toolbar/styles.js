@@ -29,6 +29,14 @@ export default function styles (theme, props) {
     //backgroundColor: 'rgba(255, 0, 0, 0.2)',
   };
 
+  const visibleTransform = props.direction === 'top'
+    ? 'translate(0%, 0%)'
+    : `translate(${theme.shapes.dynamicToolbarButtonWidth}, 0%)`;
+  const hiddenTransform = props.direction === 'top'
+    ? 'translate(0%, -100%)'
+    : 'translate(-100%, 0%)';
+  const delay = props.direction === 'top' ? 400 : 700;
+
   const boxVisibleStyle = {
     zIndex: 11,
     position: 'absolute',
@@ -36,9 +44,8 @@ export default function styles (theme, props) {
     flexDirection: 'row',
     padding: theme.shapes.dynamicToolbarMargin,
     backgroundColor: theme.palette.dynamicToolbarBackground,
-    transform: `translate(${theme.shapes.dynamicToolbarButtonWidth}, 0%)`,
-    opacity: 1,
-    transition: theme.transitions.easeOut (700),
+    transform: visibleTransform,
+    transition: theme.transitions.easeOut (delay),
   };
 
   const boxHiddenStyle = {
@@ -48,9 +55,8 @@ export default function styles (theme, props) {
     flexDirection: 'row',
     padding: theme.shapes.dynamicToolbarMargin,
     backgroundColor: theme.palette.dynamicToolbarBackground,
-    transform: `translate(-100%, 0%)`,
-    opacity: 0,
-    transition: theme.transitions.easeOut (700),
+    transform: hiddenTransform,
+    transition: theme.transitions.easeOut (delay),
   };
 
   return {
