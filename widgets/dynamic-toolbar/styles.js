@@ -37,6 +37,7 @@ export default function styles (theme, props) {
     padding: theme.shapes.dynamicToolbarMargin,
     backgroundColor: theme.palette.dynamicToolbarBackground,
     transform: `translate(${theme.shapes.dynamicToolbarButtonWidth}, 0%)`,
+    opacity: 1,
     transition: theme.transitions.easeOut (700),
   };
 
@@ -48,6 +49,7 @@ export default function styles (theme, props) {
     padding: theme.shapes.dynamicToolbarMargin,
     backgroundColor: theme.palette.dynamicToolbarBackground,
     transform: `translate(-100%, 0%)`,
+    opacity: 0,
     transition: theme.transitions.easeOut (700),
   };
 
