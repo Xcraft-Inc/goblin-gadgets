@@ -425,6 +425,7 @@ export default function styles (theme, props) {
 
   const backgroundTextStyle = {
     position: 'absolute',
+    top: '-3px',
     right: theme.shapes.ticketBackgroundRightMargin,
     fontWeight: theme.shapes.ticketBackgroundFontWeight,
     fontSize: theme.shapes.ticketBackgroundFontSize,
