@@ -866,6 +866,7 @@ export default function styles (theme, props) {
   }
 
   if (props.kind === 'push-to-edge') {
+    flexGrow = 1;
     margin =
       '0px ' +
       Unit.multiply (m, -1) +
