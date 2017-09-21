@@ -9,16 +9,15 @@
 const {buildEntity} = require ('goblin-rethink');
 exports.xcraftCommands = function () {
   return buildEntity ({
-    type: 'note',
-    table: 'notes',
-    references: {
-      glyphIds: 'glyph[]',
-    },
-    onNew: function (quest, id, content) {
+    type: 'glyph',
+    table: 'glyphs',
+    onNew: function (quest, id, order, name, glyph, color, description) {
       return {
         id,
-        content: content || '',
-        glyphIds: [],
+        name: name || 'new',
+        glyph: glyph || 'bookmark',
+        color: color || null,
+        description: description || 'new',
       };
     },
   });
