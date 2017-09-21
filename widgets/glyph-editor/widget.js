@@ -95,7 +95,7 @@ class GlyphEditor extends Form {
             <Container kind="pane">
 
               <Container kind="row-pane">
-                <Label text="Définition du pictogramme" kind="title" />
+                <Label text="Pictogramme" kind="title" />
               </Container>
 
               <Container kind="row-pane">
@@ -110,7 +110,7 @@ class GlyphEditor extends Form {
               <Container kind="row-pane">
                 <LabelTextField
                   labelGlyph="comment"
-                  grow="2"
+                  grow="1"
                   hintText="Description"
                   model=".description"
                   rows="4"
