@@ -60,7 +60,8 @@ const properties = {
         'combo-item',
         'combo-wrap-item',
         'disabled-light',
-        'dynamic-toolbar',
+        'dynamic-toolbar-left',
+        'dynamic-toolbar-top',
         'frameless',
         'glyph-item',
         'hover',
@@ -1473,6 +1474,13 @@ const properties = {
       field: 'hoverShape',
       list: ['', 'first', 'last'],
       value: '',
+    },
+    forceHover: {
+      id: 'forceHover',
+      group: 'Aspect',
+      type: 'bool',
+      field: 'forceHover',
+      value: 'false',
     },
     width: {
       id: 'width',

@@ -225,7 +225,9 @@ export default function styles (theme, props) {
   const hoverStyle = {
     position: 'absolute',
     top: '0px',
-    fill: 'transparent',
+    fill: Bool.isTrue (props.forceHover)
+      ? theme.palette.ticketHover
+      : 'transparent',
     transition: theme.transitions.easeOut (),
     path: getHoverPath (
       theme,
@@ -304,7 +306,9 @@ export default function styles (theme, props) {
       borderRadius: hoverRadius,
       borderWidth: t1,
       borderStyle: 'solid solid none solid',
-      borderColor: 'transparent',
+      borderColor: Bool.isTrue (props.forceHover)
+        ? theme.palette.ticketHover
+        : 'transparent',
     };
   } else if (props.hoverShape === 'last') {
     // u.
@@ -317,7 +321,9 @@ export default function styles (theme, props) {
       borderRadius: hoverRadius,
       borderWidth: t1,
       borderStyle: 'none solid solid solid',
-      borderColor: 'transparent',
+      borderColor: Bool.isTrue (props.forceHover)
+        ? theme.palette.ticketHover
+        : 'transparent',
     };
   } else {
     rectHoverStyle = {
@@ -329,7 +335,9 @@ export default function styles (theme, props) {
       borderRadius: hoverRadius,
       borderWidth: t1,
       borderStyle: 'solid',
-      borderColor: 'transparent',
+      borderColor: Bool.isTrue (props.forceHover)
+        ? theme.palette.ticketHover
+        : 'transparent',
     };
   }
   rectHoverStyle[':hover'] = {
@@ -417,6 +425,7 @@ export default function styles (theme, props) {
 
   const backgroundTextStyle = {
     position: 'absolute',
+    top: '-3px',
     right: theme.shapes.ticketBackgroundRightMargin,
     fontWeight: theme.shapes.ticketBackgroundFontWeight,
     fontSize: theme.shapes.ticketBackgroundFontSize,

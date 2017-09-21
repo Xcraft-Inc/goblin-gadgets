@@ -81,23 +81,39 @@ class DynamicToolbar extends Widget {
   // dark '<' when the toolbar is showed.
   renderHoverButton () {
     const style = this.styles.classNames.hoverButton;
-    const h = Unit.add (
-      this.context.theme.shapes.dynamicToolbarButtonHeight,
-      Unit.multiply (this.context.theme.shapes.dynamicToolbarMargin, 2)
-    );
-    return (
-      <div className={style}>
-        <Button
-          width={this.context.theme.shapes.dynamicToolbarButtonWidth}
-          height={h}
-          kind="dynamic-toolbar"
-          glyph={this.showToolbar ? 'caret-left' : 'caret-right'}
-          active={Bool.toString (this.showToolbar)}
-          mouseOver={this.onShowToolbar}
-          ref={w => (this.ToolbarButton = w)}
-        />
-      </div>
-    );
+    if (this.props.direction === 'top') {
+      return (
+        <div className={style}>
+          <Button
+            width="20px"
+            height="14px"
+            kind="dynamic-toolbar-top"
+            glyph={this.showToolbar ? 'caret-up' : 'caret-down'}
+            active={Bool.toString (this.showToolbar)}
+            mouseOver={this.onShowToolbar}
+            ref={node => (this.ToolbarButton = node)}
+          />
+        </div>
+      );
+    } else {
+      const h = Unit.add (
+        this.context.theme.shapes.dynamicToolbarButtonHeight,
+        Unit.multiply (this.context.theme.shapes.dynamicToolbarMargin, 2)
+      );
+      return (
+        <div className={style}>
+          <Button
+            width={this.context.theme.shapes.dynamicToolbarButtonWidth}
+            height={h}
+            kind="dynamic-toolbar-left"
+            glyph={this.showToolbar ? 'caret-left' : 'caret-right'}
+            active={Bool.toString (this.showToolbar)}
+            mouseOver={this.onShowToolbar}
+            ref={node => (this.ToolbarButton = node)}
+          />
+        </div>
+      );
+    }
   }
 
   // Draws a full-screen area behind the toolbar, for the mechanism to hide the toolbar.
