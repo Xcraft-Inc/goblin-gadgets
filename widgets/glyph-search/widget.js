@@ -36,7 +36,7 @@ class GlyphSearch extends Form {
                   defaultFocus="true"
                   hinter="glyph"
                   labelGlyph="search"
-                  hintText="Nom du picto."
+                  hintText="Nom du pictogramme"
                   grow="1"
                 />
               </Container>

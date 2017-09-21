@@ -14,10 +14,10 @@ exports.xcraftCommands = function () {
     onNew: function (quest, id, order, name, glyph, color, description) {
       return {
         id,
-        name: name || 'new',
+        name: name || 'Mon pictogramme',
         glyph: glyph || 'bookmark',
         color: color || null,
-        description: description || 'new',
+        description: description || '',
       };
     },
   });

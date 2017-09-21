@@ -12,7 +12,7 @@ exports.xcraftCommands = function () {
     field: 'name',
     newWorkitem: {
       name: 'glyph-editor',
-      description: 'Nouveau picto.',
+      description: 'Nouveau pictogramme',
       view: 'admin',
       icon: 'edit-pen',
       mapNewValueTo: 'name',
