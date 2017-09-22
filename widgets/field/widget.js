@@ -9,6 +9,7 @@ import LabelTextField from 'gadgets/label-text-field/widget';
 import TextFieldTyped from 'gadgets/text-field-typed/widget';
 import TextFieldCombo from 'gadgets/text-field-combo/widget';
 import RadioList from 'gadgets/radio-list/widget';
+import {Control} from 'react-redux-form/immutable';
 
 /******************************************************************************/
 
@@ -17,7 +18,7 @@ const defaultLabelWidth = '120px';
 class Field extends Form {
   constructor () {
     super (...arguments);
-    this.setEntityValue = this.setEntityValue.bind (this);
+    this.handleFileChange = this.handleFileChange.bind (this);
   }
 
   renderField () {
@@ -29,6 +30,33 @@ class Field extends Form {
           labelWidth={this.props.labelWidth || defaultLabelWidth}
           model={this.props.model}
           grow="1"
+        />
+      </Container>
+    );
+  }
+
+  handleFileChange (ev) {
+    const fullPath = `${this.context.model}${this.props.model}`;
+    ev.persist ();
+    const fileList = ev.target.files;
+    const files = [];
+    for (let i = 0; i < fileList.length; i++) {
+      files.push (fileList[i].path);
+    }
+    if (files.length === 1) {
+      this.setBackendValue (fullPath, files[0]);
+    } else {
+      throw new Error ('Not impl.');
+    }
+  }
+
+  renderFileInput () {
+    return (
+      <Container kind="row-pane">
+        <input
+          type="file"
+          onChange={this.handleFileChange}
+          accept={this.props.accept}
         />
       </Container>
     );
@@ -162,6 +190,8 @@ class Field extends Form {
         return this.renderRadios ();
       case 'hinter':
         return this.renderHinter ();
+      case 'file':
+        return this.renderFileInput ();
       default:
         return this.renderField ();
     }
