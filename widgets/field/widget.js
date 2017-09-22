@@ -17,12 +17,7 @@ const defaultLabelWidth = '120px';
 class Field extends Form {
   constructor () {
     super (...arguments);
-  }
-
-  static get wiring () {
-    return {
-      id: 'id',
-    };
+    this.setEntityValue = this.setEntityValue.bind (this);
   }
 
   renderField () {
@@ -30,6 +25,7 @@ class Field extends Form {
       <Container kind="row-pane">
         <LabelTextField
           labelText={this.props.labelText}
+          labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
           model={this.props.model}
           grow="1"
@@ -43,6 +39,7 @@ class Field extends Form {
       <Container kind="row-pane">
         <Label
           text={this.props.labelText}
+          glyph={this.props.labelGlyph}
           width={this.props.labelWidth || defaultLabelWidth}
           kind="label-text-field"
           justify="left"
@@ -59,10 +56,12 @@ class Field extends Form {
   }
 
   renderCombo () {
+    const fullPath = `${this.context.model}${this.props.model}`;
     return (
       <Container kind="row-pane">
         <Label
           text={this.props.labelText}
+          glyph={this.props.labelGlyph}
           width={this.props.labelWidth || defaultLabelWidth}
           kind="label-text-field"
           justify="left"
@@ -75,7 +74,7 @@ class Field extends Form {
           menuType="wrap"
           comboTextTransform="none"
           onSetText={text => {
-            this.setEntityValue (this.props.model, text);
+            this.setBackendValue (fullPath, text);
           }}
           grow="1"
         />
@@ -84,18 +83,24 @@ class Field extends Form {
   }
 
   renderRadios () {
-    const Radios = this.getWidgetToEntityMapper (RadioList, value => {
-      if (value && value !== '') {
-        return {selectedIndex: this.props.list.indexOf (value)};
-      } else {
-        return {};
-      }
-    }) (this.props.model);
+    const fullPath = `${this.context.model}${this.props.model}`;
+    const Radios = this.mapWidget (
+      RadioList,
+      value => {
+        if (value && value !== '') {
+          return {selectedIndex: this.props.list.indexOf (value)};
+        } else {
+          return {};
+        }
+      },
+      fullPath
+    );
 
     return (
       <Container kind="row-pane" subkind="left">
         <Label
           text={this.props.labelText}
+          glyph={this.props.labelGlyph}
           width={this.props.labelWidth || defaultLabelWidth}
           kind="label-text-field"
           justify="left"
@@ -105,20 +110,25 @@ class Field extends Form {
           direction="row"
           list={this.props.list}
           selectionChanged={index =>
-            this.setEntityValue (this.props.model, this.props.list[index])}
+            this.setBackendValue (fullPath, this.props.list[index])}
         />
       </Container>
     );
   }
 
   renderHinter () {
-    const Zone = this.getWidgetToEntityMapper (LabelTextField, value => {
-      if (value && value !== '') {
-        return {selectedValue: value};
-      } else {
-        return {};
-      }
-    }) (this.props.model);
+    const fullPath = `${this.context.model}${this.props.model}`;
+    const Hinter = this.mapWidget (
+      LabelTextField,
+      value => {
+        if (value && value !== '') {
+          return {selectedValue: value};
+        } else {
+          return {};
+        }
+      },
+      fullPath
+    );
 
     const Form = this.Form;
 
@@ -126,8 +136,9 @@ class Field extends Form {
       <Container kind="row-pane">
         <Form
           {...this.formConfigWithComponent (() => (
-            <Zone
+            <Hinter
               labelText={this.props.labelText}
+              labelGlyph={this.props.labelGlyph}
               labelWidth={this.props.labelWidth || defaultLabelWidth}
               grow="1"
               hinter={this.props.hinter}
@@ -139,7 +150,7 @@ class Field extends Form {
     );
   }
 
-  renderWidget () {
+  render () {
     switch (this.props.kind) {
       case 'field':
         return this.renderField ();
@@ -152,17 +163,8 @@ class Field extends Form {
       case 'hinter':
         return this.renderHinter ();
       default:
-        return null;
+        return this.renderField ();
     }
-  }
-
-  render () {
-    const Form = this.Form;
-    return (
-      <Form {...this.entityConfig}>
-        {this.renderWidget ()}
-      </Form>
-    );
   }
 }
 
