@@ -11,29 +11,10 @@ class RadioList extends Widget {
   constructor () {
     super (...arguments);
 
-    this.state = {
-      selectedIndex: -1,
-    };
-
     this.onButtonClicked = this.onButtonClicked.bind (this);
   }
 
-  get selectedIndex () {
-    return this.state.selectedIndex;
-  }
-
-  set selectedIndex (value) {
-    this.setState ({
-      selectedIndex: value,
-    });
-  }
-
-  componentWillMount () {
-    this.selectedIndex = this.props.selectedIndex;
-  }
-
   onButtonClicked (index) {
-    this.selectedIndex = index;
     const x = this.props.selectionChanged;
     if (x) {
       x (index);
@@ -46,7 +27,7 @@ class RadioList extends Widget {
         key={index}
         kind="radio"
         text={text}
-        checked={Bool.toString (index === this.selectedIndex)}
+        checked={Bool.toString (index === this.props.selectedIndex)}
         onClick={() => this.onButtonClicked (index)}
       />
     );

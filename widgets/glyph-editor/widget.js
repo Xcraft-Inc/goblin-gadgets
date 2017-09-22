@@ -72,10 +72,10 @@ class GlyphEditor extends Form {
   }
 
   render () {
-    const {id} = this.props;
-    if (!id) {
+    if (!this.props.id) {
       return null;
     }
+
     const Form = this.Form;
     const Title = this.getWidgetToEntityMapper (Label, 'text') ('.name');
     const Sample = this.getWidgetToEntityMapper (Label, g => {
