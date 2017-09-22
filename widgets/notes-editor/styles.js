@@ -19,9 +19,19 @@ export default function styles (theme, props) {
     userSelect: 'none',
   };
 
+  const headerEmptyStyle = {
+    display: 'flex',
+    flexDirection: 'row',
+    flexGrow: '1',
+    padding: halfMargin + ' ' + m + ' ' + m + ' ' + m,
+    cursor: 'default',
+    userSelect: 'none',
+  };
+
   return {
     box: boxStyle,
     header: headerStyle,
+    headerEmpty: headerEmptyStyle,
   };
 }
 

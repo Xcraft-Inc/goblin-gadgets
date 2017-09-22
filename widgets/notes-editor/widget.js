@@ -49,7 +49,9 @@ class NotesEditor extends Widget {
   /******************************************************************************/
 
   renderHeader () {
-    const headerClass = this.styles.classNames.header;
+    const headerClass = this.props.noteIds.size === 0
+      ? this.styles.classNames.headerEmpty
+      : this.styles.classNames.header;
 
     if (Bool.isTrue (this.props.readonly)) {
       return (
