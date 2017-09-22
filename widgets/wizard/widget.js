@@ -16,6 +16,7 @@ import Splitter from 'gadgets/splitter/widget';
 import CheckButton from 'gadgets/check-button/widget';
 import Gauge from 'gadgets/gauge/widget';
 import Ticket from 'gadgets/ticket/widget';
+import Field from 'gadgets/field/widget';
 
 function getOnlyDigits (value) {
   let result = '';
@@ -501,6 +502,69 @@ class Wizard extends Form {
     return <TextFieldCombo key={index} model=".x" list={list} {...props} />;
   }
 
+  renderWidgetBaseField (index, props) {
+    let list = [];
+    switch (this.getPreviewSettingValue ('textFieldComboMenu')) {
+      case 'long':
+        list = [
+          'Adrien',
+          'Albert',
+          'Alfred',
+          'André',
+          'Anne',
+          'Arnaud',
+          'Béatrice',
+          'Bernard',
+          'Bertrand',
+          'Bruno',
+          'Christian',
+          'Christine',
+          'Christiane',
+          'Christophe',
+          'Claire',
+          'Daniel',
+          'David',
+          'Denis',
+          'Didier',
+          'Eléonore',
+          'Eric',
+          'Esther',
+          'Fabien',
+          'François',
+          'Francine',
+          'Géraldine',
+          'Georges',
+          'Grégoire',
+          'Hypolite',
+        ];
+        break;
+      case 'middle':
+        list = [
+          'Lundi',
+          'Mardi',
+          'Mercredi',
+          'Jeudi',
+          'Vendredi',
+          'Samedi',
+          'Dimanche',
+        ];
+        break;
+      default:
+        list = ['Monsieur', 'Madame'];
+        break;
+    }
+    return (
+      <Field
+        key={index}
+        model=".x"
+        model1=".y"
+        model2=".z"
+        list={list}
+        {...props}
+      />
+    );
+  }
+
   wireWidgetBase (component, props) {
     return this.WithModel (component, properties => {
       properties.linq.select (property => {
@@ -534,6 +598,8 @@ class Wizard extends Form {
         return this.renderWidgetBaseTextFieldCombo (index, props);
       case 'TextFieldTyped':
         return <TextFieldTyped key={index} model=".x" {...props} />;
+      case 'Field':
+        return this.renderWidgetBaseField (index, props);
       case 'CheckButton':
         return <CheckButton key={index} {...props} />;
       case 'Gauge':
@@ -559,7 +625,6 @@ class Wizard extends Form {
       case 'Container':
         return (
           <Container key={index} {...props}>
-
             {this.renderWidgetBaseContainer ()}
           </Container>
         );
