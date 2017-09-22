@@ -22,7 +22,12 @@ class Field extends Form {
 
   renderField () {
     return (
-      <Container kind="row-pane">
+      <Container
+        kind="row-pane"
+        width={this.props.width}
+        height={this.props.height}
+      >
+
         <LabelTextField
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
@@ -36,7 +41,12 @@ class Field extends Form {
 
   renderDoubleField () {
     return (
-      <Container kind="row-pane">
+      <Container
+        kind="row-pane"
+        width={this.props.width}
+        height={this.props.height}
+      >
+
         <Label
           text={this.props.labelText}
           glyph={this.props.labelGlyph}
@@ -58,7 +68,11 @@ class Field extends Form {
   renderCombo () {
     const fullPath = `${this.context.model}${this.props.model}`;
     return (
-      <Container kind="row-pane">
+      <Container
+        kind="row-pane"
+        width={this.props.width}
+        height={this.props.height}
+      >
         <Label
           text={this.props.labelText}
           glyph={this.props.labelGlyph}
@@ -139,7 +153,11 @@ class Field extends Form {
     const Form = this.Form;
 
     return (
-      <Container kind="row-pane">
+      <Container
+        kind="row-pane"
+        width={this.props.width}
+        height={this.props.height}
+      >
         <Form
           {...this.formConfigWithComponent (() => (
             <Hinter
