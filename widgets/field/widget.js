@@ -97,7 +97,12 @@ class Field extends Form {
     );
 
     return (
-      <Container kind="row-pane" subkind="left">
+      <Container
+        kind="row-pane"
+        subkind="left"
+        width={this.props.width}
+        height={this.props.height}
+      >
         <Label
           text={this.props.labelText}
           glyph={this.props.labelGlyph}
@@ -107,7 +112,8 @@ class Field extends Form {
           spacing="overlap"
         />
         <Radios
-          direction="row"
+          height={this.props.height}
+          direction={this.props.direction || 'row'}
           list={this.props.list}
           selectionChanged={index =>
             this.setBackendValue (fullPath, this.props.list[index])}
