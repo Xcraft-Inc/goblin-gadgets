@@ -504,7 +504,7 @@ class Wizard extends Form {
 
   renderWidgetBaseField (index, props) {
     let list = [];
-    switch (this.getPreviewSettingValue ('textFieldComboMenu')) {
+    switch (this.getPreviewSettingValue ('fieldMenu')) {
       case 'long':
         list = [
           'Adrien',
@@ -862,7 +862,7 @@ class Wizard extends Form {
     ) ('.globalSettings.widget.value');
 
     return (
-      <Container kind="view">
+      <Container kind="view" grow="1">
         <Container kind="pane-header">
           <Label text="Preview" kind="pane-header" />
         </Container>

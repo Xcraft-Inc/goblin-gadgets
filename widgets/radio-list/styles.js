@@ -1,9 +1,38 @@
 /******************************************************************************/
 
 export default function styles (theme, props) {
+  let direction, wrap, overflowX, overflowY;
+  switch (props.direction) {
+    case 'row':
+      direction = 'row';
+      wrap = null;
+      overflowX = 'auto';
+      overflowY = null;
+      break;
+    case 'wrap':
+      direction = 'column';
+      wrap = 'wrap';
+      overflowX = 'auto';
+      overflowY = null;
+      break;
+    default:
+      // column
+      direction = 'column';
+      wrap = null;
+      overflowX = null;
+      overflowY = 'auto';
+      break;
+  }
+
   const boxStyle = {
+    height: props.height,
     display: 'flex',
-    flexDirection: props.direction ? props.direction : 'column',
+    flexDirection: direction,
+    flexGrow: '1',
+    flexWrap: wrap,
+    alignItems: 'flex-start',
+    overflowX: overflowX,
+    overflowY: overflowY,
   };
 
   return {
