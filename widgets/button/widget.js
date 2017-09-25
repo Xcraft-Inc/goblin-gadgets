@@ -156,6 +156,15 @@ class Button extends Widget {
     );
   }
 
+  renderFocused () {
+    if (Bool.isTrue (this.props.focused)) {
+      const focusedClass = this.styles.classNames.focused;
+      return <div className={focusedClass} />;
+    } else {
+      return null;
+    }
+  }
+
   renderLayout () {
     if (this.props.kind === 'box' || this.props.kind === 'container') {
       return null;
@@ -163,6 +172,7 @@ class Button extends Widget {
     const result = [];
     result.push (this.renderLabel ());
     result.push (this.renderShortcut ());
+    result.push (this.renderFocused ());
     return result;
   }
 

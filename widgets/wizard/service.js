@@ -104,6 +104,13 @@ const properties = {
       field: 'disabled',
       value: 'false',
     },
+    focused: {
+      id: 'focused',
+      group: 'Aspect',
+      type: 'bool',
+      field: 'focused',
+      value: 'false',
+    },
     busy: {
       id: 'busy',
       group: 'Aspect',
@@ -1406,6 +1413,13 @@ const properties = {
       group: 'Aspect',
       type: 'bool',
       field: 'disabled',
+      value: 'false',
+    },
+    focused: {
+      id: 'focused',
+      group: 'Aspect',
+      type: 'bool',
+      field: 'focused',
       value: 'false',
     },
     text: {
