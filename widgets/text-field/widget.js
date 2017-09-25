@@ -88,9 +88,10 @@ class TextField extends Widget {
   }
 
   renderInput () {
-    const options = [];
+    const options = {};
     if (Bool.isTrue (this.props.readonly)) {
       options.readOnly = 'readOnly';
+      options.tabIndex = -1;
     }
 
     const mapProps = {

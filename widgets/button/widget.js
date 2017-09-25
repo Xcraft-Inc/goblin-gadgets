@@ -156,15 +156,6 @@ class Button extends Widget {
     );
   }
 
-  renderFocused () {
-    if (Bool.isTrue (this.props.focused)) {
-      const focusedClass = this.styles.classNames.focused;
-      return <div className={focusedClass} />;
-    } else {
-      return null;
-    }
-  }
-
   renderLayout () {
     if (this.props.kind === 'box' || this.props.kind === 'container') {
       return null;
@@ -172,7 +163,6 @@ class Button extends Widget {
     const result = [];
     result.push (this.renderLabel ());
     result.push (this.renderShortcut ());
-    result.push (this.renderFocused ());
     return result;
   }
 
@@ -184,6 +174,11 @@ class Button extends Widget {
     let tooltip = this.props.tooltip;
     if (this.props.kind === 'pane-navigator') {
       tooltip = this.props.text;
+    }
+
+    const tabIndexProps = {};
+    if (!Bool.isFalse (this.props.focusable)) {
+      tabIndexProps.tabIndex = 0;
     }
 
     const boxClass = this.styles.classNames.box;
@@ -254,6 +249,7 @@ class Button extends Widget {
       return (
         <div
           key={this.props.index}
+          tabIndex={Bool.isFalse (this.props.focusable) ? -1 : 0}
           onClick={this.onClick} // voir (*)
           onMouseDown={this.onMouseDown}
           onMouseUp={this.onMouseUp}
@@ -261,6 +257,8 @@ class Button extends Widget {
           onTouchEnd={this.onMouseUp}
           onMouseOver={this.onMouseOver}
           onMouseOut={this.onMouseOut}
+          onFocus={this.onFocus}
+          onBlur={this.onBlur}
           className={boxClass}
           title={tooltip}
         >

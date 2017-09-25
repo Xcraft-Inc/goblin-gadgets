@@ -692,6 +692,11 @@ export default function styles (theme, props) {
     };
   }
 
+  boxStyle[':focus'] = {
+    outline: 'none',
+    boxShadow: '0 0 10px ' + theme.palette.focused,
+  };
+
   // Generate a triangle with subtle css, see:
   // https://css-tricks.com/snippets/css/css-triangle/
   const d = theme.shapes.mainTabTriangleSize;
@@ -717,20 +722,6 @@ export default function styles (theme, props) {
     userSelect: 'none',
   };
 
-  const focusedColor = backgroundColor
-    ? ColorManipulator.emphasize (backgroundColor, 0.2)
-    : theme.palette.focused;
-
-  const focusedStyle = {
-    position: 'absolute',
-    width: 'calc(100% - 6px)',
-    height: 'calc(100% - 6px)',
-    marginLeft: '-' + boxPaddingLeft,
-    marginRight: '-' + boxPaddingRight,
-    border: '3px dashed ' + focusedColor,
-    borderRadius: borderRadius,
-  };
-
   const busyBoxStyle = {
     position: 'absolute',
     width: '100%',
@@ -750,7 +741,6 @@ export default function styles (theme, props) {
     triangle: triangleStyle,
     menuBox: menuBoxStyle,
     busyBox: busyBoxStyle,
-    focused: focusedStyle,
     busyGlyph: busyGlyphStyle,
   };
 }
