@@ -21,25 +21,6 @@ class Field extends Form {
     this.handleFileChange = this.handleFileChange.bind (this);
   }
 
-  renderField () {
-    return (
-      <Container
-        kind="row-pane"
-        width={this.props.width}
-        height={this.props.height}
-      >
-
-        <LabelTextField
-          labelText={this.props.labelText}
-          labelGlyph={this.props.labelGlyph}
-          labelWidth={this.props.labelWidth || defaultLabelWidth}
-          model={this.props.model}
-          grow="1"
-        />
-      </Container>
-    );
-  }
-
   handleFileChange (ev) {
     const fullPath = `${this.context.model}${this.props.model}`;
     ev.persist ();
@@ -55,13 +36,21 @@ class Field extends Form {
     }
   }
 
-  renderFileInput () {
+  renderField () {
     return (
-      <Container kind="row-pane">
-        <input
-          type="file"
-          onChange={this.handleFileChange}
-          accept={this.props.accept}
+      <Container
+        kind="row-pane"
+        width={this.props.width}
+        height={this.props.height}
+      >
+
+        <LabelTextField
+          labelText={this.props.labelText}
+          labelGlyph={this.props.labelGlyph}
+          labelWidth={this.props.labelWidth || defaultLabelWidth}
+          hintText={this.props.hintText}
+          model={this.props.model}
+          grow="1"
         />
       </Container>
     );
@@ -84,11 +73,16 @@ class Field extends Form {
           spacing="overlap"
         />
         <TextField
+          hintText={this.props.hintText1}
           model={this.props.model1}
-          grow={this.props.grow1}
+          grow={this.props.growField1}
           spacing="large"
         />
-        <TextField model={this.props.model2} grow={this.props.grow2} />
+        <TextField
+          hintText={this.props.hintText2}
+          model={this.props.model2}
+          grow={this.props.growField2}
+        />
       </Container>
     );
   }
@@ -110,6 +104,7 @@ class Field extends Form {
           spacing="overlap"
         />
         <TextFieldCombo
+          hintText={this.props.hintText}
           model={this.props.model}
           readonly="false"
           list={this.props.list}
@@ -192,11 +187,24 @@ class Field extends Form {
               labelText={this.props.labelText}
               labelGlyph={this.props.labelGlyph}
               labelWidth={this.props.labelWidth || defaultLabelWidth}
+              hintText={this.props.hintText}
               grow="1"
               hinter={this.props.hinter}
               comboType={this.props.hinter}
             />
           ))}
+        />
+      </Container>
+    );
+  }
+
+  renderFileInput () {
+    return (
+      <Container kind="row-pane">
+        <input
+          type="file"
+          onChange={this.handleFileChange}
+          accept={this.props.accept}
         />
       </Container>
     );
