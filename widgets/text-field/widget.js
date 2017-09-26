@@ -162,7 +162,7 @@ class TextField extends Widget {
         'dispatch',
       ]);
 
-      if (props.value === null) {
+      if (props.value === null || props.value === undefined) {
         finalProps.value = '';
       }
 
@@ -230,9 +230,11 @@ class TextField extends Widget {
       }
     };
 
-    const WiredTextField = this.WithModel (Field) (
-      this.props.hinter ? `.${this.props.hinter}` : this.props.model
-    );
+    const fullModelPath = this.props.hinter
+      ? `${this.context.model}.${this.props.hinter}`
+      : `${this.context.model}.${this.props.model}`;
+
+    const WiredTextField = this.mapWidget (Field, 'version', fullModelPath);
 
     let key = typeof this.props.model === 'string'
       ? this.props.model

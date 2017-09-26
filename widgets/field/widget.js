@@ -21,8 +21,11 @@ class Field extends Form {
     this.handleFileChange = this.handleFileChange.bind (this);
   }
 
+  get fullPath () {
+    return `${this.context.model}${this.props.model}`;
+  }
+
   handleFileChange (ev) {
-    const fullPath = `${this.context.model}${this.props.model}`;
     ev.persist ();
     const fileList = ev.target.files;
     const files = [];
@@ -30,7 +33,7 @@ class Field extends Form {
       files.push (fileList[i].path);
     }
     if (files.length === 1) {
-      this.setBackendValue (fullPath, files[0]);
+      this.setBackendValue (this.fullPath, files[0]);
     } else {
       throw new Error ('Not impl.');
     }
@@ -88,7 +91,6 @@ class Field extends Form {
   }
 
   renderCombo () {
-    const fullPath = `${this.context.model}${this.props.model}`;
     return (
       <Container
         kind="row-pane"
@@ -111,7 +113,7 @@ class Field extends Form {
           menuType="wrap"
           comboTextTransform="none"
           onSetText={text => {
-            this.setBackendValue (fullPath, text);
+            this.setBackendValue (this.fullPath, text);
           }}
           grow="1"
         />
@@ -120,7 +122,6 @@ class Field extends Form {
   }
 
   renderRadios () {
-    const fullPath = `${this.context.model}${this.props.model}`;
     const Radios = this.mapWidget (
       RadioList,
       value => {
@@ -130,7 +131,7 @@ class Field extends Form {
           return {};
         }
       },
-      fullPath
+      this.fullPath
     );
 
     return (
@@ -152,15 +153,18 @@ class Field extends Form {
           height={this.props.height}
           direction={this.props.direction || 'row'}
           list={this.props.list}
-          selectionChanged={index =>
-            this.setBackendValue (fullPath, this.props.list[index])}
+          selectionChanged={index => {
+            this.setBackendValue (this.fullPath, this.props.list[index]);
+            if (this.props.onChange) {
+              this.props.onChange (this.props.list[index], index);
+            }
+          }}
         />
       </Container>
     );
   }
 
   renderHinter () {
-    const fullPath = `${this.context.model}${this.props.model}`;
     const Hinter = this.mapWidget (
       LabelTextField,
       value => {
@@ -170,7 +174,7 @@ class Field extends Form {
           return {};
         }
       },
-      fullPath
+      this.fullPath
     );
 
     const Form = this.Form;

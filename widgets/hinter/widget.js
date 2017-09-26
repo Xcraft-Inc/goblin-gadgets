@@ -104,7 +104,7 @@ class Hinter extends Widget {
               />
             </Container>
             {this.renderContent ()}
-            {this.renderButtonNew ()}
+            {this.props.displayNewButton ? this.renderButtonNew () : null}
           </Container>
         </Container>
       </Container>
