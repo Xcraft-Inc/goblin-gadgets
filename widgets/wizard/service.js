@@ -104,11 +104,11 @@ const properties = {
       field: 'disabled',
       value: 'false',
     },
-    focused: {
-      id: 'focused',
+    focusable: {
+      id: 'focusable',
       group: 'Aspect',
       type: 'bool',
-      field: 'focused',
+      field: 'focusable',
       value: 'false',
     },
     busy: {
@@ -1415,11 +1415,11 @@ const properties = {
       field: 'disabled',
       value: 'false',
     },
-    focused: {
-      id: 'focused',
+    focusable: {
+      id: 'focusable',
       group: 'Aspect',
       type: 'bool',
-      field: 'focused',
+      field: 'focusable',
       value: 'false',
     },
     text: {

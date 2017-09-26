@@ -184,6 +184,7 @@ class TextFieldCombo extends Widget {
     return (
       <Button
         kind="combo"
+        focusable="true"
         glyph={glyph}
         shape={buttonShape}
         onClick={this.onButtonClicked}

@@ -213,6 +213,7 @@ class Wizard extends Form {
           <Label text={field} width="180px" />
           <CheckButton
             width="32px"
+            focusable="true"
             onClick={() => {
               this.setModelValue (
                 model,
