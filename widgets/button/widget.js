@@ -11,7 +11,6 @@ class Button extends Widget {
   constructor () {
     super (...arguments);
 
-    this.onClick = this.onClick.bind (this);
     this.onMouseDown = this.onMouseDown.bind (this);
     this.onMouseUp = this.onMouseUp.bind (this);
     this.onMouseOver = this.onMouseOver.bind (this);
@@ -34,12 +33,6 @@ class Button extends Widget {
 
   setKind (kind) {
     this.do ('kind', {kind});
-  }
-
-  onClick (e) {
-    if (this.props.onClick) {
-      this.props.onClick (e);
-    }
   }
 
   // Called when the button is clicked.
@@ -65,6 +58,11 @@ class Button extends Widget {
     const x = this.props.mouseUp;
     if (x) {
       x (e);
+    }
+    // Do not connect to onClick, because it's never called when button
+    // dont have the focus.
+    if (this.props.onClick) {
+      this.props.onClick (e);
     }
   }
 
@@ -187,7 +185,6 @@ class Button extends Widget {
       return (
         <div
           key={this.props.index}
-          onClick={this.onClick} // voir (*)
           onMouseDown={this.onMouseDown}
           onMouseUp={this.onMouseUp}
           onTouchStart={this.onMouseDown}
@@ -204,7 +201,6 @@ class Button extends Widget {
       return (
         <div
           key={this.props.index}
-          onClick={this.onShowMenu} // voir (*)
           onMouseDown={this.onMouseDown}
           onMouseUp={this.onMouseUp}
           onTouchStart={this.onMouseDown}
@@ -226,7 +222,6 @@ class Button extends Widget {
       return (
         <a
           key={this.props.index}
-          onClick={this.onClick}
           onMouseDown={this.onMouseDown}
           onMouseUp={this.onMouseUp}
           onTouchStart={this.onMouseDown}
@@ -250,7 +245,6 @@ class Button extends Widget {
         <div
           key={this.props.index}
           tabIndex={Bool.isFalse (this.props.focusable) ? -1 : 0}
-          onClick={this.onClick} // voir (*)
           onMouseDown={this.onMouseDown}
           onMouseUp={this.onMouseUp}
           onTouchStart={this.onMouseDown}
