@@ -123,6 +123,10 @@ export default function styles (theme, props) {
     }
   }
 
+  if (Bool.isTrue (props.shortcut)) {
+    textMarginRight = '0px'; // push shortcut to right frame border
+  }
+
   // Choice glyph position into his square.
   if (Bool.isTrue (props.insideButton)) {
     glyphJustify = 'center';
@@ -624,10 +628,10 @@ export default function styles (theme, props) {
   }
 
   // Sets default colors if they are undefined
-  if (!glyphColor && glyphColor !== 'none') {
+  if (!glyphColor) {
     glyphColor = ColorManipulator.emphasize (props.buttonBackgroundColor, 0.8);
   }
-  if (!textColor && textColor !== 'none') {
+  if (!textColor) {
     textColor = ColorManipulator.emphasize (props.buttonBackgroundColor, 0.9);
   }
 

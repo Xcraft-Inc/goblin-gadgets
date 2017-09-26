@@ -54,15 +54,15 @@ class Button extends Widget {
   }
 
   onFocus () {
-    this.focus = true;
     if (Bool.isTrue (this.props.focusable)) {
+      this.focus = true;
       MouseTrap.bind ('space', this.onKeySpace, 'keydown');
     }
   }
 
   onBlur () {
-    this.focus = false;
     if (Bool.isTrue (this.props.focusable)) {
+      this.focus = false;
       MouseTrap.unbind ('space');
     }
   }
@@ -173,21 +173,28 @@ class Button extends Widget {
     }
   }
 
-  renderShortcut () {
+  renderShortcut (boxStyle) {
     if (this.props.shortcut) {
-      const shortcutClass = this.styles.classNames.shortcut;
       return (
-        <label key="shortcut" className={shortcutClass}>
-          {ShortcutHelpers.getShortcut (this.props.shortcut)}
-        </label>
+        <Label
+          key="shortcut"
+          shortcut="true"
+          kind={this.props.kind}
+          disabled={this.props.disabled}
+          active={this.props.active}
+          textColor={this.props.textColor}
+          buttonBackgroundColor={boxStyle.backgroundColor}
+          text={ShortcutHelpers.getShortcut (this.props.shortcut)}
+          wrap="no"
+          insideButton="true"
+        />
       );
     } else {
       return null;
     }
   }
 
-  renderLabel () {
-    const boxStyle = Object.assign ({}, this.styles.props.box);
+  renderLabel (boxStyle) {
     return (
       <Label
         key="label"
@@ -213,8 +220,9 @@ class Button extends Widget {
       return null;
     }
     const result = [];
-    result.push (this.renderLabel ());
-    result.push (this.renderShortcut ());
+    const boxStyle = Object.assign ({}, this.styles.props.box);
+    result.push (this.renderLabel (boxStyle));
+    result.push (this.renderShortcut (boxStyle));
     result.push (this.renderFocusedForeground ());
     return result;
   }
