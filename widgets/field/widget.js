@@ -22,11 +22,7 @@ class Field extends Form {
   }
 
   get fullPath () {
-    if (this.props.model.startsWith ('backend.')) {
-      return this.props.model;
-    } else {
-      return `${this.context.model}${this.props.model}`;
-    }
+    return `${this.context.model}${this.props.model}`;
   }
 
   renderField () {
