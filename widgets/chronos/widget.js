@@ -294,38 +294,22 @@ class Chronos extends Form {
     onAction,
     index
   ) {
-    if (count) {
-      return (
-        <Button
-          key={index}
-          kind="chronos-navigator"
-          subkind="with-badge"
-          glyph={glyph}
-          text={text}
-          tooltip={tooltip}
-          border="none"
-          disabled={Bool.toString (disabled)}
-          active={Bool.toString (active)}
-          onClick={onAction}
-        >
-          <Badge value={count} kind="chronos-count" />
-        </Button>
-      );
-    } else {
-      return (
-        <Button
-          key={index}
-          kind="chronos-navigator"
-          glyph={glyph}
-          text={text}
-          tooltip={tooltip}
-          border="none"
-          disabled={Bool.toString (disabled)}
-          active={Bool.toString (active)}
-          onClick={onAction}
-        />
-      );
-    }
+    return (
+      <Button
+        key={index}
+        kind="chronos-navigator"
+        subkind={count ? 'with-badge' : null}
+        glyph={glyph}
+        text={text}
+        tooltip={tooltip}
+        border="none"
+        disabled={Bool.toString (disabled)}
+        active={Bool.toString (active)}
+        onClick={onAction}
+      >
+        {count ? <Badge value={count} kind="chronos-count" /> : null}
+      </Button>
+    );
   }
 
   renderNavigationButtons () {

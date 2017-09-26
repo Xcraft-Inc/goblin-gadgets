@@ -21,28 +21,33 @@ class CheckButton extends Widget {
   }
 
   render () {
-    let glyph, active;
+    let kind, border, glyph, active;
     const checked = Bool.isTrue (this.props.checked);
     if (this.props.kind === 'switch') {
+      kind = 'check-button';
       glyph = checked ? 'toggle-on' : 'toggle-off'; // [ o] [x ]
     } else if (this.props.kind === 'radio') {
+      kind = 'check-button';
       glyph = checked ? 'dot-circle-o' : 'circle-o'; // o
     } else if (this.props.kind === 'active') {
+      border = 'none';
       glyph = null;
       active = Bool.toString (checked);
     } else {
+      kind = 'check-button';
       glyph = checked ? 'check-square' : 'square-o'; // [v] [ ]
     }
 
     return (
       <Button
+        kind={kind}
+        border={border}
         onClick={this.onButtonClicked}
         glyph={glyph}
         text={this.props.text}
         active={active}
         disabled={this.props.disabled}
         focusable={this.props.focusable}
-        border="none"
         spacing={this.props.spacing}
       />
     );

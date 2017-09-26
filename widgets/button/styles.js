@@ -63,6 +63,7 @@ export default function styles (theme, props) {
   let cursor = props.cursor ? props.cursor : 'default';
   let transition = theme.transitions.easeOut ();
   let specialDisabled = false;
+  let focusedShadow = theme.shapes.focusedShadow + theme.palette.focused;
 
   // Initialize variables for button without border.
   if (props.border === 'none') {
@@ -254,6 +255,14 @@ export default function styles (theme, props) {
     backgroundHoverColor = 'transparent';
   }
 
+  if (props.kind === 'check-button') {
+    backgroundColor = 'transparent';
+    borderStyle = 'none';
+    textHoverColor = theme.palette.checkButtonTextHover;
+    backgroundHoverColor = 'transparent';
+    focusedShadow = null;
+  }
+
   // Warning button (usual parent is container with kind='footer').
   if (props.kind === 'warning') {
     boxHeight = theme.shapes.footerHeight;
@@ -348,10 +357,6 @@ export default function styles (theme, props) {
     borderRadius = '0px ' + r + ' ' + r + ' 0px';
     borderColor = theme.palette.buttonBorder;
     backgroundColor = null;
-  }
-
-  if (props.kind === 'frameless') {
-    borderStyle = 'none';
   }
 
   if (props.kind === 'menu-item') {
@@ -692,10 +697,16 @@ export default function styles (theme, props) {
     };
   }
 
-  boxStyle[':focus'] = {
-    outline: 'none',
-    boxShadow: '0 0 10px ' + theme.palette.focused,
-  };
+  if (Bool.isTrue (props.focusable)) {
+    boxStyle[':focus'] = {
+      outline: 'none',
+      boxShadow: focusedShadow,
+    };
+  } else {
+    boxStyle[':focus'] = {
+      outline: 'none',
+    };
+  }
 
   // Generate a triangle with subtle css, see:
   // https://css-tricks.com/snippets/css/css-triangle/
@@ -735,6 +746,13 @@ export default function styles (theme, props) {
     color: theme.palette.busyForeground,
   };
 
+  const focusedForegroundStyle = {
+    position: 'absolute',
+    width: 'calc(100% - 8px)',
+    height: 'calc(100% - 8px)',
+    border: '1px dashed #888',
+  };
+
   return {
     box: boxStyle,
     shortcut: shortcutStyle,
@@ -742,6 +760,7 @@ export default function styles (theme, props) {
     menuBox: menuBoxStyle,
     busyBox: busyBoxStyle,
     busyGlyph: busyGlyphStyle,
+    focusedForeground: focusedForegroundStyle,
   };
 }
 

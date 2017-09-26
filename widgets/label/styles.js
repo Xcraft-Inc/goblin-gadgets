@@ -405,6 +405,10 @@ export default function styles (theme, props) {
     textHoverColor = theme.palette.notificationTextHover;
   }
 
+  if (props.kind === 'check-button') {
+    textHoverColor = theme.palette.checkButtonTextHover;
+  }
+
   // Warning button (usual parent is container with kind='footer').
   if (props.kind === 'warning') {
     textWeight = 'bold';

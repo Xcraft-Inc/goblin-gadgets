@@ -408,8 +408,7 @@ class Calendar extends Widget {
       <Button
         text={Converters.getMonthDescription (month - 1, '1').toUpperCase ()}
         tooltip={Converters.getMonthDescription (month - 1)}
-        border="none"
-        textColor="none"
+        kind="calendar"
         grow="1"
         onClick={() => this.onVisibleDateMonth (month)}
         active={Bool.toString (active)}
@@ -445,14 +444,14 @@ class Calendar extends Widget {
       <div className={doubleClass}>
         <Button
           glyph={leftGlyph}
-          border="none"
+          kind="calendar-navigation"
           glyphColor="none"
           onClick={leftAction}
         />
         <Label text={title} grow="1" justify="center" />
         <Button
           glyph={rightGlyph}
-          border="none"
+          kind="calendar-navigation"
           glyphColor="none"
           onClick={rightAction}
         />

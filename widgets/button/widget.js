@@ -12,15 +12,28 @@ class Button extends Widget {
   constructor () {
     super (...arguments);
 
+    this.state = {
+      focus: false,
+    };
+
     this.onFocus = this.onFocus.bind (this);
     this.onBlur = this.onBlur.bind (this);
     this.onMouseDown = this.onMouseDown.bind (this);
     this.onMouseUp = this.onMouseUp.bind (this);
     this.onMouseOver = this.onMouseOver.bind (this);
     this.onMouseOut = this.onMouseOut.bind (this);
-    this.onKeyPress = this.onKeyPress.bind (this);
     this.onShowMenu = this.onShowMenu.bind (this);
     this.onKeySpace = this.onKeySpace.bind (this);
+  }
+
+  get focus () {
+    return this.state.focus;
+  }
+
+  set focus (value) {
+    this.setState ({
+      focus: value,
+    });
   }
 
   static get wiring () {
@@ -41,19 +54,20 @@ class Button extends Widget {
   }
 
   onFocus () {
+    this.focus = true;
     if (Bool.isTrue (this.props.focusable)) {
       MouseTrap.bind ('space', this.onKeySpace, 'keydown');
     }
   }
 
   onBlur () {
+    this.focus = false;
     if (Bool.isTrue (this.props.focusable)) {
       MouseTrap.unbind ('space');
     }
   }
 
   onKeySpace (e) {
-    console.log ('button.onKeySpace');
     e.preventDefault ();
     if (
       Bool.isTrue (this.props.disabled) &&
@@ -114,14 +128,6 @@ class Button extends Widget {
     const x = this.props.mouseOut;
     if (x) {
       x (e);
-    }
-  }
-
-  onKeyPress (e) {
-    if (e.key === ' ') {
-      if (this.props.onClick) {
-        //??? this.props.onClick (e);
-      }
     }
   }
 
@@ -193,6 +199,15 @@ class Button extends Widget {
     );
   }
 
+  renderFocusedForeground () {
+    if (this.focus && this.props.kind === 'check-button') {
+      const styleClass = this.styles.classNames.focusedForeground;
+      return <div key="focusedForeground" className={styleClass} />;
+    } else {
+      return null;
+    }
+  }
+
   renderLayout () {
     if (this.props.kind === 'box' || this.props.kind === 'container') {
       return null;
@@ -200,6 +215,7 @@ class Button extends Widget {
     const result = [];
     result.push (this.renderLabel ());
     result.push (this.renderShortcut ());
+    result.push (this.renderFocusedForeground ());
     return result;
   }
 
@@ -227,7 +243,6 @@ class Button extends Widget {
           onTouchEnd={this.onMouseUp}
           onMouseOver={this.onMouseOver}
           onMouseOut={this.onMouseOut}
-          onKeyPress={this.onKeyPress}
           className={boxClass}
           title={tooltip}
         >
@@ -246,7 +261,6 @@ class Button extends Widget {
           onTouchEnd={this.onMouseUp}
           onMouseOver={this.onMouseOver}
           onMouseOut={this.onMouseOut}
-          onKeyPress={this.onKeyPress}
           className={boxClass}
           title={tooltip}
         >
@@ -270,7 +284,6 @@ class Button extends Widget {
           onTouchEnd={this.onMouseUp}
           onMouseOver={this.onMouseOver}
           onMouseOut={this.onMouseOut}
-          onKeyPress={this.onKeyPress}
           className={boxClass}
           title={tooltip}
           href={window.location.hash + '#' + this.props.toAnchor}
@@ -296,7 +309,6 @@ class Button extends Widget {
           onTouchEnd={this.onMouseUp}
           onMouseOver={this.onMouseOver}
           onMouseOut={this.onMouseOut}
-          onKeyPress={this.onKeyPress}
           className={boxClass}
           title={tooltip}
         >
