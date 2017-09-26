@@ -161,7 +161,7 @@ class TextField extends Widget {
         'dispatch',
       ]);
 
-      if (props.value === null) {
+      if (props.value === null || props.value === undefined) {
         finalProps.value = '';
       }
 
