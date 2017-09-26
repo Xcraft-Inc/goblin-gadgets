@@ -1,5 +1,6 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
+import MouseTrap from 'mousetrap';
 import * as ShortcutHelpers from '../helpers/shortcut-helpers.js';
 import * as Bool from '../helpers/boolean-helpers.js';
 
@@ -11,11 +12,15 @@ class Button extends Widget {
   constructor () {
     super (...arguments);
 
+    this.onFocus = this.onFocus.bind (this);
+    this.onBlur = this.onBlur.bind (this);
     this.onMouseDown = this.onMouseDown.bind (this);
     this.onMouseUp = this.onMouseUp.bind (this);
     this.onMouseOver = this.onMouseOver.bind (this);
     this.onMouseOut = this.onMouseOut.bind (this);
+    this.onKeyPress = this.onKeyPress.bind (this);
     this.onShowMenu = this.onShowMenu.bind (this);
+    this.onKeySpace = this.onKeySpace.bind (this);
   }
 
   static get wiring () {
@@ -33,6 +38,26 @@ class Button extends Widget {
 
   setKind (kind) {
     this.do ('kind', {kind});
+  }
+
+  onFocus () {
+    MouseTrap.bind ('space', this.onKeySpace, 'keydown');
+    MouseTrap.bind ('enter', this.onKeySpace, 'keydown');
+  }
+
+  onBlur () {
+    MouseTrap.unbind ('space');
+    MouseTrap.unbind ('enter');
+  }
+
+  onKeySpace () {
+    console.log ('button.onKeySpace');
+    if (Bool.isTrue (this.props.disabled)) {
+      return;
+    }
+    if (this.props.onClick) {
+      this.props.onClick ();
+    }
   }
 
   // Called when the button is clicked.
@@ -83,6 +108,14 @@ class Button extends Widget {
     const x = this.props.mouseOut;
     if (x) {
       x (e);
+    }
+  }
+
+  onKeyPress (e) {
+    if (e.key === ' ') {
+      if (this.props.onClick) {
+        //??? this.props.onClick (e);
+      }
     }
   }
 
@@ -185,12 +218,15 @@ class Button extends Widget {
       return (
         <div
           key={this.props.index}
+          onFocus={this.onFocus}
+          onBlur={this.onBlur}
           onMouseDown={this.onMouseDown}
           onMouseUp={this.onMouseUp}
           onTouchStart={this.onMouseDown}
           onTouchEnd={this.onMouseUp}
           onMouseOver={this.onMouseOver}
           onMouseOut={this.onMouseOut}
+          onKeyPress={this.onKeyPress}
           className={boxClass}
           title={tooltip}
         >
@@ -201,12 +237,15 @@ class Button extends Widget {
       return (
         <div
           key={this.props.index}
+          onFocus={this.onFocus}
+          onBlur={this.onBlur}
           onMouseDown={this.onMouseDown}
           onMouseUp={this.onMouseUp}
           onTouchStart={this.onMouseDown}
           onTouchEnd={this.onMouseUp}
           onMouseOver={this.onMouseOver}
           onMouseOut={this.onMouseOut}
+          onKeyPress={this.onKeyPress}
           className={boxClass}
           title={tooltip}
         >
@@ -222,12 +261,15 @@ class Button extends Widget {
       return (
         <a
           key={this.props.index}
+          onFocus={this.onFocus}
+          onBlur={this.onBlur}
           onMouseDown={this.onMouseDown}
           onMouseUp={this.onMouseUp}
           onTouchStart={this.onMouseDown}
           onTouchEnd={this.onMouseUp}
           onMouseOver={this.onMouseOver}
           onMouseOut={this.onMouseOut}
+          onKeyPress={this.onKeyPress}
           className={boxClass}
           title={tooltip}
           href={window.location.hash + '#' + this.props.toAnchor}
@@ -245,14 +287,15 @@ class Button extends Widget {
         <div
           key={this.props.index}
           tabIndex={Bool.isFalse (this.props.focusable) ? -1 : 0}
+          onFocus={this.onFocus}
+          onBlur={this.onBlur}
           onMouseDown={this.onMouseDown}
           onMouseUp={this.onMouseUp}
           onTouchStart={this.onMouseDown}
           onTouchEnd={this.onMouseUp}
           onMouseOver={this.onMouseOver}
           onMouseOut={this.onMouseOut}
-          onFocus={this.onFocus}
-          onBlur={this.onBlur}
+          onKeyPress={this.onKeyPress}
           className={boxClass}
           title={tooltip}
         >
