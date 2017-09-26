@@ -63,7 +63,7 @@ class Combo extends Widget {
     MouseTrap.unbind ('enter');
   }
 
-  onNextIndex () {
+  onNextIndex (e) {
     let index = this.activeIndex;
     while (index < this.props.list.length - 1) {
       index++;
@@ -72,9 +72,10 @@ class Combo extends Widget {
       }
     }
     this.activeIndex = index;
+    e.preventDefault ();
   }
 
-  onPrevIndex () {
+  onPrevIndex (e) {
     let index = this.activeIndex;
     if (index === -1) {
       index = this.props.list.length;
@@ -86,6 +87,7 @@ class Combo extends Widget {
       }
     }
     this.activeIndex = index;
+    e.preventDefault ();
   }
 
   onEnterAction () {
