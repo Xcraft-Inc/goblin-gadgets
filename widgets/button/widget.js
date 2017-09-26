@@ -43,19 +43,18 @@ class Button extends Widget {
   onFocus () {
     if (Bool.isTrue (this.props.focusable)) {
       MouseTrap.bind ('space', this.onKeySpace, 'keydown');
-      MouseTrap.bind ('enter', this.onKeySpace, 'keydown');
     }
   }
 
   onBlur () {
     if (Bool.isTrue (this.props.focusable)) {
       MouseTrap.unbind ('space');
-      MouseTrap.unbind ('enter');
     }
   }
 
-  onKeySpace () {
+  onKeySpace (e) {
     console.log ('button.onKeySpace');
+    e.preventDefault ();
     if (
       Bool.isTrue (this.props.disabled) &&
       !Bool.isTrue (this.props.focusable)
