@@ -41,18 +41,25 @@ class Button extends Widget {
   }
 
   onFocus () {
-    MouseTrap.bind ('space', this.onKeySpace, 'keydown');
-    MouseTrap.bind ('enter', this.onKeySpace, 'keydown');
+    if (Bool.isTrue (this.props.focusable)) {
+      MouseTrap.bind ('space', this.onKeySpace, 'keydown');
+      MouseTrap.bind ('enter', this.onKeySpace, 'keydown');
+    }
   }
 
   onBlur () {
-    MouseTrap.unbind ('space');
-    MouseTrap.unbind ('enter');
+    if (Bool.isTrue (this.props.focusable)) {
+      MouseTrap.unbind ('space');
+      MouseTrap.unbind ('enter');
+    }
   }
 
   onKeySpace () {
     console.log ('button.onKeySpace');
-    if (Bool.isTrue (this.props.disabled)) {
+    if (
+      Bool.isTrue (this.props.disabled) &&
+      !Bool.isTrue (this.props.focusable)
+    ) {
       return;
     }
     if (this.props.onClick) {
@@ -207,11 +214,6 @@ class Button extends Widget {
       tooltip = this.props.text;
     }
 
-    const tabIndexProps = {};
-    if (!Bool.isFalse (this.props.focusable)) {
-      tabIndexProps.tabIndex = 0;
-    }
-
     const boxClass = this.styles.classNames.box;
 
     if (this.props.kind === 'container' || this.props.kind === 'box') {
@@ -286,7 +288,7 @@ class Button extends Widget {
       return (
         <div
           key={this.props.index}
-          tabIndex={Bool.isFalse (this.props.focusable) ? -1 : 0}
+          tabIndex={Bool.isTrue (this.props.focusable) ? 0 : -1}
           onFocus={this.onFocus}
           onBlur={this.onBlur}
           onMouseDown={this.onMouseDown}
