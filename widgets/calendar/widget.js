@@ -217,7 +217,7 @@ class Calendar extends Widget {
       return (
         <Button
           glyph="chevron-left"
-          kind="calendar"
+          kind="calendar-navigator"
           key="prevMonth"
           onClick={this.onPrevMonth}
         />
@@ -232,7 +232,7 @@ class Calendar extends Widget {
       return (
         <Button
           glyph="chevron-right"
-          kind="calendar"
+          kind="calendar-navigator"
           key="nextMonth"
           onClick={this.onNextMonth}
         />
@@ -408,7 +408,7 @@ class Calendar extends Widget {
       <Button
         text={Converters.getMonthDescription (month - 1, '1').toUpperCase ()}
         tooltip={Converters.getMonthDescription (month - 1)}
-        kind="calendar"
+        kind="calendar-navigator"
         grow="1"
         onClick={() => this.onVisibleDateMonth (month)}
         active={Bool.toString (active)}
@@ -444,15 +444,13 @@ class Calendar extends Widget {
       <div className={doubleClass}>
         <Button
           glyph={leftGlyph}
-          kind="calendar"
-          glyphColor="none"
+          kind="calendar-navigator"
           onClick={leftAction}
         />
         <Label text={title} grow="1" justify="center" />
         <Button
           glyph={rightGlyph}
-          kind="calendar"
-          glyphColor="none"
+          kind="calendar-navigator"
           onClick={rightAction}
         />
       </div>

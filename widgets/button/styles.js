@@ -409,7 +409,7 @@ export default function styles (theme, props) {
   }
 
   // Button with a day in Calendar component.
-  if (props.kind === 'calendar') {
+  if (props.kind === 'calendar' || props.kind === 'calendar-navigator') {
     borderStyle = 'none';
     boxWidth = theme.shapes.calendarButtonWidth;
     boxHeight = theme.shapes.calendarButtonHeight;

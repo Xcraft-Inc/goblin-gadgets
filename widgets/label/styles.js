@@ -512,15 +512,16 @@ export default function styles (theme, props) {
   }
 
   // Button with a day in Calendar component.
-  if (props.kind === 'calendar') {
+  if (props.kind === 'calendar' || props.kind === 'calendar-navigator') {
     textSize = theme.shapes.calendarTextSize;
-    textColor = theme.palette.calendarText;
+    textColor = props.kind === 'calendar' ? theme.palette.calendarText : null;
     if (Bool.isTrue (props.active)) {
       textColor = theme.palette.calendarActiveText;
     }
     if (Bool.isTrue (props.calendarDimmed)) {
       textColor = theme.palette.calendarDimmedText;
     }
+    glyphColor = textColor;
   }
 
   if (props.kind === 'container') {
