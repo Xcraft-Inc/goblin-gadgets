@@ -54,6 +54,7 @@ const properties = {
         'button-notification',
         'button-footer',
         'calendar',
+        'calendar-navigator',
         'check-button',
         'chronos-navigator',
         'chronos-navigator',
