@@ -113,29 +113,40 @@ class TextFieldCombo extends Widget {
     }
   }
 
-  getItem (item, active) {
+  getItem (item) {
     if (typeof item === 'string') {
+      const active = this.props.defaultValue === item;
       if (this.props.menuType === 'wrap') {
         return {
           text: item,
           active: Bool.toString (active),
-          action: item => this.setText (item),
+          action: x => this.setText (x),
         };
       } else {
         return {
           text: item,
           glyph: active ? 'check' : 'none',
           active: Bool.toString (active),
-          action: item => this.setText (item),
+          action: x => this.setText (x),
         };
       }
     } else {
-      return {
-        text: item.text,
-        glyph: item.glyph,
-        active: Bool.toString (active),
-        action: item => this.setText (item),
-      };
+      const active = this.props.defaultValue === item.text;
+      if (this.props.menuType === 'wrap') {
+        return {
+          text: item.text,
+          glyph: item.glyph,
+          active: Bool.toString (active),
+          action: x => this.setText (x),
+        };
+      } else {
+        return {
+          text: item.text,
+          glyph: active ? 'check' : 'none',
+          active: Bool.toString (active),
+          action: x => this.setText (x),
+        };
+      }
     }
   }
 
@@ -221,8 +232,7 @@ class TextFieldCombo extends Widget {
   renderComboCombo (list) {
     const x = [];
     for (var item of list) {
-      const active = this.props.defaultValue === item;
-      x.push (this.getItem (item, active));
+      x.push (this.getItem (item));
     }
     return (
       <Combo
@@ -249,15 +259,28 @@ class TextFieldCombo extends Widget {
     const x = [];
     let index = 0;
     let defaultIndex = null;
-    for (var item of list) {
-      if (this.props.defaultValue === item) {
-        defaultIndex = index;
+    if (typeof list[0] === 'string') {
+      for (var item of list) {
+        if (this.props.defaultValue === item) {
+          defaultIndex = index;
+        }
+        x.push ({
+          text: item,
+          action: x => this.setText (x),
+        });
+        index++;
       }
-      x.push ({
-        text: item,
-        action: item => this.setText (item),
-      });
-      index++;
+    } else {
+      for (var item of list) {
+        if (this.props.defaultValue === item.text) {
+          defaultIndex = index;
+        }
+        x.push ({
+          text: item.text,
+          action: x => this.setText (x),
+        });
+        index++;
+      }
     }
     return (
       <Select

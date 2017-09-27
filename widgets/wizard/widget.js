@@ -463,8 +463,12 @@ class Wizard extends Form {
         list = [
           {glyph: 'check', text: 'TextFieldCombo'},
           {glyph: 'bicycle', text: 'Vélo'},
+          {glyph: 'ship', text: 'Bateau'},
+          {glyph: 'truck', text: 'Camion'},
+          {glyph: 'bus', text: 'Bus'},
           {glyph: 'car', text: 'Voiture'},
           {glyph: 'train', text: 'Train'},
+          {glyph: 'plane', text: 'Avion'},
           {glyph: 'rocket', text: 'Fusée'},
         ];
         break;
