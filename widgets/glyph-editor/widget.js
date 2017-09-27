@@ -6,6 +6,7 @@ import Label from 'gadgets/label/widget';
 import Button from 'gadgets/button/widget';
 import LabelTextField from 'gadgets/label-text-field/widget';
 import TextFieldCombo from 'gadgets/text-field-combo/widget';
+import Field from 'gadgets/field/widget';
 
 const glyphs = [
   'ban',
@@ -121,64 +122,35 @@ class GlyphEditor extends Form {
           <Label text="Pictogramme" kind="title" />
         </Container>
 
-        <Container kind="row-pane">
-          <LabelTextField
-            labelGlyph="tag"
-            grow="1"
-            hintText="Nom du pictogramme"
-            model=".name"
-          />
-        </Container>
+        <Field labelGlyph="tag" labelWidth="32px" model=".name" />
 
-        <Container kind="row-pane">
-          <LabelTextField
-            labelGlyph="comment"
-            grow="1"
-            hintText="Description"
-            model=".description"
-            rows="4"
-          />
-        </Container>
+        <Field
+          labelGlyph="comment"
+          labelWidth="32px"
+          hintText="Description"
+          rows="4"
+          model=".description"
+        />
 
-        <Container kind="row-pane">
-          <Label
-            glyph="picture-o"
-            kind="label-text-field"
-            justify="left"
-            spacing="overlap"
-          />
-          <TextFieldCombo
-            grow="1"
-            hintText="Pictogramme (font-awesome)"
-            model=".glyph"
-            onSetText={text => {
-              this.setEntityValue ('.glyph', text);
-            }}
-            list={getGlyphs ()}
-            menuType="wrap"
-            menuItemWidth="200px"
-          />
-        </Container>
+        <Field
+          kind="combo"
+          labelGlyph="picture-o"
+          labelWidth="32px"
+          hintText="Pictogramme (font-awesome)"
+          model=".glyph"
+          list={getGlyphs ()}
+          menuItemWidth="200px"
+        />
 
-        <Container kind="row-pane">
-          <Label
-            glyph="paint-brush"
-            kind="label-text-field"
-            justify="left"
-            spacing="overlap"
-          />
-          <TextFieldCombo
-            grow="1"
-            hintText="Couleur"
-            model=".color"
-            onSetText={text => {
-              this.setEntityValue ('.color', text);
-            }}
-            list={colors}
-            menuType="wrap"
-            menuItemWidth="200px"
-          />
-        </Container>
+        <Field
+          kind="combo"
+          labelGlyph="paint-brush"
+          labelWidth="32px"
+          hintText="Couleur"
+          model=".color"
+          list={colors}
+          menuItemWidth="200px"
+        />
 
         <Container kind="row-pane">
           <Sample
