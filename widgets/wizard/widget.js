@@ -674,6 +674,7 @@ class Wizard extends Form {
     const backgroundColor = this.context.theme.palette[
       this.getPreviewSettingValue ('color') + 'Background'
     ];
+    // Specifies 'color' for widgets that do not define color (color='transparent' or null).
     const paneStyle = {
       display: 'flex',
       flexDirection: 'column',
