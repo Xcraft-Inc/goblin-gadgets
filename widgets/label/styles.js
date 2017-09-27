@@ -522,11 +522,6 @@ export default function styles (theme, props) {
       textColor = theme.palette.calendarDimmedText;
     }
   }
-  // Button for month navigation in Calendar component.
-  if (props.kind === 'calendar-navigation') {
-    glyphColor = theme.palette.calendarHeaderText;
-    glyphSize = theme.palette.calendarGlyphSize;
-  }
 
   if (props.kind === 'container') {
     boxAlignItems = 'stretch';

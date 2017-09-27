@@ -217,7 +217,7 @@ class Calendar extends Widget {
       return (
         <Button
           glyph="chevron-left"
-          kind="calendar-navigation"
+          kind="calendar"
           key="prevMonth"
           onClick={this.onPrevMonth}
         />
@@ -232,7 +232,7 @@ class Calendar extends Widget {
       return (
         <Button
           glyph="chevron-right"
-          kind="calendar-navigation"
+          kind="calendar"
           key="nextMonth"
           onClick={this.onNextMonth}
         />
@@ -444,14 +444,14 @@ class Calendar extends Widget {
       <div className={doubleClass}>
         <Button
           glyph={leftGlyph}
-          kind="calendar-navigation"
+          kind="calendar"
           glyphColor="none"
           onClick={leftAction}
         />
         <Label text={title} grow="1" justify="center" />
         <Button
           glyph={rightGlyph}
-          kind="calendar-navigation"
+          kind="calendar"
           glyphColor="none"
           onClick={rightAction}
         />

@@ -415,7 +415,7 @@ export default function styles (theme, props) {
     boxHeight = theme.shapes.calendarButtonHeight;
     textSize = theme.shapes.calendarTextSize;
     transition = null;
-    backgroundColor = theme.palette.calendarBackground;
+    backgroundColor = 'transparent';
     if (Bool.isTrue (props.calendarWeekend)) {
       backgroundColor = theme.palette.calendarWeekendBackground;
     }
@@ -427,13 +427,6 @@ export default function styles (theme, props) {
       activeColor = theme.palette.calendarActiveBackground;
       textActiveColor = theme.palette.calendarActiveText;
     }
-  }
-  // Button for month navigation in Calendar component.
-  if (props.kind === 'calendar-navigation') {
-    boxWidth = theme.shapes.calendarButtonWidth;
-    boxHeight = theme.shapes.calendarButtonHeight;
-    borderColor = 'transparent';
-    backgroundColor = theme.palette.calendarBackground;
   }
 
   if (props.kind === 'container') {
@@ -556,7 +549,7 @@ export default function styles (theme, props) {
 
   // Compute colors for glyph, text and hover if necessary.
   let buttonBackgroundColor = backgroundColor;
-  if (!buttonBackgroundColor) {
+  if (!buttonBackgroundColor || buttonBackgroundColor === 'transparent') {
     buttonBackgroundColor = theme.palette.buttonBackground;
   }
   if (!backgroundHoverColor) {
