@@ -106,10 +106,10 @@ class TextFieldCombo extends Widget {
     }
   }
 
-  setText (text) {
+  setText (item) {
     const x = this.props.onSetText;
     if (x) {
-      x (text.text); // FIXME???
+      x (item.text);
     }
   }
 
@@ -134,7 +134,7 @@ class TextFieldCombo extends Widget {
         text: item.text,
         glyph: item.glyph,
         active: Bool.toString (active),
-        action: item => this.setText (item.text),
+        action: item => this.setText (item),
       };
     }
   }
