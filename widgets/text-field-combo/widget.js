@@ -113,6 +113,32 @@ class TextFieldCombo extends Widget {
     }
   }
 
+  getItem (item, active) {
+    if (typeof item === 'string') {
+      if (this.props.menuType === 'wrap') {
+        return {
+          text: item,
+          active: Bool.toString (active),
+          action: item => this.setText (item),
+        };
+      } else {
+        return {
+          text: item,
+          glyph: active ? 'check' : 'none',
+          active: Bool.toString (active),
+          action: item => this.setText (item),
+        };
+      }
+    } else {
+      return {
+        text: item.text,
+        glyph: item.glyph,
+        active: Bool.toString (active),
+        action: item => this.setText (item.text),
+      };
+    }
+  }
+
   renderTextField () {
     const autoReadonly =
       this.readonly &&
@@ -196,12 +222,7 @@ class TextFieldCombo extends Widget {
     const x = [];
     for (var item of list) {
       const active = this.props.defaultValue === item;
-      x.push ({
-        text: item,
-        glyph: active ? 'check' : 'none',
-        active: Bool.toString (active),
-        action: item => this.setText (item),
-      });
+      x.push (this.getItem (item, active));
     }
     return (
       <Combo

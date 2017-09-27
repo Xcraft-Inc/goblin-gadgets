@@ -48,6 +48,16 @@ const glyphs = [
   'warning',
 ];
 
+function getGlyphs () {
+  const result = [];
+  for (let i = 0; i < glyphs.length; i++) {
+    const text = glyphs[i];
+    result.push ({glyph: text, text: text});
+    //? result.push (text);
+  }
+  return result;
+}
+
 const colors = [
   '',
   'base',
@@ -131,7 +141,7 @@ class GlyphEditor extends Form {
                   onSetText={text => {
                     this.setEntityValue ('.glyph', text);
                   }}
-                  list={glyphs}
+                  list={getGlyphs ()}
                   menuType="wrap"
                   menuItemWidth="200px"
                 />
