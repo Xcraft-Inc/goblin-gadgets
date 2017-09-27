@@ -2001,7 +2001,7 @@ const previewSettings = {
     order: 10,
     group: 'Menu',
     type: 'list',
-    list: ['short', 'long', 'special1', 'special2'],
+    list: ['short', 'long', 'glyphs', 'special1', 'special2'],
     value: 'short',
   },
   fieldMenu: {

@@ -459,6 +459,15 @@ class Wizard extends Form {
           'Zoé',
         ];
         break;
+      case 'glyphs':
+        list = [
+          {glyph: 'check', text: 'TextFieldCombo'},
+          {glyph: 'bicycle', text: 'Vélo'},
+          {glyph: 'car', text: 'Voiture'},
+          {glyph: 'train', text: 'Train'},
+          {glyph: 'rocket', text: 'Fusée'},
+        ];
+        break;
       case 'special1':
         list = [
           'TextFieldCombo',
