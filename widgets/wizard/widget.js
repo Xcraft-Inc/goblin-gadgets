@@ -1,6 +1,7 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 import Form from 'laboratory/form';
+import {ColorManipulator} from 'electrum-theme';
 import * as Bool from '../helpers/boolean-helpers.js';
 import {Unit} from 'electrum-theme';
 
@@ -670,6 +671,9 @@ class Wizard extends Form {
   }
 
   renderPreviewSolo () {
+    const backgroundColor = this.context.theme.palette[
+      this.getPreviewSettingValue ('color') + 'Background'
+    ];
     const paneStyle = {
       display: 'flex',
       flexDirection: 'column',
@@ -677,9 +681,8 @@ class Wizard extends Form {
       flexBasis: '0',
       marginBottom: this.context.theme.shapes.containerMargin,
       padding: this.context.theme.shapes.containerMargin,
-      backgroundColor: this.context.theme.palette[
-        this.getPreviewSettingValue ('color') + 'Background'
-      ],
+      backgroundColor: backgroundColor,
+      color: ColorManipulator.emphasize (backgroundColor, 1),
       transition: this.context.theme.transitions.easeOut (),
     };
 
