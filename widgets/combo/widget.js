@@ -26,7 +26,7 @@ class Combo extends Widget {
     this.onNextIndex = this.onNextIndex.bind (this);
     this.onEnterAction = this.onEnterAction.bind (this);
     this.onActionAndClose = this.onActionAndClose.bind (this);
-    this.onMouseDown = this.onMouseDown.bind (this);
+    this.onMouseUp = this.onMouseUp.bind (this);
   }
 
   get activeIndex () {
@@ -105,7 +105,7 @@ class Combo extends Widget {
     }
   }
 
-  onMouseDown (e) {
+  onMouseUp (e) {
     const node = ReactDOM.findDOMNode (this);
     const rect = node.children[0].getBoundingClientRect ();
     if (!RectHelpers.isInside (rect, e.clientX, e.clientY)) {
@@ -188,8 +188,8 @@ class Combo extends Widget {
     return (
       <div
         className={fullScreenClass}
-        onMouseDown={this.onMouseDown}
-        onTouchStart={this.onMouseDown}
+        onMouseUp={this.onMouseUp}
+        onTouchEnd={this.onMouseUp}
       >
         <div className={comboClass}>
           <Container
