@@ -22,6 +22,7 @@ function omit (object, props) {
 
   return newObject;
 }
+
 /******************************************************************************/
 
 class TextField extends Widget {
@@ -74,7 +75,7 @@ class TextField extends Widget {
   onChange () {}
 
   onFocus (e) {
-    //- console.log ('text-field.onFocus');
+    console.log ('text-field.onFocus');
     this.navToHinter ();
     const selectAllOnFocus = this.props.selectAllOnFocus || !!this.props.hinter;
     if (Bool.isTrue (selectAllOnFocus)) {
@@ -87,7 +88,7 @@ class TextField extends Widget {
   }
 
   onBlur (e) {
-    //- console.log ('text-field.onBlur');
+    console.log ('text-field.onBlur');
     const x = this.props.onBlur;
     if (x) {
       x (e);
@@ -98,7 +99,6 @@ class TextField extends Widget {
     const options = {};
     if (Bool.isTrue (this.props.readonly)) {
       options.readOnly = 'readOnly';
-      //????options.tabIndex = -1;
     }
 
     const mapProps = {
@@ -248,6 +248,7 @@ class TextField extends Widget {
       : this.props.hinter ? this.props.hinter : this.props.model ();
 
     const defaultUpdateOn = this.props.hinter ? 'change' : 'blur';
+
     return (
       <Control
         className={fieldClass}
@@ -269,7 +270,6 @@ class TextField extends Widget {
         size={this.props.size || 'size'}
         type={this.props.type || 'text'}
         key={key}
-        tabIndex={this.props.tabIndex}
         onKeyDown={this.props.onKeyDown}
         {...options}
       />

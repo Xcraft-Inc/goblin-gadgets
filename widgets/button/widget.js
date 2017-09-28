@@ -8,6 +8,8 @@ import Label from 'gadgets/label/widget';
 import Menu from 'gadgets/menu/widget';
 import Badge from 'gadgets/badge/widget';
 
+/******************************************************************************/
+
 class Button extends Widget {
   constructor () {
     super (...arguments);
@@ -237,12 +239,18 @@ class Button extends Widget {
       tooltip = this.props.text;
     }
 
+    const propsTabIndex = {};
+    if (Bool.isTrue (this.props.focusable)) {
+      propsTabIndex.tabIndex = 0;
+    }
+
     const boxClass = this.styles.classNames.box;
 
     if (this.props.kind === 'container' || this.props.kind === 'box') {
       return (
         <div
           key={this.props.index}
+          {...propsTabIndex}
           onFocus={this.onFocus}
           onBlur={this.onBlur}
           onMouseDown={this.onMouseDown}
@@ -261,6 +269,7 @@ class Button extends Widget {
       return (
         <div
           key={this.props.index}
+          {...propsTabIndex}
           onFocus={this.onFocus}
           onBlur={this.onBlur}
           onMouseDown={this.onMouseDown}
@@ -284,6 +293,7 @@ class Button extends Widget {
       return (
         <a
           key={this.props.index}
+          {...propsTabIndex}
           onFocus={this.onFocus}
           onBlur={this.onBlur}
           onMouseDown={this.onMouseDown}
@@ -308,7 +318,7 @@ class Button extends Widget {
       return (
         <div
           key={this.props.index}
-          tabIndex={Bool.isTrue (this.props.focusable) ? 0 : -1}
+          {...propsTabIndex}
           onFocus={this.onFocus}
           onBlur={this.onBlur}
           onMouseDown={this.onMouseDown}

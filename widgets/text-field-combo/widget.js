@@ -91,14 +91,14 @@ class TextFieldCombo extends Widget {
   }
 
   onFocus () {
-    //- console.log ('text-field-combo.onFocus');
+    console.log ('text-field-combo.onFocus');
     MouseTrap.bind ('up', this.onKeyCombo, 'keydown');
     MouseTrap.bind ('down', this.onKeyCombo, 'keydown');
     this.focus = true;
   }
 
   onBlur () {
-    //- console.log ('text-field-combo.onBlur');
+    console.log ('text-field-combo.onBlur');
     MouseTrap.unbind ('esc');
     MouseTrap.unbind ('down');
     this.focus = false;
@@ -189,7 +189,6 @@ class TextFieldCombo extends Widget {
       spacing: 'overlap',
       shape: textFieldShape,
       flyingBalloonAnchor: this.props.flyingBalloonAnchor,
-      //???tabIndex: this.props.tabIndex,
       defaultValue: this.props.defaultValue,
       grow: '1',
       rows: this.props.rows,
