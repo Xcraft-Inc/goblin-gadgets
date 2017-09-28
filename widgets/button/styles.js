@@ -696,9 +696,10 @@ export default function styles (theme, props) {
 
   const focusedForegroundStyle = {
     position: 'absolute',
-    width: 'calc(100% - 8px)',
-    height: 'calc(100% - 8px)',
-    border: '1px dashed #888',
+    width: 'calc(100% - 14px)',
+    height: 'calc(100% - 14px)',
+    backgroundColor: ColorManipulator.fade (theme.palette.focused, 0.2),
+    boxShadow: theme.shapes.focusedShadow + theme.palette.focused,
   };
 
   return {
