@@ -75,7 +75,7 @@ class TextField extends Widget {
   onChange () {}
 
   onFocus (e) {
-    console.log ('text-field.onFocus');
+    //- console.log ('text-field.onFocus');
     this.navToHinter ();
     const selectAllOnFocus = this.props.selectAllOnFocus || !!this.props.hinter;
     if (Bool.isTrue (selectAllOnFocus)) {
@@ -88,7 +88,7 @@ class TextField extends Widget {
   }
 
   onBlur (e) {
-    console.log ('text-field.onBlur');
+    //- console.log ('text-field.onBlur');
     const x = this.props.onBlur;
     if (x) {
       x (e);
