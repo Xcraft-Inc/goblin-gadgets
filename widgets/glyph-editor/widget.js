@@ -1,9 +1,12 @@
 import React from 'react';
 import Form from 'laboratory/form';
+
 import Container from 'gadgets/container/widget';
 import Label from 'gadgets/label/widget';
+import Button from 'gadgets/button/widget';
 import LabelTextField from 'gadgets/label-text-field/widget';
 import TextFieldCombo from 'gadgets/text-field-combo/widget';
+import Field from 'gadgets/field/widget';
 
 const glyphs = [
   'ban',
@@ -48,6 +51,15 @@ const glyphs = [
   'warning',
 ];
 
+function getGlyphs () {
+  const result = [];
+  for (let i = 0; i < glyphs.length; i++) {
+    const text = glyphs[i];
+    result.push ({glyph: text, text: text});
+  }
+  return result;
+}
+
 const colors = [
   '',
   'base',
@@ -71,13 +83,32 @@ class GlyphEditor extends Form {
     };
   }
 
-  render () {
-    if (!this.props.id) {
-      return null;
-    }
+  renderActions () {
+    return (
+      <Container kind="actions">
+        <Button
+          width="0px"
+          grow="1"
+          kind="action"
+          glyph="check"
+          text="Terminer"
+          place="1/3"
+          onClick={this.onSubmit}
+        />
+        <Button
+          width="0px"
+          grow="1"
+          kind="action"
+          place="3/3"
+          glyph="close"
+          text="Annuler"
+          onClick={this.onCancel}
+        />
+      </Container>
+    );
+  }
 
-    const Form = this.Form;
-    const Title = this.getWidgetToEntityMapper (Label, 'text') ('.name');
+  renderForm () {
     const Sample = this.getWidgetToEntityMapper (Label, g => {
       return {
         glyph: g.get ('glyph'),
@@ -86,90 +117,74 @@ class GlyphEditor extends Form {
     }) ('');
 
     return (
+      <Container kind="pane">
+        <Container kind="row-pane">
+          <Label text="Pictogramme" kind="title" />
+        </Container>
+
+        <Field labelGlyph="tag" labelWidth="32px" model=".name" />
+
+        <Field
+          labelGlyph="comment"
+          labelWidth="32px"
+          hintText="Description"
+          rows="4"
+          model=".description"
+        />
+
+        <Field
+          kind="combo"
+          labelGlyph="picture-o"
+          labelWidth="32px"
+          hintText="Pictogramme (font-awesome)"
+          model=".glyph"
+          list={getGlyphs ()}
+          menuItemWidth="200px"
+        />
+
+        <Field
+          kind="combo"
+          labelGlyph="paint-brush"
+          labelWidth="32px"
+          hintText="Couleur"
+          model=".color"
+          list={colors}
+          menuItemWidth="200px"
+        />
+
+        <Container kind="row-pane">
+          <Sample
+            glyphSize="500%"
+            height="150px"
+            grow="1"
+            justify="center"
+            insideButton="true"
+          />
+        </Container>
+
+      </Container>
+    );
+  }
+
+  render () {
+    if (!this.props.id) {
+      return null;
+    }
+
+    const Form = this.Form;
+    const Title = this.getWidgetToEntityMapper (Label, 'text') ('.name');
+
+    return (
       <Container kind="view" width="500px">
-        <Form {...this.entityConfig}>
-          <Container kind="pane-header">
-            <Title kind="pane-header" />
-          </Container>
-          <Container kind="panes">
-            <Container kind="pane">
-
-              <Container kind="row-pane">
-                <Label text="Pictogramme" kind="title" />
-              </Container>
-
-              <Container kind="row-pane">
-                <LabelTextField
-                  labelGlyph="tag"
-                  grow="1"
-                  hintText="Nom du pictogramme"
-                  model=".name"
-                />
-              </Container>
-
-              <Container kind="row-pane">
-                <LabelTextField
-                  labelGlyph="comment"
-                  grow="1"
-                  hintText="Description"
-                  model=".description"
-                  rows="4"
-                />
-              </Container>
-
-              <Container kind="row-pane">
-                <Label
-                  glyph="picture-o"
-                  kind="label-text-field"
-                  justify="left"
-                  spacing="overlap"
-                />
-                <TextFieldCombo
-                  grow="1"
-                  hintText="Pictogramme (font-awesome)"
-                  model=".glyph"
-                  onSetText={text => {
-                    this.setEntityValue ('.glyph', text);
-                  }}
-                  list={glyphs}
-                  menuType="wrap"
-                  menuItemWidth="200px"
-                />
-              </Container>
-
-              <Container kind="row-pane">
-                <Label
-                  glyph="paint-brush"
-                  kind="label-text-field"
-                  justify="left"
-                  spacing="overlap"
-                />
-                <TextFieldCombo
-                  grow="1"
-                  hintText="Couleur"
-                  model=".color"
-                  onSetText={text => {
-                    this.setEntityValue ('.color', text);
-                  }}
-                  list={colors}
-                  menuType="wrap"
-                  menuItemWidth="200px"
-                />
-              </Container>
-
-              <Container kind="row-pane">
-                <Sample
-                  glyphSize="500%"
-                  height="150px"
-                  grow="1"
-                  justify="center"
-                  insideButton="true"
-                />
-              </Container>
-
-            </Container>
-          </Container>
-        </Form>
+        <Container kind="pane-header">
+          <Title kind="pane-header" />
+        </Container>
+        <Container kind="panes">
+          <Form {...this.entityConfig}>
+            {this.renderForm ()}
+          </Form>
+        </Container>
+        {this.renderActions ()}
       </Container>
     );
   }

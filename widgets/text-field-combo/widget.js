@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
+import MouseTrap from 'mousetrap';
 import * as ComboHelpers from '../helpers/combo-helpers.js';
 import * as Bool from '../helpers/boolean-helpers.js';
 
@@ -17,7 +18,7 @@ class TextFieldCombo extends Widget {
 
     this.state = {
       showCombo: false,
-      readonly: true,
+      focus: false,
     };
 
     this.comboLocation = null;
@@ -25,7 +26,8 @@ class TextFieldCombo extends Widget {
     this.onFocus = this.onFocus.bind (this);
     this.onBlur = this.onBlur.bind (this);
     this.onMouseDown = this.onMouseDown.bind (this);
-    this.onButtonClicked = this.onButtonClicked.bind (this);
+    this.onKeyCombo = this.onKeyCombo.bind (this);
+    this.onShowCombo = this.onShowCombo.bind (this);
     this.onHideCombo = this.onHideCombo.bind (this);
   }
 
@@ -39,17 +41,20 @@ class TextFieldCombo extends Widget {
     });
   }
 
-  get readonly () {
-    return this.state.readonly;
+  get focus () {
+    return this.state.focus;
   }
 
-  set readonly (value) {
+  set focus (value) {
     this.setState ({
-      readonly: value,
+      focus: value,
     });
   }
 
-  doShowCombo () {
+  onShowCombo () {
+    if (!this.props.list) {
+      return;
+    }
     const node = ReactDOM.findDOMNode (this);
 
     const itemCount = this.props.list.size
@@ -77,13 +82,6 @@ class TextFieldCombo extends Widget {
     this.showCombo = false;
   }
 
-  // Called when the combo button is clicked.
-  onButtonClicked () {
-    if (this.props.list) {
-      this.doShowCombo ();
-    }
-  }
-
   onChange (e) {
     this.onChange (e);
     const x = this.props.onChange;
@@ -93,29 +91,77 @@ class TextFieldCombo extends Widget {
   }
 
   onFocus () {
-    this.readonly = false;
+    //- console.log ('text-field-combo.onFocus');
+    MouseTrap.bind ('up', this.onKeyCombo, 'keydown');
+    MouseTrap.bind ('down', this.onKeyCombo, 'keydown');
+    this.focus = true;
   }
 
   onBlur () {
-    this.readonly = true;
+    //- console.log ('text-field-combo.onBlur');
+    MouseTrap.unbind ('esc');
+    MouseTrap.unbind ('down');
+    this.focus = false;
   }
 
   onMouseDown () {
     if (Bool.isTrue (this.props.readonly)) {
-      this.onButtonClicked ();
+      this.onShowCombo ();
     }
   }
 
-  setText (text) {
+  onKeyCombo (e) {
+    e.preventDefault ();
+    this.onShowCombo ();
+  }
+
+  setText (item) {
     const x = this.props.onSetText;
     if (x) {
-      x (text.text); // FIXME???
+      x (item.text);
+    }
+  }
+
+  getItem (item) {
+    if (typeof item === 'string') {
+      const active = this.props.defaultValue === item;
+      if (this.props.menuType === 'wrap') {
+        return {
+          text: item,
+          active: Bool.toString (active),
+          action: x => this.setText (x),
+        };
+      } else {
+        return {
+          text: item,
+          glyph: active ? 'check' : 'none',
+          active: Bool.toString (active),
+          action: x => this.setText (x),
+        };
+      }
+    } else {
+      const active = this.props.defaultValue === item.text;
+      if (this.props.menuType === 'wrap') {
+        return {
+          text: item.text,
+          glyph: item.glyph,
+          active: Bool.toString (active),
+          action: x => this.setText (x),
+        };
+      } else {
+        return {
+          text: item.text,
+          glyph: active ? 'check' : 'none',
+          active: Bool.toString (active),
+          action: x => this.setText (x),
+        };
+      }
     }
   }
 
   renderTextField () {
     const autoReadonly =
-      this.readonly &&
+      !this.focus &&
       this.props.selectedValue &&
       this.props.selectedValue !== '';
     const displayValue = autoReadonly ? this.props.selectedValue : null;
@@ -143,7 +189,7 @@ class TextFieldCombo extends Widget {
       spacing: 'overlap',
       shape: textFieldShape,
       flyingBalloonAnchor: this.props.flyingBalloonAnchor,
-      tabIndex: this.props.tabIndex,
+      //???tabIndex: this.props.tabIndex,
       defaultValue: this.props.defaultValue,
       grow: '1',
       rows: this.props.rows,
@@ -184,10 +230,9 @@ class TextFieldCombo extends Widget {
     return (
       <Button
         kind="combo"
-        focusable="true"
         glyph={glyph}
         shape={buttonShape}
-        onClick={this.onButtonClicked}
+        onClick={this.onShowCombo}
       />
     );
   }
@@ -195,13 +240,7 @@ class TextFieldCombo extends Widget {
   renderComboCombo (list) {
     const x = [];
     for (var item of list) {
-      const active = this.props.defaultValue === item;
-      x.push ({
-        text: item,
-        glyph: active ? 'check' : 'none',
-        active: Bool.toString (active),
-        action: item => this.setText (item),
-      });
+      x.push (this.getItem (item));
     }
     return (
       <Combo
@@ -228,15 +267,28 @@ class TextFieldCombo extends Widget {
     const x = [];
     let index = 0;
     let defaultIndex = null;
-    for (var item of list) {
-      if (this.props.defaultValue === item) {
-        defaultIndex = index;
+    if (typeof list[0] === 'string') {
+      for (var item of list) {
+        if (this.props.defaultValue === item) {
+          defaultIndex = index;
+        }
+        x.push ({
+          text: item,
+          action: x => this.setText (x),
+        });
+        index++;
       }
-      x.push ({
-        text: item,
-        action: item => this.setText (item),
-      });
-      index++;
+    } else {
+      for (var item of list) {
+        if (this.props.defaultValue === item.text) {
+          defaultIndex = index;
+        }
+        x.push ({
+          text: item.text,
+          action: x => this.setText (x),
+        });
+        index++;
+      }
     }
     return (
       <Select
@@ -275,7 +327,9 @@ class TextFieldCombo extends Widget {
 
     const boxClass = this.showCombo
       ? this.styles.classNames.shadowBox
-      : this.styles.classNames.box;
+      : this.focus
+          ? this.styles.classNames.focusedBox
+          : this.styles.classNames.box;
 
     return (
       <span disabled={this.props.disabled} className={boxClass}>

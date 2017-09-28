@@ -1,6 +1,7 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 import Form from 'laboratory/form';
+import {ColorManipulator} from 'electrum-theme';
 import * as Bool from '../helpers/boolean-helpers.js';
 import {Unit} from 'electrum-theme';
 
@@ -458,6 +459,19 @@ class Wizard extends Form {
           'Zoé',
         ];
         break;
+      case 'glyphs':
+        list = [
+          {glyph: 'check', text: 'TextFieldCombo'},
+          {glyph: 'bicycle', text: 'Vélo'},
+          {glyph: 'ship', text: 'Bateau'},
+          {glyph: 'truck', text: 'Camion'},
+          {glyph: 'bus', text: 'Bus'},
+          {glyph: 'car', text: 'Voiture'},
+          {glyph: 'train', text: 'Train'},
+          {glyph: 'plane', text: 'Avion'},
+          {glyph: 'rocket', text: 'Fusée'},
+        ];
+        break;
       case 'special1':
         list = [
           'TextFieldCombo',
@@ -670,6 +684,10 @@ class Wizard extends Form {
   }
 
   renderPreviewSolo () {
+    const backgroundColor = this.context.theme.palette[
+      this.getPreviewSettingValue ('color') + 'Background'
+    ];
+    // Specifies 'color' for widgets that do not define color (color='transparent' or null).
     const paneStyle = {
       display: 'flex',
       flexDirection: 'column',
@@ -677,9 +695,8 @@ class Wizard extends Form {
       flexBasis: '0',
       marginBottom: this.context.theme.shapes.containerMargin,
       padding: this.context.theme.shapes.containerMargin,
-      backgroundColor: this.context.theme.palette[
-        this.getPreviewSettingValue ('color') + 'Background'
-      ],
+      backgroundColor: backgroundColor,
+      color: ColorManipulator.emphasize (backgroundColor, 1),
       transition: this.context.theme.transitions.easeOut (),
     };
 

@@ -27,7 +27,9 @@ function omit (object, props) {
 class TextField extends Widget {
   constructor () {
     super (...arguments);
-    this.onFieldFocus = this.onFieldFocus.bind (this);
+
+    this.onFocus = this.onFocus.bind (this);
+    this.onBlur = this.onBlur.bind (this);
     this.selectAll = this.selectAll.bind (this);
   }
 
@@ -71,16 +73,21 @@ class TextField extends Widget {
 
   onChange () {}
 
-  onFieldFocus () {
+  onFocus (e) {
+    //- console.log ('text-field.onFocus');
     this.navToHinter ();
     const selectAllOnFocus = this.props.selectAllOnFocus || !!this.props.hinter;
     if (Bool.isTrue (selectAllOnFocus)) {
       this.selectAll ();
     }
+    const x = this.props.onFocus;
+    if (x) {
+      x (e);
+    }
   }
 
   onBlur (e) {
-    this.onBlur (e);
+    //- console.log ('text-field.onBlur');
     const x = this.props.onBlur;
     if (x) {
       x (e);
@@ -91,7 +98,7 @@ class TextField extends Widget {
     const options = {};
     if (Bool.isTrue (this.props.readonly)) {
       options.readOnly = 'readOnly';
-      options.tabIndex = -1;
+      //????options.tabIndex = -1;
     }
 
     const mapProps = {
@@ -253,7 +260,8 @@ class TextField extends Widget {
         mapProps={mapProps}
         updateOn={this.props.updateOn ? this.props.updateOn : defaultUpdateOn}
         model={this.props.hinter ? `.${this.props.hinter}` : this.props.model}
-        onFocus={this.onFieldFocus}
+        onFocus={this.onFocus}
+        onBlur={this.onBlur}
         onMouseDown={this.props.onMouseDown}
         disabled={this.props.disabled}
         maxLength={this.props.maxLength}

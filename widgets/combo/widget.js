@@ -136,6 +136,7 @@ class Combo extends Widget {
             key={index}
             kind="combo-wrap-item"
             width={width}
+            glyph={item.glyph}
             text={item.text}
             tooltip={
               Bool.isTrue (this.props.menuItemTooltips) ? item.text : null

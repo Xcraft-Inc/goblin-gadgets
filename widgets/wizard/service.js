@@ -1825,6 +1825,14 @@ const properties = {
       list: ['', 'row', 'column', 'wrap'],
       value: 'row',
     },
+    rows: {
+      id: 'rows',
+      group: 'Text',
+      type: 'combo',
+      field: 'rows',
+      list: ['', '1', '2', '3', '4', '5', '10'],
+      value: '',
+    },
     width: {
       id: 'width',
       group: 'Layout',
@@ -1908,6 +1916,15 @@ const properties = {
       list: ['', '1', '2', '3', '4'],
       value: '',
     },
+    menuItemWidth: {
+      id: 'menuItemWidth',
+      group: 'Menu',
+      type: 'text',
+      unit: 'px',
+      field: 'menuItemWidth',
+      list: ['', '100px', '150px', '200px', '300px'],
+      value: '',
+    },
   },
 };
 
@@ -1984,7 +2001,7 @@ const previewSettings = {
     order: 10,
     group: 'Menu',
     type: 'list',
-    list: ['short', 'long', 'special1', 'special2'],
+    list: ['short', 'long', 'glyphs', 'special1', 'special2'],
     value: 'short',
   },
   fieldMenu: {

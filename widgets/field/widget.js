@@ -57,6 +57,7 @@ class Field extends Form {
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
           hintText={this.props.hintText}
+          rows={this.props.rows}
           model={this.props.model}
           grow="1"
         />
@@ -116,6 +117,7 @@ class Field extends Form {
           readonly="false"
           list={this.props.list}
           menuType="wrap"
+          menuItemWidth={this.props.menuItemWidth}
           comboTextTransform="none"
           onSetText={text => {
             this.setBackendValue (this.fullPath, text);

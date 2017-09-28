@@ -71,6 +71,26 @@ export default function styles (theme, props) {
     borderRadius: borderRadius,
   };
 
+  const focusedBoxStyle = {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    width: props.width,
+    flexGrow: flexGrow,
+    flexShrink: flexShrink,
+    flexBasis: flexBasis,
+    padding: '0px',
+    marginTop: '0px',
+    marginLeft: '0px',
+    marginBottom: '0px',
+    marginRight: marginRight,
+    position: 'relative',
+    opacity: opacity,
+    boxShadow: theme.shapes.focusedShadow + theme.palette.focused,
+    borderRadius: borderRadius,
+  };
+
   const comboBoxStyle = {
     position: 'absolute',
     right: props.comboDirection === 'right' ? null : '0px',
@@ -90,6 +110,7 @@ export default function styles (theme, props) {
   return {
     box: boxStyle,
     shadowBox: shadowBoxStyle,
+    focusedBox: focusedBoxStyle,
     comboBox: comboBoxStyle,
     emptyCombo: emptyComboStyle,
   };
