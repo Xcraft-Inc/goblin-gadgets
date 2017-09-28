@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
+import MouseTrap from 'mousetrap';
 import * as ComboHelpers from '../helpers/combo-helpers.js';
 import * as Bool from '../helpers/boolean-helpers.js';
 
@@ -17,7 +18,7 @@ class TextFieldCombo extends Widget {
 
     this.state = {
       showCombo: false,
-      readonly: true,
+      focus: false,
     };
 
     this.comboLocation = null;
@@ -25,7 +26,8 @@ class TextFieldCombo extends Widget {
     this.onFocus = this.onFocus.bind (this);
     this.onBlur = this.onBlur.bind (this);
     this.onMouseDown = this.onMouseDown.bind (this);
-    this.onButtonClicked = this.onButtonClicked.bind (this);
+    this.onKeyCombo = this.onKeyCombo.bind (this);
+    this.onShowCombo = this.onShowCombo.bind (this);
     this.onHideCombo = this.onHideCombo.bind (this);
   }
 
@@ -39,17 +41,20 @@ class TextFieldCombo extends Widget {
     });
   }
 
-  get readonly () {
-    return this.state.readonly;
+  get focus () {
+    return this.state.focus;
   }
 
-  set readonly (value) {
+  set focus (value) {
     this.setState ({
-      readonly: value,
+      focus: value,
     });
   }
 
-  doShowCombo () {
+  onShowCombo () {
+    if (!this.props.list) {
+      return;
+    }
     const node = ReactDOM.findDOMNode (this);
 
     const itemCount = this.props.list.size
@@ -77,13 +82,6 @@ class TextFieldCombo extends Widget {
     this.showCombo = false;
   }
 
-  // Called when the combo button is clicked.
-  onButtonClicked () {
-    if (this.props.list) {
-      this.doShowCombo ();
-    }
-  }
-
   onChange (e) {
     this.onChange (e);
     const x = this.props.onChange;
@@ -93,17 +91,28 @@ class TextFieldCombo extends Widget {
   }
 
   onFocus () {
-    this.readonly = false;
+    //- console.log ('text-field-combo.onFocus');
+    MouseTrap.bind ('up', this.onKeyCombo, 'keydown');
+    MouseTrap.bind ('down', this.onKeyCombo, 'keydown');
+    this.focus = true;
   }
 
   onBlur () {
-    this.readonly = true;
+    //- console.log ('text-field-combo.onBlur');
+    MouseTrap.unbind ('esc');
+    MouseTrap.unbind ('down');
+    this.focus = false;
   }
 
   onMouseDown () {
     if (Bool.isTrue (this.props.readonly)) {
-      this.onButtonClicked ();
+      this.onShowCombo ();
     }
+  }
+
+  onKeyCombo (e) {
+    e.preventDefault ();
+    this.onShowCombo ();
   }
 
   setText (item) {
@@ -152,7 +161,7 @@ class TextFieldCombo extends Widget {
 
   renderTextField () {
     const autoReadonly =
-      this.readonly &&
+      !this.focus &&
       this.props.selectedValue &&
       this.props.selectedValue !== '';
     const displayValue = autoReadonly ? this.props.selectedValue : null;
@@ -180,7 +189,7 @@ class TextFieldCombo extends Widget {
       spacing: 'overlap',
       shape: textFieldShape,
       flyingBalloonAnchor: this.props.flyingBalloonAnchor,
-      tabIndex: this.props.tabIndex,
+      //???tabIndex: this.props.tabIndex,
       defaultValue: this.props.defaultValue,
       grow: '1',
       rows: this.props.rows,
@@ -221,10 +230,9 @@ class TextFieldCombo extends Widget {
     return (
       <Button
         kind="combo"
-        focusable="true"
         glyph={glyph}
         shape={buttonShape}
-        onClick={this.onButtonClicked}
+        onClick={this.onShowCombo}
       />
     );
   }
@@ -319,7 +327,9 @@ class TextFieldCombo extends Widget {
 
     const boxClass = this.showCombo
       ? this.styles.classNames.shadowBox
-      : this.styles.classNames.box;
+      : this.focus
+          ? this.styles.classNames.focusedBox
+          : this.styles.classNames.box;
 
     return (
       <span disabled={this.props.disabled} className={boxClass}>
