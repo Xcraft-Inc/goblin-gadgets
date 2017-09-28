@@ -29,9 +29,35 @@ class TextField extends Widget {
   constructor () {
     super (...arguments);
 
+    //-this.state = {
+    //-  focus: false,
+    //-};
+
     this.onFocus = this.onFocus.bind (this);
     this.onBlur = this.onBlur.bind (this);
     this.selectAll = this.selectAll.bind (this);
+  }
+
+  //-get focus () {
+  //-  return this.state.focus;
+  //-}
+  //-
+  //-set focus (value) {
+  //-  this.setState ({
+  //-    focus: value,
+  //-  });
+  //-}
+
+  get focus () {
+    const state = this.getState ();
+    const parentModel = this.context.model;
+    const model = this.props.model;
+    const forms = this.shred (state.forms);
+    const form = forms.get (`${parentModel}${model}`);
+    if (form) {
+      return form.get ('focus');
+    }
+    return false;
   }
 
   static get wiring () {
@@ -85,6 +111,9 @@ class TextField extends Widget {
     if (x) {
       x (e);
     }
+    if (!Bool.isTrue (this.props.embededFocus)) {
+      //?this.focus = true;
+    }
   }
 
   onBlur (e) {
@@ -92,6 +121,9 @@ class TextField extends Widget {
     const x = this.props.onBlur;
     if (x) {
       x (e);
+    }
+    if (!Bool.isTrue (this.props.embededFocus)) {
+      //?this.focus = false;
     }
   }
 
@@ -159,7 +191,10 @@ class TextField extends Widget {
       : this.styles.classNames.field + ' mousetrap';
 
     const Field = props => {
-      const boxClass = this.styles.classNames.box;
+      const boxClass = this.focus
+        ? this.styles.classNames.focusedBox
+        : this.styles.classNames.box;
+
       let finalProps = omit (props, [
         'getInfo',
         'getWarning',

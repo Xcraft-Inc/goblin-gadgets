@@ -51,45 +51,14 @@ export default function styles (theme, props) {
     opacity: opacity,
   };
 
-  const shadowBoxStyle = {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    width: props.width,
-    flexGrow: flexGrow,
-    flexShrink: flexShrink,
-    flexBasis: flexBasis,
-    padding: '0px',
-    marginTop: '0px',
-    marginLeft: '0px',
-    marginBottom: '0px',
-    marginRight: marginRight,
-    position: 'relative',
-    opacity: opacity,
-    boxShadow: theme.shapes.comboShadow,
-    borderRadius: borderRadius,
-  };
+  const shadowBoxStyle = {...boxStyle};
+  shadowBoxStyle.boxShadow = theme.shapes.comboShadow;
+  shadowBoxStyle.borderRadius = borderRadius;
 
-  const focusedBoxStyle = {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    width: props.width,
-    flexGrow: flexGrow,
-    flexShrink: flexShrink,
-    flexBasis: flexBasis,
-    padding: '0px',
-    marginTop: '0px',
-    marginLeft: '0px',
-    marginBottom: '0px',
-    marginRight: marginRight,
-    position: 'relative',
-    opacity: opacity,
-    boxShadow: theme.shapes.focusedShadow + theme.palette.focused,
-    borderRadius: borderRadius,
-  };
+  const focusedBoxStyle = {...boxStyle};
+  focusedBoxStyle.boxShadow =
+    theme.shapes.focusedShadow + theme.palette.focused;
+  focusedBoxStyle.borderRadius = borderRadius;
 
   const comboBoxStyle = {
     position: 'absolute',

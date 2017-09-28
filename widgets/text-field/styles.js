@@ -91,6 +91,10 @@ export default function styles (theme, props) {
     opacity: opacity,
   };
 
+  const focusedBoxStyle = {...boxStyle};
+  focusedBoxStyle.boxShadow =
+    theme.shapes.focusedShadow + theme.palette.focused;
+
   const fieldStyle = {
     width: '100%',
     flexGrow: 1,
@@ -124,6 +128,7 @@ export default function styles (theme, props) {
 
   return {
     box: boxStyle,
+    focusedBox: focusedBoxStyle,
     field: fieldStyle,
     textarea: textareaStyle,
   };
