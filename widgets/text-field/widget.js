@@ -190,6 +190,7 @@ class TextField extends Widget {
           >
             {type === 'textarea'
               ? <textarea
+                  tabIndex="0"
                   rows={this.props.rows}
                   ref={node => {
                     this.input = node;
@@ -197,6 +198,7 @@ class TextField extends Widget {
                   {...finalProps}
                 />
               : <input
+                  tabIndex="0"
                   type={type}
                   ref={node => {
                     this.input = node;
@@ -219,6 +221,7 @@ class TextField extends Widget {
           >
             {type === 'textarea'
               ? <textarea
+                  tabIndex="0"
                   rows={this.props.rows}
                   ref={node => {
                     this.input = node;
@@ -226,6 +229,7 @@ class TextField extends Widget {
                   {...finalProps}
                 />
               : <input
+                  tabIndex="0"
                   type={type}
                   ref={node => {
                     this.input = node;

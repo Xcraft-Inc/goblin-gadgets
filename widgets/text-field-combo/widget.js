@@ -41,14 +41,26 @@ class TextFieldCombo extends Widget {
     });
   }
 
-  get focus () {
-    return this.state.focus;
-  }
+  //- get focus () {
+  //-   return this.state.focus;
+  //- }
+  //-
+  //- set focus (value) {
+  //-   this.setState ({
+  //-     focus: value,
+  //-   });
+  //- }
 
-  set focus (value) {
-    this.setState ({
-      focus: value,
-    });
+  get focus () {
+    const state = this.getState ();
+    const parentModel = this.context.model;
+    const model = this.props.model;
+    const forms = this.shred (state.forms);
+    const form = forms.get (`${parentModel}${model}`);
+    if (form) {
+      return form.get ('focus');
+    }
+    return false;
   }
 
   onShowCombo () {
@@ -94,14 +106,12 @@ class TextFieldCombo extends Widget {
     //- console.log ('text-field-combo.onFocus');
     MouseTrap.bind ('up', this.onKeyCombo, 'keydown');
     MouseTrap.bind ('down', this.onKeyCombo, 'keydown');
-    this.focus = true;
   }
 
   onBlur () {
     //- console.log ('text-field-combo.onBlur');
     MouseTrap.unbind ('esc');
     MouseTrap.unbind ('down');
-    this.focus = false;
   }
 
   onMouseDown () {
