@@ -22,6 +22,11 @@ class Field extends Form {
   }
 
   get fullPath () {
+    if (!this.context.model) {
+      throw new Error (
+        'Cannot resolve context model, your Field is not in a Form ?'
+      );
+    }
     return `${this.context.model}${this.props.model}`;
   }
 
