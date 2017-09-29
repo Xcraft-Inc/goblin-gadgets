@@ -5,10 +5,14 @@ import Container from 'gadgets/container/widget';
 import Label from 'gadgets/label/widget';
 import Button from 'gadgets/button/widget';
 
+/******************************************************************************/
+
 class GlyphDetail extends Widget {
   constructor () {
     super (...arguments);
+
     this.onEdit = this.onEdit.bind (this);
+    this.onDelete = this.onDelete.bind (this);
   }
 
   static get wiring () {
@@ -21,6 +25,38 @@ class GlyphDetail extends Widget {
   onEdit () {
     const contact = this.getEntityById (this.props.entityId).toJS ();
     this.do ('edit', {contact});
+  }
+
+  onDelete () {
+    const contact = this.getEntityById (this.props.entityId).toJS ();
+    this.do ('delete', {contact});
+  }
+
+  /******************************************************************************/
+
+  renderActions () {
+    return (
+      <Container kind="actions">
+        <Button
+          width="0px"
+          grow="1"
+          kind="action"
+          glyph="pencil"
+          text="Editer"
+          place="1/2"
+          onClick={this.onEdit}
+        />
+        <Button
+          width="0px"
+          grow="0.5"
+          kind="action"
+          glyph="trash"
+          text="Supprimer"
+          place="2/2"
+          onClick={this.onDelete}
+        />
+      </Container>
+    );
   }
 
   render () {
@@ -60,20 +96,13 @@ class GlyphDetail extends Widget {
                 insideButton="true"
               />
             </Container>
-            <Container kind="row-pane" subkind="footer">
-              <Button
-                kind="subaction"
-                text="Editer"
-                width="0px"
-                grow="1"
-                onClick={this.onEdit}
-              />
-            </Container>
           </Container>
         </Container>
+        {this.renderActions ()}
       </Container>
     );
   }
 }
 
+/******************************************************************************/
 export default GlyphDetail;

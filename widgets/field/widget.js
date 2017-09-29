@@ -1,15 +1,16 @@
 import React from 'react';
 import Form from 'laboratory/form';
+import {Control} from 'react-redux-form/immutable';
 
 import Container from 'gadgets/container/widget';
 import Button from 'gadgets/button/widget';
+import CheckButton from 'gadgets/check-button/widget';
 import Label from 'gadgets/label/widget';
 import TextField from 'gadgets/text-field/widget';
 import LabelTextField from 'gadgets/label-text-field/widget';
 import TextFieldTyped from 'gadgets/text-field-typed/widget';
 import TextFieldCombo from 'gadgets/text-field-combo/widget';
 import RadioList from 'gadgets/radio-list/widget';
-import {Control} from 'react-redux-form/immutable';
 
 /******************************************************************************/
 
@@ -128,8 +129,8 @@ class Field extends Form {
     );
   }
 
-  renderRadios () {
-    const Radios = this.mapWidget (
+  renderRadio () {
+    const Radio = this.mapWidget (
       RadioList,
       value => {
         if (value && value !== '') {
@@ -156,7 +157,7 @@ class Field extends Form {
           justify="left"
           spacing="overlap"
         />
-        <Radios
+        <Radio
           height={this.props.height}
           direction={this.props.direction || 'row'}
           list={this.props.list}
@@ -167,6 +168,34 @@ class Field extends Form {
             }
           }}
         />
+      </Container>
+    );
+  }
+
+  renderBool () {
+    const Check = this.mapWidget (
+      CheckButton,
+      value => {
+        return {checked: value};
+      },
+      this.fullPath
+    );
+
+    return (
+      <Container
+        kind="row-pane"
+        subkind="left"
+        width={this.props.width}
+        height={this.props.height}
+      >
+        <Label
+          glyph={this.props.labelGlyph}
+          width={this.props.labelWidth || defaultLabelWidth}
+          kind="label-text-field"
+          justify="left"
+          spacing="overlap"
+        />
+        <Check text={this.props.labelText} onClick={index => {}} />
       </Container>
     );
   }
@@ -229,8 +258,10 @@ class Field extends Form {
         return this.renderDoubleField ();
       case 'combo':
         return this.renderCombo ();
-      case 'radios':
-        return this.renderRadios ();
+      case 'radio':
+        return this.renderRadio ();
+      case 'bool':
+        return this.renderBool ();
       case 'hinter':
         return this.renderHinter ();
       case 'file':
