@@ -72,9 +72,11 @@ class Hinter extends Widget {
   renderButtonNew () {
     if (this.props.onNew) {
       return (
-        <Container kind="row-pane" subkind="footer">
+        <Container kind="actions">
           <Button
-            kind="subaction"
+            kind="action"
+            place="1/1"
+            glyph="plus"
             text={
               this.props.newButtonTitle
                 ? this.props.newButtonTitle
@@ -104,9 +106,9 @@ class Hinter extends Widget {
               />
             </Container>
             {this.renderContent ()}
-            {this.props.displayNewButton ? this.renderButtonNew () : null}
           </Container>
         </Container>
+        {this.props.displayNewButton ? this.renderButtonNew () : null}
       </Container>
     );
   }

@@ -20,5 +20,6 @@ exports.xcraftCommands = function () {
       isClosable: true,
       navigate: true,
     },
+    newButtonTitle: 'Nouveau pictogramme',
   });
 };
