@@ -20,6 +20,7 @@ exports.xcraftCommands = function () {
       isClosable: true,
       navigate: true,
     },
+    title: 'Pictogrammes', // FIXME: why does not displayed in hinter ???
     newButtonTitle: 'Nouveau pictogramme',
   });
 };
