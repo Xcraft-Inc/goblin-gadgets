@@ -700,6 +700,7 @@ export default function styles (theme, props) {
     height: 'calc(100% - 14px)',
     backgroundColor: ColorManipulator.fade (theme.palette.focused, 0.2),
     boxShadow: theme.shapes.focusedShadow + theme.palette.focused,
+    borderRadius: m,
   };
 
   return {
