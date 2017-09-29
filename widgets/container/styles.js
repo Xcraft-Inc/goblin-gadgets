@@ -268,17 +268,6 @@ export default function styles (theme, props) {
     backgroundColor = theme.palette.viewBackground;
   }
 
-  if (props.kind === 'view-short') {
-    minWidth = width;
-    position = 'relative';
-    display = 'flex';
-    flexDirection = 'column';
-    flexGrow = 1;
-    margin = '0px';
-    backgroundColor = theme.palette.viewBackground;
-    alignSelf = 'flex-start';
-  }
-
   if (props.kind === 'view-right') {
     minWidth = width;
     position = 'relative';
@@ -307,6 +296,14 @@ export default function styles (theme, props) {
     padding = m;
     margin = '0px 0px ' + m + ' 0px';
     backgroundColor = theme.palette.paneHeaderBackground;
+  }
+
+  if (props.kind === 'pane-header-light') {
+    minHeight = height;
+    flexDirection = 'row';
+    justifyContent = 'space-between';
+    padding = m;
+    margin = '0px';
   }
 
   if (props.kind === 'pane-navigator') {
@@ -387,14 +384,6 @@ export default function styles (theme, props) {
     }
   }
 
-  if (props.kind === 'panes-short') {
-    overflowY = 'auto';
-    padding = '0px ' + m + ' 0px ' + m;
-    if (props.subkind === 'top-margin') {
-      margin = m + ' 0px 0px 0px';
-    }
-  }
-
   if (props.kind === 'pane') {
     display = 'flex';
     flexDirection = 'column';
@@ -403,6 +392,17 @@ export default function styles (theme, props) {
     // boxShadow       = theme.shapes.paneShadow;
     margin = '0px 0px ' + m + ' 0px';
     padding = m + ' ' + m + ' ' + d + ' ' + m;
+    backgroundColor = theme.palette.paneBackground;
+  }
+
+  if (props.kind === 'pane-top') {
+    display = 'flex';
+    flexDirection = 'column';
+    justifyContent = 'flex-start';
+    alignItems = 'stretch';
+    // boxShadow       = theme.shapes.paneShadow;
+    margin = Unit.multiply (m, -0.5) + ' 0px ' + m + ' 0px';
+    padding = '0px ' + m + ' ' + d + ' ' + m;
     backgroundColor = theme.palette.paneBackground;
   }
 

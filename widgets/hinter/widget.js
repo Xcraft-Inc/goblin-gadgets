@@ -70,7 +70,7 @@ class Hinter extends Widget {
   }
 
   renderButtonNew () {
-    if (this.props.onNew) {
+    if (this.props.displayNewButton && this.props.onNew) {
       return (
         <Container kind="actions">
           <Button
@@ -95,20 +95,20 @@ class Hinter extends Widget {
 
   render () {
     return (
-      <Container kind="view-short">
-        <Container kind="panes-short">
-          <Container kind="pane">
-            <Container kind="row-pane">
-              <Label
-                glyph={this.props.titleGlyph}
-                text={this.props.titleText}
-                kind="title"
-              />
-            </Container>
+      <Container kind="view" grow="1">
+        <Container kind="pane-header-light">
+          <Label
+            kind="title"
+            glyph={this.props.titleGlyph}
+            text={this.props.titleText}
+          />
+        </Container>
+        <Container kind="panes">
+          <Container kind="pane-top">
             {this.renderContent ()}
           </Container>
         </Container>
-        {this.props.displayNewButton ? this.renderButtonNew () : null}
+        {this.renderButtonNew ()}
       </Container>
     );
   }
