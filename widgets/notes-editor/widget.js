@@ -128,7 +128,7 @@ class NotesEditor extends Widget {
   }
 
   render () {
-    if (!this.props.id) {
+    if (!this.props.id && !this.props.noteIds) {
       return null;
     }
 

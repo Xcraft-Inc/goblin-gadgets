@@ -195,7 +195,13 @@ class Field extends Form {
           justify="left"
           spacing="overlap"
         />
-        <Check text={this.props.labelText} onClick={index => {}} />
+        <Check
+          text={this.props.labelText}
+          onClick={index => {
+            const checked = this.getBackendValue (this.fullPath);
+            this.setBackendValue (this.fullPath, !checked);
+          }}
+        />
       </Container>
     );
   }
