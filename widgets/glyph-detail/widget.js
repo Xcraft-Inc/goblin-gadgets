@@ -27,7 +27,12 @@ class GlyphDetail extends Widget {
     const labelOf = this.getWidgetToEntityMapper (Label, 'text');
     const Title = labelOf ('.name');
     const Name = labelOf ('.name');
-    const Glyph = this.getWidgetToEntityMapper (Label, 'glyph') ('.glyph');
+    const Glyph = this.getWidgetToEntityMapper (Label, glyph => {
+      return {
+        glyph: glyph.get ('glyph'),
+        glyphColor: glyph.get ('color'),
+      };
+    }) ('');
 
     return (
       <Container kind="column-full">
@@ -44,8 +49,8 @@ class GlyphDetail extends Widget {
             </Container>
             <Container kind="row-pane">
               <Glyph
-                glyphSize="500%"
-                height="150px"
+                glyphSize="1000%"
+                height="300px"
                 grow="1"
                 justify="center"
                 insideButton="true"
