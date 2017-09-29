@@ -1814,7 +1814,7 @@ const properties = {
       group: 'Aspect',
       type: 'combo',
       field: 'kind',
-      list: ['', 'field', 'double-field', 'combo', 'radios', 'hinter'],
+      list: ['', 'field', 'double-field', 'combo', 'radios', 'hinter', 'file'],
       value: 'field',
     },
     direction: {
