@@ -27,6 +27,7 @@ class GlyphDetail extends Widget {
     const labelOf = this.getWidgetToEntityMapper (Label, 'text');
     const Title = labelOf ('.name');
     const Name = labelOf ('.name');
+    const Description = labelOf ('.description');
     const Glyph = this.getWidgetToEntityMapper (Label, glyph => {
       return {
         glyph: glyph.get ('glyph'),
@@ -46,6 +47,9 @@ class GlyphDetail extends Widget {
             </Container>
             <Container kind="row-pane">
               <Name />
+            </Container>
+            <Container kind="row-pane">
+              <Description />
             </Container>
             <Container kind="row-pane">
               <Glyph
