@@ -109,6 +109,16 @@ export default function styles (theme, props) {
     outline: 'none',
     border: 'none',
   };
+  //- if (!Bool.isTrue (props.embededFocus)) {
+  //-   fieldStyle[':focus'] = {
+  //-     borderRadius: borderRadius,
+  //-     marginTop: '0px',
+  //-     marginRight: Unit.multiply (fieldPaddingRight, -1),
+  //-     marginBottom: '0px',
+  //-     marginLeft: Unit.multiply (fieldPaddingLeft, -1),
+  //-     boxShadow: theme.shapes.focusedShadow + theme.palette.focused,
+  //-   };
+  //- }
 
   const textareaStyle = {
     width: '100%',
