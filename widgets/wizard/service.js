@@ -224,6 +224,13 @@ const properties = {
       field: 'tooltip',
       value: '',
     },
+    tooltip2: {
+      id: 'tooltip2',
+      group: 'Aspect',
+      type: 'text',
+      field: 'tooltip2',
+      value: '',
+    },
     shortcut: {
       id: 'shortcut',
       group: 'Aspect',
