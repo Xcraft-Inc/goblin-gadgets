@@ -29,36 +29,36 @@ class TextField extends Widget {
   constructor () {
     super (...arguments);
 
-    this.state = {
-      focus: false,
-    };
+    //-this.state = {
+    //-  focus: false,
+    //-};
 
     this.onFocus = this.onFocus.bind (this);
     this.onBlur = this.onBlur.bind (this);
     this.selectAll = this.selectAll.bind (this);
   }
 
-  get focus () {
-    return this.state.focus;
-  }
-
-  set focus (value) {
-    this.setState ({
-      focus: value,
-    });
-  }
-
   //-get focus () {
-  //-  const state = this.getState ();
-  //-  const parentModel = this.context.model;
-  //-  const model = this.props.model;
-  //-  const forms = this.shred (state.forms);
-  //-  const form = forms.get (`${parentModel}${model}`);
-  //-  if (form) {
-  //-    return form.get ('focus');
-  //-  }
-  //-  return false;
+  //-  return this.state.focus;
   //-}
+  //-
+  //-set focus (value) {
+  //-  this.setState ({
+  //-    focus: value,
+  //-  });
+  //-}
+
+  get focus () {
+    const state = this.getState ();
+    const parentModel = this.context.model;
+    const model = this.props.model;
+    const forms = this.shred (state.forms);
+    const form = forms.get (`${parentModel}${model}`);
+    if (form) {
+      return form.get ('focus');
+    }
+    return false;
+  }
 
   static get wiring () {
     return {
@@ -101,7 +101,7 @@ class TextField extends Widget {
   onChange () {}
 
   onFocus (e) {
-    console.log ('text-field.onFocus');
+    //- console.log ('text-field.onFocus');
     this.navToHinter ();
     const selectAllOnFocus = this.props.selectAllOnFocus || !!this.props.hinter;
     if (Bool.isTrue (selectAllOnFocus)) {
@@ -112,18 +112,18 @@ class TextField extends Widget {
       x (e);
     }
     if (!Bool.isTrue (this.props.embededFocus)) {
-      this.focus = true;
+      //?this.focus = true;
     }
   }
 
   onBlur (e) {
-    console.log ('text-field.onBlur');
+    //- console.log ('text-field.onBlur');
     const x = this.props.onBlur;
     if (x) {
       x (e);
     }
     if (!Bool.isTrue (this.props.embededFocus)) {
-      this.focus = false;
+      //?this.focus = false;
     }
   }
 
@@ -194,7 +194,6 @@ class TextField extends Widget {
       const boxClass = this.focus
         ? this.styles.classNames.focusedBox
         : this.styles.classNames.box;
-      //- const boxClass = this.styles.classNames.box;
 
       let finalProps = omit (props, [
         'getInfo',
