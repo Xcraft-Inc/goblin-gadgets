@@ -77,6 +77,7 @@ class TextFieldTyped extends Widget {
         grow={this.props.grow}
         spacing={this.props.spacing}
         readonly={this.props.readonly}
+        disabled={this.props.disabled}
         selectAllOnFocus={this.props.selectAllOnFocus}
         defaultFocus={this.props.defaultFocus}
       />
