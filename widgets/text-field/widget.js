@@ -265,7 +265,7 @@ class TextField extends Widget {
         model={this.props.hinter ? `.${this.props.hinter}` : this.props.model}
         onFocus={this.onFocus}
         onBlur={this.onBlur}
-        onMouseDown={this.props.onMouseDown}
+        onMouseUp={this.props.onMouseUp}
         disabled={this.props.disabled}
         maxLength={this.props.maxLength}
         placeholder={this.props.hintText}
