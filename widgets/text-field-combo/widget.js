@@ -25,7 +25,7 @@ class TextFieldCombo extends Widget {
 
     this.onFocus = this.onFocus.bind (this);
     this.onBlur = this.onBlur.bind (this);
-    this.onMouseDown = this.onMouseDown.bind (this);
+    this.onMouseUp = this.onMouseUp.bind (this);
     this.onKeyCombo = this.onKeyCombo.bind (this);
     this.onShowCombo = this.onShowCombo.bind (this);
     this.onHideCombo = this.onHideCombo.bind (this);
@@ -116,7 +116,7 @@ class TextFieldCombo extends Widget {
     this.focus = false;
   }
 
-  onMouseDown () {
+  onMouseUp () {
     if (Bool.isTrue (this.props.readonly)) {
       this.onShowCombo ();
     }
@@ -220,7 +220,7 @@ class TextFieldCombo extends Widget {
         embededFocus="true"
         onFocus={this.onFocus}
         onBlur={this.onBlur}
-        onMouseDown={this.onMouseDown}
+        onMouseUp={this.onMouseUp}
       />
     );
   }

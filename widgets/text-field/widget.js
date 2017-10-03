@@ -29,35 +29,9 @@ class TextField extends Widget {
   constructor () {
     super (...arguments);
 
-    //-this.state = {
-    //-  focus: false,
-    //-};
-
     this.onFocus = this.onFocus.bind (this);
     this.onBlur = this.onBlur.bind (this);
     this.selectAll = this.selectAll.bind (this);
-  }
-
-  //-get focus () {
-  //-  return this.state.focus;
-  //-}
-  //-
-  //-set focus (value) {
-  //-  this.setState ({
-  //-    focus: value,
-  //-  });
-  //-}
-
-  get focus () {
-    const state = this.getState ();
-    const parentModel = this.context.model;
-    const model = this.props.model;
-    const forms = this.shred (state.forms);
-    const form = forms.get (`${parentModel}${model}`);
-    if (form) {
-      return form.get ('focus');
-    }
-    return false;
   }
 
   static get wiring () {
@@ -111,9 +85,6 @@ class TextField extends Widget {
     if (x) {
       x (e);
     }
-    if (!Bool.isTrue (this.props.embededFocus)) {
-      //?this.focus = true;
-    }
   }
 
   onBlur (e) {
@@ -122,8 +93,44 @@ class TextField extends Widget {
     if (x) {
       x (e);
     }
-    if (!Bool.isTrue (this.props.embededFocus)) {
-      //?this.focus = false;
+  }
+
+  /******************************************************************************/
+
+  renderFlyingBalloon (props) {
+    if (props.warning || props.info) {
+      const trianglePosition = {
+        bottom: 'top',
+        top: 'bottom',
+        left: 'right',
+        right: 'left',
+        undefined: 'top',
+      }[props.flyingBalloonAnchor];
+
+      return (
+        <FlyingBalloon
+          primaryText={props.warning}
+          secondaryText={props.info}
+          trianglePosition={trianglePosition}
+        />
+      );
+    } else {
+      return null;
+    }
+  }
+
+  renderFocusForeground (props) {
+    if (Bool.isTrue (this.props.embededFocus)) {
+      return null;
+    } else {
+      const focusClass = this.styles.classNames.focus;
+      return (
+        <div
+          disabled={props.disabled}
+          className={`toto ${focusClass}`}
+          title={props.tooltip}
+        />
+      );
     }
   }
 
@@ -190,11 +197,10 @@ class TextField extends Widget {
       ? this.styles.classNames.textarea + ' mousetrap'
       : this.styles.classNames.field + ' mousetrap';
 
-    const Field = props => {
-      const boxClass = this.focus
-        ? this.styles.classNames.focusedBox
-        : this.styles.classNames.box;
+    const boxClass = this.styles.classNames.box;
+    const inputClass = this.styles.classNames.input;
 
+    const Field = props => {
       let finalProps = omit (props, [
         'getInfo',
         'getWarning',
@@ -208,72 +214,29 @@ class TextField extends Widget {
         finalProps.value = '';
       }
 
-      if (props.warning || props.info) {
-        const trianglePosition = {
-          bottom: 'top',
-          top: 'bottom',
-          left: 'right',
-          right: 'left',
-          undefined: 'top',
-        }[props.flyingBalloonAnchor];
-
-        return (
-          <div
-            disabled={props.disabled}
-            className={boxClass}
-            title={props.tooltip}
-          >
-            {type === 'textarea'
-              ? <textarea
-                  tabIndex="0"
-                  rows={this.props.rows}
-                  ref={node => {
-                    this.input = node;
-                  }}
-                  {...finalProps}
-                />
-              : <input
-                  tabIndex="0"
-                  type={type}
-                  ref={node => {
-                    this.input = node;
-                  }}
-                  {...finalProps}
-                />}
-            <FlyingBalloon
-              primaryText={props.warning}
-              secondaryText={props.info}
-              trianglePosition={trianglePosition}
-            />
-          </div>
-        );
-      } else {
-        return (
-          <div
-            disabled={props.disabled}
-            className={boxClass}
-            title={props.tooltip}
-          >
-            {type === 'textarea'
-              ? <textarea
-                  tabIndex="0"
-                  rows={this.props.rows}
-                  ref={node => {
-                    this.input = node;
-                  }}
-                  {...finalProps}
-                />
-              : <input
-                  tabIndex="0"
-                  type={type}
-                  ref={node => {
-                    this.input = node;
-                  }}
-                  {...finalProps}
-                />}
-          </div>
-        );
-      }
+      return (
+        <div className={boxClass}>
+          {type === 'textarea'
+            ? <textarea
+                tabIndex="0"
+                rows={this.props.rows}
+                ref={node => {
+                  this.input = node;
+                }}
+                {...finalProps}
+              />
+            : <input
+                tabIndex="0"
+                type={type}
+                ref={node => {
+                  this.input = node;
+                }}
+                {...finalProps}
+              />}
+          {this.renderFocusForeground (props)}
+          {this.renderFlyingBalloon (props)}
+        </div>
+      );
     };
 
     const fullModelPath = this.props.hinter
@@ -290,7 +253,7 @@ class TextField extends Widget {
 
     return (
       <Control
-        className={fieldClass}
+        className={`${fieldClass} ${inputClass}`}
         component={WiredTextField}
         changeAction={beforeChange}
         getInfo={this.props.getInfo}
@@ -302,7 +265,7 @@ class TextField extends Widget {
         model={this.props.hinter ? `.${this.props.hinter}` : this.props.model}
         onFocus={this.onFocus}
         onBlur={this.onBlur}
-        onMouseDown={this.props.onMouseDown}
+        onMouseUp={this.props.onMouseUp}
         disabled={this.props.disabled}
         maxLength={this.props.maxLength}
         placeholder={this.props.hintText}
