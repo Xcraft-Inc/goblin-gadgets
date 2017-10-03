@@ -74,6 +74,7 @@ class LabelTextField extends Widget {
         glyph={this.props.labelGlyph}
         text={this.props.labelText}
         width={this.props.labelWidth}
+        disabled={this.props.disabled}
         wrap="no"
         shape={shape}
         justify="left"
@@ -127,6 +128,7 @@ class LabelTextField extends Widget {
       defaultValue: this.props.defaultValue,
       rows: this.props.rows,
       readonly: visibleReadonly,
+      disabled: this.props.disabled,
       selectAllOnFocus: this.props.selectAllOnFocus,
       defaultFocus: this.props.defaultFocus,
       visibility: this.props.visibility,

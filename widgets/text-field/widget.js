@@ -124,13 +124,7 @@ class TextField extends Widget {
       return null;
     } else {
       const focusClass = this.styles.classNames.focus;
-      return (
-        <div
-          disabled={props.disabled}
-          className={`toto ${focusClass}`}
-          title={props.tooltip}
-        />
-      );
+      return <div className={`toto ${focusClass}`} title={props.tooltip} />;
     }
   }
 
@@ -266,7 +260,7 @@ class TextField extends Widget {
         onFocus={this.onFocus}
         onBlur={this.onBlur}
         onMouseUp={this.props.onMouseUp}
-        disabled={this.props.disabled}
+        disabled={Bool.isTrue (this.props.disabled)}
         maxLength={this.props.maxLength}
         placeholder={this.props.hintText}
         size={this.props.size || 'size'}

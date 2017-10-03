@@ -274,6 +274,11 @@ export default function styles (theme, props) {
   if (props.kind === 'label-text-field') {
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'none';
     boxHeight = null;
+    if (Bool.isTrue (props.disabled)) {
+      glyphColor = theme.palette.textFieldDisableText;
+      textColor = theme.palette.textFieldDisableText;
+      specialDisabled = true;
+    }
     //?backgroundColor = theme.palette.labelButtonBackground;
     //?glyphColor = theme.palette.taskLabelText;
     //?textColor = theme.palette.taskLabelText;
@@ -438,7 +443,11 @@ export default function styles (theme, props) {
 
   // Combo button, place to the right of a TextFieldCombo component.
   if (props.kind === 'combo') {
-    if (Bool.isTrue (props.active)) {
+    if (Bool.isTrue (props.disabled)) {
+      glyphColor = theme.palette.textFieldDisableText;
+      textColor = theme.palette.textFieldDisableText;
+      specialDisabled = true;
+    } else if (Bool.isTrue (props.active)) {
       glyphColor = theme.palette.comboActiveGlyph;
     }
   }

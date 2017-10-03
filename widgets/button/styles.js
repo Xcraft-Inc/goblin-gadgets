@@ -304,6 +304,11 @@ export default function styles (theme, props) {
   if (props.kind === 'combo') {
     activeColor = theme.palette.comboActiveBackground;
     borderActiveColor = theme.palette.comboActiveBackground;
+    if (Bool.isTrue (props.disabled)) {
+      borderColor = theme.palette.textFieldDisableText;
+      backgroundColor = theme.palette.textFieldDisableBackground;
+      specialDisabled = true;
+    }
   }
 
   if (props.kind === 'round') {

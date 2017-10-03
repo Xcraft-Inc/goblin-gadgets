@@ -205,6 +205,7 @@ class TextFieldCombo extends Widget {
       grow: '1',
       rows: this.props.rows,
       readonly: Bool.toString (visibleReadonly),
+      disabled: this.props.disabled,
       selectAllOnFocus: this.props.selectAllOnFocus,
       defaultFocus: this.props.defaultFocus,
       visibility: this.props.visibility,
@@ -244,6 +245,7 @@ class TextFieldCombo extends Widget {
         kind="combo"
         glyph={glyph}
         shape={buttonShape}
+        disabled={this.props.disabled}
         onClick={this.onShowCombo}
       />
     );

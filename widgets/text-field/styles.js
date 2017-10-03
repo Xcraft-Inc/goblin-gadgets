@@ -54,7 +54,10 @@ export default function styles (theme, props) {
 
   let color = theme.palette.textColor;
   let backgroundColor = theme.palette.textFieldBackground;
-  if (Bool.isTrue (props.active)) {
+  if (Bool.isTrue (props.disabled)) {
+    color = theme.palette.textFieldDisableText;
+    backgroundColor = theme.palette.textFieldDisableBackground;
+  } else if (Bool.isTrue (props.active)) {
     color = theme.palette.comboActiveGlyph;
     backgroundColor = theme.palette.comboActiveBackground;
     borderColor = theme.palette.comboActiveBackground;
