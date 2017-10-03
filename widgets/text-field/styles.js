@@ -91,9 +91,23 @@ export default function styles (theme, props) {
     opacity: opacity,
   };
 
-  const focusedBoxStyle = {...boxStyle};
-  focusedBoxStyle.boxShadow =
-    theme.shapes.focusedShadow + theme.palette.focused;
+  const inputStyle = {
+    [`:focus + .toto`]: {
+      borderRadius: borderRadius,
+      boxShadow: theme.shapes.focusedShadow + theme.palette.focused,
+      pointerEvents: 'none',
+    },
+  };
+
+  const focusStyle = {
+    position: 'absolute',
+    top: '0px',
+    left: '0px',
+    width: '100%',
+    height: '100%',
+    borderRadius: borderRadius,
+    pointerEvents: 'none',
+  };
 
   const fieldStyle = {
     width: '100%',
@@ -108,17 +122,8 @@ export default function styles (theme, props) {
     backgroundColor: 'transparent',
     outline: 'none',
     border: 'none',
+    pointerEvents: 'all',
   };
-  //- if (!Bool.isTrue (props.embededFocus)) {
-  //-   fieldStyle[':focus'] = {
-  //-     borderRadius: borderRadius,
-  //-     marginTop: '0px',
-  //-     marginRight: Unit.multiply (fieldPaddingRight, -1),
-  //-     marginBottom: '0px',
-  //-     marginLeft: Unit.multiply (fieldPaddingLeft, -1),
-  //-     boxShadow: theme.shapes.focusedShadow + theme.palette.focused,
-  //-   };
-  //- }
 
   const textareaStyle = {
     width: '100%',
@@ -138,9 +143,10 @@ export default function styles (theme, props) {
 
   return {
     box: boxStyle,
-    focusedBox: focusedBoxStyle,
+    focus: focusStyle,
     field: fieldStyle,
     textarea: textareaStyle,
+    input: inputStyle,
   };
 }
 
