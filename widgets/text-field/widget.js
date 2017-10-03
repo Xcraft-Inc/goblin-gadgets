@@ -124,7 +124,7 @@ class TextField extends Widget {
       return null;
     } else {
       const focusClass = this.styles.classNames.focus;
-      return <div className={`toto ${focusClass}`} title={props.tooltip} />;
+      return <div className={`toto ${focusClass}`} />;
     }
   }
 
@@ -209,7 +209,7 @@ class TextField extends Widget {
       }
 
       return (
-        <div className={boxClass}>
+        <div className={boxClass} title={this.props.tooltip}>
           {type === 'textarea'
             ? <textarea
                 tabIndex="0"
