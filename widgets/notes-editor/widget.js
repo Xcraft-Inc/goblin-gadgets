@@ -22,6 +22,14 @@ class NotesEditor extends Widget {
     this.onNoteDragged = this.onNoteDragged.bind (this);
   }
 
+  static connectTo (instance, path) {
+    return instance.getPluginToEntityMapper (
+      NotesEditor,
+      'notes-editor',
+      'noteIds'
+    ) (path || '.noteIds');
+  }
+
   static get wiring () {
     return {
       id: 'id',

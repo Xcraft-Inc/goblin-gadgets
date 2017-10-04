@@ -1,6 +1,5 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
-import Container from 'gadgets/container/widget';
 import ReactList from 'react-list';
 import _ from 'lodash';
 
@@ -12,6 +11,10 @@ class List extends Widget {
       this.do ('load-index', {index});
     };
     this.loadIndex = _.debounce (load, 500);
+  }
+
+  static connectTo (instance) {
+    return Widget.Wired (List) (`list@${instance.props.id}`);
   }
 
   static get wiring () {
