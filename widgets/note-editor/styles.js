@@ -31,10 +31,10 @@ export default function styles (theme, props) {
   let borderRightWidth = null;
   let borderRightStyle = null;
 
-  if (extended) {
-    backgroundColor = theme.palette.recurrenceExtendedBoxBackground;
-    color = theme.palette.recurrenceHeaderInfoExtendedText;
-  }
+  //- if (extended) {
+  //-   backgroundColor = theme.palette.recurrenceExtendedBoxBackground;
+  //-   color = theme.palette.recurrenceHeaderInfoExtendedText;
+  //- }
   if (!isDragged && hasHeLeft) {
     backgroundColor = theme.palette.paneBackground;
     opacity = 0.0;
