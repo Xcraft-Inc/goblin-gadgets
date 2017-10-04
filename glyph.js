@@ -11,7 +11,7 @@ exports.xcraftCommands = function () {
   return buildEntity ({
     type: 'glyph',
     table: 'glyphs',
-    onNew: function (quest, id, order, name, glyph, color, description) {
+    onNew: function (quest, id, name, glyph, color, description) {
       return {
         id,
         name: name || 'Mon pictogramme',
