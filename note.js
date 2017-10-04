@@ -14,11 +14,11 @@ exports.xcraftCommands = function () {
     references: {
       glyphIds: 'glyph[]',
     },
-    onNew: function (quest, id, content, forEntity) {
+    onNew: function (quest, id, content, glyphIds, forEntity) {
       return {
         id,
         content: content || '',
-        glyphIds: [],
+        glyphIds: glyphIds || [],
         forEntity: forEntity || null,
       };
     },
