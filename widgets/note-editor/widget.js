@@ -102,8 +102,10 @@ class NoteEditor extends Form {
       .map (glyphId => {
         const glyph = this.getEntityById (glyphId);
         if (glyphIds.indexOf (glyphId) === -1) {
+          const name = glyph.get ('name');
+          const desc = glyph.get ('description');
           return {
-            text: glyph.get ('description'),
+            text: name || desc,
             glyph: glyph.get ('glyph'),
             color: glyph.get ('color'),
             action: () => this.onAddGlyph (glyph.get ('id')),
