@@ -14,6 +14,10 @@ exports.xcraftCommands = function () {
     references: {
       glyphIds: 'glyph[]',
     },
+    buildInfo: note => {
+      //FIXME: build info from note
+      return 'note';
+    },
     onNew: function (quest, id, content, glyphIds, forEntity) {
       return {
         id,
