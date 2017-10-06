@@ -648,6 +648,9 @@ export default function styles (theme, props) {
       backgroundColor: backgroundHoverColor,
       opacity: 1.0,
     };
+    boxStyle[':active'] = {
+      backgroundColor: ColorManipulator.darken (backgroundColor, 0.1),
+    };
   }
 
   if (Bool.isTrue (props.focusable)) {
