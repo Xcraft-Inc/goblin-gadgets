@@ -15,10 +15,28 @@ const logicHandlers = {
     return state
       .set ('id', action.get ('id'))
       .set ('count', action.get ('count'))
-      .set ('pageSize', action.get ('pageSize'));
+      .set ('pageSize', action.get ('pageSize'))
+      .set ('from', 0)
+      .set ('to', action.get ('pageSize'));
   },
-  'load-index': (state, action) => {
+  'load-range': (state, action) => {
     return state.set ('list', action.get ('rows'));
+  },
+  updateRange: (state, action) => {
+    const pageSize = state.get ('pageSize');
+    const count = state.get ('count');
+
+    let from = action.get ('from');
+    if (from >= pageSize) {
+      from = from - pageSize;
+    } else {
+      from = 0;
+    }
+    let to = action.get ('to');
+    if (to <= count - pageSize) {
+      to = to + pageSize;
+    }
+    return state.set ('from', from).set ('to', to);
   },
 };
 
@@ -48,27 +66,23 @@ Goblin.registerQuest (goblinName, 'create', function* (
   return quest.goblin.id;
 });
 
-Goblin.registerQuest (goblinName, 'load-index', function* (quest, index) {
-  const pageSize = quest.goblin.getX ('pageSize');
-  const count = quest.goblin.getState ().get ('count');
+Goblin.registerQuest (goblinName, 'load-range', function* (quest, from, to) {
+  const cFrom = quest.goblin.getState ().get ('from');
+  const cTo = quest.goblin.getState ().get ('to');
+  if (from >= cFrom && to <= cTo) {
+    return;
+  }
+
+  quest.dispatch ('updateRange', {from, to});
+
+  const newFrom = quest.goblin.getState ().get ('from');
+  const newTo = quest.goblin.getState ().get ('to');
+
   const i = quest.openInventory ();
   const r = i.use ('rethink@main');
   const table = quest.goblin.getX ('table');
   const listIds = quest.goblin.getX ('listIds');
-
-  let from = index;
-  let to = index + pageSize;
-  if (index > pageSize) {
-    from = index - pageSize;
-  } else {
-    from = 0;
-  }
-
-  if (index >= count) {
-    to = count;
-  }
-
-  const documents = listIds.slice (from, to);
+  const documents = listIds.slice (newFrom, newTo);
   const docs = yield r.getAll ({table, documents});
   const rows = {};
   for (const doc of docs) {
@@ -93,7 +107,7 @@ Goblin.registerQuest (goblinName, 'init-list', function* (quest) {
     rows[`${from}-item`] = doc;
     from++;
   }
-  quest.dispatch ('load-index', {rows});
+  quest.dispatch ('load-range', {rows});
 });
 
 Goblin.registerQuest (goblinName, 'delete', function () {});

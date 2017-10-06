@@ -7,10 +7,21 @@ class List extends Widget {
   constructor () {
     super (...arguments);
     this.renderItem = this.renderItem.bind (this);
-    const load = index => {
-      this.do ('load-index', {index});
+    this.renderTable = this.renderTable.bind (this);
+    this.renderRow = this.renderRow.bind (this);
+    const load = range => {
+      let cFrom = this.getFormValue ('.from');
+      let cTo = this.getFormValue ('.to');
+      console.log (`from ${cFrom} to ${cTo}`);
+      if (range[0] < this.props.pageSize) {
+        return;
+      }
+      if (range[0] - 10 < cFrom || range[1] + 10 >= cTo) {
+        console.log (`loading rows from ${range[0]} to ${range[1]}`);
+        this.do ('load-range', {from: range[0], to: range[1]});
+      }
     };
-    this.loadIndex = _.debounce (load, 500);
+    this.loadIndex = _.debounce (load, 200);
   }
 
   static connectTo (instance) {
@@ -26,25 +37,43 @@ class List extends Widget {
   }
 
   renderItem (index, key) {
-    this.loadIndex (index);
+    return {model: `.list.${index}-item`, index, key};
+  }
 
+  renderRow (row) {
     const loadingWrapper = props => {
-      if (props._listItemLoadding) {
-        return <div>...</div>;
+      if (props._loading) {
+        return <div>loading...</div>;
       } else {
-        const LoadedItem = this.props.renderItem;
-        return <LoadedItem {...props} />;
+        const Item = this.props.renderItem;
+        return <Item {...props} />;
       }
     };
     const ListItem = this.getWidgetToFormMapper (loadingWrapper, item => {
       if (!item) {
-        return {_listItemLoadding: true};
+        return {_loading: true};
       } else {
-        return this.props.mapItem (item, index);
+        return this.props.mapItem (item, row.index);
       }
-    }) (`.list.${index}-item`);
+    }) (row.model);
 
-    return <ListItem key={key} />;
+    return <ListItem key={row.key} />;
+  }
+
+  renderTable (items, ref) {
+    if (!items) {
+      return null;
+    }
+    const range = [items[0].index, items[items.length - 1].index];
+    this.loadIndex (range);
+
+    return (
+      <div ref={ref}>
+        {items.map (row => {
+          return this.renderRow (row);
+        })}
+      </div>
+    );
   }
 
   render () {
@@ -56,7 +85,8 @@ class List extends Widget {
         pageSize={this.props.pageSize / 2}
         length={this.props.count}
         type={'uniform'}
-        itemRenderer={::this.renderItem}
+        itemsRenderer={this.renderTable}
+        itemRenderer={this.renderItem}
       />
     );
   }
