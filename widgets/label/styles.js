@@ -772,7 +772,11 @@ export default function styles (theme, props) {
     padding: '1px',
   };
 
-  if (!Bool.isTrue (props.disabled) && boxOpacity !== 0) {
+  if (
+    !Bool.isTrue (props.disabled) &&
+    Bool.isTrue (props.insideButton) &&
+    boxOpacity !== 0
+  ) {
     boxStyle[':hover'] = {
       color: textHoverColor, // (*)
       opacity: 1.0,
@@ -785,6 +789,16 @@ export default function styles (theme, props) {
     // (*) If hover change the color of glyph and text, it is necessary to change
     //     the color of parent (and not the glyph/text children). This system
     //     causes the change simultaneously for the two children.
+
+    boxStyle[':active'] = {
+      color: ColorManipulator.darken (textColor, 0.1),
+    };
+    textStyle[':active'] = {
+      color: ColorManipulator.darken (textColor, 0.1),
+    };
+    glyphStyle[':active'] = {
+      color: ColorManipulator.darken (glyphColor, 0.1),
+    };
   }
 
   return {
