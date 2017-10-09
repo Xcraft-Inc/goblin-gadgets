@@ -107,7 +107,7 @@ class NotesEditor extends Widget {
       return (
         <DragCab
           key={index}
-          dragController="note"
+          dragController={this.props.id}
           direction="vertical"
           color={this.context.theme.palette.dragAndDropHover}
           thickness={this.context.theme.shapes.dragAndDropTicketThickness}
@@ -136,7 +136,7 @@ class NotesEditor extends Widget {
   }
 
   render () {
-    if (!this.props.id && !this.props.noteIds) {
+    if (!this.props.id || !this.props.noteIds) {
       return null;
     }
 
@@ -147,8 +147,8 @@ class NotesEditor extends Widget {
         {this.renderHeader ()}
         <Container
           kind="column"
-          dragController="note"
-          dragSource="notes"
+          dragController={this.props.id}
+          dragSource={this.props.id}
           dragOwnerId={this.props.id}
         >
           {this.renderRows ()}
