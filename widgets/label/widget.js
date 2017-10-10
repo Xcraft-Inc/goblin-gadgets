@@ -124,7 +124,7 @@ class Label extends Widget {
   }
 
   renderText (index, text) {
-    if (text) {
+    if (text !== null) {
       if (typeof text === 'string') {
         const hasEol1 = text.indexOf ('\n') !== -1;
         const hasEol2 = text.indexOf ('\\n') !== -1;
