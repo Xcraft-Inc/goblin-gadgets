@@ -43,12 +43,14 @@ const logicHandlers = {
 // Register quest's according rc.json
 Goblin.registerQuest (goblinName, 'create', function* (
   quest,
+  desktopId,
   table,
   pageSize,
   orderBy
 ) {
+  quest.goblin.setX ('desktopId', desktopId);
   const i = quest.openInventory ();
-  const r = i.use ('rethink@main');
+  const r = i.use (`rethink@${desktopId}`);
   let count = 0;
   quest.goblin.setX ('table', table);
   if (!pageSize) {
@@ -79,7 +81,8 @@ Goblin.registerQuest (goblinName, 'load-range', function* (quest, from, to) {
   const newTo = quest.goblin.getState ().get ('to');
 
   const i = quest.openInventory ();
-  const r = i.use ('rethink@main');
+  const desktopId = quest.goblin.getX ('desktopId');
+  const r = i.use (`rethink@${desktopId}`);
   const table = quest.goblin.getX ('table');
   const listIds = quest.goblin.getX ('listIds');
   const documents = listIds.slice (newFrom, newTo);
@@ -100,7 +103,8 @@ Goblin.registerQuest (goblinName, 'init-list', function* (quest) {
   const listIds = quest.goblin.getX ('listIds');
   const documents = listIds.slice (from, to);
   const i = quest.openInventory ();
-  const r = i.use ('rethink@main');
+  const desktopId = quest.goblin.getX ('desktopId');
+  const r = i.use (`rethink@${desktopId}`);
   const docs = yield r.getAll ({table, documents});
   const rows = {};
   for (const doc of docs) {

@@ -85,7 +85,7 @@ Goblin.registerQuest (goblinName, 'create', function* (
   quest.do ({id: quest.goblin.id, forEntity, noteIds});
 
   const i = quest.openInventory ();
-  const r = i.use ('rethink@main');
+  const r = i.use (`rethink@${desktopId}`);
   const allGlyphs = yield r.getAll ({table: 'glyphs'});
   const allGlyphIds = [];
   for (const glyph of allGlyphs) {
