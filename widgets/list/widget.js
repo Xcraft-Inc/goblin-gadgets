@@ -77,7 +77,7 @@ class List extends Widget {
   }
 
   render () {
-    if (!this.props.id) {
+    if (!this.props.id || !this.props.count) {
       return null;
     }
     return (
