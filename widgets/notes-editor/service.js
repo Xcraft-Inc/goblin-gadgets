@@ -89,7 +89,7 @@ Goblin.registerQuest (goblinName, 'create', function* (
   const allGlyphs = yield r.getAll ({table: 'glyphs'});
   const allGlyphIds = [];
   for (const glyph of allGlyphs) {
-    quest.create (glyph.id, {id: glyph.id, entity: glyph});
+    quest.create (glyph.id, {id: glyph.id, desktopId, entity: glyph});
     allGlyphIds.push (glyph.id);
   }
   quest.goblin.setX ('allGlyphIds', allGlyphIds);
