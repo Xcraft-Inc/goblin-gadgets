@@ -2,6 +2,8 @@ import React from 'react';
 import Widget from 'laboratory/widget';
 
 import Container from 'gadgets/container/widget';
+import Label from 'gadgets/label/widget';
+
 import Leaflet from './reaflet.js';
 import 'leaflet/dist/leaflet.css';
 
@@ -44,16 +46,13 @@ class Map extends Widget {
     });
   }
 
-  componentDidMount () {
-    window.dispatchEvent (new Event ('resize'));
-  }
-
   render () {
     return (
       <Container kind="panes">
+        <Label text="Carte" grow="1" kind="title" />
         <div
           ref={node => this.initMap (node)}
-          style={{width: '600px', height: '400px', position: 'relative'}}
+          style={{width: '700px', height: '600px', position: 'relative'}}
           className="leaflet-container leaflet-touch leaflet-retina leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom"
         />
       </Container>
