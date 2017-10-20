@@ -107,20 +107,21 @@ Goblin.registerQuest (goblinName, 'create', function* (
 });
 
 Goblin.registerQuest (goblinName, 'add', function* (quest) {
-  const entityId = quest.goblin.getX ('forEntity');
+  const forEntityId = quest.goblin.getX ('forEntity');
   const desktopId = quest.goblin.getX ('desktopId');
   const allGlyphIds = quest.goblin.getX ('allGlyphIds');
-  const note = yield quest.createNew ('note', {forEntity: entityId});
+  const note = yield quest.createNew ('note', {desktopId});
   const noteEditorId = `note-editor@${note.id}`;
   quest.create (noteEditorId, {
     id: noteEditorId,
     desktopId,
     noteId: note.id,
+    forEntity: forEntityId,
     allGlyphIds,
   });
 
   const i = quest.openInventory ();
-  const entity = i.use (entityId);
+  const entity = i.use (forEntityId);
   entity.addNote ({entityId: note.id});
   quest.do ({noteId: note.id});
 });
