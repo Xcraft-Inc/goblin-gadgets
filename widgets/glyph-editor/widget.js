@@ -71,6 +71,8 @@ const colors = [
   'task',
 ];
 
+const contexts = ['', 'co-dispo', 'dispo', 'coursier', 'facturation'];
+
 class GlyphEditor extends Form {
   constructor () {
     super (...arguments);
@@ -161,6 +163,16 @@ class GlyphEditor extends Form {
             insideButton="true"
           />
         </Container>
+
+        <Field
+          kind="combo"
+          labelGlyph="eye"
+          labelWidth="32px"
+          hintText="Contexte"
+          model=".context"
+          list={contexts}
+          menuItemWidth="200px"
+        />
 
       </Container>
     );
