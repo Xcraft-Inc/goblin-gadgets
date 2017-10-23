@@ -121,49 +121,6 @@ class Field extends Form {
     );
   }
 
-  renderReadonlyRadio () {
-    const Radio = this.mapWidget (
-      RadioList,
-      value => {
-        if (value && value !== '') {
-          return {selectedIndex: this.props.list.indexOf (value)};
-        } else {
-          return {};
-        }
-      },
-      this.fullPath
-    );
-
-    return (
-      <Container
-        kind="row-pane"
-        subkind="left"
-        width={this.props.width}
-        height={this.props.height}
-      >
-        <Label
-          text={this.props.labelText}
-          glyph={this.props.labelGlyph}
-          width={this.props.labelWidth || defaultLabelWidth}
-          kind="label-text-field"
-          justify="left"
-          spacing="overlap"
-        />
-        <Radio
-          height={this.props.height}
-          direction={this.props.direction || 'row'}
-          list={this.props.list}
-          selectionChanged={index => {
-            this.setBackendValue (this.fullPath, this.props.list[index]);
-            if (this.props.onChange) {
-              this.props.onChange (this.props.list[index], index);
-            }
-          }}
-        />
-      </Container>
-    );
-  }
-
   renderReadonlyBool () {
     const Check = this.mapWidget (
       CheckButton,
@@ -187,65 +144,13 @@ class Field extends Form {
           justify="left"
           spacing="overlap"
         />
-        <Check
-          text={this.props.labelText}
-          onClick={index => {
-            const checked = this.getBackendValue (this.fullPath);
-            this.setBackendValue (this.fullPath, !checked);
-          }}
-        />
-      </Container>
-    );
-  }
-
-  renderReadonlyHinter () {
-    const Hinter = this.mapWidget (
-      LabelTextField,
-      value => {
-        if (value && value !== '') {
-          return {selectedValue: value};
-        } else {
-          return {};
-        }
-      },
-      this.fullPath
-    );
-
-    const Form = this.Form;
-
-    return (
-      <Container
-        kind="row-pane"
-        width={this.props.width}
-        height={this.props.height}
-      >
-        <Form
-          {...this.formConfigWithComponent (() => (
-            <Hinter
-              labelText={this.props.labelText}
-              labelGlyph={this.props.labelGlyph}
-              labelWidth={this.props.labelWidth || defaultLabelWidth}
-              hintText={this.props.hintText}
-              grow="1"
-              hinter={this.props.hinter}
-              comboType={this.props.hinter}
-            />
-          ))}
-        />
+        <Check text={this.props.labelText} disabled="true" />
       </Container>
     );
   }
 
   renderReadonlyFileInput () {
-    return (
-      <Container kind="row-pane">
-        <input
-          type="file"
-          onChange={this.handleFileChange}
-          accept={this.props.accept}
-        />
-      </Container>
-    );
+    throw new Error ('Not implemented');
   }
   //#endregion
 
@@ -469,11 +374,11 @@ class Field extends Form {
       case 'combo':
         return this.renderReadonlyField ();
       case 'radio':
-        return this.renderReadonlyRadio ();
+        return this.renderReadonlyField ();
       case 'bool':
         return this.renderReadonlyBool ();
       case 'hinter':
-        return this.renderReadonlyHinter ();
+        return this.renderReadonlyField ();
       case 'file':
         return this.renderReadonlyFileInput ();
       default:
