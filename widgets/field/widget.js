@@ -32,6 +32,15 @@ class Field extends Form {
     return `${this.context.model}${this.props.model}`;
   }
 
+  fullPathFromModel (model) {
+    if (!this.context.model) {
+      throw new Error (
+        'Cannot resolve context model, your Field is not in a Form ?'
+      );
+    }
+    return `${this.context.model}${model}`;
+  }
+
   handleFileChange (ev) {
     ev.persist ();
     const fileList = ev.target.files;
@@ -76,36 +85,22 @@ class Field extends Form {
   }
 
   renderReadonlyDoubleField () {
-    return (
-      <Container
-        kind="row-pane"
-        width={this.props.width}
-        height={this.props.height}
-      >
-        <Label
-          text={this.props.labelText}
-          glyph={this.props.labelGlyph}
-          width={this.props.labelWidth || defaultLabelWidth}
-          kind="label-text-field"
-          justify="left"
-          spacing="overlap"
-        />
-        <TextField
-          hintText={this.props.hintText1}
-          model={this.props.model1}
-          grow={this.props.growField1}
-          spacing="large"
-        />
-        <TextField
-          hintText={this.props.hintText2}
-          model={this.props.model2}
-          grow={this.props.growField2}
-        />
-      </Container>
+    const Value1 = this.mapWidget (
+      Label,
+      value => {
+        return {text: value};
+      },
+      this.fullPathFromModel (this.props.model1)
     );
-  }
 
-  renderReadonlyCombo () {
+    const Value2 = this.mapWidget (
+      Label,
+      value => {
+        return {text: value};
+      },
+      this.fullPathFromModel (this.props.model2)
+    );
+
     return (
       <Container
         kind="row-pane"
@@ -120,19 +115,8 @@ class Field extends Form {
           justify="left"
           spacing="overlap"
         />
-        <TextFieldCombo
-          hintText={this.props.hintText}
-          model={this.props.model}
-          readonly="false"
-          list={this.props.list}
-          menuType="wrap"
-          menuItemWidth={this.props.menuItemWidth}
-          comboTextTransform="none"
-          onSetText={text => {
-            this.setBackendValue (this.fullPath, text);
-          }}
-          grow="1"
-        />
+        <Value1 grow={this.props.growField1} spacing="large" />
+        <Value2 grow={this.props.growField2} />
       </Container>
     );
   }
@@ -483,7 +467,7 @@ class Field extends Form {
       case 'double-field':
         return this.renderReadonlyDoubleField ();
       case 'combo':
-        return this.renderReadonlyCombo ();
+        return this.renderReadonlyField ();
       case 'radio':
         return this.renderReadonlyRadio ();
       case 'bool':
@@ -519,7 +503,10 @@ class Field extends Form {
   }
 
   render () {
-    if (Bool.isTrue (this.props.readonly)) {
+    if (
+      Bool.isTrue (this.props.readonly) ||
+      Bool.isTrue (this.context.readonly)
+    ) {
       return this.renderReadonly ();
     } else {
       return this.renderEdit ();
