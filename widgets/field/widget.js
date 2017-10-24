@@ -24,22 +24,17 @@ class Field extends Form {
     this.handleFileChange = this.handleFileChange.bind (this);
   }
 
-  get fullPath () {
-    if (!this.context.model) {
-      throw new Error (
-        'Cannot resolve context model, your Field is not in a Form ?'
-      );
-    }
-    return `${this.context.model}${this.props.model}`;
-  }
-
-  fullPathFromModel (model) {
+  getFullPathFromModel (model) {
     if (!this.context.model) {
       throw new Error (
         'Cannot resolve context model, your Field is not in a Form ?'
       );
     }
     return `${this.context.model}${model}`;
+  }
+
+  get fullPath () {
+    return this.getFullPathFromModel (this.props.model);
   }
 
   handleFileChange (ev) {
@@ -119,7 +114,7 @@ class Field extends Form {
       value => {
         return {text: value};
       },
-      this.fullPathFromModel (this.props.model1)
+      this.getFullPathFromModel (this.props.model1)
     );
 
     const Value2 = this.mapWidget (
@@ -127,7 +122,7 @@ class Field extends Form {
       value => {
         return {text: value};
       },
-      this.fullPathFromModel (this.props.model2)
+      this.getFullPathFromModel (this.props.model2)
     );
 
     return (
