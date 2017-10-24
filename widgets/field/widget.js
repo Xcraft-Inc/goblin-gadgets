@@ -13,6 +13,7 @@ import LabelTextField from 'gadgets/label-text-field/widget';
 import TextFieldTyped from 'gadgets/text-field-typed/widget';
 import TextFieldCombo from 'gadgets/text-field-combo/widget';
 import RadioList from 'gadgets/radio-list/widget';
+import Plugin from 'gadgets/plugin/widget';
 
 /******************************************************************************/
 
@@ -163,7 +164,6 @@ class Field extends Form {
   }
 
   renderReadonlyEntities () {
-    return <div>{this.fullPath}</div>;
     if (!this.props.plugin) {
       throw new Error ('Property plugin is required in this case!');
     }
@@ -353,7 +353,6 @@ class Field extends Form {
   }
 
   renderEditEntities () {
-    return <div>{this.fullPath}</div>;
     if (!this.props.plugin) {
       throw new Error ('Property plugin is required in this case!');
     }
@@ -367,7 +366,9 @@ class Field extends Form {
     );
 
     return (
-      <Container kind="row-pane" subkind="light-box"><FinalPlugin /></Container>
+      <Container kind="row-pane" subkind="light-box">
+        <FinalPlugin id={this.props.id} />
+      </Container>
     );
   }
 
