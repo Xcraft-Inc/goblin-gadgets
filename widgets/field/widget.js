@@ -103,7 +103,35 @@ class Field extends Form {
           justify="left"
           spacing="overlap"
         />
-        <Value grow="1" />
+        <Value width="120px" />
+      </Container>
+    );
+  }
+
+  renderReadonlyTime () {
+    const Value = this.mapWidget (
+      Label,
+      value => {
+        return {text: Converters.getDisplayedTime (value)};
+      },
+      this.fullPath
+    );
+
+    return (
+      <Container
+        kind="row-pane"
+        width={this.props.width}
+        height={this.props.height}
+      >
+        <Label
+          text={this.props.labelText}
+          glyph={this.props.labelGlyph}
+          width={this.props.labelWidth || defaultLabelWidth}
+          kind="label-text-field"
+          justify="left"
+          spacing="overlap"
+        />
+        <Value width="120px" />
       </Container>
     );
   }
@@ -208,6 +236,26 @@ class Field extends Form {
       >
         <TextFieldTyped
           type="date"
+          labelText={this.props.labelText}
+          labelGlyph={this.props.labelGlyph}
+          labelWidth={this.props.labelWidth || defaultLabelWidth}
+          fieldWidth="120px"
+          hintText={this.props.hintText}
+          model={this.props.model}
+        />
+      </Container>
+    );
+  }
+
+  renderEditTime () {
+    return (
+      <Container
+        kind="row-pane"
+        width={this.props.width}
+        height={this.props.height}
+      >
+        <TextFieldTyped
+          type="time"
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -415,6 +463,8 @@ class Field extends Form {
         return this.renderReadonlyField ();
       case 'date':
         return this.renderReadonlyDate ();
+      case 'time':
+        return this.renderReadonlyTime ();
       case 'double-field':
         return this.renderReadonlyDoubleField ();
       case 'combo':
@@ -438,6 +488,8 @@ class Field extends Form {
         return this.renderEditField ();
       case 'date':
         return this.renderEditDate ();
+      case 'time':
+        return this.renderEditTime ();
       case 'double-field':
         return this.renderEditDoubleField ();
       case 'combo':
