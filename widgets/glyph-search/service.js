@@ -12,9 +12,9 @@ const config = {
         desk.addWorkitem ({
           workitem: {
             id: quest.uuidV4 (),
-            name: 'glyph-editor',
+            name: 'glyph-workitem',
             description: selection.text,
-            view: 'admin',
+            view: 'default',
             icon: 'edit-pen',
             isInWorkspace: true,
             isClosable: true,

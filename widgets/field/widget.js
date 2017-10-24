@@ -1,5 +1,6 @@
 import React from 'react';
 import Form from 'laboratory/form';
+import Widget from 'laboratory/widget';
 import {Control} from 'react-redux-form/immutable';
 import * as Bool from '../helpers/boolean-helpers.js';
 
@@ -151,6 +152,35 @@ class Field extends Form {
 
   renderReadonlyFileInput () {
     throw new Error ('Not implemented');
+  }
+
+  renderReadonlyEntity () {
+    return (
+      <Container kind="row-pane" subkind="light-box">
+        TODO: not impl. {this.fullPath}
+      </Container>
+    );
+  }
+
+  renderReadonlyEntities () {
+    return <div>{this.fullPath}</div>;
+    if (!this.props.plugin) {
+      throw new Error ('Property plugin is required in this case!');
+    }
+    const WiredPlugin = Widget.Wired (Plugin) (
+      `${this.props.plugin}@${this.props.id}`
+    );
+    const FinalPlugin = this.mapWidget (
+      WiredPlugin,
+      'entityIds',
+      this.fullPath
+    );
+
+    return (
+      <Container kind="row-pane" subkind="light-box">
+        <FinalPlugin readonly="true" />
+      </Container>
+    );
   }
   //#endregion
 
@@ -314,6 +344,33 @@ class Field extends Form {
     );
   }
 
+  renderEditEntity () {
+    return (
+      <Container kind="row-pane" subkind="light-box">
+        TODO: not impl. {this.fullPath}
+      </Container>
+    );
+  }
+
+  renderEditEntities () {
+    return <div>{this.fullPath}</div>;
+    if (!this.props.plugin) {
+      throw new Error ('Property plugin is required in this case!');
+    }
+    const WiredPlugin = Widget.Wired (Plugin) (
+      `${this.props.plugin}@${this.props.id}`
+    );
+    const FinalPlugin = this.mapWidget (
+      WiredPlugin,
+      'entityIds',
+      this.fullPath
+    );
+
+    return (
+      <Container kind="row-pane" subkind="light-box"><FinalPlugin /></Container>
+    );
+  }
+
   renderEditHinter () {
     const Hinter = this.mapWidget (
       LabelTextField,
@@ -381,6 +438,10 @@ class Field extends Form {
         return this.renderReadonlyField ();
       case 'file':
         return this.renderReadonlyFileInput ();
+      case 'id':
+        return this.renderReadonlyEntity ();
+      case 'ids':
+        return this.renderReadonlyEntities ();
       default:
         return this.renderReadonlyField ();
     }
@@ -402,6 +463,10 @@ class Field extends Form {
         return this.renderEditHinter ();
       case 'file':
         return this.renderEditFileInput ();
+      case 'id':
+        return this.renderEditEntity ();
+      case 'ids':
+        return this.renderEditEntities ();
       default:
         return this.renderEditField ();
     }

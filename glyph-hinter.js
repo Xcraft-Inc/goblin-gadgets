@@ -11,9 +11,9 @@ exports.xcraftCommands = function () {
     table: 'glyphs',
     field: 'name',
     newWorkitem: {
-      name: 'glyph-editor',
+      name: 'glyph-workitem',
       description: 'Nouveau pictogramme',
-      view: 'admin',
+      view: 'default',
       icon: 'edit-pen',
       mapNewValueTo: 'name',
       isInWorkspace: true,
