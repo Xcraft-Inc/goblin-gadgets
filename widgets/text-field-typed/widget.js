@@ -74,6 +74,7 @@ class TextFieldTyped extends Widget {
         labelGlyph={this.props.labelGlyph}
         labelText={this.props.labelText}
         labelWidth={this.props.labelWidth}
+        fieldWidth={this.props.fieldWidth}
         grow={this.props.grow}
         spacing={this.props.spacing}
         readonly={this.props.readonly}

@@ -211,6 +211,7 @@ class Field extends Form {
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
+          fieldWidth="120px"
           hintText={this.props.hintText}
           model={this.props.model}
         />
