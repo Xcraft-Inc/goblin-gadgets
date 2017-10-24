@@ -1,4 +1,4 @@
-import * as Converters from './converters';
+import * as DateConverters from './date-converters';
 
 // *    *    *    *    *    *
 // ┬    ┬    ┬    ┬    ┬    ┬
@@ -30,7 +30,7 @@ export function getDisplayedDays (canonicalDays) {
   if (canonicalDays && canonicalDays !== '*') {
     for (let c of canonicalDays) {
       if (c >= '1' && c <= '7') {
-        result.push (Converters.getDOWDescription (c - 1, '3'));
+        result.push (DateConverters.getDOWDescription (c - 1, '3'));
       } else if (c === '-') {
         result.push ('à');
       } else if (c === ',') {
@@ -61,7 +61,7 @@ export function getDisplayedMonths (canonicalMonths) {
         m += c - '0';
       } else {
         if (m !== 0) {
-          const d = Converters.getMonthDescription (m - 1, '4');
+          const d = DateConverters.getMonthDescription (m - 1, '4');
           if (d) {
             result.push (d.toLowerCase ());
           } else {
@@ -79,7 +79,7 @@ export function getDisplayedMonths (canonicalMonths) {
       }
     }
     if (m !== 0) {
-      const d = Converters.getMonthDescription (m - 1, '4');
+      const d = DateConverters.getMonthDescription (m - 1, '4');
       if (d) {
         result.push (d.toLowerCase ());
       } else {

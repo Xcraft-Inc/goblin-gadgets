@@ -1,6 +1,6 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
-import * as Converters from '../helpers/converters';
+import * as TimeConverters from '../helpers/time-converters';
 import * as Bool from '../helpers/boolean-helpers.js';
 
 import ChronoBar from 'gadgets/chrono-bar/widget';
@@ -48,8 +48,8 @@ class ChronoEvent extends Widget {
   /******************************************************************************/
 
   getPeriod (startTime, endTime) {
-    const s = Converters.getDisplayedTime (startTime);
-    const e = Converters.getDisplayedTime (endTime);
+    const s = TimeConverters.getDisplayedTime (startTime);
+    const e = TimeConverters.getDisplayedTime (endTime);
     if (s === e) {
       return s;
     } else {
@@ -115,16 +115,16 @@ class ChronoEvent extends Widget {
 
     var startFromPos, endFromPos, startToPos, endToPos, tricolor;
     if (event.startFromTime) {
-      startFromPos = Converters.getTotalMinutes (event.startFromTime);
-      endFromPos = Converters.getTotalMinutes (event.endFromTime);
-      startToPos = Converters.getTotalMinutes (event.startToTime);
-      endToPos = Converters.getTotalMinutes (event.endToTime);
+      startFromPos = TimeConverters.getTotalMinutes (event.startFromTime);
+      endFromPos = TimeConverters.getTotalMinutes (event.endFromTime);
+      startToPos = TimeConverters.getTotalMinutes (event.startToTime);
+      endToPos = TimeConverters.getTotalMinutes (event.endToTime);
       tricolor = true;
     } else if (event.fromTime) {
-      startFromPos = Converters.getTotalMinutes (event.fromTime);
-      endFromPos = Converters.getTotalMinutes (event.fromTime);
-      startToPos = Converters.getTotalMinutes (event.toTime);
-      endToPos = Converters.getTotalMinutes (event.toTime);
+      startFromPos = TimeConverters.getTotalMinutes (event.fromTime);
+      endFromPos = TimeConverters.getTotalMinutes (event.fromTime);
+      startToPos = TimeConverters.getTotalMinutes (event.toTime);
+      endToPos = TimeConverters.getTotalMinutes (event.toTime);
       tricolor = false;
     } else {
       return null;

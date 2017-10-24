@@ -1,7 +1,7 @@
 import React from 'react';
 import CronParser from 'cron-parser';
 import Form from 'laboratory/form';
-import * as Converters from '../helpers/converters';
+import * as DateConverters from '../helpers/date-converters';
 import * as CronHelpers from '../helpers/cron-helpers';
 import * as Bool from '../helpers/boolean-helpers.js';
 
@@ -18,8 +18,8 @@ function monthCount () {
 }
 
 function pushCron (result, date, startDate, endDate, cron, deleteList) {
-  const year = Converters.getYear (date);
-  const month = Converters.getMonth (date);
+  const year = DateConverters.getYear (date);
+  const month = DateConverters.getMonth (date);
   var options = {
     currentDate: new Date (year, month - 2, 1),
     endDate: new Date (year, month + monthCount (), 1),
@@ -33,7 +33,7 @@ function pushCron (result, date, startDate, endDate, cron, deleteList) {
       if (next.done) {
         break;
       }
-      const itemDate = Converters.jsToCanonicalDate (next.value);
+      const itemDate = DateConverters.jsToCanonicalDate (next.value);
       if (itemDate >= startDate && itemDate <= endDate) {
         const deleted = deleteList.indexOf (itemDate) !== -1;
         const item = {
@@ -102,7 +102,7 @@ class Recurrence extends Form {
 
     this.visibleDate = this.props.visibleDate
       ? this.props.visibleDate
-      : Converters.getNowCanonicalDate ();
+      : DateConverters.getNowCanonicalDate ();
 
     this.onEraseEvents = this.onEraseEvents.bind (this);
     this.onDateClicked = this.onDateClicked.bind (this);
@@ -124,7 +124,7 @@ class Recurrence extends Form {
   }
 
   get periodInfo () {
-    return Converters.getPeriodDescription (
+    return DateConverters.getPeriodDescription (
       this.props.startDate,
       this.props.endDate
     );

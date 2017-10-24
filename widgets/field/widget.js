@@ -2,7 +2,8 @@ import React from 'react';
 import Form from 'laboratory/form';
 import {Control} from 'react-redux-form/immutable';
 import * as Bool from '../helpers/boolean-helpers.js';
-import * as Converters from '../helpers/converters';
+import * as DateConverters from '../helpers/date-converters';
+import * as TimeConverters from '../helpers/time-converters';
 
 import Container from 'gadgets/container/widget';
 import Button from 'gadgets/button/widget';
@@ -84,7 +85,7 @@ class Field extends Form {
     const Value = this.mapWidget (
       Label,
       value => {
-        return {text: Converters.getDisplayedDate (value)};
+        return {text: DateConverters.getDisplayedDate (value)};
       },
       this.fullPath
     );
@@ -112,7 +113,7 @@ class Field extends Form {
     const Value = this.mapWidget (
       Label,
       value => {
-        return {text: Converters.getDisplayedTime (value)};
+        return {text: TimeConverters.getDisplayedTime (value)};
       },
       this.fullPath
     );
