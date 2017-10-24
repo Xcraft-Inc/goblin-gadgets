@@ -144,7 +144,7 @@ class Field extends Form {
           justify="left"
           spacing="overlap"
         />
-        <Check text={this.props.labelText} disabled="true" />
+        <Check text={this.props.labelText} readonly="true" />
       </Container>
     );
   }
