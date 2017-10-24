@@ -640,6 +640,7 @@ export default function styles (theme, props) {
 
   if (
     !Bool.isTrue (props.disabled) &&
+    !Bool.isTrue (props.readonly) &&
     !Bool.isTrue (props.busy) &&
     boxOpacity !== 0
   ) {

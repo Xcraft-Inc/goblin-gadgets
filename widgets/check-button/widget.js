@@ -47,6 +47,7 @@ class CheckButton extends Widget {
         text={this.props.text}
         active={active}
         disabled={this.props.disabled}
+        readonly={this.props.readonly}
         focusable={this.props.focusable}
         spacing={this.props.spacing}
       />

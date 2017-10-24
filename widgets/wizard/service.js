@@ -105,6 +105,13 @@ const properties = {
       field: 'disabled',
       value: 'false',
     },
+    readonly: {
+      id: 'readonly',
+      group: 'Aspect',
+      type: 'bool',
+      field: 'readonly',
+      value: 'false',
+    },
     focusable: {
       id: 'focusable',
       group: 'Aspect',
@@ -1422,6 +1429,13 @@ const properties = {
       group: 'Aspect',
       type: 'bool',
       field: 'disabled',
+      value: 'false',
+    },
+    readonly: {
+      id: 'readonly',
+      group: 'Aspect',
+      type: 'bool',
+      field: 'readonly',
       value: 'false',
     },
     focusable: {

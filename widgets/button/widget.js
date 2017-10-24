@@ -47,6 +47,12 @@ class Button extends Widget {
     };
   }
 
+  get disabled () {
+    return (
+      Bool.isTrue (this.props.disabled) || Bool.isTrue (this.props.readolny)
+    );
+  }
+
   setText (text) {
     this.do ('text', {text});
   }
@@ -71,10 +77,7 @@ class Button extends Widget {
 
   onKeySpace (e) {
     e.preventDefault ();
-    if (
-      Bool.isTrue (this.props.disabled) &&
-      !Bool.isTrue (this.props.focusable)
-    ) {
+    if (this.disabled && !Bool.isTrue (this.props.focusable)) {
       return;
     }
     if (this.props.onClick) {
@@ -89,7 +92,7 @@ class Button extends Widget {
   }
 
   onMouseDown (e) {
-    if (Bool.isTrue (this.props.disabled)) {
+    if (this.disabled) {
       return;
     }
     const x = this.props.mouseDown;
@@ -99,7 +102,7 @@ class Button extends Widget {
   }
 
   onMouseUp (e) {
-    if (Bool.isTrue (this.props.disabled)) {
+    if (this.disabled) {
       return;
     }
     const x = this.props.mouseUp;
@@ -114,7 +117,7 @@ class Button extends Widget {
   }
 
   onMouseOver (e) {
-    if (Bool.isTrue (this.props.disabled)) {
+    if (this.disabled) {
       return;
     }
     const x = this.props.mouseOver;
@@ -124,7 +127,7 @@ class Button extends Widget {
   }
 
   onMouseOut (e) {
-    if (Bool.isTrue (this.props.disabled)) {
+    if (this.disabled) {
       return;
     }
     const x = this.props.mouseOut;
@@ -182,7 +185,7 @@ class Button extends Widget {
           key="shortcut"
           shortcut="true"
           kind={this.props.kind}
-          disabled={this.props.disabled}
+          disabled={this.disabled}
           active={this.props.active}
           textColor={this.props.textColor}
           buttonBackgroundColor={boxStyle.backgroundColor}
