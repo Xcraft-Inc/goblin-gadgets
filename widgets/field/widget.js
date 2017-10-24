@@ -2,6 +2,7 @@ import React from 'react';
 import Form from 'laboratory/form';
 import {Control} from 'react-redux-form/immutable';
 import * as Bool from '../helpers/boolean-helpers.js';
+import * as Converters from '../helpers/converters';
 
 import Container from 'gadgets/container/widget';
 import Button from 'gadgets/button/widget';
@@ -61,6 +62,34 @@ class Field extends Form {
       Label,
       value => {
         return {text: value};
+      },
+      this.fullPath
+    );
+
+    return (
+      <Container
+        kind="row-pane"
+        width={this.props.width}
+        height={this.props.height}
+      >
+        <Label
+          text={this.props.labelText}
+          glyph={this.props.labelGlyph}
+          width={this.props.labelWidth || defaultLabelWidth}
+          kind="label-text-field"
+          justify="left"
+          spacing="overlap"
+        />
+        <Value grow="1" />
+      </Container>
+    );
+  }
+
+  renderReadonlyDate () {
+    const Value = this.mapWidget (
+      Label,
+      value => {
+        return {text: Converters.getDisplayedDate (value)};
       },
       this.fullPath
     );
@@ -170,6 +199,25 @@ class Field extends Form {
           rows={this.props.rows}
           model={this.props.model}
           grow="1"
+        />
+      </Container>
+    );
+  }
+
+  renderEditDate () {
+    return (
+      <Container
+        kind="row-pane"
+        width={this.props.width}
+        height={this.props.height}
+      >
+        <TextFieldTyped
+          type="date"
+          labelText={this.props.labelText}
+          labelGlyph={this.props.labelGlyph}
+          labelWidth={this.props.labelWidth || defaultLabelWidth}
+          hintText={this.props.hintText}
+          model={this.props.model}
         />
       </Container>
     );
@@ -369,6 +417,8 @@ class Field extends Form {
     switch (this.props.kind) {
       case 'field':
         return this.renderReadonlyField ();
+      case 'date':
+        return this.renderReadonlyDate ();
       case 'double-field':
         return this.renderReadonlyDoubleField ();
       case 'combo':
@@ -390,6 +440,8 @@ class Field extends Form {
     switch (this.props.kind) {
       case 'field':
         return this.renderEditField ();
+      case 'date':
+        return this.renderEditDate ();
       case 'double-field':
         return this.renderEditDoubleField ();
       case 'combo':
