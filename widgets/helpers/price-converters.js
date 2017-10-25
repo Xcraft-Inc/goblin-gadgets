@@ -27,7 +27,7 @@ export function getDisplayed (price, format) {
   BigNumber.config ({FORMAT: displayedFormat, ERRORS: false});
 
   const x = new BigNumber (price);
-  return x.toFormat (2);
+  return x.toFormat (2); // 2 decimals
 }
 
 // With editedPrice = '12.666', return '12.67'.
@@ -38,8 +38,8 @@ export function parseEdited (editedPrice) {
 
   BigNumber.config ({FORMAT: parseFormat, DECIMAL_PLACES: 2, ERRORS: false});
 
-  editedPrice = editedPrice.replace (/ |'| /g, '');
-  const x = new BigNumber (editedPrice, 10);
+  editedPrice = editedPrice.replace (/ |'|/g, ''); // remove spaces and quotes
+  const x = new BigNumber (editedPrice, 10); // base 10 for rounding to 2 decimals
   if (x.isNaN ()) {
     return {value: null, error: 'Montant incorrect'};
   } else {
