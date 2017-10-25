@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Form from 'laboratory/form';
 import {Unit} from 'electrum-theme';
-import * as Converters from '../helpers/converters';
+import * as DateConverters from '../helpers/date-converters';
+import * as TimeConverters from '../helpers/time-converters';
 import * as Bool from '../helpers/boolean-helpers.js';
 
 import Button from 'gadgets/button/widget';
@@ -64,25 +65,25 @@ function getFlatEvents (events, filters) {
         if (event.fromTime) {
           minHour = Math.min (
             minHour,
-            Converters.splitTime (event.fromTime).hour - 1
+            TimeConverters.splitTime (event.fromTime).hour - 1
           );
         }
         if (event.startFromTime) {
           minHour = Math.min (
             minHour,
-            Converters.splitTime (event.startFromTime).hour - 1
+            TimeConverters.splitTime (event.startFromTime).hour - 1
           );
         }
         if (event.toTime) {
           maxHour = Math.max (
             maxHour,
-            Converters.splitTime (event.toTime).hour + 1
+            TimeConverters.splitTime (event.toTime).hour + 1
           );
         }
         if (event.endToTime) {
           maxHour = Math.max (
             maxHour,
-            Converters.splitTime (event.endToTime).hour + 1
+            TimeConverters.splitTime (event.endToTime).hour + 1
           );
         }
 
@@ -348,8 +349,8 @@ class Chronos extends Form {
       const count = this.flatEvents.count[i];
       var text, tooltip;
       if (this.flatEvents.hasDates) {
-        text = Converters.getDisplayedDate (group);
-        tooltip = Converters.getDisplayedDate (group, 'W');
+        text = DateConverters.getDisplayedDate (group);
+        tooltip = DateConverters.getDisplayedDate (group, 'W');
       } else {
         text = group;
         tooltip = null;
@@ -409,7 +410,10 @@ class Chronos extends Form {
       userSelect: 'none',
     };
     const text = time
-      ? Converters.getDisplayedTime (Converters.addSeconds (time, 1), 'h')
+      ? TimeConverters.getDisplayedTime (
+          TimeConverters.addSeconds (time, 1),
+          'h'
+        )
       : '';
 
     return (
@@ -438,7 +442,7 @@ class Chronos extends Form {
     for (var h = minHour + 1; h < maxHour; h++) {
       const width = 100 / lenHour;
       const start = (h - minHour) * 100 / lenHour - width / 2;
-      const time = Converters.getTimeFromMinutes (h * 60);
+      const time = TimeConverters.getTimeFromMinutes (h * 60);
       result.push (this.renderTime (start + '%', width + '%', time, index++));
     }
     return result;
@@ -519,7 +523,7 @@ class Chronos extends Form {
       if (item.type === 'top') {
         var text;
         if (item.date) {
-          text = Converters.getDisplayedDate (item.date, 'Wdmy');
+          text = DateConverters.getDisplayedDate (item.date, 'Wdmy');
         } else {
           text = item.group;
         }

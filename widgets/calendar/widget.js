@@ -1,6 +1,6 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
-import * as Converters from '../helpers/converters';
+import * as DateConverters from '../helpers/date-converters';
 import * as Bool from '../helpers/boolean-helpers.js';
 
 import Label from 'gadgets/label/widget';
@@ -32,10 +32,10 @@ class Calendar extends Widget {
     // At first time, initialize internalState.visibleDate with current date.
     var date = this.props.visibleDate;
     if (!date) {
-      const now = Converters.getNowCanonicalDate ();
-      const year = Converters.getYear (now);
-      const month = Converters.getMonth (now);
-      date = Converters.getDate (year, month, 1);
+      const now = DateConverters.getNowCanonicalDate ();
+      const year = DateConverters.getYear (now);
+      const month = DateConverters.getMonth (now);
+      date = DateConverters.getDate (year, month, 1);
     }
     this.visibleDate = date;
   }
@@ -48,7 +48,7 @@ class Calendar extends Widget {
   }
 
   getDOW3Letters (dow) {
-    return Converters.getDOWDescription (dow).substring (0, 3);
+    return DateConverters.getDOWDescription (dow).substring (0, 3);
   }
 
   changeDate (date) {
@@ -65,7 +65,7 @@ class Calendar extends Widget {
   onPrevMonth () {
     const visibleDate = this.visibleDate;
     this.forceUpdate ();
-    const newDate = Converters.addMonths (visibleDate, -1);
+    const newDate = DateConverters.addMonths (visibleDate, -1);
     this.changeDate (newDate);
   }
 
@@ -74,39 +74,39 @@ class Calendar extends Widget {
   onNextMonth () {
     const visibleDate = this.visibleDate;
     this.forceUpdate ();
-    const newDate = Converters.addMonths (visibleDate, 1);
+    const newDate = DateConverters.addMonths (visibleDate, 1);
     this.changeDate (newDate);
   }
 
   onVisibleDateNow () {
-    const now = Converters.getNowCanonicalDate ();
-    const year = Converters.getYear (now);
-    const month = Converters.getMonth (now);
-    const date = Converters.getDate (year, month, 1);
+    const now = DateConverters.getNowCanonicalDate ();
+    const year = DateConverters.getYear (now);
+    const month = DateConverters.getMonth (now);
+    const date = DateConverters.getDate (year, month, 1);
     this.changeDate (date);
   }
 
   onVisibleDateMonth (month) {
-    const s = Converters.splitDate (this.visibleDate);
-    const date = Converters.getDate (s.year, month, 1);
+    const s = DateConverters.splitDate (this.visibleDate);
+    const date = DateConverters.getDate (s.year, month, 1);
     this.changeDate (date);
   }
 
   onVisibleDateAddMonths (months) {
-    const date = Converters.addMonths (this.visibleDate, months);
+    const date = DateConverters.addMonths (this.visibleDate, months);
     this.changeDate (date);
   }
 
   onVisibleDatePrevYear () {
-    const s = Converters.splitDate (this.visibleDate);
+    const s = DateConverters.splitDate (this.visibleDate);
     const year = s.month === 1 ? s.year - 1 : s.year;
-    const date = Converters.getDate (year, 1, 1);
+    const date = DateConverters.getDate (year, 1, 1);
     this.changeDate (date);
   }
 
   onVisibleDateNextYear () {
-    const s = Converters.splitDate (this.visibleDate);
-    const date = Converters.getDate (s.year + 1, 1, 1);
+    const s = DateConverters.splitDate (this.visibleDate);
+    const date = DateConverters.getDate (s.year + 1, 1, 1);
     this.changeDate (date);
   }
 
@@ -135,11 +135,11 @@ class Calendar extends Widget {
 
   // Return the html for a [1]..[31] button.
   renderButton (date, active, dimmed, weekend, index) {
-    const tooltip = Converters.getDisplayedDate (date, 'Wdmy');
+    const tooltip = DateConverters.getDisplayedDate (date, 'Wdmy');
     return (
       <Button
         key={index}
-        text={Converters.getDay (date)} // 1..31
+        text={DateConverters.getDay (date)} // 1..31
         tooltip={tooltip}
         kind="calendar"
         active={active}
@@ -168,8 +168,10 @@ class Calendar extends Widget {
         active = 'true';
       }
       if (
-        Converters.getYear (firstDate) !== Converters.getYear (visibleDate) ||
-        Converters.getMonth (firstDate) !== Converters.getMonth (visibleDate)
+        DateConverters.getYear (firstDate) !==
+          DateConverters.getYear (visibleDate) ||
+        DateConverters.getMonth (firstDate) !==
+          DateConverters.getMonth (visibleDate)
       ) {
         dimmed = 'true';
       }
@@ -186,7 +188,7 @@ class Calendar extends Widget {
 
       const button = this.renderButton (firstDate, active, dimmed, weekend, i);
       line.push (button);
-      firstDate = Converters.addDays (firstDate, 1);
+      firstDate = DateConverters.addDays (firstDate, 1);
     }
     return line;
   }
@@ -312,7 +314,7 @@ class Calendar extends Widget {
         i
       );
       column.push (line);
-      firstDate = Converters.addDays (firstDate, 7);
+      firstDate = DateConverters.addDays (firstDate, 7);
     }
     return column;
   }
@@ -325,8 +327,8 @@ class Calendar extends Widget {
     firstMonth,
     lastMonth
   ) {
-    const firstDate = Converters.getCalendarStartDate (visibleDate);
-    const header = Converters.getDisplayedDate (visibleDate, 'My'); // 'mai 2016' by example
+    const firstDate = DateConverters.getCalendarStartDate (visibleDate);
+    const header = DateConverters.getDisplayedDate (visibleDate, 'My'); // 'mai 2016' by example
 
     const columnClass = this.styles.classNames.column;
     return (
@@ -380,9 +382,9 @@ class Calendar extends Widget {
     const result = [];
     const monthCount = this.monthCount;
     for (var m = 0; m < monthCount; m++) {
-      const year = Converters.getYear (visibleDate);
-      const month = Converters.getMonth (visibleDate);
-      const date = Converters.getDate (year, month + m, 1);
+      const year = DateConverters.getYear (visibleDate);
+      const month = DateConverters.getMonth (visibleDate);
+      const date = DateConverters.getDate (year, month + m, 1);
 
       const firstMonth = m === 0;
       const lastMonth = m === monthCount - 1;
@@ -406,8 +408,11 @@ class Calendar extends Widget {
     const active = month >= firstVisibleMonth && month < lastVisibleMonth;
     return (
       <Button
-        text={Converters.getMonthDescription (month - 1, '1').toUpperCase ()}
-        tooltip={Converters.getMonthDescription (month - 1)}
+        text={DateConverters.getMonthDescription (
+          month - 1,
+          '1'
+        ).toUpperCase ()}
+        tooltip={DateConverters.getMonthDescription (month - 1)}
         kind="calendar-navigator"
         grow="1"
         onClick={() => this.onVisibleDateMonth (month)}
@@ -431,7 +436,7 @@ class Calendar extends Widget {
 
   renderMonthsOfYear () {
     const result = [];
-    const visibleMonth = Converters.splitDate (this.visibleDate).month;
+    const visibleMonth = DateConverters.splitDate (this.visibleDate).month;
     for (let month = 1; month <= 12; month += 4) {
       result.push (this.renderLineOfMonths (month, visibleMonth));
     }

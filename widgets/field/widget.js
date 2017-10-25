@@ -3,6 +3,8 @@ import Form from 'laboratory/form';
 import Widget from 'laboratory/widget';
 import {Control} from 'react-redux-form/immutable';
 import * as Bool from '../helpers/boolean-helpers.js';
+import * as DateConverters from '../helpers/date-converters';
+import * as TimeConverters from '../helpers/time-converters';
 
 import Container from 'gadgets/container/widget';
 import Button from 'gadgets/button/widget';
@@ -25,22 +27,17 @@ class Field extends Form {
     this.handleFileChange = this.handleFileChange.bind (this);
   }
 
-  get fullPath () {
-    if (!this.context.model) {
-      throw new Error (
-        'Cannot resolve context model, your Field is not in a Form ?'
-      );
-    }
-    return `${this.context.model}${this.props.model}`;
-  }
-
-  fullPathFromModel (model) {
+  getFullPathFromModel (model) {
     if (!this.context.model) {
       throw new Error (
         'Cannot resolve context model, your Field is not in a Form ?'
       );
     }
     return `${this.context.model}${model}`;
+  }
+
+  get fullPath () {
+    return this.getFullPathFromModel (this.props.model);
   }
 
   handleFileChange (ev) {
@@ -86,13 +83,69 @@ class Field extends Form {
     );
   }
 
+  renderReadonlyDate () {
+    const Value = this.mapWidget (
+      Label,
+      value => {
+        return {text: DateConverters.getDisplayedDate (value)};
+      },
+      this.fullPath
+    );
+
+    return (
+      <Container
+        kind="row-pane"
+        width={this.props.width}
+        height={this.props.height}
+      >
+        <Label
+          text={this.props.labelText}
+          glyph={this.props.labelGlyph}
+          width={this.props.labelWidth || defaultLabelWidth}
+          kind="label-text-field"
+          justify="left"
+          spacing="overlap"
+        />
+        <Value width="120px" />
+      </Container>
+    );
+  }
+
+  renderReadonlyTime () {
+    const Value = this.mapWidget (
+      Label,
+      value => {
+        return {text: TimeConverters.getDisplayedTime (value)};
+      },
+      this.fullPath
+    );
+
+    return (
+      <Container
+        kind="row-pane"
+        width={this.props.width}
+        height={this.props.height}
+      >
+        <Label
+          text={this.props.labelText}
+          glyph={this.props.labelGlyph}
+          width={this.props.labelWidth || defaultLabelWidth}
+          kind="label-text-field"
+          justify="left"
+          spacing="overlap"
+        />
+        <Value width="120px" />
+      </Container>
+    );
+  }
+
   renderReadonlyDoubleField () {
     const Value1 = this.mapWidget (
       Label,
       value => {
         return {text: value};
       },
-      this.fullPathFromModel (this.props.model1)
+      this.getFullPathFromModel (this.props.model1)
     );
 
     const Value2 = this.mapWidget (
@@ -100,7 +153,7 @@ class Field extends Form {
       value => {
         return {text: value};
       },
-      this.fullPathFromModel (this.props.model2)
+      this.getFullPathFromModel (this.props.model2)
     );
 
     return (
@@ -146,7 +199,7 @@ class Field extends Form {
           justify="left"
           spacing="overlap"
         />
-        <Check text={this.props.labelText} disabled="true" />
+        <Check text={this.props.labelText} readonly="true" />
       </Container>
     );
   }
@@ -200,6 +253,46 @@ class Field extends Form {
           rows={this.props.rows}
           model={this.props.model}
           grow="1"
+        />
+      </Container>
+    );
+  }
+
+  renderEditDate () {
+    return (
+      <Container
+        kind="row-pane"
+        width={this.props.width}
+        height={this.props.height}
+      >
+        <TextFieldTyped
+          type="date"
+          labelText={this.props.labelText}
+          labelGlyph={this.props.labelGlyph}
+          labelWidth={this.props.labelWidth || defaultLabelWidth}
+          fieldWidth="120px"
+          hintText={this.props.hintText}
+          model={this.props.model}
+        />
+      </Container>
+    );
+  }
+
+  renderEditTime () {
+    return (
+      <Container
+        kind="row-pane"
+        width={this.props.width}
+        height={this.props.height}
+      >
+        <TextFieldTyped
+          type="time"
+          labelText={this.props.labelText}
+          labelGlyph={this.props.labelGlyph}
+          labelWidth={this.props.labelWidth || defaultLabelWidth}
+          fieldWidth="120px"
+          hintText={this.props.hintText}
+          model={this.props.model}
         />
       </Container>
     );
@@ -427,6 +520,10 @@ class Field extends Form {
     switch (this.props.kind) {
       case 'field':
         return this.renderReadonlyField ();
+      case 'date':
+        return this.renderReadonlyDate ();
+      case 'time':
+        return this.renderReadonlyTime ();
       case 'double-field':
         return this.renderReadonlyDoubleField ();
       case 'combo':
@@ -452,6 +549,10 @@ class Field extends Form {
     switch (this.props.kind) {
       case 'field':
         return this.renderEditField ();
+      case 'date':
+        return this.renderEditDate ();
+      case 'time':
+        return this.renderEditTime ();
       case 'double-field':
         return this.renderEditDoubleField ();
       case 'combo':
