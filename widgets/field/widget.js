@@ -17,7 +17,9 @@ import TextFieldTyped from 'gadgets/text-field-typed/widget';
 import TextFieldCombo from 'gadgets/text-field-combo/widget';
 import RadioList from 'gadgets/radio-list/widget';
 import Plugin from 'gadgets/plugin/widget';
-
+import Workitem from 'desktop/workitem/widget';
+import importer from 'laboratory/importer/';
+const uiImporter = importer ('ui');
 /******************************************************************************/
 
 const defaultLabelWidth = '120px';
@@ -487,9 +489,22 @@ class Field extends Form {
   }
 
   renderEditEntity () {
+    if (!this.ui) {
+      throw new Error ('Missing ui property');
+    }
+    const ui = uiImporter (this.props.ui);
+    const ReadLineUI = this.mapWidget (ui.read.line, 'entityId', this.fullPath);
+    const Viewer = props => (
+      <Workitem readonly="true" entityId={props.entityId} kind="form">
+        <ReadLineUI />
+      </Workitem>
+    );
+
+    const EntityViewer = this.mapWidget (Viewer, 'entityId', this.fullPath);
+
     return (
       <Container kind="row-pane" subkind="light-box">
-        TODO: not impl. {this.fullPath}
+        <EntityViewer />
       </Container>
     );
   }
