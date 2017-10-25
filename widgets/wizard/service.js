@@ -852,6 +852,14 @@ const properties = {
       list: ['', 'overlap', 'tiny', 'large', 'double'],
       value: '',
     },
+    justify: {
+      id: 'justify',
+      group: 'Text',
+      type: 'combo',
+      field: 'justify',
+      list: ['', 'left', 'right'],
+      value: '',
+    },
     cursor: {
       id: 'cursor',
       group: 'Aspect',
@@ -939,6 +947,14 @@ const properties = {
       type: 'combo',
       field: 'shape',
       list: ['', 'rounded', 'smooth'],
+      value: '',
+    },
+    fieldJustify: {
+      id: 'fieldJustify',
+      group: 'Text',
+      type: 'combo',
+      field: 'fieldJustify',
+      list: ['', 'left', 'right'],
       value: '',
     },
     messageInfo: {
