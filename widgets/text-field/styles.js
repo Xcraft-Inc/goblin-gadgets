@@ -121,6 +121,7 @@ export default function styles (theme, props) {
     paddingBottom: '0px',
     paddingLeft: fieldPaddingLeft,
     margin: '0px',
+    textAlign: props.justify === 'right' ? 'right' : null,
     color: color,
     backgroundColor: 'transparent',
     outline: 'none',

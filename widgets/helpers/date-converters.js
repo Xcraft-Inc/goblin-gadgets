@@ -51,12 +51,12 @@ export function getDOWDescription (dow, format) {
   }
 }
 
-export function getEmptyDate () {
+function getEmpty () {
   return '0001-01-01';
 }
 
-export function isEmptyDate (date) {
-  return !date || date === getEmptyDate ();
+function isEmpty (date) {
+  return !date || date === getEmpty ();
 }
 
 function tryParseInt (text) {
@@ -103,7 +103,7 @@ function padding (value, decimals) {
   }
 }
 
-export function jsToCanonicalDate (date) {
+export function jsToCanonical (date) {
   return (
     padding (date.getFullYear (), 4) +
     '-' +
@@ -113,63 +113,50 @@ export function jsToCanonicalDate (date) {
   );
 }
 
-export function canonicalDateToJs (date) {
+function canonicalToJs (date) {
   if (typeof date === 'object') {
     return new Date (date.year, date.month - 1, date.day);
   } else {
-    const s = splitDate (date);
+    const s = split (date);
     return new Date (s.year, s.month - 1, s.day);
   }
 }
 
 export function addDays (date, n) {
-  const d = canonicalDateToJs (date);
+  const d = canonicalToJs (date);
   const nd = new Date (d.getFullYear (), d.getMonth (), d.getDate () + n);
-  return jsToCanonicalDate (nd);
+  return jsToCanonical (nd);
 }
 
 export function addMonths (date, n) {
-  const d = canonicalDateToJs (date);
+  const d = canonicalToJs (date);
   const nd = new Date (d.getFullYear (), d.getMonth () + n, d.getDate ());
-  return jsToCanonicalDate (nd);
+  return jsToCanonical (nd);
 }
 
 export function addYears (date, n) {
-  const d = canonicalDateToJs (date);
+  const d = canonicalToJs (date);
   const nd = new Date (d.getFullYear () + n, d.getMonth (), d.getDate ());
-  return jsToCanonicalDate (nd);
+  return jsToCanonical (nd);
 }
 
 export function getYear (date) {
-  const d = canonicalDateToJs (date);
+  const d = canonicalToJs (date);
   return d.getFullYear (); // 2017..
 }
 
 export function getMonth (date) {
-  const d = canonicalDateToJs (date);
+  const d = canonicalToJs (date);
   return d.getMonth () + 1; // 1..12
 }
 
 export function getDay (date) {
-  const d = canonicalDateToJs (date);
+  const d = canonicalToJs (date);
   return d.getDate (); // 1..31
 }
 
-export function isCanonicalDate (canonicalDate) {
-  if (
-    !canonicalDate ||
-    canonicalDate.length !== 10 ||
-    canonicalDate[4] !== '-' ||
-    canonicalDate[7] !== '-'
-  ) {
-    return false;
-  } else {
-    return true;
-  }
-}
-
 // With '2017-03-31', return {year: 2017, month: 03, day: 31}.
-export function splitDate (canonicalDate) {
+export function split (canonicalDate) {
   if (
     !canonicalDate ||
     canonicalDate.length !== 10 ||
@@ -190,30 +177,6 @@ export function splitDate (canonicalDate) {
   };
 }
 
-// Return actual date and time.
-export function getNow () {
-  const now = new Date (Date.now ());
-  return {
-    year: now.getFullYear (),
-    month: now.getMonth () + 1,
-    day: now.getDate (),
-    hour: now.getHours (),
-    minute: now.getMinutes (),
-    second: now.getSeconds (),
-  };
-}
-
-// With {year: 2017, month: 03, day: 31}, return '2017-03-31'.
-export function joinDate (date) {
-  return (
-    padding (date.year, 4) +
-    '-' +
-    padding (date.month, 2) +
-    '-' +
-    padding (date.day, 2)
-  );
-}
-
 // With ' 12/3 ', return [12, 3].
 function tryParseDate (editedDate) {
   const result = [];
@@ -231,11 +194,11 @@ function tryParseDate (editedDate) {
 }
 
 // With date = '2017-03-31', return '31.03.2017'.
-export function getDisplayedDate (canonicalDate, format) {
-  if (!canonicalDate || isEmptyDate (canonicalDate)) {
+export function getDisplayed (canonicalDate, format) {
+  if (!canonicalDate || isEmpty (canonicalDate)) {
     return null;
   }
-  const d = splitDate (canonicalDate);
+  const d = split (canonicalDate);
   if (d) {
     if (format === 'y') {
       return padding (d.year, 4);
@@ -246,15 +209,15 @@ export function getDisplayedDate (canonicalDate, format) {
     } else if (format === 'y') {
       return padding (d.year, 4);
     } else if (format === 'W') {
-      const w = canonicalDateToJs (canonicalDate).getDay (); // 0..6 (0 = Sunday)
+      const w = canonicalToJs (canonicalDate).getDay (); // 0..6 (0 = Sunday)
       return getDOWDescription ((w + 6) % 7);
     } else if (format === 'Wd') {
-      const w = canonicalDateToJs (canonicalDate).getDay (); // 0..6 (0 = Sunday)
+      const w = canonicalToJs (canonicalDate).getDay (); // 0..6 (0 = Sunday)
       return getDOWDescription ((w + 6) % 7, '3') + ' ' + padding (d.day, 2);
     } else if (format === 'd') {
       return padding (d.day, 2);
     } else if (format === 'Wdm') {
-      const w = canonicalDateToJs (canonicalDate).getDay (); // 0..6 (0 = Sunday)
+      const w = canonicalToJs (canonicalDate).getDay (); // 0..6 (0 = Sunday)
       return (
         getDOWDescription ((w + 6) % 7, '3') +
         ' ' +
@@ -263,7 +226,7 @@ export function getDisplayedDate (canonicalDate, format) {
         padding (d.month, 2)
       );
     } else if (format === 'Wdmy') {
-      const w = canonicalDateToJs (canonicalDate).getDay (); // 0..6 (0 = Sunday)
+      const w = canonicalToJs (canonicalDate).getDay (); // 0..6 (0 = Sunday)
       return (
         getDOWDescription ((w + 6) % 7, '3') +
         ' ' +
@@ -288,14 +251,14 @@ export function getDisplayedDate (canonicalDate, format) {
 }
 
 // With editedDate = '31 3 2017', return '2017-03-31'.
-export function parseEditedDate (editedDate, defaultCanonicalDate) {
+export function parseEdited (editedDate, defaultCanonicalDate) {
   if (!editedDate || editedDate === '') {
     return {value: null, error: null};
   }
   if (!defaultCanonicalDate) {
-    defaultCanonicalDate = getNowCanonicalDate ();
+    defaultCanonicalDate = getNowCanonical ();
   }
-  const date = splitDate (defaultCanonicalDate);
+  const date = split (defaultCanonicalDate);
   const edited = tryParseDate (editedDate);
   let incorrectDay = false;
   let incorrectMonth = false;
@@ -332,12 +295,12 @@ export function parseEditedDate (editedDate, defaultCanonicalDate) {
     incorrectArgs = true;
   }
 
-  const jsDate = canonicalDateToJs (date);
+  const jsDate = canonicalToJs (date);
   if (isNaN (jsDate)) {
     return {value: null, error: 'Date invalide'};
   }
-  const result = jsToCanonicalDate (jsDate);
-  const r = splitDate (result);
+  const result = jsToCanonical (jsDate);
+  const r = split (result);
 
   if (date.day !== r.day) {
     incorrectDay = true;
@@ -397,12 +360,12 @@ export function getPeriodDescription (fromDate, toDate) {
   }
 
   var fd = getDay (fromDate);
-  var fm = getDisplayedDate (fromDate, 'M');
-  var fy = getDisplayedDate (fromDate, 'y');
+  var fm = getDisplayed (fromDate, 'M');
+  var fy = getDisplayed (fromDate, 'y');
 
   var td = getDay (toDate);
-  var tm = getDisplayedDate (toDate, 'M');
-  var ty = getDisplayedDate (toDate, 'y');
+  var tm = getDisplayed (toDate, 'M');
+  var ty = getDisplayed (toDate, 'y');
 
   if (fy <= '2000') {
     fy = '-∞';
@@ -472,17 +435,17 @@ export function getPeriodDescription (fromDate, toDate) {
   }
 }
 
-export function getNowCanonicalDate () {
-  return jsToCanonicalDate (new Date (Date.now ()));
+export function getNowCanonical () {
+  return jsToCanonical (new Date (Date.now ()));
 }
 
 export function getDate (year, month, day) {
   const d = new Date (year, month - 1, day);
-  return jsToCanonicalDate (d);
+  return jsToCanonical (d);
 }
 
 export function getCalendarStartDate (date) {
-  const jsDate = canonicalDateToJs (date);
+  const jsDate = canonicalToJs (date);
   const dotw = new Date (
     jsDate.getFullYear (),
     jsDate.getMonth (),
@@ -490,5 +453,5 @@ export function getCalendarStartDate (date) {
   ).getDay (); // 0..6 (0 = Sunday)
   const first = -((dotw + 5) % 7);
   const startDate = new Date (jsDate.getFullYear (), jsDate.getMonth (), first);
-  return jsToCanonicalDate (startDate);
+  return jsToCanonical (startDate);
 }

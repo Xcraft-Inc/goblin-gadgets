@@ -115,6 +115,7 @@ class LabelTextField extends Widget {
       type: this.props.type,
       grow: fieldGrow,
       width: this.props.fieldWidth,
+      justify: this.props.fieldJustify,
       hintText: this.props.hintText,
       value: this.props.value,
       hinter: this.props.hinter,
