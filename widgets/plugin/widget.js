@@ -97,6 +97,8 @@ class Plugin extends Widget {
       '.entityId'
     );
 
+    const workitemId = `${this.props.editorWidget}@${this.props.entityIds.get (index)}`;
+
     if (extended || Bool.isTrue (this.props.readonly)) {
       return (
         <Container kind="pane" key={index}>
@@ -122,7 +124,7 @@ class Plugin extends Widget {
           <Container kind="row-pane">
             <Container kind="column">
               <Workitem id={this.props.id} entityId={entityId} kind="form">
-                <EditLineUI />
+                <EditLineUI id={workitemId} entityId={entityId} />
               </Workitem>
             </Container>
           </Container>
@@ -144,11 +146,11 @@ class Plugin extends Widget {
             <Container kind="row-pane">
               <Workitem
                 readonly="true"
-                id={this.props.id}
+                id={workitemId}
                 entityId={entityId}
                 kind="form"
               >
-                <ReadLineUI />
+                <ReadLineUI id={workitemId} entityId={entityId} />
               </Workitem>
               <Button
                 kind="recurrence"
