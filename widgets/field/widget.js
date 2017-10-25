@@ -161,7 +161,7 @@ class Field extends Form {
           justify="left"
           spacing="overlap"
         />
-        <Value width="120px" />
+        <Value width="120px" justify="end" />
       </Container>
     );
   }
