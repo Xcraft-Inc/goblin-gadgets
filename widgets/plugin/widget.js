@@ -2,13 +2,14 @@ import React from 'react';
 import Widget from 'laboratory/widget';
 import * as Bool from '../helpers/boolean-helpers.js';
 
+import Workitem from 'desktop/workitem/widget';
 import Container from 'gadgets/container/widget';
 import Button from 'gadgets/button/widget';
 import Label from 'gadgets/label/widget';
 import DragCab from 'gadgets/drag-cab/widget';
 
 import importer from 'laboratory/importer/';
-const widgetImporter = importer ('widget');
+const uiImporter = importer ('ui');
 /******************************************************************************/
 
 class Plugin extends Widget {
@@ -88,28 +89,44 @@ class Plugin extends Widget {
   }
 
   renderRow (entityId, extended, index) {
-    const EditorWidget = widgetImporter (this.props.editorWidget);
-    const WiredEntityEditor = Widget.Wired (EditorWidget) (
-      `${this.props.editorWidget}@${entityId}`
+    const workitemUI = uiImporter (this.props.editorWidget);
+    const ReadLineUI = this.WithState (workitemUI.read.line, 'entityId') (
+      '.entityId'
     );
-
-    const WiredEntityEditorWithEntity = this.mapWidgetToBackend (
-      WiredEntityEditor,
-      entity => {
-        return {entity: entity};
-      },
-      entityId
+    const EditLineUI = this.WithState (workitemUI.edit.line, 'entityId') (
+      '.entityId'
     );
 
     if (extended || Bool.isTrue (this.props.readonly)) {
       return (
-        <WiredEntityEditorWithEntity
-          key={index}
-          readonly={Bool.toString (this.props.readonly)}
-          extended={Bool.toString (extended)}
-          swapExtended={() => this.onSwapExtended (entityId)}
-          deleteEntity={() => this.onDeleteEntity (entityId)}
-        />
+        <Container kind="pane" key={index}>
+          <Container kind="row-pane">
+            <Button
+              height={this.context.theme.shapes.lineHeight}
+              glyph="trash"
+              tooltip="Supprimer"
+              onClick={() => this.onDeleteEntity (entityId)}
+            />
+            <Button
+              kind="recurrence"
+              glyph="caret-up"
+              tooltip="Replier"
+              active="false"
+              activeColor={
+                this.context.theme.palette.recurrenceExtendedBoxBackground
+              }
+              onClick={() => this.onSwapExtended (entityId)}
+            />
+
+          </Container>
+          <Container kind="row-pane">
+            <Container kind="column">
+              <Workitem id={this.props.id} entityId={entityId} kind="form">
+                <EditLineUI />
+              </Workitem>
+            </Container>
+          </Container>
+        </Container>
       );
     } else {
       return (
@@ -121,14 +138,30 @@ class Plugin extends Widget {
           thickness={this.context.theme.shapes.dragAndDropTicketThickness}
           dragOwnerId={entityId}
           doClickAction={() => this.onSwapExtended (entityId)}
-          doDragEnding={this.onNoteDragged}
+          doDragEnding={this.onEntityDragged}
         >
-          <WiredEntityEditorWithEntity
-            readonly={Bool.toString (this.props.readonly)}
-            extended={Bool.toString (extended)}
-            swapExtended={() => this.onSwapExtended (entityId)}
-            deleteEntity={() => this.onDeleteEntity (entityId)}
-          />
+          <Container kind="pane">
+            <Container kind="row-pane">
+              <Workitem
+                readonly="true"
+                id={this.props.id}
+                entityId={entityId}
+                kind="form"
+              >
+                <ReadLineUI />
+              </Workitem>
+              <Button
+                kind="recurrence"
+                glyph="caret-down"
+                tooltip="Etendre"
+                active="false"
+                activeColor={
+                  this.context.theme.palette.recurrenceExtendedBoxBackground
+                }
+                onClick={() => this.onSwapExtended (entityId)}
+              />
+            </Container>
+          </Container>
         </DragCab>
       );
     }
