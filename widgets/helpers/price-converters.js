@@ -1,50 +1,48 @@
-function pad (n, width, z) {
-  z = z || '0';
-  n = n + '';
-  return n.length >= width ? n : new Array (width - n.length + 1).join (z) + n;
-}
+const BigNumber = require ('bignumber.js');
 
-// value =  '1', decimals = 3  -> return '001'
-// value =  'a', decimals = 3  -> return null
-// value =    5, decimals = 3  -> return '005'
-// value =   12, decimals = 3  -> return '012'
-// value = 1234, decimals = 3  -> return null
-function padding (value, decimals) {
-  if (typeof value === 'string') {
-    value = parseInt (value);
-    if (isNaN (value)) {
-      return null;
-    }
-  }
-  const result = pad (value, decimals);
-  if (result.length > decimals) {
-    return null;
-  } else {
-    return result;
-  }
-}
+const displayedFormat = {
+  decimalSeparator: '.',
+  groupSeparator: "'",
+  groupSize: 3,
+  secondaryGroupSize: 0,
+  fractionGroupSeparator: ' ',
+  fractionGroupSize: 0,
+};
 
-// With price = '12', return '12.00'.
+const parseFormat = {
+  decimalSeparator: '.',
+  groupSeparator: '',
+  groupSize: 0,
+  secondaryGroupSize: 0,
+  fractionGroupSeparator: ' ',
+  fractionGroupSize: 0,
+};
+
+// With price = '1234.5', return "1'234.50".
 export function getDisplayed (price, format) {
   if (!price) {
     return null;
   }
 
-  const s = price.split ('.');
-  if (s.length === 1) {
-    return s[0] + '.' + padding (0, 2);
-  } else if (s.length === 2) {
-    return s[0] + '.' + padding (s[1], 2);
-  } else {
-    return null;
-  }
+  BigNumber.config ({FORMAT: displayedFormat, ERRORS: false});
+
+  const x = new BigNumber (price);
+  return x.toFormat (2);
 }
 
-// With editedPrice = '12.50', return '12.5'.
+// With editedPrice = '12.666', return '12.67'.
 export function parseEdited (editedPrice) {
-  if (!editedPrice) {
-    return null;
+  if (!editedPrice || editedPrice === '') {
+    return {value: null, error: null};
   }
 
-  return editedPrice.replace (/:|;|,|\.|\/| /g, '.');
+  BigNumber.config ({FORMAT: parseFormat, DECIMAL_PLACES: 2, ERRORS: false});
+
+  editedPrice = editedPrice.replace (/ |'| /g, '');
+  const x = new BigNumber (editedPrice, 10);
+  if (x.isNaN ()) {
+    return {value: null, error: 'Montant incorrect'};
+  } else {
+    return {value: x.toString (), error: null};
+  }
 }

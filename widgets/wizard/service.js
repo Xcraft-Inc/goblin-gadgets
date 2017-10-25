@@ -1259,7 +1259,7 @@ const properties = {
       group: 'Text',
       type: 'combo',
       field: 'type',
-      list: ['date', 'time'],
+      list: ['date', 'time', 'price'],
       value: 'date',
     },
     defaultValue: {
