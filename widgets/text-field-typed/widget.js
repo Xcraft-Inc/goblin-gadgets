@@ -2,6 +2,7 @@ import React from 'react';
 import Widget from 'laboratory/widget';
 import * as DateConverters from '../helpers/date-converters';
 import * as TimeConverters from '../helpers/time-converters';
+import * as PriceConverters from '../helpers/price-converters';
 
 import LabelTextField from 'gadgets/label-text-field/widget';
 
@@ -15,9 +16,11 @@ class TextFieldTyped extends Widget {
   canonicalToDisplayed (canonicalValue) {
     switch (this.props.type) {
       case 'date':
-        return DateConverters.getDisplayedDate (canonicalValue);
+        return DateConverters.getDisplayed (canonicalValue);
       case 'time':
-        return TimeConverters.getDisplayedTime (canonicalValue);
+        return TimeConverters.getDisplayed (canonicalValue);
+      case 'price':
+        return PriceConverters.getDisplayed (canonicalValue);
       default:
         throw new Error (`Invalid type ${this.props.type}`);
     }
@@ -27,10 +30,13 @@ class TextFieldTyped extends Widget {
     let parsed;
     switch (this.props.type) {
       case 'date':
-        parsed = DateConverters.parseEditedDate (displayedValue);
+        parsed = DateConverters.parseEdited (displayedValue);
         break;
       case 'time':
-        parsed = TimeConverters.parseEditedTime (displayedValue, '12:00:00');
+        parsed = TimeConverters.parseEdited (displayedValue, '12:00:00');
+        break;
+      case 'price':
+        parsed = PriceConverters.parseEdited (displayedValue);
         break;
       default:
         throw new Error (`Invalid type ${this.type}`);

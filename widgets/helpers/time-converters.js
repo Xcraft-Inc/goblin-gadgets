@@ -1,9 +1,9 @@
-export function getEmptyTime () {
+function getEmpty () {
   return '00:00:00';
 }
 
-export function isEmptyTime (time) {
-  return !time || time === getEmptyTime ();
+function isEmpty (time) {
+  return !time || time === getEmpty ();
 }
 
 function tryParseInt (text) {
@@ -50,7 +50,7 @@ function padding (value, decimals) {
   }
 }
 
-export function jsToCanonicalTime (time) {
+export function jsToCanonical (time) {
   return (
     padding (time.getHours (), 2) +
     ':' +
@@ -60,17 +60,17 @@ export function jsToCanonicalTime (time) {
   );
 }
 
-export function canonicalTimeToJs (time) {
+function canonicalToJs (time) {
   if (typeof time === 'object') {
     return new Date (2000, 1, 1, time.hour, time.minute, time.second);
   } else {
-    const s = splitTime (time);
+    const s = split (time);
     return new Date (2000, 1, 1, s.hour, s.minute, s.second);
   }
 }
 
 export function addHours (time, n) {
-  const d = canonicalTimeToJs (time);
+  const d = canonicalToJs (time);
   const nd = new Date (
     2000,
     1,
@@ -79,11 +79,11 @@ export function addHours (time, n) {
     d.getMinutes (),
     d.getSeconds ()
   );
-  return jsToCanonicalTime (nd);
+  return jsToCanonical (nd);
 }
 
 export function addMinutes (time, n) {
-  const d = canonicalTimeToJs (time);
+  const d = canonicalToJs (time);
   const nd = new Date (
     2000,
     1,
@@ -92,11 +92,11 @@ export function addMinutes (time, n) {
     d.getMinutes () + n,
     d.getSeconds ()
   );
-  return jsToCanonicalTime (nd);
+  return jsToCanonical (nd);
 }
 
 export function addSeconds (time, n) {
-  const d = canonicalTimeToJs (time);
+  const d = canonicalToJs (time);
   const nd = new Date (
     2000,
     1,
@@ -105,26 +105,26 @@ export function addSeconds (time, n) {
     d.getMinutes (),
     d.getSeconds () + n
   );
-  return jsToCanonicalTime (nd);
+  return jsToCanonical (nd);
 }
 
 export function getHours (time) {
-  const d = canonicalTimeToJs (time);
+  const d = canonicalToJs (time);
   return d.getHours (); // 0..23
 }
 
 export function getMinutes (time) {
-  const d = canonicalTimeToJs (time);
+  const d = canonicalToJs (time);
   return d.getMinutes (); // 0..59
 }
 
 export function getSeconds (time) {
-  const d = canonicalTimeToJs (time);
+  const d = canonicalToJs (time);
   return d.getSeconds (); // 0..59
 }
 
 // With '12:34:56', return {hour: 12, minute: 34, second: 56}.
-export function splitTime (canonicalTime) {
+export function split (canonicalTime) {
   if (
     !canonicalTime ||
     canonicalTime.length !== 8 ||
@@ -145,21 +145,8 @@ export function splitTime (canonicalTime) {
   };
 }
 
-// Return actual date and time.
-export function getNow () {
-  const now = new Date (Date.now ());
-  return {
-    year: now.getFullYear (),
-    month: now.getMonth () + 1,
-    day: now.getDate (),
-    hour: now.getHours (),
-    minute: now.getMinutes (),
-    second: now.getSeconds (),
-  };
-}
-
 // With {hour: 12, minute: 34, second: 56}, return '12:34:56'.
-export function joinTime (time) {
+function joinTime (time) {
   return (
     padding (time.hour, 2) +
     ':' +
@@ -192,16 +179,16 @@ export function getTimeFromMinutes (minutes) {
 }
 
 export function getTotalMinutes (time) {
-  const s = splitTime (time);
+  const s = split (time);
   return s.hour * 60 + s.minute;
 }
 
 // With time = '12:34:56', return '12:34'.
-export function getDisplayedTime (time, format) {
-  if (!time || isEmptyTime (time)) {
+export function getDisplayed (time, format) {
+  if (!time || isEmpty (time)) {
     return null;
   }
-  const d = splitTime (time);
+  const d = split (time);
   if (d) {
     if (format === 'hms') {
       return (
@@ -222,14 +209,14 @@ export function getDisplayedTime (time, format) {
 }
 
 // With editedTime = '12', return '12:00:00'.
-export function parseEditedTime (editedTime, defaultCanonicalTime) {
+export function parseEdited (editedTime, defaultCanonicalTime) {
   if (!editedTime || editedTime === '') {
     return {value: null, error: null};
   }
   if (!defaultCanonicalTime) {
-    defaultCanonicalTime = getNowCanonicalTime ();
+    defaultCanonicalTime = getNowCanonical ();
   }
-  const time = splitTime (defaultCanonicalTime);
+  const time = split (defaultCanonicalTime);
   const edited = tryParseTime (editedTime);
   let incorrectHour = false;
   let incorrectMinute = false;
@@ -260,12 +247,12 @@ export function parseEditedTime (editedTime, defaultCanonicalTime) {
     incorrectArgs = true;
   }
 
-  const jsTime = canonicalTimeToJs (time);
+  const jsTime = canonicalToJs (time);
   if (isNaN (jsTime)) {
     return {value: null, error: 'Heure invalide'};
   }
-  const result = jsToCanonicalTime (jsTime);
-  const r = splitTime (result);
+  const result = jsToCanonical (jsTime);
+  const r = split (result);
 
   if (time.hour !== r.hour) {
     incorrectHour = true;
@@ -289,17 +276,6 @@ export function parseEditedTime (editedTime, defaultCanonicalTime) {
   return {value: result, error: error};
 }
 
-function join (list, separator) {
-  var result = '';
-  for (var item of list) {
-    if (result !== '') {
-      result += separator;
-    }
-    result += item;
-  }
-  return result;
-}
-
-export function getNowCanonicalTime () {
-  return jsToCanonicalTime (new Date (Date.now ()));
+export function getNowCanonical () {
+  return jsToCanonical (new Date (Date.now ()));
 }

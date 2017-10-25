@@ -65,25 +65,25 @@ function getFlatEvents (events, filters) {
         if (event.fromTime) {
           minHour = Math.min (
             minHour,
-            TimeConverters.splitTime (event.fromTime).hour - 1
+            TimeConverters.split (event.fromTime).hour - 1
           );
         }
         if (event.startFromTime) {
           minHour = Math.min (
             minHour,
-            TimeConverters.splitTime (event.startFromTime).hour - 1
+            TimeConverters.split (event.startFromTime).hour - 1
           );
         }
         if (event.toTime) {
           maxHour = Math.max (
             maxHour,
-            TimeConverters.splitTime (event.toTime).hour + 1
+            TimeConverters.split (event.toTime).hour + 1
           );
         }
         if (event.endToTime) {
           maxHour = Math.max (
             maxHour,
-            TimeConverters.splitTime (event.endToTime).hour + 1
+            TimeConverters.split (event.endToTime).hour + 1
           );
         }
 
@@ -349,8 +349,8 @@ class Chronos extends Form {
       const count = this.flatEvents.count[i];
       var text, tooltip;
       if (this.flatEvents.hasDates) {
-        text = DateConverters.getDisplayedDate (group);
-        tooltip = DateConverters.getDisplayedDate (group, 'W');
+        text = DateConverters.getDisplayed (group);
+        tooltip = DateConverters.getDisplayed (group, 'W');
       } else {
         text = group;
         tooltip = null;
@@ -410,10 +410,7 @@ class Chronos extends Form {
       userSelect: 'none',
     };
     const text = time
-      ? TimeConverters.getDisplayedTime (
-          TimeConverters.addSeconds (time, 1),
-          'h'
-        )
+      ? TimeConverters.getDisplayed (TimeConverters.addSeconds (time, 1), 'h')
       : '';
 
     return (
@@ -523,7 +520,7 @@ class Chronos extends Form {
       if (item.type === 'top') {
         var text;
         if (item.date) {
-          text = DateConverters.getDisplayedDate (item.date, 'Wdmy');
+          text = DateConverters.getDisplayed (item.date, 'Wdmy');
         } else {
           text = item.group;
         }

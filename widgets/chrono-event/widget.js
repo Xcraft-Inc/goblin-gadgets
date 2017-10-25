@@ -48,8 +48,8 @@ class ChronoEvent extends Widget {
   /******************************************************************************/
 
   getPeriod (startTime, endTime) {
-    const s = TimeConverters.getDisplayedTime (startTime);
-    const e = TimeConverters.getDisplayedTime (endTime);
+    const s = TimeConverters.getDisplayed (startTime);
+    const e = TimeConverters.getDisplayed (endTime);
     if (s === e) {
       return s;
     } else {

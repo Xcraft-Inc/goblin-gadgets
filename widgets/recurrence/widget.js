@@ -33,7 +33,7 @@ function pushCron (result, date, startDate, endDate, cron, deleteList) {
       if (next.done) {
         break;
       }
-      const itemDate = DateConverters.jsToCanonicalDate (next.value);
+      const itemDate = DateConverters.jsToCanonical (next.value);
       if (itemDate >= startDate && itemDate <= endDate) {
         const deleted = deleteList.indexOf (itemDate) !== -1;
         const item = {
@@ -102,7 +102,7 @@ class Recurrence extends Form {
 
     this.visibleDate = this.props.visibleDate
       ? this.props.visibleDate
-      : DateConverters.getNowCanonicalDate ();
+      : DateConverters.getNowCanonical ();
 
     this.onEraseEvents = this.onEraseEvents.bind (this);
     this.onDateClicked = this.onDateClicked.bind (this);
