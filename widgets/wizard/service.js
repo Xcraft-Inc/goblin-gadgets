@@ -1939,6 +1939,14 @@ const properties = {
       list: ['', 'Prénom', 'Nom', 'Adresse', 'Numéro postal', 'Ville'],
       value: '',
     },
+    justify: {
+      id: 'justify',
+      group: 'Text',
+      type: 'combo',
+      field: 'justify',
+      list: ['', 'left', 'right'],
+      value: '',
+    },
     growField1: {
       id: 'growField1',
       group: 'Aspect',
