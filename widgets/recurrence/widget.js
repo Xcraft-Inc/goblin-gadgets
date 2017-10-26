@@ -3,7 +3,7 @@ import CronParser from 'cron-parser';
 import Form from 'laboratory/form';
 import * as DateConverters from '../helpers/date-converters';
 import * as CronHelpers from '../helpers/cron-helpers';
-import * as Bool from '../helpers/boolean-helpers.js';
+import * as Bool from 'gadgets/boolean-helpers';
 
 import Calendar from 'gadgets/calendar/widget';
 import LabelTextField from 'gadgets/label-text-field/widget';

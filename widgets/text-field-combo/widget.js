@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
 import MouseTrap from 'mousetrap';
 import * as ComboHelpers from '../helpers/combo-helpers.js';
-import * as Bool from '../helpers/boolean-helpers.js';
+import * as Bool from 'gadgets/boolean-helpers';
 
 import Button from 'gadgets/button/widget';
 import TextField from 'gadgets/text-field/widget';

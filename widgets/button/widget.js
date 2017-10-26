@@ -2,7 +2,7 @@ import React from 'react';
 import Widget from 'laboratory/widget';
 import MouseTrap from 'mousetrap';
 import * as ShortcutHelpers from '../helpers/shortcut-helpers.js';
-import * as Bool from '../helpers/boolean-helpers.js';
+import * as Bool from 'gadgets/boolean-helpers';
 
 import Label from 'gadgets/label/widget';
 import Menu from 'gadgets/menu/widget';

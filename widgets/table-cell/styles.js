@@ -1,4 +1,4 @@
-import * as Bool from '../helpers/boolean-helpers.js';
+import * as Bool from 'gadgets/boolean-helpers';
 import {ColorManipulator} from 'electrum-theme';
 
 /******************************************************************************/

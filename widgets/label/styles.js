@@ -1,7 +1,7 @@
 import {Unit} from 'electrum-theme';
 import {ColorHelpers} from 'electrum-theme';
 import {ColorManipulator} from 'electrum-theme';
-import * as Bool from '../helpers/boolean-helpers.js';
+import * as Bool from 'gadgets/boolean-helpers';
 
 function convertJustify (justify) {
   switch (justify) {

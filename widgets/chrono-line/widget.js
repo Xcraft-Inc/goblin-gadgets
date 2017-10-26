@@ -1,7 +1,6 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
-import * as Bool from '../helpers/boolean-helpers.js';
-
+import * as Bool from 'gadgets/boolean-helpers';
 import ChronoLabel from 'gadgets/chrono-label/widget';
 import ChronoEvent from 'gadgets/chrono-event/widget';
 

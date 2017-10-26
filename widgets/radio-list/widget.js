@@ -1,6 +1,6 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
-import * as Bool from '../helpers/boolean-helpers.js';
+import * as Bool from 'gadgets/boolean-helpers';
 
 import Container from 'gadgets/container/widget';
 import CheckButton from 'gadgets/check-button/widget';

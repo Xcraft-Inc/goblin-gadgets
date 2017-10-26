@@ -1,7 +1,7 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 import * as TimeConverters from '../helpers/time-converters';
-import * as Bool from '../helpers/boolean-helpers.js';
+import * as Bool from 'gadgets/boolean-helpers';
 
 import ChronoBar from 'gadgets/chrono-bar/widget';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
-import * as Bool from '../helpers/boolean-helpers.js';
+import * as Bool from 'gadgets/boolean-helpers';
 
 import TableCell from 'gadgets/table-cell/widget';
 

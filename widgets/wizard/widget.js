@@ -2,7 +2,7 @@ import React from 'react';
 import Widget from 'laboratory/widget';
 import Form from 'laboratory/form';
 import {ColorManipulator} from 'electrum-theme';
-import * as Bool from '../helpers/boolean-helpers.js';
+import * as Bool from 'gadgets/boolean-helpers';
 import {Unit} from 'electrum-theme';
 
 import Button from 'gadgets/button/widget';

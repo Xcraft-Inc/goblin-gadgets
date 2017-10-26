@@ -1,7 +1,7 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 import * as DateConverters from '../helpers/date-converters';
-import * as Bool from '../helpers/boolean-helpers.js';
+import * as Bool from 'gadgets/boolean-helpers';
 
 import Label from 'gadgets/label/widget';
 import Button from 'gadgets/button/widget';

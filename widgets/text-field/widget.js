@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
 import {Control, Errors, actions} from 'react-redux-form/immutable';
-import * as Bool from '../helpers/boolean-helpers.js';
+import * as Bool from 'gadgets/boolean-helpers';
 
 import FlyingBalloon from 'gadgets/flying-balloon/widget';
 

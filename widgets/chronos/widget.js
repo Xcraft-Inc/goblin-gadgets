@@ -4,7 +4,7 @@ import Form from 'laboratory/form';
 import {Unit} from 'electrum-theme';
 import * as DateConverters from '../helpers/date-converters';
 import * as TimeConverters from '../helpers/time-converters';
-import * as Bool from '../helpers/boolean-helpers.js';
+import * as Bool from 'gadgets/boolean-helpers';
 
 import Button from 'gadgets/button/widget';
 import Label from 'gadgets/label/widget';

@@ -2,8 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
 import {Unit} from 'electrum-theme';
-import * as Bool from '../helpers/boolean-helpers.js';
-
+import * as Bool from 'gadgets/boolean-helpers';
 import Button from 'gadgets/button/widget';
 
 /******************************************************************************/
