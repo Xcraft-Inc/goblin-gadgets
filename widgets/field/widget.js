@@ -57,6 +57,36 @@ class Field extends Form {
     }
   }
 
+  renderDynamic () {
+    const Dynamic = this.mapWidget (
+      Label,
+      value => {
+        if (typeof value === 'object') {
+          return this.props.map (value.toJS ());
+        }
+        return this.props.map (value);
+      },
+      this.fullPath
+    );
+    return (
+      <Container
+        kind="row-pane"
+        width={this.props.width}
+        height={this.props.height}
+      >
+        <Label
+          text={this.props.labelText}
+          glyph={this.props.labelGlyph}
+          width={this.props.labelWidth || defaultLabelWidth}
+          kind="label-text-field"
+          justify="left"
+          spacing="overlap"
+        />
+        <Dynamic grow="1" />
+      </Container>
+    );
+  }
+
   //#region Readonly
   renderReadonlyField () {
     const Value = this.mapWidget (
@@ -584,6 +614,8 @@ class Field extends Form {
     switch (this.props.kind) {
       case 'field':
         return this.renderReadonlyField ();
+      case 'dynamic':
+        return this.renderDynamic ();
       case 'date':
         return this.renderReadonlyDate ();
       case 'time':
@@ -615,6 +647,8 @@ class Field extends Form {
     switch (this.props.kind) {
       case 'field':
         return this.renderEditField ();
+      case 'dynamic':
+        return this.renderDynamic ();
       case 'date':
         return this.renderEditDate ();
       case 'time':
