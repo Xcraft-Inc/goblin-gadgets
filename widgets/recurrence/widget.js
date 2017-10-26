@@ -1,7 +1,8 @@
 import React from 'react';
 import CronParser from 'cron-parser';
 import Form from 'laboratory/form';
-import * as DateConverters from '../helpers/date-converters';
+import {date as DateConverters} from 'xcraft-core-converters';
+
 import * as CronHelpers from '../helpers/cron-helpers';
 import * as Bool from 'gadgets/boolean-helpers';
 

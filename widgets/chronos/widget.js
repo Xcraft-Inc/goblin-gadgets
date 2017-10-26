@@ -2,8 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Form from 'laboratory/form';
 import {Unit} from 'electrum-theme';
-import * as DateConverters from '../helpers/date-converters';
-import * as TimeConverters from '../helpers/time-converters';
+import {
+  date as DateConverters,
+  time as TimeConverters,
+} from 'xcraft-core-converters';
 import * as Bool from 'gadgets/boolean-helpers';
 
 import Button from 'gadgets/button/widget';

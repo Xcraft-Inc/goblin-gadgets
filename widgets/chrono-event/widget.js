@@ -1,6 +1,6 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
-import * as TimeConverters from '../helpers/time-converters';
+import {time as TimeConverters} from 'xcraft-core-converters';
 import * as Bool from 'gadgets/boolean-helpers';
 
 import ChronoBar from 'gadgets/chrono-bar/widget';

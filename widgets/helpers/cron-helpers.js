@@ -1,4 +1,4 @@
-import * as DateConverters from './date-converters';
+import {date as DateConverters} from 'xcraft-core-converters';
 
 // *    *    *    *    *    *
 // ┬    ┬    ┬    ┬    ┬    ┬

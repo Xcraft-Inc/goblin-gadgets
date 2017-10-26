@@ -1,8 +1,10 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
-import * as DateConverters from '../helpers/date-converters';
-import * as TimeConverters from '../helpers/time-converters';
-import * as PriceConverters from '../helpers/price-converters';
+import {
+  date as DateConverters,
+  time as TimeConverters,
+  price as PriceConverters,
+} from 'xcraft-core-converters';
 
 import LabelTextField from 'gadgets/label-text-field/widget';
 
