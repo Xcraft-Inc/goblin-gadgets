@@ -589,7 +589,7 @@ class Field extends Form {
         subkind="light-box"
         spacing={this.props.spacing}
       >
-        <FinalPlugin id={this.props.id} />
+        <FinalPlugin id={this.props.id} level={this.props.level} />
       </Container>
     );
   }
