@@ -84,6 +84,7 @@ class Field extends Form {
           kind="label-text-field"
           justify="left"
           spacing="overlap"
+          disabled="true"
         />
         <Dynamic grow="1" />
       </Container>
@@ -114,6 +115,7 @@ class Field extends Form {
           kind="label-text-field"
           justify="left"
           spacing="overlap"
+          disabled="true"
         />
         <Value grow="1" justify={this.props.justify} />
       </Container>
@@ -132,6 +134,7 @@ class Field extends Form {
     return (
       <Container
         kind="row-pane"
+        subkind="left"
         width={this.props.width}
         height={this.props.height}
         spacing={this.props.spacing}
@@ -143,6 +146,7 @@ class Field extends Form {
           kind="label-text-field"
           justify="left"
           spacing="overlap"
+          disabled="true"
         />
         <Value width="120px" justify={this.props.justify} />
       </Container>
@@ -161,6 +165,7 @@ class Field extends Form {
     return (
       <Container
         kind="row-pane"
+        subkind="left"
         width={this.props.width}
         height={this.props.height}
         spacing={this.props.spacing}
@@ -172,6 +177,7 @@ class Field extends Form {
           kind="label-text-field"
           justify="left"
           spacing="overlap"
+          disabled="true"
         />
         <Value width="120px" justify={this.props.justify} />
       </Container>
@@ -190,6 +196,7 @@ class Field extends Form {
     return (
       <Container
         kind="row-pane"
+        subkind="left"
         width={this.props.width}
         height={this.props.height}
         spacing={this.props.spacing}
@@ -201,6 +208,7 @@ class Field extends Form {
           kind="label-text-field"
           justify="left"
           spacing="overlap"
+          disabled="true"
         />
         <Value width="120px" justify="right" />
       </Container>
@@ -238,6 +246,7 @@ class Field extends Form {
           kind="label-text-field"
           justify="left"
           spacing="overlap"
+          disabled="true"
         />
         <Value1 grow={this.props.growField1} spacing="large" />
         <Value2 grow={this.props.growField2} />
@@ -268,6 +277,7 @@ class Field extends Form {
           kind="label-text-field"
           justify="left"
           spacing="overlap"
+          disabled="true"
         />
         <Check text={this.props.labelText} readonly="true" />
       </Container>
