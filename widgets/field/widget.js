@@ -295,8 +295,27 @@ class Field extends Form {
       return <Label text={info} grow="1" justify={this.props.justify} />;
     };
 
-    const EntityViewer = this.mapWidget (Viewer, 'entityId', this.fullPath);
+    const Action = props => {
+      return (
+        <Button
+          kind="recurrence"
+          glyph="pencil"
+          tooltip="Editer"
+          onClick={() => {
+            {
+              const entity = this.getModelValue (props.entityId, true);
+              const service = this.context.id.split ('@')[0];
+              this.doAs (service, 'open-entity-workitem', {
+                entity: entity.toJS (),
+              });
+            }
+          }}
+        />
+      );
+    };
 
+    const EntityViewer = this.mapWidget (Viewer, 'entityId', this.fullPath);
+    const EntityAction = this.mapWidget (Action, 'entityId', this.fullPath);
     return (
       <Container
         kind="row-pane"
@@ -314,6 +333,7 @@ class Field extends Form {
           disabled="true"
         />
         <EntityViewer />
+        <EntityAction />
       </Container>
     );
   }
@@ -323,7 +343,7 @@ class Field extends Form {
       throw new Error ('Property plugin is required in this case!');
     }
     const WiredPlugin = Widget.Wired (Plugin) (
-      `${this.props.plugin}@${this.props.id}`
+      `${this.props.plugin}@${this.context.id}`
     );
     const FinalPlugin = this.mapWidget (
       WiredPlugin,
@@ -597,7 +617,7 @@ class Field extends Form {
       throw new Error ('Property plugin is required in this case!');
     }
     const WiredPlugin = Widget.Wired (Plugin) (
-      `${this.props.plugin}@${this.props.id}`
+      `${this.props.plugin}@${this.context.id}`
     );
     const FinalPlugin = this.mapWidget (
       WiredPlugin,
@@ -611,7 +631,7 @@ class Field extends Form {
         subkind="light-box"
         spacing={this.props.spacing}
       >
-        <FinalPlugin id={this.props.id} level={this.props.level} />
+        <FinalPlugin id={this.context.id} level={this.props.level} />
       </Container>
     );
   }
@@ -641,6 +661,7 @@ class Field extends Form {
         <Form
           {...this.formConfigWithComponent (() => (
             <Hinter
+              id={this.context.id}
               labelText={this.props.labelText}
               labelGlyph={this.props.labelGlyph}
               labelWidth={this.props.labelWidth || defaultLabelWidth}
