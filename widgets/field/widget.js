@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Form from 'laboratory/form';
 import Widget from 'laboratory/widget';
 import {Control} from 'react-redux-form/immutable';
@@ -289,13 +290,30 @@ class Field extends Form {
   }
 
   renderReadonlyEntity () {
+    const Viewer = props => {
+      const info = this.getModelValue (`${props.entityId}.meta.info`, true);
+      return <Label text={info} grow="1" justify={this.props.justify} />;
+    };
+
+    const EntityViewer = this.mapWidget (Viewer, 'entityId', this.fullPath);
+
     return (
       <Container
         kind="row-pane"
-        subkind="light-box"
+        width={this.props.width}
+        height={this.props.height}
         spacing={this.props.spacing}
       >
-        TODO: not impl. {this.fullPath}
+        <Label
+          text={this.props.labelText}
+          glyph={this.props.labelGlyph}
+          width={this.props.labelWidth || defaultLabelWidth}
+          kind="label-text-field"
+          justify="left"
+          spacing="overlap"
+          disabled="true"
+        />
+        <EntityViewer />
       </Container>
     );
   }
@@ -556,16 +574,10 @@ class Field extends Form {
   }
 
   renderEditEntity () {
-    if (!this.ui) {
-      throw new Error ('Missing ui property');
-    }
-    const ui = uiImporter (this.props.ui);
-    const ReadLineUI = this.mapWidget (ui.read.line, 'entityId', this.fullPath);
-    const Viewer = props => (
-      <Workitem readonly="true" entityId={props.entityId} kind="form">
-        <ReadLineUI />
-      </Workitem>
-    );
+    const Viewer = props => {
+      const info = this.getModelValue (`${props.entityId}.meta.info`, true);
+      return <Label text={info} />;
+    };
 
     const EntityViewer = this.mapWidget (Viewer, 'entityId', this.fullPath);
 
