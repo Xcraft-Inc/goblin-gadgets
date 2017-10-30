@@ -613,27 +613,45 @@ class Field extends Form {
   }
 
   renderEditEntities () {
-    if (!this.props.plugin) {
-      throw new Error ('Property plugin is required in this case!');
-    }
-    const WiredPlugin = Widget.Wired (Plugin) (
-      `${this.props.plugin}@${this.context.id}`
-    );
-    const FinalPlugin = this.mapWidget (
-      WiredPlugin,
-      'entityIds',
-      this.fullPath
-    );
+    if (this.props.plugin) {
+      const WiredPlugin = Widget.Wired (Plugin) (
+        `${this.props.plugin}@${this.context.id}`
+      );
+      const FinalPlugin = this.mapWidget (
+        WiredPlugin,
+        'entityIds',
+        this.fullPath
+      );
 
-    return (
-      <Container
-        kind="row-pane"
-        subkind="light-box"
-        spacing={this.props.spacing}
-      >
-        <FinalPlugin id={this.context.id} level={this.props.level} />
-      </Container>
-    );
+      return (
+        <Container
+          kind="row-pane"
+          subkind="light-box"
+          spacing={this.props.spacing}
+        >
+          <FinalPlugin id={this.context.id} level={this.props.level} />
+        </Container>
+      );
+    } else if (this.props.item) {
+      const Items = props => {
+        return (
+          <Container kind="row">
+            {props.entityIds.map ((entityId, index) => {
+              const Item = this.mapWidget (
+                this.props.item,
+                state => state.toJS (),
+                `backend.${entityId}`
+              );
+              return <Item key={index} />;
+            })}
+          </Container>
+        );
+      };
+      const FinalItems = this.mapWidget (Items, 'entityIds', this.fullPath);
+      return <FinalItems />;
+    } else {
+      throw new Error ('Property plugin or item is required in this case!');
+    }
   }
 
   renderEditHinter () {
