@@ -73,7 +73,7 @@ class Field extends Form {
     );
     return (
       <Container
-        kind="row-pane"
+        kind="row"
         width={this.props.width}
         height={this.props.height}
         spacing={this.props.spacing}
