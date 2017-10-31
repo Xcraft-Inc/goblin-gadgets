@@ -339,6 +339,10 @@ class Field extends Form {
   }
 
   renderReadonlyEntities () {
+    if (!this.props.entityIds) {
+      //? return null;
+    }
+
     if (this.props.plugin) {
       const WiredPlugin = Widget.Wired (Plugin) (
         `${this.props.plugin}@${this.context.id}`
@@ -631,6 +635,10 @@ class Field extends Form {
   }
 
   renderEditEntities () {
+    if (!this.props.entityIds) {
+      //? return null;
+    }
+
     if (this.props.plugin) {
       const WiredPlugin = Widget.Wired (Plugin) (
         `${this.props.plugin}@${this.context.id}`

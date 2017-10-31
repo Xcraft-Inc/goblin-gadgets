@@ -464,7 +464,11 @@ export default function styles (theme, props) {
       rightMargin = Unit.multiply (m, -1);
       leftMargin = Unit.multiply (m, -1);
       topMargin = Unit.multiply (halfMargin, -1);
-      bottomMargin = Unit.sub (Unit.multiply (halfMargin, -1), '1px');
+      // bottomMargin = Unit.sub (Unit.multiply (halfMargin, -1), '1px');
+      bottomMargin = '0px';
+    } else if (props.subkind === 'plugin-box') {
+      // bottomMargin = Unit.sub (Unit.multiply (halfMargin, -1), '1px');
+      bottomMargin = '2px';
     } else if (props.subkind === 'large-box') {
       rightMargin = Unit.multiply (m, -1);
       leftMargin = Unit.multiply (m, -1);
