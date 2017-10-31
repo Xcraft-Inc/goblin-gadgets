@@ -345,7 +345,7 @@ class Field extends Form {
 
     if (this.props.plugin) {
       const WiredPlugin = Widget.Wired (Plugin) (
-        `${this.props.plugin}@${this.context.id}`
+        `${this.props.plugin}-plugin@${this.context.id}`
       );
       const FinalPlugin = this.mapWidget (
         WiredPlugin,
@@ -641,7 +641,7 @@ class Field extends Form {
 
     if (this.props.plugin) {
       const WiredPlugin = Widget.Wired (Plugin) (
-        `${this.props.plugin}@${this.context.id}`
+        `${this.props.plugin}-plugin@${this.context.id}`
       );
       const FinalPlugin = this.mapWidget (
         WiredPlugin,
