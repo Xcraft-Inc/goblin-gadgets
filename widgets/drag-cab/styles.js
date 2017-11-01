@@ -5,7 +5,7 @@ import * as Bool from 'gadgets/boolean-helpers';
 /******************************************************************************/
 
 export default function styles (theme, props) {
-  const radius2 = '4px'; // half radius of dot
+  const radius2 = '5px'; // half radius of dot
   const overlap = '1px'; // overlap for hover
 
   const handleWidth = props.dragHandleWidth || theme.shapes.containerMargin;
@@ -31,7 +31,9 @@ export default function styles (theme, props) {
     height: Unit.multiply (radius2, 2),
     cursor: cursor,
     borderRadius: radius2,
-    backgroundColor: '#ccc',
+    backgroundColor: '#fff',
+    border: '1px solid #bbb',
+    boxSizing: 'border-box',
   };
   handleStyle[':hover'] = {
     top: '0px',
