@@ -219,29 +219,47 @@ class DragCab extends Widget {
       boxStyle.flexGrow = isDragged && this.dragStarting ? 1 : null;
     }
 
-    const handleClass = this.styles.classNames.handle;
-
     // The use of "data-id" sets a property "id" accessed later by "node.dataset.id"
     // "data-vertical-spacing" is accessed by "node.dataset.verticalSpacing".
     // Don't rename "data-id" to "dataId" !
-    return (
-      <div
-        key={index}
-        style={boxStyle}
-        data-id={this.props.dragOwnerId}
-        data-vertical-spacing={this.props.verticalSpacing}
-      >
+    if (this.props.dragMode === 'handle') {
+      const handleClass = this.styles.classNames.handle;
+
+      return (
         <div
-          className={handleClass}
+          key={index}
+          style={boxStyle}
+          data-id={this.props.dragOwnerId}
+          data-vertical-spacing={this.props.verticalSpacing}
+        >
+          <div
+            className={handleClass}
+            onMouseDown={this.onMouseDown}
+            onMouseUp={this.onMouseUp}
+            onTouchStart={this.onMouseDown}
+            onTouchEnd={this.onMouseUp}
+          />
+          {this.renderChildren (isDragged, this.dragStarting)}
+          {htmlDragCarrier}
+        </div>
+      );
+    } else {
+      return (
+        <div
+          key={index}
+          style={boxStyle}
+          data-id={this.props.dragOwnerId}
+          data-vertical-spacing={this.props.verticalSpacing}
           onMouseDown={this.onMouseDown}
           onMouseUp={this.onMouseUp}
           onTouchStart={this.onMouseDown}
           onTouchEnd={this.onMouseUp}
-        />
-        {this.renderChildren (isDragged, this.dragStarting)}
-        {htmlDragCarrier}
-      </div>
-    );
+        >
+          {this.renderChildren (isDragged, this.dragStarting)}
+          {htmlDragCarrier}
+        </div>
+      );
+    }
   }
 
   render () {
