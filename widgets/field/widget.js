@@ -56,7 +56,7 @@ class Field extends Form {
     if (files.length === 1) {
       this.setBackendValue (this.fullPath, files[0]);
     } else {
-      throw new Error ('Not impl.');
+      throw new Error ('Not implemented');
     }
   }
 
