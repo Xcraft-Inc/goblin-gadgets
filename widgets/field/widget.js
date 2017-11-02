@@ -722,20 +722,18 @@ class Field extends Form {
         height={this.props.height}
         spacing={this.props.verticalSpacing}
       >
-        <Form
-          {...this.formConfigWithComponent (() => (
-            <Hinter
-              id={this.context.id}
-              labelText={this.props.labelText}
-              labelGlyph={this.props.labelGlyph}
-              labelWidth={this.props.labelWidth || defaultLabelWidth}
-              hintText={this.props.hintText}
-              grow="1"
-              hinter={this.props.hinter}
-              comboType={this.props.hinter}
-            />
-          ))}
-        />
+        <Form {...this.formConfig}>
+          <Hinter
+            id={this.context.id}
+            labelText={this.props.labelText}
+            labelGlyph={this.props.labelGlyph}
+            labelWidth={this.props.labelWidth || defaultLabelWidth}
+            hintText={this.props.hintText}
+            grow="1"
+            hinter={this.props.hinter}
+            comboType={this.props.hinter}
+          />
+        </Form>
       </Container>
     );
   }
