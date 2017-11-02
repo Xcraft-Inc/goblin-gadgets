@@ -526,7 +526,7 @@ export default function styles (theme, props) {
       height = theme.shapes.lineHeight;
       bottomMargin = Unit.multiply (halfMargin, -1);
     } else if (props.spacing === 'overlap') {
-      bottomMargin = '-2px';
+      bottomMargin = '-1px';
     }
     if (Bool.isTrue (props.selected) && props.subkind !== 'large-box') {
       backgroundColor = theme.palette.paneSelectedBackground;
