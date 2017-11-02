@@ -41,11 +41,12 @@ export default function styles (theme, props) {
 
   const handleStyle = {
     position: 'absolute',
-    left: '3px',
-    top: '2px',
-    width: '3px',
-    height: 'calc(100% - 4px - 2px)',
-    backgroundColor: '#ccc',
+    left: '4px',
+    top: '4px',
+    width: '2px',
+    height: 'calc(100% - 8px - 2px)',
+    borderLeft: '2px dotted #bbb',
+    boxSizing: 'border-box',
   };
 
   return {
