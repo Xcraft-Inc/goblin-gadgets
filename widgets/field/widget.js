@@ -74,6 +74,7 @@ class Field extends Form {
     return (
       <Container
         kind="row"
+        grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
         spacing={this.props.verticalSpacing}
@@ -105,6 +106,7 @@ class Field extends Form {
     return (
       <Container
         kind="row-pane"
+        grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
         spacing={this.props.verticalSpacing}
@@ -136,6 +138,7 @@ class Field extends Form {
       <Container
         kind="row-pane"
         subkind="left"
+        grow="0"
         width={this.props.width}
         height={this.props.height}
         spacing={this.props.verticalSpacing}
@@ -167,6 +170,7 @@ class Field extends Form {
       <Container
         kind="row-pane"
         subkind="left"
+        grow="0"
         width={this.props.width}
         height={this.props.height}
         spacing={this.props.verticalSpacing}
@@ -198,6 +202,7 @@ class Field extends Form {
       <Container
         kind="row-pane"
         subkind="left"
+        grow="0"
         width={this.props.width}
         height={this.props.height}
         spacing={this.props.verticalSpacing}
@@ -236,6 +241,7 @@ class Field extends Form {
     return (
       <Container
         kind="row-pane"
+        grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
         spacing={this.props.verticalSpacing}
@@ -268,6 +274,7 @@ class Field extends Form {
       <Container
         kind="row-pane"
         subkind="left"
+        grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
         spacing={this.props.verticalSpacing}
@@ -319,6 +326,7 @@ class Field extends Form {
     return (
       <Container
         kind="row-pane"
+        grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
         spacing={this.props.verticalSpacing}
@@ -414,6 +422,7 @@ class Field extends Form {
     return (
       <Container
         kind="row-pane"
+        grow="0"
         width={this.props.width}
         height={this.props.height}
         spacing={this.props.verticalSpacing}
@@ -435,6 +444,7 @@ class Field extends Form {
     return (
       <Container
         kind="row-pane"
+        grow="0"
         width={this.props.width}
         height={this.props.height}
         spacing={this.props.verticalSpacing}
@@ -456,6 +466,7 @@ class Field extends Form {
     return (
       <Container
         kind="row-pane"
+        grow="0"
         width={this.props.width}
         height={this.props.height}
         spacing={this.props.verticalSpacing}
@@ -477,6 +488,7 @@ class Field extends Form {
     return (
       <Container
         kind="row-pane"
+        grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
         spacing={this.props.verticalSpacing}
@@ -508,6 +520,7 @@ class Field extends Form {
     return (
       <Container
         kind="row-pane"
+        grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
         spacing={this.props.verticalSpacing}
@@ -555,6 +568,7 @@ class Field extends Form {
       <Container
         kind="row-pane"
         subkind="left"
+        grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
         spacing={this.props.verticalSpacing}
@@ -595,6 +609,7 @@ class Field extends Form {
       <Container
         kind="row-pane"
         subkind="left"
+        grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
         spacing={this.props.verticalSpacing}
@@ -629,6 +644,7 @@ class Field extends Form {
       <Container
         kind="row-pane"
         subkind="light-box"
+        grow={this.props.grow}
         spacing={this.props.verticalSpacing}
       >
         <EntityViewer />
@@ -655,6 +671,7 @@ class Field extends Form {
         <Container
           kind="row-pane"
           subkind="light-box"
+          grow={this.props.grow}
           spacing={this.props.verticalSpacing}
         >
           <FinalPlugin id={this.context.id} level={this.props.level} />
@@ -700,6 +717,7 @@ class Field extends Form {
     return (
       <Container
         kind="row-pane"
+        grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
         spacing={this.props.verticalSpacing}

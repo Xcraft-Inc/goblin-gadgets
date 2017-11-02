@@ -6,7 +6,8 @@ import * as Bool from 'gadgets/boolean-helpers';
 
 export default function styles (theme, props) {
   const radius2 = '5px'; // half radius of dot
-  const overlap = '1px'; // overlap for hover
+  const overlapX = '6px'; // overlap for hover
+  const overlapY = '1px'; // overlap for hover
 
   const handleWidth = props.dragHandleWidth || theme.shapes.containerMargin;
   const handleHeight = props.dragHandleHeight || theme.shapes.containerMargin;
@@ -38,11 +39,11 @@ export default function styles (theme, props) {
   handleStyle[':hover'] = {
     top: '0px',
     left: '0px',
-    width: `calc(100% + ${Unit.multiply (overlap, 2)})`,
-    height: `calc(100% + ${Unit.multiply (overlap, 2)} - 2px)`,
+    width: `calc(100% + ${Unit.multiply (overlapX, 2)})`,
+    height: `calc(100% + ${Unit.multiply (overlapY, 2)} - 2px)`,
     borderRadius: '20px',
     backgroundColor: theme.palette.actionButtonBackground,
-    margin: Unit.multiply (overlap, -1),
+    margin: Unit.multiply (overlapY, -1) + ' ' + Unit.multiply (overlapX, -1),
     opacity: 0.2,
   };
 
