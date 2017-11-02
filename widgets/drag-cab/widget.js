@@ -223,6 +223,7 @@ class DragCab extends Widget {
     // "data-vertical-spacing" is accessed by "node.dataset.verticalSpacing".
     // Don't rename "data-id" to "dataId" !
     if (this.props.dragMode === 'handle') {
+      const detectClass = this.styles.classNames.detect;
       const handleClass = this.styles.classNames.handle;
 
       return (
@@ -232,8 +233,9 @@ class DragCab extends Widget {
           data-id={this.props.dragOwnerId}
           data-vertical-spacing={this.props.verticalSpacing}
         >
+          <div className={handleClass} />
           <div
-            className={handleClass}
+            className={detectClass}
             onMouseDown={this.onMouseDown}
             onMouseUp={this.onMouseUp}
             onTouchStart={this.onMouseDown}
