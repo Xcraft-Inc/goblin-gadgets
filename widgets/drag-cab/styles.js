@@ -5,49 +5,51 @@ import * as Bool from 'gadgets/boolean-helpers';
 /******************************************************************************/
 
 export default function styles (theme, props) {
-  const radius2 = '5px'; // half radius of dot
-  const overlapX = '6px'; // overlap for hover
+  const overlapX = '0px'; // overlap for hover
   const overlapY = '1px'; // overlap for hover
 
-  const handleWidth = props.dragHandleWidth || theme.shapes.containerMargin;
-  const handleHeight = props.dragHandleHeight || theme.shapes.containerMargin;
-
-  let left = `calc(50% - ${radius2})`;
-  let top = `calc(50% - ${radius2})`;
+  let width = '100%';
+  let height = '100%';
   let cursor = 'move';
   if (props.direction === 'horizontal') {
-    top = Unit.sub (Unit.multiply (handleHeight, 0.5), radius2);
+    height = props.dragHandleHeight || theme.shapes.containerMargin;
     cursor = 'ew-resize';
   }
   if (props.direction === 'vertical') {
-    left = Unit.sub (Unit.multiply (handleWidth, 0.5), radius2);
+    width = props.dragHandleWidth || theme.shapes.containerMargin;
     cursor = 'ns-resize';
   }
 
-  const handleStyle = {
+  const detectStyle = {
     position: 'absolute',
-    left: left,
-    top: top,
-    width: Unit.multiply (radius2, 2),
-    height: Unit.multiply (radius2, 2),
+    left: '0px',
+    top: '0px',
+    width: width,
+    height: height,
     cursor: cursor,
-    borderRadius: radius2,
-    backgroundColor: '#fff',
-    border: '1px solid #bbb',
-    boxSizing: 'border-box',
   };
-  handleStyle[':hover'] = {
+  detectStyle[':hover'] = {
     top: '0px',
     left: '0px',
     width: `calc(100% + ${Unit.multiply (overlapX, 2)})`,
     height: `calc(100% + ${Unit.multiply (overlapY, 2)} - 2px)`,
-    borderRadius: '20px',
-    backgroundColor: theme.palette.actionButtonBackground,
     margin: Unit.multiply (overlapY, -1) + ' ' + Unit.multiply (overlapX, -1),
-    opacity: 0.2,
+    borderLeft: '6px solid ' + theme.palette.dragAndDropHover,
+    boxSizing: 'border-box',
+    backgroundColor: 'rgba(0,0,0, 0.05)',
+  };
+
+  const handleStyle = {
+    position: 'absolute',
+    left: '3px',
+    top: '2px',
+    width: '3px',
+    height: 'calc(100% - 4px - 2px)',
+    backgroundColor: '#ccc',
   };
 
   return {
+    detect: detectStyle,
     handle: handleStyle,
   };
 }
