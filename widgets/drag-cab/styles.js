@@ -14,7 +14,7 @@ export default function styles (theme, props) {
   const handleThickness = '2px';
 
   let detectWidth = '100%';
-  let deltectHeight = '100%';
+  let detectHeight = '100%';
   let cursor = 'move';
   let handleLeft = '0px';
   let handleTop = '0px';
@@ -22,7 +22,7 @@ export default function styles (theme, props) {
   let handleHeight = '100%';
 
   if (props.direction === 'horizontal') {
-    deltectHeight = props.dragHandleHeight || theme.shapes.containerMargin;
+    detectHeight = props.dragHandleHeight || theme.shapes.containerMargin;
     cursor = 'ew-resize';
     handleLeft = handleSpace;
     handleTop = handleShift;
@@ -39,16 +39,15 @@ export default function styles (theme, props) {
   }
 
   const detectStyle = {
+    zIndex: 2,
     position: 'absolute',
     left: '0px',
     top: '0px',
     width: detectWidth,
-    height: deltectHeight,
+    height: detectHeight,
     cursor: cursor,
   };
   detectStyle[':hover'] = {
-    top: '0px',
-    left: '0px',
     width: `calc(100% + ${Unit.multiply (hoverOverlapX, 2)})`,
     height: `calc(100% + ${Unit.multiply (hoverOverlapY, 2)} - ${hoverBottomSpace})`,
     margin: Unit.multiply (hoverOverlapY, -1) +
