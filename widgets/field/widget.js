@@ -390,11 +390,13 @@ class Field extends Form {
     return (
       <Container
         kind="row-pane"
+        grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
         spacing={this.props.verticalSpacing}
       >
         <LabelTextField
+          spacing={this.props.spacing}
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}

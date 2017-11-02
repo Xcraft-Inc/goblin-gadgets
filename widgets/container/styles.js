@@ -408,7 +408,7 @@ export default function styles (theme, props) {
   if (props.kind === 'row-pane') {
     const halfMargin = Unit.multiply (m, 0.5);
     display = 'flex';
-    flexGrow = 1;
+    flexGrow = props.grow || 1;
     flexDirection = 'row';
     justifyContent = 'space-between';
     alignItems = 'center';
