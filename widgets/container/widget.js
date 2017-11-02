@@ -211,7 +211,7 @@ class Container extends Widget {
           disabled={disabled}
           className={boxClass}
           id={anchor}
-          data-navigation-name={navName}
+          data-navigation-name={navName || 'none'}
         >
           {this.props.children}
           {this.renderBusy ()}
