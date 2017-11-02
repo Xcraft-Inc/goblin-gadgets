@@ -76,7 +76,7 @@ class Field extends Form {
         kind="row"
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.spacing}
+        spacing={this.props.verticalSpacing}
       >
         <Label
           text={this.props.labelText}
@@ -107,7 +107,7 @@ class Field extends Form {
         kind="row-pane"
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.spacing}
+        spacing={this.props.verticalSpacing}
       >
         <Label
           text={this.props.labelText}
@@ -138,7 +138,7 @@ class Field extends Form {
         subkind="left"
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.spacing}
+        spacing={this.props.verticalSpacing}
       >
         <Label
           text={this.props.labelText}
@@ -169,7 +169,7 @@ class Field extends Form {
         subkind="left"
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.spacing}
+        spacing={this.props.verticalSpacing}
       >
         <Label
           text={this.props.labelText}
@@ -200,7 +200,7 @@ class Field extends Form {
         subkind="left"
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.spacing}
+        spacing={this.props.verticalSpacing}
       >
         <Label
           text={this.props.labelText}
@@ -238,7 +238,7 @@ class Field extends Form {
         kind="row-pane"
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.spacing}
+        spacing={this.props.verticalSpacing}
       >
         <Label
           text={this.props.labelText}
@@ -270,7 +270,7 @@ class Field extends Form {
         subkind="left"
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.spacing}
+        spacing={this.props.verticalSpacing}
       >
         <Label
           glyph={this.props.labelGlyph}
@@ -321,7 +321,7 @@ class Field extends Form {
         kind="row-pane"
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.spacing}
+        spacing={this.props.verticalSpacing}
       >
         <Label
           text={this.props.labelText}
@@ -357,7 +357,7 @@ class Field extends Form {
         <Container
           kind="row-pane"
           subkind="light-box"
-          spacing={this.props.spacing}
+          spacing={this.props.verticalSpacing}
         >
           <FinalPlugin readonly="true" level={this.props.level} />
         </Container>
@@ -392,7 +392,7 @@ class Field extends Form {
         kind="row-pane"
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.spacing}
+        spacing={this.props.verticalSpacing}
       >
         <LabelTextField
           labelText={this.props.labelText}
@@ -414,7 +414,7 @@ class Field extends Form {
         kind="row-pane"
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.spacing}
+        spacing={this.props.verticalSpacing}
       >
         <TextFieldTyped
           type="date"
@@ -435,7 +435,7 @@ class Field extends Form {
         kind="row-pane"
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.spacing}
+        spacing={this.props.verticalSpacing}
       >
         <TextFieldTyped
           type="time"
@@ -456,7 +456,7 @@ class Field extends Form {
         kind="row-pane"
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.spacing}
+        spacing={this.props.verticalSpacing}
       >
         <TextFieldTyped
           type="price"
@@ -477,7 +477,7 @@ class Field extends Form {
         kind="row-pane"
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.spacing}
+        spacing={this.props.verticalSpacing}
       >
         <Label
           text={this.props.labelText}
@@ -508,7 +508,7 @@ class Field extends Form {
         kind="row-pane"
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.spacing}
+        spacing={this.props.verticalSpacing}
       >
         <Label
           text={this.props.labelText}
@@ -555,7 +555,7 @@ class Field extends Form {
         subkind="left"
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.spacing}
+        spacing={this.props.verticalSpacing}
       >
         <Label
           text={this.props.labelText}
@@ -595,7 +595,7 @@ class Field extends Form {
         subkind="left"
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.spacing}
+        spacing={this.props.verticalSpacing}
       >
         <Label
           glyph={this.props.labelGlyph}
@@ -627,7 +627,7 @@ class Field extends Form {
       <Container
         kind="row-pane"
         subkind="light-box"
-        spacing={this.props.spacing}
+        spacing={this.props.verticalSpacing}
       >
         <EntityViewer />
       </Container>
@@ -653,7 +653,7 @@ class Field extends Form {
         <Container
           kind="row-pane"
           subkind="light-box"
-          spacing={this.props.spacing}
+          spacing={this.props.verticalSpacing}
         >
           <FinalPlugin id={this.context.id} level={this.props.level} />
         </Container>
@@ -700,7 +700,7 @@ class Field extends Form {
         kind="row-pane"
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.spacing}
+        spacing={this.props.verticalSpacing}
       >
         <Form
           {...this.formConfigWithComponent (() => (
@@ -722,7 +722,7 @@ class Field extends Form {
 
   renderEditFileInput () {
     return (
-      <Container kind="row-pane" spacing={this.props.spacing}>
+      <Container kind="row-pane" spacing={this.props.verticalSpacing}>
         <input
           type="file"
           onChange={this.handleFileChange}
