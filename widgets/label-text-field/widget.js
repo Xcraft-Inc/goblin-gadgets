@@ -136,7 +136,7 @@ class LabelTextField extends Widget {
     };
 
     if (displayValue) {
-      props.value = displayValue;
+      props.displayValue = displayValue;
     }
 
     return <TextField {...props} onFocus={this.onFocus} onBlur={this.onBlur} />;
