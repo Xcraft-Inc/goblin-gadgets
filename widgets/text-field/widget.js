@@ -89,6 +89,7 @@ class TextField extends Widget {
 
   onBlur (e) {
     //- console.log ('text-field.onBlur');
+    this.hideHinter ();
     const x = this.props.onBlur;
     if (x) {
       x (e);
