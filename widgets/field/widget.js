@@ -76,7 +76,7 @@ class Field extends Form {
 
     return (
       <Container
-        kind="plugin-row"
+        kind="row-field"
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
@@ -113,7 +113,7 @@ class Field extends Form {
 
     return (
       <Container
-        kind="plugin-row"
+        kind="row-field"
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
@@ -149,7 +149,7 @@ class Field extends Form {
 
     return (
       <Container
-        kind="plugin-row"
+        kind="row-field"
         subkind="left"
         grow="0"
         width={this.props.width}
@@ -186,7 +186,7 @@ class Field extends Form {
 
     return (
       <Container
-        kind="plugin-row"
+        kind="row-field"
         subkind="left"
         grow="0"
         width={this.props.width}
@@ -223,7 +223,7 @@ class Field extends Form {
 
     return (
       <Container
-        kind="plugin-row"
+        kind="row-field"
         subkind="left"
         grow="0"
         width={this.props.width}
@@ -268,7 +268,7 @@ class Field extends Form {
 
     return (
       <Container
-        kind="plugin-row"
+        kind="row-field"
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
@@ -305,7 +305,7 @@ class Field extends Form {
 
     return (
       <Container
-        kind="plugin-row"
+        kind="row-field"
         subkind="left"
         grow={this.props.grow}
         width={this.props.width}
@@ -364,7 +364,7 @@ class Field extends Form {
 
     return (
       <Container
-        kind="plugin-row"
+        kind="row-field"
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
@@ -405,7 +405,8 @@ class Field extends Form {
 
       return (
         <Container
-          kind="plugin-row"
+          kind="row-field"
+          subkind="light-box"
           grow={this.props.grow}
           width={this.props.width}
           height={this.props.height}
@@ -419,7 +420,7 @@ class Field extends Form {
       const Items = props => {
         return (
           <Container
-            kind="plugin-row"
+            kind="row-field"
             grow={this.props.grow}
             width={this.props.width}
             height={this.props.height}
@@ -449,7 +450,7 @@ class Field extends Form {
   renderEditField () {
     return (
       <Container
-        kind="plugin-row"
+        kind="row-field"
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
@@ -474,7 +475,7 @@ class Field extends Form {
   renderEditDate () {
     return (
       <Container
-        kind="plugin-row"
+        kind="row-field"
         grow="0"
         width={this.props.width}
         height={this.props.height}
@@ -497,7 +498,7 @@ class Field extends Form {
   renderEditTime () {
     return (
       <Container
-        kind="plugin-row"
+        kind="row-field"
         grow="0"
         width={this.props.width}
         height={this.props.height}
@@ -520,7 +521,7 @@ class Field extends Form {
   renderEditPrice () {
     return (
       <Container
-        kind="plugin-row"
+        kind="row-field"
         grow="0"
         width={this.props.width}
         height={this.props.height}
@@ -545,7 +546,7 @@ class Field extends Form {
 
     return (
       <Container
-        kind="plugin-row"
+        kind="row-field"
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
@@ -582,7 +583,7 @@ class Field extends Form {
 
     return (
       <Container
-        kind="plugin-row"
+        kind="row-field"
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
@@ -634,7 +635,7 @@ class Field extends Form {
 
     return (
       <Container
-        kind="plugin-row"
+        kind="row-field"
         subkind="left"
         grow={this.props.grow}
         width={this.props.width}
@@ -680,7 +681,7 @@ class Field extends Form {
 
     return (
       <Container
-        kind="plugin-row"
+        kind="row-field"
         subkind="left"
         grow={this.props.grow}
         width={this.props.width}
@@ -718,7 +719,7 @@ class Field extends Form {
 
     return (
       <Container
-        kind="plugin-row"
+        kind="row-field"
         subkind="light-box"
         grow={this.props.grow}
         width={this.props.width}
@@ -748,7 +749,7 @@ class Field extends Form {
 
       return (
         <Container
-          kind="plugin-row"
+          kind="row-field"
           subkind="light-box"
           grow={this.props.grow}
           width={this.props.width}
@@ -763,7 +764,7 @@ class Field extends Form {
       const Items = props => {
         return (
           <Container
-            kind="plugin-row"
+            kind="row-field"
             grow={this.props.grow}
             width={this.props.width}
             height={this.props.height}
@@ -810,7 +811,7 @@ class Field extends Form {
 
     return (
       <Container
-        kind="plugin-row"
+        kind="row-field"
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
@@ -838,7 +839,7 @@ class Field extends Form {
   renderEditFileInput () {
     return (
       <Container
-        kind="plugin-row"
+        kind="row-field"
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}

@@ -536,7 +536,7 @@ export default function styles (theme, props) {
       topMargin + ' ' + rightMargin + ' ' + bottomMargin + ' ' + leftMargin;
   }
 
-  if (props.kind === 'plugin-row') {
+  if (props.kind === 'row-field') {
     const halfMargin = Unit.multiply (m, 0.5);
     let topMargin = '0px';
     let rightMargin = '0px';
