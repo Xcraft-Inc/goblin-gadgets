@@ -71,23 +71,29 @@ class Field extends Form {
       },
       this.fullPath
     );
+
+    const labelWidth = this.props.labelWidth || defaultLabelWidth;
+
     return (
       <Container
-        kind="row"
+        kind="plugin-row"
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.verticalSpacing}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
       >
-        <Label
-          text={this.props.labelText}
-          glyph={this.props.labelGlyph}
-          width={this.props.labelWidth || defaultLabelWidth}
-          kind="label-text-field"
-          justify="left"
-          spacing="overlap"
-          disabled="true"
-        />
+        {labelWidth === '0px'
+          ? null
+          : <Label
+              text={this.props.labelText}
+              glyph={this.props.labelGlyph}
+              width={labelWidth}
+              kind="label-text-field"
+              justify="left"
+              spacing="overlap"
+              disabled="true"
+            />}
         <Dynamic grow="1" />
       </Container>
     );
@@ -103,23 +109,28 @@ class Field extends Form {
       this.fullPath
     );
 
+    const labelWidth = this.props.labelWidth || defaultLabelWidth;
+
     return (
       <Container
-        kind="row-pane"
+        kind="plugin-row"
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.verticalSpacing}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
       >
-        <Label
-          text={this.props.labelText}
-          glyph={this.props.labelGlyph}
-          width={this.props.labelWidth || defaultLabelWidth}
-          kind="label-text-field"
-          justify="left"
-          spacing="overlap"
-          disabled="true"
-        />
+        {labelWidth === '0px'
+          ? null
+          : <Label
+              text={this.props.labelText}
+              glyph={this.props.labelGlyph}
+              width={labelWidth}
+              kind="label-text-field"
+              justify="left"
+              spacing="overlap"
+              disabled="true"
+            />}
         <Value grow="1" justify={this.props.justify} />
       </Container>
     );
@@ -134,24 +145,29 @@ class Field extends Form {
       this.fullPath
     );
 
+    const labelWidth = this.props.labelWidth || defaultLabelWidth;
+
     return (
       <Container
-        kind="row-pane"
+        kind="plugin-row"
         subkind="left"
         grow="0"
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.verticalSpacing}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
       >
-        <Label
-          text={this.props.labelText}
-          glyph={this.props.labelGlyph}
-          width={this.props.labelWidth || defaultLabelWidth}
-          kind="label-text-field"
-          justify="left"
-          spacing="overlap"
-          disabled="true"
-        />
+        {labelWidth === '0px'
+          ? null
+          : <Label
+              text={this.props.labelText}
+              glyph={this.props.labelGlyph}
+              width={labelWidth}
+              kind="label-text-field"
+              justify="left"
+              spacing="overlap"
+              disabled="true"
+            />}
         <Value width="120px" justify={this.props.justify} />
       </Container>
     );
@@ -166,24 +182,29 @@ class Field extends Form {
       this.fullPath
     );
 
+    const labelWidth = this.props.labelWidth || defaultLabelWidth;
+
     return (
       <Container
-        kind="row-pane"
+        kind="plugin-row"
         subkind="left"
         grow="0"
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.verticalSpacing}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
       >
-        <Label
-          text={this.props.labelText}
-          glyph={this.props.labelGlyph}
-          width={this.props.labelWidth || defaultLabelWidth}
-          kind="label-text-field"
-          justify="left"
-          spacing="overlap"
-          disabled="true"
-        />
+        {labelWidth === '0px'
+          ? null
+          : <Label
+              text={this.props.labelText}
+              glyph={this.props.labelGlyph}
+              width={labelWidth}
+              kind="label-text-field"
+              justify="left"
+              spacing="overlap"
+              disabled="true"
+            />}
         <Value width="120px" justify={this.props.justify} />
       </Container>
     );
@@ -198,24 +219,29 @@ class Field extends Form {
       this.fullPath
     );
 
+    const labelWidth = this.props.labelWidth || defaultLabelWidth;
+
     return (
       <Container
-        kind="row-pane"
+        kind="plugin-row"
         subkind="left"
         grow="0"
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.verticalSpacing}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
       >
-        <Label
-          text={this.props.labelText}
-          glyph={this.props.labelGlyph}
-          width={this.props.labelWidth || defaultLabelWidth}
-          kind="label-text-field"
-          justify="left"
-          spacing="overlap"
-          disabled="true"
-        />
+        {labelWidth === '0px'
+          ? null
+          : <Label
+              text={this.props.labelText}
+              glyph={this.props.labelGlyph}
+              width={labelWidth}
+              kind="label-text-field"
+              justify="left"
+              spacing="overlap"
+              disabled="true"
+            />}
         <Value width="120px" justify="right" />
       </Container>
     );
@@ -238,23 +264,28 @@ class Field extends Form {
       this.getFullPathFromModel (this.props.model2)
     );
 
+    const labelWidth = this.props.labelWidth || defaultLabelWidth;
+
     return (
       <Container
-        kind="row-pane"
+        kind="plugin-row"
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.verticalSpacing}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
       >
-        <Label
-          text={this.props.labelText}
-          glyph={this.props.labelGlyph}
-          width={this.props.labelWidth || defaultLabelWidth}
-          kind="label-text-field"
-          justify="left"
-          spacing="overlap"
-          disabled="true"
-        />
+        {labelWidth === '0px'
+          ? null
+          : <Label
+              text={this.props.labelText}
+              glyph={this.props.labelGlyph}
+              width={labelWidth}
+              kind="label-text-field"
+              justify="left"
+              spacing="overlap"
+              disabled="true"
+            />}
         <Value1 grow={this.props.growField1} spacing="large" />
         <Value2 grow={this.props.growField2} />
       </Container>
@@ -270,23 +301,28 @@ class Field extends Form {
       this.fullPath
     );
 
+    const labelWidth = this.props.labelWidth || defaultLabelWidth;
+
     return (
       <Container
-        kind="row-pane"
+        kind="plugin-row"
         subkind="left"
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.verticalSpacing}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
       >
-        <Label
-          glyph={this.props.labelGlyph}
-          width={this.props.labelWidth || defaultLabelWidth}
-          kind="label-text-field"
-          justify="left"
-          spacing="overlap"
-          disabled="true"
-        />
+        {labelWidth === '0px'
+          ? null
+          : <Label
+              glyph={this.props.labelGlyph}
+              width={labelWidth}
+              kind="label-text-field"
+              justify="left"
+              spacing="overlap"
+              disabled="true"
+            />}
         <Check text={this.props.labelText} readonly="true" />
       </Container>
     );
@@ -323,23 +359,29 @@ class Field extends Form {
 
     const EntityViewer = this.mapWidget (Viewer, 'entityId', this.fullPath);
     const EntityAction = this.mapWidget (Action, 'entityId', this.fullPath);
+
+    const labelWidth = this.props.labelWidth || defaultLabelWidth;
+
     return (
       <Container
-        kind="row-pane"
+        kind="plugin-row"
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.verticalSpacing}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
       >
-        <Label
-          text={this.props.labelText}
-          glyph={this.props.labelGlyph}
-          width={this.props.labelWidth || defaultLabelWidth}
-          kind="label-text-field"
-          justify="left"
-          spacing="overlap"
-          disabled="true"
-        />
+        {labelWidth === '0px'
+          ? null
+          : <Label
+              text={this.props.labelText}
+              glyph={this.props.labelGlyph}
+              width={labelWidth}
+              kind="label-text-field"
+              justify="left"
+              spacing="overlap"
+              disabled="true"
+            />}
         <EntityViewer />
         <EntityAction />
       </Container>
@@ -363,9 +405,12 @@ class Field extends Form {
 
       return (
         <Container
-          kind="row-pane"
-          subkind="light-box"
-          spacing={this.props.verticalSpacing}
+          kind="plugin-row"
+          grow={this.props.grow}
+          width={this.props.width}
+          height={this.props.height}
+          verticalSpacing={this.props.verticalSpacing}
+          verticalJustify={this.props.verticalJustify}
         >
           <FinalPlugin readonly="true" level={this.props.level} />
         </Container>
@@ -373,7 +418,14 @@ class Field extends Form {
     } else if (this.props.item) {
       const Items = props => {
         return (
-          <Container kind="row">
+          <Container
+            kind="plugin-row"
+            grow={this.props.grow}
+            width={this.props.width}
+            height={this.props.height}
+            verticalSpacing={this.props.verticalSpacing}
+            verticalJustify={this.props.verticalJustify}
+          >
             {props.entityIds.map ((entityId, index) => {
               const Item = this.mapWidget (
                 this.props.item,
@@ -397,11 +449,12 @@ class Field extends Form {
   renderEditField () {
     return (
       <Container
-        kind="row-pane"
+        kind="plugin-row"
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.verticalSpacing}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
       >
         <LabelTextField
           spacing={this.props.spacing}
@@ -421,11 +474,12 @@ class Field extends Form {
   renderEditDate () {
     return (
       <Container
-        kind="row-pane"
+        kind="plugin-row"
         grow="0"
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.verticalSpacing}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
       >
         <TextFieldTyped
           type="date"
@@ -443,11 +497,12 @@ class Field extends Form {
   renderEditTime () {
     return (
       <Container
-        kind="row-pane"
+        kind="plugin-row"
         grow="0"
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.verticalSpacing}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
       >
         <TextFieldTyped
           type="time"
@@ -465,11 +520,12 @@ class Field extends Form {
   renderEditPrice () {
     return (
       <Container
-        kind="row-pane"
+        kind="plugin-row"
         grow="0"
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.verticalSpacing}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
       >
         <TextFieldTyped
           type="price"
@@ -485,22 +541,27 @@ class Field extends Form {
   }
 
   renderEditDoubleField () {
+    const labelWidth = this.props.labelWidth || defaultLabelWidth;
+
     return (
       <Container
-        kind="row-pane"
+        kind="plugin-row"
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.verticalSpacing}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
       >
-        <Label
-          text={this.props.labelText}
-          glyph={this.props.labelGlyph}
-          width={this.props.labelWidth || defaultLabelWidth}
-          kind="label-text-field"
-          justify="left"
-          spacing="overlap"
-        />
+        {labelWidth === '0px'
+          ? null
+          : <Label
+              text={this.props.labelText}
+              glyph={this.props.labelGlyph}
+              width={labelWidth}
+              kind="label-text-field"
+              justify="left"
+              spacing="overlap"
+            />}
         <TextField
           hintText={this.props.hintText1}
           model={this.props.model1}
@@ -517,22 +578,27 @@ class Field extends Form {
   }
 
   renderEditCombo () {
+    const labelWidth = this.props.labelWidth || defaultLabelWidth;
+
     return (
       <Container
-        kind="row-pane"
+        kind="plugin-row"
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.verticalSpacing}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
       >
-        <Label
-          text={this.props.labelText}
-          glyph={this.props.labelGlyph}
-          width={this.props.labelWidth || defaultLabelWidth}
-          kind="label-text-field"
-          justify="left"
-          spacing="overlap"
-        />
+        {labelWidth === '0px'
+          ? null
+          : <Label
+              text={this.props.labelText}
+              glyph={this.props.labelGlyph}
+              width={labelWidth}
+              kind="label-text-field"
+              justify="left"
+              spacing="overlap"
+            />}
         <TextFieldCombo
           hintText={this.props.hintText}
           width={this.props.fieldWidth}
@@ -564,23 +630,28 @@ class Field extends Form {
       this.fullPath
     );
 
+    const labelWidth = this.props.labelWidth || defaultLabelWidth;
+
     return (
       <Container
-        kind="row-pane"
+        kind="plugin-row"
         subkind="left"
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.verticalSpacing}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
       >
-        <Label
-          text={this.props.labelText}
-          glyph={this.props.labelGlyph}
-          width={this.props.labelWidth || defaultLabelWidth}
-          kind="label-text-field"
-          justify="left"
-          spacing="overlap"
-        />
+        {labelWidth === '0px'
+          ? null
+          : <Label
+              text={this.props.labelText}
+              glyph={this.props.labelGlyph}
+              width={labelWidth}
+              kind="label-text-field"
+              justify="left"
+              spacing="overlap"
+            />}
         <Radio
           height={this.props.height}
           direction={this.props.direction || 'row'}
@@ -605,22 +676,27 @@ class Field extends Form {
       this.fullPath
     );
 
+    const labelWidth = this.props.labelWidth || defaultLabelWidth;
+
     return (
       <Container
-        kind="row-pane"
+        kind="plugin-row"
         subkind="left"
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.verticalSpacing}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
       >
-        <Label
-          glyph={this.props.labelGlyph}
-          width={this.props.labelWidth || defaultLabelWidth}
-          kind="label-text-field"
-          justify="left"
-          spacing="overlap"
-        />
+        {labelWidth === '0px'
+          ? null
+          : <Label
+              glyph={this.props.labelGlyph}
+              width={labelWidth}
+              kind="label-text-field"
+              justify="left"
+              spacing="overlap"
+            />}
         <Check
           text={this.props.labelText}
           onClick={index => {
@@ -642,10 +718,13 @@ class Field extends Form {
 
     return (
       <Container
-        kind="row-pane"
+        kind="plugin-row"
         subkind="light-box"
         grow={this.props.grow}
-        spacing={this.props.verticalSpacing}
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
       >
         <EntityViewer />
       </Container>
@@ -669,10 +748,13 @@ class Field extends Form {
 
       return (
         <Container
-          kind="row-pane"
+          kind="plugin-row"
           subkind="light-box"
           grow={this.props.grow}
-          spacing={this.props.verticalSpacing}
+          width={this.props.width}
+          height={this.props.height}
+          verticalSpacing={this.props.verticalSpacing}
+          verticalJustify={this.props.verticalJustify}
         >
           <FinalPlugin id={this.context.id} level={this.props.level} />
         </Container>
@@ -680,7 +762,14 @@ class Field extends Form {
     } else if (this.props.item) {
       const Items = props => {
         return (
-          <Container kind="row">
+          <Container
+            kind="plugin-row"
+            grow={this.props.grow}
+            width={this.props.width}
+            height={this.props.height}
+            verticalSpacing={this.props.verticalSpacing}
+            verticalJustify={this.props.verticalJustify}
+          >
             {props.entityIds.map ((entityId, index) => {
               const Item = this.mapWidget (
                 this.props.item,
@@ -716,11 +805,12 @@ class Field extends Form {
 
     return (
       <Container
-        kind="row-pane"
+        kind="plugin-row"
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.verticalSpacing}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
       >
         <Form
           {...this.formConfigWithComponent (() => (
@@ -742,7 +832,14 @@ class Field extends Form {
 
   renderEditFileInput () {
     return (
-      <Container kind="row-pane" spacing={this.props.verticalSpacing}>
+      <Container
+        kind="plugin-row"
+        grow={this.props.grow}
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
+      >
         <input
           type="file"
           onChange={this.handleFileChange}
