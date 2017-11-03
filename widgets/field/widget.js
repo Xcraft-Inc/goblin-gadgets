@@ -704,10 +704,12 @@ class Field extends Form {
       LabelTextField,
       value => {
         if (value && value !== '') {
+          let selectedId = null;
           if (!this.props.onValue) {
+            selectedId = value;
             value = this.getModelValue (`${value}.meta.info`, true);
           }
-          return {selectedValue: value};
+          return {selectedValue: value, selectedId};
         } else {
           return {};
         }
@@ -716,9 +718,6 @@ class Field extends Form {
     );
 
     const Form = this.Form;
-
-    console.dir (this.context.id);
-    console.log (this.getFormValue (this.props.model));
 
     return (
       <Container
