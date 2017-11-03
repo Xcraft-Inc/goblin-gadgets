@@ -254,6 +254,7 @@ class Button extends Widget {
         <div
           key={this.props.index}
           {...propsTabIndex}
+          onDoubleClick={this.props.onDoubleClick}
           onFocus={this.onFocus}
           onBlur={this.onBlur}
           onMouseDown={this.onMouseDown}

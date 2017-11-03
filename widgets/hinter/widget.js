@@ -11,8 +11,21 @@ import Calendar from 'gadgets/calendar/widget';
 class Hinter extends Widget {
   constructor () {
     super (...arguments);
+    this.handleClick = ::this.handleClick;
+    this.handleDbClick = ::this.handleDbClick;
   }
 
+  handleClick (index, row) {
+    if (this.props.onRowClick) {
+      this.props.onRowClick (index, row);
+    }
+  }
+
+  handleDbClick (index, row) {
+    if (this.props.onRowDbClick) {
+      this.props.onRowDbClick (index, row);
+    }
+  }
   renderRow (row, index) {
     let isActive = null;
     if (this.props.selectedIndex && this.props.selectedIndex === `${index}`) {
@@ -25,8 +38,8 @@ class Hinter extends Widget {
         <Button
           kind="container"
           width="100%"
-          onClick={() =>
-            this.props.onRowClick ? this.props.onRowClick (index, row) : null}
+          onClick={() => this.handleClick (index, row)}
+          onDoubleClick={() => this.handleDbClick (index, row)}
         >
           <Label
             text={row}
