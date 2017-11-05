@@ -43,6 +43,8 @@ export default function styles (theme, props) {
   let boxPaddingLeft = '0px';
   let boxZIndex = props.zIndex;
   let boxOpacity = Bool.isFalse (props.visibility) ? 0 : null;
+  let border = null;
+  let boxSizing = null;
   let borderRadius = '0px';
   let backgroundColor = null;
   let textHoverColor = null;
@@ -573,6 +575,13 @@ export default function styles (theme, props) {
     }
   }
 
+  if (Bool.isTrue (props.empty)) {
+    border = '2px dotted #ccc';
+    boxHeight = Unit.sub (theme.shapes.lineHeight, '2px');
+    boxSizing = 'border-box';
+    boxMarginTop = '2px';
+  }
+
   if (!props.kind) {
     borderRadius = theme.shapes.smoothRadius;
     if (Bool.isTrue (props.active)) {
@@ -699,6 +708,8 @@ export default function styles (theme, props) {
     flexGrow: boxFlexGrow,
     flexShrink: boxFlexShrink,
     flexBasis: boxFlexBasis,
+    border: border,
+    boxSizing: boxSizing,
     borderRadius: borderRadius,
     backgroundColor: backgroundColor,
     opacity: boxOpacity,
