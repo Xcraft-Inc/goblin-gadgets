@@ -413,7 +413,7 @@ class Field extends Form {
           verticalSpacing={this.props.verticalSpacing}
           verticalJustify={this.props.verticalJustify}
         >
-          <FinalPlugin readonly="true" level={this.props.level} />
+          <FinalPlugin readonly="true" embedded={this.props.embedded} />
         </Container>
       );
     } else if (this.props.item) {
@@ -757,7 +757,7 @@ class Field extends Form {
           verticalSpacing={this.props.verticalSpacing}
           verticalJustify={this.props.verticalJustify}
         >
-          <FinalPlugin id={this.context.id} level={this.props.level} />
+          <FinalPlugin id={this.context.id} embedded={this.props.embedded} />
         </Container>
       );
     } else if (this.props.item) {
