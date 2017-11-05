@@ -58,6 +58,7 @@ export default function styles (theme, props) {
   let transform = null;
   let fontFamily = null;
   let transition = null;
+  let visibility = null;
 
   const h = theme.shapes.lineHeight;
   const m = theme.shapes.containerMargin;
@@ -728,6 +729,20 @@ export default function styles (theme, props) {
     flexGrow = props.grow;
   }
 
+  if (props.kind === 'row-draggable') {
+    display = 'flex';
+    flexDirection = 'row';
+    flexGrow = props.grow;
+    if (Bool.isTrue (props.isDragged)) {
+      borderWidth = '1px';
+      borderStyle = 'solid';
+      boxSizing = 'border-box';
+      backgroundColor = '#fff';
+    } else if (Bool.isTrue (props.hasHeLeft)) {
+      visibility = 'hidden';
+    }
+  }
+
   if (props.kind === 'wrap') {
     display = 'flex';
     flexDirection = 'row';
@@ -970,6 +985,7 @@ export default function styles (theme, props) {
     bottom: bottom,
     transform: transform,
     transition: transition,
+    visibility: visibility,
     cursor: props.cursor,
   };
 
