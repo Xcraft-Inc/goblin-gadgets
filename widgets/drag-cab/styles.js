@@ -55,7 +55,10 @@ export default function styles (theme, props) {
       Unit.multiply (hoverOverlapX, -1),
     borderLeft: '6px solid ' + theme.palette.dragAndDropHover,
     boxSizing: 'border-box',
-    backgroundColor: 'rgba(70,140,210, 0.1)',
+    backgroundColor: ColorManipulator.fade (
+      theme.palette.dragAndDropHover,
+      0.1
+    ),
   };
 
   const handleStyle = {
