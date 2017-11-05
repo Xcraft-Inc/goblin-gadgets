@@ -120,7 +120,7 @@ class TextField extends Widget {
   }
 
   renderFocusForeground (props) {
-    if (Bool.isTrue (this.props.embededFocus)) {
+    if (Bool.isTrue (this.props.embeddedFocus)) {
       return null;
     } else {
       const focusClass = this.styles.classNames.focus;
