@@ -89,7 +89,7 @@ class Field extends Form {
               text={this.props.labelText}
               glyph={this.props.labelGlyph}
               width={labelWidth}
-              kind="label-text-field"
+              kind="label-field"
               justify="left"
               spacing="overlap"
               disabled="true"
@@ -126,7 +126,7 @@ class Field extends Form {
               text={this.props.labelText}
               glyph={this.props.labelGlyph}
               width={labelWidth}
-              kind="label-text-field"
+              kind="label-field"
               justify="left"
               spacing="overlap"
               disabled="true"
@@ -163,7 +163,7 @@ class Field extends Form {
               text={this.props.labelText}
               glyph={this.props.labelGlyph}
               width={labelWidth}
-              kind="label-text-field"
+              kind="label-field"
               justify="left"
               spacing="overlap"
               disabled="true"
@@ -200,7 +200,7 @@ class Field extends Form {
               text={this.props.labelText}
               glyph={this.props.labelGlyph}
               width={labelWidth}
-              kind="label-text-field"
+              kind="label-field"
               justify="left"
               spacing="overlap"
               disabled="true"
@@ -237,7 +237,7 @@ class Field extends Form {
               text={this.props.labelText}
               glyph={this.props.labelGlyph}
               width={labelWidth}
-              kind="label-text-field"
+              kind="label-field"
               justify="left"
               spacing="overlap"
               disabled="true"
@@ -281,7 +281,7 @@ class Field extends Form {
               text={this.props.labelText}
               glyph={this.props.labelGlyph}
               width={labelWidth}
-              kind="label-text-field"
+              kind="label-field"
               justify="left"
               spacing="overlap"
               disabled="true"
@@ -318,7 +318,7 @@ class Field extends Form {
           : <Label
               glyph={this.props.labelGlyph}
               width={labelWidth}
-              kind="label-text-field"
+              kind="label-field"
               justify="left"
               spacing="overlap"
               disabled="true"
@@ -377,7 +377,7 @@ class Field extends Form {
               text={this.props.labelText}
               glyph={this.props.labelGlyph}
               width={labelWidth}
-              kind="label-text-field"
+              kind="label-field"
               justify="left"
               spacing="overlap"
               disabled="true"
@@ -559,7 +559,7 @@ class Field extends Form {
               text={this.props.labelText}
               glyph={this.props.labelGlyph}
               width={labelWidth}
-              kind="label-text-field"
+              kind="label-field"
               justify="left"
               spacing="overlap"
             />}
@@ -596,7 +596,7 @@ class Field extends Form {
               text={this.props.labelText}
               glyph={this.props.labelGlyph}
               width={labelWidth}
-              kind="label-text-field"
+              kind="label-field"
               justify="left"
               spacing="overlap"
             />}
@@ -649,7 +649,7 @@ class Field extends Form {
               text={this.props.labelText}
               glyph={this.props.labelGlyph}
               width={labelWidth}
-              kind="label-text-field"
+              kind="label-field"
               justify="left"
               spacing="overlap"
             />}
@@ -694,7 +694,7 @@ class Field extends Form {
           : <Label
               glyph={this.props.labelGlyph}
               width={labelWidth}
-              kind="label-text-field"
+              kind="label-field"
               justify="left"
               spacing="overlap"
             />}

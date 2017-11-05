@@ -269,6 +269,17 @@ export default function styles (theme, props) {
     boxHeight = theme.shapes.lineHeight;
   }
 
+  if (props.kind === 'label-field') {
+    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'none';
+    boxHeight = null;
+    boxAlignItems = 'flex-start';
+    if (Bool.isTrue (props.disabled)) {
+      glyphColor = theme.palette.textFieldDisableText;
+      textColor = theme.palette.textFieldDisableText;
+      specialDisabled = true;
+    }
+  }
+
   /******************************************************************************/
   // Styles for Labels inside LabelTextFields.
   /******************************************************************************/
@@ -276,14 +287,13 @@ export default function styles (theme, props) {
   if (props.kind === 'label-text-field') {
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'none';
     boxHeight = null;
+    boxPaddingTop = '7px';
+    boxAlignItems = 'flex-start';
     if (Bool.isTrue (props.disabled)) {
       glyphColor = theme.palette.textFieldDisableText;
       textColor = theme.palette.textFieldDisableText;
       specialDisabled = true;
     }
-    //?backgroundColor = theme.palette.labelButtonBackground;
-    //?glyphColor = theme.palette.taskLabelText;
-    //?textColor = theme.palette.taskLabelText;
   }
 
   /******************************************************************************/
