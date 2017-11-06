@@ -644,7 +644,7 @@ class DragCarrier extends Widget {
       height: this.props.dragHeight,
       left: this.x - ox - padding,
       top: this.y - oy - padding,
-      opacity: 0.9,
+      opacity: 1.0,
       backgroundColor: this.toDelete ? 'rgba(255, 0, 0, 0.5)' : null,
       padding: padding,
       borderRadius: this.toDelete ? '100px' : null,

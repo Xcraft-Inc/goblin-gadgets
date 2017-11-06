@@ -59,6 +59,7 @@ export default function styles (theme, props) {
   let fontFamily = null;
   let transition = null;
   let visibility = null;
+  let opacity = null;
 
   const h = theme.shapes.lineHeight;
   const m = theme.shapes.containerMargin;
@@ -734,10 +735,13 @@ export default function styles (theme, props) {
     flexDirection = 'row';
     flexGrow = props.grow;
     if (Bool.isTrue (props.isDragged)) {
-      borderWidth = '1px';
-      borderStyle = 'solid';
-      boxSizing = 'border-box';
+      // borderWidth = '1px';
+      // borderStyle = 'solid';
+      // boxSizing = 'border-box';
+      // borderColor = theme.palette.buttonBorder;
       backgroundColor = '#fff';
+      boxShadow = '0px 10px 50px rgba(0, 0, 0, 0.50)';
+      opacity = 0.95;
     } else if (Bool.isTrue (props.hasHeLeft)) {
       visibility = 'hidden';
     }
@@ -986,6 +990,7 @@ export default function styles (theme, props) {
     transform: transform,
     transition: transition,
     visibility: visibility,
+    opacity: opacity,
     cursor: props.cursor,
   };
 
