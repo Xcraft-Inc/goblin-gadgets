@@ -61,7 +61,8 @@ export default function styles (theme, props) {
     top: handleTop,
     width: handleWidth,
     height: handleHeight,
-    borderLeft: `${handleThickness} dotted #bbb`,
+    //? borderLeft: `${handleThickness} dotted #bbb`,
+    borderLeft: `${handleThickness} solid #ddd`,
     boxSizing: 'border-box',
   };
 
