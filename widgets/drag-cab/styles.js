@@ -51,7 +51,7 @@ export default function styles (theme, props) {
     margin: Unit.multiply (hoverOverlapY, -1) +
       ' ' +
       Unit.multiply (hoverOverlapX, -1),
-    borderLeft: '6px solid ' + theme.palette.dragAndDropHover,
+    borderLeft: '10px solid ' + theme.palette.dragAndDropHover,
     boxSizing: 'border-box',
   };
 
@@ -61,15 +61,63 @@ export default function styles (theme, props) {
     top: handleTop,
     width: handleWidth,
     height: handleHeight,
-    //? borderLeft: `${handleThickness} dotted #bbb`,
     borderLeft: `${handleThickness} solid #bbb`,
     boxSizing: 'border-box',
-    visibility: 'hidden',
+  };
+
+  const handleCircleStyle = {
+    position: 'absolute',
+    left: '-15px',
+    top: 'calc(50% - 5px)',
+    width: '10px',
+    height: '10px',
+    borderRadius: '10px',
+    backgroundColor: '#fff',
+  };
+
+  const handleCircleLittleStyle = {
+    position: 'absolute',
+    left: '-10px',
+    top: 'calc(50% - 5px)',
+    width: '6px',
+    height: '6px',
+    borderRadius: '6px',
+    backgroundColor: '#ccc',
+  };
+
+  const handleTriangleRightStyle = {
+    position: 'absolute',
+    left: '0px',
+    top: 'calc(50% - 10px)',
+    width: '0px',
+    height: '0px',
+    border: '10px solid transparent',
+    borderLeft: '10px solid #eee',
+  };
+
+  const handleTriangleLeftStyle = {
+    position: 'absolute',
+    left: '-20px',
+    top: 'calc(50% - 10px)',
+    width: '0px',
+    height: '0px',
+    border: '10px solid transparent',
+    borderRight: '10px solid #fff',
+  };
+
+  const handleRectStyle = {
+    position: 'absolute',
+    left: '5px',
+    top: 'calc(50% - 15px)',
+    width: '4px',
+    height: '30px',
+    borderRadius: '4px',
+    backgroundColor: '#eee',
   };
 
   return {
     detect: detectStyle,
-    handle: handleStyle,
+    handle: handleRectStyle,
   };
 }
 
