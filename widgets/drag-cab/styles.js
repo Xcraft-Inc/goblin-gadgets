@@ -7,7 +7,7 @@ import * as Bool from 'gadgets/boolean-helpers';
 export default function styles (theme, props) {
   const hoverOverlapX = '0px'; // overlap for hover
   const hoverOverlapY = '1px'; // overlap for hover
-  const hoverBottomSpace = '2px'; // margin between two rows
+  const hoverBottomSpace = '0px'; // margin between two rows
 
   const handleSpace = '4px'; // top/bottom space
   const handleShift = '4px'; // shift from left
@@ -62,8 +62,9 @@ export default function styles (theme, props) {
     width: handleWidth,
     height: handleHeight,
     //? borderLeft: `${handleThickness} dotted #bbb`,
-    borderLeft: `${handleThickness} solid #ddd`,
+    borderLeft: `${handleThickness} solid #bbb`,
     boxSizing: 'border-box',
+    visibility: 'hidden',
   };
 
   return {
