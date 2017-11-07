@@ -765,6 +765,7 @@ class Field extends Form {
             id={this.context.id}
             embedded={this.props.embedded}
             pluginTitle={this.props.pluginTitle}
+            horizontalSeparator={this.props.horizontalSeparator}
           />
         </Container>
       );
