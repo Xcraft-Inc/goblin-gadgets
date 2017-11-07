@@ -116,6 +116,7 @@ export default function styles (theme, props) {
     width: '100%',
     flexGrow: 1,
     height: theme.shapes.lineHeight,
+    fontSize: '100%',
     paddingTop: '0px',
     paddingRight: fieldPaddingRight,
     paddingBottom: '0px',
@@ -132,6 +133,7 @@ export default function styles (theme, props) {
   const textareaStyle = {
     width: '100%',
     flexGrow: 1,
+    fontSize: '100%',
     paddingTop: '8px',
     paddingRight: fieldPaddingRight,
     paddingBottom: '8px',
