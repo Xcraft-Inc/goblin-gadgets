@@ -247,6 +247,12 @@ export default function styles (theme, props) {
     focusedShadow = null;
   }
 
+  if (props.kind === 'plugin') {
+    backgroundColor = theme.palette.actionButtonBackground;
+    borderStyle = 'none';
+    focusedShadow = null;
+  }
+
   // Warning button (usual parent is container with kind='footer').
   if (props.kind === 'warning') {
     boxHeight = theme.shapes.footerHeight;
