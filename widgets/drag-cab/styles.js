@@ -48,17 +48,11 @@ export default function styles (theme, props) {
     cursor: cursor,
   };
   detectStyle[':hover'] = {
-    width: `calc(100% + ${Unit.multiply (hoverOverlapX, 2)})`,
-    height: `calc(100% + ${Unit.multiply (hoverOverlapY, 2)} - ${hoverBottomSpace})`,
     margin: Unit.multiply (hoverOverlapY, -1) +
       ' ' +
       Unit.multiply (hoverOverlapX, -1),
     borderLeft: '6px solid ' + theme.palette.dragAndDropHover,
     boxSizing: 'border-box',
-    backgroundColor: ColorManipulator.fade (
-      theme.palette.dragAndDropHover,
-      0.1
-    ),
   };
 
   const handleStyle = {
