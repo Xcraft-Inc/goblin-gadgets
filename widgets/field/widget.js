@@ -247,51 +247,6 @@ class Field extends Form {
     );
   }
 
-  renderReadonlyDoubleField () {
-    const Value1 = this.mapWidget (
-      Label,
-      value => {
-        return {text: value};
-      },
-      this.getFullPathFromModel (this.props.model1)
-    );
-
-    const Value2 = this.mapWidget (
-      Label,
-      value => {
-        return {text: value};
-      },
-      this.getFullPathFromModel (this.props.model2)
-    );
-
-    const labelWidth = this.props.labelWidth || defaultLabelWidth;
-
-    return (
-      <Container
-        kind="row-field"
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
-        {labelWidth === '0px'
-          ? null
-          : <Label
-              text={this.props.labelText}
-              glyph={this.props.labelGlyph}
-              width={labelWidth}
-              kind="label-field"
-              justify="left"
-              spacing="overlap"
-              disabled="true"
-            />}
-        <Value1 grow={this.props.growField1} spacing="large" />
-        <Value2 grow={this.props.growField2} />
-      </Container>
-    );
-  }
-
   renderReadonlyBool () {
     const Check = this.mapWidget (
       CheckButton,
@@ -540,43 +495,6 @@ class Field extends Form {
           fieldWidth="120px"
           hintText={this.props.hintText}
           model={this.props.model}
-        />
-      </Container>
-    );
-  }
-
-  renderEditDoubleField () {
-    const labelWidth = this.props.labelWidth || defaultLabelWidth;
-
-    return (
-      <Container
-        kind="row-field"
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
-        {labelWidth === '0px'
-          ? null
-          : <Label
-              text={this.props.labelText}
-              glyph={this.props.labelGlyph}
-              width={labelWidth}
-              kind="label-field"
-              justify="left"
-              spacing="overlap"
-            />}
-        <TextField
-          hintText={this.props.hintText1}
-          model={this.props.model1}
-          grow={this.props.growField1}
-          spacing="large"
-        />
-        <TextField
-          hintText={this.props.hintText2}
-          model={this.props.model2}
-          grow={this.props.growField2}
         />
       </Container>
     );
@@ -877,8 +795,6 @@ class Field extends Form {
         return this.renderReadonlyTime ();
       case 'price':
         return this.renderReadonlyPrice ();
-      case 'double-field':
-        return this.renderReadonlyDoubleField ();
       case 'combo':
         return this.renderReadonlyField ();
       case 'radio':
@@ -910,8 +826,6 @@ class Field extends Form {
         return this.renderEditTime ();
       case 'price':
         return this.renderEditPrice ();
-      case 'double-field':
-        return this.renderEditDoubleField ();
       case 'combo':
         return this.renderEditCombo ();
       case 'radio':
