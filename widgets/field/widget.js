@@ -774,24 +774,30 @@ class Field extends Form {
           : null}
         {this.props.onValue
           ? null
-          : <Button
-              glyph="eye"
-              onClick={() =>
-                this.navToDetail (this.context.id, props.existingValue)}
-            />}
+          : props.existingValue
+              ? <Button
+                  glyph="eye"
+                  spacing="overlap"
+                  onClick={() =>
+                    this.navToDetail (this.context.id, props.existingValue)}
+                />
+              : null}
         {props.existingValue
           ? <Button
-              glyph="ban"
+              glyph="eraser"
               onClick={() => this.setBackendValue (this.fullPath, null)}
             />
-          : <Form {...this.formConfigWithComponent ('div')}>
-              <Hinter
-                id={this.context.id}
-                hintText={this.props.hintText}
-                hinter={this.props.hinter}
-                comboType={this.props.hinter}
-              />
-            </Form>}
+          : <Form
+              {...this.formConfigWithComponent (() => (
+                <Hinter
+                  id={this.context.id}
+                  hintText={this.props.hintText}
+                  hinter={this.props.hinter}
+                  comboType={this.props.hinter}
+                  grow="1"
+                />
+              ))}
+            />}
 
       </Container>
     );
