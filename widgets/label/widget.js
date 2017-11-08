@@ -1,6 +1,7 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 import * as Bool from 'gadgets/boolean-helpers';
+import ReactMarkdown from 'react-markdown';
 
 /******************************************************************************/
 
@@ -126,21 +127,26 @@ class Label extends Widget {
   renderText (index, text) {
     if (text !== null) {
       if (typeof text === 'string') {
-        const hasEol1 = text.indexOf ('\n') !== -1;
-        const hasEol2 = text.indexOf ('\\n') !== -1;
-        const hasBr = text.indexOf ('<br/>') !== -1;
-        const hasEm = text.indexOf ('<em>') !== -1;
-        if (hasEol1 || hasEol2 || hasBr || hasEm) {
-          // complex text ?
-          const lines = text.split (hasBr ? '<br/>' : hasEol1 ? '\n' : '\\n');
-          if (Bool.isTrue (this.props.singleLine)) {
-            const line = lines.join (', ');
-            return this.renderSimpleText (index, line);
-          } else {
-            return this.renderLines (index, lines);
-          }
+        if (text.startsWith ('```') && text.endsWith ('```')) {
+          const input = text.substring (3, text.length - 3);
+          return <ReactMarkdown source={input} />;
         } else {
-          return this.renderSimpleText (index, text);
+          const hasEol1 = text.indexOf ('\n') !== -1;
+          const hasEol2 = text.indexOf ('\\n') !== -1;
+          const hasBr = text.indexOf ('<br/>') !== -1;
+          const hasEm = text.indexOf ('<em>') !== -1;
+          if (hasEol1 || hasEol2 || hasBr || hasEm) {
+            // complex text ?
+            const lines = text.split (hasBr ? '<br/>' : hasEol1 ? '\n' : '\\n');
+            if (Bool.isTrue (this.props.singleLine)) {
+              const line = lines.join (', ');
+              return this.renderSimpleText (index, line);
+            } else {
+              return this.renderLines (index, lines);
+            }
+          } else {
+            return this.renderSimpleText (index, text);
+          }
         }
       } else {
         return this.renderSimpleText (index, text);
