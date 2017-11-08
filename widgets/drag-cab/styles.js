@@ -55,6 +55,7 @@ export default function styles (theme, props) {
     boxSizing: 'border-box',
   };
 
+  // FIXME: Gros refactoring nécessaire, direction horizontale cassée, etc.
   const handleStyle = {
     position: 'absolute',
     left: handleLeft,
