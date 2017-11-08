@@ -718,7 +718,7 @@ class Field extends Form {
 
   renderEditHinter () {
     const Hinter = this.mapWidget (
-      LabelTextField,
+      TextField,
       value => {
         if (value && value !== '') {
           let selectedId = null;
@@ -736,7 +736,22 @@ class Field extends Form {
 
     const Form = this.Form;
 
-    return (
+    const HinterLabel = this.mapWidget (
+      Label,
+      value => {
+        if (value && value !== '') {
+          if (!this.props.onValue) {
+            value = this.getModelValue (`${value}.meta.info`, true);
+          }
+          return {text: value};
+        } else {
+          return {};
+        }
+      },
+      this.fullPath
+    );
+
+    const HinterLine = props => (
       <Container
         kind="row-field"
         grow={this.props.grow}
@@ -745,22 +760,49 @@ class Field extends Form {
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
-        <Form
-          {...this.formConfigWithComponent (() => (
-            <Hinter
-              id={this.context.id}
-              labelText={this.props.labelText}
-              labelGlyph={this.props.labelGlyph}
-              labelWidth={this.props.labelWidth || defaultLabelWidth}
-              hintText={this.props.hintText}
-              grow="1"
-              hinter={this.props.hinter}
-              comboType={this.props.hinter}
-            />
-          ))}
+        <Label
+          text={this.props.labelText}
+          glyph={this.props.labelGlyph}
+          width={this.props.labelWidth || defaultLabelWidth}
         />
+        {props.existingValue
+          ? <HinterLabel
+              width={this.props.labelWidth || defaultLabelWidth}
+              hintText={this.props.hintText}
+              grow="2"
+            />
+          : null}
+        {this.props.onValue
+          ? null
+          : <Button
+              glyph="eye"
+              onClick={() =>
+                this.navToDetail (this.context.id, props.existingValue)}
+            />}
+        {props.existingValue
+          ? <Button
+              glyph="ban"
+              onClick={() => this.setBackendValue (this.fullPath, null)}
+            />
+          : <Form {...this.formConfigWithComponent ('div')}>
+              <Hinter
+                id={this.context.id}
+                hintText={this.props.hintText}
+                hinter={this.props.hinter}
+                comboType={this.props.hinter}
+              />
+            </Form>}
+
       </Container>
     );
+
+    const HinterField = this.mapWidget (
+      HinterLine,
+      'existingValue',
+      this.fullPath
+    );
+
+    return <HinterField />;
   }
 
   renderEditFileInput () {
