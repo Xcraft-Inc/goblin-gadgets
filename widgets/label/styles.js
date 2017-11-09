@@ -44,6 +44,10 @@ export default function styles (theme, props) {
   let boxZIndex = props.zIndex;
   let boxOpacity = Bool.isFalse (props.visibility) ? 0 : null;
   let border = null;
+  let borderTop = null;
+  let borderBottom = null;
+  let borderLeft = null;
+  let borderRight = null;
   let boxSizing = null;
   let borderRadius = '0px';
   let backgroundColor = null;
@@ -267,6 +271,20 @@ export default function styles (theme, props) {
 
   if (props.kind === 'one-line-height') {
     boxHeight = theme.shapes.lineHeight;
+  }
+
+  if (props.kind === 'markdown') {
+    boxPaddingTop = '5px';
+    boxPaddingRight = '10px';
+    boxPaddingBottom = '10px';
+    boxPaddingLeft = '10px';
+    borderTop = '1px solid #ccc';
+    borderBottom = '1px solid #ccc';
+    borderLeft = '4px double #ccc';
+    borderRight = '4px double #ccc';
+    borderRadius = '5px';
+    boxSizing = 'border-box';
+    boxHeight = Unit.add ('32px', '2px');
   }
 
   if (props.kind === 'label-field') {
@@ -719,6 +737,10 @@ export default function styles (theme, props) {
     flexShrink: boxFlexShrink,
     flexBasis: boxFlexBasis,
     border: border,
+    borderTop: borderTop,
+    borderBottom: borderBottom,
+    borderLeft: borderLeft,
+    borderRight: borderRight,
     boxSizing: boxSizing,
     borderRadius: borderRadius,
     backgroundColor: backgroundColor,

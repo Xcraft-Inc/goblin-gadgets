@@ -113,7 +113,9 @@ class Field extends Form {
 
     return (
       <Container
-        kind="row-field-readonly"
+        kind={
+          this.props.state === 'compact' ? 'row-field' : 'row-field-readonly'
+        }
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
@@ -149,7 +151,9 @@ class Field extends Form {
 
     return (
       <Container
-        kind="row-field-readonly"
+        kind={
+          this.props.state === 'compact' ? 'row-field' : 'row-field-readonly'
+        }
         subkind="left"
         grow="0"
         width={this.props.width}
@@ -186,7 +190,9 @@ class Field extends Form {
 
     return (
       <Container
-        kind="row-field-readonly"
+        kind={
+          this.props.state === 'compact' ? 'row-field' : 'row-field-readonly'
+        }
         subkind="left"
         grow="0"
         width={this.props.width}
@@ -223,7 +229,9 @@ class Field extends Form {
 
     return (
       <Container
-        kind="row-field-readonly"
+        kind={
+          this.props.state === 'compact' ? 'row-field' : 'row-field-readonly'
+        }
         subkind="left"
         grow="0"
         width={this.props.width}
@@ -260,7 +268,9 @@ class Field extends Form {
 
     return (
       <Container
-        kind="row-field-readonly"
+        kind={
+          this.props.state === 'compact' ? 'row-field' : 'row-field-readonly'
+        }
         subkind="left"
         grow={this.props.grow}
         width={this.props.width}
@@ -319,7 +329,9 @@ class Field extends Form {
 
     return (
       <Container
-        kind="row-field-readonly"
+        kind={
+          this.props.state === 'compact' ? 'row-field' : 'row-field-readonly'
+        }
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
@@ -360,7 +372,9 @@ class Field extends Form {
 
       return (
         <Container
-          kind="row-field-readonly"
+          kind={
+            this.props.state === 'compact' ? 'row-field' : 'row-field-readonly'
+          }
           subkind="light-box"
           grow={this.props.grow}
           width={this.props.width}
@@ -677,7 +691,7 @@ class Field extends Form {
           width={this.props.width}
           height={this.props.height}
           verticalSpacing={this.props.verticalSpacing}
-          verticalJustify={this.props.verticalJustify}
+          verticalJustify="top"
         >
           <FinalPlugin
             id={this.context.id}
@@ -768,15 +782,18 @@ class Field extends Form {
         width={this.props.width}
         height={this.props.height}
         verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
+        verticalJustify="top"
       >
         <Label
+          kind="label-text-field"
           text={this.props.labelText}
           glyph={this.props.labelGlyph}
           width={this.props.labelWidth || defaultLabelWidth}
         />
         {props.existingValue
           ? <HinterLabel
+              kind="markdown"
+              spacing="compact"
               width={this.props.labelWidth || defaultLabelWidth}
               hintText={this.props.hintText}
               grow="2"
@@ -787,6 +804,7 @@ class Field extends Form {
           : props.existingValue
               ? <Button
                   glyph="eye"
+                  tooltip="Voir"
                   spacing="overlap"
                   onClick={() =>
                     this.navToDetail (this.context.id, props.existingValue)}
@@ -795,6 +813,7 @@ class Field extends Form {
         {props.existingValue
           ? <Button
               glyph="eraser"
+              tooltip="Entrer une nouvelle référence"
               onClick={() => this.setBackendValue (this.fullPath, null)}
             />
           : <Form
