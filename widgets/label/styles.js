@@ -282,7 +282,6 @@ export default function styles (theme, props) {
     borderBottom = '1px solid #ccc';
     borderLeft = '4px double #ccc';
     borderRight = '4px double #ccc';
-    borderRadius = '5px';
     boxSizing = 'border-box';
     boxHeight = Unit.add ('32px', '2px');
   }
