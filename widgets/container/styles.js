@@ -566,6 +566,33 @@ export default function styles (theme, props) {
       topMargin + ' ' + rightMargin + ' ' + bottomMargin + ' ' + leftMargin;
   }
 
+  if (props.kind === 'row-field-readonly') {
+    const halfMargin = Unit.multiply (m, 0.5);
+    let topMargin = '0px';
+    let rightMargin = '0px';
+    let bottomMargin = '0px';
+    let leftMargin = '0px';
+    display = 'flex';
+    flexDirection = 'row';
+    flexGrow = props.grow;
+    alignItems = props.verticalJustify === 'top' ? 'flex-start' : 'center';
+    if (props.subkind === 'left') {
+      justifyContent = 'flex-start';
+    } else if (props.subkind === 'light-box') {
+      rightMargin = Unit.multiply (m, -1);
+      leftMargin = Unit.multiply (m, -1);
+      topMargin = Unit.multiply (halfMargin, -1);
+      bottomMargin = '0px';
+    }
+    if (props.verticalSpacing === 'compact') {
+      bottomMargin = '-5px';
+    } else if (props.verticalSpacing === 'overlap') {
+      bottomMargin = '-1px';
+    }
+    margin =
+      topMargin + ' ' + rightMargin + ' ' + bottomMargin + ' ' + leftMargin;
+  }
+
   if (props.kind === 'row-pane-drag') {
     display = 'flex';
     flexDirection = 'column';

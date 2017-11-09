@@ -113,7 +113,7 @@ class Field extends Form {
 
     return (
       <Container
-        kind="row-field"
+        kind="row-field-readonly"
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
@@ -149,7 +149,7 @@ class Field extends Form {
 
     return (
       <Container
-        kind="row-field"
+        kind="row-field-readonly"
         subkind="left"
         grow="0"
         width={this.props.width}
@@ -186,7 +186,7 @@ class Field extends Form {
 
     return (
       <Container
-        kind="row-field"
+        kind="row-field-readonly"
         subkind="left"
         grow="0"
         width={this.props.width}
@@ -223,7 +223,7 @@ class Field extends Form {
 
     return (
       <Container
-        kind="row-field"
+        kind="row-field-readonly"
         subkind="left"
         grow="0"
         width={this.props.width}
@@ -260,7 +260,7 @@ class Field extends Form {
 
     return (
       <Container
-        kind="row-field"
+        kind="row-field-readonly"
         subkind="left"
         grow={this.props.grow}
         width={this.props.width}
@@ -319,7 +319,7 @@ class Field extends Form {
 
     return (
       <Container
-        kind="row-field"
+        kind="row-field-readonly"
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
@@ -360,7 +360,7 @@ class Field extends Form {
 
       return (
         <Container
-          kind="row-field"
+          kind="row-field-readonly"
           subkind="light-box"
           grow={this.props.grow}
           width={this.props.width}
