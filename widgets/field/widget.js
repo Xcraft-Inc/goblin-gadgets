@@ -296,7 +296,7 @@ class Field extends Form {
     const Action = props => {
       return (
         <Button
-          kind="recurrence"
+          kind="check-button"
           glyph="pencil"
           tooltip="Editer"
           onClick={() => {
