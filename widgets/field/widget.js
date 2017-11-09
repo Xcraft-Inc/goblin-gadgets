@@ -717,6 +717,10 @@ class Field extends Form {
   }
 
   renderEditHinter () {
+    const targetPath = this.props.targetModel
+      ? this.getFullPathFromModel (this.props.targetModel)
+      : this.fullPath;
+
     const Hinter = this.mapWidget (
       TextField,
       value => {
@@ -736,20 +740,26 @@ class Field extends Form {
 
     const Form = this.Form;
 
-    const HinterLabel = this.mapWidget (
-      Label,
-      value => {
-        if (value && value !== '') {
-          if (!this.props.onValue) {
-            value = this.getModelValue (`${value}.meta.info`, true);
+    let HinterLabel = null;
+
+    if (this.props.targetModel) {
+      HinterLabel = this.mapWidget (Label, 'text', targetPath);
+    } else {
+      HinterLabel = this.mapWidget (
+        Label,
+        value => {
+          if (value && value !== '') {
+            if (!this.props.onValue) {
+              value = this.getModelValue (`${value}.meta.info`, true);
+            }
+            return {text: value};
+          } else {
+            return {};
           }
-          return {text: value};
-        } else {
-          return {};
-        }
-      },
-      this.fullPath
-    );
+        },
+        this.fullPath
+      );
+    }
 
     const HinterLine = props => (
       <Container
