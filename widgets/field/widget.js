@@ -786,6 +786,7 @@ class Field extends Form {
       >
         <Label
           kind="label-text-field"
+          wrap="no"
           text={this.props.labelText}
           glyph={this.props.labelGlyph}
           width={this.props.labelWidth || defaultLabelWidth}
@@ -824,7 +825,7 @@ class Field extends Form {
               ? <Button
                   kind="combo"
                   glyph="eye"
-                  tooltip="Voir"
+                  tooltip="Voir les détails"
                   onClick={() =>
                     this.navToDetail (this.context.id, props.existingValue)}
                 />
