@@ -559,6 +559,8 @@ export default function styles (theme, props) {
     }
     if (props.verticalSpacing === 'compact') {
       bottomMargin = '0px';
+    } else if (props.verticalSpacing === 'large') {
+      bottomMargin = '10px';
     } else if (props.verticalSpacing === 'overlap') {
       bottomMargin = '-1px';
     }
@@ -586,6 +588,8 @@ export default function styles (theme, props) {
     }
     if (props.verticalSpacing === 'compact') {
       bottomMargin = '-5px';
+    } else if (props.verticalSpacing === 'large') {
+      bottomMargin = '10px';
     } else if (props.verticalSpacing === 'overlap') {
       bottomMargin = '-1px';
     }

@@ -540,7 +540,7 @@ class Field extends Form {
           hintText={this.props.hintText}
           width={this.props.fieldWidth}
           model={this.props.model}
-          readonly="false"
+          readonly={this.props.comboReadonly}
           list={this.props.list}
           menuType="wrap"
           menuItemWidth={this.props.menuItemWidth}
