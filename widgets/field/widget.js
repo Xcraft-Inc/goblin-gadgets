@@ -798,6 +798,7 @@ class Field extends Form {
               width={this.props.labelWidth || defaultLabelWidth}
               hintText={this.props.hintText}
               grow="2"
+              onClick={() => this.setBackendValue (this.fullPath, null)}
             />
           : null}
         {props.existingValue
