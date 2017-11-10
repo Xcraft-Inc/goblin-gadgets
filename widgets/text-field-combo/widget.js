@@ -245,6 +245,8 @@ class TextFieldCombo extends Widget {
       <Button
         kind="combo"
         glyph={glyph}
+        glyphSize="150%"
+        width="32px"
         shape={buttonShape}
         disabled={this.props.disabled}
         onClick={this.onShowCombo}

@@ -877,6 +877,8 @@ class Field extends Form {
           ? <Button
               kind="combo"
               glyph="caret-left"
+              glyphSize="150%"
+              width="32px"
               tooltip="Entrer une nouvelle référence"
               spacing="overlap"
               onClick={() => this.setBackendValue (this.fullPath, null)}
