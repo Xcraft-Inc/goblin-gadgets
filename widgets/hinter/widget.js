@@ -11,8 +11,9 @@ import Calendar from 'gadgets/calendar/widget';
 class Hinter extends Widget {
   constructor () {
     super (...arguments);
-    this.handleClick = ::this.handleClick;
-    this.handleDbClick = ::this.handleDbClick;
+
+    this.handleClick = this.handleClick.bind (this);
+    this.handleDbClick = this.handleDbClick.bind (this);
   }
 
   handleClick (index, row) {
@@ -27,29 +28,27 @@ class Hinter extends Widget {
     }
   }
   renderRow (row, index) {
-    let isActive = null;
-    if (this.props.selectedIndex && this.props.selectedIndex === `${index}`) {
-      isActive = {
-        selected: 'true',
-      };
-    }
+    const isActive =
+      this.props.selectedIndex && this.props.selectedIndex === `${index}`;
+
+    const boxClass = isActive
+      ? this.styles.classNames.boxActive
+      : this.styles.classNames.box;
+
     return (
-      <Container key={index} kind="row-pane" subkind="large-box" {...isActive}>
-        <Button
-          kind="container"
-          width="100%"
-          onClick={() => this.handleClick (index, row)}
-          onDoubleClick={() => this.handleDbClick (index, row)}
-        >
-          <Label
-            text={row}
-            kind="large-single"
-            justify="left"
-            grow="1"
-            wrap="no"
-          />
-        </Button>
-      </Container>
+      <div
+        className={boxClass}
+        onClick={() => this.handleClick (index, row)}
+        onDoubleClick={() => this.handleDbClick (index, row)}
+      >
+        <Label
+          text={row}
+          kind="large-single"
+          justify="left"
+          grow="1"
+          wrap="no"
+        />
+      </div>
     );
   }
 
