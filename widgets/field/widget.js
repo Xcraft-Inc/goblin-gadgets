@@ -485,7 +485,7 @@ class Field extends Form {
               spacing="overlap"
               disabled="true"
             />}
-        <Value kind="title" grow="1" justify={this.props.justify} />
+        <Value grow="1" justify={this.props.justify} />
       </Container>
     );
   }
