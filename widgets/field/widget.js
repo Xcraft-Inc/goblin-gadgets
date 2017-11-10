@@ -417,6 +417,78 @@ class Field extends Form {
       throw new Error ('Property plugin is required in this case!');
     }
   }
+
+  renderTitle () {
+    const Value = this.mapWidget (
+      Label,
+      value => {
+        return {text: value};
+      },
+      this.fullPath
+    );
+
+    const labelWidth = this.props.labelWidth || defaultLabelWidth;
+
+    return (
+      <Container
+        kind="row-field"
+        grow={this.props.grow}
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
+      >
+        {labelWidth === '0px'
+          ? null
+          : <Label
+              text={this.props.labelText}
+              glyph={this.props.labelGlyph}
+              width={labelWidth}
+              kind="label-field"
+              justify="left"
+              spacing="overlap"
+              disabled="true"
+            />}
+        <Value kind="title" grow="1" justify={this.props.justify} />
+      </Container>
+    );
+  }
+
+  renderSubtitle () {
+    const Value = this.mapWidget (
+      Label,
+      value => {
+        return {text: value};
+      },
+      this.fullPath
+    );
+
+    const labelWidth = this.props.labelWidth || defaultLabelWidth;
+
+    return (
+      <Container
+        kind="row-field"
+        grow={this.props.grow}
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
+      >
+        {labelWidth === '0px'
+          ? null
+          : <Label
+              text={this.props.labelText}
+              glyph={this.props.labelGlyph}
+              width={labelWidth}
+              kind="label-field"
+              justify="left"
+              spacing="overlap"
+              disabled="true"
+            />}
+        <Value kind="title" grow="1" justify={this.props.justify} />
+      </Container>
+    );
+  }
   //#endregion
 
   //#region Edit
@@ -889,6 +961,10 @@ class Field extends Form {
         return this.renderReadonlyEntity ();
       case 'ids':
         return this.renderReadonlyEntities ();
+      case 'title':
+        return this.renderTitle ();
+      case 'subtitle':
+        return this.renderSubtitle ();
       default:
         return this.renderReadonlyField ();
     }
@@ -920,6 +996,10 @@ class Field extends Form {
         return this.renderEditEntity ();
       case 'ids':
         return this.renderEditEntities ();
+      case 'title':
+        return this.renderTitle ();
+      case 'subtitle':
+        return this.renderSubtitle ();
       default:
         return this.renderEditField ();
     }
