@@ -274,9 +274,9 @@ export default function styles (theme, props) {
   }
 
   if (props.kind === 'markdown') {
-    boxPaddingTop = '5px';
+    boxPaddingTop = '7px';
     boxPaddingRight = '10px';
-    boxPaddingBottom = '10px';
+    boxPaddingBottom = '7px';
     boxPaddingLeft = '10px';
     borderTop = '1px solid #ccc';
     borderBottom = '1px solid #ccc';
