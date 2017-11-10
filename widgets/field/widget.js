@@ -793,27 +793,18 @@ class Field extends Form {
         {props.existingValue
           ? <HinterLabel
               kind="markdown"
-              spacing="compact"
+              spacing="overlap"
               width={this.props.labelWidth || defaultLabelWidth}
               hintText={this.props.hintText}
               grow="2"
             />
           : null}
-        {this.props.onValue
-          ? null
-          : props.existingValue
-              ? <Button
-                  glyph="eye"
-                  tooltip="Voir"
-                  spacing="overlap"
-                  onClick={() =>
-                    this.navToDetail (this.context.id, props.existingValue)}
-                />
-              : null}
         {props.existingValue
           ? <Button
-              glyph="eraser"
+              kind="combo"
+              glyph="caret-left"
               tooltip="Entrer une nouvelle référence"
+              spacing="overlap"
               onClick={() => this.setBackendValue (this.fullPath, null)}
             />
           : <Form
@@ -827,7 +818,17 @@ class Field extends Form {
                 />
               ))}
             />}
-
+        {this.props.onValue
+          ? null
+          : props.existingValue
+              ? <Button
+                  kind="combo"
+                  glyph="eye"
+                  tooltip="Voir"
+                  onClick={() =>
+                    this.navToDetail (this.context.id, props.existingValue)}
+                />
+              : null}
       </Container>
     );
 

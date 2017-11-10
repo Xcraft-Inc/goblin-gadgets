@@ -278,10 +278,12 @@ export default function styles (theme, props) {
     boxPaddingRight = '10px';
     boxPaddingBottom = '7px';
     boxPaddingLeft = '10px';
-    borderTop = '1px solid #ccc';
-    borderBottom = '1px solid #ccc';
-    borderLeft = '4px double #ccc';
-    borderRight = '4px double #ccc';
+    // borderTop = '1px solid ' + theme.palette.buttonBorder;
+    // borderBottom = '1px solid ' + theme.palette.buttonBorder;
+    // borderLeft = '4px double ' + theme.palette.buttonBorder;
+    // borderRight = '4px double ' + theme.palette.buttonBorder;
+    border = '1px solid ' + theme.palette.buttonBorder;
+    backgroundColor = theme.palette.textFieldReadonlyBackground;
     boxSizing = 'border-box';
     boxHeight = Unit.add ('32px', '2px');
   }
