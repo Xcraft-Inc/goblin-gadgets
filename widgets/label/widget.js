@@ -129,7 +129,7 @@ class Label extends Widget {
       if (typeof text === 'string') {
         if (text.startsWith ('```') && text.endsWith ('```')) {
           const input = text.substring (3, text.length - 3);
-          return <ReactMarkdown source={input} />;
+          return <ReactMarkdown key={index} source={input} />;
         } else {
           const hasEol1 = text.indexOf ('\n') !== -1;
           const hasEol2 = text.indexOf ('\\n') !== -1;
