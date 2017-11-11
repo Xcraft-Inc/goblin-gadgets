@@ -12,8 +12,32 @@ class Hinter extends Widget {
   constructor () {
     super (...arguments);
 
+    this.state = {
+      hover: -1,
+    };
+
+    this.onMouseOver = this.onMouseOver.bind (this);
+    this.onMouseOut = this.onMouseOut.bind (this);
     this.handleClick = this.handleClick.bind (this);
     this.handleDbClick = this.handleDbClick.bind (this);
+  }
+
+  get hover () {
+    return this.state.hover;
+  }
+
+  set hover (value) {
+    this.setState ({
+      hover: value,
+    });
+  }
+
+  onMouseOver (index) {
+    this.hover = index;
+  }
+
+  onMouseOut (index) {
+    this.hover = -1;
   }
 
   handleClick (index, row) {
@@ -27,6 +51,34 @@ class Hinter extends Widget {
       this.props.onRowDbClick (index, row);
     }
   }
+
+  renderRowInfo (index) {
+    const infoClass = index === this.hover
+      ? this.styles.classNames.infoVisible
+      : this.styles.classNames.infoHidden;
+
+    // FIXME: set glyph according to work context of hinter !
+    const clickGlyph = 'eye';
+    const doubleclickGlyph = 'pencil';
+
+    return (
+      <div className={infoClass}>
+        <Label
+          kind="hinter-tooltip"
+          glyphPosition="right"
+          text="Clic"
+          glyph={clickGlyph}
+        />
+        <Label
+          kind="hinter-tooltip"
+          glyphPosition="right"
+          text="Double-clic"
+          glyph={doubleclickGlyph}
+        />
+      </div>
+    );
+  }
+
   renderRow (row, index) {
     const isActive =
       this.props.selectedIndex && this.props.selectedIndex === `${index}`;
@@ -38,6 +90,8 @@ class Hinter extends Widget {
     return (
       <div
         className={boxClass}
+        onMouseOver={() => this.onMouseOver (index)}
+        onMouseOut={() => this.onMouseOut (index)}
         onClick={() => this.handleClick (index, row)}
         onDoubleClick={() => this.handleDbClick (index, row)}
       >
@@ -48,6 +102,7 @@ class Hinter extends Widget {
           grow="1"
           wrap="no"
         />
+        {this.renderRowInfo (index)}
       </div>
     );
   }

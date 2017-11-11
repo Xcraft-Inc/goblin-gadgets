@@ -27,6 +27,7 @@ export default function styles (theme, props) {
 
   let boxWidth = props.width;
   let boxHeight = props.height;
+  let boxMaxHeight = null;
   let boxFlexDirection = 'row';
   let boxFlexGrow = props.grow;
   let boxFlexShrink = null;
@@ -604,6 +605,13 @@ export default function styles (theme, props) {
     }
   }
 
+  if (props.kind === 'hinter-tooltip') {
+    textSize = '75%';
+    glyphSize = '75%';
+    boxMaxHeight = '16px';
+    boxJustifyContent = 'flex-end';
+  }
+
   if (Bool.isTrue (props.empty)) {
     border = '2px dotted #ccc';
     boxHeight = Unit.sub (theme.shapes.lineHeight, '2px');
@@ -721,6 +729,7 @@ export default function styles (theme, props) {
     width: boxWidth,
     minWidth: boxWidth ? boxWidth : '0px',
     minHeight: boxHeight,
+    maxHeight: boxMaxHeight,
     paddingTop: boxPaddingTop,
     paddingRight: boxPaddingRight,
     paddingBottom: boxPaddingBottom,

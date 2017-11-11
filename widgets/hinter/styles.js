@@ -8,6 +8,7 @@ export default function styles (theme, props) {
   const m = theme.shapes.containerMargin;
 
   const boxStyle = {
+    position: 'relative',
     display: 'flex',
     flexDirection: 'row',
     marginTop: Unit.multiply (m, 0.5),
@@ -21,6 +22,7 @@ export default function styles (theme, props) {
     borderTop: '1px solid ' + theme.palette.paneNavigatorInactiveBorder,
     borderBottom: '1px solid ' + theme.palette.paneNavigatorInactiveBorder,
     boxSizing: 'border-box',
+    transition: 'background-color 200ms cubic-bezier(0.42, 0, 0.58, 1) 0ms',
   };
   boxStyle[':hover'] = {
     backgroundColor: theme.palette.textFieldReadonlyBackground,
@@ -36,9 +38,28 @@ export default function styles (theme, props) {
     ' solid ' +
     ColorHelpers.getMarkColor (theme, 'base');
 
+  const infoVisibleStyle = {
+    position: 'absolute',
+    bottom: '-1px',
+    right: '0px',
+    padding: '5px',
+    //backgroundColor: theme.palette.chronoLabelTooltipBackground,
+    backgroundColor: theme.palette.textFieldReadonlyBackground,
+    border: '1px solid ' + theme.palette.paneNavigatorInactiveBorder,
+    opacity: 1,
+    transition: 'opacity 200ms cubic-bezier(0.42, 0, 0.58, 1) 400ms',
+  };
+
+  const infoHiddenStyle = Object.assign ({}, infoVisibleStyle); // clone
+  infoHiddenStyle.opacity = 0;
+  infoHiddenStyle.transition =
+    'opacity 100ms cubic-bezier(0.42, 0, 0.58, 1) 0s';
+
   return {
     box: boxStyle,
     boxActive: boxActiveStyle,
+    infoVisible: infoVisibleStyle,
+    infoHidden: infoHiddenStyle,
   };
 }
 
