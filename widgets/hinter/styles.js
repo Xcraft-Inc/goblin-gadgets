@@ -39,15 +39,16 @@ export default function styles (theme, props) {
     ColorHelpers.getMarkColor (theme, 'base');
 
   const infoVisibleStyle = {
+    zIndex: 2,
     position: 'absolute',
-    bottom: '-1px',
-    right: '0px',
+    bottom: '-5px',
+    right: '-10px',
     padding: '5px',
-    //backgroundColor: theme.palette.chronoLabelTooltipBackground,
     backgroundColor: theme.palette.textFieldReadonlyBackground,
+    boxShadow: '0px 3px 10px 0px rgba(0,0,0, 0.3)',
     border: '1px solid ' + theme.palette.paneNavigatorInactiveBorder,
     opacity: 1,
-    transition: 'opacity 200ms cubic-bezier(0.42, 0, 0.58, 1) 400ms',
+    transition: 'opacity 200ms cubic-bezier(0.42, 0, 0.58, 1) 500ms',
   };
 
   const infoHiddenStyle = Object.assign ({}, infoVisibleStyle); // clone
