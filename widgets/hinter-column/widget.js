@@ -12,13 +12,17 @@ class HinterColumn extends Widget {
     super (...arguments);
   }
 
-  renderList () {
+  renderListWithSplitter () {
     return (
       <Splitter kind="vertical" firstSize="90%">
         <Hinter {...this.props} />
         <Container kind="row" />
       </Splitter>
     );
+  }
+
+  renderList () {
+    return <Hinter {...this.props} />;
   }
 
   renderDate () {

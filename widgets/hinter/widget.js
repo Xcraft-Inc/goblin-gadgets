@@ -107,7 +107,7 @@ class Hinter extends Widget {
 
   render () {
     return (
-      <Container kind="view" grow="1">
+      <Container kind="view" grow="1" maxWidth="500px">
         <Container kind="pane-header-light">
           <Label
             kind="title"
