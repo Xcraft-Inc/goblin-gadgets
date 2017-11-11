@@ -14,10 +14,12 @@ export default function styles (theme, props) {
     marginBottom: Unit.sub (Unit.multiply (m, -0.5), '1px'),
     marginLeft: Unit.multiply (m, -1),
     marginRight: Unit.multiply (m, -1),
-    padding: Unit.multiply (m, 0.5),
+    paddingTop: Unit.multiply (m, 0.5),
+    paddingBottom: Unit.multiply (m, 0.5),
+    paddingLeft: Unit.multiply (m, 0.5),
+    paddingRight: Unit.multiply (m, 0.5),
     borderTop: '1px solid ' + theme.palette.paneNavigatorInactiveBorder,
     borderBottom: '1px solid ' + theme.palette.paneNavigatorInactiveBorder,
-    borderLeft: theme.shapes.markWidth + ' solid transparent',
     boxSizing: 'border-box',
   };
   boxStyle[':hover'] = {
@@ -25,6 +27,10 @@ export default function styles (theme, props) {
   };
 
   const boxActiveStyle = Object.assign ({}, boxStyle); // clone
+  boxActiveStyle.paddingLeft = Unit.sub (
+    Unit.multiply (m, 0.5),
+    theme.shapes.markWidth
+  );
   boxActiveStyle.borderLeft =
     theme.shapes.markWidth +
     ' solid ' +

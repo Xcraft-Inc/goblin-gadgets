@@ -64,9 +64,9 @@ class Hinter extends Widget {
 
   renderDate () {
     return (
-      <Container kind="row-pane" subkind="large-box">
+      <div className={boxClass}>
         <Calendar visibleDate={this.props.date} date={this.props.date} />
-      </Container>
+      </div>
     );
   }
 
