@@ -48,7 +48,7 @@ export default function styles (theme, props) {
     flexDirection: 'row',
   };
   if (scaleAnimation) {
-    infoVisibleStyle.transform = 'scale(1)';
+    infoVisibleStyle.transform = 'scaleY(1)';
     infoVisibleStyle.transition =
       'transform 200ms cubic-bezier(0.42, 0, 0.58, 1) 300ms';
   } else {
@@ -59,7 +59,7 @@ export default function styles (theme, props) {
 
   const infoHiddenStyle = Object.assign ({}, infoVisibleStyle); // clone
   if (scaleAnimation) {
-    infoHiddenStyle.transform = 'scale(0)';
+    infoHiddenStyle.transform = 'scaleY(0)';
     infoHiddenStyle.transition =
       'transform 100ms cubic-bezier(0.42, 0, 0.58, 1) 0ms';
   } else {
