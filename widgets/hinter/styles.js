@@ -38,23 +38,35 @@ export default function styles (theme, props) {
     ' solid ' +
     ColorHelpers.getMarkColor (theme, 'base');
 
+  const scaleAnimation = false;
+
   const infoVisibleStyle = {
-    zIndex: 2,
     position: 'absolute',
-    bottom: '-5px',
-    right: '-10px',
-    padding: '5px',
-    backgroundColor: theme.palette.textFieldReadonlyBackground,
-    boxShadow: '0px 3px 10px 0px rgba(0,0,0, 0.2)',
-    border: '1px solid ' + theme.palette.paneNavigatorInactiveBorder,
-    opacity: 1,
-    transition: 'opacity 200ms cubic-bezier(0.42, 0, 0.58, 1) 500ms',
+    top: '5px',
+    right: '5px',
+    display: 'flex',
+    flexDirection: 'row',
   };
+  if (scaleAnimation) {
+    infoVisibleStyle.transform = 'scale(1)';
+    infoVisibleStyle.transition =
+      'transform 200ms cubic-bezier(0.42, 0, 0.58, 1) 300ms';
+  } else {
+    infoVisibleStyle.opacity = 1;
+    infoVisibleStyle.transition =
+      'opacity 200ms cubic-bezier(0.42, 0, 0.58, 1) 300ms';
+  }
 
   const infoHiddenStyle = Object.assign ({}, infoVisibleStyle); // clone
-  infoHiddenStyle.opacity = 0;
-  infoHiddenStyle.transition =
-    'opacity 100ms cubic-bezier(0.42, 0, 0.58, 1) 0s';
+  if (scaleAnimation) {
+    infoHiddenStyle.transform = 'scale(0)';
+    infoHiddenStyle.transition =
+      'transform 100ms cubic-bezier(0.42, 0, 0.58, 1) 0ms';
+  } else {
+    infoHiddenStyle.opacity = 0;
+    infoHiddenStyle.transition =
+      'opacity 100ms cubic-bezier(0.42, 0, 0.58, 1) 0ms';
+  }
 
   return {
     box: boxStyle,

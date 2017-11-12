@@ -52,28 +52,33 @@ class Hinter extends Widget {
     }
   }
 
-  renderRowInfo (index) {
+  renderRowButtons (row, index) {
     const infoClass = index === this.hover
       ? this.styles.classNames.infoVisible
       : this.styles.classNames.infoHidden;
 
-    // FIXME: set glyph according to work context of hinter !
+    // FIXME: set glyph/tooltip according to work context of hinter !
     const clickGlyph = 'eye';
+    const clickTooltip = 'Voir les détails';
     const doubleclickGlyph = 'pencil';
+    const doubleclickTooltip = 'Editer';
+    //- const doubleclickGlyph = 'check';
+    //- const doubleclickTooltip = 'Choisir';
 
     return (
       <div className={infoClass}>
-        <Label
-          kind="hinter-tooltip"
-          glyphPosition="right"
-          text="Clic"
+        <Button
+          width="32px"
           glyph={clickGlyph}
+          tooltip={clickTooltip + '\n(clic)'}
+          onClick={() => this.handleClick (index, row)}
+          spacing="overlap"
         />
-        <Label
-          kind="hinter-tooltip"
-          glyphPosition="right"
-          text="Double-clic"
+        <Button
+          width="32px"
           glyph={doubleclickGlyph}
+          tooltip={doubleclickTooltip + '\n(double-clic)'}
+          onClick={() => this.handleDbClick (index, row)}
         />
       </div>
     );
@@ -102,7 +107,7 @@ class Hinter extends Widget {
           grow="1"
           wrap="no"
         />
-        {this.renderRowInfo (index)}
+        {this.renderRowButtons (row, index)}
       </div>
     );
   }
