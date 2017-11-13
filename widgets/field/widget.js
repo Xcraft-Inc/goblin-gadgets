@@ -769,6 +769,7 @@ class Field extends Form {
             id={this.context.id}
             embedded={this.props.embedded}
             pluginTitle={this.props.pluginTitle}
+            dragType={this.props.dragType}
             horizontalSeparator={this.props.horizontalSeparator}
           />
         </Container>
