@@ -52,7 +52,7 @@ class Hinter extends Widget {
     }
   }
 
-  renderRowButtons (row, index) {
+  renderRowButtons (row, index, isActive) {
     const infoClass = index === this.hover
       ? this.styles.classNames.infoVisible
       : this.styles.classNames.infoHidden;
@@ -67,13 +67,15 @@ class Hinter extends Widget {
 
     return (
       <div className={infoClass}>
-        <Button
-          width="32px"
-          glyph={clickGlyph}
-          tooltip={clickTooltip + '\n(clic)'}
-          onClick={() => this.handleClick (index, row)}
-          spacing="overlap"
-        />
+        {isActive
+          ? null
+          : <Button
+              width="32px"
+              glyph={clickGlyph}
+              tooltip={clickTooltip + '\n(clic)'}
+              onClick={() => this.handleClick (index, row)}
+              spacing="overlap"
+            />}
         <Button
           width="32px"
           glyph={doubleclickGlyph}
@@ -108,7 +110,7 @@ class Hinter extends Widget {
           grow="1"
           wrap="no"
         />
-        {this.renderRowButtons (row, index)}
+        {this.renderRowButtons (row, index, isActive)}
       </div>
     );
   }
