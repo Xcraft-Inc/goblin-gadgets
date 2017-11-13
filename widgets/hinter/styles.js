@@ -38,7 +38,7 @@ export default function styles (theme, props) {
     ' solid ' +
     ColorHelpers.getMarkColor (theme, 'base');
 
-  const scaleAnimation = false;
+  const scaleAnimation = true;
 
   const infoVisibleStyle = {
     position: 'absolute',
