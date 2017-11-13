@@ -877,8 +877,7 @@ class Field extends Form {
         {props.existingValue
           ? <Button
               kind="combo"
-              glyph="caret-left"
-              glyphSize="150%"
+              glyph="eraser"
               width="32px"
               tooltip="Entrer une nouvelle référence"
               spacing="overlap"
