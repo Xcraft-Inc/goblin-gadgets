@@ -94,6 +94,7 @@ class Hinter extends Widget {
 
     return (
       <div
+        key={index}
         className={boxClass}
         onMouseOver={() => this.onMouseOver (index)}
         onMouseOut={() => this.onMouseOut (index)}
