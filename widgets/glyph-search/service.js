@@ -9,7 +9,7 @@ const config = {
       onValidate: function* (quest, selection) {
         const i = quest.openInventory ();
         const desk = i.use (quest.goblin.getX ('desktopId'));
-        const glyph = yield quest.warehouse.get ({path: selection.value});
+        const glyph = yield quest.me.getEntity ({entityId: selection.value});
         desk.addWorkitem ({
           workitem: {
             id: quest.uuidV4 (),
