@@ -770,6 +770,8 @@ class Field extends Form {
             embedded={this.props.embedded}
             pluginTitle={this.props.pluginTitle}
             dragType={this.props.dragType}
+            disableAdd={this.props.disableAdd}
+            disableDelete={this.props.disableDelete}
             horizontalSeparator={this.props.horizontalSeparator}
           />
         </Container>
