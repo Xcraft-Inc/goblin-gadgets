@@ -391,6 +391,9 @@ class Field extends Form {
       );
     } else if (this.props.item) {
       const Items = props => {
+        if (!props.entityIds) {
+          return null;
+        }
         return (
           <Container
             kind="row-field"
@@ -403,7 +406,7 @@ class Field extends Form {
             {props.entityIds.map ((entityId, index) => {
               const Item = this.mapWidget (
                 this.props.item,
-                state => state.toJS (),
+                state => (state ? state.toJS () : null),
                 `backend.${entityId}`
               );
               return <Item key={index} />;
@@ -778,6 +781,9 @@ class Field extends Form {
       );
     } else if (this.props.item) {
       const Items = props => {
+        if (!props.entityIds) {
+          return null;
+        }
         return (
           <Container
             kind="row-field"
@@ -790,7 +796,7 @@ class Field extends Form {
             {props.entityIds.map ((entityId, index) => {
               const Item = this.mapWidget (
                 this.props.item,
-                state => state.toJS (),
+                state => (state ? state.toJS () : null),
                 `backend.${entityId}`
               );
               return <Item key={index} />;
