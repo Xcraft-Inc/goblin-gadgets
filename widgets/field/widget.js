@@ -956,7 +956,7 @@ class Field extends Form {
       case 'bool':
         return this.renderReadonlyBool ();
       case 'hinter':
-        return this.renderReadonlyField ();
+        return this.renderReadonlyEntity ();
       case 'file':
         return this.renderReadonlyFileInput ();
       case 'id':
