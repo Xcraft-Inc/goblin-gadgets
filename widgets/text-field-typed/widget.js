@@ -4,6 +4,7 @@ import {
   date as DateConverters,
   time as TimeConverters,
   price as PriceConverters,
+  volume as VolumeConverters,
 } from 'xcraft-core-converters';
 
 import LabelTextField from 'gadgets/label-text-field/widget';
@@ -23,6 +24,8 @@ class TextFieldTyped extends Widget {
         return TimeConverters.getDisplayed (canonicalValue);
       case 'price':
         return PriceConverters.getDisplayed (canonicalValue);
+      case 'volume':
+        return VolumeConverters.getDisplayed (canonicalValue);
       default:
         throw new Error (`Invalid type ${this.props.type}`);
     }
@@ -39,6 +42,8 @@ class TextFieldTyped extends Widget {
         break;
       case 'price':
         parsed = PriceConverters.parseEdited (displayedValue);
+      case 'volume':
+        parsed = VolumeConverters.parseEdited (displayedValue);
         break;
       default:
         throw new Error (`Invalid type ${this.type}`);

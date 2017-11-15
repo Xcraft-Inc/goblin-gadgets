@@ -8,6 +8,7 @@ import {
   date as DateConverters,
   time as TimeConverters,
   price as PriceConverters,
+  volume as VolumeConverters,
 } from 'xcraft-core-converters';
 
 import Container from 'gadgets/container/widget';
@@ -221,6 +222,45 @@ class Field extends Form {
       Label,
       value => {
         return {text: PriceConverters.getDisplayed (value)};
+      },
+      this.fullPath
+    );
+
+    const labelWidth = this.props.labelWidth || defaultLabelWidth;
+
+    return (
+      <Container
+        kind={
+          this.props.state === 'compact' ? 'row-field' : 'row-field-readonly'
+        }
+        subkind="left"
+        grow="0"
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
+      >
+        {labelWidth === '0px'
+          ? null
+          : <Label
+              text={this.props.labelText}
+              glyph={this.props.labelGlyph}
+              width={labelWidth}
+              kind="label-field"
+              justify="left"
+              spacing="overlap"
+              disabled="true"
+            />}
+        <Value width="120px" justify="right" />
+      </Container>
+    );
+  }
+
+  renderReadonlyVolume () {
+    const Value = this.mapWidget (
+      Label,
+      value => {
+        return {text: VolumeConverters.getDisplayed (value)};
       },
       this.fullPath
     );
@@ -578,6 +618,29 @@ class Field extends Form {
       >
         <TextFieldTyped
           type="price"
+          labelText={this.props.labelText}
+          labelGlyph={this.props.labelGlyph}
+          labelWidth={this.props.labelWidth || defaultLabelWidth}
+          fieldWidth="120px"
+          hintText={this.props.hintText}
+          model={this.props.model}
+        />
+      </Container>
+    );
+  }
+
+  renderEditVolume () {
+    return (
+      <Container
+        kind="row-field"
+        grow="0"
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
+      >
+        <TextFieldTyped
+          type="volume"
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -961,6 +1024,8 @@ class Field extends Form {
         return this.renderReadonlyTime ();
       case 'price':
         return this.renderReadonlyPrice ();
+      case 'volume':
+        return this.renderReadonlyVolume ();
       case 'combo':
         return this.renderReadonlyField ();
       case 'radio':
@@ -996,6 +1061,8 @@ class Field extends Form {
         return this.renderEditTime ();
       case 'price':
         return this.renderEditPrice ();
+      case 'volume':
+        return this.renderEditVolume ();
       case 'combo':
         return this.renderEditCombo ();
       case 'radio':
