@@ -8,6 +8,7 @@ import {
   date as DateConverters,
   time as TimeConverters,
   price as PriceConverters,
+  weight as WeightConverters,
   volume as VolumeConverters,
 } from 'xcraft-core-converters';
 
@@ -256,6 +257,45 @@ class Field extends Form {
     );
   }
 
+  renderReadonlyWeight () {
+    const Value = this.mapWidget (
+      Label,
+      value => {
+        return {text: WeightConverters.getDisplayed (value)};
+      },
+      this.fullPath
+    );
+
+    const labelWidth = this.props.labelWidth || defaultLabelWidth;
+
+    return (
+      <Container
+        kind={
+          this.props.state === 'compact' ? 'row-field' : 'row-field-readonly'
+        }
+        subkind="left"
+        grow="0"
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
+      >
+        {labelWidth === '0px'
+          ? null
+          : <Label
+              text={this.props.labelText}
+              glyph={this.props.labelGlyph}
+              width={labelWidth}
+              kind="label-field"
+              justify="left"
+              spacing="overlap"
+              disabled="true"
+            />}
+        <Value width="120px" justify={this.props.justify} />
+      </Container>
+    );
+  }
+
   renderReadonlyVolume () {
     const Value = this.mapWidget (
       Label,
@@ -290,7 +330,7 @@ class Field extends Form {
               spacing="overlap"
               disabled="true"
             />}
-        <Value width="200px" justify={this.props.justify} />
+        <Value width="120px" justify={this.props.justify} />
       </Container>
     );
   }
@@ -629,6 +669,29 @@ class Field extends Form {
     );
   }
 
+  renderEditWeight () {
+    return (
+      <Container
+        kind="row-field"
+        grow="0"
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
+      >
+        <TextFieldTyped
+          type="weight"
+          labelText={this.props.labelText}
+          labelGlyph={this.props.labelGlyph}
+          labelWidth={this.props.labelWidth || defaultLabelWidth}
+          fieldWidth="120px"
+          hintText={this.props.hintText}
+          model={this.props.model}
+        />
+      </Container>
+    );
+  }
+
   renderEditVolume () {
     return (
       <Container
@@ -644,7 +707,7 @@ class Field extends Form {
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
-          fieldWidth="200px"
+          fieldWidth="120px"
           hintText={this.props.hintText}
           model={this.props.model}
         />
@@ -1024,6 +1087,8 @@ class Field extends Form {
         return this.renderReadonlyTime ();
       case 'price':
         return this.renderReadonlyPrice ();
+      case 'weight':
+        return this.renderReadonlyWeight ();
       case 'volume':
         return this.renderReadonlyVolume ();
       case 'combo':
@@ -1061,6 +1126,8 @@ class Field extends Form {
         return this.renderEditTime ();
       case 'price':
         return this.renderEditPrice ();
+      case 'weight':
+        return this.renderEditWeight ();
       case 'volume':
         return this.renderEditVolume ();
       case 'combo':

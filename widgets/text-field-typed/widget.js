@@ -4,6 +4,7 @@ import {
   date as DateConverters,
   time as TimeConverters,
   price as PriceConverters,
+  weight as WeightConverters,
   volume as VolumeConverters,
 } from 'xcraft-core-converters';
 
@@ -24,6 +25,8 @@ class TextFieldTyped extends Widget {
         return TimeConverters.getDisplayed (canonicalValue);
       case 'price':
         return PriceConverters.getDisplayed (canonicalValue);
+      case 'weight':
+        return WeightConverters.getDisplayed (canonicalValue);
       case 'volume':
         return VolumeConverters.getDisplayed (canonicalValue);
       default:
@@ -42,6 +45,10 @@ class TextFieldTyped extends Widget {
         break;
       case 'price':
         parsed = PriceConverters.parseEdited (displayedValue);
+        break;
+      case 'weight':
+        parsed = WeightConverters.parseEdited (displayedValue);
+        break;
       case 'volume':
         parsed = VolumeConverters.parseEdited (displayedValue);
         break;
