@@ -330,7 +330,7 @@ class Field extends Form {
               spacing="overlap"
               disabled="true"
             />}
-        <Value width="120px" justify={this.props.justify} />
+        <Value width="200px" justify={this.props.justify} />
       </Container>
     );
   }
@@ -707,7 +707,7 @@ class Field extends Form {
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
-          fieldWidth="120px"
+          fieldWidth="200px"
           hintText={this.props.hintText}
           model={this.props.model}
         />
