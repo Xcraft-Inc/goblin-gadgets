@@ -261,7 +261,7 @@ class Field extends Form {
     const Value = this.mapWidget (
       Label,
       value => {
-        return {text: WeightConverters.getDisplayed (value)};
+        return {text: WeightConverters.getDisplayed (value, this.props.unit)};
       },
       this.fullPath
     );
@@ -300,7 +300,7 @@ class Field extends Form {
     const Value = this.mapWidget (
       Label,
       value => {
-        return {text: VolumeConverters.getDisplayed (value)};
+        return {text: VolumeConverters.getDisplayed (value, this.props.unit)};
       },
       this.fullPath
     );
@@ -677,6 +677,7 @@ class Field extends Form {
       >
         <TextFieldTyped
           type="weight"
+          unit={this.props.unit}
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -700,6 +701,7 @@ class Field extends Form {
       >
         <TextFieldTyped
           type="volume"
+          unit={this.props.unit}
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}

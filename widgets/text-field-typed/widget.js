@@ -26,9 +26,9 @@ class TextFieldTyped extends Widget {
       case 'price':
         return PriceConverters.getDisplayed (canonicalValue);
       case 'weight':
-        return WeightConverters.getDisplayed (canonicalValue);
+        return WeightConverters.getDisplayed (canonicalValue, this.props.unit);
       case 'volume':
-        return VolumeConverters.getDisplayed (canonicalValue);
+        return VolumeConverters.getDisplayed (canonicalValue, this.props.unit);
       default:
         throw new Error (`Invalid type ${this.props.type}`);
     }
@@ -47,10 +47,10 @@ class TextFieldTyped extends Widget {
         parsed = PriceConverters.parseEdited (displayedValue);
         break;
       case 'weight':
-        parsed = WeightConverters.parseEdited (displayedValue);
+        parsed = WeightConverters.parseEdited (displayedValue, this.props.unit);
         break;
       case 'volume':
-        parsed = VolumeConverters.parseEdited (displayedValue);
+        parsed = VolumeConverters.parseEdited (displayedValue, this.props.unit);
         break;
       default:
         throw new Error (`Invalid type ${this.type}`);
