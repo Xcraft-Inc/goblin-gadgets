@@ -71,12 +71,10 @@ class TextFieldTyped extends Widget {
           return this.parseEditedValue (val).canonicalValue;
         }}
         getDisplayValue={(model, view) => {
-          if (model && view) {
-            if (view === model) {
-              return this.canonicalToDisplayed (view);
-            }
+          if (model && view && view === model) {
+            return this.canonicalToDisplayed (view);
           }
-          return view ? view : '';
+          return view || '';
         }}
         getWarning={(model, view) => {
           return this.parseEditedValue (view).warning;
