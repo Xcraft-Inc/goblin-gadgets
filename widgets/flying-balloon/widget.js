@@ -11,10 +11,20 @@ class FlyingBalloon extends Widget {
     super (...arguments);
   }
 
+  renderWarning () {
+    if (this.props.primaryText) {
+      return <Label glyph="warning" glyphColor="secondary" glyphSize="200%" />;
+    } else {
+      return null;
+    }
+  }
+
   render () {
     const boxClass = this.styles.classNames.box;
-
-    const primaryBottomSpacing = this.props.primaryText ? 'large' : null;
+    const primaryBottomSpacing = this.props.primaryText &&
+      this.props.secondaryText
+      ? 'large'
+      : null;
 
     return (
       <span disabled={this.props.disabled} className={boxClass}>
@@ -22,14 +32,13 @@ class FlyingBalloon extends Widget {
           kind="flying-balloon"
           trianglePosition={this.props.trianglePosition}
         >
-
+          {this.renderWarning ()}
           <Label
             text={this.props.primaryText}
             kind="flying-balloon"
-            font-weight="bold"
-            bottom-spacing={primaryBottomSpacing}
+            fontWeight="bold"
+            bottomSpacing={primaryBottomSpacing}
           />
-
           <Label text={this.props.secondaryText} kind="flying-balloon" />
         </Container>
       </span>
