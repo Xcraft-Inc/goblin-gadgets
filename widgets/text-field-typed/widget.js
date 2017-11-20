@@ -70,22 +70,52 @@ class TextFieldTyped extends Widget {
         beforeChange={val => {
           return this.parseEditedValue (val).canonicalValue;
         }}
-        getDisplayValue={(model, view) => {
-          if (model && view && view === model) {
+        getDisplayValue={(
+          model,
+          view,
+          hasFocus,
+          hasChanged,
+          isPristine,
+          isTouched
+        ) => {
+          console.log (
+            `getDisplayValue model=${model} view=${view} hasFocus=${hasFocus} hasChanged=${hasChanged} isPristine=${isPristine} isTouched=${isTouched}`
+          );
+          // if (hasFocus) {
+          //   return view || '';
+          // } else {
+          //   return this.canonicalToDisplayed (view);
+          // }
+          ////////////////////////////????????????
+          if (!hasChanged) {
             return this.canonicalToDisplayed (view);
+          } else {
+            if (hasFocus) {
+              return view || '';
+            } else {
+              return this.canonicalToDisplayed (view);
+            }
           }
-          return view || '';
+          //if (model && view && view === model) {
+          //  return this.canonicalToDisplayed (view);
+          //} else {
+          //  return view || '';
+          //}
         }}
         getWarning={(model, view) => {
+          //console.log (`getWarning model=${model} view=${view}`);
           return this.parseEditedValue (view).warning;
         }}
         getInfo={(model, view) => {
           const parsed = this.parseEditedValue (view);
-          const canon = parsed.canonicalValue;
-          if (canon !== model) {
+          //console.log (
+          //  `getInfo model=${model} view=${view} canonicalValue=${parsed.canonicalValue} warning=${parsed.warning} displayedFinalValue=${parsed.displayedFinalValue}`
+          //);
+          if (parsed.canonicalValue === model) {
+            return null;
+          } else {
             return parsed.displayedFinalValue;
           }
-          return null;
         }}
         model={this.props.model}
         hintText={this.props.hintText}

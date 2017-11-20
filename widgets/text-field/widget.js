@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
 import {Control, Errors, actions} from 'react-redux-form/immutable';
 import * as Bool from 'gadgets/boolean-helpers';
+import _ from 'lodash';
 
 import FlyingBalloon from 'gadgets/flying-balloon/widget';
 
@@ -31,7 +32,11 @@ class TextField extends Widget {
 
     this.onFocus = this.onFocus.bind (this);
     this.onBlur = this.onBlur.bind (this);
+    this.onChange = this.onChange.bind (this);
     this.selectAll = this.selectAll.bind (this);
+
+    this.hasFocus = false;
+    this.hasChanged = false;
   }
 
   static get wiring () {
@@ -72,10 +77,20 @@ class TextField extends Widget {
     }
   }
 
-  onChange () {}
+  onChange () {
+    this.hasChanged = true;
+    this.context.dispatch (
+      actions.setDirty (this.context.model + this.props.model)
+    );
+    this.context.dispatch (
+      actions.setTouched (this.context.model + this.props.model)
+    );
+  }
 
   onFocus (e) {
     //- console.log ('text-field.onFocus');
+    this.hasChanged = false;
+    this.hasFocus = true;
     this.navToHinter ();
     const selectAllOnFocus = this.props.selectAllOnFocus || !!this.props.hinter;
     if (Bool.isTrue (selectAllOnFocus)) {
@@ -89,6 +104,14 @@ class TextField extends Widget {
 
   onBlur (e) {
     //- console.log ('text-field.onBlur');
+    this.hasChanged = false;
+    this.hasFocus = false;
+    this.context.dispatch (
+      actions.setPristine (this.context.model + this.props.model)
+    );
+    this.context.dispatch (
+      actions.setUntouched (this.context.model + this.props.model)
+    );
     const x = this.props.onBlur;
     if (x) {
       x (e);
@@ -141,7 +164,19 @@ class TextField extends Widget {
         }
 
         if (this.props.getDisplayValue) {
-          return this.props.getDisplayValue (props.modelValue, props.viewValue);
+          console.dir (props);
+          const fieldState = _.get (this.getState ().forms, props.model);
+          const hasFocus = fieldState ? fieldState.focus : false;
+          const isPristine = fieldState ? fieldState.pristine : true;
+          const isTouched = fieldState ? fieldState.touched : false;
+          return this.props.getDisplayValue (
+            props.modelValue,
+            props.viewValue,
+            this.hasFocus,
+            this.hasChanged,
+            isPristine,
+            isTouched
+          );
         }
 
         if (
@@ -259,6 +294,7 @@ class TextField extends Widget {
         model={this.props.hinter ? `.${this.props.hinter}` : this.props.model}
         onFocus={this.onFocus}
         onBlur={this.onBlur}
+        onChange={this.onChange}
         onMouseUp={this.props.onMouseUp}
         disabled={Bool.isTrue (this.props.disabled)}
         maxLength={this.props.maxLength}
