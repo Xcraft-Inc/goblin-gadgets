@@ -68,53 +68,55 @@ class TextFieldTyped extends Widget {
       <LabelTextField
         updateOn="blur"
         beforeChange={val => {
+          const p = this.parseEditedValue (val);
+          //console.log (
+          //  `TextFieldTyped.beforeChange canonicalValue=${p.canonicalValue} warning=${p.warning} displayedFinalValue=${p.displayedFinalValue}`
+          //);
           return this.parseEditedValue (val).canonicalValue;
         }}
-        getDisplayValue={(
-          model,
-          view,
-          hasFocus,
-          hasChanged,
-          isPristine,
-          isTouched
-        ) => {
-          console.log (
-            `getDisplayValue model=${model} view=${view} hasFocus=${hasFocus} hasChanged=${hasChanged} isPristine=${isPristine} isTouched=${isTouched}`
-          );
-          // if (hasFocus) {
-          //   return view || '';
-          // } else {
-          //   return this.canonicalToDisplayed (view);
-          // }
-          ////////////////////////////????????????
-          if (!hasChanged) {
-            return this.canonicalToDisplayed (view);
-          } else {
-            if (hasFocus) {
-              return view || '';
-            } else {
-              return this.canonicalToDisplayed (view);
-            }
-          }
-          //if (model && view && view === model) {
-          //  return this.canonicalToDisplayed (view);
-          //} else {
-          //  return view || '';
-          //}
-        }}
-        getWarning={(model, view) => {
-          //console.log (`getWarning model=${model} view=${view}`);
-          return this.parseEditedValue (view).warning;
-        }}
-        getInfo={(model, view) => {
-          const parsed = this.parseEditedValue (view);
+        getDisplayValue={(value, onFocus, onBlur) => {
           //console.log (
-          //  `getInfo model=${model} view=${view} canonicalValue=${parsed.canonicalValue} warning=${parsed.warning} displayedFinalValue=${parsed.displayedFinalValue}`
+          //  `TextFieldTyped.getDisplayValue value=${value} onFocus=${onFocus} onBlur=${onBlur}`
           //);
-          if (parsed.canonicalValue === model) {
-            return null;
+          if (onFocus) {
+            // When field set the focus, value is canonical value.
+            // Don't change the displayed value.
+            return this.canonicalToDisplayed (value);
+          } else if (onBlur) {
+            // When field lost the focus, value is canonical value.
+            // Set the formated value based on canonical value.
+            return this.canonicalToDisplayed (value);
           } else {
-            return parsed.displayedFinalValue;
+            // When text is changing, value is editing text.
+            // Use the edited value.
+            return value || '';
+          }
+        }}
+        getWarning={(value, onFocus, onBlur) => {
+          //console.log (
+          //  `TextFieldTyped.getWarning value=${value} onFocus=${onFocus} onBlur=${onBlur}`
+          //);
+          if (!onFocus && !onBlur) {
+            return this.parseEditedValue (value).warning;
+          } else {
+            // When field lost the focus (blur), hide the flying-balloon.
+            return null;
+          }
+        }}
+        getInfo={(value, onFocus, onBlur) => {
+          //console.log (
+          //  `TextFieldTyped.getInfo value=${value} onFocus=${onFocus} onBlur=${onBlur}`
+          //);
+          if (!onFocus && !onBlur) {
+            const parse = this.parseEditedValue (value);
+            if (parse.displayedFinalValue === value) {
+              return null;
+            } else {
+              return parse.displayedFinalValue;
+            }
+          } else {
+            // When field lost the focus (blur), hide the flying-balloon.
+            return null;
           }
         }}
         model={this.props.model}

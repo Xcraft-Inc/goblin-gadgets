@@ -79,18 +79,13 @@ class TextField extends Widget {
 
   onChange () {
     this.hasChanged = true;
-    this.context.dispatch (
-      actions.setDirty (this.context.model + this.props.model)
-    );
-    this.context.dispatch (
-      actions.setTouched (this.context.model + this.props.model)
-    );
   }
 
   onFocus (e) {
     //- console.log ('text-field.onFocus');
     this.hasChanged = false;
     this.hasFocus = true;
+
     this.navToHinter ();
     const selectAllOnFocus = this.props.selectAllOnFocus || !!this.props.hinter;
     if (Bool.isTrue (selectAllOnFocus)) {
@@ -106,12 +101,7 @@ class TextField extends Widget {
     //- console.log ('text-field.onBlur');
     this.hasChanged = false;
     this.hasFocus = false;
-    this.context.dispatch (
-      actions.setPristine (this.context.model + this.props.model)
-    );
-    this.context.dispatch (
-      actions.setUntouched (this.context.model + this.props.model)
-    );
+
     const x = this.props.onBlur;
     if (x) {
       x (e);
@@ -164,18 +154,14 @@ class TextField extends Widget {
         }
 
         if (this.props.getDisplayValue) {
-          console.dir (props);
-          const fieldState = _.get (this.getState ().forms, props.model);
-          const hasFocus = fieldState ? fieldState.focus : false;
-          const isPristine = fieldState ? fieldState.pristine : true;
-          const isTouched = fieldState ? fieldState.touched : false;
+          //console.log (
+          //  `TextField.value: this.hasFocus=${this.hasFocus} this.hasChanged=${this.hasChanged}`
+          //);
+          //console.dir (props);
           return this.props.getDisplayValue (
-            props.modelValue,
-            props.viewValue,
-            this.hasFocus,
-            this.hasChanged,
-            isPristine,
-            isTouched
+            this.hasChanged ? props.viewValue : props.modelValue, // (*)
+            this.hasFocus && !this.hasChanged, // onFocus ?
+            !this.hasFocus && !this.hasChanged // onBlur ?
           );
         }
 
@@ -191,26 +177,32 @@ class TextField extends Widget {
           return props.viewValue;
         }
 
-        const val = this.getModelValue (props.model);
-        return val;
+        return this.getModelValue (props.model);
       },
       warning: props => {
-        if (props.modelValue === props.viewValue) {
-          return null;
-        }
         if (props.getWarning) {
-          return props.getWarning (props.modelValue, props.viewValue);
+          return props.getWarning (
+            this.hasChanged ? props.viewValue : props.modelValue, // (*)
+            this.hasFocus && !this.hasChanged, // onFocus ?
+            !this.hasFocus && !this.hasChanged // onBlur ?
+          );
         }
       },
       info: props => {
-        if (props.modelValue === props.viewValue) {
-          return null;
-        }
         if (props.getInfo) {
-          return props.getInfo (props.modelValue, props.viewValue);
+          return props.getInfo (
+            this.hasChanged ? props.viewValue : props.modelValue, // (*)
+            this.hasFocus && !this.hasChanged, // onFocus ?
+            !this.hasFocus && !this.hasChanged // onBlur ?
+          );
         }
       },
     };
+
+    // (*)
+    // When text changing, use props.viewValue (editing value).
+    // When onFocus/onBlur, use props.modelValue (canonical value).
+    // Warning: in this case, props.vnewValue is also canonical value !
 
     const beforeChange = (model, value) => {
       if (this.props.beforeChange) {
