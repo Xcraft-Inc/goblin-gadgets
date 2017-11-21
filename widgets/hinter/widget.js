@@ -1,5 +1,6 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
+import * as Bool from 'gadgets/boolean-helpers';
 
 import Container from 'gadgets/container/widget';
 import Label from 'gadgets/label/widget';
@@ -60,10 +61,12 @@ class Hinter extends Widget {
     // FIXME: set glyph/tooltip according to work context of hinter !
     const clickGlyph = 'eye';
     const clickTooltip = 'Voir les détails';
-    const doubleclickGlyph = 'pencil';
-    const doubleclickTooltip = 'Editer';
-    //- const doubleclickGlyph = 'check';
-    //- const doubleclickTooltip = 'Choisir';
+    let doubleclickGlyph = 'check';
+    let doubleclickTooltip = 'Choisir';
+    if (Bool.isTrue (this.props.editOnClick)) {
+      doubleclickGlyph = 'pencil';
+      doubleclickTooltip = 'Editer';
+    }
 
     return (
       <div className={infoClass}>

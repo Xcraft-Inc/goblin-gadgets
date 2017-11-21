@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
 import {Control, Errors, actions} from 'react-redux-form/immutable';
 import * as Bool from 'gadgets/boolean-helpers';
+import _ from 'lodash';
 
 import FlyingBalloon from 'gadgets/flying-balloon/widget';
 
@@ -31,7 +32,11 @@ class TextField extends Widget {
 
     this.onFocus = this.onFocus.bind (this);
     this.onBlur = this.onBlur.bind (this);
+    this.onChange = this.onChange.bind (this);
     this.selectAll = this.selectAll.bind (this);
+
+    this.hasFocus = false;
+    this.hasChanged = false;
   }
 
   static get wiring () {
@@ -72,10 +77,15 @@ class TextField extends Widget {
     }
   }
 
-  onChange () {}
+  onChange () {
+    this.hasChanged = true;
+  }
 
   onFocus (e) {
     //- console.log ('text-field.onFocus');
+    this.hasChanged = false;
+    this.hasFocus = true;
+
     this.navToHinter ();
     const selectAllOnFocus = this.props.selectAllOnFocus || !!this.props.hinter;
     if (Bool.isTrue (selectAllOnFocus)) {
@@ -89,6 +99,9 @@ class TextField extends Widget {
 
   onBlur (e) {
     //- console.log ('text-field.onBlur');
+    this.hasChanged = false;
+    this.hasFocus = false;
+
     const x = this.props.onBlur;
     if (x) {
       x (e);
@@ -141,7 +154,15 @@ class TextField extends Widget {
         }
 
         if (this.props.getDisplayValue) {
-          return this.props.getDisplayValue (props.modelValue, props.viewValue);
+          //console.log (
+          //  `TextField.value: this.hasFocus=${this.hasFocus} this.hasChanged=${this.hasChanged}`
+          //);
+          //console.dir (props);
+          return this.props.getDisplayValue (
+            this.hasChanged ? props.viewValue : props.modelValue, // (*)
+            this.hasFocus && !this.hasChanged, // onFocus ?
+            !this.hasFocus && !this.hasChanged // onBlur ?
+          );
         }
 
         if (
@@ -156,26 +177,32 @@ class TextField extends Widget {
           return props.viewValue;
         }
 
-        const val = this.getModelValue (props.model);
-        return val;
+        return this.getModelValue (props.model);
       },
       warning: props => {
-        if (props.modelValue === props.viewValue) {
-          return null;
-        }
         if (props.getWarning) {
-          return props.getWarning (props.modelValue, props.viewValue);
+          return props.getWarning (
+            this.hasChanged ? props.viewValue : props.modelValue, // (*)
+            this.hasFocus && !this.hasChanged, // onFocus ?
+            !this.hasFocus && !this.hasChanged // onBlur ?
+          );
         }
       },
       info: props => {
-        if (props.modelValue === props.viewValue) {
-          return null;
-        }
         if (props.getInfo) {
-          return props.getInfo (props.modelValue, props.viewValue);
+          return props.getInfo (
+            this.hasChanged ? props.viewValue : props.modelValue, // (*)
+            this.hasFocus && !this.hasChanged, // onFocus ?
+            !this.hasFocus && !this.hasChanged // onBlur ?
+          );
         }
       },
     };
+
+    // (*)
+    // When text changing, use props.viewValue (editing value).
+    // When onFocus/onBlur, use props.modelValue (canonical value).
+    // Warning: in this case, props.vnewValue is also canonical value !
 
     const beforeChange = (model, value) => {
       if (this.props.beforeChange) {
@@ -259,6 +286,7 @@ class TextField extends Widget {
         model={this.props.hinter ? `.${this.props.hinter}` : this.props.model}
         onFocus={this.onFocus}
         onBlur={this.onBlur}
+        onChange={this.onChange}
         onMouseUp={this.props.onMouseUp}
         disabled={Bool.isTrue (this.props.disabled)}
         maxLength={this.props.maxLength}

@@ -461,7 +461,9 @@ class Field extends Form {
           <FinalPlugin
             readonly="true"
             embedded={this.props.embedded}
-            embeddedLevel={this.props.embeddedLevel}
+            embeddedLevel={
+              this.props.embeddedLevel ? this.props.embeddedLevel + 1 : 1
+            }
             pluginTitle={this.props.pluginTitle}
           />
         </Container>
@@ -896,7 +898,9 @@ class Field extends Form {
           <FinalPlugin
             id={this.context.id}
             embedded={this.props.embedded}
-            embeddedLevel={this.props.embeddedLevel}
+            embeddedLevel={
+              this.props.embeddedLevel ? this.props.embeddedLevel + 1 : 1
+            }
             pluginTitle={this.props.pluginTitle}
             dragType={this.props.dragType}
             disableAdd={this.props.disableAdd}
