@@ -122,6 +122,8 @@ class TextField extends Widget {
 
       return (
         <FlyingBalloon
+          width="150%"
+          maxWidth="500px"
           primaryText={props.warning}
           secondaryText={props.info}
           trianglePosition={trianglePosition}
@@ -202,7 +204,7 @@ class TextField extends Widget {
     // (*)
     // When text changing, use props.viewValue (editing value).
     // When onFocus/onBlur, use props.modelValue (canonical value).
-    // Warning: in this case, props.vnewValue is also canonical value !
+    // Warning: in this case, props.viewValue is also canonical value !
 
     const beforeChange = (model, value) => {
       if (this.props.beforeChange) {

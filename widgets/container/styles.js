@@ -912,7 +912,9 @@ export default function styles (theme, props) {
     flexDirection = 'column';
     flexWrap = 'wrap';
     padding = Unit.add (fbp, '1px') + ' ' + fbp + ' ' + fbp + ' ' + fbp;
-    backgroundColor = theme.palette.flyingBalloonBackground;
+    backgroundColor = props.subkind === 'warning'
+      ? theme.palette.flyingBalloonWarningBackground
+      : theme.palette.flyingBalloonBackground;
     color = theme.palette.text;
     position = 'relative';
     boxShadow = theme.shapes.flyingShadow;

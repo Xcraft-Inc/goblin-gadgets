@@ -221,6 +221,10 @@ export default function styles (theme, props) {
     glyphColor = theme.palette.flyingBalloonText;
     textColor = theme.palette.flyingBalloonText;
     textSize = theme.shapes.flyingBalloonTextSize;
+    textMarginTop = '0px';
+    textMarginRight = '0px';
+    textMarginBottom = '0px';
+    textMarginLeft = '0px';
   }
 
   if (props.kind === 'task') {

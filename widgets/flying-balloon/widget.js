@@ -11,14 +11,6 @@ class FlyingBalloon extends Widget {
     super (...arguments);
   }
 
-  renderWarning () {
-    if (this.props.primaryText) {
-      return <Label glyph="warning" glyphColor="secondary" glyphSize="200%" />;
-    } else {
-      return null;
-    }
-  }
-
   render () {
     const boxClass = this.styles.classNames.box;
     const primaryBottomSpacing = this.props.primaryText &&
@@ -30,9 +22,9 @@ class FlyingBalloon extends Widget {
       <span disabled={this.props.disabled} className={boxClass}>
         <Container
           kind="flying-balloon"
+          subkind={this.props.primaryText ? 'warning' : null}
           trianglePosition={this.props.trianglePosition}
         >
-          {this.renderWarning ()}
           <Label
             text={this.props.primaryText}
             kind="flying-balloon"
