@@ -770,7 +770,7 @@ export default function styles (theme, props) {
       // borderStyle = 'solid';
       // boxSizing = 'border-box';
       // borderColor = theme.palette.buttonBorder;
-      backgroundColor = theme.palette.paneBackground;
+      backgroundColor = '#fff';
       boxShadow = '0px 10px 50px rgba(0, 0, 0, 0.50)';
       opacity = 0.95;
     } else if (Bool.isTrue (props.hasHeLeft)) {
