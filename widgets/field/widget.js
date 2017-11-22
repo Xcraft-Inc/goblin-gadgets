@@ -75,16 +75,10 @@ class Field extends Form {
     );
 
     const labelWidth = this.props.labelWidth || defaultLabelWidth;
+    const rowClass = this.styles.classNames.row;
 
     return (
-      <Container
-        kind="row-field"
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
+      <div className={rowClass}>
         {labelWidth === '0px'
           ? null
           : <Label
@@ -97,7 +91,7 @@ class Field extends Form {
               disabled="true"
             />}
         <Dynamic grow="1" />
-      </Container>
+      </div>
     );
   }
 
@@ -112,18 +106,12 @@ class Field extends Form {
     );
 
     const labelWidth = this.props.labelWidth || defaultLabelWidth;
+    const rowClass = this.props.state === 'compact'
+      ? this.styles.classNames.compactRow
+      : this.styles.classNames.row;
 
     return (
-      <Container
-        kind={
-          this.props.state === 'compact' ? 'row-field' : 'row-field-readonly'
-        }
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
+      <div className={rowClass}>
         {labelWidth === '0px'
           ? null
           : <Label
@@ -136,7 +124,7 @@ class Field extends Form {
               disabled="true"
             />}
         <Value grow="1" justify={this.props.justify} />
-      </Container>
+      </div>
     );
   }
 
@@ -150,19 +138,12 @@ class Field extends Form {
     );
 
     const labelWidth = this.props.labelWidth || defaultLabelWidth;
+    const rowClass = this.props.state === 'compact'
+      ? this.styles.classNames.compactRow
+      : this.styles.classNames.row;
 
     return (
-      <Container
-        kind={
-          this.props.state === 'compact' ? 'row-field' : 'row-field-readonly'
-        }
-        subkind="left"
-        grow="0"
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
+      <div className={rowClass}>
         {labelWidth === '0px'
           ? null
           : <Label
@@ -175,7 +156,7 @@ class Field extends Form {
               disabled="true"
             />}
         <Value width="120px" justify={this.props.justify} />
-      </Container>
+      </div>
     );
   }
 
@@ -189,19 +170,12 @@ class Field extends Form {
     );
 
     const labelWidth = this.props.labelWidth || defaultLabelWidth;
+    const rowClass = this.props.state === 'compact'
+      ? this.styles.classNames.compactRow
+      : this.styles.classNames.row;
 
     return (
-      <Container
-        kind={
-          this.props.state === 'compact' ? 'row-field' : 'row-field-readonly'
-        }
-        subkind="left"
-        grow="0"
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
+      <div className={rowClass}>
         {labelWidth === '0px'
           ? null
           : <Label
@@ -214,7 +188,7 @@ class Field extends Form {
               disabled="true"
             />}
         <Value width="120px" justify={this.props.justify} />
-      </Container>
+      </div>
     );
   }
 
@@ -228,19 +202,12 @@ class Field extends Form {
     );
 
     const labelWidth = this.props.labelWidth || defaultLabelWidth;
+    const rowClass = this.props.state === 'compact'
+      ? this.styles.classNames.compactRow
+      : this.styles.classNames.row;
 
     return (
-      <Container
-        kind={
-          this.props.state === 'compact' ? 'row-field' : 'row-field-readonly'
-        }
-        subkind="left"
-        grow="0"
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
+      <div className={rowClass}>
         {labelWidth === '0px'
           ? null
           : <Label
@@ -253,7 +220,7 @@ class Field extends Form {
               disabled="true"
             />}
         <Value width="120px" justify="right" />
-      </Container>
+      </div>
     );
   }
 
@@ -267,19 +234,12 @@ class Field extends Form {
     );
 
     const labelWidth = this.props.labelWidth || defaultLabelWidth;
+    const rowClass = this.props.state === 'compact'
+      ? this.styles.classNames.compactRow
+      : this.styles.classNames.row;
 
     return (
-      <Container
-        kind={
-          this.props.state === 'compact' ? 'row-field' : 'row-field-readonly'
-        }
-        subkind="left"
-        grow="0"
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
+      <div className={rowClass}>
         {labelWidth === '0px'
           ? null
           : <Label
@@ -292,7 +252,7 @@ class Field extends Form {
               disabled="true"
             />}
         <Value width="120px" justify={this.props.justify} />
-      </Container>
+      </div>
     );
   }
 
@@ -306,19 +266,12 @@ class Field extends Form {
     );
 
     const labelWidth = this.props.labelWidth || defaultLabelWidth;
+    const rowClass = this.props.state === 'compact'
+      ? this.styles.classNames.compactRow
+      : this.styles.classNames.row;
 
     return (
-      <Container
-        kind={
-          this.props.state === 'compact' ? 'row-field' : 'row-field-readonly'
-        }
-        subkind="left"
-        grow="0"
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
+      <div className={rowClass}>
         {labelWidth === '0px'
           ? null
           : <Label
@@ -331,7 +284,7 @@ class Field extends Form {
               disabled="true"
             />}
         <Value width="200px" justify={this.props.justify} />
-      </Container>
+      </div>
     );
   }
 
@@ -345,19 +298,12 @@ class Field extends Form {
     );
 
     const labelWidth = this.props.labelWidth || defaultLabelWidth;
+    const rowClass = this.props.state === 'compact'
+      ? this.styles.classNames.compactRow
+      : this.styles.classNames.row;
 
     return (
-      <Container
-        kind={
-          this.props.state === 'compact' ? 'row-field' : 'row-field-readonly'
-        }
-        subkind="left"
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
+      <div className={rowClass}>
         {labelWidth === '0px'
           ? null
           : <Label
@@ -369,7 +315,7 @@ class Field extends Form {
               disabled="true"
             />}
         <Check text={this.props.labelText} readonly="true" />
-      </Container>
+      </div>
     );
   }
 
@@ -406,18 +352,12 @@ class Field extends Form {
     const EntityAction = this.mapWidget (Action, 'entityId', this.fullPath);
 
     const labelWidth = this.props.labelWidth || defaultLabelWidth;
+    const rowClass = this.props.state === 'compact'
+      ? this.styles.classNames.compactRow
+      : this.styles.classNames.row;
 
     return (
-      <Container
-        kind={
-          this.props.state === 'compact' ? 'row-field' : 'row-field-readonly'
-        }
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
+      <div className={rowClass}>
         {labelWidth === '0px'
           ? null
           : <Label
@@ -431,7 +371,7 @@ class Field extends Form {
             />}
         <EntityViewer />
         <EntityAction />
-      </Container>
+      </div>
     );
   }
 
@@ -446,18 +386,12 @@ class Field extends Form {
         this.fullPath
       );
 
+      const rowClass = this.props.state === 'compact'
+        ? this.styles.classNames.compactRow
+        : this.styles.classNames.row;
+
       return (
-        <Container
-          kind={
-            this.props.state === 'compact' ? 'row-field' : 'row-field-readonly'
-          }
-          subkind="light-box"
-          grow={this.props.grow}
-          width={this.props.width}
-          height={this.props.height}
-          verticalSpacing={this.props.verticalSpacing}
-          verticalJustify={this.props.verticalJustify}
-        >
+        <div className={rowClass}>
           <FinalPlugin
             readonly="true"
             embedded={this.props.embedded}
@@ -466,22 +400,16 @@ class Field extends Form {
             }
             pluginTitle={this.props.pluginTitle}
           />
-        </Container>
+        </div>
       );
     } else if (this.props.item) {
       const Items = props => {
         if (!props.entityIds) {
           return null;
         }
+        const rowClass = this.styles.classNames.row;
         return (
-          <Container
-            kind="row-field"
-            grow={this.props.grow}
-            width={this.props.width}
-            height={this.props.height}
-            verticalSpacing={this.props.verticalSpacing}
-            verticalJustify={this.props.verticalJustify}
-          >
+          <div className={rowClass}>
             {props.entityIds.map ((entityId, index) => {
               const Item = this.mapWidget (
                 this.props.item,
@@ -490,7 +418,7 @@ class Field extends Form {
               );
               return <Item key={index} />;
             })}
-          </Container>
+          </div>
         );
       };
       const FinalItems = this.mapWidget (Items, 'entityIds', this.fullPath);
@@ -510,16 +438,10 @@ class Field extends Form {
     );
 
     const labelWidth = this.props.labelWidth || defaultLabelWidth;
+    const rowClass = this.styles.classNames.row;
 
     return (
-      <Container
-        kind="row-field"
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
+      <div className={rowClass}>
         {labelWidth === '0px'
           ? null
           : <Label
@@ -532,7 +454,7 @@ class Field extends Form {
               disabled="true"
             />}
         <Value kind="title" grow="1" justify={this.props.justify} />
-      </Container>
+      </div>
     );
   }
 
@@ -546,16 +468,10 @@ class Field extends Form {
     );
 
     const labelWidth = this.props.labelWidth || defaultLabelWidth;
+    const rowClass = this.styles.classNames.row;
 
     return (
-      <Container
-        kind="row-field"
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
+      <div className={rowClass}>
         {labelWidth === '0px'
           ? null
           : <Label
@@ -568,22 +484,16 @@ class Field extends Form {
               disabled="true"
             />}
         <Value grow="1" justify={this.props.justify} />
-      </Container>
+      </div>
     );
   }
   //#endregion
 
   //#region Edit
   renderEditField () {
+    const rowClass = this.styles.classNames.row;
     return (
-      <Container
-        kind="row-field"
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
+      <div className={rowClass}>
         <LabelTextField
           spacing={this.props.spacing}
           labelText={this.props.labelText}
@@ -595,20 +505,14 @@ class Field extends Form {
           model={this.props.model}
           grow="1"
         />
-      </Container>
+      </div>
     );
   }
 
   renderEditDate () {
+    const rowClass = this.styles.classNames.row;
     return (
-      <Container
-        kind="row-field"
-        grow="0"
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
+      <div className={rowClass}>
         <TextFieldTyped
           type="date"
           labelText={this.props.labelText}
@@ -618,20 +522,14 @@ class Field extends Form {
           hintText={this.props.hintText}
           model={this.props.model}
         />
-      </Container>
+      </div>
     );
   }
 
   renderEditTime () {
+    const rowClass = this.styles.classNames.row;
     return (
-      <Container
-        kind="row-field"
-        grow="0"
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
+      <div className={rowClass}>
         <TextFieldTyped
           type="time"
           labelText={this.props.labelText}
@@ -641,20 +539,14 @@ class Field extends Form {
           hintText={this.props.hintText}
           model={this.props.model}
         />
-      </Container>
+      </div>
     );
   }
 
   renderEditPrice () {
+    const rowClass = this.styles.classNames.row;
     return (
-      <Container
-        kind="row-field"
-        grow="0"
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
+      <div className={rowClass}>
         <TextFieldTyped
           type="price"
           labelText={this.props.labelText}
@@ -664,20 +556,14 @@ class Field extends Form {
           hintText={this.props.hintText}
           model={this.props.model}
         />
-      </Container>
+      </div>
     );
   }
 
   renderEditWeight () {
+    const rowClass = this.styles.classNames.row;
     return (
-      <Container
-        kind="row-field"
-        grow="0"
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
+      <div className={rowClass}>
         <TextFieldTyped
           type="weight"
           unit={this.props.unit}
@@ -688,20 +574,14 @@ class Field extends Form {
           hintText={this.props.hintText}
           model={this.props.model}
         />
-      </Container>
+      </div>
     );
   }
 
   renderEditVolume () {
+    const rowClass = this.styles.classNames.row;
     return (
-      <Container
-        kind="row-field"
-        grow="0"
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
+      <div className={rowClass}>
         <TextFieldTyped
           type="volume"
           unit={this.props.unit}
@@ -712,22 +592,16 @@ class Field extends Form {
           hintText={this.props.hintText}
           model={this.props.model}
         />
-      </Container>
+      </div>
     );
   }
 
   renderEditCombo () {
     const labelWidth = this.props.labelWidth || defaultLabelWidth;
+    const rowClass = this.styles.classNames.row;
 
     return (
-      <Container
-        kind="row-field"
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
+      <div className={rowClass}>
         {labelWidth === '0px'
           ? null
           : <Label
@@ -752,7 +626,7 @@ class Field extends Form {
           }}
           grow="1"
         />
-      </Container>
+      </div>
     );
   }
 
@@ -770,17 +644,10 @@ class Field extends Form {
     );
 
     const labelWidth = this.props.labelWidth || defaultLabelWidth;
+    const rowClass = this.styles.classNames.row;
 
     return (
-      <Container
-        kind="row-field"
-        subkind="left"
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
+      <div className={rowClass}>
         {labelWidth === '0px'
           ? null
           : <Label
@@ -802,7 +669,7 @@ class Field extends Form {
             }
           }}
         />
-      </Container>
+      </div>
     );
   }
 
@@ -816,17 +683,10 @@ class Field extends Form {
     );
 
     const labelWidth = this.props.labelWidth || defaultLabelWidth;
+    const rowClass = this.styles.classNames.row;
 
     return (
-      <Container
-        kind="row-field"
-        subkind="left"
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
+      <div className={rowClass}>
         {labelWidth === '0px'
           ? null
           : <Label
@@ -843,7 +703,7 @@ class Field extends Form {
             this.setBackendValue (this.fullPath, !checked);
           }}
         />
-      </Container>
+      </div>
     );
   }
 
@@ -854,19 +714,12 @@ class Field extends Form {
     };
 
     const EntityViewer = this.mapWidget (Viewer, 'entityId', this.fullPath);
+    const rowClass = this.styles.classNames.row;
 
     return (
-      <Container
-        kind="row-field"
-        subkind="light-box"
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
+      <div className={rowClass}>
         <EntityViewer />
-      </Container>
+      </div>
     );
   }
 
@@ -885,16 +738,10 @@ class Field extends Form {
         this.fullPath
       );
 
+      const rowClass = this.styles.classNames.row;
+
       return (
-        <Container
-          kind="row-field"
-          subkind="light-box"
-          grow={this.props.grow}
-          width={this.props.width}
-          height={this.props.height}
-          verticalSpacing={this.props.verticalSpacing}
-          verticalJustify="top"
-        >
+        <div className={rowClass}>
           <FinalPlugin
             id={this.context.id}
             embedded={this.props.embedded}
@@ -907,22 +754,16 @@ class Field extends Form {
             disableDelete={this.props.disableDelete}
             horizontalSeparator={this.props.horizontalSeparator}
           />
-        </Container>
+        </div>
       );
     } else if (this.props.item) {
       const Items = props => {
         if (!props.entityIds) {
           return null;
         }
+        const rowClass = this.styles.classNames.row;
         return (
-          <Container
-            kind="row-field"
-            grow={this.props.grow}
-            width={this.props.width}
-            height={this.props.height}
-            verticalSpacing={this.props.verticalSpacing}
-            verticalJustify={this.props.verticalJustify}
-          >
+          <div className={rowClass}>
             {props.entityIds.map ((entityId, index) => {
               const Item = this.mapWidget (
                 this.props.item,
@@ -931,7 +772,7 @@ class Field extends Form {
               );
               return <Item key={index} />;
             })}
-          </Container>
+          </div>
         );
       };
       const FinalItems = this.mapWidget (Items, 'entityIds', this.fullPath);
@@ -986,15 +827,10 @@ class Field extends Form {
       );
     }
 
+    const rowClass = this.styles.classNames.row;
+
     const HinterLine = props => (
-      <Container
-        kind="row-field"
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify="top"
-      >
+      <div className={rowClass}>
         <Label
           kind="label-text-field"
           wrap="no"
@@ -1047,7 +883,7 @@ class Field extends Form {
                     )}
                 />
               : null}
-      </Container>
+      </div>
     );
 
     const HinterField = this.mapWidget (
@@ -1060,21 +896,15 @@ class Field extends Form {
   }
 
   renderEditFileInput () {
+    const rowClass = this.styles.classNames.row;
     return (
-      <Container
-        kind="row-field"
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
+      <div className={rowClass}>
         <input
           type="file"
           onChange={this.handleFileChange}
           accept={this.props.accept}
         />
-      </Container>
+      </div>
     );
   }
   //#endregion
