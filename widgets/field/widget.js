@@ -1046,7 +1046,17 @@ class Field extends Form {
                       true
                     )}
                 />
-              : null}
+              : this.props.enableAdd
+                  ? <Button
+                      kind="combo"
+                      glyph="plus"
+                      tooltip="Créer"
+                      onClick={() => {
+                        const service = this.context.id.split ('@')[0];
+                        this.doAs (service, `add-new-${this.props.hinter}`, {});
+                      }}
+                    />
+                  : null}
       </Container>
     );
 
