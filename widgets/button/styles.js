@@ -247,9 +247,16 @@ export default function styles (theme, props) {
     focusedShadow = null;
   }
 
-  if (props.kind === 'plugin') {
-    backgroundColor = theme.palette.actionButtonBackground;
+  if (props.kind === 'plugin-light') {
+    backgroundColor = 'transparent';
     borderStyle = 'none';
+    backgroundHoverColor = theme.palette.pluginLightButtonBackgroundHover;
+    focusedShadow = null;
+  }
+  if (props.kind === 'plugin-dark') {
+    backgroundColor = 'transparent';
+    borderStyle = 'none';
+    backgroundHoverColor = theme.palette.pluginDarkButtonBackgroundHover;
     focusedShadow = null;
   }
 

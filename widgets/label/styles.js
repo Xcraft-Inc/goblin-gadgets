@@ -80,6 +80,7 @@ export default function styles (theme, props) {
   let cursor = props.cursor ? props.cursor : 'default';
   let spacing = props.spacing;
   let specialDisabled = false;
+  let specialHover = false;
 
   if (Bool.isTrue (props.insideButton)) {
     boxHeight = props.height ? props.height : theme.shapes.lineHeight;
@@ -452,6 +453,19 @@ export default function styles (theme, props) {
 
   if (props.kind === 'check-button') {
     textHoverColor = theme.palette.checkButtonTextHover;
+  }
+
+  if (props.kind === 'plugin-light') {
+    glyphColor = theme.palette.pluginLightButtonGlyph;
+    textColor = theme.palette.pluginLightButtonGlyph;
+    textHoverColor = theme.palette.pluginLightButtonGlyphHover;
+    specialHover = true;
+  }
+  if (props.kind === 'plugin-dark') {
+    glyphColor = theme.palette.pluginDarkButtonGlyph;
+    textColor = theme.palette.pluginDarkButtonGlyph;
+    textHoverColor = theme.palette.pluginDarkButtonGlyphHover;
+    specialHover = true;
   }
 
   // Warning button (usual parent is container with kind='footer').
@@ -828,18 +842,27 @@ export default function styles (theme, props) {
     Bool.isTrue (props.insideButton) &&
     boxOpacity !== 0
   ) {
-    boxStyle[':hover'] = {
-      color: textHoverColor, // (*)
-      opacity: 1.0,
-    };
+    if (specialHover) {
+      glyphStyle[':hover'] = {
+        color: textHoverColor,
+      };
+      textStyle[':hover'] = {
+        color: textHoverColor,
+      };
+    } else {
+      boxStyle[':hover'] = {
+        color: textHoverColor, // (*)
+        opacity: 1.0,
+      };
 
-    if (textHoverColor) {
-      textStyle.color = null; // (*)
-      glyphStyle.color = null; // (*)
+      if (textHoverColor) {
+        textStyle.color = null; // (*)
+        glyphStyle.color = null; // (*)
+      }
+      // (*) If hover change the color of glyph and text, it is necessary to change
+      //     the color of parent (and not the glyph/text children). This system
+      //     causes the change simultaneously for the two children.
     }
-    // (*) If hover change the color of glyph and text, it is necessary to change
-    //     the color of parent (and not the glyph/text children). This system
-    //     causes the change simultaneously for the two children.
 
     boxStyle[':active'] = {
       color: ColorManipulator.darken (textColor, 0.1),

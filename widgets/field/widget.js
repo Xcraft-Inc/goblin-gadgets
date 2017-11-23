@@ -386,7 +386,7 @@ class Field extends Form {
     const Action = props => {
       return (
         <Button
-          kind="check-button"
+          kind="plugin-light"
           glyph="pencil"
           tooltip="Editer"
           onClick={() => {
