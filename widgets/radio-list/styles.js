@@ -25,10 +25,11 @@ export default function styles (theme, props) {
   }
 
   const boxStyle = {
+    width: props.width,
     height: props.height,
     display: 'flex',
     flexDirection: direction,
-    flexGrow: '1',
+    flexGrow: props.width ? null : '1',
     flexWrap: wrap,
     alignItems: 'flex-start',
     overflowX: overflowX,

@@ -25,7 +25,7 @@ class RadioList extends Widget {
     return (
       <CheckButton
         key={index}
-        kind="radio"
+        kind={this.props.kind || 'radio'}
         text={text}
         focusable="true"
         checked={Bool.toString (index === this.props.selectedIndex)}
