@@ -19,11 +19,17 @@ class CheckList extends Widget {
       const array = this.props.value.split (',');
       const index = array.indexOf (name);
       if (index === -1) {
-        return this.props.value + ',' + name;
+        array.push (name);
       } else {
         array.splice (index, 1);
-        return array.join (',');
       }
+      const orderedArray = [];
+      for (const item of this.props.list) {
+        if (array.indexOf (item.name) !== -1) {
+          orderedArray.push (item.name);
+        }
+      }
+      return orderedArray.join (',');
     } else {
       return name;
     }
