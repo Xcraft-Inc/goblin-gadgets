@@ -17,6 +17,14 @@ class CheckList extends Widget {
     this.onClearAll = this.onClearAll.bind (this);
   }
 
+  get allValue () {
+    const array = [];
+    for (const item of this.props.list) {
+      array.push (item.name);
+    }
+    return array.join (',');
+  }
+
   getNewValue (name) {
     if (this.props.value) {
       const array = this.props.value.split (',');
@@ -28,23 +36,15 @@ class CheckList extends Widget {
       }
       // Return a value in same order that props.list.
       const orderedArray = [];
-      for (const item of this.props.list) {
-        if (array.indexOf (item.name) !== -1) {
-          orderedArray.push (item.name);
+      for (const item of this.allValue.split (',')) {
+        if (array.indexOf (item) !== -1) {
+          orderedArray.push (item);
         }
       }
       return orderedArray.join (',');
     } else {
       return name;
     }
-  }
-
-  get allValue () {
-    const array = [];
-    for (const item of this.props.list) {
-      array.push (item.name);
-    }
-    return array.join (',');
   }
 
   onButtonClicked (name) {
