@@ -21,6 +21,7 @@ import LabelTextField from 'gadgets/label-text-field/widget';
 import TextFieldTyped from 'gadgets/text-field-typed/widget';
 import TextFieldCombo from 'gadgets/text-field-combo/widget';
 import RadioList from 'gadgets/radio-list/widget';
+import CheckList from 'gadgets/check-list/widget';
 import Plugin from 'desktop/plugin/widget';
 import Workitem from 'desktop/workitem/widget';
 import importer from 'laboratory/importer/';
@@ -806,6 +807,55 @@ class Field extends Form {
     );
   }
 
+  renderEditCheckList () {
+    const Check = this.mapWidget (
+      CheckList,
+      value => {
+        if (value && value !== '') {
+          return {value};
+        } else {
+          return {};
+        }
+      },
+      this.fullPath
+    );
+
+    const labelWidth = this.props.labelWidth || defaultLabelWidth;
+
+    return (
+      <Container
+        kind="row-field"
+        subkind="left"
+        grow={this.props.grow}
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
+      >
+        {labelWidth === '0px'
+          ? null
+          : <Label
+              text={this.props.labelText}
+              glyph={this.props.labelGlyph}
+              width={labelWidth}
+              kind="label-field"
+              justify="left"
+              spacing="overlap"
+            />}
+        <Check
+          width={this.props.width}
+          height={this.props.height}
+          heightStrategy="compact"
+          direction={this.props.direction || 'column'}
+          list={this.props.list}
+          selectionChanged={value => {
+            this.setBackendValue (this.fullPath, value);
+          }}
+        />
+      </Container>
+    );
+  }
+
   renderEditBool () {
     const Check = this.mapWidget (
       CheckButton,
@@ -1116,6 +1166,8 @@ class Field extends Form {
         return this.renderReadonlyField ();
       case 'radio':
         return this.renderReadonlyField ();
+      case 'check-list':
+        return this.renderReadonlyField ();
       case 'bool':
         return this.renderReadonlyBool ();
       case 'hinter':
@@ -1155,6 +1207,8 @@ class Field extends Form {
         return this.renderEditCombo ();
       case 'radio':
         return this.renderEditRadio ();
+      case 'check-list':
+        return this.renderEditCheckList ();
       case 'bool':
         return this.renderEditBool ();
       case 'hinter':
