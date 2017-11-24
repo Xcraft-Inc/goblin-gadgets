@@ -50,6 +50,7 @@ class CheckButton extends Widget {
         readonly={this.props.readonly}
         focusable={this.props.focusable}
         spacing={this.props.spacing}
+        heightStrategy={this.props.heightStrategy}
       />
     );
   }

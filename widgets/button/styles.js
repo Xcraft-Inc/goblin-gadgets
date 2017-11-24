@@ -245,6 +245,9 @@ export default function styles (theme, props) {
     borderStyle = 'none';
     backgroundHoverColor = 'transparent';
     focusedShadow = null;
+    if (props.heightStrategy === 'compact') {
+      boxHeight = '22px';
+    }
   }
 
   if (props.kind === 'plugin-light') {
