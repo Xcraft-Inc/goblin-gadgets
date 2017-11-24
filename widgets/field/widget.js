@@ -336,6 +336,45 @@ class Field extends Form {
     );
   }
 
+  renderReadonlyChecklist () {
+    const Summary = this.mapWidget (
+      Label,
+      value => {
+        return {text: value};
+      },
+      this.fullPath
+    );
+
+    const labelWidth = this.props.labelWidth || defaultLabelWidth;
+
+    return (
+      <Container
+        kind={
+          this.props.state === 'compact' ? 'row-field' : 'row-field-readonly'
+        }
+        subkind="left"
+        grow={this.props.grow}
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
+      >
+        {labelWidth === '0px'
+          ? null
+          : <Label
+              text={this.props.labelText}
+              glyph={this.props.labelGlyph}
+              width={labelWidth}
+              kind="label-field"
+              justify="left"
+              spacing="overlap"
+              disabled="true"
+            />}
+        <Summary />
+      </Container>
+    );
+  }
+
   renderReadonlyBool () {
     const Check = this.mapWidget (
       CheckButton,
@@ -847,6 +886,7 @@ class Field extends Form {
           height={this.props.height}
           heightStrategy="compact"
           direction={this.props.direction || 'column'}
+          showHeader={this.props.showHeader}
           list={this.props.list}
           selectionChanged={value => {
             this.setBackendValue (this.fullPath, value);
@@ -1167,7 +1207,7 @@ class Field extends Form {
       case 'radio':
         return this.renderReadonlyField ();
       case 'check-list':
-        return this.renderReadonlyField ();
+        return this.renderReadonlyChecklist ();
       case 'bool':
         return this.renderReadonlyBool ();
       case 'hinter':
