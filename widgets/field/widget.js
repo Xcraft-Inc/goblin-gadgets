@@ -116,13 +116,11 @@ class Field extends Form {
 
     return (
       <Container
-        kind={
-          this.props.state === 'compact' ? 'row-field' : 'row-field-readonly'
-        }
+        kind="row-field"
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
+        verticalSpacing={this.props.verticalSpacing || 'compact'}
         verticalJustify={this.props.verticalJustify}
       >
         {labelWidth === '0px'
@@ -154,14 +152,12 @@ class Field extends Form {
 
     return (
       <Container
-        kind={
-          this.props.state === 'compact' ? 'row-field' : 'row-field-readonly'
-        }
+        kind="row-field"
         subkind="left"
         grow="0"
         width={this.props.width}
         height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
+        verticalSpacing={this.props.verticalSpacing || 'compact'}
         verticalJustify={this.props.verticalJustify}
       >
         {labelWidth === '0px'
@@ -193,14 +189,12 @@ class Field extends Form {
 
     return (
       <Container
-        kind={
-          this.props.state === 'compact' ? 'row-field' : 'row-field-readonly'
-        }
+        kind="row-field"
         subkind="left"
         grow="0"
         width={this.props.width}
         height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
+        verticalSpacing={this.props.verticalSpacing || 'compact'}
         verticalJustify={this.props.verticalJustify}
       >
         {labelWidth === '0px'
@@ -232,14 +226,12 @@ class Field extends Form {
 
     return (
       <Container
-        kind={
-          this.props.state === 'compact' ? 'row-field' : 'row-field-readonly'
-        }
+        kind="row-field"
         subkind="left"
         grow="0"
         width={this.props.width}
         height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
+        verticalSpacing={this.props.verticalSpacing || 'compact'}
         verticalJustify={this.props.verticalJustify}
       >
         {labelWidth === '0px'
@@ -271,14 +263,12 @@ class Field extends Form {
 
     return (
       <Container
-        kind={
-          this.props.state === 'compact' ? 'row-field' : 'row-field-readonly'
-        }
+        kind="row-field"
         subkind="left"
         grow="0"
         width={this.props.width}
         height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
+        verticalSpacing={this.props.verticalSpacing || 'compact'}
         verticalJustify={this.props.verticalJustify}
       >
         {labelWidth === '0px'
@@ -310,14 +300,12 @@ class Field extends Form {
 
     return (
       <Container
-        kind={
-          this.props.state === 'compact' ? 'row-field' : 'row-field-readonly'
-        }
+        kind="row-field"
         subkind="left"
         grow="0"
         width={this.props.width}
         height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
+        verticalSpacing={this.props.verticalSpacing || 'compact'}
         verticalJustify={this.props.verticalJustify}
       >
         {labelWidth === '0px'
@@ -349,9 +337,7 @@ class Field extends Form {
 
     return (
       <Container
-        kind={
-          this.props.state === 'compact' ? 'row-field' : 'row-field-readonly'
-        }
+        kind="row-field"
         subkind="left"
         grow={this.props.grow}
         width={this.props.width}
@@ -388,9 +374,7 @@ class Field extends Form {
 
     return (
       <Container
-        kind={
-          this.props.state === 'compact' ? 'row-field' : 'row-field-readonly'
-        }
+        kind="row-field"
         subkind="left"
         grow={this.props.grow}
         width={this.props.width}
@@ -449,9 +433,7 @@ class Field extends Form {
 
     return (
       <Container
-        kind={
-          this.props.state === 'compact' ? 'row-field' : 'row-field-readonly'
-        }
+        kind="row-field"
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
@@ -488,9 +470,7 @@ class Field extends Form {
 
       return (
         <Container
-          kind={
-            this.props.state === 'compact' ? 'row-field' : 'row-field-readonly'
-          }
+          kind="row-field"
           subkind="light-box"
           grow={this.props.grow}
           width={this.props.width}
