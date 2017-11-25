@@ -9,6 +9,22 @@ import Separator from 'gadgets/separator/widget';
 import {date as DateConverters} from 'xcraft-core-converters';
 
 /******************************************************************************/
+function getDateType (date, selectedDates) {
+  if (!selectedDates) {
+    return null;
+  } else if (false) {
+    return selectedDates.indexOf (date) === -1 ? null : 'base';
+  } else {
+    for (const d of selectedDates) {
+      if (d.date === date) {
+        return d.type;
+      }
+    }
+    return null;
+  }
+}
+
+/******************************************************************************/
 
 class Calendar extends Widget {
   constructor () {
@@ -135,7 +151,7 @@ class Calendar extends Widget {
   /******************************************************************************/
 
   // Return the html for a [1]..[31] button.
-  renderButton (date, active, dimmed, weekend, index) {
+  renderButton (date, active, dimmed, weekend, subkind, index) {
     const tooltip = DateConverters.getDisplayed (date, 'Wdmy');
     return (
       <Button
@@ -143,6 +159,7 @@ class Calendar extends Widget {
         text={DateConverters.getDay (date)} // 1..31
         tooltip={tooltip}
         kind="calendar"
+        subkind={subkind}
         active={active}
         calendarDimmed={dimmed}
         calendarWeekend={weekend}
@@ -162,11 +179,11 @@ class Calendar extends Widget {
       let active = 'false';
       let dimmed = 'false';
       let weekend = 'false';
-      if (
-        firstDate === selectedDate ||
-        (selectedDates && selectedDates.indexOf (firstDate) !== -1)
-      ) {
+      let subkind = null;
+      const type = getDateType (firstDate, selectedDates);
+      if (firstDate === selectedDate || type) {
         active = 'true';
+        subkind = type;
       }
       if (
         DateConverters.getYear (firstDate) !==
@@ -187,7 +204,14 @@ class Calendar extends Widget {
         weekend = 'true';
       }
 
-      const button = this.renderButton (firstDate, active, dimmed, weekend, i);
+      const button = this.renderButton (
+        firstDate,
+        active,
+        dimmed,
+        weekend,
+        subkind,
+        i
+      );
       line.push (button);
       firstDate = DateConverters.addDays (firstDate, 1);
     }

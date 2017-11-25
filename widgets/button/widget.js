@@ -185,6 +185,7 @@ class Button extends Widget {
           key="shortcut"
           shortcut="true"
           kind={this.props.kind}
+          subkind={this.props.subkind}
           disabled={this.disabled}
           active={this.props.active}
           textColor={this.props.textColor}

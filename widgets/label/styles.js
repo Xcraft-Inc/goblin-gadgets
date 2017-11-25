@@ -571,11 +571,21 @@ export default function styles (theme, props) {
   }
 
   // Button with a day in Calendar component.
-  if (props.kind === 'calendar' || props.kind === 'calendar-navigator') {
+  if (
+    props.kind === 'calendar' ||
+    props.kind === 'calendar-navigator' ||
+    props.kind === 'calendar-list'
+  ) {
     textSize = theme.shapes.calendarTextSize;
     textColor = props.kind === 'calendar' ? theme.palette.calendarText : null;
     if (Bool.isTrue (props.active)) {
-      textColor = theme.palette.calendarActiveText;
+      if (props.subkind === 'add') {
+        textColor = theme.palette.calendarActiveAddText;
+      } else if (props.subkind === 'sub') {
+        textColor = theme.palette.calendarActiveSubText;
+      } else {
+        textColor = theme.palette.calendarActiveText;
+      }
     }
     if (Bool.isTrue (props.calendarDimmed)) {
       textColor = theme.palette.calendarDimmedText;

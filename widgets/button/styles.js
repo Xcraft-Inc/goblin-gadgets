@@ -55,7 +55,6 @@ export default function styles (theme, props) {
   let activeColor = theme.palette.boxActiveBackground;
   let borderHoverColor = null;
   let backgroundHoverColor = null;
-  let textActiveColor = null;
   let textSize = theme.shapes.buttonTextSize;
   let boxPosition = props.position ? props.position : 'relative';
   let cursor = props.cursor ? props.cursor : 'default';
@@ -94,7 +93,6 @@ export default function styles (theme, props) {
     borderStyle = 'none';
     backgroundColor = theme.palette.taskLogoBackground;
     activeColor = theme.palette.taskTabActiveBackground;
-    textActiveColor = theme.palette.taskTabActiveText;
     textSize = theme.shapes.taskLogoTextSize;
   }
 
@@ -166,7 +164,6 @@ export default function styles (theme, props) {
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     backgroundColor = theme.palette.taskTabInactiveBackground;
     activeColor = theme.palette.taskTabActiveBackground;
-    textActiveColor = theme.palette.taskTabActiveText;
     borderStyle = 'none none solid none';
     borderColor = theme.palette.taskButtonBorder;
     textSize = theme.shapes.taskTabTextSize;
@@ -370,10 +367,8 @@ export default function styles (theme, props) {
     borderStyle = 'none';
     backgroundColor = theme.palette.menuItemInactiveBackground;
     if (props.active === 'focused') {
-      textActiveColor = theme.palette.menuFocusText;
       activeColor = theme.palette.menuItemFocusBackground;
     } else {
-      textActiveColor = theme.palette.menuText;
       activeColor = theme.palette.menuItemActiveBackground;
     }
   }
@@ -430,9 +425,15 @@ export default function styles (theme, props) {
   }
 
   // Button with a day in Calendar component.
-  if (props.kind === 'calendar' || props.kind === 'calendar-navigator') {
+  if (
+    props.kind === 'calendar' ||
+    props.kind === 'calendar-navigator' ||
+    props.kind === 'calendar-list'
+  ) {
     borderStyle = 'none';
-    boxWidth = theme.shapes.calendarButtonWidth;
+    if (props.kind !== 'calendar-list') {
+      boxWidth = theme.shapes.calendarButtonWidth;
+    }
     boxHeight = theme.shapes.calendarButtonHeight;
     textSize = theme.shapes.calendarTextSize;
     transition = null;
@@ -445,8 +446,13 @@ export default function styles (theme, props) {
       activeColor = theme.palette.calendarBackground;
       backgroundHoverColor = theme.palette.calendarBackground; // no visible hover effect
     } else {
-      activeColor = theme.palette.calendarActiveBackground;
-      textActiveColor = theme.palette.calendarActiveText;
+      if (props.subkind === 'add') {
+        activeColor = theme.palette.calendarActiveAddBackground;
+      } else if (props.subkind === 'sub') {
+        activeColor = theme.palette.calendarActiveSubBackground;
+      } else {
+        activeColor = theme.palette.calendarActiveBackground;
+      }
     }
   }
 
@@ -492,7 +498,6 @@ export default function styles (theme, props) {
   if (props.kind === 'recurrence') {
     boxMinWidth = theme.shapes.lineHeight;
     boxMaxHeight = theme.shapes.lineHeight;
-    textActiveColor = theme.palette.calendarActiveText;
     activeColor = theme.palette.calendarActiveBackground;
     borderActiveColor = theme.palette.calendarActiveText;
   }
