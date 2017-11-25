@@ -563,6 +563,7 @@ export default function styles (theme, props) {
     } else if (props.verticalSpacing === 'large') {
       bottomMargin = '10px';
     } else if (props.verticalSpacing === 'overlap') {
+      minHeight = '20px';
       bottomMargin = '-1px';
     }
     margin =
