@@ -10,9 +10,9 @@ import {date as DateConverters} from 'xcraft-core-converters';
 
 /******************************************************************************/
 function getDateType (date, selectedDates) {
-  if (!selectedDates) {
+  if (!selectedDates || selectedDates.length == 0) {
     return null;
-  } else if (false) {
+  } else if (typeof selectedDates[0] === 'string') {
     return selectedDates.indexOf (date) === -1 ? null : 'base';
   } else {
     for (const d of selectedDates) {
