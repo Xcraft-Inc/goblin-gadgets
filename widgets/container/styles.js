@@ -560,6 +560,8 @@ export default function styles (theme, props) {
     if (props.verticalSpacing === 'compact') {
       minHeight = '20px';
       bottomMargin = '0px';
+    } else if (props.verticalSpacing === 'normal') {
+      bottomMargin = '0px';
     } else if (props.verticalSpacing === 'large') {
       bottomMargin = '10px';
     } else if (props.verticalSpacing === 'overlap') {
