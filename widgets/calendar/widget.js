@@ -30,10 +30,6 @@ class Calendar extends Widget {
   constructor () {
     super (...arguments);
 
-    this.state = {
-      visibleDate: this.props.visibleDate || DateConverters.getNowCanonical (),
-    };
-
     this.onPrevMonth = this.onPrevMonth.bind (this);
     this.onNextMonth = this.onNextMonth.bind (this);
     this.onVisibleDateMonth = this.onVisibleDateMonth.bind (this);
@@ -49,21 +45,6 @@ class Calendar extends Widget {
     };
   }
 
-  //#region get/set
-  get visibleDate () {
-    return this.state.visibleDate;
-  }
-
-  set visibleDate (value) {
-    const year = DateConverters.getYear (value);
-    const month = DateConverters.getMonth (value);
-    value = DateConverters.getDate (year, month, 1);
-    this.setState ({
-      visibleDate: value,
-    });
-  }
-  //#endregion
-
   /******************************************************************************/
 
   get monthCount () {
@@ -76,7 +57,6 @@ class Calendar extends Widget {
   }
 
   changeDate (date) {
-    this.visibleDate = date;
     var x = this.props.visibleDateChanged;
     if (x) {
       x (date);
@@ -86,16 +66,14 @@ class Calendar extends Widget {
   // Called when the '<' button is clicked.
   // Modify internalState.visibleDate (fix visible year and month).
   onPrevMonth () {
-    const visibleDate = this.visibleDate;
-    const newDate = DateConverters.addMonths (visibleDate, -1);
+    const newDate = DateConverters.addMonths (this.props.visibleDate, -1);
     this.changeDate (newDate);
   }
 
   // Called when the '>' button is clicked.
   // Modify internalState.visibleDate (fix visible year and month).
   onNextMonth () {
-    const visibleDate = this.visibleDate;
-    const newDate = DateConverters.addMonths (visibleDate, 1);
+    const newDate = DateConverters.addMonths (this.props.visibleDate, 1);
     this.changeDate (newDate);
   }
 
@@ -108,25 +86,25 @@ class Calendar extends Widget {
   }
 
   onVisibleDateMonth (month) {
-    const s = DateConverters.split (this.visibleDate);
+    const s = DateConverters.split (this.props.visibleDate);
     const date = DateConverters.getDate (s.year, month, 1);
     this.changeDate (date);
   }
 
   onVisibleDateAddMonths (months) {
-    const date = DateConverters.addMonths (this.visibleDate, months);
+    const date = DateConverters.addMonths (this.props.visibleDate, months);
     this.changeDate (date);
   }
 
   onVisibleDatePrevYear () {
-    const s = DateConverters.split (this.visibleDate);
+    const s = DateConverters.split (this.props.visibleDate);
     const year = s.month === 1 ? s.year - 1 : s.year;
     const date = DateConverters.getDate (year, 1, 1);
     this.changeDate (date);
   }
 
   onVisibleDateNextYear () {
-    const s = DateConverters.split (this.visibleDate);
+    const s = DateConverters.split (this.props.visibleDate);
     const date = DateConverters.getDate (s.year + 1, 1, 1);
     this.changeDate (date);
   }
@@ -403,7 +381,7 @@ class Calendar extends Widget {
     const selectedDate = this.props.date;
     const selectedDates = this.props.dates;
 
-    const visibleDate = this.visibleDate;
+    const visibleDate = this.props.visibleDate;
     if (!visibleDate) {
       return null;
     }
@@ -465,7 +443,7 @@ class Calendar extends Widget {
 
   renderMonthsOfYear () {
     const result = [];
-    const visibleMonth = DateConverters.split (this.visibleDate).month;
+    const visibleMonth = DateConverters.split (this.props.visibleDate).month;
     for (let month = 1; month <= 12; month += 4) {
       result.push (this.renderLineOfMonths (month, visibleMonth));
     }
