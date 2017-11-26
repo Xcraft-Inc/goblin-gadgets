@@ -30,6 +30,10 @@ class Calendar extends Widget {
   constructor () {
     super (...arguments);
 
+    this.state = {
+      visibleDate: this.props.visibleDate || DateConverters.getNowCanonical (),
+    };
+
     this.onPrevMonth = this.onPrevMonth.bind (this);
     this.onNextMonth = this.onNextMonth.bind (this);
     this.onVisibleDateMonth = this.onVisibleDateMonth.bind (this);
@@ -45,17 +49,20 @@ class Calendar extends Widget {
     };
   }
 
-  componentWillMount () {
-    // At first time, initialize internalState.visibleDate with current date.
-    var date = this.props.visibleDate;
-    if (!date) {
-      const now = DateConverters.getNowCanonical ();
-      const year = DateConverters.getYear (now);
-      const month = DateConverters.getMonth (now);
-      date = DateConverters.getDate (year, month, 1);
-    }
-    this.visibleDate = date;
+  //#region get/set
+  get visibleDate () {
+    return this.state.visibleDate;
   }
+
+  set visibleDate (value) {
+    const year = DateConverters.getYear (value);
+    const month = DateConverters.getMonth (value);
+    value = DateConverters.getDate (year, month, 1);
+    this.setState ({
+      visibleDate: value,
+    });
+  }
+  //#endregion
 
   /******************************************************************************/
 
@@ -70,7 +77,6 @@ class Calendar extends Widget {
 
   changeDate (date) {
     this.visibleDate = date;
-    this.forceUpdate ();
     var x = this.props.visibleDateChanged;
     if (x) {
       x (date);
@@ -81,7 +87,6 @@ class Calendar extends Widget {
   // Modify internalState.visibleDate (fix visible year and month).
   onPrevMonth () {
     const visibleDate = this.visibleDate;
-    this.forceUpdate ();
     const newDate = DateConverters.addMonths (visibleDate, -1);
     this.changeDate (newDate);
   }
@@ -90,7 +95,6 @@ class Calendar extends Widget {
   // Modify internalState.visibleDate (fix visible year and month).
   onNextMonth () {
     const visibleDate = this.visibleDate;
-    this.forceUpdate ();
     const newDate = DateConverters.addMonths (visibleDate, 1);
     this.changeDate (newDate);
   }
