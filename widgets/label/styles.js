@@ -576,15 +576,23 @@ export default function styles (theme, props) {
     props.kind === 'calendar-navigator' ||
     props.kind === 'calendar-list'
   ) {
+    textMarginRight = '0px';
+    textMarginLeft = '0px';
     textSize = theme.shapes.calendarTextSize;
     textColor = props.kind === 'calendar' ? theme.palette.calendarText : null;
     if (Bool.isTrue (props.active)) {
       if (props.subkind === 'add') {
         textColor = theme.palette.calendarActiveAddText;
+        if (props.kind === 'calendar') {
+          textWeight = 'bold';
+        }
       } else if (props.subkind === 'sub') {
         textColor = theme.palette.calendarActiveSubText;
       } else {
         textColor = theme.palette.calendarActiveText;
+        if (props.kind === 'calendar') {
+          textWeight = 'bold';
+        }
       }
     }
     if (Bool.isTrue (props.calendarDimmed)) {

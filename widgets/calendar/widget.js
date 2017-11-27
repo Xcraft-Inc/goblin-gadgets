@@ -135,10 +135,14 @@ class Calendar extends Widget {
   // Return the html for a [1]..[31] button.
   renderButton (date, active, dimmed, weekend, subkind, index) {
     const tooltip = DateConverters.getDisplayed (date, 'Wdmy');
+    let d = DateConverters.getDay (date); // 1..31
+    if (subkind === 'sub') {
+      d = '(' + d + ')';
+    }
     return (
       <Button
         key={index}
-        text={DateConverters.getDay (date)} // 1..31
+        text={d}
         tooltip={tooltip}
         kind="calendar"
         subkind={subkind}
