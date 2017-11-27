@@ -938,8 +938,11 @@ class Field extends Form {
 
     return (
       <CR
-        onDateClicked={date => {
-          this.setBackendValue (this.fullPath, date); // TODO!
+        dateClicked={date => {
+          const service = this.context.id.split ('@')[0];
+          this.doAs (service, `date-clicked`, {
+            date,
+          });
         }}
       />
     );

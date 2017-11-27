@@ -49,7 +49,7 @@ class CalendarRecurrence extends Widget {
   }
 
   get dates () {
-    return ['2017-11-01', '2017-11-02', '2017-11-03']; //????
+    //- return ['2017-11-01', '2017-11-02', '2017-11-03']; //????
     if (this.props.dates) {
       return this.props.dates.toArray ();
     } else {
@@ -58,7 +58,7 @@ class CalendarRecurrence extends Widget {
   }
 
   get addDates () {
-    return ['2017-11-04', '2017-11-05', '2017-11-06']; //????
+    //- return ['2017-11-04', '2017-11-05', '2017-11-06']; //????
     if (this.props.addDates) {
       return this.props.addDates.toArray ();
     } else {
@@ -67,7 +67,7 @@ class CalendarRecurrence extends Widget {
   }
 
   get subDates () {
-    return ['2017-11-07', '2017-11-08', '2017-11-09']; //????
+    //- return ['2017-11-07', '2017-11-08', '2017-11-09']; //????
     if (this.props.subDates) {
       return this.props.subDates.toArray ();
     } else {
