@@ -22,6 +22,8 @@ import TextFieldTyped from 'gadgets/text-field-typed/widget';
 import TextFieldCombo from 'gadgets/text-field-combo/widget';
 import RadioList from 'gadgets/radio-list/widget';
 import CheckList from 'gadgets/check-list/widget';
+import CalendarRecurrence from 'gadgets/calendar-recurrence/widget';
+
 import Plugin from 'desktop/plugin/widget';
 import Workitem from 'desktop/workitem/widget';
 import importer from 'laboratory/importer/';
@@ -395,6 +397,10 @@ class Field extends Form {
         <Check text={this.props.labelText} readonly="true" />
       </Container>
     );
+  }
+
+  renderReadonlyCalendarRecurrence () {
+    return null;
   }
 
   renderReadonlyFileInput () {
@@ -917,6 +923,28 @@ class Field extends Form {
     );
   }
 
+  renderEditCalendarRecurrence () {
+    const CR = this.mapWidget (
+      CalendarRecurrence,
+      r => {
+        return {
+          date: r.get ('date'),
+          addDates: r.get ('addDates'),
+          subDates: r.get ('subDates'),
+        };
+      },
+      this.fullPath
+    );
+
+    return (
+      <CR
+        onDateClicked={date => {
+          this.setBackendValue (this.fullPath, date); // TODO!
+        }}
+      />
+    );
+  }
+
   renderEditEntity () {
     const Viewer = props => {
       const info = this.getModelValue (`${props.entityId}.meta.info`, true);
@@ -1190,6 +1218,8 @@ class Field extends Form {
         return this.renderReadonlyChecklist ();
       case 'bool':
         return this.renderReadonlyBool ();
+      case 'calendar-recurrence':
+        return this.renderReadonlyCalendarRecurrence ();
       case 'hinter':
         return this.renderReadonlyEntity ();
       case 'file':
@@ -1231,6 +1261,8 @@ class Field extends Form {
         return this.renderEditCheckList ();
       case 'bool':
         return this.renderEditBool ();
+      case 'calendar-recurrence':
+        return this.renderEditCalendarRecurrence ();
       case 'hinter':
         return this.renderEditHinter ();
       case 'file':

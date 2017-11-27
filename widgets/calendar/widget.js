@@ -9,22 +9,6 @@ import Separator from 'gadgets/separator/widget';
 import {date as DateConverters} from 'xcraft-core-converters';
 
 /******************************************************************************/
-function getDateType (date, selectedDates) {
-  if (!selectedDates || selectedDates.length == 0) {
-    return null;
-  } else if (typeof selectedDates[0] === 'string') {
-    return selectedDates.indexOf (date) === -1 ? null : 'base';
-  } else {
-    for (const d of selectedDates) {
-      if (d.date === date) {
-        return d.type;
-      }
-    }
-    return null;
-  }
-}
-
-/******************************************************************************/
 
 class Calendar extends Widget {
   constructor () {
@@ -36,6 +20,7 @@ class Calendar extends Widget {
     this.onVisibleDateAddMonths = this.onVisibleDateAddMonths.bind (this);
     this.onVisibleDatePrevYear = this.onVisibleDatePrevYear.bind (this);
     this.onVisibleDateNextYear = this.onVisibleDateNextYear.bind (this);
+    this.onDateClicked = this.onDateClicked.bind (this);
   }
 
   static get wiring () {
@@ -46,6 +31,34 @@ class Calendar extends Widget {
   }
 
   /******************************************************************************/
+
+  getDateType (date) {
+    if (!this.props.dates || this.props.dates.length == 0) {
+      return null;
+    } else if (typeof this.props.dates[0] === 'string') {
+      return this.props.dates.indexOf (date) === -1 ? null : 'base';
+    } else {
+      for (const d of this.props.dates) {
+        if (d.date === date) {
+          return d.type;
+        }
+      }
+      return null;
+    }
+  }
+
+  get startDate () {
+    const month = DateConverters.getMonth (this.props.visibleDate);
+    const year = DateConverters.getYear (this.props.visibleDate);
+    return DateConverters.getDate (year, month, 1);
+  }
+
+  get endDate () {
+    return DateConverters.addDays (
+      DateConverters.addMonths (this.startDate, 1),
+      -1
+    );
+  }
 
   get monthCount () {
     const monthCount = this.props.monthCount;
@@ -109,20 +122,8 @@ class Calendar extends Widget {
     this.changeDate (date);
   }
 
-  // Called when a [1]..[31] button is clicked.
-  setDate (date) {
-    const {state} = this.props;
-    state.set ('date', date);
-
-    if (this.props.onChange) {
-      this.props.onChange (date);
-    }
-  }
-
   onDateClicked (date) {
-    const startDate = this.props.startDate;
-    const endDate = this.props.endDate;
-    if ((!startDate || date >= startDate) && (!endDate || date <= endDate)) {
+    if (date >= this.startDate && date <= this.endDate) {
       const x = this.props.dateClicked;
       if (x) {
         x (date);
@@ -155,10 +156,10 @@ class Calendar extends Widget {
   }
 
   // Return an array of 7 buttons, for a week.
-  renderButtons (firstDate, visibleDate, selectedDate, selectedDates) {
+  renderButtons (firstDate) {
     let line = [];
-    const startDate = this.props.startDate;
-    const endDate = this.props.endDate;
+    const startDate = this.startDate;
+    const endDate = this.endDate;
     let i = 0;
     for (i = 0; i < 7; ++i) {
       // monday..sunday
@@ -166,23 +167,20 @@ class Calendar extends Widget {
       let dimmed = 'false';
       let weekend = 'false';
       let subkind = null;
-      const type = getDateType (firstDate, selectedDates);
-      if (firstDate === selectedDate || type) {
+      const type = this.getDateType (firstDate);
+      if (type) {
         active = 'true';
         subkind = type;
       }
       if (
         DateConverters.getYear (firstDate) !==
-          DateConverters.getYear (visibleDate) ||
+          DateConverters.getYear (this.props.visibleDate) ||
         DateConverters.getMonth (firstDate) !==
-          DateConverters.getMonth (visibleDate)
+          DateConverters.getMonth (this.props.visibleDate)
       ) {
         dimmed = 'true';
       }
-      if (
-        (startDate && firstDate < startDate) ||
-        (endDate && firstDate > endDate)
-      ) {
+      if (firstDate < startDate || firstDate > endDate) {
         dimmed = 'true';
       }
       if (i >= 5) {
@@ -205,22 +203,11 @@ class Calendar extends Widget {
   }
 
   // Return the html for a line of 7 buttons (for a week).
-  renderLineOfButtons (
-    firstDate,
-    visibleDate,
-    selectedDate,
-    selectedDates,
-    index
-  ) {
+  renderLineOfButtons (firstDate, index) {
     const lineClass = this.styles.classNames.line;
     return (
       <div className={lineClass} key={index}>
-        {this.renderButtons (
-          firstDate,
-          visibleDate,
-          selectedDate,
-          selectedDates
-        )}
+        {this.renderButtons (firstDate)}
       </div>
     );
   }
@@ -304,26 +291,12 @@ class Calendar extends Widget {
 
   // Return an array of lines, with header then week's lines.
   // The array must have from 4 to 6 lines.
-  renderColumnOfLines (
-    header,
-    firstDate,
-    visibleDate,
-    selectedDate,
-    selectedDates,
-    firstMonth,
-    lastMonth
-  ) {
+  renderColumnOfLines (header, firstDate, firstMonth, lastMonth) {
     let column = [];
     column.push (this.renderHeader (header, firstMonth, lastMonth));
     column.push (this.renderLineOfDOWs ());
     for (let i = 0; i < 6; ++i) {
-      const line = this.renderLineOfButtons (
-        firstDate,
-        visibleDate,
-        selectedDate,
-        selectedDates,
-        i
-      );
+      const line = this.renderLineOfButtons (firstDate, i);
       column.push (line);
       firstDate = DateConverters.addDays (firstDate, 7);
     }
@@ -331,84 +304,42 @@ class Calendar extends Widget {
   }
 
   // Retourne all the html content of the calendar.
-  renderLines (
-    selectedDate,
-    selectedDates,
-    visibleDate,
-    firstMonth,
-    lastMonth
-  ) {
-    const firstDate = DateConverters.getCalendarStartDate (visibleDate);
-    const header = DateConverters.getDisplayed (visibleDate, 'My'); // 'mai 2016' by example
+  renderLines (firstMonth, lastMonth) {
+    const firstDate = DateConverters.getCalendarStartDate (
+      this.props.visibleDate
+    );
+    const header = DateConverters.getDisplayed (this.props.visibleDate, 'My'); // 'mai 2016' by example
 
     const columnClass = this.styles.classNames.column;
     return (
       <div className={columnClass}>
-        {this.renderColumnOfLines (
-          header,
-          firstDate,
-          visibleDate,
-          selectedDate,
-          selectedDates,
-          firstMonth,
-          lastMonth
-        )}
+        {this.renderColumnOfLines (header, firstDate, firstMonth, lastMonth)}
       </div>
     );
   }
 
-  renderMonth (
-    selectedDate,
-    selectedDates,
-    visibleDate,
-    firstMonth,
-    lastMonth,
-    index
-  ) {
+  renderMonth (firstMonth, lastMonth, index) {
     const monthClass = lastMonth
       ? this.styles.classNames.singleMonth
       : this.styles.classNames.month;
     return (
       <div className={monthClass} key={index}>
-        {this.renderLines (
-          selectedDate,
-          selectedDates,
-          visibleDate,
-          firstMonth,
-          lastMonth
-        )}
+        {this.renderLines (firstMonth, lastMonth)}
       </div>
     );
   }
 
   renderMonths () {
-    const selectedDate = this.props.date;
-    const selectedDates = this.props.dates;
-
-    const visibleDate = this.props.visibleDate;
-    if (!visibleDate) {
-      return null;
-    }
-
     const result = [];
     const monthCount = this.monthCount;
     for (var m = 0; m < monthCount; m++) {
-      const year = DateConverters.getYear (visibleDate);
-      const month = DateConverters.getMonth (visibleDate);
+      const year = DateConverters.getYear (this.props.visibleDate);
+      const month = DateConverters.getMonth (this.props.visibleDate);
       const date = DateConverters.getDate (year, month + m, 1);
 
       const firstMonth = m === 0;
       const lastMonth = m === monthCount - 1;
-      result.push (
-        this.renderMonth (
-          selectedDate,
-          selectedDates,
-          date,
-          firstMonth,
-          lastMonth,
-          m
-        )
-      );
+      result.push (this.renderMonth (date, firstMonth, lastMonth, m));
     }
     return result;
   }
@@ -513,6 +444,10 @@ class Calendar extends Widget {
   }
 
   render () {
+    if (!this.props.visibleDate) {
+      return null;
+    }
+
     const boxClass = this.styles.classNames.box;
     return (
       <div className={boxClass}>
