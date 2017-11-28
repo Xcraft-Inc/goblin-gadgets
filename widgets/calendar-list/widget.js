@@ -25,6 +25,7 @@ class CalendarList extends Form {
     this.onShowAdd = this.onShowAdd.bind (this);
     this.onShowSub = this.onShowSub.bind (this);
     this.onDateClicked = this.onDateClicked.bind (this);
+    this.onFlushAdd = this.onFlushAdd.bind (this);
   }
 
   //#region get/set
@@ -78,7 +79,23 @@ class CalendarList extends Form {
       x (date);
     }
   }
+
+  onFlushAdd () {
+    const x = this.props.flushAdd;
+    if (x) {
+      x ();
+    }
+  }
   //#endregion
+
+  get hasAdd () {
+    for (const d of this.props.dates) {
+      if (d.type === 'add' || d.type === 'sub') {
+        return true;
+      }
+    }
+    return false;
+  }
 
   get listDates () {
     const array = [];
@@ -183,6 +200,8 @@ class CalendarList extends Form {
           kind="calendar"
           glyph="trash"
           tooltip="Supprime toutes les exceptions"
+          disabled={!this.hasAdd}
+          onClick={this.onFlushAdd}
         />
       </div>
     );

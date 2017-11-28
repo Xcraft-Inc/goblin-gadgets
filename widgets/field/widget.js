@@ -941,9 +941,13 @@ class Field extends Form {
       <CR
         dateClicked={date => {
           const service = this.context.id.split ('@')[0];
-          this.doAs (service, `date-clicked`, {
+          this.doAs (service, 'date-clicked', {
             date,
           });
+        }}
+        flushAdd={() => {
+          const service = this.context.id.split ('@')[0];
+          this.doAs (service, 'flush-add');
         }}
       />
     );

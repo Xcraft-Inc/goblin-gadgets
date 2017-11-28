@@ -23,6 +23,7 @@ class CalendarRecurrence extends Widget {
 
     this.onDateClicked = this.onDateClicked.bind (this);
     this.onVisibleDateChanged = this.onVisibleDateChanged.bind (this);
+    this.onFlushAdd = this.onFlushAdd.bind (this);
   }
 
   //#region get/set
@@ -82,6 +83,13 @@ class CalendarRecurrence extends Widget {
 
   onVisibleDateChanged (date) {
     this.visibleDate = date;
+  }
+
+  onFlushAdd () {
+    const x = this.props.flushAdd;
+    if (x) {
+      x ();
+    }
   }
   //#endregion
 
@@ -145,6 +153,7 @@ class CalendarRecurrence extends Widget {
         <CalendarList
           dates={this.listDates}
           dateClicked={this.onVisibleDateChanged}
+          flushAdd={this.onFlushAdd}
         />
       </Container>
     );
