@@ -61,7 +61,7 @@ export function getDisplayedMonths (canonicalMonths) {
         m += c - '0';
       } else {
         if (m !== 0) {
-          const d = DateConverters.getMonthDescription (m - 1, '4');
+          let d = DateConverters.getMonthDescription (m - 1, '4');
           if (d) {
             result.push (d.toLowerCase ());
           } else {
@@ -79,7 +79,7 @@ export function getDisplayedMonths (canonicalMonths) {
       }
     }
     if (m !== 0) {
-      const d = DateConverters.getMonthDescription (m - 1, '4');
+      let d = DateConverters.getMonthDescription (m - 1, '4');
       if (d) {
         result.push (d.toLowerCase ());
       } else {
@@ -93,14 +93,14 @@ export function getDisplayedMonths (canonicalMonths) {
 // Return a full description of recurrence. By example:
 // lun et jeu, mars à sept, -4, +5
 export function getDisplayedCron (days, months, deleteList, addList) {
-  const result = [];
+  let result = [];
 
-  const d = getDisplayedDays (days);
+  let d = getDisplayedDays (days);
   if (d && d !== '') {
     result.push (d);
   }
 
-  const m = getDisplayedMonths (months);
+  let m = getDisplayedMonths (months);
   if (m && m !== '') {
     result.push (m);
   }
@@ -119,13 +119,15 @@ export function getDisplayedCron (days, months, deleteList, addList) {
 // Return a cron expression. By example:
 // 0 0 0 * * 1,4
 // 0 0 0 * * 2
-// 0 0 0 * 3-6 2
-export function getCron (canonicalDays, canonicalMonths) {
-  if (!canonicalDays || canonicalDays === '') {
-    canonicalDays = '*';
+// 0 0 0 * * 1-5
+export function getCron (canonicalDays) {
+  let days = [];
+  for (let d of canonicalDays.split (',')) {
+    if (d === '7') {
+      d = 0; // sunday
+    }
+    days.push (d);
   }
-  if (!canonicalMonths || canonicalMonths === '') {
-    canonicalMonths = '*';
-  }
-  return `0 0 0 * ${canonicalMonths} ${canonicalDays}`;
+  canonicalDays = days.join (',');
+  return `0 0 0 * * ${canonicalDays}`;
 }

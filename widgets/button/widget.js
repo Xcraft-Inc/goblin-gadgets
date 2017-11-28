@@ -207,7 +207,7 @@ class Button extends Widget {
         {...this.props}
         grow="1"
         buttonBackgroundColor={boxStyle.backgroundColor}
-        insideButton="true"
+        insideButton={this.props.insideButton || 'true'}
       />
     );
   }

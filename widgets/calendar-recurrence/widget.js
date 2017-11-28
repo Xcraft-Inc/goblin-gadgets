@@ -3,6 +3,7 @@ import Widget from 'laboratory/widget';
 import CronParser from 'cron-parser';
 import {date as DateConverters} from 'xcraft-core-converters';
 import * as Bool from 'gadgets/boolean-helpers';
+import * as CronHelpers from '../helpers/cron-helpers';
 
 import Container from 'gadgets/container/widget';
 import Label from 'gadgets/label/widget';
@@ -51,40 +52,42 @@ class CalendarRecurrence extends Widget {
 
   getDates (onlyMonth) {
     const result = [];
-    let startDate = this.props.startDate;
-    let endDate = this.props.endDate;
-    if (onlyMonth) {
-      startDate = this.startVisibleDate;
-      endDate = this.endVisibleDate;
-    }
-    var options = {
-      currentDate: DateConverters.canonicalToJs (
-        DateConverters.addDays (startDate, -1)
-      ),
-      endDate: DateConverters.canonicalToJs (
-        DateConverters.addDays (endDate, 10) // little more (cron bug ?)
-      ),
-      iterator: true,
-    };
-    try {
-      const interval = CronParser.parseExpression ('0 0 0 * * 1', options);
-      /* eslint no-constant-condition: 0 */
-      while (true) {
-        const next = interval.next ();
-        if (next.done) {
-          break;
-        }
-        const date = DateConverters.jsToCanonical (next.value);
-        if (date >= startDate && date <= endDate) {
-          result.push (date);
-        }
+    if (this.props.days) {
+      const cron = CronHelpers.getCron (this.props.days);
+      let startDate = this.props.startDate;
+      let endDate = this.props.endDate;
+      if (onlyMonth) {
+        startDate = this.startVisibleDate;
+        endDate = this.endVisibleDate;
       }
-    } catch (e) {}
+      const options = {
+        currentDate: DateConverters.canonicalToJs (
+          DateConverters.addDays (startDate, -1) // -1 because first step
+        ),
+        endDate: DateConverters.canonicalToJs (
+          DateConverters.addDays (endDate, 10) // little more (cron bug ?)
+        ),
+        iterator: true,
+      };
+      try {
+        const interval = CronParser.parseExpression (cron, options);
+        /* eslint no-constant-condition: 0 */
+        while (true) {
+          const next = interval.next ();
+          if (next.done) {
+            break;
+          }
+          const date = DateConverters.jsToCanonical (next.value);
+          if (date >= startDate && date <= endDate) {
+            result.push (date);
+          }
+        }
+      } catch (e) {}
+    }
     return result;
   }
 
   get addDates () {
-    //- return ['2017-11-04', '2017-11-05', '2017-11-06']; //????
     if (this.props.addDates) {
       return this.props.addDates.toArray ();
     } else {
@@ -93,7 +96,6 @@ class CalendarRecurrence extends Widget {
   }
 
   get subDates () {
-    //- return ['2017-11-07', '2017-11-08', '2017-11-09']; //????
     if (this.props.subDates) {
       return this.props.subDates.toArray ();
     } else {
@@ -124,7 +126,12 @@ class CalendarRecurrence extends Widget {
     const addDates = this.addDates;
     const subDates = this.subDates;
     for (const d of dates) {
-      if (d >= startDate && d <= endDate && subDates.indexOf (d) === -1) {
+      if (
+        d >= startDate &&
+        d <= endDate &&
+        addDates.indexOf (d) === -1 &&
+        subDates.indexOf (d) === -1
+      ) {
         array.push ({type: 'base', date: d});
       }
     }

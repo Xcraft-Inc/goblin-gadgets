@@ -55,7 +55,7 @@ class Calendar extends Widget {
 
   get endVisibleDate () {
     return DateConverters.addDays (
-      DateConverters.addMonths (this.startDate, 1),
+      DateConverters.addMonths (this.startVisibleDate, 1),
       -1
     );
   }

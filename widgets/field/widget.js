@@ -930,6 +930,8 @@ class Field extends Form {
         return {
           startDate: r.get ('startDate'),
           endDate: r.get ('endDate'),
+          days: r.get ('days'),
+          months: r.get ('months'),
           addDates: r.get ('addDates'),
           subDates: r.get ('subDates'),
         };
