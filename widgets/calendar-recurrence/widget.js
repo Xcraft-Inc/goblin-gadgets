@@ -1,5 +1,6 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
+import CronParser from 'cron-parser';
 import {date as DateConverters} from 'xcraft-core-converters';
 import * as Bool from 'gadgets/boolean-helpers';
 
@@ -35,26 +36,51 @@ class CalendarRecurrence extends Widget {
   }
   //#endregion
 
-  get startDate () {
+  get startVisibleDate () {
     const month = DateConverters.getMonth (this.visibleDate);
     const year = DateConverters.getYear (this.visibleDate);
     return DateConverters.getDate (year, month, 1);
   }
 
-  get endDate () {
+  get endVisibleDate () {
     return DateConverters.addDays (
-      DateConverters.addMonths (this.startDate, 1),
+      DateConverters.addMonths (this.startVisibleDate, 1),
       -1
     );
   }
 
-  get dates () {
-    //- return ['2017-11-01', '2017-11-02', '2017-11-03']; //????
-    if (this.props.dates) {
-      return this.props.dates.toArray ();
-    } else {
-      return [];
+  getDates (onlyMonth) {
+    const result = [];
+    let startDate = this.props.startDate;
+    let endDate = this.props.endDate;
+    if (onlyMonth) {
+      startDate = this.startVisibleDate;
+      endDate = this.endVisibleDate;
     }
+    var options = {
+      currentDate: DateConverters.canonicalToJs (
+        DateConverters.addDays (startDate, -1)
+      ),
+      endDate: DateConverters.canonicalToJs (
+        DateConverters.addDays (endDate, 10) // little more (cron bug ?)
+      ),
+      iterator: true,
+    };
+    try {
+      const interval = CronParser.parseExpression ('0 0 0 * * 1', options);
+      /* eslint no-constant-condition: 0 */
+      while (true) {
+        const next = interval.next ();
+        if (next.done) {
+          break;
+        }
+        const date = DateConverters.jsToCanonical (next.value);
+        if (date >= startDate && date <= endDate) {
+          result.push (date);
+        }
+      }
+    } catch (e) {}
+    return result;
   }
 
   get addDates () {
@@ -92,9 +118,9 @@ class CalendarRecurrence extends Widget {
   // Filter dates to current month.
   get calendarDates () {
     const array = [];
-    const startDate = this.startDate;
-    const endDate = this.endDate;
-    const dates = this.dates;
+    const startDate = this.startVisibleDate;
+    const endDate = this.endVisibleDate;
+    const dates = this.getDates (true);
     const addDates = this.addDates;
     const subDates = this.subDates;
     for (const d of dates) {
@@ -118,7 +144,7 @@ class CalendarRecurrence extends Widget {
   // Return dates for right list.
   get listDates () {
     const array = [];
-    const dates = this.dates;
+    const dates = this.getDates (false);
     const addDates = this.addDates;
     const subDates = this.subDates;
     for (const d of dates) {
@@ -140,6 +166,8 @@ class CalendarRecurrence extends Widget {
       <Container kind="row">
         <Calendar
           monthCount="1"
+          startDate={this.props.startDate}
+          endDate={this.props.endDate}
           visibleDate={this.visibleDate}
           dates={this.calendarDates}
           dateClicked={this.onDateClicked}

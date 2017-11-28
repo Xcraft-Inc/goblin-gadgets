@@ -47,13 +47,13 @@ class Calendar extends Widget {
     }
   }
 
-  get startDate () {
+  get startVisibleDate () {
     const month = DateConverters.getMonth (this.props.visibleDate);
     const year = DateConverters.getYear (this.props.visibleDate);
     return DateConverters.getDate (year, month, 1);
   }
 
-  get endDate () {
+  get endVisibleDate () {
     return DateConverters.addDays (
       DateConverters.addMonths (this.startDate, 1),
       -1
@@ -123,7 +123,7 @@ class Calendar extends Widget {
   }
 
   onDateClicked (date) {
-    if (date >= this.startDate && date <= this.endDate) {
+    if (date >= this.startVisibleDate && date <= this.endVisibleDate) {
       const x = this.props.dateClicked;
       if (x) {
         x (date);
@@ -157,9 +157,9 @@ class Calendar extends Widget {
 
   // Return an array of 7 buttons, for a week.
   renderButtons (firstDate) {
-    let line = [];
-    const startDate = this.startDate;
-    const endDate = this.endDate;
+    const line = [];
+    const startDate = this.props.startDate;
+    const endDate = this.props.endDate;
     let i = 0;
     for (i = 0; i < 7; ++i) {
       // monday..sunday
@@ -270,7 +270,7 @@ class Calendar extends Widget {
 
   // Return an array of 7 days of week.
   renderDOWs () {
-    let line = [];
+    const line = [];
     let i = 0;
     for (i = 0; i < 7; ++i) {
       const dow = this.getDOW3Letters (i);
@@ -292,7 +292,7 @@ class Calendar extends Widget {
   // Return an array of lines, with header then week's lines.
   // The array must have from 4 to 6 lines.
   renderColumnOfLines (header, firstDate, firstMonth, lastMonth) {
-    let column = [];
+    const column = [];
     column.push (this.renderHeader (header, firstMonth, lastMonth));
     column.push (this.renderLineOfDOWs ());
     for (let i = 0; i < 6; ++i) {
