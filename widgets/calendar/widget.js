@@ -219,6 +219,9 @@ class Calendar extends Widget {
           glyph="chevron-left"
           kind="calendar-navigator"
           key="prevMonth"
+          disabled={Bool.toString (
+            this.props.visibleDate < this.props.startDate
+          )}
           onClick={this.onPrevMonth}
         />
       );
@@ -234,6 +237,10 @@ class Calendar extends Widget {
           glyph="chevron-right"
           kind="calendar-navigator"
           key="nextMonth"
+          disabled={Bool.toString (
+            DateConverters.moveAtEndingOfMonth (this.props.visibleDate) >
+              this.props.endDate
+          )}
           onClick={this.onNextMonth}
         />
       );
