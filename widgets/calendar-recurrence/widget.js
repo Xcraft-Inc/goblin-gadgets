@@ -19,8 +19,16 @@ class CalendarRecurrence extends Widget {
   constructor () {
     super (...arguments);
 
+    let now = DateConverters.getNowCanonical ();
+    if (now < this.props.startDate) {
+      now = this.props.startDate;
+    }
+    if (now > this.props.endDate) {
+      now = this.props.endDate;
+    }
+
     this.state = {
-      visibleDate: DateConverters.getNowCanonical (),
+      visibleDate: DateConverters.moveAtBeginningOfMonth (now),
     };
 
     this.onDateClicked = this.onDateClicked.bind (this);
@@ -40,27 +48,8 @@ class CalendarRecurrence extends Widget {
   }
   //#endregion
 
-  get startVisibleDate () {
-    const month = DateConverters.getMonth (this.visibleDate);
-    const year = DateConverters.getYear (this.visibleDate);
-    return DateConverters.getDate (year, month, 1);
-  }
-
-  get endVisibleDate () {
-    return DateConverters.addDays (
-      DateConverters.addMonths (this.startVisibleDate, 1),
-      -1
-    );
-  }
-
-  getDates (onlyMonth) {
+  getDates (startDate, endDate) {
     if (this.props.days) {
-      let startDate = this.props.startDate;
-      let endDate = this.props.endDate;
-      if (onlyMonth) {
-        startDate = this.startVisibleDate;
-        endDate = this.endVisibleDate;
-      }
       return CronConverters.computeCronDates (
         startDate,
         endDate,
@@ -88,7 +77,7 @@ class CalendarRecurrence extends Widget {
   }
 
   onVisibleDateChanged (date) {
-    this.visibleDate = date;
+    this.visibleDate = DateConverters.moveAtBeginningOfMonth (date);
   }
 
   onFlushAdd () {
@@ -103,9 +92,9 @@ class CalendarRecurrence extends Widget {
   // Filter dates to current month.
   get calendarDates () {
     const array = [];
-    const startDate = this.startVisibleDate;
-    const endDate = this.endVisibleDate;
-    const dates = this.getDates (true);
+    const startDate = DateConverters.moveAtBeginningOfMonth (this.visibleDate);
+    const endDate = DateConverters.moveAtEndingOfMonth (this.visibleDate);
+    const dates = this.getDates (startDate, endDate);
     const addDates = this.addDates;
     for (const d of dates) {
       if (d >= startDate && d <= endDate && addDates.indexOf (d) === -1) {
@@ -127,7 +116,7 @@ class CalendarRecurrence extends Widget {
   // Return dates for right list.
   get listDates () {
     const array = [];
-    const dates = this.getDates (false);
+    const dates = this.getDates (this.props.startDate, this.props.endDate);
     const addDates = this.addDates;
     for (const d of dates) {
       if (addDates.indexOf (d) === -1) {
