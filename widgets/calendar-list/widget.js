@@ -82,25 +82,15 @@ class CalendarList extends Form {
 
   get listDates () {
     const array = [];
-    if (this.showBase) {
-      for (const d of this.props.dates) {
-        if (d.type === 'base') {
-          array.push (d.date + 'a'); // '2017-11-25a'
-        }
+    for (const d of this.props.dates) {
+      if (this.showBase && d.type === 'base') {
+        array.push (d.date + 'a'); // '2017-11-25a'
       }
-    }
-    if (this.showAdd) {
-      for (const d of this.props.dates) {
-        if (d.type === 'add') {
-          array.push (d.date + 'b'); // '2017-11-25b'
-        }
+      if (this.showAdd && d.type === 'add') {
+        array.push (d.date + 'b'); // '2017-11-25b'
       }
-    }
-    if (this.showSub) {
-      for (const d of this.props.dates) {
-        if (d.type === 'sub') {
-          array.push (d.date + 'c'); // '2017-11-25c'
-        }
+      if (this.showSub && d.type === 'sub') {
+        array.push (d.date + 'c'); // '2017-11-25c'
       }
     }
     array.sort (); // sort mixing base/add/sub dates

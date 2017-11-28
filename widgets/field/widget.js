@@ -928,7 +928,6 @@ class Field extends Form {
       CalendarRecurrence,
       r => {
         return {
-          date: r.get ('date'),
           addDates: r.get ('addDates'),
           subDates: r.get ('subDates'),
         };
