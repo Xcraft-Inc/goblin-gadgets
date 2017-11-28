@@ -1,3 +1,4 @@
+import CronParser from 'cron-parser';
 import {date as DateConverters} from 'xcraft-core-converters';
 
 // *    *    *    *    *    *
@@ -120,7 +121,7 @@ export function getDisplayedCron (days, months, deleteList, addList) {
 // 0 0 0 * * 1,4
 // 0 0 0 * * 2
 // 0 0 0 * * 1-5
-export function getCron (canonicalDays) {
+function getCron (canonicalDays) {
   let days = [];
   for (let d of canonicalDays.split (',')) {
     if (d === '7') {
@@ -130,4 +131,35 @@ export function getCron (canonicalDays) {
   }
   canonicalDays = days.join (',');
   return `0 0 0 * * ${canonicalDays}`;
+}
+
+export function computeCronDates (startDate, endDate, days) {
+  const result = [];
+  if (days) {
+    const cron = getCron (days);
+    const options = {
+      currentDate: DateConverters.canonicalToJs (
+        DateConverters.addDays (startDate, -1) // -1 because first step
+      ),
+      endDate: DateConverters.canonicalToJs (
+        DateConverters.addDays (endDate, 10) // little more (cron bug ?)
+      ),
+      iterator: true,
+    };
+    try {
+      const interval = CronParser.parseExpression (cron, options);
+      /* eslint no-constant-condition: 0 */
+      while (true) {
+        const next = interval.next ();
+        if (next.done) {
+          break;
+        }
+        const date = DateConverters.jsToCanonical (next.value);
+        if (date >= startDate && date <= endDate) {
+          result.push (date);
+        }
+      }
+    } catch (e) {}
+  }
+  return result;
 }

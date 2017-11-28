@@ -51,53 +51,22 @@ class CalendarRecurrence extends Widget {
   }
 
   getDates (onlyMonth) {
-    const result = [];
     if (this.props.days) {
-      const cron = CronHelpers.getCron (this.props.days);
       let startDate = this.props.startDate;
       let endDate = this.props.endDate;
       if (onlyMonth) {
         startDate = this.startVisibleDate;
         endDate = this.endVisibleDate;
       }
-      const options = {
-        currentDate: DateConverters.canonicalToJs (
-          DateConverters.addDays (startDate, -1) // -1 because first step
-        ),
-        endDate: DateConverters.canonicalToJs (
-          DateConverters.addDays (endDate, 10) // little more (cron bug ?)
-        ),
-        iterator: true,
-      };
-      try {
-        const interval = CronParser.parseExpression (cron, options);
-        /* eslint no-constant-condition: 0 */
-        while (true) {
-          const next = interval.next ();
-          if (next.done) {
-            break;
-          }
-          const date = DateConverters.jsToCanonical (next.value);
-          if (date >= startDate && date <= endDate) {
-            result.push (date);
-          }
-        }
-      } catch (e) {}
-    }
-    return result;
-  }
-
-  get addDates () {
-    if (this.props.addDates) {
-      return this.props.addDates.toArray ();
+      return CronHelpers.computeCronDates (startDate, endDate, this.props.days);
     } else {
       return [];
     }
   }
 
-  get subDates () {
-    if (this.props.subDates) {
-      return this.props.subDates.toArray ();
+  get addDates () {
+    if (this.props.addDates) {
+      return this.props.addDates.toArray ();
     } else {
       return [];
     }
@@ -124,25 +93,18 @@ class CalendarRecurrence extends Widget {
     const endDate = this.endVisibleDate;
     const dates = this.getDates (true);
     const addDates = this.addDates;
-    const subDates = this.subDates;
     for (const d of dates) {
-      if (
-        d >= startDate &&
-        d <= endDate &&
-        addDates.indexOf (d) === -1 &&
-        subDates.indexOf (d) === -1
-      ) {
+      if (d >= startDate && d <= endDate && addDates.indexOf (d) === -1) {
         array.push ({type: 'base', date: d});
       }
     }
     for (const d of addDates) {
       if (d >= startDate && d <= endDate) {
-        array.push ({type: 'add', date: d});
-      }
-    }
-    for (const d of subDates) {
-      if (d >= startDate && d <= endDate) {
-        array.push ({type: 'sub', date: d});
+        if (dates.indexOf (d) === -1) {
+          array.push ({type: 'add', date: d});
+        } else {
+          array.push ({type: 'sub', date: d});
+        }
       }
     }
     return array;
@@ -153,17 +115,17 @@ class CalendarRecurrence extends Widget {
     const array = [];
     const dates = this.getDates (false);
     const addDates = this.addDates;
-    const subDates = this.subDates;
     for (const d of dates) {
-      if (subDates.indexOf (d) === -1) {
+      if (addDates.indexOf (d) === -1) {
         array.push ({type: 'base', date: d});
       }
     }
     for (const d of addDates) {
-      array.push ({type: 'add', date: d});
-    }
-    for (const d of subDates) {
-      array.push ({type: 'sub', date: d});
+      if (dates.indexOf (d) === -1) {
+        array.push ({type: 'add', date: d});
+      } else {
+        array.push ({type: 'sub', date: d});
+      }
     }
     return array;
   }
