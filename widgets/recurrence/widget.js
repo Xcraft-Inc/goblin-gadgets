@@ -3,7 +3,7 @@ import CronParser from 'cron-parser';
 import Form from 'laboratory/form';
 import {date as DateConverters} from 'xcraft-core-converters';
 
-import * as CronHelpers from '../helpers/cron-helpers';
+//- import * as CronHelpers from '../helpers/cron-helpers';
 import * as Bool from 'gadgets/boolean-helpers';
 
 import Calendar from 'gadgets/calendar/widget';
@@ -65,7 +65,7 @@ function getRecurrenceItems (
   }
 
   if (days && days !== '' && months && months !== '') {
-    const cron = CronHelpers.getCron (days, months);
+    const cron = null; //- CronHelpers.getCron (days, months);
     if (cron) {
       pushCron (result, date, startDate, endDate, cron, deleteList);
     }
@@ -132,12 +132,13 @@ class Recurrence extends Form {
   }
 
   get cronInfo () {
-    return CronHelpers.getDisplayedCron (
-      this.props.days,
-      this.props.months,
-      this.props.deleteList,
-      this.props.addList
-    );
+    return '?';
+    //- return CronHelpers.getDisplayedCron (
+    //-   this.props.days,
+    //-   this.props.months,
+    //-   this.props.deleteList,
+    //-   this.props.addList
+    //- );
   }
 
   get items () {
