@@ -111,7 +111,7 @@ class CalendarList extends Form {
     return result;
   }
 
-  renderItem (type, date) {
+  renderItem (type, date, index) {
     const dd = DateConverters.getDisplayed (date, 'dMy,W');
     let glyph = 'check-square';
     if (type === 'add') {
@@ -121,6 +121,7 @@ class CalendarList extends Form {
     }
     return (
       <Button
+        key={index}
         kind="calendar-list"
         subkind={type}
         justify="left"
@@ -134,8 +135,9 @@ class CalendarList extends Form {
 
   renderItems () {
     const result = [];
+    let index = 0;
     for (const date of this.listDates) {
-      result.push (this.renderItem (date.type, date.date));
+      result.push (this.renderItem (date.type, date.date, index++));
     }
     return result;
   }
