@@ -1,9 +1,11 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 import CronParser from 'cron-parser';
-import {date as DateConverters} from 'xcraft-core-converters';
+import {
+  date as DateConverters,
+  cron as CronConverters,
+} from 'xcraft-core-converters';
 import * as Bool from 'gadgets/boolean-helpers';
-import * as CronHelpers from '../helpers/cron-helpers';
 
 import Container from 'gadgets/container/widget';
 import Label from 'gadgets/label/widget';
@@ -59,7 +61,11 @@ class CalendarRecurrence extends Widget {
         startDate = this.startVisibleDate;
         endDate = this.endVisibleDate;
       }
-      return CronHelpers.computeCronDates (startDate, endDate, this.props.days);
+      return CronConverters.computeCronDates (
+        startDate,
+        endDate,
+        this.props.days
+      );
     } else {
       return [];
     }
