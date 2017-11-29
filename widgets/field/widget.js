@@ -1,8 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Form from 'laboratory/form';
 import Widget from 'laboratory/widget';
-import {Control} from 'react-redux-form/immutable';
 import * as Bool from 'gadgets/boolean-helpers';
 import {
   date as DateConverters,
@@ -25,9 +23,7 @@ import CheckList from 'gadgets/check-list/widget';
 import CalendarRecurrence from 'gadgets/calendar-recurrence/widget';
 
 import Plugin from 'desktop/plugin/widget';
-import Workitem from 'desktop/workitem/widget';
-import importer from 'laboratory/importer/';
-const uiImporter = importer ('ui');
+
 /******************************************************************************/
 
 const defaultLabelWidth = '120px';
