@@ -643,6 +643,8 @@ class Field extends Form {
           fieldWidth="120px"
           hintText={this.props.hintText}
           model={this.props.model}
+          minDate={this.props.minDate}
+          maxDate={this.props.maxDate}
         />
       </Container>
     );

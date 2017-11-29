@@ -38,7 +38,12 @@ class TextFieldTyped extends Widget {
     let parsed;
     switch (this.props.type) {
       case 'date':
-        parsed = DateConverters.parseEdited (displayedValue);
+        parsed = DateConverters.parseEdited (
+          displayedValue,
+          null,
+          this.props.minDate,
+          this.props.maxDate
+        );
         break;
       case 'time':
         parsed = TimeConverters.parseEdited (displayedValue, '12:00:00');
@@ -68,7 +73,7 @@ class TextFieldTyped extends Widget {
       <LabelTextField
         updateOn="blur"
         beforeChange={val => {
-          const p = this.parseEditedValue (val);
+          //const p = this.parseEditedValue (val);
           //console.log (
           //  `TextFieldTyped.beforeChange canonicalValue=${p.canonicalValue} warning=${p.warning} displayedFinalValue=${p.displayedFinalValue}`
           //);
