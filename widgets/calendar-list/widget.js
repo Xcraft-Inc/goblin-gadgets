@@ -167,9 +167,8 @@ class CalendarList extends Form {
           kind="calendar-list"
           subkind="base"
           active={this.showBase ? 'true' : 'false'}
-          glyph={this.showBase ? 'eye' : 'eye-slash'}
-          text="Rég"
-          tooltip="Dates régulières"
+          text="Régul."
+          tooltip="Montre ou cache les dates régulières"
           grow="1"
           spacing="overlap"
           onClick={this.onShowBase}
@@ -178,9 +177,8 @@ class CalendarList extends Form {
           kind="calendar-list"
           subkind="add"
           active={this.showAdd ? 'true' : 'false'}
-          glyph={this.showAdd ? 'eye' : 'eye-slash'}
           text="Ajouts"
-          tooltip="Dates ajoutées"
+          tooltip="Montre ou cache les dates ajoutées"
           grow="1"
           spacing="overlap"
           onClick={this.onShowAdd}
@@ -189,9 +187,8 @@ class CalendarList extends Form {
           kind="calendar-list"
           subkind="sub"
           active={this.showSub ? 'true' : 'false'}
-          glyph={this.showSub ? 'eye' : 'eye-slash'}
-          text="Supp"
-          tooltip="Dates supprimées"
+          text="Supp."
+          tooltip="Montre ou cache les dates supprimées"
           grow="1"
           spacing="overlap"
           onClick={this.onShowSub}
