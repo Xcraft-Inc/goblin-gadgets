@@ -914,7 +914,7 @@ class Field extends Form {
             />}
         <Check
           text={this.props.labelText}
-          onClick={index => {
+          onClick={() => {
             const checked = this.getBackendValue (this.fullPath);
             this.setBackendValue (this.fullPath, !checked);
           }}
@@ -932,6 +932,7 @@ class Field extends Form {
           endDate: r.get ('endDate'),
           days: r.get ('days'),
           addDates: r.get ('addDates'),
+          cronDates: r.get ('cronDates'),
         };
       },
       this.fullPath

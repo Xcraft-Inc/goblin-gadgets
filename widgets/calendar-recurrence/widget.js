@@ -1,10 +1,6 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
-import CronParser from 'cron-parser';
-import {
-  date as DateConverters,
-  cron as CronConverters,
-} from 'xcraft-core-converters';
+import {date as DateConverters} from 'xcraft-core-converters';
 import * as Bool from 'gadgets/boolean-helpers';
 
 import Container from 'gadgets/container/widget';
@@ -48,18 +44,6 @@ class CalendarRecurrence extends Widget {
   }
   //#endregion
 
-  getDates (startDate, endDate) {
-    if (this.props.days) {
-      return CronConverters.computeCronDates (
-        startDate,
-        endDate,
-        this.props.days
-      );
-    } else {
-      return [];
-    }
-  }
-
   get addDates () {
     if (this.props.addDates) {
       return this.props.addDates.toArray ();
@@ -94,16 +78,20 @@ class CalendarRecurrence extends Widget {
     const array = [];
     const startDate = DateConverters.moveAtBeginningOfMonth (this.visibleDate);
     const endDate = DateConverters.moveAtEndingOfMonth (this.visibleDate);
-    const dates = this.getDates (startDate, endDate);
     const addDates = this.addDates;
-    for (const d of dates) {
-      if (d >= startDate && d <= endDate && addDates.indexOf (d) === -1) {
-        array.push ({type: 'base', date: d});
+    const cronDates = this.props.cronDates.toArray ();
+    const datesOfMonth = [];
+    for (const d of cronDates) {
+      if (d >= startDate && d <= endDate) {
+        datesOfMonth.push (d);
+        if (addDates.indexOf (d) === -1) {
+          array.push ({type: 'base', date: d});
+        }
       }
     }
     for (const d of addDates) {
       if (d >= startDate && d <= endDate) {
-        if (dates.indexOf (d) === -1) {
+        if (datesOfMonth.indexOf (d) === -1) {
           array.push ({type: 'add', date: d});
         } else {
           array.push ({type: 'sub', date: d});
@@ -116,15 +104,15 @@ class CalendarRecurrence extends Widget {
   // Return dates for right list.
   get listDates () {
     const array = [];
-    const dates = this.getDates (this.props.startDate, this.props.endDate);
     const addDates = this.addDates;
-    for (const d of dates) {
+    const cronDates = this.props.cronDates.toArray ();
+    for (const d of cronDates) {
       if (addDates.indexOf (d) === -1) {
         array.push ({type: 'base', date: d});
       }
     }
     for (const d of addDates) {
-      if (dates.indexOf (d) === -1) {
+      if (cronDates.indexOf (d) === -1) {
         array.push ({type: 'add', date: d});
       } else {
         array.push ({type: 'sub', date: d});
