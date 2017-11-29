@@ -55,7 +55,6 @@ export default function styles (theme, props) {
   let activeColor = theme.palette.boxActiveBackground;
   let borderHoverColor = null;
   let backgroundHoverColor = null;
-  let textSize = theme.shapes.buttonTextSize;
   let boxPosition = props.position ? props.position : 'relative';
   let cursor = props.cursor ? props.cursor : 'default';
   let transition = theme.transitions.easeOut ();
@@ -93,7 +92,6 @@ export default function styles (theme, props) {
     borderStyle = 'none';
     backgroundColor = theme.palette.taskLogoBackground;
     activeColor = theme.palette.taskTabActiveBackground;
-    textSize = theme.shapes.taskLogoTextSize;
   }
 
   // Task button (usual parent is container with kind='task-bar').
@@ -105,7 +103,6 @@ export default function styles (theme, props) {
     borderStyle = 'none none solid none';
     borderColor = theme.palette.taskButtonBorder;
     backgroundColor = theme.palette.taskButtonBackground;
-    textSize = theme.shapes.taskTextSize;
   }
 
   // main-tab button (usual parent is container with kind='main-tab').
@@ -113,7 +110,6 @@ export default function styles (theme, props) {
     boxHeight = theme.shapes.mainTabHeight;
     boxMarginRight = '1px';
     borderStyle = 'none';
-    textSize = theme.shapes.mainTabTextSize;
     backgroundColor = theme.palette.mainTabButtonInactiveBackground;
     activeColor = theme.palette.mainTabButtonActiveBackground;
   }
@@ -140,7 +136,6 @@ export default function styles (theme, props) {
       boxMarginLeft = '-1px';
     }
     borderStyle = 'none';
-    textSize = theme.shapes.viewTabTextSize;
     backgroundColor = theme.palette.viewTabButtonInactiveBackground;
     activeColor = theme.palette.viewTabButtonActiveBackground;
   }
@@ -166,7 +161,6 @@ export default function styles (theme, props) {
     activeColor = theme.palette.taskTabActiveBackground;
     borderStyle = 'none none solid none';
     borderColor = theme.palette.taskButtonBorder;
-    textSize = theme.shapes.taskTabTextSize;
   }
 
   // pane-navigator button (usual parent is container with kind='pane-navigator').
@@ -177,7 +171,6 @@ export default function styles (theme, props) {
     borderStyle = 'none none solid none';
     borderColor = theme.palette.paneNavigatorInactiveBorder;
     borderActiveColor = theme.palette.paneNavigatorActiveBorder;
-    textSize = theme.shapes.paneNavigatorTextSize;
     borderHoverColor = theme.palette.paneNavigatorBorderHover;
     backgroundHoverColor = '#ffffff00'; // transparent
   }
@@ -190,7 +183,6 @@ export default function styles (theme, props) {
     borderStyle = 'none none solid none';
     borderColor = theme.palette.paneNavigatorInactiveBorder;
     borderActiveColor = theme.palette.paneNavigatorActiveBorder;
-    textSize = theme.shapes.paneNavigatorTextSize;
     borderHoverColor = theme.palette.paneNavigatorBorderHover;
     backgroundHoverColor = '#ffffff00'; // transparent
   }
@@ -202,7 +194,6 @@ export default function styles (theme, props) {
     boxMarginBottom = '1px';
     backgroundColor = theme.palette.vnavigatorButtonInactiveBackground;
     borderStyle = 'none';
-    textSize = theme.shapes.paneNavigatorTextSize;
     activeColor = theme.palette.vnavigatorButtonActiveBackground;
   }
 
@@ -212,7 +203,6 @@ export default function styles (theme, props) {
     boxMarginRight = '1px';
     boxPaddingRight = m;
     boxPaddingLeft = m;
-    textSize = theme.shapes.footerTextSize;
     if (props.text) {
       backgroundColor = theme.palette.footerTextBackground;
     } else {
@@ -224,7 +214,6 @@ export default function styles (theme, props) {
   // Notification button (usual parent is container with kind='notification-header').
   if (props.kind === 'button-notification') {
     boxHeight = '32px';
-    textSize = theme.shapes.notificationButtonTextSize;
     backgroundColor = 'transparent';
     borderStyle = 'none';
     backgroundHoverColor = 'transparent';
@@ -265,7 +254,6 @@ export default function styles (theme, props) {
     boxHeight = theme.shapes.footerHeight;
     boxPaddingLeft = theme.shapes.warningLeftPadding;
     borderStyle = 'none';
-    textSize = theme.shapes.warningTextSize;
     backgroundColor = theme.palette.warningBackground;
   }
 
@@ -293,7 +281,6 @@ export default function styles (theme, props) {
     borderStyle = 'none';
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'none';
     backgroundColor = theme.palette.actionButtonBackground;
-    textSize = theme.shapes.actionTextSize;
     if (place === 'left') {
       boxMarginRight = '1px';
       borderRadius = r + ' 0px 0px ' + r;
@@ -310,7 +297,6 @@ export default function styles (theme, props) {
   if (props.kind === 'subaction') {
     borderStyle = 'none';
     backgroundColor = theme.palette.subactionButtonBackground;
-    textSize = theme.shapes.subactionTextSize;
   }
 
   // Combo button, place to the right of a TextFieldCombo component.
@@ -363,7 +349,6 @@ export default function styles (theme, props) {
     boxPaddingRight = theme.shapes.containerMargin;
     boxPaddingLeft = theme.shapes.containerMargin;
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
-    textSize = theme.shapes.menuTextSize;
     borderStyle = 'none';
     backgroundColor = theme.palette.menuItemInactiveBackground;
     if (props.active === 'focused') {
@@ -378,7 +363,6 @@ export default function styles (theme, props) {
     boxPaddingRight = theme.shapes.containerMargin;
     boxPaddingLeft = theme.shapes.containerMargin;
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
-    textSize = theme.shapes.menuTextSize;
     borderStyle = 'none';
     backgroundColor = theme.palette.comboItemBackground;
     if (props.active === 'focused') {
@@ -396,7 +380,6 @@ export default function styles (theme, props) {
     boxPaddingRight = theme.shapes.containerMargin;
     boxPaddingLeft = theme.shapes.containerMargin;
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
-    textSize = theme.shapes.menuTextSize;
     borderStyle = 'none';
     backgroundColor = theme.palette.comboItemBackground;
     if (props.active === 'focused') {
@@ -420,7 +403,6 @@ export default function styles (theme, props) {
     boxHeight = Unit.add (theme.shapes.lineHeight, '2px'); // same as TextField with 2px for borders
     borderStyle = 'none';
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
-    textSize = theme.shapes.ticketGlueTitleSize;
     backgroundColor = null;
   }
 
@@ -435,7 +417,6 @@ export default function styles (theme, props) {
       boxWidth = theme.shapes.calendarButtonWidth;
     }
     boxHeight = theme.shapes.calendarButtonHeight;
-    textSize = theme.shapes.calendarTextSize;
     transition = null;
     backgroundColor = 'transparent';
     if (Bool.isTrue (props.calendarWeekend)) {
