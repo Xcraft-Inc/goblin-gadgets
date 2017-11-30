@@ -29,6 +29,8 @@ class ChronoLine extends Widget {
   }
 
   componentDidMount () {
+    super.componentDidMount ();
+
     if (!window.document.chronoLines) {
       window.document.chronoLines = [];
     }
