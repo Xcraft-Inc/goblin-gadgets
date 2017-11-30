@@ -65,6 +65,9 @@ class Field extends Form {
     const Dynamic = this.mapWidget (
       Label,
       value => {
+        if (!value) {
+          return;
+        }
         if (typeof value === 'object') {
           return this.props.map (value.toJS ());
         }
