@@ -685,17 +685,6 @@ export default function styles (theme, props) {
     userSelect: 'none',
   };
 
-  const menuBoxStyle = {
-    position: 'absolute',
-    top: props.menuDirection === 'top' ? null : boxHeight,
-    bottom: props.menuDirection === 'top' ? boxHeight : null,
-    padding: '1px 0px 1px 0px',
-    left: '0px',
-    backgroundColor: theme.palette.menuBackground,
-    zIndex: 2,
-    userSelect: 'none',
-  };
-
   const busyBoxStyle = {
     position: 'absolute',
     width: '100%',
@@ -721,7 +710,6 @@ export default function styles (theme, props) {
   return {
     box: boxStyle,
     triangle: triangleStyle,
-    menuBox: menuBoxStyle,
     busyBox: busyBoxStyle,
     busyGlyph: busyGlyphStyle,
     focusedForeground: focusedForegroundStyle,

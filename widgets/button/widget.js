@@ -5,7 +5,6 @@ import * as ShortcutHelpers from '../helpers/shortcut-helpers.js';
 import * as Bool from 'gadgets/boolean-helpers';
 
 import Label from 'gadgets/label/widget';
-import Menu from 'gadgets/menu/widget';
 import Badge from 'gadgets/badge/widget';
 
 /******************************************************************************/
@@ -24,10 +23,10 @@ class Button extends Widget {
     this.onMouseUp = this.onMouseUp.bind (this);
     this.onMouseOver = this.onMouseOver.bind (this);
     this.onMouseOut = this.onMouseOut.bind (this);
-    this.onShowMenu = this.onShowMenu.bind (this);
     this.onKeySpace = this.onKeySpace.bind (this);
   }
 
+  //#region get/set
   get focus () {
     return this.state.focus;
   }
@@ -37,6 +36,7 @@ class Button extends Widget {
       focus: value,
     });
   }
+  //#endregion
 
   static get wiring () {
     return {
@@ -83,12 +83,6 @@ class Button extends Widget {
     if (this.props.onClick) {
       this.props.onClick ();
     }
-  }
-
-  // Called when the button is clicked.
-  onShowMenu () {
-    this.isMenuVisible = !this.isMenuVisible;
-    this.forceUpdate ();
   }
 
   onMouseDown (e) {
@@ -162,19 +156,6 @@ class Button extends Widget {
     if (this.props.kind === 'main-tab' && Bool.isTrue (this.props.active)) {
       const triangleClass = this.styles.classNames.triangle;
       return <div className={triangleClass} key="triangle" />;
-    }
-  }
-
-  renderMenu () {
-    if (this.isMenuVisible) {
-      const menuClass = this.styles.classNames.menuBox;
-      return (
-        <div className={menuClass} key="menu">
-          {<Menu items={this.props.menu} />}
-        </div>
-      );
-    } else {
-      return null;
     }
   }
 
@@ -270,30 +251,6 @@ class Button extends Widget {
           {this.props.children}
         </div>
       );
-    } else if (this.props.menu) {
-      return (
-        <div
-          key={this.props.index}
-          {...propsTabIndex}
-          onFocus={this.onFocus}
-          onBlur={this.onBlur}
-          onMouseDown={this.onMouseDown}
-          onMouseUp={this.onMouseUp}
-          onTouchStart={this.onMouseDown}
-          onTouchEnd={this.onMouseUp}
-          onMouseOver={this.onMouseOver}
-          onMouseOut={this.onMouseOut}
-          className={boxClass}
-          title={tooltip}
-        >
-          {this.renderLayout ()}
-          {this.renderTriangle ()}
-          {this.renderBadge ()}
-          {this.renderMenu ()}
-          {this.renderBusy ()}
-          {this.props.children}
-        </div>
-      );
     } else if (this.props.toAnchor) {
       return (
         <a
@@ -314,7 +271,6 @@ class Button extends Widget {
           {this.renderLayout ()}
           {this.renderTriangle ()}
           {this.renderBadge ()}
-          {this.renderMenu ()}
           {this.renderBusy ()}
           {this.props.children}
         </a>
@@ -338,7 +294,6 @@ class Button extends Widget {
           {this.renderLayout ()}
           {this.renderTriangle ()}
           {this.renderBadge ()}
-          {this.renderMenu ()}
           {this.renderBusy ()}
           {this.props.children}
         </div>
