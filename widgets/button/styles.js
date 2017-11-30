@@ -410,10 +410,11 @@ export default function styles (theme, props) {
   if (
     props.kind === 'calendar' ||
     props.kind === 'calendar-navigator' ||
-    props.kind === 'calendar-list'
+    props.kind === 'calendar-list' ||
+    props.kind === 'calendar-title'
   ) {
     borderStyle = 'none';
-    if (props.kind !== 'calendar-list') {
+    if (props.kind === 'calendar' || props.kind === 'calendar-navigator') {
       boxWidth = theme.shapes.calendarButtonWidth;
     }
     boxHeight = theme.shapes.calendarButtonHeight;

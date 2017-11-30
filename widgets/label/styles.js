@@ -574,7 +574,8 @@ export default function styles (theme, props) {
   if (
     props.kind === 'calendar' ||
     props.kind === 'calendar-navigator' ||
-    props.kind === 'calendar-list'
+    props.kind === 'calendar-list' ||
+    props.kind === 'calendar-title'
   ) {
     textMarginRight = '0px';
     textMarginLeft = '0px';
@@ -604,6 +605,11 @@ export default function styles (theme, props) {
         textColor = theme.palette.calendarDimmedText;
       }
       specialDisabled = true;
+    }
+    if (props.kind === 'calendar-title') {
+      textSize = '100%';
+      textWeight = 'bold';
+      textTransform = 'uppercase';
     }
     glyphColor = textColor;
   }

@@ -35,16 +35,6 @@ export default function styles (theme, props) {
     color: theme.palette.calendarHeaderText,
   };
 
-  const headerTextStyle = {
-    flexGrow: 1,
-    textAlign: 'center',
-    lineHeight: theme.shapes.calendarButtonHeight,
-    color: theme.palette.calendarHeaderText,
-    fontWeight: 'bold',
-    textTransform: 'uppercase',
-    alignSelf: 'center',
-  };
-
   const dowTextStyle = {
     width: theme.shapes.calendarButtonWidth,
     textAlign: 'center',
@@ -91,7 +81,6 @@ export default function styles (theme, props) {
     month: monthStyle,
     singleMonth: singleMonthStyle,
     header: headerStyle,
-    headerText: headerTextStyle,
     dowText: dowTextStyle,
     dowLine: dowLineStyle,
     line: lineStyle,

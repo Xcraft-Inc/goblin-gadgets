@@ -14,14 +14,31 @@ class Calendar extends Widget {
   constructor () {
     super (...arguments);
 
+    this.state = {
+      showMenu: false,
+    };
+
     this.onPrevMonth = this.onPrevMonth.bind (this);
     this.onNextMonth = this.onNextMonth.bind (this);
+    this.onShowMenu = this.onShowMenu.bind (this);
     this.onVisibleDateMonth = this.onVisibleDateMonth.bind (this);
     this.onVisibleDateAddMonths = this.onVisibleDateAddMonths.bind (this);
     this.onVisibleDatePrevYear = this.onVisibleDatePrevYear.bind (this);
     this.onVisibleDateNextYear = this.onVisibleDateNextYear.bind (this);
     this.onDateClicked = this.onDateClicked.bind (this);
   }
+
+  //#region get/set
+  get showMenu () {
+    return this.state.showMenu;
+  }
+
+  set showMenu (value) {
+    this.setState ({
+      showMenu: value,
+    });
+  }
+  //#endregion
 
   static get wiring () {
     return {
@@ -88,6 +105,10 @@ class Calendar extends Widget {
   onNextMonth () {
     const newDate = DateConverters.addMonths (this.props.visibleDate, 1);
     this.changeDate (newDate);
+  }
+
+  onShowMenu () {
+    this.showMenu = !this.showMenu;
   }
 
   onVisibleDateNow () {
@@ -230,6 +251,22 @@ class Calendar extends Widget {
     }
   }
 
+  get titleMenu () {
+    return ['Rouge', 'Vert', 'Bleu'];
+  }
+
+  renderTitleButton (header) {
+    return (
+      <Button
+        kind="calendar-title"
+        grow="1"
+        text={header}
+        menu={this.titleMenu}
+        onClick={this.onShowMenu}
+      />
+    );
+  }
+
   renderNextMonthButton (showing) {
     if (showing) {
       return (
@@ -253,13 +290,10 @@ class Calendar extends Widget {
   // By example: '<' mai 2016 '>'
   renderHeader (header, firstMonth, lastMonth) {
     const headerClass = this.styles.classNames.header;
-    const textClass = this.styles.classNames.headerText;
     return (
       <div className={headerClass} key="header">
         {this.renderPrevMonthButton (firstMonth)}
-        <div className={textClass}>
-          {header}
-        </div>
+        {this.renderTitleButton (header)}
         {this.renderNextMonthButton (lastMonth)}
       </div>
     );
