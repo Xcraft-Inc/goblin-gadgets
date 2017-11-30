@@ -87,12 +87,16 @@ class Calendar extends Widget {
   get comboList () {
     const list = [];
     const nowRank = getMonthsRank (this.props.visibleDate);
-    const startCount = this.props.startDate
-      ? getMonthsRank (this.props.startDate) - nowRank
-      : 12;
-    const endCount = this.props.endDate
-      ? getMonthsRank (this.props.endDate) - nowRank
-      : 12;
+    const startCount = Math.max (
+      this.props.startDate
+        ? getMonthsRank (this.props.startDate) - nowRank
+        : -999,
+      -12
+    );
+    const endCount = Math.min (
+      this.props.endDate ? getMonthsRank (this.props.endDate) - nowRank : 999,
+      12
+    );
     for (let i = startCount; i <= endCount; i++) {
       const date = getDateFromRank (nowRank + i);
       list.push (this.getComboItem (date, i === 0));
