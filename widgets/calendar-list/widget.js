@@ -194,7 +194,7 @@ class CalendarList extends Form {
           onClick={this.onShowSub}
         />
         <Button
-          kind="calendar"
+          kind="calendar-navigator"
           glyph="trash"
           tooltip="Supprime toutes les exceptions"
           disabled={!this.hasAdd}

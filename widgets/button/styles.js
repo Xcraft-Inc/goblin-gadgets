@@ -419,6 +419,9 @@ export default function styles (theme, props) {
     boxHeight = theme.shapes.calendarButtonHeight;
     transition = null;
     backgroundColor = 'transparent';
+    if (props.kind === 'calendar-navigator') {
+      backgroundHoverColor = 'transparent';
+    }
     if (Bool.isTrue (props.calendarWeekend)) {
       backgroundColor = theme.palette.calendarWeekendBackground;
     }
@@ -435,6 +438,7 @@ export default function styles (theme, props) {
         activeColor = theme.palette.calendarActiveBackground;
       }
     }
+    specialDisabled = true;
   }
 
   if (props.kind === 'container') {

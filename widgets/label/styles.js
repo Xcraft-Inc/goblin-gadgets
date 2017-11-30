@@ -598,6 +598,13 @@ export default function styles (theme, props) {
     if (Bool.isTrue (props.calendarDimmed)) {
       textColor = theme.palette.calendarDimmedText;
     }
+    if (props.kind === 'calendar-navigator') {
+      textHoverColor = theme.palette.calendarActiveBackground;
+      if (Bool.isTrue (props.disabled)) {
+        textColor = theme.palette.calendarDimmedText;
+      }
+      specialDisabled = true;
+    }
     glyphColor = textColor;
   }
 
