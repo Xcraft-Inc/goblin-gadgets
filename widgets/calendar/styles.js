@@ -35,6 +35,10 @@ export default function styles (theme, props) {
     color: theme.palette.calendarHeaderText,
   };
 
+  const headerTitleStyle = {
+    flexGrow: '1',
+  };
+
   const dowTextStyle = {
     width: theme.shapes.calendarButtonWidth,
     textAlign: 'center',
@@ -81,6 +85,7 @@ export default function styles (theme, props) {
     month: monthStyle,
     singleMonth: singleMonthStyle,
     header: headerStyle,
+    headerTitle: headerTitleStyle,
     dowText: dowTextStyle,
     dowLine: dowLineStyle,
     line: lineStyle,

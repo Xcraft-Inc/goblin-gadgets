@@ -1,12 +1,29 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
+import * as ComboHelpers from '../helpers/combo-helpers.js';
 import * as Bool from 'gadgets/boolean-helpers';
 
 import Label from 'gadgets/label/widget';
 import Button from 'gadgets/button/widget';
 import Separator from 'gadgets/separator/widget';
+import Combo from 'gadgets/combo/widget';
 
 import {date as DateConverters} from 'xcraft-core-converters';
+
+/******************************************************************************/
+
+function getMonthsRank (date) {
+  const year = DateConverters.getYear (date);
+  const month = DateConverters.getMonth (date);
+  return year * 12 + (month - 1);
+}
+
+function getDateFromRank (rank) {
+  const year = rank / 12;
+  const month = rank % 12 + 1;
+  return DateConverters.getDate (year, month, 1);
+}
 
 /******************************************************************************/
 
@@ -14,28 +31,32 @@ class Calendar extends Widget {
   constructor () {
     super (...arguments);
 
+    this.comboButton = null; // FIXME: managed many buttons...
+
     this.state = {
-      showMenu: false,
+      showCombo: false,
     };
 
     this.onPrevMonth = this.onPrevMonth.bind (this);
     this.onNextMonth = this.onNextMonth.bind (this);
-    this.onShowMenu = this.onShowMenu.bind (this);
+    this.onOpenCombo = this.onOpenCombo.bind (this);
+    this.onCloseCombo = this.onCloseCombo.bind (this);
     this.onVisibleDateMonth = this.onVisibleDateMonth.bind (this);
     this.onVisibleDateAddMonths = this.onVisibleDateAddMonths.bind (this);
     this.onVisibleDatePrevYear = this.onVisibleDatePrevYear.bind (this);
     this.onVisibleDateNextYear = this.onVisibleDateNextYear.bind (this);
     this.onDateClicked = this.onDateClicked.bind (this);
+    this.onComboClicked = this.onComboClicked.bind (this);
   }
 
   //#region get/set
-  get showMenu () {
-    return this.state.showMenu;
+  get showCombo () {
+    return this.state.showCombo;
   }
 
-  set showMenu (value) {
+  set showCombo (value) {
     this.setState ({
-      showMenu: value,
+      showCombo: value,
     });
   }
   //#endregion
@@ -49,8 +70,38 @@ class Calendar extends Widget {
 
   /******************************************************************************/
 
+  onComboClicked (item) {
+    this.onCloseCombo ();
+    this.changeDate (item.date);
+  }
+
+  getComboItem (date, isActive) {
+    return {
+      date: date,
+      text: DateConverters.getDisplayed (date, 'My'),
+      glyph: isActive ? 'check-circle' : 'circle-thin',
+      action: this.onComboClicked,
+    };
+  }
+
+  get comboList () {
+    const list = [];
+    const nowRank = getMonthsRank (this.props.visibleDate);
+    const startCount = this.props.startDate
+      ? getMonthsRank (this.props.startDate) - nowRank
+      : 12;
+    const endCount = this.props.endDate
+      ? getMonthsRank (this.props.endDate) - nowRank
+      : 12;
+    for (let i = startCount; i <= endCount; i++) {
+      const date = getDateFromRank (nowRank + i);
+      list.push (this.getComboItem (date, i === 0));
+    }
+    return list;
+  }
+
   getDateType (date) {
-    if (!this.props.dates || this.props.dates.length == 0) {
+    if (!this.props.dates || this.props.dates.length === 0) {
       return null;
     } else if (typeof this.props.dates[0] === 'string') {
       return this.props.dates.indexOf (date) === -1 ? null : 'base';
@@ -107,8 +158,22 @@ class Calendar extends Widget {
     this.changeDate (newDate);
   }
 
-  onShowMenu () {
-    this.showMenu = !this.showMenu;
+  onOpenCombo () {
+    const node = this.comboButton;
+    const itemCount = this.comboList.length;
+    this.comboLocation = ComboHelpers.getComboLocation (
+      node,
+      this.context.theme.shapes.flyingBalloonTriangleSize,
+      this.context.theme.shapes.flyingBalloonPadding,
+      itemCount,
+      '200px',
+      this.context.theme.shapes.menuButtonHeight // height of Button kind='combo-wrap-item'
+    );
+    this.showCombo = true;
+  }
+
+  onCloseCombo () {
+    this.showCombo = false;
   }
 
   onVisibleDateNow () {
@@ -251,19 +316,17 @@ class Calendar extends Widget {
     }
   }
 
-  get titleMenu () {
-    return ['Rouge', 'Vert', 'Bleu'];
-  }
-
   renderTitleButton (header) {
+    const buttonClass = this.styles.classNames.headerTitle;
     return (
-      <Button
-        kind="calendar-title"
-        grow="1"
-        text={header}
-        menu={this.titleMenu}
-        onClick={this.onShowMenu}
-      />
+      <div ref={x => (this.comboButton = x)} className={buttonClass}>
+        <Button
+          kind="calendar-title"
+          text={header}
+          active={Bool.toString (this.showCombo)}
+          onClick={this.onOpenCombo}
+        />
+      </div>
     );
   }
 
@@ -484,6 +547,26 @@ class Calendar extends Widget {
     }
   }
 
+  renderCombo () {
+    if (this.showCombo && this.comboLocation) {
+      return (
+        <Combo
+          menuType="wrap"
+          menuItemWidth={this.comboLocation.menuItemWidth}
+          left={this.comboLocation.center}
+          top={this.comboLocation.top}
+          bottom={this.comboLocation.bottom}
+          maxHeight={this.comboLocation.maxHeight}
+          width={this.comboLocation.width}
+          list={this.comboList}
+          close={this.onCloseCombo}
+        />
+      );
+    } else {
+      return null;
+    }
+  }
+
   render () {
     if (!this.props.visibleDate) {
       return null;
@@ -494,6 +577,7 @@ class Calendar extends Widget {
       <div className={boxClass}>
         {this.renderMonths ()}
         {this.renderNavigator ()}
+        {this.renderCombo ()}
       </div>
     );
   }
