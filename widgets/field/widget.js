@@ -622,28 +622,79 @@ class Field extends Form {
   }
 
   renderEditDate () {
-    return (
-      <Container
-        kind="row-field"
-        grow="0"
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
-        <TextFieldTyped
-          type="date"
-          labelText={this.props.labelText}
-          labelGlyph={this.props.labelGlyph}
-          labelWidth={this.props.labelWidth || defaultLabelWidth}
-          fieldWidth="120px"
-          hintText={this.props.hintText}
-          model={this.props.model}
-          minDate={this.props.minDate}
-          maxDate={this.props.maxDate}
-        />
-      </Container>
+    console.log (
+      `renderEditDate ${this.props.model} ${this.props.periodModel}`
     );
+    let periodPath = null;
+    let minArg = null;
+    let maxArg = null;
+    if (this.props.periodModel) {
+      const s = this.props.periodModel.split ('|');
+      if (s.length > 2) {
+        minArg = s[1]; // by example '1d'
+        maxArg = s[2]; // by example '1y'
+      }
+      periodPath = this.getFullPathFromModel (s[0]); // by example '.startDate'
+    }
+
+    if (periodPath) {
+      const TFT = this.mapWidget (
+        TextFieldTyped,
+        date => {
+          //- const minDate = DateConverters.getCalcDate (date, minArg);
+          //- const maxDate = DateConverters.getCalcDate (date, maxArg);
+          const minDate = '2017-01-01';
+          const maxDate = '2017-12-31';
+          console.log (
+            `${this.props.model} date=${date} minDate=${minDate} maxDate=${maxDate}`
+          );
+          return {minDate, maxDate};
+        },
+        periodPath
+      );
+
+      return (
+        <Container
+          kind="row-field"
+          grow="0"
+          width={this.props.width}
+          height={this.props.height}
+          verticalSpacing={this.props.verticalSpacing}
+          verticalJustify={this.props.verticalJustify}
+        >
+          <TFT
+            type="date"
+            labelText={this.props.labelText}
+            labelGlyph={this.props.labelGlyph}
+            labelWidth={this.props.labelWidth || defaultLabelWidth}
+            fieldWidth="120px"
+            hintText={this.props.hintText}
+            model={this.props.model}
+          />
+        </Container>
+      );
+    } else {
+      return (
+        <Container
+          kind="row-field"
+          grow="0"
+          width={this.props.width}
+          height={this.props.height}
+          verticalSpacing={this.props.verticalSpacing}
+          verticalJustify={this.props.verticalJustify}
+        >
+          <TextFieldTyped
+            type="date"
+            labelText={this.props.labelText}
+            labelGlyph={this.props.labelGlyph}
+            labelWidth={this.props.labelWidth || defaultLabelWidth}
+            fieldWidth="120px"
+            hintText={this.props.hintText}
+            model={this.props.model}
+          />
+        </Container>
+      );
+    }
   }
 
   renderEditTime () {
