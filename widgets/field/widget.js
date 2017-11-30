@@ -622,9 +622,6 @@ class Field extends Form {
   }
 
   renderEditDate () {
-    console.log (
-      `renderEditDate ${this.props.model} ${this.props.periodModel}`
-    );
     let periodPath = null;
     let minArg = null;
     let maxArg = null;
@@ -641,14 +638,9 @@ class Field extends Form {
       const TFT = this.mapWidget (
         TextFieldTyped,
         date => {
-          //- const minDate = DateConverters.getCalcDate (date, minArg);
-          //- const maxDate = DateConverters.getCalcDate (date, maxArg);
-          const minDate = '2017-01-01';
-          const maxDate = '2017-12-31';
-          console.log (
-            `${this.props.model} date=${date} minDate=${minDate} maxDate=${maxDate}`
-          );
-          return {minDate, maxDate};
+          const minDate = DateConverters.getCalcDate (date, minArg);
+          const maxDate = DateConverters.getCalcDate (date, maxArg);
+          return {model: this.props.model, minDate, maxDate};
         },
         periodPath
       );
@@ -669,7 +661,6 @@ class Field extends Form {
             labelWidth={this.props.labelWidth || defaultLabelWidth}
             fieldWidth="120px"
             hintText={this.props.hintText}
-            model={this.props.model}
           />
         </Container>
       );
@@ -1028,10 +1019,6 @@ class Field extends Form {
 
   renderEditEntities () {
     if (this.props.plugin) {
-      console.log (`${this.props.plugin}-plugin@${this.context.id}`);
-      console.dir (
-        this.getBackendValue (`${this.props.plugin}-plugin@${this.context.id}`)
-      );
       const WiredPlugin = Widget.Wired (Plugin) (
         `${this.props.plugin}-plugin@${this.context.id}`
       );
