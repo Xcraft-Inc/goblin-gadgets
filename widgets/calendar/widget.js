@@ -213,7 +213,11 @@ class Calendar extends Widget {
   }
 
   onDateClicked (date) {
-    if (date >= this.startVisibleDate && date <= this.endVisibleDate) {
+    if (
+      date >= this.startVisibleDate &&
+      date <= this.endVisibleDate &&
+      !Bool.isTrue (this.props.readonly)
+    ) {
       const x = this.props.dateClicked;
       if (x) {
         x (date);

@@ -130,11 +130,13 @@ class CalendarRecurrence extends Widget {
           endDate={this.props.endDate}
           visibleDate={this.visibleDate}
           dates={this.calendarDates}
+          readonly={this.props.readonly}
           dateClicked={this.onDateClicked}
           visibleDateChanged={this.onVisibleDateChanged}
         />
         <CalendarList
           dates={this.listDates}
+          readonly={this.props.readonly}
           dateClicked={this.onVisibleDateChanged}
           flushAdd={this.onFlushAdd}
         />

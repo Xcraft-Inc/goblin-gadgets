@@ -367,10 +367,6 @@ class Field extends Form {
     );
   }
 
-  renderReadonlyCalendarRecurrence () {
-    return null;
-  }
-
   renderReadonlyFileInput () {
     throw new Error ('Not implemented');
   }
@@ -936,7 +932,7 @@ class Field extends Form {
     );
   }
 
-  renderEditCalendarRecurrence () {
+  renderCalendarRecurrence () {
     const CR = this.mapWidget (
       CalendarRecurrence,
       r => {
@@ -953,6 +949,7 @@ class Field extends Form {
 
     return (
       <CR
+        readonly={Bool.toString (this.readonly)}
         dateClicked={date => {
           const service = this.context.id.split ('@')[0];
           this.doAs (service, 'date-clicked', {
@@ -1232,7 +1229,7 @@ class Field extends Form {
       case 'bool':
         return this.renderReadonlyBool ();
       case 'calendar-recurrence':
-        return this.renderReadonlyCalendarRecurrence ();
+        return this.renderCalendarRecurrence ();
       case 'hinter':
         return this.renderReadonlyEntity ();
       case 'file':
@@ -1275,7 +1272,7 @@ class Field extends Form {
       case 'bool':
         return this.renderEditBool ();
       case 'calendar-recurrence':
-        return this.renderEditCalendarRecurrence ();
+        return this.renderCalendarRecurrence ();
       case 'hinter':
         return this.renderEditHinter ();
       case 'file':
