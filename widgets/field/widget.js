@@ -332,7 +332,7 @@ class Field extends Form {
   }
 
   renderReadonlyBool () {
-    const Check = this.mapWidget (
+    const WiredCheckButton = this.mapWidget (
       CheckButton,
       value => {
         return {checked: value};
@@ -362,7 +362,7 @@ class Field extends Form {
               spacing="overlap"
               disabled="true"
             />}
-        <Check text={this.props.labelText} readonly="true" />
+        <WiredCheckButton text={this.props.labelText} readonly="true" />
       </Container>
     );
   }
@@ -603,7 +603,7 @@ class Field extends Form {
     }
 
     if (periodPath) {
-      const TFT = this.mapWidget (
+      const WiredTextFieldTyped = this.mapWidget (
         TextFieldTyped,
         date => {
           const minDate = DateConverters.getCalcDate (date, minArg);
@@ -624,7 +624,7 @@ class Field extends Form {
           verticalSpacing={this.props.verticalSpacing}
           verticalJustify={this.props.verticalJustify}
         >
-          <TFT
+          <WiredTextFieldTyped
             type="date"
             labelText={this.props.labelText}
             labelGlyph={this.props.labelGlyph}
@@ -793,7 +793,7 @@ class Field extends Form {
   }
 
   renderEditRadio () {
-    const Radio = this.mapWidget (
+    const WiredRadioList = this.mapWidget (
       RadioList,
       value => {
         if (value && value !== '') {
@@ -827,7 +827,7 @@ class Field extends Form {
               justify="left"
               spacing="overlap"
             />}
-        <Radio
+        <WiredRadioList
           height={this.props.height}
           direction={this.props.direction || 'row'}
           list={this.props.list}
@@ -843,7 +843,7 @@ class Field extends Form {
   }
 
   renderCheckList () {
-    const Check = this.mapWidget (
+    const WiredCheckList = this.mapWidget (
       CheckList,
       value => {
         if (value && value !== '') {
@@ -877,7 +877,7 @@ class Field extends Form {
               justify="left"
               spacing="overlap"
             />}
-        <Check
+        <WiredCheckList
           width={this.props.width}
           height={this.props.height}
           heightStrategy="compact"
@@ -894,7 +894,7 @@ class Field extends Form {
   }
 
   renderEditBool () {
-    const Check = this.mapWidget (
+    const WiredCheckButton = this.mapWidget (
       CheckButton,
       value => {
         return {checked: value};
@@ -923,7 +923,7 @@ class Field extends Form {
               justify="left"
               spacing="overlap"
             />}
-        <Check
+        <WiredCheckButton
           text={this.props.labelText}
           onClick={() => {
             const checked = this.getBackendValue (this.fullPath);
@@ -935,7 +935,7 @@ class Field extends Form {
   }
 
   renderCalendarRecurrence () {
-    const CR = this.mapWidget (
+    const WiredCalendarRecurrence = this.mapWidget (
       CalendarRecurrence,
       r => {
         return {
@@ -950,7 +950,7 @@ class Field extends Form {
     );
 
     return (
-      <CR
+      <WiredCalendarRecurrence
         readonly={Bool.toString (this.readonly)}
         dateClicked={date => {
           const service = this.context.id.split ('@')[0];
