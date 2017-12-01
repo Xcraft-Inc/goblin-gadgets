@@ -17,6 +17,18 @@ class CheckList extends Widget {
     this.onClearAll = this.onClearAll.bind (this);
   }
 
+  get value () {
+    if (this.props.value) {
+      if (this.props.value._state) {
+        return this.props.value.toArray ();
+      } else {
+        return this.props.value.split (',');
+      }
+    } else {
+      return null;
+    }
+  }
+
   get allValue () {
     const array = [];
     for (const item of this.props.list) {
@@ -27,7 +39,7 @@ class CheckList extends Widget {
 
   getNewValue (name) {
     if (this.props.value) {
-      const array = this.props.value.split (',');
+      const array = this.value;
       const index = array.indexOf (name);
       if (index === -1) {
         array.push (name); // add name if it's not present
@@ -70,7 +82,7 @@ class CheckList extends Widget {
 
   isChecked (name) {
     if (this.props.value) {
-      const array = this.props.value.split (',');
+      const array = this.value;
       if (array.indexOf (name) !== -1) {
         return true;
       }
