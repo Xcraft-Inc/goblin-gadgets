@@ -34,6 +34,12 @@ class Field extends Form {
     this.handleFileChange = this.handleFileChange.bind (this);
   }
 
+  get readonly () {
+    return (
+      Bool.isTrue (this.props.readonly) || Bool.isTrue (this.context.readonly)
+    );
+  }
+
   getFullPathFromModel (model) {
     if (!this.context.model) {
       throw new Error (
@@ -321,43 +327,6 @@ class Field extends Form {
               disabled="true"
             />}
         <Value width="200px" justify={this.props.justify} />
-      </Container>
-    );
-  }
-
-  renderReadonlyChecklist () {
-    const Summary = this.mapWidget (
-      Label,
-      value => {
-        return {text: value};
-      },
-      this.fullPath
-    );
-
-    const labelWidth = this.props.labelWidth || defaultLabelWidth;
-
-    return (
-      <Container
-        kind="row-field"
-        subkind="left"
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
-        {labelWidth === '0px'
-          ? null
-          : <Label
-              text={this.props.labelText}
-              glyph={this.props.labelGlyph}
-              width={labelWidth}
-              kind="label-field"
-              justify="left"
-              spacing="overlap"
-              disabled="true"
-            />}
-        <Summary />
       </Container>
     );
   }
@@ -875,7 +844,7 @@ class Field extends Form {
     );
   }
 
-  renderEditCheckList () {
+  renderCheckList () {
     const Check = this.mapWidget (
       CheckList,
       value => {
@@ -917,6 +886,7 @@ class Field extends Form {
           direction={this.props.direction || 'column'}
           showHeader={this.props.showHeader}
           list={this.props.list}
+          readonly={Bool.toString (this.readonly)}
           selectionChanged={value => {
             this.setBackendValue (this.fullPath, value);
           }}
@@ -1258,7 +1228,7 @@ class Field extends Form {
       case 'radio':
         return this.renderReadonlyField ();
       case 'check-list':
-        return this.renderReadonlyChecklist ();
+        return this.renderCheckList ();
       case 'bool':
         return this.renderReadonlyBool ();
       case 'calendar-recurrence':
@@ -1301,7 +1271,7 @@ class Field extends Form {
       case 'radio':
         return this.renderEditRadio ();
       case 'check-list':
-        return this.renderEditCheckList ();
+        return this.renderCheckList ();
       case 'bool':
         return this.renderEditBool ();
       case 'calendar-recurrence':
@@ -1324,10 +1294,7 @@ class Field extends Form {
   }
 
   render () {
-    if (
-      Bool.isTrue (this.props.readonly) ||
-      Bool.isTrue (this.context.readonly)
-    ) {
+    if (this.readonly) {
       return this.renderReadonly ();
     } else {
       return this.renderEdit ();

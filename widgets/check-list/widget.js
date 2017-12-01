@@ -88,6 +88,7 @@ class CheckList extends Widget {
               kind={this.props.kind || 'check'}
               text="Enlève tout"
               checked="false"
+              readonly={this.props.readonly}
               onClick={this.onClearAll}
             />
           </div>
@@ -99,6 +100,7 @@ class CheckList extends Widget {
               kind={this.props.kind || 'check'}
               text="Met tout"
               checked="true"
+              readonly={this.props.readonly}
               onClick={this.onSetAll}
             />
           </div>
@@ -118,6 +120,7 @@ class CheckList extends Widget {
         text={row.description}
         focusable="true"
         checked={Bool.toString (this.isChecked (row.name))}
+        readonly={this.props.readonly}
         onClick={() => this.onButtonClicked (row.name)}
       />
     );
