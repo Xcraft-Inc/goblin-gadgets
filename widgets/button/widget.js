@@ -49,7 +49,7 @@ class Button extends Widget {
 
   get disabled () {
     return (
-      Bool.isTrue (this.props.disabled) || Bool.isTrue (this.props.readolny)
+      Bool.isTrue (this.props.disabled) || Bool.isTrue (this.props.readonly)
     );
   }
 
@@ -62,14 +62,14 @@ class Button extends Widget {
   }
 
   onFocus () {
-    if (Bool.isTrue (this.props.focusable)) {
+    if (Bool.isTrue (this.props.focusable) && !this.disabled) {
       this.focus = true;
       MouseTrap.bind ('space', this.onKeySpace, 'keydown');
     }
   }
 
   onBlur () {
-    if (Bool.isTrue (this.props.focusable)) {
+    if (Bool.isTrue (this.props.focusable) && !this.disabled) {
       this.focus = false;
       MouseTrap.unbind ('space');
     }

@@ -61,6 +61,8 @@ export default function styles (theme, props) {
   let specialDisabled = false;
   let focusedShadow = theme.shapes.focusedShadow + theme.palette.focused;
 
+  const disabled = Bool.isTrue (props.disabled) || Bool.isTrue (props.readonly);
+
   // Initialize variables for button without border.
   if (props.border === 'none') {
     // Button without border must have same backgroundColor as parent !
@@ -303,7 +305,7 @@ export default function styles (theme, props) {
   if (props.kind === 'combo') {
     activeColor = theme.palette.comboActiveBackground;
     borderActiveColor = theme.palette.comboActiveBackground;
-    if (Bool.isTrue (props.disabled)) {
+    if (disabled) {
       borderColor = theme.palette.textFieldDisableText;
       backgroundColor = theme.palette.textFieldDisableBackground;
       specialDisabled = true;
@@ -572,7 +574,7 @@ export default function styles (theme, props) {
   }
 
   // Alter colors if component is disable.
-  if (Bool.isTrue (props.disabled) && !specialDisabled) {
+  if (disabled && !specialDisabled) {
     borderColor = theme.palette.buttonDisableBorder;
     if (backgroundColor) {
       backgroundColor = theme.palette.buttonDisableBackground;
@@ -645,12 +647,7 @@ export default function styles (theme, props) {
     cursor: cursor,
   };
 
-  if (
-    !Bool.isTrue (props.disabled) &&
-    !Bool.isTrue (props.readonly) &&
-    !Bool.isTrue (props.busy) &&
-    boxOpacity !== 0
-  ) {
+  if (!disabled && !Bool.isTrue (props.busy) && boxOpacity !== 0) {
     boxStyle[':hover'] = {
       borderColor: borderHoverColor,
       backgroundColor: backgroundHoverColor,
