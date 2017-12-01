@@ -342,7 +342,7 @@ class Calendar extends Widget {
           kind="calendar-navigator"
           key="nextMonth"
           disabled={Bool.toString (
-            DateConverters.moveAtEndingOfMonth (this.props.visibleDate) >
+            DateConverters.moveAtEndingOfMonth (this.props.visibleDate) >=
               this.props.endDate
           )}
           onClick={this.onNextMonth}
