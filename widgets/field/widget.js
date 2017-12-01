@@ -24,6 +24,9 @@ import CalendarRecurrence from 'gadgets/calendar-recurrence/widget';
 
 import Plugin from 'desktop/plugin/widget';
 
+import importer from 'laboratory/importer';
+const widgetImporter = importer ('widget');
+
 /******************************************************************************/
 
 const defaultLabelWidth = '120px';
@@ -429,9 +432,18 @@ class Field extends Form {
 
   renderReadonlyEntities () {
     if (this.props.plugin) {
-      const WiredPlugin = Widget.Wired (Plugin) (
-        `${this.props.plugin}-plugin@${this.context.id}`
-      );
+      let WiredPlugin = null;
+      if (this.props.pluginType) {
+        const CustomPlugin = widgetImporter (`plugin-${this.props.pluginType}`);
+        WiredPlugin = Widget.Wired (CustomPlugin) (
+          `${this.props.plugin}-plugin@${this.context.id}`
+        );
+      } else {
+        WiredPlugin = Widget.Wired (Plugin) (
+          `${this.props.plugin}-plugin@${this.context.id}`
+        );
+      }
+
       const FinalPlugin = this.mapWidget (
         WiredPlugin,
         'entityIds',
@@ -991,9 +1003,18 @@ class Field extends Form {
 
   renderEditEntities () {
     if (this.props.plugin) {
-      const WiredPlugin = Widget.Wired (Plugin) (
-        `${this.props.plugin}-plugin@${this.context.id}`
-      );
+      let WiredPlugin = null;
+      if (this.props.pluginType) {
+        const CustomPlugin = widgetImporter (`plugin-${this.props.pluginType}`);
+        WiredPlugin = Widget.Wired (CustomPlugin) (
+          `${this.props.plugin}-plugin@${this.context.id}`
+        );
+      } else {
+        WiredPlugin = Widget.Wired (Plugin) (
+          `${this.props.plugin}-plugin@${this.context.id}`
+        );
+      }
+
       const FinalPlugin = this.mapWidget (
         WiredPlugin,
         'entityIds',
@@ -1012,6 +1033,7 @@ class Field extends Form {
         >
           <FinalPlugin
             id={this.context.id}
+            pluginType={this.props.pluginType}
             embedded={this.props.embedded}
             embeddedLevel={
               this.props.embeddedLevel ? this.props.embeddedLevel + 1 : 1
