@@ -168,6 +168,7 @@ class Button extends Widget {
           kind={this.props.kind}
           subkind={this.props.subkind}
           disabled={this.disabled}
+          readonly={this.readonly}
           active={this.props.active}
           textColor={this.props.textColor}
           buttonBackgroundColor={boxStyle.backgroundColor}

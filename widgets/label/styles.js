@@ -82,6 +82,8 @@ export default function styles (theme, props) {
   let specialDisabled = false;
   let specialHover = false;
 
+  const disabled = Bool.isTrue (props.disabled) || Bool.isTrue (props.readonly);
+
   if (Bool.isTrue (props.insideButton)) {
     boxHeight = props.height ? props.height : theme.shapes.lineHeight;
     spacing = null;
@@ -298,7 +300,7 @@ export default function styles (theme, props) {
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'none';
     boxHeight = null;
     boxAlignItems = 'flex-start';
-    if (Bool.isTrue (props.disabled)) {
+    if (disabled) {
       glyphColor = theme.palette.textFieldDisableText;
       textColor = theme.palette.textFieldDisableText;
       specialDisabled = true;
@@ -314,7 +316,7 @@ export default function styles (theme, props) {
     boxHeight = null;
     boxPaddingTop = '7px';
     boxAlignItems = 'flex-start';
-    if (Bool.isTrue (props.disabled)) {
+    if (disabled) {
       glyphColor = theme.palette.textFieldDisableText;
       textColor = theme.palette.textFieldDisableText;
       specialDisabled = true;
@@ -436,7 +438,7 @@ export default function styles (theme, props) {
     glyphColor = theme.palette.notificationText;
     textColor = theme.palette.notificationText;
     textHoverColor = theme.palette.notificationTextHover;
-    if (Bool.isTrue (props.disabled)) {
+    if (disabled) {
       glyphColor = ColorManipulator.darken (
         theme.palette.notificationText,
         0.4
@@ -453,6 +455,11 @@ export default function styles (theme, props) {
 
   if (props.kind === 'check-button') {
     textHoverColor = theme.palette.checkButtonTextHover;
+    if (disabled) {
+      glyphColor = theme.palette.textFieldDisableText;
+      textColor = theme.palette.textFieldDisableText;
+      specialDisabled = true;
+    }
   }
 
   if (props.kind === 'plugin-light') {
@@ -493,7 +500,7 @@ export default function styles (theme, props) {
 
   // Combo button, place to the right of a TextFieldCombo component.
   if (props.kind === 'combo') {
-    if (Bool.isTrue (props.disabled)) {
+    if (disabled) {
       glyphColor = theme.palette.textFieldDisableText;
       textColor = theme.palette.textFieldDisableText;
       specialDisabled = true;
@@ -601,7 +608,7 @@ export default function styles (theme, props) {
     }
     if (props.kind === 'calendar-navigator') {
       textHoverColor = theme.palette.calendarActiveBackground;
-      if (Bool.isTrue (props.disabled)) {
+      if (disabled) {
         textColor = theme.palette.calendarDimmedText;
       }
       specialDisabled = true;
@@ -729,7 +736,7 @@ export default function styles (theme, props) {
   }
 
   // Alter colors if component is disable.
-  if (Bool.isTrue (props.disabled) && !specialDisabled) {
+  if (disabled && !specialDisabled) {
     if (backgroundColor) {
       backgroundColor = theme.palette.buttonDisableBackground;
     }
@@ -867,12 +874,7 @@ export default function styles (theme, props) {
     padding: '1px',
   };
 
-  if (
-    !Bool.isTrue (props.disabled) &&
-    !Bool.isTrue (props.readonly) &&
-    Bool.isTrue (props.insideButton) &&
-    boxOpacity !== 0
-  ) {
+  if (!disabled && Bool.isTrue (props.insideButton) && boxOpacity !== 0) {
     if (specialHover) {
       glyphStyle[':hover'] = {
         color: textHoverColor,

@@ -236,6 +236,7 @@ export default function styles (theme, props) {
     if (props.heightStrategy === 'compact') {
       boxHeight = '22px';
     }
+    specialDisabled = true;
   }
 
   if (props.kind === 'plugin-light') {
