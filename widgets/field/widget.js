@@ -608,10 +608,12 @@ class Field extends Form {
         date => {
           const minDate = DateConverters.getCalcDate (date, minArg);
           const maxDate = DateConverters.getCalcDate (date, maxArg);
-          return {model: this.props.model, minDate, maxDate};
+          return {model: this.props.model, minDate, maxDate}; // (*)
         },
         periodPath
       );
+      // (*) It's important to pass model! Without, strange bugs appears,
+      //     with interactions between all date fields.
 
       return (
         <Container
