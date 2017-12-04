@@ -65,7 +65,7 @@ export default function styles (theme, props) {
   let textMarginRight = m;
   let textMarginBottom = '0px';
   let textMarginLeft = m;
-  let textWeight = null;
+  let textWeight = props.weight;
   let textWrap = props.wrap;
   let textTransform = props.textTransform ? props.textTransform : null;
   let textSize = props.fontSize ? props.fontSize : theme.shapes.labelTextSize;
