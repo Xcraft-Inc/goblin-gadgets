@@ -1,5 +1,6 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
+
 /******************************************************************************/
 
 class Gauge extends Widget {
