@@ -307,6 +307,19 @@ export default function styles (theme, props) {
     }
   }
 
+  if (props.kind === 'ticket-title') {
+    boxPaddingTop = '7px';
+    boxAlignItems = 'flex-start';
+    glyphHeight = null;
+    textWeight = 'bold';
+  }
+
+  if (props.kind === 'ticket-label') {
+    boxPaddingTop = '7px';
+    boxAlignItems = 'flex-start';
+    glyphHeight = null;
+  }
+
   /******************************************************************************/
   // Styles for Labels inside LabelTextFields.
   /******************************************************************************/

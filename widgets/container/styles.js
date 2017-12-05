@@ -854,7 +854,7 @@ export default function styles (theme, props) {
     display = 'flex';
     flexDirection = 'column';
     flexGrow = props.grow;
-    justifyContent = 'center';
+    justifyContent = 'flex-start';
   }
 
   if (props.kind === 'thin-row') {
