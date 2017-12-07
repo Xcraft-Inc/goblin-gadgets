@@ -1,6 +1,7 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 import {time as TimeConverters} from 'xcraft-core-converters';
+import * as Bool from 'gadgets/boolean-helpers';
 
 import Gauge from 'gadgets/gauge/widget';
 
@@ -36,10 +37,12 @@ class TimeGauge extends Widget {
         }
       }
 
-      const delta = Math.max (minutes - nowMinutes, 0);
-      const value = 100 - Math.min (delta * 100 / range, 100);
+      const delta = minutes - nowMinutes;
+      const value = 100 - delta * 100 / range;
+      const flash = value > 100;
+      const limit = Math.min (Math.max (value, 0), 100);
 
-      return <Gauge value={value} />;
+      return <Gauge value={limit} flash={Bool.toString (flash)} />;
     } else {
       return null;
     }

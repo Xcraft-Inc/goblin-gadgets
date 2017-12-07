@@ -1,16 +1,14 @@
+import * as Bool from 'gadgets/boolean-helpers';
+
 /******************************************************************************/
 
 //  Compute the color of gauge.
 //  100 -> red
-//   75 -> orange
-//   50 -> yellow
-//   25 -> yellow
-//    0 -> yellow
+//    0 -> orange
 function getColor (value) {
   if (value) {
-    value = Math.max (value * 2 - 100, 0); // 100/50/0 -> 100/0/0
-    const green = Math.floor ((100 - value) * 2.55);
-    return `rgb(255,${green},0)`;
+    const green = Math.min (Math.max (128 - 128 * value / 100, 0), 128); // 0/100 -> 128/0 (orange/red)
+    return `rgb(255,${Math.floor (green)},0)`;
   } else {
     return '#fff';
   }
@@ -34,6 +32,9 @@ export default function styles (theme, props) {
     width: '100%',
     borderRadius: `${topLeftRadius} 0px 0px ${bottomLeftRadius}`,
     backgroundColor: getColor (value),
+    animation: Bool.isTrue (props.flash)
+      ? 'gauge-flash linear 1s infinite'
+      : null,
   };
 
   return {
