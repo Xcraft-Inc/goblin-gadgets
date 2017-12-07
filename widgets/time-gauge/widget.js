@@ -11,6 +11,15 @@ class TimeGauge extends Widget {
     super (...arguments);
   }
 
+  componentDidMount () {
+    super.componentDidMount ();
+    this.timer = setInterval (() => this.forceUpdate (), 1000 * 60);
+  }
+
+  componentWillUnmount () {
+    clearInterval (this.timer);
+  }
+
   render () {
     if (this.props.time) {
       const nowMinutes = TimeConverters.getTotalMinutes (
