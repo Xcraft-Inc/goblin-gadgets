@@ -10,7 +10,7 @@ export default function styles (theme, props) {
     width: '100%',
     height: '100%',
     userSelect: 'none',
-    cursor: 'not-allowed',
+    cursor: 'default',
     backgroundColor: 'rgba(0, 0, 0, 0.2)',
   };
 
