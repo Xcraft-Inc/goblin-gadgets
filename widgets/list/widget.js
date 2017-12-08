@@ -33,6 +33,7 @@ class List extends Widget {
       id: 'id',
       count: 'count',
       pageSize: 'pageSize',
+      type: 'type',
     };
   }
 
@@ -84,7 +85,7 @@ class List extends Widget {
       <ReactList
         pageSize={this.props.pageSize / 2}
         length={this.props.count}
-        type={'variable'}
+        type={this.props.type || 'variable'}
         itemsRenderer={this.renderTable}
         itemRenderer={this.renderItem}
       />
