@@ -27,14 +27,26 @@ export default function styles (theme, props) {
   const topLeftRadius = value >= 90 ? theme.shapes.ticketRectRadius : '0px';
   const bottomLeftRadius = theme.shapes.ticketRectRadius;
 
+  const keyframes = {
+    '0%': {
+      opacity: 1,
+    },
+    '90%': {
+      opacity: 0.1,
+    },
+    '100%': {
+      opacity: 1,
+    },
+  };
+
   const contentStyle = {
     height: value + '%',
     width: '100%',
     borderRadius: `${topLeftRadius} 0px 0px ${bottomLeftRadius}`,
     backgroundColor: getColor (value),
-    animation: Bool.isTrue (props.flash)
-      ? 'gauge-flash linear 1s infinite'
-      : null,
+    animationName: Bool.isTrue (props.flash) ? keyframes : null,
+    animationDuration: '1s',
+    animationIterationCount: 'infinite',
   };
 
   return {
