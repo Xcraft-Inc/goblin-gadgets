@@ -84,7 +84,7 @@ class List extends Widget {
       <ReactList
         pageSize={this.props.pageSize / 2}
         length={this.props.count}
-        type={'uniform'}
+        type={'variable'}
         itemsRenderer={this.renderTable}
         itemRenderer={this.renderItem}
       />
