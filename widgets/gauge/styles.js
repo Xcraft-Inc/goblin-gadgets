@@ -49,9 +49,17 @@ export default function styles (theme, props) {
     animationIterationCount: 'infinite',
   };
 
+  const disabledStyle = {
+    height: '100%',
+    width: '100%',
+    borderRadius: `${bottomLeftRadius} 0px 0px ${bottomLeftRadius}`,
+    backgroundColor: theme.palette.buttonDisableBackground,
+  };
+
   return {
     box: boxStyle,
     content: contentStyle,
+    disabled: disabledStyle,
   };
 }
 
