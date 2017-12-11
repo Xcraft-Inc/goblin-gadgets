@@ -1214,7 +1214,7 @@ class Field extends Form {
               {...this.formConfigWithComponent (() => (
                 <Hinter
                   id={this.context.id}
-                  spacing={this.props.spacing}
+                  spacing="overlap"
                   hintText={this.props.hintText}
                   tooltip={this.props.tooltip || this.props.hintText}
                   hinter={this.props.hinter}
