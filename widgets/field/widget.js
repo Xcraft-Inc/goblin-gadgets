@@ -603,7 +603,7 @@ class Field extends Form {
           labelWidth={this.props.labelWidth || defaultLabelWidth}
           fieldWidth={this.props.fieldWidth}
           hintText={this.props.hintText}
-          tooltip={this.props.tooltip}
+          tooltip={this.props.tooltip || this.props.hintText}
           rows={this.props.rows}
           model={this.props.model}
           grow="1"
@@ -655,7 +655,7 @@ class Field extends Form {
             labelWidth={this.props.labelWidth || defaultLabelWidth}
             fieldWidth={this.props.fieldWidth || '120px'}
             hintText={this.props.hintText}
-            tooltip={this.props.tooltip}
+            tooltip={this.props.tooltip || this.props.hintText}
           />
         </Container>
       );
@@ -677,7 +677,7 @@ class Field extends Form {
             labelWidth={this.props.labelWidth || defaultLabelWidth}
             fieldWidth={this.props.fieldWidth || '120px'}
             hintText={this.props.hintText}
-            tooltip={this.props.tooltip}
+            tooltip={this.props.tooltip || this.props.hintText}
             model={this.props.model}
           />
         </Container>
@@ -703,7 +703,7 @@ class Field extends Form {
           labelWidth={this.props.labelWidth || defaultLabelWidth}
           fieldWidth={this.props.fieldWidth || '120px'}
           hintText={this.props.hintText}
-          tooltip={this.props.tooltip}
+          tooltip={this.props.tooltip || this.props.hintText}
           model={this.props.model}
         />
       </Container>
@@ -728,7 +728,7 @@ class Field extends Form {
           labelWidth={this.props.labelWidth || defaultLabelWidth}
           fieldWidth={this.props.fieldWidth || '120px'}
           hintText={this.props.hintText}
-          tooltip={this.props.tooltip}
+          tooltip={this.props.tooltip || this.props.hintText}
           model={this.props.model}
         />
       </Container>
@@ -754,7 +754,7 @@ class Field extends Form {
           labelWidth={this.props.labelWidth || defaultLabelWidth}
           fieldWidth={this.props.fieldWidth || '120px'}
           hintText={this.props.hintText}
-          tooltip={this.props.tooltip}
+          tooltip={this.props.tooltip || this.props.hintText}
           model={this.props.model}
         />
       </Container>
@@ -780,7 +780,7 @@ class Field extends Form {
           labelWidth={this.props.labelWidth || defaultLabelWidth}
           fieldWidth="200px"
           hintText={this.props.hintText}
-          tooltip={this.props.tooltip}
+          tooltip={this.props.tooltip || this.props.hintText}
           model={this.props.model}
         />
       </Container>
@@ -812,7 +812,7 @@ class Field extends Form {
         <TextFieldCombo
           spacing={this.props.spacing}
           hintText={this.props.hintText}
-          tooltip={this.props.tooltip}
+          tooltip={this.props.tooltip || this.props.hintText}
           width={this.props.fieldWidth}
           model={this.props.model}
           readonly={this.props.comboReadonly}
@@ -1189,7 +1189,7 @@ class Field extends Form {
               spacing="overlap"
               width={this.props.labelWidth || defaultLabelWidth}
               hintText={this.props.hintText}
-              tooltip={this.props.tooltip}
+              tooltip={this.props.tooltip || this.props.hintText}
               grow="2"
             />
           : null}
@@ -1208,7 +1208,7 @@ class Field extends Form {
                   id={this.context.id}
                   spacing={this.props.spacing}
                   hintText={this.props.hintText}
-                  tooltip={this.props.tooltip}
+                  tooltip={this.props.tooltip || this.props.hintText}
                   hinter={this.props.hinter}
                   comboType={this.props.hinter}
                   grow="1"
