@@ -374,7 +374,11 @@ class Field extends Form {
               spacing="overlap"
               disabled="true"
             />}
-        <WiredCheckButton text={this.props.labelText} readonly="true" />
+        <WiredCheckButton
+          kind={this.props.subkind}
+          text={this.props.labelText}
+          readonly="true"
+        />
       </Container>
     );
   }
@@ -961,6 +965,7 @@ class Field extends Form {
               spacing="overlap"
             />}
         <WiredCheckButton
+          kind={this.props.subkind}
           text={this.props.labelText}
           onClick={() => {
             const checked = this.getBackendValue (this.fullPath);
