@@ -640,6 +640,7 @@ class Field extends Form {
         >
           <WiredTextFieldTyped
             type="date"
+            spacing={this.props.spacing}
             labelText={this.props.labelText}
             labelGlyph={this.props.labelGlyph}
             labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -661,6 +662,7 @@ class Field extends Form {
         >
           <TextFieldTyped
             type="date"
+            spacing={this.props.spacing}
             labelText={this.props.labelText}
             labelGlyph={this.props.labelGlyph}
             labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -686,6 +688,7 @@ class Field extends Form {
       >
         <TextFieldTyped
           type="time"
+          spacing={this.props.spacing}
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -710,6 +713,7 @@ class Field extends Form {
       >
         <TextFieldTyped
           type="price"
+          spacing={this.props.spacing}
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -735,6 +739,7 @@ class Field extends Form {
         <TextFieldTyped
           type="weight"
           unit={this.props.unit}
+          spacing={this.props.spacing}
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -760,6 +765,7 @@ class Field extends Form {
         <TextFieldTyped
           type="volume"
           unit={this.props.unit}
+          spacing={this.props.spacing}
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -795,6 +801,7 @@ class Field extends Form {
               spacing="overlap"
             />}
         <TextFieldCombo
+          spacing={this.props.spacing}
           hintText={this.props.hintText}
           tooltip={this.props.tooltip}
           width={this.props.fieldWidth}
@@ -1190,6 +1197,7 @@ class Field extends Form {
               {...this.formConfigWithComponent (() => (
                 <Hinter
                   id={this.context.id}
+                  spacing={this.props.spacing}
                   hintText={this.props.hintText}
                   tooltip={this.props.tooltip}
                   hinter={this.props.hinter}
