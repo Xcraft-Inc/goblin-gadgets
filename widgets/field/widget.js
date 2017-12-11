@@ -181,7 +181,10 @@ class Field extends Form {
               spacing="overlap"
               disabled="true"
             />}
-        <Value width="120px" justify={this.props.justify} />
+        <Value
+          width={this.props.fieldWidth || '120px'}
+          justify={this.props.justify}
+        />
       </Container>
     );
   }
@@ -218,7 +221,10 @@ class Field extends Form {
               spacing="overlap"
               disabled="true"
             />}
-        <Value width="120px" justify={this.props.justify} />
+        <Value
+          width={this.props.fieldWidth || '120px'}
+          justify={this.props.justify}
+        />
       </Container>
     );
   }
@@ -255,7 +261,7 @@ class Field extends Form {
               spacing="overlap"
               disabled="true"
             />}
-        <Value width="120px" justify="right" />
+        <Value width={this.props.fieldWidth || '120px'} justify="right" />
       </Container>
     );
   }
@@ -292,7 +298,10 @@ class Field extends Form {
               spacing="overlap"
               disabled="true"
             />}
-        <Value width="120px" justify={this.props.justify} />
+        <Value
+          width={this.props.fieldWidth || '120px'}
+          justify={this.props.justify}
+        />
       </Container>
     );
   }
@@ -644,7 +653,7 @@ class Field extends Form {
             labelText={this.props.labelText}
             labelGlyph={this.props.labelGlyph}
             labelWidth={this.props.labelWidth || defaultLabelWidth}
-            fieldWidth="120px"
+            fieldWidth={this.props.fieldWidth || '120px'}
             hintText={this.props.hintText}
             tooltip={this.props.tooltip}
           />
@@ -666,7 +675,7 @@ class Field extends Form {
             labelText={this.props.labelText}
             labelGlyph={this.props.labelGlyph}
             labelWidth={this.props.labelWidth || defaultLabelWidth}
-            fieldWidth="120px"
+            fieldWidth={this.props.fieldWidth || '120px'}
             hintText={this.props.hintText}
             tooltip={this.props.tooltip}
             model={this.props.model}
@@ -692,7 +701,7 @@ class Field extends Form {
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
-          fieldWidth="120px"
+          fieldWidth={this.props.fieldWidth || '120px'}
           hintText={this.props.hintText}
           tooltip={this.props.tooltip}
           model={this.props.model}
@@ -717,7 +726,7 @@ class Field extends Form {
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
-          fieldWidth="120px"
+          fieldWidth={this.props.fieldWidth || '120px'}
           hintText={this.props.hintText}
           tooltip={this.props.tooltip}
           model={this.props.model}
@@ -743,7 +752,7 @@ class Field extends Form {
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
-          fieldWidth="120px"
+          fieldWidth={this.props.fieldWidth || '120px'}
           hintText={this.props.hintText}
           tooltip={this.props.tooltip}
           model={this.props.model}
