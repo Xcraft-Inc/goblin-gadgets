@@ -970,6 +970,9 @@ class Field extends Form {
           onClick={() => {
             const checked = this.getBackendValue (this.fullPath);
             this.setBackendValue (this.fullPath, !checked);
+            if (this.props.onClick) {
+              this.props.onClick ();
+            }
           }}
         />
       </Container>
