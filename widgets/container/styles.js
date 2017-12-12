@@ -548,7 +548,7 @@ export default function styles (theme, props) {
     flexDirection = 'row';
     flexGrow = props.grow;
     alignItems = props.verticalJustify === 'top' ? 'flex-start' : 'center';
-    minHeight = h;
+    minHeight = Unit.add (h, '1px');
     if (props.subkind === 'left') {
       justifyContent = 'flex-start';
     } else if (props.subkind === 'light-box') {
@@ -565,7 +565,6 @@ export default function styles (theme, props) {
     } else if (props.verticalSpacing === 'large') {
       bottomMargin = '10px';
     } else if (props.verticalSpacing === 'overlap') {
-      minHeight = '20px';
       bottomMargin = '-1px';
     }
     margin =
