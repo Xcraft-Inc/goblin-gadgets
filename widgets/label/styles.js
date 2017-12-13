@@ -154,6 +154,8 @@ export default function styles (theme, props) {
   }
 
   if (props.kind === 'pane-header') {
+    boxHeight = '50px';
+    boxMaxHeight = '50px';
     textSize = theme.shapes.paneHeaderTextSize;
     textWeight = 'bold';
     textTransform = 'uppercase';
