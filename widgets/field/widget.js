@@ -389,7 +389,10 @@ class Field extends Form {
 
   renderReadonlyEntity () {
     const Viewer = props => {
-      const info = this.getModelValue (`${props.entityId}.meta.info`, true);
+      const info = this.getModelValue (
+        `${props.entityId}.meta.summaries.info`,
+        true
+      );
       return <Label text={info} grow="1" justify={this.props.justify} />;
     };
 
@@ -1013,7 +1016,10 @@ class Field extends Form {
 
   renderEditEntity () {
     const Viewer = props => {
-      const info = this.getModelValue (`${props.entityId}.meta.info`, true);
+      const info = this.getModelValue (
+        `${props.entityId}.meta.summaries.info`,
+        true
+      );
       return <Label text={info} />;
     };
 
@@ -1142,7 +1148,7 @@ class Field extends Form {
           let selectedId = null;
           if (!this.props.onValue) {
             selectedId = value;
-            value = this.getModelValue (`${value}.meta.info`, true);
+            value = this.getModelValue (`${value}.meta.summaries.info`, true);
           }
           return {selectedValue: value, selectedId};
         } else {
@@ -1164,7 +1170,7 @@ class Field extends Form {
         value => {
           if (value && value !== '') {
             if (!this.props.onValue) {
-              value = this.getModelValue (`${value}.meta.info`, true);
+              value = this.getModelValue (`${value}.meta.summaries.info`, true);
             }
             return {text: value};
           } else {
