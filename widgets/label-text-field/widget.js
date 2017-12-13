@@ -78,7 +78,6 @@ class LabelTextField extends Widget {
         wrap="no"
         shape={shape}
         justify="left"
-        spacing="overlap"
       />
     );
   }

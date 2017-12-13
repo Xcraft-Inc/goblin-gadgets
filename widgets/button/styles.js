@@ -80,6 +80,9 @@ export default function styles (theme, props) {
     };
     boxMarginRight = spacingType[props.spacing];
   }
+  if (props.spacingBefore === 'overlap') {
+    boxMarginLeft = '-1px';
+  }
 
   if (props.kind === 'disabled-light') {
     specialDisabled = true;

@@ -1200,7 +1200,6 @@ class Field extends Form {
         {props.existingValue
           ? <HinterLabel
               kind="markdown"
-              spacing="overlap"
               width={this.props.labelWidth || defaultLabelWidth}
               hintText={this.props.hintText}
               tooltip={this.props.tooltip || this.props.hintText}
@@ -1210,17 +1209,16 @@ class Field extends Form {
         {props.existingValue
           ? <Button
               kind="combo"
+              spacingBefore="overlap"
               glyph="eraser"
               width="32px"
               tooltip="Entrer une nouvelle référence"
-              spacing="overlap"
               onClick={() => this.setBackendValue (this.fullPath, null)}
             />
           : <Form
               {...this.formConfigWithComponent (() => (
                 <Hinter
                   id={this.context.id}
-                  spacing="overlap"
                   hintText={this.props.hintText}
                   tooltip={this.props.tooltip || this.props.hintText}
                   hinter={this.props.hinter}
@@ -1234,6 +1232,7 @@ class Field extends Form {
           : props.existingValue
               ? <Button
                   kind="combo"
+                  spacingBefore="overlap"
                   glyph="eye"
                   tooltip="Voir les détails"
                   onClick={() =>
@@ -1242,6 +1241,7 @@ class Field extends Form {
               : this.props.enableAdd
                   ? <Button
                       kind="combo"
+                      spacingBefore="overlap"
                       glyph="plus"
                       tooltip="Créer"
                       onClick={() => {
