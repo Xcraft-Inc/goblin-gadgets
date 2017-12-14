@@ -1236,7 +1236,11 @@ class Field extends Form {
                   glyph="eye"
                   tooltip="Voir les détails"
                   onClick={() =>
-                    this.navToDetail (this.context.id, props.existingValue)}
+                    this.navToDetail (
+                      this.context.id,
+                      props.existingValue,
+                      this.props.hinter
+                    )}
                 />
               : this.props.enableAdd
                   ? <Button
