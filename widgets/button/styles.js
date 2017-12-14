@@ -80,7 +80,7 @@ export default function styles (theme, props) {
     };
     boxMarginRight = spacingType[props.spacing];
   }
-  if (props.spacingBefore === 'overlap') {
+  if (props.leftSpacing === 'overlap') {
     boxMarginLeft = '-1px';
   }
 
