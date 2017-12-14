@@ -1209,7 +1209,7 @@ class Field extends Form {
         {props.existingValue
           ? <Button
               kind="combo"
-              spacingBefore="overlap"
+              leftSpacing="overlap"
               glyph="eraser"
               width="32px"
               tooltip="Entrer une nouvelle référence"
@@ -1232,7 +1232,7 @@ class Field extends Form {
           : props.existingValue
               ? <Button
                   kind="combo"
-                  spacingBefore="overlap"
+                  leftSpacing="overlap"
                   glyph="eye"
                   tooltip="Voir les détails"
                   onClick={() =>
@@ -1241,7 +1241,7 @@ class Field extends Form {
               : this.props.enableAdd
                   ? <Button
                       kind="combo"
-                      spacingBefore="overlap"
+                      leftSpacing="overlap"
                       glyph="plus"
                       tooltip="Créer"
                       onClick={() => {
