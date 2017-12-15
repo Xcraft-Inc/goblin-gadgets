@@ -388,9 +388,10 @@ class Field extends Form {
   }
 
   renderReadonlyEntity () {
+    const summary = this.props.summary || 'info';
     const Viewer = props => {
       const info = this.getModelValue (
-        `${props.entityId}.meta.summaries.info`,
+        `${props.entityId}.meta.summaries.${summary}`,
         true
       );
       return <Label text={info} grow="1" justify={this.props.justify} />;
@@ -1015,9 +1016,10 @@ class Field extends Form {
   }
 
   renderEditEntity () {
+    const summary = this.props.summary || 'info';
     const Viewer = props => {
       const info = this.getModelValue (
-        `${props.entityId}.meta.summaries.info`,
+        `${props.entityId}.meta.summaries.${summary}`,
         true
       );
       return <Label text={info} />;
@@ -1141,6 +1143,8 @@ class Field extends Form {
       ? this.getFullPathFromModel (this.props.targetModel)
       : this.fullPath;
 
+    const summary = this.props.summary || 'info';
+
     const Hinter = this.mapWidget (
       TextField,
       value => {
@@ -1148,7 +1152,10 @@ class Field extends Form {
           let selectedId = null;
           if (!this.props.onValue) {
             selectedId = value;
-            value = this.getModelValue (`${value}.meta.summaries.info`, true);
+            value = this.getModelValue (
+              `${value}.meta.summaries.${summary}`,
+              true
+            );
           }
           return {selectedValue: value, selectedId};
         } else {
@@ -1170,7 +1177,10 @@ class Field extends Form {
         value => {
           if (value && value !== '') {
             if (!this.props.onValue) {
-              value = this.getModelValue (`${value}.meta.summaries.info`, true);
+              value = this.getModelValue (
+                `${value}.meta.summaries.${summary}`,
+                true
+              );
             }
             return {text: value};
           } else {
