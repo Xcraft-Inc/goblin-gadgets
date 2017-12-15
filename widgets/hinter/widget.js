@@ -89,7 +89,7 @@ class Hinter extends Widget {
     );
   }
 
-  renderRow (row, index) {
+  renderRow (row, glyph, index) {
     const isActive =
       this.props.selectedIndex && this.props.selectedIndex === `${index}`;
 
@@ -106,6 +106,7 @@ class Hinter extends Widget {
         onClick={() => this.handleClick (index, row)}
         onDoubleClick={() => this.handleDbClick (index, row)}
       >
+        {glyph ? <Label glyph={glyph} glyphPosition="center" /> : null}
         <Label
           text={row}
           kind="large-single"
@@ -120,10 +121,12 @@ class Hinter extends Widget {
 
   renderList () {
     const result = [];
-    let index = 0;
-    for (const row of this.props.rows) {
-      result.push (this.renderRow (row, index));
-      index++;
+    const rows = this.props.rows.toArray ();
+    const glyphs = this.props.glyphs ? this.props.glyphs.toArray () : [];
+    for (let index = 0; index < rows.length; index++) {
+      const row = rows[index];
+      const glyph = index < glyphs.length ? glyphs[index] : null;
+      result.push (this.renderRow (row, glyph, index));
     }
     return result;
   }

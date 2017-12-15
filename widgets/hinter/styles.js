@@ -11,6 +11,7 @@ export default function styles (theme, props) {
     position: 'relative',
     display: 'flex',
     flexDirection: 'row',
+    alignItems: 'flex-start',
     marginTop: Unit.multiply (m, 0.5),
     marginBottom: Unit.sub (Unit.multiply (m, -0.5), '1px'),
     marginLeft: Unit.multiply (m, -1),
