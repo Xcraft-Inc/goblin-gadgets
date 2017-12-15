@@ -143,6 +143,8 @@ export default function styles (theme, props) {
   } else {
     if (props.glyphPosition === 'right') {
       glyphJustify = 'flex-end'; // push to right frame border
+    } else if (props.glyphPosition === 'center') {
+      glyphJustify = 'center';
     } else {
       glyphJustify = 'flex-start'; // push to left frame border
     }
