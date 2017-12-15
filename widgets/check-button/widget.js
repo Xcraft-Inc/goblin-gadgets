@@ -44,6 +44,7 @@ class CheckButton extends Widget {
         border={border}
         glyph={glyph}
         text={this.props.text}
+        tooltip={this.props.tooltip}
         active={active}
         disabled={this.props.disabled}
         readonly={this.props.readonly}

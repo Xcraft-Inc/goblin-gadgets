@@ -971,6 +971,7 @@ class Field extends Form {
         <WiredCheckButton
           kind={this.props.subkind}
           text={this.props.labelText}
+          tooltip={this.props.tooltip || this.props.hintText}
           onClick={() => {
             const checked = this.getBackendValue (this.fullPath);
             this.setBackendValue (this.fullPath, !checked);
