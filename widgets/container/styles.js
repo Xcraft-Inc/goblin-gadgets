@@ -606,6 +606,7 @@ export default function styles (theme, props) {
     alignItems = 'flex-start';
     margin = '0px ' + minusMargin + ' 0px ' + minusMargin;
     padding = '0px';
+    overflowY = 'auto';
   }
 
   if (props.kind === 'footer') {
