@@ -932,10 +932,11 @@ export default function styles (theme, props) {
       Unit.multiply (m, -1);
   }
 
-  if (flexGrow) {
-    flexShrink = '1';
-    flexBasis = '0%';
-  }
+  // WIP: This code generate problems of layout with 'row-field'.
+  //? if (flexGrow) {
+  //?   flexShrink = '1';
+  //?   flexBasis = '0%';
+  //? }
 
   if (Bool.isTrue (hidden)) {
     display = 'none';
