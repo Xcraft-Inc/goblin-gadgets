@@ -390,11 +390,22 @@ class Field extends Form {
   renderReadonlyEntity () {
     const summary = this.props.summary || 'info';
     const Viewer = props => {
-      const info = this.getModelValue (
+      const text = this.getModelValue (
         `${props.entityId}.meta.summaries.${summary}`,
         true
       );
-      return <Label text={info} grow="1" justify={this.props.justify} />;
+      const glyph = this.getModelValue (
+        `${props.entityId}.meta.summaries.glyph`,
+        true
+      );
+      return (
+        <Label
+          glyph={glyph}
+          text={text}
+          grow="1"
+          justify={this.props.justify}
+        />
+      );
     };
 
     const Action = props => {
@@ -1019,11 +1030,15 @@ class Field extends Form {
   renderEditEntity () {
     const summary = this.props.summary || 'info';
     const Viewer = props => {
-      const info = this.getModelValue (
+      const text = this.getModelValue (
         `${props.entityId}.meta.summaries.${summary}`,
         true
       );
-      return <Label text={info} />;
+      const glyph = this.getModelValue (
+        `${props.entityId}.meta.summaries.glyph`,
+        true
+      );
+      return <Label glyph={glyph} text={text} />;
     };
 
     const EntityViewer = this.mapWidget (Viewer, 'entityId', this.fullPath);
@@ -1175,14 +1190,20 @@ class Field extends Form {
       HinterLabel = this.mapWidget (
         Label,
         value => {
+          let text = '';
+          let glyph = null;
           if (value && value !== '') {
             if (!this.props.onValue) {
-              value = this.getModelValue (
+              text = this.getModelValue (
                 `${value}.meta.summaries.${summary}`,
                 true
               );
+              glyph = this.getModelValue (
+                `${value}.meta.summaries.glyph`,
+                true
+              );
             }
-            return {text: value};
+            return {text, glyph};
           } else {
             return {};
           }
