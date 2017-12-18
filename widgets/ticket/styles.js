@@ -190,6 +190,7 @@ export default function styles (theme, props) {
   let boxOpacity = Bool.isFalse (props.visibility) ? 0 : null;
 
   const boxStyle = {
+    flexGrow: props.grow,
     width: props.width,
     height: props.height,
     margin: '0px ' + horizontalSpacing + ' ' + props.verticalSpacing + ' 0px',
@@ -256,6 +257,7 @@ export default function styles (theme, props) {
   const rectShadowStyle = {
     width: props.width,
     height: props.height,
+    flexGrow: props.grow,
     margin: '0px ' + horizontalSpacing + ' ' + props.verticalSpacing + ' 0px',
     position: 'relative',
     top: theme.shapes.ticketShadowShift,
