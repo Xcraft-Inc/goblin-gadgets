@@ -482,7 +482,11 @@ class Field extends Form {
 
       return (
         <Container
-          kind="row-field"
+          kind={
+            Bool.isTrue (this.props.scrollableRow)
+              ? 'scrollable-row'
+              : 'row-field'
+          }
           subkind="light-box"
           grow={this.props.grow}
           width={this.props.width}
@@ -1079,8 +1083,20 @@ class Field extends Form {
         this.fullPath
       );
 
-      if (Bool.isTrue (this.props.useFullPanel)) {
-        return (
+      return (
+        <Container
+          kind={
+            Bool.isTrue (this.props.scrollableRow)
+              ? 'scrollable-row'
+              : 'row-field'
+          }
+          subkind="light-box"
+          grow={this.props.grow}
+          width={this.props.width}
+          height={this.props.height}
+          verticalSpacing={this.props.verticalSpacing}
+          verticalJustify="top"
+        >
           <FinalPlugin
             id={this.context.id}
             pluginType={this.props.pluginType}
@@ -1094,34 +1110,8 @@ class Field extends Form {
             disableDelete={this.props.disableDelete}
             horizontalSeparator={this.props.horizontalSeparator}
           />
-        );
-      } else {
-        return (
-          <Container
-            kind="row-field"
-            subkind="light-box"
-            grow={this.props.grow}
-            width={this.props.width}
-            height={this.props.height}
-            verticalSpacing={this.props.verticalSpacing}
-            verticalJustify="top"
-          >
-            <FinalPlugin
-              id={this.context.id}
-              pluginType={this.props.pluginType}
-              embedded={this.props.embedded}
-              embeddedLevel={
-                this.props.embeddedLevel ? this.props.embeddedLevel + 1 : 1
-              }
-              pluginTitle={this.props.pluginTitle}
-              dragType={this.props.dragType}
-              disableAdd={this.props.disableAdd}
-              disableDelete={this.props.disableDelete}
-              horizontalSeparator={this.props.horizontalSeparator}
-            />
-          </Container>
-        );
-      }
+        </Container>
+      );
     } else if (this.props.item) {
       const Items = props => {
         if (!props.entityIds) {

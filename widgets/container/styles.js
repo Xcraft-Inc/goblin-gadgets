@@ -597,6 +597,17 @@ export default function styles (theme, props) {
     padding = '0px';
   }
 
+  if (props.kind === 'scrollable-row') {
+    const minusMargin = Unit.multiply (m, -1);
+    display = 'flex';
+    flexDirection = 'row';
+    flexGrow = props.grow;
+    justifyContent = 'flex-start';
+    alignItems = 'flex-start';
+    margin = '0px ' + minusMargin + ' 0px ' + minusMargin;
+    padding = '0px';
+  }
+
   if (props.kind === 'footer') {
     minHeight = theme.shapes.footerHeight;
     display = 'flex';
