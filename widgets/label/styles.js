@@ -298,6 +298,9 @@ export default function styles (theme, props) {
     backgroundColor = theme.palette.textFieldReadonlyBackground;
     boxSizing = 'border-box';
     boxHeight = Unit.add ('32px', '2px');
+    boxAlignItems = 'flex-start';
+    glyphHeight = null;
+    glyphJustify = 'center';
   }
 
   if (props.kind === 'label-field') {

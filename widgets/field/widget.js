@@ -400,6 +400,7 @@ class Field extends Form {
       );
       return (
         <Label
+          kind="markdown"
           glyph={glyph}
           text={text}
           grow="1"
@@ -444,10 +445,10 @@ class Field extends Form {
         {labelWidth === '0px'
           ? null
           : <Label
+              kind="label-field"
               text={this.props.labelText}
               glyph={this.props.labelGlyph}
               width={labelWidth}
-              kind="label-field"
               justify="left"
               spacing="overlap"
               disabled="true"
@@ -1038,7 +1039,7 @@ class Field extends Form {
         `${props.entityId}.meta.summaries.glyph`,
         true
       );
-      return <Label glyph={glyph} text={text} />;
+      return <Label kind="markdown" glyph={glyph} text={text} />;
     };
 
     const EntityViewer = this.mapWidget (Viewer, 'entityId', this.fullPath);
