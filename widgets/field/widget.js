@@ -450,8 +450,8 @@ class Field extends Form {
   renderReadonlyEntities () {
     if (this.props.plugin) {
       let WiredPlugin = null;
-      if (false) {
-        //? if (this.props.pluginType) {
+
+      if (this.props.pluginType) {
         const CustomPlugin = widgetImporter (`plugin-${this.props.pluginType}`);
         WiredPlugin = Widget.Wired (CustomPlugin) (
           `${this.props.plugin}-plugin@${this.context.id}`
@@ -1046,8 +1046,7 @@ class Field extends Form {
   renderEditEntities () {
     if (this.props.plugin) {
       let WiredPlugin = null;
-      if (false) {
-        //? (this.props.pluginType) {
+      if (this.props.pluginType) {
         const CustomPlugin = widgetImporter (`plugin-${this.props.pluginType}`);
         WiredPlugin = Widget.Wired (CustomPlugin) (
           `${this.props.plugin}-plugin@${this.context.id}`
