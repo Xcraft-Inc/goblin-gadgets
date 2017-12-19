@@ -112,7 +112,7 @@ export function getComboLocation (
 
   const offset = getFlyingOffset ();
 
-  const xx = {
+  return {
     center: Unit.sub (center, offset.left),
     top: underside ? Unit.sub (bottomValue, offset.top) : null,
     bottom: underside ? null : Unit.sub (topValue, offset.top),
@@ -120,7 +120,6 @@ export function getComboLocation (
     width: width,
     menuItemWidth: itemWidth,
   };
-  return xx;
 }
 
 // Compute the location for a select-menu.
