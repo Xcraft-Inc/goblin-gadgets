@@ -122,6 +122,7 @@ class Combo extends Widget {
       return <Separator key={index} kind="menu-separator" />;
     } else {
       const active = Bool.toString (this.activeIndex === index);
+      const color = ColorHelpers.getMarkColor (this.context.theme, item.color);
       if (this.props.menuType === 'wrap') {
         const width = this.props.menuItemWidth
           ? Unit.sub (
@@ -135,6 +136,7 @@ class Combo extends Widget {
             kind="combo-wrap-item"
             width={width}
             glyph={item.glyph}
+            glyphColor={color}
             text={item.text}
             tooltip={
               Bool.isTrue (this.props.menuItemTooltips) ? item.text : null
@@ -146,10 +148,6 @@ class Combo extends Widget {
           />
         );
       } else {
-        const color = ColorHelpers.getMarkColor (
-          this.context.theme,
-          item.color
-        );
         return (
           <Button
             key={index}

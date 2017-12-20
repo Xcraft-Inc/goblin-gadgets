@@ -157,6 +157,7 @@ class TextFieldCombo extends Widget {
         return {
           text: item.text,
           glyph: item.glyph,
+          color: item.color,
           active: Bool.toString (active),
           action: x => this.setText (x),
         };
