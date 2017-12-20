@@ -47,12 +47,10 @@ class Combo extends Widget {
 
     let index = 0;
     for (let item of this.props.list) {
-      if (!item.separator) {
-        if (Bool.isTrue (item.active)) {
-          this.activeIndex = index;
-        }
-        index++;
+      if (Bool.isTrue (item.active)) {
+        this.activeIndex = index;
       }
+      index++;
     }
   }
 
