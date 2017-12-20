@@ -327,6 +327,11 @@ export default function styles (theme, props) {
     glyphHeight = null;
   }
 
+  if (props.kind === 'compact-glyph') {
+    glyphMinWidth = null;
+    boxMarginLeft = '5px';
+  }
+
   /******************************************************************************/
   // Styles for Labels inside LabelTextFields.
   /******************************************************************************/
