@@ -598,13 +598,12 @@ export default function styles (theme, props) {
   }
 
   if (props.kind === 'scrollable-row') {
-    const minusMargin = Unit.multiply (m, -1);
     display = 'flex';
     flexDirection = 'row';
-    flexGrow = props.grow;
+    flexGrow = '1';
     justifyContent = 'flex-start';
     alignItems = 'flex-start';
-    margin = '0px ' + minusMargin + ' 0px ' + minusMargin;
+    margin = '0px';
     padding = '0px';
     overflowY = 'auto';
   }
@@ -643,6 +642,12 @@ export default function styles (theme, props) {
     overflowX = 'hidden';
     overflowY = 'hidden';
     backgroundColor = theme.palette.viewBackground;
+  }
+
+  if (props.kind === 'tickets-backlog-header') {
+    display = 'flex';
+    flexDirection = 'row';
+    margin = m;
   }
 
   if (props.kind === 'tickets-messengers') {
