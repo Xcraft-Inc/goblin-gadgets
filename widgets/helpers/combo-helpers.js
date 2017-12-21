@@ -92,7 +92,7 @@ export function getComboLocation (
   const tv = Unit.parse (triangleSize).value;
   const underMax = window.innerHeight - rect.bottom - tv - 20 + 'px';
   const overMax = rect.top - tv - 20 + 'px';
-  const underside = (rect.top + rect.bottom) / 2 < window.innerHeight / 2;
+  const underside = (rect.top + rect.bottom) / 2 < window.innerHeight * 0.67;
   let maxHeight = underside ? underMax : overMax;
 
   let width = null;
