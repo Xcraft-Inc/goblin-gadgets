@@ -4,6 +4,7 @@ import Widget from 'laboratory/widget';
 import MouseTrap from 'mousetrap';
 import * as ComboHelpers from '../helpers/combo-helpers.js';
 import * as Bool from 'gadgets/boolean-helpers';
+import {Unit} from 'electrum-theme';
 
 import Button from 'gadgets/button/widget';
 import TextField from 'gadgets/text-field/widget';
@@ -72,13 +73,17 @@ class TextFieldCombo extends Widget {
     const itemCount = this.props.list.size
       ? this.props.list.size
       : this.props.list.length; // FIXME: pouèrk !
+
     this.comboLocation = ComboHelpers.getComboLocation (
       node,
       this.context.theme.shapes.flyingBalloonTriangleSize,
       this.context.theme.shapes.flyingBalloonPadding,
       itemCount,
       this.props.menuItemWidth,
-      this.context.theme.shapes.menuButtonHeight // height of Button kind='combo-wrap-item'
+      this.context.theme.shapes.menuButtonHeight, // height of Button kind='combo-wrap-item'
+      null,
+      null,
+      Unit.multiply (this.context.theme.shapes.dialogDistanceFromEdge, 2)
     );
 
     this.selectLocation = ComboHelpers.getSelectLocation (
@@ -270,6 +275,7 @@ class TextFieldCombo extends Widget {
         }
         menuItemTooltips={this.props.menuItemTooltips}
         left={this.comboLocation.center}
+        triangleShift={this.comboLocation.triangleShift}
         top={this.comboLocation.top}
         bottom={this.comboLocation.bottom}
         maxHeight={this.comboLocation.maxHeight}
@@ -286,7 +292,7 @@ class TextFieldCombo extends Widget {
     let index = 0;
     let defaultIndex = null;
     if (typeof list[0] === 'string') {
-      for (var item of list) {
+      for (let item of list) {
         if (this.props.defaultValue === item) {
           defaultIndex = index;
         }
@@ -297,7 +303,7 @@ class TextFieldCombo extends Widget {
         index++;
       }
     } else {
-      for (var item of list) {
+      for (let item of list) {
         if (this.props.defaultValue === item.text) {
           defaultIndex = index;
         }

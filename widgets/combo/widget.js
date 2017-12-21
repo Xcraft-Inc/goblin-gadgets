@@ -198,6 +198,7 @@ class Combo extends Widget {
                 ? this.props.trianglePosition
                 : this.props.top ? 'top' : 'bottom'
             }
+            triangleShift={this.props.triangleShift}
           >
             <div className={insideClass}>
               {this.renderCombo ()}

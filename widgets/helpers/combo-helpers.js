@@ -66,7 +66,8 @@ export function getComboLocation (
   itemWidth,
   itemHeight,
   x,
-  y
+  y,
+  distanceFromEdge
 ) {
   const rect = node.getBoundingClientRect ();
 
@@ -110,6 +111,13 @@ export function getComboLocation (
     maxHeight = maxRows * Unit.parse (itemHeight).value + 'px';
   }
 
+  let triangleShift = null;
+  if (distanceFromEdge) {
+    const d = horizontalDeclipping (width, center, distanceFromEdge);
+    center = d.center;
+    triangleShift = d.triangleShift;
+  }
+
   const offset = getFlyingOffset ();
 
   return {
@@ -119,6 +127,7 @@ export function getComboLocation (
     maxHeight: maxHeight,
     width: width,
     menuItemWidth: itemWidth,
+    triangleShift: triangleShift,
   };
 }
 
