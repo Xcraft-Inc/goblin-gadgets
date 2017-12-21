@@ -482,11 +482,7 @@ class Field extends Form {
 
       return (
         <Container
-          kind={
-            Bool.isTrue (this.props.scrollableRow)
-              ? 'scrollable-row'
-              : 'row-field'
-          }
+          kind={this.props.containerKind || 'row-field'}
           subkind="light-box"
           grow={this.props.grow}
           width={this.props.width}
@@ -1085,11 +1081,7 @@ class Field extends Form {
 
       return (
         <Container
-          kind={
-            Bool.isTrue (this.props.scrollableRow)
-              ? 'scrollable-row'
-              : 'row-field'
-          }
+          kind={this.props.containerKind || 'row-field'}
           subkind="light-box"
           grow={this.props.grow}
           width={this.props.width}

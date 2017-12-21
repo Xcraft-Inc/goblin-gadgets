@@ -636,6 +636,15 @@ export default function styles (theme, props) {
     overflowX = 'hidden';
   }
 
+  if (props.kind === 'tickets-backlog') {
+    display = 'flex';
+    flexDirection = 'column';
+    flexGrow = 1;
+    overflowX = 'hidden';
+    overflowY = 'hidden';
+    backgroundColor = theme.palette.viewBackground;
+  }
+
   if (props.kind === 'tickets-messengers') {
     display = 'flex';
     flexDirection = 'row';
