@@ -587,6 +587,7 @@ export default function styles (theme, props) {
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     textSize = theme.shapes.menuTextSize;
     textTransform = textTransform ? textTransform : 'uppercase';
+    glyphJustify = 'flex-start';
   }
 
   if (props.kind === 'glyph-item') {
