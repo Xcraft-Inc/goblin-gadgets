@@ -497,6 +497,7 @@ class Field extends Form {
               this.props.embeddedLevel ? this.props.embeddedLevel + 1 : 1
             }
             pluginTitle={this.props.pluginTitle}
+            origin={this.props.origin}
           />
         </Container>
       );
@@ -1097,6 +1098,7 @@ class Field extends Form {
               this.props.embeddedLevel ? this.props.embeddedLevel + 1 : 1
             }
             pluginTitle={this.props.pluginTitle}
+            origin={this.props.origin}
             dragType={this.props.dragType}
             disableAdd={this.props.disableAdd}
             disableDelete={this.props.disableDelete}
