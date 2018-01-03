@@ -608,6 +608,17 @@ export default function styles (theme, props) {
     overflowY = 'auto';
   }
 
+  if (props.kind === 'backlog-row') {
+    display = 'flex';
+    flexDirection = 'row';
+    flexGrow = '1';
+    justifyContent = 'flex-start';
+    alignItems = 'flex-start';
+    margin = Unit.multiply (m, -1);
+    padding = m + ' 0px ' + Unit.multiply (m, 0.5) + ' 0px';
+    backgroundColor = theme.palette.ticketsBackground;
+  }
+
   if (props.kind === 'footer') {
     minHeight = theme.shapes.footerHeight;
     display = 'flex';
