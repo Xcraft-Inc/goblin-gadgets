@@ -658,7 +658,7 @@ export default function styles (theme, props) {
   if (props.kind === 'tickets-backlog-header') {
     display = 'flex';
     flexDirection = 'row';
-    margin = m;
+    margin = m + ' 0px';
   }
 
   if (props.kind === 'tickets-messengers') {
