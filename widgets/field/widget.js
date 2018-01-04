@@ -1240,6 +1240,7 @@ class Field extends Form {
                   hinter={this.props.hinter}
                   comboType={this.props.hinter}
                   grow="1"
+                  required={this.props.required || 'true'}
                 />
               ))}
             />}

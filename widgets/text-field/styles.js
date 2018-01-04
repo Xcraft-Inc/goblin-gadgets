@@ -94,6 +94,11 @@ export default function styles (theme, props) {
     opacity: opacity,
   };
 
+  const boxRequiredStyle = Object.assign ({}, boxStyle); // clone
+  if (Bool.isTrue (props.required)) {
+    boxRequiredStyle.backgroundColor = '#fcc';
+  }
+
   const inputStyle = {
     [`:focus + .toto`]: {
       borderRadius: borderRadius,
@@ -149,6 +154,7 @@ export default function styles (theme, props) {
 
   return {
     box: boxStyle,
+    boxRequired: boxRequiredStyle,
     focus: focusStyle,
     field: fieldStyle,
     textarea: textareaStyle,

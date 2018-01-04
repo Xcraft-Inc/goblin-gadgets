@@ -220,7 +220,6 @@ class TextField extends Widget {
       ? this.styles.classNames.textarea + ' mousetrap'
       : this.styles.classNames.field + ' mousetrap';
 
-    const boxClass = this.styles.classNames.box;
     const inputClass = this.styles.classNames.input;
 
     const Field = props => {
@@ -236,6 +235,10 @@ class TextField extends Widget {
       if (props.value === null || props.value === undefined) {
         finalProps.value = '';
       }
+
+      const boxClass = finalProps.value === ''
+        ? this.styles.classNames.box
+        : this.styles.classNames.boxRequired;
 
       return (
         <div className={boxClass} title={this.props.tooltip}>
