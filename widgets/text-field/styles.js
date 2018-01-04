@@ -96,7 +96,8 @@ export default function styles (theme, props) {
 
   const boxRequiredStyle = Object.assign ({}, boxStyle); // clone
   if (Bool.isTrue (props.required)) {
-    boxRequiredStyle.backgroundColor = '#fcc';
+    boxRequiredStyle.backgroundColor =
+      theme.palette.textFieldRequiredBackground;
   }
 
   const inputStyle = {
