@@ -597,14 +597,6 @@ export default function styles (theme, props) {
     padding = '0px';
   }
 
-  if (props.kind === 'full-row') {
-    display = 'flex';
-    flexDirection = 'column';
-    flexGrow = '1';
-    margin = '0px';
-    padding = '0px';
-  }
-
   if (props.kind === 'backlog-row') {
     display = 'flex';
     flexDirection = 'row';
@@ -614,6 +606,14 @@ export default function styles (theme, props) {
     margin = Unit.multiply (m, -1);
     padding = m + ' 0px ' + Unit.multiply (m, 0.5) + ' 0px';
     backgroundColor = theme.palette.ticketsBackground;
+  }
+
+  if (props.kind === 'full-column') {
+    display = 'flex';
+    flexDirection = 'column';
+    flexGrow = '1';
+    margin = '0px';
+    padding = '0px';
   }
 
   if (props.kind === 'scrollable-column') {
