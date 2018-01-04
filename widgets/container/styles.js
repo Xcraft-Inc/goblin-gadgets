@@ -597,15 +597,12 @@ export default function styles (theme, props) {
     padding = '0px';
   }
 
-  if (props.kind === 'scrollable-row') {
+  if (props.kind === 'full-row') {
     display = 'flex';
-    flexDirection = 'row';
+    flexDirection = 'column';
     flexGrow = '1';
-    justifyContent = 'flex-start';
-    alignItems = 'flex-start';
     margin = '0px';
     padding = '0px';
-    overflowY = 'auto';
   }
 
   if (props.kind === 'backlog-row') {
@@ -617,6 +614,15 @@ export default function styles (theme, props) {
     margin = Unit.multiply (m, -1);
     padding = m + ' 0px ' + Unit.multiply (m, 0.5) + ' 0px';
     backgroundColor = theme.palette.ticketsBackground;
+  }
+
+  if (props.kind === 'scrollable-column') {
+    display = 'flex';
+    flexDirection = 'column';
+    flexGrow = '1';
+    margin = '0px';
+    padding = '0px';
+    overflowY = 'auto';
   }
 
   if (props.kind === 'footer') {
@@ -653,12 +659,6 @@ export default function styles (theme, props) {
     overflowX = 'hidden';
     overflowY = 'hidden';
     backgroundColor = theme.palette.viewBackground;
-  }
-
-  if (props.kind === 'tickets-backlog-header') {
-    display = 'flex';
-    flexDirection = 'row';
-    margin = m + ' 0px';
   }
 
   if (props.kind === 'tickets-messengers') {
