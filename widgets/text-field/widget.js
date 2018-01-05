@@ -238,7 +238,7 @@ class TextField extends Widget {
 
       const boxClass = finalProps.value === ''
         ? this.styles.classNames.box
-        : this.styles.classNames.boxRequired;
+        : this.styles.classNames.boxRequired; // use style 'required' only if text is not empty
 
       return (
         <div className={boxClass} title={this.props.tooltip}>

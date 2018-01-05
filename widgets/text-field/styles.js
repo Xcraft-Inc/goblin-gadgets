@@ -63,8 +63,6 @@ export default function styles (theme, props) {
     borderColor = theme.palette.comboActiveBackground;
   } else if (Bool.isTrue (props.readonly)) {
     backgroundColor = theme.palette.textFieldReadonlyBackground;
-  } else {
-    backgroundColor = theme.palette.textFieldBackground;
   }
 
   if (flexGrow) {
@@ -95,7 +93,13 @@ export default function styles (theme, props) {
   };
 
   const boxRequiredStyle = Object.assign ({}, boxStyle); // clone
-  if (Bool.isTrue (props.required)) {
+  if (
+    Bool.isTrue (props.required) &&
+    !Bool.isTrue (props.disabled) &&
+    !Bool.isTrue (props.active) &&
+    !Bool.isTrue (props.readonly)
+  ) {
+    // Change backgroundColor if required text-field is not empty.
     boxRequiredStyle.backgroundColor =
       theme.palette.textFieldRequiredBackground;
   }
