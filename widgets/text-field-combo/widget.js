@@ -216,6 +216,7 @@ class TextFieldCombo extends Widget {
       selectAllOnFocus: this.props.selectAllOnFocus,
       defaultFocus: this.props.defaultFocus,
       visibility: this.props.visibility,
+      required: this.props.required,
     };
 
     if (displayValue) {

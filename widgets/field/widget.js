@@ -627,6 +627,7 @@ class Field extends Form {
           tooltip={this.props.tooltip || this.props.hintText}
           rows={this.props.rows}
           model={this.props.model}
+          required={this.props.required}
           grow="1"
         />
       </Container>
@@ -677,6 +678,7 @@ class Field extends Form {
             fieldWidth={this.props.fieldWidth || '120px'}
             hintText={this.props.hintText}
             tooltip={this.props.tooltip || this.props.hintText}
+            required={this.props.required}
           />
         </Container>
       );
@@ -700,6 +702,7 @@ class Field extends Form {
             hintText={this.props.hintText}
             tooltip={this.props.tooltip || this.props.hintText}
             model={this.props.model}
+            required={this.props.required}
           />
         </Container>
       );
@@ -726,6 +729,7 @@ class Field extends Form {
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
           model={this.props.model}
+          required={this.props.required}
         />
       </Container>
     );
@@ -751,6 +755,7 @@ class Field extends Form {
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
           model={this.props.model}
+          required={this.props.required}
         />
       </Container>
     );
@@ -777,6 +782,7 @@ class Field extends Form {
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
           model={this.props.model}
+          required={this.props.required}
         />
       </Container>
     );
@@ -803,6 +809,7 @@ class Field extends Form {
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
           model={this.props.model}
+          required={this.props.required}
         />
       </Container>
     );
@@ -837,6 +844,7 @@ class Field extends Form {
           width={this.props.fieldWidth}
           model={this.props.model}
           readonly={this.props.comboReadonly}
+          required={this.props.required}
           list={this.props.list}
           menuType="wrap"
           menuItemWidth={this.props.menuItemWidth}
