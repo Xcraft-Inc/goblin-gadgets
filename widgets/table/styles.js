@@ -10,6 +10,7 @@ export default function styles (theme, props) {
     : null;
 
   const tableStyle = {
+    flexGrow: props.grow,
     height: props.height,
     cursor: 'default',
     overflowY: 'auto',

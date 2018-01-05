@@ -571,6 +571,13 @@ export default function styles (theme, props) {
       topMargin + ' ' + rightMargin + ' ' + bottomMargin + ' ' + leftMargin;
   }
 
+  if (props.kind === 'row-full') {
+    display = 'flex';
+    flexDirection = 'row';
+    flexGrow = '1';
+    margin = Unit.multiply (m, 0.5) + ' 0px 0px 0px';
+  }
+
   if (props.kind === 'row-pane-drag') {
     display = 'flex';
     flexDirection = 'column';
