@@ -94,7 +94,7 @@ export default function styles (theme, props) {
 
   const boxRequiredStyle = Object.assign ({}, boxStyle); // clone
   if (
-    Bool.isTrue (props.required) &&
+    Bool.isTrue (props.requiredHinter) &&
     !Bool.isTrue (props.disabled) &&
     !Bool.isTrue (props.active) &&
     !Bool.isTrue (props.readonly)
