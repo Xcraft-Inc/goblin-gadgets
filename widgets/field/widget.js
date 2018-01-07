@@ -8,6 +8,9 @@ import {
   price as PriceConverters,
   weight as WeightConverters,
   volume as VolumeConverters,
+  number as NumberConverters,
+  percent as PercentConverters,
+  delay as DelayConverters,
 } from 'xcraft-core-converters';
 
 import Container from 'gadgets/container/widget';
@@ -311,6 +314,123 @@ class Field extends Form {
       Label,
       value => {
         return {text: VolumeConverters.getDisplayed (value, this.props.unit)};
+      },
+      this.fullPath
+    );
+
+    const labelWidth = this.props.labelWidth || defaultLabelWidth;
+
+    return (
+      <Container
+        kind="row-field"
+        subkind="left"
+        grow="0"
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing || 'compact'}
+        verticalJustify={this.props.verticalJustify}
+      >
+        {labelWidth === '0px'
+          ? null
+          : <Label
+              text={this.props.labelText}
+              glyph={this.props.labelGlyph}
+              width={labelWidth}
+              kind="label-field"
+              justify="left"
+              spacing="overlap"
+              disabled="true"
+            />}
+        <Value width="200px" justify={this.props.justify} />
+      </Container>
+    );
+  }
+
+  renderReadonlyNumber () {
+    const Value = this.mapWidget (
+      Label,
+      value => {
+        return {text: NumberConverters.getDisplayed (value, this.props.unit)};
+      },
+      this.fullPath
+    );
+
+    const labelWidth = this.props.labelWidth || defaultLabelWidth;
+
+    return (
+      <Container
+        kind="row-field"
+        subkind="left"
+        grow="0"
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing || 'compact'}
+        verticalJustify={this.props.verticalJustify}
+      >
+        {labelWidth === '0px'
+          ? null
+          : <Label
+              text={this.props.labelText}
+              glyph={this.props.labelGlyph}
+              width={labelWidth}
+              kind="label-field"
+              justify="left"
+              spacing="overlap"
+              disabled="true"
+            />}
+        <Value
+          width={this.props.fieldWidth || '120px'}
+          justify={this.props.justify}
+        />
+      </Container>
+    );
+  }
+
+  renderReadonlyPercent () {
+    const Value = this.mapWidget (
+      Label,
+      value => {
+        return {text: PercentConverters.getDisplayed (value, this.props.unit)};
+      },
+      this.fullPath
+    );
+
+    const labelWidth = this.props.labelWidth || defaultLabelWidth;
+
+    return (
+      <Container
+        kind="row-field"
+        subkind="left"
+        grow="0"
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing || 'compact'}
+        verticalJustify={this.props.verticalJustify}
+      >
+        {labelWidth === '0px'
+          ? null
+          : <Label
+              text={this.props.labelText}
+              glyph={this.props.labelGlyph}
+              width={labelWidth}
+              kind="label-field"
+              justify="left"
+              spacing="overlap"
+              disabled="true"
+            />}
+        <Value
+          width={this.props.fieldWidth || '120px'}
+          justify={this.props.justify}
+        />
+      </Container>
+    );
+  }
+
+  renderReadonlyDelay () {
+    const Value = this.mapWidget (
+      Label,
+      value => {
+        return {text: DelayConverters.getDisplayed (value, this.props.unit)};
       },
       this.fullPath
     );
@@ -800,6 +920,87 @@ class Field extends Form {
       >
         <TextFieldTyped
           type="volume"
+          unit={this.props.unit}
+          spacing={this.props.spacing}
+          labelText={this.props.labelText}
+          labelGlyph={this.props.labelGlyph}
+          labelWidth={this.props.labelWidth || defaultLabelWidth}
+          fieldWidth="200px"
+          hintText={this.props.hintText}
+          tooltip={this.props.tooltip || this.props.hintText}
+          model={this.props.model}
+          required={this.props.required}
+        />
+      </Container>
+    );
+  }
+
+  renderEditNumber () {
+    return (
+      <Container
+        kind="row-field"
+        grow="0"
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
+      >
+        <TextFieldTyped
+          type="number"
+          unit={this.props.unit}
+          spacing={this.props.spacing}
+          labelText={this.props.labelText}
+          labelGlyph={this.props.labelGlyph}
+          labelWidth={this.props.labelWidth || defaultLabelWidth}
+          fieldWidth={this.props.fieldWidth || '120px'}
+          hintText={this.props.hintText}
+          tooltip={this.props.tooltip || this.props.hintText}
+          model={this.props.model}
+          required={this.props.required}
+        />
+      </Container>
+    );
+  }
+
+  renderEditPercent () {
+    return (
+      <Container
+        kind="row-field"
+        grow="0"
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
+      >
+        <TextFieldTyped
+          type="percent"
+          unit={this.props.unit}
+          spacing={this.props.spacing}
+          labelText={this.props.labelText}
+          labelGlyph={this.props.labelGlyph}
+          labelWidth={this.props.labelWidth || defaultLabelWidth}
+          fieldWidth={this.props.fieldWidth || '120px'}
+          hintText={this.props.hintText}
+          tooltip={this.props.tooltip || this.props.hintText}
+          model={this.props.model}
+          required={this.props.required}
+        />
+      </Container>
+    );
+  }
+
+  renderEditDelay () {
+    return (
+      <Container
+        kind="row-field"
+        grow="0"
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
+      >
+        <TextFieldTyped
+          type="delay"
           unit={this.props.unit}
           spacing={this.props.spacing}
           labelText={this.props.labelText}
@@ -1334,6 +1535,12 @@ class Field extends Form {
         return this.renderReadonlyWeight ();
       case 'volume':
         return this.renderReadonlyVolume ();
+      case 'number':
+        return this.renderReadonlyNumber ();
+      case 'percent':
+        return this.renderReadonlyPercent ();
+      case 'delay':
+        return this.renderReadonlyDelay ();
       case 'combo':
         return this.renderReadonlyField ();
       case 'radio':
@@ -1377,6 +1584,12 @@ class Field extends Form {
         return this.renderEditWeight ();
       case 'volume':
         return this.renderEditVolume ();
+      case 'number':
+        return this.renderEditNumber ();
+      case 'percent':
+        return this.renderEditPercent ();
+      case 'delay':
+        return this.renderEditDelay ();
       case 'combo':
         return this.renderEditCombo ();
       case 'radio':

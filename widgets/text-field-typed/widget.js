@@ -6,6 +6,9 @@ import {
   price as PriceConverters,
   weight as WeightConverters,
   volume as VolumeConverters,
+  number as NumberConverters,
+  percent as PercentConverters,
+  delay as DelayConverters,
 } from 'xcraft-core-converters';
 
 import LabelTextField from 'gadgets/label-text-field/widget';
@@ -29,6 +32,12 @@ class TextFieldTyped extends Widget {
         return WeightConverters.getDisplayed (canonicalValue, this.props.unit);
       case 'volume':
         return VolumeConverters.getDisplayed (canonicalValue, this.props.unit);
+      case 'number':
+        return NumberConverters.getDisplayed (canonicalValue);
+      case 'percent':
+        return PercentConverters.getDisplayed (canonicalValue);
+      case 'delay':
+        return DelayConverters.getDisplayed (canonicalValue, this.props.unit);
       default:
         throw new Error (`Invalid type ${this.props.type}`);
     }
@@ -56,6 +65,15 @@ class TextFieldTyped extends Widget {
         break;
       case 'volume':
         parsed = VolumeConverters.parseEdited (displayedValue, this.props.unit);
+        break;
+      case 'number':
+        parsed = NumberConverters.parseEdited (displayedValue);
+        break;
+      case 'percent':
+        parsed = PercentConverters.parseEdited (displayedValue);
+        break;
+      case 'delay':
+        parsed = DelayConverters.parseEdited (displayedValue, this.props.unit);
         break;
       default:
         throw new Error (`Invalid type ${this.type}`);
@@ -131,7 +149,13 @@ class TextFieldTyped extends Widget {
         labelText={this.props.labelText}
         labelWidth={this.props.labelWidth}
         fieldWidth={this.props.fieldWidth}
-        fieldJustify={this.props.type === 'price' ? 'right' : 'left'}
+        fieldJustify={
+          this.props.type === 'price' ||
+            this.props.type === 'number' ||
+            this.props.type === 'percent'
+            ? 'right'
+            : 'left'
+        }
         grow={this.props.grow}
         spacing={this.props.spacing}
         readonly={this.props.readonly}
