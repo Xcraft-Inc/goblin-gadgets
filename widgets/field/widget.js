@@ -990,6 +990,8 @@ class Field extends Form {
   }
 
   renderEditDelay () {
+    const help =
+      '1a = 1 année\r2m = 2 mois\r3j = 3 jours\r4h = 4 heures\r5min = 5 minutes';
     return (
       <Container
         kind="row-field"
@@ -1008,7 +1010,7 @@ class Field extends Form {
           labelWidth={this.props.labelWidth || defaultLabelWidth}
           fieldWidth="200px"
           hintText={this.props.hintText}
-          tooltip={this.props.tooltip || this.props.hintText}
+          tooltip={this.props.tooltip || this.props.hintText || help}
           model={this.props.model}
           required={this.props.required}
         />
