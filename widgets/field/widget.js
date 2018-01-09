@@ -991,7 +991,7 @@ class Field extends Form {
 
   renderEditDelay () {
     const help =
-      '1a = 1 année\r2mois = 2 mois\r3j = 3 jours\r4h = 4 heures\r5m = 5 minutes';
+      '1a = 1 année\r2mo = 2 mois\r3j = 3 jours\r4h = 4 heures\r5m = 5 minutes';
     return (
       <Container
         kind="row-field"
