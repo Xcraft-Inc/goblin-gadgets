@@ -796,6 +796,21 @@ export default function styles (theme, props) {
     }
   }
 
+  if (props.kind === 'ticket-draggable') {
+    display = 'flex';
+    flexDirection = 'column';
+    flexGrow = '1';
+    margin =
+      '0px ' + m + ' ' + theme.shapes.ticketBacklogVerticalSpacing + ' ' + m;
+    if (Bool.isTrue (props.isDragged)) {
+      backgroundColor = '#fff';
+      boxShadow = '0px 10px 50px rgba(0, 0, 0, 0.50)';
+      opacity = 0.95;
+    } else if (Bool.isTrue (props.hasHeLeft)) {
+      opacity = 0;
+    }
+  }
+
   if (props.kind === 'wrap') {
     display = 'flex';
     flexDirection = 'row';
