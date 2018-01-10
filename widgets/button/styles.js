@@ -129,6 +129,7 @@ export default function styles (theme, props) {
 
   // view-tab button (usual parent is container with kind='view-tab').
   if (props.kind === 'view-tab') {
+    boxMaxWidth = '250px';
     boxHeight = theme.shapes.viewTabHeight;
     if (props.text) {
       boxMarginTop = '1px';
