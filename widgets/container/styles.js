@@ -680,6 +680,8 @@ export default function styles (theme, props) {
   }
 
   if (props.kind === 'tickets-messengers') {
+    //- maxWidth = '100%';
+    width = 'calc(100vw - ' + theme.shapes.taskButtonWidth + ')';
     display = 'flex';
     flexDirection = 'row';
     flexGrow = 1;
