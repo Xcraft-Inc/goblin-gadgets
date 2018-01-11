@@ -680,7 +680,7 @@ export default function styles (theme, props) {
     padding = '0px ' + mm + ' 0px ' + mm;
     display = 'flex';
     flexDirection = 'column';
-    flexGrow = 0;
+    flexGrow = 1;
     margin = '0px ' + theme.shapes.viewSpacing + ' 0px 0px';
     backgroundColor = theme.palette.ticketsBackground;
   }
@@ -796,12 +796,26 @@ export default function styles (theme, props) {
     }
   }
 
-  if (props.kind === 'ticket-draggable') {
+  if (props.kind === 'ticket-backlog-draggable') {
     display = 'flex';
     flexDirection = 'column';
     flexGrow = '1';
     margin =
       '0px ' + m + ' ' + theme.shapes.ticketBacklogVerticalSpacing + ' ' + m;
+    if (Bool.isTrue (props.isDragged)) {
+      backgroundColor = '#fff';
+      boxShadow = '0px 10px 50px rgba(0, 0, 0, 0.50)';
+      opacity = 0.95;
+    } else if (Bool.isTrue (props.hasHeLeft)) {
+      opacity = 0;
+    }
+  }
+
+  if (props.kind === 'ticket-roadbook-draggable') {
+    display = 'flex';
+    flexDirection = 'column';
+    flexGrow = '1';
+    margin = '0px 0px ' + theme.shapes.ticketVerticalSpacing + ' 0px';
     if (Bool.isTrue (props.isDragged)) {
       backgroundColor = '#fff';
       boxShadow = '0px 10px 50px rgba(0, 0, 0, 0.50)';
