@@ -611,7 +611,18 @@ export default function styles (theme, props) {
     justifyContent = 'flex-start';
     alignItems = 'flex-start';
     margin = Unit.multiply (m, -1);
-    padding = m + ' 0px ' + Unit.multiply (m, 0.5) + ' 0px';
+    padding = '0px 0px ' + Unit.multiply (m, 0.5) + ' 0px';
+    backgroundColor = theme.palette.ticketsBackground;
+  }
+
+  if (props.kind === 'roadbook-row') {
+    display = 'flex';
+    flexDirection = 'row';
+    flexGrow = '1';
+    justifyContent = 'flex-start';
+    alignItems = 'flex-start';
+    margin = Unit.multiply (m, -1);
+    padding = '0px ' + m + ' ' + m + ' ' + m;
     backgroundColor = theme.palette.ticketsBackground;
   }
 
