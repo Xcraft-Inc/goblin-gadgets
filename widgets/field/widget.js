@@ -110,7 +110,7 @@ class Field extends Form {
               spacing="overlap"
               disabled="true"
             />}
-        <Dynamic grow="1" />
+        <Dynamic grow="1" tooltip={this.props.tooltip} />
       </Container>
     );
   }
