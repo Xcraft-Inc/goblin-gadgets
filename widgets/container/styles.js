@@ -680,12 +680,19 @@ export default function styles (theme, props) {
   }
 
   if (props.kind === 'tickets-messengers') {
-    //- maxWidth = '100%';
-    width = 'calc(100vw - ' + theme.shapes.taskButtonWidth + ')';
+    //- width = 'calc(100vw - ' + theme.shapes.taskButtonWidth + ')';
+    //- overflowX = 'auto';
     display = 'flex';
     flexDirection = 'row';
     flexGrow = 1;
+  }
+
+  if (props.kind === 'scrollable-tickets-messengers') {
+    width = 'calc(100vw - ' + theme.shapes.taskButtonWidth + ')';
     overflowX = 'auto';
+    display = 'flex';
+    flexDirection = 'row';
+    flexGrow = 1;
   }
 
   if (props.kind === 'tickets-messenger') {
