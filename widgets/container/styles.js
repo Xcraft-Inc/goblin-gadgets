@@ -571,13 +571,6 @@ export default function styles (theme, props) {
       topMargin + ' ' + rightMargin + ' ' + bottomMargin + ' ' + leftMargin;
   }
 
-  if (props.kind === 'row-full') {
-    display = 'flex';
-    flexDirection = 'row';
-    flexGrow = '1';
-    margin = Unit.multiply (m, 0.5) + ' 0px 0px 0px';
-  }
-
   if (props.kind === 'row-pane-drag') {
     display = 'flex';
     flexDirection = 'column';
@@ -1017,7 +1010,8 @@ export default function styles (theme, props) {
   if (props.kind === 'push-to-edge') {
     flexGrow = 1;
     margin =
-      '0px ' +
+      Unit.multiply (m, 0.5) +
+      ' ' +
       Unit.multiply (m, -1) +
       ' ' +
       Unit.multiply (m, -1) +
