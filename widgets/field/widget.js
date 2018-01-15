@@ -1450,6 +1450,7 @@ class Field extends Form {
                   tooltip={this.props.tooltip || this.props.hintText}
                   hinter={this.props.hinter}
                   comboType={this.props.hinter}
+                  spacing={this.props.spacing}
                   grow="1"
                   requiredHinter={this.props.requiredHinter || 'true'}
                 />
