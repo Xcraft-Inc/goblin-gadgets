@@ -1520,6 +1520,30 @@ class Field extends Form {
       </Container>
     );
   }
+
+  renderEditDirectoryInput () {
+    return (
+      <Container
+        kind="row-field"
+        grow={this.props.grow}
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
+      >
+        <input
+          type="file"
+          onChange={this.handleFileChange}
+          ref={n => {
+            if (n) {
+              n.directory = true;
+              n.webkitdirectory = true;
+            }
+          }}
+        />
+      </Container>
+    );
+  }
   //#endregion
 
   renderReadonly () {
@@ -1607,6 +1631,8 @@ class Field extends Form {
         return this.renderEditHinter ();
       case 'file':
         return this.renderEditFileInput ();
+      case 'directory':
+        return this.renderEditDirectoryInput ();
       case 'id':
         return this.renderEditEntity ();
       case 'ids':
