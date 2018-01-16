@@ -53,6 +53,10 @@ export default function styles (theme, props) {
   let borderRadius = '0px';
   let backgroundColor = null;
   let textHoverColor = null;
+  let glyphPaddingTop = '0px';
+  let glyphPaddingRight = '0px';
+  let glyphPaddingBottom = '0px';
+  let glyphPaddingLeft = '0px';
   let glyphJustify = 'center';
   let glyphMinWidth = theme.shapes.lineHeight;
   let glyphHeight = theme.shapes.lineHeight;
@@ -65,6 +69,10 @@ export default function styles (theme, props) {
   let textMarginRight = m;
   let textMarginBottom = '0px';
   let textMarginLeft = m;
+  let textPaddingTop = '0px';
+  let textPaddingRight = '0px';
+  let textPaddingBottom = '0px';
+  let textPaddingLeft = '0px';
   let textWeight = props.weight;
   let textWrap = props.wrap;
   let textTransform = props.textTransform ? props.textTransform : null;
@@ -339,7 +347,7 @@ export default function styles (theme, props) {
   if (props.kind === 'label-text-field') {
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'none';
     boxHeight = null;
-    boxPaddingTop = '7px';
+    textPaddingTop = '8px';
     boxAlignItems = 'flex-start';
     if (disabled) {
       glyphColor = theme.palette.textFieldDisableText;
@@ -857,7 +865,10 @@ export default function styles (theme, props) {
     alignItems: 'center',
     minWidth: glyphMinWidth,
     height: glyphHeight,
-    padding: '0px',
+    paddingTop: glyphPaddingTop,
+    paddingRight: glyphPaddingRight,
+    paddingBottom: glyphPaddingBottom,
+    paddingLeft: glyphPaddingLeft,
     margin: glyphMargin,
     color: glyphColor,
     transform: glyphTransform,
@@ -876,6 +887,10 @@ export default function styles (theme, props) {
     marginRight: textMarginRight,
     marginBottom: textMarginBottom,
     marginLeft: textMarginLeft,
+    paddingTop: textPaddingTop,
+    paddingRight: textPaddingRight,
+    paddingBottom: textPaddingBottom,
+    paddingLeft: textPaddingLeft,
     fontSize: Unit.multiply (textSize, theme.typo.fontScale),
     fontWeight: textWeight,
     fontStyle: props.fontStyle,

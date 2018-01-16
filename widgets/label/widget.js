@@ -170,7 +170,7 @@ class Label extends Widget {
     );
   }
 
-  getGlyphAndText () {
+  renderGlyphAndText () {
     if (this.props.glyph) {
       if (this.props.text) {
         // Glyph followed by text.
@@ -210,7 +210,7 @@ class Label extends Widget {
           disabled={this.props.disabled}
           title={this.props.tooltip}
         >
-          {this.getGlyphAndText ()}
+          {this.renderGlyphAndText ()}
         </div>
       );
     } else {
@@ -222,7 +222,7 @@ class Label extends Widget {
           disabled={this.props.disabled}
           title={this.props.tooltip}
         >
-          {this.getGlyphAndText ()}
+          {this.renderGlyphAndText ()}
           {this.props.children}
         </div>
       );
