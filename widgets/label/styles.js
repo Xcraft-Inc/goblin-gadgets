@@ -85,6 +85,7 @@ export default function styles (theme, props) {
   let textWhiteSpace = null;
   let textWordBreak = null;
   let textAlign = null;
+  let textDirection = null;
   let cursor = props.cursor ? props.cursor : 'default';
   let spacing = props.spacing;
   let specialDisabled = false;
@@ -720,6 +721,13 @@ export default function styles (theme, props) {
     textOverflow = 'hidden';
     textTextOverflow = 'ellipsis';
     textWhiteSpace = 'nowrap';
+  } else if (textWrap === 'no-end') {
+    linesOverflow = 'hidden';
+    textOverflow = 'hidden';
+    textTextOverflow = 'ellipsis';
+    textWhiteSpace = 'nowrap';
+    textAlign = 'left';
+    textDirection = 'rtl';
   } else if (textWrap === 'no-strict') {
     linesOverflow = 'hidden';
     textOverflow = 'hidden';
@@ -902,6 +910,7 @@ export default function styles (theme, props) {
     wordWrap: 'break-word',
     wordBreak: textWordBreak,
     textAlign: textAlign,
+    direction: textDirection,
     userSelect: 'none',
   };
 
