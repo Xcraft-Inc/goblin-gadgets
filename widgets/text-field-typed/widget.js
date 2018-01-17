@@ -151,6 +151,7 @@ class TextFieldTyped extends Widget {
         fieldWidth={this.props.fieldWidth}
         fieldJustify={
           this.props.type === 'price' ||
+            this.props.type === 'weight' ||
             this.props.type === 'number' ||
             this.props.type === 'percent'
             ? 'right'
