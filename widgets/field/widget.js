@@ -555,6 +555,7 @@ class Field extends Form {
             }
             pluginTitle={this.props.pluginTitle}
             origin={this.props.origin}
+            horizontalSeparator={this.props.horizontalSeparator}
           />
         </Container>
       );
