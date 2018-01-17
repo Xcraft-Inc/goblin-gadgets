@@ -1461,6 +1461,7 @@ class Field extends Form {
           : props.existingValue
               ? <Button
                   kind="combo"
+                  spacing={this.props.spacing}
                   leftSpacing="overlap"
                   glyph="eye"
                   tooltip="Voir les détails"
