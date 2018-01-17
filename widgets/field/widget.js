@@ -862,7 +862,7 @@ class Field extends Form {
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
-          fieldWidth="200px"
+          fieldWidth={this.props.fieldWidth || '200px'}
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
           model={this.props.model}
