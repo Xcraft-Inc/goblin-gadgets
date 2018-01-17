@@ -117,6 +117,255 @@ class Field extends Form {
 
   //#region Readonly
   renderReadonlyField () {
+    return (
+      <Container
+        kind="row-field"
+        grow={this.props.grow}
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
+      >
+        <LabelTextField
+          readonly="true"
+          spacing={this.props.spacing}
+          labelText={this.props.labelText}
+          labelGlyph={this.props.labelGlyph}
+          labelWidth={this.props.labelWidth || defaultLabelWidth}
+          fieldWidth={this.props.fieldWidth}
+          hintText={this.props.hintText}
+          tooltip={this.props.tooltip || this.props.hintText}
+          rows={this.props.rows}
+          model={this.props.model}
+          required={this.props.required}
+          grow="1"
+        />
+      </Container>
+    );
+  }
+
+  renderReadonlyDate () {
+    return (
+      <Container
+        kind="row-field"
+        grow="0"
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
+      >
+        <TextFieldTyped
+          readonly="true"
+          type="date"
+          spacing={this.props.spacing}
+          labelText={this.props.labelText}
+          labelGlyph={this.props.labelGlyph}
+          labelWidth={this.props.labelWidth || defaultLabelWidth}
+          fieldWidth={this.props.fieldWidth || '120px'}
+          hintText={this.props.hintText}
+          tooltip={this.props.tooltip || this.props.hintText}
+          model={this.props.model}
+          required={this.props.required}
+        />
+      </Container>
+    );
+  }
+
+  renderReadonlyTime () {
+    return (
+      <Container
+        kind="row-field"
+        grow="0"
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
+      >
+        <TextFieldTyped
+          readonly="true"
+          type="time"
+          spacing={this.props.spacing}
+          labelText={this.props.labelText}
+          labelGlyph={this.props.labelGlyph}
+          labelWidth={this.props.labelWidth || defaultLabelWidth}
+          fieldWidth={this.props.fieldWidth || '120px'}
+          hintText={this.props.hintText}
+          tooltip={this.props.tooltip || this.props.hintText}
+          model={this.props.model}
+          required={this.props.required}
+        />
+      </Container>
+    );
+  }
+
+  renderReadonlyPrice () {
+    return (
+      <Container
+        kind="row-field"
+        grow="0"
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
+      >
+        <TextFieldTyped
+          readonly="true"
+          type="price"
+          spacing={this.props.spacing}
+          labelText={this.props.labelText}
+          labelGlyph={this.props.labelGlyph}
+          labelWidth={this.props.labelWidth || defaultLabelWidth}
+          fieldWidth={this.props.fieldWidth || '120px'}
+          hintText={this.props.hintText}
+          tooltip={this.props.tooltip || this.props.hintText}
+          model={this.props.model}
+          required={this.props.required}
+        />
+      </Container>
+    );
+  }
+
+  renderReadonlyWeight () {
+    return (
+      <Container
+        kind="row-field"
+        grow="0"
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
+      >
+        <TextFieldTyped
+          readonly="true"
+          type="weight"
+          unit={this.props.unit}
+          spacing={this.props.spacing}
+          labelText={this.props.labelText}
+          labelGlyph={this.props.labelGlyph}
+          labelWidth={this.props.labelWidth || defaultLabelWidth}
+          fieldWidth={this.props.fieldWidth || '120px'}
+          hintText={this.props.hintText}
+          tooltip={this.props.tooltip || this.props.hintText}
+          model={this.props.model}
+          required={this.props.required}
+        />
+      </Container>
+    );
+  }
+
+  renderReadonlyVolume () {
+    return (
+      <Container
+        kind="row-field"
+        grow="0"
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
+      >
+        <TextFieldTyped
+          readonly="true"
+          type="volume"
+          unit={this.props.unit}
+          spacing={this.props.spacing}
+          labelText={this.props.labelText}
+          labelGlyph={this.props.labelGlyph}
+          labelWidth={this.props.labelWidth || defaultLabelWidth}
+          fieldWidth="200px"
+          hintText={this.props.hintText}
+          tooltip={this.props.tooltip || this.props.hintText}
+          model={this.props.model}
+          required={this.props.required}
+        />
+      </Container>
+    );
+  }
+
+  renderReadonlyNumber () {
+    return (
+      <Container
+        kind="row-field"
+        grow="0"
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
+      >
+        <TextFieldTyped
+          readonly="true"
+          type="number"
+          unit={this.props.unit}
+          spacing={this.props.spacing}
+          labelText={this.props.labelText}
+          labelGlyph={this.props.labelGlyph}
+          labelWidth={this.props.labelWidth || defaultLabelWidth}
+          fieldWidth={this.props.fieldWidth || '120px'}
+          hintText={this.props.hintText}
+          tooltip={this.props.tooltip || this.props.hintText}
+          model={this.props.model}
+          required={this.props.required}
+        />
+      </Container>
+    );
+  }
+
+  renderReadonlyPercent () {
+    return (
+      <Container
+        kind="row-field"
+        grow="0"
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
+      >
+        <TextFieldTyped
+          readonly="true"
+          type="percent"
+          unit={this.props.unit}
+          spacing={this.props.spacing}
+          labelText={this.props.labelText}
+          labelGlyph={this.props.labelGlyph}
+          labelWidth={this.props.labelWidth || defaultLabelWidth}
+          fieldWidth={this.props.fieldWidth || '120px'}
+          hintText={this.props.hintText}
+          tooltip={this.props.tooltip || this.props.hintText}
+          model={this.props.model}
+          required={this.props.required}
+        />
+      </Container>
+    );
+  }
+
+  renderReadonlyDelay () {
+    return (
+      <Container
+        kind="row-field"
+        grow="0"
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
+      >
+        <TextFieldTyped
+          readonly="true"
+          type="delay"
+          unit={this.props.unit}
+          spacing={this.props.spacing}
+          labelText={this.props.labelText}
+          labelGlyph={this.props.labelGlyph}
+          labelWidth={this.props.labelWidth || defaultLabelWidth}
+          fieldWidth="200px"
+          hintText={this.props.hintText}
+          tooltip={this.props.tooltip || this.props.hintText}
+          model={this.props.model}
+          required={this.props.required}
+        />
+      </Container>
+    );
+  }
+
+  renderReadonlyLabel () {
     const Value = this.mapWidget (
       Label,
       value => {
@@ -151,318 +400,6 @@ class Field extends Form {
       </Container>
     );
   }
-
-  renderReadonlyDate () {
-    const Value = this.mapWidget (
-      Label,
-      value => {
-        return {text: DateConverters.getDisplayed (value)};
-      },
-      this.fullPath
-    );
-
-    const labelWidth = this.props.labelWidth || defaultLabelWidth;
-
-    return (
-      <Container
-        kind="row-field"
-        subkind="left"
-        grow="0"
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing || 'compact'}
-        verticalJustify={this.props.verticalJustify}
-      >
-        {labelWidth === '0px'
-          ? null
-          : <Label
-              text={this.props.labelText}
-              glyph={this.props.labelGlyph}
-              width={labelWidth}
-              kind="label-field"
-              justify="left"
-              spacing="overlap"
-              disabled="true"
-            />}
-        <Value
-          width={this.props.fieldWidth || '120px'}
-          justify={this.props.justify}
-        />
-      </Container>
-    );
-  }
-
-  renderReadonlyTime () {
-    const Value = this.mapWidget (
-      Label,
-      value => {
-        return {text: TimeConverters.getDisplayed (value)};
-      },
-      this.fullPath
-    );
-
-    const labelWidth = this.props.labelWidth || defaultLabelWidth;
-
-    return (
-      <Container
-        kind="row-field"
-        subkind="left"
-        grow="0"
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing || 'compact'}
-        verticalJustify={this.props.verticalJustify}
-      >
-        {labelWidth === '0px'
-          ? null
-          : <Label
-              text={this.props.labelText}
-              glyph={this.props.labelGlyph}
-              width={labelWidth}
-              kind="label-field"
-              justify="left"
-              spacing="overlap"
-              disabled="true"
-            />}
-        <Value
-          width={this.props.fieldWidth || '120px'}
-          justify={this.props.justify}
-        />
-      </Container>
-    );
-  }
-
-  renderReadonlyPrice () {
-    const Value = this.mapWidget (
-      Label,
-      value => {
-        return {text: PriceConverters.getDisplayed (value)};
-      },
-      this.fullPath
-    );
-
-    const labelWidth = this.props.labelWidth || defaultLabelWidth;
-
-    return (
-      <Container
-        kind="row-field"
-        subkind="left"
-        grow="0"
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing || 'compact'}
-        verticalJustify={this.props.verticalJustify}
-      >
-        {labelWidth === '0px'
-          ? null
-          : <Label
-              text={this.props.labelText}
-              glyph={this.props.labelGlyph}
-              width={labelWidth}
-              kind="label-field"
-              justify="left"
-              spacing="overlap"
-              disabled="true"
-            />}
-        <Value width={this.props.fieldWidth || '120px'} justify="right" />
-      </Container>
-    );
-  }
-
-  renderReadonlyWeight () {
-    const Value = this.mapWidget (
-      Label,
-      value => {
-        return {text: WeightConverters.getDisplayed (value, this.props.unit)};
-      },
-      this.fullPath
-    );
-
-    const labelWidth = this.props.labelWidth || defaultLabelWidth;
-
-    return (
-      <Container
-        kind="row-field"
-        subkind="left"
-        grow="0"
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing || 'compact'}
-        verticalJustify={this.props.verticalJustify}
-      >
-        {labelWidth === '0px'
-          ? null
-          : <Label
-              text={this.props.labelText}
-              glyph={this.props.labelGlyph}
-              width={labelWidth}
-              kind="label-field"
-              justify="left"
-              spacing="overlap"
-              disabled="true"
-            />}
-        <Value
-          width={this.props.fieldWidth || '120px'}
-          justify={this.props.justify}
-        />
-      </Container>
-    );
-  }
-
-  renderReadonlyVolume () {
-    const Value = this.mapWidget (
-      Label,
-      value => {
-        return {text: VolumeConverters.getDisplayed (value, this.props.unit)};
-      },
-      this.fullPath
-    );
-
-    const labelWidth = this.props.labelWidth || defaultLabelWidth;
-
-    return (
-      <Container
-        kind="row-field"
-        subkind="left"
-        grow="0"
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing || 'compact'}
-        verticalJustify={this.props.verticalJustify}
-      >
-        {labelWidth === '0px'
-          ? null
-          : <Label
-              text={this.props.labelText}
-              glyph={this.props.labelGlyph}
-              width={labelWidth}
-              kind="label-field"
-              justify="left"
-              spacing="overlap"
-              disabled="true"
-            />}
-        <Value width="200px" justify={this.props.justify} />
-      </Container>
-    );
-  }
-
-  renderReadonlyNumber () {
-    const Value = this.mapWidget (
-      Label,
-      value => {
-        return {text: NumberConverters.getDisplayed (value, this.props.unit)};
-      },
-      this.fullPath
-    );
-
-    const labelWidth = this.props.labelWidth || defaultLabelWidth;
-
-    return (
-      <Container
-        kind="row-field"
-        subkind="left"
-        grow="0"
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing || 'compact'}
-        verticalJustify={this.props.verticalJustify}
-      >
-        {labelWidth === '0px'
-          ? null
-          : <Label
-              text={this.props.labelText}
-              glyph={this.props.labelGlyph}
-              width={labelWidth}
-              kind="label-field"
-              justify="left"
-              spacing="overlap"
-              disabled="true"
-            />}
-        <Value
-          width={this.props.fieldWidth || '120px'}
-          justify={this.props.justify}
-        />
-      </Container>
-    );
-  }
-
-  renderReadonlyPercent () {
-    const Value = this.mapWidget (
-      Label,
-      value => {
-        return {text: PercentConverters.getDisplayed (value, this.props.unit)};
-      },
-      this.fullPath
-    );
-
-    const labelWidth = this.props.labelWidth || defaultLabelWidth;
-
-    return (
-      <Container
-        kind="row-field"
-        subkind="left"
-        grow="0"
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing || 'compact'}
-        verticalJustify={this.props.verticalJustify}
-      >
-        {labelWidth === '0px'
-          ? null
-          : <Label
-              text={this.props.labelText}
-              glyph={this.props.labelGlyph}
-              width={labelWidth}
-              kind="label-field"
-              justify="left"
-              spacing="overlap"
-              disabled="true"
-            />}
-        <Value
-          width={this.props.fieldWidth || '120px'}
-          justify={this.props.justify}
-        />
-      </Container>
-    );
-  }
-
-  renderReadonlyDelay () {
-    const Value = this.mapWidget (
-      Label,
-      value => {
-        return {text: DelayConverters.getDisplayed (value, this.props.unit)};
-      },
-      this.fullPath
-    );
-
-    const labelWidth = this.props.labelWidth || defaultLabelWidth;
-
-    return (
-      <Container
-        kind="row-field"
-        subkind="left"
-        grow="0"
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing || 'compact'}
-        verticalJustify={this.props.verticalJustify}
-      >
-        {labelWidth === '0px'
-          ? null
-          : <Label
-              text={this.props.labelText}
-              glyph={this.props.labelGlyph}
-              width={labelWidth}
-              kind="label-field"
-              justify="left"
-              spacing="overlap"
-              disabled="true"
-            />}
-        <Value width="200px" justify={this.props.justify} />
-      </Container>
-    );
-  }
-
   renderReadonlyBool () {
     const WiredCheckButton = this.mapWidget (
       CheckButton,
@@ -1591,6 +1528,8 @@ class Field extends Form {
         return this.renderTitle ();
       case 'subtitle':
         return this.renderSubtitle ();
+      case 'label':
+        return this.renderReadonlyLabel ();
       default:
         return this.renderReadonlyField ();
     }
@@ -1642,6 +1581,8 @@ class Field extends Form {
         return this.renderTitle ();
       case 'subtitle':
         return this.renderSubtitle ();
+      case 'label':
+        return this.renderReadonlyLabel ();
       default:
         return this.renderEditField ();
     }
