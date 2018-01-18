@@ -18,6 +18,13 @@ class TableCell extends Widget {
   }
 
   render () {
+    let text = null;
+    if (!this.props.text || typeof this.props.text === 'string') {
+      text = this.props.text;
+    } else {
+      text = this.props.text.get ('text');
+    }
+
     const styleClass = this.styles.classNames.cell;
 
     return (
@@ -26,7 +33,7 @@ class TableCell extends Widget {
         className={styleClass}
         onMouseDown={this.onMouseDown}
       >
-        {this.props.text}
+        {text}
       </div>
     );
   }

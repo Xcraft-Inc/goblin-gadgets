@@ -4,15 +4,16 @@ import {ColorManipulator} from 'electrum-theme';
 /******************************************************************************/
 
 export default function styles (theme, props) {
-  let minWidth,
-    maxWidth,
-    flexGrow,
-    flexShrink,
-    flexBasis,
-    overflow,
-    marginRight,
-    fontWeight,
-    textTransform;
+  let minWidth = null;
+  let maxWidth = null;
+  let flexGrow = null;
+  let flexShrink = null;
+  let flexBasis = null;
+  let overflow = null;
+  let marginRight = null;
+  let fontWeight = null;
+  let textTransform = null;
+  let backgroundColor = null;
 
   if (props.width) {
     minWidth = props.width;
@@ -33,6 +34,10 @@ export default function styles (theme, props) {
     textTransform = 'uppercase';
   }
 
+  if (props.text && typeof props.text !== 'string') {
+    backgroundColor = props.text.get ('backgroundColor');
+  }
+
   const cellStyle = {
     minWidth: minWidth,
     maxWidth: maxWidth,
@@ -46,6 +51,7 @@ export default function styles (theme, props) {
     textTransform: textTransform,
     padding: theme.shapes.tablePadding + ' 0px',
     fontSize: theme.shapes.tableTextSize,
+    backgroundColor: backgroundColor,
     cursor: 'default',
   };
 
