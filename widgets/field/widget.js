@@ -24,6 +24,7 @@ import TextFieldCombo from 'gadgets/text-field-combo/widget';
 import RadioList from 'gadgets/radio-list/widget';
 import CheckList from 'gadgets/check-list/widget';
 import CalendarRecurrence from 'gadgets/calendar-recurrence/widget';
+import Table from 'gadgets/table/widget';
 
 import Plugin from 'desktop/plugin/widget';
 
@@ -76,6 +77,48 @@ class Field extends Form {
   renderDynamic () {
     const Dynamic = this.mapWidget (
       Label,
+      value => {
+        if (!value) {
+          return;
+        }
+        if (typeof value === 'object') {
+          return this.props.map (value.toJS ());
+        }
+        return this.props.map (value);
+      },
+      this.fullPath
+    );
+
+    const labelWidth = this.props.labelWidth || defaultLabelWidth;
+
+    return (
+      <Container
+        kind="row-field"
+        grow={this.props.grow}
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
+      >
+        {labelWidth === '0px'
+          ? null
+          : <Label
+              text={this.props.labelText}
+              glyph={this.props.labelGlyph}
+              width={labelWidth}
+              kind="label-field"
+              justify="left"
+              spacing="overlap"
+              disabled="true"
+            />}
+        <Dynamic grow="1" tooltip={this.props.tooltip} />
+      </Container>
+    );
+  }
+
+  renderTableDynamic () {
+    const Dynamic = this.mapWidget (
+      Table,
       value => {
         if (!value) {
           return;
@@ -1493,6 +1536,8 @@ class Field extends Form {
         return this.renderReadonlyField ();
       case 'dynamic':
         return this.renderDynamic ();
+      case 'table-dynamic':
+        return this.renderTableDynamic ();
       case 'date':
         return this.renderReadonlyDate ();
       case 'time':
@@ -1544,6 +1589,8 @@ class Field extends Form {
         return this.renderEditField ();
       case 'dynamic':
         return this.renderDynamic ();
+      case 'table-dynamic':
+        return this.renderTableDynamic ();
       case 'date':
         return this.renderEditDate ();
       case 'time':
