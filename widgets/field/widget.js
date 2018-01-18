@@ -1354,6 +1354,7 @@ class Field extends Form {
         height={this.props.height}
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify="top"
+        spacing={this.props.spacing}
       >
         <Label
           kind="label-text-field"
@@ -1389,6 +1390,7 @@ class Field extends Form {
                   hinter={this.props.hinter}
                   comboType={this.props.hinter}
                   spacing={this.props.spacing}
+                  width={this.props.fieldWidth}
                   grow="1"
                   requiredHinter={this.props.requiredHinter || 'true'}
                 />
