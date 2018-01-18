@@ -12,6 +12,7 @@ export default function styles (theme, props) {
     display: 'flex',
     flexDirection: 'row',
     padding: '0px ' + m,
+    backgroundColor: props.row.get ('backgroundColor'),
     cursor: 'default',
     ':hover': {backgroundColor: theme.palette.tableHoverBackground},
   };
