@@ -131,31 +131,7 @@ class Field extends Form {
       this.fullPath
     );
 
-    const labelWidth = this.props.labelWidth || defaultLabelWidth;
-
-    return (
-      <Container
-        kind="row-field"
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
-        {labelWidth === '0px'
-          ? null
-          : <Label
-              text={this.props.labelText}
-              glyph={this.props.labelGlyph}
-              width={labelWidth}
-              kind="label-field"
-              justify="left"
-              spacing="overlap"
-              disabled="true"
-            />}
-        <Dynamic grow="1" tooltip={this.props.tooltip} />
-      </Container>
-    );
+    return <Dynamic grow="1" tooltip={this.props.tooltip} />;
   }
 
   renderButtonDynamic () {
