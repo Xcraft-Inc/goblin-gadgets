@@ -1,6 +1,8 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 
+import Label from 'gadgets/label/widget';
+
 /******************************************************************************/
 
 class TableCell extends Widget {
@@ -33,7 +35,7 @@ class TableCell extends Widget {
         className={styleClass}
         onMouseDown={this.onMouseDown}
       >
-        {text}
+        <Label kind="compact" text={text} />
       </div>
     );
   }
