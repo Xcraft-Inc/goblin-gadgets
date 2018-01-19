@@ -20,10 +20,14 @@ class TableCell extends Widget {
   }
 
   render () {
+    let glyph = null;
+    let glyphColor = null;
     let text = null;
     if (!this.props.text || typeof this.props.text === 'string') {
       text = this.props.text;
     } else {
+      glyph = this.props.text.get ('glyph');
+      glyphColor = this.props.text.get ('glyphColor');
       text = this.props.text.get ('text');
     }
 
@@ -35,7 +39,12 @@ class TableCell extends Widget {
         className={styleClass}
         onMouseDown={this.onMouseDown}
       >
-        <Label kind="compact" text={text} />
+        <Label
+          kind="table-cell"
+          glyph={glyph}
+          glyphColor={glyphColor}
+          text={text}
+        />
       </div>
     );
   }

@@ -164,6 +164,12 @@ export default function styles (theme, props) {
     textMarginRight = '0px';
   }
 
+  if (props.kind === 'table-cell') {
+    textMarginLeft = '0px';
+    textMarginRight = '0px';
+    glyphHeight = null;
+  }
+
   if (props.kind === 'pane-header') {
     boxHeight = '50px';
     boxMaxHeight = '50px';
