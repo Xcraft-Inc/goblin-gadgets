@@ -55,7 +55,12 @@ class TextFieldTyped extends Widget {
         );
         break;
       case 'time':
-        parsed = TimeConverters.parseEdited (displayedValue, '12:00:00');
+        parsed = TimeConverters.parseEdited (
+          displayedValue,
+          '12:00:00',
+          this.props.minTime,
+          this.props.maxTime
+        );
         break;
       case 'price':
         parsed = PriceConverters.parseEdited (displayedValue);

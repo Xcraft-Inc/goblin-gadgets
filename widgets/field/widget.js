@@ -721,8 +721,8 @@ class Field extends Form {
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
           rows={this.props.rows}
-          model={this.props.model}
           required={this.props.required}
+          model={this.props.model}
           grow="1"
         />
       </Container>
@@ -796,8 +796,8 @@ class Field extends Form {
             fieldWidth={this.props.fieldWidth || '120px'}
             hintText={this.props.hintText}
             tooltip={this.props.tooltip || this.props.hintText}
-            model={this.props.model}
             required={this.props.required}
+            model={this.props.model}
           />
         </Container>
       );
@@ -805,29 +805,78 @@ class Field extends Form {
   }
 
   renderEditTime () {
-    return (
-      <Container
-        kind="row-field"
-        grow="0"
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
-        <TextFieldTyped
-          type="time"
-          spacing={this.props.spacing}
-          labelText={this.props.labelText}
-          labelGlyph={this.props.labelGlyph}
-          labelWidth={this.props.labelWidth || defaultLabelWidth}
-          fieldWidth={this.props.fieldWidth || '120px'}
-          hintText={this.props.hintText}
-          tooltip={this.props.tooltip || this.props.hintText}
-          model={this.props.model}
-          required={this.props.required}
-        />
-      </Container>
-    );
+    let periodPath = null;
+    let minArg = null;
+    let maxArg = null;
+    if (this.props.periodModel) {
+      const s = this.props.periodModel.split ('|');
+      if (s.length > 2) {
+        minArg = s[1]; // by example '5h'
+        maxArg = s[2]; // by example '30m'
+      }
+      periodPath = this.getFullPathFromModel (s[0]); // by example '.startPlannedTime'
+    }
+
+    if (periodPath) {
+      const WiredTextFieldTyped = this.mapWidget (
+        TextFieldTyped,
+        time => {
+          const minTime = TimeConverters.getCalcTime (time, minArg);
+          const maxTime = TimeConverters.getCalcTime (time, maxArg);
+          return {model: this.props.model, minTime, maxTime}; // (*)
+        },
+        periodPath
+      );
+      // (*) It's important to pass model! Without, strange bugs appears,
+      //     with interactions between all time fields.
+
+      return (
+        <Container
+          kind="row-field"
+          grow="0"
+          width={this.props.width}
+          height={this.props.height}
+          verticalSpacing={this.props.verticalSpacing}
+          verticalJustify={this.props.verticalJustify}
+        >
+          <WiredTextFieldTyped
+            type="time"
+            spacing={this.props.spacing}
+            labelText={this.props.labelText}
+            labelGlyph={this.props.labelGlyph}
+            labelWidth={this.props.labelWidth || defaultLabelWidth}
+            fieldWidth={this.props.fieldWidth || '120px'}
+            hintText={this.props.hintText}
+            tooltip={this.props.tooltip || this.props.hintText}
+            required={this.props.required}
+          />
+        </Container>
+      );
+    } else {
+      return (
+        <Container
+          kind="row-field"
+          grow="0"
+          width={this.props.width}
+          height={this.props.height}
+          verticalSpacing={this.props.verticalSpacing}
+          verticalJustify={this.props.verticalJustify}
+        >
+          <TextFieldTyped
+            type="time"
+            spacing={this.props.spacing}
+            labelText={this.props.labelText}
+            labelGlyph={this.props.labelGlyph}
+            labelWidth={this.props.labelWidth || defaultLabelWidth}
+            fieldWidth={this.props.fieldWidth || '120px'}
+            hintText={this.props.hintText}
+            tooltip={this.props.tooltip || this.props.hintText}
+            required={this.props.required}
+            model={this.props.model}
+          />
+        </Container>
+      );
+    }
   }
 
   renderEditPrice () {
@@ -849,8 +898,8 @@ class Field extends Form {
           fieldWidth={this.props.fieldWidth || '120px'}
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
-          model={this.props.model}
           required={this.props.required}
+          model={this.props.model}
         />
       </Container>
     );
@@ -876,8 +925,8 @@ class Field extends Form {
           fieldWidth={this.props.fieldWidth || '120px'}
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
-          model={this.props.model}
           required={this.props.required}
+          model={this.props.model}
         />
       </Container>
     );
@@ -903,8 +952,8 @@ class Field extends Form {
           fieldWidth={this.props.fieldWidth || '200px'}
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
-          model={this.props.model}
           required={this.props.required}
+          model={this.props.model}
         />
       </Container>
     );
@@ -930,8 +979,8 @@ class Field extends Form {
           fieldWidth={this.props.fieldWidth || '120px'}
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
-          model={this.props.model}
           required={this.props.required}
+          model={this.props.model}
         />
       </Container>
     );
@@ -957,8 +1006,8 @@ class Field extends Form {
           fieldWidth={this.props.fieldWidth || '120px'}
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
-          model={this.props.model}
           required={this.props.required}
+          model={this.props.model}
         />
       </Container>
     );
@@ -986,8 +1035,8 @@ class Field extends Form {
           fieldWidth="200px"
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText || help}
-          model={this.props.model}
           required={this.props.required}
+          model={this.props.model}
         />
       </Container>
     );
