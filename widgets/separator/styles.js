@@ -5,6 +5,7 @@ import {Unit} from 'electrum-theme';
 export default function styles (theme, props) {
   let width = null;
   let height = '1px';
+  let grow = null;
   let borderWidth = '1px 0px 0px 0px';
   let borderStyle = 'solid';
   let borderColor = theme.palette.paneNavigatorInactiveBorder;
@@ -57,9 +58,15 @@ export default function styles (theme, props) {
     margin = '0px 0px 5px 0px';
   }
 
+  if (props.kind === 'grow') {
+    (grow = '1'), (margin = null);
+    padding = null;
+  }
+
   const boxStyle = {
     width: width,
     height: height,
+    flexGrow: grow,
     borderWidth: borderWidth,
     borderStyle: borderStyle,
     borderColor: borderColor,
