@@ -158,6 +158,24 @@ class Field extends Form {
     );
   }
 
+  renderButtonDynamic () {
+    const Dynamic = this.mapWidget (
+      Button,
+      value => {
+        if (!value) {
+          return;
+        }
+        if (typeof value === 'object') {
+          return this.props.map (value.toJS ());
+        }
+        return this.props.map (value);
+      },
+      this.fullPath
+    );
+
+    return <Dynamic grow="1" tooltip={this.props.tooltip} />;
+  }
+
   //#region Readonly
   renderReadonlyField () {
     return (
@@ -1538,6 +1556,8 @@ class Field extends Form {
         return this.renderDynamic ();
       case 'table-dynamic':
         return this.renderTableDynamic ();
+      case 'button-dynamic':
+        return this.renderButtonDynamic ();
       case 'date':
         return this.renderReadonlyDate ();
       case 'time':
@@ -1591,6 +1611,8 @@ class Field extends Form {
         return this.renderDynamic ();
       case 'table-dynamic':
         return this.renderTableDynamic ();
+      case 'button-dynamic':
+        return this.renderButtonDynamic ();
       case 'date':
         return this.renderEditDate ();
       case 'time':
