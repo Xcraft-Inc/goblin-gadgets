@@ -34,7 +34,8 @@ export default function styles (theme, props) {
     margin = '0px';
     borderWidth = '0px';
     borderStyle = 'none';
-    backgroundColor = theme.palette.taskSeparatorBackground;
+    //? backgroundColor = theme.palette.taskSeparatorBackground;
+    backgroundColor = '#285a89';
   }
 
   if (props.kind === 'space') {
