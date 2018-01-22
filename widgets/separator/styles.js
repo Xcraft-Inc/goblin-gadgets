@@ -30,13 +30,11 @@ export default function styles (theme, props) {
   margin = topMargin + ' 0px ' + bottomMargin + ' 0px';
 
   if (props.kind === 'task') {
-    //? height = theme.shapes.taskSeparatorHeight;
-    height = '5px';
+    height = theme.shapes.taskSeparatorHeight;
     margin = '0px';
     borderWidth = '0px';
     borderStyle = 'none';
-    //? backgroundColor = theme.palette.taskSeparatorBackground;
-    backgroundColor = '#285a89';
+    backgroundColor = theme.palette.taskSeparatorBackground;
   }
 
   if (props.kind === 'space') {
