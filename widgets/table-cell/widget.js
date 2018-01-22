@@ -24,10 +24,12 @@ class TableCell extends Widget {
     let glyph = null;
     let glyphColor = null;
     let text = null;
+    let weight = null;
     if (isImmutable (this.props.text)) {
       glyph = this.props.text.get ('glyph');
       glyphColor = this.props.text.get ('glyphColor');
       text = this.props.text.get ('text');
+      weight = this.props.text.get ('weight');
     } else {
       text = this.props.text;
     }
@@ -45,6 +47,7 @@ class TableCell extends Widget {
           glyph={glyph}
           glyphColor={glyphColor}
           text={text}
+          weight={weight}
           justify={this.props.textAlign}
         />
       </div>
