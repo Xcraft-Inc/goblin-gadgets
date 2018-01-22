@@ -504,22 +504,22 @@ class Field extends Form {
     };
 
     const Action = props => {
-      return (
-        <Button
-          kind="plugin-light"
-          glyph="pencil"
-          tooltip="Editer"
-          onClick={() => {
-            {
-              const entity = this.getModelValue (props.entityId, true);
-              const service = this.context.id.split ('@')[0];
-              this.doAs (service, 'open-entity-workitem', {
-                entity: entity.toJS (),
-              });
-            }
-          }}
-        />
-      );
+      return !!props.entityId
+        ? <Button
+            kind="plugin-light"
+            glyph="pencil"
+            tooltip="Editer"
+            onClick={() => {
+              {
+                const entity = this.getModelValue (props.entityId, true);
+                const service = this.context.id.split ('@')[0];
+                this.doAs (service, 'open-entity-workitem', {
+                  entity: entity.toJS (),
+                });
+              }
+            }}
+          />
+        : null;
     };
 
     const EntityViewer = this.mapWidget (Viewer, 'entityId', this.fullPath);
