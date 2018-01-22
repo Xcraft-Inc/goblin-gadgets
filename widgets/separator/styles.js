@@ -30,7 +30,8 @@ export default function styles (theme, props) {
   margin = topMargin + ' 0px ' + bottomMargin + ' 0px';
 
   if (props.kind === 'task') {
-    height = theme.shapes.taskSeparatorHeight;
+    //? height = theme.shapes.taskSeparatorHeight;
+    height = '5px';
     margin = '0px';
     borderWidth = '0px';
     borderStyle = 'none';
