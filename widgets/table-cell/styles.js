@@ -1,4 +1,5 @@
 import * as Bool from 'gadgets/boolean-helpers';
+import {isImmutable} from 'immutable';
 import {ColorManipulator} from 'electrum-theme';
 
 /******************************************************************************/
@@ -34,7 +35,7 @@ export default function styles (theme, props) {
     textTransform = 'uppercase';
   }
 
-  if (props.text && typeof props.text !== 'string') {
+  if (isImmutable (props.text)) {
     backgroundColor = props.text.get ('backgroundColor');
   }
 

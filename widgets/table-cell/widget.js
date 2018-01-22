@@ -1,5 +1,6 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
+import {isImmutable} from 'immutable';
 
 import Label from 'gadgets/label/widget';
 
@@ -23,12 +24,12 @@ class TableCell extends Widget {
     let glyph = null;
     let glyphColor = null;
     let text = null;
-    if (!this.props.text || typeof this.props.text === 'string') {
-      text = this.props.text;
-    } else {
+    if (isImmutable (this.props.text)) {
       glyph = this.props.text.get ('glyph');
       glyphColor = this.props.text.get ('glyphColor');
       text = this.props.text.get ('text');
+    } else {
+      text = this.props.text;
     }
 
     const styleClass = this.styles.classNames.cell;
