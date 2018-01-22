@@ -18,6 +18,10 @@ import LabelTextField from 'gadgets/label-text-field/widget';
 class TextFieldTyped extends Widget {
   constructor () {
     super (...arguments);
+
+    this.getDisplayValue = this.getDisplayValue.bind (this);
+    this.getWarning = this.getWarning.bind (this);
+    this.getInfo = this.getInfo.bind (this);
   }
 
   canonicalToDisplayed (canonicalValue) {
@@ -91,62 +95,55 @@ class TextFieldTyped extends Widget {
     };
   }
 
+  getDisplayValue (value, onFocus, onBlur) {
+    if (onFocus) {
+      // When field set the focus, value is canonical value.
+      // Don't change the displayed value.
+      return this.canonicalToDisplayed (value);
+    } else if (onBlur) {
+      // When field lost the focus, value is canonical value.
+      // Set the formated value based on canonical value.
+      return this.canonicalToDisplayed (value);
+    } else {
+      // When text is changing, value is editing text.
+      // Use the edited value.
+      return value || '';
+    }
+  }
+
+  getWarning (value, onFocus, onBlur) {
+    if (!onFocus && !onBlur) {
+      return this.parseEditedValue (value).warning;
+    } else {
+      // When field lost the focus (blur), hide the flying-balloon.
+      return null;
+    }
+  }
+
+  getInfo (value, onFocus, onBlur) {
+    if (!onFocus && !onBlur) {
+      const parse = this.parseEditedValue (value);
+      if (parse.displayedFinalValue === value) {
+        return null;
+      } else {
+        return parse.displayedFinalValue;
+      }
+    } else {
+      // When field lost the focus (blur), hide the flying-balloon.
+      return null;
+    }
+  }
+
   render () {
     return (
       <LabelTextField
         updateOn="blur"
         beforeChange={val => {
-          //const p = this.parseEditedValue (val);
-          //console.log (
-          //  `TextFieldTyped.beforeChange canonicalValue=${p.canonicalValue} warning=${p.warning} displayedFinalValue=${p.displayedFinalValue}`
-          //);
           return this.parseEditedValue (val).canonicalValue;
         }}
-        getDisplayValue={(value, onFocus, onBlur) => {
-          //console.log (
-          //  `TextFieldTyped.getDisplayValue value=${value} onFocus=${onFocus} onBlur=${onBlur}`
-          //);
-          if (onFocus) {
-            // When field set the focus, value is canonical value.
-            // Don't change the displayed value.
-            return this.canonicalToDisplayed (value);
-          } else if (onBlur) {
-            // When field lost the focus, value is canonical value.
-            // Set the formated value based on canonical value.
-            return this.canonicalToDisplayed (value);
-          } else {
-            // When text is changing, value is editing text.
-            // Use the edited value.
-            return value || '';
-          }
-        }}
-        getWarning={(value, onFocus, onBlur) => {
-          //console.log (
-          //  `TextFieldTyped.getWarning value=${value} onFocus=${onFocus} onBlur=${onBlur}`
-          //);
-          if (!onFocus && !onBlur) {
-            return this.parseEditedValue (value).warning;
-          } else {
-            // When field lost the focus (blur), hide the flying-balloon.
-            return null;
-          }
-        }}
-        getInfo={(value, onFocus, onBlur) => {
-          //console.log (
-          //  `TextFieldTyped.getInfo value=${value} onFocus=${onFocus} onBlur=${onBlur}`
-          //);
-          if (!onFocus && !onBlur) {
-            const parse = this.parseEditedValue (value);
-            if (parse.displayedFinalValue === value) {
-              return null;
-            } else {
-              return parse.displayedFinalValue;
-            }
-          } else {
-            // When field lost the focus (blur), hide the flying-balloon.
-            return null;
-          }
-        }}
+        getDisplayValue={this.getDisplayValue}
+        getWarning={this.getWarning}
+        getInfo={this.getInfo}
         model={this.props.model}
         hintText={this.props.hintText}
         tooltip={this.props.tooltip}
