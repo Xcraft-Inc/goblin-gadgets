@@ -45,6 +45,7 @@ class TableCell extends Widget {
           glyph={glyph}
           glyphColor={glyphColor}
           text={text}
+          justify={this.props.textAlign}
         />
       </div>
     );
