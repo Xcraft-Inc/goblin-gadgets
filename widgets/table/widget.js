@@ -144,7 +144,7 @@ class Table extends Widget {
   }
 
   render () {
-    const data = this.shred (this.props.data);
+    const data = Widget.shred (this.props.data);
     const styleClass = this.styles.classNames.table;
 
     return (

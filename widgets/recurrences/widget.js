@@ -109,7 +109,7 @@ class Recurrences extends Widget {
   }
 
   renderRows () {
-    const recurrences = this.shred (this.props.recurrences);
+    const recurrences = Widget.shred (this.props.recurrences);
     let index = 0;
     return recurrences.linq
       .orderBy (recurrence => recurrence.get ('order'))

@@ -82,8 +82,8 @@ class GlyphsDialog extends Widget {
   }
 
   renderGlyphButtons () {
-    const allGlyphs = this.shred (this.props.allGlyphs);
-    const selectedGlyphs = this.shred (this.props.selectedGlyphs);
+    const allGlyphs = Widget.shred (this.props.allGlyphs);
+    const selectedGlyphs = Widget.shred (this.props.selectedGlyphs);
     let index = 0;
     return allGlyphs.linq
       .orderBy (glyph => glyph.get ('order'))

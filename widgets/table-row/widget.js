@@ -39,7 +39,7 @@ class TableRow extends Widget {
 
   renderRowCells (header, row) {
     let index = 0;
-    const h = this.shred (header);
+    const h = Widget.shred (header);
     return h.linq
       .select (column => {
         const text = row.get (column.get ('name'));

@@ -200,7 +200,7 @@ class Chronos extends Form {
   }
 
   updateFilter () {
-    const events = this.shred (this.props.chronos);
+    const events = Widget.shred (this.props.chronos);
     this.flatEvents = getFlatEvents (events, []);
 
     if (this.filters.length === 0) {

@@ -56,7 +56,7 @@ class TextFieldCombo extends Widget {
   //   const state = this.getState ();
   //   const parentModel = this.context.model;
   //   const model = this.props.model;
-  //   const forms = this.shred (state.forms);
+  //   const forms = Widget.shred (state.forms);
   //   const form = forms.get (`${parentModel}${model}`);
   //   if (form) {
   //     return form.get ('focus');

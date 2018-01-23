@@ -71,7 +71,7 @@ class ChronoLabel extends Widget {
 
   renderGlyphs (note) {
     if (note) {
-      const glyphs = this.shred (note.glyphs);
+      const glyphs = Widget.shred (note.glyphs);
       let index = 0;
       return glyphs.linq
         .orderBy (glyph => glyph.get ('order'))
