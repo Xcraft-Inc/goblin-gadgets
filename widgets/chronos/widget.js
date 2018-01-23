@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Widget from 'laboratory/widget';
 import Form from 'laboratory/form';
 import {Unit} from 'electrum-theme';
 import {
