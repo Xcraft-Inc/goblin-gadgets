@@ -741,7 +741,7 @@ class Field extends Form {
         maxArg = s[2]; // by example '1y'
       }
       if (s.length > 3) {
-        mode = s[3]; // by example 'soft'
+        mode = s[3]; // by example 'hard'
       }
       periodPath = this.getFullPathFromModel (s[0]); // by example '.startDate'
     }
@@ -820,7 +820,7 @@ class Field extends Form {
         maxArg = s[2]; // by example '30m'
       }
       if (s.length > 3) {
-        mode = s[3]; // by example 'soft'
+        mode = s[3]; // by example 'hard'
       }
       periodPath = this.getFullPathFromModel (s[0]); // by example '.startPlannedTime'
     }
