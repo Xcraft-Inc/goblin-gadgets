@@ -55,7 +55,8 @@ class TextFieldTyped extends Widget {
           displayedValue,
           null,
           this.props.minDate,
-          this.props.maxDate
+          this.props.maxDate,
+          this.props.mode
         );
         break;
       case 'time':
@@ -63,7 +64,8 @@ class TextFieldTyped extends Widget {
           displayedValue,
           '12:00:00',
           this.props.minTime,
-          this.props.maxTime
+          this.props.maxTime,
+          this.props.mode
         );
         break;
       case 'price':

@@ -733,11 +733,15 @@ class Field extends Form {
     let periodPath = null;
     let minArg = null;
     let maxArg = null;
+    let mode = null;
     if (this.props.periodModel) {
       const s = this.props.periodModel.split ('|');
       if (s.length > 2) {
         minArg = s[1]; // by example '1d'
         maxArg = s[2]; // by example '1y'
+      }
+      if (s.length > 3) {
+        mode = s[3]; // by example 'soft'
       }
       periodPath = this.getFullPathFromModel (s[0]); // by example '.startDate'
     }
@@ -748,7 +752,7 @@ class Field extends Form {
         date => {
           const minDate = DateConverters.getCalcDate (date, minArg);
           const maxDate = DateConverters.getCalcDate (date, maxArg);
-          return {model: this.props.model, minDate, maxDate}; // (*)
+          return {model: this.props.model, minDate, maxDate, mode}; // (*)
         },
         periodPath
       );
@@ -808,11 +812,15 @@ class Field extends Form {
     let periodPath = null;
     let minArg = null;
     let maxArg = null;
+    let mode = null;
     if (this.props.periodModel) {
       const s = this.props.periodModel.split ('|');
       if (s.length > 2) {
         minArg = s[1]; // by example '5h'
         maxArg = s[2]; // by example '30m'
+      }
+      if (s.length > 3) {
+        mode = s[3]; // by example 'soft'
       }
       periodPath = this.getFullPathFromModel (s[0]); // by example '.startPlannedTime'
     }
@@ -823,7 +831,7 @@ class Field extends Form {
         time => {
           const minTime = TimeConverters.getCalcTime (time, minArg);
           const maxTime = TimeConverters.getCalcTime (time, maxArg);
-          return {model: this.props.model, minTime, maxTime}; // (*)
+          return {model: this.props.model, minTime, maxTime, mode}; // (*)
         },
         periodPath
       );
