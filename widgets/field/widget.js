@@ -586,6 +586,7 @@ class Field extends Form {
         >
           <FinalPlugin
             readonly="true"
+            ownerType={this.props.ownerType}
             embedded={this.props.embedded}
             embeddedLevel={
               this.props.embeddedLevel ? this.props.embeddedLevel + 1 : 1
@@ -1336,6 +1337,7 @@ class Field extends Form {
           <FinalPlugin
             id={this.context.id}
             pluginType={this.props.pluginType}
+            ownerType={this.props.ownerType}
             embedded={this.props.embedded}
             embeddedLevel={
               this.props.embeddedLevel ? this.props.embeddedLevel + 1 : 1

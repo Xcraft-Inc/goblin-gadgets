@@ -633,7 +633,20 @@ export default function styles (theme, props) {
     flexGrow = '1';
     margin = '0px';
     padding = '0px';
-    overflowY = 'auto';
+    if (props.subkind === 'in-default-panel') {
+      // In default panel (edit to left or readonly to right), the vertical
+      // scrolling is globaly managed by parent pannel.
+      // Width is fix (700px).
+      width = Unit.sub ('700px', '140px'); // 140px include margins, vertical toolbar and vertical scroller
+      overflowX = 'hidden';
+      overflowY = 'hidden';
+    } else {
+      // In dedicated dispatch board-panel, the vertical scrolling is managed
+      // by this container.
+      // Width is variable, according to splitter.
+      overflowX = 'hidden';
+      overflowY = 'auto';
+    }
   }
 
   if (props.kind === 'footer') {
