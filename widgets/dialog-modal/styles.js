@@ -11,7 +11,7 @@ export default function styles (theme, props) {
     height: '100%',
     userSelect: 'none',
     cursor: 'default',
-    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+    backgroundColor: theme.palette.flyingDialogFullScreenBackground,
   };
 
   let top, right, bottom, left, transform;

@@ -51,61 +51,11 @@ export default function styles (theme, props) {
     margin: Unit.multiply (hoverOverlapY, -1) +
       ' ' +
       Unit.multiply (hoverOverlapX, -1),
-    borderLeft: '10px solid ' + theme.palette.dragAndDropHover,
+    borderLeft: '10px solid ' + theme.palette.dragAndDropHandleHover,
     boxSizing: 'border-box',
   };
 
   // FIXME: Gros refactoring nécessaire, direction horizontale cassée, etc.
-  const handleStyle = {
-    position: 'absolute',
-    left: handleLeft,
-    top: handleTop,
-    width: handleWidth,
-    height: handleHeight,
-    borderLeft: `${handleThickness} solid #bbb`,
-    boxSizing: 'border-box',
-  };
-
-  const handleCircleStyle = {
-    position: 'absolute',
-    left: '-15px',
-    top: 'calc(50% - 5px)',
-    width: '10px',
-    height: '10px',
-    borderRadius: '10px',
-    backgroundColor: '#fff',
-  };
-
-  const handleCircleLittleStyle = {
-    position: 'absolute',
-    left: '-10px',
-    top: 'calc(50% - 5px)',
-    width: '6px',
-    height: '6px',
-    borderRadius: '6px',
-    backgroundColor: '#ccc',
-  };
-
-  const handleTriangleRightStyle = {
-    position: 'absolute',
-    left: '0px',
-    top: 'calc(50% - 10px)',
-    width: '0px',
-    height: '0px',
-    border: '10px solid transparent',
-    borderLeft: '10px solid #eee',
-  };
-
-  const handleTriangleLeftStyle = {
-    position: 'absolute',
-    left: '-20px',
-    top: 'calc(50% - 10px)',
-    width: '0px',
-    height: '0px',
-    border: '10px solid transparent',
-    borderRight: '10px solid #fff',
-  };
-
   const handleRectStyle = {
     position: 'absolute',
     left: '5px',
@@ -113,7 +63,7 @@ export default function styles (theme, props) {
     width: '4px',
     height: '30px',
     borderRadius: '4px',
-    backgroundColor: '#eee',
+    backgroundColor: theme.palette.ticketDragAndDropHandle,
   };
 
   return {

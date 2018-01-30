@@ -814,8 +814,8 @@ export default function styles (theme, props) {
       // borderStyle = 'solid';
       // boxSizing = 'border-box';
       // borderColor = theme.palette.buttonBorder;
-      backgroundColor = '#fff';
-      boxShadow = '0px 10px 50px rgba(0, 0, 0, 0.50)';
+      backgroundColor = theme.palette.dragAndDropBackground;
+      boxShadow = theme.palette.dragAndDropShadow;
       opacity = 0.95;
     } else if (Bool.isTrue (props.hasHeLeft)) {
       visibility = 'hidden';
@@ -829,8 +829,8 @@ export default function styles (theme, props) {
     margin =
       '0px ' + m + ' ' + theme.shapes.ticketBacklogVerticalSpacing + ' ' + m;
     if (Bool.isTrue (props.isDragged)) {
-      backgroundColor = '#fff';
-      boxShadow = '0px 10px 50px rgba(0, 0, 0, 0.50)';
+      backgroundColor = theme.palette.dragAndDropBackground;
+      boxShadow = theme.palette.dragAndDropShadow;
       opacity = 0.95;
     } else if (Bool.isTrue (props.hasHeLeft)) {
       opacity = 0;
@@ -843,8 +843,8 @@ export default function styles (theme, props) {
     flexGrow = '1';
     margin = '0px 0px ' + theme.shapes.ticketVerticalSpacing + ' 0px';
     if (Bool.isTrue (props.isDragged)) {
-      backgroundColor = '#fff';
-      boxShadow = '0px 10px 50px rgba(0, 0, 0, 0.50)';
+      backgroundColor = theme.palette.dragAndDropBackground;
+      boxShadow = theme.palette.dragAndDropShadow;
       opacity = 0.95;
     } else if (Bool.isTrue (props.hasHeLeft)) {
       opacity = 0;
