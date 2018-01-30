@@ -156,6 +156,10 @@ export default function styles (theme, props) {
     fontFamily: 'sans-serif',
   };
 
+  inputStyle['::placeholder'] = {
+    color: theme.palette.hintTextColor,
+  };
+
   return {
     box: boxStyle,
     boxRequired: boxRequiredStyle,
