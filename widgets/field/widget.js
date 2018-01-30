@@ -544,7 +544,6 @@ class Field extends Form {
               glyph={this.props.labelGlyph}
               width={labelWidth}
               justify="left"
-              spacing="overlap"
               disabled="true"
             />}
         <EntityViewer />
