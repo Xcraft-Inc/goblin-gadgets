@@ -17,7 +17,7 @@ export default function styles (theme, props) {
     flexDirection: 'column',
     flexGrow: '1',
     margin: '5px 0px 0px 0px',
-    backgroundColor: '#eee',
+    backgroundColor: theme.palette.viewBackground,
     overflowY: 'auto',
   };
 
