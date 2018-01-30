@@ -484,23 +484,29 @@ class Field extends Form {
   renderReadonlyEntity () {
     const summary = this.props.summary || 'info';
     const Viewer = props => {
-      const text = this.getModelValue (
-        `${props.entityId}.meta.summaries.${summary}`,
-        true
+      if (!props.entityId) {
+        return null;
+      }
+      const Info = this.mapWidget (
+        Label,
+        entity => {
+          let glyph = 'spinner';
+          let text = 'chargement...';
+          if (entity) {
+            glyph = entity.get ('meta.summaries.glyph');
+            text = entity.get (`meta.summaries.${summary}`);
+          }
+          return {
+            kind: 'markdown',
+            glyph,
+            text,
+            grow: '1',
+            justify: this.props.justify,
+          };
+        },
+        `backend.${props.entityId}`
       );
-      const glyph = this.getModelValue (
-        `${props.entityId}.meta.summaries.glyph`,
-        true
-      );
-      return (
-        <Label
-          kind="markdown"
-          glyph={glyph}
-          text={text}
-          grow="1"
-          justify={this.props.justify}
-        />
-      );
+      return <Info />;
     };
 
     const Action = props => {
@@ -1276,15 +1282,26 @@ class Field extends Form {
   renderEditEntity () {
     const summary = this.props.summary || 'info';
     const Viewer = props => {
-      const text = this.getModelValue (
-        `${props.entityId}.meta.summaries.${summary}`,
-        true
+      if (!props.entityId) {
+        return null;
+      }
+      const Info = this.mapWidget (
+        Label,
+        entity => {
+          let glyph = 'spinner';
+          let text = 'chargement...';
+          if (entity) {
+            glyph = entity.get ('meta.summaries.glyph');
+            text = entity.get (`meta.summaries.${summary}`);
+          }
+          return {
+            glyph,
+            text,
+          };
+        },
+        `backend.${props.entityId}`
       );
-      const glyph = this.getModelValue (
-        `${props.entityId}.meta.summaries.glyph`,
-        true
-      );
-      return <Label kind="markdown" glyph={glyph} text={text} />;
+      return <Info />;
     };
 
     const EntityViewer = this.mapWidget (Viewer, 'entityId', this.fullPath);
