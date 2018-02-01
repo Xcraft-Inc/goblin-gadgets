@@ -1131,6 +1131,7 @@ class Field extends Form {
           : <Label
               text={this.props.labelText}
               glyph={this.props.labelGlyph}
+              tooltip={this.props.tooltip}
               width={labelWidth}
               kind="label-field"
               justify="left"
