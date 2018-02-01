@@ -1138,6 +1138,7 @@ class Field extends Form {
               spacing="overlap"
             />}
         <WiredRadioList
+          buttonWidth={this.props.buttonWidth}
           height={this.props.height}
           direction={this.props.direction || 'row'}
           list={this.props.list}

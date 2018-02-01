@@ -43,6 +43,7 @@ class CheckButton extends Widget {
         kind={kind}
         border={border}
         glyph={glyph}
+        width={this.props.width}
         text={this.props.text}
         tooltip={this.props.tooltip}
         active={active}
@@ -51,6 +52,7 @@ class CheckButton extends Widget {
         focusable={this.props.focusable}
         spacing={this.props.spacing}
         heightStrategy={this.props.heightStrategy}
+        justify={this.props.justify}
         onClick={this.onButtonClicked}
       />
     );

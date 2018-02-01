@@ -60,7 +60,9 @@ class RadioList extends Widget {
       <CheckButton
         key={index}
         kind={this.props.kind || 'radio'}
+        width={this.props.buttonWidth}
         heightStrategy={this.props.heightStrategy}
+        justify="left"
         text={text}
         focusable="true"
         checked={Bool.toString (index === this.props.selectedIndex)}
