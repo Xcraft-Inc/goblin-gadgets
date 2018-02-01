@@ -177,6 +177,8 @@ class TextFieldCombo extends Widget {
     }
   }
 
+  /******************************************************************************/
+
   renderTextField () {
     const autoReadonly =
       !this.focus &&
