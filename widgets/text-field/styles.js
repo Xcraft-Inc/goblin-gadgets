@@ -111,6 +111,7 @@ export default function styles (theme, props) {
       borderRadius: borderRadius,
       boxShadow: theme.shapes.focusedShadow + theme.palette.focused,
       pointerEvents: 'none',
+      zIndex: 1,
     },
   };
 

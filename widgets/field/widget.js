@@ -491,7 +491,7 @@ class Field extends Form {
         Label,
         entity => {
           let glyph = 'spinner';
-          let text = 'chargement...';
+          let text = 'Chargement...';
           if (entity) {
             glyph = entity.get ('meta.summaries.glyph');
             text = entity.get (`meta.summaries.${summary}`);
