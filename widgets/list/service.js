@@ -27,6 +27,15 @@ const logicHandlers = {
   'handle-changes': (state, action) => {
     return state.set (`list.${action.get ('row')}`, action.get ('document'));
   },
+  remove: (state, action) => {
+    const id = action.get ('id');
+    const row = state.get (`private.rowById.${id}`);
+    const newCount = Number (state.get ('count')) - 1;
+    return state
+      .del (`list.${row}`)
+      .del (`private.rowById.${id}`)
+      .set ('count', newCount);
+  },
   updateRange: (state, action) => {
     const pageSize = state.get ('pageSize');
     const count = state.get ('count');
@@ -79,6 +88,9 @@ Goblin.registerQuest (goblinName, 'handle-changes', function (quest, change) {
       .getState ()
       .get (`private.rowById.${change.new_val.id}`);
     quest.do ({row, document: change.new_val});
+  }
+  if (change.type === 'remove') {
+    quest.dispatch ('remove', {id: change.old_val.id});
   }
 });
 
