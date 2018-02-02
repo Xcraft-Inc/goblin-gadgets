@@ -819,34 +819,6 @@ export default function styles (theme, props) {
       opacity = 0.95;
     } else if (Bool.isTrue (props.hasHeLeft)) {
       visibility = 'hidden';
-    }
-  }
-
-  if (props.kind === 'ticket-backlog-draggable') {
-    display = 'flex';
-    flexDirection = 'column';
-    flexGrow = '1';
-    margin =
-      '0px ' + m + ' ' + theme.shapes.ticketBacklogVerticalSpacing + ' ' + m;
-    if (Bool.isTrue (props.isDragged)) {
-      backgroundColor = theme.palette.dragAndDropBackground;
-      boxShadow = theme.palette.dragAndDropShadow;
-      opacity = 0.95;
-    } else if (Bool.isTrue (props.hasHeLeft)) {
-      opacity = 0;
-    }
-  }
-
-  if (props.kind === 'ticket-roadbook-draggable') {
-    display = 'flex';
-    flexDirection = 'column';
-    flexGrow = '1';
-    margin = '0px 0px ' + theme.shapes.ticketVerticalSpacing + ' 0px';
-    if (Bool.isTrue (props.isDragged)) {
-      backgroundColor = theme.palette.dragAndDropBackground;
-      boxShadow = theme.palette.dragAndDropShadow;
-      opacity = 0.95;
-    } else if (Bool.isTrue (props.hasHeLeft)) {
       opacity = 0;
     }
   }

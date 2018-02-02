@@ -1,41 +1,22 @@
 import {Unit} from 'electrum-theme';
-import {ColorHelpers} from 'electrum-theme';
-import {ColorManipulator} from 'electrum-theme';
-import * as Bool from 'gadgets/boolean-helpers';
+
 /******************************************************************************/
 
 export default function styles (theme, props) {
   const hoverOverlapX = '0px'; // overlap for hover
-  const hoverOverlapY = '1px'; // overlap for hover
-  const hoverBottomSpace = '0px'; // margin between two rows
-
-  const handleSpace = '4px'; // top/bottom space
-  const handleShift = '4px'; // shift from left
-  const handleThickness = '2px';
+  const hoverOverlapY = '-1px'; // overlap for hover
 
   let detectWidth = '100%';
   let detectHeight = '100%';
   let cursor = 'move';
-  let handleLeft = '0px';
-  let handleTop = '0px';
-  let handleWidth = '100%';
-  let handleHeight = '100%';
 
   if (props.direction === 'horizontal') {
     detectHeight = props.dragHandleHeight || theme.shapes.containerMargin;
     cursor = 'ew-resize';
-    handleLeft = handleSpace;
-    handleTop = handleShift;
-    handleWidth = `calc(100% - ${Unit.multiply (handleSpace, 2)} - ${hoverBottomSpace})`;
-    handleHeight = handleThickness;
   }
   if (props.direction === 'vertical') {
     detectWidth = props.dragHandleWidth || theme.shapes.containerMargin;
     cursor = 'ns-resize';
-    handleLeft = handleShift;
-    handleTop = handleSpace;
-    handleWidth = handleThickness;
-    handleHeight = `calc(100% - ${Unit.multiply (handleSpace, 2)} - ${hoverBottomSpace})`;
   }
 
   const detectStyle = {
@@ -48,9 +29,7 @@ export default function styles (theme, props) {
     cursor: cursor,
   };
   detectStyle[':hover'] = {
-    margin: Unit.multiply (hoverOverlapY, -1) +
-      ' ' +
-      Unit.multiply (hoverOverlapX, -1),
+    margin: hoverOverlapY + ' ' + hoverOverlapX,
     borderLeft: '10px solid ' + theme.palette.dragAndDropHandleHover,
     boxSizing: 'border-box',
   };
