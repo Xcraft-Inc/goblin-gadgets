@@ -63,11 +63,6 @@ class LabelTextField extends Widget {
   }
 
   renderLabel () {
-    const shape = {
-      smooth: 'left-smooth',
-      rounded: 'left-rounded',
-    }[this.props.shape ? this.props.shape : 'smooth'];
-
     return (
       <Label
         kind="label-text-field"
@@ -76,7 +71,6 @@ class LabelTextField extends Widget {
         width={this.props.labelWidth}
         disabled={this.props.disabled}
         wrap="no"
-        shape={shape}
         justify="left"
       />
     );
@@ -91,14 +85,7 @@ class LabelTextField extends Widget {
     const visibleReadonly = this.props.readonly
       ? this.props.readonly
       : Bool.toString (autoReadonly);
-
-    const s = this.props.shape ? this.props.shape : 'smooth';
-    const textFieldShapes = {
-      smooth: 'right-smooth',
-      rounded: 'right-rounded',
-    };
-    const textFieldShape = textFieldShapes[s];
-
+    const textFieldShape = this.props.shape || 'smooth';
     const fieldGrow = this.props.fieldWidth ? null : '1';
 
     const props = {
