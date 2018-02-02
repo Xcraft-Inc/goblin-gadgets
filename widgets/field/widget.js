@@ -516,6 +516,7 @@ class Field extends Form {
             kind="combo"
             shape="right-smooth"
             leftSpacing="overlap"
+            spacing={this.props.spacing}
             glyph="pencil"
             tooltip="Editer"
             onClick={() => {
