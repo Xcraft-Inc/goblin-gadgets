@@ -498,6 +498,7 @@ class Field extends Form {
           }
           return {
             kind: 'markdown',
+            shape: 'left-smooth',
             glyph,
             text,
             grow: '1',
@@ -512,7 +513,9 @@ class Field extends Form {
     const Action = props => {
       return !!props.entityId
         ? <Button
-            kind="plugin-light"
+            kind="combo"
+            shape="right-smooth"
+            leftSpacing="overlap"
             glyph="pencil"
             tooltip="Editer"
             onClick={() => {
@@ -1464,7 +1467,7 @@ class Field extends Form {
       );
     }
 
-    const HinterLine = props => (
+    const HinterLineValue = props => (
       <Container
         kind="row-field"
         grow={this.props.grow}
@@ -1481,76 +1484,106 @@ class Field extends Form {
           glyph={this.props.labelGlyph}
           width={this.props.labelWidth || defaultLabelWidth}
         />
-        {props.existingValue
-          ? <HinterLabel
-              kind="markdown"
-              width={this.props.labelWidth || defaultLabelWidth}
-              hintText={this.props.hintText}
-              tooltip={this.props.tooltip || this.props.hintText}
-              grow="2"
-            />
-          : null}
-        {props.existingValue
-          ? <Button
-              kind="combo"
-              leftSpacing="overlap"
-              glyph="eraser"
-              width="32px"
-              tooltip="Entrer une nouvelle référence"
-              onClick={() => this.setBackendValue (this.fullPath, null)}
-            />
-          : <Form
-              {...this.formConfigWithComponent (() => (
-                <Hinter
-                  id={this.context.id}
-                  hintText={this.props.hintText}
-                  tooltip={this.props.tooltip || this.props.hintText}
-                  hinter={this.props.hinter}
-                  comboType={this.props.hinter}
-                  spacing={this.props.spacing}
-                  width={this.props.fieldWidth}
-                  grow="1"
-                  requiredHinter={this.props.requiredHinter || 'true'}
-                />
-              ))}
-            />}
+        <HinterLabel
+          kind="markdown"
+          shape="left-smooth"
+          width={this.props.labelWidth || defaultLabelWidth}
+          hintText={this.props.hintText}
+          tooltip={this.props.tooltip || this.props.hintText}
+          grow="2"
+        />
+        <Button
+          kind="combo"
+          shape={this.props.onValue ? 'right-smooth' : null}
+          leftSpacing="overlap"
+          glyph="eraser"
+          width="32px"
+          tooltip="Entrer une nouvelle référence"
+          onClick={() => this.setBackendValue (this.fullPath, null)}
+        />
         {this.props.onValue
           ? null
-          : props.existingValue
-              ? <Button
-                  kind="combo"
-                  spacing={this.props.spacing}
-                  leftSpacing="overlap"
-                  glyph="eye"
-                  tooltip="Voir les détails"
-                  onClick={() =>
-                    this.navToDetail (
-                      this.context.id,
-                      props.existingValue,
-                      this.props.hinter
-                    )}
-                />
-              : this.props.enableAdd
-                  ? <Button
-                      kind="combo"
-                      leftSpacing="overlap"
-                      glyph="plus"
-                      tooltip="Créer"
-                      onClick={() => {
-                        const service = this.context.id.split ('@')[0];
-                        const currentValue = this.getBackendValue (
-                          `backend.${this.context.id}.${this.props.hinter}`
-                        );
-                        if (currentValue && currentValue.length > 2) {
-                          this.doAs (service, `add-new-${this.props.hinter}`, {
-                            value: currentValue,
-                          });
-                        }
-                      }}
-                    />
-                  : null}
+          : <Button
+              kind="combo"
+              shape="right-smooth"
+              spacing={this.props.spacing}
+              leftSpacing="overlap"
+              glyph="eye"
+              tooltip="Voir les détails"
+              onClick={() =>
+                this.navToDetail (
+                  this.context.id,
+                  props.existingValue,
+                  this.props.hinter
+                )}
+            />}
       </Container>
     );
+
+    const HinterLineCreate = props => (
+      <Container
+        kind="row-field"
+        grow={this.props.grow}
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify="top"
+        spacing={this.props.spacing}
+      >
+        <Label
+          kind="label-text-field"
+          wrap="no"
+          text={this.props.labelText}
+          glyph={this.props.labelGlyph}
+          width={this.props.labelWidth || defaultLabelWidth}
+        />
+        <Form
+          {...this.formConfigWithComponent (() => (
+            <Hinter
+              id={this.context.id}
+              shape={
+                !this.props.onValue && this.props.enableAdd
+                  ? 'left-smooth'
+                  : 'smooth'
+              }
+              hintText={this.props.hintText}
+              tooltip={this.props.tooltip || this.props.hintText}
+              hinter={this.props.hinter}
+              comboType={this.props.hinter}
+              spacing={this.props.spacing}
+              width={this.props.fieldWidth}
+              grow="1"
+              requiredHinter={this.props.requiredHinter || 'true'}
+            />
+          ))}
+        />
+        {!this.props.onValue && this.props.enableAdd
+          ? <Button
+              kind="combo"
+              shape="right-smooth"
+              leftSpacing="overlap"
+              glyph="plus"
+              tooltip="Créer"
+              onClick={() => {
+                const service = this.context.id.split ('@')[0];
+                const currentValue = this.getBackendValue (
+                  `backend.${this.context.id}.${this.props.hinter}`
+                );
+                if (currentValue && currentValue.length > 2) {
+                  this.doAs (service, `add-new-${this.props.hinter}`, {
+                    value: currentValue,
+                  });
+                }
+              }}
+            />
+          : null}
+      </Container>
+    );
+
+    const HinterLine = props =>
+      props.existingValue
+        ? <HinterLineValue {...props} />
+        : <HinterLineCreate {...props} />;
 
     const HinterField = this.mapWidget (
       HinterLine,
