@@ -1038,6 +1038,23 @@ export default function styles (theme, props) {
   //?   flexBasis = '0%';
   //? }
 
+  // With flex="2 1 0%", set properties:
+  //    flexGrow   = "2"
+  //    flexShrink = "1"
+  //    flexBasis  = "0%"
+  if (
+    flexGrow &&
+    typeof flexGrow === 'string' &&
+    flexGrow.indexOf (' ') !== -1
+  ) {
+    const parts = flexGrow.split (' ');
+    flexGrow = parts[0];
+    if (parts.length >= 3) {
+      flexShrink = parts[1];
+      flexBasis = parts[2];
+    }
+  }
+
   if (Bool.isTrue (hidden)) {
     display = 'none';
   }
