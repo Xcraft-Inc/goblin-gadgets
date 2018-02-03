@@ -619,6 +619,17 @@ export default function styles (theme, props) {
     backgroundColor = theme.palette.ticketsBackground;
   }
 
+  if (props.kind === 'desk-row') {
+    display = 'flex';
+    flexDirection = 'row';
+    flexGrow = '1';
+    justifyContent = 'flex-start';
+    alignItems = 'flex-start';
+    margin = Unit.multiply (m, -1);
+    padding = '0px ' + m + ' ' + m + ' ' + m;
+    backgroundColor = theme.palette.ticketsBackground;
+  }
+
   if (props.kind === 'full-column') {
     display = 'flex';
     flexDirection = 'column';
