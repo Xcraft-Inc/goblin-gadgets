@@ -613,6 +613,7 @@ export default function styles (theme, props) {
 
   if (props.kind === 'tray-title') {
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
+    glyphColor = theme.palette.ticketGlueTitle;
     textColor = theme.palette.ticketGlueTitle;
     textWeight = 'bold';
     textSize = theme.shapes.ticketGlueTitleSize;
