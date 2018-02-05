@@ -74,7 +74,7 @@ Goblin.registerQuest (goblinName, 'create', function* (
     quest.goblin.setX ('pageSize', pageSize);
   }
 
-  count = yield r.count ({table});
+  count = yield r.count ({table, status: ['published']});
   const listIds = yield r.getBaseList ({table, orderBy});
   quest.goblin.setX ('listIds', listIds);
   quest.me.initList ();
