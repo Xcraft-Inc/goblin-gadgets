@@ -121,6 +121,7 @@ Goblin.registerQuest (goblinName, 'load-range', function* (quest, from, to) {
     onChangeQuest: `${goblinName}.handle-changes`,
     goblinId: quest.goblin.id,
     documents,
+    status: ['published'],
   });
   const rows = {};
   const rowById = {};
@@ -151,6 +152,7 @@ Goblin.registerQuest (goblinName, 'init-list', function* (quest) {
     onChangeQuest: `${goblinName}.handle-changes`,
     goblinId: quest.goblin.id,
     documents,
+    status: ['published'],
   });
   const rows = {};
   const rowById = {};
