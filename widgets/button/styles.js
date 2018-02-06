@@ -407,10 +407,14 @@ export default function styles (theme, props) {
   }
 
   if (props.kind === 'tray-title') {
-    boxHeight = Unit.add (theme.shapes.lineHeight, '2px'); // same as TextField with 2px for borders
+    boxHeight = Unit.multiply (theme.shapes.lineHeight, 1.2);
     borderStyle = 'none';
+    borderRadius = Unit.multiply (theme.shapes.lineHeight, 0.25);
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
+    boxMarginBottom = '3px';
     backgroundColor = null;
+    backgroundHoverColor = theme.palette.ticketGlueHilitedTitleBackground;
+    activeColor = theme.palette.ticketGlueHilitedTitleBackground;
   }
 
   // Button with a day in Calendar component.
