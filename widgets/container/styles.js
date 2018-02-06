@@ -712,6 +712,14 @@ export default function styles (theme, props) {
     flexGrow = 1;
   }
 
+  if (props.kind === 'scrollable-tickets-desks') {
+    overflowX = 'auto';
+    display = 'flex';
+    flexDirection = 'row';
+    flexGrow = 1;
+    padding = '0px ' + theme.shapes.containerMargin;
+  }
+
   if (props.kind === 'tickets-messenger') {
     const mm = Unit.multiply (m, 0.5);
     padding = '0px ' + mm + ' 0px ' + mm;
