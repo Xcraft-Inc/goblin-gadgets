@@ -827,7 +827,7 @@ export default function styles (theme, props) {
       // borderColor = theme.palette.buttonBorder;
       backgroundColor = theme.palette.dragAndDropBackground;
       boxShadow = theme.palette.dragAndDropShadow;
-      opacity = 0.95;
+      opacity = 0.9;
     } else if (Bool.isTrue (props.hasHeLeft)) {
       visibility = 'hidden';
       opacity = 0;

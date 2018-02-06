@@ -187,7 +187,7 @@ export default function styles (theme, props) {
     hoverRadius = r;
   }
 
-  let boxOpacity = Bool.isFalse (props.visibility) ? 0 : null;
+  const boxOpacity = Bool.isFalse (props.visibility) ? 0 : props.opacity;
 
   const boxStyle = {
     flexGrow: props.grow,
