@@ -207,6 +207,14 @@ export default function styles (theme, props) {
     fill: theme.palette.ticketShadow,
   };
 
+  const farShadowStyle = {
+    position: 'absolute',
+    width: props.width,
+    height: props.height,
+    borderRadius: '10px',
+    boxShadow: '0px 10px 23px 4px rgba(0, 0, 0, 0.3)',
+  };
+
   const shapeStyle = {
     position: 'absolute',
     fill: props.color,
@@ -267,6 +275,10 @@ export default function styles (theme, props) {
     backgroundColor: theme.palette.ticketShadow,
     opacity: boxOpacity,
   };
+
+  const rectFarShadowStyle = Object.assign ({}, rectShadowStyle); // clone
+  rectFarShadowStyle.top = '0px';
+  rectFarShadowStyle.boxShadow = '0px 10px 23px 4px rgba(0, 0, 0, 0.3)';
 
   const rectStyle = {
     height: props.height,
@@ -468,6 +480,7 @@ export default function styles (theme, props) {
 
   return {
     box: boxStyle,
+    farShadow: farShadowStyle,
     shadow: shadowStyle,
     shape: shapeStyle,
     hatch: hatchStyle,
@@ -475,6 +488,7 @@ export default function styles (theme, props) {
     hover: hoverStyle,
     content: contentStyle,
     rectShadow: rectShadowStyle,
+    rectFarShadow: rectFarShadowStyle,
     rect: rectStyle,
     rectContentHatch: rectContentHatchStyle,
     rectHover: rectHoverStyle,

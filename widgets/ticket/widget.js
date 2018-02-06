@@ -79,6 +79,7 @@ class Ticket extends Widget {
 
   renderTicket () {
     const boxClass = this.styles.classNames.box;
+    const farShadowClass = this.styles.classNames.farShadow;
     const shadowClass = this.styles.classNames.shadow;
     const shapeClass = this.styles.classNames.shape;
     const hatchClass = this.styles.classNames.hatch;
@@ -90,11 +91,14 @@ class Ticket extends Widget {
     if (!w || !h) {
       throw new Error ('Undefined ticket width or height');
     }
-    const htmlShadow = (
-      <svg width={w} height={h} className={shadowClass}>
-        <path d={this.styles.props.svg.path} />
-      </svg>
-    );
+    const htmlFarShadow = Bool.isTrue (this.props.shadow)
+      ? <div className={farShadowClass} />
+      : null;
+    const htmlShadow = Bool.isTrue (this.props.shadow)
+      ? null
+      : <svg width={w} height={h} className={shadowClass}>
+          <path d={this.styles.props.svg.path} />
+        </svg>;
     const htmlShape = (
       <svg width={w} height={h} className={shapeClass}>
         <path d={this.styles.props.svg.path} />
@@ -144,6 +148,7 @@ class Ticket extends Widget {
         onTouchStart={this.onMouseDown}
         onTouchEnd={this.onMouseUp}
       >
+        {htmlFarShadow}
         {htmlShadow}
         {htmlShape}
         {htmlHatch}
@@ -158,7 +163,9 @@ class Ticket extends Widget {
   }
 
   renderRect () {
-    const rectShadowClass = this.styles.classNames.rectShadow;
+    const rectShadowClass = Bool.isTrue (this.props.shadow)
+      ? this.styles.classNames.rectFarShadow
+      : this.styles.classNames.rectShadow;
     const rectClass = this.styles.classNames.rect;
     const rectHoverClass = this.styles.classNames.rectHover;
     const contentClass = this.styles.classNames.content;
