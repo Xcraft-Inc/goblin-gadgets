@@ -406,7 +406,7 @@ export default function styles (theme, props) {
     activeColor = theme.palette.boxActiveBackground;
   }
 
-  if (props.kind === 'tray-title') {
+  if (props.kind === 'desk-title') {
     boxHeight = Unit.multiply (theme.shapes.lineHeight, 1.2);
     borderStyle = 'none';
     borderRadius = Unit.multiply (theme.shapes.lineHeight, 0.25);
