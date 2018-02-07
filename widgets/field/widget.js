@@ -598,6 +598,7 @@ class Field extends Form {
             ownerType={this.props.ownerType}
             extended={this.props.extended}
             hilited={this.props.hilited}
+            noDrag={this.props.noDrag}
             embedded={this.props.embedded}
             embeddedLevel={
               this.props.embeddedLevel ? this.props.embeddedLevel + 1 : 1
@@ -1364,6 +1365,7 @@ class Field extends Form {
             ownerType={this.props.ownerType}
             extended={this.props.extended}
             hilited={this.props.hilited}
+            noDrag={this.props.noDrag}
             embedded={this.props.embedded}
             embeddedLevel={
               this.props.embeddedLevel ? this.props.embeddedLevel + 1 : 1
