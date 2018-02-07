@@ -720,7 +720,7 @@ export default function styles (theme, props) {
     padding = '0px ' + theme.shapes.containerMargin;
   }
 
-  if (props.kind === 'tickets-messenger') {
+  if (props.kind === 'roadbook-tickets') {
     const mm = Unit.multiply (m, 0.5);
     padding = '0px ' + mm + ' 0px ' + mm;
     display = 'flex';
@@ -728,6 +728,16 @@ export default function styles (theme, props) {
     flexGrow = 1;
     margin = '0px ' + theme.shapes.viewSpacing + ' 0px 0px';
     backgroundColor = theme.palette.ticketsBackground;
+  }
+
+  if (props.kind === 'desk-tickets') {
+    const mm = Unit.multiply (m, 0.5);
+    padding = '0px ' + mm + ' 0px ' + mm;
+    display = 'flex';
+    flexDirection = 'column';
+    flexGrow = 1;
+    margin = '0px ' + theme.shapes.viewSpacing + ' 0px 0px';
+    backgroundColor = 'transparent';
   }
 
   if (props.kind === 'tickets-trips') {
@@ -833,8 +843,12 @@ export default function styles (theme, props) {
       // borderStyle = 'solid';
       // boxSizing = 'border-box';
       // borderColor = theme.palette.buttonBorder;
-      backgroundColor = theme.palette.dragAndDropBackground;
-      boxShadow = theme.palette.dragAndDropShadow;
+      backgroundColor = Bool.isTrue (props.isTransparentWhenDrag)
+        ? null
+        : theme.palette.dragAndDropBackground;
+      boxShadow = Bool.isTrue (props.isTransparentWhenDrag)
+        ? null
+        : theme.palette.dragAndDropShadow;
       opacity = 0.9;
     } else if (Bool.isTrue (props.hasHeLeft)) {
       visibility = 'hidden';
