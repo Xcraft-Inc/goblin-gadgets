@@ -49,7 +49,7 @@ export default function styles (theme, props) {
   const tooltipStyle = {
     position: 'absolute',
     left: Unit.sub (Unit.add (theme.shapes.chronosLabelMargin, glyphWidth), m),
-    height: theme.shapes.chronosLineHeight,
+    height: Unit.sub (theme.shapes.chronosLineHeight, '1px'),
     padding: '0px ' + m,
     display: 'flex',
     flexDirection: 'row',

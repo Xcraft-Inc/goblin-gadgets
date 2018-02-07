@@ -12,10 +12,12 @@ export default function styles (theme, props) {
   let boxMargin = null;
   let labelHeight = theme.shapes.badgeHeight;
   let labelRadius = theme.shapes.badgeRadius;
+  let color = theme.palette.badgeText;
   let backgroundColor = theme.palette.badgeBackground;
 
   if (props.kind === 'chronos-count') {
-    backgroundColor = theme.palette.chronoBadge;
+    color = theme.palette.chronoBadgeText;
+    backgroundColor = theme.palette.chronoBadgeBackground;
   }
 
   // If badge has layer='over', place it on top-right corner of parent.
@@ -53,7 +55,7 @@ export default function styles (theme, props) {
     alignItems: 'center',
     fontSize: Unit.multiply (theme.shapes.badgeTextSize, theme.typo.fontScale),
     fontWeight: 'bold',
-    color: theme.palette.badgeText,
+    color: color,
     backgroundColor: backgroundColor,
   };
 
