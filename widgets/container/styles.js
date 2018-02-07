@@ -651,6 +651,11 @@ export default function styles (theme, props) {
       width = Unit.sub ('700px', '140px'); // 140px include margins, vertical toolbar and vertical scroller
       overflowX = 'hidden';
       overflowY = 'hidden';
+    } else if (props.subkind === 'wrap') {
+      flexWrap = 'wrap';
+      alignContent = 'flex-start';
+      overflowX = 'auto';
+      overflowY = 'hidden';
     } else {
       // In dedicated dispatch board-panel, the vertical scrolling is managed
       // by this container.
