@@ -513,7 +513,7 @@ export default function styles (theme, props) {
     activeColor = theme.palette.dynamicToolbarBackground;
   }
   if (props.kind === 'dynamic-toolbar-top') {
-    borderStyle = 'none';
+    borderStyle = 'none solid solid none';
     backgroundColor = theme.palette.paneBackground;
   }
   if (props.kind === 'toolbar') {
