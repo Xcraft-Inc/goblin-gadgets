@@ -485,11 +485,11 @@ class Chronos extends Form {
       <DragCab
         key={index}
         dragController={this.props.dragController}
+        dragOwnerId={event.id}
         direction="vertical"
         color={this.context.theme.palette.dragAndDropHover}
         thickness={this.context.theme.shapes.dragAndDropTicketThickness}
         mode="corner-top-left"
-        dragOwnerId={event.id}
         doClickAction={this.onClickAction}
         doDragEnding={this.onDragEnding}
       >
@@ -544,8 +544,8 @@ class Chronos extends Form {
         kind="chronos-events"
         dragController={this.props.dragController}
         dragSource={this.props.dragSource}
+        dragOwnerId={this.props.dragOwnerId}
         dragMode={this.props.dragMode}
-        dragOwnerId={this.props.id}
         viewParentId={this.props.viewParentId}
       >
         {this.renderEventsList ()}
