@@ -656,6 +656,10 @@ export default function styles (theme, props) {
       alignContent = 'flex-start';
       overflowX = 'auto';
       overflowY = 'hidden';
+    } else if (props.subkind === 'chronos') {
+      margin = '0px ' + Unit.multiply (theme.shapes.containerMargin, -1);
+      overflowX = 'hidden';
+      overflowY = 'auto';
     } else {
       // In dedicated dispatch board-panel, the vertical scrolling is managed
       // by this container.
