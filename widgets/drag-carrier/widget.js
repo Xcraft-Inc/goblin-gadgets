@@ -191,7 +191,7 @@ class DragCarrier extends Widget {
         rect: rect.height === 0
           ? getVRect (rect, rect.top, rect.top + thickness * 2)
           : rect,
-        opacity: 1.0,
+        opacity: 0.5,
         radius: '0px',
         parentRect: parentRect,
         index: -1,
@@ -264,7 +264,7 @@ class DragCarrier extends Widget {
         rect: rect.width === 0
           ? getHRect (rect, rect.left, rect.left + thickness * 2)
           : rect,
-        opacity: 1.0,
+        opacity: 0.5,
         radius: '0px',
         parentRect: parentRect,
         index: -1,
