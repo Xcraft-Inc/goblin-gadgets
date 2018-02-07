@@ -27,13 +27,17 @@ const logicHandlers = {
   'handle-changes': (state, action) => {
     return state.set (`list.${action.get ('row')}`, action.get ('document'));
   },
-  remove: (state, action) => {
-    const id = action.get ('id');
-    const row = state.get (`private.rowById.${id}`);
+  remove: state => {
     const newCount = Number (state.get ('count')) - 1;
+    return state.set ('count', newCount);
+  },
+  add: (state, action) => {
+    const entity = action.get ('entity');
+    const newCount = Number (state.get ('count')) + 1;
+    const newRow = `${newCount - 1}-item`;
     return state
-      .del (`list.${row}`)
-      .del (`private.rowById.${id}`)
+      .set (`list.${newRow}`, entity)
+      .set (`private.rowById.${entity.id}`, newRow)
       .set ('count', newCount);
   },
   updateRange: (state, action) => {
@@ -83,21 +87,43 @@ Goblin.registerQuest (goblinName, 'create', function* (
 });
 
 Goblin.registerQuest (goblinName, 'handle-changes', function (quest, change) {
+  const listIds = quest.goblin.getX ('listIds');
+
+  if (change.type === 'add') {
+    listIds.push (change.new_val.id);
+    quest.goblin.setX ('listIds', listIds);
+    quest.dispatch ('add', {entity: change.new_val});
+  }
+
   if (change.type === 'change') {
     const row = quest.goblin
       .getState ()
       .get (`private.rowById.${change.new_val.id}`);
     quest.do ({row, document: change.new_val});
   }
+
   if (change.type === 'remove') {
-    quest.dispatch ('remove', {id: change.old_val.id});
+    const inListIndex = listIds.indexOf (change.old_val.id);
+    if (inListIndex !== -1) {
+      listIds.splice (inListIndex, 1);
+      quest.goblin.setX ('listIds', listIds);
+      const from = quest.goblin.getState ().get ('from');
+      const to = quest.goblin.getState ().get ('to');
+      quest.me.loadRange ({from, to, force: true});
+    }
+    quest.dispatch ('remove');
   }
 });
 
-Goblin.registerQuest (goblinName, 'load-range', function* (quest, from, to) {
+Goblin.registerQuest (goblinName, 'load-range', function* (
+  quest,
+  from,
+  to,
+  force
+) {
   const cFrom = quest.goblin.getState ().get ('from');
   const cTo = quest.goblin.getState ().get ('to');
-  if (from >= cFrom && to <= cTo) {
+  if (from >= cFrom && to <= cTo && !force) {
     return;
   }
 
@@ -113,16 +139,6 @@ Goblin.registerQuest (goblinName, 'load-range', function* (quest, from, to) {
   const listIds = quest.goblin.getX ('listIds');
   const documents = listIds.slice (newFrom, newTo);
   const docs = yield r.getAll ({table, documents});
-  yield r.stopOnChanges ({
-    goblinId: quest.goblin.id,
-  });
-  r.startQuestOnChanges ({
-    table,
-    onChangeQuest: `${goblinName}.handle-changes`,
-    goblinId: quest.goblin.id,
-    documents,
-    status: ['published'],
-  });
   const rows = {};
   const rowById = {};
   for (const doc of docs) {
@@ -151,7 +167,6 @@ Goblin.registerQuest (goblinName, 'init-list', function* (quest) {
     table,
     onChangeQuest: `${goblinName}.handle-changes`,
     goblinId: quest.goblin.id,
-    documents,
     status: ['published'],
   });
   const rows = {};
