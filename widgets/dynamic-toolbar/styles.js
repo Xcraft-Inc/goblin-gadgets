@@ -3,19 +3,9 @@ import {Unit} from 'electrum-theme';
 /******************************************************************************/
 
 export default function styles (theme, props) {
-  const h = Unit.add (
-    theme.shapes.dynamicToolbarButtonHeight,
-    Unit.multiply (theme.shapes.dynamicToolbarMargin, 2)
-  );
-
   const mainStyle = {
     position: 'absolute',
-  };
-
-  const hoverButtonStyle = {
-    position: 'absolute',
     left: '0px',
-    top: '0px',
   };
 
   const fullScreenStyle = {
