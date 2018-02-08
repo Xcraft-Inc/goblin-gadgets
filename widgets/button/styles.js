@@ -76,6 +76,7 @@ export default function styles (theme, props) {
       overlap: '-1px',
       tiny: '1px',
       large: m,
+      big: Unit.multiply (m, 2),
       double: theme.shapes.containerMargin,
     };
     boxMarginRight = spacingType[props.spacing];

@@ -116,6 +116,7 @@ export default function styles (theme, props) {
       tiny: '1px',
       compact: '5px',
       large: m,
+      big: Unit.multiply (m, 2),
       double: theme.shapes.containerMargin,
     };
     boxMarginRight = spacingType[spacing];
@@ -692,7 +693,9 @@ export default function styles (theme, props) {
 
   if (props.kind === 'dynamic-toolbar') {
     glyphColor = theme.palette.dynamicToolbarButtonGlyph;
+    textColor = theme.palette.dynamicToolbarButtonGlyph;
   }
+
   if (props.kind === 'toolbar') {
     if (Bool.isTrue (props.active)) {
       glyphColor = theme.palette.toolbarActiveText;
