@@ -19,7 +19,9 @@ import ChronoLine from 'gadgets/chrono-line/widget';
 /******************************************************************************/
 
 function getSortingKey (event) {
-  if (event.fromDate && event.fromTime) {
+  if (event.index) {
+    return event.index;
+  } else if (event.fromDate && event.fromTime) {
     return event.fromDate + ' ' + event.fromTime;
   } else if (event.fromDate && event.startFromTime) {
     return event.fromDate + ' ' + event.startFromTime;
