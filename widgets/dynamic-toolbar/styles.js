@@ -3,6 +3,18 @@ import {Unit} from 'electrum-theme';
 /******************************************************************************/
 
 export default function styles (theme, props) {
+  const padding = props.padding === 'large'
+    ? theme.shapes.containerMargin
+    : theme.shapes.dynamicToolbarMargin;
+
+  const border = props.padding === 'large'
+    ? theme.shapes.lineSpacing + ' solid ' + theme.palette.menuBackground
+    : null;
+
+  const boxShadow = props.padding === 'large'
+    ? theme.shapes.floatingShadow
+    : null;
+
   const mainStyle = {
     position: 'absolute',
     left: '0px',
@@ -32,8 +44,10 @@ export default function styles (theme, props) {
     position: 'absolute',
     display: 'flex',
     flexDirection: 'row',
-    padding: theme.shapes.dynamicToolbarMargin,
+    padding: padding,
+    border: border,
     backgroundColor: theme.palette.dynamicToolbarBackground,
+    boxShadow: boxShadow,
     transform: visibleTransform,
     transition: theme.transitions.easeOut (delay),
   };
@@ -43,7 +57,8 @@ export default function styles (theme, props) {
     position: 'absolute',
     display: 'flex',
     flexDirection: 'row',
-    padding: theme.shapes.dynamicToolbarMargin,
+    padding: padding,
+    border: border,
     backgroundColor: theme.palette.dynamicToolbarBackground,
     transform: hiddenTransform,
     transition: theme.transitions.easeOut (delay),
