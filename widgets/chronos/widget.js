@@ -224,7 +224,7 @@ class Chronos extends Form {
   }
 
   onDragEnding (selectedIds, toId, ownerId, ownerKind) {
-    const x = this.props.dragEnding;
+    const x = this.props.doDragEnding;
     if (x) {
       x (selectedIds, toId, ownerId, ownerKind);
     }
