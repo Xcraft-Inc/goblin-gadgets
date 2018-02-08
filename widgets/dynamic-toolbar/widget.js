@@ -89,6 +89,21 @@ class DynamicToolbar extends Widget {
           />
         </div>
       );
+    } else if (this.props.direction === 'corner') {
+      return (
+        <div className={style}>
+          <Button
+            opacity={this.showToolbar ? '0' : '1'}
+            width="24px"
+            height="24px"
+            kind="dynamic-toolbar-top"
+            glyph="cog"
+            active={Bool.toString (this.showToolbar)}
+            mouseOver={this.onShowToolbar}
+            ref={node => (this.ToolbarButton = node)}
+          />
+        </div>
+      );
     } else {
       const h = Unit.add (
         this.context.theme.shapes.dynamicToolbarButtonHeight,
