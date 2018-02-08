@@ -23,7 +23,6 @@ class DynamicToolbar extends Widget {
     this.counter = 0;
 
     this.onShowToolbar = this.onShowToolbar.bind (this);
-    this.onHideToolbar = this.onHideToolbar.bind (this);
     this.onMouseMove = this.onMouseMove.bind (this);
   }
 
@@ -47,10 +46,6 @@ class DynamicToolbar extends Widget {
     this.showToolbar = true;
   }
 
-  onHideToolbar () {
-    this.showToolbar = false;
-  }
-
   // When the mouse moves out the toolbar, hide the toolbar.
   onMouseMove (e) {
     if (this.counter > 0) {
@@ -64,7 +59,7 @@ class DynamicToolbar extends Widget {
 
     const node = ReactDOM.findDOMNode (this.toolbar);
     const rect = node.getBoundingClientRect ();
-    const margin = this.props.detectMargin ? this.props.detectMargin : 20;
+    const margin = this.props.detectMargin ? this.props.detectMargin : 50;
     if (
       x < rect.left - margin ||
       x > rect.right + margin ||
