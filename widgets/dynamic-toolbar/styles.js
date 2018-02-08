@@ -3,17 +3,25 @@ import {Unit} from 'electrum-theme';
 /******************************************************************************/
 
 export default function styles (theme, props) {
-  const padding = props.padding === 'large'
-    ? theme.shapes.containerMargin
-    : theme.shapes.dynamicToolbarMargin;
+  let padding = theme.shapes.dynamicToolbarMargin;
+  let borderRight = null;
+  let borderBottom = null;
+  let boxShadow = null;
+  let borderRadius = null;
 
-  const border = props.padding === 'large'
-    ? theme.shapes.lineSpacing + ' solid ' + theme.palette.menuBackground
-    : null;
-
-  const boxShadow = props.padding === 'large'
-    ? theme.shapes.floatingShadow
-    : null;
+  if (props.padding === 'large') {
+    padding = theme.shapes.containerMargin;
+    const b =
+      Unit.multiply (theme.shapes.lineSpacing, 0.5) +
+      ' solid ' +
+      theme.palette.menuBackground;
+    borderRight = b;
+    borderBottom = b;
+    boxShadow = theme.shapes.floatingShadow;
+    borderRadius = props.padding === 'large'
+      ? '0px 0px ' + padding + ' 0px'
+      : null;
+  }
 
   const mainStyle = {
     position: 'absolute',
@@ -45,7 +53,9 @@ export default function styles (theme, props) {
     display: 'flex',
     flexDirection: 'row',
     padding: padding,
-    border: border,
+    borderRight: borderRight,
+    borderBottom: borderBottom,
+    borderRadius: borderRadius,
     backgroundColor: theme.palette.dynamicToolbarBackground,
     boxShadow: boxShadow,
     transform: visibleTransform,
@@ -58,7 +68,9 @@ export default function styles (theme, props) {
     display: 'flex',
     flexDirection: 'row',
     padding: padding,
-    border: border,
+    borderRight: borderRight,
+    borderBottom: borderBottom,
+    borderRadius: borderRadius,
     backgroundColor: theme.palette.dynamicToolbarBackground,
     transform: hiddenTransform,
     transition: theme.transitions.easeOut (delay),
