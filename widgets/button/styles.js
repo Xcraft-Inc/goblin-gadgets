@@ -517,6 +517,16 @@ export default function styles (theme, props) {
     borderStyle = 'none solid solid none';
     backgroundColor = theme.palette.paneBackground;
   }
+  if (props.kind === 'dynamic-toolbar') {
+    boxMinWidth = theme.shapes.toolbarButtonWidth;
+    boxHeight = theme.shapes.toolbarButtonHeight;
+    borderStyle = 'none';
+    backgroundColor = ColorManipulator.emphasize (
+      theme.palette.toolbarInactiveBackground,
+      0.1
+    );
+    activeColor = theme.palette.toolbarActiveBackground;
+  }
   if (props.kind === 'toolbar') {
     boxMinWidth = theme.shapes.toolbarButtonWidth;
     boxHeight = theme.shapes.toolbarButtonHeight;

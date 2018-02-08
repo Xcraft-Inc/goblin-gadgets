@@ -694,6 +694,10 @@ export default function styles (theme, props) {
   if (props.kind === 'dynamic-toolbar') {
     glyphColor = theme.palette.dynamicToolbarButtonGlyph;
     textColor = theme.palette.dynamicToolbarButtonGlyph;
+    if (Bool.isTrue (props.active)) {
+      glyphColor = theme.palette.dynamicToolbarButtonActiveGlyph;
+      textColor = theme.palette.dynamicToolbarButtonActiveGlyph;
+    }
   }
 
   if (props.kind === 'toolbar') {
