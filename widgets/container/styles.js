@@ -654,11 +654,11 @@ export default function styles (theme, props) {
     } else if (props.subkind === 'wrap') {
       flexWrap = 'wrap';
       alignContent = 'flex-start';
-      padding = '0px ' + theme.shapes.containerMargin;
+      padding = theme.shapes.containerMargin;
       overflowX = 'auto';
       overflowY = 'hidden';
     } else if (props.subkind === 'padding') {
-      padding = '0px ' + theme.shapes.containerMargin;
+      padding = theme.shapes.containerMargin;
       overflowX = 'hidden';
       overflowY = 'auto';
     } else {
