@@ -75,6 +75,7 @@ class DynamicToolbar extends Widget {
   // dark '<' when the toolbar is showed.
   renderHoverButton () {
     const style = this.styles.classNames.hoverButton;
+
     if (this.props.direction === 'top') {
       return (
         <div className={style}>
@@ -93,12 +94,10 @@ class DynamicToolbar extends Widget {
       return (
         <div className={style}>
           <Button
-            opacity={this.showToolbar ? '0' : '1'}
             width="24px"
             height="24px"
             kind="dynamic-toolbar-top"
             glyph="cog"
-            active={Bool.toString (this.showToolbar)}
             mouseOver={this.onShowToolbar}
             ref={node => (this.ToolbarButton = node)}
           />

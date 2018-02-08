@@ -23,6 +23,26 @@ export default function styles (theme, props) {
       : null;
   }
 
+  let visibleTransform = `translate(${theme.shapes.dynamicToolbarButtonWidth}, 0%)`;
+  let hiddenTransform = 'translate(-100%, 0%)';
+
+  if (props.direction === 'top') {
+    visibleTransform = 'translate(0%, 0%)';
+    hiddenTransform = 'translate(0%, -100%)';
+  }
+  if (props.direction === 'corner') {
+    // visibleTransform = 'translate(0%, 0%)';
+    // hiddenTransform = 'translate(-100%, -100%)';
+    visibleTransform = 'translate(0%, 0%)';
+    hiddenTransform = 'translate(-100%, 0%)';
+    // visibleTransform = 'translate(0%, 0%) scale(1)';
+    // hiddenTransform = 'translate(-50%, -50%) scale(0)';
+  }
+
+  const delay = props.direction === 'top' ? 400 : 700;
+
+  /******************************************************************************/
+
   const mainStyle = {
     position: 'absolute',
     left: '0px',
@@ -39,19 +59,9 @@ export default function styles (theme, props) {
     //backgroundColor: 'rgba(255, 0, 0, 0.2)',
   };
 
-  let visibleTransform = `translate(${theme.shapes.dynamicToolbarButtonWidth}, 0%)`;
-  let hiddenTransform = 'translate(-100%, 0%)';
-
-  if (props.direction === 'top') {
-    visibleTransform = 'translate(0%, 0%)';
-    hiddenTransform = 'translate(0%, -100%)';
-  }
-  if (props.direction === 'corner') {
-    visibleTransform = 'translate(0%, 0%)';
-    hiddenTransform = 'translate(-100%, -100%)';
-  }
-
-  const delay = props.direction === 'top' ? 400 : 700;
+  const hoverButtonStyle = {
+    position: 'absolute',
+  };
 
   const boxVisibleStyle = {
     zIndex: 11,
@@ -85,6 +95,7 @@ export default function styles (theme, props) {
   return {
     main: mainStyle,
     fullScreen: fullScreenStyle,
+    hoverButton: hoverButtonStyle,
     boxVisible: boxVisibleStyle,
     boxHidden: boxHiddenStyle,
   };
