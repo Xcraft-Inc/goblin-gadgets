@@ -166,7 +166,7 @@ const properties = {
         'solid/rocket',
         'solid/calendar',
       ],
-      value: 'check',
+      value: 'solid/check',
     },
     glyphRotate: {
       id: 'glyphRotate',
@@ -498,7 +498,7 @@ const properties = {
         'solid/rocket',
         'solid/calendar',
       ],
-      value: 'rocket',
+      value: 'solid/rocket',
     },
     glyphRotate: {
       id: 'glyphRotate',
@@ -963,7 +963,7 @@ const properties = {
         'solid/rocket',
         'solid/calendar',
       ],
-      value: 'car',
+      value: 'solid/car',
     },
     shape: {
       id: 'shape',

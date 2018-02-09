@@ -128,7 +128,9 @@ class Wizard extends Form {
   renderMenuItem (widgetName, index) {
     const WButton = this.WithModel (Button, _ => {
       return {
-        glyph: this.widget === widgetName ? 'chevron-right' : 'none',
+        glyph: this.widget === widgetName
+          ? 'solid/chevron-right'
+          : 'solid/none',
       };
     }) ('.globalSettings.widget.value');
 
@@ -205,7 +207,7 @@ class Wizard extends Form {
         if (val === 'true') {
           return {glyph: 'solid/check'};
         } else {
-          return {glyph: 'null'};
+          return {glyph: null};
         }
       }) (model);
 
