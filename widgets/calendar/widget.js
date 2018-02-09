@@ -79,7 +79,7 @@ class Calendar extends Widget {
     return {
       date: date,
       text: DateConverters.getDisplayed (date, 'My'),
-      glyph: isActive ? 'check-circle' : 'circle-thin',
+      glyph: isActive ? 'solid/check-circle' : 'solid/circle-thin',
       action: this.onComboClicked,
     };
   }

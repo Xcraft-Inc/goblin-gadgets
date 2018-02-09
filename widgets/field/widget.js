@@ -490,7 +490,7 @@ class Field extends Form {
       const Info = this.mapWidget (
         Label,
         entity => {
-          let glyph = 'spinner';
+          let glyph = 'solid/spinner';
           let text = 'Chargement...';
           if (entity) {
             glyph = entity.get ('meta.summaries.glyph');
@@ -1296,7 +1296,7 @@ class Field extends Form {
       const Info = this.mapWidget (
         Label,
         entity => {
-          let glyph = 'spinner';
+          let glyph = 'solid/spinner';
           let text = 'chargement...';
           if (entity) {
             glyph = entity.get ('meta.summaries.glyph');

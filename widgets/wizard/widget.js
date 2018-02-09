@@ -342,18 +342,18 @@ class Wizard extends Form {
       }
     } else if (type === 'glyph') {
       const lines = [
-        'bicycle',
-        'ship',
-        'subway',
-        'bus',
-        'truck',
-        'taxi',
-        'motorcycle',
-        'car',
-        'train',
-        'plane',
-        'fighter-jet',
-        'rocket',
+        'solid/bicycle',
+        'solid/ship',
+        'solid/subway',
+        'solid/bus',
+        'solid/truck',
+        'solid/taxi',
+        'solid/motorcycle',
+        'solid/car',
+        'solid/train',
+        'solid/plane',
+        'solid/fighter-jet',
+        'solid/rocket',
       ];
       for (let i = 0; i < this.getPreviewSettingValue ('containerItems'); i++) {
         result.push (<Button key={i} glyph={lines[i]} wrap="no" />);
