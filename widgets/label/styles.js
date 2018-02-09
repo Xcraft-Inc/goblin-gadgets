@@ -350,6 +350,7 @@ export default function styles (theme, props) {
 
   if (props.kind === 'ticket-hud') {
     boxJustifyContent = 'center';
+    glyphJustify = 'center';
     glyphSize = '120%';
     glyphColor = theme.palette.ticketHudContent;
     textWeight = 'bold';
