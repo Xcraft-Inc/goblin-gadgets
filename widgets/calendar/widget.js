@@ -310,7 +310,7 @@ class Calendar extends Widget {
     if (showing) {
       return (
         <Button
-          glyph="chevron-left"
+          glyph="solid/chevron-left"
           kind="calendar-navigator"
           key="prevMonth"
           disabled={Bool.toString (
@@ -342,7 +342,7 @@ class Calendar extends Widget {
     if (showing) {
       return (
         <Button
-          glyph="chevron-right"
+          glyph="solid/chevron-right"
           kind="calendar-navigator"
           key="nextMonth"
           disabled={Bool.toString (

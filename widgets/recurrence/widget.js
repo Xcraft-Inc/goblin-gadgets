@@ -280,14 +280,14 @@ class Recurrence extends Form {
             model=".months"
           />
           <Button
-            glyph="eraser"
+            glyph="solid/eraser"
             tooltip="Supprime toutes les exceptions"
             spacing="overlap"
             visibility={Bool.toString (this.hasExceptions)}
             onClick={this.onEraseEvents}
           />
           <Button
-            glyph="trash"
+            glyph="solid/trash"
             tooltip="Supprime la récurrence"
             onClick={this.props.deleteRecurrence}
           />

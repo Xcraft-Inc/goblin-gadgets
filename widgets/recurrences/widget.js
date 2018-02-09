@@ -58,7 +58,7 @@ class Recurrences extends Widget {
         <div className={headerClass}>
           <Label text="Récurrences" grow="1" kind="title" />
           <Button
-            glyph="plus"
+            glyph="solid/plus"
             text="Ajouter"
             glyphPosition="right"
             onClick={this.onCreateNote}

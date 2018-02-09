@@ -105,7 +105,7 @@ class GlyphsDialog extends Widget {
         <Container kind="row">
           <Label text="Choix des pictogrammes" grow="1" kind="title" />
           <Button
-            glyph="trash"
+            glyph="solid/trash"
             tooltip="Supprime tous les pictogrammes"
             onClick={this.onClearGlyphs}
           />
@@ -211,7 +211,7 @@ class GlyphsDialog extends Widget {
           </Container>
           <Label grow="1" />
           <Button
-            glyph="check"
+            glyph="solid/check"
             text="Fermer"
             kind="action"
             width="150px"

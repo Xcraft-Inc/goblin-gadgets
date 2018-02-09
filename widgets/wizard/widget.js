@@ -203,7 +203,7 @@ class Wizard extends Form {
     } else if (type === 'bool') {
       const CheckButton = this.WithModel (Button, val => {
         if (val === 'true') {
-          return {glyph: 'check'};
+          return {glyph: 'solid/check'};
         } else {
           return {glyph: 'null'};
         }
@@ -461,15 +461,15 @@ class Wizard extends Form {
         break;
       case 'glyphs':
         list = [
-          {glyph: 'check', text: 'TextFieldCombo'},
-          {glyph: 'bicycle', text: 'Vélo'},
-          {glyph: 'ship', text: 'Bateau'},
-          {glyph: 'truck', text: 'Camion'},
-          {glyph: 'bus', text: 'Bus'},
-          {glyph: 'car', text: 'Voiture'},
-          {glyph: 'train', text: 'Train'},
-          {glyph: 'plane', text: 'Avion'},
-          {glyph: 'rocket', text: 'Fusée'},
+          {glyph: 'solid/check', text: 'TextFieldCombo'},
+          {glyph: 'solid/bicycle', text: 'Vélo'},
+          {glyph: 'solid/ship', text: 'Bateau'},
+          {glyph: 'solid/truck', text: 'Camion'},
+          {glyph: 'solid/bus', text: 'Bus'},
+          {glyph: 'solid/car', text: 'Voiture'},
+          {glyph: 'solid/train', text: 'Train'},
+          {glyph: 'solid/plane', text: 'Avion'},
+          {glyph: 'solid/rocket', text: 'Fusée'},
         ];
         break;
       case 'special1':

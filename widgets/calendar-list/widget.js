@@ -195,7 +195,7 @@ class CalendarList extends Form {
         />
         <Button
           kind="calendar-navigator"
-          glyph="trash"
+          glyph="solid/trash"
           tooltip="Supprime toutes les exceptions"
           disabled={!this.hasAdd || Bool.isTrue (this.props.readonly)}
           onClick={this.onFlushAdd}

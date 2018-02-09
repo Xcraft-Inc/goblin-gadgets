@@ -70,7 +70,7 @@ class LoginDialog extends Form {
             <LabelTextField
               model=".user"
               defaultFocus="true"
-              labelGlyph="user"
+              labelGlyph="solid/user"
               hintText="Nom d´utilisateur"
               grow="1"
             />
@@ -78,7 +78,7 @@ class LoginDialog extends Form {
           <Container kind="row-pane">
             <LabelTextField
               model=".password"
-              labelGlyph="lock"
+              labelGlyph="solid/lock"
               hintText="Mot de passe"
               type="password"
               grow="1"
@@ -89,7 +89,7 @@ class LoginDialog extends Form {
           <Separator kind="space" height="50px" />
           <Container kind="row-pane">
             <Button
-              glyph="check"
+              glyph="solid/check"
               text="Se connecter"
               grow="1"
               kind="action"
@@ -97,7 +97,7 @@ class LoginDialog extends Form {
               onClick={this.onOk}
             />
             <Button
-              glyph="close"
+              glyph="solid/times"
               text="Annuler"
               grow="1"
               kind="action"

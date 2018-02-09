@@ -157,7 +157,7 @@ class Hinter extends Widget {
           <Button
             kind="action"
             place="1/1"
-            glyph="plus"
+            glyph="solid/plus"
             text={
               this.props.newButtonTitle
                 ? this.props.newButtonTitle

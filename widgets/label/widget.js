@@ -157,11 +157,24 @@ class Label extends Widget {
   }
 
   renderGlyph (index, glyph) {
+    const parts = glyph.split ('/');
+    let prefix = '';
+    if (parts.length === 2) {
+      // prefix:
+      // 'brands'  -> 'b'
+      // 'solid'   -> 's'
+      // 'regular' -> 'r'
+      // 'light'   -> 'l'
+      prefix = parts[0][0];
+      glyph = parts[1];
+    }
+
     const glyphClass = this.styles.classNames.glyph;
+
     return (
       <i
         key={index}
-        className={`${glyphClass} fa
+        className={`${glyphClass} fa${prefix}
           fa-${glyph}
           fa-rotate-${this.props.glyphRotate}
           fa-flip-${this.props.glyphFlip}

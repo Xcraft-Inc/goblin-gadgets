@@ -32,7 +32,7 @@ class Notification extends Widget {
         />
         <Label text={this.props.data.message} kind="notification" grow="1" />
         <Button
-          glyph="close"
+          glyph="solid/times"
           kind="notification-close"
           vpos="top"
           onClick={this.props.onDeleteNotification}

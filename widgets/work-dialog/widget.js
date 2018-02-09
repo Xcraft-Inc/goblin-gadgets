@@ -118,7 +118,7 @@ class WorkDialog extends Widget {
       <div className={footerClass}>
         <Label grow="1" />
         <Button
-          glyph="check"
+          glyph="solid/check"
           text="Ouvrir"
           kind="action"
           width="150px"

@@ -517,7 +517,7 @@ class Field extends Form {
             shape="right-smooth"
             leftSpacing="overlap"
             spacing={this.props.spacing}
-            glyph="pencil"
+            glyph="solid/pencil-alt"
             tooltip="Editer"
             onClick={() => {
               {
@@ -1499,7 +1499,7 @@ class Field extends Form {
           kind="combo"
           shape={this.props.onValue ? 'right-smooth' : null}
           leftSpacing="overlap"
-          glyph="eraser"
+          glyph="solid/eraser"
           width="32px"
           tooltip="Entrer une nouvelle référence"
           onClick={() => this.setBackendValue (this.fullPath, null)}
@@ -1511,7 +1511,7 @@ class Field extends Form {
               shape="right-smooth"
               spacing={this.props.spacing}
               leftSpacing="overlap"
-              glyph="eye"
+              glyph="solid/eye"
               tooltip="Voir les détails"
               onClick={() =>
                 this.navToDetail (
@@ -1565,7 +1565,7 @@ class Field extends Form {
               kind="combo"
               shape="right-smooth"
               leftSpacing="overlap"
-              glyph="plus"
+              glyph="solid/plus"
               tooltip="Créer"
               onClick={() => {
                 const service = this.context.id.split ('@')[0];
