@@ -338,7 +338,7 @@ class Chronos extends Form {
 
     result.push (
       this.renderNavigationButton (
-        'chevron-up',
+        'solid/chevron-up',
         null,
         null,
         null,
@@ -378,7 +378,7 @@ class Chronos extends Form {
 
     result.push (
       this.renderNavigationButton (
-        'chevron-down',
+        'solid/chevron-down',
         null,
         null,
         null,

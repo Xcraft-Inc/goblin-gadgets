@@ -220,7 +220,7 @@ class Recurrence extends Form {
         </div>
         <Button
           kind="recurrence"
-          glyph={extended ? 'caret-up' : 'caret-down'}
+          glyph={extended ? 'solid/caret-up' : 'solid/caret-down'}
           tooltip={
             extended
               ? 'Compacte la récurrence'

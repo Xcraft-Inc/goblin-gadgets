@@ -521,8 +521,8 @@ class Calendar extends Widget {
     if (monthCount > 1) {
       return this.renderPrevNext (
         `${monthCount} mois`,
-        'chevron-left',
-        'chevron-right',
+        'solid/chevron-left',
+        'solid/chevron-right',
         () => this.onVisibleDateAddMonths (-monthCount),
         () => this.onVisibleDateAddMonths (monthCount)
       );
@@ -543,8 +543,8 @@ class Calendar extends Widget {
           <Separator kind="space" height="20px" />
           {this.renderPrevNext (
             'année',
-            'step-backward',
-            'step-forward',
+            'solid/step-backward',
+            'solid/step-forward',
             this.onVisibleDatePrevYear,
             this.onVisibleDateNextYear
           )}

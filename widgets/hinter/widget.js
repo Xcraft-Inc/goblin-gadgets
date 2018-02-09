@@ -59,12 +59,12 @@ class Hinter extends Widget {
       : this.styles.classNames.infoHidden;
 
     // FIXME: set glyph/tooltip according to work context of hinter !
-    const clickGlyph = 'eye';
+    const clickGlyph = 'solid/eye';
     const clickTooltip = 'Voir les détails';
-    let doubleclickGlyph = 'check';
+    let doubleclickGlyph = 'solid/check';
     let doubleclickTooltip = 'Choisir';
     if (Bool.isTrue (this.props.editOnClick)) {
-      doubleclickGlyph = 'pencil';
+      doubleclickGlyph = 'solid/pencil-alt';
       doubleclickTooltip = 'Editer';
     }
 

@@ -167,6 +167,8 @@ class Label extends Widget {
       // 'light'   -> 'l'
       prefix = parts[0][0];
       glyph = parts[1];
+    } else {
+      console.warn (`Glyph without prefix '${glyph}'`);
     }
 
     const glyphClass = this.styles.classNames.glyph;

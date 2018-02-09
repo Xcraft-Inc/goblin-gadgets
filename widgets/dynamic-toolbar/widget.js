@@ -83,7 +83,7 @@ class DynamicToolbar extends Widget {
             width="20px"
             height="14px"
             kind="dynamic-toolbar-top"
-            glyph={this.showToolbar ? 'caret-up' : 'caret-down'}
+            glyph={this.showToolbar ? 'solid/caret-up' : 'solid/caret-down'}
             active={Bool.toString (this.showToolbar)}
             mouseOver={this.onShowToolbar}
             ref={node => (this.ToolbarButton = node)}
@@ -114,7 +114,7 @@ class DynamicToolbar extends Widget {
             width={this.context.theme.shapes.dynamicToolbarButtonWidth}
             height={h}
             kind="dynamic-toolbar-left"
-            glyph={this.showToolbar ? 'caret-left' : 'caret-right'}
+            glyph={this.showToolbar ? 'solid/caret-left' : 'solid/caret-right'}
             active={Bool.toString (this.showToolbar)}
             mouseOver={this.onShowToolbar}
             ref={node => (this.ToolbarButton = node)}
