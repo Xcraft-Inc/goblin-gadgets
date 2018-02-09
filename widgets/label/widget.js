@@ -161,22 +161,22 @@ class Label extends Widget {
     let prefix = '';
     if (parts.length === 2) {
       // prefix:
-      // 'brands'  -> 'b'
-      // 'solid'   -> 's'
-      // 'regular' -> 'r'
-      // 'light'   -> 'l'
+      // 'solid'   -> 's' -> fas (standard)
+      // 'regular' -> 'r' -> far (outline)
+      // 'light'   -> 'l' -> fal
+      // 'brands'  -> 'b' -> fab
       if (
         parts[0] !== 'solid' &&
         parts[0] !== 'regular' &&
-        parts[0] !== 'brands' &&
-        parts[0] !== 'light'
+        parts[0] !== 'light' &&
+        parts[0] !== 'brands'
       ) {
-        console.warn (`Glyph '${parts[1]}' with unknown prefix '${parts[0]}'`);
+        console.warn (`Glyph '${parts[1]}' has unknown prefix '${parts[0]}'`);
       }
       prefix = parts[0][0]; // first letter
       glyph = parts[1];
     } else {
-      console.warn (`Glyph without prefix '${glyph}'`);
+      console.warn (`Glyph '${glyph}' without prefix`);
     }
 
     const glyphClass = this.styles.classNames.glyph;
