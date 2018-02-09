@@ -175,7 +175,7 @@ class Container extends Widget {
       const busyGlyphClass = this.styles.classNames.busyGlyph;
       return (
         <div className={busyBoxClass}>
-          <i className={`${busyGlyphClass} fa fa-spinner fa-2x fa-pulse`} />
+          <i className={`${busyGlyphClass} fas fa-spinner fa-2x fa-pulse`} />
         </div>
       );
     } else {

@@ -165,7 +165,15 @@ class Label extends Widget {
       // 'solid'   -> 's'
       // 'regular' -> 'r'
       // 'light'   -> 'l'
-      prefix = parts[0][0];
+      if (
+        parts[0] !== 'solid' &&
+        parts[0] !== 'regular' &&
+        parts[0] !== 'brands' &&
+        parts[0] !== 'light'
+      ) {
+        console.warn (`Glyph '${parts[1]}' with unknown prefix '${parts[0]}'`);
+      }
+      prefix = parts[0][0]; // first letter
       glyph = parts[1];
     } else {
       console.warn (`Glyph without prefix '${glyph}'`);
@@ -176,11 +184,7 @@ class Label extends Widget {
     return (
       <i
         key={index}
-        className={`${glyphClass} fa${prefix}
-          fa-${glyph}
-          fa-rotate-${this.props.glyphRotate}
-          fa-flip-${this.props.glyphFlip}
-          ${this.props.glyphSpin ? 'fa-spin' : ''}`}
+        className={`${glyphClass} fa${prefix} fa-${glyph} fa-rotate-${this.props.glyphRotate} fa-flip-${this.props.glyphFlip} ${this.props.glyphSpin ? 'fa-spin' : ''}`}
       />
     );
   }

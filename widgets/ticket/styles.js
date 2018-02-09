@@ -404,12 +404,6 @@ export default function styles (theme, props) {
     backgroundColor: theme.palette.ticketHudBackground,
   };
 
-  const hudGlyphStyleContent = {
-    transform: 'scale(1.2)',
-    color: theme.palette.ticketHudContent,
-    fontWeight: 'bold',
-  };
-
   const coverStyle = {
     display: 'flex',
     flexGrow: 1,
@@ -495,7 +489,6 @@ export default function styles (theme, props) {
     hudGlyphShadow: hudGlyphShadowStyle,
     hudGlyphShadowNone: hudGlyphShadowNoneStyle,
     hudGlyphBox: hudGlyphBoxStyle,
-    hudGlyphContent: hudGlyphStyleContent,
     cover: coverStyle,
     coverContent: coverContentStyle,
     backgroundText: backgroundTextStyle,

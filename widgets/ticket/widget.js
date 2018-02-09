@@ -1,6 +1,8 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 
+import Label from 'gadgets/label/widget';
+
 import * as Bool from 'gadgets/boolean-helpers';
 import {Unit} from 'electrum-theme';
 
@@ -61,7 +63,6 @@ class Ticket extends Widget {
     const hudGlyphShadowClass = this.styles.classNames.hudGlyphShadow;
     const hudGlyphShadowNoneClass = this.styles.classNames.hudGlyphShadowNone;
     const hudGlyphBoxClass = this.styles.classNames.hudGlyphBox;
-    const hudGlyphContentClass = this.styles.classNames.hudGlyphContent;
     return (
       <div
         className={
@@ -69,9 +70,7 @@ class Ticket extends Widget {
         }
       >
         <div className={hudGlyphBoxClass}>
-          <i
-            className={`${hudGlyphContentClass} fa fa-${this.props.hudGlyph}`}
-          />
+          <Label kind="ticket-hud" glyph={this.props.hudGlyph} />
         </div>
       </div>
     );

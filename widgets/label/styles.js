@@ -198,7 +198,7 @@ export default function styles (theme, props) {
     textSize = theme.shapes.labelBigTextSize;
     textWeight = 'bold';
     textTransform = 'uppercase';
-    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'center';
+    boxJustifyContent = boxJustifyContent || 'center';
   }
 
   if (props.kind === 'floating-header') {
@@ -218,7 +218,7 @@ export default function styles (theme, props) {
 
   if (props.kind === 'info') {
     backgroundColor = theme.palette.infoBackground;
-    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'center';
+    boxJustifyContent = boxJustifyContent || 'center';
     boxPaddingTop = '0px';
     boxPaddingRight = '10px';
     boxPaddingBottom = '0px';
@@ -264,7 +264,7 @@ export default function styles (theme, props) {
 
   if (props.kind === 'center-to-box') {
     glyphMinWidth = null;
-    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'center';
+    boxJustifyContent = boxJustifyContent || 'center';
     boxMarginTop = m;
     boxMarginRight = '0px';
     boxMarginBottom = m;
@@ -320,7 +320,7 @@ export default function styles (theme, props) {
   }
 
   if (props.kind === 'label-field') {
-    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'none';
+    boxJustifyContent = boxJustifyContent || 'none';
     boxHeight = null;
     boxAlignItems = 'flex-start';
     if (disabled) {
@@ -348,12 +348,19 @@ export default function styles (theme, props) {
     boxMarginLeft = '5px';
   }
 
+  if (props.kind === 'ticket-hud') {
+    boxJustifyContent = 'center';
+    glyphSize = '120%';
+    glyphColor = theme.palette.ticketHudContent;
+    textWeight = 'bold';
+  }
+
   /******************************************************************************/
   // Styles for Labels inside LabelTextFields.
   /******************************************************************************/
 
   if (props.kind === 'label-text-field') {
-    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'none';
+    boxJustifyContent = boxJustifyContent || 'none';
     boxHeight = null;
     textPaddingTop = '8px';
     boxAlignItems = 'flex-start';
@@ -380,7 +387,7 @@ export default function styles (theme, props) {
     textMarginRight = '0px';
     textMarginBottom = '0px';
     textMarginLeft = '0px';
-    textTransform = textTransform ? textTransform : 'uppercase';
+    textTransform = textTransform || 'uppercase';
     textWeight = 'bold';
     textSize = theme.shapes.taskLogoTextSize;
     glyphSize = theme.shapes.taskLogoGlyphSize;
@@ -401,7 +408,7 @@ export default function styles (theme, props) {
 
   // main-tab button (usual parent is container with kind='main-tab').
   if (props.kind === 'main-tab') {
-    textTransform = textTransform ? textTransform : 'uppercase';
+    textTransform = textTransform || 'uppercase';
     textWeight = 'bold';
     textSize = theme.shapes.mainTabTextSize;
     textColor = theme.palette.mainTabText;
@@ -425,7 +432,7 @@ export default function styles (theme, props) {
 
   // task-tab button (usual parent is container with kind='task-bar').
   if (props.kind === 'task-tab') {
-    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
+    boxJustifyContent = boxJustifyContent || 'flex-start';
     if (Bool.isTrue (props.active)) {
       textColor = theme.palette.taskTabActiveText;
       textWeight = 'bold';
@@ -443,7 +450,7 @@ export default function styles (theme, props) {
 
   // pane-navigator button (usual parent is container with kind='pane-navigator').
   if (props.kind === 'pane-navigator') {
-    textTransform = textTransform ? textTransform : 'uppercase';
+    textTransform = textTransform || 'uppercase';
     textWeight = 'bold';
     textSize = theme.shapes.paneNavigatorTextSize;
     if (Bool.isFalse (props.active)) {
@@ -528,14 +535,14 @@ export default function styles (theme, props) {
   if (props.kind === 'action') {
     textSize = theme.shapes.actionTextSize;
     glyphSize = theme.shapes.actionGlyphSize;
-    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'none';
+    boxJustifyContent = boxJustifyContent || 'none';
   }
 
   // Subaction button (usual parent is container with kind='row-pane' and subkind='box').
   if (props.kind === 'subaction') {
     textColor = theme.palette.subactionButtonText;
     textSize = theme.shapes.subactionTextSize;
-    textTransform = textTransform ? textTransform : 'uppercase';
+    textTransform = textTransform || 'uppercase';
     textWeight = 'bold';
   }
 
@@ -567,9 +574,9 @@ export default function styles (theme, props) {
     textMarginRight = theme.shapes.containerMargin;
     textMarginBottom = '0px';
     textMarginLeft = theme.shapes.containerMargin;
-    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
+    boxJustifyContent = boxJustifyContent || 'flex-start';
     textSize = theme.shapes.menuTextSize;
-    textTransform = textTransform ? textTransform : 'uppercase';
+    textTransform = textTransform || 'uppercase';
     textWeight = 'bold';
     if (Bool.isTrue (props.active)) {
       glyphColor = theme.palette.menuText;
@@ -589,9 +596,9 @@ export default function styles (theme, props) {
     textMarginRight = theme.shapes.containerMargin;
     textMarginBottom = '0px';
     textMarginLeft = theme.shapes.containerMargin;
-    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
+    boxJustifyContent = boxJustifyContent || 'flex-start';
     textSize = theme.shapes.menuTextSize;
-    textTransform = textTransform ? textTransform : 'uppercase';
+    textTransform = textTransform || 'uppercase';
   }
 
   if (props.kind === 'combo-wrap-item') {
@@ -600,20 +607,20 @@ export default function styles (theme, props) {
     textMarginRight = '0px';
     textMarginBottom = '0px';
     textMarginLeft = '0px';
-    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
+    boxJustifyContent = boxJustifyContent || 'flex-start';
     textSize = theme.shapes.menuTextSize;
-    textTransform = textTransform ? textTransform : 'uppercase';
+    textTransform = textTransform || 'uppercase';
     glyphJustify = 'flex-start';
   }
 
   if (props.kind === 'glyph-item') {
     textWidth = 'max-content';
-    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
+    boxJustifyContent = boxJustifyContent || 'flex-start';
     glyphSize = '120%';
   }
 
   if (props.kind === 'desk-title') {
-    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
+    boxJustifyContent = boxJustifyContent || 'flex-start';
     glyphColor = theme.palette.ticketGlueTitle;
     textColor = theme.palette.ticketGlueTitle;
     textWeight = 'bold';
@@ -669,7 +676,7 @@ export default function styles (theme, props) {
   }
 
   if (props.kind === 'container-start') {
-    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
+    boxJustifyContent = boxJustifyContent || 'flex-start';
     boxAlignItems = 'stretch';
   }
 
