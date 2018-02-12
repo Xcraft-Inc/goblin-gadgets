@@ -24,17 +24,15 @@ class Container extends Widget {
 
   componentWillMount () {
     const dragController = this.props.dragController;
-    const dragSource = this.props.dragSource;
     const dragOwnerId = this.props.dragOwnerId;
     let count = 0;
     count += dragController ? 1 : 0;
-    count += dragSource ? 1 : 0;
     count += dragOwnerId ? 1 : 0;
-    if (count !== 0 && count !== 3) {
-      // These 3 properties must exist all together, or none !
+    if (count !== 0 && count !== 2) {
+      // These 2 properties must exist all together, or none !
       console.error (
         'Container has invalid properties:' +
-          ` dragController=${dragController} dragSource=${dragSource} dragOwnerId=${dragOwnerId}`
+          ` dragController=${dragController} dragOwnerId=${dragOwnerId}`
       );
     }
     if (this.props.navigationFor) {
