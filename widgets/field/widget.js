@@ -604,6 +604,9 @@ class Field extends Form {
               this.props.embeddedLevel ? this.props.embeddedLevel + 1 : 1
             }
             pluginTitle={this.props.pluginTitle}
+            dragServiceId={
+              this.props.dragServiceId || this.context.dragServiceId
+            }
             origin={this.props.origin}
             horizontalSeparator={this.props.horizontalSeparator}
           />
@@ -1362,6 +1365,9 @@ class Field extends Form {
           <FinalPlugin
             id={this.context.id}
             pluginType={this.props.pluginType}
+            dragServiceId={
+              this.props.dragServiceId || this.context.dragServiceId
+            }
             ownerType={this.props.ownerType}
             extended={this.props.extended}
             hilited={this.props.hilited}
