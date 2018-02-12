@@ -171,7 +171,7 @@ class Label extends Widget {
         parts[0] !== 'light' &&
         parts[0] !== 'brands'
       ) {
-        console.warn (`Glyph '${parts[1]}' has unknown prefix '${parts[0]}'`);
+        console.error (`Glyph '${parts[1]}' has unknown prefix '${parts[0]}'`);
       }
       prefix = parts[0][0]; // first letter
       glyph = parts[1];
