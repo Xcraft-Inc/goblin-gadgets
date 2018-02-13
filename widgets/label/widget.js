@@ -1,4 +1,5 @@
 import React from 'react';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import Widget from 'laboratory/widget';
 import * as Bool from 'gadgets/boolean-helpers';
 import ReactMarkdown from 'react-markdown';
@@ -185,19 +186,16 @@ class Label extends Widget {
       console.warn (`Glyph '${glyph}' without prefix`);
     }
 
-    let classNames = `fa${prefix} fa-${glyph}`;
-    if (this.props.glyphRotate) {
-      classNames += ` fa-rotate-${this.props.glyphRotate}`;
-    }
-    if (this.props.glyphFlip) {
-      classNames += ` fa-flip-${this.props.glyphFlip}`;
-    }
-    if (this.props.glyphSpin) {
-      classNames += ' fa-spin';
-    }
-
     return (
-      <div className={glyphClass}><i className={classNames} key={index} /></div>
+      <div className={glyphClass}>
+        <FontAwesomeIcon
+          icon={[`fa${prefix}`, glyph]}
+          rotate={this.props.glyphRotate}
+          flip={this.props.glyphFlip}
+          spin={this.props.glyphSpin}
+          key={index}
+        />
+      </div>
     );
   }
 
