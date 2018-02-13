@@ -161,7 +161,7 @@ class Label extends Widget {
     const glyphClass = this.styles.classNames.glyph;
 
     if (glyph === 'solid/none') {
-      return <div className={glyphClass} key={index} />;
+      return <div key={index} className={glyphClass} />;
     }
 
     const parts = glyph.split ('/');
@@ -187,13 +187,12 @@ class Label extends Widget {
     }
 
     return (
-      <div className={glyphClass}>
+      <div key={index} className={glyphClass}>
         <FontAwesomeIcon
           icon={[`fa${prefix}`, glyph]}
           rotate={this.props.glyphRotate}
           flip={this.props.glyphFlip}
           spin={this.props.glyphSpin}
-          key={index}
         />
       </div>
     );
