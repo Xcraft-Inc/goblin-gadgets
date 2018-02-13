@@ -517,7 +517,7 @@ class Field extends Form {
             shape="right-smooth"
             leftSpacing="overlap"
             spacing={this.props.spacing}
-            glyph="solid/pencil-alt"
+            glyph="solid/pencil"
             tooltip="Editer"
             onClick={() => {
               {

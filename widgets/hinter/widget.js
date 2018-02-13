@@ -64,7 +64,7 @@ class Hinter extends Widget {
     let doubleclickGlyph = 'solid/check';
     let doubleclickTooltip = 'Choisir';
     if (Bool.isTrue (this.props.editOnClick)) {
-      doubleclickGlyph = 'solid/pencil-alt';
+      doubleclickGlyph = 'solid/pencil';
       doubleclickTooltip = 'Editer';
     }
 

@@ -41,7 +41,7 @@ class GlyphDetail extends Widget {
           width="0px"
           grow="1"
           kind="action"
-          glyph="solid/pencil-alt"
+          glyph="solid/pencil"
           text="Editer"
           place="1/2"
           onClick={this.onEdit}
