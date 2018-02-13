@@ -799,6 +799,7 @@ export default function styles (theme, props) {
     borderRadius = '50px';
     borderColor = theme.palette.buttonBorder;
     backgroundColor = theme.palette.ticketsBackground;
+    boxShadow = theme.palette.dragAndDropShadow;
   }
 
   if (props.kind === 'drag-to-delete') {

@@ -59,7 +59,7 @@ class DynamicToolbar extends Widget {
 
     const node = ReactDOM.findDOMNode (this.toolbar);
     const rect = node.getBoundingClientRect ();
-    const margin = this.props.detectMargin ? this.props.detectMargin : 50;
+    const margin = this.props.detectMargin ? this.props.detectMargin : 20;
     if (
       x < rect.left - margin ||
       x > rect.right + margin ||
