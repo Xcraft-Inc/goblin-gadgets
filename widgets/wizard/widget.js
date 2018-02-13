@@ -72,6 +72,7 @@ class Wizard extends Form {
 
   setGlobalSettingValue (id, value) {
     this.setModelValue (`.globalSettings.${id}.value`, value);
+    this.forceUpdate ();
   }
 
   get widget () {
@@ -102,6 +103,7 @@ class Wizard extends Form {
 
   setPreviewSettingValue (id, value) {
     this.setModelValue (`.previewSettings.${id}.value`, value);
+    this.forceUpdate ();
   }
 
   getCode () {
@@ -198,6 +200,7 @@ class Wizard extends Form {
             comboTextTransform="none"
             onSetText={text => {
               this.setModelValue (model, text);
+              this.forceUpdate ();
             }}
           />
         </Container>
@@ -222,6 +225,7 @@ class Wizard extends Form {
                 model,
                 this.getModelValue (model) === 'false' ? 'true' : 'false'
               );
+              this.forceUpdate ();
             }}
           />
         </Container>

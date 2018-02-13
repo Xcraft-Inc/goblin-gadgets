@@ -157,6 +157,12 @@ class Label extends Widget {
   }
 
   renderGlyph (index, glyph) {
+    const glyphClass = this.styles.classNames.glyph;
+
+    if (glyph === 'solid/none') {
+      return <i className={glyphClass} key={index} />;
+    }
+
     const parts = glyph.split ('/');
     let prefix = '';
     if (parts.length === 2) {
@@ -178,8 +184,6 @@ class Label extends Widget {
     } else {
       console.warn (`Glyph '${glyph}' without prefix`);
     }
-
-    const glyphClass = this.styles.classNames.glyph;
 
     let classNames = `fa${prefix} fa-${glyph}`;
     if (this.props.glyphRotate) {
