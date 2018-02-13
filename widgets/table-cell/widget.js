@@ -49,6 +49,7 @@ class TableCell extends Widget {
           text={text}
           weight={weight}
           justify={this.props.textAlign}
+          wrap={this.props.wrap}
         />
       </div>
     );

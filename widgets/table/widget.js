@@ -92,6 +92,7 @@ class Table extends Widget {
         isLast={Bool.toString (isLast)}
         isHeader="true"
         text={column.get ('description')}
+        wrap="no"
       />
     );
   }
