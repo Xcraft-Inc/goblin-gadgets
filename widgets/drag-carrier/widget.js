@@ -486,29 +486,27 @@ class DragCarrier extends Widget {
     }
   }
 
-  isSelected (data, id) {
-    //? return ReducerData.ask (data, {type: 'IS_TICKET_SELECTED', id: id});
-    return false;
+  isSelected (item) {
+    return (
+      item.props.children.props &&
+      Bool.isTrue (item.props.children.props.selected)
+    );
   }
 
   selectMulti (value) {
     if (this.rectOrigin) {
       const origin = this.searchChildren (this.rectOrigin.id);
-      if (
-        origin &&
-        origin.props.ticket &&
-        this.isSelected (this.props.data, origin.props.ticket.id)
-      ) {
-        // Drag all selected items.
+      if (this.isSelected (origin)) {
+        // If pointed item is selected, drag all selected items.
         const container = this.rectOrigin.container;
         for (let child of container.props.children) {
-          if (this.isSelected (this.props.data, child.props.ticket.id)) {
-            this.selectOne (child.props.ticket.id, value);
+          if (Bool.isTrue (child.props.children.props.selected)) {
+            this.selectOne (child.props.dragOwnerId, value);
           }
         }
       } else {
-        // Drag only pointed item.
-        this.selectOne (this.rectOrigin.id, value);
+        // If pointed item is not selected, drag only pointed item.
+        this.selectOne (origin.props.dragOwnerId, value);
       }
     }
   }
