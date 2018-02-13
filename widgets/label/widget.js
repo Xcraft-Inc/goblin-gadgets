@@ -161,7 +161,7 @@ class Label extends Widget {
     const glyphClass = this.styles.classNames.glyph;
 
     if (glyph === 'solid/none') {
-      return <i className={glyphClass} key={index} />;
+      return <div className={glyphClass} key={index} />;
     }
 
     const parts = glyph.split ('/');
