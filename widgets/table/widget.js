@@ -146,12 +146,15 @@ class Table extends Widget {
 
   render () {
     const data = Widget.shred (this.props.data);
-    const styleClass = this.styles.classNames.table;
+    const tableClass = this.styles.classNames.table;
+    const bodyClass = this.styles.classNames.body;
 
     return (
-      <div className={styleClass}>
+      <div className={tableClass}>
         {this.renderHeader (data.get ('header'))}
-        {this.renderRows (data)}
+        <div className={bodyClass}>
+          {this.renderRows (data)}
+        </div>
       </div>
     );
   }
