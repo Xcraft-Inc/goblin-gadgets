@@ -181,7 +181,7 @@ class Label extends Widget {
 
     const glyphClass = this.styles.classNames.glyph;
 
-    let classNames = `${glyphClass} fa${prefix} fa-${glyph}`;
+    let classNames = `fa${prefix} fa-${glyph}`;
     if (this.props.glyphRotate) {
       classNames += ` fa-rotate-${this.props.glyphRotate}`;
     }
@@ -192,7 +192,9 @@ class Label extends Widget {
       classNames += ' fa-spin';
     }
 
-    return <i className={classNames} key={index} />;
+    return (
+      <div className={glyphClass}><i className={classNames} key={index} /></div>
+    );
   }
 
   renderGlyphAndText () {
