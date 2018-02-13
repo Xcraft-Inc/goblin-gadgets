@@ -45,10 +45,9 @@ export default function styles (theme, props) {
     flexDirection: 'row',
     userSelect: 'none',
     cursor: 'default',
-    border: theme.shapes.chronosSeparatorWidth +
-      ' solid ' +
-      theme.palette.chronoLabelSeparator,
+    border: '1px solid ' + theme.palette.chronoLineSeparator,
     backgroundColor: theme.palette.eventBackground,
+    boxShadow: theme.palette.dragAndDropShadow,
     transition: theme.transitions.easeOut (),
   };
 
