@@ -181,12 +181,18 @@ class Label extends Widget {
 
     const glyphClass = this.styles.classNames.glyph;
 
-    return (
-      <i
-        key={index}
-        className={`${glyphClass} fa${prefix} fa-${glyph} fa-rotate-${this.props.glyphRotate} fa-flip-${this.props.glyphFlip} ${this.props.glyphSpin ? 'fa-spin' : ''}`}
-      />
-    );
+    let classNames = `${glyphClass} fa${prefix} fa-${glyph}`;
+    if (this.props.glyphRotate) {
+      classNames += `fa-rotate-${this.props.glyphRotate}`;
+    }
+    if (this.props.glyphFlip) {
+      classNames += `fa-flip-${this.props.glyphFlip}`;
+    }
+    if (this.props.glyphSpin) {
+      classNames += 'fa-spin';
+    }
+
+    return <i className={classNames} key={index} />;
   }
 
   renderGlyphAndText () {
