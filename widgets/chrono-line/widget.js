@@ -79,7 +79,8 @@ class ChronoLine extends Widget {
         glyphWidth={this.props.glyphWidth}
         mouseOver={this.onMouseOver}
         mouseOut={this.onMouseOut}
-      />
+        cursor={this.props.cursor}
+        />
     );
   }
 
@@ -110,7 +111,6 @@ class ChronoLine extends Widget {
     }
 
     const hover = !this.props.isDragged && this.hover !== 'none';
-    const cursor = this.props.isDragged ? 'move' : 'default';
 
     const styleName = this.props.isDragged
       ? 'lineDragged'
@@ -120,13 +120,9 @@ class ChronoLine extends Widget {
     const lineLabelClass = this.styles.classNames.lineLabel;
     const lineEventClass = this.styles.classNames.lineEvent;
 
-    // FIXME: it's a bad idea to mutate the styles in the render, see styles.js
-    const lineStyle = Object.assign ({}, this.styles.props[styleName]);
-    lineStyle.cursor = cursor;
-
     return (
       <div>
-        <div className={lineClass} style={lineStyle}>
+        <div className={lineClass}>
           <div className={lineLabelClass}>
             {this.renderLabels (
               this.props.event,
@@ -143,7 +139,8 @@ class ChronoLine extends Widget {
               maxHour={this.props.maxHour}
               mouseOver={this.onMouseOver}
               mouseOut={this.onMouseOut}
-            />
+              cursor={this.props.cursor}
+              />
           </div>
         </div>
         {hover ? <div className={lineShapeClass} /> : null}

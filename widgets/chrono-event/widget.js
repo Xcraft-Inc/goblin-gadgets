@@ -151,7 +151,8 @@ class ChronoEvent extends Widget {
         rightTooltip={this.getRightTooltip (event, tricolor, isTextToLeft)}
         isDragged={isDragged}
         hover={Bool.toString (this.hover)}
-      />
+        cursor={this.props.cursor}
+        />
     );
   }
 

@@ -13,6 +13,7 @@ export default function styles (theme, props) {
     : props.hoverShape === 'last' ? '0px 0px ' + r + ' ' + r : r;
   const hb =
     theme.shapes.ticketHoverThickness + ' solid ' + theme.palette.ticketHover;
+  const cursor = props.cursor;
 
   const lineStyle = {
     position: 'relative',
@@ -22,7 +23,7 @@ export default function styles (theme, props) {
     display: 'flex',
     flexDirection: 'row',
     userSelect: 'none',
-    cursor: 'default',
+    cursor: cursor,
     borderBottom: '1px solid ' + theme.palette.chronoLineSeparator,
     backgroundColor: theme.palette.eventBackground,
     transition: theme.transitions.easeOut (),
@@ -39,7 +40,7 @@ export default function styles (theme, props) {
     bottom: '0px',
     right: '0px',
     userSelect: 'none',
-    cursor: 'default',
+    cursor: cursor,
     borderTop: props.hoverShape === 'last' ? null : hb,
     borderBottom: props.hoverShape === 'first' ? null : hb,
     borderLeft: hb,
@@ -57,7 +58,7 @@ export default function styles (theme, props) {
     display: 'flex',
     flexDirection: 'row',
     userSelect: 'none',
-    cursor: 'default',
+    cursor: cursor,
     border: '1px solid ' + theme.palette.chronoLineSeparator,
     backgroundColor: theme.palette.eventBackground,
     boxShadow: theme.palette.dragAndDropShadow,
@@ -70,7 +71,7 @@ export default function styles (theme, props) {
     display: 'flex',
     flexDirection: 'row',
     userSelect: 'none',
-    cursor: 'default',
+    cursor: cursor,
   };
 
   const lineEventStyle = {
@@ -82,7 +83,7 @@ export default function styles (theme, props) {
     flexDirection: 'row',
     justifyContent: 'center',
     userSelect: 'none',
-    cursor: 'default',
+    cursor: cursor,
   };
 
   return {

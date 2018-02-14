@@ -479,7 +479,8 @@ class Chronos extends Form {
           notesCount={this.flatFilteredEvents.notesCount}
           minHour={this.flatFilteredEvents.minHour}
           maxHour={this.flatFilteredEvents.maxHour}
-        />
+          cursor={this.props.cursor}
+          />
       </DragCab>
     );
   }
