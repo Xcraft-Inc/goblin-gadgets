@@ -11,7 +11,7 @@ class ChronoLine extends Widget {
     super (...arguments);
 
     this.state = {
-      hover: false,
+      hover: 'none',
     };
 
     this.onMouseOver = this.onMouseOver.bind (this);
@@ -31,31 +31,39 @@ class ChronoLine extends Widget {
   componentDidMount () {
     super.componentDidMount ();
 
-    if (!window.document.chronoLines) {
-      window.document.chronoLines = [];
+    if (!window.document.ticketsPolypheme) {
+      window.document.ticketsPolypheme = [];
     }
-    window.document.chronoLines.push (this);
+    window.document.ticketsPolypheme.push (this);
   }
 
   componentWillUnmount () {
-    const index = window.document.chronoLines.indexOf (this);
+    const index = window.document.ticketsPolypheme.indexOf (this);
     if (index !== -1) {
-      window.document.chronoLines.splice (index, 1);
+      window.document.ticketsPolypheme.splice (index, 1);
+    }
+  }
+
+  updateHover (state) {
+    if (this.props.link) {
+      for (const ticket of window.document.ticketsPolypheme) {
+        if (ticket.props.link === this.props.link) {
+          if (state) {
+            ticket.hover = ticket === this ? 'me' : 'other';
+          } else {
+            ticket.hover = 'none';
+          }
+        }
+      }
     }
   }
 
   onMouseOver () {
-    const x = this.props.mouseOver;
-    if (x) {
-      x (this.props.event);
-    }
+    this.updateHover (true);
   }
 
   onMouseOut () {
-    const x = this.props.mouseOut;
-    if (x) {
-      x (this.props.event);
-    }
+    this.updateHover (false);
   }
 
   /******************************************************************************/
@@ -101,7 +109,7 @@ class ChronoLine extends Widget {
       return null;
     }
 
-    const hover = !this.props.isDragged && this.hover;
+    const hover = !this.props.isDragged && this.hover !== 'none';
     const cursor = this.props.isDragged ? 'move' : 'default';
 
     let styleName = hover ? 'lineHover' : 'line';

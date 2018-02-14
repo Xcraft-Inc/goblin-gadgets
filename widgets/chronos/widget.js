@@ -128,22 +128,6 @@ function getFlatEvents (events, filters) {
 
 /******************************************************************************/
 
-function updateHover (event, state) {
-  for (const line of window.document.chronoLines) {
-    if (line.props.event === event) {
-      line.hover = state;
-    } else if (
-      event.link &&
-      line.props.event.link &&
-      event.link === line.props.event.link
-    ) {
-      line.hover = state;
-    }
-  }
-}
-
-/******************************************************************************/
-
 function filtersGet (filters, key) {
   if (filters.length === 0) {
     return true;
@@ -175,8 +159,6 @@ class Chronos extends Form {
       filters: [],
     };
 
-    this.onMouseOver = this.onMouseOver.bind (this);
-    this.onMouseOut = this.onMouseOut.bind (this);
     this.onDragEnding = this.onDragEnding.bind (this);
     this.onActionAll = this.onActionAll.bind (this);
     this.onActionFilter = this.onActionFilter.bind (this);
@@ -213,14 +195,6 @@ class Chronos extends Form {
       // has filter ?
       this.flatFilteredEvents = getFlatEvents (events, this.filters);
     }
-  }
-
-  onMouseOver (event) {
-    updateHover (event, true);
-  }
-
-  onMouseOut (event) {
-    updateHover (event, false);
   }
 
   onDragEnding (selectedIds, toId, ownerId, ownerKind) {
@@ -497,14 +471,13 @@ class Chronos extends Form {
       >
         <ChronoLine
           id={event.id}
+          link={event.link}
           event={event}
           lineWidth={this.props.lineWidth}
           glyphWidth={this.props.glyphWidth}
           notesCount={this.flatFilteredEvents.notesCount}
           minHour={this.flatFilteredEvents.minHour}
           maxHour={this.flatFilteredEvents.maxHour}
-          mouseOver={this.onMouseOver}
-          mouseOut={this.onMouseOut}
         />
       </DragCab>
     );
