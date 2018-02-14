@@ -40,6 +40,11 @@ export default function styles (theme, props) {
     borderBottom: props.hoverShape === 'first' ? null : hb,
     borderLeft: hb,
     borderRight: hb,
+    borderRadius: props.hoverShape === 'first'
+      ? '10px 10px 0px 0px'
+      : props.hoverShape === 'last'
+          ? '0px 0px 10px 10px'
+          : '10px 10px 10px 10px',
     transition: theme.transitions.easeOut (),
     zIndex: 3,
   };
