@@ -21,7 +21,7 @@ export default function styles (theme, props) {
   const cdWidth = Unit.sub (d, c);
   const adWidth = Unit.sub (d, a);
 
-  const s = theme.shapes.eventSeparator;
+  const s = theme.shapes.ticketHoverThickness;
   const top = s;
   const middle = '50%';
   const height = `calc(100% - ${Unit.multiply (s, 2)})`;

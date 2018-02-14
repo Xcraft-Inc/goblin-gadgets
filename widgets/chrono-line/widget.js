@@ -112,12 +112,11 @@ class ChronoLine extends Widget {
     const hover = !this.props.isDragged && this.hover !== 'none';
     const cursor = this.props.isDragged ? 'move' : 'default';
 
-    let styleName = 'line';
-    if (this.props.isDragged) {
-      styleName = 'lineDragged';
-    }
+    const styleName = this.props.isDragged
+      ? 'lineDragged'
+      : this.hover === 'me' ? 'lineHover' : 'line';
     const lineClass = this.styles.classNames[styleName];
-    const lineHoverClass = this.styles.classNames.lineHover;
+    const lineShapeClass = this.styles.classNames.lineShape;
     const lineLabelClass = this.styles.classNames.lineLabel;
     const lineEventClass = this.styles.classNames.lineEvent;
 
@@ -147,7 +146,7 @@ class ChronoLine extends Widget {
             />
           </div>
         </div>
-        {hover ? <div className={lineHoverClass} /> : null}
+        {hover ? <div className={lineShapeClass} /> : null}
       </div>
     );
   }

@@ -27,7 +27,7 @@ export default function styles (theme, props) {
     maxHeight: theme.shapes.chronosLineHeight,
     userSelect: 'none',
     cursor: 'default',
-    zIndex: 3,
+    zIndex: 4,
     // backgroundColor: 'rgba(100, 0, 0, 0.2)',
   };
 

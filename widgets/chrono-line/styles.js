@@ -22,10 +22,13 @@ export default function styles (theme, props) {
     transition: theme.transitions.easeOut (),
   };
 
+  const lineHoverStyle = Object.assign ({}, lineStyle); // clone
+  lineHoverStyle.backgroundColor = theme.palette.ticketBackgroundHover;
+
   const hb =
     theme.shapes.ticketHoverThickness + ' solid ' + theme.palette.ticketHover;
 
-  const lineHoverStyle = {
+  const lineShapeStyle = {
     position: 'absolute',
     top: '0px',
     left: '0px',
@@ -38,6 +41,7 @@ export default function styles (theme, props) {
     borderLeft: hb,
     borderRight: hb,
     transition: theme.transitions.easeOut (),
+    zIndex: 3,
   };
 
   const lineDraggedStyle = {
@@ -79,6 +83,7 @@ export default function styles (theme, props) {
   return {
     line: lineStyle,
     lineHover: lineHoverStyle,
+    lineShape: lineShapeStyle,
     lineDragged: lineDraggedStyle,
     lineLabel: lineLabelStyle,
     lineEvent: lineEventStyle,

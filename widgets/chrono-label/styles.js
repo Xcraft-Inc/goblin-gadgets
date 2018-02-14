@@ -21,21 +21,8 @@ export default function styles (theme, props) {
     cursor: 'default',
   };
 
-  const emptyStyle = {
-    position: 'relative',
-    minHeight: theme.shapes.chronosLineHeight,
-    maxHeight: theme.shapes.chronosLineHeight,
-    width: Unit.sub (lineWidth, theme.shapes.chronosLabelMargin),
-    paddingLeft: theme.shapes.chronosLabelMargin,
-    borderRight: theme.shapes.chronosSeparatorWidth +
-      ' solid ' +
-      theme.palette.chronoLabelSeparator,
-    display: 'flex',
-    flexDirection: 'row',
-    userSelect: 'none',
-    cursor: 'default',
-    backgroundColor: theme.palette.ticketDragAndDropShadow,
-  };
+  const emptyStyle = Object.assign ({}, lineStyle); // clone
+  emptyStyle.backgroundColor = theme.palette.ticketDragAndDropShadow;
 
   const glyphsStyle = {
     minHeight: theme.shapes.chronosLineHeight,
@@ -49,7 +36,7 @@ export default function styles (theme, props) {
   const tooltipStyle = {
     position: 'absolute',
     left: Unit.sub (Unit.add (theme.shapes.chronosLabelMargin, glyphWidth), m),
-    height: Unit.sub (theme.shapes.chronosLineHeight, '1px'),
+    height: theme.shapes.chronosLineHeight,
     padding: '0px ' + m,
     display: 'flex',
     flexDirection: 'row',
@@ -65,7 +52,7 @@ export default function styles (theme, props) {
     marginLeft: Unit.multiply (theme.shapes.chronosLabelMargin, -1),
     userSelect: 'none',
     cursor: 'default',
-    zIndex: 3,
+    zIndex: 4,
     // backgroundColor: 'rgba(100, 0, 0, 0.2)',
   };
 
