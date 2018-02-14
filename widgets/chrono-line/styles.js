@@ -7,6 +7,12 @@ export default function styles (theme, props) {
   const notesCount = props.notesCount;
 
   const h = Unit.sub (theme.shapes.chronosLineHeight, '1px');
+  const r = Unit.multiply (theme.shapes.chronosLineHeight, 0.5);
+  const br = props.hoverShape === 'first'
+    ? r + ' ' + r + ' 0px 0px'
+    : props.hoverShape === 'last' ? '0px 0px ' + r + ' ' + r : r;
+  const hb =
+    theme.shapes.ticketHoverThickness + ' solid ' + theme.palette.ticketHover;
 
   const lineStyle = {
     position: 'relative',
@@ -24,9 +30,7 @@ export default function styles (theme, props) {
 
   const lineHoverStyle = Object.assign ({}, lineStyle); // clone
   lineHoverStyle.backgroundColor = theme.palette.ticketBackgroundHover;
-
-  const hb =
-    theme.shapes.ticketHoverThickness + ' solid ' + theme.palette.ticketHover;
+  lineHoverStyle.borderRadius = br;
 
   const lineShapeStyle = {
     position: 'absolute',
@@ -40,11 +44,7 @@ export default function styles (theme, props) {
     borderBottom: props.hoverShape === 'first' ? null : hb,
     borderLeft: hb,
     borderRight: hb,
-    borderRadius: props.hoverShape === 'first'
-      ? '10px 10px 0px 0px'
-      : props.hoverShape === 'last'
-          ? '0px 0px 10px 10px'
-          : '10px 10px 10px 10px',
+    borderRadius: br,
     transition: theme.transitions.easeOut (),
     zIndex: 3,
   };
