@@ -129,7 +129,7 @@ function getFlatEvents (events, filters) {
 /******************************************************************************/
 
 function updateHover (event, state) {
-  for (let line of window.document.chronoLines) {
+  for (const line of window.document.chronoLines) {
     if (line.props.event === event) {
       line.hover = state;
     } else if (

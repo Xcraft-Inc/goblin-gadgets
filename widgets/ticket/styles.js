@@ -245,7 +245,7 @@ export default function styles (theme, props) {
       props.width,
       props.height
     ),
-    ':hover': {fill: theme.palette.ticketHover},
+    //???? ':hover': {fill: theme.palette.ticketHover},
   };
 
   const vp = props.kind === 'thin' ? '0px' : theme.shapes.ticketVerticalPadding;
@@ -354,9 +354,9 @@ export default function styles (theme, props) {
         : 'transparent',
     };
   }
-  rectHoverStyle[':hover'] = {
-    borderColor: theme.palette.ticketHover,
-  };
+  //???? rectHoverStyle[':hover'] = {
+  //????   borderColor: theme.palette.ticketHover,
+  //???? };
 
   const hudGlyphShadowStyle = {
     position: 'absolute',

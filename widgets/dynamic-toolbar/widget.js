@@ -97,7 +97,7 @@ class DynamicToolbar extends Widget {
             width="24px"
             height="24px"
             kind="dynamic-toolbar-top"
-            glyph="solid/cog"
+            glyph="solid/ellipsis-h"
             mouseOver={this.onShowToolbar}
             ref={node => (this.ToolbarButton = node)}
           />
