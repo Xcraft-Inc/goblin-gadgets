@@ -472,6 +472,7 @@ class Chronos extends Form {
         <ChronoLine
           id={event.id}
           link={event.link}
+          hoverShape={event.hoverShape}
           event={event}
           lineWidth={this.props.lineWidth}
           glyphWidth={this.props.glyphWidth}

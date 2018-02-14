@@ -112,11 +112,12 @@ class ChronoLine extends Widget {
     const hover = !this.props.isDragged && this.hover !== 'none';
     const cursor = this.props.isDragged ? 'move' : 'default';
 
-    let styleName = hover ? 'lineHover' : 'line';
+    let styleName = 'line';
     if (this.props.isDragged) {
       styleName = 'lineDragged';
     }
     const lineClass = this.styles.classNames[styleName];
+    const lineHoverClass = this.styles.classNames.lineHover;
     const lineLabelClass = this.styles.classNames.lineLabel;
     const lineEventClass = this.styles.classNames.lineEvent;
 
@@ -125,25 +126,28 @@ class ChronoLine extends Widget {
     lineStyle.cursor = cursor;
 
     return (
-      <div className={lineClass} style={lineStyle}>
-        <div className={lineLabelClass}>
-          {this.renderLabels (
-            this.props.event,
-            this.props.isDragged,
-            this.props.hasHeLeft
-          )}
+      <div>
+        <div className={lineClass} style={lineStyle}>
+          <div className={lineLabelClass}>
+            {this.renderLabels (
+              this.props.event,
+              this.props.isDragged,
+              this.props.hasHeLeft
+            )}
+          </div>
+          <div className={lineEventClass}>
+            <ChronoEvent
+              event={this.props.event}
+              isDragged={this.props.isDragged}
+              hasHeLeft={this.props.hasHeLeft}
+              minHour={this.props.minHour}
+              maxHour={this.props.maxHour}
+              mouseOver={this.onMouseOver}
+              mouseOut={this.onMouseOut}
+            />
+          </div>
         </div>
-        <div className={lineEventClass}>
-          <ChronoEvent
-            event={this.props.event}
-            isDragged={this.props.isDragged}
-            hasHeLeft={this.props.hasHeLeft}
-            minHour={this.props.minHour}
-            maxHour={this.props.maxHour}
-            mouseOver={this.onMouseOver}
-            mouseOut={this.onMouseOut}
-          />
-        </div>
+        {hover ? <div className={lineHoverClass} /> : null}
       </div>
     );
   }

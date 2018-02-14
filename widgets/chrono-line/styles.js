@@ -22,17 +22,21 @@ export default function styles (theme, props) {
     transition: theme.transitions.easeOut (),
   };
 
+  const hb =
+    theme.shapes.ticketHoverThickness + ' solid ' + theme.palette.ticketHover;
+
   const lineHoverStyle = {
-    position: 'relative',
-    minHeight: h,
-    maxHeight: h,
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'row',
+    position: 'absolute',
+    top: '0px',
+    left: '0px',
+    bottom: '0px',
+    right: '0px',
     userSelect: 'none',
     cursor: 'default',
-    borderBottom: '1px solid ' + theme.palette.chronoLineSeparator,
-    backgroundColor: theme.palette.chronoHover,
+    borderTop: props.hoverShape === 'last' ? null : hb,
+    borderBottom: props.hoverShape === 'first' ? null : hb,
+    borderLeft: hb,
+    borderRight: hb,
     transition: theme.transitions.easeOut (),
   };
 
