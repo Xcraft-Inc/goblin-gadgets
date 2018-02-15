@@ -51,12 +51,10 @@ class ChronoLine extends Widget {
       }
     } else if (this.props.link) {
       for (const ticket of window.document.ticketsPolypheme) {
-        if (ticket.props.link === this.props.link) {
-          if (state) {
-            ticket.hover = ticket === this ? 'me' : 'other';
-          } else {
-            ticket.hover = 'none';
-          }
+        if (ticket.props.link === this.props.link && state) {
+          ticket.hover = ticket === this ? 'me' : 'other';
+        } else {
+          ticket.hover = 'none';
         }
       }
     }
