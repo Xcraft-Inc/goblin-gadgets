@@ -3,9 +3,6 @@ import {Unit} from 'electrum-theme';
 /******************************************************************************/
 
 export default function styles (theme, props) {
-  const lineWidth = props.lineWidth;
-  const notesCount = props.notesCount;
-
   const h = Unit.sub (theme.shapes.chronosLineHeight, '1px');
   const r = Unit.multiply (theme.shapes.chronosLineHeight, 0.5);
   const br = props.hoverShape === 'first'
@@ -56,13 +53,13 @@ export default function styles (theme, props) {
     position: 'relative',
     minHeight: h,
     maxHeight: h,
-    width: Unit.multiply (lineWidth, notesCount + 1),
     display: 'flex',
     flexDirection: 'row',
     userSelect: 'none',
     border: '1px solid ' + theme.palette.chronoLineSeparator,
     backgroundColor: theme.palette.eventBackground,
     boxShadow: theme.palette.dragAndDropShadow,
+    opacity: 0.9,
     transition: theme.transitions.easeOut (),
   };
 

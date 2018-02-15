@@ -465,7 +465,6 @@ class Chronos extends Form {
         direction="vertical"
         color={this.context.theme.palette.dragAndDropHover}
         thickness={this.context.theme.shapes.dragAndDropTicketThickness}
-        mode="corner-top-left"
         doClickAction={this.onClickAction}
         doDragEnding={this.onDragEnding}
       >
