@@ -81,6 +81,9 @@ class ChronoLine extends Widget {
         note={note}
         lineWidth={this.props.lineWidth}
         glyphWidth={this.props.glyphWidth}
+        mouseOver={this.onMouseOver}
+        mouseOut={this.onMouseOut}
+        cursor={this.props.cursor}
       />
     );
   }
@@ -141,14 +144,13 @@ class ChronoLine extends Widget {
               hasHeLeft={this.props.hasHeLeft}
               minHour={this.props.minHour}
               maxHour={this.props.maxHour}
+              mouseOver={this.onMouseOver}
+              mouseOut={this.onMouseOut}
+              cursor={this.props.cursor}
             />
           </div>
         </div>
-        <div
-          className={lineFrontClass}
-          onMouseOver={this.onMouseOver}
-          onMouseOut={this.onMouseOut}
-        />
+        <div className={lineFrontClass} />
       </div>
     );
   }
