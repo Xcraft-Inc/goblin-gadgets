@@ -112,7 +112,9 @@ class ChronoLine extends Widget {
       ? 'lineDragged'
       : this.hover === 'me' ? 'lineHover' : 'line';
     const lineClass = this.styles.classNames[styleName];
-    const lineFrontClass = this.hover !== 'none' && !this.props.isDragged
+    const lineFrontClass = this.hover !== 'none' &&
+      !this.props.isDragged &&
+      !this.props.hasHeLeft
       ? this.styles.classNames.lineFrontHover
       : this.styles.classNames.lineFront;
     const lineLabelClass = this.styles.classNames.lineLabel;
