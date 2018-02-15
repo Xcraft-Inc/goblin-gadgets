@@ -12,6 +12,9 @@ class ChronoLabel extends Widget {
     this.state = {
       hover: false,
     };
+
+    this.onMouseOver = this.onMouseOver.bind (this);
+    this.onMouseOut = this.onMouseOut.bind (this);
   }
 
   get hover () {
@@ -22,6 +25,22 @@ class ChronoLabel extends Widget {
     this.setState ({
       hover: value,
     });
+  }
+
+  onMouseOver () {
+    this.hover = true;
+    const x = this.props.mouseOver;
+    if (x) {
+      x (this.props.event);
+    }
+  }
+
+  onMouseOut () {
+    this.hover = false;
+    const x = this.props.mouseOut;
+    if (x) {
+      x (this.props.event);
+    }
   }
 
   /******************************************************************************/
@@ -79,7 +98,11 @@ class ChronoLabel extends Widget {
         </div>
         <Label text={text} grow="1" wrap="no" />
         {this.renderTooltip (text, isDragged)}
-        <div className={frontClass} />
+        <div
+          className={frontClass}
+          onMouseOver={this.onMouseOver}
+          onMouseOut={this.onMouseOut}
+        />
       </div>
     );
   }

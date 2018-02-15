@@ -125,11 +125,7 @@ class ChronoLine extends Widget {
     const lineEventClass = this.styles.classNames.lineEvent;
 
     return (
-      <div
-        className={boxClass}
-        onMouseOver={this.onMouseOver}
-        onMouseOut={this.onMouseOut}
-      >
+      <div className={boxClass}>
         <div className={lineClass}>
           <div className={lineLabelClass}>
             {this.renderLabels (
@@ -148,7 +144,11 @@ class ChronoLine extends Widget {
             />
           </div>
         </div>
-        <div className={lineFrontClass} />
+        <div
+          className={lineFrontClass}
+          onMouseOver={this.onMouseOver}
+          onMouseOut={this.onMouseOut}
+        />
       </div>
     );
   }
