@@ -45,7 +45,11 @@ class ChronoLine extends Widget {
   }
 
   updateHover (state) {
-    if (this.props.link) {
+    if (this.props.isDragged) {
+      for (const ticket of window.document.ticketsPolypheme) {
+        ticket.hover = 'none';
+      }
+    } else if (this.props.link) {
       for (const ticket of window.document.ticketsPolypheme) {
         if (ticket.props.link === this.props.link) {
           if (state) {
