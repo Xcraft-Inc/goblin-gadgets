@@ -1,4 +1,5 @@
 import React from 'react';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import Widget from 'laboratory/widget';
 import MouseTrap from 'mousetrap';
 import * as ShortcutHelpers from '../helpers/shortcut-helpers.js';
@@ -136,7 +137,9 @@ class Button extends Widget {
       const busyGlyphClass = this.styles.classNames.busyGlyph;
       return (
         <div className={busyBoxClass}>
-          <i className={`${busyGlyphClass} fas fa-spinner fa-2x fa-pulse`} />
+          <div className={busyGlyphClass}>
+            <FontAwesomeIcon icon={[`fas`, 'spinner']} size={'2x'} pulse />
+          </div>
         </div>
       );
     } else {
