@@ -234,9 +234,7 @@ export default function styles (theme, props) {
   const hoverStyle = {
     position: 'absolute',
     top: '0px',
-    fill: props.hoverShape
-      ? theme.palette.ticketHover
-      : 'transparent',
+    fill: props.hoverShape ? theme.palette.ticketHover : 'transparent',
     transition: theme.transitions.easeOut (),
     path: getHoverPath (
       theme,
@@ -320,9 +318,7 @@ export default function styles (theme, props) {
       borderRadius: hoverRadius,
       borderWidth: t1,
       borderStyle: 'solid solid none solid',
-      borderColor: props.hoverShape
-        ? theme.palette.ticketHover
-        : 'transparent',
+      borderColor: props.hoverShape ? theme.palette.ticketHover : 'transparent',
     };
   } else if (props.hoverShape === 'last') {
     // u.
@@ -335,9 +331,7 @@ export default function styles (theme, props) {
       borderRadius: hoverRadius,
       borderWidth: t1,
       borderStyle: 'none solid solid solid',
-      borderColor: props.hoverShape
-        ? theme.palette.ticketHover
-        : 'transparent',
+      borderColor: props.hoverShape ? theme.palette.ticketHover : 'transparent',
     };
   } else {
     rectHoverStyle = {
@@ -349,9 +343,7 @@ export default function styles (theme, props) {
       borderRadius: hoverRadius,
       borderWidth: t1,
       borderStyle: 'solid',
-      borderColor: props.hoverShape
-        ? theme.palette.ticketHover
-        : 'transparent',
+      borderColor: props.hoverShape ? theme.palette.ticketHover : 'transparent',
     };
   }
   //- rectHoverStyle[':hover'] = {
