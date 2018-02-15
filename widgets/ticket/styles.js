@@ -135,7 +135,7 @@ function getHoverPath (theme, shape, hoverShape, width, height) {
     path = arcTo (path, i, -r, -r, 0); // bottom-left internal corner
     path = lineTo (path, 0, -(h - t - s - r));
     path = close (path);
-  } else {
+  } else if (hoverShape === 'middle') {
     // External CW.
     path = moveTo (path, 0, h - r);
     path = lineTo (path, 0, -(h - r - r));
