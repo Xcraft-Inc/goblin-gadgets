@@ -77,10 +77,7 @@ class ChronoLine extends Widget {
         note={note}
         lineWidth={this.props.lineWidth}
         glyphWidth={this.props.glyphWidth}
-        mouseOver={this.onMouseOver}
-        mouseOut={this.onMouseOut}
-        cursor={this.props.cursor}
-        />
+      />
     );
   }
 
@@ -110,18 +107,23 @@ class ChronoLine extends Widget {
       return null;
     }
 
-    const hover = !this.props.isDragged && this.hover !== 'none';
-
+    const boxClass = this.styles.classNames.box;
     const styleName = this.props.isDragged
       ? 'lineDragged'
       : this.hover === 'me' ? 'lineHover' : 'line';
     const lineClass = this.styles.classNames[styleName];
-    const lineShapeClass = this.styles.classNames.lineShape;
+    const lineFrontClass = this.hover !== 'none' && !this.props.isDragged
+      ? this.styles.classNames.lineFrontHover
+      : this.styles.classNames.lineFront;
     const lineLabelClass = this.styles.classNames.lineLabel;
     const lineEventClass = this.styles.classNames.lineEvent;
 
     return (
-      <div>
+      <div
+        className={boxClass}
+        onMouseOver={this.onMouseOver}
+        onMouseOut={this.onMouseOut}
+      >
         <div className={lineClass}>
           <div className={lineLabelClass}>
             {this.renderLabels (
@@ -137,13 +139,10 @@ class ChronoLine extends Widget {
               hasHeLeft={this.props.hasHeLeft}
               minHour={this.props.minHour}
               maxHour={this.props.maxHour}
-              mouseOver={this.onMouseOver}
-              mouseOut={this.onMouseOut}
-              cursor={this.props.cursor}
-              />
+            />
           </div>
         </div>
-        {hover ? <div className={lineShapeClass} /> : null}
+        <div className={lineFrontClass} />
       </div>
     );
   }

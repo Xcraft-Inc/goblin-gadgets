@@ -1,15 +1,12 @@
 /******************************************************************************/
 
 export default function styles (theme, props) {
-  const cursor = props.cursor;
-
   const lineStyle = {
     position: 'relative',
     width: '100%',
     minHeight: theme.shapes.chronosLineHeight,
     maxHeight: theme.shapes.chronosLineHeight,
     userSelect: 'none',
-    cursor: cursor,
   };
 
   const emptyStyle = {
@@ -18,7 +15,6 @@ export default function styles (theme, props) {
     minHeight: theme.shapes.chronosLineHeight,
     maxHeight: theme.shapes.chronosLineHeight,
     userSelect: 'none',
-    cursor: cursor,
     backgroundColor: theme.palette.ticketDragAndDropShadow,
   };
 
@@ -28,7 +24,6 @@ export default function styles (theme, props) {
     minHeight: theme.shapes.chronosLineHeight,
     maxHeight: theme.shapes.chronosLineHeight,
     userSelect: 'none',
-    cursor: cursor,
     zIndex: 4,
     // backgroundColor: 'rgba(100, 0, 0, 0.2)',
   };

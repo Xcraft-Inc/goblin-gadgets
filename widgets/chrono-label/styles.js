@@ -5,7 +5,6 @@ import {Unit} from 'electrum-theme';
 export default function styles (theme, props) {
   const lineWidth = props.lineWidth;
   const glyphWidth = props.glyphWidth;
-  const cursor = props.cursor;
 
   const lineStyle = {
     position: 'relative',
@@ -19,7 +18,6 @@ export default function styles (theme, props) {
     display: 'flex',
     flexDirection: 'row',
     userSelect: 'none',
-    cursor: cursor,
   };
 
   const emptyStyle = Object.assign ({}, lineStyle); // clone
@@ -52,7 +50,6 @@ export default function styles (theme, props) {
     width: Unit.add (lineWidth, theme.shapes.chronosSeparatorWidth),
     marginLeft: Unit.multiply (theme.shapes.chronosLabelMargin, -1),
     userSelect: 'none',
-    cursor: cursor,
     zIndex: 4,
     // backgroundColor: 'rgba(100, 0, 0, 0.2)',
   };

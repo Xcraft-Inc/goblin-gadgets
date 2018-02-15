@@ -13,7 +13,10 @@ export default function styles (theme, props) {
     : props.hoverShape === 'last' ? '0px 0px ' + r + ' ' + r : r;
   const hb =
     theme.shapes.ticketHoverThickness + ' solid ' + theme.palette.ticketHover;
-  const cursor = props.cursor;
+
+  const boxStyle = {
+    cursor: props.cursor,
+  };
 
   const lineStyle = {
     position: 'relative',
@@ -23,7 +26,6 @@ export default function styles (theme, props) {
     display: 'flex',
     flexDirection: 'row',
     userSelect: 'none',
-    cursor: cursor,
     borderBottom: '1px solid ' + theme.palette.chronoLineSeparator,
     backgroundColor: theme.palette.eventBackground,
     transition: theme.transitions.easeOut (),
@@ -33,22 +35,22 @@ export default function styles (theme, props) {
   lineHoverStyle.backgroundColor = theme.palette.ticketBackgroundHover;
   lineHoverStyle.borderRadius = br;
 
-  const lineShapeStyle = {
+  const lineFrontStyle = {
     position: 'absolute',
     top: '0px',
     left: '0px',
     bottom: '0px',
     right: '0px',
     userSelect: 'none',
-    cursor: cursor,
-    borderTop: props.hoverShape === 'last' ? null : hb,
-    borderBottom: props.hoverShape === 'first' ? null : hb,
-    borderLeft: hb,
-    borderRight: hb,
-    borderRadius: br,
-    transition: theme.transitions.easeOut (),
     zIndex: 3,
   };
+
+  const lineFrontHoverStyle = Object.assign ({}, lineFrontStyle); // clone
+  lineFrontHoverStyle.borderTop = props.hoverShape === 'last' ? null : hb;
+  lineFrontHoverStyle.borderBottom = props.hoverShape === 'first' ? null : hb;
+  lineFrontHoverStyle.borderLeft = hb;
+  lineFrontHoverStyle.borderRight = hb;
+  lineFrontHoverStyle.borderRadius = br;
 
   const lineDraggedStyle = {
     position: 'relative',
@@ -58,7 +60,6 @@ export default function styles (theme, props) {
     display: 'flex',
     flexDirection: 'row',
     userSelect: 'none',
-    cursor: cursor,
     border: '1px solid ' + theme.palette.chronoLineSeparator,
     backgroundColor: theme.palette.eventBackground,
     boxShadow: theme.palette.dragAndDropShadow,
@@ -71,7 +72,6 @@ export default function styles (theme, props) {
     display: 'flex',
     flexDirection: 'row',
     userSelect: 'none',
-    cursor: cursor,
   };
 
   const lineEventStyle = {
@@ -83,13 +83,14 @@ export default function styles (theme, props) {
     flexDirection: 'row',
     justifyContent: 'center',
     userSelect: 'none',
-    cursor: cursor,
   };
 
   return {
+    box: boxStyle,
     line: lineStyle,
     lineHover: lineHoverStyle,
-    lineShape: lineShapeStyle,
+    lineFront: lineFrontStyle,
+    lineFrontHover: lineFrontHoverStyle,
     lineDragged: lineDraggedStyle,
     lineLabel: lineLabelStyle,
     lineEvent: lineEventStyle,

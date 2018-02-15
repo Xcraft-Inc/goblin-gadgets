@@ -1549,15 +1549,8 @@ const properties = {
       group: 'Aspect',
       type: 'combo',
       field: 'hoverShape',
-      list: ['', 'first', 'last'],
+      list: ['', 'first', 'middle', 'last'],
       value: '',
-    },
-    forceHover: {
-      id: 'forceHover',
-      group: 'Aspect',
-      type: 'bool',
-      field: 'forceHover',
-      value: 'false',
     },
     width: {
       id: 'width',

@@ -234,7 +234,7 @@ export default function styles (theme, props) {
   const hoverStyle = {
     position: 'absolute',
     top: '0px',
-    fill: Bool.isTrue (props.forceHover)
+    fill: props.hoverShape
       ? theme.palette.ticketHover
       : 'transparent',
     transition: theme.transitions.easeOut (),
@@ -320,7 +320,7 @@ export default function styles (theme, props) {
       borderRadius: hoverRadius,
       borderWidth: t1,
       borderStyle: 'solid solid none solid',
-      borderColor: Bool.isTrue (props.forceHover)
+      borderColor: props.hoverShape
         ? theme.palette.ticketHover
         : 'transparent',
     };
@@ -335,7 +335,7 @@ export default function styles (theme, props) {
       borderRadius: hoverRadius,
       borderWidth: t1,
       borderStyle: 'none solid solid solid',
-      borderColor: Bool.isTrue (props.forceHover)
+      borderColor: props.hoverShape
         ? theme.palette.ticketHover
         : 'transparent',
     };
@@ -349,7 +349,7 @@ export default function styles (theme, props) {
       borderRadius: hoverRadius,
       borderWidth: t1,
       borderStyle: 'solid',
-      borderColor: Bool.isTrue (props.forceHover)
+      borderColor: props.hoverShape
         ? theme.palette.ticketHover
         : 'transparent',
     };
