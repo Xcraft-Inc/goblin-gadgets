@@ -525,6 +525,7 @@ class Field extends Form {
                 const service = this.context.id.split ('@')[0];
                 this.doAs (service, 'open-entity-workitem', {
                   entity: entity.toJS (),
+                  desktopId: this.context.desktopId,
                 });
               }
             }}
