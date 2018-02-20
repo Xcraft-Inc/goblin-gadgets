@@ -17,6 +17,6 @@
     "xcraft-core-goblin": "^2.0.0"
   },
   "devDependencies": {
-    "xcraft-dev-rules": "^0.1.20"
+    "xcraft-dev-rules": "^0.2.0"
   }
 }

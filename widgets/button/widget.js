@@ -11,35 +11,35 @@ import Badge from 'gadgets/badge/widget';
 /******************************************************************************/
 
 class Button extends Widget {
-  constructor () {
-    super (...arguments);
+  constructor() {
+    super(...arguments);
 
     this.state = {
       focus: false,
     };
 
-    this.onFocus = this.onFocus.bind (this);
-    this.onBlur = this.onBlur.bind (this);
-    this.onMouseDown = this.onMouseDown.bind (this);
-    this.onMouseUp = this.onMouseUp.bind (this);
-    this.onMouseOver = this.onMouseOver.bind (this);
-    this.onMouseOut = this.onMouseOut.bind (this);
-    this.onKeySpace = this.onKeySpace.bind (this);
+    this.onFocus = this.onFocus.bind(this);
+    this.onBlur = this.onBlur.bind(this);
+    this.onMouseDown = this.onMouseDown.bind(this);
+    this.onMouseUp = this.onMouseUp.bind(this);
+    this.onMouseOver = this.onMouseOver.bind(this);
+    this.onMouseOut = this.onMouseOut.bind(this);
+    this.onKeySpace = this.onKeySpace.bind(this);
   }
 
   //#region get/set
-  get focus () {
+  get focus() {
     return this.state.focus;
   }
 
-  set focus (value) {
-    this.setState ({
+  set focus(value) {
+    this.setState({
       focus: value,
     });
   }
   //#endregion
 
-  static get wiring () {
+  static get wiring() {
     return {
       id: 'id',
       kind: 'kind',
@@ -48,91 +48,89 @@ class Button extends Widget {
     };
   }
 
-  get disabled () {
-    return (
-      Bool.isTrue (this.props.disabled) || Bool.isTrue (this.props.readonly)
-    );
+  get disabled() {
+    return Bool.isTrue(this.props.disabled) || Bool.isTrue(this.props.readonly);
   }
 
-  setText (text) {
-    this.do ('text', {text});
+  setText(text) {
+    this.do('text', {text});
   }
 
-  setKind (kind) {
-    this.do ('kind', {kind});
+  setKind(kind) {
+    this.do('kind', {kind});
   }
 
-  onFocus () {
-    if (Bool.isTrue (this.props.focusable) && !this.disabled) {
+  onFocus() {
+    if (Bool.isTrue(this.props.focusable) && !this.disabled) {
       this.focus = true;
-      MouseTrap.bind ('space', this.onKeySpace, 'keydown');
+      MouseTrap.bind('space', this.onKeySpace, 'keydown');
     }
   }
 
-  onBlur () {
-    if (Bool.isTrue (this.props.focusable) && !this.disabled) {
+  onBlur() {
+    if (Bool.isTrue(this.props.focusable) && !this.disabled) {
       this.focus = false;
-      MouseTrap.unbind ('space');
+      MouseTrap.unbind('space');
     }
   }
 
-  onKeySpace (e) {
-    e.preventDefault ();
-    if (this.disabled && !Bool.isTrue (this.props.focusable)) {
+  onKeySpace(e) {
+    e.preventDefault();
+    if (this.disabled && !Bool.isTrue(this.props.focusable)) {
       return;
     }
     if (this.props.onClick) {
-      this.props.onClick ();
+      this.props.onClick();
     }
   }
 
-  onMouseDown (e) {
+  onMouseDown(e) {
     if (this.disabled) {
       return;
     }
     const x = this.props.mouseDown;
     if (x) {
-      x (e);
+      x(e);
     }
   }
 
-  onMouseUp (e) {
+  onMouseUp(e) {
     if (this.disabled) {
       return;
     }
     const x = this.props.mouseUp;
     if (x) {
-      x (e);
+      x(e);
     }
     // Do not connect to onClick, because it's never called when button
     // dont have the focus.
     if (this.props.onClick) {
-      this.props.onClick (e);
+      this.props.onClick(e);
     }
   }
 
-  onMouseOver (e) {
+  onMouseOver(e) {
     if (this.disabled) {
       return;
     }
     const x = this.props.mouseOver;
     if (x) {
-      x (e);
+      x(e);
     }
   }
 
-  onMouseOut (e) {
+  onMouseOut(e) {
     if (this.disabled) {
       return;
     }
     const x = this.props.mouseOut;
     if (x) {
-      x (e);
+      x(e);
     }
   }
 
-  renderBusy () {
-    if (Bool.isTrue (this.props.busy)) {
+  renderBusy() {
+    if (Bool.isTrue(this.props.busy)) {
       const busyBoxClass = this.styles.classNames.busyBox;
       const busyGlyphClass = this.styles.classNames.busyGlyph;
       return (
@@ -147,7 +145,7 @@ class Button extends Widget {
     }
   }
 
-  renderBadge () {
+  renderBadge() {
     if (this.props.badgeValue) {
       return <Badge value={this.props.badgeValue} layer="over" />;
     } else {
@@ -155,14 +153,14 @@ class Button extends Widget {
     }
   }
 
-  renderTriangle () {
-    if (this.props.kind === 'main-tab' && Bool.isTrue (this.props.active)) {
+  renderTriangle() {
+    if (this.props.kind === 'main-tab' && Bool.isTrue(this.props.active)) {
       const triangleClass = this.styles.classNames.triangle;
       return <div className={triangleClass} key="triangle" />;
     }
   }
 
-  renderShortcut (boxStyle) {
+  renderShortcut(boxStyle) {
     if (this.props.shortcut) {
       return (
         <Label
@@ -175,7 +173,7 @@ class Button extends Widget {
           active={this.props.active}
           textColor={this.props.textColor}
           buttonBackgroundColor={boxStyle.backgroundColor}
-          text={ShortcutHelpers.getShortcut (this.props.shortcut)}
+          text={ShortcutHelpers.getShortcut(this.props.shortcut)}
           wrap="no"
           insideButton="true"
         />
@@ -185,7 +183,7 @@ class Button extends Widget {
     }
   }
 
-  renderLabel (boxStyle) {
+  renderLabel(boxStyle) {
     return (
       <Label
         key="label"
@@ -197,7 +195,7 @@ class Button extends Widget {
     );
   }
 
-  renderFocusedForeground () {
+  renderFocusedForeground() {
     if (this.focus && this.props.kind === 'check-button') {
       const styleClass = this.styles.classNames.focusedForeground;
       return <div key="focusedForeground" className={styleClass} />;
@@ -206,20 +204,20 @@ class Button extends Widget {
     }
   }
 
-  renderLayout () {
+  renderLayout() {
     if (this.props.kind === 'box' || this.props.kind === 'container') {
       return null;
     }
     const result = [];
-    const boxStyle = Object.assign ({}, this.styles.props.box);
-    result.push (this.renderLabel (boxStyle));
-    result.push (this.renderShortcut (boxStyle));
-    result.push (this.renderFocusedForeground ());
+    const boxStyle = Object.assign({}, this.styles.props.box);
+    result.push(this.renderLabel(boxStyle));
+    result.push(this.renderShortcut(boxStyle));
+    result.push(this.renderFocusedForeground());
     return result;
   }
 
-  render () {
-    if (Bool.isFalse (this.props.show)) {
+  render() {
+    if (Bool.isFalse(this.props.show)) {
       return null;
     }
 
@@ -229,7 +227,7 @@ class Button extends Widget {
     }
 
     const propsTabIndex = {};
-    if (Bool.isTrue (this.props.focusable)) {
+    if (Bool.isTrue(this.props.focusable)) {
       propsTabIndex.tabIndex = 0;
     }
 
@@ -272,10 +270,10 @@ class Button extends Widget {
           title={tooltip}
           href={window.location.hash + '#' + this.props.toAnchor}
         >
-          {this.renderLayout ()}
-          {this.renderTriangle ()}
-          {this.renderBadge ()}
-          {this.renderBusy ()}
+          {this.renderLayout()}
+          {this.renderTriangle()}
+          {this.renderBadge()}
+          {this.renderBusy()}
           {this.props.children}
         </a>
       );
@@ -295,10 +293,10 @@ class Button extends Widget {
           className={boxClass}
           title={tooltip}
         >
-          {this.renderLayout ()}
-          {this.renderTriangle ()}
-          {this.renderBadge ()}
-          {this.renderBusy ()}
+          {this.renderLayout()}
+          {this.renderTriangle()}
+          {this.renderBadge()}
+          {this.renderBusy()}
           {this.props.children}
         </div>
       );

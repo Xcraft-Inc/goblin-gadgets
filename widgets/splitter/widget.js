@@ -6,51 +6,53 @@ import {Unit} from 'electrum-theme';
 /******************************************************************************/
 
 class Splitter extends Widget {
-  constructor () {
-    super (...arguments);
+  constructor() {
+    super(...arguments);
 
-    this.onMouseDown = this.onMouseDown.bind (this);
-    this.onMouseMove = this.onMouseMove.bind (this);
-    this.onMouseUp = this.onMouseUp.bind (this);
+    this.onMouseDown = this.onMouseDown.bind(this);
+    this.onMouseMove = this.onMouseMove.bind(this);
+    this.onMouseUp = this.onMouseUp.bind(this);
 
     this.kind = this.props.kind;
     if (this.kind !== 'vertical' && this.kind !== 'horizontal') {
-      throw new Error (`Wrong Splitter kind ${this.kind}`);
+      throw new Error(`Wrong Splitter kind ${this.kind}`);
     }
 
     if (this.props.firstSize && this.props.lastSize) {
-      throw new Error (
-        `Splitter must have both firstSize (${this.props.firstSize}) and lastSize (${this.props.lastSize})`
+      throw new Error(
+        `Splitter must have both firstSize (${
+          this.props.firstSize
+        }) and lastSize (${this.props.lastSize})`
       );
     }
     if (this.props.firstSize) {
-      const x = Unit.parse (this.props.firstSize);
+      const x = Unit.parse(this.props.firstSize);
       this.firstSize = x.value;
       this.unit = x.unit;
       this.master = 'first';
     } else {
-      const x = Unit.parse (this.props.lastSize);
+      const x = Unit.parse(this.props.lastSize);
       this.lastSize = x.value;
       this.unit = x.unit;
       this.master = 'last';
     }
     if (this.unit !== '%' && this.unit !== 'px') {
-      throw new Error (`Wrong Splitter firstSize unit ${this.unit}`);
+      throw new Error(`Wrong Splitter firstSize unit ${this.unit}`);
     }
 
-    this.firstMinSize = this.getValue ('firstMinSize', 'min');
-    this.firstMaxSize = this.getValue ('firstMaxSize', 'max');
+    this.firstMinSize = this.getValue('firstMinSize', 'min');
+    this.firstMaxSize = this.getValue('firstMaxSize', 'max');
 
-    this.lastMinSize = this.getValue ('lastMinSize', 'min');
-    this.lastMaxSize = this.getValue ('lastMaxSize', 'max');
+    this.lastMinSize = this.getValue('lastMinSize', 'min');
+    this.lastMaxSize = this.getValue('lastMaxSize', 'max');
   }
 
-  getValue (name, type) {
+  getValue(name, type) {
     const value = this.props[name];
     if (value) {
-      const x = Unit.parse (value);
+      const x = Unit.parse(value);
       if (x.unit !== this.unit) {
-        throw new Error (`Wrong Splitter unit in ${name} (${value})`);
+        throw new Error(`Wrong Splitter unit in ${name} (${value})`);
       }
       return x.value;
     } else {
@@ -62,9 +64,9 @@ class Splitter extends Widget {
     }
   }
 
-  getOffset (x, y) {
-    const node = ReactDOM.findDOMNode (this.resizer);
-    const rect = node.getBoundingClientRect ();
+  getOffset(x, y) {
+    const node = ReactDOM.findDOMNode(this.resizer);
+    const rect = node.getBoundingClientRect();
     if (this.kind === 'vertical') {
       if (x >= rect.left && x <= rect.right) {
         return x - rect.left;
@@ -77,28 +79,28 @@ class Splitter extends Widget {
     return -1;
   }
 
-  mouseDown (x, y) {
-    const offset = this.getOffset (x, y);
+  mouseDown(x, y) {
+    const offset = this.getOffset(x, y);
     if (offset !== -1) {
       this.offset = offset;
 
-      const containerNode = ReactDOM.findDOMNode (this.container);
-      this.containerRect = containerNode.getBoundingClientRect ();
+      const containerNode = ReactDOM.findDOMNode(this.container);
+      this.containerRect = containerNode.getBoundingClientRect();
 
-      const firstPaneNode = ReactDOM.findDOMNode (this.firstPane);
-      this.firstPaneRect = firstPaneNode.getBoundingClientRect ();
+      const firstPaneNode = ReactDOM.findDOMNode(this.firstPane);
+      this.firstPaneRect = firstPaneNode.getBoundingClientRect();
 
-      const resizerNode = ReactDOM.findDOMNode (this.resizer);
-      this.resizerRect = resizerNode.getBoundingClientRect ();
+      const resizerNode = ReactDOM.findDOMNode(this.resizer);
+      this.resizerRect = resizerNode.getBoundingClientRect();
 
-      const lastPaneNode = ReactDOM.findDOMNode (this.lastPane);
-      this.lastPaneRect = lastPaneNode.getBoundingClientRect ();
+      const lastPaneNode = ReactDOM.findDOMNode(this.lastPane);
+      this.lastPaneRect = lastPaneNode.getBoundingClientRect();
 
       this.isDragging = true;
     }
   }
 
-  mouseMovePercents (x, y) {
+  mouseMovePercents(x, y) {
     if (this.kind === 'vertical') {
       const rx = x - this.offset - this.firstPaneRect.left;
       this.firstSize =
@@ -111,19 +113,19 @@ class Splitter extends Widget {
     this.lastSize = 100 - this.firstSize;
 
     if (this.master === 'first') {
-      const min = Math.max (this.firstMinSize, 100 - this.lastMaxSize);
-      const max = Math.min (this.firstMaxSize, 100 - this.lastMinSize);
-      this.firstSize = Math.max (this.firstSize, min);
-      this.firstSize = Math.min (this.firstSize, max);
+      const min = Math.max(this.firstMinSize, 100 - this.lastMaxSize);
+      const max = Math.min(this.firstMaxSize, 100 - this.lastMinSize);
+      this.firstSize = Math.max(this.firstSize, min);
+      this.firstSize = Math.min(this.firstSize, max);
     } else {
-      const min = Math.max (this.lastMinSize, 100 - this.firstMaxSize);
-      const max = Math.min (this.lastMaxSize, 100 - this.firstMinSize);
-      this.lastSize = Math.max (this.lastSize, min);
-      this.lastSize = Math.min (this.lastSize, max);
+      const min = Math.max(this.lastMinSize, 100 - this.firstMaxSize);
+      const max = Math.min(this.lastMaxSize, 100 - this.firstMinSize);
+      this.lastSize = Math.max(this.lastSize, min);
+      this.lastSize = Math.min(this.lastSize, max);
     }
   }
 
-  mouseMovePixels (x, y) {
+  mouseMovePixels(x, y) {
     let total;
     if (this.kind === 'vertical') {
       this.firstSize = x - this.offset - this.firstPaneRect.left;
@@ -135,54 +137,54 @@ class Splitter extends Widget {
     this.lastSize = total - this.firstSize;
 
     if (this.master === 'first') {
-      const min = Math.max (this.firstMinSize, total - this.lastMaxSize);
-      const max = Math.min (this.firstMaxSize, total - this.lastMinSize);
-      this.firstSize = Math.max (this.firstSize, min);
-      this.firstSize = Math.min (this.firstSize, max);
+      const min = Math.max(this.firstMinSize, total - this.lastMaxSize);
+      const max = Math.min(this.firstMaxSize, total - this.lastMinSize);
+      this.firstSize = Math.max(this.firstSize, min);
+      this.firstSize = Math.min(this.firstSize, max);
     } else {
-      const min = Math.max (this.lastMinSize, total - this.firstMaxSize);
-      const max = Math.min (this.lastMaxSize, total - this.firstMinSize);
-      this.lastSize = Math.max (this.lastSize, min);
-      this.lastSize = Math.min (this.lastSize, max);
+      const min = Math.max(this.lastMinSize, total - this.firstMaxSize);
+      const max = Math.min(this.lastMaxSize, total - this.firstMinSize);
+      this.lastSize = Math.max(this.lastSize, min);
+      this.lastSize = Math.min(this.lastSize, max);
     }
   }
 
-  mouseMove (x, y) {
+  mouseMove(x, y) {
     if (this.unit === '%') {
-      this.mouseMovePercents (x, y);
+      this.mouseMovePercents(x, y);
     } else {
-      this.mouseMovePixels (x, y);
+      this.mouseMovePixels(x, y);
     }
 
-    this.forceUpdate ();
+    this.forceUpdate();
   }
 
-  onMouseDown (e) {
+  onMouseDown(e) {
     this.isMouseDown = true;
     if (e.buttons === 1) {
       // Mouse left button pressed ?
-      this.mouseDown (e.clientX, e.clientY);
+      this.mouseDown(e.clientX, e.clientY);
     }
   }
 
-  onMouseMove (e) {
+  onMouseMove(e) {
     if (this.isDragging) {
-      this.mouseMove (e.clientX, e.clientY);
+      this.mouseMove(e.clientX, e.clientY);
     }
   }
 
-  onMouseUp () {
+  onMouseUp() {
     if (this.isDragging) {
       this.isDragging = false;
-      this.forceUpdate ();
+      this.forceUpdate();
     }
     this.isMouseDown = false;
   }
 
-  render () {
+  render() {
     const children = this.props.children;
     if (children.length !== 2) {
-      throw new Error ('Splitter must have 2 children');
+      throw new Error('Splitter must have 2 children');
     }
 
     const containerClass = this.styles.classNames.container;
@@ -193,8 +195,8 @@ class Splitter extends Widget {
     const lastPaneClass = this.styles.classNames.lastPane;
 
     // FIXME: it's a bad idea to mutate the styles in the render, see styles.js
-    const firstPaneStyle = Object.assign ({}, this.styles.props.firstPane);
-    const lastPaneStyle = Object.assign ({}, this.styles.props.lastPane);
+    const firstPaneStyle = Object.assign({}, this.styles.props.firstPane);
+    const lastPaneStyle = Object.assign({}, this.styles.props.lastPane);
 
     if (this.unit === '%') {
       if (this.master === 'first') {

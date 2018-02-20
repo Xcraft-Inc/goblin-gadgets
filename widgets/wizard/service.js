@@ -1,9 +1,9 @@
 'use strict';
 
-const path = require ('path');
-const goblinName = path.basename (module.parent.filename, '.js');
-const Goblin = require ('xcraft-core-goblin');
-const uuidV4 = require ('uuid/v4');
+const path = require('path');
+const goblinName = path.basename(module.parent.filename, '.js');
+const Goblin = require('xcraft-core-goblin');
+const uuidV4 = require('uuid/v4');
 
 // Define initial logic values
 const logicState = {};
@@ -2058,29 +2058,29 @@ const previewSettings = {
 const logicHandlers = {
   create: (state, action) => {
     const initialState = {
-      id: action.get ('id'),
+      id: action.get('id'),
       globalSettings: globalSettings,
       properties: properties,
       previewSettings: previewSettings,
     };
-    return state.set ('', initialState);
+    return state.set('', initialState);
   },
 };
 
 // Register quest's according rc.json
-Goblin.registerQuest (goblinName, 'create', function (quest, desktopId) {
-  const desk = quest.getGoblinAPI ('desktop', desktopId);
-  desk.addTab ({
+Goblin.registerQuest(goblinName, 'create', function(quest, desktopId) {
+  const desk = quest.getGoblinAPI('desktop', desktopId);
+  desk.addTab({
     name: 'Wizard',
     contextId: 'test',
     view: 'test-wizard',
     workitemId: quest.goblin.id,
   });
-  quest.do ();
+  quest.do();
   return quest.goblin.id;
 });
 
-Goblin.registerQuest (goblinName, 'delete', function () {});
+Goblin.registerQuest(goblinName, 'delete', function() {});
 
 // Manage global settings.
 /*Object.keys (globalSettings).forEach (p => {
@@ -2135,4 +2135,4 @@ Goblin.registerQuest (goblinName, 'delete', function () {});
 });*/
 
 // Create a Goblin with initial state and handlers
-module.exports = Goblin.configure (goblinName, logicState, logicHandlers);
+module.exports = Goblin.configure(goblinName, logicState, logicHandlers);

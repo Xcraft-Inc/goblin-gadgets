@@ -13,50 +13,50 @@ import Separator from 'gadgets/separator/widget';
 /******************************************************************************/
 
 class Select extends Widget {
-  constructor () {
-    super (...arguments);
+  constructor() {
+    super(...arguments);
 
-    this.onMouseDown = this.onMouseDown.bind (this);
-    this.onChange = this.onChange.bind (this);
-    this.onCloseCombo = this.onCloseCombo.bind (this);
+    this.onMouseDown = this.onMouseDown.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.onCloseCombo = this.onCloseCombo.bind(this);
   }
 
-  componentWillMount () {
-    MouseTrap.bind ('esc', this.onCloseCombo);
+  componentWillMount() {
+    MouseTrap.bind('esc', this.onCloseCombo);
   }
 
-  componentWillUnmount () {
-    MouseTrap.unbind ('esc');
+  componentWillUnmount() {
+    MouseTrap.unbind('esc');
   }
 
-  onCloseCombo () {
+  onCloseCombo() {
     const close = this.props.close;
     if (close) {
-      close ();
+      close();
     }
   }
 
-  onMouseDown (e) {
-    const node = ReactDOM.findDOMNode (this);
-    const rect = node.children[0].getBoundingClientRect ();
-    if (!RectHelpers.isInside (rect, e.clientX, e.clientY)) {
+  onMouseDown(e) {
+    const node = ReactDOM.findDOMNode(this);
+    const rect = node.children[0].getBoundingClientRect();
+    if (!RectHelpers.isInside(rect, e.clientX, e.clientY)) {
       // If the mouse is outside the menu combo, close it.
-      this.onCloseCombo ();
+      this.onCloseCombo();
     }
   }
 
-  onActionAndClose (item) {
-    item.action (item);
-    this.onCloseCombo ();
+  onActionAndClose(item) {
+    item.action(item);
+    this.onCloseCombo();
   }
 
-  onChange (element) {
+  onChange(element) {
     const index = element.target.value;
     const item = this.props.list[index];
-    this.onActionAndClose (item);
+    this.onActionAndClose(item);
   }
 
-  renderItem (item, index) {
+  renderItem(item, index) {
     if (item.separator) {
       return <Separator key={index} kind="menu-separator" />;
     } else {
@@ -69,16 +69,16 @@ class Select extends Widget {
     }
   }
 
-  renderCombo () {
+  renderCombo() {
     const result = [];
     let index = 0;
     for (let item of this.props.list) {
-      result.push (this.renderItem (item, index++));
+      result.push(this.renderItem(item, index++));
     }
     return result;
   }
 
-  render () {
+  render() {
     const fullScreenClass = this.styles.classNames.fullScreen;
     const comboClass = this.styles.classNames.combo;
     const insideClass = this.styles.classNames.inside;
@@ -104,7 +104,7 @@ class Select extends Widget {
                 onChange={this.onChange}
                 defaultValue={this.props.defaultIndex}
               >
-                {this.renderCombo ()}
+                {this.renderCombo()}
               </select>
             </div>
           </Container>

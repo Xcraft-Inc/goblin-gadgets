@@ -7,7 +7,7 @@ import _ from 'lodash';
 
 import FlyingBalloon from 'gadgets/flying-balloon/widget';
 
-function omit (object, props) {
+function omit(object, props) {
   if (object === null) {
     return {};
   }
@@ -16,7 +16,7 @@ function omit (object, props) {
   if (typeof props === 'string') {
     delete newObject[props];
   } else {
-    props.forEach (prop => {
+    props.forEach(prop => {
       delete newObject[prop];
     });
   }
@@ -27,19 +27,19 @@ function omit (object, props) {
 /******************************************************************************/
 
 class TextField extends Widget {
-  constructor () {
-    super (...arguments);
+  constructor() {
+    super(...arguments);
 
-    this.onFocus = this.onFocus.bind (this);
-    this.onBlur = this.onBlur.bind (this);
-    this.onChange = this.onChange.bind (this);
-    this.selectAll = this.selectAll.bind (this);
+    this.onFocus = this.onFocus.bind(this);
+    this.onBlur = this.onBlur.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.selectAll = this.selectAll.bind(this);
 
     this.hasFocus = false;
     this.hasChanged = false;
   }
 
-  static get wiring () {
+  static get wiring() {
     return {
       id: 'id',
       kind: 'kind',
@@ -48,69 +48,69 @@ class TextField extends Widget {
     };
   }
 
-  setText (text) {
-    this.do ('text', {text});
+  setText(text) {
+    this.do('text', {text});
   }
 
-  setKind (kind) {
-    this.do ('kind', {kind});
+  setKind(kind) {
+    this.do('kind', {kind});
   }
 
-  componentDidMount () {
-    super.componentDidMount ();
-    if (Bool.isTrue (this.props.defaultFocus)) {
-      this.selectAll ();
+  componentDidMount() {
+    super.componentDidMount();
+    if (Bool.isTrue(this.props.defaultFocus)) {
+      this.selectAll();
     }
   }
 
-  selectAll () {
+  selectAll() {
     const selectAllOnFocus = this.props.selectAllOnFocus || !!this.props.hinter;
-    if (Bool.isTrue (selectAllOnFocus)) {
+    if (Bool.isTrue(selectAllOnFocus)) {
       if (this.input) {
-        this.input.focus ();
-        this.input.select ();
+        this.input.focus();
+        this.input.select();
       }
     } else {
       if (this.input) {
-        this.input.focus ();
+        this.input.focus();
       }
     }
   }
 
-  onChange () {
+  onChange() {
     this.hasChanged = true;
   }
 
-  onFocus (e) {
+  onFocus(e) {
     //- console.log ('text-field.onFocus');
     this.hasChanged = false;
     this.hasFocus = true;
 
-    this.navToHinter ();
+    this.navToHinter();
     const selectAllOnFocus = this.props.selectAllOnFocus || !!this.props.hinter;
-    if (Bool.isTrue (selectAllOnFocus)) {
-      this.selectAll ();
+    if (Bool.isTrue(selectAllOnFocus)) {
+      this.selectAll();
     }
     const x = this.props.onFocus;
     if (x) {
-      x (e);
+      x(e);
     }
   }
 
-  onBlur (e) {
+  onBlur(e) {
     //- console.log ('text-field.onBlur');
     this.hasChanged = false;
     this.hasFocus = false;
 
     const x = this.props.onBlur;
     if (x) {
-      x (e);
+      x(e);
     }
   }
 
   /******************************************************************************/
 
-  renderFlyingBalloon (props) {
+  renderFlyingBalloon(props) {
     if (props.warning || props.info) {
       const trianglePosition = {
         bottom: 'top',
@@ -134,8 +134,8 @@ class TextField extends Widget {
     }
   }
 
-  renderFocusForeground (props) {
-    if (Bool.isTrue (this.props.embeddedFocus)) {
+  renderFocusForeground(props) {
+    if (Bool.isTrue(this.props.embeddedFocus)) {
       return null;
     } else {
       const focusClass = this.styles.classNames.focus;
@@ -143,9 +143,9 @@ class TextField extends Widget {
     }
   }
 
-  renderInput () {
+  renderInput() {
     const options = {};
-    if (Bool.isTrue (this.props.readonly)) {
+    if (Bool.isTrue(this.props.readonly)) {
       options.readOnly = 'readOnly';
     }
 
@@ -160,7 +160,7 @@ class TextField extends Widget {
           //  `TextField.value: this.hasFocus=${this.hasFocus} this.hasChanged=${this.hasChanged}`
           //);
           //console.dir (props);
-          return this.props.getDisplayValue (
+          return this.props.getDisplayValue(
             this.hasChanged ? props.viewValue : props.modelValue, // (*)
             this.hasFocus && !this.hasChanged, // onFocus ?
             !this.hasFocus && !this.hasChanged // onBlur ?
@@ -179,11 +179,11 @@ class TextField extends Widget {
           return props.viewValue;
         }
 
-        return this.getModelValue (props.model);
+        return this.getModelValue(props.model);
       },
       warning: props => {
         if (props.getWarning) {
-          return props.getWarning (
+          return props.getWarning(
             this.hasChanged ? props.viewValue : props.modelValue, // (*)
             this.hasFocus && !this.hasChanged, // onFocus ?
             !this.hasFocus && !this.hasChanged // onBlur ?
@@ -192,7 +192,7 @@ class TextField extends Widget {
       },
       info: props => {
         if (props.getInfo) {
-          return props.getInfo (
+          return props.getInfo(
             this.hasChanged ? props.viewValue : props.modelValue, // (*)
             this.hasFocus && !this.hasChanged, // onFocus ?
             !this.hasFocus && !this.hasChanged // onBlur ?
@@ -208,22 +208,23 @@ class TextField extends Widget {
 
     const beforeChange = (model, value) => {
       if (this.props.beforeChange) {
-        const newValue = this.props.beforeChange (value);
-        return actions.change (model, newValue);
+        const newValue = this.props.beforeChange(value);
+        return actions.change(model, newValue);
       } else {
-        return actions.change (model, value);
+        return actions.change(model, value);
       }
     };
 
     const type = this.props.rows ? 'textarea' : 'text';
-    const fieldClass = type === 'textarea'
-      ? this.styles.classNames.textarea + ' mousetrap'
-      : this.styles.classNames.field + ' mousetrap';
+    const fieldClass =
+      type === 'textarea'
+        ? this.styles.classNames.textarea + ' mousetrap'
+        : this.styles.classNames.field + ' mousetrap';
 
     const inputClass = this.styles.classNames.input;
 
     const Field = props => {
-      let finalProps = omit (props, [
+      let finalProps = omit(props, [
         'getInfo',
         'getWarning',
         'warning',
@@ -237,36 +238,38 @@ class TextField extends Widget {
       }
 
       let boxClass = this.styles.classNames.box;
-      if (Bool.isTrue (this.props.required) && finalProps.value === '') {
+      if (Bool.isTrue(this.props.required) && finalProps.value === '') {
         // Use style 'required' only if text is empty.
         boxClass = this.styles.classNames.boxRequired;
       }
-      if (Bool.isTrue (this.props.requiredHinter) && finalProps.value !== '') {
+      if (Bool.isTrue(this.props.requiredHinter) && finalProps.value !== '') {
         // Use style 'required' only if text is not empty.
         boxClass = this.styles.classNames.boxRequired;
       }
 
       return (
         <div className={boxClass} title={this.props.tooltip}>
-          {type === 'textarea'
-            ? <textarea
-                tabIndex="0"
-                rows={this.props.rows}
-                ref={node => {
-                  this.input = node;
-                }}
-                {...finalProps}
-              />
-            : <input
-                tabIndex="0"
-                type={type}
-                ref={node => {
-                  this.input = node;
-                }}
-                {...finalProps}
-              />}
-          {this.renderFocusForeground (props)}
-          {this.renderFlyingBalloon (props)}
+          {type === 'textarea' ? (
+            <textarea
+              tabIndex="0"
+              rows={this.props.rows}
+              ref={node => {
+                this.input = node;
+              }}
+              {...finalProps}
+            />
+          ) : (
+            <input
+              tabIndex="0"
+              type={type}
+              ref={node => {
+                this.input = node;
+              }}
+              {...finalProps}
+            />
+          )}
+          {this.renderFocusForeground(props)}
+          {this.renderFlyingBalloon(props)}
         </div>
       );
     };
@@ -275,11 +278,12 @@ class TextField extends Widget {
       ? `${this.context.model}.${this.props.hinter}`
       : `${this.context.model}.${this.props.model}`;
 
-    const WiredTextField = this.mapWidget (Field, 'version', fullModelPath);
+    const WiredTextField = this.mapWidget(Field, 'version', fullModelPath);
 
-    let key = typeof this.props.model === 'string'
-      ? this.props.model
-      : this.props.hinter ? this.props.hinter : this.props.model ();
+    let key =
+      typeof this.props.model === 'string'
+        ? this.props.model
+        : this.props.hinter ? this.props.hinter : this.props.model();
 
     const defaultUpdateOn = this.props.hinter ? 'change' : 'blur';
 
@@ -299,7 +303,7 @@ class TextField extends Widget {
         onBlur={this.onBlur}
         onChange={this.onChange}
         onMouseUp={this.props.onMouseUp}
-        disabled={Bool.isTrue (this.props.disabled)}
+        disabled={Bool.isTrue(this.props.disabled)}
         maxLength={this.props.maxLength}
         placeholder={this.props.hintText}
         size={this.props.size || 'size'}
@@ -311,11 +315,11 @@ class TextField extends Widget {
     );
   }
 
-  render () {
-    if (Bool.isFalse (this.props.show)) {
+  render() {
+    if (Bool.isFalse(this.props.show)) {
       return null;
     }
-    return this.renderInput ();
+    return this.renderInput();
   }
 }
 

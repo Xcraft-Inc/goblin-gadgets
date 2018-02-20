@@ -4,7 +4,7 @@ import * as Bool from 'gadgets/boolean-helpers';
 
 /******************************************************************************/
 
-export default function styles (theme, props) {
+export default function styles(theme, props) {
   const m = theme.shapes.containerMargin;
 
   const boxStyle = {
@@ -12,14 +12,14 @@ export default function styles (theme, props) {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginTop: Unit.multiply (m, 0.5),
-    marginBottom: Unit.sub (Unit.multiply (m, -0.5), '1px'),
-    marginLeft: Unit.multiply (m, -1),
-    marginRight: Unit.multiply (m, -1),
-    paddingTop: Unit.multiply (m, 0.5),
-    paddingBottom: Unit.multiply (m, 0.5),
-    paddingLeft: Unit.multiply (m, 0.5),
-    paddingRight: Unit.multiply (m, 0.5),
+    marginTop: Unit.multiply(m, 0.5),
+    marginBottom: Unit.sub(Unit.multiply(m, -0.5), '1px'),
+    marginLeft: Unit.multiply(m, -1),
+    marginRight: Unit.multiply(m, -1),
+    paddingTop: Unit.multiply(m, 0.5),
+    paddingBottom: Unit.multiply(m, 0.5),
+    paddingLeft: Unit.multiply(m, 0.5),
+    paddingRight: Unit.multiply(m, 0.5),
     borderTop: '1px solid ' + theme.palette.paneNavigatorInactiveBorder,
     borderBottom: '1px solid ' + theme.palette.paneNavigatorInactiveBorder,
     boxSizing: 'border-box',
@@ -29,15 +29,15 @@ export default function styles (theme, props) {
     backgroundColor: theme.palette.textFieldReadonlyBackground,
   };
 
-  const boxActiveStyle = Object.assign ({}, boxStyle); // clone
-  boxActiveStyle.paddingLeft = Unit.sub (
-    Unit.multiply (m, 0.5),
+  const boxActiveStyle = Object.assign({}, boxStyle); // clone
+  boxActiveStyle.paddingLeft = Unit.sub(
+    Unit.multiply(m, 0.5),
     theme.shapes.markWidth
   );
   boxActiveStyle.borderLeft =
     theme.shapes.markWidth +
     ' solid ' +
-    ColorHelpers.getMarkColor (theme, 'base');
+    ColorHelpers.getMarkColor(theme, 'base');
 
   const scaleAnimation = true;
 
@@ -58,7 +58,7 @@ export default function styles (theme, props) {
       'opacity 200ms cubic-bezier(0.42, 0, 0.58, 1) 300ms';
   }
 
-  const infoHiddenStyle = Object.assign ({}, infoVisibleStyle); // clone
+  const infoHiddenStyle = Object.assign({}, infoVisibleStyle); // clone
   if (scaleAnimation) {
     infoHiddenStyle.transform = 'scaleY(0)';
     infoHiddenStyle.transition =

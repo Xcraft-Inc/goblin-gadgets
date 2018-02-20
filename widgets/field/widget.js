@@ -29,62 +29,62 @@ import Table from 'gadgets/table/widget';
 import Plugin from 'desktop/plugin/widget';
 
 import importer from 'laboratory/importer';
-const widgetImporter = importer ('widget');
+const widgetImporter = importer('widget');
 
 /******************************************************************************/
 
 const defaultLabelWidth = '120px';
 
 class Field extends Form {
-  constructor () {
-    super (...arguments);
-    this.handleFileChange = this.handleFileChange.bind (this);
+  constructor() {
+    super(...arguments);
+    this.handleFileChange = this.handleFileChange.bind(this);
   }
 
-  get readonly () {
+  get readonly() {
     return (
-      Bool.isTrue (this.props.readonly) || Bool.isTrue (this.context.readonly)
+      Bool.isTrue(this.props.readonly) || Bool.isTrue(this.context.readonly)
     );
   }
 
-  getFullPathFromModel (model) {
+  getFullPathFromModel(model) {
     if (!this.context.model) {
-      throw new Error (
+      throw new Error(
         'Cannot resolve context model, your Field is not in a Form ?'
       );
     }
     return `${this.context.model}${model}`;
   }
 
-  get fullPath () {
-    return this.getFullPathFromModel (this.props.model);
+  get fullPath() {
+    return this.getFullPathFromModel(this.props.model);
   }
 
-  handleFileChange (ev) {
-    ev.persist ();
+  handleFileChange(ev) {
+    ev.persist();
     const fileList = ev.target.files;
     const files = [];
     for (let i = 0; i < fileList.length; i++) {
-      files.push (fileList[i].path);
+      files.push(fileList[i].path);
     }
     if (files.length === 1) {
-      this.setBackendValue (this.fullPath, files[0]);
+      this.setBackendValue(this.fullPath, files[0]);
     } else {
-      throw new Error ('Not implemented');
+      throw new Error('Not implemented');
     }
   }
 
-  renderDynamic () {
-    const Dynamic = this.mapWidget (
+  renderDynamic() {
+    const Dynamic = this.mapWidget(
       Label,
       value => {
         if (!value) {
           return;
         }
         if (typeof value === 'object') {
-          return this.props.map (value.toJS ());
+          return this.props.map(value.toJS());
         }
-        return this.props.map (value);
+        return this.props.map(value);
       },
       this.fullPath
     );
@@ -100,33 +100,33 @@ class Field extends Form {
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
-        {labelWidth === '0px'
-          ? null
-          : <Label
-              text={this.props.labelText}
-              glyph={this.props.labelGlyph}
-              width={labelWidth}
-              kind="label-field"
-              justify="left"
-              spacing="overlap"
-              disabled="true"
-            />}
+        {labelWidth === '0px' ? null : (
+          <Label
+            text={this.props.labelText}
+            glyph={this.props.labelGlyph}
+            width={labelWidth}
+            kind="label-field"
+            justify="left"
+            spacing="overlap"
+            disabled="true"
+          />
+        )}
         <Dynamic grow="1" tooltip={this.props.tooltip} />
       </Container>
     );
   }
 
-  renderTableDynamic () {
-    const Dynamic = this.mapWidget (
+  renderTableDynamic() {
+    const Dynamic = this.mapWidget(
       Table,
       value => {
         if (!value) {
           return;
         }
         if (typeof value === 'object') {
-          return this.props.map (value.toJS ());
+          return this.props.map(value.toJS());
         }
-        return this.props.map (value);
+        return this.props.map(value);
       },
       this.fullPath
     );
@@ -134,17 +134,17 @@ class Field extends Form {
     return <Dynamic grow="1" tooltip={this.props.tooltip} />;
   }
 
-  renderButtonDynamic () {
-    const Dynamic = this.mapWidget (
+  renderButtonDynamic() {
+    const Dynamic = this.mapWidget(
       Button,
       value => {
         if (!value) {
           return;
         }
         if (typeof value === 'object') {
-          return this.props.map (value.toJS ());
+          return this.props.map(value.toJS());
         }
-        return this.props.map (value);
+        return this.props.map(value);
       },
       this.fullPath
     );
@@ -153,7 +153,7 @@ class Field extends Form {
   }
 
   //#region Readonly
-  renderReadonlyField () {
+  renderReadonlyField() {
     return (
       <Container
         kind="row-field"
@@ -181,7 +181,7 @@ class Field extends Form {
     );
   }
 
-  renderReadonlyDate () {
+  renderReadonlyDate() {
     return (
       <Container
         kind="row-field"
@@ -208,7 +208,7 @@ class Field extends Form {
     );
   }
 
-  renderReadonlyTime () {
+  renderReadonlyTime() {
     return (
       <Container
         kind="row-field"
@@ -235,7 +235,7 @@ class Field extends Form {
     );
   }
 
-  renderReadonlyPrice () {
+  renderReadonlyPrice() {
     return (
       <Container
         kind="row-field"
@@ -262,7 +262,7 @@ class Field extends Form {
     );
   }
 
-  renderReadonlyWeight () {
+  renderReadonlyWeight() {
     return (
       <Container
         kind="row-field"
@@ -290,7 +290,7 @@ class Field extends Form {
     );
   }
 
-  renderReadonlyVolume () {
+  renderReadonlyVolume() {
     return (
       <Container
         kind="row-field"
@@ -318,7 +318,7 @@ class Field extends Form {
     );
   }
 
-  renderReadonlyNumber () {
+  renderReadonlyNumber() {
     return (
       <Container
         kind="row-field"
@@ -346,7 +346,7 @@ class Field extends Form {
     );
   }
 
-  renderReadonlyPercent () {
+  renderReadonlyPercent() {
     return (
       <Container
         kind="row-field"
@@ -374,7 +374,7 @@ class Field extends Form {
     );
   }
 
-  renderReadonlyDelay () {
+  renderReadonlyDelay() {
     return (
       <Container
         kind="row-field"
@@ -402,8 +402,8 @@ class Field extends Form {
     );
   }
 
-  renderReadonlyLabel () {
-    const Value = this.mapWidget (
+  renderReadonlyLabel() {
+    const Value = this.mapWidget(
       Label,
       value => {
         return {text: value};
@@ -422,23 +422,23 @@ class Field extends Form {
         verticalSpacing={this.props.verticalSpacing || 'compact'}
         verticalJustify={this.props.verticalJustify}
       >
-        {labelWidth === '0px'
-          ? null
-          : <Label
-              text={this.props.labelText}
-              glyph={this.props.labelGlyph}
-              width={labelWidth}
-              kind="label-field"
-              justify="left"
-              spacing="overlap"
-              disabled="true"
-            />}
+        {labelWidth === '0px' ? null : (
+          <Label
+            text={this.props.labelText}
+            glyph={this.props.labelGlyph}
+            width={labelWidth}
+            kind="label-field"
+            justify="left"
+            spacing="overlap"
+            disabled="true"
+          />
+        )}
         <Value grow="1" justify={this.props.justify} />
       </Container>
     );
   }
-  renderReadonlyBool () {
-    const WiredCheckButton = this.mapWidget (
+  renderReadonlyBool() {
+    const WiredCheckButton = this.mapWidget(
       CheckButton,
       value => {
         return {checked: value};
@@ -458,16 +458,16 @@ class Field extends Form {
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
-        {labelWidth === '0px'
-          ? null
-          : <Label
-              glyph={this.props.labelGlyph}
-              width={labelWidth}
-              kind="label-field"
-              justify="left"
-              spacing="overlap"
-              disabled="true"
-            />}
+        {labelWidth === '0px' ? null : (
+          <Label
+            glyph={this.props.labelGlyph}
+            width={labelWidth}
+            kind="label-field"
+            justify="left"
+            spacing="overlap"
+            disabled="true"
+          />
+        )}
         <WiredCheckButton
           kind={this.props.subkind}
           text={this.props.labelText}
@@ -477,24 +477,24 @@ class Field extends Form {
     );
   }
 
-  renderReadonlyFileInput () {
-    throw new Error ('Not implemented');
+  renderReadonlyFileInput() {
+    throw new Error('Not implemented');
   }
 
-  renderReadonlyEntity () {
+  renderReadonlyEntity() {
     const summary = this.props.summary || 'info';
     const Viewer = props => {
       if (!props.entityId) {
         return null;
       }
-      const Info = this.mapWidget (
+      const Info = this.mapWidget(
         Label,
         entity => {
           let glyph = 'solid/spinner';
           let text = 'Chargement...';
           if (entity) {
-            glyph = entity.get ('meta.summaries.glyph');
-            text = entity.get (`meta.summaries.${summary}`);
+            glyph = entity.get('meta.summaries.glyph');
+            text = entity.get(`meta.summaries.${summary}`);
           }
           return {
             kind: 'markdown',
@@ -511,30 +511,30 @@ class Field extends Form {
     };
 
     const Action = props => {
-      return !!props.entityId
-        ? <Button
-            kind="combo"
-            shape="right-smooth"
-            leftSpacing="overlap"
-            spacing={this.props.spacing}
-            glyph="solid/pencil"
-            tooltip="Editer"
-            onClick={() => {
-              {
-                const entity = this.getModelValue (props.entityId, true);
-                const service = this.context.id.split ('@')[0];
-                this.doAs (service, 'open-entity-workitem', {
-                  entity: entity.toJS (),
-                  desktopId: this.context.desktopId,
-                });
-              }
-            }}
-          />
-        : null;
+      return !!props.entityId ? (
+        <Button
+          kind="combo"
+          shape="right-smooth"
+          leftSpacing="overlap"
+          spacing={this.props.spacing}
+          glyph="solid/pencil"
+          tooltip="Editer"
+          onClick={() => {
+            {
+              const entity = this.getModelValue(props.entityId, true);
+              const service = this.context.id.split('@')[0];
+              this.doAs(service, 'open-entity-workitem', {
+                entity: entity.toJS(),
+                desktopId: this.context.desktopId,
+              });
+            }
+          }}
+        />
+      ) : null;
     };
 
-    const EntityViewer = this.mapWidget (Viewer, 'entityId', this.fullPath);
-    const EntityAction = this.mapWidget (Action, 'entityId', this.fullPath);
+    const EntityViewer = this.mapWidget(Viewer, 'entityId', this.fullPath);
+    const EntityAction = this.mapWidget(Action, 'entityId', this.fullPath);
 
     const labelWidth = this.props.labelWidth || defaultLabelWidth;
 
@@ -547,38 +547,38 @@ class Field extends Form {
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
-        {labelWidth === '0px'
-          ? null
-          : <Label
-              kind="label-field"
-              text={this.props.labelText}
-              glyph={this.props.labelGlyph}
-              width={labelWidth}
-              justify="left"
-              disabled="true"
-            />}
+        {labelWidth === '0px' ? null : (
+          <Label
+            kind="label-field"
+            text={this.props.labelText}
+            glyph={this.props.labelGlyph}
+            width={labelWidth}
+            justify="left"
+            disabled="true"
+          />
+        )}
         <EntityViewer />
         <EntityAction />
       </Container>
     );
   }
 
-  renderReadonlyEntities () {
+  renderReadonlyEntities() {
     if (this.props.plugin) {
       let WiredPlugin = null;
 
       if (this.props.pluginType) {
-        const CustomPlugin = widgetImporter (`plugin-${this.props.pluginType}`);
-        WiredPlugin = Widget.Wired (CustomPlugin) (
+        const CustomPlugin = widgetImporter(`plugin-${this.props.pluginType}`);
+        WiredPlugin = Widget.Wired(CustomPlugin)(
           `${this.props.plugin}-plugin@${this.context.id}`
         );
       } else {
-        WiredPlugin = Widget.Wired (Plugin) (
+        WiredPlugin = Widget.Wired(Plugin)(
           `${this.props.plugin}-plugin@${this.context.id}`
         );
       }
 
-      const FinalPlugin = this.mapWidget (
+      const FinalPlugin = this.mapWidget(
         WiredPlugin,
         'entityIds',
         this.fullPath
@@ -628,10 +628,10 @@ class Field extends Form {
             verticalSpacing={this.props.verticalSpacing}
             verticalJustify={this.props.verticalJustify}
           >
-            {props.entityIds.map ((entityId, index) => {
-              const Item = this.mapWidget (
+            {props.entityIds.map((entityId, index) => {
+              const Item = this.mapWidget(
                 this.props.item,
-                state => (state ? state.toJS () : null),
+                state => (state ? state.toJS() : null),
                 `backend.${entityId}`
               );
               return <Item key={index} />;
@@ -639,15 +639,15 @@ class Field extends Form {
           </Container>
         );
       };
-      const FinalItems = this.mapWidget (Items, 'entityIds', this.fullPath);
+      const FinalItems = this.mapWidget(Items, 'entityIds', this.fullPath);
       return <FinalItems />;
     } else {
-      throw new Error ('Property plugin is required in this case!');
+      throw new Error('Property plugin is required in this case!');
     }
   }
 
-  renderTitle () {
-    const Value = this.mapWidget (
+  renderTitle() {
+    const Value = this.mapWidget(
       Label,
       value => {
         return {text: value};
@@ -666,24 +666,24 @@ class Field extends Form {
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
-        {labelWidth === '0px'
-          ? null
-          : <Label
-              text={this.props.labelText}
-              glyph={this.props.labelGlyph}
-              width={labelWidth}
-              kind="label-field"
-              justify="left"
-              spacing="overlap"
-              disabled="true"
-            />}
+        {labelWidth === '0px' ? null : (
+          <Label
+            text={this.props.labelText}
+            glyph={this.props.labelGlyph}
+            width={labelWidth}
+            kind="label-field"
+            justify="left"
+            spacing="overlap"
+            disabled="true"
+          />
+        )}
         <Value kind="title" grow="1" justify={this.props.justify} />
       </Container>
     );
   }
 
-  renderSubtitle () {
-    const Value = this.mapWidget (
+  renderSubtitle() {
+    const Value = this.mapWidget(
       Label,
       value => {
         return {text: value};
@@ -702,17 +702,17 @@ class Field extends Form {
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
-        {labelWidth === '0px'
-          ? null
-          : <Label
-              text={this.props.labelText}
-              glyph={this.props.labelGlyph}
-              width={labelWidth}
-              kind="label-field"
-              justify="left"
-              spacing="overlap"
-              disabled="true"
-            />}
+        {labelWidth === '0px' ? null : (
+          <Label
+            text={this.props.labelText}
+            glyph={this.props.labelGlyph}
+            width={labelWidth}
+            kind="label-field"
+            justify="left"
+            spacing="overlap"
+            disabled="true"
+          />
+        )}
         <Value grow="1" justify={this.props.justify} />
       </Container>
     );
@@ -720,7 +720,7 @@ class Field extends Form {
   //#endregion
 
   //#region Edit
-  renderEditField () {
+  renderEditField() {
     return (
       <Container
         kind="row-field"
@@ -747,13 +747,13 @@ class Field extends Form {
     );
   }
 
-  renderEditDate () {
+  renderEditDate() {
     let periodPath = null;
     let minArg = null;
     let maxArg = null;
     let mode = null;
     if (this.props.periodModel) {
-      const s = this.props.periodModel.split ('|');
+      const s = this.props.periodModel.split('|');
       if (s.length > 2) {
         minArg = s[1]; // by example '1d'
         maxArg = s[2]; // by example '1y'
@@ -761,15 +761,15 @@ class Field extends Form {
       if (s.length > 3) {
         mode = s[3]; // by example 'hard'
       }
-      periodPath = this.getFullPathFromModel (s[0]); // by example '.startDate'
+      periodPath = this.getFullPathFromModel(s[0]); // by example '.startDate'
     }
 
     if (periodPath) {
-      const WiredTextFieldTyped = this.mapWidget (
+      const WiredTextFieldTyped = this.mapWidget(
         TextFieldTyped,
         date => {
-          const minDate = DateConverters.getCalcDate (date, minArg);
-          const maxDate = DateConverters.getCalcDate (date, maxArg);
+          const minDate = DateConverters.getCalcDate(date, minArg);
+          const maxDate = DateConverters.getCalcDate(date, maxArg);
           return {model: this.props.model, minDate, maxDate, mode}; // (*)
         },
         periodPath
@@ -826,13 +826,13 @@ class Field extends Form {
     }
   }
 
-  renderEditTime () {
+  renderEditTime() {
     let periodPath = null;
     let minArg = null;
     let maxArg = null;
     let mode = null;
     if (this.props.periodModel) {
-      const s = this.props.periodModel.split ('|');
+      const s = this.props.periodModel.split('|');
       if (s.length > 2) {
         minArg = s[1]; // by example '5h'
         maxArg = s[2]; // by example '30m'
@@ -840,15 +840,15 @@ class Field extends Form {
       if (s.length > 3) {
         mode = s[3]; // by example 'hard'
       }
-      periodPath = this.getFullPathFromModel (s[0]); // by example '.startPlannedTime'
+      periodPath = this.getFullPathFromModel(s[0]); // by example '.startPlannedTime'
     }
 
     if (periodPath) {
-      const WiredTextFieldTyped = this.mapWidget (
+      const WiredTextFieldTyped = this.mapWidget(
         TextFieldTyped,
         time => {
-          const minTime = TimeConverters.getCalcTime (time, minArg);
-          const maxTime = TimeConverters.getCalcTime (time, maxArg);
+          const minTime = TimeConverters.getCalcTime(time, minArg);
+          const maxTime = TimeConverters.getCalcTime(time, maxArg);
           return {model: this.props.model, minTime, maxTime, mode}; // (*)
         },
         periodPath
@@ -905,7 +905,7 @@ class Field extends Form {
     }
   }
 
-  renderEditPrice () {
+  renderEditPrice() {
     return (
       <Container
         kind="row-field"
@@ -931,7 +931,7 @@ class Field extends Form {
     );
   }
 
-  renderEditWeight () {
+  renderEditWeight() {
     return (
       <Container
         kind="row-field"
@@ -958,7 +958,7 @@ class Field extends Form {
     );
   }
 
-  renderEditVolume () {
+  renderEditVolume() {
     return (
       <Container
         kind="row-field"
@@ -985,7 +985,7 @@ class Field extends Form {
     );
   }
 
-  renderEditNumber () {
+  renderEditNumber() {
     return (
       <Container
         kind="row-field"
@@ -1012,7 +1012,7 @@ class Field extends Form {
     );
   }
 
-  renderEditPercent () {
+  renderEditPercent() {
     return (
       <Container
         kind="row-field"
@@ -1039,7 +1039,7 @@ class Field extends Form {
     );
   }
 
-  renderEditDelay () {
+  renderEditDelay() {
     const help =
       '1a = 1 année\r2mo = 2 mois\r3j = 3 jours\r4h = 4 heures\r5m = 5 minutes';
     return (
@@ -1068,7 +1068,7 @@ class Field extends Form {
     );
   }
 
-  renderEditCombo () {
+  renderEditCombo() {
     const labelWidth = this.props.labelWidth || defaultLabelWidth;
 
     return (
@@ -1080,16 +1080,16 @@ class Field extends Form {
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
-        {labelWidth === '0px'
-          ? null
-          : <Label
-              text={this.props.labelText}
-              glyph={this.props.labelGlyph}
-              width={labelWidth}
-              kind="label-field"
-              justify="left"
-              spacing="overlap"
-            />}
+        {labelWidth === '0px' ? null : (
+          <Label
+            text={this.props.labelText}
+            glyph={this.props.labelGlyph}
+            width={labelWidth}
+            kind="label-field"
+            justify="left"
+            spacing="overlap"
+          />
+        )}
         <TextFieldCombo
           spacing={this.props.spacing}
           hintText={this.props.hintText}
@@ -1103,7 +1103,7 @@ class Field extends Form {
           menuItemWidth={this.props.menuItemWidth}
           comboTextTransform="none"
           onSetText={text => {
-            this.setBackendValue (this.fullPath, text);
+            this.setBackendValue(this.fullPath, text);
           }}
           grow="1"
         />
@@ -1111,12 +1111,12 @@ class Field extends Form {
     );
   }
 
-  renderEditRadio () {
-    const WiredRadioList = this.mapWidget (
+  renderEditRadio() {
+    const WiredRadioList = this.mapWidget(
       RadioList,
       value => {
         if (value && value !== '') {
-          return {selectedIndex: this.props.list.indexOf (value)};
+          return {selectedIndex: this.props.list.indexOf(value)};
         } else {
           return {};
         }
@@ -1136,26 +1136,26 @@ class Field extends Form {
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
-        {labelWidth === '0px'
-          ? null
-          : <Label
-              text={this.props.labelText}
-              glyph={this.props.labelGlyph}
-              tooltip={this.props.tooltip}
-              width={labelWidth}
-              kind="label-field"
-              justify="left"
-              spacing="overlap"
-            />}
+        {labelWidth === '0px' ? null : (
+          <Label
+            text={this.props.labelText}
+            glyph={this.props.labelGlyph}
+            tooltip={this.props.tooltip}
+            width={labelWidth}
+            kind="label-field"
+            justify="left"
+            spacing="overlap"
+          />
+        )}
         <WiredRadioList
           buttonWidth={this.props.buttonWidth}
           height={this.props.height}
           direction={this.props.direction || 'row'}
           list={this.props.list}
           selectionChanged={index => {
-            this.setBackendValue (this.fullPath, this.props.list[index]);
+            this.setBackendValue(this.fullPath, this.props.list[index]);
             if (this.props.onChange) {
-              this.props.onChange (this.props.list[index], index);
+              this.props.onChange(this.props.list[index], index);
             }
           }}
         />
@@ -1163,8 +1163,8 @@ class Field extends Form {
     );
   }
 
-  renderCheckList () {
-    const WiredCheckList = this.mapWidget (
+  renderCheckList() {
+    const WiredCheckList = this.mapWidget(
       CheckList,
       value => {
         if (value && value !== '') {
@@ -1188,16 +1188,16 @@ class Field extends Form {
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
-        {labelWidth === '0px'
-          ? null
-          : <Label
-              text={this.props.labelText}
-              glyph={this.props.labelGlyph}
-              width={labelWidth}
-              kind="label-field"
-              justify="left"
-              spacing="overlap"
-            />}
+        {labelWidth === '0px' ? null : (
+          <Label
+            text={this.props.labelText}
+            glyph={this.props.labelGlyph}
+            width={labelWidth}
+            kind="label-field"
+            justify="left"
+            spacing="overlap"
+          />
+        )}
         <WiredCheckList
           width={this.props.width}
           height={this.props.height}
@@ -1205,17 +1205,17 @@ class Field extends Form {
           direction={this.props.direction || 'column'}
           showHeader={this.props.showHeader}
           list={this.props.list}
-          readonly={Bool.toString (this.readonly)}
+          readonly={Bool.toString(this.readonly)}
           selectionChanged={value => {
-            this.setBackendValue (this.fullPath, value);
+            this.setBackendValue(this.fullPath, value);
           }}
         />
       </Container>
     );
   }
 
-  renderEditBool () {
-    const WiredCheckButton = this.mapWidget (
+  renderEditBool() {
+    const WiredCheckButton = this.mapWidget(
       CheckButton,
       value => {
         return {checked: value};
@@ -1235,24 +1235,24 @@ class Field extends Form {
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
-        {labelWidth === '0px'
-          ? null
-          : <Label
-              glyph={this.props.labelGlyph}
-              width={labelWidth}
-              kind="label-field"
-              justify="left"
-              spacing="overlap"
-            />}
+        {labelWidth === '0px' ? null : (
+          <Label
+            glyph={this.props.labelGlyph}
+            width={labelWidth}
+            kind="label-field"
+            justify="left"
+            spacing="overlap"
+          />
+        )}
         <WiredCheckButton
           kind={this.props.subkind}
           text={this.props.labelText}
           tooltip={this.props.tooltip || this.props.hintText}
           onClick={() => {
-            const checked = this.getBackendValue (this.fullPath);
-            this.setBackendValue (this.fullPath, !checked);
+            const checked = this.getBackendValue(this.fullPath);
+            this.setBackendValue(this.fullPath, !checked);
             if (this.props.onClick) {
-              this.props.onClick ();
+              this.props.onClick();
             }
           }}
         />
@@ -1260,16 +1260,16 @@ class Field extends Form {
     );
   }
 
-  renderCalendarRecurrence () {
-    const WiredCalendarRecurrence = this.mapWidget (
+  renderCalendarRecurrence() {
+    const WiredCalendarRecurrence = this.mapWidget(
       CalendarRecurrence,
       r => {
         return {
-          startDate: r.get ('startDate'),
-          endDate: r.get ('endDate'),
-          days: r.get ('days'),
-          addDates: r.get ('addDates'),
-          cronDates: r.get ('cronDates'),
+          startDate: r.get('startDate'),
+          endDate: r.get('endDate'),
+          days: r.get('days'),
+          addDates: r.get('addDates'),
+          cronDates: r.get('cronDates'),
         };
       },
       this.fullPath
@@ -1277,35 +1277,35 @@ class Field extends Form {
 
     return (
       <WiredCalendarRecurrence
-        readonly={Bool.toString (this.readonly)}
+        readonly={Bool.toString(this.readonly)}
         dateClicked={date => {
-          const service = this.context.id.split ('@')[0];
-          this.doAs (service, 'date-clicked', {
+          const service = this.context.id.split('@')[0];
+          this.doAs(service, 'date-clicked', {
             date,
           });
         }}
         flushAdd={() => {
-          const service = this.context.id.split ('@')[0];
-          this.doAs (service, 'flush-add');
+          const service = this.context.id.split('@')[0];
+          this.doAs(service, 'flush-add');
         }}
       />
     );
   }
 
-  renderEditEntity () {
+  renderEditEntity() {
     const summary = this.props.summary || 'info';
     const Viewer = props => {
       if (!props.entityId) {
         return null;
       }
-      const Info = this.mapWidget (
+      const Info = this.mapWidget(
         Label,
         entity => {
           let glyph = 'solid/spinner';
           let text = 'chargement...';
           if (entity) {
-            glyph = entity.get ('meta.summaries.glyph');
-            text = entity.get (`meta.summaries.${summary}`);
+            glyph = entity.get('meta.summaries.glyph');
+            text = entity.get(`meta.summaries.${summary}`);
           }
           return {
             glyph,
@@ -1317,7 +1317,7 @@ class Field extends Form {
       return <Info />;
     };
 
-    const EntityViewer = this.mapWidget (Viewer, 'entityId', this.fullPath);
+    const EntityViewer = this.mapWidget(Viewer, 'entityId', this.fullPath);
 
     return (
       <Container
@@ -1334,21 +1334,21 @@ class Field extends Form {
     );
   }
 
-  renderEditEntities () {
+  renderEditEntities() {
     if (this.props.plugin) {
       let WiredPlugin = null;
       if (this.props.pluginType) {
-        const CustomPlugin = widgetImporter (`plugin-${this.props.pluginType}`);
-        WiredPlugin = Widget.Wired (CustomPlugin) (
+        const CustomPlugin = widgetImporter(`plugin-${this.props.pluginType}`);
+        WiredPlugin = Widget.Wired(CustomPlugin)(
           `${this.props.plugin}-plugin@${this.context.id}`
         );
       } else {
-        WiredPlugin = Widget.Wired (Plugin) (
+        WiredPlugin = Widget.Wired(Plugin)(
           `${this.props.plugin}-plugin@${this.context.id}`
         );
       }
 
-      const FinalPlugin = this.mapWidget (
+      const FinalPlugin = this.mapWidget(
         WiredPlugin,
         'entityIds',
         this.fullPath
@@ -1402,10 +1402,10 @@ class Field extends Form {
             verticalSpacing={this.props.verticalSpacing}
             verticalJustify={this.props.verticalJustify}
           >
-            {props.entityIds.map ((entityId, index) => {
-              const Item = this.mapWidget (
+            {props.entityIds.map((entityId, index) => {
+              const Item = this.mapWidget(
                 this.props.item,
-                state => (state ? state.toJS () : null),
+                state => (state ? state.toJS() : null),
                 `backend.${entityId}`
               );
               return <Item key={index} />;
@@ -1413,28 +1413,28 @@ class Field extends Form {
           </Container>
         );
       };
-      const FinalItems = this.mapWidget (Items, 'entityIds', this.fullPath);
+      const FinalItems = this.mapWidget(Items, 'entityIds', this.fullPath);
       return <FinalItems />;
     } else {
-      throw new Error ('Property plugin or item is required in this case!');
+      throw new Error('Property plugin or item is required in this case!');
     }
   }
 
-  renderEditHinter () {
+  renderEditHinter() {
     const targetPath = this.props.targetModel
-      ? this.getFullPathFromModel (this.props.targetModel)
+      ? this.getFullPathFromModel(this.props.targetModel)
       : this.fullPath;
 
     const summary = this.props.summary || 'info';
 
-    const Hinter = this.mapWidget (
+    const Hinter = this.mapWidget(
       TextField,
       value => {
         if (value && value !== '') {
           let selectedId = null;
           if (!this.props.onValue) {
             selectedId = value;
-            value = this.getModelValue (
+            value = this.getModelValue(
               `${value}.meta.summaries.${summary}`,
               true
             );
@@ -1452,23 +1452,20 @@ class Field extends Form {
     let HinterLabel = null;
 
     if (this.props.targetModel) {
-      HinterLabel = this.mapWidget (Label, 'text', targetPath);
+      HinterLabel = this.mapWidget(Label, 'text', targetPath);
     } else {
-      HinterLabel = this.mapWidget (
+      HinterLabel = this.mapWidget(
         Label,
         value => {
           let text = '';
           let glyph = null;
           if (value && value !== '') {
             if (!this.props.onValue) {
-              text = this.getModelValue (
+              text = this.getModelValue(
                 `${value}.meta.summaries.${summary}`,
                 true
               );
-              glyph = this.getModelValue (
-                `${value}.meta.summaries.glyph`,
-                true
-              );
+              glyph = this.getModelValue(`${value}.meta.summaries.glyph`, true);
             }
             return {text, glyph};
           } else {
@@ -1511,24 +1508,25 @@ class Field extends Form {
           glyph="solid/eraser"
           width="32px"
           tooltip="Entrer une nouvelle référence"
-          onClick={() => this.setBackendValue (this.fullPath, null)}
+          onClick={() => this.setBackendValue(this.fullPath, null)}
         />
-        {this.props.onValue
-          ? null
-          : <Button
-              kind="combo"
-              shape="right-smooth"
-              spacing={this.props.spacing}
-              leftSpacing="overlap"
-              glyph="solid/eye"
-              tooltip="Voir les détails"
-              onClick={() =>
-                this.navToDetail (
-                  this.context.id,
-                  props.existingValue,
-                  this.props.hinter
-                )}
-            />}
+        {this.props.onValue ? null : (
+          <Button
+            kind="combo"
+            shape="right-smooth"
+            spacing={this.props.spacing}
+            leftSpacing="overlap"
+            glyph="solid/eye"
+            tooltip="Voir les détails"
+            onClick={() =>
+              this.navToDetail(
+                this.context.id,
+                props.existingValue,
+                this.props.hinter
+              )
+            }
+          />
+        )}
       </Container>
     );
 
@@ -1550,7 +1548,7 @@ class Field extends Form {
           width={this.props.labelWidth || defaultLabelWidth}
         />
         <Form
-          {...this.formConfigWithComponent (() => (
+          {...this.formConfigWithComponent(() => (
             <Hinter
               id={this.context.id}
               shape={
@@ -1569,35 +1567,37 @@ class Field extends Form {
             />
           ))}
         />
-        {!this.props.onValue && this.props.enableAdd
-          ? <Button
-              kind="combo"
-              shape="right-smooth"
-              leftSpacing="overlap"
-              glyph="solid/plus"
-              tooltip="Créer"
-              onClick={() => {
-                const service = this.context.id.split ('@')[0];
-                const currentValue = this.getBackendValue (
-                  `backend.${this.context.id}.${this.props.hinter}`
-                );
-                if (currentValue && currentValue.length > 2) {
-                  this.doAs (service, `add-new-${this.props.hinter}`, {
-                    value: currentValue,
-                  });
-                }
-              }}
-            />
-          : null}
+        {!this.props.onValue && this.props.enableAdd ? (
+          <Button
+            kind="combo"
+            shape="right-smooth"
+            leftSpacing="overlap"
+            glyph="solid/plus"
+            tooltip="Créer"
+            onClick={() => {
+              const service = this.context.id.split('@')[0];
+              const currentValue = this.getBackendValue(
+                `backend.${this.context.id}.${this.props.hinter}`
+              );
+              if (currentValue && currentValue.length > 2) {
+                this.doAs(service, `add-new-${this.props.hinter}`, {
+                  value: currentValue,
+                });
+              }
+            }}
+          />
+        ) : null}
       </Container>
     );
 
     const HinterLine = props =>
-      props.existingValue
-        ? <HinterLineValue {...props} />
-        : <HinterLineCreate {...props} />;
+      props.existingValue ? (
+        <HinterLineValue {...props} />
+      ) : (
+        <HinterLineCreate {...props} />
+      );
 
-    const HinterField = this.mapWidget (
+    const HinterField = this.mapWidget(
       HinterLine,
       'existingValue',
       this.fullPath
@@ -1606,7 +1606,7 @@ class Field extends Form {
     return <HinterField />;
   }
 
-  renderEditFileInput () {
+  renderEditFileInput() {
     return (
       <Container
         kind="row-field"
@@ -1625,7 +1625,7 @@ class Field extends Form {
     );
   }
 
-  renderEditDirectoryInput () {
+  renderEditDirectoryInput() {
     return (
       <Container
         kind="row-field"
@@ -1650,123 +1650,123 @@ class Field extends Form {
   }
   //#endregion
 
-  renderReadonly () {
+  renderReadonly() {
     switch (this.props.kind) {
       case 'field':
-        return this.renderReadonlyField ();
+        return this.renderReadonlyField();
       case 'dynamic':
-        return this.renderDynamic ();
+        return this.renderDynamic();
       case 'table-dynamic':
-        return this.renderTableDynamic ();
+        return this.renderTableDynamic();
       case 'button-dynamic':
-        return this.renderButtonDynamic ();
+        return this.renderButtonDynamic();
       case 'date':
-        return this.renderReadonlyDate ();
+        return this.renderReadonlyDate();
       case 'time':
-        return this.renderReadonlyTime ();
+        return this.renderReadonlyTime();
       case 'price':
-        return this.renderReadonlyPrice ();
+        return this.renderReadonlyPrice();
       case 'weight':
-        return this.renderReadonlyWeight ();
+        return this.renderReadonlyWeight();
       case 'volume':
-        return this.renderReadonlyVolume ();
+        return this.renderReadonlyVolume();
       case 'number':
-        return this.renderReadonlyNumber ();
+        return this.renderReadonlyNumber();
       case 'percent':
-        return this.renderReadonlyPercent ();
+        return this.renderReadonlyPercent();
       case 'delay':
-        return this.renderReadonlyDelay ();
+        return this.renderReadonlyDelay();
       case 'combo':
-        return this.renderReadonlyField ();
+        return this.renderReadonlyField();
       case 'radio':
-        return this.renderReadonlyField ();
+        return this.renderReadonlyField();
       case 'check-list':
-        return this.renderCheckList ();
+        return this.renderCheckList();
       case 'bool':
-        return this.renderReadonlyBool ();
+        return this.renderReadonlyBool();
       case 'calendar-recurrence':
-        return this.renderCalendarRecurrence ();
+        return this.renderCalendarRecurrence();
       case 'hinter':
-        return this.renderReadonlyEntity ();
+        return this.renderReadonlyEntity();
       case 'file':
-        return this.renderReadonlyFileInput ();
+        return this.renderReadonlyFileInput();
       case 'id':
-        return this.renderReadonlyEntity ();
+        return this.renderReadonlyEntity();
       case 'ids':
-        return this.renderReadonlyEntities ();
+        return this.renderReadonlyEntities();
       case 'title':
-        return this.renderTitle ();
+        return this.renderTitle();
       case 'subtitle':
-        return this.renderSubtitle ();
+        return this.renderSubtitle();
       case 'label':
-        return this.renderReadonlyLabel ();
+        return this.renderReadonlyLabel();
       default:
-        return this.renderReadonlyField ();
+        return this.renderReadonlyField();
     }
   }
 
-  renderEdit () {
+  renderEdit() {
     switch (this.props.kind) {
       case 'field':
-        return this.renderEditField ();
+        return this.renderEditField();
       case 'dynamic':
-        return this.renderDynamic ();
+        return this.renderDynamic();
       case 'table-dynamic':
-        return this.renderTableDynamic ();
+        return this.renderTableDynamic();
       case 'button-dynamic':
-        return this.renderButtonDynamic ();
+        return this.renderButtonDynamic();
       case 'date':
-        return this.renderEditDate ();
+        return this.renderEditDate();
       case 'time':
-        return this.renderEditTime ();
+        return this.renderEditTime();
       case 'price':
-        return this.renderEditPrice ();
+        return this.renderEditPrice();
       case 'weight':
-        return this.renderEditWeight ();
+        return this.renderEditWeight();
       case 'volume':
-        return this.renderEditVolume ();
+        return this.renderEditVolume();
       case 'number':
-        return this.renderEditNumber ();
+        return this.renderEditNumber();
       case 'percent':
-        return this.renderEditPercent ();
+        return this.renderEditPercent();
       case 'delay':
-        return this.renderEditDelay ();
+        return this.renderEditDelay();
       case 'combo':
-        return this.renderEditCombo ();
+        return this.renderEditCombo();
       case 'radio':
-        return this.renderEditRadio ();
+        return this.renderEditRadio();
       case 'check-list':
-        return this.renderCheckList ();
+        return this.renderCheckList();
       case 'bool':
-        return this.renderEditBool ();
+        return this.renderEditBool();
       case 'calendar-recurrence':
-        return this.renderCalendarRecurrence ();
+        return this.renderCalendarRecurrence();
       case 'hinter':
-        return this.renderEditHinter ();
+        return this.renderEditHinter();
       case 'file':
-        return this.renderEditFileInput ();
+        return this.renderEditFileInput();
       case 'directory':
-        return this.renderEditDirectoryInput ();
+        return this.renderEditDirectoryInput();
       case 'id':
-        return this.renderEditEntity ();
+        return this.renderEditEntity();
       case 'ids':
-        return this.renderEditEntities ();
+        return this.renderEditEntities();
       case 'title':
-        return this.renderTitle ();
+        return this.renderTitle();
       case 'subtitle':
-        return this.renderSubtitle ();
+        return this.renderSubtitle();
       case 'label':
-        return this.renderReadonlyLabel ();
+        return this.renderReadonlyLabel();
       default:
-        return this.renderEditField ();
+        return this.renderEditField();
     }
   }
 
-  render () {
+  render() {
     if (this.readonly) {
-      return this.renderReadonly ();
+      return this.renderReadonly();
     } else {
-      return this.renderEdit ();
+      return this.renderEdit();
     }
   }
 }

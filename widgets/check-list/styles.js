@@ -1,6 +1,6 @@
 /******************************************************************************/
 
-export default function styles (theme, props) {
+export default function styles(theme, props) {
   let direction, wrap, overflowX, overflowY;
   switch (props.direction) {
     case 'row':

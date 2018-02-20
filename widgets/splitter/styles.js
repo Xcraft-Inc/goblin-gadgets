@@ -1,6 +1,6 @@
 /******************************************************************************/
 
-export default function styles (theme, props) {
+export default function styles(theme, props) {
   const containerStyle = {
     display: 'flex',
     flexDirection: props.kind === 'vertical' ? 'row' : 'column',

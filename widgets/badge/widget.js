@@ -4,14 +4,14 @@ import Widget from 'laboratory/widget';
 /******************************************************************************/
 
 class Badge extends Widget {
-  constructor () {
-    super (...arguments);
+  constructor() {
+    super(...arguments);
   }
 
-  render () {
-    let truncatedValue = this.props.value ? this.props.value.toString () : '';
+  render() {
+    let truncatedValue = this.props.value ? this.props.value.toString() : '';
     if (truncatedValue.length > 3) {
-      truncatedValue = truncatedValue.substring (0, 3) + '...';
+      truncatedValue = truncatedValue.substring(0, 3) + '...';
     }
 
     const boxClass = this.styles.classNames.box;
@@ -19,9 +19,7 @@ class Badge extends Widget {
 
     return (
       <div key="badge" disabled={this.props.disabled} className={boxClass}>
-        <label className={labelClass}>
-          {truncatedValue}
-        </label>
+        <label className={labelClass}>{truncatedValue}</label>
       </div>
     );
   }

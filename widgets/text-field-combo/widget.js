@@ -14,8 +14,8 @@ import Select from 'gadgets/select/widget';
 /******************************************************************************/
 
 class TextFieldCombo extends Widget {
-  constructor () {
-    super (...arguments);
+  constructor() {
+    super(...arguments);
 
     this.state = {
       showCombo: false,
@@ -24,30 +24,30 @@ class TextFieldCombo extends Widget {
 
     this.comboLocation = null;
 
-    this.onFocus = this.onFocus.bind (this);
-    this.onBlur = this.onBlur.bind (this);
-    this.onMouseUp = this.onMouseUp.bind (this);
-    this.onKeyCombo = this.onKeyCombo.bind (this);
-    this.onShowCombo = this.onShowCombo.bind (this);
-    this.onHideCombo = this.onHideCombo.bind (this);
+    this.onFocus = this.onFocus.bind(this);
+    this.onBlur = this.onBlur.bind(this);
+    this.onMouseUp = this.onMouseUp.bind(this);
+    this.onKeyCombo = this.onKeyCombo.bind(this);
+    this.onShowCombo = this.onShowCombo.bind(this);
+    this.onHideCombo = this.onHideCombo.bind(this);
   }
 
-  get showCombo () {
+  get showCombo() {
     return this.state.showCombo;
   }
 
-  set showCombo (value) {
-    this.setState ({
+  set showCombo(value) {
+    this.setState({
       showCombo: value,
     });
   }
 
-  get focus () {
+  get focus() {
     return this.state.focus;
   }
 
-  set focus (value) {
-    this.setState ({
+  set focus(value) {
+    this.setState({
       focus: value,
     });
   }
@@ -64,17 +64,17 @@ class TextFieldCombo extends Widget {
   //   return false;
   // }
 
-  onShowCombo () {
+  onShowCombo() {
     if (!this.props.list) {
       return;
     }
-    const node = ReactDOM.findDOMNode (this);
+    const node = ReactDOM.findDOMNode(this);
 
     const itemCount = this.props.list.size
       ? this.props.list.size
       : this.props.list.length; // FIXME: pouèrk !
 
-    this.comboLocation = ComboHelpers.getComboLocation (
+    this.comboLocation = ComboHelpers.getComboLocation(
       node,
       this.context.theme.shapes.flyingBalloonTriangleSize,
       this.context.theme.shapes.flyingBalloonPadding,
@@ -83,10 +83,10 @@ class TextFieldCombo extends Widget {
       this.context.theme.shapes.menuButtonHeight, // height of Button kind='combo-wrap-item'
       null,
       null,
-      Unit.multiply (this.context.theme.shapes.dialogDistanceFromEdge, 2)
+      Unit.multiply(this.context.theme.shapes.dialogDistanceFromEdge, 2)
     );
 
-    this.selectLocation = ComboHelpers.getSelectLocation (
+    this.selectLocation = ComboHelpers.getSelectLocation(
       node,
       this.context.theme.shapes.flyingBalloonTriangleSize,
       this.context.theme.shapes.flyingBalloonPadding
@@ -95,65 +95,65 @@ class TextFieldCombo extends Widget {
     this.showCombo = true;
   }
 
-  onHideCombo () {
+  onHideCombo() {
     this.showCombo = false;
   }
 
-  onChange (e) {
-    this.onChange (e);
+  onChange(e) {
+    this.onChange(e);
     const x = this.props.onChange;
     if (x) {
-      x (e);
+      x(e);
     }
   }
 
-  onFocus () {
+  onFocus() {
     //- console.log ('text-field-combo.onFocus');
-    MouseTrap.bind ('up', this.onKeyCombo, 'keydown');
-    MouseTrap.bind ('down', this.onKeyCombo, 'keydown');
+    MouseTrap.bind('up', this.onKeyCombo, 'keydown');
+    MouseTrap.bind('down', this.onKeyCombo, 'keydown');
     this.focus = true;
   }
 
-  onBlur () {
+  onBlur() {
     //- console.log ('text-field-combo.onBlur');
-    MouseTrap.unbind ('esc');
-    MouseTrap.unbind ('down');
+    MouseTrap.unbind('esc');
+    MouseTrap.unbind('down');
     this.focus = false;
   }
 
-  onMouseUp () {
-    if (Bool.isTrue (this.props.readonly)) {
-      this.onShowCombo ();
+  onMouseUp() {
+    if (Bool.isTrue(this.props.readonly)) {
+      this.onShowCombo();
     }
   }
 
-  onKeyCombo (e) {
-    e.preventDefault ();
-    this.onShowCombo ();
+  onKeyCombo(e) {
+    e.preventDefault();
+    this.onShowCombo();
   }
 
-  setText (item) {
+  setText(item) {
     const x = this.props.onSetText;
     if (x) {
-      x (item.text);
+      x(item.text);
     }
   }
 
-  getItem (item) {
+  getItem(item) {
     if (typeof item === 'string') {
       const active = this.props.defaultValue === item;
       if (this.props.menuType === 'wrap') {
         return {
           text: item,
-          active: Bool.toString (active),
-          action: x => this.setText (x),
+          active: Bool.toString(active),
+          action: x => this.setText(x),
         };
       } else {
         return {
           text: item,
           glyph: active ? 'check' : 'none',
-          active: Bool.toString (active),
-          action: x => this.setText (x),
+          active: Bool.toString(active),
+          action: x => this.setText(x),
         };
       }
     } else {
@@ -163,15 +163,15 @@ class TextFieldCombo extends Widget {
           text: item.text,
           glyph: item.glyph,
           color: item.color,
-          active: Bool.toString (active),
-          action: x => this.setText (x),
+          active: Bool.toString(active),
+          action: x => this.setText(x),
         };
       } else {
         return {
           text: item.text,
           glyph: active ? 'check' : 'none',
-          active: Bool.toString (active),
-          action: x => this.setText (x),
+          active: Bool.toString(active),
+          action: x => this.setText(x),
         };
       }
     }
@@ -179,14 +179,14 @@ class TextFieldCombo extends Widget {
 
   /******************************************************************************/
 
-  renderTextField () {
+  renderTextField() {
     const autoReadonly =
       !this.focus &&
       this.props.selectedValue &&
       this.props.selectedValue !== '';
     const displayValue = autoReadonly ? this.props.selectedValue : null;
-    const visibleReadonly = Bool.isTrue (this.props.readonly)
-      ? Bool.isTrue (this.props.readonly)
+    const visibleReadonly = Bool.isTrue(this.props.readonly)
+      ? Bool.isTrue(this.props.readonly)
       : autoReadonly;
 
     const s = this.props.shape ? this.props.shape : 'smooth';
@@ -213,7 +213,7 @@ class TextFieldCombo extends Widget {
       width: this.props.width,
       grow: this.props.width ? null : '1',
       rows: this.props.rows,
-      readonly: Bool.toString (visibleReadonly),
+      readonly: Bool.toString(visibleReadonly),
       disabled: this.props.disabled,
       selectAllOnFocus: this.props.selectAllOnFocus,
       defaultFocus: this.props.defaultFocus,
@@ -236,7 +236,7 @@ class TextFieldCombo extends Widget {
     );
   }
 
-  renderButton () {
+  renderButton() {
     const shape = this.props.shape;
     let glyph = this.showCombo ? 'solid/caret-up' : 'solid/caret-down';
     if (this.props.comboGlyph) {
@@ -263,10 +263,10 @@ class TextFieldCombo extends Widget {
     );
   }
 
-  renderComboCombo (list) {
+  renderComboCombo(list) {
     const x = [];
     for (var item of list) {
-      x.push (this.getItem (item));
+      x.push(this.getItem(item));
     }
     return (
       <Combo
@@ -290,7 +290,7 @@ class TextFieldCombo extends Widget {
     );
   }
 
-  renderComboSelect (list) {
+  renderComboSelect(list) {
     const x = [];
     let index = 0;
     let defaultIndex = null;
@@ -299,9 +299,9 @@ class TextFieldCombo extends Widget {
         if (this.props.defaultValue === item) {
           defaultIndex = index;
         }
-        x.push ({
+        x.push({
           text: item,
-          action: x => this.setText (x),
+          action: x => this.setText(x),
         });
         index++;
       }
@@ -310,9 +310,9 @@ class TextFieldCombo extends Widget {
         if (this.props.defaultValue === item.text) {
           defaultIndex = index;
         }
-        x.push ({
+        x.push({
           text: item.text,
-          action: x => this.setText (x),
+          action: x => this.setText(x),
         });
         index++;
       }
@@ -334,35 +334,35 @@ class TextFieldCombo extends Widget {
     );
   }
 
-  renderCombo () {
+  renderCombo() {
     const list = this.props.list;
     if (list && this.showCombo) {
       if (this.props.menuType === 'combo' || this.props.menuType === 'wrap') {
-        return this.renderComboCombo (list);
+        return this.renderComboCombo(list);
       } else {
-        return this.renderComboSelect (list);
+        return this.renderComboSelect(list);
       }
     } else {
       return null;
     }
   }
 
-  render () {
-    if (Bool.isFalse (this.props.show)) {
+  render() {
+    if (Bool.isFalse(this.props.show)) {
       return null;
     }
 
     const boxClass = this.showCombo
       ? this.styles.classNames.shadowBox
       : this.focus
-          ? this.styles.classNames.focusedBox
-          : this.styles.classNames.box;
+        ? this.styles.classNames.focusedBox
+        : this.styles.classNames.box;
 
     return (
       <span disabled={this.props.disabled} className={boxClass}>
-        {this.renderTextField ()}
-        {this.renderButton ()}
-        {this.renderCombo ()}
+        {this.renderTextField()}
+        {this.renderButton()}
+        {this.renderCombo()}
       </span>
     );
   }

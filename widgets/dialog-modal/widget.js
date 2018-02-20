@@ -9,39 +9,39 @@ import Container from 'gadgets/container/widget';
 /******************************************************************************/
 
 class DialogModal extends Widget {
-  constructor () {
-    super (...arguments);
+  constructor() {
+    super(...arguments);
 
-    this.onMouseDown = this.onMouseDown.bind (this);
+    this.onMouseDown = this.onMouseDown.bind(this);
   }
 
-  componentWillMount () {
-    MouseTrap.bind ('esc', this.onCloseCombo);
-    MouseTrap.bind ('enter', this.onCloseCombo);
+  componentWillMount() {
+    MouseTrap.bind('esc', this.onCloseCombo);
+    MouseTrap.bind('enter', this.onCloseCombo);
   }
 
-  componentWillUnmount () {
-    MouseTrap.unbind ('esc');
-    MouseTrap.unbind ('enter');
+  componentWillUnmount() {
+    MouseTrap.unbind('esc');
+    MouseTrap.unbind('enter');
   }
 
-  onCloseCombo () {
+  onCloseCombo() {
     const close = this.props.close;
     if (close) {
-      close ();
+      close();
     }
   }
 
-  onMouseDown (e) {
-    const node = ReactDOM.findDOMNode (this);
-    const rect = node.children[0].getBoundingClientRect ();
-    if (!RectHelpers.isInside (rect, e.clientX, e.clientY)) {
+  onMouseDown(e) {
+    const node = ReactDOM.findDOMNode(this);
+    const rect = node.children[0].getBoundingClientRect();
+    if (!RectHelpers.isInside(rect, e.clientX, e.clientY)) {
       // If the mouse is outside the menu combo, close it.
-      this.onCloseCombo ();
+      this.onCloseCombo();
     }
   }
 
-  render () {
+  render() {
     const fullScreenClass = this.styles.classNames.fullScreen;
 
     if (

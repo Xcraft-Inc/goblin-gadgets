@@ -5,12 +5,12 @@ import * as Bool from 'gadgets/boolean-helpers';
 /******************************************************************************/
 
 class Container extends Widget {
-  constructor () {
-    super (...arguments);
+  constructor() {
+    super(...arguments);
     this.panelBottoms = [];
   }
 
-  static get wiring () {
+  static get wiring() {
     return {
       id: 'id',
       kind: 'kind',
@@ -19,11 +19,11 @@ class Container extends Widget {
     };
   }
 
-  setKind (kind) {
-    this.do ('kind', {kind});
+  setKind(kind) {
+    this.do('kind', {kind});
   }
 
-  componentWillMount () {
+  componentWillMount() {
     const dragController = this.props.dragController;
     const dragOwnerId = this.props.dragOwnerId;
     let count = 0;
@@ -31,109 +31,109 @@ class Container extends Widget {
     count += dragOwnerId ? 1 : 0;
     if (count !== 0 && count !== 2) {
       // These 2 properties must exist all together, or none !
-      console.error (
+      console.error(
         'Container has invalid properties:' +
           ` dragController=${dragController} dragOwnerId=${dragOwnerId}`
       );
     }
     if (this.props.navigationFor) {
-      this.initNavigation ();
+      this.initNavigation();
     }
   }
 
-  componentDidMount () {
-    super.componentDidMount ();
+  componentDidMount() {
+    super.componentDidMount();
 
     if (this.props.navigationFor) {
-      const panelElem = document.querySelectorAll (
+      const panelElem = document.querySelectorAll(
         `[data-navigation-name="${this.props.navigationFor}"]`
       )[0];
       if (panelElem) {
-        this.computePanelBottoms (panelElem);
-        panelElem.addEventListener ('scroll', ::this.handleScroll, true);
+        this.computePanelBottoms(panelElem);
+        panelElem.addEventListener('scroll', ::this.handleScroll, true);
       }
     }
     if (this.props.dragController) {
       if (!window.document.dragControllers) {
         window.document.dragControllers = [];
       }
-      window.document.dragControllers.push (this);
+      window.document.dragControllers.push(this);
     }
     if (this.props.dragParentId) {
       if (!window.document.dragParentControllers) {
         window.document.dragParentControllers = [];
       }
-      window.document.dragParentControllers.push (this);
+      window.document.dragParentControllers.push(this);
     }
     if (this.props.kind === 'flying-dialog' || this.props.kind === 'floating') {
       if (!window.document.flyingDialogs) {
         window.document.flyingDialogs = [];
       }
-      window.document.flyingDialogs.push (this);
+      window.document.flyingDialogs.push(this);
     }
     if (this.props.viewId) {
       if (!window.document.viewIds) {
         window.document.viewIds = [];
       }
-      window.document.viewIds.push (this);
+      window.document.viewIds.push(this);
     }
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     if (this.props.navigationFor) {
-      const panelElem = document.querySelectorAll (
+      const panelElem = document.querySelectorAll(
         `[data-navigation-name="${this.props.navigationFor}"]`
       )[0];
       if (panelElem) {
-        panelElem.removeEventListener ('scroll', this.handleScroll, true);
+        panelElem.removeEventListener('scroll', this.handleScroll, true);
       }
     }
     if (this.props.dragController && window.document.dragControllers) {
-      const index = window.document.dragControllers.indexOf (this);
+      const index = window.document.dragControllers.indexOf(this);
       if (index !== -1) {
-        window.document.dragControllers.splice (index, 1);
+        window.document.dragControllers.splice(index, 1);
       }
     }
     if (this.props.dragParentId && window.document.dragParentControllers) {
-      const index = window.document.dragParentControllers.indexOf (this);
+      const index = window.document.dragParentControllers.indexOf(this);
       if (index !== -1) {
-        window.document.dragParentControllers.splice (index, 1);
+        window.document.dragParentControllers.splice(index, 1);
       }
     }
     if (
       (this.props.kind === 'flying-dialog' || this.props.kind === 'floating') &&
       window.document.flyingDialogs
     ) {
-      const index = window.document.flyingDialogs.indexOf (this);
+      const index = window.document.flyingDialogs.indexOf(this);
       if (index !== -1) {
-        window.document.flyingDialogs.splice (index, 1);
+        window.document.flyingDialogs.splice(index, 1);
       }
     }
     if (this.props.viewId) {
-      const index = window.document.viewIds.indexOf (this);
+      const index = window.document.viewIds.indexOf(this);
       if (index !== -1) {
-        window.document.viewIds.splice (index, 1);
+        window.document.viewIds.splice(index, 1);
       }
     }
   }
 
   // Compute all cumulative bottom positions of panels.
-  computePanelBottoms (panelElem) {
+  computePanelBottoms(panelElem) {
     this.panelBottoms = [];
-    const children = [].slice.call (panelElem.children);
+    const children = [].slice.call(panelElem.children);
     var first = -1;
-    children.forEach (c => {
+    children.forEach(c => {
       if (first === -1) {
         first = c.offsetTop;
       } else {
-        this.panelBottoms.push (c.offsetTop - first - c.offsetHeight / 2);
+        this.panelBottoms.push(c.offsetTop - first - c.offsetHeight / 2);
       }
     });
-    this.panelBottoms.push (1000000);
+    this.panelBottoms.push(1000000);
   }
 
   // Return the index of the top panel, according to scroll position.
-  getPanelIndex (scrollTop, scrollMax) {
+  getPanelIndex(scrollTop, scrollMax) {
     if (scrollTop >= scrollMax - 4) {
       // 4 = chouia for mouse wheel
       // If scroller is on bottom, return the last index.
@@ -148,28 +148,28 @@ class Container extends Widget {
     }
   }
 
-  setNavigation (index) {
+  setNavigation(index) {
     // FIXME: what's the purpose of this? It's not used...
-    const children = React.Children.map (this.props.children, (child, i) => {
+    const children = React.Children.map(this.props.children, (child, i) => {
       const active = {
-        active: Bool.toString (i === index),
+        active: Bool.toString(i === index),
       };
-      return React.cloneElement (child, active);
+      return React.cloneElement(child, active);
     });
   }
 
-  initNavigation () {
-    this.setNavigation (0);
+  initNavigation() {
+    this.setNavigation(0);
   }
 
-  handleScroll (e) {
+  handleScroll(e) {
     const max = e.target.scrollHeight - e.target.offsetHeight;
-    const index = this.getPanelIndex (e.target.scrollTop, max);
-    this.setNavigation (index);
+    const index = this.getPanelIndex(e.target.scrollTop, max);
+    this.setNavigation(index);
   }
 
-  renderBusy () {
-    if (Bool.isTrue (this.props.busy)) {
+  renderBusy() {
+    if (Bool.isTrue(this.props.busy)) {
       const busyBoxClass = this.styles.classNames.busyBox;
       const busyGlyphClass = this.styles.classNames.busyGlyph;
       return (
@@ -184,14 +184,14 @@ class Container extends Widget {
     }
   }
 
-  render () {
+  render() {
     const {disabled, kind, anchor, show, index} = this.props;
     const navName = this.props.navigation - name;
 
     const boxClass = this.styles.classNames.box;
     const triangleClass = this.styles.classNames.triangle;
 
-    if (Bool.isFalse (show)) {
+    if (Bool.isFalse(show)) {
       return null;
     } else if (
       kind === 'flying-combo' ||
@@ -215,7 +215,7 @@ class Container extends Widget {
           data-navigation-name={navName || 'none'}
         >
           {this.props.children}
-          {this.renderBusy ()}
+          {this.renderBusy()}
         </div>
       );
     }

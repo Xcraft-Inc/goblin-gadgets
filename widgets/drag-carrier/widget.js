@@ -8,7 +8,7 @@ import Label from 'gadgets/label/widget';
 
 /******************************************************************************/
 
-function getVRect (rect, top, bottom) {
+function getVRect(rect, top, bottom) {
   return {
     left: rect.left,
     right: rect.right,
@@ -19,7 +19,7 @@ function getVRect (rect, top, bottom) {
   };
 }
 
-function getHRect (rect, left, right) {
+function getHRect(rect, left, right) {
   return {
     left: left,
     right: right,
@@ -30,7 +30,7 @@ function getHRect (rect, left, right) {
   };
 }
 
-function isInside (rect, x, y) {
+function isInside(rect, x, y) {
   if (rect && rect.left < rect.right && rect.top < rect.bottom) {
     return (
       x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom
@@ -40,7 +40,7 @@ function isInside (rect, x, y) {
   }
 }
 
-function subBottomMargin (rect, bm) {
+function subBottomMargin(rect, bm) {
   return {
     left: rect.left,
     right: rect.right,
@@ -51,28 +51,28 @@ function subBottomMargin (rect, bm) {
   };
 }
 
-function getBoundingRect (node) {
-  const rect = node.getBoundingClientRect ();
+function getBoundingRect(node) {
+  const rect = node.getBoundingClientRect();
   if (node.dataset.verticalSpacing) {
-    const vs = Unit.parse (node.dataset.verticalSpacing).value;
-    return subBottomMargin (rect, vs);
+    const vs = Unit.parse(node.dataset.verticalSpacing).value;
+    return subBottomMargin(rect, vs);
   } else {
     return rect;
   }
 }
 
-function clipDot (p, box) {
-  p.x = Math.max (p.x, box.left);
-  p.x = Math.min (p.x, box.right);
-  p.y = Math.max (p.y, box.top);
-  p.y = Math.min (p.y, box.bottom);
+function clipDot(p, box) {
+  p.x = Math.max(p.x, box.left);
+  p.x = Math.min(p.x, box.right);
+  p.y = Math.max(p.y, box.top);
+  p.y = Math.min(p.y, box.bottom);
   return p;
 }
 
-function clip (rect, box) {
+function clip(rect, box) {
   if (rect && box) {
-    const tl = clipDot ({x: rect.left, y: rect.top}, box);
-    const br = clipDot ({x: rect.right, y: rect.bottom}, box);
+    const tl = clipDot({x: rect.left, y: rect.top}, box);
+    const br = clipDot({x: rect.right, y: rect.bottom}, box);
     return {
       left: tl.x,
       right: br.x,
@@ -88,8 +88,8 @@ function clip (rect, box) {
 /******************************************************************************/
 
 class DragCarrier extends Widget {
-  constructor () {
-    super (...arguments);
+  constructor() {
+    super(...arguments);
     this.state = {
       x: 0,
       y: 0,
@@ -105,12 +105,12 @@ class DragCarrier extends Widget {
     this.lastDragStarted = false;
     this.selectedIds = [];
 
-    this.onMouseMove = this.onMouseMove.bind (this);
-    this.onMouseUp = this.onMouseUp.bind (this);
+    this.onMouseMove = this.onMouseMove.bind(this);
+    this.onMouseUp = this.onMouseUp.bind(this);
   }
 
-  componentDidMount () {
-    super.componentDidMount ();
+  componentDidMount() {
+    super.componentDidMount();
 
     if (
       window.document.flyingDialogs &&
@@ -118,79 +118,80 @@ class DragCarrier extends Widget {
     ) {
       const flyingDialog =
         window.document.flyingDialogs[window.document.flyingDialogs.length - 1];
-      const node = ReactDOM.findDOMNode (flyingDialog);
-      this.flyingDialogRect = node.getBoundingClientRect ();
+      const node = ReactDOM.findDOMNode(flyingDialog);
+      this.flyingDialogRect = node.getBoundingClientRect();
     }
   }
 
-  get x () {
+  get x() {
     return this.state.x;
   }
 
-  set x (value) {
-    this.setState ({
+  set x(value) {
+    this.setState({
       x: value,
     });
   }
 
-  get y () {
+  get y() {
     return this.state.y;
   }
 
-  set y (value) {
-    this.setState ({
+  set y(value) {
+    this.setState({
       y: value,
     });
   }
 
-  get dest () {
+  get dest() {
     return this.state.dest;
   }
 
-  set dest (value) {
-    this.setState ({
+  set dest(value) {
+    this.setState({
       dest: value,
     });
   }
 
-  get toDelete () {
+  get toDelete() {
     return this.state.toDelete;
   }
 
-  set toDelete (value) {
-    this.setState ({
+  set toDelete(value) {
+    this.setState({
       toDelete: value,
     });
   }
 
-  isDragStarted () {
+  isDragStarted() {
     return this.moveCount > 2;
   }
 
-  getHalfThickness () {
-    return Unit.parse (Unit.multiply (this.props.thickness, 0.5)).value;
+  getHalfThickness() {
+    return Unit.parse(Unit.multiply(this.props.thickness, 0.5)).value;
   }
 
-  getOverSpacing () {
+  getOverSpacing() {
     if (this.props.overSpacing) {
-      return Unit.parse (Unit.multiply (this.props.overSpacing, 1)).value;
+      return Unit.parse(Unit.multiply(this.props.overSpacing, 1)).value;
     } else {
       return 0;
     }
   }
 
-  findV (container, node, y, parentRect) {
-    const thickness = this.getHalfThickness ();
-    const overSpacing = this.getOverSpacing () / 2;
+  findV(container, node, y, parentRect) {
+    const thickness = this.getHalfThickness();
+    const overSpacing = this.getOverSpacing() / 2;
     if (container.props.dragMode === 'all') {
-      const rect = getBoundingRect (node);
+      const rect = getBoundingRect(node);
       return {
         id: null,
         ownerId: container.props.dragOwnerId,
         ownerKind: container.props.dragSource,
-        rect: rect.height === 0
-          ? getVRect (rect, rect.top, rect.top + thickness * 2)
-          : rect,
+        rect:
+          rect.height === 0
+            ? getVRect(rect, rect.top, rect.top + thickness * 2)
+            : rect,
         opacity: 0.5,
         radius: '0px',
         parentRect: parentRect,
@@ -199,19 +200,19 @@ class DragCarrier extends Widget {
     }
     if (node.children.length === 0) {
       // is in top of empty container ?
-      const rect = getBoundingRect (node);
+      const rect = getBoundingRect(node);
       return {
         id: null,
         ownerId: container.props.dragOwnerId,
         ownerKind: container.props.dragSource,
-        rect: getVRect (rect, rect.top - thickness, rect.top + thickness),
+        rect: getVRect(rect, rect.top - thickness, rect.top + thickness),
         parentRect: parentRect,
         index: 0,
       };
     }
     for (var i = 0, len = node.children.length; i < len; i++) {
       const t = node.children[i];
-      const rect = getBoundingRect (t);
+      const rect = getBoundingRect(t);
       const oy = rect.top + rect.height / 2;
       if (y < oy) {
         // is upper middle ?
@@ -219,7 +220,7 @@ class DragCarrier extends Widget {
         if (i > 0) {
           // not top first element ?
           const lt = node.children[i - 1];
-          const lr = getBoundingRect (lt);
+          const lr = getBoundingRect(lt);
           py = (lr.bottom + rect.top) / 2;
         }
         py -= overSpacing;
@@ -229,7 +230,7 @@ class DragCarrier extends Widget {
             ? t.dataset.ownerId
             : container.props.dragOwnerId,
           ownerKind: container.props.dragSource,
-          rect: getVRect (rect, py - thickness, py + thickness),
+          rect: getVRect(rect, py - thickness, py + thickness),
           parentRect: parentRect,
           index: i,
         };
@@ -237,12 +238,12 @@ class DragCarrier extends Widget {
     }
     // At the end of container (after the last element).
     const last = node.children[node.children.length - 1];
-    const rect = last.getBoundingClientRect ();
+    const rect = last.getBoundingClientRect();
     return {
       id: 'after-last',
       ownerId: container.props.dragOwnerId,
       ownerKind: container.props.dragSource,
-      rect: getVRect (
+      rect: getVRect(
         rect,
         rect.bottom - overSpacing - thickness,
         rect.bottom - overSpacing + thickness
@@ -252,18 +253,19 @@ class DragCarrier extends Widget {
     };
   }
 
-  findH (container, node, x, parentRect) {
-    const thickness = this.getHalfThickness ();
-    const overSpacing = this.getOverSpacing () / 2;
+  findH(container, node, x, parentRect) {
+    const thickness = this.getHalfThickness();
+    const overSpacing = this.getOverSpacing() / 2;
     if (container.props.dragMode === 'all') {
-      const rect = getBoundingRect (node);
+      const rect = getBoundingRect(node);
       return {
         id: null,
         ownerId: container.props.dragOwnerId,
         ownerKind: container.props.dragSource,
-        rect: rect.width === 0
-          ? getHRect (rect, rect.left, rect.left + thickness * 2)
-          : rect,
+        rect:
+          rect.width === 0
+            ? getHRect(rect, rect.left, rect.left + thickness * 2)
+            : rect,
         opacity: 0.5,
         radius: '0px',
         parentRect: parentRect,
@@ -272,19 +274,19 @@ class DragCarrier extends Widget {
     }
     if (node.children.length === 0) {
       // is in top of empty container ?
-      const rect = getBoundingRect (node);
+      const rect = getBoundingRect(node);
       return {
         id: null,
         ownerId: container.props.dragOwnerId,
         ownerKind: container.props.dragSource,
-        rect: getHRect (rect, rect.left - thickness, rect.left + thickness),
+        rect: getHRect(rect, rect.left - thickness, rect.left + thickness),
         parentRect: parentRect,
         index: 0,
       };
     }
     for (var i = 0, len = node.children.length; i < len; i++) {
       const t = node.children[i];
-      const rect = getBoundingRect (t);
+      const rect = getBoundingRect(t);
       const ox = rect.left + rect.width / 2;
       if (x < ox) {
         // is upper middle ?
@@ -292,7 +294,7 @@ class DragCarrier extends Widget {
         if (i > 0) {
           // not top first element ?
           const lt = node.children[i - 1];
-          const lr = getBoundingRect (lt);
+          const lr = getBoundingRect(lt);
           px = (lr.right + rect.left) / 2;
         }
         px -= overSpacing;
@@ -302,7 +304,7 @@ class DragCarrier extends Widget {
             ? t.dataset.ownerId
             : container.props.dragOwnerId,
           ownerKind: container.props.dragSource,
-          rect: getHRect (rect, px - thickness, px + thickness),
+          rect: getHRect(rect, px - thickness, px + thickness),
           parentRect: parentRect,
           index: i,
         };
@@ -310,12 +312,12 @@ class DragCarrier extends Widget {
     }
     // At the end of container (after the last element).
     const last = node.children[node.children.length - 1];
-    const rect = last.getBoundingClientRect ();
+    const rect = last.getBoundingClientRect();
     return {
       id: 'after-last',
       ownerId: container.props.dragOwnerId,
       ownerKind: container.props.dragSource,
-      rect: getHRect (
+      rect: getHRect(
         rect,
         rect.right - overSpacing - thickness,
         rect.right - overSpacing + thickness
@@ -325,7 +327,7 @@ class DragCarrier extends Widget {
     };
   }
 
-  findParentId (id) {
+  findParentId(id) {
     if (id && window.document.dragParentControllers) {
       for (var c of window.document.dragParentControllers) {
         if (c.props.dragParentId === id) {
@@ -336,17 +338,17 @@ class DragCarrier extends Widget {
     return null;
   }
 
-  getParentRect (container) {
+  getParentRect(container) {
     const dragParentId = container.props.dragOwnerId;
-    const parent = this.findParentId (dragParentId);
+    const parent = this.findParentId(dragParentId);
     if (parent) {
-      const parentNode = ReactDOM.findDOMNode (parent);
-      return parentNode.getBoundingClientRect ();
+      const parentNode = ReactDOM.findDOMNode(parent);
+      return parentNode.getBoundingClientRect();
     }
     return null;
   }
 
-  findViewId (id) {
+  findViewId(id) {
     if (id && window.document.viewIds) {
       for (var c of window.document.viewIds) {
         if (c.props.viewId === id) {
@@ -357,42 +359,42 @@ class DragCarrier extends Widget {
     return null;
   }
 
-  getViewParentRect (container) {
+  getViewParentRect(container) {
     const dragParentId = container.props.viewParentId;
-    const parent = this.findViewId (dragParentId);
+    const parent = this.findViewId(dragParentId);
     if (parent) {
-      let parentNode = ReactDOM.findDOMNode (parent);
+      let parentNode = ReactDOM.findDOMNode(parent);
       if (parent.props.backToClass) {
         // Moves back to a parent whose class begins with a given name.
         // Typically, "firstPane" finds the name "firstPane_1pucuno".
         // See note [DispatchBacklogDetail.1]
         while (
-          !parentNode.classList[0].startsWith (parent.props.backToClass + '_')
+          !parentNode.classList[0].startsWith(parent.props.backToClass + '_')
         ) {
           parentNode = parentNode.parentNode;
         }
       }
-      return parentNode.getBoundingClientRect ();
+      return parentNode.getBoundingClientRect();
     }
     return null;
   }
 
-  find (x, y) {
-    const dragCab = this.searchDragCab (this.props.dragOwnerId);
-    const dragController = dragCab.read ('dragController');
+  find(x, y) {
+    const dragCab = this.searchDragCab(this.props.dragOwnerId);
+    const dragController = dragCab.read('dragController');
     for (var container of window.document.dragControllers) {
       const dc = container.props.dragController;
       if (dc === dragController) {
-        const node = ReactDOM.findDOMNode (container);
-        const rect = node.getBoundingClientRect ();
-        const vpr = this.getViewParentRect (container);
-        const pr = this.getParentRect (container);
-        const parentRect = clip (vpr, pr);
-        if (isInside (parentRect, x, y) && isInside (rect, x, y)) {
+        const node = ReactDOM.findDOMNode(container);
+        const rect = node.getBoundingClientRect();
+        const vpr = this.getViewParentRect(container);
+        const pr = this.getParentRect(container);
+        const parentRect = clip(vpr, pr);
+        if (isInside(parentRect, x, y) && isInside(rect, x, y)) {
           if (this.props.direction === 'horizontal') {
-            return this.findH (container, node, x, parentRect);
+            return this.findH(container, node, x, parentRect);
           } else {
-            return this.findV (container, node, y, parentRect);
+            return this.findV(container, node, y, parentRect);
           }
         }
       }
@@ -400,11 +402,11 @@ class DragCarrier extends Widget {
     return null;
   }
 
-  findNodeOrigin (container, node, id) {
+  findNodeOrigin(container, node, id) {
     for (var i = 0, len = node.children.length; i < len; i++) {
       const t = node.children[i];
       if (t.dataset.id === id) {
-        let rect = getBoundingRect (t);
+        let rect = getBoundingRect(t);
         //? if (this.props.direction === 'horizontal') {
         //?   rect = getHRect (
         //?     rect,
@@ -418,7 +420,7 @@ class DragCarrier extends Widget {
         //?     rect.bottom - this.props.overSpacing
         //?   );
         //? }
-        const parentRect = this.getViewParentRect (container);
+        const parentRect = this.getViewParentRect(container);
         return {
           container: container,
           ticket: t,
@@ -434,12 +436,12 @@ class DragCarrier extends Widget {
   }
 
   // Return the description of origin, whith is the full rectangle of item origin.
-  findOrigin () {
+  findOrigin() {
     for (var container of window.document.dragControllers) {
       const dc = container.props.dragController;
       if (dc === this.props.dragController) {
-        const node = ReactDOM.findDOMNode (container);
-        const rect = this.findNodeOrigin (
+        const node = ReactDOM.findDOMNode(container);
+        const rect = this.findNodeOrigin(
           container,
           node,
           this.props.dragOwnerId
@@ -452,7 +454,7 @@ class DragCarrier extends Widget {
     return null;
   }
 
-  searchDragCab (id) {
+  searchDragCab(id) {
     for (let dragCab of window.document.dragCabs) {
       if (dragCab.props.dragOwnerId === id) {
         return dragCab;
@@ -461,7 +463,7 @@ class DragCarrier extends Widget {
     return null;
   }
 
-  searchChildren (id) {
+  searchChildren(id) {
     const container = this.rectOrigin.container;
     if (
       container.props.children.props &&
@@ -478,40 +480,40 @@ class DragCarrier extends Widget {
     return null;
   }
 
-  selectOne (id, value) {
-    const dragCab = this.searchDragCab (id);
+  selectOne(id, value) {
+    const dragCab = this.searchDragCab(id);
     dragCab.dragStarting = value;
     if (value) {
-      this.selectedIds.push (id);
+      this.selectedIds.push(id);
     }
   }
 
-  isSelected (item) {
+  isSelected(item) {
     return (
       item.props.children.props &&
-      Bool.isTrue (item.props.children.props.selected)
+      Bool.isTrue(item.props.children.props.selected)
     );
   }
 
-  selectMulti (value) {
+  selectMulti(value) {
     if (this.rectOrigin) {
-      const origin = this.searchChildren (this.rectOrigin.id);
-      if (this.isSelected (origin)) {
+      const origin = this.searchChildren(this.rectOrigin.id);
+      if (this.isSelected(origin)) {
         // If pointed item is selected, drag all selected items.
         const container = this.rectOrigin.container;
         for (let child of container.props.children) {
-          if (Bool.isTrue (child.props.children.props.selected)) {
-            this.selectOne (child.props.dragOwnerId, value);
+          if (Bool.isTrue(child.props.children.props.selected)) {
+            this.selectOne(child.props.dragOwnerId, value);
           }
         }
       } else {
         // If pointed item is not selected, drag only pointed item.
-        this.selectOne (origin.props.dragOwnerId, value);
+        this.selectOne(origin.props.dragOwnerId, value);
       }
     }
   }
 
-  onMouseMove (e) {
+  onMouseMove(e) {
     let x = e.clientX;
     let y = e.clientY;
     if (!x && e.touches.length > 0) {
@@ -525,12 +527,12 @@ class DragCarrier extends Widget {
       // first move ?
       this.startX = x;
       this.startY = y;
-      const dragCab = this.searchDragCab (this.props.dragOwnerId);
-      const node = ReactDOM.findDOMNode (dragCab);
-      const rect = node.getBoundingClientRect ();
+      const dragCab = this.searchDragCab(this.props.dragOwnerId);
+      const node = ReactDOM.findDOMNode(dragCab);
+      const rect = node.getBoundingClientRect();
       this.offsetX = x - rect.left;
       this.offsetY = y - rect.top;
-      this.rectOrigin = this.findOrigin ();
+      this.rectOrigin = this.findOrigin();
     }
     this.moveCount++;
 
@@ -543,7 +545,7 @@ class DragCarrier extends Widget {
       this.y = y - this.offsetY;
     }
 
-    const dest = this.find (x, y);
+    const dest = this.find(x, y);
     if (
       dest &&
       this.rectOrigin &&
@@ -557,40 +559,40 @@ class DragCarrier extends Widget {
       this.toDelete = false;
     } else {
       this.dest = dest;
-      this.toDelete = Bool.isTrue (this.props.dragToDelete) && !dest;
+      this.toDelete = Bool.isTrue(this.props.dragToDelete) && !dest;
     }
 
-    if (!this.lastDragStarted && this.isDragStarted ()) {
+    if (!this.lastDragStarted && this.isDragStarted()) {
       this.lastDragStarted = true;
-      this.selectMulti (true);
+      this.selectMulti(true);
     }
   }
 
-  onMouseUp (e) {
+  onMouseUp(e) {
     const dragEnding = this.props.dragEnding;
     if (dragEnding) {
-      dragEnding (e, this.isDragStarted ());
-      if (this.isDragStarted ()) {
-        this.selectMulti (false);
+      dragEnding(e, this.isDragStarted());
+      if (this.isDragStarted()) {
+        this.selectMulti(false);
         const doDragEnding = this.props.doDragEnding;
         if (doDragEnding) {
           const dest = this.dest;
           if (dest) {
-            doDragEnding (
+            doDragEnding(
               this.selectedIds,
               dest.id,
               dest.ownerId,
               dest.ownerKind
             );
           } else if (this.toDelete) {
-            doDragEnding (this.selectedIds, null, null, null);
+            doDragEnding(this.selectedIds, null, null, null);
           }
         }
       }
     }
   }
 
-  renderTooMany (n, index) {
+  renderTooMany(n, index) {
     const text = `Et encore ${n} autres...`;
     return (
       <Container key={index} kind="drag-too-many">
@@ -599,29 +601,29 @@ class DragCarrier extends Widget {
     );
   }
 
-  renderOneComponentToDrag (id, index) {
-    const dragCab = this.searchDragCab (id);
+  renderOneComponentToDrag(id, index) {
+    const dragCab = this.searchDragCab(id);
     if (dragCab) {
-      return dragCab.renderForDrag (true, index);
+      return dragCab.renderForDrag(true, index);
     } else {
       return null;
     }
   }
 
-  renderComponentToDrag () {
+  renderComponentToDrag() {
     const result = [];
-    if (this.isDragStarted ()) {
+    if (this.isDragStarted()) {
       const n = this.selectedIds.length;
       for (let i = 0; i < n; i++) {
         const id = this.selectedIds[i];
-        const r = this.renderOneComponentToDrag (id, i);
+        const r = this.renderOneComponentToDrag(id, i);
         if (r) {
           const rest = n - i;
           if (i > 5 && rest > 1) {
-            result.push (this.renderTooMany (rest, i));
+            result.push(this.renderTooMany(rest, i));
             break;
           }
-          result.push (r);
+          result.push(r);
         }
       }
     }
@@ -629,7 +631,7 @@ class DragCarrier extends Widget {
   }
 
   // Draw dragging components. With toDelete mode, the background is a red circle.
-  renderComponentsToDrag (ox, oy) {
+  renderComponentsToDrag(ox, oy) {
     const padding = this.toDelete ? 10 : 0;
     const border = 2;
 
@@ -650,16 +652,12 @@ class DragCarrier extends Widget {
       userSelect: 'none',
     };
 
-    return (
-      <div style={draggedStyle}>
-        {this.renderComponentToDrag ()}
-      </div>
-    );
+    return <div style={draggedStyle}>{this.renderComponentToDrag()}</div>;
   }
 
   // Drag a oblique bar with toDelete mode, to complete the red circle. Thus, one obtains
   // (from the back to the front) a red circle, the dragging components and an oblique bar.
-  renderToDelete (ox, oy) {
+  renderToDelete(ox, oy) {
     const border = 2;
     const padding = 10;
     const thickness = 2;
@@ -687,7 +685,7 @@ class DragCarrier extends Widget {
     }
   }
 
-  render () {
+  render() {
     const fullScreenClass = this.styles.classNames.fullScreen;
 
     const ox = this.flyingDialogRect ? this.flyingDialogRect.left : 0;
@@ -695,8 +693,8 @@ class DragCarrier extends Widget {
 
     const dest = this.dest;
     let hilitedStyle;
-    if (dest && dest.rect && this.isDragStarted ()) {
-      const rect = clip (dest.rect, dest.parentRect);
+    if (dest && dest.rect && this.isDragStarted()) {
+      const rect = clip(dest.rect, dest.parentRect);
       hilitedStyle = {
         visibility: 'visible',
         position: 'absolute',
@@ -731,8 +729,8 @@ class DragCarrier extends Widget {
         onTouchEnd={this.onMouseUp}
       >
         <div style={hilitedStyle} />
-        {this.renderComponentsToDrag (ox, oy)}
-        {this.renderToDelete (ox, oy)}
+        {this.renderComponentsToDrag(ox, oy)}
+        {this.renderToDelete(ox, oy)}
       </div>
     );
   }

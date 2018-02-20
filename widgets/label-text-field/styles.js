@@ -3,14 +3,14 @@ import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
 
-export default function styles (theme, props) {
+export default function styles(theme, props) {
   let flexGrow = props.grow;
   let flexShrink = null;
   let flexBasis = null;
   let marginRight = null;
-  let opacity = Bool.isFalse (props.visibility) ? 0 : null;
+  let opacity = Bool.isFalse(props.visibility) ? 0 : null;
 
-  const m = Unit.multiply (theme.shapes.containerMargin, 0.5);
+  const m = Unit.multiply(theme.shapes.containerMargin, 0.5);
 
   if (flexGrow) {
     flexShrink = '1';

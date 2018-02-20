@@ -12,8 +12,8 @@ import Calendar from 'gadgets/calendar/widget';
 /******************************************************************************/
 
 class CalendarList extends Form {
-  constructor () {
-    super (...arguments);
+  constructor() {
+    super(...arguments);
 
     this.state = {
       showBase: false,
@@ -21,74 +21,74 @@ class CalendarList extends Form {
       showSub: true,
     };
 
-    this.onShowBase = this.onShowBase.bind (this);
-    this.onShowAdd = this.onShowAdd.bind (this);
-    this.onShowSub = this.onShowSub.bind (this);
-    this.onDateClicked = this.onDateClicked.bind (this);
-    this.onFlushAdd = this.onFlushAdd.bind (this);
+    this.onShowBase = this.onShowBase.bind(this);
+    this.onShowAdd = this.onShowAdd.bind(this);
+    this.onShowSub = this.onShowSub.bind(this);
+    this.onDateClicked = this.onDateClicked.bind(this);
+    this.onFlushAdd = this.onFlushAdd.bind(this);
   }
 
   //#region get/set
-  get showBase () {
+  get showBase() {
     return this.state.showBase;
   }
 
-  set showBase (value) {
-    this.setState ({
+  set showBase(value) {
+    this.setState({
       showBase: value,
     });
   }
 
-  get showAdd () {
+  get showAdd() {
     return this.state.showAdd;
   }
 
-  set showAdd (value) {
-    this.setState ({
+  set showAdd(value) {
+    this.setState({
       showAdd: value,
     });
   }
 
-  get showSub () {
+  get showSub() {
     return this.state.showSub;
   }
 
-  set showSub (value) {
-    this.setState ({
+  set showSub(value) {
+    this.setState({
       showSub: value,
     });
   }
   //#endregion
 
   //#region handlers
-  onShowBase () {
+  onShowBase() {
     this.showBase = !this.showBase;
   }
 
-  onShowAdd () {
+  onShowAdd() {
     this.showAdd = !this.showAdd;
   }
 
-  onShowSub () {
+  onShowSub() {
     this.showSub = !this.showSub;
   }
 
-  onDateClicked (date) {
+  onDateClicked(date) {
     const x = this.props.dateClicked;
     if (x) {
-      x (date);
+      x(date);
     }
   }
 
-  onFlushAdd () {
+  onFlushAdd() {
     const x = this.props.flushAdd;
     if (x) {
-      x ();
+      x();
     }
   }
   //#endregion
 
-  get hasAdd () {
+  get hasAdd() {
     for (const d of this.props.dates) {
       if (d.type === 'add' || d.type === 'sub') {
         return true;
@@ -97,20 +97,20 @@ class CalendarList extends Form {
     return false;
   }
 
-  get listDates () {
+  get listDates() {
     const array = [];
     for (const d of this.props.dates) {
       if (this.showBase && d.type === 'base') {
-        array.push (d.date + 'a'); // '2017-11-25a'
+        array.push(d.date + 'a'); // '2017-11-25a'
       }
       if (this.showAdd && d.type === 'add') {
-        array.push (d.date + 'b'); // '2017-11-25b'
+        array.push(d.date + 'b'); // '2017-11-25b'
       }
       if (this.showSub && d.type === 'sub') {
-        array.push (d.date + 'c'); // '2017-11-25c'
+        array.push(d.date + 'c'); // '2017-11-25c'
       }
     }
-    array.sort (); // sort mixing base/add/sub dates
+    array.sort(); // sort mixing base/add/sub dates
 
     const result = [];
     for (const d of array) {
@@ -122,14 +122,14 @@ class CalendarList extends Form {
       if (lastLetter === 'c') {
         type = 'sub';
       }
-      const date = d.substring (0, d.length - 1); // remove last letter
-      result.push ({type, date});
+      const date = d.substring(0, d.length - 1); // remove last letter
+      result.push({type, date});
     }
     return result;
   }
 
-  renderItem (type, date, index) {
-    const dd = DateConverters.getDisplayed (date, 'dMy,W');
+  renderItem(type, date, index) {
+    const dd = DateConverters.getDisplayed(date, 'dMy,W');
     let glyph = 'solid/check-square';
     if (type === 'add') {
       glyph = 'solid/plus';
@@ -145,21 +145,21 @@ class CalendarList extends Form {
         active="true"
         glyph={glyph}
         text={dd}
-        onClick={() => this.onDateClicked (date)}
+        onClick={() => this.onDateClicked(date)}
       />
     );
   }
 
-  renderItems () {
+  renderItems() {
     const result = [];
     let index = 0;
     for (const date of this.listDates) {
-      result.push (this.renderItem (date.type, date.date, index++));
+      result.push(this.renderItem(date.type, date.date, index++));
     }
     return result;
   }
 
-  renderButtons () {
+  renderButtons() {
     const buttonsClass = this.styles.classNames.buttons;
     return (
       <div className={buttonsClass}>
@@ -197,22 +197,20 @@ class CalendarList extends Form {
           kind="calendar-navigator"
           glyph="solid/trash"
           tooltip="Supprime toutes les exceptions"
-          disabled={!this.hasAdd || Bool.isTrue (this.props.readonly)}
+          disabled={!this.hasAdd || Bool.isTrue(this.props.readonly)}
           onClick={this.onFlushAdd}
         />
       </div>
     );
   }
 
-  render () {
+  render() {
     const boxClass = this.styles.classNames.box;
     const listClass = this.styles.classNames.list;
     return (
       <div className={boxClass}>
-        {this.renderButtons ()}
-        <div className={listClass}>
-          {this.renderItems ()}
-        </div>
+        {this.renderButtons()}
+        <div className={listClass}>{this.renderItems()}</div>
       </div>
     );
   }

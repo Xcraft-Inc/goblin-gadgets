@@ -2,9 +2,9 @@ import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
 
-export default function styles (theme, props) {
+export default function styles(theme, props) {
   const m = theme.shapes.containerMargin;
-  const halfMargin = Unit.multiply (m, 0.5);
+  const halfMargin = Unit.multiply(m, 0.5);
 
   const boxGrow = props.navigator ? '1' : null;
 
@@ -28,7 +28,7 @@ export default function styles (theme, props) {
   };
 
   const headerStyle = {
-    width: Unit.multiply (theme.shapes.calendarButtonWidth, 7),
+    width: Unit.multiply(theme.shapes.calendarButtonWidth, 7),
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -44,7 +44,7 @@ export default function styles (theme, props) {
     textAlign: 'center',
     lineHeight: theme.shapes.calendarButtonHeight,
     color: theme.palette.calendarHeaderText,
-    fontSize: Unit.multiply (
+    fontSize: Unit.multiply(
       theme.shapes.calendarDOWTextSize,
       theme.typo.fontScale
     ),

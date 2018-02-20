@@ -4,28 +4,28 @@ import {Unit} from 'electrum-theme';
 /******************************************************************************/
 
 // Convert string '123px' to int 123.
-function toInt (value) {
+function toInt(value) {
   if (typeof value === 'string') {
-    return parseInt (value.replace (/px/g, ''));
+    return parseInt(value.replace(/px/g, ''));
   } else {
     return value;
   }
 }
 
 // Move to absolute position.
-function moveTo (path, x, y) {
+function moveTo(path, x, y) {
   path += 'M ' + x + ' ' + y + ' ';
   return path;
 }
 
 // Line to relative position.
-function lineTo (path, dx, dy) {
+function lineTo(path, dx, dy) {
   path += 'l ' + dx + ' ' + dy + ' ';
   return path;
 }
 
 // Arc to relative position.
-function arcTo (path, r, cx, cy, sweepFlag) {
+function arcTo(path, r, cx, cy, sweepFlag) {
   // rx ry x-axis-rotation large-arc-flag sweep-flag x y
   // see http://www.w3.org/TR/SVG/paths.html#PathDataEllipticalArcCommands
   path += 'a ' + r + ' ' + r + ' 0 0 ' + sweepFlag + ' ' + cx + ' ' + cy + ' ';
@@ -34,142 +34,143 @@ function arcTo (path, r, cx, cy, sweepFlag) {
 }
 
 // Close path.
-function close (path) {
+function close(path) {
   path += 'z';
   return path;
 }
 
 // Draw _n_n_n_n_n_n_n_n_n_n_n_n_n_
-function horizontalDash (path, r, len, dx) {
-  const step = parseInt (dx / len);
+function horizontalDash(path, r, len, dx) {
+  const step = parseInt(dx / len);
   const over = (dx - len * step) / 2;
-  path = lineTo (path, over + r, 0);
+  path = lineTo(path, over + r, 0);
   let i = 0;
   for (i = 0; i < step - 1; i++) {
-    path = lineTo (path, len - r - r, 0);
-    path = arcTo (path, r, r + r, 0, 0);
+    path = lineTo(path, len - r - r, 0);
+    path = arcTo(path, r, r + r, 0, 0);
   }
-  path = lineTo (path, len - r + over, 0);
+  path = lineTo(path, len - r + over, 0);
   return path;
 }
 
-function getOutlinePath (theme, shape, width, height) {
-  const r = toInt (theme.shapes.ticketCornerRadius);
-  const s = toInt (theme.shapes.ticketLineRadius);
-  const w = toInt (width);
-  const h = toInt (height);
+function getOutlinePath(theme, shape, width, height) {
+  const r = toInt(theme.shapes.ticketCornerRadius);
+  const s = toInt(theme.shapes.ticketLineRadius);
+  const w = toInt(width);
+  const h = toInt(height);
 
   let path = '';
   if (shape === 'last') {
     // Dash line only on bottom.
-    path = moveTo (path, 0, 0);
-    path = lineTo (path, w, 0);
-    path = lineTo (path, 0, h - r);
-    path = arcTo (path, r, -r, r, 0); // bottom-right corner
-    path = horizontalDash (path, -s, -s * 3.5, -(w - r - r));
-    path = arcTo (path, r, -r, -r, 0); // bottom-left corner
-    path = close (path);
+    path = moveTo(path, 0, 0);
+    path = lineTo(path, w, 0);
+    path = lineTo(path, 0, h - r);
+    path = arcTo(path, r, -r, r, 0); // bottom-right corner
+    path = horizontalDash(path, -s, -s * 3.5, -(w - r - r));
+    path = arcTo(path, r, -r, -r, 0); // bottom-left corner
+    path = close(path);
   } else if (shape === 'first') {
     // Dash line only on top.
-    path = moveTo (path, 0, r);
-    path = arcTo (path, r, r, -r, 0); // top-left corner
-    path = horizontalDash (path, s, s * 3.5, w - r - r);
-    path = arcTo (path, r, r, r, 0); // top-right corner
-    path = lineTo (path, 0, h - r);
-    path = lineTo (path, -w, 0);
-    path = close (path);
+    path = moveTo(path, 0, r);
+    path = arcTo(path, r, r, -r, 0); // top-left corner
+    path = horizontalDash(path, s, s * 3.5, w - r - r);
+    path = arcTo(path, r, r, r, 0); // top-right corner
+    path = lineTo(path, 0, h - r);
+    path = lineTo(path, -w, 0);
+    path = close(path);
   } else {
     // Dash line on top and bottom.
-    path = moveTo (path, 0, r);
-    path = arcTo (path, r, r, -r, 0); // top-left corner
-    path = horizontalDash (path, s, s * 3.5, w - r - r);
-    path = arcTo (path, r, r, r, 0); // top-right corner
-    path = lineTo (path, 0, h - r - r);
-    path = arcTo (path, r, -r, r, 0); // bottom-right corner
-    path = horizontalDash (path, -s, -s * 3.5, -(w - r - r));
-    path = arcTo (path, r, -r, -r, 0); // bottom-left corner
-    path = close (path);
+    path = moveTo(path, 0, r);
+    path = arcTo(path, r, r, -r, 0); // top-left corner
+    path = horizontalDash(path, s, s * 3.5, w - r - r);
+    path = arcTo(path, r, r, r, 0); // top-right corner
+    path = lineTo(path, 0, h - r - r);
+    path = arcTo(path, r, -r, r, 0); // bottom-right corner
+    path = horizontalDash(path, -s, -s * 3.5, -(w - r - r));
+    path = arcTo(path, r, -r, -r, 0); // bottom-left corner
+    path = close(path);
   }
   return path;
 }
 
-function getHoverPath (theme, shape, hoverShape, width, height) {
-  const r = toInt (theme.shapes.ticketCornerRadius);
-  const t = toInt (theme.shapes.ticketHoverThickness);
-  const i = toInt (
-    Unit.multiply (Unit.multiply (theme.shapes.ticketCornerRadius, r), 1 / t)
+function getHoverPath(theme, shape, hoverShape, width, height) {
+  const r = toInt(theme.shapes.ticketCornerRadius);
+  const t = toInt(theme.shapes.ticketHoverThickness);
+  const i = toInt(
+    Unit.multiply(Unit.multiply(theme.shapes.ticketCornerRadius, r), 1 / t)
   );
-  const w = toInt (width);
-  const h = toInt (height);
+  const w = toInt(width);
+  const h = toInt(height);
 
   let path = '';
   if (hoverShape === 'first') {
     // n.
     const s = shape === 'first' ? 0 : r;
-    path = moveTo (path, 0, h - s);
-    path = lineTo (path, 0, -(h - s - r));
-    path = arcTo (path, r, r, -r, 0); // top-left external corner
-    path = lineTo (path, w - r - r, 0);
-    path = arcTo (path, r, r, r, 0); // top-right external corner
-    path = lineTo (path, 0, h - s - r);
-    path = lineTo (path, -t, 0);
-    path = lineTo (path, 0, -(h - t - s - r));
-    path = arcTo (path, i, -r, -r, 1); // top-right internal corner
-    path = lineTo (path, -(w - r - r - t - t), 0);
-    path = arcTo (path, i, -r, r, 1); // top-left internal corner
-    path = lineTo (path, 0, h - t - s - r);
-    path = close (path);
+    path = moveTo(path, 0, h - s);
+    path = lineTo(path, 0, -(h - s - r));
+    path = arcTo(path, r, r, -r, 0); // top-left external corner
+    path = lineTo(path, w - r - r, 0);
+    path = arcTo(path, r, r, r, 0); // top-right external corner
+    path = lineTo(path, 0, h - s - r);
+    path = lineTo(path, -t, 0);
+    path = lineTo(path, 0, -(h - t - s - r));
+    path = arcTo(path, i, -r, -r, 1); // top-right internal corner
+    path = lineTo(path, -(w - r - r - t - t), 0);
+    path = arcTo(path, i, -r, r, 1); // top-left internal corner
+    path = lineTo(path, 0, h - t - s - r);
+    path = close(path);
   } else if (hoverShape === 'last') {
     // u.
     const s = shape === 'last' ? 0 : r;
-    path = moveTo (path, 0, s);
-    path = lineTo (path, 0, h - s - r);
-    path = arcTo (path, r, r, r, 1); // bottom-left external corner
-    path = lineTo (path, w - r - r, 0);
-    path = arcTo (path, r, r, -r, 1); // bottom-right external corner
-    path = lineTo (path, 0, -(h - s - r));
-    path = lineTo (path, -t, 0);
-    path = lineTo (path, 0, h - t - s - r);
-    path = arcTo (path, i, -r, r, 0); // bottom-right internal corner
-    path = lineTo (path, -(w - r - r - t - t), 0);
-    path = arcTo (path, i, -r, -r, 0); // bottom-left internal corner
-    path = lineTo (path, 0, -(h - t - s - r));
-    path = close (path);
+    path = moveTo(path, 0, s);
+    path = lineTo(path, 0, h - s - r);
+    path = arcTo(path, r, r, r, 1); // bottom-left external corner
+    path = lineTo(path, w - r - r, 0);
+    path = arcTo(path, r, r, -r, 1); // bottom-right external corner
+    path = lineTo(path, 0, -(h - s - r));
+    path = lineTo(path, -t, 0);
+    path = lineTo(path, 0, h - t - s - r);
+    path = arcTo(path, i, -r, r, 0); // bottom-right internal corner
+    path = lineTo(path, -(w - r - r - t - t), 0);
+    path = arcTo(path, i, -r, -r, 0); // bottom-left internal corner
+    path = lineTo(path, 0, -(h - t - s - r));
+    path = close(path);
   } else if (hoverShape === 'middle') {
     // External CW.
-    path = moveTo (path, 0, h - r);
-    path = lineTo (path, 0, -(h - r - r));
-    path = arcTo (path, r, r, -r, 0); // top-left external corner
-    path = lineTo (path, w - r - r, 0);
-    path = arcTo (path, r, r, r, 0); // top-right external corner
-    path = lineTo (path, 0, h - r - r);
-    path = arcTo (path, r, -r, r, 0); // bottom-right external corner
-    path = lineTo (path, -(w - r - r), 0);
-    path = arcTo (path, r, -r, -r, 0); // bottom-left internal corner
-    path = close (path);
+    path = moveTo(path, 0, h - r);
+    path = lineTo(path, 0, -(h - r - r));
+    path = arcTo(path, r, r, -r, 0); // top-left external corner
+    path = lineTo(path, w - r - r, 0);
+    path = arcTo(path, r, r, r, 0); // top-right external corner
+    path = lineTo(path, 0, h - r - r);
+    path = arcTo(path, r, -r, r, 0); // bottom-right external corner
+    path = lineTo(path, -(w - r - r), 0);
+    path = arcTo(path, r, -r, -r, 0); // bottom-left internal corner
+    path = close(path);
     // Internal CCW.
-    path = moveTo (path, t + r, h - t);
-    path = lineTo (path, w - r - r - t - t, 0);
-    path = arcTo (path, i, r, -r, 1); // bottom-right internal corner
-    path = lineTo (path, 0, -(h - r - r - t - t));
-    path = arcTo (path, i, -r, -r, 1); // top-right internal corner
-    path = lineTo (path, -(w - r - r - t - t), 0);
-    path = arcTo (path, i, -r, r, 1); // top-left internal corner
-    path = lineTo (path, 0, h - r - r - t - t);
-    path = arcTo (path, i, r, r, 1); // bottom-left internal corner
-    path = close (path);
+    path = moveTo(path, t + r, h - t);
+    path = lineTo(path, w - r - r - t - t, 0);
+    path = arcTo(path, i, r, -r, 1); // bottom-right internal corner
+    path = lineTo(path, 0, -(h - r - r - t - t));
+    path = arcTo(path, i, -r, -r, 1); // top-right internal corner
+    path = lineTo(path, -(w - r - r - t - t), 0);
+    path = arcTo(path, i, -r, r, 1); // top-left internal corner
+    path = lineTo(path, 0, h - r - r - t - t);
+    path = arcTo(path, i, r, r, 1); // bottom-left internal corner
+    path = close(path);
   }
   return path;
 }
 
-export default function styles (theme, props) {
+export default function styles(theme, props) {
   const horizontalSpacing = props.horizontalSpacing
     ? props.horizontalSpacing
     : '0px';
 
-  const r = props.kind === 'thin' || props.kind === 'event'
-    ? theme.shapes.ticketRectRadius
-    : theme.shapes.ticketCornerRadius;
+  const r =
+    props.kind === 'thin' || props.kind === 'event'
+      ? theme.shapes.ticketRectRadius
+      : theme.shapes.ticketCornerRadius;
   let radius;
   if (props.shape === 'first') {
     radius = r + ' ' + r + ' 0px 0px';
@@ -187,7 +188,7 @@ export default function styles (theme, props) {
     hoverRadius = r;
   }
 
-  const boxOpacity = Bool.isFalse (props.visibility) ? 0 : props.opacity;
+  const boxOpacity = Bool.isFalse(props.visibility) ? 0 : props.opacity;
 
   const boxStyle = {
     flexGrow: props.grow,
@@ -196,7 +197,7 @@ export default function styles (theme, props) {
     margin: '0px ' + horizontalSpacing + ' ' + props.verticalSpacing + ' 0px',
     position: 'relative',
     cursor: props.cursor,
-    transition: theme.transitions.easeOut (),
+    transition: theme.transitions.easeOut(),
     userSelect: 'none',
     opacity: boxOpacity,
   };
@@ -218,25 +219,25 @@ export default function styles (theme, props) {
   const shapeStyle = {
     position: 'absolute',
     fill: props.color,
-    transition: theme.transitions.easeOut (),
+    transition: theme.transitions.easeOut(),
   };
 
   const hatchStyle = {
     position: 'absolute',
     fill: 'url(#hatch)',
-    transition: theme.transitions.easeOut (),
+    transition: theme.transitions.easeOut(),
   };
 
   const svgStyle = {
-    path: getOutlinePath (theme, props.shape, props.width, props.height),
+    path: getOutlinePath(theme, props.shape, props.width, props.height),
   };
 
   const hoverStyle = {
     position: 'absolute',
     top: '0px',
     fill: props.hoverShape ? theme.palette.ticketHover : 'transparent',
-    transition: theme.transitions.easeOut (),
-    path: getHoverPath (
+    transition: theme.transitions.easeOut(),
+    path: getHoverPath(
       theme,
       props.shape,
       props.hoverShape,
@@ -247,17 +248,16 @@ export default function styles (theme, props) {
   };
 
   const vp = props.kind === 'thin' ? '0px' : theme.shapes.ticketVerticalPadding;
-  const hp = props.kind === 'thin'
-    ? '0px'
-    : theme.shapes.ticketHorizontalPadding;
+  const hp =
+    props.kind === 'thin' ? '0px' : theme.shapes.ticketHorizontalPadding;
   const contentStyle = {
     position: 'relative',
     padding: vp + ' ' + hp,
     display: 'flex',
     flexDirection: 'row',
-    transition: theme.transitions.easeOut (),
+    transition: theme.transitions.easeOut(),
     userSelect: 'none',
-    visibility: Bool.isTrue (props.hideContent) ? 'hidden' : 'visible',
+    visibility: Bool.isTrue(props.hideContent) ? 'hidden' : 'visible',
   };
 
   const rectShadowStyle = {
@@ -268,13 +268,13 @@ export default function styles (theme, props) {
     position: 'relative',
     top: theme.shapes.ticketShadowShift,
     cursor: props.cursor,
-    transition: theme.transitions.easeOut (),
+    transition: theme.transitions.easeOut(),
     borderRadius: radius,
     backgroundColor: theme.palette.ticketShadow,
     opacity: boxOpacity,
   };
 
-  const rectFarShadowStyle = Object.assign ({}, rectShadowStyle); // clone
+  const rectFarShadowStyle = Object.assign({}, rectShadowStyle); // clone
   rectFarShadowStyle.top = '0px';
   rectFarShadowStyle.boxShadow = '0px 10px 23px 4px rgba(0, 0, 0, 0.3)';
 
@@ -283,30 +283,28 @@ export default function styles (theme, props) {
     position: 'relative',
     top: '-' + theme.shapes.ticketShadowShift,
     cursor: props.cursor,
-    transition: theme.transitions.easeOut (),
+    transition: theme.transitions.easeOut(),
     borderRadius: radius,
     backgroundColor: props.color,
   };
 
   const hc = 'rgba(0,0,0,' + theme.palette.ticketHatchOpacity + ')';
   const hs = theme.shapes.ticketHatchSize;
-  const ht = Unit.multiply (hs, 2);
+  const ht = Unit.multiply(hs, 2);
   const rectContentHatchStyle = {
-    height: props.height
-      ? Unit.sub (props.height, Unit.multiply (vp, 2))
-      : null,
+    height: props.height ? Unit.sub(props.height, Unit.multiply(vp, 2)) : null,
     position: 'relative',
     padding: vp + ' ' + hp,
     display: 'flex',
     flexDirection: 'row',
-    transition: theme.transitions.easeOut (),
+    transition: theme.transitions.easeOut(),
     borderRadius: radius,
     background: `repeating-linear-gradient(-45deg, ${hc}, ${hc} ${hs}, rgba(0,0,0,0) 0px, rgba(0,0,0,0) ${ht})`,
   };
 
   let rectHoverStyle;
   const t1 = theme.shapes.ticketHoverThickness;
-  const t2 = Unit.multiply (theme.shapes.ticketHoverThickness, 2);
+  const t2 = Unit.multiply(theme.shapes.ticketHoverThickness, 2);
   if (props.hoverShape === 'first') {
     // n.
     rectHoverStyle = {
@@ -363,7 +361,7 @@ export default function styles (theme, props) {
     boxShadow: theme.shapes.ticketHudShadow,
     backgroundColor: theme.palette.ticketHudShadow,
     opacity: 1,
-    transition: theme.transitions.easeOut (),
+    transition: theme.transitions.easeOut(),
   };
 
   const hudGlyphShadowNoneStyle = {
@@ -379,7 +377,7 @@ export default function styles (theme, props) {
     boxShadow: theme.shapes.ticketHudShadow,
     backgroundColor: theme.palette.ticketHudShadow,
     opacity: 0,
-    transition: theme.transitions.easeOut (),
+    transition: theme.transitions.easeOut(),
   };
 
   const hudGlyphBoxStyle = {
@@ -404,12 +402,12 @@ export default function styles (theme, props) {
     margin: '0px',
     position: 'relative',
     cursor: props.cursor,
-    transition: theme.transitions.easeOut (),
+    transition: theme.transitions.easeOut(),
     backgroundColor: props.color,
     opacity: boxOpacity,
   };
 
-  const w = props.width ? Unit.multiply (props.width, 0.5) : null;
+  const w = props.width ? Unit.multiply(props.width, 0.5) : null;
   const coverContentStyle = {
     display: 'flex',
     height: props.width,
@@ -417,7 +415,7 @@ export default function styles (theme, props) {
     margin: theme.shapes.ticketCoverTopMargin + ' 0px 0px 0px',
     position: 'relative',
     cursor: props.cursor,
-    transition: theme.transitions.easeOut (),
+    transition: theme.transitions.easeOut(),
     transform: 'rotate(90deg)', // 90 deg CW, from top to bottom
     transformOrigin: w + ' ' + w,
     whiteSpace: 'nowrap',
@@ -440,7 +438,7 @@ export default function styles (theme, props) {
     justifyContent: 'flex-start',
     alignItems: 'stretch',
     margin: '0px ' + horizontalSpacing + ' ' + props.verticalSpacing + ' 0px',
-    padding: m + ' ' + m + ' ' + Unit.multiply (m, 0.5) + ' ' + m,
+    padding: m + ' ' + m + ' ' + Unit.multiply(m, 0.5) + ' ' + m,
     borderWidth: '2px',
     borderStyle: 'dashed none none none',
     borderColor: theme.palette.ticketSubpaneBorder,
@@ -453,7 +451,7 @@ export default function styles (theme, props) {
     flexGrow: 1,
     justifyContent: 'flex-start',
     alignItems: 'stretch',
-    padding: m + ' ' + m + ' ' + Unit.multiply (m, 0.5) + ' ' + m,
+    padding: m + ' ' + m + ' ' + Unit.multiply(m, 0.5) + ' ' + m,
     borderWidth: '2px',
     borderStyle: 'solid',
     borderColor: theme.palette.ticketSubpaneBorder,
@@ -461,7 +459,7 @@ export default function styles (theme, props) {
     opacity: boxOpacity,
   };
   const subpaneContentStyle = {
-    visibility: Bool.isTrue (props.hideContent) ? 'hidden' : 'visible',
+    visibility: Bool.isTrue(props.hideContent) ? 'hidden' : 'visible',
   };
 
   return {

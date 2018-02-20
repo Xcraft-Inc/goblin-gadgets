@@ -1,7 +1,7 @@
 // WARNING:
 // isTrue (x) !== !isFalse (x)
 
-export function isTrue (value) {
+export function isTrue(value) {
   const type = typeof value;
   if (type === 'boolean') {
     return value;
@@ -12,7 +12,7 @@ export function isTrue (value) {
   }
 }
 
-export function isFalse (value) {
+export function isFalse(value) {
   const type = typeof value;
   if (type === 'boolean') {
     return !value;
@@ -23,7 +23,7 @@ export function isFalse (value) {
   }
 }
 
-export function toString (value) {
+export function toString(value) {
   const type = typeof value;
   if (type === 'boolean') {
     return value ? 'true' : 'false';

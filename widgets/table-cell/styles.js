@@ -4,7 +4,7 @@ import {ColorManipulator} from 'electrum-theme';
 
 /******************************************************************************/
 
-export default function styles (theme, props) {
+export default function styles(theme, props) {
   let minWidth = null;
   let maxWidth = null;
   let flexGrow = null;
@@ -27,16 +27,16 @@ export default function styles (theme, props) {
     minWidth = '0px';
     overflow = 'hidden';
   }
-  if (Bool.isFalse (props.isLast)) {
+  if (Bool.isFalse(props.isLast)) {
     marginRight = theme.shapes.tablePadding;
   }
-  if (Bool.isTrue (props.isHeader)) {
+  if (Bool.isTrue(props.isHeader)) {
     fontWeight = 'bold';
     textTransform = 'uppercase';
   }
 
-  if (isImmutable (props.text)) {
-    backgroundColor = props.text.get ('backgroundColor');
+  if (isImmutable(props.text)) {
+    backgroundColor = props.text.get('backgroundColor');
   }
 
   const cellStyle = {

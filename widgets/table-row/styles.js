@@ -2,7 +2,7 @@ import {ColorManipulator} from 'electrum-theme';
 
 /******************************************************************************/
 
-export default function styles (theme, props) {
+export default function styles(theme, props) {
   const m = theme.shapes.containerMargin;
   const last = props.index >= props.count - 1;
   const border = last ? null : '1px solid ' + theme.palette.tableBorder;
@@ -12,7 +12,7 @@ export default function styles (theme, props) {
     display: 'flex',
     flexDirection: 'row',
     padding: '0px ' + m,
-    backgroundColor: props.row.get ('backgroundColor'),
+    backgroundColor: props.row.get('backgroundColor'),
     cursor: 'default',
     ':hover': {backgroundColor: theme.palette.tableHoverBackground},
   };
@@ -26,7 +26,7 @@ export default function styles (theme, props) {
     color: theme.palette.tableSelectedText,
     cursor: 'default',
     ':hover': {
-      backgroundColor: ColorManipulator.emphasize (
+      backgroundColor: ColorManipulator.emphasize(
         theme.palette.tableSelectedBackground,
         0.2
       ),

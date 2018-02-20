@@ -2,7 +2,7 @@ import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
 
-export default function styles (theme, props) {
+export default function styles(theme, props) {
   const hoverOverlapX = '0px'; // overlap for hover
   const hoverOverlapY = '-1px'; // overlap for hover
 

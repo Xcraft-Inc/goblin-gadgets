@@ -8,14 +8,14 @@ import Button from 'gadgets/button/widget';
 /******************************************************************************/
 
 class Notification extends Widget {
-  constructor () {
-    super (...arguments);
+  constructor() {
+    super(...arguments);
   }
 
-  render () {
+  render() {
     let glyphColor = this.props.data.color;
     if (glyphColor) {
-      glyphColor = ColorHelpers.getMarkColor (this.context.theme, glyphColor);
+      glyphColor = ColorHelpers.getMarkColor(this.context.theme, glyphColor);
     }
 
     const boxClass = this.styles.classNames.box;

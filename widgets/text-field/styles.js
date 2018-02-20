@@ -3,7 +3,7 @@ import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
 
-export default function styles (theme, props) {
+export default function styles(theme, props) {
   let flexGrow = props.grow;
   let flexShrink = null;
   let flexBasis = null;
@@ -15,9 +15,9 @@ export default function styles (theme, props) {
   let borderColor = theme.palette.buttonBorder;
   let fieldPaddingLeft = '10px';
   let fieldPaddingRight = '10px';
-  let opacity = Bool.isFalse (props.visibility) ? 0 : null;
+  let opacity = Bool.isFalse(props.visibility) ? 0 : null;
 
-  const m = Unit.multiply (theme.shapes.containerMargin, 0.5);
+  const m = Unit.multiply(theme.shapes.containerMargin, 0.5);
 
   // Initialise right margin according to spacing.
   if (props.spacing) {
@@ -31,7 +31,7 @@ export default function styles (theme, props) {
   }
 
   if (props.shape) {
-    const r = Unit.multiply (theme.shapes.lineHeight, 0.5);
+    const r = Unit.multiply(theme.shapes.lineHeight, 0.5);
     const s = theme.shapes.smoothRadius;
     borderRadius = r + ' 0px 0px ' + r;
     if (props.shape === 'rounded') {
@@ -57,14 +57,14 @@ export default function styles (theme, props) {
 
   let color = theme.palette.textColor;
   let backgroundColor = theme.palette.textFieldBackground;
-  if (Bool.isTrue (props.disabled)) {
+  if (Bool.isTrue(props.disabled)) {
     color = theme.palette.textFieldDisableText;
     backgroundColor = theme.palette.textFieldDisableBackground;
-  } else if (Bool.isTrue (props.active)) {
+  } else if (Bool.isTrue(props.active)) {
     color = theme.palette.comboActiveGlyph;
     backgroundColor = theme.palette.comboActiveBackground;
     borderColor = theme.palette.comboActiveBackground;
-  } else if (Bool.isTrue (props.readonly)) {
+  } else if (Bool.isTrue(props.readonly)) {
     backgroundColor = theme.palette.textFieldReadonlyBackground;
   }
 
@@ -95,11 +95,11 @@ export default function styles (theme, props) {
     opacity: opacity,
   };
 
-  const boxRequiredStyle = Object.assign ({}, boxStyle); // clone
+  const boxRequiredStyle = Object.assign({}, boxStyle); // clone
   if (
-    !Bool.isTrue (props.disabled) &&
-    !Bool.isTrue (props.active) &&
-    !Bool.isTrue (props.readonly)
+    !Bool.isTrue(props.disabled) &&
+    !Bool.isTrue(props.active) &&
+    !Bool.isTrue(props.readonly)
   ) {
     // Change backgroundColor if required text-field is not empty.
     boxRequiredStyle.backgroundColor =

@@ -12,15 +12,15 @@ import Separator from 'gadgets/separator/widget';
 /******************************************************************************/
 
 class LoginDialog extends Form {
-  constructor () {
-    super (...arguments);
+  constructor() {
+    super(...arguments);
     this.error = null;
 
-    this.onOk = this.onOk.bind (this);
-    this.onCancel = this.onCancel.bind (this);
+    this.onOk = this.onOk.bind(this);
+    this.onCancel = this.onCancel.bind(this);
   }
 
-  static get wiring () {
+  static get wiring() {
     return {
       id: 'id',
       user: 'user',
@@ -30,31 +30,31 @@ class LoginDialog extends Form {
     };
   }
 
-  clearFields () {
-    this.setModelValue ('.user', null);
-    this.setModelValue ('.password', null);
+  clearFields() {
+    this.setModelValue('.user', null);
+    this.setModelValue('.password', null);
   }
 
-  onClose () {
+  onClose() {
     const x = this.props.closeDialog;
     if (x) {
-      x ();
+      x();
     }
   }
 
-  onOk () {
-    this.submit ();
+  onOk() {
+    this.submit();
   }
 
-  onCancel () {
-    this.do ('logout');
-    this.onClose ();
+  onCancel() {
+    this.do('logout');
+    this.onClose();
   }
 
-  render () {
+  render() {
     if (this.props.close) {
-      this.do ('reset');
-      this.onClose ();
+      this.do('reset');
+      this.onClose();
       return null;
     }
 

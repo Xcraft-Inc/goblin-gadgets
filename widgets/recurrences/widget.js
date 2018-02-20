@@ -12,15 +12,15 @@ import DragCab from 'gadgets/drag-cab/widget';
 /******************************************************************************/
 
 class Recurrences extends Widget {
-  constructor () {
-    super (...arguments);
+  constructor() {
+    super(...arguments);
 
-    this.onSwapExtended = this.onSwapExtended.bind (this);
-    this.onDeleteRecurrence = this.onSwapExtended.bind (this);
-    this.onDragEnding = this.onDragEnding.bind (this);
+    this.onSwapExtended = this.onSwapExtended.bind(this);
+    this.onDeleteRecurrence = this.onSwapExtended.bind(this);
+    this.onDragEnding = this.onDragEnding.bind(this);
   }
 
-  static get wiring () {
+  static get wiring() {
     return {
       id: 'id',
       recurrences: 'recurrences',
@@ -28,26 +28,26 @@ class Recurrences extends Widget {
     };
   }
 
-  onCreateRecurrence () {
-    this.do ('add');
+  onCreateRecurrence() {
+    this.do('add');
   }
 
-  onDeleteRecurrence (recurrenceId) {
-    this.do ('remove', {recurrenceId});
+  onDeleteRecurrence(recurrenceId) {
+    this.do('remove', {recurrenceId});
   }
 
-  onSwapExtended (recurrenceId) {
-    this.do ('extend', {recurrenceId});
+  onSwapExtended(recurrenceId) {
+    this.do('extend', {recurrenceId});
   }
 
-  onDragEnding (selectedIds, toId) {
-    this.do ('drag', {fromId: selectedIds[0], toId: toId});
+  onDragEnding(selectedIds, toId) {
+    this.do('drag', {fromId: selectedIds[0], toId: toId});
   }
 
-  renderHeader () {
+  renderHeader() {
     const headerClass = this.styles.classNames.header;
 
-    if (Bool.isTrue (this.props.readonly)) {
+    if (Bool.isTrue(this.props.readonly)) {
       return (
         <div className={headerClass}>
           <Label text="Récurrences" grow="1" kind="title" />
@@ -68,20 +68,20 @@ class Recurrences extends Widget {
     }
   }
 
-  renderRow (recurrenceId, extended, index) {
-    const WiredRecurrence = Widget.Wired (Recurrence) (recurrenceId);
-    if (Bool.isTrue (this.props.readonly)) {
+  renderRow(recurrenceId, extended, index) {
+    const WiredRecurrence = Widget.Wired(Recurrence)(recurrenceId);
+    if (Bool.isTrue(this.props.readonly)) {
       return (
         <WiredRecurrence
           key={index}
-          extended={Bool.toString (extended)}
-          readonly={Bool.toString (this.props.readonly)}
-          swapExtended={() => this.onSwapExtended (recurrenceId)}
-          deleteRecurrence={() => this.onDeleteRecurrence (recurrenceId)}
+          extended={Bool.toString(extended)}
+          readonly={Bool.toString(this.props.readonly)}
+          swapExtended={() => this.onSwapExtended(recurrenceId)}
+          deleteRecurrence={() => this.onDeleteRecurrence(recurrenceId)}
         />
       );
     } else {
-      const dhd = Unit.add (
+      const dhd = Unit.add(
         this.context.theme.shapes.lineHeight,
         this.context.theme.shapes.containerMargin
       );
@@ -94,34 +94,34 @@ class Recurrences extends Widget {
           color={this.context.theme.palette.dragAndDropHover}
           thickness={this.context.theme.shapes.dragAndDropTicketThickness}
           dragOwnerId={recurrenceId}
-          doClickAction={() => this.onSwapExtended (recurrenceId)}
+          doClickAction={() => this.onSwapExtended(recurrenceId)}
           doDragEnding={this.onDragEnding}
         >
           <WiredRecurrence
-            extended={Bool.toString (extended)}
-            readonly={Bool.toString (this.props.readonly)}
-            swapExtended={() => this.onSwapExtended (recurrenceId)}
-            deleteRecurrence={() => this.onDeleteRecurrence (recurrenceId)}
+            extended={Bool.toString(extended)}
+            readonly={Bool.toString(this.props.readonly)}
+            swapExtended={() => this.onSwapExtended(recurrenceId)}
+            deleteRecurrence={() => this.onDeleteRecurrence(recurrenceId)}
           />
         </DragCab>
       );
     }
   }
 
-  renderRows () {
-    const recurrences = Widget.shred (this.props.recurrences);
+  renderRows() {
+    const recurrences = Widget.shred(this.props.recurrences);
     let index = 0;
     return recurrences.linq
-      .orderBy (recurrence => recurrence.get ('order'))
-      .select (recurrence => {
-        const id = recurrence.get ('id');
+      .orderBy(recurrence => recurrence.get('order'))
+      .select(recurrence => {
+        const id = recurrence.get('id');
         const extended = id === this.props.extendedId;
-        return this.renderRow (id, extended, index++);
+        return this.renderRow(id, extended, index++);
       })
-      .toList ();
+      .toList();
   }
 
-  render () {
+  render() {
     if (!this.props.id) {
       return null;
     }
@@ -130,14 +130,14 @@ class Recurrences extends Widget {
 
     return (
       <div className={boxClass}>
-        {this.renderHeader ()}
+        {this.renderHeader()}
         <Container
           kind="column"
           dragController="recurrence"
           dragSource="recurrences"
           dragOwnerId={this.props.id}
         >
-          {this.renderRows ()}
+          {this.renderRows()}
         </Container>
       </div>
     );

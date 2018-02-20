@@ -1,6 +1,6 @@
 /******************************************************************************/
 
-export default function styles (_theme, _props) {
+export default function styles(_theme, _props) {
   const mainStyle = {
     display: 'flex',
     flexDirection: 'column',

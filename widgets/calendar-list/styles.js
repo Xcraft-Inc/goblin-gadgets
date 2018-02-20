@@ -3,7 +3,7 @@ import * as Bool from 'gadgets/boolean-helpers';
 
 /******************************************************************************/
 
-export default function styles (theme, props) {
+export default function styles(theme, props) {
   const boxStyle = {
     display: 'flex',
     flexDirection: 'column',

@@ -14,16 +14,16 @@ import DragCab from 'gadgets/drag-cab/widget';
 /******************************************************************************/
 
 class GlyphsDialog extends Widget {
-  constructor () {
-    super (...arguments);
+  constructor() {
+    super(...arguments);
 
-    this.onToggleGlyph = this.onToggleGlyph.bind (this);
-    this.onClearGlyphs = this.onClearGlyphs.bind (this);
-    this.onDragEnding = this.onDragEnding.bind (this);
-    this.onClose = this.onClose.bind (this);
+    this.onToggleGlyph = this.onToggleGlyph.bind(this);
+    this.onClearGlyphs = this.onClearGlyphs.bind(this);
+    this.onDragEnding = this.onDragEnding.bind(this);
+    this.onClose = this.onClose.bind(this);
   }
 
-  static get wiring () {
+  static get wiring() {
     return {
       id: 'id',
       allGlyphs: 'allGlyphs',
@@ -31,73 +31,73 @@ class GlyphsDialog extends Widget {
     };
   }
 
-  onClose () {
+  onClose() {
     const x = this.props.closeDialog;
     if (x) {
-      x ();
+      x();
     }
   }
 
-  onToggleGlyph (glyphId) {
-    this.do ('toggleGlyphs', {glyphId});
+  onToggleGlyph(glyphId) {
+    this.do('toggleGlyphs', {glyphId});
     const x = this.props.glyphClicked;
     if (x) {
-      x (glyphId);
+      x(glyphId);
     }
   }
 
-  onClearGlyphs () {
-    this.do ('clearGlyphs');
+  onClearGlyphs() {
+    this.do('clearGlyphs');
     const x = this.props.clearGlyphs;
     if (x) {
-      x ();
+      x();
     }
   }
 
-  onDragEnding (selectedIds, toId) {
+  onDragEnding(selectedIds, toId) {
     // console.log (`GlyphsDialog.onDragEnding ${selectedIds} ${toId} ${ownerId} ${ownerKind}`);
-    this.do ('dragGlyphs', {fromId: selectedIds[0], toId: toId});
+    this.do('dragGlyphs', {fromId: selectedIds[0], toId: toId});
     const x = this.props.glyphDragged;
     if (x) {
-      x (selectedIds[0], toId);
+      x(selectedIds[0], toId);
     }
   }
 
-  renderGlyphButton (glyph, selected, index) {
-    const color = ColorHelpers.getMarkColor (
+  renderGlyphButton(glyph, selected, index) {
+    const color = ColorHelpers.getMarkColor(
       this.context.theme,
-      glyph.get ('color')
+      glyph.get('color')
     );
     return (
       <Button
         key={index}
         kind="glyph-item"
-        glyph={glyph.get ('glyph')}
+        glyph={glyph.get('glyph')}
         glyphColor={color}
-        text={glyph.get ('name')}
-        active={Bool.toString (selected)}
-        onClick={() => this.onToggleGlyph (glyph.get ('id'))}
+        text={glyph.get('name')}
+        active={Bool.toString(selected)}
+        onClick={() => this.onToggleGlyph(glyph.get('id'))}
       />
     );
   }
 
-  renderGlyphButtons () {
-    const allGlyphs = Widget.shred (this.props.allGlyphs);
-    const selectedGlyphs = Widget.shred (this.props.selectedGlyphs);
+  renderGlyphButtons() {
+    const allGlyphs = Widget.shred(this.props.allGlyphs);
+    const selectedGlyphs = Widget.shred(this.props.selectedGlyphs);
     let index = 0;
     return allGlyphs.linq
-      .orderBy (glyph => glyph.get ('order'))
-      .select (glyph => {
-        const id = glyph.get ('id');
+      .orderBy(glyph => glyph.get('order'))
+      .select(glyph => {
+        const id = glyph.get('id');
         const selected = selectedGlyphs.linq
-          .where (x => x.get ('id') === id)
-          .any ();
-        return this.renderGlyphButton (glyph, selected ? true : false, index++);
+          .where(x => x.get('id') === id)
+          .any();
+        return this.renderGlyphButton(glyph, selected ? true : false, index++);
       })
-      .toList ();
+      .toList();
   }
 
-  renderMain () {
+  renderMain() {
     const mainClass = this.styles.classNames.main;
     const glyphsClass = this.styles.classNames.glyphs;
     return (
@@ -110,21 +110,19 @@ class GlyphsDialog extends Widget {
             onClick={this.onClearGlyphs}
           />
         </Container>
-        <div className={glyphsClass}>
-          {this.renderGlyphButtons ()}
-        </div>
+        <div className={glyphsClass}>{this.renderGlyphButtons()}</div>
       </div>
     );
   }
 
-  renderGlyphSample (glyph, dndEnable, index) {
+  renderGlyphSample(glyph, dndEnable, index) {
     if (dndEnable) {
       return (
         <DragCab
           key={index}
           dragController="glyph-sample"
           direction="horizontal"
-          dragOwnerId={glyph.get ('id')}
+          dragOwnerId={glyph.get('id')}
           color={this.context.theme.palette.dragAndDropHover}
           thickness={this.context.theme.shapes.dragAndDropTicketThickness}
           radius={this.context.theme.shapes.dragAndDropTicketThickness}
@@ -134,8 +132,8 @@ class GlyphsDialog extends Widget {
             key={index}
             width="70px"
             height="80px"
-            glyph={glyph.get ('glyph')}
-            glyphColor={glyph.get ('color')}
+            glyph={glyph.get('glyph')}
+            glyphColor={glyph.get('color')}
             glyphSize="300%"
             spacing="compact"
             justify="center"
@@ -149,8 +147,8 @@ class GlyphsDialog extends Widget {
           key={index}
           width="70px"
           height="80px"
-          glyph={glyph.get ('glyph')}
-          glyphColor={glyph.get ('color')}
+          glyph={glyph.get('glyph')}
+          glyphColor={glyph.get('color')}
           glyphSize="300%"
           spacing="compact"
           justify="center"
@@ -159,32 +157,32 @@ class GlyphsDialog extends Widget {
     }
   }
 
-  renderGlyphSamples () {
-    const selectedGlyphs = this.shred (this.props.selectedGlyphs);
-    const dndEnable = selectedGlyphs.count () > 1;
+  renderGlyphSamples() {
+    const selectedGlyphs = this.shred(this.props.selectedGlyphs);
+    const dndEnable = selectedGlyphs.count() > 1;
     let index = 0;
     return selectedGlyphs.linq
-      .orderBy (glyph => glyph.get ('order'))
-      .select (glyph => {
-        return this.renderGlyphSample (glyph, dndEnable, index++);
+      .orderBy(glyph => glyph.get('order'))
+      .select(glyph => {
+        return this.renderGlyphSample(glyph, dndEnable, index++);
       })
-      .toList ();
+      .toList();
   }
 
-  render () {
+  render() {
     const footerClass = this.styles.classNames.footer;
 
-    const buttonWidth = Unit.add (
+    const buttonWidth = Unit.add(
       this.context.theme.shapes.glyphsDialogButtonWidth,
       this.context.theme.shapes.glyphsDialogButtonMargin
     );
-    const buttonsWidth = Unit.multiply (buttonWidth, 3); // 3 columns of buttons
-    const dialogWidth = Unit.add (
-      Unit.add (buttonsWidth, '20px'),
-      Unit.multiply (this.context.theme.shapes.floatingPadding, 2)
+    const buttonsWidth = Unit.multiply(buttonWidth, 3); // 3 columns of buttons
+    const dialogWidth = Unit.add(
+      Unit.add(buttonsWidth, '20px'),
+      Unit.multiply(this.context.theme.shapes.floatingPadding, 2)
     ); // add scroller width
 
-    const result = ComboHelpers.horizontalDeclipping (
+    const result = ComboHelpers.horizontalDeclipping(
       dialogWidth,
       this.props.center,
       this.context.theme.shapes.dialogDistanceFromEdge
@@ -199,7 +197,7 @@ class GlyphsDialog extends Widget {
         bottom={this.props.bottom}
         close={this.onClose}
       >
-        {this.renderMain ()}
+        {this.renderMain()}
         <div className={footerClass}>
           <Container
             kind="glyph-samples"
@@ -207,7 +205,7 @@ class GlyphsDialog extends Widget {
             dragSource="glyph-samples"
             dragOwnerId="glyph-samples"
           >
-            {this.renderGlyphSamples ()}
+            {this.renderGlyphSamples()}
           </Container>
           <Label grow="1" />
           <Button

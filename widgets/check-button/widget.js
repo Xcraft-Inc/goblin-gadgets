@@ -7,22 +7,22 @@ import Button from 'gadgets/button/widget';
 /******************************************************************************/
 
 class CheckButton extends Widget {
-  constructor () {
-    super (...arguments);
+  constructor() {
+    super(...arguments);
 
-    this.onButtonClicked = this.onButtonClicked.bind (this);
+    this.onButtonClicked = this.onButtonClicked.bind(this);
   }
 
-  onButtonClicked (e) {
+  onButtonClicked(e) {
     const x = this.props.onClick;
     if (x) {
-      x (e);
+      x(e);
     }
   }
 
-  render () {
+  render() {
     let kind, border, glyph, active;
-    const checked = Bool.isTrue (this.props.checked);
+    const checked = Bool.isTrue(this.props.checked);
     if (this.props.kind === 'switch') {
       kind = 'check-button';
       glyph = checked ? 'solid/toggle-on' : 'solid/toggle-off'; // [ o] [x ]
@@ -32,7 +32,7 @@ class CheckButton extends Widget {
     } else if (this.props.kind === 'active') {
       border = 'none';
       glyph = null;
-      active = Bool.toString (checked);
+      active = Bool.toString(checked);
     } else {
       kind = 'check-button';
       glyph = checked ? 'solid/check-square' : 'regular/square'; // [v] [ ]

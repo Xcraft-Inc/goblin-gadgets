@@ -8,11 +8,11 @@ import Hinter from 'gadgets/hinter/widget';
 /******************************************************************************/
 
 class HinterColumn extends Widget {
-  constructor () {
-    super (...arguments);
+  constructor() {
+    super(...arguments);
   }
 
-  renderListWithSplitter () {
+  renderListWithSplitter() {
     return (
       <Splitter kind="vertical" firstSize="90%">
         <Hinter {...this.props} />
@@ -21,11 +21,11 @@ class HinterColumn extends Widget {
     );
   }
 
-  renderList () {
+  renderList() {
     return <Hinter {...this.props} />;
   }
 
-  renderDate () {
+  renderDate() {
     return (
       <Container kind="row">
         <Hinter {...this.props} />
@@ -33,12 +33,12 @@ class HinterColumn extends Widget {
     );
   }
 
-  render () {
+  render() {
     switch (this.props.kind) {
       case 'list':
-        return this.renderList ();
+        return this.renderList();
       case 'date':
-        return this.renderDate ();
+        return this.renderDate();
       default:
         return null;
     }

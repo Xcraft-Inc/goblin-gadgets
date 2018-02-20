@@ -3,9 +3,9 @@ import * as Bool from 'gadgets/boolean-helpers';
 
 /******************************************************************************/
 
-export default function styles (theme, props) {
+export default function styles(theme, props) {
   const m = theme.shapes.containerMargin;
-  const border = Bool.isTrue (props.frame)
+  const border = Bool.isTrue(props.frame)
     ? '1px solid ' + theme.palette.tableBorder
     : null;
 
@@ -20,7 +20,7 @@ export default function styles (theme, props) {
   // for scrolling the body (without header). Header must have a right
   // padding with include the scroller width.
   const paddingRight = props.height
-    ? Unit.add (theme.shapes.scrollerThickness, m)
+    ? Unit.add(theme.shapes.scrollerThickness, m)
     : m;
 
   const headerStyle = {

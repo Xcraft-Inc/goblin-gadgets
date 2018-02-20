@@ -4,7 +4,7 @@ import {ColorManipulator} from 'electrum-theme';
 import * as Bool from 'gadgets/boolean-helpers';
 /******************************************************************************/
 
-export default function styles (theme, props) {
+export default function styles(theme, props) {
   let width = props.width;
   let height = props.height;
   let minWidth = props.minWidth;
@@ -64,7 +64,7 @@ export default function styles (theme, props) {
   const h = theme.shapes.lineHeight;
   const m = theme.shapes.containerMargin;
   const s = theme.shapes.lineSpacing;
-  const d = Unit.multiply (m, 0.5);
+  const d = Unit.multiply(m, 0.5);
 
   if (props.kind === 'root') {
     fontFamily = theme.typo.font;
@@ -96,14 +96,14 @@ export default function styles (theme, props) {
 
   if (props.kind === 'floating-header') {
     if (!props.floatingHeight) {
-      throw new Error (
+      throw new Error(
         'Container with kind=floating-header must have a floating-height'
       );
     }
     // The property floating-height must correspond to the floating Container height !
     // The calculate height of floating-header Container fill the space on top of floating Container.
-    const hh = Unit.add (
-      Unit.multiply (props.floatingHeight, 0.5),
+    const hh = Unit.add(
+      Unit.multiply(props.floatingHeight, 0.5),
       theme.shapes.floatingPadding
     );
     height = 'calc(50vh - ' + hh + ')';
@@ -353,7 +353,7 @@ export default function styles (theme, props) {
     flexDirection = 'column';
     padding = '0px';
     margin =
-      '0px 0px 0px ' + Unit.multiply (theme.shapes.vnavigatorButtonSize, -1);
+      '0px 0px 0px ' + Unit.multiply(theme.shapes.vnavigatorButtonSize, -1);
     backgroundColor = theme.palette.vnavigatorButtonBackground;
     zIndex = 4;
   }
@@ -370,9 +370,8 @@ export default function styles (theme, props) {
     borderTopWidth = '1px';
     borderTopStyle = 'solid';
     borderTopColor = theme.palette.actionBorder;
-    boxShadow = props.subkind === 'no-shadow'
-      ? null
-      : theme.shapes.actionShadow;
+    boxShadow =
+      props.subkind === 'no-shadow' ? null : theme.shapes.actionShadow;
     // zIndex          = 2;
   }
 
@@ -402,13 +401,13 @@ export default function styles (theme, props) {
     justifyContent = 'flex-start';
     alignItems = 'stretch';
     // boxShadow       = theme.shapes.paneShadow;
-    margin = Unit.multiply (m, -0.5) + ' 0px ' + m + ' 0px';
+    margin = Unit.multiply(m, -0.5) + ' 0px ' + m + ' 0px';
     padding = '0px ' + m + ' ' + d + ' ' + m;
     backgroundColor = theme.palette.paneBackground;
   }
 
   if (props.kind === 'row-pane') {
-    const halfMargin = Unit.multiply (m, 0.5);
+    const halfMargin = Unit.multiply(m, 0.5);
     display = 'flex';
     flexGrow = props.grow || 1;
     flexDirection = 'row';
@@ -425,8 +424,8 @@ export default function styles (theme, props) {
       fontWeight = 'bold';
       padding = '0px ' + halfMargin;
     } else if (props.subkind === 'wide-info') {
-      rightMargin = Unit.multiply (m, -1);
-      leftMargin = Unit.multiply (m, -1);
+      rightMargin = Unit.multiply(m, -1);
+      leftMargin = Unit.multiply(m, -1);
       padding = '0px ' + m;
       backgroundColor = theme.palette.infoBackground;
       fontWeight = 'bold';
@@ -434,8 +433,8 @@ export default function styles (theme, props) {
       if (props.subkind === 'box-left') {
         justifyContent = 'flex-start';
       }
-      rightMargin = Unit.multiply (m, -1);
-      leftMargin = Unit.multiply (m, -1);
+      rightMargin = Unit.multiply(m, -1);
+      leftMargin = Unit.multiply(m, -1);
       let topPadding = halfMargin;
       let rightPadding = m;
       let bottomPadding = halfMargin;
@@ -447,12 +446,12 @@ export default function styles (theme, props) {
       borderTopStyle = 'solid';
       borderBottomStyle = 'solid';
       topMargin = halfMargin;
-      bottomMargin = Unit.sub (Unit.multiply (halfMargin, -1), '1px');
+      bottomMargin = Unit.sub(Unit.multiply(halfMargin, -1), '1px');
       if (props.markColor) {
         borderLeftWidth = theme.shapes.markWidth;
         borderLeftStyle = 'solid';
-        borderLeftColor = ColorHelpers.getMarkColor (theme, props.markColor);
-        leftPadding = Unit.sub (leftPadding, theme.shapes.markWidth);
+        borderLeftColor = ColorHelpers.getMarkColor(theme, props.markColor);
+        leftPadding = Unit.sub(leftPadding, theme.shapes.markWidth);
       }
       padding =
         topPadding +
@@ -463,13 +462,13 @@ export default function styles (theme, props) {
         ' ' +
         leftPadding;
     } else if (props.subkind === 'light-box') {
-      rightMargin = Unit.multiply (m, -1);
-      leftMargin = Unit.multiply (m, -1);
-      topMargin = Unit.multiply (halfMargin, -1);
+      rightMargin = Unit.multiply(m, -1);
+      leftMargin = Unit.multiply(m, -1);
+      topMargin = Unit.multiply(halfMargin, -1);
       bottomMargin = '0px';
     } else if (props.subkind === 'large-box') {
-      rightMargin = Unit.multiply (m, -1);
-      leftMargin = Unit.multiply (m, -1);
+      rightMargin = Unit.multiply(m, -1);
+      leftMargin = Unit.multiply(m, -1);
       let topPadding = '0px';
       let rightPadding = '0px';
       let bottomPadding = '0px';
@@ -481,11 +480,11 @@ export default function styles (theme, props) {
       borderTopStyle = 'solid';
       borderBottomStyle = 'solid';
       topMargin = halfMargin;
-      bottomMargin = Unit.sub (Unit.multiply (halfMargin, -1), '1px');
-      if (Bool.isTrue (props.selected)) {
+      bottomMargin = Unit.sub(Unit.multiply(halfMargin, -1), '1px');
+      if (Bool.isTrue(props.selected)) {
         borderLeftWidth = theme.shapes.markWidth;
         borderLeftStyle = 'solid';
-        borderLeftColor = ColorHelpers.getMarkColor (theme, 'base');
+        borderLeftColor = ColorHelpers.getMarkColor(theme, 'base');
         leftPadding = '0px';
       }
       padding =
@@ -503,10 +502,10 @@ export default function styles (theme, props) {
       padding = '0px';
       bottomMargin = '0px';
     } else if (props.subkind === 'footer') {
-      rightMargin = Unit.multiply (m, -1);
-      leftMargin = Unit.multiply (m, -1);
+      rightMargin = Unit.multiply(m, -1);
+      leftMargin = Unit.multiply(m, -1);
       topMargin = halfMargin;
-      bottomMargin = Unit.sub (Unit.multiply (halfMargin, -1), '1px');
+      bottomMargin = Unit.sub(Unit.multiply(halfMargin, -1), '1px');
       padding = '0px';
     } else if (props.subkind === 'wrap') {
       display = 'flex';
@@ -514,10 +513,10 @@ export default function styles (theme, props) {
       flexWrap = 'wrap';
       justifyContent = 'flex-start';
       alignItems = 'center';
-      leftMargin = Unit.multiply (m, -0.25);
-      rightMargin = Unit.multiply (m, -0.25);
-      topMargin = Unit.multiply (m, -0.25);
-      bottomMargin = Unit.multiply (m, 0.25);
+      leftMargin = Unit.multiply(m, -0.25);
+      rightMargin = Unit.multiply(m, -0.25);
+      topMargin = Unit.multiply(m, -0.25);
+      bottomMargin = Unit.multiply(m, 0.25);
     } else if (props.subkind === 'left') {
       justifyContent = 'flex-start';
     }
@@ -526,11 +525,11 @@ export default function styles (theme, props) {
       bottomMargin = '0px';
     } else if (props.spacing === 'glued') {
       height = theme.shapes.lineHeight;
-      bottomMargin = Unit.multiply (halfMargin, -1);
+      bottomMargin = Unit.multiply(halfMargin, -1);
     } else if (props.spacing === 'overlap') {
       bottomMargin = '-1px';
     }
-    if (Bool.isTrue (props.selected) && props.subkind !== 'large-box') {
+    if (Bool.isTrue(props.selected) && props.subkind !== 'large-box') {
       backgroundColor = theme.palette.paneSelectedBackground;
       color = theme.palette.paneSelectedText;
     }
@@ -539,7 +538,7 @@ export default function styles (theme, props) {
   }
 
   if (props.kind === 'row-field') {
-    const halfMargin = Unit.multiply (m, 0.5);
+    const halfMargin = Unit.multiply(m, 0.5);
     let topMargin = '0px';
     let rightMargin = '0px';
     let bottomMargin = s;
@@ -548,13 +547,13 @@ export default function styles (theme, props) {
     flexDirection = 'row';
     flexGrow = props.grow;
     alignItems = props.verticalJustify === 'top' ? 'flex-start' : 'center';
-    minHeight = Unit.add (h, '1px');
+    minHeight = Unit.add(h, '1px');
     if (props.subkind === 'left') {
       justifyContent = 'flex-start';
     } else if (props.subkind === 'light-box') {
-      rightMargin = Unit.multiply (m, -1);
-      leftMargin = Unit.multiply (m, -1);
-      topMargin = Unit.multiply (halfMargin, -1);
+      rightMargin = Unit.multiply(m, -1);
+      leftMargin = Unit.multiply(m, -1);
+      topMargin = Unit.multiply(halfMargin, -1);
       bottomMargin = '0px';
     }
     if (props.verticalSpacing === 'compact') {
@@ -575,17 +574,17 @@ export default function styles (theme, props) {
     display = 'flex';
     flexDirection = 'column';
     margin =
-      Unit.multiply (m, 0.5) +
+      Unit.multiply(m, 0.5) +
       ' ' +
-      Unit.multiply (m, -1) +
+      Unit.multiply(m, -1) +
       ' ' +
-      Unit.multiply (m, -0.5) +
+      Unit.multiply(m, -0.5) +
       ' ' +
-      Unit.multiply (m, -1);
+      Unit.multiply(m, -1);
   }
 
   if (props.kind === 'row-wrap') {
-    margin = Unit.multiply (m, 0.25);
+    margin = Unit.multiply(m, 0.25);
   }
 
   if (props.kind === 'compact-row') {
@@ -603,8 +602,8 @@ export default function styles (theme, props) {
     flexGrow = '1';
     justifyContent = 'flex-start';
     alignItems = 'flex-start';
-    margin = Unit.multiply (m, -1);
-    padding = '0px 0px ' + Unit.multiply (m, 0.5) + ' 0px';
+    margin = Unit.multiply(m, -1);
+    padding = '0px 0px ' + Unit.multiply(m, 0.5) + ' 0px';
     backgroundColor = theme.palette.ticketsBackground;
   }
 
@@ -614,7 +613,7 @@ export default function styles (theme, props) {
     flexGrow = '1';
     justifyContent = 'flex-start';
     alignItems = 'flex-start';
-    margin = Unit.multiply (m, -1);
+    margin = Unit.multiply(m, -1);
     padding = '0px ' + m + ' ' + m + ' ' + m;
     backgroundColor = theme.palette.ticketsBackground;
   }
@@ -625,7 +624,7 @@ export default function styles (theme, props) {
     flexGrow = '1';
     justifyContent = 'flex-start';
     alignItems = 'flex-start';
-    margin = Unit.multiply (m, -1);
+    margin = Unit.multiply(m, -1);
     padding = '0px ' + m + ' ' + m + ' ' + m;
     backgroundColor = theme.palette.ticketsBackground;
   }
@@ -648,7 +647,7 @@ export default function styles (theme, props) {
       // In default panel (edit to left or readonly to right), the vertical
       // scrolling is globaly managed by parent pannel.
       // Width is fix (700px).
-      width = Unit.sub ('700px', '140px'); // 140px include margins, vertical toolbar and vertical scroller
+      width = Unit.sub('700px', '140px'); // 140px include margins, vertical toolbar and vertical scroller
       overflowX = 'hidden';
       overflowY = 'hidden';
     } else if (props.subkind === 'wrap') {
@@ -681,7 +680,7 @@ export default function styles (theme, props) {
   }
 
   if (props.kind === 'tickets') {
-    const mm = Unit.multiply (m, 0.5);
+    const mm = Unit.multiply(m, 0.5);
     overflowY = 'auto';
     padding = '0px ' + mm + ' 0px ' + mm;
     display = 'flex';
@@ -731,7 +730,7 @@ export default function styles (theme, props) {
   }
 
   if (props.kind === 'roadbook-tickets') {
-    const mm = Unit.multiply (m, 0.5);
+    const mm = Unit.multiply(m, 0.5);
     padding = '0px ' + mm + ' 0px ' + mm;
     display = 'flex';
     flexDirection = 'column';
@@ -741,7 +740,7 @@ export default function styles (theme, props) {
   }
 
   if (props.kind === 'desk-tickets') {
-    const mm = Unit.multiply (m, 0.5);
+    const mm = Unit.multiply(m, 0.5);
     padding = '0px ' + mm + ' 0px ' + mm;
     display = 'flex';
     flexDirection = 'column';
@@ -849,19 +848,19 @@ export default function styles (theme, props) {
     display = 'flex';
     flexDirection = 'row';
     flexGrow = props.grow;
-    if (Bool.isTrue (props.isDragged)) {
+    if (Bool.isTrue(props.isDragged)) {
       // borderWidth = '1px';
       // borderStyle = 'solid';
       // boxSizing = 'border-box';
       // borderColor = theme.palette.buttonBorder;
-      backgroundColor = Bool.isTrue (props.isTransparentWhenDrag)
+      backgroundColor = Bool.isTrue(props.isTransparentWhenDrag)
         ? null
         : theme.palette.dragAndDropBackground;
-      boxShadow = Bool.isTrue (props.isTransparentWhenDrag)
+      boxShadow = Bool.isTrue(props.isTransparentWhenDrag)
         ? null
         : theme.palette.dragAndDropShadow;
       opacity = 0.9;
-    } else if (Bool.isTrue (props.hasHeLeft)) {
+    } else if (Bool.isTrue(props.hasHeLeft)) {
       visibility = 'hidden';
       opacity = 0;
     }
@@ -920,7 +919,7 @@ export default function styles (theme, props) {
     margin = '0px 10px 0px 0px';
   }
 
-  if (props.kind && props.kind.startsWith ('thin-')) {
+  if (props.kind && props.kind.startsWith('thin-')) {
     if (props.border) {
       if (props.border === 'top') {
         borderStyle = 'solid none none none';
@@ -948,7 +947,7 @@ export default function styles (theme, props) {
     borderStyle = 'solid';
     borderColor = theme.palette.buttonBorder;
     borderRadius = theme.shapes.thinRadius;
-    if (Bool.isTrue (props.selected)) {
+    if (Bool.isTrue(props.selected)) {
       backgroundColor = theme.palette.paneSelectedBackground;
       color = theme.palette.paneSelectedText;
     } else {
@@ -1000,10 +999,11 @@ export default function styles (theme, props) {
     display = 'flex';
     flexDirection = 'column';
     flexWrap = 'wrap';
-    padding = Unit.add (fbp, '1px') + ' ' + fbp + ' ' + fbp + ' ' + fbp;
-    backgroundColor = props.subkind === 'warning'
-      ? theme.palette.flyingBalloonWarningBackground
-      : theme.palette.flyingBalloonBackground;
+    padding = Unit.add(fbp, '1px') + ' ' + fbp + ' ' + fbp + ' ' + fbp;
+    backgroundColor =
+      props.subkind === 'warning'
+        ? theme.palette.flyingBalloonWarningBackground
+        : theme.palette.flyingBalloonBackground;
     color = theme.palette.text;
     position = 'relative';
     boxShadow = theme.shapes.flyingShadow;
@@ -1016,9 +1016,10 @@ export default function styles (theme, props) {
     flexDirection = 'column';
     margin = '0px 0px ' + theme.shapes.chatVerticalSpacing + ' 0px';
     padding = fbp + ' ' + fbp + ' ' + fbp + ' ' + fbp;
-    backgroundColor = props.subkind === 'me'
-      ? theme.palette.chatMeBackground
-      : theme.palette.chatOtherBackground;
+    backgroundColor =
+      props.subkind === 'me'
+        ? theme.palette.chatMeBackground
+        : theme.palette.chatOtherBackground;
     color = theme.palette.text;
     position = 'relative';
     borderRadius = theme.shapes.flyingBalloonRadius;
@@ -1039,13 +1040,13 @@ export default function styles (theme, props) {
   if (props.kind === 'push-to-edge') {
     flexGrow = 1;
     margin =
-      Unit.multiply (m, 0.5) +
+      Unit.multiply(m, 0.5) +
       ' ' +
-      Unit.multiply (m, -1) +
+      Unit.multiply(m, -1) +
       ' ' +
-      Unit.multiply (m, -1) +
+      Unit.multiply(m, -1) +
       ' ' +
-      Unit.multiply (m, -1);
+      Unit.multiply(m, -1);
   }
 
   // WIP: This code generate problems of layout with 'row-field'.
@@ -1061,9 +1062,9 @@ export default function styles (theme, props) {
   if (
     flexGrow &&
     typeof flexGrow === 'string' &&
-    flexGrow.indexOf (' ') !== -1
+    flexGrow.indexOf(' ') !== -1
   ) {
-    const parts = flexGrow.split (' ');
+    const parts = flexGrow.split(' ');
     flexGrow = parts[0];
     if (parts.length >= 3) {
       flexShrink = parts[1];
@@ -1071,12 +1072,12 @@ export default function styles (theme, props) {
     }
   }
 
-  if (Bool.isTrue (hidden)) {
+  if (Bool.isTrue(hidden)) {
     display = 'none';
   }
 
   if (props.backgroundColor) {
-    backgroundColor = ColorHelpers.getMarkColor (theme, props.backgroundColor);
+    backgroundColor = ColorHelpers.getMarkColor(theme, props.backgroundColor);
   }
 
   const boxStyle = {
@@ -1160,8 +1161,8 @@ export default function styles (theme, props) {
         ? backgroundColor
         : theme.palette.flyingDialogBackground;
     }
-    const t = Unit.add (triangleSize, '1px', 0); // round (suppress decimals)
-    const tt = props.triangleShift ? Unit.add (t, props.triangleShift) : t;
+    const t = Unit.add(triangleSize, '1px', 0); // round (suppress decimals)
+    const tt = props.triangleShift ? Unit.add(t, props.triangleShift) : t;
     const p = triangleSize;
     if (props.trianglePosition === 'left') {
       triangleStyle = {

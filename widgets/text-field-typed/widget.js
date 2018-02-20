@@ -16,42 +16,42 @@ import LabelTextField from 'gadgets/label-text-field/widget';
 /******************************************************************************/
 
 class TextFieldTyped extends Widget {
-  constructor () {
-    super (...arguments);
+  constructor() {
+    super(...arguments);
 
-    this.getDisplayValue = this.getDisplayValue.bind (this);
-    this.getWarning = this.getWarning.bind (this);
-    this.getInfo = this.getInfo.bind (this);
+    this.getDisplayValue = this.getDisplayValue.bind(this);
+    this.getWarning = this.getWarning.bind(this);
+    this.getInfo = this.getInfo.bind(this);
   }
 
-  canonicalToDisplayed (canonicalValue) {
+  canonicalToDisplayed(canonicalValue) {
     switch (this.props.type) {
       case 'date':
-        return DateConverters.getDisplayed (canonicalValue);
+        return DateConverters.getDisplayed(canonicalValue);
       case 'time':
-        return TimeConverters.getDisplayed (canonicalValue);
+        return TimeConverters.getDisplayed(canonicalValue);
       case 'price':
-        return PriceConverters.getDisplayed (canonicalValue);
+        return PriceConverters.getDisplayed(canonicalValue);
       case 'weight':
-        return WeightConverters.getDisplayed (canonicalValue, this.props.unit);
+        return WeightConverters.getDisplayed(canonicalValue, this.props.unit);
       case 'volume':
-        return VolumeConverters.getDisplayed (canonicalValue, this.props.unit);
+        return VolumeConverters.getDisplayed(canonicalValue, this.props.unit);
       case 'number':
-        return NumberConverters.getDisplayed (canonicalValue);
+        return NumberConverters.getDisplayed(canonicalValue);
       case 'percent':
-        return PercentConverters.getDisplayed (canonicalValue);
+        return PercentConverters.getDisplayed(canonicalValue);
       case 'delay':
-        return DelayConverters.getDisplayed (canonicalValue, this.props.unit);
+        return DelayConverters.getDisplayed(canonicalValue, this.props.unit);
       default:
-        throw new Error (`Invalid type ${this.props.type}`);
+        throw new Error(`Invalid type ${this.props.type}`);
     }
   }
 
-  parseEditedValue (displayedValue) {
+  parseEditedValue(displayedValue) {
     let parsed;
     switch (this.props.type) {
       case 'date':
-        parsed = DateConverters.parseEdited (
+        parsed = DateConverters.parseEdited(
           displayedValue,
           null,
           this.props.minDate,
@@ -60,7 +60,7 @@ class TextFieldTyped extends Widget {
         );
         break;
       case 'time':
-        parsed = TimeConverters.parseEdited (
+        parsed = TimeConverters.parseEdited(
           displayedValue,
           '12:00:00',
           this.props.minTime,
@@ -69,27 +69,27 @@ class TextFieldTyped extends Widget {
         );
         break;
       case 'price':
-        parsed = PriceConverters.parseEdited (displayedValue);
+        parsed = PriceConverters.parseEdited(displayedValue);
         break;
       case 'weight':
-        parsed = WeightConverters.parseEdited (displayedValue, this.props.unit);
+        parsed = WeightConverters.parseEdited(displayedValue, this.props.unit);
         break;
       case 'volume':
-        parsed = VolumeConverters.parseEdited (displayedValue, this.props.unit);
+        parsed = VolumeConverters.parseEdited(displayedValue, this.props.unit);
         break;
       case 'number':
-        parsed = NumberConverters.parseEdited (displayedValue);
+        parsed = NumberConverters.parseEdited(displayedValue);
         break;
       case 'percent':
-        parsed = PercentConverters.parseEdited (displayedValue);
+        parsed = PercentConverters.parseEdited(displayedValue);
         break;
       case 'delay':
-        parsed = DelayConverters.parseEdited (displayedValue, this.props.unit);
+        parsed = DelayConverters.parseEdited(displayedValue, this.props.unit);
         break;
       default:
-        throw new Error (`Invalid type ${this.type}`);
+        throw new Error(`Invalid type ${this.type}`);
     }
-    const finalValue = this.canonicalToDisplayed (parsed.value);
+    const finalValue = this.canonicalToDisplayed(parsed.value);
     return {
       canonicalValue: parsed.value,
       warning: parsed.error,
@@ -97,15 +97,15 @@ class TextFieldTyped extends Widget {
     };
   }
 
-  getDisplayValue (value, onFocus, onBlur) {
+  getDisplayValue(value, onFocus, onBlur) {
     if (onFocus) {
       // When field set the focus, value is canonical value.
       // Don't change the displayed value.
-      return this.canonicalToDisplayed (value);
+      return this.canonicalToDisplayed(value);
     } else if (onBlur) {
       // When field lost the focus, value is canonical value.
       // Set the formated value based on canonical value.
-      return this.canonicalToDisplayed (value);
+      return this.canonicalToDisplayed(value);
     } else {
       // When text is changing, value is editing text.
       // Use the edited value.
@@ -113,18 +113,18 @@ class TextFieldTyped extends Widget {
     }
   }
 
-  getWarning (value, onFocus, onBlur) {
+  getWarning(value, onFocus, onBlur) {
     if (!onFocus && !onBlur) {
-      return this.parseEditedValue (value).warning;
+      return this.parseEditedValue(value).warning;
     } else {
       // When field lost the focus (blur), hide the flying-balloon.
       return null;
     }
   }
 
-  getInfo (value, onFocus, onBlur) {
+  getInfo(value, onFocus, onBlur) {
     if (!onFocus && !onBlur) {
-      const parse = this.parseEditedValue (value);
+      const parse = this.parseEditedValue(value);
       if (parse.displayedFinalValue === value) {
         return null;
       } else {
@@ -136,12 +136,12 @@ class TextFieldTyped extends Widget {
     }
   }
 
-  render () {
+  render() {
     return (
       <LabelTextField
         updateOn="blur"
         beforeChange={val => {
-          return this.parseEditedValue (val).canonicalValue;
+          return this.parseEditedValue(val).canonicalValue;
         }}
         getDisplayValue={this.getDisplayValue}
         getWarning={this.getWarning}
@@ -155,9 +155,9 @@ class TextFieldTyped extends Widget {
         fieldWidth={this.props.fieldWidth}
         fieldJustify={
           this.props.type === 'price' ||
-            this.props.type === 'weight' ||
-            this.props.type === 'number' ||
-            this.props.type === 'percent'
+          this.props.type === 'weight' ||
+          this.props.type === 'number' ||
+          this.props.type === 'percent'
             ? 'right'
             : 'left'
         }

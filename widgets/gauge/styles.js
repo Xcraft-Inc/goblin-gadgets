@@ -6,17 +6,17 @@ import * as Bool from 'gadgets/boolean-helpers';
 //  Compute the color of gauge.
 //  100 -> red
 //    0 -> orange
-function getColor (value) {
+function getColor(value) {
   if (value) {
-    const green = Math.min (Math.max (128 - 128 * value / 100, 0), 128); // 0/100 -> 128/0 (orange/red)
-    return `rgb(255,${Math.floor (green)},0)`;
+    const green = Math.min(Math.max(128 - 128 * value / 100, 0), 128); // 0/100 -> 128/0 (orange/red)
+    return `rgb(255,${Math.floor(green)},0)`;
   } else {
     return '#fff';
   }
 }
 
-export default function styles (theme, props) {
-  const value = Math.max (Math.min (props.value, 100), 0); // 0..100
+export default function styles(theme, props) {
+  const value = Math.max(Math.min(props.value, 100), 0); // 0..100
 
   const boxStyle = {
     position: 'relative',
@@ -41,8 +41,8 @@ export default function styles (theme, props) {
     position: 'absolute',
     height: value + '%',
     width: '100%',
-    backgroundColor: getColor (value),
-    animationName: Bool.isTrue (props.flash) ? keyframes : null,
+    backgroundColor: getColor(value),
+    animationName: Bool.isTrue(props.flash) ? keyframes : null,
     animationDuration: '1s',
     animationIterationCount: 'infinite',
   };
@@ -54,7 +54,7 @@ export default function styles (theme, props) {
     bottom: '1px',
     width: '1px',
     backgroundColor: theme.palette.ticketGaugeContentGlossy,
-    animationName: Bool.isTrue (props.flash) ? keyframes : null,
+    animationName: Bool.isTrue(props.flash) ? keyframes : null,
     animationDuration: '1s',
     animationIterationCount: 'infinite',
   };
@@ -69,13 +69,13 @@ export default function styles (theme, props) {
   }
 
   if (props.kind === 'rounded') {
-    boxStyle.borderRadius = Unit.multiply (theme.shapes.ticketGaugeWidth, 0.5);
+    boxStyle.borderRadius = Unit.multiply(theme.shapes.ticketGaugeWidth, 0.5);
     boxStyle.backgroundColor = theme.palette.ticketGaugeBackground;
     boxStyle.boxShadow = theme.palette.ticketGaugeBackgroundShadow;
     contentStyle.position = 'absolute';
     contentStyle.bottom = '1px';
     contentStyle.left = '1px';
-    contentStyle.borderRadius = Unit.multiply (
+    contentStyle.borderRadius = Unit.multiply(
       theme.shapes.ticketGaugeWidth,
       0.5
     );
@@ -91,7 +91,7 @@ export default function styles (theme, props) {
     }
   }
 
-  if (Bool.isTrue (props.disabled)) {
+  if (Bool.isTrue(props.disabled)) {
     boxStyle.backgroundColor = theme.palette.buttonDisableBackground;
     boxStyle.boxShadow = null;
     contentStyle.visibility = 'hidden';

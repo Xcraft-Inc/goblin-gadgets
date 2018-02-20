@@ -9,8 +9,8 @@ import TextField from 'gadgets/text-field/widget';
 /******************************************************************************/
 
 class LabelTextField extends Widget {
-  constructor () {
-    super (...arguments);
+  constructor() {
+    super(...arguments);
 
     this.state = {
       readonly: true,
@@ -18,42 +18,42 @@ class LabelTextField extends Widget {
 
     this.comboLocation = null;
 
-    this.onFocus = this.onFocus.bind (this);
-    this.onBlur = this.onBlur.bind (this);
-    this.onActionClicked = this.onActionClicked.bind (this);
+    this.onFocus = this.onFocus.bind(this);
+    this.onBlur = this.onBlur.bind(this);
+    this.onActionClicked = this.onActionClicked.bind(this);
   }
 
-  get readonly () {
+  get readonly() {
     return this.state.readonly;
   }
 
-  set readonly (value) {
-    this.setState ({
+  set readonly(value) {
+    this.setState({
       readonly: value,
     });
   }
 
-  onFocus () {
+  onFocus() {
     this.readonly = false;
     const x = this.props.onFocus;
     if (x) {
-      x ();
+      x();
     }
   }
 
-  onBlur () {
+  onBlur() {
     this.readonly = true;
     const x = this.props.onBlur;
     if (x) {
-      x ();
+      x();
     }
   }
 
-  onActionClicked (e) {
-    this.onClick (e);
+  onActionClicked(e) {
+    this.onClick(e);
   }
 
-  hasActionButton () {
+  hasActionButton() {
     const actionGlyph = this.props.actionGlyph;
     if (actionGlyph) {
       return true;
@@ -62,7 +62,7 @@ class LabelTextField extends Widget {
     }
   }
 
-  renderLabel () {
+  renderLabel() {
     return (
       <Label
         kind="label-text-field"
@@ -76,7 +76,7 @@ class LabelTextField extends Widget {
     );
   }
 
-  renderInput () {
+  renderInput() {
     const autoReadonly =
       this.readonly &&
       this.props.selectedValue &&
@@ -84,7 +84,7 @@ class LabelTextField extends Widget {
     const displayValue = autoReadonly ? this.props.selectedValue : null;
     const visibleReadonly = this.props.readonly
       ? this.props.readonly
-      : Bool.toString (autoReadonly);
+      : Bool.toString(autoReadonly);
     const textFieldShape = this.props.shape || 'smooth';
     const fieldGrow = this.props.fieldWidth ? null : '1';
 
@@ -109,7 +109,7 @@ class LabelTextField extends Widget {
       messageInfo: this.props.messageInfo,
       messageWarning: this.props.messageWarning,
       filterKeys: this.props.filterKeys,
-      spacing: this.hasActionButton () ? 'overlap' : this.props.spacing,
+      spacing: this.hasActionButton() ? 'overlap' : this.props.spacing,
       shape: textFieldShape,
       tabIndex: this.props.tabIndex,
       defaultValue: this.props.defaultValue,
@@ -130,8 +130,8 @@ class LabelTextField extends Widget {
     return <TextField {...props} onFocus={this.onFocus} onBlur={this.onBlur} />;
   }
 
-  renderAction () {
-    if (this.hasActionButton ()) {
+  renderAction() {
+    if (this.hasActionButton()) {
       const actionGlyph = this.props.actionGlyph;
       return (
         <Button
@@ -145,8 +145,8 @@ class LabelTextField extends Widget {
     }
   }
 
-  render () {
-    if (Bool.isFalse (this.props.show)) {
+  render() {
+    if (Bool.isFalse(this.props.show)) {
       return null;
     }
 
@@ -155,9 +155,9 @@ class LabelTextField extends Widget {
 
     return (
       <span disabled={disabled} className={boxClass}>
-        {this.renderLabel ()}
-        {this.renderInput ()}
-        {this.renderAction ()}
+        {this.renderLabel()}
+        {this.renderInput()}
+        {this.renderAction()}
       </span>
     );
   }

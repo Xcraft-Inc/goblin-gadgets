@@ -7,7 +7,7 @@ import DragCarrier from 'gadgets/drag-carrier/widget';
 
 /******************************************************************************/
 
-function isInside (rect, x, y) {
+function isInside(rect, x, y) {
   if (rect && rect.left <= rect.right && rect.top <= rect.bottom) {
     return (
       x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom
@@ -17,21 +17,21 @@ function isInside (rect, x, y) {
   }
 }
 
-function getBoundingRect (theme, container) {
-  const node = ReactDOM.findDOMNode (container);
-  return node.getBoundingClientRect ();
+function getBoundingRect(theme, container) {
+  const node = ReactDOM.findDOMNode(container);
+  return node.getBoundingClientRect();
 }
 
 // Return the property 'dragController' of the rectangle targeted by the
 // mouse (x, y). If there are several imbricated rectangles, it is necessary
 // to take the one whose surface is the smallest !
-function findDragController (theme, x, y) {
+function findDragController(theme, x, y) {
   let dc = null;
   let minSurface = Number.MAX_SAFE_INTEGER;
   for (var container of window.document.dragControllers) {
-    const rect = getBoundingRect (theme, container);
+    const rect = getBoundingRect(theme, container);
     const surface = rect.width * rect.height;
-    if (isInside (rect, x, y) && surface < minSurface) {
+    if (isInside(rect, x, y) && surface < minSurface) {
       dc = container.props.dragController;
       minSurface = surface;
     }
@@ -42,8 +42,8 @@ function findDragController (theme, x, y) {
 /******************************************************************************/
 
 class DragCab extends Widget {
-  constructor () {
-    super (...arguments);
+  constructor() {
+    super(...arguments);
 
     this.state = {
       dragInProcess: false,
@@ -54,63 +54,63 @@ class DragCab extends Widget {
     this.dragHeight = 0;
     this.hasCombo = false;
 
-    this.onMouseDown = this.onMouseDown.bind (this);
-    this.onMouseUp = this.onMouseUp.bind (this);
-    this.onDragEnding = this.onDragEnding.bind (this);
+    this.onMouseDown = this.onMouseDown.bind(this);
+    this.onMouseUp = this.onMouseUp.bind(this);
+    this.onDragEnding = this.onDragEnding.bind(this);
   }
 
-  get dragInProcess () {
+  get dragInProcess() {
     return this.state.dragInProcess;
   }
 
-  set dragInProcess (value) {
-    this.setState ({
+  set dragInProcess(value) {
+    this.setState({
       dragInProcess: value,
     });
   }
 
-  get dragStarting () {
+  get dragStarting() {
     return this.state.dragStarting;
   }
 
-  set dragStarting (value) {
-    this.setState ({
+  set dragStarting(value) {
+    this.setState({
       dragStarting: value,
     });
   }
 
-  componentDidMount () {
-    super.componentDidMount ();
+  componentDidMount() {
+    super.componentDidMount();
 
     if (!this.props.dragOwnerId) {
-      throw new Error ('DragCab has not dragOwnerId');
+      throw new Error('DragCab has not dragOwnerId');
     }
     if (!window.document.dragCabs) {
       window.document.dragCabs = [];
     }
-    window.document.dragCabs.push (this);
+    window.document.dragCabs.push(this);
   }
 
-  componentWillUnmount () {
-    const index = window.document.dragCabs.indexOf (this);
+  componentWillUnmount() {
+    const index = window.document.dragCabs.indexOf(this);
     if (index !== -1) {
-      window.document.dragCabs.splice (index, 1);
+      window.document.dragCabs.splice(index, 1);
     }
   }
 
-  onMouseDown (e) {
+  onMouseDown(e) {
     if (this.hasCombo) {
       // does a child have an open combo-menu ?
       return;
     }
     const mouseDown = this.props.mouseDown;
-    if (mouseDown && mouseDown (e)) {
+    if (mouseDown && mouseDown(e)) {
       return;
     }
-    if (Bool.isTrue (this.props.noDrag)) {
+    if (Bool.isTrue(this.props.noDrag)) {
       return; // if drag prohibited, don't initiate drag & drop ?
     }
-    const dc = findDragController (this.props.theme, e.clientX, e.clientY);
+    const dc = findDragController(this.props.theme, e.clientX, e.clientY);
     if (!dc || dc !== this.props.dragController) {
       // When clicking in a ticket of a messenger, 2 different drags try to start.
       // The first to move the ticket (dragController = 'ticket') and the second
@@ -119,17 +119,17 @@ class DragCab extends Widget {
       // the header of the messenger !
       return;
     }
-    const node = ReactDOM.findDOMNode (this);
+    const node = ReactDOM.findDOMNode(this);
     if (this.props.dragWidthtDetect) {
-      const w = Unit.parse (this.props.dragWidthtDetect).value;
-      const rect = node.getBoundingClientRect ();
+      const w = Unit.parse(this.props.dragWidthtDetect).value;
+      const rect = node.getBoundingClientRect();
       if (e.clientX > rect.left + w) {
         return;
       }
     }
     if (this.props.dragHeightDetect) {
-      const h = Unit.parse (this.props.dragHeightDetect).value;
-      const rect = node.getBoundingClientRect ();
+      const h = Unit.parse(this.props.dragHeightDetect).value;
+      const rect = node.getBoundingClientRect();
       if (e.clientY > rect.top + h) {
         return;
       }
@@ -139,40 +139,40 @@ class DragCab extends Widget {
     this.dragInProcess = true;
   }
 
-  onMouseUp (e) {
+  onMouseUp(e) {
     // Trace.log ('DragCab.mouseUp');
     if (this.hasCombo) {
       // does a child have an open combo-menu ?
       return;
     }
     const mouseUp = this.props.mouseUp;
-    if (mouseUp && mouseUp (e)) {
+    if (mouseUp && mouseUp(e)) {
       return;
     }
-    if (Bool.isTrue (this.props.noDrag)) {
+    if (Bool.isTrue(this.props.noDrag)) {
       // simple click when drag prohibited ?
-      this.doClickAction (e);
+      this.doClickAction(e);
     }
   }
 
-  onDragEnding (e, isDragDoing) {
+  onDragEnding(e, isDragDoing) {
     // Trace.log ('DragCab.onDragEnding');
     this.dragInProcess = false;
     this.dragStarting = false;
     if (!isDragDoing) {
       // simple click done ?
-      this.doClickAction (e);
+      this.doClickAction(e);
     }
   }
 
-  doClickAction (e) {
+  doClickAction(e) {
     const action = this.props.doClickAction;
     if (action) {
-      action (e);
+      action(e);
     }
   }
 
-  renderDragCarrier () {
+  renderDragCarrier() {
     return (
       <DragCarrier
         direction={this.props.direction}
@@ -193,10 +193,10 @@ class DragCab extends Widget {
     );
   }
 
-  renderChildren (isDragged, dragStarting) {
-    return React.Children.map (this.props.children, c => {
+  renderChildren(isDragged, dragStarting) {
+    return React.Children.map(this.props.children, c => {
       if (c !== null) {
-        return React.cloneElement (c, {
+        return React.cloneElement(c, {
           isDragged: isDragged,
           hasHeLeft: dragStarting,
         });
@@ -204,10 +204,9 @@ class DragCab extends Widget {
     });
   }
 
-  renderForDrag (isDragged, index) {
-    const htmlDragCarrier = this.dragInProcess && !isDragged
-      ? this.renderDragCarrier ()
-      : null;
+  renderForDrag(isDragged, index) {
+    const htmlDragCarrier =
+      this.dragInProcess && !isDragged ? this.renderDragCarrier() : null;
 
     const boxStyle = {
       position: 'relative',
@@ -241,7 +240,7 @@ class DragCab extends Widget {
             onTouchStart={this.onMouseDown}
             onTouchEnd={this.onMouseUp}
           />
-          {this.renderChildren (isDragged, this.dragStarting)}
+          {this.renderChildren(isDragged, this.dragStarting)}
           {htmlDragCarrier}
         </div>
       );
@@ -257,15 +256,15 @@ class DragCab extends Widget {
           onTouchStart={this.onMouseDown}
           onTouchEnd={this.onMouseUp}
         >
-          {this.renderChildren (isDragged, this.dragStarting)}
+          {this.renderChildren(isDragged, this.dragStarting)}
           {htmlDragCarrier}
         </div>
       );
     }
   }
 
-  render () {
-    return this.renderForDrag (false);
+  render() {
+    return this.renderForDrag(false);
   }
 }
 

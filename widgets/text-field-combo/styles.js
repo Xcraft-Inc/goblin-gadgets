@@ -3,15 +3,15 @@ import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
 
-export default function styles (theme, props) {
+export default function styles(theme, props) {
   let flexGrow = props.grow;
   let flexShrink = null;
   let flexBasis = null;
   let marginRight = '0px';
   let borderRadius = '0px';
-  let opacity = Bool.isFalse (props.visibility) ? 0 : null;
+  let opacity = Bool.isFalse(props.visibility) ? 0 : null;
 
-  const m = Unit.multiply (theme.shapes.containerMargin, 0.5);
+  const m = Unit.multiply(theme.shapes.containerMargin, 0.5);
 
   if (flexGrow) {
     flexShrink = '1';
@@ -64,7 +64,7 @@ export default function styles (theme, props) {
     position: 'absolute',
     right: props.comboDirection === 'right' ? null : '0px',
     left: props.comboDirection === 'right' ? '0px' : null,
-    top: Unit.add (theme.shapes.lineHeight, '1px'),
+    top: Unit.add(theme.shapes.lineHeight, '1px'),
     marginTop: theme.shapes.lineSpacing,
     zIndex: 1,
     display: 'flex',

@@ -15,8 +15,8 @@ import LabelTextField from 'gadgets/label-text-field/widget';
 /******************************************************************************/
 
 class WorkDialog extends Widget {
-  constructor () {
-    super (...arguments);
+  constructor() {
+    super(...arguments);
 
     this.state = {
       hasSelection: false,
@@ -24,44 +24,44 @@ class WorkDialog extends Widget {
 
     this.selectedIds = null;
 
-    this.onOpen = this.onOpen.bind (this);
-    this.onClose = this.onClose.bind (this);
-    this.onSelectionChanged = this.onSelectionChanged.bind (this);
+    this.onOpen = this.onOpen.bind(this);
+    this.onClose = this.onClose.bind(this);
+    this.onSelectionChanged = this.onSelectionChanged.bind(this);
   }
 
-  get hasSelection () {
+  get hasSelection() {
     return this.state.hasSelection;
   }
 
-  set hasSelection (value) {
-    this.setState ({
+  set hasSelection(value) {
+    this.setState({
       hasSelection: value,
     });
   }
 
-  onClose () {
+  onClose() {
     const x = this.props.closeDialog;
     if (x) {
-      x ();
+      x();
     }
   }
 
-  onOpen () {
+  onOpen() {
     if (this.hasSelection) {
       const x = this.props.action;
       if (x) {
-        x (this.selectedIds);
+        x(this.selectedIds);
       }
-      this.onClose ();
+      this.onClose();
     }
   }
 
-  onSelectionChanged (ids) {
+  onSelectionChanged(ids) {
     this.selectedIds = ids;
     this.hasSelection = ids.length > 0;
   }
 
-  get tableData () {
+  get tableData() {
     const data = {
       header: {
         column0: {
@@ -92,7 +92,7 @@ class WorkDialog extends Widget {
     return data;
   }
 
-  renderMain () {
+  renderMain() {
     const mainClass = this.styles.classNames.main;
     const tableClass = this.styles.classNames.table;
     return (
@@ -105,14 +105,14 @@ class WorkDialog extends Widget {
             data={this.tableData}
             frame="true"
             selectionMode="multi"
-            onSelectionChanged={ids => this.onSelectionChanged (ids)}
+            onSelectionChanged={ids => this.onSelectionChanged(ids)}
           />
         </div>
       </div>
     );
   }
 
-  renderFooter () {
+  renderFooter() {
     const footerClass = this.styles.classNames.footer;
     return (
       <div className={footerClass}>
@@ -130,13 +130,13 @@ class WorkDialog extends Widget {
     );
   }
 
-  render () {
+  render() {
     const n = this.props.data.length;
-    const dialogHeight = Unit.add (
-      Math.min (n * 38, 800) + 130 + 'px', // 38 is approximative height per line
-      Unit.multiply (this.context.theme.shapes.floatingPadding, 2)
+    const dialogHeight = Unit.add(
+      Math.min(n * 38, 800) + 130 + 'px', // 38 is approximative height per line
+      Unit.multiply(this.context.theme.shapes.floatingPadding, 2)
     );
-    const result = ComboHelpers.verticalDeclipping (
+    const result = ComboHelpers.verticalDeclipping(
       dialogHeight,
       this.props.center,
       this.context.theme.shapes.dialogDistanceFromEdge
@@ -151,8 +151,8 @@ class WorkDialog extends Widget {
         left={this.props.left}
         close={this.onClose}
       >
-        {this.renderMain ()}
-        {this.renderFooter ()}
+        {this.renderMain()}
+        {this.renderFooter()}
       </DialogModal>
     );
   }

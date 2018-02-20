@@ -2,7 +2,7 @@ import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
 
-export default function styles (theme, props) {
+export default function styles(theme, props) {
   let width = null;
   let height = '1px';
   let grow = null;
@@ -22,9 +22,9 @@ export default function styles (theme, props) {
   let topMargin = '0px';
   let bottomMargin = s;
   if (props.height) {
-    const h = Unit.multiply (props.height, 0.5);
-    topMargin = Unit.add (topMargin, h);
-    bottomMargin = Unit.add (bottomMargin, h);
+    const h = Unit.multiply(props.height, 0.5);
+    topMargin = Unit.add(topMargin, h);
+    bottomMargin = Unit.add(bottomMargin, h);
   }
 
   margin = topMargin + ' 0px ' + bottomMargin + ' 0px';

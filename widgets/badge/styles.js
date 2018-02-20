@@ -2,7 +2,7 @@ import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
 
-export default function styles (theme, props) {
+export default function styles(theme, props) {
   let boxWidth = theme.shapes.lineHeight;
   let boxHeight = theme.shapes.lineHeight;
   let boxAlignSelf = null;
@@ -41,8 +41,8 @@ export default function styles (theme, props) {
     top: boxTop,
   };
 
-  const m = Unit.multiply (labelHeight, 0.25);
-  const w = Unit.sub (labelHeight, Unit.multiply (m, 2.0));
+  const m = Unit.multiply(labelHeight, 0.25);
+  const w = Unit.sub(labelHeight, Unit.multiply(m, 2.0));
 
   const labelStyle = {
     minWidth: w,
@@ -53,7 +53,7 @@ export default function styles (theme, props) {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    fontSize: Unit.multiply (theme.shapes.badgeTextSize, theme.typo.fontScale),
+    fontSize: Unit.multiply(theme.shapes.badgeTextSize, theme.typo.fontScale),
     fontWeight: 'bold',
     color: color,
     backgroundColor: backgroundColor,

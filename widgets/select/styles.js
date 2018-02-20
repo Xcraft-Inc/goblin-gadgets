@@ -3,7 +3,7 @@ import {ColorManipulator} from 'electrum-theme';
 
 /******************************************************************************/
 
-export default function styles (theme, props) {
+export default function styles(theme, props) {
   const fullScreenStyle = {
     visibility: 'visible',
     position: 'fixed',
@@ -45,7 +45,8 @@ export default function styles (theme, props) {
   };
 
   const optionStyle = {
-    padding: theme.shapes.selectVerticalPadding +
+    padding:
+      theme.shapes.selectVerticalPadding +
       ' ' +
       theme.shapes.selectHorizontalPadding,
     backgroundColor: theme.palette.comboItemBackground,

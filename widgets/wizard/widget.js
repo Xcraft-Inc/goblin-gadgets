@@ -19,7 +19,7 @@ import Gauge from 'gadgets/gauge/widget';
 import Ticket from 'gadgets/ticket/widget';
 import Field from 'gadgets/field/widget';
 
-function getOnlyDigits (value) {
+function getOnlyDigits(value) {
   let result = '';
   for (let i = 0; i < value.length; i++) {
     const c = value[i];
@@ -30,89 +30,89 @@ function getOnlyDigits (value) {
   return result;
 }
 
-function getOnlyColor (value) {
-  const i = value.indexOf (' —');
+function getOnlyColor(value) {
+  const i = value.indexOf(' —');
   if (i > 0) {
-    return value.substring (0, i);
+    return value.substring(0, i);
   }
   return value;
 }
 
-function getPropertyValue (property, mode) {
-  const value = property.get ('value');
-  const unit = property.get ('unit');
+function getPropertyValue(property, mode) {
+  const value = property.get('value');
+  const unit = property.get('unit');
   if (value && unit) {
     if (unit === 'color') {
       if (mode === 'finalValue') {
-        return getOnlyColor (value);
+        return getOnlyColor(value);
       } else {
         return value;
       }
     } else {
-      return getOnlyDigits (value) + unit;
+      return getOnlyDigits(value) + unit;
     }
   }
   return value;
 }
 
 class Wizard extends Form {
-  constructor () {
-    super (...arguments);
+  constructor() {
+    super(...arguments);
   }
 
-  static get wiring () {
+  static get wiring() {
     return {
       id: 'id',
     };
   }
 
-  getGlobalSettingValue (id) {
-    return this.getModelValue (`.globalSettings.${id}.value`);
+  getGlobalSettingValue(id) {
+    return this.getModelValue(`.globalSettings.${id}.value`);
   }
 
-  setGlobalSettingValue (id, value) {
-    this.setModelValue (`.globalSettings.${id}.value`, value);
+  setGlobalSettingValue(id, value) {
+    this.setModelValue(`.globalSettings.${id}.value`, value);
   }
 
-  get widget () {
-    return this.getGlobalSettingValue ('widget');
+  get widget() {
+    return this.getGlobalSettingValue('widget');
   }
 
-  set widget (value) {
-    this.setGlobalSettingValue ('widget', value);
+  set widget(value) {
+    this.setGlobalSettingValue('widget', value);
   }
 
-  get widgets () {
-    return this.getModelValue ('.properties');
+  get widgets() {
+    return this.getModelValue('.properties');
   }
 
-  get properties () {
-    return this.getModelValue ('.properties').get (this.widget);
+  get properties() {
+    return this.getModelValue('.properties').get(this.widget);
   }
 
-  get previewSettings () {
-    return this.getModelValue ('.previewSettings').linq.where (
+  get previewSettings() {
+    return this.getModelValue('.previewSettings').linq.where(
       preview => preview.size > 0
     );
   }
 
-  getPreviewSettingValue (id) {
-    return this.getModelValue (`.previewSettings.${id}.value`);
+  getPreviewSettingValue(id) {
+    return this.getModelValue(`.previewSettings.${id}.value`);
   }
 
-  setPreviewSettingValue (id, value) {
-    this.setModelValue (`.previewSettings.${id}.value`, value);
+  setPreviewSettingValue(id, value) {
+    this.setModelValue(`.previewSettings.${id}.value`, value);
   }
 
-  getCode () {
+  getCode() {
     var result = `<${this.widget} `;
     this.properties.linq
-      .where (property => property.size > 0)
-      .orderBy (property => property.get ('group'))
-      .orderBy (property => property.get ('field'))
-      .select (property => {
-        const field = property.get ('field');
-        const value = getPropertyValue (property, 'finalValue');
+      .where(property => property.size > 0)
+      .orderBy(property => property.get('group'))
+      .orderBy(property => property.get('field'))
+      .select(property => {
+        const field = property.get('field');
+        const value = getPropertyValue(property, 'finalValue');
         if (value !== '') {
           result += `${field}="${value}" `;
         }
@@ -125,14 +125,13 @@ class Wizard extends Form {
   // First column WIDGET
   /******************************************************************************/
 
-  renderMenuItem (widgetName, index) {
-    const WButton = this.WithModel (Button, _ => {
+  renderMenuItem(widgetName, index) {
+    const WButton = this.WithModel(Button, _ => {
       return {
-        glyph: this.widget === widgetName
-          ? 'solid/chevron-right'
-          : 'solid/none',
+        glyph:
+          this.widget === widgetName ? 'solid/chevron-right' : 'solid/none',
       };
-    }) ('.globalSettings.widget.value');
+    })('.globalSettings.widget.value');
 
     return (
       <WButton
@@ -147,17 +146,17 @@ class Wizard extends Form {
     );
   }
 
-  renderMenuItems () {
+  renderMenuItems() {
     let index = 0;
     return this.widgets.linq
-      .orderBy (widget => widget.get ('id'))
-      .select (widget => {
-        return this.renderMenuItem (widget.get ('id'), index++);
+      .orderBy(widget => widget.get('id'))
+      .select(widget => {
+        return this.renderMenuItem(widget.get('id'), index++);
       })
-      .toList ();
+      .toList();
   }
 
-  renderMenu () {
+  renderMenu() {
     return (
       <Container
         kind="view"
@@ -167,9 +166,7 @@ class Wizard extends Form {
         <Container kind="pane-header">
           <Label text="Widget" kind="pane-header" />
         </Container>
-        <Container kind="panes">
-          {this.renderMenuItems ()}
-        </Container>
+        <Container kind="panes">{this.renderMenuItems()}</Container>
       </Container>
     );
   }
@@ -178,10 +175,10 @@ class Wizard extends Form {
   // Second column PROPERTIES
   /******************************************************************************/
 
-  renderProperty (property, index) {
-    const type = property.get ('type');
-    const field = property.get ('field');
-    const list = property.get ('list');
+  renderProperty(property, index) {
+    const type = property.get('type');
+    const field = property.get('field');
+    const list = property.get('list');
 
     const model = `.properties.${this.widget}.${field}.value`;
     if (type === 'combo' || (type === 'text' && list)) {
@@ -191,25 +188,25 @@ class Wizard extends Form {
           <TextFieldCombo
             model={model}
             menuType="wrap"
-            readonly={Bool.toString (type === 'combo')}
+            readonly={Bool.toString(type === 'combo')}
             grow="1"
             list={list}
-            defaultValue={property.get ('value')}
+            defaultValue={property.get('value')}
             comboTextTransform="none"
             onSetText={text => {
-              this.setModelValue (model, text);
+              this.setModelValue(model, text);
             }}
           />
         </Container>
       );
     } else if (type === 'bool') {
-      const CheckButton = this.WithModel (Button, val => {
+      const CheckButton = this.WithModel(Button, val => {
         if (val === 'true') {
           return {glyph: 'solid/check'};
         } else {
           return {glyph: null};
         }
-      }) (model);
+      })(model);
 
       return (
         <Container kind="row-pane" subkind="left" key={index}>
@@ -218,9 +215,9 @@ class Wizard extends Form {
             width="32px"
             focusable="true"
             onClick={() => {
-              this.setModelValue (
+              this.setModelValue(
                 model,
-                this.getModelValue (model) === 'false' ? 'true' : 'false'
+                this.getModelValue(model) === 'false' ? 'true' : 'false'
               );
             }}
           />
@@ -236,56 +233,52 @@ class Wizard extends Form {
     }
   }
 
-  renderPropertyList (group) {
+  renderPropertyList(group) {
     let index = 0;
     return this.properties.linq
-      .where (property => property.size > 0)
-      .where (property => property.get ('group') === group)
-      .orderBy (property => property.get ('field'))
-      .select (property => {
-        return this.renderProperty (property, index++);
+      .where(property => property.size > 0)
+      .where(property => property.get('group') === group)
+      .orderBy(property => property.get('field'))
+      .select(property => {
+        return this.renderProperty(property, index++);
       })
-      .toList ();
+      .toList();
   }
 
-  renderPropertyGroup (group, index) {
+  renderPropertyGroup(group, index) {
     return (
       <Container kind="pane" key={index}>
         <Container kind="row-pane">
           <Label text={group} grow="1" kind="title" />
         </Container>
-        {this.renderPropertyList (group)}
+        {this.renderPropertyList(group)}
       </Container>
     );
   }
 
-  renderPropertyGroups () {
+  renderPropertyGroups() {
     const groups = [];
     this.properties.linq
-      .where (property => property.size > 0)
-      .orderBy (property => property.get ('group'))
-      .select (property => {
-        const group = property.get ('group');
-        if (groups.indexOf (group) === -1) {
-          groups.push (group);
+      .where(property => property.size > 0)
+      .orderBy(property => property.get('group'))
+      .select(property => {
+        const group = property.get('group');
+        if (groups.indexOf(group) === -1) {
+          groups.push(group);
         }
       });
     const result = [];
     let index = 0;
     for (const group of groups) {
-      result.push (this.renderPropertyGroup (group, index++));
+      result.push(this.renderPropertyGroup(group, index++));
     }
     return result;
   }
 
-  renderProperties () {
-    const PropertyGroups = this.WithModel (_ => {
-      return (
-        <Container kind="panes">
-          {this.renderPropertyGroups ()}
-        </Container>
-      );
-    }) ('.properties');
+  renderProperties() {
+    const PropertyGroups = this.WithModel(_ => {
+      return <Container kind="panes">{this.renderPropertyGroups()}</Container>;
+    })('.properties');
 
     return (
       <Container kind="view" width="500px" spacing="large">
@@ -301,7 +294,7 @@ class Wizard extends Form {
   // Last column PREVIEW
   /******************************************************************************/
 
-  renderWidgetBaseTicket () {
+  renderWidgetBaseTicket() {
     const result = [];
     const lines = [
       'Ticket',
@@ -315,15 +308,15 @@ class Wizard extends Form {
       'Neuvième ligne',
       'Dixième ligne plus longue que les autres',
     ];
-    for (let i = 0; i < this.getPreviewSettingValue ('ticketLines'); i++) {
-      result.push (<Label key={i} text={lines[i]} wrap="no" />);
+    for (let i = 0; i < this.getPreviewSettingValue('ticketLines'); i++) {
+      result.push(<Label key={i} text={lines[i]} wrap="no" />);
     }
     return result;
   }
 
-  renderWidgetBaseContainer () {
+  renderWidgetBaseContainer() {
     const result = [];
-    const type = this.getPreviewSettingValue ('containerType');
+    const type = this.getPreviewSettingValue('containerType');
     if (type === 'button') {
       const lines = [
         'Janvier',
@@ -339,8 +332,8 @@ class Wizard extends Form {
         'Novembre',
         'Décembre',
       ];
-      for (let i = 0; i < this.getPreviewSettingValue ('containerItems'); i++) {
-        result.push (<Button key={i} text={lines[i]} wrap="no" />);
+      for (let i = 0; i < this.getPreviewSettingValue('containerItems'); i++) {
+        result.push(<Button key={i} text={lines[i]} wrap="no" />);
       }
     } else if (type === 'glyph') {
       const lines = [
@@ -357,8 +350,8 @@ class Wizard extends Form {
         'solid/fighter-jet',
         'solid/rocket',
       ];
-      for (let i = 0; i < this.getPreviewSettingValue ('containerItems'); i++) {
-        result.push (<Button key={i} glyph={lines[i]} wrap="no" />);
+      for (let i = 0; i < this.getPreviewSettingValue('containerItems'); i++) {
+        result.push(<Button key={i} glyph={lines[i]} wrap="no" />);
       }
     } else {
       const lines = [
@@ -375,16 +368,16 @@ class Wizard extends Form {
         'Onzième ligne',
         'Douzième ligne',
       ];
-      for (let i = 0; i < this.getPreviewSettingValue ('containerItems'); i++) {
-        result.push (<Label key={i} text={lines[i]} wrap="no" />);
+      for (let i = 0; i < this.getPreviewSettingValue('containerItems'); i++) {
+        result.push(<Label key={i} text={lines[i]} wrap="no" />);
       }
     }
     return result;
   }
 
-  renderWidgetBaseTextFieldCombo (index, props) {
+  renderWidgetBaseTextFieldCombo(index, props) {
     let list = [];
-    switch (this.getPreviewSettingValue ('textFieldComboMenu')) {
+    switch (this.getPreviewSettingValue('textFieldComboMenu')) {
       case 'long':
         list = [
           'TextFieldCombo',
@@ -519,9 +512,9 @@ class Wizard extends Form {
     return <TextFieldCombo key={index} model=".x" list={list} {...props} />;
   }
 
-  renderWidgetBaseField (index, props) {
+  renderWidgetBaseField(index, props) {
     let list = [];
-    switch (this.getPreviewSettingValue ('fieldMenu')) {
+    switch (this.getPreviewSettingValue('fieldMenu')) {
       case 'long':
         list = [
           'Adrien',
@@ -582,20 +575,20 @@ class Wizard extends Form {
     );
   }
 
-  wireWidgetBase (component, props) {
-    return this.WithModel (component, properties => {
-      properties.linq.select (property => {
+  wireWidgetBase(component, props) {
+    return this.WithModel(component, properties => {
+      properties.linq.select(property => {
         if (typeof property !== 'string') {
-          const field = property.get ('field');
-          const value = getPropertyValue (property, 'finalValue');
+          const field = property.get('field');
+          const value = getPropertyValue(property, 'finalValue');
           props[field] = value;
         }
       });
       return {...props};
-    }) (`.properties.${this.widget}`);
+    })(`.properties.${this.widget}`);
   }
 
-  renderWidgetBase (index, props) {
+  renderWidgetBase(index, props) {
     switch (this.widget) {
       case 'Button':
         return <Button key={index} {...props} />;
@@ -612,11 +605,11 @@ class Wizard extends Form {
       case 'LabelTextField':
         return <LabelTextField key={index} model=".x" {...props} />;
       case 'TextFieldCombo':
-        return this.renderWidgetBaseTextFieldCombo (index, props);
+        return this.renderWidgetBaseTextFieldCombo(index, props);
       case 'TextFieldTyped':
         return <TextFieldTyped key={index} model=".x" {...props} />;
       case 'Field':
-        return this.renderWidgetBaseField (index, props);
+        return this.renderWidgetBaseField(index, props);
       case 'CheckButton':
         return <CheckButton key={index} {...props} />;
       case 'Gauge':
@@ -635,14 +628,14 @@ class Wizard extends Form {
         return (
           <Ticket key={index} {...props}>
             <Container kind="box" grow="1">
-              {this.renderWidgetBaseTicket ()}
+              {this.renderWidgetBaseTicket()}
             </Container>
           </Ticket>
         );
       case 'Container':
         return (
           <Container key={index} {...props}>
-            {this.renderWidgetBaseContainer ()}
+            {this.renderWidgetBaseContainer()}
           </Container>
         );
       default:
@@ -650,17 +643,17 @@ class Wizard extends Form {
     }
   }
 
-  renderWidget (index) {
+  renderWidget(index) {
     const props = {};
     this.properties.linq
-      .where (property => property.size > 0)
-      .select (property => {
-        const field = property.get ('field');
-        const value = getPropertyValue (property, 'finalValue');
+      .where(property => property.size > 0)
+      .select(property => {
+        const field = property.get('field');
+        const value = getPropertyValue(property, 'finalValue');
         props[field] = value;
       });
 
-    if (this.getPreviewSettingValue ('showFrame')) {
+    if (this.getPreviewSettingValue('showFrame')) {
       const frameStyle = {
         border: '1px solid #f00',
         display: 'flex',
@@ -669,25 +662,25 @@ class Wizard extends Form {
       };
       return (
         <div style={frameStyle} key={index}>
-          {this.renderWidgetBase (index, props)}
+          {this.renderWidgetBase(index, props)}
         </div>
       );
     } else {
-      return this.renderWidgetBase (index, props);
+      return this.renderWidgetBase(index, props);
     }
   }
 
-  renderWidgets () {
+  renderWidgets() {
     const result = [];
-    for (let i = 0; i < this.getPreviewSettingValue ('items'); i++) {
-      result.push (this.renderWidget (i));
+    for (let i = 0; i < this.getPreviewSettingValue('items'); i++) {
+      result.push(this.renderWidget(i));
     }
     return result;
   }
 
-  renderPreviewSolo () {
+  renderPreviewSolo() {
     const backgroundColor = this.context.theme.palette[
-      this.getPreviewSettingValue ('color') + 'Background'
+      this.getPreviewSettingValue('color') + 'Background'
     ];
     // Specifies 'color' for widgets that do not define color (color='transparent' or null).
     const paneStyle = {
@@ -698,12 +691,12 @@ class Wizard extends Form {
       marginBottom: this.context.theme.shapes.containerMargin,
       padding: this.context.theme.shapes.containerMargin,
       backgroundColor: backgroundColor,
-      color: ColorManipulator.emphasize (backgroundColor, 1),
-      transition: this.context.theme.transitions.easeOut (),
+      color: ColorManipulator.emphasize(backgroundColor, 1),
+      transition: this.context.theme.transitions.easeOut(),
     };
 
     let direction, wrap;
-    switch (this.getPreviewSettingValue ('layout')) {
+    switch (this.getPreviewSettingValue('layout')) {
       case 'row':
         direction = 'row';
         wrap = 'nowrap';
@@ -718,7 +711,7 @@ class Wizard extends Form {
         break;
     }
 
-    const scale = this.getPreviewSettingValue ('scale');
+    const scale = this.getPreviewSettingValue('scale');
     const soloStyle = {
       display: 'flex',
       flexDirection: direction,
@@ -728,29 +721,27 @@ class Wizard extends Form {
       transform: scale === 1 ? null : `scale(${scale})`,
       transformOrigin: scale === 1 ? null : 'top left',
       width: `${100 / scale}%`,
-      transition: this.context.theme.transitions.easeOut (),
+      transition: this.context.theme.transitions.easeOut(),
     };
 
-    const WidgetCustomContainer = this.WithModel (
+    const WidgetCustomContainer = this.WithModel(
       () => (
         <div style={paneStyle}>
-          <div style={soloStyle}>
-            {this.renderWidgets ()}
-          </div>
+          <div style={soloStyle}>{this.renderWidgets()}</div>
         </div>
       ),
       _ => _
-    ) ('.previewSettings');
+    )('.previewSettings');
 
-    const WidgetCustomContainer2 = this.WithModel (
+    const WidgetCustomContainer2 = this.WithModel(
       WidgetCustomContainer,
       _ => _
-    ) ('.properties');
+    )('.properties');
 
-    const WidgetCustomContainer3 = this.WithModel (
+    const WidgetCustomContainer3 = this.WithModel(
       WidgetCustomContainer2,
       _ => _
-    ) ('.globalSettings.widget.value');
+    )('.globalSettings.widget.value');
 
     return <WidgetCustomContainer3 />;
   }
@@ -759,31 +750,31 @@ class Wizard extends Form {
   // Panel of settings in column PREVIEW
   /******************************************************************************/
 
-  renderPreviewSettingSwitch (value, getter, setter, index) {
-    const SettingSwitch = this.WithModel (CheckButton, _ => {
-      return {checked: Bool.toString (getter () === value)};
-    }) ('.previewSettings');
+  renderPreviewSettingSwitch(value, getter, setter, index) {
+    const SettingSwitch = this.WithModel(CheckButton, _ => {
+      return {checked: Bool.toString(getter() === value)};
+    })('.previewSettings');
     return (
       <SettingSwitch
         key={index}
         text={value}
         kind="active"
         onClick={() => {
-          setter (value);
+          setter(value);
         }}
       />
     );
   }
 
-  renderPreviewSettingList (preview, index) {
+  renderPreviewSettingList(preview, index) {
     const result = [];
     let i = 0;
-    for (const item of preview.get ('list')) {
-      result.push (
-        this.renderPreviewSettingSwitch (
+    for (const item of preview.get('list')) {
+      result.push(
+        this.renderPreviewSettingSwitch(
           item,
-          () => preview.get ('value'),
-          value => this.setPreviewSettingValue (preview.get ('id'), value),
+          () => preview.get('value'),
+          value => this.setPreviewSettingValue(preview.get('id'), value),
           index * 100 + i++
         )
       );
@@ -791,95 +782,88 @@ class Wizard extends Form {
     return result;
   }
 
-  renderPreviewSettingBool (preview, index) {
+  renderPreviewSettingBool(preview, index) {
     return (
       <CheckButton
         key={index * 100}
         kind="switch"
-        checked={Bool.toString (preview.get ('value'))}
+        checked={Bool.toString(preview.get('value'))}
         onClick={() => {
-          this.setPreviewSettingValue (
-            preview.get ('id'),
-            !preview.get ('value')
-          );
+          this.setPreviewSettingValue(preview.get('id'), !preview.get('value'));
         }}
       />
     );
   }
 
-  renderPreviewSetting (preview, index) {
-    const type = preview.get ('type');
+  renderPreviewSetting(preview, index) {
+    const type = preview.get('type');
     if (type === 'bool') {
       return [
-        this.renderPreviewSettingBool (preview, index),
+        this.renderPreviewSettingBool(preview, index),
         <Label width="20px" />,
       ];
     } else {
       return [
-        this.renderPreviewSettingList (preview, index),
+        this.renderPreviewSettingList(preview, index),
         <Label width="20px" />,
       ];
     }
   }
 
-  renderPreviewSettingsLine (group) {
+  renderPreviewSettingsLine(group) {
     let index = 0;
     return this.previewSettings
-      .where (preview => preview.get ('group') === group)
-      .orderBy (preview => preview.get ('order'))
-      .select (preview => {
-        return this.renderPreviewSetting (preview, index++);
+      .where(preview => preview.get('group') === group)
+      .orderBy(preview => preview.get('order'))
+      .select(preview => {
+        return this.renderPreviewSetting(preview, index++);
       })
-      .toList ();
+      .toList();
   }
 
-  renderPreviewSettingsGroup (group, index) {
+  renderPreviewSettingsGroup(group, index) {
     return (
       <Container key={index} kind="row-pane" subkind="left">
         <Label text={group} width="80px" />
-        {this.renderPreviewSettingsLine (group)}
+        {this.renderPreviewSettingsLine(group)}
       </Container>
     );
   }
 
-  renderPreviewSettings () {
+  renderPreviewSettings() {
     const groups = [];
     this.previewSettings
-      .where (preview => {
-        const f = preview.get ('for');
+      .where(preview => {
+        const f = preview.get('for');
         return !f || f === this.widget;
       })
-      .orderBy (preview => preview.get ('order'))
-      .select (preview => {
-        const group = preview.get ('group');
-        if (groups.indexOf (group) === -1) {
-          groups.push (group);
+      .orderBy(preview => preview.get('order'))
+      .select(preview => {
+        const group = preview.get('group');
+        if (groups.indexOf(group) === -1) {
+          groups.push(group);
         }
       });
     const result = [];
     let index = 0;
     for (const group of groups) {
-      result.push (this.renderPreviewSettingsGroup (group, index++));
+      result.push(this.renderPreviewSettingsGroup(group, index++));
     }
     return result;
   }
 
-  renderPreview () {
+  renderPreview() {
     const classPanes = this.styles.classNames.panes;
-    const Code = this.WithModel (Label, _ => {
+    const Code = this.WithModel(Label, _ => {
       return {
-        text: this.getCode (),
+        text: this.getCode(),
       };
-    }) ('.properties');
+    })('.properties');
 
-    const PreviewSettings = this.WithModel (
-      () => (
-        <Container kind="pane">
-          {this.renderPreviewSettings ()}
-        </Container>
-      ),
+    const PreviewSettings = this.WithModel(
+      () => <Container kind="pane">{this.renderPreviewSettings()}</Container>,
       _ => _
-    ) ('.globalSettings.widget.value');
+    )('.globalSettings.widget.value');
 
     return (
       <Container kind="view" grow="1">
@@ -893,7 +877,7 @@ class Wizard extends Form {
             </Container>
           </Container>
           <PreviewSettings />
-          {this.renderPreviewSolo ()}
+          {this.renderPreviewSolo()}
         </div>
       </Container>
     );
@@ -903,7 +887,7 @@ class Wizard extends Form {
   // Main
   /******************************************************************************/
 
-  render () {
+  render() {
     const {id} = this.props;
     if (!id) {
       return null;
@@ -911,16 +895,16 @@ class Wizard extends Form {
 
     const Form = this.Form;
 
-    const Preview = this.WithModel (
-      () => <Container kind="views">{this.renderPreview ()}</Container>,
+    const Preview = this.WithModel(
+      () => <Container kind="views">{this.renderPreview()}</Container>,
       _ => _
-    ) ('.previewSettings');
+    )('.previewSettings');
 
     return (
       <Form {...this.formConfig}>
         <Container kind="views">
-          {this.renderMenu ()}
-          {this.renderProperties ()}
+          {this.renderMenu()}
+          {this.renderProperties()}
           <Splitter kind="vertical" firstSize="600px">
             <Preview />
             <Container kind="row" />

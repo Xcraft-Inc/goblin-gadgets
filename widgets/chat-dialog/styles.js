@@ -1,6 +1,6 @@
 /******************************************************************************/
 
-export default function styles (theme, props) {
+export default function styles(theme, props) {
   const boxStyle = {
     display: 'flex',
     flexDirection: 'column',

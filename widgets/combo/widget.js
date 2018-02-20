@@ -14,54 +14,54 @@ import Separator from 'gadgets/separator/widget';
 /******************************************************************************/
 
 class Combo extends Widget {
-  constructor () {
-    super (...arguments);
+  constructor() {
+    super(...arguments);
 
     this.state = {
       activeIndex: -1,
     };
 
-    this.onCloseCombo = this.onCloseCombo.bind (this);
-    this.onPrevIndex = this.onPrevIndex.bind (this);
-    this.onNextIndex = this.onNextIndex.bind (this);
-    this.onEnterAction = this.onEnterAction.bind (this);
-    this.onActionAndClose = this.onActionAndClose.bind (this);
-    this.onMouseUp = this.onMouseUp.bind (this);
+    this.onCloseCombo = this.onCloseCombo.bind(this);
+    this.onPrevIndex = this.onPrevIndex.bind(this);
+    this.onNextIndex = this.onNextIndex.bind(this);
+    this.onEnterAction = this.onEnterAction.bind(this);
+    this.onActionAndClose = this.onActionAndClose.bind(this);
+    this.onMouseUp = this.onMouseUp.bind(this);
   }
 
-  get activeIndex () {
+  get activeIndex() {
     return this.state.activeIndex;
   }
 
-  set activeIndex (value) {
-    this.setState ({
+  set activeIndex(value) {
+    this.setState({
       activeIndex: value,
     });
   }
 
-  componentWillMount () {
-    MouseTrap.bind ('esc', this.onCloseCombo);
-    MouseTrap.bind ('up', this.onPrevIndex);
-    MouseTrap.bind ('down', this.onNextIndex);
-    MouseTrap.bind ('enter', this.onEnterAction);
+  componentWillMount() {
+    MouseTrap.bind('esc', this.onCloseCombo);
+    MouseTrap.bind('up', this.onPrevIndex);
+    MouseTrap.bind('down', this.onNextIndex);
+    MouseTrap.bind('enter', this.onEnterAction);
 
     let index = 0;
     for (let item of this.props.list) {
-      if (Bool.isTrue (item.active)) {
+      if (Bool.isTrue(item.active)) {
         this.activeIndex = index;
       }
       index++;
     }
   }
 
-  componentWillUnmount () {
-    MouseTrap.unbind ('esc');
-    MouseTrap.unbind ('up');
-    MouseTrap.unbind ('down');
-    MouseTrap.unbind ('enter');
+  componentWillUnmount() {
+    MouseTrap.unbind('esc');
+    MouseTrap.unbind('up');
+    MouseTrap.unbind('down');
+    MouseTrap.unbind('enter');
   }
 
-  onNextIndex (e) {
+  onNextIndex(e) {
     let index = this.activeIndex;
     while (index < this.props.list.length - 1) {
       index++;
@@ -70,10 +70,10 @@ class Combo extends Widget {
       }
     }
     this.activeIndex = index;
-    e.preventDefault ();
+    e.preventDefault();
   }
 
-  onPrevIndex (e) {
+  onPrevIndex(e) {
     let index = this.activeIndex;
     if (index === -1) {
       index = this.props.list.length;
@@ -85,49 +85,49 @@ class Combo extends Widget {
       }
     }
     this.activeIndex = index;
-    e.preventDefault ();
+    e.preventDefault();
   }
 
-  onEnterAction () {
+  onEnterAction() {
     const index = this.activeIndex;
     if (index !== -1) {
       const item = this.props.list[index];
-      this.onActionAndClose (item);
+      this.onActionAndClose(item);
     }
   }
 
-  onCloseCombo () {
+  onCloseCombo() {
     const close = this.props.close;
     if (close) {
-      close ();
+      close();
     }
   }
 
-  onMouseUp (e) {
-    const node = ReactDOM.findDOMNode (this);
-    const rect = node.children[0].getBoundingClientRect ();
-    if (!RectHelpers.isInside (rect, e.clientX, e.clientY)) {
+  onMouseUp(e) {
+    const node = ReactDOM.findDOMNode(this);
+    const rect = node.children[0].getBoundingClientRect();
+    if (!RectHelpers.isInside(rect, e.clientX, e.clientY)) {
       // If the mouse is outside the menu combo, close it.
-      this.onCloseCombo ();
+      this.onCloseCombo();
     }
   }
 
-  onActionAndClose (item) {
-    item.action (item);
-    this.onCloseCombo ();
+  onActionAndClose(item) {
+    item.action(item);
+    this.onCloseCombo();
   }
 
-  renderItem (item, index) {
+  renderItem(item, index) {
     if (item.separator) {
       return <Separator key={index} kind="menu-separator" />;
     } else {
-      const active = Bool.toString (this.activeIndex === index);
-      const color = ColorHelpers.getMarkColor (this.context.theme, item.color);
+      const active = Bool.toString(this.activeIndex === index);
+      const color = ColorHelpers.getMarkColor(this.context.theme, item.color);
       if (this.props.menuType === 'wrap') {
         const width = this.props.menuItemWidth
-          ? Unit.sub (
+          ? Unit.sub(
               this.props.menuItemWidth,
-              Unit.multiply (this.context.theme.shapes.containerMargin, 2) // padding of Button kind='combo-wrap-item'
+              Unit.multiply(this.context.theme.shapes.containerMargin, 2) // padding of Button kind='combo-wrap-item'
             )
           : null;
         return (
@@ -139,12 +139,12 @@ class Combo extends Widget {
             glyphColor={color}
             text={item.text}
             tooltip={
-              Bool.isTrue (this.props.menuItemTooltips) ? item.text : null
+              Bool.isTrue(this.props.menuItemTooltips) ? item.text : null
             }
             shortcut={item.shortcut}
             textTransform="none"
             active={active}
-            mouseUp={() => this.onActionAndClose (item)}
+            mouseUp={() => this.onActionAndClose(item)}
           />
         );
       } else {
@@ -159,28 +159,29 @@ class Combo extends Widget {
             shortcut={item.shortcut}
             textTransform={this.props.menuType === 'menu' ? null : 'none'}
             active={active}
-            mouseUp={() => this.onActionAndClose (item)}
+            mouseUp={() => this.onActionAndClose(item)}
           />
         );
       }
     }
   }
 
-  renderCombo () {
+  renderCombo() {
     const result = [];
     let index = 0;
     for (let item of this.props.list) {
-      result.push (this.renderItem (item, index++));
+      result.push(this.renderItem(item, index++));
     }
     return result;
   }
 
-  render () {
+  render() {
     const fullScreenClass = this.styles.classNames.fullScreen;
     const comboClass = this.styles.classNames.combo;
-    const insideClass = this.props.menuType === 'wrap'
-      ? this.styles.classNames.insideWrap
-      : this.styles.classNames.inside;
+    const insideClass =
+      this.props.menuType === 'wrap'
+        ? this.styles.classNames.insideWrap
+        : this.styles.classNames.inside;
 
     return (
       <div
@@ -200,9 +201,7 @@ class Combo extends Widget {
             }
             triangleShift={this.props.triangleShift}
           >
-            <div className={insideClass}>
-              {this.renderCombo ()}
-            </div>
+            <div className={insideClass}>{this.renderCombo()}</div>
           </Container>
         </div>
       </div>

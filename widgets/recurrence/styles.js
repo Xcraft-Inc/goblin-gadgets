@@ -3,11 +3,11 @@ import * as Bool from 'gadgets/boolean-helpers';
 
 /******************************************************************************/
 
-export default function styles (theme, props) {
-  const extended = Bool.isTrue (props.extended);
+export default function styles(theme, props) {
+  const extended = Bool.isTrue(props.extended);
 
   const m = theme.shapes.containerMargin;
-  const halfMargin = Unit.multiply (m, 0.5);
+  const halfMargin = Unit.multiply(m, 0.5);
 
   let width = null;
   let backgroundColor = 'transparent';
@@ -69,7 +69,7 @@ export default function styles (theme, props) {
     borderRightStyle: borderRightStyle,
     backgroundColor: backgroundColor,
     color: color,
-    transition: theme.transitions.easeOut (500, 'background-color', 0),
+    transition: theme.transitions.easeOut(500, 'background-color', 0),
     cursor: 'default',
     userSelect: 'none',
   };

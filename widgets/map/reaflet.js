@@ -150,7 +150,7 @@ L.MakiMarkers = {
   },
 };
 
-L.MakiMarkers.Icon = L.Icon.extend ({
+L.MakiMarkers.Icon = L.Icon.extend({
   options: {
     //Maki icon: any from https://www.mapbox.com/maki/ (ref: L.MakiMarkers.icons)
     icon: L.MakiMarkers.defaultIcon,
@@ -164,21 +164,21 @@ L.MakiMarkers.Icon = L.Icon.extend ({
     className: 'maki-marker',
   },
 
-  initialize: function (options) {
+  initialize: function(options) {
     var pin;
 
-    options = L.setOptions (this, options);
+    options = L.setOptions(this, options);
 
     switch (options.size) {
       case 's':
-        L.extend (options, L.MakiMarkers.smallOptions);
+        L.extend(options, L.MakiMarkers.smallOptions);
         break;
       case 'l':
-        L.extend (options, L.MakiMarkers.largeOptions);
+        L.extend(options, L.MakiMarkers.largeOptions);
         break;
       default:
         options.size = 'm';
-        L.extend (options, L.MakiMarkers.mediumOptions);
+        L.extend(options, L.MakiMarkers.mediumOptions);
         break;
     }
 
@@ -189,8 +189,8 @@ L.MakiMarkers.Icon = L.Icon.extend ({
     }
 
     if (options.color !== null) {
-      if (options.color.charAt (0) === '#') {
-        options.color = options.color.substr (1);
+      if (options.color.charAt(0) === '#') {
+        options.color = options.color.substr(1);
       }
 
       pin += '+' + options.color;
@@ -201,8 +201,8 @@ L.MakiMarkers.Icon = L.Icon.extend ({
   },
 });
 
-L.MakiMarkers.icon = function (options) {
-  return new L.MakiMarkers.Icon (options);
+L.MakiMarkers.icon = function(options) {
+  return new L.MakiMarkers.Icon(options);
 };
 
 module.exports = L;

@@ -4,11 +4,11 @@ import Widget from 'laboratory/widget';
 /******************************************************************************/
 
 class Dialog extends Widget {
-  constructor () {
-    super (...arguments);
+  constructor() {
+    super(...arguments);
   }
 
-  render () {
+  render() {
     const boxClass = this.styles.classNames.box;
 
     return (

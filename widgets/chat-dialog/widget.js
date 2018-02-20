@@ -8,11 +8,11 @@ import Separator from 'gadgets/separator/widget';
 /******************************************************************************/
 
 class ChatDialog extends Widget {
-  constructor () {
-    super (...arguments);
+  constructor() {
+    super(...arguments);
   }
 
-  renderMessage (message, index) {
+  renderMessage(message, index) {
     if (message.state === 'title') {
       return (
         <div key={index}>
@@ -37,22 +37,20 @@ class ChatDialog extends Widget {
     }
   }
 
-  renderMessages (messages) {
+  renderMessages(messages) {
     const result = [];
     let index = 0;
     for (const message of messages) {
-      result.push (this.renderMessage (message, index++));
+      result.push(this.renderMessage(message, index++));
     }
     return result;
   }
 
-  render () {
+  render() {
     const boxClass = this.styles.classNames.box;
 
     return (
-      <div className={boxClass}>
-        {this.renderMessages (this.props.data)}
-      </div>
+      <div className={boxClass}>{this.renderMessages(this.props.data)}</div>
     );
   }
 }

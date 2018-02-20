@@ -3,7 +3,7 @@ import {ColorHelpers} from 'electrum-theme';
 import {ColorManipulator} from 'electrum-theme';
 import * as Bool from 'gadgets/boolean-helpers';
 
-function convertJustify (justify) {
+function convertJustify(justify) {
   switch (justify) {
     case 'start':
       return 'flex-start';
@@ -20,8 +20,8 @@ function convertJustify (justify) {
 
 /******************************************************************************/
 
-export default function styles (theme, props) {
-  const m = Unit.multiply (theme.shapes.containerMargin, 0.5);
+export default function styles(theme, props) {
+  const m = Unit.multiply(theme.shapes.containerMargin, 0.5);
 
   // Initialize all variables for a standard button.
   let boxWidth = props.width;
@@ -33,7 +33,7 @@ export default function styles (theme, props) {
   let boxFlexGrow = props.grow;
   let boxFlexShrink = null;
   let boxFlexBasis = null;
-  let boxJustifyContent = convertJustify (props.justify);
+  let boxJustifyContent = convertJustify(props.justify);
   let boxAlignItems = 'center';
   let boxAlignSelf = null;
   let boxMarginTop = '0px';
@@ -45,7 +45,7 @@ export default function styles (theme, props) {
   let boxPaddingBottom = '0px';
   let boxPaddingLeft = '0px';
   let boxZIndex = props.zIndex;
-  let boxOpacity = Bool.isFalse (props.visibility) ? 0 : null;
+  let boxOpacity = Bool.isFalse(props.visibility) ? 0 : null;
   let borderWidth = '1px';
   let borderColor = theme.palette.buttonBorder;
   let borderActiveColor = theme.palette.buttonBorder;
@@ -57,11 +57,11 @@ export default function styles (theme, props) {
   let backgroundHoverColor = null;
   let boxPosition = props.position ? props.position : 'relative';
   let cursor = props.cursor ? props.cursor : 'default';
-  let transition = theme.transitions.easeOut ();
+  let transition = theme.transitions.easeOut();
   let specialDisabled = false;
   let focusedShadow = theme.shapes.focusedShadow + theme.palette.focused;
 
-  const disabled = Bool.isTrue (props.disabled) || Bool.isTrue (props.readonly);
+  const disabled = Bool.isTrue(props.disabled) || Bool.isTrue(props.readonly);
 
   // Initialize variables for button without border.
   if (props.border === 'none') {
@@ -76,7 +76,7 @@ export default function styles (theme, props) {
       overlap: '-1px',
       tiny: '1px',
       large: m,
-      big: Unit.multiply (m, 2),
+      big: Unit.multiply(m, 2),
       double: theme.shapes.containerMargin,
     };
     boxMarginRight = spacingType[props.spacing];
@@ -148,7 +148,7 @@ export default function styles (theme, props) {
   }
 
   if (props.kind === 'view-tab-right') {
-    boxHeight = Unit.add (
+    boxHeight = Unit.add(
       theme.shapes.containerMargin,
       theme.shapes.viewTabHeight
     );
@@ -227,7 +227,7 @@ export default function styles (theme, props) {
     specialDisabled = true;
   }
   if (props.kind === 'notification-close') {
-    boxMarginTop = Unit.multiply (theme.shapes.containerMargin, -1);
+    boxMarginTop = Unit.multiply(theme.shapes.containerMargin, -1);
     borderStyle = 'none';
     backgroundColor = 'transparent';
     backgroundHoverColor = 'transparent';
@@ -270,8 +270,8 @@ export default function styles (theme, props) {
     let place = props.place ? props.place : 'middle';
     if (place === '1/1') {
       place = 'single';
-    } else if (place.indexOf ('/') !== -1) {
-      const n = place.split ('/');
+    } else if (place.indexOf('/') !== -1) {
+      const n = place.split('/');
       if (n.length === 2) {
         if (n[0] === '1') {
           place = 'left';
@@ -282,7 +282,7 @@ export default function styles (theme, props) {
         }
       }
     }
-    const h = Unit.multiply (theme.shapes.actionHeight, 0.1);
+    const h = Unit.multiply(theme.shapes.actionHeight, 0.1);
     const r = theme.shapes.actionRadius;
     boxHeight = theme.shapes.actionHeight;
     boxPaddingLeft = h;
@@ -408,9 +408,9 @@ export default function styles (theme, props) {
   }
 
   if (props.kind === 'desk-title') {
-    boxHeight = Unit.multiply (theme.shapes.lineHeight, 1.2);
+    boxHeight = Unit.multiply(theme.shapes.lineHeight, 1.2);
     borderStyle = 'none';
-    borderRadius = Unit.multiply (theme.shapes.lineHeight, 0.25);
+    borderRadius = Unit.multiply(theme.shapes.lineHeight, 0.25);
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     boxMarginBottom = '3px';
     backgroundColor = null;
@@ -435,10 +435,10 @@ export default function styles (theme, props) {
     if (props.kind === 'calendar-navigator') {
       backgroundHoverColor = 'transparent';
     }
-    if (Bool.isTrue (props.calendarWeekend)) {
+    if (Bool.isTrue(props.calendarWeekend)) {
       backgroundColor = theme.palette.calendarWeekendBackground;
     }
-    if (Bool.isTrue (props.calendarDimmed)) {
+    if (Bool.isTrue(props.calendarDimmed)) {
       backgroundColor = theme.palette.calendarBackground;
       activeColor = theme.palette.calendarBackground;
       backgroundHoverColor = theme.palette.calendarBackground; // no visible hover effect
@@ -458,8 +458,8 @@ export default function styles (theme, props) {
     boxHeight = null;
     boxAlignItems = 'stretch';
     borderStyle = 'none';
-    boxPaddingTop = Unit.multiply (theme.shapes.lineSpacing, 0.5);
-    boxPaddingBottom = Unit.multiply (theme.shapes.lineSpacing, 0.5);
+    boxPaddingTop = Unit.multiply(theme.shapes.lineSpacing, 0.5);
+    boxPaddingBottom = Unit.multiply(theme.shapes.lineSpacing, 0.5);
     backgroundColor = null;
     activeColor = theme.palette.boxActiveBackground;
   }
@@ -469,8 +469,8 @@ export default function styles (theme, props) {
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     boxAlignItems = 'stretch';
     borderStyle = 'none';
-    boxPaddingTop = Unit.multiply (theme.shapes.lineSpacing, 0.5);
-    boxPaddingBottom = Unit.multiply (theme.shapes.lineSpacing, 0.5);
+    boxPaddingTop = Unit.multiply(theme.shapes.lineSpacing, 0.5);
+    boxPaddingBottom = Unit.multiply(theme.shapes.lineSpacing, 0.5);
     backgroundColor = null;
   }
 
@@ -486,7 +486,7 @@ export default function styles (theme, props) {
   if (props.kind === 'chronos-navigator') {
     boxMarginBottom = '1px';
     borderRadius = theme.shapes.smoothRadius;
-    backgroundHoverColor = ColorManipulator.fade (
+    backgroundHoverColor = ColorManipulator.fade(
       theme.palette.buttonBackground,
       0.3
     );
@@ -501,7 +501,7 @@ export default function styles (theme, props) {
   }
 
   if (props.kind === 'hover') {
-    boxOpacity = Bool.isTrue (props.active) ? 1 : 0.00001;
+    boxOpacity = Bool.isTrue(props.active) ? 1 : 0.00001;
     borderWidth = '4px';
     borderColor = theme.palette.taskBackground;
     backgroundHoverColor = theme.palette.buttonBackground;
@@ -521,7 +521,7 @@ export default function styles (theme, props) {
     boxMinWidth = theme.shapes.toolbarButtonWidth;
     boxHeight = theme.shapes.toolbarButtonHeight;
     borderStyle = 'none';
-    backgroundColor = ColorManipulator.emphasize (
+    backgroundColor = ColorManipulator.emphasize(
       theme.palette.toolbarInactiveBackground,
       0.1
     );
@@ -540,8 +540,8 @@ export default function styles (theme, props) {
     activeColor = theme.palette.boxActiveBackground;
   }
 
-  if (Bool.isTrue (props.badgePush)) {
-    boxPaddingRight = Unit.add (boxPaddingRight, theme.shapes.badgeHeight);
+  if (Bool.isTrue(props.badgePush)) {
+    boxPaddingRight = Unit.add(boxPaddingRight, theme.shapes.badgeHeight);
   }
   if (
     props.shortcut &&
@@ -550,11 +550,11 @@ export default function styles (theme, props) {
     props.kind !== 'task-bar' &&
     props.kind !== 'task-logo'
   ) {
-    boxPaddingRight = Unit.add (boxPaddingRight, m);
+    boxPaddingRight = Unit.add(boxPaddingRight, m);
   }
 
   if (props.shape) {
-    const r = Unit.multiply (theme.shapes.lineHeight, 0.5);
+    const r = Unit.multiply(theme.shapes.lineHeight, 0.5);
     const s = theme.shapes.smoothRadius;
     if (props.shape === 'rounded') {
       borderRadius = r;
@@ -570,13 +570,13 @@ export default function styles (theme, props) {
   }
 
   if (props.backgroundColor) {
-    backgroundColor = ColorHelpers.getMarkColor (theme, props.backgroundColor);
+    backgroundColor = ColorHelpers.getMarkColor(theme, props.backgroundColor);
   }
   if (props.activeColor) {
-    activeColor = ColorHelpers.getMarkColor (theme, props.activeColor);
+    activeColor = ColorHelpers.getMarkColor(theme, props.activeColor);
   }
 
-  if (Bool.isTrue (props.active) || props.active === 'focused') {
+  if (Bool.isTrue(props.active) || props.active === 'focused') {
     backgroundColor = activeColor;
     borderColor = borderActiveColor;
   }
@@ -587,7 +587,7 @@ export default function styles (theme, props) {
     buttonBackgroundColor = theme.palette.buttonBackground;
   }
   if (!backgroundHoverColor) {
-    backgroundHoverColor = ColorManipulator.emphasize (
+    backgroundHoverColor = ColorManipulator.emphasize(
       buttonBackgroundColor,
       0.2
     );
@@ -605,8 +605,8 @@ export default function styles (theme, props) {
   // take into account the thickness of the borders left and right.
   // Buttons without left or right border (with only bottom border) are
   // considered as without border (for example task button).
-  if (boxWidth && boxWidth !== '0px' && !borderStyle.startsWith ('none')) {
-    boxWidth = Unit.sub (boxWidth, Unit.multiply (borderWidth, 2));
+  if (boxWidth && boxWidth !== '0px' && !borderStyle.startsWith('none')) {
+    boxWidth = Unit.sub(boxWidth, Unit.multiply(borderWidth, 2));
   }
 
   if (boxFlexGrow) {
@@ -667,18 +667,18 @@ export default function styles (theme, props) {
     cursor: cursor,
   };
 
-  if (!disabled && !Bool.isTrue (props.busy) && boxOpacity !== 0) {
+  if (!disabled && !Bool.isTrue(props.busy) && boxOpacity !== 0) {
     boxStyle[':hover'] = {
       borderColor: borderHoverColor,
       backgroundColor: backgroundHoverColor,
       opacity: 1.0,
     };
     boxStyle[':active'] = {
-      backgroundColor: ColorManipulator.darken (backgroundColor, 0.1),
+      backgroundColor: ColorManipulator.darken(backgroundColor, 0.1),
     };
   }
 
-  if (Bool.isTrue (props.focusable)) {
+  if (Bool.isTrue(props.focusable)) {
     boxStyle[':focus'] = {
       outline: 'none',
       boxShadow: focusedShadow,
@@ -720,7 +720,7 @@ export default function styles (theme, props) {
     position: 'absolute',
     width: 'calc(100% - 14px)',
     height: 'calc(100% - 14px)',
-    backgroundColor: ColorManipulator.fade (theme.palette.focused, 0.2),
+    backgroundColor: ColorManipulator.fade(theme.palette.focused, 0.2),
     boxShadow: theme.shapes.focusedShadow + theme.palette.focused,
     borderRadius: m,
   };

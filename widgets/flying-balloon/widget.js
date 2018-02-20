@@ -7,16 +7,14 @@ import Label from 'gadgets/label/widget';
 /******************************************************************************/
 
 class FlyingBalloon extends Widget {
-  constructor () {
-    super (...arguments);
+  constructor() {
+    super(...arguments);
   }
 
-  render () {
+  render() {
     const boxClass = this.styles.classNames.box;
-    const primaryBottomSpacing = this.props.primaryText &&
-      this.props.secondaryText
-      ? 'large'
-      : null;
+    const primaryBottomSpacing =
+      this.props.primaryText && this.props.secondaryText ? 'large' : null;
 
     return (
       <span disabled={this.props.disabled} className={boxClass}>

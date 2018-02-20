@@ -2,9 +2,9 @@ import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
 
-export default function styles (theme, props) {
+export default function styles(theme, props) {
   const m = theme.shapes.containerMargin;
-  const halfMargin = Unit.multiply (m, 0.5);
+  const halfMargin = Unit.multiply(m, 0.5);
 
   const boxStyle = {
     flexGrow: '1',

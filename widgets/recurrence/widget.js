@@ -14,40 +14,40 @@ import Label from 'gadgets/label/widget';
 
 /******************************************************************************/
 
-function monthCount () {
+function monthCount() {
   return 1; // display 2 months simultaneously
 }
 
-function pushCron (result, date, startDate, endDate, cron, deleteList) {
-  const year = DateConverters.getYear (date);
-  const month = DateConverters.getMonth (date);
+function pushCron(result, date, startDate, endDate, cron, deleteList) {
+  const year = DateConverters.getYear(date);
+  const month = DateConverters.getMonth(date);
   var options = {
-    currentDate: new Date (year, month - 2, 1),
-    endDate: new Date (year, month + monthCount (), 1),
+    currentDate: new Date(year, month - 2, 1),
+    endDate: new Date(year, month + monthCount(), 1),
     iterator: true,
   };
   try {
-    const interval = CronParser.parseExpression (cron, options);
+    const interval = CronParser.parseExpression(cron, options);
     /* eslint no-constant-condition: 0 */
     while (true) {
-      const next = interval.next ();
+      const next = interval.next();
       if (next.done) {
         break;
       }
-      const itemDate = DateConverters.jsToCanonical (next.value);
+      const itemDate = DateConverters.jsToCanonical(next.value);
       if (itemDate >= startDate && itemDate <= endDate) {
-        const deleted = deleteList.indexOf (itemDate) !== -1;
+        const deleted = deleteList.indexOf(itemDate) !== -1;
         const item = {
           Date: itemDate,
           Type: deleted ? 'deleted' : 'default',
         };
-        result.push (item);
+        result.push(item);
       }
     }
   } catch (e) {}
 }
 
-function getRecurrenceItems (
+function getRecurrenceItems(
   date,
   startDate,
   endDate,
@@ -67,7 +67,7 @@ function getRecurrenceItems (
   if (days && days !== '' && months && months !== '') {
     const cron = null; //- CronHelpers.getCron (days, months);
     if (cron) {
-      pushCron (result, date, startDate, endDate, cron, deleteList);
+      pushCron(result, date, startDate, endDate, cron, deleteList);
     }
   }
 
@@ -77,13 +77,13 @@ function getRecurrenceItems (
         Date: a,
         Type: 'added',
       };
-      result.push (item);
+      result.push(item);
     }
   }
   return result;
 }
 
-function getRecurrenceItem (date, recurrenceList) {
+function getRecurrenceItem(date, recurrenceList) {
   for (var item of recurrenceList) {
     if (item.Date === date) {
       return item;
@@ -98,20 +98,20 @@ function getRecurrenceItem (date, recurrenceList) {
 /******************************************************************************/
 
 class Recurrence extends Form {
-  constructor () {
-    super (...arguments);
+  constructor() {
+    super(...arguments);
 
     this.visibleDate = this.props.visibleDate
       ? this.props.visibleDate
-      : DateConverters.getNowCanonical ();
+      : DateConverters.getNowCanonical();
 
-    this.onEraseEvents = this.onEraseEvents.bind (this);
-    this.onDateClicked = this.onDateClicked.bind (this);
-    this.onVisibleDateChanged = this.onVisibleDateChanged.bind (this);
-    this.onSwapExtended = this.onSwapExtended.bind (this);
+    this.onEraseEvents = this.onEraseEvents.bind(this);
+    this.onDateClicked = this.onDateClicked.bind(this);
+    this.onVisibleDateChanged = this.onVisibleDateChanged.bind(this);
+    this.onSwapExtended = this.onSwapExtended.bind(this);
   }
 
-  static get wiring () {
+  static get wiring() {
     return {
       id: 'id',
       order: 'order',
@@ -124,14 +124,14 @@ class Recurrence extends Form {
     };
   }
 
-  get periodInfo () {
-    return DateConverters.getPeriodDescription (
+  get periodInfo() {
+    return DateConverters.getPeriodDescription(
       this.props.startDate,
       this.props.endDate
     );
   }
 
-  get cronInfo () {
+  get cronInfo() {
     return '?';
     //- return CronHelpers.getDisplayedCron (
     //-   this.props.days,
@@ -141,56 +141,56 @@ class Recurrence extends Form {
     //- );
   }
 
-  get items () {
-    return getRecurrenceItems (
+  get items() {
+    return getRecurrenceItems(
       this.visibleDate,
       this.props.startDate,
       this.props.endDate,
       this.props.days,
       this.props.months,
-      this.props.deleteList.toArray (),
-      this.props.addList.toArray ()
+      this.props.deleteList.toArray(),
+      this.props.addList.toArray()
     );
   }
 
-  get dates () {
+  get dates() {
     const dates = [];
     for (let item of this.items) {
       if (item.Type === 'default' || item.Type === 'added') {
-        dates.push (item.Date);
+        dates.push(item.Date);
       }
     }
     return dates;
   }
 
-  get hasExceptions () {
+  get hasExceptions() {
     return this.props.addList.size > 0 || this.props.deleteList.size > 0;
   }
 
-  onDateClicked (date) {
-    if (!Bool.isTrue (this.props.readonly)) {
-      const item = getRecurrenceItem (date, this.items);
-      this.do ('select-date', {date: date, type: item.Type});
+  onDateClicked(date) {
+    if (!Bool.isTrue(this.props.readonly)) {
+      const item = getRecurrenceItem(date, this.items);
+      this.do('select-date', {date: date, type: item.Type});
     }
   }
 
-  onEraseEvents () {
-    this.do ('erase-events');
+  onEraseEvents() {
+    this.do('erase-events');
   }
 
-  onVisibleDateChanged (date) {
+  onVisibleDateChanged(date) {
     this.visibleDate = date;
   }
 
-  onSwapExtended (recurrenceId) {
+  onSwapExtended(recurrenceId) {
     const x = this.props.swapExtended;
     if (x) {
-      x (recurrenceId);
+      x(recurrenceId);
     }
   }
 
-  get cursor () {
-    if (Bool.isTrue (this.props.readonly)) {
+  get cursor() {
+    if (Bool.isTrue(this.props.readonly)) {
       return 'default';
     } else {
       return 'ns-resize';
@@ -199,7 +199,7 @@ class Recurrence extends Form {
 
   /******************************************************************************/
 
-  renderInfo (extended) {
+  renderInfo(extended) {
     const headerInfoClass = this.styles.classNames.headerInfo;
     const headerDragClass = this.styles.classNames.headerDrag;
     return (
@@ -226,18 +226,18 @@ class Recurrence extends Form {
               ? 'Compacte la récurrence'
               : 'Etend la récurrence pour la modifier'
           }
-          active={Bool.toString (extended)}
+          active={Bool.toString(extended)}
           activeColor={
             this.context.theme.palette.recurrenceExtendedBoxBackground
           }
-          onClick={() => this.onSwapExtended (this.props.id)}
+          onClick={() => this.onSwapExtended(this.props.id)}
         />
       </div>
     );
   }
 
-  renderEditor (extended) {
-    if (extended && !Bool.isTrue (this.props.readonly)) {
+  renderEditor(extended) {
+    if (extended && !Bool.isTrue(this.props.readonly)) {
       const editorClass = this.styles.classNames.editor;
       return (
         <div className={editorClass}>
@@ -283,7 +283,7 @@ class Recurrence extends Form {
             glyph="solid/eraser"
             tooltip="Supprime toutes les exceptions"
             spacing="overlap"
-            visibility={Bool.toString (this.hasExceptions)}
+            visibility={Bool.toString(this.hasExceptions)}
             onClick={this.onEraseEvents}
           />
           <Button
@@ -298,13 +298,13 @@ class Recurrence extends Form {
     }
   }
 
-  renderCalendar (extended) {
+  renderCalendar(extended) {
     if (extended) {
       const calClass = this.styles.classNames.calendar;
       return (
         <div className={calClass}>
           <Calendar
-            monthCount={monthCount ()}
+            monthCount={monthCount()}
             navigator="standard"
             visibleDate={this.visibleDate}
             dates={this.dates}
@@ -320,12 +320,12 @@ class Recurrence extends Form {
     }
   }
 
-  render () {
+  render() {
     if (!this.props.id) {
       return null;
     }
 
-    const extended = Bool.isTrue (this.props.extended);
+    const extended = Bool.isTrue(this.props.extended);
     const mainClass = this.styles.classNames.main;
 
     const initialState = {
@@ -338,9 +338,9 @@ class Recurrence extends Form {
     return (
       <div className={mainClass}>
         <Form {...this.formConfig}>
-          {this.renderInfo (extended)}
-          {this.renderEditor (extended)}
-          {this.renderCalendar (extended)}
+          {this.renderInfo(extended)}
+          {this.renderEditor(extended)}
+          {this.renderCalendar(extended)}
         </Form>
       </div>
     );

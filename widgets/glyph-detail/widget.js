@@ -8,33 +8,33 @@ import Button from 'gadgets/button/widget';
 /******************************************************************************/
 
 class GlyphDetail extends Widget {
-  constructor () {
-    super (...arguments);
+  constructor() {
+    super(...arguments);
 
-    this.onEdit = this.onEdit.bind (this);
-    this.onDelete = this.onDelete.bind (this);
+    this.onEdit = this.onEdit.bind(this);
+    this.onDelete = this.onDelete.bind(this);
   }
 
-  static get wiring () {
+  static get wiring() {
     return {
       id: 'id',
       entityId: 'entityId',
     };
   }
 
-  onEdit () {
-    const contact = this.getEntityById (this.props.entityId).toJS ();
-    this.do ('edit', {contact});
+  onEdit() {
+    const contact = this.getEntityById(this.props.entityId).toJS();
+    this.do('edit', {contact});
   }
 
-  onDelete () {
-    const contact = this.getEntityById (this.props.entityId).toJS ();
-    this.do ('delete', {contact});
+  onDelete() {
+    const contact = this.getEntityById(this.props.entityId).toJS();
+    this.do('delete', {contact});
   }
 
   /******************************************************************************/
 
-  renderActions () {
+  renderActions() {
     return (
       <Container kind="actions">
         <Button
@@ -59,17 +59,17 @@ class GlyphDetail extends Widget {
     );
   }
 
-  render () {
-    const labelOf = this.getWidgetToEntityMapper (Label, 'text');
-    const Title = labelOf ('.name');
-    const Name = labelOf ('.name');
-    const Description = labelOf ('.description');
-    const Glyph = this.getWidgetToEntityMapper (Label, glyph => {
+  render() {
+    const labelOf = this.getWidgetToEntityMapper(Label, 'text');
+    const Title = labelOf('.name');
+    const Name = labelOf('.name');
+    const Description = labelOf('.description');
+    const Glyph = this.getWidgetToEntityMapper(Label, glyph => {
       return {
-        glyph: glyph.get ('glyph'),
-        glyphColor: glyph.get ('color'),
+        glyph: glyph.get('glyph'),
+        glyphColor: glyph.get('color'),
       };
-    }) ('');
+    })('');
 
     return (
       <Container kind="column-full">
@@ -98,7 +98,7 @@ class GlyphDetail extends Widget {
             </Container>
           </Container>
         </Container>
-        {this.renderActions ()}
+        {this.renderActions()}
       </Container>
     );
   }

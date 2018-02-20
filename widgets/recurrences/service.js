@@ -1,29 +1,29 @@
 'use strict';
 
-const path = require ('path');
+const path = require('path');
 
-const goblinName = path.basename (module.parent.filename, '.js');
+const goblinName = path.basename(module.parent.filename, '.js');
 
-const Goblin = require ('xcraft-core-goblin');
+const Goblin = require('xcraft-core-goblin');
 
 // Define initial logic values
 const logicState = {};
 
-const uuidV4 = require ('uuid/v4');
+const uuidV4 = require('uuid/v4');
 
 // Returns the order to insert an element before the one given the id.
 // If id is undefined, returns the order to insert at the end.
-function getGlyphOrder (list, id) {
-  const glyphs = list.linq.orderBy (glyph => glyph.get ('order', 0)).toList ();
+function getGlyphOrder(list, id) {
+  const glyphs = list.linq.orderBy(glyph => glyph.get('order', 0)).toList();
   if (id) {
     for (let i = 0; i < glyphs.length; i++) {
       const glyph = glyphs[i];
-      if (glyph.get ('id') === id) {
+      if (glyph.get('id') === id) {
         if (i === 0) {
-          return glyph.get ('order', 0) - 0.5; // insert before the first element
+          return glyph.get('order', 0) - 0.5; // insert before the first element
         } else {
           const prevGlyph = glyphs[i - 1];
-          return (prevGlyph.get ('order', 0) + glyph.get ('order', 0)) / 2; // insert between two elements
+          return (prevGlyph.get('order', 0) + glyph.get('order', 0)) / 2; // insert between two elements
         }
       }
     }
@@ -32,7 +32,7 @@ function getGlyphOrder (list, id) {
     return 0; // first order if list is empty
   } else {
     const lastGlyph = glyphs[glyphs.length - 1];
-    return lastGlyph.get ('order', 0) + 0.5; // insert after the last element
+    return lastGlyph.get('order', 0) + 0.5; // insert after the last element
   }
 }
 
@@ -40,98 +40,98 @@ function getGlyphOrder (list, id) {
 const logicHandlers = {
   create: (state, action) => {
     const initialState = {
-      id: action.get ('id'),
+      id: action.get('id'),
       recurrences: {},
       extendedId: null,
     };
-    return state.set ('', initialState);
+    return state.set('', initialState);
   },
   add: (state, action) => {
-    const recurrenceId = action.get ('recurrenceId');
-    const order = state.get ('recurrences').state.size;
+    const recurrenceId = action.get('recurrenceId');
+    const order = state.get('recurrences').state.size;
     return state
-      .set (`recurrences.${recurrenceId}`, {
+      .set(`recurrences.${recurrenceId}`, {
         id: recurrenceId,
         order: order,
       })
-      .set ('extendedId', recurrenceId); // extend added panel
+      .set('extendedId', recurrenceId); // extend added panel
   },
   remove: (state, action) => {
-    const recurrenceId = action.get ('recurrenceId');
-    return state.del (`recurrences.${recurrenceId}`).set ('extendedId', null); // compact all panels
+    const recurrenceId = action.get('recurrenceId');
+    return state.del(`recurrences.${recurrenceId}`).set('extendedId', null); // compact all panels
   },
   extend: (state, action) => {
-    const recurrenceId = action.get ('recurrenceId');
-    const currentId = state.get ('extendedId');
+    const recurrenceId = action.get('recurrenceId');
+    const currentId = state.get('extendedId');
     if (recurrenceId === currentId) {
-      return state.set ('extendedId', null); // compact panel
+      return state.set('extendedId', null); // compact panel
     } else {
-      return state.set ('extendedId', recurrenceId); // extend panel
+      return state.set('extendedId', recurrenceId); // extend panel
     }
   },
   'compact-all': (state, action) => {
-    return state.set ('extendedId', null); // compact all panels
+    return state.set('extendedId', null); // compact all panels
   },
   drag: (state, action) => {
-    const fromId = action.get ('fromId');
-    const toId = action.get ('toId');
-    const glyph = state.get (`recurrences.${fromId}`).toJS ();
-    glyph.order = getGlyphOrder (state.get ('recurrences'), toId); // FIXME factorize with glyphs.dialog !
-    return state.set (`recurrences.${fromId}`, glyph);
+    const fromId = action.get('fromId');
+    const toId = action.get('toId');
+    const glyph = state.get(`recurrences.${fromId}`).toJS();
+    glyph.order = getGlyphOrder(state.get('recurrences'), toId); // FIXME factorize with glyphs.dialog !
+    return state.set(`recurrences.${fromId}`, glyph);
   },
 };
 
 // Register quest's according rc.json
-Goblin.registerQuest (goblinName, 'create', function (
+Goblin.registerQuest(goblinName, 'create', function(
   quest,
   desktopId,
   recurrences
 ) {
-  quest.goblin.setX ('desktopId', desktopId);
-  quest.do ({id: quest.goblin.id});
+  quest.goblin.setX('desktopId', desktopId);
+  quest.do({id: quest.goblin.id});
   for (const r in recurrences) {
-    quest.cmd ('recurrences.add', {
+    quest.cmd('recurrences.add', {
       id: quest.goblin.id,
       desktopId,
       recurrence: recurrences[r],
     });
   }
-  quest.cmd ('recurrences.compact-all', {
+  quest.cmd('recurrences.compact-all', {
     id: quest.goblin.id,
     desktopId,
   });
   return quest.goblin.id;
 });
 
-Goblin.registerQuest (goblinName, 'add', function (quest, recurrence) {
-  const desktopId = quest.goblin.getX ('desktopId');
-  const recurrenceId = recurrence ? recurrence.id : uuidV4 ();
+Goblin.registerQuest(goblinName, 'add', function(quest, recurrence) {
+  const desktopId = quest.goblin.getX('desktopId');
+  const recurrenceId = recurrence ? recurrence.id : uuidV4();
   const id = `recurrence@${recurrenceId}`;
-  quest.create (id, {
+  quest.create(id, {
     id,
     desktopId,
     recurrence,
   });
-  quest.do ({recurrenceId: id});
+  quest.do({recurrenceId: id});
 });
 
-Goblin.registerQuest (goblinName, 'remove', function (quest, recurrenceId) {
-  quest.do ({recurrenceId});
+Goblin.registerQuest(goblinName, 'remove', function(quest, recurrenceId) {
+  quest.do({recurrenceId});
 });
 
-Goblin.registerQuest (goblinName, 'extend', function (quest, recurrenceId) {
-  quest.do ({recurrenceId});
+Goblin.registerQuest(goblinName, 'extend', function(quest, recurrenceId) {
+  quest.do({recurrenceId});
 });
 
-Goblin.registerQuest (goblinName, 'compact-all', function (quest) {
-  quest.do ();
+Goblin.registerQuest(goblinName, 'compact-all', function(quest) {
+  quest.do();
 });
 
-Goblin.registerQuest (goblinName, 'drag', function (quest, fromId, toId) {
-  quest.do ({fromId, toId});
+Goblin.registerQuest(goblinName, 'drag', function(quest, fromId, toId) {
+  quest.do({fromId, toId});
 });
 
-Goblin.registerQuest (goblinName, 'delete', function () {});
+Goblin.registerQuest(goblinName, 'delete', function() {});
 
 // Create a Goblin with initial state and handlers
-module.exports = Goblin.configure (goblinName, logicState, logicHandlers);
+module.exports = Goblin.configure(goblinName, logicState, logicHandlers);
