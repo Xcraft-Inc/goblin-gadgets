@@ -18,14 +18,11 @@ export default function styles (theme, props) {
   const value = Math.max (Math.min (props.value, 100), 0); // 0..100
 
   const boxStyle = {
+    position: 'relative',
     display: 'flex',
     height: '100%',
     alignItems: 'flex-end',
   };
-
-  //  Compute radius at left border, for including into left of Ticket kind='thin'.
-  const topLeftRadius = value >= 90 ? theme.shapes.ticketRectRadius : '0px';
-  const bottomLeftRadius = theme.shapes.ticketRectRadius;
 
   const keyframes = {
     '0%': {
@@ -40,26 +37,67 @@ export default function styles (theme, props) {
   };
 
   const contentStyle = {
+    position: 'absolute',
     height: value + '%',
     width: '100%',
-    borderRadius: `${topLeftRadius} 0px 0px ${bottomLeftRadius}`,
     backgroundColor: getColor (value),
     animationName: Bool.isTrue (props.flash) ? keyframes : null,
     animationDuration: '1s',
     animationIterationCount: 'infinite',
   };
 
-  const disabledStyle = {
-    height: '100%',
-    width: '100%',
-    borderRadius: `${bottomLeftRadius} 0px 0px ${bottomLeftRadius}`,
-    backgroundColor: theme.palette.buttonDisableBackground,
+  const glossStyle = {
+    position: 'absolute',
+    height: `calc(${value}% - 2px)`,
+    left: '2px',
+    bottom: '1px',
+    width: '1px',
+    backgroundColor: theme.palette.ticketGaugeContentGlossy,
+    animationName: Bool.isTrue (props.flash) ? keyframes : null,
+    animationDuration: '1s',
+    animationIterationCount: 'infinite',
   };
+
+  if (props.kind === 'mission') {
+    //  Compute radius at left border, for including into left of Ticket kind='thin'.
+    const topLeftRadius = value >= 90 ? theme.shapes.ticketRectRadius : '0px';
+    const bottomLeftRadius = theme.shapes.ticketRectRadius;
+
+    contentStyle.borderRadius = `${topLeftRadius} 0px 0px ${bottomLeftRadius}`;
+    glossStyle.visibility = 'hidden';
+  }
+
+  if (props.kind === 'rounded') {
+    boxStyle.borderRadius = '4px';
+    boxStyle.backgroundColor = theme.palette.ticketGaugeBackground;
+    boxStyle.boxShadow = theme.palette.ticketGaugeBackgroundShadow;
+    contentStyle.position = 'absolute';
+    contentStyle.bottom = '1px';
+    contentStyle.left = '1px';
+    contentStyle.borderRadius = '1px';
+    contentStyle.width = 'calc(100% - 2px)';
+    contentStyle.height = `calc(${value}% - 2px)`;
+    contentStyle.boxShadow = theme.palette.ticketGaugeContentShadow;
+    if (value === 0) {
+      boxStyle.border = '1px solid ' + theme.palette.ticketGaugeEmptyBorder;
+      boxStyle.backgroundColor = null;
+      boxStyle.boxShadow = null;
+      contentStyle.visibility = 'hidden';
+      glossStyle.visibility = 'hidden';
+    }
+  }
+
+  if (Bool.isTrue (props.disabled)) {
+    boxStyle.backgroundColor = theme.palette.buttonDisableBackground;
+    boxStyle.boxShadow = null;
+    contentStyle.visibility = 'hidden';
+    glossStyle.visibility = 'hidden';
+  }
 
   return {
     box: boxStyle,
     content: contentStyle,
-    disabled: disabledStyle,
+    gloss: glossStyle,
   };
 }
 

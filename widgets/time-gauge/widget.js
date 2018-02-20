@@ -30,7 +30,7 @@ class TimeGauge extends Widget {
     }
 
     if (this.props.date !== DateConverters.getNowCanonical ()) {
-      return <Gauge disabled="true" />;
+      return <Gauge kind={this.props.kind} disabled="true" />;
     }
 
     const nowMinutes = TimeConverters.getTotalMinutes (
@@ -52,7 +52,13 @@ class TimeGauge extends Widget {
     const flash = value > 100;
     const limit = Math.min (Math.max (value, 0), 100);
 
-    return <Gauge value={limit} flash={Bool.toString (flash)} />;
+    return (
+      <Gauge
+        kind={this.props.kind}
+        value={limit}
+        flash={Bool.toString (flash)}
+      />
+    );
   }
 }
 

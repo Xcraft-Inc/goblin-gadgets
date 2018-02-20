@@ -12,13 +12,13 @@ class Gauge extends Widget {
 
   render () {
     const boxClass = this.styles.classNames.box;
-    const contentClass = Bool.isTrue (this.props.disabled)
-      ? this.styles.classNames.disabled
-      : this.styles.classNames.content;
+    const contentClass = this.styles.classNames.content;
+    const glossClass = this.styles.classNames.gloss;
 
     return (
       <div className={boxClass}>
         <div className={contentClass} />
+        <div className={glossClass} />
       </div>
     );
   }
