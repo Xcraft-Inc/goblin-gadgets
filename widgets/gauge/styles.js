@@ -1,3 +1,4 @@
+import {Unit} from 'electrum-theme';
 import * as Bool from 'gadgets/boolean-helpers';
 
 /******************************************************************************/
@@ -68,13 +69,16 @@ export default function styles (theme, props) {
   }
 
   if (props.kind === 'rounded') {
-    boxStyle.borderRadius = '4px';
+    boxStyle.borderRadius = Unit.multiply (theme.shapes.ticketGaugeWidth, 0.5);
     boxStyle.backgroundColor = theme.palette.ticketGaugeBackground;
     boxStyle.boxShadow = theme.palette.ticketGaugeBackgroundShadow;
     contentStyle.position = 'absolute';
     contentStyle.bottom = '1px';
     contentStyle.left = '1px';
-    contentStyle.borderRadius = '1px';
+    contentStyle.borderRadius = Unit.multiply (
+      theme.shapes.ticketGaugeWidth,
+      0.5
+    );
     contentStyle.width = 'calc(100% - 2px)';
     contentStyle.height = `calc(${value}% - 2px)`;
     contentStyle.boxShadow = theme.palette.ticketGaugeContentShadow;
