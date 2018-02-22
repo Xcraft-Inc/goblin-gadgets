@@ -67,8 +67,7 @@ Goblin.registerQuest(goblinName, 'create', function*(
   orderBy
 ) {
   quest.goblin.setX('desktopId', desktopId);
-  const i = quest.openInventory();
-  const r = i.getAPI(`rethink@${desktopId}`);
+  const r = quest.getStorage('rethink');
   let count = 0;
   quest.goblin.setX('table', table);
   if (!pageSize) {
@@ -132,9 +131,7 @@ Goblin.registerQuest(goblinName, 'load-range', function*(
   const newFrom = quest.goblin.getState().get('from');
   const newTo = quest.goblin.getState().get('to');
 
-  const i = quest.openInventory();
-  const desktopId = quest.goblin.getX('desktopId');
-  const r = i.getAPI(`rethink@${desktopId}`);
+  const r = quest.getStorage('rethink');
   const table = quest.goblin.getX('table');
   const listIds = quest.goblin.getX('listIds');
   const documents = listIds.slice(newFrom, newTo);
@@ -156,9 +153,7 @@ Goblin.registerQuest(goblinName, 'init-list', function*(quest) {
   const to = pageSize;
   const listIds = quest.goblin.getX('listIds');
   const documents = listIds.slice(from, to);
-  const i = quest.openInventory();
-  const desktopId = quest.goblin.getX('desktopId');
-  const r = i.getAPI(`rethink@${desktopId}`);
+  const r = quest.getStorage('rethink');
   const docs = yield r.getAll({table, documents});
   yield r.stopOnChanges({
     goblinId: quest.goblin.id,
