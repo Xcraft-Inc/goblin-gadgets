@@ -465,17 +465,18 @@ export default function styles(theme, props) {
   const ts = '20px';
   const keyframes = {
     '0%': {
-      left: Unit.multiply(ts, -1),
+      transform: `translateX(-${ts}) scale(0)`,
     },
     '20%': {
-      left: '0px',
+      transform: 'translateX(0px) scale(1)',
     },
     '100%': {
-      left: Unit.multiply(ts, -1),
+      transform: `translateX(-${ts}) scale(0)`,
     },
   };
   const flashStyle = {
     position: 'absolute',
+    left: '0px',
     top: `calc(50% - ${ts})`,
     width: '0px',
     height: '0px',
