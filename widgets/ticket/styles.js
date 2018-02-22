@@ -462,6 +462,33 @@ export default function styles(theme, props) {
     visibility: Bool.isTrue(props.hideContent) ? 'hidden' : 'visible',
   };
 
+  const ts = '20px';
+  const keyframes = {
+    '0%': {
+      left: Unit.multiply(ts, -1),
+    },
+    '20%': {
+      left: '0px',
+    },
+    '100%': {
+      left: Unit.multiply(ts, -1),
+    },
+  };
+  const flashStyle = {
+    position: 'absolute',
+    top: `calc(50% - ${ts})`,
+    width: '0px',
+    height: '0px',
+    borderLeft: ts + ' solid ' + theme.palette.ticketHover,
+    borderTop: ts + ' solid transparent',
+    borderRight: ts + ' solid transparent',
+    borderBottom: ts + ' solid transparent',
+    animationName: keyframes,
+    animationDuration: '1s',
+    animationIterationCount: 'infinite',
+    visibility: Bool.isTrue(props.flash) ? 'visible' : 'hidden',
+  };
+
   return {
     box: boxStyle,
     farShadow: farShadowStyle,
@@ -485,6 +512,7 @@ export default function styles(theme, props) {
     subpaneRect: subpaneRectStyle,
     subpaneDragged: subpaneDraggedStyle,
     subpaneContent: subpaneContentStyle,
+    flash: flashStyle,
   };
 }
 

@@ -1595,6 +1595,13 @@ const properties = {
       field: 'hatch',
       value: 'false',
     },
+    flash: {
+      id: 'flash',
+      group: 'Aspect',
+      type: 'bool',
+      field: 'flash',
+      value: 'false',
+    },
     hideContent: {
       id: 'hideContent',
       group: 'Aspect',

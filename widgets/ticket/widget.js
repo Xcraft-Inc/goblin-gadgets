@@ -80,6 +80,7 @@ class Ticket extends Widget {
     const shadowClass = this.styles.classNames.shadow;
     const shapeClass = this.styles.classNames.shape;
     const hatchClass = this.styles.classNames.hatch;
+    const flashClass = this.styles.classNames.flash;
     const hoverClass = this.styles.classNames.hover;
     const contentClass = this.styles.classNames.content;
 
@@ -154,6 +155,7 @@ class Ticket extends Widget {
           {this.props.children}
           {this.renderHud()}
         </div>
+        <div className={flashClass} />
         {htmlHover}
       </div>
     );
@@ -164,6 +166,7 @@ class Ticket extends Widget {
       ? this.styles.classNames.rectFarShadow
       : this.styles.classNames.rectShadow;
     const rectClass = this.styles.classNames.rect;
+    const flashClass = this.styles.classNames.flash;
     const rectHoverClass = this.styles.classNames.rectHover;
     const contentClass = this.styles.classNames.content;
     const rectContentHatchClass = this.styles.classNames.rectContentHatch;
@@ -192,6 +195,7 @@ class Ticket extends Widget {
             {this.renderHud()}
           </div>
         </div>
+        <div className={flashClass} />
         <div className={rectHoverClass} />
       </div>
     );
