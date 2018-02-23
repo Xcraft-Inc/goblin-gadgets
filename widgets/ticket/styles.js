@@ -485,7 +485,7 @@ export default function styles(theme, props) {
     borderRight: ts + ' solid transparent',
     borderBottom: ts + ' solid transparent',
     animationName: keyframes,
-    animationDuration: '1s',
+    animationDuration: '0.7s',
     animationIterationCount: 'infinite',
     visibility: Bool.isTrue(props.flash) ? 'visible' : 'hidden',
   };
