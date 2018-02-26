@@ -508,7 +508,7 @@ class DragCarrier extends Widget {
         // If pointed item is selected, drag all selected items.
         const container = this.rectOrigin.container;
         for (let child of container.props.children) {
-          if (Bool.isTrue(child.props.children.props.selected)) {
+          if (this.isSelected(child)) {
             this.selectOne(child.props.dragOwnerId, value);
           }
         }
