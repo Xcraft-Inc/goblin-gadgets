@@ -490,6 +490,12 @@ export default function styles(theme, props) {
     visibility: Bool.isTrue(props.flash) ? 'visible' : 'hidden',
   };
 
+  const sameCountStyle = {
+    position: 'absolute',
+    left: '0px',
+    top: '0px',
+  };
+
   return {
     box: boxStyle,
     farShadow: farShadowStyle,
@@ -514,6 +520,7 @@ export default function styles(theme, props) {
     subpaneDragged: subpaneDraggedStyle,
     subpaneContent: subpaneContentStyle,
     flash: flashStyle,
+    sameCount: sameCountStyle,
   };
 }
 

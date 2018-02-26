@@ -2,6 +2,7 @@ import React from 'react';
 import Widget from 'laboratory/widget';
 
 import Label from 'gadgets/label/widget';
+import Badge from 'gadgets/badge/widget';
 
 import * as Bool from 'gadgets/boolean-helpers';
 import {Unit} from 'electrum-theme';
@@ -72,6 +73,19 @@ class Ticket extends Widget {
         </div>
       </div>
     );
+  }
+
+  renderSameCount() {
+    if (this.props.sameCount) {
+      const sameCountClass = this.styles.classNames.sameCount;
+      return (
+        <div className={sameCountClass}>
+          <Badge value={this.props.sameCount} />
+        </div>
+      );
+    } else {
+      return null;
+    }
   }
 
   renderTicket() {
@@ -154,6 +168,7 @@ class Ticket extends Widget {
           {this.renderBackgroundText()}
           {this.props.children}
           {this.renderHud()}
+          {this.renderSameCount()}
         </div>
         <div className={flashClass} />
         {htmlHover}
@@ -193,6 +208,7 @@ class Ticket extends Widget {
             {this.renderBackgroundText()}
             {this.props.children}
             {this.renderHud()}
+            {this.renderSameCount()}
           </div>
         </div>
         <div className={flashClass} />
