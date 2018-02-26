@@ -489,9 +489,15 @@ class DragCarrier extends Widget {
   }
 
   isSelected(item) {
+    //- return (
+    //-   item.props.children.props &&
+    //-   Bool.isTrue(item.props.children.props.selected)
+    //- );
+    const selectedIds = this.getBackendValue(
+      `backend.${this.context.dragServiceId}.selectedIds`
+    );
     return (
-      item.props.children.props &&
-      Bool.isTrue(item.props.children.props.selected)
+      selectedIds && selectedIds.includes(item.props.children.props.ticketId)
     );
   }
 
