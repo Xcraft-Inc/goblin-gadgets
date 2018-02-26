@@ -489,16 +489,19 @@ class DragCarrier extends Widget {
   }
 
   isSelected(item) {
-    //- return (
-    //-   item.props.children.props &&
-    //-   Bool.isTrue(item.props.children.props.selected)
-    //- );
-    const selectedIds = this.getBackendValue(
-      `backend.${this.context.dragServiceId}.selectedIds`
-    );
-    return (
-      selectedIds && selectedIds.includes(item.props.children.props.ticketId)
-    );
+    if (this.context.dragServiceId) {
+      const selectedIds = this.getBackendValue(
+        `backend.${this.context.dragServiceId}.selectedIds`
+      );
+      return (
+        selectedIds && selectedIds.includes(item.props.children.props.ticketId)
+      );
+    } else {
+      return (
+        item.props.children.props &&
+        Bool.isTrue(item.props.children.props.selected)
+      );
+    }
   }
 
   selectMulti(value) {
