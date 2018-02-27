@@ -29,9 +29,9 @@ class TimeGauge extends Widget {
       return null;
     }
 
-    //???? if (this.props.date !== DateConverters.getNowCanonical()) {
-    //????   return <Gauge kind={this.props.kind} disabled="true" />;
-    //???? }
+    if (this.props.date !== DateConverters.getNowCanonical()) {
+      return <Gauge kind={this.props.kind} disabled="true" />;
+    }
 
     const nowMinutes = TimeConverters.getTotalMinutes(
       TimeConverters.getNowCanonical()
