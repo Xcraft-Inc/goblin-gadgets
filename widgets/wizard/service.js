@@ -2076,7 +2076,7 @@ const logicHandlers = {
 
 // Register quest's according rc.json
 Goblin.registerQuest(goblinName, 'create', function(quest, desktopId) {
-  const desk = quest.getGoblinAPI('desktop', desktopId);
+  const desk = quest.getAPI(desktopId);
   desk.addTab({
     name: 'Wizard',
     contextId: 'test',
