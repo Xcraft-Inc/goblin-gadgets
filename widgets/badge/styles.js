@@ -15,7 +15,7 @@ export default function styles(theme, props) {
   let color = theme.palette.badgeText;
   let backgroundColor = theme.palette.badgeBackground;
 
-  if (props.kind === 'chronos-count') {
+  if (props.kind === 'chronos-count' || props.kind === 'identical-count') {
     color = theme.palette.chronoBadgeText;
     backgroundColor = theme.palette.chronoBadgeBackground;
   }
