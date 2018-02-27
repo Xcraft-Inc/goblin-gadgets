@@ -490,7 +490,7 @@ export default function styles(theme, props) {
     visibility: Bool.isTrue(props.flash) ? 'visible' : 'hidden',
   };
 
-  const sameCountStyle = {
+  const identicalCountStyle = {
     position: 'absolute',
     left: '0px',
     top: '0px',
@@ -520,7 +520,7 @@ export default function styles(theme, props) {
     subpaneDragged: subpaneDraggedStyle,
     subpaneContent: subpaneContentStyle,
     flash: flashStyle,
-    sameCount: sameCountStyle,
+    identicalCount: identicalCountStyle,
   };
 }
 

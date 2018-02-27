@@ -75,12 +75,12 @@ class Ticket extends Widget {
     );
   }
 
-  renderSameCount() {
-    if (this.props.sameCount) {
-      const sameCountClass = this.styles.classNames.sameCount;
+  renderIdenticalCount() {
+    if (this.props.identicalCount) {
+      const identicalCountClass = this.styles.classNames.identicalCount;
       return (
-        <div className={sameCountClass}>
-          <Badge value={this.props.sameCount} />
+        <div className={identicalCountClass}>
+          <Badge value={this.props.identicalCount} />
         </div>
       );
     } else {
@@ -168,7 +168,7 @@ class Ticket extends Widget {
           {this.renderBackgroundText()}
           {this.props.children}
           {this.renderHud()}
-          {this.renderSameCount()}
+          {this.renderIdenticalCount()}
         </div>
         <div className={flashClass} />
         {htmlHover}
@@ -208,7 +208,7 @@ class Ticket extends Widget {
             {this.renderBackgroundText()}
             {this.props.children}
             {this.renderHud()}
-            {this.renderSameCount()}
+            {this.renderIdenticalCount()}
           </div>
         </div>
         <div className={flashClass} />
