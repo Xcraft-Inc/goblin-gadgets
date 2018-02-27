@@ -600,6 +600,7 @@ class Field extends Form {
             extended={this.props.extended}
             hilited={this.props.hilited}
             showExecuted={this.props.showExecuted}
+            identicalType={this.props.identicalType}
             noDrag={this.props.noDrag}
             embedded={this.props.embedded}
             embeddedLevel={
@@ -1374,6 +1375,7 @@ class Field extends Form {
             extended={this.props.extended}
             hilited={this.props.hilited}
             showExecuted={this.props.showExecuted}
+            identicalType={this.props.identicalType}
             noDrag={this.props.noDrag}
             embedded={this.props.embedded}
             embeddedLevel={
