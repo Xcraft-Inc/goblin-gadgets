@@ -601,6 +601,8 @@ class DragCarrier extends Widget {
     }
   }
 
+  /******************************************************************************/
+
   renderTooMany(n, index) {
     const text = `Et encore ${n} autres...`;
     return (
@@ -713,6 +715,7 @@ class DragCarrier extends Widget {
         height: rect.height,
         borderRadius: dest.radius ? dest.radius : this.props.radius,
         transition: 'all 0.2s ease-out',
+        transitionProperty: 'left, right, top, bottom, width, height',
         backgroundColor: this.props.color,
         opacity: dest.opacity ? dest.opacity : 1.0,
         userSelect: 'none',
@@ -723,6 +726,7 @@ class DragCarrier extends Widget {
         position: 'absolute',
         borderRadius: this.props.radius,
         transition: 'all 0.2s ease-out',
+        transitionProperty: 'left, right, top, bottom, width, height',
         backgroundColor: this.props.color,
         opacity: 0,
         userSelect: 'none',
