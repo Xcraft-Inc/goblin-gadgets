@@ -732,6 +732,7 @@ class Field extends Form {
         verticalJustify={this.props.verticalJustify}
       >
         <LabelTextField
+          selectAllOnFocus="true"
           spacing={this.props.spacing}
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
@@ -789,6 +790,7 @@ class Field extends Form {
         >
           <WiredTextFieldTyped
             type="date"
+            selectAllOnFocus="true"
             spacing={this.props.spacing}
             labelText={this.props.labelText}
             labelGlyph={this.props.labelGlyph}
@@ -812,6 +814,7 @@ class Field extends Form {
         >
           <TextFieldTyped
             type="date"
+            selectAllOnFocus="true"
             spacing={this.props.spacing}
             labelText={this.props.labelText}
             labelGlyph={this.props.labelGlyph}
@@ -868,6 +871,7 @@ class Field extends Form {
         >
           <WiredTextFieldTyped
             type="time"
+            selectAllOnFocus="true"
             spacing={this.props.spacing}
             labelText={this.props.labelText}
             labelGlyph={this.props.labelGlyph}
@@ -891,6 +895,7 @@ class Field extends Form {
         >
           <TextFieldTyped
             type="time"
+            selectAllOnFocus="true"
             spacing={this.props.spacing}
             labelText={this.props.labelText}
             labelGlyph={this.props.labelGlyph}
@@ -918,6 +923,7 @@ class Field extends Form {
       >
         <TextFieldTyped
           type="price"
+          selectAllOnFocus="true"
           spacing={this.props.spacing}
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
@@ -944,6 +950,7 @@ class Field extends Form {
       >
         <TextFieldTyped
           type="weight"
+          selectAllOnFocus="true"
           unit={this.props.unit}
           spacing={this.props.spacing}
           labelText={this.props.labelText}
@@ -971,6 +978,7 @@ class Field extends Form {
       >
         <TextFieldTyped
           type="volume"
+          selectAllOnFocus="true"
           unit={this.props.unit}
           spacing={this.props.spacing}
           labelText={this.props.labelText}
@@ -998,6 +1006,7 @@ class Field extends Form {
       >
         <TextFieldTyped
           type="number"
+          selectAllOnFocus="true"
           unit={this.props.unit}
           spacing={this.props.spacing}
           labelText={this.props.labelText}
@@ -1025,6 +1034,7 @@ class Field extends Form {
       >
         <TextFieldTyped
           type="percent"
+          selectAllOnFocus="true"
           unit={this.props.unit}
           spacing={this.props.spacing}
           labelText={this.props.labelText}
@@ -1054,6 +1064,7 @@ class Field extends Form {
       >
         <TextFieldTyped
           type="delay"
+          selectAllOnFocus="true"
           unit={this.props.unit}
           spacing={this.props.spacing}
           labelText={this.props.labelText}
@@ -1092,6 +1103,7 @@ class Field extends Form {
           />
         )}
         <TextFieldCombo
+          selectAllOnFocus="true"
           spacing={this.props.spacing}
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
@@ -1552,6 +1564,7 @@ class Field extends Form {
         <Form
           {...this.formConfigWithComponent(() => (
             <Hinter
+              selectAllOnFocus="true"
               id={this.context.id}
               shape={
                 !this.props.onValue && this.props.enableAdd

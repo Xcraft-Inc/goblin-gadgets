@@ -49,10 +49,11 @@ export default function styles(theme, props) {
 
   const glossStyle = {
     position: 'absolute',
-    height: `calc(${value}% - 2px)`,
+    height: `calc(${value}% - 6px)`,
     left: '2px',
     bottom: '1px',
     width: '1px',
+    margin: '2px 0px',
     backgroundColor: theme.palette.ticketGaugeContentGlossy,
     animationName: Bool.isTrue(props.flash) ? keyframes : null,
     animationDuration: '1s',

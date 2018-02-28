@@ -172,6 +172,8 @@ class DragCab extends Widget {
     }
   }
 
+  /******************************************************************************/
+
   renderDragCarrier() {
     return (
       <DragCarrier
