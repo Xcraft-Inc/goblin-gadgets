@@ -51,9 +51,12 @@ export default function styles(theme, props) {
   let borderActiveColor = theme.palette.buttonBorder;
   let borderStyle = 'solid';
   let borderRadius = '0px';
+  let boxSizing = null;
   let backgroundColor = theme.palette.buttonBackground;
   let activeColor = theme.palette.boxActiveBackground;
   let borderHoverColor = null;
+  let borderHoverStyle = null;
+  let borderHoverWidth = null;
   let backgroundHoverColor = null;
   let boxPosition = props.position ? props.position : 'relative';
   let cursor = props.cursor ? props.cursor : 'default';
@@ -409,13 +412,20 @@ export default function styles(theme, props) {
 
   if (props.kind === 'desk-title') {
     boxHeight = Unit.multiply(theme.shapes.lineHeight, 1.2);
-    borderStyle = 'none';
+    borderStyle = 'solid';
+    borderColor = 'transparent';
+    borderWidth = theme.shapes.ticketHoverThickness;
     borderRadius = Unit.multiply(theme.shapes.lineHeight, 0.25);
+    boxSizing = 'border-box';
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     boxMarginBottom = '3px';
     backgroundColor = null;
-    backgroundHoverColor = theme.palette.ticketGlueHilitedTitleBackground;
-    activeColor = theme.palette.ticketGlueHilitedTitleBackground;
+    backgroundHoverColor = theme.palette.ticketGlueHilitedBackground;
+    borderHoverStyle = 'solid';
+    borderHoverColor = theme.palette.ticketHover;
+    borderHoverWidth = theme.shapes.ticketHoverThickness;
+    activeColor = theme.palette.ticketHilitedBackground;
+    borderActiveColor = theme.palette.ticketHilitedBackground;
   }
 
   // Button with a day in Calendar component.
@@ -650,6 +660,7 @@ export default function styles(theme, props) {
     borderColor: borderColor,
     borderStyle: borderStyle,
     borderRadius: borderRadius,
+    boxSizing: boxSizing,
     paddingTop: boxPaddingTop,
     paddingRight: boxPaddingRight,
     paddingBottom: boxPaddingBottom,
@@ -670,6 +681,8 @@ export default function styles(theme, props) {
   if (!disabled && !Bool.isTrue(props.busy) && boxOpacity !== 0) {
     boxStyle[':hover'] = {
       borderColor: borderHoverColor,
+      borderStyle: borderHoverStyle,
+      borderWidth: borderHoverWidth,
       backgroundColor: backgroundHoverColor,
       opacity: 1.0,
     };
