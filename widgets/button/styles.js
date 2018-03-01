@@ -420,12 +420,12 @@ export default function styles(theme, props) {
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     boxMarginBottom = '3px';
     backgroundColor = null;
-    backgroundHoverColor = theme.palette.ticketBackgroundHover;
+    backgroundHoverColor = theme.palette.ticketGlueHilitedBackground;
     borderHoverStyle = 'solid';
     borderHoverColor = theme.palette.ticketHover;
     borderHoverWidth = theme.shapes.ticketHoverThickness;
-    activeColor = theme.palette.ticketHover;
-    borderActiveColor = theme.palette.ticketHover;
+    activeColor = theme.palette.ticketHilitedBackground;
+    borderActiveColor = theme.palette.ticketHilitedBackground;
   }
 
   // Button with a day in Calendar component.
