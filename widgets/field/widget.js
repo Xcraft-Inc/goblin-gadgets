@@ -485,7 +485,7 @@ class Field extends Form {
     const summary = this.props.summary || 'info';
     const Viewer = props => {
       if (!props.entityId) {
-        return null;
+        return <Label grow="1" empty="true" spacing={this.props.spacing} />;
       }
       const Info = this.mapWidget(
         Label,
@@ -618,7 +618,7 @@ class Field extends Form {
     } else if (this.props.item) {
       const Items = props => {
         if (!props.entityIds) {
-          return null;
+          return <Label grow="1" empty="true" spacing={this.props.spacing} />;
         }
         return (
           <Container
@@ -1309,7 +1309,7 @@ class Field extends Form {
     const summary = this.props.summary || 'info';
     const Viewer = props => {
       if (!props.entityId) {
-        return null;
+        return <Label grow="1" empty="true" spacing={this.props.spacing} />;
       }
       const Info = this.mapWidget(
         Label,
@@ -1405,7 +1405,7 @@ class Field extends Form {
     } else if (this.props.item) {
       const Items = props => {
         if (!props.entityIds) {
-          return null;
+          return <Label grow="1" empty="true" spacing={this.props.spacing} />;
         }
         return (
           <Container
