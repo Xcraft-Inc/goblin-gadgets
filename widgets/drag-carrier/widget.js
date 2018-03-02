@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
+import MouseTrap from 'mousetrap';
 import {Unit} from 'electrum-theme';
 import * as Bool from 'gadgets/boolean-helpers';
 import Container from 'gadgets/container/widget';
@@ -107,6 +108,7 @@ class DragCarrier extends Widget {
 
     this.onMouseMove = this.onMouseMove.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
+    this.onKeyEsc = this.onKeyEsc.bind(this);
   }
 
   componentDidMount() {
@@ -121,6 +123,12 @@ class DragCarrier extends Widget {
       const node = ReactDOM.findDOMNode(flyingDialog);
       this.flyingDialogRect = node.getBoundingClientRect();
     }
+
+    MouseTrap.bind('esc', this.onKeyEsc, 'keydown');
+  }
+
+  componentWillUnmount() {
+    MouseTrap.unbind('esc');
   }
 
   get x() {
@@ -163,15 +171,15 @@ class DragCarrier extends Widget {
     });
   }
 
-  isDragStarted() {
+  get isDragStarted() {
     return this.moveCount > 2;
   }
 
-  getHalfThickness() {
+  get halfThickness() {
     return Unit.parse(Unit.multiply(this.props.thickness, 0.5)).value;
   }
 
-  getOverSpacing() {
+  get overSpacing() {
     if (this.props.overSpacing) {
       return Unit.parse(Unit.multiply(this.props.overSpacing, 1)).value;
     } else {
@@ -180,8 +188,8 @@ class DragCarrier extends Widget {
   }
 
   findV(container, node, y, parentRect) {
-    const thickness = this.getHalfThickness();
-    const overSpacing = this.getOverSpacing() / 2;
+    const thickness = this.halfThickness;
+    const overSpacing = this.overSpacing / 2;
     if (container.props.dragMode === 'all') {
       const rect = getBoundingRect(node);
       return {
@@ -254,8 +262,8 @@ class DragCarrier extends Widget {
   }
 
   findH(container, node, x, parentRect) {
-    const thickness = this.getHalfThickness();
-    const overSpacing = this.getOverSpacing() / 2;
+    const thickness = this.halfThickness;
+    const overSpacing = this.overSpacing / 2;
     if (container.props.dragMode === 'all') {
       const rect = getBoundingRect(node);
       return {
@@ -571,7 +579,7 @@ class DragCarrier extends Widget {
       this.toDelete = Bool.isTrue(this.props.dragToDelete) && !dest;
     }
 
-    if (!this.lastDragStarted && this.isDragStarted()) {
+    if (!this.lastDragStarted && this.isDragStarted) {
       this.lastDragStarted = true;
       this.selectMulti(true);
     }
@@ -580,8 +588,8 @@ class DragCarrier extends Widget {
   onMouseUp(e) {
     const dragEnding = this.props.dragEnding;
     if (dragEnding) {
-      dragEnding(e, this.isDragStarted());
-      if (this.isDragStarted()) {
+      dragEnding(e, this.isDragStarted);
+      if (this.isDragStarted) {
         this.selectMulti(false);
         const doDragEnding = this.props.doDragEnding;
         if (doDragEnding) {
@@ -598,6 +606,13 @@ class DragCarrier extends Widget {
           }
         }
       }
+    }
+  }
+
+  onKeyEsc() {
+    const dragEnding = this.props.dragEnding;
+    if (dragEnding) {
+      dragEnding(null, true);
     }
   }
 
@@ -623,7 +638,7 @@ class DragCarrier extends Widget {
 
   renderComponentToDrag() {
     const result = [];
-    if (this.isDragStarted()) {
+    if (this.isDragStarted) {
       const n = this.selectedIds.length;
       for (let i = 0; i < n; i++) {
         const id = this.selectedIds[i];
@@ -704,7 +719,7 @@ class DragCarrier extends Widget {
 
     const dest = this.dest;
     let hilitedStyle;
-    if (dest && dest.rect && this.isDragStarted()) {
+    if (dest && dest.rect && this.isDragStarted) {
       const rect = clip(dest.rect, dest.parentRect);
       hilitedStyle = {
         visibility: 'visible',

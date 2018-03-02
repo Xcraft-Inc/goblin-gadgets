@@ -100,7 +100,7 @@ class DragCab extends Widget {
 
   onMouseDown(e) {
     if (this.hasCombo) {
-      // does a child have an open combo-menu ?
+      // Does a child have an open combo-menu ?
       return;
     }
     const mouseDown = this.props.mouseDown;
@@ -140,7 +140,6 @@ class DragCab extends Widget {
   }
 
   onMouseUp(e) {
-    // Trace.log ('DragCab.mouseUp');
     if (this.hasCombo) {
       // does a child have an open combo-menu ?
       return;
@@ -156,7 +155,6 @@ class DragCab extends Widget {
   }
 
   onDragEnding(e, isDragDoing) {
-    // Trace.log ('DragCab.onDragEnding');
     this.dragInProcess = false;
     this.dragStarting = false;
     if (!isDragDoing) {
