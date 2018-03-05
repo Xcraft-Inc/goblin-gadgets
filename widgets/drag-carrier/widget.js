@@ -531,6 +531,7 @@ class DragCarrier extends Widget {
   }
 
   onMouseMove(e) {
+    //- console.log('drag-carrier: onMouseMove');
     let x = e.clientX;
     let y = e.clientY;
     if (!x && e.touches.length > 0) {
@@ -586,6 +587,7 @@ class DragCarrier extends Widget {
   }
 
   onMouseUp(e) {
+    //- console.log('drag-carrier: onMouseUp');
     const dragEnding = this.props.dragEnding;
     if (dragEnding) {
       dragEnding(e, this.isDragStarted);
