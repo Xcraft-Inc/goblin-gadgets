@@ -52,7 +52,6 @@ class DragCab extends Widget {
 
     this.dragWidth = 0;
     this.dragHeight = 0;
-    this.hasCombo = false;
 
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
