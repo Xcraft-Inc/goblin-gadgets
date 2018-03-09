@@ -99,7 +99,7 @@ class DragCab extends Widget {
 
   onMouseDown(e) {
     //- console.log('drag-cab: onMouseDown');
-    if (window.document.TicketPolyphemeCombo === 'visible') {
+    if (window.document.Combo === 'visible') {
       // Does a child have an open combo-menu ?
       return;
     }
@@ -141,7 +141,7 @@ class DragCab extends Widget {
 
   onMouseUp(e) {
     //- console.log('drag-cab: onMouseUp');
-    if (window.document.TicketPolyphemeCombo === 'visible') {
+    if (window.document.Combo === 'visible') {
       // does a child have an open combo-menu ?
       return;
     }
