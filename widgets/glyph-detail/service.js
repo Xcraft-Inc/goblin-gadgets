@@ -1,5 +1,5 @@
 'use strict';
-const {buildWorkitem} = require('goblin-rethink');
+const {buildWorkitem} = require('goblin-workshop');
 
 const config = {
   type: 'glyph',
