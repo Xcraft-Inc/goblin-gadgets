@@ -706,15 +706,20 @@ export default function styles(theme, props) {
   }
 
   if (props.kind === 'tickets-messengers') {
-    //- width = 'calc(100vw - ' + theme.shapes.taskButtonWidth + ')';
-    //- overflowX = 'auto';
     display = 'flex';
     flexDirection = 'row';
     flexGrow = 1;
   }
 
-  if (props.kind === 'scrollable-tickets-messengers') {
+  if (props.kind === 'scrollable-tickets-messengers-top') {
     width = 'calc(100vw - ' + theme.shapes.taskButtonWidth + ')';
+    overflowX = 'auto';
+    display = 'flex';
+    flexDirection = 'row';
+    flexGrow = 1;
+  }
+  if (props.kind === 'scrollable-tickets-messengers-right') {
+    width = '100%';
     overflowX = 'auto';
     display = 'flex';
     flexDirection = 'row';
