@@ -170,7 +170,7 @@ class Ticket extends Widget {
           {this.renderIdenticalCount()}
           {this.renderHud()}
         </div>
-        <div className={flashClass} />
+        {Bool.isTrue(this.props.flash) ? <div className={flashClass} /> : null}
         {htmlHover}
       </div>
     );
@@ -211,7 +211,7 @@ class Ticket extends Widget {
             {this.renderHud()}
           </div>
         </div>
-        <div className={flashClass} />
+        {Bool.isTrue(this.props.flash) ? <div className={flashClass} /> : null}
         <div className={rectHoverClass} />
       </div>
     );

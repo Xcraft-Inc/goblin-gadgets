@@ -487,7 +487,6 @@ export default function styles(theme, props) {
     animationName: keyframes,
     animationDuration: '0.7s',
     animationIterationCount: 'infinite',
-    visibility: Bool.isTrue(props.flash) ? 'visible' : 'hidden',
   };
 
   const identicalCountStyle = {
