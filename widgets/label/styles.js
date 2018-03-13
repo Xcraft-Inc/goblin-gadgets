@@ -113,6 +113,7 @@ export default function styles(theme, props) {
   if (spacing) {
     const spacingType = {
       overlap: '-1px',
+      zero: '0px',
       tiny: '1px',
       compact: '5px',
       large: m,
@@ -121,7 +122,7 @@ export default function styles(theme, props) {
     };
     boxMarginRight = spacingType[spacing];
   }
-  if (props.spacing === 'compact') {
+  if (props.spacing === 'compact' || props.spacing === 'zero') {
     glyphMinWidth = null;
   }
 
