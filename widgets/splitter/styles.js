@@ -5,8 +5,10 @@ export default function styles(theme, props) {
     display: 'flex',
     flexDirection: props.kind === 'vertical' ? 'row' : 'column',
     flexGrow: '1',
-    width: props.kind === 'vertical' ? '100%' : null,
-    height: props.kind === 'vertical' ? null : '100%',
+    //???? width: props.kind === 'vertical' ? '100%' : null,
+    //???? height: props.kind === 'vertical' ? null : '100%',
+    width: '100%',
+    height: '100%',
   };
 
   const firstPaneStyle = {
