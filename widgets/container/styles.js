@@ -871,6 +871,15 @@ export default function styles(theme, props) {
     }
   }
 
+  if (props.kind === 'row-search') {
+    // Special row positioned to the left of the button "Add +".
+    display = 'flex';
+    flexDirection = 'row';
+    flexGrow = props.grow;
+    maxHeight = '0px';
+    left = '-110px';
+  }
+
   if (props.kind === 'wrap') {
     display = 'flex';
     flexDirection = 'row';

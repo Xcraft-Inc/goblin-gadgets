@@ -5,12 +5,6 @@ import * as Bool from 'gadgets/boolean-helpers';
 import {
   date as DateConverters,
   time as TimeConverters,
-  price as PriceConverters,
-  weight as WeightConverters,
-  volume as VolumeConverters,
-  number as NumberConverters,
-  percent as PercentConverters,
-  delay as DelayConverters,
 } from 'xcraft-core-converters';
 
 import Container from 'gadgets/container/widget';
@@ -166,6 +160,7 @@ class Field extends Form {
         <LabelTextField
           readonly="true"
           spacing={this.props.spacing}
+          shape={this.props.shape}
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -195,6 +190,7 @@ class Field extends Form {
           readonly="true"
           type="date"
           spacing={this.props.spacing}
+          shape={this.props.shape}
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -222,6 +218,7 @@ class Field extends Form {
           readonly="true"
           type="time"
           spacing={this.props.spacing}
+          shape={this.props.shape}
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -249,6 +246,7 @@ class Field extends Form {
           readonly="true"
           type="price"
           spacing={this.props.spacing}
+          shape={this.props.shape}
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -277,6 +275,7 @@ class Field extends Form {
           type="weight"
           unit={this.props.unit}
           spacing={this.props.spacing}
+          shape={this.props.shape}
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -305,6 +304,7 @@ class Field extends Form {
           type="volume"
           unit={this.props.unit}
           spacing={this.props.spacing}
+          shape={this.props.shape}
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -333,6 +333,7 @@ class Field extends Form {
           type="number"
           unit={this.props.unit}
           spacing={this.props.spacing}
+          shape={this.props.shape}
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -361,6 +362,7 @@ class Field extends Form {
           type="percent"
           unit={this.props.unit}
           spacing={this.props.spacing}
+          shape={this.props.shape}
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -389,6 +391,7 @@ class Field extends Form {
           type="delay"
           unit={this.props.unit}
           spacing={this.props.spacing}
+          shape={this.props.shape}
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -734,6 +737,8 @@ class Field extends Form {
         <LabelTextField
           selectAllOnFocus="true"
           spacing={this.props.spacing}
+          shape={this.props.shape}
+          shape={this.props.shape}
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -792,6 +797,7 @@ class Field extends Form {
             type="date"
             selectAllOnFocus="true"
             spacing={this.props.spacing}
+            shape={this.props.shape}
             labelText={this.props.labelText}
             labelGlyph={this.props.labelGlyph}
             labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -816,6 +822,7 @@ class Field extends Form {
             type="date"
             selectAllOnFocus="true"
             spacing={this.props.spacing}
+            shape={this.props.shape}
             labelText={this.props.labelText}
             labelGlyph={this.props.labelGlyph}
             labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -873,6 +880,7 @@ class Field extends Form {
             type="time"
             selectAllOnFocus="true"
             spacing={this.props.spacing}
+            shape={this.props.shape}
             labelText={this.props.labelText}
             labelGlyph={this.props.labelGlyph}
             labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -897,6 +905,7 @@ class Field extends Form {
             type="time"
             selectAllOnFocus="true"
             spacing={this.props.spacing}
+            shape={this.props.shape}
             labelText={this.props.labelText}
             labelGlyph={this.props.labelGlyph}
             labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -925,6 +934,7 @@ class Field extends Form {
           type="price"
           selectAllOnFocus="true"
           spacing={this.props.spacing}
+          shape={this.props.shape}
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -953,6 +963,7 @@ class Field extends Form {
           selectAllOnFocus="true"
           unit={this.props.unit}
           spacing={this.props.spacing}
+          shape={this.props.shape}
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -981,6 +992,7 @@ class Field extends Form {
           selectAllOnFocus="true"
           unit={this.props.unit}
           spacing={this.props.spacing}
+          shape={this.props.shape}
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -1009,6 +1021,7 @@ class Field extends Form {
           selectAllOnFocus="true"
           unit={this.props.unit}
           spacing={this.props.spacing}
+          shape={this.props.shape}
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -1037,6 +1050,7 @@ class Field extends Form {
           selectAllOnFocus="true"
           unit={this.props.unit}
           spacing={this.props.spacing}
+          shape={this.props.shape}
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -1067,6 +1081,7 @@ class Field extends Form {
           selectAllOnFocus="true"
           unit={this.props.unit}
           spacing={this.props.spacing}
+          shape={this.props.shape}
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -1105,6 +1120,7 @@ class Field extends Form {
         <TextFieldCombo
           selectAllOnFocus="true"
           spacing={this.props.spacing}
+          shape={this.props.shape}
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
           width={this.props.fieldWidth}
@@ -1576,6 +1592,7 @@ class Field extends Form {
               hinter={this.props.hinter}
               comboType={this.props.hinter}
               spacing={this.props.spacing}
+              shape={this.props.shape}
               width={this.props.fieldWidth}
               grow="1"
               requiredHinter={this.props.requiredHinter || 'true'}
