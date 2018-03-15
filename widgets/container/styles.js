@@ -711,6 +711,14 @@ export default function styles(theme, props) {
     flexGrow = 1;
   }
 
+  if (props.kind === 'ticket-in-codispatch') {
+    display = 'flex';
+    flexDirection = 'row';
+    flexGrow = 1;
+    padding = theme.shapes.containerMargin;
+    backgroundColor = theme.palette.viewBackground;
+  }
+
   if (props.kind === 'scrollable-tickets-messengers-top') {
     width = 'calc(100vw - ' + theme.shapes.taskButtonWidth + ')';
     overflowX = 'auto';
