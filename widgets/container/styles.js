@@ -886,6 +886,7 @@ export default function styles(theme, props) {
     flexGrow = props.grow;
     maxHeight = '0px';
     left = '-110px';
+    zIndex = 1;
   }
 
   if (props.kind === 'wrap') {
