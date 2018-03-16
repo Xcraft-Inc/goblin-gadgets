@@ -573,11 +573,11 @@ class Field extends Form {
       if (this.props.pluginType) {
         const CustomPlugin = widgetImporter(`plugin-${this.props.pluginType}`);
         WiredPlugin = Widget.Wired(CustomPlugin)(
-          `${this.props.plugin}-plugin@${this.context.id}`
+          `${this.props.plugin}-plugin@readonly@${this.context.id}`
         );
       } else {
         WiredPlugin = Widget.Wired(Plugin)(
-          `${this.props.plugin}-plugin@${this.context.id}`
+          `${this.props.plugin}-plugin@readonly@${this.context.id}`
         );
       }
 
@@ -1369,11 +1369,15 @@ class Field extends Form {
       if (this.props.pluginType) {
         const CustomPlugin = widgetImporter(`plugin-${this.props.pluginType}`);
         WiredPlugin = Widget.Wired(CustomPlugin)(
-          `${this.props.plugin}-plugin@${this.context.id}`
+          `${this.props.plugin}-plugin@${
+            this.props.mode ? `${this.props.mode}@` : ''
+          }${this.context.id}`
         );
       } else {
         WiredPlugin = Widget.Wired(Plugin)(
-          `${this.props.plugin}-plugin@${this.context.id}`
+          `${this.props.plugin}-plugin@${
+            this.props.mode ? `${this.props.mode}@` : ''
+          }${this.context.id}`
         );
       }
 
