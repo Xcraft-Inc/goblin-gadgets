@@ -523,8 +523,12 @@ export default function styles(theme, props) {
     backgroundColor = 'transparent';
     activeColor = theme.palette.dynamicToolbarBackground;
   }
-  if (props.kind === 'dynamic-toolbar-top') {
+  if (props.kind === 'dynamic-toolbar-top-left') {
     borderStyle = 'none solid solid none';
+    backgroundColor = theme.palette.paneBackground;
+  }
+  if (props.kind === 'dynamic-toolbar-top-right') {
+    borderStyle = 'none none solid solid';
     backgroundColor = theme.palette.paneBackground;
   }
   if (props.kind === 'dynamic-toolbar') {

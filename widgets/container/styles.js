@@ -1071,6 +1071,12 @@ export default function styles(theme, props) {
       Unit.multiply(m, -1);
   }
 
+  if (props.kind === 'absolute-top-right') {
+    position = 'absolute';
+    top = '0px';
+    right = '0px';
+  }
+
   // WIP: This code generate problems of layout with 'row-field'.
   //? if (flexGrow) {
   //?   flexShrink = '1';

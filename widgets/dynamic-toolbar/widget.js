@@ -37,7 +37,7 @@ class DynamicToolbar extends Widget {
   }
 
   onShowToolbar() {
-    const node = ReactDOM.findDOMNode(this.ToolbarButton);
+    const node = ReactDOM.findDOMNode(this.toolbarButton);
     const rect = node.getBoundingClientRect();
     this.ToolbarLeft = rect.left;
     this.ToolbarTop = rect.top;
@@ -82,11 +82,11 @@ class DynamicToolbar extends Widget {
           <Button
             width="20px"
             height="14px"
-            kind="dynamic-toolbar-top"
+            kind="dynamic-toolbar-top-left"
             glyph={this.showToolbar ? 'solid/caret-up' : 'solid/caret-down'}
             active={Bool.toString(this.showToolbar)}
             mouseOver={this.onShowToolbar}
-            ref={node => (this.ToolbarButton = node)}
+            ref={node => (this.toolbarButton = node)}
           />
         </div>
       );
@@ -96,10 +96,10 @@ class DynamicToolbar extends Widget {
           <Button
             width="24px"
             height="24px"
-            kind="dynamic-toolbar-top"
+            kind="dynamic-toolbar-top-left"
             glyph="solid/ellipsis-h"
             mouseOver={this.onShowToolbar}
-            ref={node => (this.ToolbarButton = node)}
+            ref={node => (this.toolbarButton = node)}
           />
         </div>
       );
@@ -117,7 +117,7 @@ class DynamicToolbar extends Widget {
             glyph={this.showToolbar ? 'solid/caret-left' : 'solid/caret-right'}
             active={Bool.toString(this.showToolbar)}
             mouseOver={this.onShowToolbar}
-            ref={node => (this.ToolbarButton = node)}
+            ref={node => (this.toolbarButton = node)}
           />
         </div>
       );
