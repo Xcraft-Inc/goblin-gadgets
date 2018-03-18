@@ -298,6 +298,13 @@ export default function styles(theme, props) {
     boxMarginTop = '5px';
   }
 
+  if (props.kind === 'mission-top') {
+    boxAlignSelf = 'flex-start';
+    textMarginTop = '7px';
+    textMarginLeft = '0px';
+    textMarginRight = '0px';
+  }
+
   if (props.kind === 'one-line-height') {
     boxHeight = theme.shapes.lineHeight;
   }
