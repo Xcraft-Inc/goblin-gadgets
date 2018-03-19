@@ -102,7 +102,6 @@ class Field extends Form {
             kind="label-field"
             justify="left"
             spacing="overlap"
-            disabled="true"
           />
         )}
         <Dynamic grow="1" tooltip={this.props.tooltip} />
@@ -433,7 +432,6 @@ class Field extends Form {
             kind="label-field"
             justify="left"
             spacing="overlap"
-            disabled="true"
           />
         )}
         <Value grow="1" justify={this.props.justify} />
@@ -468,7 +466,6 @@ class Field extends Form {
             kind="label-field"
             justify="left"
             spacing="overlap"
-            disabled="true"
           />
         )}
         <WiredCheckButton
@@ -494,18 +491,22 @@ class Field extends Form {
         Label,
         entity => {
           let glyph = 'solid/spinner';
+          let glyphColor = null;
           let text = 'Chargement...';
           if (entity) {
             glyph = entity.get('meta.summaries.glyph');
+            glyphColor = entity.get('meta.summaries.glyphColor');
             text = entity.get(`meta.summaries.${summary}`);
           }
           return {
             kind: 'markdown',
             shape: 'left-smooth',
             glyph,
+            glyphColor,
             text,
             grow: '1',
             justify: this.props.justify,
+            wrap: this.props.wrap,
           };
         },
         `backend.${props.entityId}`
@@ -514,7 +515,7 @@ class Field extends Form {
     };
 
     const Action = props => {
-      return !!props.entityId ? (
+      return !!props.entityId && !Bool.isTrue(this.props.disableAdd) ? (
         <Button
           kind="combo"
           shape="right-smooth"
@@ -557,7 +558,6 @@ class Field extends Form {
             glyph={this.props.labelGlyph}
             width={labelWidth}
             justify="left"
-            disabled="true"
           />
         )}
         <EntityViewer />
@@ -678,7 +678,6 @@ class Field extends Form {
             kind="label-field"
             justify="left"
             spacing="overlap"
-            disabled="true"
           />
         )}
         <Value kind="title" grow="1" justify={this.props.justify} />
@@ -714,7 +713,6 @@ class Field extends Form {
             kind="label-field"
             justify="left"
             spacing="overlap"
-            disabled="true"
           />
         )}
         <Value grow="1" justify={this.props.justify} />
@@ -1331,13 +1329,16 @@ class Field extends Form {
         Label,
         entity => {
           let glyph = 'solid/spinner';
+          let glyphColor = null;
           let text = 'chargement...';
           if (entity) {
             glyph = entity.get('meta.summaries.glyph');
+            glyphColor = entity.get('meta.summaries.glyphColor');
             text = entity.get(`meta.summaries.${summary}`);
           }
           return {
             glyph,
+            glyphColor,
             text,
           };
         },
@@ -1493,6 +1494,7 @@ class Field extends Form {
         value => {
           let text = '';
           let glyph = null;
+          let glyphColor = null;
           if (value && value !== '') {
             if (!this.props.onValue) {
               text = this.getModelValue(
@@ -1500,8 +1502,12 @@ class Field extends Form {
                 true
               );
               glyph = this.getModelValue(`${value}.meta.summaries.glyph`, true);
+              glyphColor = this.getModelValue(
+                `${value}.meta.summaries.glyphColor`,
+                true
+              );
             }
-            return {text, glyph};
+            return {text, glyph, glyphColor};
           } else {
             return {};
           }
@@ -1533,6 +1539,7 @@ class Field extends Form {
           width={this.props.labelWidth || defaultLabelWidth}
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
+          wrap={this.props.wrap}
           grow="2"
         />
         <Button
