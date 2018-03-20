@@ -338,6 +338,13 @@ export default function styles(theme, props) {
     }
   }
 
+  if (props.kind === 'note-hidden') {
+    textMarginLeft = theme.spacing.lineSpacing;
+    glyphColor = theme.palette.textFieldDisableText;
+    textColor = theme.palette.textFieldDisableText;
+    specialDisabled = true;
+  }
+
   if (props.kind === 'ticket-title') {
     boxPaddingTop = '7px';
     boxAlignItems = 'flex-start';
