@@ -50,17 +50,18 @@ class Table extends Widget {
         x(id);
       }
     } else if (this.props.selectionMode === 'multi') {
-      const i = this.selectedRows.indexOf(id);
+      const rows = this.selectedRows.slice();
+      const i = rows.indexOf(id);
       if (i === -1) {
-        this.selectedRows.push(id);
+        rows.push(id);
       } else {
-        this.selectedRows.splice(i, 1);
+        rows.splice(i, 1);
       }
-      this.forceUpdate();
+      this.selectedRows = rows;
 
       const x = this.props.onSelectionChanged;
       if (x) {
-        x(this.selectedRows);
+        x(rows);
       }
     }
   }
