@@ -4,7 +4,7 @@ export default function styles(theme, props) {
   const fullScreenStyle = {
     visibility: 'visible',
     position: 'fixed',
-    zIndex: 10,
+    zIndex: props.zIndex || 10,
     top: '0px',
     left: '0px',
     width: '100%',
@@ -33,7 +33,7 @@ export default function styles(theme, props) {
     width: props.width,
     height: props.height,
     transform: transform,
-    zIndex: 10,
+    zIndex: props.zIndex || 10,
     display: 'flex',
     flexDirection: 'column',
     left: left,
