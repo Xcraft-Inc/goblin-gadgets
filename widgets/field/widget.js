@@ -110,7 +110,7 @@ class Field extends Form {
   }
 
   renderTableDynamic() {
-    const Dynamic = this.mapWidget(
+    let Dynamic = this.mapWidget(
       Table,
       value => {
         if (!value) {
@@ -124,7 +124,26 @@ class Field extends Form {
       this.fullPath
     );
 
-    return <Dynamic grow="1" tooltip={this.props.tooltip} />;
+    if (this.props.selected) {
+      Dynamic = this.mapWidget(
+        Dynamic,
+        value => {
+          return {
+            selected: value,
+          };
+        },
+        this.getFullPathFromModel(this.props.selected)
+      );
+    }
+
+    return (
+      <Dynamic
+        grow="1"
+        tooltip={this.props.tooltip}
+        onSelectionChanged={this.props.onSelectionChanged}
+        selectionMode={this.props.selectionMode}
+      />
+    );
   }
 
   renderButtonDynamic() {

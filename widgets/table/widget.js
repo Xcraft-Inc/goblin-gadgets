@@ -29,7 +29,11 @@ class Table extends Widget {
   }
 
   get selectedRows() {
-    return this.state.selectedRows;
+    if (this.props.selected) {
+      return this.props.selected.toArray();
+    } else {
+      return this.state.selectedRows;
+    }
   }
 
   set selectedRows(value) {
