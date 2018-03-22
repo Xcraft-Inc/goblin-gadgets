@@ -202,6 +202,7 @@ class TextFieldCombo extends Widget {
       errors: this.props.errors,
       updateOn: this.props.updateOn,
       getDisplayValue: this.props.getDisplayValue,
+      getGlyph: this.props.getGlyph,
       hinter: this.props.hinter,
       hintText: this.props.hintText,
       tooltip: this.props.tooltip,

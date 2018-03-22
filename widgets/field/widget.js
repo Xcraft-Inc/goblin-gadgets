@@ -164,6 +164,7 @@ class Field extends Form {
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
           fieldWidth={this.props.fieldWidth}
+          getGlyph={this.props.getGlyph}
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
           rows={this.props.rows}
@@ -194,6 +195,7 @@ class Field extends Form {
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
           fieldWidth={this.props.fieldWidth || '120px'}
+          getGlyph={this.props.getGlyph}
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
           model={this.props.model}
@@ -222,6 +224,7 @@ class Field extends Form {
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
           fieldWidth={this.props.fieldWidth || '120px'}
+          getGlyph={this.props.getGlyph}
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
           model={this.props.model}
@@ -250,6 +253,7 @@ class Field extends Form {
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
           fieldWidth={this.props.fieldWidth || '120px'}
+          getGlyph={this.props.getGlyph}
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
           model={this.props.model}
@@ -279,6 +283,7 @@ class Field extends Form {
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
           fieldWidth={this.props.fieldWidth || '120px'}
+          getGlyph={this.props.getGlyph}
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
           model={this.props.model}
@@ -308,6 +313,7 @@ class Field extends Form {
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
           fieldWidth={this.props.fieldWidth || '200px'}
+          getGlyph={this.props.getGlyph}
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
           model={this.props.model}
@@ -337,6 +343,7 @@ class Field extends Form {
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
           fieldWidth={this.props.fieldWidth || '120px'}
+          getGlyph={this.props.getGlyph}
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
           model={this.props.model}
@@ -366,6 +373,7 @@ class Field extends Form {
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
           fieldWidth={this.props.fieldWidth || '120px'}
+          getGlyph={this.props.getGlyph}
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
           model={this.props.model}
@@ -395,6 +403,7 @@ class Field extends Form {
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
           fieldWidth="200px"
+          getGlyph={this.props.getGlyph}
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
           model={this.props.model}
@@ -736,11 +745,11 @@ class Field extends Form {
           selectAllOnFocus="true"
           spacing={this.props.spacing}
           shape={this.props.shape}
-          shape={this.props.shape}
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
           fieldWidth={this.props.fieldWidth}
+          getGlyph={this.props.getGlyph}
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
           rows={this.props.rows}
@@ -800,6 +809,7 @@ class Field extends Form {
             labelGlyph={this.props.labelGlyph}
             labelWidth={this.props.labelWidth || defaultLabelWidth}
             fieldWidth={this.props.fieldWidth || '120px'}
+            getGlyph={this.props.getGlyph}
             hintText={this.props.hintText}
             tooltip={this.props.tooltip || this.props.hintText}
             required={this.props.required}
@@ -825,6 +835,7 @@ class Field extends Form {
             labelGlyph={this.props.labelGlyph}
             labelWidth={this.props.labelWidth || defaultLabelWidth}
             fieldWidth={this.props.fieldWidth || '120px'}
+            getGlyph={this.props.getGlyph}
             hintText={this.props.hintText}
             tooltip={this.props.tooltip || this.props.hintText}
             required={this.props.required}
@@ -883,6 +894,7 @@ class Field extends Form {
             labelGlyph={this.props.labelGlyph}
             labelWidth={this.props.labelWidth || defaultLabelWidth}
             fieldWidth={this.props.fieldWidth || '120px'}
+            getGlyph={this.props.getGlyph}
             hintText={this.props.hintText}
             tooltip={this.props.tooltip || this.props.hintText}
             required={this.props.required}
@@ -908,6 +920,7 @@ class Field extends Form {
             labelGlyph={this.props.labelGlyph}
             labelWidth={this.props.labelWidth || defaultLabelWidth}
             fieldWidth={this.props.fieldWidth || '120px'}
+            getGlyph={this.props.getGlyph}
             hintText={this.props.hintText}
             tooltip={this.props.tooltip || this.props.hintText}
             required={this.props.required}
@@ -937,6 +950,7 @@ class Field extends Form {
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
           fieldWidth={this.props.fieldWidth || '120px'}
+          getGlyph={this.props.getGlyph}
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
           required={this.props.required}
@@ -966,6 +980,7 @@ class Field extends Form {
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
           fieldWidth={this.props.fieldWidth || '120px'}
+          getGlyph={this.props.getGlyph}
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
           required={this.props.required}
@@ -995,6 +1010,7 @@ class Field extends Form {
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
           fieldWidth={this.props.fieldWidth || '200px'}
+          getGlyph={this.props.getGlyph}
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
           required={this.props.required}
@@ -1024,6 +1040,7 @@ class Field extends Form {
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
           fieldWidth={this.props.fieldWidth || '120px'}
+          getGlyph={this.props.getGlyph}
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
           required={this.props.required}
@@ -1053,6 +1070,7 @@ class Field extends Form {
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
           fieldWidth={this.props.fieldWidth || '120px'}
+          getGlyph={this.props.getGlyph}
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
           required={this.props.required}
@@ -1084,6 +1102,7 @@ class Field extends Form {
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
           fieldWidth="200px"
+          getGlyph={this.props.getGlyph}
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText || help}
           required={this.props.required}
@@ -1119,6 +1138,7 @@ class Field extends Form {
           selectAllOnFocus="true"
           spacing={this.props.spacing}
           shape={this.props.shape}
+          getGlyph={this.props.getGlyph}
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
           width={this.props.fieldWidth}
@@ -1598,12 +1618,12 @@ class Field extends Form {
                   ? 'left-smooth'
                   : 'smooth'
               }
+              getGlyph={this.props.getGlyph}
               hintText={this.props.hintText}
               tooltip={this.props.tooltip || this.props.hintText}
               hinter={this.props.hinter}
               comboType={this.props.hinter}
               spacing={this.props.spacing}
-              shape={this.props.shape}
               width={this.props.fieldWidth}
               grow="1"
               requiredHinter={this.props.requiredHinter || 'true'}

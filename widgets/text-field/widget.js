@@ -1,11 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
-import {Control, Errors, actions} from 'react-redux-form/immutable';
+import {Control, actions} from 'react-redux-form/immutable';
 import * as Bool from 'gadgets/boolean-helpers';
 import _ from 'lodash';
 
 import FlyingBalloon from 'gadgets/flying-balloon/widget';
+import Label from 'gadgets/label/widget';
 
 function omit(object, props) {
   if (object === null) {
@@ -201,6 +201,11 @@ class TextField extends Widget {
       },
     };
 
+    let glyph = null;
+    if (this.props.getGlyph) {
+      glyph = this.props.getGlyph(mapProps.value(this.props));
+    }
+
     // (*)
     // When text changing, use props.viewValue (editing value).
     // When onFocus/onBlur, use props.modelValue (canonical value).
@@ -249,6 +254,9 @@ class TextField extends Widget {
 
       return (
         <div className={boxClass} title={this.props.tooltip}>
+          {glyph ? (
+            <Label glyph={glyph.glyph} glyphColor={glyph.color} />
+          ) : null}
           {type === 'textarea' ? (
             <textarea
               tabIndex="0"

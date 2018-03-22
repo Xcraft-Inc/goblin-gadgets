@@ -95,6 +95,7 @@ class LabelTextField extends Widget {
       beforeChange: this.props.beforeChange,
       updateOn: this.props.updateOn,
       getDisplayValue: this.props.getDisplayValue,
+      getGlyph: this.props.getGlyph,
       getWarning: this.props.getWarning,
       getInfo: this.props.getInfo,
       field: this.props.field,

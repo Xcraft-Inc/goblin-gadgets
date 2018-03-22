@@ -144,6 +144,7 @@ class TextFieldTyped extends Widget {
           return this.parseEditedValue(val).canonicalValue;
         }}
         getDisplayValue={this.getDisplayValue}
+        getGlyph={this.props.getGlyph}
         getWarning={this.getWarning}
         getInfo={this.getInfo}
         model={this.props.model}
