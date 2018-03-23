@@ -142,6 +142,8 @@ class Field extends Form {
         tooltip={this.props.tooltip}
         onSelectionChanged={this.props.onSelectionChanged}
         selectionMode={this.props.selectionMode}
+        frame={this.props.frame}
+        height={this.props.height}
       />
     );
   }
