@@ -7,12 +7,25 @@ export default function styles(theme, props) {
   const last = props.index >= props.count - 1;
   const border = last ? null : '1px solid ' + theme.palette.tableBorder;
 
+  let backgroundColor = props.row.get('backgroundColor');
+  switch (backgroundColor) {
+    case 'warning':
+      backgroundColor = theme.palette.tableWarningBackground;
+      break;
+    case 'error':
+      backgroundColor = theme.palette.tableErrorBackground;
+      break;
+    case 'success':
+      backgroundColor = theme.palette.tableSuccessBackground;
+      break;
+  }
+
   const rowStyle = {
     borderBottom: border,
     display: 'flex',
     flexDirection: 'row',
     padding: '0px ' + m,
-    backgroundColor: props.row.get('backgroundColor'),
+    backgroundColor: backgroundColor,
     cursor: 'default',
     ':hover': {backgroundColor: theme.palette.tableHoverBackground},
   };
