@@ -19,6 +19,7 @@ import RadioList from 'gadgets/radio-list/widget';
 import CheckList from 'gadgets/check-list/widget';
 import CalendarRecurrence from 'gadgets/calendar-recurrence/widget';
 import Table from 'gadgets/table/widget';
+import Calendar from 'gadgets/calendar/widget';
 
 import Plugin from 'desktop/plugin/widget';
 
@@ -144,6 +145,31 @@ class Field extends Form {
         selectionMode={this.props.selectionMode}
         frame={this.props.frame}
         height={this.props.height}
+      />
+    );
+  }
+
+  renderCalendarDynamic() {
+    const Dynamic = this.mapWidget(
+      Calendar,
+      calendar => {
+        return {
+          visibleDate: calendar.get('visibleDate', null),
+          startDate: calendar.get('startDate', null),
+          endDate: calendar.get('endDate', null),
+          dates: calendar.get('dates', []).toArray(),
+        };
+      },
+      this.fullPath
+    );
+
+    return (
+      <Dynamic
+        grow="1"
+        tooltip={this.props.tooltip}
+        dateClicked={this.props.dateClicked}
+        visibleDateChanged={this.props.visibleDateChanged}
+        monthCount={this.props.monthCount}
       />
     );
   }
@@ -1742,6 +1768,8 @@ class Field extends Form {
         return this.renderDynamic();
       case 'table-dynamic':
         return this.renderTableDynamic();
+      case 'calendar-dynamic':
+        return this.renderCalendarDynamic();
       case 'button-dynamic':
         return this.renderButtonDynamic();
       case 'date':
@@ -1797,6 +1825,8 @@ class Field extends Form {
         return this.renderDynamic();
       case 'table-dynamic':
         return this.renderTableDynamic();
+      case 'calendar-dynamic':
+        return this.renderCalendarDynamic();
       case 'button-dynamic':
         return this.renderButtonDynamic();
       case 'date':
