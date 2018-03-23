@@ -89,7 +89,7 @@ export default function styles(theme, props) {
     display = 'flex';
     flexDirection = 'column';
     justifyContent = 'center';
-    backgroundColor = theme.palette.floatingBackground;
+    backgroundColor = theme.palette.flyingDialogBackground;
     boxShadow = theme.shapes.floatingShadow;
     zIndex = '10';
   }
