@@ -8,6 +8,7 @@ export default function styles(theme, props) {
   const border = last ? null : '1px solid ' + theme.palette.tableBorder;
 
   let backgroundColor = props.row.get('backgroundColor');
+  // Map symbolic colors from mission-checker (or other).
   switch (backgroundColor) {
     case 'warning':
       backgroundColor = theme.palette.tableWarningBackground;
