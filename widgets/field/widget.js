@@ -1338,6 +1338,7 @@ class Field extends Form {
           startDate: calendar.get('startDate', null),
           endDate: calendar.get('endDate', null),
           dates: calendar.get('dates', []).toArray(),
+          badges: calendar.get('badges', []).toArray(),
         };
       },
       this.fullPath
@@ -1350,6 +1351,7 @@ class Field extends Form {
         dateClicked={this.props.dateClicked}
         visibleDateChanged={this.props.visibleDateChanged}
         monthCount={this.props.monthCount}
+        frame={this.props.frame}
       />
     );
   }

@@ -119,6 +119,19 @@ class Calendar extends Widget {
     }
   }
 
+  getBadgeValue(date) {
+    if (!this.props.badges || this.props.badges.length === 0) {
+      return 0;
+    } else {
+      for (const badge of this.props.badges) {
+        if (badge.get('date') === date) {
+          return badge.get('value');
+        }
+      }
+      return 0;
+    }
+  }
+
   get startVisibleDate() {
     const month = DateConverters.getMonth(this.props.visibleDate);
     const year = DateConverters.getYear(this.props.visibleDate);
@@ -228,7 +241,7 @@ class Calendar extends Widget {
   /******************************************************************************/
 
   // Return the html for a [1]..[31] button.
-  renderButton(date, active, dimmed, weekend, subkind, index) {
+  renderButton(date, active, dimmed, weekend, subkind, badgeValue, index) {
     const tooltip = DateConverters.getDisplayed(date, 'Wdmy');
     let d = DateConverters.getDay(date); // 1..31
     if (subkind === 'sub') {
@@ -244,6 +257,9 @@ class Calendar extends Widget {
         active={active}
         calendarDimmed={dimmed}
         calendarWeekend={weekend}
+        badgePosition="top-right"
+        badgeValue={badgeValue}
+        badgeShape="circle"
         onClick={() => this.onDateClicked(date)}
       />
     );
@@ -281,6 +297,7 @@ class Calendar extends Widget {
         // saturday or sunday ?
         weekend = 'true';
       }
+      const badgeValue = this.getBadgeValue(firstDate);
 
       const button = this.renderButton(
         firstDate,
@@ -288,6 +305,7 @@ class Calendar extends Widget {
         dimmed,
         weekend,
         subkind,
+        badgeValue,
         i
       );
       line.push(button);

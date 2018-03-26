@@ -1,10 +1,14 @@
 import {Unit} from 'electrum-theme';
+import * as Bool from 'gadgets/boolean-helpers';
 
 /******************************************************************************/
 
 export default function styles(theme, props) {
   const m = theme.shapes.containerMargin;
   const halfMargin = Unit.multiply(m, 0.5);
+  const border = Bool.isTrue(props.frame)
+    ? '1px solid ' + theme.palette.tableBorder
+    : null;
 
   const boxGrow = props.navigator ? '1' : null;
 
@@ -12,6 +16,7 @@ export default function styles(theme, props) {
     display: 'flex',
     flexDirection: 'row',
     flexGrow: boxGrow,
+    border: border,
   };
 
   const monthStyle = {

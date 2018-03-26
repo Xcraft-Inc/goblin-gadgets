@@ -26,6 +26,15 @@ export default function styles(theme, props) {
     boxRight = '0px';
     boxTop = '0px';
   }
+  if (props.layer === 'top-right') {
+    boxPosition = 'absolute';
+    boxRight = '-7px';
+    boxTop = '-7px';
+  }
+
+  if (props.shape === 'circle') {
+    labelRadius = Unit.multiply(theme.shapes.lineHeight, 0.5);
+  }
 
   const boxStyle = {
     width: boxWidth,
