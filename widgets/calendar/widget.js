@@ -124,8 +124,8 @@ class Calendar extends Widget {
       return 0;
     } else {
       for (const badge of this.props.badges) {
-        if (badge.get('date') === date) {
-          return badge.get('value');
+        if (badge.date === date) {
+          return badge.value;
         }
       }
       return 0;

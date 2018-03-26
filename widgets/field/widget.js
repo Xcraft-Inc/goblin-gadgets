@@ -19,6 +19,7 @@ import RadioList from 'gadgets/radio-list/widget';
 import CheckList from 'gadgets/check-list/widget';
 import CalendarRecurrence from 'gadgets/calendar-recurrence/widget';
 import Calendar from 'gadgets/calendar/widget';
+import CalendarBoards from 'gadgets/calendar-boards/widget';
 import Table from 'gadgets/table/widget';
 
 import Plugin from 'desktop/plugin/widget';
@@ -1356,6 +1357,28 @@ class Field extends Form {
     );
   }
 
+  renderCalendarBoards() {
+    const Dynamic = this.mapWidget(
+      CalendarBoards,
+      calendarBoards => {
+        return {
+          boards: calendarBoards.get('boards', []).toArray(),
+          selectedDate: calendarBoards.get('selectedDate'),
+          selectedId: calendarBoards.get('selectedId'),
+        };
+      },
+      this.fullPath
+    );
+
+    return (
+      <Dynamic
+        grow="1"
+        tooltip={this.props.tooltip}
+        onBoardChanged={this.props.onBoardChanged}
+      />
+    );
+  }
+
   renderCalendarRecurrence() {
     const WiredCalendarRecurrence = this.mapWidget(
       CalendarRecurrence,
@@ -1798,6 +1821,8 @@ class Field extends Form {
         return this.renderReadonlyBool();
       case 'calendar':
         return this.renderCalendar();
+      case 'calendar-boards':
+        return this.renderCalendarBoards();
       case 'calendar-recurrence':
         return this.renderCalendarRecurrence();
       case 'hinter':
@@ -1855,6 +1880,8 @@ class Field extends Form {
         return this.renderEditBool();
       case 'calendar':
         return this.renderCalendar();
+      case 'calendar-boards':
+        return this.renderCalendarBoards();
       case 'calendar-recurrence':
         return this.renderCalendarRecurrence();
       case 'hinter':
