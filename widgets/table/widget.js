@@ -21,6 +21,7 @@ class Table extends Widget {
   static get wiring() {
     return {
       id: 'id',
+      data: 'data',
       selectedIds: 'selectedIds',
     };
   }
@@ -75,7 +76,11 @@ class Table extends Widget {
     //????     x(rows);
     //????   }
     //???? }
-    this.do('select', {mode: this.props.selectionMode, id});
+
+    this.doAs('table-gadget', 'select', {
+      mode: this.props.selectionMode,
+      rowId: id,
+    });
   }
 
   isSelected(id) {

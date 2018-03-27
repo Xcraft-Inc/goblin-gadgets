@@ -2,7 +2,7 @@
 const Goblin = require('xcraft-core-goblin');
 
 module.exports = config => {
-  const {name, actions} = config;
+  const {name, actions, events} = config;
   const goblinName = `${name}-gadget`;
 
   const logicHandlers = {
@@ -23,6 +23,11 @@ module.exports = config => {
     Object.keys(actions).forEach(a => {
       Goblin.registerQuest(goblinName, a, function(quest) {
         quest.do();
+        if (events && events[a]) {
+          const state = quest.goblin.getState();
+          const eventPayload = events[a](state);
+          quest.evt(a, eventPayload);
+        }
       });
     });
   }

@@ -208,7 +208,7 @@ class Field extends Form {
     const Gadget = widgetImporter(type);
 
     const WiredGadget = Widget.Wired(Gadget)(gadgetInfo.get('id'));
-    return <WiredGadget />;
+    return <WiredGadget readonly="true" {...this.props} />;
   }
 
   renderReadonlyDate() {
@@ -805,7 +805,7 @@ class Field extends Form {
     const Gadget = widgetImporter(type);
 
     const WiredGadget = Widget.Wired(Gadget)(gadgetInfo.get('id'));
-    return <WiredGadget />;
+    return <WiredGadget {...this.props} />;
   }
 
   renderEditDate() {

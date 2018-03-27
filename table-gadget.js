@@ -8,21 +8,29 @@ const {buildGadget} = require('goblin-gadgets');
 exports.xcraftCommands = function() {
   return buildGadget({
     name: 'table',
+    events: {
+      select: state => {
+        return {
+          selectedIds: state.get('selectedIds', []).toArray(),
+        };
+      },
+    },
     actions: {
+      setData: (state, action) => {
+        return state.set('data', action.get('data'));
+      },
       select: (state, action) => {
         const mode = action.get('mode');
-        const id = action.get('id');
+        const id = action.get('rowId');
         if (mode === 'single') {
           return state.set('selectedIds', [id]);
         } else if (mode === 'multi') {
-          const selectdIds = action.get('selectdIds');
-          const i = selectdIds.indexOf(id);
-          if (i === -1) {
-            selectdIds.push(id);
+          const selectedIds = state.get('selectedIds', []);
+          if (selectedIds.includes(id)) {
+            return state.unpush('selectedIds', id);
           } else {
-            selectdIds.splice(i, 1);
+            return state.push('selectedIds', id);
           }
-          return state.set('selectedIds', selectdIds);
         } else {
           throw new Error(`Unknow mode ${mode}`);
         }
