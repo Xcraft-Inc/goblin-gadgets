@@ -152,6 +152,7 @@ class Button extends Widget {
           value={this.props.badgeValue}
           layer={this.props.badgePosition || 'over'}
           shape={this.props.badgeShape}
+          size={this.props.badgeSize}
         />
       );
     } else {

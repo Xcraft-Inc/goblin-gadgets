@@ -5,7 +5,7 @@ import {date as DateConverters} from 'xcraft-core-converters';
 
 import Container from 'gadgets/container/widget';
 import Calendar from 'gadgets/calendar/widget';
-import Table from 'gadgets/table/widget';
+import Button from 'gadgets/button/widget';
 import Label from 'gadgets/label/widget';
 
 /******************************************************************************/
@@ -30,12 +30,12 @@ class CalendarBoards extends Widget {
         this.props.selectedDate
       ),
       selectedDate: this.props.selectedDate,
-      tableId: null,
+      tableItemId: this.getFirstBoardId(this.props.selectedDate),
     };
 
     this.dateClicked = this.dateClicked.bind(this);
     this.visibleDateChanged = this.visibleDateChanged.bind(this);
-    this.tableChanged = this.tableChanged.bind(this);
+    this.buttonClicked = this.buttonClicked.bind(this);
   }
 
   //#region get/set
@@ -59,13 +59,13 @@ class CalendarBoards extends Widget {
     });
   }
 
-  get tableId() {
-    return this.state.tableId;
+  get tableItemId() {
+    return this.state.tableItemId;
   }
 
-  set tableId(value) {
+  set tableItemId(value) {
     this.setState({
-      tableId: value,
+      tableItemId: value,
     });
   }
   //#endregion
@@ -86,42 +86,21 @@ class CalendarBoards extends Widget {
     return badges;
   }
 
-  getTable() {
-    const data = {
-      header: {
-        column0: {
-          id: 'column0',
-          name: 'description',
-          grow: '1',
-          textAlign: 'left',
-        },
-      },
-      rows: {},
-    };
-
-    for (const board of this.props.boards) {
-      const b = board.toJS();
-      if (b.date === this.selectedDate) {
-        data.rows[b.id] = {
-          id: b.id,
-          description: b.description,
-        };
-      }
-    }
-
-    data.rows.create = {
-      id: 'create',
-      description: 'Créer une nouvelle board',
-    };
-
-    return data;
-  }
-
-  getFirstBoard(date) {
+  getFirstBoardId(date) {
     for (const board of this.props.boards) {
       const b = board.toJS();
       if (b.date === date) {
-        return b;
+        return b.id;
+      }
+    }
+    return 'create';
+  }
+
+  getDetail() {
+    for (const board of this.props.boards) {
+      const b = board.toJS();
+      if (b.id === this.tableItemId) {
+        return b.detail;
       }
     }
     return null;
@@ -129,16 +108,11 @@ class CalendarBoards extends Widget {
 
   dateClicked(date) {
     this.selectedDate = date;
-
-    const board = this.getFirstBoard(date);
-    if (board) {
-      this.tableId = board.id;
-    } else {
-      this.tableId = 'create';
-    }
+    this.tableItemId = this.getFirstBoardId(date);
 
     if (this.props.onBoardChanged) {
-      this.props.onBoardChanged(date, null);
+      // FIXME: onBoardChanged provoque un nouveau rendu qui appelle le constucteur de CalendarBoards !!!
+      //???? this.props.onBoardChanged(date, null);
     }
   }
 
@@ -146,8 +120,8 @@ class CalendarBoards extends Widget {
     this.visibleDate = date;
   }
 
-  tableChanged(row) {
-    this.tableId = row;
+  buttonClicked(row) {
+    this.tableItemId = row;
   }
 
   /******************************************************************************/
@@ -166,18 +140,47 @@ class CalendarBoards extends Widget {
     );
   }
 
-  renderTable() {
+  renderTableItem(board, index) {
+    const active = this.tableItemId === board.id;
     return (
-      <Table
-        frame="true"
-        height="500px"
-        grow="1"
-        selectionMode="single"
-        data={this.getTable()}
-        selectedRow={this.tableId}
-        onSelectionChanged={this.tableChanged}
+      <Button
+        key={index}
+        border="none"
+        text={board.info}
+        active={active}
+        onClick={() => this.buttonClicked(board.id)}
       />
     );
+  }
+
+  renderTableCreate(index) {
+    const active = this.tableItemId === 'create';
+    return (
+      <Button
+        key={index}
+        border="none"
+        text="Créer"
+        active={active}
+        onClick={() => this.buttonClicked('create')}
+      />
+    );
+  }
+
+  renderTable() {
+    const result = [];
+    let index = 0;
+    for (const board of this.props.boards) {
+      const b = board.toJS();
+      if (b.date === this.selectedDate) {
+        result.push(this.renderTableItem(b, index++));
+      }
+    }
+    result.push(this.renderTableCreate(index++));
+    return result;
+  }
+
+  renderDetail() {
+    return <Label kind="label-field" grow="1" text={this.getDetail()} />;
   }
 
   render() {
@@ -185,11 +188,16 @@ class CalendarBoards extends Widget {
       return null;
     }
 
+    const tableBoxClass = this.styles.classNames.tableBox;
+    const detailBoxClass = this.styles.classNames.detailBox;
+
     return (
       <Container kind="row">
         {this.renderCalendar()}
         <Label text=" " />
-        {this.renderTable()}
+        <div className={tableBoxClass}>{this.renderTable()}</div>
+        <Label text=" " />
+        <div className={detailBoxClass}>{this.renderDetail()}</div>
       </Container>
     );
   }
