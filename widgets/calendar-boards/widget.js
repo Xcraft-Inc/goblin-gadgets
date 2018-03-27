@@ -75,18 +75,22 @@ class CalendarBoards extends Widget {
   }
 
   visibleDateChanged(date) {
-    this.doAs('calendar-boards-gadget', 'showDate', {date});
+    this.doAs('calendar-boards-gadget', 'showDate', {visibleDate: date});
   }
 
   dateClicked(date) {
-    this.doAs('calendar-boards-gadget', 'selectDate', {date});
+    this.doAs('calendar-boards-gadget', 'selectDate', {selectedDate: date});
 
     const boardId = this.getFirstBoardId(date);
-    this.doAs('calendar-boards-gadget', 'selectBoardId', {boardId});
+    this.doAs('calendar-boards-gadget', 'selectBoardId', {
+      selectedBoardId: boardId,
+    });
   }
 
   buttonClicked(boardId) {
-    this.doAs('calendar-boards-gadget', 'selectBoardId', {boardId});
+    this.doAs('calendar-boards-gadget', 'selectBoardId', {
+      selectedBoardId: boardId,
+    });
   }
 
   /******************************************************************************/

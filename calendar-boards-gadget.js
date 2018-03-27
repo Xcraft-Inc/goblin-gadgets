@@ -38,16 +38,16 @@ exports.xcraftCommands = function() {
           .set('selectedBoardId', selectedBoardId);
       },
       showDate: (state, action) => {
-        const date = action.get('date');
-        return state.set('visibleDate', date);
+        const visibleDate = action.get('visibleDate');
+        return state.set('visibleDate', visibleDate);
       },
       selectDate: (state, action) => {
-        const date = action.get('date');
-        return state.set('selectedDate', date);
+        const selectedDate = action.get('selectedDate');
+        return state.set('selectedDate', selectedDate);
       },
       selectBoardId: (state, action) => {
-        const boardId = action.get('boardId');
-        return state.set('selectedBoardId', boardId);
+        const selectedBoardId = action.get('selectedBoardId');
+        return state.set('selectedBoardId', selectedBoardId);
       },
     },
   });
