@@ -25,50 +25,20 @@ class CalendarBoards extends Widget {
   constructor() {
     super(...arguments);
 
-    this.state = {
-      visibleDate: DateConverters.moveAtBeginningOfMonth(
-        this.props.selectedDate
-      ),
-      selectedDate: this.props.selectedDate,
-      tableItemId: this.getFirstBoardId(this.props.selectedDate),
-    };
-
-    this.dateClicked = this.dateClicked.bind(this);
     this.visibleDateChanged = this.visibleDateChanged.bind(this);
+    this.dateClicked = this.dateClicked.bind(this);
     this.buttonClicked = this.buttonClicked.bind(this);
   }
 
-  //#region get/set
-  get visibleDate() {
-    return this.state.visibleDate;
+  static get wiring() {
+    return {
+      id: 'id',
+      boards: 'boards',
+      visibleDate: 'visibleDate',
+      selectedDate: 'selectedDate',
+      selectedBoardId: 'selectedBoardId',
+    };
   }
-
-  set visibleDate(value) {
-    this.setState({
-      visibleDate: value,
-    });
-  }
-
-  get selectedDate() {
-    return this.state.selectedDate;
-  }
-
-  set selectedDate(value) {
-    this.setState({
-      selectedDate: value,
-    });
-  }
-
-  get tableItemId() {
-    return this.state.tableItemId;
-  }
-
-  set tableItemId(value) {
-    this.setState({
-      tableItemId: value,
-    });
-  }
-  //#endregion
 
   /******************************************************************************/
 
@@ -88,9 +58,8 @@ class CalendarBoards extends Widget {
 
   getFirstBoardId(date) {
     for (const board of this.props.boards) {
-      const b = board.toJS();
-      if (b.date === date) {
-        return b.id;
+      if (board.date === date) {
+        return board.id;
       }
     }
     return 'create';
@@ -98,30 +67,26 @@ class CalendarBoards extends Widget {
 
   getDetail() {
     for (const board of this.props.boards) {
-      const b = board.toJS();
-      if (b.id === this.tableItemId) {
-        return b.detail;
+      if (board.id === this.props.selectedBoardId) {
+        return board.detail;
       }
     }
     return null;
   }
 
-  dateClicked(date) {
-    this.selectedDate = date;
-    this.tableItemId = this.getFirstBoardId(date);
-
-    if (this.props.onBoardChanged) {
-      // FIXME: onBoardChanged provoque un nouveau rendu qui appelle le constucteur de CalendarBoards !!!
-      //???? this.props.onBoardChanged(date, null);
-    }
-  }
-
   visibleDateChanged(date) {
-    this.visibleDate = date;
+    this.doAs('calendar-boards-gadget', 'showDate', {date});
   }
 
-  buttonClicked(row) {
-    this.tableItemId = row;
+  dateClicked(date) {
+    this.doAs('calendar-boards-gadget', 'selectDate', {date});
+
+    const boardId = this.getFirstBoardId(date);
+    this.doAs('calendar-boards-gadget', 'selectBoardId', {boardId});
+  }
+
+  buttonClicked(boardId) {
+    this.doAs('calendar-boards-gadget', 'selectBoardId', {boardId});
   }
 
   /******************************************************************************/
@@ -131,17 +96,17 @@ class CalendarBoards extends Widget {
       <Calendar
         monthCount="1"
         frame="true"
-        visibleDate={this.visibleDate}
-        dates={[this.selectedDate]}
+        visibleDate={this.props.visibleDate}
+        dates={this.props.selectedDate ? [this.props.selectedDate] : []}
         badges={this.getBadges()}
-        dateClicked={this.dateClicked}
         visibleDateChanged={this.visibleDateChanged}
+        dateClicked={this.dateClicked}
       />
     );
   }
 
   renderTableItem(board, index) {
-    const active = this.tableItemId === board.id;
+    const active = this.props.selectedBoardId === board.id;
     return (
       <Button
         key={index}
@@ -154,7 +119,7 @@ class CalendarBoards extends Widget {
   }
 
   renderTableCreate(index) {
-    const active = this.tableItemId === 'create';
+    const active = this.props.selectedBoardId === 'create';
     return (
       <Button
         key={index}
@@ -170,17 +135,16 @@ class CalendarBoards extends Widget {
     const result = [];
     let index = 0;
     for (const board of this.props.boards) {
-      const b = board.toJS();
-      if (b.date === this.selectedDate) {
-        result.push(this.renderTableItem(b, index++));
+      if (board.date === this.props.selectedDate) {
+        result.push(this.renderTableItem(board, index++));
       }
     }
     result.push(this.renderTableCreate(index++));
     return result;
   }
 
-  renderDetail() {
-    return <Label kind="label-field" grow="1" text={this.getDetail()} />;
+  renderDetail(boards) {
+    return <Label kind="label-field" grow="1" text={this.getDetail(boards)} />;
   }
 
   render() {
