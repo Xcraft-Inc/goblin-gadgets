@@ -260,6 +260,7 @@ class Calendar extends Widget {
         badgePosition="top-right"
         badgeValue={badgeValue}
         badgeShape="circle"
+        badgeSize="0.8"
         onClick={() => this.onDateClicked(date)}
       />
     );

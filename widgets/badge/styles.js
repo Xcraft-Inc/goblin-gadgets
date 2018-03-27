@@ -48,6 +48,7 @@ export default function styles(theme, props) {
     position: boxPosition,
     right: boxRight,
     top: boxTop,
+    transform: props.size ? `scale(${props.size})` : null,
   };
 
   const m = Unit.multiply(labelHeight, 0.25);
