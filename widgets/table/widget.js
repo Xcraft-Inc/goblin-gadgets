@@ -10,74 +10,83 @@ class Table extends Widget {
   constructor() {
     super(...arguments);
 
-    this.state = {
-      selectedRow: null,
-      selectedRows: [],
-    };
+    //???? this.state = {
+    //????   selectedRow: null,
+    //????   selectedRows: [],
+    //???? };
 
     this.onSelectionChanged = this.onSelectionChanged.bind(this);
   }
 
-  get selectedRow() {
-    return this.state.selectedRow;
+  static get wiring() {
+    return {
+      id: 'id',
+      selectedIds: 'selectedIds',
+    };
   }
 
-  set selectedRow(value) {
-    this.setState({
-      selectedRow: value,
-    });
-  }
-
-  get selectedRows() {
-    if (this.props.selected) {
-      return this.props.selected.toArray();
-    } else {
-      return this.state.selectedRows;
-    }
-  }
-
-  set selectedRows(value) {
-    this.setState({
-      selectedRows: value,
-    });
-  }
+  //???? get selectedRow() {
+  //????   return this.state.selectedRow;
+  //???? }
+  //????
+  //???? set selectedRow(value) {
+  //????   this.setState({
+  //????     selectedRow: value,
+  //????   });
+  //???? }
+  //????
+  //???? get selectedRows() {
+  //????   if (this.props.selected) {
+  //????     return this.props.selected.toArray();
+  //????   } else {
+  //????     return this.state.selectedRows;
+  //????   }
+  //???? }
+  //????
+  //???? set selectedRows(value) {
+  //????   this.setState({
+  //????     selectedRows: value,
+  //????   });
+  //???? }
 
   onSelectionChanged(id) {
-    if (this.props.selectionMode === 'single') {
-      if (id === this.selectedRow) {
-        id = null; // deselect the selected row
-      }
-      this.selectedRow = id;
-
-      const x = this.props.onSelectionChanged;
-      if (x) {
-        x(id);
-      }
-    } else if (this.props.selectionMode === 'multi') {
-      const rows = this.selectedRows.slice();
-      const i = rows.indexOf(id);
-      if (i === -1) {
-        rows.push(id);
-      } else {
-        rows.splice(i, 1);
-      }
-      this.selectedRows = rows;
-
-      const x = this.props.onSelectionChanged;
-      if (x) {
-        x(rows);
-      }
-    }
+    //???? if (this.props.selectionMode === 'single') {
+    //????   if (id === this.selectedRow) {
+    //????     id = null; // deselect the selected row
+    //????   }
+    //????   this.selectedRow = id;
+    //????
+    //????   const x = this.props.onSelectionChanged;
+    //????   if (x) {
+    //????     x(id);
+    //????   }
+    //???? } else if (this.props.selectionMode === 'multi') {
+    //????   const rows = this.selectedRows.slice();
+    //????   const i = rows.indexOf(id);
+    //????   if (i === -1) {
+    //????     rows.push(id);
+    //????   } else {
+    //????     rows.splice(i, 1);
+    //????   }
+    //????   this.selectedRows = rows;
+    //????
+    //????   const x = this.props.onSelectionChanged;
+    //????   if (x) {
+    //????     x(rows);
+    //????   }
+    //???? }
+    this.do('select', {mode: this.props.selectionMode, id});
   }
 
   isSelected(id) {
-    if (this.props.selectionMode === 'single') {
-      return this.selectedRow === id;
-    } else if (this.props.selectionMode === 'multi') {
-      return this.selectedRows.indexOf(id) !== -1;
-    } else {
-      return false;
-    }
+    //???? if (this.props.selectionMode === 'single') {
+    //????   return this.selectedRow === id;
+    //???? } else if (this.props.selectionMode === 'multi') {
+    //????   return this.selectedRows.indexOf(id) !== -1;
+    //???? } else {
+    //????   return false;
+    //???? }
+    return this.props.selectedIds && this.props.selectedIds.includes(id);
   }
 
   hasHeader(header) {
