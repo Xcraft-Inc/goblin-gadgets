@@ -199,6 +199,18 @@ class Field extends Form {
     );
   }
 
+  renderReadonlyGadget() {
+    const gadgetInfo = this.getModelValue(
+      this.getFullPathFromModel(`.gadgets.${this.props.name}`),
+      true
+    );
+    const type = gadgetInfo.get('type');
+    const Gadget = widgetImporter(type);
+
+    const WiredGadget = Widget.Wired(Gadget)(gadgetInfo.get('id'));
+    return <WiredGadget />;
+  }
+
   renderReadonlyDate() {
     return (
       <Container
@@ -782,6 +794,18 @@ class Field extends Form {
         />
       </Container>
     );
+  }
+
+  renderEditGadget() {
+    const gadgetInfo = this.getModelValue(
+      this.getFullPathFromModel(`.gadgets.${this.props.name}`),
+      true
+    );
+    const type = gadgetInfo.get('type');
+    const Gadget = widgetImporter(type);
+
+    const WiredGadget = Widget.Wired(Gadget)(gadgetInfo.get('id'));
+    return <WiredGadget />;
   }
 
   renderEditDate() {
@@ -1789,6 +1813,8 @@ class Field extends Form {
     switch (this.props.kind) {
       case 'field':
         return this.renderReadonlyField();
+      case 'gadget':
+        return this.renderReadonlyGadget();
       case 'dynamic':
         return this.renderDynamic();
       case 'table-dynamic':
@@ -1848,6 +1874,8 @@ class Field extends Form {
     switch (this.props.kind) {
       case 'field':
         return this.renderEditField();
+      case 'gadget':
+        return this.renderEditGadget();
       case 'dynamic':
         return this.renderDynamic();
       case 'table-dynamic':
