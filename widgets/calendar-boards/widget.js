@@ -5,7 +5,6 @@ import {date as DateConverters} from 'xcraft-core-converters';
 
 import Container from 'gadgets/container/widget';
 import Calendar from 'gadgets/calendar/widget';
-import Button from 'gadgets/button/widget';
 import RadioList from 'gadgets/radio-list/widget';
 import Label from 'gadgets/label/widget';
 
@@ -15,6 +14,72 @@ function getBadge(badges, date) {
   for (const badge of badges) {
     if (badge.date === date) {
       return badge;
+    }
+  }
+  return null;
+}
+
+function getBadges(boards) {
+  const badges = [];
+  for (const board of boards) {
+    const date = board.get('date');
+    const badge = getBadge(badges, date);
+    if (badge) {
+      badge.value++;
+    } else {
+      badges.push({date: date, value: 1});
+    }
+  }
+  return badges;
+}
+
+function getRadioList(boards, selectedDate) {
+  const list = [];
+  for (const board of boards) {
+    const date = board.get('date');
+    if (date === selectedDate) {
+      const info = board.get('info');
+      list.push(info);
+    }
+  }
+  list.push('Créer');
+  return list;
+}
+
+function getRadioIndex(boards, selectedDate, selectedBoardId) {
+  let index = 0;
+  for (const board of boards) {
+    const date = board.get('date');
+    if (date === selectedDate) {
+      const id = board.get('id');
+      if (id === selectedBoardId) {
+        return index;
+      }
+      index++;
+    }
+  }
+  return index;
+}
+
+function getRadioBoardId(boards, selectedDate, index) {
+  let i = 0;
+  for (const board of boards) {
+    const date = board.get('date');
+    if (date === selectedDate) {
+      if (i === index) {
+        return board.get('id');
+      }
+      i++;
+    }
+  }
+  return null;
+}
+
+function getDetail(boards, selectedBoardId) {
+  for (const board of boards) {
+    const id = board.get('id');
+    if (id === selectedBoardId) {
+      return board.get('detail');
     }
   }
   return null;
@@ -43,72 +108,6 @@ class CalendarBoards extends Widget {
 
   /******************************************************************************/
 
-  getBadges() {
-    const badges = [];
-    for (const board of this.props.boards) {
-      const date = board.get('date');
-      const badge = getBadge(badges, date);
-      if (badge) {
-        badge.value++;
-      } else {
-        badges.push({date: date, value: 1});
-      }
-    }
-    return badges;
-  }
-
-  getRadioList() {
-    const list = [];
-    for (const board of this.props.boards) {
-      const date = board.get('date');
-      if (date === this.props.selectedDate) {
-        const info = board.get('info');
-        list.push(info);
-      }
-    }
-    list.push('Créer');
-    return list;
-  }
-
-  getRadioIndex() {
-    let index = 0;
-    for (const board of this.props.boards) {
-      const date = board.get('date');
-      if (date === this.props.selectedDate) {
-        const id = board.get('id');
-        if (id === this.props.selectedBoardId) {
-          return index;
-        }
-        index++;
-      }
-    }
-    return index;
-  }
-
-  getRadioBoardId(index) {
-    let i = 0;
-    for (const board of this.props.boards) {
-      const date = board.get('date');
-      if (date === this.props.selectedDate) {
-        if (i === index) {
-          return board.get('id');
-        }
-        i++;
-      }
-    }
-    return null;
-  }
-
-  getDetail() {
-    for (const board of this.props.boards) {
-      const id = board.get('id');
-      if (id === this.props.selectedBoardId) {
-        return board.get('detail');
-      }
-    }
-    return null;
-  }
-
   visibleDateChanged(date) {
     this.doAs('calendar-boards-gadget', 'showDate', {visibleDate: date});
   }
@@ -116,14 +115,18 @@ class CalendarBoards extends Widget {
   dateClicked(date) {
     this.doAs('calendar-boards-gadget', 'selectDate', {selectedDate: date});
 
-    const boardId = this.getRadioBoardId(0);
+    const boardId = getRadioBoardId(this.props.boards, date, 0);
     this.doAs('calendar-boards-gadget', 'selectBoardId', {
       selectedBoardId: boardId,
     });
   }
 
   radioClicked(index) {
-    const boardId = this.getRadioBoardId(index);
+    const boardId = getRadioBoardId(
+      this.props.boards,
+      this.props.selectedDate,
+      index
+    );
     this.doAs('calendar-boards-gadget', 'selectBoardId', {
       selectedBoardId: boardId,
     });
@@ -138,7 +141,7 @@ class CalendarBoards extends Widget {
         frame="true"
         visibleDate={this.props.visibleDate}
         dates={this.props.selectedDate ? [this.props.selectedDate] : []}
-        badges={this.getBadges()}
+        badges={getBadges(this.props.boards)}
         visibleDateChanged={this.visibleDateChanged}
         dateClicked={this.dateClicked}
       />
@@ -148,15 +151,25 @@ class CalendarBoards extends Widget {
   renderRadios() {
     return (
       <RadioList
-        list={this.getRadioList()}
-        selectedIndex={this.getRadioIndex()}
+        list={getRadioList(this.props.boards, this.props.selectedDate)}
+        selectedIndex={getRadioIndex(
+          this.props.boards,
+          this.props.selectedDate,
+          this.props.selectedBoardId
+        )}
         selectionChanged={this.radioClicked}
       />
     );
   }
 
-  renderDetail(boards) {
-    return <Label kind="label-field" grow="1" text={this.getDetail(boards)} />;
+  renderDetail() {
+    return (
+      <Label
+        kind="label-field"
+        grow="1"
+        text={getDetail(this.props.boards, this.props.selectedBoardId)}
+      />
+    );
   }
 
   render() {
