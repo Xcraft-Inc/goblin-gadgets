@@ -735,6 +735,7 @@ export default function styles(theme, props) {
 
   const focusedForegroundStyle = {
     position: 'absolute',
+    left: '8px',
     width: 'calc(100% - 14px)',
     height: 'calc(100% - 14px)',
     backgroundColor: ColorManipulator.fade(theme.palette.focused, 0.2),
