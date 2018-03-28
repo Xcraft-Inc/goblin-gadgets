@@ -23,7 +23,12 @@ exports.xcraftCommands = function() {
         const mode = action.get('mode');
         const id = action.get('rowId');
         if (mode === 'single') {
-          return state.set('selectedIds', [id]);
+          const selectedIds = state.get('selectedIds', []);
+          if (selectedIds.includes(id)) {
+            return state.set('selectedIds', []); // deselect
+          } else {
+            return state.set('selectedIds', [id]); // select
+          }
         } else if (mode === 'multi') {
           const selectedIds = state.get('selectedIds', []);
           if (selectedIds.includes(id)) {
