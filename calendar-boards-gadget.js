@@ -9,6 +9,13 @@ exports.xcraftCommands = function() {
   return buildGadget({
     name: 'calendar-boards',
     events: {
+      setData: state => {
+        return {
+          visibleDate: state.get('visibleDate'),
+          selectedDate: state.get('selectedDate'),
+          selectedBoardId: state.get('selectedBoardId'),
+        };
+      },
       showDate: state => {
         return {
           visibleDate: state.get('visibleDate'),
@@ -26,6 +33,9 @@ exports.xcraftCommands = function() {
       },
     },
     actions: {
+      configure: (state, action) => {
+        return state.set('visibleDate', action.get('visibleDate'));
+      },
       setData: (state, action) => {
         const boards = action.get('boards');
         const visibleDate = action.get('visibleDate');
