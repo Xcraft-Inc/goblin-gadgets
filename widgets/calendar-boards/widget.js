@@ -6,6 +6,7 @@ import {date as DateConverters} from 'xcraft-core-converters';
 import Container from 'gadgets/container/widget';
 import Calendar from 'gadgets/calendar/widget';
 import Button from 'gadgets/button/widget';
+import RadioList from 'gadgets/radio-list/widget';
 import Label from 'gadgets/label/widget';
 
 /******************************************************************************/
@@ -27,7 +28,7 @@ class CalendarBoards extends Widget {
 
     this.visibleDateChanged = this.visibleDateChanged.bind(this);
     this.dateClicked = this.dateClicked.bind(this);
-    this.buttonClicked = this.buttonClicked.bind(this);
+    this.radioClicked = this.radioClicked.bind(this);
   }
 
   static get wiring() {
@@ -56,19 +57,53 @@ class CalendarBoards extends Widget {
     return badges;
   }
 
-  getFirstBoardId(date) {
+  getRadioList() {
+    const list = [];
     for (const board of this.props.boards) {
-      if (board.date === date) {
-        return board.id;
+      const date = board.get('date');
+      if (date === this.props.selectedDate) {
+        const info = board.get('info');
+        list.push(info);
       }
     }
-    return 'create';
+    list.push('Créer');
+    return list;
+  }
+
+  getRadioIndex() {
+    let index = 0;
+    for (const board of this.props.boards) {
+      const date = board.get('date');
+      if (date === this.props.selectedDate) {
+        const id = board.get('id');
+        if (id === this.props.selectedBoardId) {
+          return index;
+        }
+        index++;
+      }
+    }
+    return index;
+  }
+
+  getRadioBoardId(index) {
+    let i = 0;
+    for (const board of this.props.boards) {
+      const date = board.get('date');
+      if (date === this.props.selectedDate) {
+        if (i === index) {
+          return board.get('id');
+        }
+        i++;
+      }
+    }
+    return null;
   }
 
   getDetail() {
     for (const board of this.props.boards) {
-      if (board.id === this.props.selectedBoardId) {
-        return board.detail;
+      const id = board.get('id');
+      if (id === this.props.selectedBoardId) {
+        return board.get('detail');
       }
     }
     return null;
@@ -81,13 +116,14 @@ class CalendarBoards extends Widget {
   dateClicked(date) {
     this.doAs('calendar-boards-gadget', 'selectDate', {selectedDate: date});
 
-    const boardId = this.getFirstBoardId(date);
+    const boardId = this.getRadioBoardId(0);
     this.doAs('calendar-boards-gadget', 'selectBoardId', {
       selectedBoardId: boardId,
     });
   }
 
-  buttonClicked(boardId) {
+  radioClicked(index) {
+    const boardId = this.getRadioBoardId(index);
     this.doAs('calendar-boards-gadget', 'selectBoardId', {
       selectedBoardId: boardId,
     });
@@ -109,42 +145,14 @@ class CalendarBoards extends Widget {
     );
   }
 
-  renderTableItem(board, index) {
-    const active = this.props.selectedBoardId === board.id;
+  renderRadios() {
     return (
-      <Button
-        key={index}
-        border="none"
-        text={board.info}
-        active={active}
-        onClick={() => this.buttonClicked(board.id)}
+      <RadioList
+        list={this.getRadioList()}
+        selectedIndex={this.getRadioIndex()}
+        selectionChanged={this.radioClicked}
       />
     );
-  }
-
-  renderTableCreate(index) {
-    const active = this.props.selectedBoardId === 'create';
-    return (
-      <Button
-        key={index}
-        border="none"
-        text="Créer"
-        active={active}
-        onClick={() => this.buttonClicked('create')}
-      />
-    );
-  }
-
-  renderTable() {
-    const result = [];
-    let index = 0;
-    for (const board of this.props.boards) {
-      if (board.date === this.props.selectedDate) {
-        result.push(this.renderTableItem(board, index++));
-      }
-    }
-    result.push(this.renderTableCreate(index++));
-    return result;
   }
 
   renderDetail(boards) {
@@ -156,15 +164,13 @@ class CalendarBoards extends Widget {
       return null;
     }
 
-    const tableBoxClass = this.styles.classNames.tableBox;
+    const radioBoxClass = this.styles.classNames.radioBox;
     const detailBoxClass = this.styles.classNames.detailBox;
 
     return (
       <Container kind="row">
         {this.renderCalendar()}
-        <Label text=" " />
-        <div className={tableBoxClass}>{this.renderTable()}</div>
-        <Label text=" " />
+        <div className={radioBoxClass}>{this.renderRadios()}</div>
         <div className={detailBoxClass}>{this.renderDetail()}</div>
       </Container>
     );

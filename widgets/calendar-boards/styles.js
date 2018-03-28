@@ -3,11 +3,11 @@ import {Unit} from 'electrum-theme';
 /******************************************************************************/
 
 export default function styles(theme, props) {
-  const tableBoxStyle = {
+  const radioBoxStyle = {
     width: '200px',
     display: 'flex',
+    padding: '0px 10px',
     flexDirection: 'column',
-    border: '1px solid ' + theme.palette.tableBorder,
   };
 
   const detailBoxStyle = {
@@ -21,7 +21,7 @@ export default function styles(theme, props) {
   };
 
   return {
-    tableBox: tableBoxStyle,
+    radioBox: radioBoxStyle,
     detailBox: detailBoxStyle,
   };
 }
