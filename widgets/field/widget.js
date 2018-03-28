@@ -645,6 +645,7 @@ class Field extends Form {
             readonly="true"
             ownerType={this.props.ownerType}
             extended={this.props.extended}
+            hasMateDetails={this.props.hasMateDetails}
             hilited={this.props.hilited}
             showExecuted={this.props.showExecuted}
             identicalType={this.props.identicalType}
@@ -1522,6 +1523,7 @@ class Field extends Form {
             }
             ownerType={this.props.ownerType}
             extended={this.props.extended}
+            hasMateDetails={this.props.hasMateDetails}
             hilited={this.props.hilited}
             showExecuted={this.props.showExecuted}
             identicalType={this.props.identicalType}
