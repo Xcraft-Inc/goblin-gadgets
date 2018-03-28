@@ -51,7 +51,9 @@ module.exports = config => {
 
     quest.do({id: quest.goblin.id, initialState, childrenGadgets});
 
-    quest.dispatch('configure', options);
+    if (options) {
+      quest.dispatch('configure', options);
+    }
 
     if (events && events.create) {
       const state = quest.goblin.getState();
