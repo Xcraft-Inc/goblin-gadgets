@@ -83,17 +83,20 @@ class TextField extends Widget {
 
   onFocus(e) {
     //- console.log ('text-field.onFocus');
-    this.hasChanged = false;
-    this.hasFocus = true;
+    if (!Bool.isTrue(this.props.readonly)) {
+      this.hasChanged = false;
+      this.hasFocus = true;
 
-    this.navToHinter();
-    const selectAllOnFocus = this.props.selectAllOnFocus || !!this.props.hinter;
-    if (Bool.isTrue(selectAllOnFocus)) {
-      this.selectAll();
-    }
-    const x = this.props.onFocus;
-    if (x) {
-      x(e);
+      this.navToHinter();
+      const selectAllOnFocus =
+        this.props.selectAllOnFocus || !!this.props.hinter;
+      if (Bool.isTrue(selectAllOnFocus)) {
+        this.selectAll();
+      }
+      const x = this.props.onFocus;
+      if (x) {
+        x(e);
+      }
     }
   }
 
