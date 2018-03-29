@@ -31,9 +31,12 @@ export default function styles(theme, props) {
     cursor: 'default',
   };
 
+  // Use 'auto' for vertical scroller. If scroller is hidden, the header is
+  // not perfectly aligned with the content. It's not ideal, but it seems to
+  // me the best compromise.
   const bodyStyle = {
     height: props.height,
-    overflowY: props.height ? 'scroll' : 'hidden',
+    overflowY: props.height ? 'auto' : 'hidden',
     cursor: 'default',
   };
 

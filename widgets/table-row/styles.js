@@ -4,8 +4,6 @@ import {ColorManipulator} from 'electrum-theme';
 
 export default function styles(theme, props) {
   const m = theme.shapes.containerMargin;
-  const last = props.index >= props.count - 1;
-  const border = last ? null : '1px solid ' + theme.palette.tableBorder;
 
   let backgroundColor = props.row.get('backgroundColor');
   // Map symbolic colors from mission-checker (or other).
@@ -22,9 +20,10 @@ export default function styles(theme, props) {
   }
 
   const rowStyle = {
-    borderBottom: border,
+    borderBottom: '1px solid ' + theme.palette.tableBorder,
     display: 'flex',
     flexDirection: 'row',
+    marginBottom: '-1px',
     padding: '0px ' + m,
     backgroundColor: backgroundColor,
     cursor: 'default',
@@ -32,9 +31,10 @@ export default function styles(theme, props) {
   };
 
   const rowSelectedStyle = {
-    borderBottom: border,
+    borderBottom: '1px solid ' + theme.palette.tableBorder,
     display: 'flex',
     flexDirection: 'row',
+    marginBottom: '-1px',
     padding: '0px ' + m,
     backgroundColor: theme.palette.tableSelectedBackground,
     color: theme.palette.tableSelectedText,
