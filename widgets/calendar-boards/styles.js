@@ -18,6 +18,7 @@ export default function styles(theme, props) {
     flexDirection: 'column',
     flexGrow: '1',
     border: '1px solid ' + theme.palette.tableBorder,
+    overflowY: 'auto',
   };
 
   return {
