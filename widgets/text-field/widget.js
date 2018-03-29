@@ -204,11 +204,6 @@ class TextField extends Widget {
       },
     };
 
-    let glyph = null;
-    if (this.props.getGlyph) {
-      glyph = this.props.getGlyph(mapProps.value(this.props));
-    }
-
     // (*)
     // When text changing, use props.viewValue (editing value).
     // When onFocus/onBlur, use props.modelValue (canonical value).
@@ -255,10 +250,19 @@ class TextField extends Widget {
         boxClass = this.styles.classNames.boxRequired;
       }
 
+      let glyph = null;
+      if (this.props.getGlyph) {
+        glyph = this.props.getGlyph(finalProps.value);
+      }
+
       return (
         <div className={boxClass} title={this.props.tooltip}>
           {glyph ? (
-            <Label glyph={glyph.glyph} glyphColor={glyph.color} />
+            <Label
+              kind="text-field-combo-glyph"
+              glyph={glyph.glyph}
+              glyphColor={glyph.color}
+            />
           ) : null}
           {type === 'textarea' ? (
             <textarea

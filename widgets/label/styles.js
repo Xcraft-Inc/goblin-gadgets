@@ -378,6 +378,12 @@ export default function styles(theme, props) {
     textWeight = 'bold';
   }
 
+  if (props.kind === 'text-field-combo-glyph') {
+    glyphPaddingLeft = '10px';
+    boxJustifyContent = 'center';
+    glyphJustify = 'center';
+  }
+
   /******************************************************************************/
   // Styles for Labels inside LabelTextFields.
   /******************************************************************************/
