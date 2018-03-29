@@ -5,6 +5,7 @@ import * as Bool from 'gadgets/boolean-helpers';
 
 export default function styles(theme, props) {
   const m = theme.shapes.containerMargin;
+
   const border = Bool.isTrue(props.frame)
     ? '1px solid ' + theme.palette.tableBorder
     : null;
@@ -31,19 +32,26 @@ export default function styles(theme, props) {
     cursor: 'default',
   };
 
-  // Use 'auto' for vertical scroller. If scroller is hidden, the header is
-  // not perfectly aligned with the content. It's not ideal, but it seems to
-  // me the best compromise.
   const bodyStyle = {
     height: props.height,
-    overflowY: props.height ? 'auto' : 'hidden',
+    overflowY: props.height ? 'scroll' : 'hidden',
     cursor: 'default',
+  };
+
+  const verticalSeparatorStyle = {
+    visibility: Bool.isTrue(props.frame) && props.height ? 'visible' : 'hidden',
+    position: 'absolute',
+    height: '100%',
+    top: '0px',
+    right: Unit.add(theme.shapes.scrollerThickness, '1px'),
+    borderRight: '1px solid ' + theme.palette.tableBorder,
   };
 
   return {
     table: tableStyle,
     header: headerStyle,
     body: bodyStyle,
+    verticalSeparator: verticalSeparatorStyle,
   };
 }
 

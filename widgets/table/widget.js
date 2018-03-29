@@ -101,11 +101,13 @@ class Table extends Widget {
     const data = Widget.shred(this.props.data);
     const tableClass = this.styles.classNames.table;
     const bodyClass = this.styles.classNames.body;
+    const verticalSeparatorClass = this.styles.classNames.verticalSeparator;
 
     return (
       <div className={tableClass}>
         {this.renderHeader(data.get('header'))}
         <div className={bodyClass}>{this.renderRows(data)}</div>
+        <div className={verticalSeparatorClass} />
       </div>
     );
   }
