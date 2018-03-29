@@ -42,6 +42,13 @@ export default function styles(theme, props) {
     borderStyle = 'none';
   }
 
+  if (props.kind === 'exact') {
+    height = props.height;
+    margin = '0px';
+    borderWidth = '0px';
+    borderStyle = 'none';
+  }
+
   if (props.kind === 'menu-separator') {
     height = theme.shapes.flyingBalloonPadding;
     margin = '0px';
