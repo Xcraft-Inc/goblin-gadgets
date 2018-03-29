@@ -299,6 +299,19 @@ export default function styles(theme, props) {
     backgroundColor = theme.palette.paneHeaderBackground;
   }
 
+  if (props.kind === 'pane-warning') {
+    flexDirection = 'row';
+    padding = Unit.multiply(m, 0.5) + ' ' + m;
+    margin = Unit.multiply(m, -1) + ' 0px ' + m + ' 0px';
+    if (props.subkind === 'draft') {
+      backgroundColor = theme.palette.markSuccess;
+    } else if (props.subkind === 'archived') {
+      backgroundColor = theme.palette.markSecondary;
+    } else {
+      backgroundColor = theme.palette.paneHeaderBackground;
+    }
+  }
+
   if (props.kind === 'pane-header-light') {
     minHeight = height;
     flexDirection = 'row';

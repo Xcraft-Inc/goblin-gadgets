@@ -182,6 +182,13 @@ export default function styles(theme, props) {
     textColor = theme.palette.paneHeaderText;
   }
 
+  if (props.kind === 'pane-warning') {
+    textWeight = 'bold';
+    textTransform = 'uppercase';
+    glyphColor = theme.palette.paneHeaderText;
+    textColor = theme.palette.paneHeaderText;
+  }
+
   if (props.kind === 'title') {
     textSize = theme.shapes.labelTitleTextSize;
     textWeight = 'bold';
