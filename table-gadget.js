@@ -14,10 +14,22 @@ exports.xcraftCommands = function() {
           selectedIds: state.get('selectedIds', []).toArray(),
         };
       },
+      selectAll: state => {
+        return {
+          selectedIds: state.get('selectedIds', []).toArray(),
+        };
+      },
     },
     actions: {
       setData: (state, action) => {
         return state.set('data', action.get('data'));
+      },
+      selectAll: state => {
+        const rows = state
+          .get('data.rows')
+          .linq.select(row => row.get('id'))
+          .toList();
+        return state.set('selectedIds', rows);
       },
       select: (state, action) => {
         const mode = action.get('mode');
