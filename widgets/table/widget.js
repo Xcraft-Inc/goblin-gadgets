@@ -128,7 +128,7 @@ class Table extends Widget {
         <div className={buttonsClass}>
           {isAllSelected ? null : (
             <Button
-              glyph="check"
+              glyph="solid/check"
               text="Tout sélectionner"
               grow="1"
               spacing={isAllDeselected ? null : 'overlap'}
@@ -137,7 +137,7 @@ class Table extends Widget {
           )}
           {isAllDeselected ? null : (
             <Button
-              glyph="ban"
+              glyph="solid/ban"
               text="Tout désélectionner"
               grow="1"
               onClick={this.deselectAll}
