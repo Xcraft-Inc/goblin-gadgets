@@ -10,6 +10,10 @@ export default function styles(theme, props) {
     ? '1px solid ' + theme.palette.tableBorder
     : null;
 
+  const boxStyle = {
+    flexGrow: props.grow,
+  };
+
   const tableStyle = {
     flexGrow: props.grow,
     cursor: 'default',
@@ -47,11 +51,20 @@ export default function styles(theme, props) {
     borderRight: '1px solid ' + theme.palette.tableBorder,
   };
 
+  const buttonsStyle = {
+    display: 'flex',
+    flexDirection: 'row',
+    flexGrow: '1',
+    marginTop: '-1px',
+  };
+
   return {
+    box: boxStyle,
     table: tableStyle,
     header: headerStyle,
     body: bodyStyle,
     verticalSeparator: verticalSeparatorStyle,
+    buttons: buttonsStyle,
   };
 }
 

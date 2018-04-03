@@ -19,6 +19,11 @@ exports.xcraftCommands = function() {
           selectedIds: state.get('selectedIds', []).toArray(),
         };
       },
+      deselectAll: () => {
+        return {
+          selectedIds: [],
+        };
+      },
     },
     actions: {
       setData: (state, action) => {
@@ -30,6 +35,9 @@ exports.xcraftCommands = function() {
           .linq.select(row => row.get('id'))
           .toList();
         return state.set('selectedIds', rows);
+      },
+      deselectAll: state => {
+        return state.set('selectedIds', []);
       },
       select: (state, action) => {
         const mode = action.get('mode');

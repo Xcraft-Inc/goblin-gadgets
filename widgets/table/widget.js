@@ -4,6 +4,7 @@ import * as Bool from 'gadgets/boolean-helpers';
 
 import TableRow from 'gadgets/table-row/widget';
 import TableCell from 'gadgets/table-cell/widget';
+import Button from 'gadgets/button/widget';
 
 /******************************************************************************/
 class Table extends Widget {
@@ -11,6 +12,8 @@ class Table extends Widget {
     super(...arguments);
 
     this.onSelectionChanged = this.onSelectionChanged.bind(this);
+    this.selectAll = this.selectAll.bind(this);
+    this.deselectAll = this.deselectAll.bind(this);
   }
 
   static get wiring() {
@@ -26,6 +29,25 @@ class Table extends Widget {
       mode: this.props.selectionMode,
       rowId: id,
     });
+  }
+
+  selectAll() {
+    this.doAs('table-gadget', 'selectAll');
+  }
+
+  deselectAll() {
+    this.doAs('table-gadget', 'deselectAll');
+  }
+
+  isAllSelected() {
+    return (
+      this.props.selectedIds &&
+      this.props.selectedIds.size === this.props.data.get('rows').size
+    );
+  }
+
+  isAllDeselected() {
+    return !this.props.selectedIds || this.props.selectedIds.size === 0;
   }
 
   isSelected(id) {
@@ -97,17 +119,52 @@ class Table extends Widget {
       .toList();
   }
 
+  renderButtons() {
+    if (Bool.isTrue(this.props.hasButtons)) {
+      const buttonsClass = this.styles.classNames.buttons;
+      const isAllSelected = this.isAllSelected();
+      const isAllDeselected = this.isAllDeselected();
+      return (
+        <div className={buttonsClass}>
+          {isAllSelected ? null : (
+            <Button
+              glyph="check"
+              text="Tout sélectionner"
+              grow="1"
+              spacing={isAllDeselected ? null : 'overlap'}
+              onClick={this.selectAll}
+            />
+          )}
+          {isAllDeselected ? null : (
+            <Button
+              glyph="ban"
+              text="Tout désélectionner"
+              grow="1"
+              onClick={this.deselectAll}
+            />
+          )}
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
+
   render() {
     const data = Widget.shred(this.props.data);
+    const boxClass = this.styles.classNames.box;
     const tableClass = this.styles.classNames.table;
     const bodyClass = this.styles.classNames.body;
     const verticalSeparatorClass = this.styles.classNames.verticalSeparator;
 
     return (
-      <div className={tableClass}>
-        {this.renderHeader(data.get('header'))}
-        <div className={bodyClass}>{this.renderRows(data)}</div>
-        <div className={verticalSeparatorClass} />
+      <div className={boxClass}>
+        <div className={tableClass}>
+          {this.renderHeader(data.get('header'))}
+          <div className={bodyClass}>{this.renderRows(data)}</div>
+          <div className={verticalSeparatorClass} />
+        </div>
+        {this.renderButtons()}
       </div>
     );
   }
