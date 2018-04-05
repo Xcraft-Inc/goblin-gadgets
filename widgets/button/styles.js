@@ -310,6 +310,37 @@ export default function styles(theme, props) {
     backgroundColor = theme.palette.subactionButtonBackground;
   }
 
+  if (props.kind === 'table-action') {
+    let place = props.place ? props.place : 'middle';
+    if (place === '1/1') {
+      place = 'single';
+    } else if (place.indexOf('/') !== -1) {
+      const n = place.split('/');
+      if (n.length === 2) {
+        if (n[0] === '1') {
+          place = 'left';
+        } else if (n[0] === n[1]) {
+          place = 'right';
+        } else {
+          place = 'middle';
+        }
+      }
+    }
+    const r = theme.shapes.tableActionRadius;
+    boxHeight = theme.shapes.tableActionHeight;
+    borderStyle = 'none solid solid solid';
+    borderColor = theme.palette.tableBorder;
+    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'none';
+    backgroundColor = theme.palette.tableActionBackground;
+    if (place === 'left') {
+      borderRadius = '0px 0px 0px ' + r;
+    } else if (place === 'right') {
+      borderRadius = '0px 0px ' + r + ' 0px';
+    } else if (place === 'single') {
+      borderRadius = '0px 0px ' + r + ' ' + r;
+    }
+  }
+
   // Combo button, place to the right of a TextFieldCombo component.
   if (props.kind === 'combo') {
     activeColor = theme.palette.comboActiveBackground;

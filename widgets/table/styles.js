@@ -19,6 +19,12 @@ export default function styles(theme, props) {
     cursor: 'default',
     overflowY: 'hidden',
     border: border,
+    borderRadius: Bool.isTrue(props.hasButtons)
+      ? theme.shapes.tableActionRadius +
+        ' ' +
+        theme.shapes.tableActionRadius +
+        ' 0px 0px'
+      : null,
   };
 
   // If property 'height' is defined, vertical scroller is already visible,
@@ -34,6 +40,9 @@ export default function styles(theme, props) {
     flexDirection: 'row',
     padding: '0px ' + paddingRight + ' 0px ' + m,
     cursor: 'default',
+    backgroundColor: Bool.isTrue(props.hasButtons)
+      ? theme.palette.tableActionBackground
+      : null,
   };
 
   const bodyStyle = {

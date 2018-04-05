@@ -128,6 +128,8 @@ class Table extends Widget {
         <div className={buttonsClass}>
           {isAllSelected ? null : (
             <Button
+              kind="table-action"
+              place={isAllDeselected ? '1/1' : '1/2'}
               glyph="solid/check"
               text="Tout sélectionner"
               grow="1"
@@ -137,6 +139,8 @@ class Table extends Widget {
           )}
           {isAllDeselected ? null : (
             <Button
+              kind="table-action"
+              place={isAllSelected ? '1/1' : '2/2'}
               glyph="solid/ban"
               text="Tout désélectionner"
               grow="1"
