@@ -64,7 +64,6 @@ export default function styles(theme, props) {
     display: 'flex',
     flexDirection: 'row',
     flexGrow: '1',
-    marginTop: '-1px',
   };
 
   return {
