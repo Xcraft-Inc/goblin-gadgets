@@ -339,7 +339,9 @@ export default function styles(theme, props) {
     } else if (place === 'single') {
       borderRadius = '0px 0px ' + r + ' ' + r;
     }
-    transition = null;
+    if (props.grow === '0') {
+      borderStyle = 'none';
+    }
   }
 
   // Combo button, place to the right of a TextFieldCombo component.

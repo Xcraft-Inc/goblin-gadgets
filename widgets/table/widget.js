@@ -126,27 +126,23 @@ class Table extends Widget {
       const isAllDeselected = this.isAllDeselected();
       return (
         <div className={buttonsClass}>
-          {isAllSelected ? null : (
-            <Button
-              kind="table-action"
-              place={isAllDeselected ? '1/1' : '1/2'}
-              glyph="solid/check"
-              text="Tout sélectionner"
-              grow="1"
-              spacing={isAllDeselected ? null : 'overlap'}
-              onClick={this.selectAll}
-            />
-          )}
-          {isAllDeselected ? null : (
-            <Button
-              kind="table-action"
-              place={isAllSelected ? '1/1' : '2/2'}
-              glyph="solid/ban"
-              text="Tout désélectionner"
-              grow="1"
-              onClick={this.deselectAll}
-            />
-          )}
+          <Button
+            kind="table-action"
+            place={isAllDeselected ? '1/1' : '1/2'}
+            glyph="solid/check"
+            text="Tout sélectionner"
+            grow={isAllSelected ? '0' : '1'}
+            spacing={isAllDeselected ? null : 'overlap'}
+            onClick={this.selectAll}
+          />
+          <Button
+            kind="table-action"
+            place={isAllSelected ? '1/1' : '2/2'}
+            glyph="solid/ban"
+            text="Tout désélectionner"
+            grow={isAllDeselected ? '0' : '1'}
+            onClick={this.deselectAll}
+          />
         </div>
       );
     } else {
