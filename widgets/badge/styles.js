@@ -1,3 +1,4 @@
+import * as Bool from 'gadgets/boolean-helpers';
 import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
@@ -34,6 +35,10 @@ export default function styles(theme, props) {
 
   if (props.shape === 'circle') {
     labelRadius = Unit.multiply(theme.shapes.lineHeight, 0.5);
+  }
+
+  if (Bool.isTrue(props.disabled)) {
+    backgroundColor = theme.palette.buttonDisableBackground;
   }
 
   const boxStyle = {

@@ -153,6 +153,7 @@ class Button extends Widget {
           layer={this.props.badgePosition || 'over'}
           shape={this.props.badgeShape}
           size={this.props.badgeSize}
+          disabled={this.props.calendarDimmed}
         />
       );
     } else {
