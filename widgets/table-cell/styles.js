@@ -11,6 +11,7 @@ export default function styles(theme, props) {
   let flexShrink = null;
   let flexBasis = null;
   let overflow = null;
+  let verticalPadding = theme.shapes.tablePadding;
   let marginRight = null;
   let fontWeight = null;
   let textTransform = null;
@@ -39,6 +40,10 @@ export default function styles(theme, props) {
     backgroundColor = props.text.get('backgroundColor');
   }
 
+  if (props.verticalSpacing === 'compact') {
+    verticalPadding = null;
+  }
+
   const cellStyle = {
     minWidth: minWidth,
     maxWidth: maxWidth,
@@ -50,7 +55,7 @@ export default function styles(theme, props) {
     textAlign: props.textAlign,
     fontWeight: fontWeight,
     textTransform: textTransform,
-    padding: theme.shapes.tablePadding + ' 0px',
+    padding: verticalPadding + ' 0px',
     fontSize: theme.shapes.tableTextSize,
     backgroundColor: backgroundColor,
     cursor: 'default',
