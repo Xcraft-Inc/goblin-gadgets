@@ -63,30 +63,27 @@ class WorkDialog extends Widget {
 
   get tableData() {
     const data = {
-      header: {
-        column0: {
-          id: 'column0',
+      header: [
+        {
           name: 'title',
           width: '200px',
           textAlign: 'left',
         },
-        column1: {
-          id: 'column1',
+        {
           name: 'description',
           width: '300px',
           textAlign: 'left',
         },
-      },
-      rows: {},
+      ],
+      rows: [],
     };
 
     for (const item of this.props.data) {
-      const id = item.id;
-      data.rows[id] = {
-        id: id,
+      data.rows.push({
+        id: item.id,
         title: item.title,
         description: item.description,
-      };
+      });
     }
 
     return data;
