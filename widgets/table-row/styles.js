@@ -20,7 +20,10 @@ export default function styles(theme, props) {
   }
 
   const rowStyle = {
-    borderBottom: '1px solid ' + theme.palette.tableBorder,
+    borderBottom:
+      props.horizontalSeparator === 'none'
+        ? null
+        : '1px solid ' + theme.palette.tableBorder,
     display: 'flex',
     flexDirection: 'row',
     marginBottom: '-1px',
@@ -31,7 +34,10 @@ export default function styles(theme, props) {
   };
 
   const rowSelectedStyle = {
-    borderBottom: '1px solid ' + theme.palette.tableBorder,
+    borderBottom:
+      props.horizontalSeparator === 'none'
+        ? null
+        : '1px solid ' + theme.palette.tableBorder,
     display: 'flex',
     flexDirection: 'row',
     marginBottom: '-1px',
