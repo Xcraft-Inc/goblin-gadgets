@@ -33,6 +33,7 @@ exports.xcraftCommands = function() {
         const rows = state
           .get('data.rows')
           .linq.select(row => row.get('id'))
+          .distinct(id => id)
           .toList();
         return state.set('selectedIds', rows);
       },

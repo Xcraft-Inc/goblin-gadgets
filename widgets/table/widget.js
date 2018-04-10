@@ -7,6 +7,12 @@ import TableCell from 'gadgets/table-cell/widget';
 import Button from 'gadgets/button/widget';
 
 /******************************************************************************/
+
+function onlyUnique(value, index, self) {
+  return self.indexOf(value) === index;
+}
+
+/******************************************************************************/
 class Table extends Widget {
   constructor() {
     super(...arguments);
@@ -40,9 +46,14 @@ class Table extends Widget {
   }
 
   isAllSelected() {
+    const rows = this.props.data
+      .get('rows')
+      .toArray()
+      .map(row => row.get('id'));
+    const uniques = rows.filter(onlyUnique);
+
     return (
-      this.props.selectedIds &&
-      this.props.selectedIds.size === this.props.data.get('rows').size
+      this.props.selectedIds && this.props.selectedIds.size === uniques.length
     );
   }
 
