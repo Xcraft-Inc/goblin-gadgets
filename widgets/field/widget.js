@@ -15,6 +15,7 @@ import TextField from 'gadgets/text-field/widget';
 import LabelTextField from 'gadgets/label-text-field/widget';
 import TextFieldTyped from 'gadgets/text-field-typed/widget';
 import TextFieldCombo from 'gadgets/text-field-combo/widget';
+import TextFieldTimeInterval from 'gadgets/text-field-time-interval/widget';
 import RadioList from 'gadgets/radio-list/widget';
 import CheckList from 'gadgets/check-list/widget';
 import CalendarRecurrence from 'gadgets/calendar-recurrence/widget';
@@ -264,6 +265,35 @@ class Field extends Form {
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
           model={this.props.model}
+          required={this.props.required}
+        />
+      </Container>
+    );
+  }
+
+  renderReadonlyTimeInterval() {
+    return (
+      <Container
+        kind="row-field"
+        grow="0"
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
+      >
+        <TextFieldTimeInterval
+          readonly="true"
+          type="time"
+          spacing={this.props.spacing}
+          labelText={this.props.labelText}
+          labelGlyph={this.props.labelGlyph}
+          labelWidth={this.props.labelWidth || defaultLabelWidth}
+          startHintText={this.props.startHintText}
+          endHintText={this.props.endHintText}
+          startTooltip={this.props.startTooltip || this.props.startHintText}
+          endTooltip={this.props.endTooltip || this.props.endHintText}
+          startModel={this.props.startModel}
+          endModel={this.props.endModel}
           required={this.props.required}
         />
       </Container>
@@ -978,6 +1008,36 @@ class Field extends Form {
         </Container>
       );
     }
+  }
+
+  renderEditTimeInterval() {
+    return (
+      <Container
+        kind="row-field"
+        grow="0"
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
+      >
+        <TextFieldTimeInterval
+          type="time"
+          selectAllOnFocus="true"
+          spacing={this.props.spacing}
+          labelText={this.props.labelText}
+          labelGlyph={this.props.labelGlyph}
+          labelWidth={this.props.labelWidth || defaultLabelWidth}
+          startHintText={this.props.startHintText}
+          endHintText={this.props.endHintText}
+          startTooltip={this.props.startTooltip || this.props.startHintText}
+          endTooltip={this.props.endTooltip || this.props.endHintText}
+          startModel={this.props.startModel}
+          endModel={this.props.endModel}
+          required={this.props.required}
+          hasNowButton={this.props.hasNowButton}
+        />
+      </Container>
+    );
   }
 
   renderEditPrice() {
@@ -1828,6 +1888,8 @@ class Field extends Form {
         return this.renderReadonlyDate();
       case 'time':
         return this.renderReadonlyTime();
+      case 'time-interval':
+        return this.renderReadonlyTimeInterval();
       case 'price':
         return this.renderReadonlyPrice();
       case 'weight':
@@ -1889,6 +1951,8 @@ class Field extends Form {
         return this.renderEditDate();
       case 'time':
         return this.renderEditTime();
+      case 'time-interval':
+        return this.renderEditTimeInterval();
       case 'price':
         return this.renderEditPrice();
       case 'weight':
