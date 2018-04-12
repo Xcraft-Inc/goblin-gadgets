@@ -65,7 +65,8 @@ class TextFieldTimeInterval extends Widget {
     if (Bool.isTrue(this.props.hasNowButton)) {
       return (
         <Button
-          glyph="solid/arrow-to-bottom"
+          shape="right-rounded"
+          glyph="solid/arrow-alt-circle-left"
           disabled={Bool.isTrue(this.props.disabled || this.props.readonly)}
           spacing={this.props.spacing}
           tooltip="Maintenant"
