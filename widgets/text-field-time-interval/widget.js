@@ -17,6 +17,8 @@ class TextFieldTimeInterval extends Widget {
 
   onNowClicked() {
     const now = TimeConverters.getNowCanonical();
+    this.setModelValue(this.props.startModel, now, true);
+    this.setModelValue(this.props.endModel, now, true);
   }
 
   /******************************************************************************/
@@ -37,6 +39,16 @@ class TextFieldTimeInterval extends Widget {
         disabled={this.props.disabled}
         required={this.props.required}
         model={this.props.startModel}
+        entityId={this.props.entityId}
+        beforeChange={value => {
+          if (
+            !this.props.endValue ||
+            this.props.endValue === '' ||
+            value > this.props.endValue
+          ) {
+            this.setModelValue(this.props.endModel, value, true);
+          }
+        }}
       />
     );
   }
@@ -57,6 +69,16 @@ class TextFieldTimeInterval extends Widget {
         disabled={this.props.disabled}
         required={this.props.required}
         model={this.props.endModel}
+        entityId={this.props.entityId}
+        beforeChange={value => {
+          if (
+            !this.props.startValue ||
+            this.props.startValue === '' ||
+            value < this.props.startValue
+          ) {
+            this.setModelValue(this.props.startModel, value, true);
+          }
+        }}
       />
     );
   }

@@ -1011,6 +1011,27 @@ class Field extends Form {
   }
 
   renderEditTimeInterval() {
+    const EntityInterval = this.mapWidget(
+      TextFieldTimeInterval,
+      value => {
+        return {entityId: value};
+      },
+      this.getFullPathFromModel('.id')
+    );
+    const StartInterval = this.mapWidget(
+      EntityInterval,
+      value => {
+        return {startValue: value};
+      },
+      this.getFullPathFromModel(this.props.startModel)
+    );
+    const TimeInterval = this.mapWidget(
+      StartInterval,
+      value => {
+        return {endValue: value};
+      },
+      this.getFullPathFromModel(this.props.endModel)
+    );
     return (
       <Container
         kind="row-field"
@@ -1020,7 +1041,7 @@ class Field extends Form {
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
-        <TextFieldTimeInterval
+        <TimeInterval
           type="time"
           selectAllOnFocus="true"
           spacing={this.props.spacing}

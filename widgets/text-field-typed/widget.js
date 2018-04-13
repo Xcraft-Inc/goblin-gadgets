@@ -140,8 +140,12 @@ class TextFieldTyped extends Widget {
     return (
       <LabelTextField
         updateOn="blur"
-        beforeChange={val => {
-          return this.parseEditedValue(val).canonicalValue;
+        beforeChange={value => {
+          const cv = this.parseEditedValue(value).canonicalValue;
+          if (this.props.beforeChange) {
+            this.props.beforeChange(cv);
+          }
+          return cv;
         }}
         getDisplayValue={this.getDisplayValue}
         getGlyph={this.props.getGlyph}
