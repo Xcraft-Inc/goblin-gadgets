@@ -466,12 +466,15 @@ export default function styles(theme, props) {
   const keyframes = {
     '0%': {
       transform: `translateX(-${ts}) scale(0)`,
+      opacity: 1,
     },
     '20%': {
       transform: 'translateX(0px) scale(1)',
+      opacity: 1,
     },
     '100%': {
       transform: `translateX(-${ts}) scale(0)`,
+      opacity: 1,
     },
   };
   const flashStyle = {
@@ -486,7 +489,8 @@ export default function styles(theme, props) {
     borderBottom: ts + ' solid transparent',
     animationName: keyframes,
     animationDuration: '0.7s',
-    animationIterationCount: 'infinite',
+    animationIterationCount: '7',
+    opacity: 0,
   };
 
   const identicalCountStyle = {
