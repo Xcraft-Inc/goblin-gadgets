@@ -40,7 +40,7 @@ class Combo extends Widget {
   }
 
   componentWillMount() {
-    window.document.Combo = 'visible';
+    window.document.combo = 'visible';
 
     MouseTrap.bind('esc', this.onCloseCombo);
     MouseTrap.bind('up', this.onPrevIndex);
@@ -57,7 +57,7 @@ class Combo extends Widget {
   }
 
   componentWillUnmount() {
-    window.document.Combo = 'hidden';
+    window.document.combo = 'hidden';
 
     MouseTrap.unbind('esc');
     MouseTrap.unbind('up');

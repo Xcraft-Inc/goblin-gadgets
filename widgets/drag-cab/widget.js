@@ -98,7 +98,7 @@ class DragCab extends Widget {
   }
 
   onMouseDown(e) {
-    if (window.document.Combo === 'visible') {
+    if (window.document.combo === 'visible') {
       // Does a child have an open combo-menu ?
       return;
     }
@@ -139,7 +139,7 @@ class DragCab extends Widget {
   }
 
   onMouseUp(e) {
-    if (window.document.Combo === 'visible') {
+    if (window.document.combo === 'visible') {
       // does a child have an open combo-menu ?
       return;
     }
