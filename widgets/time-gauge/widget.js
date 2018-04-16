@@ -29,7 +29,10 @@ class TimeGauge extends Widget {
       return null;
     }
 
-    if (this.props.date !== DateConverters.getNowCanonical()) {
+    if (
+      Bool.isTrue(this.props.disabled) ||
+      this.props.date !== DateConverters.getNowCanonical()
+    ) {
       return <Gauge kind={this.props.kind} disabled="true" />;
     }
 

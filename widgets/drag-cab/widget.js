@@ -140,7 +140,7 @@ class DragCab extends Widget {
 
   onMouseUp(e) {
     if (window.document.combo === 'visible') {
-      // does a child have an open combo-menu ?
+      // Does a child have an open combo-menu ?
       return;
     }
     const mouseUp = this.props.mouseUp;
@@ -148,7 +148,7 @@ class DragCab extends Widget {
       return;
     }
     if (Bool.isTrue(this.props.noDrag)) {
-      // simple click when drag prohibited ?
+      // Simple click when drag prohibited ?
       this.doClickAction(e);
     }
   }
@@ -157,7 +157,7 @@ class DragCab extends Widget {
     this.dragInProcess = false;
     this.dragStarting = false;
     if (!isDragDoing) {
-      // simple click done ?
+      // Simple click done ?
       this.doClickAction(e);
     }
   }
