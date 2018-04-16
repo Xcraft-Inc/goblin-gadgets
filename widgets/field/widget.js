@@ -79,7 +79,7 @@ class Field extends Form {
           return;
         }
         if (typeof value === 'object') {
-          return this.props.map(value.toJS());
+          return this.props.map(value);
         }
         return this.props.map(value);
       },
@@ -120,7 +120,7 @@ class Field extends Form {
           return;
         }
         if (typeof value === 'object') {
-          return this.props.map(value.toJS());
+          return this.props.map(value);
         }
         return this.props.map(value);
       },
@@ -160,7 +160,7 @@ class Field extends Form {
           return;
         }
         if (typeof value === 'object') {
-          return this.props.map(value.toJS());
+          return this.props.map(value);
         }
         return this.props.map(value);
       },
@@ -603,7 +603,7 @@ class Field extends Form {
               const entity = this.getModelValue(props.entityId, true);
               const service = this.context.id.split('@')[0];
               this.doAs(service, 'open-entity-workitem', {
-                entity: entity.toJS(),
+                entity: entity,
                 desktopId: this.context.desktopId,
               });
             }
@@ -711,7 +711,7 @@ class Field extends Form {
             {props.entityIds.map((entityId, index) => {
               const Item = this.mapWidget(
                 this.props.item,
-                state => (state ? state.toJS() : null),
+                state => (state ? state : null),
                 `backend.${entityId}`
               );
               return <Item key={index} />;
@@ -1640,7 +1640,7 @@ class Field extends Form {
             {props.entityIds.map((entityId, index) => {
               const Item = this.mapWidget(
                 this.props.item,
-                state => (state ? state.toJS() : null),
+                state => (state ? state : null),
                 `backend.${entityId}`
               );
               return <Item key={index} />;
