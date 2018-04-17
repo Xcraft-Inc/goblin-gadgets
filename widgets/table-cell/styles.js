@@ -1,5 +1,6 @@
-import * as Bool from 'gadgets/boolean-helpers';
+import {Unit} from 'electrum-theme';
 import {isImmutable} from 'immutable';
+import * as Bool from 'gadgets/boolean-helpers';
 
 /******************************************************************************/
 
@@ -55,8 +56,10 @@ export default function styles(theme, props) {
     fontWeight: fontWeight,
     textTransform: textTransform,
     padding: verticalPadding + ' 0px',
-    //- fontSize: theme.shapes.tableTextSize,
-    fontSize: (props.level === 0 ? 90 : 90 - 20 * props.level) + '%',
+    fontSize:
+      !props.level || props.level === 0
+        ? theme.shapes.tableTextSize
+        : Unit.multiply(theme.shapes.tableTextSize, 1 - props.level * 0.2),
     backgroundColor: backgroundColor,
     cursor: 'default',
   };
