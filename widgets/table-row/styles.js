@@ -32,9 +32,9 @@ export default function styles(theme, props) {
 
   const paddingTop = '0px';
   const paddingBottom =
-    Bool.isTrue(props.verticalSpacingAfterLast) &&
     props.level > 0 &&
-    props.index === props.count - 1
+    Bool.isTrue(props.verticalSpacingAfterLast) &&
+    Bool.isTrue(props.isLast)
       ? theme.shapes.tablePadding
       : '0px';
 
