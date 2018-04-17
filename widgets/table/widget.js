@@ -151,7 +151,8 @@ class Table extends Widget {
   }
 
   renderButtons(data) {
-    if (Bool.isTrue(this.props.hasButtons)) {
+    const size = data.get('rows').size;
+    if (Bool.isTrue(this.props.hasButtons) && size > 0) {
       const buttonsClass = this.styles.classNames.buttons;
       const isAllSelected = this.isAllSelected(data);
       const isAllDeselected = this.isAllDeselected();
