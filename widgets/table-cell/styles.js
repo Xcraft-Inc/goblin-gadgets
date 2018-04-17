@@ -16,6 +16,7 @@ export default function styles(theme, props) {
   let fontWeight = null;
   let textTransform = null;
   let backgroundColor = null;
+  let fontSize = theme.shapes.tableTextSize;
 
   if (props.width) {
     minWidth = props.width;
@@ -44,6 +45,17 @@ export default function styles(theme, props) {
     verticalPadding = null;
   }
 
+  if (props.level && props.level > 0) {
+    // level = 0  ->  fontSize = 90%
+    // level = 1  ->  fontSize = 90% * 0.8 = 72%
+    // level = 2  ->  fontSize = 90% * 0.7 = 63%
+    // level = 3  ->  fontSize = 90% * 0.6 = 54%
+    fontSize = Unit.multiply(
+      theme.shapes.tableTextSize,
+      0.9 - props.level * 0.1
+    );
+  }
+
   const cellStyle = {
     minWidth: minWidth,
     maxWidth: maxWidth,
@@ -56,10 +68,7 @@ export default function styles(theme, props) {
     fontWeight: fontWeight,
     textTransform: textTransform,
     padding: verticalPadding + ' 0px',
-    fontSize:
-      !props.level || props.level === 0
-        ? theme.shapes.tableTextSize
-        : Unit.multiply(theme.shapes.tableTextSize, 1 - props.level * 0.2),
+    fontSize: fontSize,
     backgroundColor: backgroundColor,
     cursor: 'default',
   };
