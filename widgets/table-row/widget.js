@@ -28,6 +28,7 @@ class TableRow extends Widget {
         index={index}
         width={width}
         grow={grow}
+        level={this.props.level}
         textAlign={textAlign}
         verticalSpacing={this.props.verticalSpacing}
         isLast={Bool.toString(isLast)}

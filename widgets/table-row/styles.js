@@ -19,29 +19,41 @@ export default function styles(theme, props) {
       break;
   }
 
+  const borderTop =
+    props.horizontalSeparator === 'up' || props.horizontalSeparator === 'both'
+      ? '1px solid ' + theme.palette.tableBorder
+      : null;
+
+  const borderBottom =
+    props.horizontalSeparator === 'none' || props.horizontalSeparator === 'up'
+      ? null
+      : '1px solid ' + theme.palette.tableBorder;
+
+  const paddingTop = '0px';
+  const paddingBottom =
+    props.level > 0 && props.index === props.count - 1
+      ? theme.shapes.tablePadding
+      : '0px';
+
   const rowStyle = {
-    borderBottom:
-      props.horizontalSeparator === 'none'
-        ? null
-        : '1px solid ' + theme.palette.tableBorder,
+    borderTop: borderTop,
+    borderBottom: borderBottom,
     display: 'flex',
     flexDirection: 'row',
     marginBottom: '-1px',
-    padding: '0px ' + m,
+    padding: paddingTop + ' ' + m + ' ' + paddingBottom + ' ' + m,
     backgroundColor: backgroundColor,
     cursor: 'default',
     ':hover': {backgroundColor: theme.palette.tableHoverBackground},
   };
 
   const rowSelectedStyle = {
-    borderBottom:
-      props.horizontalSeparator === 'none'
-        ? null
-        : '1px solid ' + theme.palette.tableBorder,
+    borderTop: borderTop,
+    borderBottom: borderBottom,
     display: 'flex',
     flexDirection: 'row',
     marginBottom: '-1px',
-    padding: '0px ' + m,
+    padding: paddingTop + ' ' + m + ' ' + paddingBottom + ' ' + m,
     backgroundColor: theme.palette.tableSelectedBackground,
     color: theme.palette.tableSelectedText,
     cursor: 'default',

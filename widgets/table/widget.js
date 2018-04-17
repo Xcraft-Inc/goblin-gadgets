@@ -45,8 +45,8 @@ class Table extends Widget {
     this.doAs('table-gadget', 'deselectAll');
   }
 
-  isAllSelected() {
-    const rows = this.props.data
+  isAllSelected(data) {
+    const rows = data
       .get('rows')
       .toArray()
       .map(row => row.get('id'));
@@ -106,7 +106,7 @@ class Table extends Widget {
     }
   }
 
-  renderRow(header, row, count, index) {
+  renderRow(header, level, row, count, index) {
     return (
       <TableRow
         header={header.state}
@@ -114,6 +114,7 @@ class Table extends Widget {
         key={index}
         index={index}
         count={count}
+        level={level}
         horizontalSeparator={row.get('horizontalSeparator')}
         verticalSpacing={row.get('verticalSpacing')}
         selected={Bool.toString(this.isSelected(row.get('id', null)))}
@@ -122,20 +123,36 @@ class Table extends Widget {
     );
   }
 
+  pushRow(result, level, header, row, count, index) {
+    result.push(this.renderRow(header, level, row, count, index++));
+
+    const subRows = row.get('rows');
+    if (subRows) {
+      let subIndex = 0;
+      const subCount = subRows.count();
+      for (const subRow of subRows.values()) {
+        this.pushRow(result, level + 1, header, subRow, subCount, subIndex++);
+      }
+    }
+  }
+
   renderRows(data) {
     let index = 0;
     const rows = data.get('rows');
     const count = rows.count();
     const header = data.get('header');
-    return rows.linq
-      .select(row => this.renderRow(header, row, count, index++))
-      .toList();
+
+    const result = [];
+    for (const row of rows.values()) {
+      this.pushRow(result, 0, header, row, count, index++);
+    }
+    return result;
   }
 
-  renderButtons() {
+  renderButtons(data) {
     if (Bool.isTrue(this.props.hasButtons)) {
       const buttonsClass = this.styles.classNames.buttons;
-      const isAllSelected = this.isAllSelected();
+      const isAllSelected = this.isAllSelected(data);
       const isAllDeselected = this.isAllDeselected();
       return (
         <div className={buttonsClass}>
@@ -181,7 +198,7 @@ class Table extends Widget {
           <div className={bodyClass}>{this.renderRows(data)}</div>
           <div className={verticalSeparatorClass} />
         </div>
-        {this.renderButtons()}
+        {this.renderButtons(data)}
       </div>
     );
   }
