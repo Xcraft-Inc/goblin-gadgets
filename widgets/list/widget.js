@@ -12,12 +12,10 @@ class List extends Widget {
     const load = range => {
       let cFrom = this.getFormValue('.from');
       let cTo = this.getFormValue('.to');
-      console.log(`from ${cFrom} to ${cTo}`);
       if (range[0] < this.props.pageSize) {
         return;
       }
       if (range[0] - 10 < cFrom || range[1] + 10 >= cTo) {
-        console.log(`loading rows from ${range[0]} to ${range[1]}`);
         this.do('load-range', {from: range[0], to: range[1]});
       }
     };
