@@ -1,6 +1,5 @@
 import * as Bool from 'gadgets/boolean-helpers';
 import {isImmutable} from 'immutable';
-import {ColorManipulator} from 'electrum-theme';
 
 /******************************************************************************/
 
@@ -56,7 +55,7 @@ export default function styles(theme, props) {
     fontWeight: fontWeight,
     textTransform: textTransform,
     padding: verticalPadding + ' 0px',
-    //???? fontSize: theme.shapes.tableTextSize,
+    //- fontSize: theme.shapes.tableTextSize,
     fontSize: (props.level === 0 ? 90 : 90 - 20 * props.level) + '%',
     backgroundColor: backgroundColor,
     cursor: 'default',
