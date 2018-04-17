@@ -164,6 +164,10 @@ class Table extends Widget {
   }
 
   render() {
+    if (!this.props.data) {
+      return null;
+    }
+
     const data = Widget.shred(this.props.data);
     const boxClass = this.styles.classNames.box;
     const tableClass = this.styles.classNames.table;

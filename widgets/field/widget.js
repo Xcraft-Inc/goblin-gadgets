@@ -78,9 +78,6 @@ class Field extends Form {
         if (!value) {
           return;
         }
-        //???? if (typeof value === 'object') {
-        //????   return this.props.map(value).toJS();
-        //???? }
         return this.props.map(value);
       },
       this.fullPath
@@ -119,9 +116,6 @@ class Field extends Form {
         if (!value) {
           return;
         }
-        //???? if (typeof value === 'object') {
-        //????   return this.props.map(value).toJS();
-        //???? }
         return this.props.map(value);
       },
       this.fullPath
@@ -159,9 +153,6 @@ class Field extends Form {
         if (!value) {
           return;
         }
-        //???? if (typeof value === 'object') {
-        //????   return this.props.map(value).toJS();
-        //???? }
         return this.props.map(value);
       },
       this.fullPath
