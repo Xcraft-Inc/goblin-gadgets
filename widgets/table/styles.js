@@ -35,7 +35,9 @@ export default function styles(theme, props) {
     : m;
 
   const headerStyle = {
-    borderBottom: '1px solid ' + theme.palette.tableBorder,
+    borderBottom: Bool.isTrue(props.headerWithoutHorizontalSeparator)
+      ? null
+      : '1px solid ' + theme.palette.tableBorder,
     display: 'flex',
     flexDirection: 'row',
     padding: '0px ' + paddingRight + ' 0px ' + m,
