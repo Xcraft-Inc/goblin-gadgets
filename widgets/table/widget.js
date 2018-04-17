@@ -116,6 +116,7 @@ class Table extends Widget {
         count={count}
         level={level}
         horizontalSeparator={row.get('horizontalSeparator')}
+        verticalSpacingAfterLast={row.get('verticalSpacingAfterLast')}
         verticalSpacing={row.get('verticalSpacing')}
         selected={Bool.toString(this.isSelected(row.get('id', null)))}
         selectionChanged={this.onSelectionChanged}

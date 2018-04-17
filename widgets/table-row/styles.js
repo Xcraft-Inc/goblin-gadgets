@@ -1,4 +1,5 @@
 import {ColorManipulator} from 'electrum-theme';
+import * as Bool from 'gadgets/boolean-helpers';
 
 /******************************************************************************/
 
@@ -31,7 +32,9 @@ export default function styles(theme, props) {
 
   const paddingTop = '0px';
   const paddingBottom =
-    props.level > 0 && props.index === props.count - 1
+    Bool.isTrue(props.verticalSpacingAfterLast) &&
+    props.level > 0 &&
+    props.index === props.count - 1
       ? theme.shapes.tablePadding
       : '0px';
 
