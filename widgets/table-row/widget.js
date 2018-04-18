@@ -20,7 +20,7 @@ class TableRow extends Widget {
     }
   }
 
-  renderRowCell(rowId, width, grow, textAlign, isLast, text, index) {
+  renderRowCell(rowId, width, grow, textAlign, indent, isLast, text, index) {
     return (
       <TableCell
         rowId={rowId}
@@ -30,6 +30,7 @@ class TableRow extends Widget {
         grow={grow}
         level={this.props.level}
         textAlign={textAlign}
+        indent={indent}
         verticalSpacing={this.props.verticalSpacing}
         isLast={Bool.toString(isLast)}
         isHeader="false"
@@ -52,6 +53,7 @@ class TableRow extends Widget {
           column.get('width'),
           column.get('grow'),
           column.get('textAlign'),
+          column.get('indent'),
           isLast,
           text,
           index++

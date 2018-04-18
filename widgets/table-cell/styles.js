@@ -12,6 +12,7 @@ export default function styles(theme, props) {
   let flexBasis = null;
   let overflow = null;
   let verticalPadding = theme.shapes.tablePadding;
+  let marginLeft = null;
   let marginRight = null;
   let fontWeight = null;
   let textTransform = null;
@@ -54,6 +55,10 @@ export default function styles(theme, props) {
       theme.shapes.tableTextSize,
       0.9 - props.level * 0.1
     );
+
+    if (props.indent === 'space') {
+      marginLeft = Unit.multiply(theme.shapes.tablePadding, props.level);
+    }
   }
 
   const cellStyle = {
@@ -63,6 +68,7 @@ export default function styles(theme, props) {
     flexShrink: flexShrink,
     flexBasis: flexBasis,
     overflow: overflow,
+    marginLeft: marginLeft,
     marginRight: marginRight,
     textAlign: props.textAlign,
     fontWeight: fontWeight,
