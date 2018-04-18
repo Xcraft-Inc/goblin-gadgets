@@ -12,8 +12,10 @@ export default function styles(theme, props) {
   let flexBasis = null;
   let overflow = null;
   let verticalPadding = theme.shapes.tablePadding;
-  let marginLeft = null;
-  let marginRight = null;
+  let paddingLeft = '0px';
+  let paddingRight = '0px';
+  let marginLeft = '0px';
+  let marginRight = '0px';
   let fontWeight = null;
   let textTransform = null;
   let backgroundColor = null;
@@ -31,6 +33,7 @@ export default function styles(theme, props) {
     overflow = 'hidden';
   }
   if (Bool.isFalse(props.isLast)) {
+    // All cells have a right margin, except the last.
     marginRight = theme.shapes.tablePadding;
   }
   if (Bool.isTrue(props.isHeader)) {
@@ -43,7 +46,7 @@ export default function styles(theme, props) {
   }
 
   if (props.verticalSpacing === 'compact') {
-    verticalPadding = null;
+    verticalPadding = '0px';
   }
 
   if (props.level && props.level > 0) {
@@ -57,7 +60,21 @@ export default function styles(theme, props) {
     );
 
     if (props.indent === 'space') {
-      marginLeft = Unit.multiply(theme.shapes.tablePadding, props.level);
+      if (props.textAlign === 'right') {
+        paddingRight = Unit.multiply(theme.shapes.tablePadding, props.level);
+      } else {
+        paddingLeft = Unit.multiply(theme.shapes.tablePadding, props.level);
+      }
+
+      if (minWidth && minWidth !== '0px') {
+        minWidth = Unit.sub(minWidth, paddingLeft);
+        minWidth = Unit.sub(minWidth, paddingRight);
+      }
+
+      if (maxWidth && maxWidth !== '0px') {
+        maxWidth = Unit.sub(maxWidth, paddingLeft);
+        maxWidth = Unit.sub(maxWidth, paddingRight);
+      }
     }
   }
 
@@ -73,7 +90,14 @@ export default function styles(theme, props) {
     textAlign: props.textAlign,
     fontWeight: fontWeight,
     textTransform: textTransform,
-    padding: verticalPadding + ' 0px',
+    padding:
+      verticalPadding +
+      ' ' +
+      paddingRight +
+      ' ' +
+      verticalPadding +
+      ' ' +
+      paddingLeft,
     fontSize: fontSize,
     backgroundColor: backgroundColor,
     cursor: 'default',
