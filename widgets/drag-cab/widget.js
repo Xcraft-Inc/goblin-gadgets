@@ -98,6 +98,7 @@ class DragCab extends Widget {
   }
 
   onMouseDown(e) {
+    this.skip = false;
     if (window.document.combo === 'visible') {
       // Does a child have an open combo-menu ?
       return;
@@ -106,9 +107,6 @@ class DragCab extends Widget {
     if (mouseDown && mouseDown(e)) {
       return;
     }
-    if (Bool.isTrue(this.props.noDrag)) {
-      return; // if drag prohibited, don't initiate drag & drop ?
-    }
     const dc = findDragController(this.props.theme, e.clientX, e.clientY);
     if (!dc || dc !== this.props.dragController) {
       // When clicking in a ticket of a messenger, 2 different drags try to start.
@@ -116,6 +114,7 @@ class DragCab extends Widget {
       // to move the messenger (dragController = 'roadbook').
       // The second one should not be started. It must start only when a click in
       // the header of the messenger !
+      this.skip = true;
       return;
     }
     const node = ReactDOM.findDOMNode(this);
@@ -123,6 +122,7 @@ class DragCab extends Widget {
       const w = Unit.parse(this.props.dragWidthtDetect).value;
       const rect = node.getBoundingClientRect();
       if (e.clientX > rect.left + w) {
+        this.skip = true;
         return;
       }
     }
@@ -130,8 +130,12 @@ class DragCab extends Widget {
       const h = Unit.parse(this.props.dragHeightDetect).value;
       const rect = node.getBoundingClientRect();
       if (e.clientY > rect.top + h) {
+        this.skip = true;
         return;
       }
+    }
+    if (Bool.isTrue(this.props.noDrag)) {
+      return; // if drag prohibited, don't initiate drag & drop ?
     }
     this.dragWidth = node.clientWidth;
     this.dragHeight = node.clientHeight;
@@ -147,7 +151,7 @@ class DragCab extends Widget {
     if (mouseUp && mouseUp(e)) {
       return;
     }
-    if (Bool.isTrue(this.props.noDrag)) {
+    if (Bool.isTrue(this.props.noDrag) && !this.skip) {
       // Simple click when drag prohibited ?
       this.doClickAction(e);
     }
