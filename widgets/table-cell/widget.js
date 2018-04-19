@@ -1,6 +1,7 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
-import {isImmutable} from 'immutable';
+//- import {isImmutable} from 'immutable';
+import Shredder from 'xcraft-core-shredder';
 
 import Label from 'gadgets/label/widget';
 
@@ -25,7 +26,7 @@ class TableCell extends Widget {
     let glyphColor = null;
     let text = null;
     let weight = null;
-    if (this.props.text && typeof this.props.text === 'object') {
+    if (this.props.text && this.props.text instanceof Shredder) {
       //- if (isImmutable(this.props.text)) {  // FIXME: Pourquoi ça ne fonctionne plus ???
       glyph = this.props.text.get('glyph');
       glyphColor = this.props.text.get('glyphColor');
