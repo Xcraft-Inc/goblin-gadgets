@@ -108,7 +108,7 @@ class DragCab extends Widget {
       return;
     }
 
-    // First test conditions witch be set skip = true.
+    // 1) First test conditions witch be set skip = true.
     const dc = findDragController(this.props.theme, e.clientX, e.clientY);
     if (!dc || dc !== this.props.dragController) {
       // When clicking in a ticket of a messenger, 2 different drags try to start.
@@ -136,7 +136,7 @@ class DragCab extends Widget {
         return;
       }
     }
-    // Then test if d&d is disabled.
+    // 2) Then test if d&d is disabled.
     // So, during the event onMouseUp, we will know whether to skip.
     if (Bool.isTrue(this.props.noDrag)) {
       return; // if drag prohibited, don't initiate drag & drop ?
