@@ -1610,6 +1610,8 @@ class Field extends Form {
             dragType={this.props.dragType}
             disableAdd={this.props.disableAdd}
             disableDelete={this.props.disableDelete}
+            searchHinter={this.props.searchHinter}
+            actionMenu={this.props.actionMenu}
             horizontalSeparator={this.props.horizontalSeparator}
           />
         </Container>
