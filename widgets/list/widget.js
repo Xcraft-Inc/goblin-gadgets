@@ -63,8 +63,11 @@ class List extends Widget {
     if (!items) {
       return null;
     }
-    const range = [items[0].index, items[items.length - 1].index];
-    this.loadIndex(range);
+
+    if (items.length) {
+      const range = [items[0].index, items[items.length - 1].index];
+      this.loadIndex(range);
+    }
 
     return (
       <div ref={ref}>
