@@ -389,7 +389,7 @@ export default function styles(theme, props) {
   }
 
   if (props.kind === 'panes') {
-    overflowY = 'auto';
+    overflowY = 'overlay';
     flexGrow = 1;
     padding = '0px ' + m + ' 0px ' + m;
     if (props.subkind === 'top-margin') {
