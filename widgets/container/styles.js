@@ -2,6 +2,9 @@ import {Unit} from 'electrum-theme';
 import {ColorHelpers} from 'electrum-theme';
 import {ColorManipulator} from 'electrum-theme';
 import * as Bool from 'gadgets/boolean-helpers';
+
+const isWebkit = 'WebkitAppearance' in document.documentElement.style;
+
 /******************************************************************************/
 
 export default function styles(theme, props) {
@@ -389,7 +392,7 @@ export default function styles(theme, props) {
   }
 
   if (props.kind === 'panes') {
-    overflowY = 'overlay';
+    overflowY = isWebkit ? 'overlay' : 'auto';
     flexGrow = 1;
     padding = '0px ' + m + ' 0px ' + m;
     if (props.subkind === 'top-margin') {
