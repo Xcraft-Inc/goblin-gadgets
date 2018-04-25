@@ -697,6 +697,13 @@ export default function styles(theme, props) {
     glyphColor = textColor;
   }
 
+  if (props.kind === 'tree-expand') {
+    textHoverColor = theme.palette.treeExpandButtonHover;
+    specialDisabled = true;
+    glyphColor = textColor;
+    glyphSize = theme.shapes.treeExpandButtonGlyphSize;
+  }
+
   if (props.kind === 'container') {
     boxAlignItems = 'stretch';
   }

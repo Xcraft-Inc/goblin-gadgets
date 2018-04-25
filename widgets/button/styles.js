@@ -344,6 +344,14 @@ export default function styles(theme, props) {
     }
   }
 
+  if (props.kind === 'tree-expand') {
+    boxWidth = theme.shapes.treeExpandButtonWidth;
+    boxMaxWidth = theme.shapes.treeExpandButtonWidth;
+    borderStyle = 'none';
+    backgroundColor = 'transparent';
+    backgroundHoverColor = 'transparent';
+  }
+
   // Combo button, place to the right of a TextFieldCombo component.
   if (props.kind === 'combo') {
     activeColor = theme.palette.comboActiveBackground;
