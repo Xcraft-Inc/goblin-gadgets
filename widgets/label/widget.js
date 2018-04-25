@@ -1,6 +1,7 @@
 import React from 'react';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import Widget from 'laboratory/widget';
+import T from 'nabu/t/widget';
 import * as Bool from 'gadgets/boolean-helpers';
 import ReactMarkdown from 'react-markdown';
 
@@ -70,11 +71,7 @@ class Label extends Widget {
     const className = fragment.em
       ? this.styles.classNames.hilitedFragment
       : this.styles.classNames.normalFragment;
-    return (
-      <span key={index} className={className}>
-        {fragment.text}
-      </span>
-    );
+    return <T msgid={fragment.text} key={index} className={className} />;
   }
 
   // Render all fragments of a line.
@@ -118,11 +115,7 @@ class Label extends Widget {
   // Render a very simple text, that is to say a single line and without highlighting.
   renderSimpleText(index, text) {
     const className = this.styles.classNames.text;
-    return (
-      <div key={index} className={className}>
-        {text}
-      </div>
-    );
+    return <T msgid={text} key={index} className={className} />;
   }
 
   renderText(index, text) {
