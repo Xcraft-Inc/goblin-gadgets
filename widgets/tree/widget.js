@@ -184,7 +184,7 @@ class Tree extends Widget {
     }
   }
 
-  renderRow(header, level, row, isLast, index) {
+  renderRow(header, level, row, index) {
     const rows = row.get('rows');
     return (
       <TreeRow
@@ -192,7 +192,6 @@ class Tree extends Widget {
         row={row}
         key={index}
         index={index}
-        isLast={isLast}
         level={level}
         selected={Bool.toString(this.isSelected(row.get('id', null)))}
         isExpanded={this.getExpand(row.get('id'))}
@@ -204,42 +203,36 @@ class Tree extends Widget {
     );
   }
 
-  pushRow(result, level, header, row, isLast, index) {
-    result.push(this.renderRow(header, level, row, isLast, index++));
-
-    if (this.getExpand(row.get('id'))) {
-      const subRows = row.get('rows');
-      if (subRows) {
-        for (let i = 0; i < subRows.size; i++) {
-          const subRow = subRows.get(i);
-          const subIsLast = i === subRows.size - 1;
-          index = this.pushRow(
-            result,
-            level + 1,
-            header,
-            subRow,
-            subIsLast,
-            index
-          );
-        }
-      }
-    }
-
-    return index;
-  }
-
-  renderRows(data) {
-    let index = 0;
-    const rows = data.get('rows');
-    const header = data.get('header');
-
+  renderIndentRows(header, rows, level) {
     const result = [];
     for (let i = 0; i < rows.size; i++) {
       const row = rows.get(i);
-      const isLast = i === rows.size - 1;
-      index = this.pushRow(result, 0, header, row, isLast, index);
+      result.push(this.renderRow(header, level, row, i));
+      const subRows = row.get('rows');
+      const subExpanded = this.getExpand(row.get('id'));
+      if (subRows) {
+        result.push(this.renderIndent(header, subRows, subExpanded, level + 1));
+      }
     }
     return result;
+  }
+
+  renderIndent(header, rows, expanded, level) {
+    const indentClass = expanded
+      ? this.styles.classNames.indentExpanded
+      : this.styles.classNames.indentHidden;
+
+    return (
+      <div className={indentClass}>
+        {this.renderIndentRows(header, rows, level)}
+      </div>
+    );
+  }
+
+  renderRows(data) {
+    const rows = data.get('rows');
+    const header = data.get('header');
+    return this.renderIndent(header, rows, true, 0);
   }
 
   renderButton(data, existingButton, index, existingIndex, existingCount) {

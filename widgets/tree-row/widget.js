@@ -36,16 +36,17 @@ class TreeRow extends Widget {
   /******************************************************************************/
 
   renderExpandButton() {
-    const glyph = this.props.hasChildren
-      ? this.props.isExpanded
-        ? 'solid/chevron-down'
-        : 'solid/chevron-right'
-      : null;
+    const styleClass = this.styles.classNames.expandButton;
+    const glyph = this.props.hasChildren ? 'solid/chevron-right' : null;
 
-    return <Button kind="tree-expand" glyph={glyph} onClick={this.onExpand} />;
+    return (
+      <div className={styleClass}>
+        <Button kind="tree-expand" glyph={glyph} onClick={this.onExpand} />
+      </div>
+    );
   }
 
-  renderRowCell(rowId, width, grow, textAlign, indent, isLast, text, index) {
+  renderRowCell(rowId, width, grow, textAlign, indent, text, index) {
     return (
       <TreeCell
         rowId={rowId}
@@ -57,7 +58,6 @@ class TreeRow extends Widget {
         textAlign={textAlign}
         indent={indent}
         verticalSpacing={this.props.verticalSpacing}
-        isLast={Bool.toString(isLast)}
         isHeader="false"
         text={text}
         selectionChanged={() => this.onSelectionChanged(rowId)}
@@ -71,7 +71,6 @@ class TreeRow extends Widget {
     return h.linq
       .select(column => {
         const text = row.get(column.get('name'));
-        const isLast = index === h.size - 1;
 
         return this.renderRowCell(
           row.get('id'),
@@ -79,7 +78,6 @@ class TreeRow extends Widget {
           column.get('grow'),
           column.get('textAlign'),
           column.get('indent'),
-          isLast,
           text,
           index++
         );

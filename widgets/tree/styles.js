@@ -51,7 +51,33 @@ export default function styles(theme, props) {
   const bodyStyle = {
     height: props.height,
     overflowY: props.height ? 'scroll' : 'hidden',
+    marginLeft: Unit.multiply(theme.shapes.treeLevelSpacing, -1),
     cursor: 'default',
+  };
+
+  // The transition isn't ideal, but I can't do any better!
+  // Transition from hidden to expanded:
+  //  - height has not transition (immediate expansion)
+  //  - scaleY has transition
+  const indentExpandedStyle = {
+    marginLeft: theme.shapes.treeLevelSpacing,
+    maxHeight: '10000px',
+    transformOrigin: 'top',
+    transform: 'scaleY(1)',
+    transition: theme.transitions.easeOut(),
+  };
+
+  // The transition isn't ideal, but I can't do any better!
+  // Transition from expanded to hidden:
+  //  - scaleY has transition
+  //  - height has transition after scaleY, when its value reaches zero
+  const indentHiddenStyle = {
+    marginLeft: theme.shapes.treeLevelSpacing,
+    maxHeight: '0px',
+    overflow: 'hidden',
+    transformOrigin: 'top',
+    transform: 'scaleY(0)',
+    transition: theme.transitions.easeOut(),
   };
 
   const verticalSeparatorStyle = {
@@ -74,6 +100,8 @@ export default function styles(theme, props) {
     tree: treeStyle,
     header: headerStyle,
     body: bodyStyle,
+    indentExpanded: indentExpandedStyle,
+    indentHidden: indentHiddenStyle,
     verticalSeparator: verticalSeparatorStyle,
     buttons: buttonsStyle,
   };

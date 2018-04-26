@@ -21,16 +21,10 @@ export default function styles(theme, props) {
       break;
   }
 
-  const paddingTop = '0px';
-  const paddingBottom = '0px';
-
-  const paddingLeft = Unit.multiply(theme.shapes.treeLevelSpacing, props.level);
-
   const rowStyle = {
     display: 'flex',
     flexDirection: 'row',
-    marginBottom: '-1px',
-    padding: paddingTop + ' ' + m + ' ' + paddingBottom + ' ' + paddingLeft,
+    padding: '0px ' + m + ' 0px 0px',
     backgroundColor: backgroundColor,
     cursor: 'default',
     ':hover': {backgroundColor: theme.palette.tableHoverBackground},
@@ -39,8 +33,7 @@ export default function styles(theme, props) {
   const rowSelectedStyle = {
     display: 'flex',
     flexDirection: 'row',
-    marginBottom: '-1px',
-    padding: paddingTop + ' ' + m + ' ' + paddingBottom + ' ' + paddingLeft,
+    padding: '0px ' + m + ' 0px 0px',
     backgroundColor: theme.palette.tableSelectedBackground,
     color: theme.palette.tableSelectedText,
     cursor: 'default',
@@ -52,6 +45,13 @@ export default function styles(theme, props) {
     },
   };
 
+  const expandButtonStyle = {
+    width: theme.shapes.treeExpandButtonWidth,
+    height: theme.shapes.treeExpandButtonWidth,
+    transform: props.isExpanded ? 'rotate(90deg)' : null,
+    transition: theme.transitions.easeOut(),
+  };
+
   const cellStyle = {
     padding: theme.shapes.tablePadding + ' 0px',
     fontSize: theme.shapes.treeTextSize,
@@ -61,6 +61,7 @@ export default function styles(theme, props) {
   return {
     row: rowStyle,
     rowSelected: rowSelectedStyle,
+    expandButton: expandButtonStyle,
     cell: cellStyle,
   };
 }
