@@ -194,9 +194,6 @@ class Tree extends Widget {
         index={index}
         isLast={isLast}
         level={level}
-        horizontalSeparator={row.get('horizontalSeparator')}
-        verticalSpacingAfterLast={row.get('verticalSpacingAfterLast')}
-        verticalSpacing={row.get('verticalSpacing')}
         selected={Bool.toString(this.isSelected(row.get('id', null)))}
         isExpanded={this.getExpand(row.get('id'))}
         hasChildren={rows && rows.size > 0}

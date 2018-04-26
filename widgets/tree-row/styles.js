@@ -21,29 +21,12 @@ export default function styles(theme, props) {
       break;
   }
 
-  const borderTop =
-    props.horizontalSeparator === 'up' || props.horizontalSeparator === 'both'
-      ? '1px solid ' + theme.palette.tableBorder
-      : null;
-
-  const borderBottom =
-    props.horizontalSeparator === 'none' || props.horizontalSeparator === 'up'
-      ? null
-      : '1px solid ' + theme.palette.tableBorder;
-
   const paddingTop = '0px';
-  const paddingBottom =
-    props.level > 0 &&
-    Bool.isTrue(props.verticalSpacingAfterLast) &&
-    Bool.isTrue(props.isLast)
-      ? theme.shapes.tablePadding
-      : '0px';
+  const paddingBottom = '0px';
 
   const paddingLeft = Unit.multiply(theme.shapes.treeLevelSpacing, props.level);
 
   const rowStyle = {
-    //- borderTop: borderTop,
-    //- borderBottom: borderBottom,
     display: 'flex',
     flexDirection: 'row',
     marginBottom: '-1px',
@@ -54,8 +37,6 @@ export default function styles(theme, props) {
   };
 
   const rowSelectedStyle = {
-    //- borderTop: borderTop,
-    //- borderBottom: borderBottom,
     display: 'flex',
     flexDirection: 'row',
     marginBottom: '-1px',
