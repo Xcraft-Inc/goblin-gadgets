@@ -37,11 +37,19 @@ class TreeRow extends Widget {
 
   renderExpandButton() {
     const styleClass = this.styles.classNames.expandButton;
-    const glyph = this.props.hasChildren ? 'solid/chevron-right' : null;
+    const glyph = this.props.hasChildren
+      ? 'solid/chevron-right'
+      : 'solid/circle';
+    const glyphSize = this.props.hasChildren ? null : '30%';
 
     return (
       <div className={styleClass}>
-        <Button kind="tree-expand" glyph={glyph} onClick={this.onExpand} />
+        <Button
+          kind="tree-expand"
+          glyph={glyph}
+          glyphSize={glyphSize}
+          onClick={this.onExpand}
+        />
       </div>
     );
   }

@@ -182,7 +182,7 @@ export default function styles(theme, props) {
     textHoverColor = theme.palette.treeExpandButtonHover;
     specialDisabled = true;
     glyphColor = textColor;
-    glyphSize = theme.shapes.treeExpandButtonGlyphSize;
+    glyphSize = props.glyphSize || theme.shapes.treeExpandButtonGlyphSize;
   }
 
   if (props.kind === 'pane-header') {
