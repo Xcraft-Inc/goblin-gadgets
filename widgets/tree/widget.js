@@ -272,7 +272,9 @@ class Tree extends Widget {
 
     return (
       <Button
-        kind="table-action"
+        kind={
+          Bool.isTrue(this.props.frame) ? 'table-action-frame' : 'table-action'
+        }
         place={`${existingIndex + 1}/${existingCount}`}
         grow={existingButton ? '1' : '0'}
         spacing={existingIndex < existingCount - 1 ? 'overlap' : null}
@@ -286,6 +288,7 @@ class Tree extends Widget {
   renderButtons(data) {
     const size = data.get('rows').size;
     if (Bool.isTrue(this.props.hasButtons) && size > 0) {
+      // Search existing buttons (array of true/false).
       const existingButtons = [];
       existingButtons.push(
         Bool.isTrue(this.props.selection) && !this.isAllSelected(data)
@@ -296,6 +299,7 @@ class Tree extends Widget {
       existingButtons.push(!this.isAllExpanded(data));
       existingButtons.push(!this.isAllCompacted());
 
+      // Count existing buttons.
       let existingCount = 0;
       for (const existingButton of existingButtons) {
         if (existingButton) {
@@ -303,6 +307,7 @@ class Tree extends Widget {
         }
       }
 
+      // Render all buttons.
       const result = [];
       let existingIndex = 0;
       for (let index = 0; index < existingButtons.length; index++) {

@@ -172,6 +172,19 @@ export default function styles(theme, props) {
     glyphHeight = null;
   }
 
+  if (props.kind === 'table-action-frame' || props.kind === 'table-action') {
+    textSize = theme.shapes.tableActionTextSize;
+    textTransform = textTransform || 'uppercase';
+    textWeight = 'bold';
+  }
+
+  if (props.kind === 'tree-expand') {
+    textHoverColor = theme.palette.treeExpandButtonHover;
+    specialDisabled = true;
+    glyphColor = textColor;
+    glyphSize = theme.shapes.treeExpandButtonGlyphSize;
+  }
+
   if (props.kind === 'pane-header') {
     boxHeight = '50px';
     boxMaxHeight = '50px';
@@ -567,6 +580,7 @@ export default function styles(theme, props) {
   // Subaction button (usual parent is container with kind='row-pane' and subkind='box').
   if (props.kind === 'subaction') {
     textColor = theme.palette.subactionButtonText;
+    glyphColor = theme.palette.subactionButtonText;
     textSize = theme.shapes.subactionTextSize;
     textTransform = textTransform || 'uppercase';
     textWeight = 'bold';
@@ -695,13 +709,6 @@ export default function styles(theme, props) {
       textTransform = 'uppercase';
     }
     glyphColor = textColor;
-  }
-
-  if (props.kind === 'tree-expand') {
-    textHoverColor = theme.palette.treeExpandButtonHover;
-    specialDisabled = true;
-    glyphColor = textColor;
-    glyphSize = theme.shapes.treeExpandButtonGlyphSize;
   }
 
   if (props.kind === 'container') {

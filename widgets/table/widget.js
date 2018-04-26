@@ -169,7 +169,11 @@ class Table extends Widget {
       return (
         <div className={buttonsClass}>
           <Button
-            kind="table-action"
+            kind={
+              Bool.isTrue(this.props.frame)
+                ? 'table-action-frame'
+                : 'table-action'
+            }
             place={isAllDeselected ? '1/1' : '1/2'}
             glyph="solid/check"
             text="Tout sélectionner"
@@ -178,7 +182,11 @@ class Table extends Widget {
             onClick={this.selectAll}
           />
           <Button
-            kind="table-action"
+            kind={
+              Bool.isTrue(this.props.frame)
+                ? 'table-action-frame'
+                : 'table-action'
+            }
             place={isAllSelected ? '1/1' : '2/2'}
             glyph="solid/ban"
             text="Tout désélectionner"

@@ -310,7 +310,7 @@ export default function styles(theme, props) {
     backgroundColor = theme.palette.subactionButtonBackground;
   }
 
-  if (props.kind === 'table-action') {
+  if (props.kind === 'table-action-frame') {
     let place = props.place ? props.place : 'middle';
     if (place === '1/1') {
       place = 'single';
@@ -342,6 +342,14 @@ export default function styles(theme, props) {
     if (props.grow === '0') {
       borderStyle = 'none';
     }
+  }
+  if (props.kind === 'table-action') {
+    boxHeight = theme.shapes.tableActionHeight;
+    borderStyle = 'none solid solid solid';
+    borderColor = theme.palette.tableBorder;
+    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'none';
+    backgroundColor = theme.palette.tableActionBackground;
+    borderStyle = 'none';
   }
 
   if (props.kind === 'tree-expand') {

@@ -42,9 +42,10 @@ export default function styles(theme, props) {
     flexDirection: 'row',
     padding: '0px ' + paddingRight + ' 0px ' + m,
     cursor: 'default',
-    backgroundColor: Bool.isTrue(props.hasButtons)
-      ? theme.palette.tableActionBackground
-      : null,
+    backgroundColor:
+      Bool.isTrue(props.hasButtons) && Bool.isTrue(props.frame)
+        ? theme.palette.tableActionBackground
+        : null,
   };
 
   const bodyStyle = {
