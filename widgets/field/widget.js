@@ -196,12 +196,21 @@ class Field extends Form {
     const target = this.context.id
       ? `backend.${this.context.id}.gadgets.${this.props.name}`
       : `${this.context.model}.gadgets.${this.props.name}`;
-    const gadgetInfo = this.getBackendValue(target, true);
-    const type = gadgetInfo.get('type');
-    const Gadget = widgetImporter(type);
 
-    const WiredGadget = Widget.Wired(Gadget)(gadgetInfo.get('id'));
-    return <WiredGadget readonly="true" {...this.props} />;
+    const GadgetLoader = props => {
+      if (props.available) {
+        const gadgetInfo = this.getBackendValue(target, true);
+        const type = gadgetInfo.get('type');
+        const Gadget = widgetImporter(type);
+        const WiredGadget = Widget.Wired(Gadget)(gadgetInfo.get('id'));
+        return <WiredGadget readonly="true" {...this.props} />;
+      } else {
+        return null;
+      }
+    };
+    const DisplayGadget = this.mapWidget(GadgetLoader, 'available', target);
+
+    return <DisplayGadget />;
   }
 
   renderReadonlyDate() {
@@ -823,12 +832,21 @@ class Field extends Form {
     const target = this.context.id
       ? `backend.${this.context.id}.gadgets.${this.props.name}`
       : `${this.context.model}.gadgets.${this.props.name}`;
-    const gadgetInfo = this.getBackendValue(target, true);
-    const type = gadgetInfo.get('type');
-    const Gadget = widgetImporter(type);
 
-    const WiredGadget = Widget.Wired(Gadget)(gadgetInfo.get('id'));
-    return <WiredGadget {...this.props} />;
+    const GadgetLoader = props => {
+      if (props.available) {
+        const gadgetInfo = this.getBackendValue(target, true);
+        const type = gadgetInfo.get('type');
+        const Gadget = widgetImporter(type);
+        const WiredGadget = Widget.Wired(Gadget)(gadgetInfo.get('id'));
+        return <WiredGadget {...this.props} />;
+      } else {
+        return null;
+      }
+    };
+    const DisplayGadget = this.mapWidget(GadgetLoader, 'available', target);
+
+    return <DisplayGadget />;
   }
 
   renderEditDate() {
