@@ -342,6 +342,7 @@ export default function styles(theme, props) {
     if (props.grow === '0') {
       borderStyle = 'none';
     }
+    transition = null;
   }
   if (props.kind === 'table-action') {
     boxHeight = theme.shapes.tableActionHeight;
@@ -350,6 +351,7 @@ export default function styles(theme, props) {
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'none';
     backgroundColor = theme.palette.tableActionBackground;
     borderStyle = 'none';
+    transition = null;
   }
 
   if (props.kind === 'tree-expand') {
