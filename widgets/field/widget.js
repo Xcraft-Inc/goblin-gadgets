@@ -193,10 +193,10 @@ class Field extends Form {
   }
 
   renderReadonlyGadget() {
-    const gadgetInfo = this.getModelValue(
-      this.getFullPathFromModel(`.gadgets.${this.props.name}`),
-      true
-    );
+    const target = this.context.id
+      ? `backend.${this.context.id}.gadgets.${this.props.name}`
+      : `${this.context.model}.gadgets.${this.props.name}`;
+    const gadgetInfo = this.getBackendValue(target, true);
     const type = gadgetInfo.get('type');
     const Gadget = widgetImporter(type);
 
@@ -820,10 +820,10 @@ class Field extends Form {
   }
 
   renderEditGadget() {
-    const gadgetInfo = this.getModelValue(
-      this.getFullPathFromModel(`.gadgets.${this.props.name}`),
-      true
-    );
+    const target = this.context.id
+      ? `backend.${this.context.id}.gadgets.${this.props.name}`
+      : `${this.context.model}.gadgets.${this.props.name}`;
+    const gadgetInfo = this.getBackendValue(target, true);
     const type = gadgetInfo.get('type');
     const Gadget = widgetImporter(type);
 
