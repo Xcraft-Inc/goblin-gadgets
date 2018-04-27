@@ -1,6 +1,6 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
-import * as ComboHelpers from '../helpers/combo-helpers.js';
+import {ComboHelpers} from 'goblin-toolbox';
 import * as Bool from 'gadgets/boolean-helpers';
 import {ColorHelpers} from 'electrum-theme';
 import {Unit} from 'electrum-theme';

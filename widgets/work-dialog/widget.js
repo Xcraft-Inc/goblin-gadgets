@@ -1,8 +1,6 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
-import * as ComboHelpers from '../helpers/combo-helpers.js';
-import * as Bool from 'gadgets/boolean-helpers';
-import {ColorHelpers} from 'electrum-theme';
+import {ComboHelpers} from 'goblin-toolbox';
 import {Unit} from 'electrum-theme';
 
 import DialogModal from 'gadgets/dialog-modal/widget';
@@ -10,7 +8,6 @@ import Container from 'gadgets/container/widget';
 import Button from 'gadgets/button/widget';
 import Label from 'gadgets/label/widget';
 import Table from 'gadgets/table/widget';
-import LabelTextField from 'gadgets/label-text-field/widget';
 
 /******************************************************************************/
 

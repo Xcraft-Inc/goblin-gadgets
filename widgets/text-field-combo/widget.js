@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
 import MouseTrap from 'mousetrap';
-import * as ComboHelpers from '../helpers/combo-helpers.js';
+import {ComboHelpers} from 'goblin-toolbox';
 import * as Bool from 'gadgets/boolean-helpers';
 import {Unit} from 'electrum-theme';
 
