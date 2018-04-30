@@ -1,7 +1,7 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
-import {ComboHelpers} from 'goblin-toolbox';
-import * as Bool from 'gadgets/boolean-helpers';
+import ComboHelpers from 'gadgets/helpers/combo-helpers';
+const Bool = require('gadgets/helpers/bool-helpers');
 import {ColorHelpers} from 'electrum-theme';
 import {Unit} from 'electrum-theme';
 

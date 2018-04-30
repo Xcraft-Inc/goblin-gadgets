@@ -1,6 +1,6 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
-import {ComboHelpers} from 'goblin-toolbox';
+import ComboHelpers from 'gadgets/helpers/combo-helpers';
 import {Unit} from 'electrum-theme';
 
 import DialogModal from 'gadgets/dialog-modal/widget';

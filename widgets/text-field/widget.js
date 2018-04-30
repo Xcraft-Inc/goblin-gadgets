@@ -1,7 +1,7 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 import {Control, actions} from 'react-redux-form/immutable';
-import * as Bool from 'gadgets/boolean-helpers';
+const Bool = require('gadgets/helpers/bool-helpers');
 import _ from 'lodash';
 
 import FlyingBalloon from 'gadgets/flying-balloon/widget';
@@ -298,7 +298,9 @@ class TextField extends Widget {
     let key =
       typeof this.props.model === 'string'
         ? this.props.model
-        : this.props.hinter ? this.props.hinter : this.props.model();
+        : this.props.hinter
+          ? this.props.hinter
+          : this.props.model();
 
     const defaultUpdateOn = this.props.hinter ? 'change' : 'blur';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import Widget from 'laboratory/widget';
-import * as Bool from 'gadgets/boolean-helpers';
+const Bool = require('gadgets/helpers/bool-helpers');
 /******************************************************************************/
 
 class Container extends Widget {

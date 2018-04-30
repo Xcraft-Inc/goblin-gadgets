@@ -1,7 +1,7 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 import {Unit} from 'electrum-theme';
-import * as Bool from 'gadgets/boolean-helpers';
+const Bool = require('gadgets/helpers/bool-helpers');
 
 import Recurrence from 'gadgets/recurrence/widget';
 import Container from 'gadgets/container/widget';

@@ -4,7 +4,7 @@ import Widget from 'laboratory/widget';
 import Label from 'gadgets/label/widget';
 import Badge from 'gadgets/badge/widget';
 
-import * as Bool from 'gadgets/boolean-helpers';
+const Bool = require('gadgets/helpers/bool-helpers');
 import {Unit} from 'electrum-theme';
 
 /******************************************************************************/

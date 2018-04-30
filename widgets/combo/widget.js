@@ -4,7 +4,7 @@ import Widget from 'laboratory/widget';
 import MouseTrap from 'mousetrap';
 import {ColorHelpers} from 'electrum-theme';
 import * as RectHelpers from '../helpers/rect-helpers.js';
-import * as Bool from 'gadgets/boolean-helpers';
+const Bool = require('gadgets/helpers/bool-helpers');
 import {Unit} from 'electrum-theme';
 
 import Container from 'gadgets/container/widget';
@@ -201,7 +201,9 @@ class Combo extends Widget {
             trianglePosition={
               this.props.trianglePosition
                 ? this.props.trianglePosition
-                : this.props.top ? 'top' : 'bottom'
+                : this.props.top
+                  ? 'top'
+                  : 'bottom'
             }
             triangleShift={this.props.triangleShift}
           >

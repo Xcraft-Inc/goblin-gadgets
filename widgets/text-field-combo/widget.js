@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
 import MouseTrap from 'mousetrap';
-import {ComboHelpers} from 'goblin-toolbox';
-import * as Bool from 'gadgets/boolean-helpers';
+import ComboHelpers from 'gadgets/helpers/combo-helpers';
+const Bool = require('gadgets/helpers/bool-helpers');
 import {Unit} from 'electrum-theme';
 
 import Button from 'gadgets/button/widget';

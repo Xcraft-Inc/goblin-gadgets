@@ -1,6 +1,6 @@
 import {Unit} from 'electrum-theme';
 import {isImmutable} from 'immutable';
-import * as Bool from 'gadgets/boolean-helpers';
+const Bool = require('gadgets/helpers/bool-helpers');
 
 /******************************************************************************/
 

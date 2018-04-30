@@ -1,7 +1,7 @@
 import React from 'react';
 import Form from 'laboratory/form';
 import Widget from 'laboratory/widget';
-import * as Bool from 'gadgets/boolean-helpers';
+const Bool = require('gadgets/helpers/bool-helpers');
 import {
   date as DateConverters,
   time as TimeConverters,

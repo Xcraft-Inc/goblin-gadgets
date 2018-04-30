@@ -1,7 +1,5 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
-import * as Bool from 'gadgets/boolean-helpers';
-import {date as DateConverters} from 'xcraft-core-converters';
 
 import Container from 'gadgets/container/widget';
 import Calendar from 'gadgets/calendar/widget';

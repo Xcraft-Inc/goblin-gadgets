@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Form from 'laboratory/form';
 import Widget from 'laboratory/widget';
 import {date as DateConverters} from 'xcraft-core-converters';
-import * as Bool from 'gadgets/boolean-helpers';
+const Bool = require('gadgets/helpers/bool-helpers');
 
 import Label from 'gadgets/label/widget';
 import Button from 'gadgets/button/widget';

@@ -4,7 +4,7 @@ import Form from 'laboratory/form';
 import {date as DateConverters} from 'xcraft-core-converters';
 
 //- import * as CronHelpers from '../helpers/cron-helpers';
-import * as Bool from 'gadgets/boolean-helpers';
+const Bool = require('gadgets/helpers/bool-helpers');
 
 import Calendar from 'gadgets/calendar/widget';
 import LabelTextField from 'gadgets/label-text-field/widget';

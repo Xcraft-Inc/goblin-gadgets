@@ -1,6 +1,6 @@
 import {Unit} from 'electrum-theme';
 import {ColorHelpers} from 'electrum-theme';
-import * as Bool from 'gadgets/boolean-helpers';
+const Bool = require('gadgets/helpers/bool-helpers');
 
 /******************************************************************************/
 
