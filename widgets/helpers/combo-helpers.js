@@ -228,6 +228,8 @@ function verticalDeclipping(height, center, distanceFromEdge) {
   return {triangleShift: '0px', center: center};
 }
 
+//-----------------------------------------------------------------------------
+
 module.exports = {
   getComboRightLocation,
   getComboLocation,
