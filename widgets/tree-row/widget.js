@@ -13,6 +13,8 @@ class TreeRow extends Widget {
 
     this.onSelectionChanged = this.onSelectionChanged.bind(this);
     this.onExpand = this.onExpand.bind(this);
+    this.onMouseOver = this.onMouseOver.bind(this);
+    this.onMouseOut = this.onMouseOut.bind(this);
   }
 
   onSelectionChanged(id) {
@@ -30,6 +32,20 @@ class TreeRow extends Widget {
     const x = this.props.onExpand;
     if (x) {
       x();
+    }
+  }
+
+  onMouseOver(e) {
+    const x = this.props.onMouseOver;
+    if (x) {
+      x(e);
+    }
+  }
+
+  onMouseOut(e) {
+    const x = this.props.onMouseOut;
+    if (x) {
+      x(e);
     }
   }
 
@@ -98,7 +114,12 @@ class TreeRow extends Widget {
     const rowStyleClass = this.styles.classNames[styleName];
 
     return (
-      <div key={this.props.index} className={rowStyleClass}>
+      <div
+        key={this.props.index}
+        className={rowStyleClass}
+        onMouseOver={this.onMouseOver}
+        onMouseOut={this.onMouseOut}
+      >
         {this.renderExpandButton()}
         {this.renderRowCells(this.props.header.toArray(), this.props.row)}
       </div>

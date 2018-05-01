@@ -19,10 +19,14 @@ class Tree extends Widget {
 
     this.state = {
       expand: '',
+      hoverId: null,
+      childrenIds: [],
     };
 
     this.onSelectionChanged = this.onSelectionChanged.bind(this);
     this.onExpand = this.onExpand.bind(this);
+    this.onMouseOver = this.onMouseOver.bind(this);
+    this.onMouseOut = this.onMouseOut.bind(this);
     this.selectAll = this.selectAll.bind(this);
     this.deselectAll = this.deselectAll.bind(this);
     this.compactAll = this.compactAll.bind(this);
@@ -45,6 +49,26 @@ class Tree extends Widget {
   set expand(value) {
     this.setState({
       expand: value,
+    });
+  }
+
+  get hoverId() {
+    return this.state.hoverId;
+  }
+
+  set hoverId(value) {
+    this.setState({
+      hoverId: value,
+    });
+  }
+
+  get childrenIds() {
+    return this.state.childrenIds;
+  }
+
+  set childrenIds(value) {
+    this.setState({
+      childrenIds: value,
     });
   }
   //#endregion
@@ -95,6 +119,31 @@ class Tree extends Widget {
 
   onExpand(id) {
     this.swapExpand(id);
+  }
+
+  pushChildrenIds(ids, row) {
+    const subRows = row.get('rows');
+    if (subRows) {
+      for (let i = 0; i < subRows.size; i++) {
+        const subRow = subRows.get(i);
+        const subId = subRow.get('id');
+        ids.push(subId);
+        this.pushChildrenIds(ids, subRow);
+      }
+    }
+  }
+
+  onMouseOver(id, row) {
+    this.hoverId = id;
+
+    const ids = [];
+    this.pushChildrenIds(ids, row);
+    this.childrenIds = ids;
+  }
+
+  onMouseOut() {
+    this.hoverId = null;
+    this.childrenIds = [];
   }
 
   selectAll() {
@@ -184,8 +233,19 @@ class Tree extends Widget {
     }
   }
 
+  getHover(row, id) {
+    if (id === this.hoverId) {
+      return 'main';
+    }
+    if (this.childrenIds.includes(id)) {
+      return 'children';
+    }
+    return 'none';
+  }
+
   renderRow(header, level, row, index) {
     const rows = row.get('rows');
+    const id = row.get('id');
     return (
       <TreeRow
         header={header.state}
@@ -193,12 +253,15 @@ class Tree extends Widget {
         key={index}
         index={index}
         level={level}
-        selected={Bool.toString(this.isSelected(row.get('id', null)))}
-        isExpanded={this.getExpand(row.get('id'))}
+        selected={Bool.toString(this.isSelected(id))}
+        isExpanded={this.getExpand(id)}
+        hover={this.getHover(row, id)}
         hasChildren={rows && rows.size > 0}
         selection={this.props.selection}
         selectionChanged={this.onSelectionChanged}
-        onExpand={() => this.onExpand(row.get('id'))}
+        onMouseOver={() => this.onMouseOver(id, row)}
+        onMouseOut={() => this.onMouseOut()}
+        onExpand={() => this.onExpand(id)}
       />
     );
   }
@@ -209,8 +272,8 @@ class Tree extends Widget {
       const row = rows.get(i);
       result.push(this.renderRow(header, level, row, i));
       const subRows = row.get('rows');
-      const subExpanded = this.getExpand(row.get('id'));
       if (subRows) {
+        const subExpanded = this.getExpand(row.get('id'));
         result.push(this.renderIndent(header, subRows, subExpanded, level + 1));
       }
     }
