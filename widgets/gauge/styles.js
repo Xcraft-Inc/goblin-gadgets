@@ -4,12 +4,22 @@ const Bool = require('gadgets/helpers/bool-helpers');
 /******************************************************************************/
 
 //  Compute the color of gauge.
-//  100 -> red
-//    0 -> orange
-function getColor(value) {
+function getColor(props, value) {
   if (value) {
-    const green = Math.min(Math.max(128 - 128 * value / 100, 0), 128); // 0/100 -> 128/0 (orange/red)
-    return `rgb(255,${Math.floor(green)},0)`;
+    if (props.gradient === 'red-green') {
+      // From red to green.
+      const red = 255 - 255 * (value / 100); // 0/100 -> 255/0
+      const green = 255 * (value / 100); // 0/100 -> 0/255
+      return `rgb(${Math.floor(red)},${Math.floor(green)},0)`;
+    } else if (props.gradient === 'yellow-green') {
+      // From yellow to green.
+      const red = 255 - 255 * (value / 100); // 0/100 -> 255/0
+      return `rgb(${Math.floor(red)},255,0)`;
+    } else {
+      // From orange to red.
+      const green = 128 - 128 * (value / 100); // 0/100 -> 128/0
+      return `rgb(255,${Math.floor(green)},0)`;
+    }
   } else {
     return '#fff';
   }
@@ -21,7 +31,8 @@ export default function styles(theme, props) {
   const boxStyle = {
     position: 'relative',
     display: 'flex',
-    height: '100%',
+    height: props.direction === 'horizontal' ? null : '100%',
+    width: props.direction === 'horizontal' ? '100%' : null,
     alignItems: 'flex-end',
   };
 
@@ -39,9 +50,9 @@ export default function styles(theme, props) {
 
   const contentStyle = {
     position: 'absolute',
-    height: value + '%',
-    width: '100%',
-    backgroundColor: getColor(value),
+    height: props.direction === 'horizontal' ? '100%' : value + '%',
+    width: props.direction === 'horizontal' ? value + '%' : '100%',
+    backgroundColor: getColor(props, value),
     animationName: Bool.isTrue(props.flash) ? keyframes : null,
     animationDuration: '1s',
     animationIterationCount: 'infinite',
@@ -49,11 +60,12 @@ export default function styles(theme, props) {
 
   const glossStyle = {
     position: 'absolute',
-    height: `calc(${value}% - 6px)`,
-    left: '2px',
-    bottom: '1px',
-    width: '1px',
-    margin: '2px 0px',
+    height: props.direction === 'horizontal' ? '1px' : `calc(${value}% - 8px)`,
+    left: props.direction === 'horizontal' ? '1px' : '2px',
+    bottom: props.direction === 'horizontal' ? null : '1px',
+    top: props.direction === 'horizontal' ? '2px' : null,
+    width: props.direction === 'horizontal' ? `calc(${value}% - 8px)` : '1px',
+    margin: props.direction === 'horizontal' ? '0px 2px' : '2px 0px',
     backgroundColor: theme.palette.ticketGaugeContentGlossy,
     animationName: Bool.isTrue(props.flash) ? keyframes : null,
     animationDuration: '1s',
@@ -80,8 +92,14 @@ export default function styles(theme, props) {
       theme.shapes.ticketGaugeWidth,
       0.5
     );
-    contentStyle.width = 'calc(100% - 2px)';
-    contentStyle.height = `calc(${value}% - 2px)`;
+    contentStyle.width =
+      props.direction === 'horizontal'
+        ? `calc(${value}% - 2px)`
+        : 'calc(100% - 2px)';
+    contentStyle.height =
+      props.direction === 'horizontal'
+        ? 'calc(100% - 2px)'
+        : `calc(${value}% - 2px)`;
     contentStyle.boxShadow = theme.palette.ticketGaugeContentShadow;
     if (value === 0) {
       boxStyle.border = '1px solid ' + theme.palette.ticketGaugeEmptyBorder;
