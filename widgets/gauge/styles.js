@@ -6,20 +6,33 @@ const Bool = require('gadgets/helpers/bool-helpers');
 //  Compute the color of gauge.
 function getColor(props, value) {
   if (value) {
-    if (props.gradient === 'red-green') {
-      // From red to green.
-      const red = 255 - 255 * (value / 100); // 0/100 -> 255/0
-      const green = 255 * (value / 100); // 0/100 -> 0/255
-      return `rgb(${Math.floor(red)},${Math.floor(green)},0)`;
+    value /= 100;
+    let red, green, blue;
+    if (props.gradient === 'red-yellow-green') {
+      if (value < 0.5) {
+        // From red to yellow.
+        value = value * 2; // 0..1
+        red = 255;
+        green = 255 * value; // 0/100 -> 0/255
+      } else {
+        // From yellow to green.
+        value = (value - 0.5) * 2; // 0..1
+        red = 255 - 255 * value; // 0/100 -> 255/0
+        green = 255;
+      }
+      blue = 0;
     } else if (props.gradient === 'yellow-green') {
       // From yellow to green.
-      const red = 255 - 255 * (value / 100); // 0/100 -> 255/0
-      return `rgb(${Math.floor(red)},255,0)`;
+      red = 255 - 255 * value; // 0/100 -> 255/0
+      green = 255;
+      blue = 0;
     } else {
       // From orange to red.
-      const green = 128 - 128 * (value / 100); // 0/100 -> 128/0
-      return `rgb(255,${Math.floor(green)},0)`;
+      red = 255;
+      green = 128 - 128 * value; // 0/100 -> 128/0
+      blue = 0;
     }
+    return `rgb(${Math.floor(red)},${Math.floor(green)},${Math.floor(blue)})`;
   } else {
     return '#fff';
   }
