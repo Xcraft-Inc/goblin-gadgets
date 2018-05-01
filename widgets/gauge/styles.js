@@ -6,30 +6,30 @@ const Bool = require('gadgets/helpers/bool-helpers');
 //  Compute the color of gauge.
 function getColor(props, value) {
   if (value) {
-    value /= 100;
+    value /= 100; // 0..1
     let red, green, blue;
     if (props.gradient === 'red-yellow-green') {
       if (value < 0.5) {
         // From red to yellow.
         value = value * 2; // 0..1
         red = 255;
-        green = 255 * value; // 0/100 -> 0/255
+        green = 255 * value; // 0/1 -> 0/255
       } else {
         // From yellow to green.
         value = (value - 0.5) * 2; // 0..1
-        red = 255 - 255 * value; // 0/100 -> 255/0
+        red = 255 - 255 * value; // 0/1 -> 255/0
         green = 255;
       }
       blue = 0;
     } else if (props.gradient === 'yellow-green') {
       // From yellow to green.
-      red = 255 - 255 * value; // 0/100 -> 255/0
+      red = 255 - 255 * value; // 0/1 -> 255/0
       green = 255;
       blue = 0;
     } else {
       // From orange to red.
       red = 255;
-      green = 128 - 128 * value; // 0/100 -> 128/0
+      green = 128 - 128 * value; // 0/1 -> 128/0
       blue = 0;
     }
     return `rgb(${Math.floor(red)},${Math.floor(green)},${Math.floor(blue)})`;
@@ -95,16 +95,13 @@ export default function styles(theme, props) {
   }
 
   if (props.kind === 'rounded') {
-    boxStyle.borderRadius = Unit.multiply(theme.shapes.ticketGaugeWidth, 0.5);
+    boxStyle.borderRadius = '50px';
     boxStyle.backgroundColor = theme.palette.ticketGaugeBackground;
     boxStyle.boxShadow = theme.palette.ticketGaugeBackgroundShadow;
     contentStyle.position = 'absolute';
     contentStyle.bottom = '1px';
     contentStyle.left = '1px';
-    contentStyle.borderRadius = Unit.multiply(
-      theme.shapes.ticketGaugeWidth,
-      0.5
-    );
+    contentStyle.borderRadius = '50px';
     contentStyle.width =
       props.direction === 'horizontal'
         ? `calc(${value}% - 2px)`
