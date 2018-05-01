@@ -12,6 +12,18 @@ function onlyUnique(value, index, self) {
   return self.indexOf(value) === index;
 }
 
+function pushIds(ids, row) {
+  if (row) {
+    for (const item of row.toArray()) {
+      ids.push(item.get('id'));
+      const subRows = item.get('rows');
+      if (subRows) {
+        pushIds(ids, subRows);
+      }
+    }
+  }
+}
+
 /******************************************************************************/
 class Tree extends Widget {
   constructor() {
@@ -89,19 +101,9 @@ class Tree extends Widget {
     return a.indexOf(id) !== -1;
   }
 
-  pushIds(ids, row) {
-    for (const item of row.toArray()) {
-      ids.push(item.get('id'));
-      const subRows = item.get('rows');
-      if (subRows) {
-        this.pushIds(ids, subRows);
-      }
-    }
-  }
-
   getAllExpandIds(data) {
     const ids = [];
-    this.pushIds(ids, data.get('rows'));
+    pushIds(ids, data.get('rows'));
     return ids;
   }
 
@@ -121,23 +123,11 @@ class Tree extends Widget {
     this.swapExpand(id);
   }
 
-  pushChildrenIds(ids, row) {
-    const subRows = row.get('rows');
-    if (subRows) {
-      for (let i = 0; i < subRows.size; i++) {
-        const subRow = subRows.get(i);
-        const subId = subRow.get('id');
-        ids.push(subId);
-        this.pushChildrenIds(ids, subRow);
-      }
-    }
-  }
-
   onMouseOver(id, row) {
     this.hoverId = id;
 
     const ids = [];
-    this.pushChildrenIds(ids, row);
+    pushIds(ids, row.get('rows'));
     this.childrenIds = ids;
   }
 
@@ -196,6 +186,16 @@ class Tree extends Widget {
     return header.linq.where(column => column.get('description')).any();
   }
 
+  getHover(row, id) {
+    if (id === this.hoverId) {
+      return 'main';
+    }
+    if (this.childrenIds.includes(id)) {
+      return 'children';
+    }
+    return 'none';
+  }
+
   /******************************************************************************/
 
   renderHeaderCell(column, isLast, index) {
@@ -231,16 +231,6 @@ class Tree extends Widget {
     } else {
       return null;
     }
-  }
-
-  getHover(row, id) {
-    if (id === this.hoverId) {
-      return 'main';
-    }
-    if (this.childrenIds.includes(id)) {
-      return 'children';
-    }
-    return 'none';
   }
 
   renderRow(header, level, row, index) {
