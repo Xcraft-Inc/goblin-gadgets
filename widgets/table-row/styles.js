@@ -1,24 +1,10 @@
-import {ColorManipulator} from 'electrum-theme';
+const TableHelpers = require('gadgets/helpers/table-helpers');
 const Bool = require('gadgets/helpers/bool-helpers');
 
 /******************************************************************************/
 
 export default function styles(theme, props) {
   const m = theme.shapes.containerMargin;
-
-  let backgroundColor = props.row.get('backgroundColor');
-  // Map symbolic colors from mission-checker (or other).
-  switch (backgroundColor) {
-    case 'warning':
-      backgroundColor = theme.palette.tableWarningBackground;
-      break;
-    case 'error':
-      backgroundColor = theme.palette.tableErrorBackground;
-      break;
-    case 'success':
-      backgroundColor = theme.palette.tableSuccessBackground;
-      break;
-  }
 
   const borderTop =
     props.horizontalSeparator === 'up' || props.horizontalSeparator === 'both'
@@ -45,9 +31,11 @@ export default function styles(theme, props) {
     flexDirection: 'row',
     marginBottom: '-1px',
     padding: paddingTop + ' ' + m + ' ' + paddingBottom + ' ' + m,
-    backgroundColor: backgroundColor,
+    backgroundColor: TableHelpers.getBackgroundColor(theme, props, 'none'),
     cursor: 'default',
-    ':hover': {backgroundColor: theme.palette.tableHoverBackground},
+    ':hover': {
+      backgroundColor: TableHelpers.getBackgroundColor(theme, props, 'main'),
+    },
   };
 
   const rowSelectedStyle = {
@@ -57,13 +45,18 @@ export default function styles(theme, props) {
     flexDirection: 'row',
     marginBottom: '-1px',
     padding: paddingTop + ' ' + m + ' ' + paddingBottom + ' ' + m,
-    backgroundColor: theme.palette.tableSelectedBackground,
+    backgroundColor: TableHelpers.getSelectedBackgroundColor(
+      theme,
+      props,
+      'none'
+    ),
     color: theme.palette.tableSelectedText,
     cursor: 'default',
     ':hover': {
-      backgroundColor: ColorManipulator.emphasize(
-        theme.palette.tableSelectedBackground,
-        0.2
+      backgroundColor: TableHelpers.getSelectedBackgroundColor(
+        theme,
+        props,
+        'main'
       ),
     },
   };
