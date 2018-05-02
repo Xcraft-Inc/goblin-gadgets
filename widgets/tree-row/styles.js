@@ -5,20 +5,6 @@ const TableHelpers = require('gadgets/helpers/table-helpers');
 export default function styles(theme, props) {
   const m = theme.shapes.containerMargin;
 
-  let backgroundColor = props.row.get('backgroundColor');
-  // Map symbolic colors from mission-checker (or other).
-  switch (backgroundColor) {
-    case 'warning':
-      backgroundColor = theme.palette.tableWarningBackground;
-      break;
-    case 'error':
-      backgroundColor = theme.palette.tableErrorBackground;
-      break;
-    case 'success':
-      backgroundColor = theme.palette.tableSuccessBackground;
-      break;
-  }
-
   const rowStyle = {
     display: 'flex',
     flexDirection: 'row',
