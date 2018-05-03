@@ -4,6 +4,7 @@ import Widget from 'laboratory/widget';
 import MouseTrap from 'mousetrap';
 import * as ShortcutHelpers from '../helpers/shortcut-helpers.js';
 const Bool = require('gadgets/helpers/bool-helpers');
+const Tooltip = require('gadgets/helpers/tooltip-helpers');
 
 import Label from 'gadgets/label/widget';
 import Badge from 'gadgets/badge/widget';
@@ -256,7 +257,7 @@ class Button extends Widget {
           onMouseOver={this.onMouseOver}
           onMouseOut={this.onMouseOut}
           className={boxClass}
-          data-tip={tooltip}
+          data-tip={Tooltip.prepare(tooltip)}
         >
           {this.props.children}
         </div>
@@ -275,7 +276,7 @@ class Button extends Widget {
           onMouseOver={this.onMouseOver}
           onMouseOut={this.onMouseOut}
           className={boxClass}
-          data-tip={tooltip}
+          data-tip={Tooltip.prepare(tooltip)}
           href={window.location.hash + '#' + this.props.toAnchor}
         >
           {this.renderLayout()}
@@ -299,7 +300,7 @@ class Button extends Widget {
           onMouseOver={this.onMouseOver}
           onMouseOut={this.onMouseOut}
           className={boxClass}
-          data-tip={tooltip}
+          data-tip={Tooltip.prepare(tooltip)}
         >
           {this.renderLayout()}
           {this.renderTriangle()}
