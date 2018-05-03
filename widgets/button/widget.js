@@ -256,7 +256,7 @@ class Button extends Widget {
           onMouseOver={this.onMouseOver}
           onMouseOut={this.onMouseOut}
           className={boxClass}
-          title={tooltip}
+          data-tip={tooltip}
         >
           {this.props.children}
         </div>
@@ -275,7 +275,7 @@ class Button extends Widget {
           onMouseOver={this.onMouseOver}
           onMouseOut={this.onMouseOut}
           className={boxClass}
-          title={tooltip}
+          data-tip={tooltip}
           href={window.location.hash + '#' + this.props.toAnchor}
         >
           {this.renderLayout()}
@@ -299,7 +299,7 @@ class Button extends Widget {
           onMouseOver={this.onMouseOver}
           onMouseOut={this.onMouseOut}
           className={boxClass}
-          title={tooltip}
+          data-tip={tooltip}
         >
           {this.renderLayout()}
           {this.renderTriangle()}

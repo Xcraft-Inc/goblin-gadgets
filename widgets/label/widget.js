@@ -229,7 +229,7 @@ class Label extends Widget {
           className={boxClass}
           key={this.props.index}
           disabled={this.props.disabled}
-          title={this.props.tooltip}
+          data-tip={this.props.tooltip}
         >
           {this.renderGlyphAndText()}
         </div>
@@ -241,7 +241,7 @@ class Label extends Widget {
           key={this.props.index}
           onClick={this.props.onClick}
           disabled={this.props.disabled}
-          title={this.props.tooltip}
+          data-tip={this.props.tooltip}
         >
           {this.renderGlyphAndText()}
           {this.props.children}

@@ -152,7 +152,7 @@ class Ticket extends Widget {
     return (
       <div
         className={boxClass}
-        title={this.props.tooltip}
+        data-tip={this.props.tooltip}
         onMouseOver={this.onMouseOver}
         onMouseOut={this.onMouseOut}
         onMouseDown={this.onMouseDown}
@@ -189,7 +189,7 @@ class Ticket extends Widget {
     return (
       <div
         className={rectShadowClass}
-        title={this.props.tooltip}
+        data-tip={this.props.tooltip}
         onMouseOver={this.onMouseOver}
         onMouseOut={this.onMouseOut}
         onMouseDown={this.onMouseDown}
