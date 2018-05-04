@@ -2,6 +2,7 @@ import React from 'react';
 import Widget from 'laboratory/widget';
 import {Control, actions} from 'react-redux-form/immutable';
 const Bool = require('gadgets/helpers/bool-helpers');
+const Tooltip = require('gadgets/helpers/tooltip-helpers');
 import _ from 'lodash';
 
 import FlyingBalloon from 'gadgets/flying-balloon/widget';
@@ -256,7 +257,10 @@ class TextField extends Widget {
       }
 
       return (
-        <div className={boxClass} title={this.props.tooltip}>
+        <div
+          className={boxClass}
+          data-tip={Tooltip.prepare(this.props.tooltip)}
+        >
           {glyph ? (
             <Label
               kind="text-field-combo-glyph"
