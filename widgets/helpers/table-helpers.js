@@ -21,7 +21,7 @@ function darken(theme, color, coefficient) {
 //-----------------------------------------------------------------------------
 
 function getBackgroundColor(theme, props, hover) {
-  let backgroundColor = props.row.get('backgroundColor');
+  let backgroundColor = props.row ? props.row.get('backgroundColor') : null;
   switch (backgroundColor) {
     case 'warning':
       backgroundColor = theme.palette.tableWarningBackground;

@@ -107,7 +107,7 @@ export default function styles(theme, props) {
   }
 
   const inputStyle = {
-    [`:focus + .toto`]: {
+    ':focus + .toto': {
       borderRadius: borderRadius,
       boxShadow: theme.shapes.focusedShadow + theme.palette.focused,
       pointerEvents: 'none',

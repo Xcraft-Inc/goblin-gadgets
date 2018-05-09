@@ -95,10 +95,10 @@ class TreeRow extends Widget {
 
   render() {
     var styleName = Bool.isTrue(this.props.selected) ? 'rowSelected' : 'row';
-    const rowStyleClass = this.styles.classNames[styleName];
+    const rowClass = this.styles.classNames[styleName];
 
     return (
-      <div key={this.props.index} className={rowStyleClass}>
+      <div key={this.props.index} className={`titi ${rowClass}`}>
         {this.renderExpandButton()}
         {this.renderRowCells(this.props.header.toArray(), this.props.row)}
       </div>
