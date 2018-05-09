@@ -31,14 +31,10 @@ class Tree extends Widget {
 
     this.state = {
       expand: '',
-      hoverId: null,
-      childrenIds: [],
     };
 
     this.onSelectionChanged = this.onSelectionChanged.bind(this);
     this.onExpand = this.onExpand.bind(this);
-    this.onMouseOver = this.onMouseOver.bind(this);
-    this.onMouseOut = this.onMouseOut.bind(this);
     this.selectAll = this.selectAll.bind(this);
     this.deselectAll = this.deselectAll.bind(this);
     this.compactAll = this.compactAll.bind(this);
@@ -61,26 +57,6 @@ class Tree extends Widget {
   set expand(value) {
     this.setState({
       expand: value,
-    });
-  }
-
-  get hoverId() {
-    return this.state.hoverId;
-  }
-
-  set hoverId(value) {
-    this.setState({
-      hoverId: value,
-    });
-  }
-
-  get childrenIds() {
-    return this.state.childrenIds;
-  }
-
-  set childrenIds(value) {
-    this.setState({
-      childrenIds: value,
     });
   }
   //#endregion
@@ -121,19 +97,6 @@ class Tree extends Widget {
 
   onExpand(id) {
     this.swapExpand(id);
-  }
-
-  onMouseOver(id, row) {
-    this.hoverId = id;
-
-    const ids = [];
-    pushIds(ids, row.get('rows'));
-    this.childrenIds = ids;
-  }
-
-  onMouseOut() {
-    this.hoverId = null;
-    this.childrenIds = [];
   }
 
   selectAll() {
@@ -186,16 +149,6 @@ class Tree extends Widget {
     return header.linq.where(column => column.get('description')).any();
   }
 
-  getHover(row, id) {
-    if (id === this.hoverId) {
-      return 'main';
-    }
-    if (this.childrenIds.includes(id)) {
-      return 'children';
-    }
-    return 'none';
-  }
-
   /******************************************************************************/
 
   renderHeaderCell(column, isLast, index) {
@@ -245,12 +198,9 @@ class Tree extends Widget {
         level={level}
         selected={Bool.toString(this.isSelected(id))}
         isExpanded={this.getExpand(id)}
-        hover={this.getHover(row, id)}
         hasChildren={rows && rows.size > 0}
         selection={this.props.selection}
         selectionChanged={this.onSelectionChanged}
-        onMouseOver={() => this.onMouseOver(id, row)}
-        onMouseOut={() => this.onMouseOut()}
         onExpand={() => this.onExpand(id)}
       />
     );
