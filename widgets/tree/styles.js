@@ -66,9 +66,9 @@ export default function styles(theme, props) {
     transformOrigin: 'top',
     transform: 'scaleY(1)',
     transition: theme.transitions.easeOut(),
-    ':hover': {
-      backgroundColor: 'rgba(0, 0, 0, 0.05)',
-    },
+    //- ':hover': {
+    //-   backgroundColor: 'rgba(0, 0, 0, 0.05)',
+    //- },
   };
 
   // The transition isn't ideal, but I can't do any better!
