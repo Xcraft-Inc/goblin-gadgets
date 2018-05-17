@@ -556,89 +556,116 @@ class Field extends Form {
     throw new Error('Not implemented');
   }
 
-  renderReadonlyEntity() {
+  renderReadonlyHinter() {
+    const targetPath = this.props.targetModel
+      ? this.getFullPathFromModel(this.props.targetModel)
+      : this.fullPath;
+
     const summary = this.props.summary || 'info';
-    const Viewer = props => {
-      if (!props.entityId) {
-        return <Label grow="1" empty="true" spacing={this.props.spacing} />;
-      }
-      const Info = this.mapWidget(
+    let HinterLabel = null;
+
+    if (this.props.targetModel) {
+      HinterLabel = this.mapWidget(Label, 'text', targetPath);
+    } else {
+      HinterLabel = this.mapWidget(
         Label,
-        entity => {
-          let glyph = 'solid/spinner';
+        value => {
+          let text = '';
+          let glyph = null;
           let glyphColor = null;
-          let text = 'Chargement...';
-          if (entity) {
-            glyph = entity.get('meta.summaries.glyph');
-            glyphColor = entity.get('meta.summaries.glyphColor');
-            text = entity.get(`meta.summaries.${summary}`);
-          }
-          return {
-            kind: 'markdown',
-            shape: 'left-smooth',
-            glyph,
-            glyphColor,
-            text,
-            grow: '1',
-            justify: this.props.justify,
-            wrap: this.props.wrap,
-          };
-        },
-        `backend.${props.entityId}`
-      );
-      return <Info />;
-    };
-
-    const Action = props => {
-      return !!props.entityId && !Bool.isTrue(this.props.disableAdd) ? (
-        <Button
-          kind="combo"
-          shape="right-smooth"
-          leftSpacing="overlap"
-          spacing={this.props.spacing}
-          glyph="solid/pencil"
-          tooltip="Editer"
-          onClick={() => {
-            {
-              const entity = this.getModelValue(props.entityId, true);
-              const service = this.context.id.split('@')[0];
-              this.doAs(service, 'open-entity-workitem', {
-                entity: entity,
-                desktopId: this.context.desktopId,
-              });
+          if (value && value !== '') {
+            if (!this.props.onValue) {
+              text = this.getModelValue(
+                `${value}.meta.summaries.${summary}`,
+                true
+              );
+              glyph = this.getModelValue(`${value}.meta.summaries.glyph`, true);
+              glyphColor = this.getModelValue(
+                `${value}.meta.summaries.glyphColor`,
+                true
+              );
             }
-          }}
-        />
-      ) : null;
-    };
+            return {text, glyph, glyphColor};
+          } else {
+            return {};
+          }
+        },
+        this.fullPath
+      );
+    }
 
-    const EntityViewer = this.mapWidget(Viewer, 'entityId', this.fullPath);
-    const EntityAction = this.mapWidget(Action, 'entityId', this.fullPath);
-
-    const labelWidth = this.props.labelWidth || defaultLabelWidth;
-
-    return (
+    const HinterLineValue = props => (
       <Container
         kind="row-field"
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
         verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
+        verticalJustify="top"
+        spacing={this.props.spacing}
       >
-        {labelWidth === '0px' ? null : (
-          <Label
-            kind="label-field"
-            text={this.props.labelText}
-            glyph={this.props.labelGlyph}
-            width={labelWidth}
-            justify="left"
-          />
-        )}
-        <EntityViewer />
-        <EntityAction />
+        <Label
+          kind="label-text-field"
+          wrap="no"
+          text={this.props.labelText}
+          glyph={this.props.labelGlyph}
+          width={this.props.labelWidth || defaultLabelWidth}
+        />
+        <HinterLabel
+          kind="markdown"
+          shape="left-smooth"
+          width={this.props.labelWidth || defaultLabelWidth}
+          hintText={this.props.hintText}
+          tooltip={this.props.tooltip || this.props.hintText}
+          wrap={this.props.wrap}
+          grow="2"
+        />
       </Container>
     );
+
+    const HinterLineEmpty = props => (
+      <Container
+        kind="row-field"
+        grow={this.props.grow}
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify="top"
+        spacing={this.props.spacing}
+      >
+        <Label
+          kind="label-text-field"
+          wrap="no"
+          text={this.props.labelText}
+          glyph={this.props.labelGlyph}
+          width={this.props.labelWidth || defaultLabelWidth}
+        />
+        <HinterLabel
+          kind="markdown"
+          shape="left-smooth"
+          width={this.props.labelWidth || defaultLabelWidth}
+          hintText={this.props.hintText}
+          tooltip={this.props.tooltip || this.props.hintText}
+          wrap={this.props.wrap}
+          grow="2"
+        />
+      </Container>
+    );
+
+    const HinterLine = props =>
+      props.existingValue ? (
+        <HinterLineValue {...props} />
+      ) : (
+        <HinterLineEmpty {...props} />
+      );
+
+    const HinterField = this.mapWidget(
+      HinterLine,
+      'existingValue',
+      this.fullPath
+    );
+
+    return <HinterField />;
   }
 
   renderReadonlyEntities() {
@@ -1949,7 +1976,7 @@ class Field extends Form {
       case 'calendar-recurrence':
         return this.renderCalendarRecurrence();
       case 'hinter':
-        return this.renderReadonlyEntity();
+        return this.renderReadonlyHinter();
       case 'file':
         return this.renderReadonlyFileInput();
       case 'id':
