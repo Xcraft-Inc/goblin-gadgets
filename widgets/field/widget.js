@@ -668,6 +668,91 @@ class Field extends Form {
     return <HinterField />;
   }
 
+  renderReadonlyEntity() {
+    const summary = this.props.summary || 'info';
+    const Viewer = props => {
+      if (!props.entityId) {
+        return <Label grow="1" empty="true" spacing={this.props.spacing} />;
+      }
+      const Info = this.mapWidget(
+        Label,
+        entity => {
+          let glyph = 'solid/spinner';
+          let glyphColor = null;
+          let text = 'Chargement...';
+          if (entity) {
+            glyph = entity.get('meta.summaries.glyph');
+            glyphColor = entity.get('meta.summaries.glyphColor');
+            text = entity.get(`meta.summaries.${summary}`);
+          }
+          return {
+            kind: 'markdown',
+            shape: 'left-smooth',
+            glyph,
+            glyphColor,
+            text,
+            grow: '1',
+            justify: this.props.justify,
+            wrap: this.props.wrap,
+          };
+        },
+        `backend.${props.entityId}`
+      );
+      return <Info />;
+    };
+
+    const Action = props => {
+      return !!props.entityId && !Bool.isTrue(this.props.disableAdd) ? (
+        <Button
+          kind="combo"
+          shape="right-smooth"
+          leftSpacing="overlap"
+          spacing={this.props.spacing}
+          glyph="solid/pencil"
+          tooltip="Editer"
+          onClick={() => {
+            {
+              const entity = this.getModelValue(props.entityId, true);
+              const service = this.context.id.split('@')[0];
+              this.doAs(service, 'open-entity-workitem', {
+                entity: entity,
+                desktopId: this.context.desktopId,
+              });
+            }
+          }}
+        />
+      ) : null;
+    };
+
+    const EntityViewer = this.mapWidget(Viewer, 'entityId', this.fullPath);
+    const EntityAction = this.mapWidget(Action, 'entityId', this.fullPath);
+
+    const labelWidth = this.props.labelWidth || defaultLabelWidth;
+
+    return (
+      <Container
+        kind="row-field"
+        grow={this.props.grow}
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
+      >
+        {labelWidth === '0px' ? null : (
+          <Label
+            kind="label-field"
+            text={this.props.labelText}
+            glyph={this.props.labelGlyph}
+            width={labelWidth}
+            justify="left"
+          />
+        )}
+        <EntityViewer />
+        <EntityAction />
+      </Container>
+    );
+  }
+
   renderReadonlyEntities() {
     if (this.props.plugin) {
       let WiredPlugin = null;
