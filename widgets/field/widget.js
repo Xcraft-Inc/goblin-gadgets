@@ -711,11 +711,7 @@ class Field extends Form {
     );
 
     const HinterLine = props =>
-      props.existingValue ? (
-        <HinterLineValue {...props} />
-      ) : (
-        <HinterLineEmpty {...props} />
-      );
+      props.existingValue ? <HinterLineValue {...props} /> : null;
 
     const HinterField = this.mapWidget(
       HinterLine,
