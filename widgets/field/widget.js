@@ -1420,6 +1420,41 @@ class Field extends Form {
   renderEditCombo() {
     const labelWidth = this.props.labelWidth || defaultLabelWidth;
 
+    let EditCombo = props => (
+      <TextFieldCombo
+        selectAllOnFocus="true"
+        spacing={this.props.spacing}
+        shape={this.props.shape}
+        getGlyph={this.props.getGlyph}
+        hintText={this.props.hintText}
+        tooltip={this.props.tooltip || this.props.hintText}
+        width={this.props.fieldWidth}
+        model={this.props.model}
+        readonly={this.props.comboReadonly}
+        required={this.props.required}
+        list={props.list}
+        menuType="wrap"
+        menuItemWidth={this.props.menuItemWidth}
+        comboTextTransform="none"
+        onSetText={text => {
+          this.setBackendValue(this.fullPath, text);
+        }}
+        grow="1"
+      />
+    );
+
+    if (this.props.listModel) {
+      EditCombo = this.mapWidget(
+        EditCombo,
+        list => {
+          return {
+            list: list.toArray(),
+          };
+        },
+        this.getFullPathFromModel(this.props.listModel)
+      );
+    }
+
     return (
       <Container
         kind="row-field"
@@ -1439,26 +1474,7 @@ class Field extends Form {
             spacing="overlap"
           />
         )}
-        <TextFieldCombo
-          selectAllOnFocus="true"
-          spacing={this.props.spacing}
-          shape={this.props.shape}
-          getGlyph={this.props.getGlyph}
-          hintText={this.props.hintText}
-          tooltip={this.props.tooltip || this.props.hintText}
-          width={this.props.fieldWidth}
-          model={this.props.model}
-          readonly={this.props.comboReadonly}
-          required={this.props.required}
-          list={this.props.list}
-          menuType="wrap"
-          menuItemWidth={this.props.menuItemWidth}
-          comboTextTransform="none"
-          onSetText={text => {
-            this.setBackendValue(this.fullPath, text);
-          }}
-          grow="1"
-        />
+        <EditCombo list={this.props.list} />
       </Container>
     );
   }
