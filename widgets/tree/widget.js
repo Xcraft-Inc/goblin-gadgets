@@ -34,6 +34,7 @@ class Tree extends Widget {
     };
 
     this.onSelectionChanged = this.onSelectionChanged.bind(this);
+    this.onDoubleClick = this.onDoubleClick.bind(this);
     this.onExpand = this.onExpand.bind(this);
     this.selectAll = this.selectAll.bind(this);
     this.deselectAll = this.deselectAll.bind(this);
@@ -93,6 +94,12 @@ class Tree extends Widget {
     if (x) {
       x(id);
     }
+  }
+
+  onDoubleClick(id) {
+    this.doAs('tree-gadget', 'doubleClick', {
+      rowId: id,
+    });
   }
 
   onExpand(id) {
@@ -201,6 +208,7 @@ class Tree extends Widget {
         hasChildren={rows && rows.size > 0}
         selection={this.props.selection}
         selectionChanged={this.onSelectionChanged}
+        onDoubleClick={this.onDoubleClick}
         onExpand={() => this.onExpand(id)}
       />
     );

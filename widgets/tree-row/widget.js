@@ -12,6 +12,7 @@ class TreeRow extends Widget {
     super(...arguments);
 
     this.onSelectionChanged = this.onSelectionChanged.bind(this);
+    this.onDoubleClick = this.onDoubleClick.bind(this);
     this.onExpand = this.onExpand.bind(this);
   }
 
@@ -23,6 +24,13 @@ class TreeRow extends Widget {
       }
     } else {
       this.onExpand();
+    }
+  }
+
+  onDoubleClick(id) {
+    const x = this.props.onDoubleClick;
+    if (x) {
+      x(id);
     }
   }
 
@@ -69,6 +77,7 @@ class TreeRow extends Widget {
         isHeader="false"
         text={text}
         selectionChanged={() => this.onSelectionChanged(rowId)}
+        onDoubleClick={() => this.onDoubleClick(rowId)}
       />
     );
   }
