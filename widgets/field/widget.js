@@ -1632,6 +1632,7 @@ class Field extends Form {
     const Dynamic = this.mapWidget(
       Calendar,
       calendar => {
+        // FIXME: calendar is undefined!
         return {
           visibleDate: calendar.get('visibleDate', null),
           startDate: calendar.get('startDate', null),
