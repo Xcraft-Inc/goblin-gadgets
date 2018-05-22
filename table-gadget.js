@@ -24,6 +24,11 @@ exports.xcraftCommands = function() {
           selectedIds: [],
         };
       },
+      doubleClick: (state, action) => {
+        return {
+          rowId: action.get('rowId'),
+        };
+      },
     },
     actions: {
       setData: (state, action) => {
@@ -60,9 +65,10 @@ exports.xcraftCommands = function() {
           throw new Error(`Unknow mode ${mode}`);
         }
       },
-      doubleClick: (state, action) => {
-        const id = action.get('rowId');
-        // TODO...
+      doubleClick: state => {
+        //NOP
+        // see doubleClick in events ---^
+        return state;
       },
     },
   });
