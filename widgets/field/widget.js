@@ -2029,6 +2029,65 @@ class Field extends Form {
     return <HinterField />;
   }
 
+  renderCompleteHinter() {
+    const Form = this.Form;
+
+    const CompleteHinter = props => {
+      if (props.content === '') {
+        return (
+          <Container
+            kind="row-field"
+            grow={this.props.grow}
+            width={this.props.width}
+            height={this.props.height}
+            verticalSpacing={this.props.verticalSpacing}
+            verticalJustify="top"
+            spacing={this.props.spacing}
+          >
+            <Label
+              kind="label-text-field"
+              wrap="no"
+              text={this.props.labelText}
+              glyph={this.props.labelGlyph}
+              width={this.props.labelWidth || defaultLabelWidth}
+            />
+            <Form
+              {...this.formConfigWithComponent(() => (
+                <TextField
+                  id={this.context.id}
+                  shape={
+                    !this.props.onValue && this.props.enableAdd
+                      ? 'left-smooth'
+                      : 'smooth'
+                  }
+                  getGlyph={this.props.getGlyph}
+                  hintText={this.props.hintText}
+                  tooltip={this.props.tooltip || this.props.hintText}
+                  hinter={this.props.hinter}
+                  comboType={this.props.hinter}
+                  spacing={this.props.spacing}
+                  width={this.props.fieldWidth}
+                  grow="1"
+                  requiredHinter="true"
+                  autocomplete={this.fullPath}
+                />
+              ))}
+            />
+          </Container>
+        );
+      } else {
+        return this.renderEditField();
+      }
+    };
+
+    const HinterField = this.mapWidget(
+      CompleteHinter,
+      'content',
+      this.fullPath
+    );
+    return <HinterField />;
+  }
+
   renderEditFileInput() {
     return (
       <Container
@@ -2119,6 +2178,8 @@ class Field extends Form {
         return this.renderCalendarRecurrence();
       case 'hinter':
         return this.renderReadonlyHinter();
+      case 'complete-hinter':
+        return this.renderReadonlyField();
       case 'file':
         return this.renderReadonlyFileInput();
       case 'id':
@@ -2182,6 +2243,8 @@ class Field extends Form {
         return this.renderCalendarRecurrence();
       case 'hinter':
         return this.renderEditHinter();
+      case 'complete-hinter':
+        return this.renderCompleteHinter();
       case 'file':
         return this.renderEditFileInput();
       case 'directory':
