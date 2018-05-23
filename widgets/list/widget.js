@@ -72,7 +72,11 @@ class List extends Widget {
 
     if (items.length) {
       const range = [items[0].index, items[items.length - 1].index];
-      this.loadIndex(range);
+      // Horrible hack qui corrige le problème de la liste de gauche qui est
+      // vide la plupart du temps lors de l'ouverture du panneau de recherche !
+      if (range.length !== 2 || range[0] !== 0 || range[1] !== 0) {
+        this.loadIndex(range);
+      }
     }
 
     return (
