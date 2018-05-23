@@ -59,11 +59,14 @@ class Field extends Form {
     return this.getFullPathFromModel(this.props.model);
   }
 
-  showIfFilled(Component, path) {
+  showIfFilled(props, Component, path) {
     return this.mapWidget(
       Component,
       value => {
-        if (!value || value === '') {
+        if (
+          props.showStrategy !== 'alwaysVisible' &&
+          (!value || value === '')
+        ) {
           return {show: 'false'};
         } else {
           return {show: 'true'};
@@ -180,6 +183,7 @@ class Field extends Form {
   //#region Readonly
   renderReadonlyField() {
     const Field = this.showIfFilled(
+      this.props,
       props => (
         <Container
           show={props.show}
@@ -236,6 +240,7 @@ class Field extends Form {
 
   renderReadonlyDate() {
     const Field = this.showIfFilled(
+      this.props,
       props => (
         <Container
           kind="row-field"
@@ -269,6 +274,7 @@ class Field extends Form {
 
   renderReadonlyTime() {
     const Field = this.showIfFilled(
+      this.props,
       props => (
         <Container
           kind="row-field"
@@ -302,6 +308,7 @@ class Field extends Form {
 
   renderReadonlyTimeInterval() {
     const Field = this.showIfFilled(
+      this.props,
       props => (
         <Container
           kind="row-field"
@@ -335,6 +342,7 @@ class Field extends Form {
 
   renderReadonlyPrice() {
     const Field = this.showIfFilled(
+      this.props,
       props => (
         <Container
           kind="row-field"
@@ -368,6 +376,7 @@ class Field extends Form {
 
   renderReadonlyWeight() {
     const Field = this.showIfFilled(
+      this.props,
       props => (
         <Container
           kind="row-field"
@@ -402,6 +411,7 @@ class Field extends Form {
 
   renderReadonlyVolume() {
     const Field = this.showIfFilled(
+      this.props,
       props => (
         <Container
           kind="row-field"
@@ -436,6 +446,7 @@ class Field extends Form {
 
   renderReadonlyNumber() {
     const Field = this.showIfFilled(
+      this.props,
       props => (
         <Container
           kind="row-field"
@@ -470,6 +481,7 @@ class Field extends Form {
 
   renderReadonlyPercent() {
     const Field = this.showIfFilled(
+      this.props,
       props => (
         <Container
           kind="row-field"
@@ -504,6 +516,7 @@ class Field extends Form {
 
   renderReadonlyDelay() {
     const Field = this.showIfFilled(
+      this.props,
       props => (
         <Container
           kind="row-field"
@@ -681,37 +694,10 @@ class Field extends Form {
       </Container>
     );
 
-    const HinterLineEmpty = props => (
-      <Container
-        kind="row-field"
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify="top"
-        spacing={this.props.spacing}
-      >
-        <Label
-          kind="label-text-field"
-          wrap="no"
-          text={this.props.labelText}
-          glyph={this.props.labelGlyph}
-          width={this.props.labelWidth || defaultLabelWidth}
-        />
-        <HinterLabel
-          kind="markdown"
-          shape="left-smooth"
-          width={this.props.labelWidth || defaultLabelWidth}
-          hintText={this.props.hintText}
-          tooltip={this.props.tooltip || this.props.hintText}
-          wrap={this.props.wrap}
-          grow="2"
-        />
-      </Container>
-    );
-
     const HinterLine = props =>
-      props.existingValue ? <HinterLineValue {...props} /> : null;
+      props.existingValue || this.props.showStrategy === 'alwaysVisible' ? (
+        <HinterLineValue {...props} />
+      ) : null;
 
     const HinterField = this.mapWidget(
       HinterLine,
