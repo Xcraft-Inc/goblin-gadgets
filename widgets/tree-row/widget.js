@@ -109,7 +109,7 @@ class TreeRow extends Widget {
     return (
       <div
         key={this.props.index}
-        className={`${rowClass} ${this.props.hoverClass}`}
+        className={`${this.props.hoverClass} ${rowClass}`}
       >
         {this.renderExpandButton()}
         {this.renderRowCells(this.props.header.toArray(), this.props.row)}
