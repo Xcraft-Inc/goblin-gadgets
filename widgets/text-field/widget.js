@@ -2,6 +2,7 @@ import React from 'react';
 import Widget from 'laboratory/widget';
 import {Control, actions} from 'react-redux-form/immutable';
 const Bool = require('gadgets/helpers/bool-helpers');
+import ReactTooltip from 'react-tooltip';
 const Tooltip = require('gadgets/helpers/tooltip-helpers');
 import _ from 'lodash';
 
@@ -59,6 +60,7 @@ class TextField extends Widget {
 
   componentDidMount() {
     super.componentDidMount();
+    ReactTooltip.rebuild();
     if (Bool.isTrue(this.props.defaultFocus)) {
       this.selectAll();
     }

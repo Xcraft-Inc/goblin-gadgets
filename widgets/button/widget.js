@@ -4,6 +4,7 @@ import Widget from 'laboratory/widget';
 import MouseTrap from 'mousetrap';
 import * as ShortcutHelpers from '../helpers/shortcut-helpers.js';
 const Bool = require('gadgets/helpers/bool-helpers');
+import ReactTooltip from 'react-tooltip';
 const Tooltip = require('gadgets/helpers/tooltip-helpers');
 
 import Label from 'gadgets/label/widget';
@@ -26,6 +27,11 @@ class Button extends Widget {
     this.onMouseOver = this.onMouseOver.bind(this);
     this.onMouseOut = this.onMouseOut.bind(this);
     this.onKeySpace = this.onKeySpace.bind(this);
+  }
+
+  componentDidMount() {
+    super.componentDidMount();
+    ReactTooltip.rebuild();
   }
 
   //#region get/set

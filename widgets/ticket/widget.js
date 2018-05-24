@@ -5,6 +5,7 @@ import Label from 'gadgets/label/widget';
 import Badge from 'gadgets/badge/widget';
 
 const Bool = require('gadgets/helpers/bool-helpers');
+import ReactTooltip from 'react-tooltip';
 const Tooltip = require('gadgets/helpers/tooltip-helpers');
 import {Unit} from 'electrum-theme';
 
@@ -18,6 +19,11 @@ class Ticket extends Widget {
     this.onMouseOut = this.onMouseOut.bind(this);
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
+  }
+
+  componentDidMount() {
+    super.componentDidMount();
+    ReactTooltip.rebuild();
   }
 
   onMouseOver() {
