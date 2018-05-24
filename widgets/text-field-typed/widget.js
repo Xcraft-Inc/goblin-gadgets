@@ -37,9 +37,15 @@ class TextFieldTyped extends Widget {
       case 'volume':
         return VolumeConverters.getDisplayed(canonicalValue, this.props.unit);
       case 'number':
-        return NumberConverters.getDisplayed(canonicalValue);
+        return NumberConverters.getDisplayed(
+          canonicalValue,
+          this.props.decimals
+        );
       case 'percent':
-        return PercentConverters.getDisplayed(canonicalValue);
+        return PercentConverters.getDisplayed(
+          canonicalValue,
+          this.props.decimals
+        );
       case 'delay':
         return DelayConverters.getDisplayed(canonicalValue, this.props.unit);
       default:

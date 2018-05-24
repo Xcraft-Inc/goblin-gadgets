@@ -1265,6 +1265,7 @@ class Field extends Form {
           type="weight"
           selectAllOnFocus="true"
           unit={this.props.unit}
+          decimals={this.props.decimals}
           spacing={this.props.spacing}
           shape={this.props.shape}
           labelText={this.props.labelText}
@@ -1295,6 +1296,7 @@ class Field extends Form {
           type="volume"
           selectAllOnFocus="true"
           unit={this.props.unit}
+          decimals={this.props.decimals}
           spacing={this.props.spacing}
           shape={this.props.shape}
           labelText={this.props.labelText}
@@ -1325,6 +1327,7 @@ class Field extends Form {
           type="number"
           selectAllOnFocus="true"
           unit={this.props.unit}
+          decimals={this.props.decimals}
           spacing={this.props.spacing}
           shape={this.props.shape}
           labelText={this.props.labelText}
@@ -1355,6 +1358,7 @@ class Field extends Form {
           type="percent"
           selectAllOnFocus="true"
           unit={this.props.unit}
+          decimals={this.props.decimals}
           spacing={this.props.spacing}
           shape={this.props.shape}
           labelText={this.props.labelText}
