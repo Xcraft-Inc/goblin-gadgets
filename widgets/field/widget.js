@@ -2002,7 +2002,7 @@ class Field extends Form {
               const currentValue = this.getBackendValue(
                 `backend.${this.context.id}.${this.props.hinter}`
               );
-              if (currentValue && currentValue.length > 2) {
+              if (currentValue && currentValue.length >= 1) {
                 this.doAs(service, `add-new-${this.props.hinter}`, {
                   value: currentValue,
                 });
