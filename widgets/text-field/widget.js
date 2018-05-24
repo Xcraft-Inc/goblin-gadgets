@@ -4,7 +4,6 @@ import {Control, actions} from 'react-redux-form/immutable';
 const Bool = require('gadgets/helpers/bool-helpers');
 import ReactTooltip from 'react-tooltip';
 const Tooltip = require('gadgets/helpers/tooltip-helpers');
-import _ from 'lodash';
 
 import FlyingBalloon from 'gadgets/flying-balloon/widget';
 import Label from 'gadgets/label/widget';
