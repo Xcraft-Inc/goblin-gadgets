@@ -1,7 +1,6 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 const TableHelpers = require('gadgets/helpers/table-helpers');
-const uuidV4 = require('uuid/v4');
 import {StyleSheet, css} from 'aphrodite/no-important';
 const Bool = require('gadgets/helpers/bool-helpers');
 
@@ -235,8 +234,7 @@ class Tree extends Widget {
       /* New tree / subtree ? */
       if (subRows || !mainHoverClass) {
         /* Generate an Aphrodite class dedicated to the cascading of hovers */
-        const id = uuidV4();
-        hoverClass = `hover-${id}`;
+        hoverClass = `hover-${level}-${i}`;
         const style = StyleSheet.create({
           hover: {
             [`:hover .${hoverClass}`]: {
