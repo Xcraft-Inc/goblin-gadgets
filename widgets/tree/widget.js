@@ -1,7 +1,5 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
-const TableHelpers = require('gadgets/helpers/table-helpers');
-import {StyleSheet, css} from 'aphrodite/no-important';
 const Bool = require('gadgets/helpers/bool-helpers');
 
 import TreeRow from 'gadgets/tree-row/widget';
@@ -195,12 +193,12 @@ class Tree extends Widget {
     }
   }
 
-  renderRow(header, level, row, index, hoverClass = '') {
+  renderRow(header, level, row, index) {
     const rows = row.get('rows');
     const id = row.get('id');
     return (
       <TreeRow
-        hoverClass={hoverClass}
+        hoverClass={this.styles.classNames.hover}
         header={header.state}
         row={row}
         key={index}
@@ -217,77 +215,35 @@ class Tree extends Widget {
     );
   }
 
-  renderIndentRows(header, rows, level, mainHoverClass = '', hoverClass = '') {
+  renderIndentRows(header, rows, level) {
     const result = [];
     for (let i = 0; i < rows.size; i++) {
       const row = rows.get(i);
       const subRows = row.get('rows');
 
-      /* The mainHoverClass provides the hover for itself and for the children
-       * in the tree. Each new subtree will have a new main class.
-       * The hoverClass is the class name which must be used for the cascading
-       * with the children.
-       */
-      let prevMainHoverClass = mainHoverClass;
-      let prevHoverClass = hoverClass;
-
-      /* New tree / subtree ? */
-      if (subRows || !mainHoverClass) {
-        /* Generate an Aphrodite class dedicated to the cascading of hovers */
-        hoverClass = `hover-${level}-${i}`;
-        const style = StyleSheet.create({
-          hover: {
-            [`:hover .${hoverClass}`]: {
-              backgroundColor: TableHelpers.getBackgroundColor(
-                this.context.theme,
-                this.props,
-                'children'
-              ),
-            },
-          },
-        });
-        mainHoverClass = css(style.hover);
-      }
-
-      const rowComp = (
-        <div className={`${mainHoverClass}`}>
-          {this.renderRow(
+      result.push(this.renderRow(header, level, row, i));
+      if (subRows) {
+        result.push(
+          this.renderIndent(
             header,
-            level,
-            row,
-            i,
-            subRows ? prevHoverClass || hoverClass : hoverClass
-          )}
-          {subRows
-            ? this.renderIndent(
-                header,
-                subRows,
-                this.getExpand(row.get('id')),
-                level + 1,
-                mainHoverClass,
-                hoverClass
-              )
-            : null}
-        </div>
-      );
-
-      result.push(rowComp);
-
-      /* Restore the initial classes for the next entry / node */
-      mainHoverClass = prevMainHoverClass;
-      hoverClass = prevHoverClass;
+            subRows,
+            this.getExpand(row.get('id')),
+            level + 1
+          )
+        );
+      }
     }
     return result;
   }
 
-  renderIndent(header, rows, expanded, level, mainHoverClass, hoverClass) {
+  renderIndent(header, rows, expanded, level) {
     const indentClass = expanded
       ? this.styles.classNames.indentExpanded
       : this.styles.classNames.indentHidden;
 
     return (
-      <div className={`${indentClass}`}>
-        {this.renderIndentRows(header, rows, level, mainHoverClass, hoverClass)}
+      <div className={`tree-hover ${indentClass}`}>
+        {this.renderIndentRows(header, rows, level)}
       </div>
     );
   }

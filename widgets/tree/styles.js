@@ -99,6 +99,16 @@ export default function styles(theme, props) {
     flexGrow: '1',
   };
 
+  const hoverStyle = {
+    ':hover + .tree-hover': {
+      backgroundColor: TableHelpers.getBackgroundColor(
+        theme,
+        props,
+        'children'
+      ),
+    },
+  };
+
   return {
     box: boxStyle,
     tree: treeStyle,
@@ -108,6 +118,7 @@ export default function styles(theme, props) {
     indentHidden: indentHiddenStyle,
     verticalSeparator: verticalSeparatorStyle,
     buttons: buttonsStyle,
+    hover: hoverStyle,
   };
 }
 
