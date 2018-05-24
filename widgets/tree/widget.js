@@ -241,7 +241,7 @@ class Tree extends Widget {
               backgroundColor: TableHelpers.getBackgroundColor(
                 this.context.theme,
                 this.props,
-                'main'
+                'children'
               ),
             },
           },
