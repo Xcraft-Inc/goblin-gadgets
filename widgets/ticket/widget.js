@@ -5,6 +5,7 @@ import Label from 'gadgets/label/widget';
 import Badge from 'gadgets/badge/widget';
 
 const Bool = require('gadgets/helpers/bool-helpers');
+const Tooltip = require('gadgets/helpers/tooltip-helpers');
 import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
@@ -152,7 +153,7 @@ class Ticket extends Widget {
     return (
       <div
         className={boxClass}
-        title={this.props.tooltip}
+        data-tip={Tooltip.prepare(this.props.tooltip)}
         onMouseOver={this.onMouseOver}
         onMouseOut={this.onMouseOut}
         onMouseDown={this.onMouseDown}
@@ -189,7 +190,7 @@ class Ticket extends Widget {
     return (
       <div
         className={rectShadowClass}
-        title={this.props.tooltip}
+        data-tip={Tooltip.prepare(this.props.tooltip)}
         onMouseOver={this.onMouseOver}
         onMouseOut={this.onMouseOut}
         onMouseDown={this.onMouseDown}
