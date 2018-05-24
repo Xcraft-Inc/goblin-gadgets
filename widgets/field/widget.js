@@ -32,6 +32,8 @@ const widgetImporter = importer('widget');
 
 const defaultLabelWidth = '120px';
 
+/******************************************************************************/
+
 class Field extends Form {
   constructor() {
     super(...arguments);
@@ -55,6 +57,23 @@ class Field extends Form {
 
   get fullPath() {
     return this.getFullPathFromModel(this.props.model);
+  }
+
+  showIfFilled(props, Component, path) {
+    return this.mapWidget(
+      Component,
+      value => {
+        if (
+          props.showStrategy !== 'alwaysVisible' &&
+          (!value || value === '')
+        ) {
+          return {show: 'false'};
+        } else {
+          return {show: 'true'};
+        }
+      },
+      path
+    );
   }
 
   handleFileChange(ev) {
@@ -163,33 +182,39 @@ class Field extends Form {
 
   //#region Readonly
   renderReadonlyField() {
-    return (
-      <Container
-        kind="row-field"
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
-        <LabelTextField
-          readonly="true"
-          spacing={this.props.spacing}
-          shape={this.props.shape}
-          labelText={this.props.labelText}
-          labelGlyph={this.props.labelGlyph}
-          labelWidth={this.props.labelWidth || defaultLabelWidth}
-          fieldWidth={this.props.fieldWidth}
-          getGlyph={this.props.getGlyph}
-          hintText={this.props.hintText}
-          tooltip={this.props.tooltip || this.props.hintText}
-          rows={this.props.rows}
-          model={this.props.model}
-          required={this.props.required}
-          grow="1"
-        />
-      </Container>
+    const Field = this.showIfFilled(
+      this.props,
+      props => (
+        <Container
+          show={props.show}
+          kind="row-field"
+          grow={this.props.grow}
+          width={this.props.width}
+          height={this.props.height}
+          verticalSpacing={this.props.verticalSpacing}
+          verticalJustify={this.props.verticalJustify}
+        >
+          <LabelTextField
+            readonly="true"
+            spacing={this.props.spacing}
+            shape={this.props.shape}
+            labelText={this.props.labelText}
+            labelGlyph={this.props.labelGlyph}
+            labelWidth={this.props.labelWidth || defaultLabelWidth}
+            fieldWidth={this.props.fieldWidth}
+            getGlyph={this.props.getGlyph}
+            hintText={this.props.hintText}
+            tooltip={this.props.tooltip || this.props.hintText}
+            rows={this.props.rows}
+            model={this.props.model}
+            required={this.props.required}
+            grow="1"
+          />
+        </Container>
+      ),
+      this.fullPath
     );
+    return <Field />;
   }
 
   renderReadonlyGadget() {
@@ -214,269 +239,314 @@ class Field extends Form {
   }
 
   renderReadonlyDate() {
-    return (
-      <Container
-        kind="row-field"
-        grow="0"
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
-        <TextFieldTyped
-          readonly="true"
-          type="date"
-          spacing={this.props.spacing}
-          shape={this.props.shape}
-          labelText={this.props.labelText}
-          labelGlyph={this.props.labelGlyph}
-          labelWidth={this.props.labelWidth || defaultLabelWidth}
-          fieldWidth={this.props.fieldWidth || '120px'}
-          getGlyph={this.props.getGlyph}
-          hintText={this.props.hintText}
-          tooltip={this.props.tooltip || this.props.hintText}
-          model={this.props.model}
-          required={this.props.required}
-        />
-      </Container>
+    const Field = this.showIfFilled(
+      this.props,
+      props => (
+        <Container
+          kind="row-field"
+          grow="0"
+          width={this.props.width}
+          height={this.props.height}
+          verticalSpacing={this.props.verticalSpacing}
+          verticalJustify={this.props.verticalJustify}
+        >
+          <TextFieldTyped
+            readonly="true"
+            type="date"
+            spacing={this.props.spacing}
+            shape={this.props.shape}
+            labelText={this.props.labelText}
+            labelGlyph={this.props.labelGlyph}
+            labelWidth={this.props.labelWidth || defaultLabelWidth}
+            fieldWidth={this.props.fieldWidth || '120px'}
+            getGlyph={this.props.getGlyph}
+            hintText={this.props.hintText}
+            tooltip={this.props.tooltip || this.props.hintText}
+            model={this.props.model}
+            required={this.props.required}
+          />
+        </Container>
+      ),
+      this.fullPath
     );
+    return <Field />;
   }
 
   renderReadonlyTime() {
-    return (
-      <Container
-        kind="row-field"
-        grow="0"
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
-        <TextFieldTyped
-          readonly="true"
-          type="time"
-          spacing={this.props.spacing}
-          shape={this.props.shape}
-          labelText={this.props.labelText}
-          labelGlyph={this.props.labelGlyph}
-          labelWidth={this.props.labelWidth || defaultLabelWidth}
-          fieldWidth={this.props.fieldWidth || '120px'}
-          getGlyph={this.props.getGlyph}
-          hintText={this.props.hintText}
-          tooltip={this.props.tooltip || this.props.hintText}
-          model={this.props.model}
-          required={this.props.required}
-        />
-      </Container>
+    const Field = this.showIfFilled(
+      this.props,
+      props => (
+        <Container
+          kind="row-field"
+          grow="0"
+          width={this.props.width}
+          height={this.props.height}
+          verticalSpacing={this.props.verticalSpacing}
+          verticalJustify={this.props.verticalJustify}
+        >
+          <TextFieldTyped
+            readonly="true"
+            type="time"
+            spacing={this.props.spacing}
+            shape={this.props.shape}
+            labelText={this.props.labelText}
+            labelGlyph={this.props.labelGlyph}
+            labelWidth={this.props.labelWidth || defaultLabelWidth}
+            fieldWidth={this.props.fieldWidth || '120px'}
+            getGlyph={this.props.getGlyph}
+            hintText={this.props.hintText}
+            tooltip={this.props.tooltip || this.props.hintText}
+            model={this.props.model}
+            required={this.props.required}
+          />
+        </Container>
+      ),
+      this.fullPath
     );
+    return <Field />;
   }
 
   renderReadonlyTimeInterval() {
-    return (
-      <Container
-        kind="row-field"
-        grow="0"
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
-        <TextFieldTimeInterval
-          readonly="true"
-          type="time"
-          spacing={this.props.spacing}
-          labelText={this.props.labelText}
-          labelGlyph={this.props.labelGlyph}
-          labelWidth={this.props.labelWidth || defaultLabelWidth}
-          startHintText={this.props.startHintText}
-          endHintText={this.props.endHintText}
-          startTooltip={this.props.startTooltip || this.props.startHintText}
-          endTooltip={this.props.endTooltip || this.props.endHintText}
-          startModel={this.props.startModel}
-          endModel={this.props.endModel}
-          required={this.props.required}
-        />
-      </Container>
+    const Field = this.showIfFilled(
+      this.props,
+      props => (
+        <Container
+          kind="row-field"
+          grow="0"
+          width={this.props.width}
+          height={this.props.height}
+          verticalSpacing={this.props.verticalSpacing}
+          verticalJustify={this.props.verticalJustify}
+        >
+          <TextFieldTimeInterval
+            readonly="true"
+            type="time"
+            spacing={this.props.spacing}
+            labelText={this.props.labelText}
+            labelGlyph={this.props.labelGlyph}
+            labelWidth={this.props.labelWidth || defaultLabelWidth}
+            startHintText={this.props.startHintText}
+            endHintText={this.props.endHintText}
+            startTooltip={this.props.startTooltip || this.props.startHintText}
+            endTooltip={this.props.endTooltip || this.props.endHintText}
+            startModel={this.props.startModel}
+            endModel={this.props.endModel}
+            required={this.props.required}
+          />
+        </Container>
+      ),
+      this.fullPath
     );
+    return <Field />;
   }
 
   renderReadonlyPrice() {
-    return (
-      <Container
-        kind="row-field"
-        grow="0"
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
-        <TextFieldTyped
-          readonly="true"
-          type="price"
-          spacing={this.props.spacing}
-          shape={this.props.shape}
-          labelText={this.props.labelText}
-          labelGlyph={this.props.labelGlyph}
-          labelWidth={this.props.labelWidth || defaultLabelWidth}
-          fieldWidth={this.props.fieldWidth || '120px'}
-          getGlyph={this.props.getGlyph}
-          hintText={this.props.hintText}
-          tooltip={this.props.tooltip || this.props.hintText}
-          model={this.props.model}
-          required={this.props.required}
-        />
-      </Container>
+    const Field = this.showIfFilled(
+      this.props,
+      props => (
+        <Container
+          kind="row-field"
+          grow="0"
+          width={this.props.width}
+          height={this.props.height}
+          verticalSpacing={this.props.verticalSpacing}
+          verticalJustify={this.props.verticalJustify}
+        >
+          <TextFieldTyped
+            readonly="true"
+            type="price"
+            spacing={this.props.spacing}
+            shape={this.props.shape}
+            labelText={this.props.labelText}
+            labelGlyph={this.props.labelGlyph}
+            labelWidth={this.props.labelWidth || defaultLabelWidth}
+            fieldWidth={this.props.fieldWidth || '120px'}
+            getGlyph={this.props.getGlyph}
+            hintText={this.props.hintText}
+            tooltip={this.props.tooltip || this.props.hintText}
+            model={this.props.model}
+            required={this.props.required}
+          />
+        </Container>
+      ),
+      this.fullPath
     );
+    return <Field />;
   }
 
   renderReadonlyWeight() {
-    return (
-      <Container
-        kind="row-field"
-        grow="0"
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
-        <TextFieldTyped
-          readonly="true"
-          type="weight"
-          unit={this.props.unit}
-          spacing={this.props.spacing}
-          shape={this.props.shape}
-          labelText={this.props.labelText}
-          labelGlyph={this.props.labelGlyph}
-          labelWidth={this.props.labelWidth || defaultLabelWidth}
-          fieldWidth={this.props.fieldWidth || '120px'}
-          getGlyph={this.props.getGlyph}
-          hintText={this.props.hintText}
-          tooltip={this.props.tooltip || this.props.hintText}
-          model={this.props.model}
-          required={this.props.required}
-        />
-      </Container>
+    const Field = this.showIfFilled(
+      this.props,
+      props => (
+        <Container
+          kind="row-field"
+          grow="0"
+          width={this.props.width}
+          height={this.props.height}
+          verticalSpacing={this.props.verticalSpacing}
+          verticalJustify={this.props.verticalJustify}
+        >
+          <TextFieldTyped
+            readonly="true"
+            type="weight"
+            unit={this.props.unit}
+            spacing={this.props.spacing}
+            shape={this.props.shape}
+            labelText={this.props.labelText}
+            labelGlyph={this.props.labelGlyph}
+            labelWidth={this.props.labelWidth || defaultLabelWidth}
+            fieldWidth={this.props.fieldWidth || '120px'}
+            getGlyph={this.props.getGlyph}
+            hintText={this.props.hintText}
+            tooltip={this.props.tooltip || this.props.hintText}
+            model={this.props.model}
+            required={this.props.required}
+          />
+        </Container>
+      ),
+      this.fullPath
     );
+    return <Field />;
   }
 
   renderReadonlyVolume() {
-    return (
-      <Container
-        kind="row-field"
-        grow="0"
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
-        <TextFieldTyped
-          readonly="true"
-          type="volume"
-          unit={this.props.unit}
-          spacing={this.props.spacing}
-          shape={this.props.shape}
-          labelText={this.props.labelText}
-          labelGlyph={this.props.labelGlyph}
-          labelWidth={this.props.labelWidth || defaultLabelWidth}
-          fieldWidth={this.props.fieldWidth || '200px'}
-          getGlyph={this.props.getGlyph}
-          hintText={this.props.hintText}
-          tooltip={this.props.tooltip || this.props.hintText}
-          model={this.props.model}
-          required={this.props.required}
-        />
-      </Container>
+    const Field = this.showIfFilled(
+      this.props,
+      props => (
+        <Container
+          kind="row-field"
+          grow="0"
+          width={this.props.width}
+          height={this.props.height}
+          verticalSpacing={this.props.verticalSpacing}
+          verticalJustify={this.props.verticalJustify}
+        >
+          <TextFieldTyped
+            readonly="true"
+            type="volume"
+            unit={this.props.unit}
+            spacing={this.props.spacing}
+            shape={this.props.shape}
+            labelText={this.props.labelText}
+            labelGlyph={this.props.labelGlyph}
+            labelWidth={this.props.labelWidth || defaultLabelWidth}
+            fieldWidth={this.props.fieldWidth || '200px'}
+            getGlyph={this.props.getGlyph}
+            hintText={this.props.hintText}
+            tooltip={this.props.tooltip || this.props.hintText}
+            model={this.props.model}
+            required={this.props.required}
+          />
+        </Container>
+      ),
+      this.fullPath
     );
+    return <Field />;
   }
 
   renderReadonlyNumber() {
-    return (
-      <Container
-        kind="row-field"
-        grow="0"
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
-        <TextFieldTyped
-          readonly="true"
-          type="number"
-          unit={this.props.unit}
-          spacing={this.props.spacing}
-          shape={this.props.shape}
-          labelText={this.props.labelText}
-          labelGlyph={this.props.labelGlyph}
-          labelWidth={this.props.labelWidth || defaultLabelWidth}
-          fieldWidth={this.props.fieldWidth || '120px'}
-          getGlyph={this.props.getGlyph}
-          hintText={this.props.hintText}
-          tooltip={this.props.tooltip || this.props.hintText}
-          model={this.props.model}
-          required={this.props.required}
-        />
-      </Container>
+    const Field = this.showIfFilled(
+      this.props,
+      props => (
+        <Container
+          kind="row-field"
+          grow="0"
+          width={this.props.width}
+          height={this.props.height}
+          verticalSpacing={this.props.verticalSpacing}
+          verticalJustify={this.props.verticalJustify}
+        >
+          <TextFieldTyped
+            readonly="true"
+            type="number"
+            unit={this.props.unit}
+            spacing={this.props.spacing}
+            shape={this.props.shape}
+            labelText={this.props.labelText}
+            labelGlyph={this.props.labelGlyph}
+            labelWidth={this.props.labelWidth || defaultLabelWidth}
+            fieldWidth={this.props.fieldWidth || '120px'}
+            getGlyph={this.props.getGlyph}
+            hintText={this.props.hintText}
+            tooltip={this.props.tooltip || this.props.hintText}
+            model={this.props.model}
+            required={this.props.required}
+          />
+        </Container>
+      ),
+      this.fullPath
     );
+    return <Field />;
   }
 
   renderReadonlyPercent() {
-    return (
-      <Container
-        kind="row-field"
-        grow="0"
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
-        <TextFieldTyped
-          readonly="true"
-          type="percent"
-          unit={this.props.unit}
-          spacing={this.props.spacing}
-          shape={this.props.shape}
-          labelText={this.props.labelText}
-          labelGlyph={this.props.labelGlyph}
-          labelWidth={this.props.labelWidth || defaultLabelWidth}
-          fieldWidth={this.props.fieldWidth || '120px'}
-          getGlyph={this.props.getGlyph}
-          hintText={this.props.hintText}
-          tooltip={this.props.tooltip || this.props.hintText}
-          model={this.props.model}
-          required={this.props.required}
-        />
-      </Container>
+    const Field = this.showIfFilled(
+      this.props,
+      props => (
+        <Container
+          kind="row-field"
+          grow="0"
+          width={this.props.width}
+          height={this.props.height}
+          verticalSpacing={this.props.verticalSpacing}
+          verticalJustify={this.props.verticalJustify}
+        >
+          <TextFieldTyped
+            readonly="true"
+            type="percent"
+            unit={this.props.unit}
+            spacing={this.props.spacing}
+            shape={this.props.shape}
+            labelText={this.props.labelText}
+            labelGlyph={this.props.labelGlyph}
+            labelWidth={this.props.labelWidth || defaultLabelWidth}
+            fieldWidth={this.props.fieldWidth || '120px'}
+            getGlyph={this.props.getGlyph}
+            hintText={this.props.hintText}
+            tooltip={this.props.tooltip || this.props.hintText}
+            model={this.props.model}
+            required={this.props.required}
+          />
+        </Container>
+      ),
+      this.fullPath
     );
+    return <Field />;
   }
 
   renderReadonlyDelay() {
-    return (
-      <Container
-        kind="row-field"
-        grow="0"
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
-        <TextFieldTyped
-          readonly="true"
-          type="delay"
-          unit={this.props.unit}
-          spacing={this.props.spacing}
-          shape={this.props.shape}
-          labelText={this.props.labelText}
-          labelGlyph={this.props.labelGlyph}
-          labelWidth={this.props.labelWidth || defaultLabelWidth}
-          fieldWidth="200px"
-          getGlyph={this.props.getGlyph}
-          hintText={this.props.hintText}
-          tooltip={this.props.tooltip || this.props.hintText}
-          model={this.props.model}
-          required={this.props.required}
-        />
-      </Container>
+    const Field = this.showIfFilled(
+      this.props,
+      props => (
+        <Container
+          kind="row-field"
+          grow="0"
+          width={this.props.width}
+          height={this.props.height}
+          verticalSpacing={this.props.verticalSpacing}
+          verticalJustify={this.props.verticalJustify}
+        >
+          <TextFieldTyped
+            readonly="true"
+            type="delay"
+            unit={this.props.unit}
+            spacing={this.props.spacing}
+            shape={this.props.shape}
+            labelText={this.props.labelText}
+            labelGlyph={this.props.labelGlyph}
+            labelWidth={this.props.labelWidth || defaultLabelWidth}
+            fieldWidth="200px"
+            getGlyph={this.props.getGlyph}
+            hintText={this.props.hintText}
+            tooltip={this.props.tooltip || this.props.hintText}
+            model={this.props.model}
+            required={this.props.required}
+          />
+        </Container>
+      ),
+      this.fullPath
     );
+    return <Field />;
   }
 
   renderReadonlyLabel() {
@@ -513,6 +583,7 @@ class Field extends Form {
       </Container>
     );
   }
+
   renderReadonlyBool() {
     const WiredCheckButton = this.mapWidget(
       CheckButton,
@@ -554,6 +625,87 @@ class Field extends Form {
 
   renderReadonlyFileInput() {
     throw new Error('Not implemented');
+  }
+
+  renderReadonlyHinter() {
+    const targetPath = this.props.targetModel
+      ? this.getFullPathFromModel(this.props.targetModel)
+      : this.fullPath;
+
+    const summary = this.props.summary || 'info';
+    let HinterLabel = null;
+
+    if (this.props.targetModel) {
+      HinterLabel = this.mapWidget(Label, 'text', targetPath);
+    } else {
+      HinterLabel = this.mapWidget(
+        Label,
+        value => {
+          let text = '';
+          let glyph = null;
+          let glyphColor = null;
+          if (value && value !== '') {
+            if (!this.props.onValue) {
+              text = this.getModelValue(
+                `${value}.meta.summaries.${summary}`,
+                true
+              );
+              glyph = this.getModelValue(`${value}.meta.summaries.glyph`, true);
+              glyphColor = this.getModelValue(
+                `${value}.meta.summaries.glyphColor`,
+                true
+              );
+            }
+            return {text, glyph, glyphColor};
+          } else {
+            return {};
+          }
+        },
+        this.fullPath
+      );
+    }
+
+    const HinterLineValue = props => (
+      <Container
+        kind="row-field"
+        grow={this.props.grow}
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify="top"
+        spacing={this.props.spacing}
+      >
+        <Label
+          kind="label-text-field"
+          wrap="no"
+          text={this.props.labelText}
+          glyph={this.props.labelGlyph}
+          width={this.props.labelWidth || defaultLabelWidth}
+        />
+        <HinterLabel
+          kind="markdown"
+          shape="left-smooth"
+          width={this.props.labelWidth || defaultLabelWidth}
+          hintText={this.props.hintText}
+          tooltip={this.props.tooltip || this.props.hintText}
+          wrap={this.props.wrap}
+          grow="2"
+        />
+      </Container>
+    );
+
+    const HinterLine = props =>
+      props.existingValue || this.props.showStrategy === 'alwaysVisible' ? (
+        <HinterLineValue {...props} />
+      ) : null;
+
+    const HinterField = this.mapWidget(
+      HinterLine,
+      'existingValue',
+      this.fullPath
+    );
+
+    return <HinterField />;
   }
 
   renderReadonlyEntity() {
@@ -1254,6 +1406,41 @@ class Field extends Form {
   renderEditCombo() {
     const labelWidth = this.props.labelWidth || defaultLabelWidth;
 
+    let EditCombo = props => (
+      <TextFieldCombo
+        selectAllOnFocus="true"
+        spacing={this.props.spacing}
+        shape={this.props.shape}
+        getGlyph={this.props.getGlyph}
+        hintText={this.props.hintText}
+        tooltip={this.props.tooltip || this.props.hintText}
+        width={this.props.fieldWidth}
+        model={this.props.model}
+        readonly={this.props.comboReadonly}
+        required={this.props.required}
+        list={props.list}
+        menuType="wrap"
+        menuItemWidth={this.props.menuItemWidth}
+        comboTextTransform="none"
+        onSetText={text => {
+          this.setBackendValue(this.fullPath, text);
+        }}
+        grow="1"
+      />
+    );
+
+    if (this.props.listModel) {
+      EditCombo = this.mapWidget(
+        EditCombo,
+        list => {
+          return {
+            list: list.toArray(),
+          };
+        },
+        this.getFullPathFromModel(this.props.listModel)
+      );
+    }
+
     return (
       <Container
         kind="row-field"
@@ -1273,26 +1460,7 @@ class Field extends Form {
             spacing="overlap"
           />
         )}
-        <TextFieldCombo
-          selectAllOnFocus="true"
-          spacing={this.props.spacing}
-          shape={this.props.shape}
-          getGlyph={this.props.getGlyph}
-          hintText={this.props.hintText}
-          tooltip={this.props.tooltip || this.props.hintText}
-          width={this.props.fieldWidth}
-          model={this.props.model}
-          readonly={this.props.comboReadonly}
-          required={this.props.required}
-          list={this.props.list}
-          menuType="wrap"
-          menuItemWidth={this.props.menuItemWidth}
-          comboTextTransform="none"
-          onSetText={text => {
-            this.setBackendValue(this.fullPath, text);
-          }}
-          grow="1"
-        />
+        <EditCombo list={this.props.list} />
       </Container>
     );
   }
@@ -1450,6 +1618,7 @@ class Field extends Form {
     const Dynamic = this.mapWidget(
       Calendar,
       calendar => {
+        // FIXME: calendar is undefined!
         return {
           visibleDate: calendar.get('visibleDate', null),
           startDate: calendar.get('startDate', null),
@@ -1860,6 +2029,65 @@ class Field extends Form {
     return <HinterField />;
   }
 
+  renderCompleteHinter() {
+    const Form = this.Form;
+
+    const CompleteHinter = props => {
+      if (props.content === '') {
+        return (
+          <Container
+            kind="row-field"
+            grow={this.props.grow}
+            width={this.props.width}
+            height={this.props.height}
+            verticalSpacing={this.props.verticalSpacing}
+            verticalJustify="top"
+            spacing={this.props.spacing}
+          >
+            <Label
+              kind="label-text-field"
+              wrap="no"
+              text={this.props.labelText}
+              glyph={this.props.labelGlyph}
+              width={this.props.labelWidth || defaultLabelWidth}
+            />
+            <Form
+              {...this.formConfigWithComponent(() => (
+                <TextField
+                  id={this.context.id}
+                  shape={
+                    !this.props.onValue && this.props.enableAdd
+                      ? 'left-smooth'
+                      : 'smooth'
+                  }
+                  getGlyph={this.props.getGlyph}
+                  hintText={this.props.hintText}
+                  tooltip={this.props.tooltip || this.props.hintText}
+                  hinter={this.props.hinter}
+                  comboType={this.props.hinter}
+                  spacing={this.props.spacing}
+                  width={this.props.fieldWidth}
+                  grow="1"
+                  requiredHinter="true"
+                  autocomplete={this.fullPath}
+                />
+              ))}
+            />
+          </Container>
+        );
+      } else {
+        return this.renderEditField();
+      }
+    };
+
+    const HinterField = this.mapWidget(
+      CompleteHinter,
+      'content',
+      this.fullPath
+    );
+    return <HinterField />;
+  }
+
   renderEditFileInput() {
     return (
       <Container
@@ -1949,7 +2177,9 @@ class Field extends Form {
       case 'calendar-recurrence':
         return this.renderCalendarRecurrence();
       case 'hinter':
-        return this.renderReadonlyEntity();
+        return this.renderReadonlyHinter();
+      case 'complete-hinter':
+        return this.renderReadonlyField();
       case 'file':
         return this.renderReadonlyFileInput();
       case 'id':
@@ -2013,6 +2243,8 @@ class Field extends Form {
         return this.renderCalendarRecurrence();
       case 'hinter':
         return this.renderEditHinter();
+      case 'complete-hinter':
+        return this.renderCompleteHinter();
       case 'file':
         return this.renderEditFileInput();
       case 'directory':

@@ -110,6 +110,11 @@ class TextField extends Widget {
     if (x) {
       x(e);
     }
+
+    if (this.props.autocomplete) {
+      e.persist();
+      this.setBackendValue(this.props.autocomplete, e.target.value);
+    }
   }
 
   /******************************************************************************/
@@ -251,6 +256,11 @@ class TextField extends Widget {
         boxClass = this.styles.classNames.boxRequired;
       }
 
+      if (this.props.autocomplete) {
+        // TODO: style with something else
+        boxClass = this.styles.classNames.boxRequired;
+      }
+
       let glyph = null;
       if (this.props.getGlyph) {
         glyph = this.props.getGlyph(finalProps.value);
@@ -293,12 +303,6 @@ class TextField extends Widget {
       );
     };
 
-    const fullModelPath = this.props.hinter
-      ? `${this.context.model}.${this.props.hinter}`
-      : `${this.context.model}.${this.props.model}`;
-
-    const WiredTextField = this.mapWidget(Field, 'version', fullModelPath);
-
     let key =
       typeof this.props.model === 'string'
         ? this.props.model
@@ -311,7 +315,7 @@ class TextField extends Widget {
     return (
       <Control
         className={`${fieldClass} ${inputClass}`}
-        component={WiredTextField}
+        component={Field}
         changeAction={beforeChange}
         getInfo={this.props.getInfo}
         getWarning={this.props.getWarning}

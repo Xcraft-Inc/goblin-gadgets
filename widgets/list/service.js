@@ -7,13 +7,25 @@ const goblinName = path.basename(module.parent.filename, '.js');
 const Goblin = require('xcraft-core-goblin');
 
 // Define initial logic values
-const logicState = {count: 0, list: {}};
+const logicState = {
+  count: 0,
+  list: {},
+  status: ['published'],
+};
 
 // Define logic handlers according rc.json
 const logicHandlers = {
   create: (state, action) => {
     return state
       .set('id', action.get('id'))
+      .set('count', action.get('count'))
+      .set('pageSize', action.get('pageSize'))
+      .set('from', 0)
+      .set('to', action.get('pageSize'));
+  },
+  'change-status': (state, action) => {
+    return state
+      .set('status', action.get('status'))
       .set('count', action.get('count'))
       .set('pageSize', action.get('pageSize'))
       .set('from', 0)
@@ -70,6 +82,8 @@ Goblin.registerQuest(goblinName, 'create', function*(
   const r = quest.getStorage('rethink');
   let count = 0;
   quest.goblin.setX('table', table);
+  quest.goblin.setX('orderBy', orderBy);
+
   if (!pageSize) {
     pageSize = 100;
     quest.goblin.setX('pageSize', 100);
@@ -77,12 +91,39 @@ Goblin.registerQuest(goblinName, 'create', function*(
     quest.goblin.setX('pageSize', pageSize);
   }
 
-  count = yield r.count({table, status: ['published']});
-  const listIds = yield r.getBaseList({table, orderBy});
+  const status = quest.goblin
+    .getState()
+    .get('status')
+    .toArray();
+
+  count = yield r.count({
+    table,
+    status,
+  });
+  const listIds = yield r.getBaseList({table, orderBy, status});
   quest.goblin.setX('listIds', listIds);
   quest.me.initList();
   quest.do({count, pageSize});
   return quest.goblin.id;
+});
+
+Goblin.registerQuest(goblinName, 'change-status', function*(quest, status) {
+  if (status.length === 0) {
+    return;
+  }
+  const r = quest.getStorage('rethink');
+  const table = quest.goblin.getX('table');
+  const pageSize = quest.goblin.getX('pageSize');
+  const orderBy = quest.goblin.getX('orderBy');
+
+  let count = yield r.count({
+    table,
+    status,
+  });
+  const listIds = yield r.getBaseList({table, orderBy, status});
+  quest.goblin.setX('listIds', listIds);
+  quest.me.initList();
+  quest.do({status, count, pageSize});
 });
 
 Goblin.registerQuest(goblinName, 'handle-changes', function(quest, change) {

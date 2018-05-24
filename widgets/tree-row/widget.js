@@ -12,9 +12,8 @@ class TreeRow extends Widget {
     super(...arguments);
 
     this.onSelectionChanged = this.onSelectionChanged.bind(this);
+    this.onDoubleClick = this.onDoubleClick.bind(this);
     this.onExpand = this.onExpand.bind(this);
-    this.onMouseOver = this.onMouseOver.bind(this);
-    this.onMouseOut = this.onMouseOut.bind(this);
   }
 
   onSelectionChanged(id) {
@@ -28,24 +27,17 @@ class TreeRow extends Widget {
     }
   }
 
+  onDoubleClick(id) {
+    const x = this.props.onDoubleClick;
+    if (x) {
+      x(id);
+    }
+  }
+
   onExpand() {
     const x = this.props.onExpand;
     if (x) {
       x();
-    }
-  }
-
-  onMouseOver(e) {
-    const x = this.props.onMouseOver;
-    if (x) {
-      x(e);
-    }
-  }
-
-  onMouseOut(e) {
-    const x = this.props.onMouseOut;
-    if (x) {
-      x(e);
     }
   }
 
@@ -85,6 +77,7 @@ class TreeRow extends Widget {
         isHeader="false"
         text={text}
         selectionChanged={() => this.onSelectionChanged(rowId)}
+        onDoubleClick={() => this.onDoubleClick(rowId)}
       />
     );
   }
@@ -111,15 +104,10 @@ class TreeRow extends Widget {
 
   render() {
     var styleName = Bool.isTrue(this.props.selected) ? 'rowSelected' : 'row';
-    const rowStyleClass = this.styles.classNames[styleName];
+    const rowClass = this.styles.classNames[styleName];
 
     return (
-      <div
-        key={this.props.index}
-        className={rowStyleClass}
-        onMouseOver={this.onMouseOver}
-        onMouseOut={this.onMouseOut}
-      >
+      <div key={this.props.index} className={`titi ${rowClass}`}>
         {this.renderExpandButton()}
         {this.renderRowCells(this.props.header.toArray(), this.props.row)}
       </div>

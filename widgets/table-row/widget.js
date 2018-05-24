@@ -11,10 +11,18 @@ class TableRow extends Widget {
     super(...arguments);
 
     this.onSelectionChanged = this.onSelectionChanged.bind(this);
+    this.onDoubleClick = this.onDoubleClick.bind(this);
   }
 
   onSelectionChanged(id) {
     const x = this.props.selectionChanged;
+    if (x) {
+      x(id);
+    }
+  }
+
+  onDoubleClick(id) {
+    const x = this.props.onDoubleClick;
     if (x) {
       x(id);
     }
@@ -36,6 +44,7 @@ class TableRow extends Widget {
         isHeader="false"
         text={text}
         selectionChanged={() => this.onSelectionChanged(rowId)}
+        onDoubleClick={() => this.onDoubleClick(rowId)}
       />
     );
   }

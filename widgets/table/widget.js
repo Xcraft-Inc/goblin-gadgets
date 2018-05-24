@@ -18,6 +18,7 @@ class Table extends Widget {
     super(...arguments);
 
     this.onSelectionChanged = this.onSelectionChanged.bind(this);
+    this.onDoubleClick = this.onDoubleClick.bind(this);
     this.selectAll = this.selectAll.bind(this);
     this.deselectAll = this.deselectAll.bind(this);
   }
@@ -33,6 +34,12 @@ class Table extends Widget {
   onSelectionChanged(id) {
     this.doAs('table-gadget', 'select', {
       mode: this.props.selectionMode,
+      rowId: id,
+    });
+  }
+
+  onDoubleClick(id) {
+    this.doAs('table-gadget', 'doubleClick', {
       rowId: id,
     });
   }
@@ -120,6 +127,7 @@ class Table extends Widget {
         verticalSpacing={row.get('verticalSpacing')}
         selected={Bool.toString(this.isSelected(row.get('id', null)))}
         selectionChanged={this.onSelectionChanged}
+        onDoubleClick={this.onDoubleClick}
       />
     );
   }

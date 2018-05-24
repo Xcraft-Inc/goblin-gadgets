@@ -9,8 +9,11 @@ export default function styles(theme, props) {
     display: 'flex',
     flexDirection: 'row',
     padding: '0px ' + m + ' 0px 0px',
-    backgroundColor: TableHelpers.getBackgroundColor(theme, props, props.hover),
+    backgroundColor: TableHelpers.getBackgroundColor(theme, props, 'none'),
     cursor: 'default',
+    ':hover': {
+      backgroundColor: TableHelpers.getBackgroundColor(theme, props, 'main'),
+    },
   };
 
   const rowSelectedStyle = {
@@ -20,10 +23,17 @@ export default function styles(theme, props) {
     backgroundColor: TableHelpers.getSelectedBackgroundColor(
       theme,
       props,
-      props.hover
+      'none'
     ),
     color: theme.palette.tableSelectedText,
     cursor: 'default',
+    ':hover': {
+      backgroundColor: TableHelpers.getSelectedBackgroundColor(
+        theme,
+        props,
+        'main'
+      ),
+    },
   };
 
   const expandButtonStyle = {

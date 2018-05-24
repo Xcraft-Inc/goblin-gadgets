@@ -60,6 +60,10 @@ exports.xcraftCommands = function() {
           throw new Error(`Unknow mode ${mode}`);
         }
       },
+      doubleClick: (state, action) => {
+        const id = action.get('rowId');
+        // TODO...
+      },
     },
   });
 };

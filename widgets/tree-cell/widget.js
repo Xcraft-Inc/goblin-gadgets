@@ -11,10 +11,18 @@ class TreeCell extends Widget {
     super(...arguments);
 
     this.onMouseDown = this.onMouseDown.bind(this);
+    this.onDoubleClick = this.onDoubleClick.bind(this);
   }
 
   onMouseDown() {
     const x = this.props.selectionChanged;
+    if (x) {
+      x(this.props.rowId);
+    }
+  }
+
+  onDoubleClick() {
+    const x = this.props.onDoubleClick;
     if (x) {
       x(this.props.rowId);
     }
@@ -41,6 +49,7 @@ class TreeCell extends Widget {
         key={this.props.index}
         className={styleClass}
         onMouseDown={this.onMouseDown}
+        onDoubleClick={this.props.onDoubleClick}
       >
         <Label
           kind="table-cell"
