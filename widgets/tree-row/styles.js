@@ -9,10 +9,12 @@ export default function styles(theme, props) {
     display: 'flex',
     flexDirection: 'row',
     padding: '0px ' + m + ' 0px 0px',
-    backgroundColor: TableHelpers.getBackgroundColor(theme, props, 'none'),
+    backgroundColor:
+      TableHelpers.getBackgroundColor(theme, props, 'none') + ' !important',
     cursor: 'default',
     ':hover': {
-      backgroundColor: TableHelpers.getBackgroundColor(theme, props, 'main'),
+      backgroundColor:
+        TableHelpers.getBackgroundColor(theme, props, 'main') + ' !important',
     },
   };
 
@@ -20,19 +22,15 @@ export default function styles(theme, props) {
     display: 'flex',
     flexDirection: 'row',
     padding: '0px ' + m + ' 0px 0px',
-    backgroundColor: TableHelpers.getSelectedBackgroundColor(
-      theme,
-      props,
-      'none'
-    ),
+    backgroundColor:
+      TableHelpers.getSelectedBackgroundColor(theme, props, 'none') +
+      ' !important',
     color: theme.palette.tableSelectedText,
     cursor: 'default',
     ':hover': {
-      backgroundColor: TableHelpers.getSelectedBackgroundColor(
-        theme,
-        props,
-        'main'
-      ),
+      backgroundColor:
+        TableHelpers.getSelectedBackgroundColor(theme, props, 'main') +
+        ' !important',
     },
   };
 
