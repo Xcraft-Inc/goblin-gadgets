@@ -734,7 +734,12 @@ export default function styles(theme, props) {
     cursor: cursor,
   };
 
-  if (!disabled && !Bool.isTrue(props.busy) && boxOpacity !== 0) {
+  if (
+    !disabled &&
+    !Bool.isTrue(props.busy) &&
+    boxOpacity !== 0 &&
+    props.hover !== 'none'
+  ) {
     boxStyle[':hover'] = {
       borderColor: borderHoverColor,
       borderStyle: borderHoverStyle,
