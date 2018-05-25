@@ -31,7 +31,7 @@ class CheckButton extends Widget {
       glyph = checked ? 'regular/dot-circle' : 'regular/circle'; // o
     } else if (this.props.kind === 'active') {
       border = 'none';
-      glyph = null;
+      glyph = this.props.glyph;
       active = Bool.toString(checked);
     } else {
       kind = 'check-button';

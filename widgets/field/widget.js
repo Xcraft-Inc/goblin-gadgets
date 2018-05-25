@@ -616,7 +616,9 @@ class Field extends Form {
         )}
         <WiredCheckButton
           kind={this.props.subkind}
+          glyph={this.props.glyph}
           text={this.props.labelText}
+          tooltip={this.props.tooltip || this.props.hintText}
           readonly="true"
         />
       </Container>
@@ -1604,6 +1606,7 @@ class Field extends Form {
         )}
         <WiredCheckButton
           kind={this.props.subkind}
+          glyph={this.props.glyph}
           text={this.props.labelText}
           tooltip={this.props.tooltip || this.props.hintText}
           onClick={() => {
