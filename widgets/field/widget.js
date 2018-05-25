@@ -841,7 +841,7 @@ class Field extends Form {
       return (
         <Container
           kind={this.props.containerKind || 'row-field'}
-          subkind="light-box"
+          subkind={this.props.containerSubkind || 'light-box'}
           grow={this.props.grow}
           width={this.props.width}
           height={this.props.height}
@@ -1788,7 +1788,7 @@ class Field extends Form {
       return (
         <Container
           kind={this.props.containerKind || 'row-field'}
-          subkind="light-box"
+          subkind={this.props.containerSubkind || 'light-box'}
           grow={this.props.grow}
           width={this.props.width}
           height={this.props.height}
