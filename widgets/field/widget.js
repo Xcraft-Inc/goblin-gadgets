@@ -31,6 +31,27 @@ const widgetImporter = importer('widget');
 /******************************************************************************/
 
 const defaultLabelWidth = '120px';
+const pluginBlackListedProps = [
+  'kind',
+  'containerKind',
+  'plugin',
+  'mode',
+  'grow',
+  'width',
+  'height',
+  'verticalSpacing',
+  'verticalJustify',
+  'dragServiceId',
+  'embeddedLevel',
+];
+function getPluginProps(propsToFilter) {
+  return Object.entries(propsToFilter).reduce((props, [key, value]) => {
+    if (!pluginBlackListedProps.includes(key)) {
+      props[key] = value;
+    }
+    return props;
+  }, {});
+}
 
 /******************************************************************************/
 
@@ -794,6 +815,7 @@ class Field extends Form {
   }
 
   renderReadonlyEntities() {
+    const pluginProps = getPluginProps(this.props);
     if (this.props.plugin) {
       let WiredPlugin = null;
 
@@ -825,24 +847,14 @@ class Field extends Form {
           verticalJustify={this.props.verticalJustify}
         >
           <FinalPlugin
+            {...pluginProps}
             readonly="true"
-            ownerType={this.props.ownerType}
-            extended={this.props.extended}
-            hasMateDetails={this.props.hasMateDetails}
-            hilited={this.props.hilited}
-            showExecuted={this.props.showExecuted}
-            identicalType={this.props.identicalType}
-            noDrag={this.props.noDrag}
-            embedded={this.props.embedded}
             embeddedLevel={
               this.props.embeddedLevel ? this.props.embeddedLevel + 1 : 1
             }
-            pluginTitle={this.props.pluginTitle}
             dragServiceId={
               this.props.dragServiceId || this.context.dragServiceId
             }
-            origin={this.props.origin}
-            horizontalSeparator={this.props.horizontalSeparator}
           />
         </Container>
       );
@@ -1746,6 +1758,7 @@ class Field extends Form {
   }
 
   renderEditEntities() {
+    const pluginProps = getPluginProps(this.props);
     if (this.props.plugin) {
       let WiredPlugin = null;
       if (this.props.pluginType) {
@@ -1780,30 +1793,14 @@ class Field extends Form {
           verticalJustify="top"
         >
           <FinalPlugin
+            {...pluginProps}
             id={this.context.id}
-            pluginType={this.props.pluginType}
             dragServiceId={
               this.props.dragServiceId || this.context.dragServiceId
             }
-            ownerType={this.props.ownerType}
-            extended={this.props.extended}
-            hasMateDetails={this.props.hasMateDetails}
-            hilited={this.props.hilited}
-            showExecuted={this.props.showExecuted}
-            identicalType={this.props.identicalType}
-            noDrag={this.props.noDrag}
-            embedded={this.props.embedded}
             embeddedLevel={
               this.props.embeddedLevel ? this.props.embeddedLevel + 1 : 1
             }
-            pluginTitle={this.props.pluginTitle}
-            origin={this.props.origin}
-            dragType={this.props.dragType}
-            disableAdd={this.props.disableAdd}
-            disableDelete={this.props.disableDelete}
-            searchHinter={this.props.searchHinter}
-            actionMenu={this.props.actionMenu}
-            horizontalSeparator={this.props.horizontalSeparator}
           />
         </Container>
       );
