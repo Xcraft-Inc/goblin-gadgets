@@ -5,6 +5,7 @@ import {
   time as TimeConverters,
   price as PriceConverters,
   weight as WeightConverters,
+  length as LengthConverters,
   volume as VolumeConverters,
   number as NumberConverters,
   percent as PercentConverters,
@@ -34,6 +35,8 @@ class TextFieldTyped extends Widget {
         return PriceConverters.getDisplayed(canonicalValue);
       case 'weight':
         return WeightConverters.getDisplayed(canonicalValue, this.props.unit);
+      case 'length':
+        return LengthConverters.getDisplayed(canonicalValue, this.props.unit);
       case 'volume':
         return VolumeConverters.getDisplayed(canonicalValue, this.props.unit);
       case 'number':
@@ -79,6 +82,9 @@ class TextFieldTyped extends Widget {
         break;
       case 'weight':
         parsed = WeightConverters.parseEdited(displayedValue, this.props.unit);
+        break;
+      case 'length':
+        parsed = LengthConverters.parseEdited(displayedValue, this.props.unit);
         break;
       case 'volume':
         parsed = VolumeConverters.parseEdited(displayedValue, this.props.unit);
@@ -167,6 +173,7 @@ class TextFieldTyped extends Widget {
         fieldJustify={
           this.props.type === 'price' ||
           this.props.type === 'weight' ||
+          this.props.type === 'length' ||
           this.props.type === 'number' ||
           this.props.type === 'percent'
             ? 'right'

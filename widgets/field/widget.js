@@ -430,6 +430,41 @@ class Field extends Form {
     return <Field />;
   }
 
+  renderReadonlyLength() {
+    const Field = this.showIfFilled(
+      this.props,
+      props => (
+        <Container
+          kind="row-field"
+          grow="0"
+          width={this.props.width}
+          height={this.props.height}
+          verticalSpacing={this.props.verticalSpacing}
+          verticalJustify={this.props.verticalJustify}
+        >
+          <TextFieldTyped
+            readonly="true"
+            type="length"
+            unit={this.props.unit}
+            spacing={this.props.spacing}
+            shape={this.props.shape}
+            labelText={this.props.labelText}
+            labelGlyph={this.props.labelGlyph}
+            labelWidth={this.props.labelWidth || defaultLabelWidth}
+            fieldWidth={this.props.fieldWidth || '120px'}
+            getGlyph={this.props.getGlyph}
+            hintText={this.props.hintText}
+            tooltip={this.props.tooltip || this.props.hintText}
+            model={this.props.model}
+            required={this.props.required}
+          />
+        </Container>
+      ),
+      this.fullPath
+    );
+    return <Field />;
+  }
+
   renderReadonlyVolume() {
     const Field = this.showIfFilled(
       this.props,
@@ -1277,6 +1312,37 @@ class Field extends Form {
       >
         <TextFieldTyped
           type="weight"
+          selectAllOnFocus="true"
+          unit={this.props.unit}
+          decimals={this.props.decimals}
+          spacing={this.props.spacing}
+          shape={this.props.shape}
+          labelText={this.props.labelText}
+          labelGlyph={this.props.labelGlyph}
+          labelWidth={this.props.labelWidth || defaultLabelWidth}
+          fieldWidth={this.props.fieldWidth || '120px'}
+          getGlyph={this.props.getGlyph}
+          hintText={this.props.hintText}
+          tooltip={this.props.tooltip || this.props.hintText}
+          required={this.props.required}
+          model={this.props.model}
+        />
+      </Container>
+    );
+  }
+
+  renderEditLength() {
+    return (
+      <Container
+        kind="row-field"
+        grow="0"
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
+      >
+        <TextFieldTyped
+          type="length"
           selectAllOnFocus="true"
           unit={this.props.unit}
           decimals={this.props.decimals}
@@ -2158,6 +2224,8 @@ class Field extends Form {
         return this.renderReadonlyPrice();
       case 'weight':
         return this.renderReadonlyWeight();
+      case 'length':
+        return this.renderReadonlyLength();
       case 'volume':
         return this.renderReadonlyVolume();
       case 'number':
@@ -2223,6 +2291,8 @@ class Field extends Form {
         return this.renderEditPrice();
       case 'weight':
         return this.renderEditWeight();
+      case 'length':
+        return this.renderEditLength();
       case 'volume':
         return this.renderEditVolume();
       case 'number':
