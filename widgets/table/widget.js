@@ -12,6 +12,7 @@ function onlyUnique(value, index, self) {
   return self.indexOf(value) === index;
 }
 
+// Recursively traverses rows to generate a flat list containing levels.
 function flatten(list, rows, level) {
   for (let i = 0; i < rows.size; i++) {
     const row = rows.get(i);
@@ -36,6 +37,10 @@ function flatten(list, rows, level) {
   }
 }
 
+// Distributes the adjacent line separators.
+// An upper horizontal separator must be mentioned as a lower separator in the previous line.
+// A lower horizontal separator must be mentioned as upper separator in the following line.
+// When a row is drawn, it is always only its top separator that is drawn.
 function diffuseSeparators(list) {
   for (let i = 0; i < list.length; i++) {
     const prev = i > 0 ? list[i - 1] : null;
@@ -50,7 +55,7 @@ function diffuseSeparators(list) {
       next.topSeparator = true;
     }
 
-    current.isLast = i === list.length - 1;
+    current.isLast = i === list.length - 1; // Is this the last line of the table?
     current.index = i;
   }
 }
