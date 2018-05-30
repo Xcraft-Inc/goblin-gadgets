@@ -11,7 +11,6 @@ export default function styles(theme, props) {
   let flexShrink = null;
   let flexBasis = null;
   let overflow = null;
-  let verticalPadding = theme.shapes.tablePadding;
   let paddingLeft = '0px';
   let paddingRight = '0px';
   let marginLeft = '0px';
@@ -45,19 +44,17 @@ export default function styles(theme, props) {
     backgroundColor = props.text.get('backgroundColor');
   }
 
-  if (props.verticalSpacing === 'compact') {
-    verticalPadding = '0px';
-  }
-
   if (props.level && props.level > 0) {
-    // level = 0  ->  fontSize = 90%
-    // level = 1  ->  fontSize = 90% * 0.8 = 72%
-    // level = 2  ->  fontSize = 90% * 0.7 = 63%
-    // level = 3  ->  fontSize = 90% * 0.6 = 54%
-    fontSize = Unit.multiply(
-      theme.shapes.tableTextSize,
-      0.9 - props.level * 0.1
-    );
+    if (props.fontSizeStrategy === 'decrease') {
+      // level = 0  ->  fontSize = 90%
+      // level = 1  ->  fontSize = 90% * 0.8 = 72%
+      // level = 2  ->  fontSize = 90% * 0.7 = 63%
+      // level = 3  ->  fontSize = 90% * 0.6 = 54%
+      fontSize = Unit.multiply(
+        theme.shapes.tableTextSize,
+        0.9 - props.level * 0.1
+      );
+    }
 
     if (props.indent === 'space') {
       if (props.textAlign === 'right') {
@@ -90,14 +87,7 @@ export default function styles(theme, props) {
     textAlign: props.textAlign,
     fontWeight: fontWeight,
     textTransform: textTransform,
-    padding:
-      verticalPadding +
-      ' ' +
-      paddingRight +
-      ' ' +
-      verticalPadding +
-      ' ' +
-      paddingLeft,
+    padding: '0px ' + paddingRight + ' 0px ' + paddingLeft,
     fontSize: fontSize,
     backgroundColor: backgroundColor,
     cursor: 'default',

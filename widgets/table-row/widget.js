@@ -39,7 +39,7 @@ class TableRow extends Widget {
         level={this.props.level}
         textAlign={textAlign}
         indent={indent}
-        verticalSpacing={this.props.verticalSpacing}
+        fontSizeStrategy={this.props.fontSizeStrategy}
         isLast={Bool.toString(isLast)}
         isHeader="false"
         text={text}

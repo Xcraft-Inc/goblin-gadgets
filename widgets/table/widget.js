@@ -12,6 +12,49 @@ function onlyUnique(value, index, self) {
   return self.indexOf(value) === index;
 }
 
+function flatten(list, rows, level) {
+  for (let i = 0; i < rows.size; i++) {
+    const row = rows.get(i);
+    const horizontalSeparator = row.get('horizontalSeparator');
+    list.push({
+      row: row,
+      level: level,
+      topSeparator:
+        horizontalSeparator === 'up' ||
+        horizontalSeparator === 'top' ||
+        horizontalSeparator === 'both',
+      bottomSeparator:
+        horizontalSeparator === 'down' ||
+        horizontalSeparator === 'bottom' ||
+        horizontalSeparator === 'both',
+    });
+
+    const subRows = row.get('rows');
+    if (subRows) {
+      flatten(list, subRows, level + 1);
+    }
+  }
+}
+
+function diffuseSeparators(list) {
+  for (let i = 0; i < list.length; i++) {
+    const prev = i > 0 ? list[i - 1] : null;
+    const current = list[i];
+    const next = i < list.length - 1 ? list[i + 1] : null;
+
+    if (prev && current.topSeparator) {
+      prev.bottomSeparator = true;
+    }
+
+    if (next && current.bottomSeparator) {
+      next.topSeparator = true;
+    }
+
+    current.isLast = i === list.length - 1;
+    current.index = i;
+  }
+}
+
 /******************************************************************************/
 class Table extends Widget {
   constructor() {
@@ -113,57 +156,35 @@ class Table extends Widget {
     }
   }
 
-  renderRow(header, level, row, isLast, index) {
+  renderRow(header, item) {
     return (
       <TableRow
         header={header.state}
-        row={row}
-        key={index}
-        index={index}
-        isLast={isLast}
-        level={level}
-        horizontalSeparator={row.get('horizontalSeparator')}
-        verticalSpacingAfterLast={row.get('verticalSpacingAfterLast')}
-        verticalSpacing={row.get('verticalSpacing')}
-        selected={Bool.toString(this.isSelected(row.get('id', null)))}
+        row={item.row}
+        key={item.index}
+        index={item.index}
+        level={item.level}
+        topSeparator={item.topSeparator}
+        bottomSeparator={item.bottomSeparator}
+        isLast={item.isLast}
+        fontSizeStrategy={this.props.fontSizeStrategy}
+        selected={Bool.toString(this.isSelected(item.row.get('id', null)))}
         selectionChanged={this.onSelectionChanged}
         onDoubleClick={this.onDoubleClick}
       />
     );
   }
 
-  pushRow(result, level, header, row, isLast, index) {
-    result.push(this.renderRow(header, level, row, isLast, index++));
-
-    const subRows = row.get('rows');
-    if (subRows) {
-      for (let i = 0; i < subRows.size; i++) {
-        const subRow = subRows.get(i);
-        const subIsLast = i === subRows.size - 1;
-        index = this.pushRow(
-          result,
-          level + 1,
-          header,
-          subRow,
-          subIsLast,
-          index
-        );
-      }
-    }
-
-    return index;
-  }
-
   renderRows(data) {
-    let index = 0;
+    const list = [];
     const rows = data.get('rows');
-    const header = data.get('header');
+    flatten(list, rows, 0);
+    diffuseSeparators(list);
 
     const result = [];
-    for (let i = 0; i < rows.size; i++) {
-      const row = rows.get(i);
-      const isLast = i === rows.size - 1;
-      index = this.pushRow(result, 0, header, row, isLast, index);
+    const header = data.get('header');
+    for (const item of list) {
+      result.push(this.renderRow(header, item));
     }
     return result;
   }

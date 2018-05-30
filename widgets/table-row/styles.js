@@ -1,3 +1,4 @@
+import {Unit} from 'electrum-theme';
 const TableHelpers = require('gadgets/helpers/table-helpers');
 const Bool = require('gadgets/helpers/bool-helpers');
 
@@ -5,31 +6,20 @@ const Bool = require('gadgets/helpers/bool-helpers');
 
 export default function styles(theme, props) {
   const m = theme.shapes.containerMargin;
+  const v1 = Unit.multiply(theme.shapes.tablePadding, 0.75);
+  const v2 = Unit.multiply(theme.shapes.tablePadding, 0.25);
 
-  const borderTop =
-    props.horizontalSeparator === 'up' || props.horizontalSeparator === 'both'
-      ? '1px solid ' + theme.palette.tableBorder
-      : null;
+  const borderTop = props.topSeparator
+    ? '1px solid ' + theme.palette.tableBorder
+    : null;
 
-  const borderBottom =
-    props.horizontalSeparator === 'none' || props.horizontalSeparator === 'up'
-      ? null
-      : '1px solid ' + theme.palette.tableBorder;
-
-  const paddingTop = '0px';
-  const paddingBottom =
-    props.level > 0 &&
-    Bool.isTrue(props.verticalSpacingAfterLast) &&
-    Bool.isTrue(props.isLast)
-      ? theme.shapes.tablePadding
-      : '0px';
+  const paddingTop = props.topSeparator ? v1 : v2;
+  const paddingBottom = props.bottomSeparator || props.isLast ? v1 : v2;
 
   const rowStyle = {
     borderTop: borderTop,
-    borderBottom: borderBottom,
     display: 'flex',
     flexDirection: 'row',
-    marginBottom: '-1px',
     padding: paddingTop + ' ' + m + ' ' + paddingBottom + ' ' + m,
     backgroundColor: TableHelpers.getBackgroundColor(theme, props, 'none'),
     cursor: 'default',
@@ -40,10 +30,8 @@ export default function styles(theme, props) {
 
   const rowSelectedStyle = {
     borderTop: borderTop,
-    borderBottom: borderBottom,
     display: 'flex',
     flexDirection: 'row',
-    marginBottom: '-1px',
     padding: paddingTop + ' ' + m + ' ' + paddingBottom + ' ' + m,
     backgroundColor: TableHelpers.getSelectedBackgroundColor(
       theme,

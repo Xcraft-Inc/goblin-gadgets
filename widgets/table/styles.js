@@ -5,6 +5,7 @@ const Bool = require('gadgets/helpers/bool-helpers');
 
 export default function styles(theme, props) {
   const m = theme.shapes.containerMargin;
+  const v1 = Unit.multiply(theme.shapes.tablePadding, 0.5);
 
   const border = Bool.isTrue(props.frame)
     ? '1px solid ' + theme.palette.tableBorder
@@ -40,7 +41,7 @@ export default function styles(theme, props) {
       : '1px solid ' + theme.palette.tableBorder,
     display: 'flex',
     flexDirection: 'row',
-    padding: '0px ' + paddingRight + ' 0px ' + m,
+    padding: v1 + ' ' + paddingRight + ' ' + v1 + ' ' + m,
     cursor: 'default',
     backgroundColor: Bool.isTrue(props.hasButtons)
       ? theme.palette.tableActionBackground
