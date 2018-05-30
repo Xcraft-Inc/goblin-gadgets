@@ -49,16 +49,9 @@ export default function styles(theme, props) {
     },
   };
 
-  const cellStyle = {
-    padding: theme.shapes.tablePadding + ' 0px',
-    fontSize: theme.shapes.tableTextSize,
-    cursor: 'default',
-  };
-
   return {
     row: rowStyle,
     rowSelected: rowSelectedStyle,
-    cell: cellStyle,
   };
 }
 
