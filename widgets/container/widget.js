@@ -200,7 +200,13 @@ class Container extends Widget {
       kind === 'flying-dialog'
     ) {
       return (
-        <div key={index} disabled={disabled} className={boxClass} id={anchor}>
+        <div
+          key={index}
+          disabled={disabled}
+          className={boxClass}
+          id={anchor}
+          onClick={this.props.onClick}
+        >
           <div className={triangleClass} />
           {this.props.children}
         </div>
@@ -213,6 +219,7 @@ class Container extends Widget {
           className={boxClass}
           id={anchor}
           data-navigation-name={navName || 'none'}
+          onClick={this.props.onClick}
         >
           {this.props.children}
           {this.renderBusy()}
