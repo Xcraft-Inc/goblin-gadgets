@@ -13,6 +13,7 @@ class DialogModal extends Widget {
     super(...arguments);
 
     this.onMouseDown = this.onMouseDown.bind(this);
+    this.onContentClick = this.onContentClick.bind(this);
   }
 
   componentWillMount() {
@@ -38,6 +39,12 @@ class DialogModal extends Widget {
     if (!RectHelpers.isInside(rect, e.clientX, e.clientY)) {
       // If the mouse is outside the menu combo, close it.
       this.onCloseCombo();
+    }
+  }
+
+  onContentClick(e) {
+    if (this.props.onBackgroundClick) {
+      e.stopPropagation();
     }
   }
 
@@ -85,8 +92,14 @@ class DialogModal extends Widget {
           className={fullScreenClass}
           onMouseDown={this.onMouseDown}
           onTouchStart={this.onMouseDown}
+          onClick={this.props.onBackgroundClick}
         >
-          <Container kind="floating" cursor="default" width={this.props.width}>
+          <Container
+            kind="floating"
+            cursor="default"
+            width={this.props.width}
+            onClick={this.onContentClick}
+          >
             {this.props.children}
           </Container>
         </div>
