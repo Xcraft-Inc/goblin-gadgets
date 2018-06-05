@@ -217,6 +217,7 @@ class Field extends Form {
         >
           <LabelTextField
             readonly="true"
+            type={this.props.type}
             spacing={this.props.spacing}
             shape={this.props.shape}
             labelText={this.props.labelText}
@@ -1011,6 +1012,7 @@ class Field extends Form {
       >
         <LabelTextField
           selectAllOnFocus="true"
+          type={this.props.type}
           spacing={this.props.spacing}
           shape={this.props.shape}
           labelText={this.props.labelText}
