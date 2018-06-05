@@ -1907,6 +1907,61 @@ class Field extends Form {
     }
   }
 
+  renderComboIds() {
+    const Option = props => {
+      if (!props.id) {
+        return null;
+      }
+      return <option value={props.id}>{props.text}</option>;
+    };
+    let targetPath = null;
+    if (this.props.targetModel) {
+      targetPath = this.getFullPathFromModel(this.props.targetModel);
+    }
+    const modelTextKey = this.props.modelTextKey || 'meta.summaries.info';
+    const ComboIds = props => {
+      const disabled = this.readonly ? {disabled: true} : null;
+      const currentValue =
+        'currentValue' in props ? props.currentValue : this.props.defaultValue;
+      return (
+        <select
+          value={currentValue}
+          onChange={event => {
+            if (this.props.onChange) {
+              this.props.onChange(event.target.value);
+            }
+            if (this.props.targetModel) {
+              this.setBackendValue(targetPath, event.target.value);
+            }
+          }}
+          {...disabled}
+        >
+          {props.entityIds.map((entityId, index) => {
+            const Item = this.mapWidget(
+              Option,
+              state => {
+                const id = state.get('id');
+                if (id) {
+                  return {id, text: state.get(modelTextKey)};
+                }
+                return null;
+              },
+              `backend.${entityId}`
+            );
+            return <Item key={index} />;
+          })}
+        </select>
+      );
+    };
+
+    let FinalCombo = this.mapWidget(ComboIds, 'entityIds', this.fullPath);
+    if (targetPath) {
+      FinalCombo = this.mapWidget(FinalCombo, 'currentValue', targetPath);
+    }
+
+    return <FinalCombo />;
+  }
+
   renderEditHinter() {
     const targetPath = this.props.targetModel
       ? this.getFullPathFromModel(this.props.targetModel)
@@ -2260,6 +2315,8 @@ class Field extends Form {
         return this.renderReadonlyEntity();
       case 'ids':
         return this.renderReadonlyEntities();
+      case 'combo-ids':
+        return this.renderComboIds();
       case 'title':
         return this.renderTitle();
       case 'subtitle':
@@ -2329,6 +2386,8 @@ class Field extends Form {
         return this.renderEditEntity();
       case 'ids':
         return this.renderEditEntities();
+      case 'combo-ids':
+        return this.renderComboIds();
       case 'title':
         return this.renderTitle();
       case 'subtitle':
