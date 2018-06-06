@@ -1926,6 +1926,7 @@ class Field extends Form {
       return (
         <select
           value={currentValue}
+          style={{margin: '0px'}}
           onChange={event => {
             if (this.props.onChange) {
               this.props.onChange(event.target.value);
