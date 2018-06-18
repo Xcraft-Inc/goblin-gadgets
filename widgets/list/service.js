@@ -75,6 +75,7 @@ Goblin.registerQuest(goblinName, 'create', function*(
   quest,
   desktopId,
   table,
+  filter,
   pageSize,
   orderBy
 ) {
@@ -83,6 +84,7 @@ Goblin.registerQuest(goblinName, 'create', function*(
   let count = 0;
   quest.goblin.setX('table', table);
   quest.goblin.setX('orderBy', orderBy);
+  quest.goblin.setX('filter', filter);
 
   if (!pageSize) {
     pageSize = 100;
@@ -100,7 +102,7 @@ Goblin.registerQuest(goblinName, 'create', function*(
     table,
     status,
   });
-  const listIds = yield r.getBaseList({table, orderBy, status});
+  const listIds = yield r.getBaseList({table, filter, orderBy, status});
   quest.goblin.setX('listIds', listIds);
   quest.me.initList();
   quest.do({count, pageSize});
@@ -115,12 +117,13 @@ Goblin.registerQuest(goblinName, 'change-status', function*(quest, status) {
   const table = quest.goblin.getX('table');
   const pageSize = quest.goblin.getX('pageSize');
   const orderBy = quest.goblin.getX('orderBy');
+  const filter = quest.goblin.getX('filter');
 
   let count = yield r.count({
     table,
     status,
   });
-  const listIds = yield r.getBaseList({table, orderBy, status});
+  const listIds = yield r.getBaseList({table, filter, orderBy, status});
   quest.goblin.setX('listIds', listIds);
   quest.me.initList();
   quest.do({status, count, pageSize});
