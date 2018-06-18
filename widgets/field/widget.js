@@ -1949,7 +1949,7 @@ class Field extends Form {
               },
               `backend.${entityId}`
             );
-            return <Item key={index} />;
+            return this.buildLoader(entityId, () => <Item key={index} />);
           })}
         </select>
       );
