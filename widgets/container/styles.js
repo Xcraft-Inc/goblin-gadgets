@@ -87,7 +87,7 @@ export default function styles(theme, props) {
     display = 'flex';
     flexDirection = 'column';
     margin = 'auto';
-    padding = theme.shapes.floatingPadding;
+    padding = props.subkind === 'full' ? null : theme.shapes.floatingPadding;
     borderRadius = theme.shapes.floatingRadius;
     display = 'flex';
     flexDirection = 'column';

@@ -96,6 +96,7 @@ class DialogModal extends Widget {
         >
           <Container
             kind="floating"
+            subkind={this.props.subkind}
             cursor="default"
             width={this.props.width}
             onClick={this.onContentClick}
