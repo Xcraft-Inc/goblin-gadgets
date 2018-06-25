@@ -83,6 +83,7 @@ export default function styles(theme, props) {
     position = 'fixed';
     left = '50%';
     top = '50%';
+    maxHeight = '80%';
     transform = 'translate(-50%, -50%)';
     display = 'flex';
     flexDirection = 'column';
