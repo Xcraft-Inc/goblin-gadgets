@@ -1926,7 +1926,12 @@ class Field extends Form {
       return (
         <select
           value={currentValue}
-          style={{margin: '0px', padding: '0px 10px', height: '35px'}}
+          style={{
+            margin: '0px',
+            padding: '0px 10px',
+            height: '35px',
+            ...props.style,
+          }}
           onChange={event => {
             if (this.props.onChange) {
               this.props.onChange(event.target.value);
@@ -1958,6 +1963,30 @@ class Field extends Form {
     let FinalCombo = this.mapWidget(ComboIds, 'entityIds', this.fullPath);
     if (targetPath) {
       FinalCombo = this.mapWidget(FinalCombo, 'currentValue', targetPath);
+    }
+
+    if (this.props.labelText) {
+      return (
+        <Container
+          kind="row-field"
+          grow={this.props.grow}
+          width={this.props.width}
+          height={this.props.height}
+          verticalSpacing={this.props.verticalSpacing}
+          verticalJustify={this.props.verticalJustify}
+        >
+          <Label
+            kind="label-text-field"
+            glyph={this.props.labelGlyph}
+            text={this.props.labelText}
+            width={this.props.labelWidth || defaultLabelWidth}
+            disabled={this.props.disabled}
+            wrap="no"
+            justify="left"
+          />
+          <FinalCombo style={{flexGrow: 1}} />
+        </Container>
+      );
     }
 
     return <FinalCombo />;
