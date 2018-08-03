@@ -135,7 +135,11 @@ class TextFieldCombo extends Widget {
   setText(item) {
     const x = this.props.onSetText;
     if (x) {
-      x(item.text);
+      if ('value' in item) {
+        x(item.value);
+      } else {
+        x(item.text);
+      }
     }
   }
 
