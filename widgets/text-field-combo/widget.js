@@ -165,6 +165,7 @@ class TextFieldCombo extends Widget {
       if (this.props.menuType === 'wrap') {
         return {
           text: item.text,
+          value: item.value,
           glyph: item.glyph,
           color: item.color,
           active: Bool.toString(active),
@@ -173,6 +174,7 @@ class TextFieldCombo extends Widget {
       } else {
         return {
           text: item.text,
+          value: item.value,
           glyph: active ? 'check' : 'none',
           active: Bool.toString(active),
           action: x => this.setText(x),
