@@ -87,7 +87,7 @@ class Ticket extends Widget {
       const identicalCountClass = this.styles.classNames.identicalCount;
       return (
         <div className={identicalCountClass}>
-          <Badge kind="identical-count" value={this.props.identicalCount} />
+          <Badge kind="identical-count" value={this.props.identicalCount + 1} />
         </div>
       );
     } else {
