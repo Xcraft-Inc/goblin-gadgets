@@ -1510,6 +1510,9 @@ class Field extends Form {
         comboTextTransform="none"
         onSetText={text => {
           this.setBackendValue(this.fullPath, text);
+          if (this.props.onChange) {
+            this.props.onChange(text);
+          }
         }}
         grow="1"
       />
