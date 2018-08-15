@@ -328,6 +328,40 @@ class Field extends Form {
     return <Field />;
   }
 
+  renderReadonlyDateTime() {
+    const Field = this.showIfFilled(
+      this.props,
+      props => (
+        <Container
+          kind="row-field"
+          grow="0"
+          width={this.props.width}
+          height={this.props.height}
+          verticalSpacing={this.props.verticalSpacing}
+          verticalJustify={this.props.verticalJustify}
+        >
+          <TextFieldTyped
+            readonly="true"
+            type="datetime"
+            spacing={this.props.spacing}
+            shape={this.props.shape}
+            labelText={this.props.labelText}
+            labelGlyph={this.props.labelGlyph}
+            labelWidth={this.props.labelWidth || defaultLabelWidth}
+            fieldWidth={this.props.fieldWidth || '150px'}
+            getGlyph={this.props.getGlyph}
+            hintText={this.props.hintText}
+            tooltip={this.props.tooltip || this.props.hintText}
+            model={this.props.model}
+            required={this.props.required}
+          />
+        </Container>
+      ),
+      this.fullPath
+    );
+    return <Field />;
+  }
+
   renderReadonlyTimeInterval() {
     const Field = this.showIfFilled(
       this.props,
@@ -1211,6 +1245,91 @@ class Field extends Form {
             labelGlyph={this.props.labelGlyph}
             labelWidth={this.props.labelWidth || defaultLabelWidth}
             fieldWidth={this.props.fieldWidth || '120px'}
+            getGlyph={this.props.getGlyph}
+            hintText={this.props.hintText}
+            tooltip={this.props.tooltip || this.props.hintText}
+            required={this.props.required}
+            model={this.props.model}
+          />
+        </Container>
+      );
+    }
+  }
+
+  renderEditDateTime() {
+    let periodPath = null;
+    let minArg = null;
+    let maxArg = null;
+    let mode = null;
+    if (this.props.periodModel) {
+      const s = this.props.periodModel.split('|');
+      if (s.length > 2) {
+        minArg = s[1]; // by example '1d'
+        maxArg = s[2]; // by example '1y'
+      }
+      if (s.length > 3) {
+        mode = s[3]; // by example 'hard'
+      }
+      periodPath = this.getFullPathFromModel(s[0]); // by example '.startDate'
+    }
+
+    if (periodPath) {
+      const WiredTextFieldTyped = this.mapWidget(
+        TextFieldTyped,
+        date => {
+          const minDate = DateConverters.getCalcDate(date, minArg);
+          const maxDate = DateConverters.getCalcDate(date, maxArg);
+          return {model: this.props.model, minDate, maxDate, mode}; // (*)
+        },
+        periodPath
+      );
+      // (*) It's important to pass model! Without, strange bugs appears,
+      //     with interactions between all date fields.
+
+      return (
+        <Container
+          kind="row-field"
+          grow="0"
+          width={this.props.width}
+          height={this.props.height}
+          verticalSpacing={this.props.verticalSpacing}
+          verticalJustify={this.props.verticalJustify}
+        >
+          <WiredTextFieldTyped
+            type="datetime"
+            selectAllOnFocus="true"
+            spacing={this.props.spacing}
+            shape={this.props.shape}
+            labelText={this.props.labelText}
+            labelGlyph={this.props.labelGlyph}
+            labelWidth={this.props.labelWidth || defaultLabelWidth}
+            fieldWidth={this.props.fieldWidth || '150px'}
+            getGlyph={this.props.getGlyph}
+            hintText={this.props.hintText}
+            tooltip={this.props.tooltip || this.props.hintText}
+            required={this.props.required}
+          />
+        </Container>
+      );
+    } else {
+      return (
+        <Container
+          kind="row-field"
+          grow="0"
+          width={this.props.width}
+          height={this.props.height}
+          verticalSpacing={this.props.verticalSpacing}
+          verticalJustify={this.props.verticalJustify}
+        >
+          <TextFieldTyped
+            type="datetime"
+            selectAllOnFocus="true"
+            spacing={this.props.spacing}
+            shape={this.props.shape}
+            labelText={this.props.labelText}
+            labelGlyph={this.props.labelGlyph}
+            labelWidth={this.props.labelWidth || defaultLabelWidth}
+            fieldWidth={this.props.fieldWidth || '150px'}
             getGlyph={this.props.getGlyph}
             hintText={this.props.hintText}
             tooltip={this.props.tooltip || this.props.hintText}
@@ -2308,6 +2427,8 @@ class Field extends Form {
         return this.renderReadonlyDate();
       case 'time':
         return this.renderReadonlyTime();
+      case 'datetime':
+        return this.renderReadonlyDateTime();
       case 'time-interval':
         return this.renderReadonlyTimeInterval();
       case 'price':
@@ -2377,6 +2498,8 @@ class Field extends Form {
         return this.renderEditDate();
       case 'time':
         return this.renderEditTime();
+      case 'datetime':
+        return this.renderEditDateTime();
       case 'time-interval':
         return this.renderEditTimeInterval();
       case 'price':
