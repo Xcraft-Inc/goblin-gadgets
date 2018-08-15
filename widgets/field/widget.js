@@ -348,7 +348,7 @@ class Field extends Form {
             labelText={this.props.labelText}
             labelGlyph={this.props.labelGlyph}
             labelWidth={this.props.labelWidth || defaultLabelWidth}
-            fieldWidth={this.props.fieldWidth || '150px'}
+            fieldWidth={this.props.fieldWidth || '160px'}
             getGlyph={this.props.getGlyph}
             hintText={this.props.hintText}
             tooltip={this.props.tooltip || this.props.hintText}
@@ -1303,11 +1303,13 @@ class Field extends Form {
             labelText={this.props.labelText}
             labelGlyph={this.props.labelGlyph}
             labelWidth={this.props.labelWidth || defaultLabelWidth}
-            fieldWidth={this.props.fieldWidth || '150px'}
+            fieldWidth={this.props.fieldWidth || '160px'}
             getGlyph={this.props.getGlyph}
             hintText={this.props.hintText}
             tooltip={this.props.tooltip || this.props.hintText}
             required={this.props.required}
+            defaultDate={this.props.defaultDate}
+            defaultTime={this.props.defaultTime}
           />
         </Container>
       );
@@ -1329,11 +1331,13 @@ class Field extends Form {
             labelText={this.props.labelText}
             labelGlyph={this.props.labelGlyph}
             labelWidth={this.props.labelWidth || defaultLabelWidth}
-            fieldWidth={this.props.fieldWidth || '150px'}
+            fieldWidth={this.props.fieldWidth || '160px'}
             getGlyph={this.props.getGlyph}
             hintText={this.props.hintText}
             tooltip={this.props.tooltip || this.props.hintText}
             required={this.props.required}
+            defaultDate={this.props.defaultDate}
+            defaultTime={this.props.defaultTime}
             model={this.props.model}
           />
         </Container>

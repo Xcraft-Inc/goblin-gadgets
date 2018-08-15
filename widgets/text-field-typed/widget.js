@@ -84,6 +84,9 @@ class TextFieldTyped extends Widget {
         parsed = DateTimeConverters.parseEdited(
           displayedValue,
           null,
+          this.props.defaultDate,
+          this.props.defaultTime,
+          this.props.minDate,
           this.props.minDate,
           this.props.maxDate,
           this.props.mode
