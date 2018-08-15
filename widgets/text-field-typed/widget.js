@@ -3,6 +3,7 @@ import Widget from 'laboratory/widget';
 import {
   date as DateConverters,
   time as TimeConverters,
+  datetime as DateTimeConverters,
   price as PriceConverters,
   weight as WeightConverters,
   length as LengthConverters,
@@ -31,6 +32,8 @@ class TextFieldTyped extends Widget {
         return DateConverters.getDisplayed(canonicalValue);
       case 'time':
         return TimeConverters.getDisplayed(canonicalValue);
+      case 'datetime':
+        return DateTimeConverters.getDisplayed(canonicalValue);
       case 'price':
         return PriceConverters.getDisplayed(canonicalValue);
       case 'weight':
@@ -74,6 +77,15 @@ class TextFieldTyped extends Widget {
           '12:00:00',
           this.props.minTime,
           this.props.maxTime,
+          this.props.mode
+        );
+        break;
+      case 'datetime':
+        parsed = DateTimeConverters.parseEdited(
+          displayedValue,
+          null,
+          this.props.minDate,
+          this.props.maxDate,
           this.props.mode
         );
         break;
