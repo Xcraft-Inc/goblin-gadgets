@@ -15,6 +15,7 @@ import TextField from 'gadgets/text-field/widget';
 import LabelTextField from 'gadgets/label-text-field/widget';
 import TextFieldTyped from 'gadgets/text-field-typed/widget';
 import TextFieldCombo from 'gadgets/text-field-combo/widget';
+import FieldCombo from 'gadgets/field-combo/widget';
 import TextFieldTimeInterval from 'gadgets/text-field-time-interval/widget';
 import RadioList from 'gadgets/radio-list/widget';
 import CheckList from 'gadgets/check-list/widget';
@@ -1640,6 +1641,40 @@ class Field extends Form {
         grow="1"
       />
     );
+
+    const useFieldCombo =
+      this.props.comboReadonly === 'true' &&
+      this.props.list.length > 0 &&
+      this.props.list[0].value &&
+      false; //???? TODO: finish field-combo!
+
+    if (useFieldCombo) {
+      EditCombo = props => (
+        <FieldCombo
+          selectAllOnFocus="true"
+          spacing={this.props.spacing}
+          shape={this.props.shape}
+          getGlyph={this.props.getGlyph}
+          hintText={this.props.hintText}
+          tooltip={this.props.tooltip || this.props.hintText}
+          width={this.props.fieldWidth}
+          model={this.props.model}
+          readonly={this.props.comboReadonly}
+          required={this.props.required}
+          list={props.list}
+          menuType="wrap"
+          menuItemWidth={this.props.menuItemWidth}
+          comboTextTransform="none"
+          onSetText={text => {
+            this.setBackendValue(this.fullPath, text);
+            if (this.props.onChange) {
+              this.props.onChange(text);
+            }
+          }}
+          grow="1"
+        />
+      );
+    }
 
     if (this.props.listModel) {
       EditCombo = this.mapWidget(
