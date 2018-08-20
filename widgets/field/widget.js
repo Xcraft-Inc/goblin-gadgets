@@ -1645,8 +1645,7 @@ class Field extends Form {
     const useFieldCombo =
       this.props.comboReadonly === 'true' &&
       this.props.list.length > 0 &&
-      this.props.list[0].value &&
-      false; //???? TODO: finish field-combo!
+      this.props.list[0].value; //???? TODO: finish field-combo!
 
     if (useFieldCombo) {
       EditCombo = props => (
