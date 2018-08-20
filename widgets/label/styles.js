@@ -348,7 +348,7 @@ export default function styles(theme, props) {
   }
 
   if (props.kind === 'field-combo') {
-    boxHeight = '30px';
+    boxHeight = theme.shapes.lineHeight;
     border = '1px solid ' + theme.palette.buttonBorder;
     backgroundColor = theme.palette.textFieldReadonlyBackground;
   }
