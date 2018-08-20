@@ -1649,8 +1649,8 @@ class Field extends Form {
     if (
       this.props.comboReadonly === 'true' &&
       this.props.list.length > 0 &&
-      this.props.list[0].value &&
-      this.props.list[0].text
+      this.props.list[0].value !== undefined &&
+      this.props.list[0].text !== undefined
     ) {
       const FieldComboWired = this.mapWidget(
         FieldCombo,
