@@ -1613,6 +1613,10 @@ class Field extends Form {
     );
   }
 
+  dynamicBuild(x) {
+    return 'COUCOU';
+  }
+
   renderEditCombo() {
     const labelWidth = this.props.labelWidth || defaultLabelWidth;
 
@@ -1642,24 +1646,35 @@ class Field extends Form {
       />
     );
 
-    const useFieldCombo =
+    if (
       this.props.comboReadonly === 'true' &&
       this.props.list.length > 0 &&
-      this.props.list[0].value; //???? TODO: finish field-combo!
+      this.props.list[0].value &&
+      this.props.list[0].text
+    ) {
+      const FieldComboWired = this.mapWidget(
+        FieldCombo,
+        value => {
+          if (!value) {
+            return;
+          }
+          for (const item of this.props.list) {
+            if (value === item.value) {
+              return {text: item.text};
+            }
+          }
+          return {text: ''};
+        },
+        this.fullPath
+      );
 
-    if (useFieldCombo) {
       EditCombo = props => (
-        <FieldCombo
-          selectAllOnFocus="true"
+        <FieldComboWired
           spacing={this.props.spacing}
           shape={this.props.shape}
-          getGlyph={this.props.getGlyph}
-          hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
           width={this.props.fieldWidth}
           model={this.props.model}
-          readonly={this.props.comboReadonly}
-          required={this.props.required}
           list={props.list}
           menuType="wrap"
           menuItemWidth={this.props.menuItemWidth}

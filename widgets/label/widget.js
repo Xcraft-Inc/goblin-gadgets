@@ -199,27 +199,28 @@ class Label extends Widget {
   }
 
   renderGlyphAndText() {
-    if (this.props.glyph) {
-      if (this.props.text) {
+    const glyph = this.props.getGlyph
+      ? this.props.getGlyph(this.props)
+      : this.props.glyph;
+    const text = this.props.getText
+      ? this.props.getText(this.props)
+      : this.props.text;
+
+    if (glyph) {
+      if (text) {
         // Glyph followed by text.
         if (this.props.glyphPosition === 'right') {
-          return [
-            this.renderText(0, this.props.text),
-            this.renderGlyph(1, this.props.glyph),
-          ];
+          return [this.renderText(0, text), this.renderGlyph(1, glyph)];
         } else {
-          return [
-            this.renderGlyph(0, this.props.glyph),
-            this.renderText(1, this.props.text),
-          ];
+          return [this.renderGlyph(0, glyph), this.renderText(1, text)];
         }
       } else {
         // Glyph alone.
-        return [this.renderGlyph(0, this.props.glyph)];
+        return [this.renderGlyph(0, glyph)];
       }
     } else {
       // Text alone.
-      return [this.renderText(0, this.props.text)];
+      return [this.renderText(0, text)];
     }
   }
 

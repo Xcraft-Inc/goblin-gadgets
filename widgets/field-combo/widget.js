@@ -159,8 +159,8 @@ class FieldCombo extends Widget {
     const textFieldShape = textFieldShapes[s];
 
     const props = {
-      model: this.props.model,
-      glyph: this.props.getGlyph,
+      glyph: this.props.glyph,
+      text: this.props.text,
       tooltip: this.props.tooltip,
       spacing: 'overlap',
       shape: textFieldShape,
