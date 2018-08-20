@@ -198,7 +198,6 @@ class FieldCombo extends Widget {
         kind="combo"
         glyph={glyph}
         glyphSize="120%"
-        width="32px"
         shape={buttonShape}
         disabled={this.props.disabled}
         onClick={this.onShowCombo}

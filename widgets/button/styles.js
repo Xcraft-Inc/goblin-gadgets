@@ -364,6 +364,9 @@ export default function styles(theme, props) {
 
   // Combo button, place to the right of a TextFieldCombo component.
   if (props.kind === 'combo') {
+    const w = Unit.multiply(theme.shapes.lineHeight, 0.8);
+    boxWidth = w;
+    boxMinWidth = w;
     activeColor = theme.palette.comboActiveBackground;
     borderActiveColor = theme.palette.comboActiveBackground;
     if (disabled) {

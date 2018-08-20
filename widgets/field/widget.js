@@ -2259,7 +2259,6 @@ class Field extends Form {
           shape={this.props.onValue ? 'right-smooth' : null}
           leftSpacing="overlap"
           glyph="solid/eraser"
-          width="32px"
           tooltip="Entrer une nouvelle référence"
           onClick={() => this.setBackendValue(this.fullPath, null)}
         />
