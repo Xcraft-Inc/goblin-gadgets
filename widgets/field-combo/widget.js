@@ -24,7 +24,6 @@ class FieldCombo extends Widget {
 
     this.comboLocation = null;
 
-    this.onMouseUp = this.onMouseUp.bind(this);
     this.onShowCombo = this.onShowCombo.bind(this);
     this.onHideCombo = this.onHideCombo.bind(this);
   }
@@ -89,12 +88,6 @@ class FieldCombo extends Widget {
     const x = this.props.onChange;
     if (x) {
       x(e);
-    }
-  }
-
-  onMouseUp() {
-    if (Bool.isTrue(this.props.readonly)) {
-      this.onShowCombo();
     }
   }
 
@@ -183,7 +176,7 @@ class FieldCombo extends Widget {
       props.value = displayValue;
     }
 
-    return <Label {...props} kind="field-combo" onMouseUp={this.onMouseUp} />;
+    return <Label {...props} kind="field-combo" onClick={this.onShowCombo} />;
   }
 
   renderButton() {
