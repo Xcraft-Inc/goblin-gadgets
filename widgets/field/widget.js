@@ -199,7 +199,13 @@ class Field extends Form {
       this.fullPath
     );
 
-    return <Dynamic grow="1" tooltip={this.props.tooltip} />;
+    return (
+      <Dynamic
+        {...this.props}
+        kind={this.props.buttonKind}
+        tooltip={this.props.tooltip}
+      />
+    );
   }
 
   //#region Readonly
