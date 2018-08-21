@@ -10,8 +10,10 @@ exports.xcraftCommands = function() {
     name: 'table',
     events: {
       select: state => {
+        const ids = state.get('selectedIds', []).toArray();
         return {
-          selectedIds: state.get('selectedIds', []).toArray(),
+          selectedIds: ids,
+          rows: state.get('data.rows').filter(r => ids.includes(r.get('id'))),
         };
       },
       selectAll: state => {
