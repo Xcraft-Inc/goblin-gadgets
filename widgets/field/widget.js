@@ -23,6 +23,7 @@ import CalendarRecurrence from 'gadgets/calendar-recurrence/widget';
 import Calendar from 'gadgets/calendar/widget';
 import CalendarBoards from 'gadgets/calendar-boards/widget';
 import Table from 'gadgets/table/widget';
+import ZeusWorkerEvents from '../../../goblin-zeus/widgets/zeus-worker-events/widget';
 
 import Plugin from 'desktop/plugin/widget';
 
@@ -2467,6 +2468,18 @@ class Field extends Form {
       </Container>
     );
   }
+
+  renderEditData() {
+    const Dynamic = this.mapWidget(
+      ZeusWorkerEvents, // TOTO: pass component to use!
+      value => {
+        return {data: value};
+      },
+      this.fullPath
+    );
+
+    return <Dynamic {...this.props} />;
+  }
   //#endregion
 
   renderReadonly() {
@@ -2535,6 +2548,8 @@ class Field extends Form {
         return this.renderSubtitle();
       case 'label':
         return this.renderReadonlyLabel();
+      case 'data':
+        return this.renderEditData();
       default:
         return this.renderReadonlyField();
     }
@@ -2608,6 +2623,8 @@ class Field extends Form {
         return this.renderSubtitle();
       case 'label':
         return this.renderReadonlyLabel();
+      case 'data':
+        return this.renderEditData();
       default:
         return this.renderEditField();
     }
