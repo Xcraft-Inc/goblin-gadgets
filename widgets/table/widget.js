@@ -80,10 +80,14 @@ class Table extends Widget {
   }
 
   onSelectionChanged(id) {
-    this.doAs('table-gadget', 'select', {
-      mode: this.props.selectionMode,
-      rowId: id,
-    });
+    if (this.props.onSelectionChanged) {
+      this.props.onSelectionChanged(id);
+    } else {
+      this.doAs('table-gadget', 'select', {
+        mode: this.props.selectionMode,
+        rowId: id,
+      });
+    }
   }
 
   onDoubleClick(id) {
