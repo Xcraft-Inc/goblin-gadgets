@@ -61,7 +61,7 @@ export default function styles(theme, props) {
   let transform = null;
   let fontFamily = null;
   let transition = null;
-  let visibility = null;
+  let visibility = props.visibility;
   let opacity = null;
 
   const h = theme.shapes.lineHeight;
