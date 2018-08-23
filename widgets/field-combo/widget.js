@@ -83,16 +83,8 @@ class FieldCombo extends Widget {
     this.showCombo = false;
   }
 
-  onChange(e) {
-    this.onChange(e);
-    const x = this.props.onChange;
-    if (x) {
-      x(e);
-    }
-  }
-
   setText(item) {
-    const x = this.props.onSetText;
+    const x = this.props.onChange;
     if (x) {
       if (item.value) {
         x(item.value);
