@@ -1094,6 +1094,17 @@ class Field extends Form {
     return <DisplayGadget />;
   }
 
+  renderEditData() {
+    const Dynamic = this.mapWidget(
+      ZeusWorkerEvents, // TOTO: pass component to use!
+      value => {
+        return {data: value};
+      },
+      this.fullPath
+    );
+
+    return <Dynamic {...this.props} />;
+  }
   renderEditDate() {
     let periodPath = null;
     let minArg = null;
@@ -2468,18 +2479,6 @@ class Field extends Form {
       </Container>
     );
   }
-
-  renderEditData() {
-    const Dynamic = this.mapWidget(
-      ZeusWorkerEvents, // TOTO: pass component to use!
-      value => {
-        return {data: value};
-      },
-      this.fullPath
-    );
-
-    return <Dynamic {...this.props} />;
-  }
   //#endregion
 
   renderReadonly() {
@@ -2488,6 +2487,8 @@ class Field extends Form {
         return this.renderReadonlyField();
       case 'gadget':
         return this.renderReadonlyGadget();
+      case 'data':
+        return this.renderEditData();
       case 'dynamic':
         return this.renderDynamic();
       case 'table-dynamic':
@@ -2548,8 +2549,6 @@ class Field extends Form {
         return this.renderSubtitle();
       case 'label':
         return this.renderReadonlyLabel();
-      case 'data':
-        return this.renderEditData();
       default:
         return this.renderReadonlyField();
     }
@@ -2561,6 +2560,8 @@ class Field extends Form {
         return this.renderEditField();
       case 'gadget':
         return this.renderEditGadget();
+      case 'data':
+        return this.renderEditData();
       case 'dynamic':
         return this.renderDynamic();
       case 'table-dynamic':
@@ -2623,8 +2624,6 @@ class Field extends Form {
         return this.renderSubtitle();
       case 'label':
         return this.renderReadonlyLabel();
-      case 'data':
-        return this.renderEditData();
       default:
         return this.renderEditField();
     }
