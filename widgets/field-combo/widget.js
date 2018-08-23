@@ -83,14 +83,10 @@ class FieldCombo extends Widget {
     this.showCombo = false;
   }
 
-  setText(item) {
+  setText(value) {
     const x = this.props.onChange;
     if (x) {
-      if (item.value) {
-        x(item.value);
-      } else {
-        x(item.text);
-      }
+      x(value);
     }
   }
 
@@ -101,14 +97,14 @@ class FieldCombo extends Widget {
         return {
           text: item,
           active: Bool.toString(active),
-          action: x => this.setText(x),
+          action: () => this.setText(item),
         };
       } else {
         return {
           text: item,
           glyph: active ? 'check' : 'none',
           active: Bool.toString(active),
-          action: x => this.setText(x),
+          action: () => this.setText(item),
         };
       }
     } else {
@@ -120,7 +116,7 @@ class FieldCombo extends Widget {
           glyph: item.glyph,
           color: item.color,
           active: Bool.toString(active),
-          action: x => this.setText(x),
+          action: () => this.setText(item.value),
         };
       } else {
         return {
@@ -128,7 +124,7 @@ class FieldCombo extends Widget {
           value: item.value,
           glyph: active ? 'check' : 'none',
           active: Bool.toString(active),
-          action: x => this.setText(x),
+          action: () => this.setText(item.value),
         };
       }
     }
@@ -235,7 +231,7 @@ class FieldCombo extends Widget {
         }
         x.push({
           text: item,
-          action: x => this.setText(x),
+          action: () => this.setText(item),
         });
         index++;
       }
@@ -246,7 +242,7 @@ class FieldCombo extends Widget {
         }
         x.push({
           text: item.text,
-          action: x => this.setText(x),
+          action: () => this.setText(item.value),
         });
         index++;
       }
