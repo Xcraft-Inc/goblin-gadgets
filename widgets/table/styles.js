@@ -11,11 +11,16 @@ export default function styles(theme, props) {
     ? '1px solid ' + theme.palette.tableBorder
     : null;
 
-  const boxStyle = {
+  const box = {
+    display: 'flex',
+    flexDirection: 'column',
     flexGrow: props.grow,
+    overflowY: 'hidden',
   };
 
-  const tableStyle = {
+  const table = {
+    display: 'flex',
+    flexDirection: 'column',
     flexGrow: props.grow,
     cursor: 'default',
     overflowY: 'hidden',
@@ -35,7 +40,7 @@ export default function styles(theme, props) {
     ? Unit.add(theme.shapes.scrollerThickness, m)
     : m;
 
-  const headerStyle = {
+  const header = {
     borderBottom: Bool.isTrue(props.headerWithoutHorizontalSeparator)
       ? null
       : '1px solid ' + theme.palette.tableBorder,
@@ -48,13 +53,13 @@ export default function styles(theme, props) {
       : null,
   };
 
-  const bodyStyle = {
+  const body = {
     height: props.height,
     overflowY: props.height ? 'scroll' : 'hidden',
     cursor: 'default',
   };
 
-  const verticalSeparatorStyle = {
+  const verticalSeparator = {
     visibility: Bool.isTrue(props.frame) && props.height ? 'visible' : 'hidden',
     position: 'absolute',
     height: '100%',
@@ -63,19 +68,19 @@ export default function styles(theme, props) {
     borderRight: '1px solid ' + theme.palette.tableBorder,
   };
 
-  const buttonsStyle = {
+  const buttons = {
     display: 'flex',
     flexDirection: 'row',
     flexGrow: '1',
   };
 
   return {
-    box: boxStyle,
-    table: tableStyle,
-    header: headerStyle,
-    body: bodyStyle,
-    verticalSeparator: verticalSeparatorStyle,
-    buttons: buttonsStyle,
+    box: box,
+    table: table,
+    header: header,
+    body: body,
+    verticalSeparator: verticalSeparator,
+    buttons: buttons,
   };
 }
 

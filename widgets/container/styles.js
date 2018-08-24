@@ -1079,6 +1079,10 @@ export default function styles(theme, props) {
   }
 
   if (props.kind === 'push-to-edge') {
+    if (props.subkind === 'flex') {
+      display = 'flex';
+      flexDirection = 'column';
+    }
     flexGrow = 1;
     margin =
       Unit.multiply(m, 0.5) +
