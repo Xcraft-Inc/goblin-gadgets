@@ -1678,10 +1678,10 @@ class Field extends Form {
           }
           for (const item of this.props.list) {
             if (value === item.value) {
-              return {text: item.text};
+              return {defaultValue: item.text};
             }
           }
-          return {text: ''};
+          return {defaultValue: ''};
         },
         this.fullPath
       );
@@ -1697,7 +1697,7 @@ class Field extends Form {
           menuType="wrap"
           menuItemWidth={this.props.menuItemWidth}
           comboTextTransform="none"
-          onSetText={text => {
+          onChange={text => {
             this.setBackendValue(this.fullPath, text);
             if (this.props.onChange) {
               this.props.onChange(text);
