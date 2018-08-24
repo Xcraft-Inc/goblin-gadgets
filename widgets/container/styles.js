@@ -412,6 +412,17 @@ export default function styles(theme, props) {
     backgroundColor = theme.palette.paneBackground;
   }
 
+  if (props.kind === 'pane-wizard') {
+    display = 'flex';
+    flexGrow = 1;
+    flexDirection = 'column';
+    justifyContent = 'flex-start';
+    alignItems = 'stretch';
+    margin = '0px ' + m + ' ' + m + ' ' + m;
+    padding = m;
+    backgroundColor = theme.palette.paneBackground;
+  }
+
   if (props.kind === 'pane-top') {
     display = 'flex';
     flexDirection = 'column';
