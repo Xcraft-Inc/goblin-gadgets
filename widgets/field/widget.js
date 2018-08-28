@@ -2057,6 +2057,7 @@ class Field extends Form {
           verticalJustify="top"
         >
           <FinalPlugin
+            extendOnAdd="true"
             {...pluginProps}
             id={this.context.id}
             dragServiceId={
