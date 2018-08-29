@@ -2059,7 +2059,6 @@ class Field extends Form {
           <FinalPlugin
             extendOnAdd="true"
             {...pluginProps}
-            id={this.context.id}
             dragServiceId={
               this.props.dragServiceId || this.context.dragServiceId
             }
