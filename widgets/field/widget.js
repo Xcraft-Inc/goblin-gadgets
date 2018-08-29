@@ -23,7 +23,6 @@ import CalendarRecurrence from 'gadgets/calendar-recurrence/widget';
 import Calendar from 'gadgets/calendar/widget';
 import CalendarBoards from 'gadgets/calendar-boards/widget';
 import Table from 'gadgets/table/widget';
-import ZeusWorkerEvents from '../../../goblin-zeus/widgets/zeus-worker-events/widget';
 
 import Plugin from 'desktop/plugin/widget';
 
@@ -1095,8 +1094,10 @@ class Field extends Form {
   }
 
   renderEditData() {
+    const Component = widgetImporter(this.props.component);
+
     const Dynamic = this.mapWidget(
-      ZeusWorkerEvents, // TOTO: pass component to use!
+      Component,
       value => {
         return {data: value};
       },
@@ -1105,6 +1106,7 @@ class Field extends Form {
 
     return <Dynamic {...this.props} />;
   }
+
   renderEditDate() {
     let periodPath = null;
     let minArg = null;
