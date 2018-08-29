@@ -53,6 +53,13 @@ export default function styles(theme, props) {
       : null,
   };
 
+  const postHeader = {
+    ...header,
+    borderTop: Bool.isTrue(props.frame)
+      ? null
+      : '1px solid ' + theme.palette.tableBorder,
+  };
+
   const body = {
     height: props.height,
     overflowY: props.height ? 'scroll' : 'hidden',
@@ -75,12 +82,13 @@ export default function styles(theme, props) {
   };
 
   return {
-    box: box,
-    table: table,
-    header: header,
-    body: body,
-    verticalSeparator: verticalSeparator,
-    buttons: buttons,
+    box,
+    table,
+    postHeader,
+    header,
+    body,
+    verticalSeparator,
+    buttons,
   };
 }
 

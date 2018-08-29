@@ -130,7 +130,7 @@ class Table extends Widget {
 
   /******************************************************************************/
 
-  renderHeaderCell(column, isLast, index) {
+  renderHeaderCell(column, isPostHeader, isLast, index) {
     return (
       <TableCell
         key={index}
@@ -138,6 +138,7 @@ class Table extends Widget {
         width={column.get('width')}
         grow={column.get('grow')}
         textAlign={column.get('textAlign')}
+        hasBorderRight={Bool.toString(isPostHeader)}
         isLast={Bool.toString(isLast)}
         isHeader="true"
         text={column.get('description')}
@@ -146,22 +147,47 @@ class Table extends Widget {
     );
   }
 
-  renderHeaderCells(header) {
+  renderHeaderCells(header, hasBorderRight) {
     let index = 0;
     return header.linq
       .select(column => {
         const isLast = index === header.size - 1;
-        return this.renderHeaderCell(column, isLast, index++);
+        return this.renderHeaderCell(column, hasBorderRight, isLast, index++);
       })
       .toList();
   }
 
-  renderHeader(header) {
+  renderHeader(header, isPostHeader) {
     if (this.hasHeader(header)) {
-      const styleClass = this.styles.classNames.header;
-      return <div className={styleClass}>{this.renderHeaderCells(header)}</div>;
+      const styleClass = isPostHeader
+        ? this.styles.classNames.postHeader
+        : this.styles.classNames.header;
+      return (
+        <div className={styleClass}>
+          {this.renderHeaderCells(header, isPostHeader)}
+        </div>
+      );
     } else {
       return null;
+    }
+  }
+
+  renderHeaders(data) {
+    const postHeader = data.get('post-header');
+    const header = data.get('header');
+    if (!header) {
+      throw new Error('Table without header');
+    }
+
+    if (postHeader) {
+      return (
+        <div>
+          {this.renderHeader(postHeader, true)}
+          {this.renderHeader(header, false)}
+        </div>
+      );
+    } else {
+      return this.renderHeader(header, false);
     }
   }
 
@@ -252,7 +278,7 @@ class Table extends Widget {
     return (
       <div className={boxClass}>
         <div className={tableClass}>
-          {this.renderHeader(data.get('header'))}
+          {this.renderHeaders(data)}
           <div className={bodyClass}>{this.renderRows(data)}</div>
           <div className={verticalSeparatorClass} />
         </div>

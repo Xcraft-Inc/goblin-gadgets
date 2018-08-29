@@ -13,12 +13,19 @@ export default function styles(theme, props) {
   let overflow = null;
   let paddingLeft = '0px';
   let paddingRight = '0px';
+  let paddingTop = '0px';
+  let paddingBottom = '0px';
   let marginLeft = '0px';
   let marginRight = '0px';
+  let marginTop = '0px';
+  let marginBottom = '0px';
+  let borderRight = null;
   let fontWeight = null;
   let textTransform = null;
   let backgroundColor = null;
   let fontSize = theme.shapes.tableTextSize;
+
+  const v1 = Unit.multiply(theme.shapes.tablePadding, 0.5);
 
   if (props.width) {
     minWidth = props.width;
@@ -75,7 +82,18 @@ export default function styles(theme, props) {
     }
   }
 
-  const cellStyle = {
+  if (Bool.isTrue(props.hasBorderRight) && Bool.isFalse(props.isLast)) {
+    const mv1 = Unit.multiply(v1, -1);
+    marginTop = mv1;
+    marginBottom = mv1;
+    marginRight = Unit.sub(marginRight, v1);
+    paddingTop = v1;
+    paddingBottom = v1;
+    paddingRight = Unit.add(marginRight, v1);
+    borderRight = '1px solid ' + theme.palette.tableBorder;
+  }
+
+  const cell = {
     minWidth: minWidth,
     maxWidth: maxWidth,
     flexGrow: flexGrow,
@@ -84,17 +102,23 @@ export default function styles(theme, props) {
     overflow: overflow,
     marginLeft: marginLeft,
     marginRight: marginRight,
+    marginTop: marginTop,
+    marginBottom: marginBottom,
+    paddingLeft: paddingLeft,
+    paddingRight: paddingRight,
+    paddingTop: paddingTop,
+    paddingBottom: paddingBottom,
+    borderRight: borderRight,
     textAlign: props.textAlign,
     fontWeight: fontWeight,
     textTransform: textTransform,
-    padding: '0px ' + paddingRight + ' 0px ' + paddingLeft,
     fontSize: fontSize,
     backgroundColor: backgroundColor,
     cursor: 'default',
   };
 
   return {
-    cell: cellStyle,
+    cell,
   };
 }
 
