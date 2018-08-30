@@ -7,7 +7,10 @@ const Bool = require('gadgets/helpers/bool-helpers');
 class Container extends Widget {
   constructor() {
     super(...arguments);
+
     this.panelBottoms = [];
+    this.handleScrollState = this.handleScrollState.bind(this);
+    this.handleScrollNavigation = this.handleScrollNavigation.bind(this);
   }
 
   static get wiring() {
@@ -44,13 +47,16 @@ class Container extends Widget {
   componentDidMount() {
     super.componentDidMount();
 
+    if (Bool.isTrue(this.props.scrollable)) {
+      window.addEventListener('scroll', this.handleScrollState);
+    }
     if (this.props.navigationFor) {
       const panelElem = document.querySelectorAll(
         `[data-navigation-name="${this.props.navigationFor}"]`
       )[0];
       if (panelElem) {
         this.computePanelBottoms(panelElem);
-        panelElem.addEventListener('scroll', ::this.handleScroll, true);
+        panelElem.addEventListener('scroll', this.handleScrollNavigation, true);
       }
     }
     if (this.props.dragController) {
@@ -80,12 +86,19 @@ class Container extends Widget {
   }
 
   componentWillUnmount() {
+    if (Bool.isTrue(this.props.scrollable)) {
+      window.removeEventListener('scroll', this.handleScrollState);
+    }
     if (this.props.navigationFor) {
       const panelElem = document.querySelectorAll(
         `[data-navigation-name="${this.props.navigationFor}"]`
       )[0];
       if (panelElem) {
-        panelElem.removeEventListener('scroll', this.handleScroll, true);
+        panelElem.removeEventListener(
+          'scroll',
+          this.handleScrollNavigation,
+          true
+        );
       }
     }
     if (this.props.dragController && window.document.dragControllers) {
@@ -162,11 +175,33 @@ class Container extends Widget {
     this.setNavigation(0);
   }
 
-  handleScroll(e) {
+  handleScrollState(e) {
+    var winHeight = window.innerHeight;
+
+    // Annoying to compute doc height due to browser inconsistency.
+    var body = document.body;
+    var html = document.documentElement;
+    var docHeight = Math.max(
+      body.scrollHeight,
+      body.offsetHeight,
+      html.clientHeight,
+      html.scrollHeight,
+      html.offsetHeight
+    );
+
+    var value = document.body.scrollTop;
+    console.log(
+      `handleScrollState: winHeight=${winHeight} docHeight=${docHeight} value=${value}`
+    );
+  }
+
+  handleScrollNavigation(e) {
     const max = e.target.scrollHeight - e.target.offsetHeight;
     const index = this.getPanelIndex(e.target.scrollTop, max);
     this.setNavigation(index);
   }
+
+  /******************************************************************************/
 
   renderBusy() {
     if (Bool.isTrue(this.props.busy)) {
