@@ -37,6 +37,7 @@ class Label extends Widget {
   }
 
   // Splits 'abc<em>def</em>ghi' into three parts.
+  // Splits 'abc`def`ghi' into three parts.
   getFragments(line) {
     const result = [];
     var i = 0;
@@ -63,6 +64,11 @@ class Label extends Widget {
         } else {
           i++;
         }
+      } else if (line[i] === '`') {
+        result.push({em: em, text: line.substring(j, i)});
+        i++; // skip back-tick
+        j = i;
+        em = !em;
       } else {
         i++;
       }
@@ -132,11 +138,12 @@ class Label extends Widget {
           const input = text.substring(3, text.length - 3);
           return <ReactMarkdown key={index} source={input} />;
         } else {
-          const hasEol1 = text.indexOf('\n') !== -1;
-          const hasEol2 = text.indexOf('\\n') !== -1;
-          const hasBr = text.indexOf('<br/>') !== -1;
-          const hasEm = text.indexOf('<em>') !== -1;
-          if (hasEol1 || hasEol2 || hasBr || hasEm) {
+          const hasEol1 = text.includes('\n');
+          const hasEol2 = text.includes('\\n');
+          const hasBr = text.includes('<br/>');
+          const hasEm = text.includes('<em>');
+          const hasBt = text.includes('`'); // has back tick?
+          if (hasEol1 || hasEol2 || hasBr || hasEm || hasBt) {
             // complex text ?
             const lines = text.split(hasBr ? '<br/>' : hasEol1 ? '\n' : '\\n');
             if (Bool.isTrue(this.props.singleLine)) {
