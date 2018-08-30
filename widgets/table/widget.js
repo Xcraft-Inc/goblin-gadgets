@@ -1,5 +1,6 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
+import {Unit} from 'electrum-theme';
 const Bool = require('gadgets/helpers/bool-helpers');
 
 import TableRow from 'gadgets/table-row/widget';
@@ -130,15 +131,43 @@ class Table extends Widget {
 
   /******************************************************************************/
 
-  renderHeaderCell(column, isPostHeader, isLast, index) {
+  renderPostHeaderCell(column, header, isLast, index) {
+    // Compute the width and grow of the included columns.
+    let width = '0px';
+    let grow = 0;
+    for (const name of column.get('names')) {
+      const c = header.linq.where(x => name === x.get('name')).firstOrDefault();
+      if (c) {
+        const w = c.get('width');
+        if (w) {
+          width = Unit.add(width, w);
+        }
+        let g = c.get('grow');
+        if (g) {
+          if (typeof g === 'string') {
+            g = parseInt(g);
+          }
+          grow += g;
+        }
+      } else {
+        console.log(
+          `WARNING in Table: post-header uses an unknown column name (${name}).`
+        );
+      }
+    }
+    if (width !== '0px' && grow !== 0) {
+      console.log(
+        `WARNING in Table: post-header with mix of width (${width}) and grow (${grow}) is not supported.`
+      );
+    }
     return (
       <TableCell
         key={index}
         index={index}
-        width={column.get('width')}
-        grow={column.get('grow')}
+        width={width === '0px' ? null : width}
+        grow={grow === 0 ? null : grow}
         textAlign={column.get('textAlign')}
-        hasBorderRight={Bool.toString(isPostHeader)}
+        hasBorderRight="true"
         isLast={Bool.toString(isLast)}
         isHeader="true"
         text={column.get('description')}
@@ -147,26 +176,55 @@ class Table extends Widget {
     );
   }
 
-  renderHeaderCells(header, hasBorderRight) {
+  renderPostHeaderCells(postHeader, header) {
     let index = 0;
-    return header.linq
+    return postHeader.linq
       .select(column => {
-        const isLast = index === header.size - 1;
-        return this.renderHeaderCell(column, hasBorderRight, isLast, index++);
+        const isLast = index === postHeader.size - 1;
+        return this.renderPostHeaderCell(column, header, isLast, index++);
       })
       .toList();
   }
 
-  renderHeader(header, isPostHeader) {
+  renderPostHeader(postHeader, header) {
+    const styleClass = this.styles.classNames.postHeader;
+    return (
+      <div className={styleClass}>
+        {this.renderPostHeaderCells(postHeader, header)}
+      </div>
+    );
+  }
+
+  renderHeaderCell(column, isLast, index) {
+    return (
+      <TableCell
+        key={index}
+        index={index}
+        width={column.get('width')}
+        grow={column.get('grow')}
+        textAlign={column.get('textAlign')}
+        isLast={Bool.toString(isLast)}
+        isHeader="true"
+        text={column.get('description')}
+        wrap="no"
+      />
+    );
+  }
+
+  renderHeaderCells(header) {
+    let index = 0;
+    return header.linq
+      .select(column => {
+        const isLast = index === header.size - 1;
+        return this.renderHeaderCell(column, isLast, index++);
+      })
+      .toList();
+  }
+
+  renderHeader(header) {
     if (this.hasHeader(header)) {
-      const styleClass = isPostHeader
-        ? this.styles.classNames.postHeader
-        : this.styles.classNames.header;
-      return (
-        <div className={styleClass}>
-          {this.renderHeaderCells(header, isPostHeader)}
-        </div>
-      );
+      const styleClass = this.styles.classNames.header;
+      return <div className={styleClass}>{this.renderHeaderCells(header)}</div>;
     } else {
       return null;
     }
@@ -182,12 +240,12 @@ class Table extends Widget {
     if (postHeader) {
       return (
         <div>
-          {this.renderHeader(postHeader, true)}
-          {this.renderHeader(header, false)}
+          {this.renderPostHeader(postHeader, header)}
+          {this.renderHeader(header)}
         </div>
       );
     } else {
-      return this.renderHeader(header, false);
+      return this.renderHeader(header);
     }
   }
 
