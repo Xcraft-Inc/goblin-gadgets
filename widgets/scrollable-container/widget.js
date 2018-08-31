@@ -15,15 +15,17 @@ class ScrollableContainer extends Widget {
     super.componentDidMount();
 
     if (Bool.isTrue(this.props.scrollable)) {
-      //? const node = ReactDOM.findDOMNode(this);
-      //? node.addEventListener('scroll', this.handleScroll);
-      window.addEventListener('scroll', ::this.handleScroll);
+      const node = ReactDOM.findDOMNode(this);
+      node.addEventListener('scroll', this.handleScroll);
+      //? window.addEventListener('scroll', this.handleScroll);
     }
   }
 
   componentWillUnmount() {
     if (Bool.isTrue(this.props.scrollable)) {
-      window.removeEventListener('scroll', ::this.handleScroll);
+      const node = ReactDOM.findDOMNode(this);
+      node.removeEventListener('scroll', this.handleScroll);
+      //? window.removeEventListener('scroll', this.handleScroll);
     }
   }
 
