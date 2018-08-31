@@ -16,6 +16,7 @@ class ScrollableContainer extends Widget {
     // const pos = max > 0 ? top / max : 0;
     this.dispatch({
       type: 'SCROLL_TOP',
+      name: this.props.name || 'default',
       value: e.target.scrollTop,
     });
   }
@@ -46,7 +47,7 @@ class ScrollableContainer extends Widget {
                 el.addEventListener('scroll', this.handleScroll);
                 const scrollTop = this.getState()
                   .widgets.get(id)
-                  .get('top');
+                  .get(this.props.name || 'default');
                 el.scroll({
                   top: scrollTop,
                 });
