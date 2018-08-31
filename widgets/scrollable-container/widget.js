@@ -1,65 +1,24 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
-const Bool = require('gadgets/helpers/bool-helpers');
-
+import _ from 'lodash';
 /******************************************************************************/
 
 class ScrollableContainer extends Widget {
   constructor() {
     super(...arguments);
-
-    this.handleScroll = this.handleScroll.bind(this);
-  }
-
-  get scrollTop() {
-    if (!this.props.id) {
-      throw new Error('Missing id in ScrollableContainer');
-    }
-
-    if (
-      window.document &&
-      window.document.scrollableContainer &&
-      window.document.scrollableContainer[this.props.id]
-    ) {
-      return window.document.scrollableContainer[this.props.id];
-    } else {
-      return 0;
-    }
-  }
-
-  set scrollTop(value) {
-    if (!this.props.id) {
-      throw new Error('Missing id in ScrollableContainer');
-    }
-
-    if (!window.document.scrollableContainer) {
-      window.document.scrollableContainer = {};
-    }
-    window.document.scrollableContainer[this.props.id] = value;
-  }
-
-  componentDidMount() {
-    super.componentDidMount();
-
-    const node = ReactDOM.findDOMNode(this);
-    node.addEventListener('scroll', this.handleScroll);
-
-    node.scroll({
-      top: this.scrollTop,
-    });
-  }
-
-  componentWillUnmount() {
-    const node = ReactDOM.findDOMNode(this);
-    node.removeEventListener('scroll', this.handleScroll);
+    this.scrollable = React.createRef();
+    this.handleScroll = _.debounce(this.handleScroll.bind(this), 500);
   }
 
   handleScroll(e) {
     // const max = e.target.scrollHeight - e.target.offsetHeight;
     // const top = e.target.scrollTop;
     // const pos = max > 0 ? top / max : 0;
-    this.scrollTop = e.target.scrollTop;
+    this.dispatch({
+      type: 'SCROLL_TOP',
+      name: this.props.name || 'default',
+      value: e.target.scrollTop,
+    });
   }
 
   /******************************************************************************/
@@ -67,16 +26,46 @@ class ScrollableContainer extends Widget {
   render() {
     const {disabled, index} = this.props;
 
-    return (
-      <div
-        key={index}
-        className={this.styles.classNames.box}
-        disabled={disabled}
-        onClick={this.props.onClick}
-      >
-        {this.props.children}
-      </div>
+    const id = this.props.id || this.context.id;
+
+    const LoadWidget = this.mapWidget(
+      props => {
+        if (!props.widgetId) {
+          this.dispatch({
+            type: 'INIT_SCROLLABLE',
+            id: id,
+            name: this.props.name || 'default',
+          });
+          return null;
+        }
+
+        return (
+          <div
+            key={index}
+            ref={el => {
+              if (el) {
+                el.addEventListener('scroll', this.handleScroll);
+                const scrollTop = this.getState()
+                  .widgets.get(id)
+                  .get(this.props.name || 'default');
+                el.scroll({
+                  top: scrollTop,
+                });
+              }
+            }}
+            className={this.styles.classNames.box}
+            disabled={disabled}
+            onClick={this.props.onClick}
+          >
+            {this.props.children}
+          </div>
+        );
+      },
+      'widgetId',
+      `widgets.${id}.id`
     );
+
+    return <LoadWidget />;
   }
 }
 
