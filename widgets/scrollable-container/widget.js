@@ -6,7 +6,6 @@ import _ from 'lodash';
 class ScrollableContainer extends Widget {
   constructor() {
     super(...arguments);
-    this.scrollable = React.createRef();
     this.handleScroll = _.debounce(this.handleScroll.bind(this), 500);
   }
 
