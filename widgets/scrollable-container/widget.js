@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
 const Bool = require('gadgets/helpers/bool-helpers');
+
 /******************************************************************************/
 
 class ScrollableContainer extends Widget {
@@ -14,39 +15,20 @@ class ScrollableContainer extends Widget {
   componentDidMount() {
     super.componentDidMount();
 
-    if (Bool.isTrue(this.props.scrollable)) {
-      const node = ReactDOM.findDOMNode(this);
-      node.addEventListener('scroll', this.handleScroll);
-      //? window.addEventListener('scroll', this.handleScroll);
-    }
+    const node = ReactDOM.findDOMNode(this);
+    node.addEventListener('scroll', this.handleScroll);
   }
 
   componentWillUnmount() {
-    if (Bool.isTrue(this.props.scrollable)) {
-      const node = ReactDOM.findDOMNode(this);
-      node.removeEventListener('scroll', this.handleScroll);
-      //? window.removeEventListener('scroll', this.handleScroll);
-    }
+    const node = ReactDOM.findDOMNode(this);
+    node.removeEventListener('scroll', this.handleScroll);
   }
 
   handleScroll(e) {
-    var winHeight = window.innerHeight;
-
-    // Annoying to compute doc height due to browser inconsistency.
-    var body = document.body;
-    var html = document.documentElement;
-    var docHeight = Math.max(
-      body.scrollHeight,
-      body.offsetHeight,
-      html.clientHeight,
-      html.scrollHeight,
-      html.offsetHeight
-    );
-
-    var value = document.body.scrollTop;
-    console.log(
-      `handleScroll: winHeight=${winHeight} docHeight=${docHeight} value=${value}`
-    );
+    const max = e.target.scrollHeight - e.target.offsetHeight;
+    const top = e.target.scrollTop;
+    const pos = max > 0 ? top / max : 0;
+    console.log(`handleScroll: pos=${pos}`);
   }
 
   /******************************************************************************/
