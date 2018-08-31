@@ -108,6 +108,7 @@ Goblin.registerQuest(goblinName, 'change-status', function*(quest, status) {
   if (status.length === 0) {
     return;
   }
+  quest.evt('status-changed', {status});
   const r = quest.getStorage('rethink');
   const table = quest.goblin.getX('table');
   const pageSize = quest.goblin.getX('pageSize');
