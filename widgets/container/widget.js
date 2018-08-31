@@ -7,7 +7,9 @@ const Bool = require('gadgets/helpers/bool-helpers');
 class Container extends Widget {
   constructor() {
     super(...arguments);
+
     this.panelBottoms = [];
+    this.handleScroll = this.handleScroll.bind(this);
   }
 
   static get wiring() {
@@ -50,7 +52,7 @@ class Container extends Widget {
       )[0];
       if (panelElem) {
         this.computePanelBottoms(panelElem);
-        panelElem.addEventListener('scroll', ::this.handleScroll, true);
+        panelElem.addEventListener('scroll', this.handleScroll, true);
       }
     }
     if (this.props.dragController) {
@@ -167,6 +169,8 @@ class Container extends Widget {
     const index = this.getPanelIndex(e.target.scrollTop, max);
     this.setNavigation(index);
   }
+
+  /******************************************************************************/
 
   renderBusy() {
     if (Bool.isTrue(this.props.busy)) {
