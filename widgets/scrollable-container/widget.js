@@ -12,11 +12,42 @@ class ScrollableContainer extends Widget {
     this.handleScroll = this.handleScroll.bind(this);
   }
 
+  get scrollTop() {
+    if (!this.props.id) {
+      throw new Error('Missing id in ScrollableContainer');
+    }
+
+    if (
+      window.document &&
+      window.document.scrollableContainer &&
+      window.document.scrollableContainer[this.props.id]
+    ) {
+      return window.document.scrollableContainer[this.props.id];
+    } else {
+      return 0;
+    }
+  }
+
+  set scrollTop(value) {
+    if (!this.props.id) {
+      throw new Error('Missing id in ScrollableContainer');
+    }
+
+    if (!window.document.scrollableContainer) {
+      window.document.scrollableContainer = {};
+    }
+    window.document.scrollableContainer[this.props.id] = value;
+  }
+
   componentDidMount() {
     super.componentDidMount();
 
     const node = ReactDOM.findDOMNode(this);
     node.addEventListener('scroll', this.handleScroll);
+
+    node.scroll({
+      top: this.scrollTop,
+    });
   }
 
   componentWillUnmount() {
@@ -25,10 +56,10 @@ class ScrollableContainer extends Widget {
   }
 
   handleScroll(e) {
-    const max = e.target.scrollHeight - e.target.offsetHeight;
-    const top = e.target.scrollTop;
-    const pos = max > 0 ? top / max : 0;
-    console.log(`handleScroll: pos=${pos}`);
+    // const max = e.target.scrollHeight - e.target.offsetHeight;
+    // const top = e.target.scrollTop;
+    // const pos = max > 0 ? top / max : 0;
+    this.scrollTop = e.target.scrollTop;
   }
 
   /******************************************************************************/
