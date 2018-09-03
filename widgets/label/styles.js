@@ -585,6 +585,13 @@ export default function styles(theme, props) {
     boxJustifyContent = boxJustifyContent || 'none';
   }
 
+  // Action button (usual parent is container with kind='actions-line-secondary').
+  if (props.kind === 'secondary-action') {
+    textSize = theme.shapes.secondaryActionTextSize;
+    glyphSize = theme.shapes.secondaryActionGlyphSize;
+    boxJustifyContent = boxJustifyContent || 'none';
+  }
+
   // Subaction button (usual parent is container with kind='row-pane' and subkind='box').
   if (props.kind === 'subaction') {
     textColor = theme.palette.subactionButtonText;

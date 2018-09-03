@@ -389,7 +389,43 @@ export default function styles(theme, props) {
     borderTopColor = theme.palette.actionBorder;
     boxShadow =
       props.subkind === 'no-shadow' ? null : theme.shapes.actionShadow;
-    // zIndex          = 2;
+  }
+
+  if (props.kind === 'actions-lines') {
+    minHeight = Unit.add(
+      Unit.add(
+        theme.shapes.secondaryActionHeight,
+        theme.shapes.secondaryActionSpacing
+      ),
+      theme.shapes.actionHeight
+    );
+    display = 'flex';
+    flexDirection = 'column';
+    justifyContent = 'flex-start';
+    alignItems = 'stretch';
+    padding = m;
+    borderStyle = 'none';
+    backgroundColor = theme.shapes.actionBackground;
+    borderTopWidth = '1px';
+    borderTopStyle = 'solid';
+    borderTopColor = theme.palette.actionBorder;
+    boxShadow =
+      props.subkind === 'no-shadow' ? null : theme.shapes.actionShadow;
+  }
+
+  if (props.kind === 'actions-line-secondary') {
+    minHeight = theme.shapes.secondaryActionHeight;
+    display = 'flex';
+    flexDirection = 'row';
+    alignContent = 'flex-start';
+    margin = '0px 0px ' + theme.shapes.secondaryActionSpacing + ' 0px';
+  }
+
+  if (props.kind === 'actions-line-primary') {
+    minHeight = theme.shapes.actionHeight;
+    display = 'flex';
+    flexDirection = 'row';
+    justifyContent = 'flex-start';
   }
 
   if (props.kind === 'panes') {

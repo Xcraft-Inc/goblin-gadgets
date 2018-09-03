@@ -285,13 +285,47 @@ export default function styles(theme, props) {
         }
       }
     }
-    const h = Unit.multiply(theme.shapes.actionHeight, 0.1);
     const r = theme.shapes.actionRadius;
     boxHeight = theme.shapes.actionHeight;
-    boxPaddingLeft = h;
+    boxPaddingLeft = Unit.multiply(theme.shapes.actionHeight, 0.1);
     borderStyle = 'none';
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'none';
     backgroundColor = theme.palette.actionButtonBackground;
+    if (place === 'left') {
+      boxMarginRight = '1px';
+      borderRadius = r + ' 0px 0px ' + r;
+    } else if (place === 'right') {
+      borderRadius = '0px ' + r + ' ' + r + ' 0px';
+    } else if (place === 'single') {
+      borderRadius = r;
+    } else {
+      boxMarginRight = '1px';
+    }
+  }
+
+  // Action button (usual parent is container with kind='actions-line-secondary').
+  if (props.kind === 'secondary-action') {
+    let place = props.place ? props.place : 'middle';
+    if (place === '1/1') {
+      place = 'single';
+    } else if (place.indexOf('/') !== -1) {
+      const n = place.split('/');
+      if (n.length === 2) {
+        if (n[0] === '1') {
+          place = 'left';
+        } else if (n[0] === n[1]) {
+          place = 'right';
+        } else {
+          place = 'middle';
+        }
+      }
+    }
+    const r = theme.shapes.secondaryActionRadius;
+    boxHeight = theme.shapes.secondaryActionHeight;
+    borderStyle = 'none';
+    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'none';
+    backgroundColor = theme.palette.actionButtonBackground;
+    boxPaddingRight = theme.shapes.secondaryActionPadding;
     if (place === 'left') {
       boxMarginRight = '1px';
       borderRadius = r + ' 0px 0px ' + r;
