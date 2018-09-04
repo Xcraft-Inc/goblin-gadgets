@@ -7,6 +7,7 @@ import TableRow from 'gadgets/table-row/widget';
 import TableCell from 'gadgets/table-cell/widget';
 import Button from 'gadgets/button/widget';
 import ScrollableContainer from 'gadgets/scrollable-container/widget';
+import ScrollableContainer2 from 'gadgets/scrollable-container2/widget';
 
 /******************************************************************************/
 
@@ -353,13 +354,13 @@ class Table extends Widget {
       <div className={boxClass}>
         <div className={tableClass}>
           {this.renderHeaders(data)}
-          <ScrollableContainer
+          <ScrollableContainer2
             kind="table-body"
             id={scrollableId}
             height={this.props.height}
           >
             {this.renderRows(data)}
-          </ScrollableContainer>
+          </ScrollableContainer2>
           <div className={verticalSeparatorClass} />
         </div>
         {this.renderButtons(data)}
