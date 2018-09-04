@@ -2144,7 +2144,7 @@ class Field extends Form {
           {...disabled}
         >
           {props.entityIds.map((entityId, index) => {
-            const Item = this.mapWidget(
+            const WiredOption = this.mapWidget(
               Option,
               state => {
                 const id = state.get('id');
@@ -2155,7 +2155,9 @@ class Field extends Form {
               },
               `backend.${entityId}`
             );
-            return this.buildLoader(entityId, () => <Item key={index} />);
+            const Item = () =>
+              this.buildLoader(entityId, () => <WiredOption />);
+            return <Item key={index} />;
           })}
         </select>
       );
