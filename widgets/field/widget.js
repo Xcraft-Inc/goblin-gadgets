@@ -2116,8 +2116,14 @@ class Field extends Form {
     const modelTextKey = this.props.modelTextKey || 'meta.summaries.info';
     const ComboIds = props => {
       const disabled = this.readonly ? {disabled: true} : null;
-      const currentValue =
-        'currentValue' in props ? props.currentValue : this.props.defaultValue;
+      let currentValue = '';
+      if (props.currentValue != null) {
+        // currentValue is not null nor undefined
+        currentValue = props.currentValue;
+      } else if (this.props.defaultValue != null) {
+        // defaultValue is not null nor undefined
+        currentValue = this.props.defaultValue;
+      }
       return (
         <select
           value={currentValue}
