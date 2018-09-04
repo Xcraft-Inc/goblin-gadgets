@@ -7,7 +7,6 @@ import TableRow from 'gadgets/table-row/widget';
 import TableCell from 'gadgets/table-cell/widget';
 import Button from 'gadgets/button/widget';
 import ScrollableContainer from 'gadgets/scrollable-container/widget';
-import ScrollableContainer2 from 'gadgets/scrollable-container2/widget';
 
 /******************************************************************************/
 
@@ -72,9 +71,7 @@ function getUniqueId(data) {
     })
     .toList();
   const rowsCount = data.get('rows').size;
-  const id = names.join('/') + ':' + rowsCount;
-  console.log(`getUniqueId = '${id}'`);
-  return id;
+  return names.join('/') + ':' + rowsCount;
 }
 
 /******************************************************************************/
@@ -354,13 +351,13 @@ class Table extends Widget {
       <div className={boxClass}>
         <div className={tableClass}>
           {this.renderHeaders(data)}
-          <ScrollableContainer2
+          <ScrollableContainer
             kind="table-body"
             id={scrollableId}
             height={this.props.height}
           >
             {this.renderRows(data)}
-          </ScrollableContainer2>
+          </ScrollableContainer>
           <div className={verticalSeparatorClass} />
         </div>
         {this.renderButtons(data)}
