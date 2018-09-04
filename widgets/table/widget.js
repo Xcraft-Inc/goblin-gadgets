@@ -6,6 +6,7 @@ const Bool = require('gadgets/helpers/bool-helpers');
 import TableRow from 'gadgets/table-row/widget';
 import TableCell from 'gadgets/table-cell/widget';
 import Button from 'gadgets/button/widget';
+import ScrollableContainer from 'gadgets/scrollable-container/widget';
 
 /******************************************************************************/
 
@@ -59,6 +60,20 @@ function diffuseSeparators(list) {
     current.isLast = i === list.length - 1; // Is this the last line of the table?
     current.index = i;
   }
+}
+
+// Return un unique id for memorize scroller po§sition.
+function getUniqueId(data) {
+  const header = data.get('header');
+  const names = header.linq
+    .select(column => {
+      return column.get('name');
+    })
+    .toList();
+  const rowsCount = data.get('rows').size;
+  const id = names.join('/') + ':' + rowsCount;
+  console.log(`getUniqueId = '${id}'`);
+  return id;
 }
 
 /******************************************************************************/
@@ -330,14 +345,21 @@ class Table extends Widget {
     const data = Widget.shred(this.props.data);
     const boxClass = this.styles.classNames.box;
     const tableClass = this.styles.classNames.table;
-    const bodyClass = this.styles.classNames.body;
     const verticalSeparatorClass = this.styles.classNames.verticalSeparator;
+
+    const scrollableId = getUniqueId(data);
 
     return (
       <div className={boxClass}>
         <div className={tableClass}>
           {this.renderHeaders(data)}
-          <div className={bodyClass}>{this.renderRows(data)}</div>
+          <ScrollableContainer
+            kind="table-body"
+            id={scrollableId}
+            height={this.props.height}
+          >
+            {this.renderRows(data)}
+          </ScrollableContainer>
           <div className={verticalSeparatorClass} />
         </div>
         {this.renderButtons(data)}

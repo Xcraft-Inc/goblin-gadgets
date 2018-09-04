@@ -1,12 +1,12 @@
-import {Unit} from 'electrum-theme';
-import {ColorHelpers} from 'electrum-theme';
-const Bool = require('gadgets/helpers/bool-helpers');
-
 /******************************************************************************/
 
 export default function styles(theme, props) {
+  let flexGrow = '1';
+  let overflowY = 'auto';
+  let height = null;
   let margin = null;
   let padding = null;
+  let cursor = null;
 
   const m = theme.shapes.containerMargin;
 
@@ -14,11 +14,20 @@ export default function styles(theme, props) {
     padding = '0px ' + m + ' 0px ' + m;
   }
 
+  if (props.kind === 'table-body') {
+    flexGrow = null;
+    overflowY = props.height ? 'scroll' : 'hidden';
+    height = props.height;
+    cursor = 'default';
+  }
+
   const box = {
-    flexGrow: '1',
-    overflowY: 'auto',
+    flexGrow: flexGrow,
+    overflowY: overflowY,
+    height: height,
     margin: margin,
     padding: padding,
+    cursor: cursor,
   };
 
   return {
