@@ -22,7 +22,17 @@ class ScrollableContainer extends Widget {
   }
 
   get isHorizontal() {
-    return this.props.direction === 'horizontal';
+    return (
+      this.props.direction === 'horizontal' || this.props.direction === 'both'
+    );
+  }
+
+  get isVertical() {
+    return (
+      !this.props.direction ||
+      this.props.direction === 'vertical' ||
+      this.props.direction === 'both'
+    );
   }
 
   // scrollHeight is a measurement of the height of an element's content,
@@ -39,11 +49,12 @@ class ScrollableContainer extends Widget {
 
       if (this.isHorizontal) {
         const max = node.scrollWidth - node.offsetWidth;
-        const left = this.scrollPos * max;
+        const left = this.getScrollPos('horizontalScrollPos') * max;
         node.scroll({left});
-      } else {
+      }
+      if (this.isVertical) {
         const max = node.scrollHeight - node.offsetHeight;
-        const top = this.scrollPos * max;
+        const top = this.getScrollPos('verticalScrollPos') * max;
         node.scroll({top});
       }
     }
@@ -55,21 +66,22 @@ class ScrollableContainer extends Widget {
       const max = e.target.scrollWidth - e.target.offsetWidth;
       const top = e.target.scrollLeft;
       const pos = max > 0 ? top / max : 0;
-      if (this.scrollPos !== pos) {
-        this.scrollPos = pos;
+      if (this.getScrollPos('horizontalScrollPos') !== pos) {
+        this.setScrollPos('horizontalScrollPos', pos);
       }
-    } else {
+    }
+    if (this.isVertical) {
       const max = e.target.scrollHeight - e.target.offsetHeight;
       const top = e.target.scrollTop;
       const pos = max > 0 ? top / max : 0;
-      if (this.scrollPos !== pos) {
-        this.scrollPos = pos;
+      if (this.getScrollPos('verticalScrollPos') !== pos) {
+        this.setScrollPos('verticalScrollPos', pos);
       }
     }
   }
 
   // Get the relative position, between 0 and 1.
-  get scrollPos() {
+  getScrollPos(field) {
     if (!this.props.id) {
       throw new Error('Missing id in ScrollableContainer');
     }
@@ -78,36 +90,40 @@ class ScrollableContainer extends Widget {
     if (this.useState) {
       const state = this.getWidgetState();
       if (state) {
-        pos = state.get('scrollPos');
+        pos = state.get(field);
       }
     } else {
       if (
         window.document &&
         window.document.scrollableContainer &&
-        window.document.scrollableContainer[this.props.id]
+        window.document.scrollableContainer[this.props.id] &&
+        window.document.scrollableContainer[this.props.id][field]
       ) {
-        pos = window.document.scrollableContainer[this.props.id];
+        pos = window.document.scrollableContainer[this.props.id][field];
       }
     }
-    // console.log(`getScrollPos id='${this.props.id}' pos='${pos}'`);
+    // console.log(`getScrollPos id='${this.props.id}' field='${field}' pos='${pos}'`);
     return pos; // return 0..1
   }
 
   // Set the relative position, between 0 and 1.
-  set scrollPos(pos) {
+  setScrollPos(field, pos) {
     if (!this.props.id) {
       throw new Error('Missing id in ScrollableContainer');
     }
 
-    // console.log(`setScrollPos id='${this.props.id}' pos='${value}'`);
+    // console.log(`setScrollPos id='${this.props.id}' field='${field}' pos='${pos}'`);
     if (this.useState) {
       // dispatch does not work because it causes a redraw!
-      this.dispatch({type: 'SET', field: 'scrollPos', pos});
+      this.dispatch({type: 'SET', field, pos});
     } else {
       if (!window.document.scrollableContainer) {
         window.document.scrollableContainer = {};
       }
-      window.document.scrollableContainer[this.props.id] = pos;
+      if (!window.document.scrollableContainer[this.props.id]) {
+        window.document.scrollableContainer[this.props.id] = {};
+      }
+      window.document.scrollableContainer[this.props.id][field] = pos;
     }
   }
 
