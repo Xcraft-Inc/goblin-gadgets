@@ -3,8 +3,8 @@ import Widget from 'laboratory/widget';
 
 /******************************************************************************/
 
-// This component is a vertical scrollable container, which stores the relative
-// position of the scroller, to restore the same position when it is mounted again.
+// This component is a scrollable container, which stores the relative positions
+// of the scrollers, to restore the same positions when it is mounted again.
 
 class ScrollableContainer extends Widget {
   constructor() {
