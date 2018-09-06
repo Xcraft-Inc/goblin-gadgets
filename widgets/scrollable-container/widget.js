@@ -21,6 +21,10 @@ class ScrollableContainer extends Widget {
     }
   }
 
+  get isHorizontal() {
+    return this.props.direction === 'horizontal';
+  }
+
   // scrollHeight is a measurement of the height of an element's content,
   // including content not visible on the screen due to overflow.
   //
@@ -33,19 +37,34 @@ class ScrollableContainer extends Widget {
       this.node = node;
       node.addEventListener('scroll', this.handleScroll);
 
-      const max = node.scrollHeight - node.offsetHeight;
-      const top = this.scrollPos * max;
-      node.scroll({top});
+      if (this.isHorizontal) {
+        const max = node.scrollWidth - node.offsetWidth;
+        const left = this.scrollPos * max;
+        node.scroll({left});
+      } else {
+        const max = node.scrollHeight - node.offsetHeight;
+        const top = this.scrollPos * max;
+        node.scroll({top});
+      }
     }
   }
 
   // Called whenever the scroller is moved.
   handleScroll(e) {
-    const max = e.target.scrollHeight - e.target.offsetHeight;
-    const top = e.target.scrollTop;
-    const pos = max > 0 ? top / max : 0;
-    if (this.scrollPos !== pos) {
-      this.scrollPos = pos;
+    if (this.isHorizontal) {
+      const max = e.target.scrollWidth - e.target.offsetWidth;
+      const top = e.target.scrollLeft;
+      const pos = max > 0 ? top / max : 0;
+      if (this.scrollPos !== pos) {
+        this.scrollPos = pos;
+      }
+    } else {
+      const max = e.target.scrollHeight - e.target.offsetHeight;
+      const top = e.target.scrollTop;
+      const pos = max > 0 ? top / max : 0;
+      if (this.scrollPos !== pos) {
+        this.scrollPos = pos;
+      }
     }
   }
 
