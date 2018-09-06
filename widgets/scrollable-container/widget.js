@@ -1,7 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
-const Bool = require('gadgets/helpers/bool-helpers');
 
 /******************************************************************************/
 
@@ -11,6 +9,7 @@ class ScrollableContainer extends Widget {
 
     this.handleScroll = this.handleScroll.bind(this);
     this.node = null;
+    this.useState = false;
   }
 
   componentWillUnmount() {
@@ -36,11 +35,10 @@ class ScrollableContainer extends Widget {
     }
 
     let pos = 0;
-    const useState = false;
-    if (useState) {
-      const state = this.getState().widgets.get(this.props.id);
+    if (this.useState) {
+      const state = this.getWidgetState();
       if (state) {
-        pos = state.get('value');
+        pos = state.get('scrollPos');
       }
     } else {
       if (
@@ -51,7 +49,7 @@ class ScrollableContainer extends Widget {
         pos = window.document.scrollableContainer[this.props.id];
       }
     }
-    //- console.log(`getScrollTop id='${this.props.id}' pos='${pos}'`);
+    console.log(`getScrollTop id='${this.props.id}' pos='${pos}'`);
     return pos;
   }
 
@@ -60,14 +58,9 @@ class ScrollableContainer extends Widget {
       throw new Error('Missing id in ScrollableContainer');
     }
 
-    //- console.log(`setScrollTop id='${this.props.id}' pos='${value}'`);
-    const useState = false;
-    if (useState) {
-      this.dispatch({
-        type: 'SCROLL_TOP',
-        id: this.props.id,
-        value: value,
-      });
+    console.log(`setScrollTop id='${this.props.id}' pos='${value}'`);
+    if (this.useState) {
+      this.dispatch({type: 'SET', field: 'scrollPos', value});
     } else {
       if (!window.document.scrollableContainer) {
         window.document.scrollableContainer = {};

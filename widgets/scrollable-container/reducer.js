@@ -14,11 +14,8 @@ const buildReducer = (initalState, reducer) => (
 };
 
 export default buildReducer(initialState, (state, action) => {
-  switch (action.type) {
-    case 'SCROLL_TOP':
-      state = state.set('id', action.id);
-      state = state.set('value', action.value);
-      return state;
+  if (action.type === 'SET') {
+    return state.set(action.field, action.value);
   }
   return state;
 });
