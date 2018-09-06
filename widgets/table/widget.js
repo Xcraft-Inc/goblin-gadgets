@@ -62,7 +62,7 @@ function diffuseSeparators(list) {
   }
 }
 
-// Return un unique id for memorize scroller po§sition.
+// Return a unique id for memorize scroller position.
 function getUniqueId(data) {
   const header = data.get('header');
   const names = header.linq
@@ -71,7 +71,7 @@ function getUniqueId(data) {
     })
     .toList();
   const rowsCount = data.get('rows').size;
-  return names.join('/') + ':' + rowsCount;
+  return `Table:${names.join('/')}:${rowsCount}`;
 }
 
 /******************************************************************************/
