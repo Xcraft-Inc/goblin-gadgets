@@ -41,7 +41,7 @@ export default function styles(theme, props) {
     backgroundColor = theme.palette.buttonDisableBackground;
   }
 
-  const boxStyle = {
+  const box = {
     width: boxWidth,
     height: boxHeight,
     alignSelf: boxAlignSelf,
@@ -59,7 +59,7 @@ export default function styles(theme, props) {
   const m = Unit.multiply(labelHeight, 0.25);
   const w = Unit.sub(labelHeight, Unit.multiply(m, 2.0));
 
-  const labelStyle = {
+  const label = {
     minWidth: w,
     height: labelHeight,
     borderRadius: labelRadius,
@@ -75,8 +75,8 @@ export default function styles(theme, props) {
   };
 
   return {
-    box: boxStyle,
-    label: labelStyle,
+    box,
+    label,
   };
 }
 

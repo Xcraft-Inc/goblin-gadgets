@@ -14,12 +14,13 @@ class Badge extends Widget {
       truncatedValue = truncatedValue.substring(0, 3) + '...';
     }
 
-    const boxClass = this.styles.classNames.box;
-    const labelClass = this.styles.classNames.label;
-
     return (
-      <div key="badge" disabled={this.props.disabled} className={boxClass}>
-        <label className={labelClass}>{truncatedValue}</label>
+      <div
+        className={this.styles.classNames.box}
+        key="badge"
+        disabled={this.props.disabled}
+      >
+        <label className={this.styles.classNames.label}>{truncatedValue}</label>
       </div>
     );
   }
