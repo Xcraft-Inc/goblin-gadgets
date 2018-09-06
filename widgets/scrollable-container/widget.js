@@ -3,13 +3,16 @@ import Widget from 'laboratory/widget';
 
 /******************************************************************************/
 
+// This component is a vertical scrollable container, which stores the relative
+// position of the scroller, to restore the same position when it is mounted again.
+
 class ScrollableContainer extends Widget {
   constructor() {
     super(...arguments);
 
     this.handleScroll = this.handleScroll.bind(this);
     this.node = null;
-    this.useState = false;
+    this.useState = false; // does not work with true!
   }
 
   componentWillUnmount() {
@@ -18,18 +21,36 @@ class ScrollableContainer extends Widget {
     }
   }
 
-  handleScroll(e) {
-    //- console.log('ScrollableContainer2.handleScroll');
-    // const max = e.target.scrollHeight - e.target.offsetHeight;
-    // const top = e.target.scrollTop;
-    // const pos = max > 0 ? top / max : 0;
-    const pos = e.target.scrollTop;
-    if (this.scrollTop !== pos) {
-      this.scrollTop = pos;
+  // scrollHeight is a measurement of the height of an element's content,
+  // including content not visible on the screen due to overflow.
+  //
+  // offsetHeight is the height of the element including vertical padding
+  // and borders, as an integer.
+
+  // Called once, when the component is mounted.
+  mount(node) {
+    if (node) {
+      this.node = node;
+      node.addEventListener('scroll', this.handleScroll);
+
+      const max = node.scrollHeight - node.offsetHeight;
+      const top = this.scrollPos * max;
+      node.scroll({top});
     }
   }
 
-  get scrollTop() {
+  // Called whenever the scroller is moved.
+  handleScroll(e) {
+    const max = e.target.scrollHeight - e.target.offsetHeight;
+    const top = e.target.scrollTop;
+    const pos = max > 0 ? top / max : 0;
+    if (this.scrollPos !== pos) {
+      this.scrollPos = pos;
+    }
+  }
+
+  // Get the relative position, between 0 and 1.
+  get scrollPos() {
     if (!this.props.id) {
       throw new Error('Missing id in ScrollableContainer');
     }
@@ -49,23 +70,25 @@ class ScrollableContainer extends Widget {
         pos = window.document.scrollableContainer[this.props.id];
       }
     }
-    console.log(`getScrollTop id='${this.props.id}' pos='${pos}'`);
-    return pos;
+    // console.log(`getScrollPos id='${this.props.id}' pos='${pos}'`);
+    return pos; // return 0..1
   }
 
-  set scrollTop(value) {
+  // Set the relative position, between 0 and 1.
+  set scrollPos(pos) {
     if (!this.props.id) {
       throw new Error('Missing id in ScrollableContainer');
     }
 
-    console.log(`setScrollTop id='${this.props.id}' pos='${value}'`);
+    // console.log(`setScrollPos id='${this.props.id}' pos='${value}'`);
     if (this.useState) {
-      this.dispatch({type: 'SET', field: 'scrollPos', value});
+      // dispatch does not work because it causes a redraw!
+      this.dispatch({type: 'SET', field: 'scrollPos', pos});
     } else {
       if (!window.document.scrollableContainer) {
         window.document.scrollableContainer = {};
       }
-      window.document.scrollableContainer[this.props.id] = value;
+      window.document.scrollableContainer[this.props.id] = pos;
     }
   }
 
@@ -77,15 +100,7 @@ class ScrollableContainer extends Widget {
     return (
       <div
         key={index}
-        ref={node => {
-          if (node) {
-            this.node = node;
-            node.addEventListener('scroll', this.handleScroll);
-            node.scroll({
-              top: this.scrollTop,
-            });
-          }
-        }}
+        ref={node => this.mount(node)}
         className={this.styles.classNames.box}
         disabled={disabled}
         onClick={this.props.onClick}
