@@ -5,6 +5,7 @@ import MouseTrap from 'mousetrap';
 import ComboHelpers from 'gadgets/helpers/combo-helpers';
 const Bool = require('gadgets/helpers/bool-helpers');
 import {Unit} from 'electrum-theme';
+import {isImmutable} from 'immutable';
 
 import Button from 'gadgets/button/widget';
 import Label from 'gadgets/label/widget';
@@ -198,6 +199,7 @@ class FieldCombo extends Widget {
     for (var item of list) {
       x.push(this.getItem(item));
     }
+    // const x = list.map(item => this.getItem(item));
     return (
       <Combo
         menuType={this.props.menuType}
@@ -265,15 +267,17 @@ class FieldCombo extends Widget {
   }
 
   renderCombo() {
-    const list = this.props.list;
-    if (list && this.showCombo) {
-      if (this.props.menuType === 'combo' || this.props.menuType === 'wrap') {
-        return this.renderComboCombo(list);
-      } else {
-        return this.renderComboSelect(list);
-      }
-    } else {
+    if (!this.props.list || !this.showCombo) {
       return null;
+    }
+    let list = this.props.list;
+    if (isImmutable(list)) {
+      list = list.toJS();
+    }
+    if (this.props.menuType === 'combo' || this.props.menuType === 'wrap') {
+      return this.renderComboCombo(list);
+    } else {
+      return this.renderComboSelect(list);
     }
   }
 
