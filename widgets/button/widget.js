@@ -203,6 +203,7 @@ class Button extends Widget {
       <Label
         key="label"
         {...this.props}
+        disabled={this.disabled}
         grow="1"
         buttonBackgroundColor={boxStyle.backgroundColor}
         insideButton={this.props.insideButton || 'true'}
