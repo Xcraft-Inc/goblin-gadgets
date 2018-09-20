@@ -1,6 +1,6 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
-
+import Bool from 'gadgets/helpers/bool-helpers';
 /******************************************************************************/
 
 class Badge extends Widget {
@@ -18,7 +18,7 @@ class Badge extends Widget {
       <div
         className={this.styles.classNames.box}
         key="badge"
-        disabled={this.props.disabled}
+        disabled={Bool.isTrue(this.props.disabled)}
       >
         <label className={this.styles.classNames.label}>{truncatedValue}</label>
       </div>
