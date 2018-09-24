@@ -1715,7 +1715,7 @@ class Field extends Form {
         EditCombo,
         list => {
           return {
-            list: list.toArray(),
+            list: list ? list.toArray() : [],
           };
         },
         this.getFullPathFromModel(this.props.listModel)
