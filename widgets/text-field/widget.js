@@ -2,7 +2,6 @@ import React from 'react';
 import Widget from 'laboratory/widget';
 import {Control, actions} from 'react-redux-form/immutable';
 const Bool = require('gadgets/helpers/bool-helpers');
-import ReactTooltip from 'react-tooltip';
 const Tooltip = require('gadgets/helpers/tooltip-helpers');
 
 import FlyingBalloon from 'gadgets/flying-balloon/widget';
@@ -59,7 +58,6 @@ class TextField extends Widget {
 
   componentDidMount() {
     super.componentDidMount();
-    ReactTooltip.rebuild();
     if (Bool.isTrue(this.props.defaultFocus)) {
       this.selectAll();
     }
@@ -268,10 +266,7 @@ class TextField extends Widget {
       }
 
       return (
-        <div
-          className={boxClass}
-          data-tip={Tooltip.prepare(this.props.tooltip)}
-        >
+        <div className={boxClass} title={Tooltip.prepare(this.props.tooltip)}>
           {glyph ? (
             <Label
               kind="text-field-combo-glyph"

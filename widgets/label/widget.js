@@ -3,7 +3,6 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import Widget from 'laboratory/widget';
 import T from 'nabu/t/widget';
 const Bool = require('gadgets/helpers/bool-helpers');
-import ReactTooltip from 'react-tooltip';
 const Tooltip = require('gadgets/helpers/tooltip-helpers');
 import ReactMarkdown from 'react-markdown';
 
@@ -25,7 +24,6 @@ class Label extends Widget {
 
   componentDidMount() {
     super.componentDidMount();
-    ReactTooltip.rebuild();
   }
 
   setText(text) {
@@ -244,7 +242,7 @@ class Label extends Widget {
           className={boxClass}
           key={this.props.index}
           disabled={this.props.disabled}
-          data-tip={Tooltip.prepare(this.props.tooltip)}
+          title={Tooltip.prepare(this.props.tooltip)}
         >
           {this.renderGlyphAndText()}
         </div>
@@ -256,7 +254,7 @@ class Label extends Widget {
           key={this.props.index}
           onClick={this.props.onClick}
           disabled={this.props.disabled}
-          data-tip={Tooltip.prepare(this.props.tooltip)}
+          title={Tooltip.prepare(this.props.tooltip)}
         >
           {this.renderGlyphAndText()}
           {this.props.children}
