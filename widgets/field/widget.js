@@ -7,6 +7,11 @@ import {
   time as TimeConverters,
 } from 'xcraft-core-converters';
 
+/******************************************************************************/
+//migrated
+import ReadonlyLabel from './readonly/label.js';
+/******************************************************************************/
+
 import Container from 'gadgets/container/widget';
 import Button from 'gadgets/button/widget';
 import CheckButton from 'gadgets/check-button/widget';
@@ -645,41 +650,6 @@ class Field extends Form {
       this.fullPath
     );
     return <Field />;
-  }
-
-  renderReadonlyLabel() {
-    const Value = this.mapWidget(
-      Label,
-      value => {
-        return {text: value};
-      },
-      this.fullPath
-    );
-
-    const labelWidth = this.props.labelWidth || defaultLabelWidth;
-
-    return (
-      <Container
-        kind="row-field"
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing || 'compact'}
-        verticalJustify={this.props.verticalJustify}
-      >
-        {labelWidth === '0px' ? null : (
-          <Label
-            text={this.props.labelText}
-            glyph={this.props.labelGlyph}
-            width={labelWidth}
-            kind="label-field"
-            justify="left"
-            spacing="overlap"
-          />
-        )}
-        <Value grow="1" justify={this.props.justify} />
-      </Container>
-    );
   }
 
   renderReadonlyBool() {
@@ -2558,7 +2528,13 @@ class Field extends Form {
       case 'subtitle':
         return this.renderSubtitle();
       case 'label':
-        return this.renderReadonlyLabel();
+        return (
+          <ReadonlyLabel
+            defaultLabelWidth={defaultLabelWidth}
+            fullpath={this.fullPath}
+            {...this.props}
+          />
+        );
       default:
         return this.renderReadonlyField();
     }
@@ -2633,7 +2609,7 @@ class Field extends Form {
       case 'subtitle':
         return this.renderSubtitle();
       case 'label':
-        return this.renderReadonlyLabel();
+        return <EditLabel fullpath={this.fullPath} {...props} />;
       default:
         return this.renderEditField();
     }
