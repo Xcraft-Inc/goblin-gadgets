@@ -71,57 +71,20 @@ class DynamicToolbar extends Widget {
   }
 
   // Draws the discrete small button.
-  // light '>' when the toolbar is hidden.
-  // dark '<' when the toolbar is showed.
   renderHoverButton() {
     const style = this.styles.classNames.hoverButton;
-
-    if (this.props.direction === 'top') {
-      return (
-        <div className={style}>
-          <Button
-            width="20px"
-            height="14px"
-            kind="dynamic-toolbar-top-left"
-            glyph={this.showToolbar ? 'solid/caret-up' : 'solid/caret-down'}
-            active={Bool.toString(this.showToolbar)}
-            mouseOver={this.onShowToolbar}
-            ref={node => (this.toolbarButton = node)}
-          />
-        </div>
-      );
-    } else if (this.props.direction === 'corner') {
-      return (
-        <div className={style}>
-          <Button
-            width="24px"
-            height="24px"
-            kind="dynamic-toolbar-top-left"
-            glyph="solid/ellipsis-h"
-            mouseOver={this.onShowToolbar}
-            ref={node => (this.toolbarButton = node)}
-          />
-        </div>
-      );
-    } else {
-      const h = Unit.add(
-        this.context.theme.shapes.dynamicToolbarButtonHeight,
-        Unit.multiply(this.context.theme.shapes.dynamicToolbarMargin, 2)
-      );
-      return (
-        <div className={style}>
-          <Button
-            width={this.context.theme.shapes.dynamicToolbarButtonWidth}
-            height={h}
-            kind="dynamic-toolbar-left"
-            glyph={this.showToolbar ? 'solid/caret-left' : 'solid/caret-right'}
-            active={Bool.toString(this.showToolbar)}
-            mouseOver={this.onShowToolbar}
-            ref={node => (this.toolbarButton = node)}
-          />
-        </div>
-      );
-    }
+    return (
+      <div className={style}>
+        <Button
+          width="24px"
+          height="24px"
+          kind="dynamic-toolbar-top-left"
+          glyph={this.props.glyph || 'solid/ellipsis-h'}
+          mouseOver={this.onShowToolbar}
+          ref={node => (this.toolbarButton = node)}
+        />
+      </div>
+    );
   }
 
   // Draws a full-screen area behind the toolbar, for the mechanism to hide the toolbar.
