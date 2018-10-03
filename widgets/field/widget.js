@@ -2359,7 +2359,7 @@ class Field extends Form {
             onClick={() => {
               const service = this.context.id.split('@')[0];
               const currentValue = this.getBackendValue(
-                `backend.${this.context.id}.${this.props.hinter}`
+                `widgets.${this.context.id}.${this.props.hinter}`
               );
               if (currentValue && currentValue.length >= 1) {
                 this.doAs(service, `add-new-${this.props.hinter}`, {

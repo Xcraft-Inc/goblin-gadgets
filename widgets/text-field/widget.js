@@ -79,6 +79,11 @@ class TextField extends Widget {
   }
 
   hinterSearch(e) {
+    this.dispatch({
+      type: 'SET_VALUE',
+      field: this.props.hinter,
+      value: e.target.value,
+    });
     this.rawDispatch({
       type: 'hinter/search',
       model: `${this.context.model}.${this.props.hinter}`,
