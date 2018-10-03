@@ -60,6 +60,7 @@ class Notification extends Widget {
           grow="1"
           wrap={this.extended ? null : 'no'}
           maxLines={this.extended ? null : 2}
+          skipEmptyLines={this.extended ? false : true}
         />
         <Container kind="column">
           <Button
