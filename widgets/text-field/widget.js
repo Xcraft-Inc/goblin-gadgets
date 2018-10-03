@@ -81,7 +81,7 @@ class TextField extends Widget {
   hinterSearch(e) {
     this.rawDispatch({
       type: 'hinter/search',
-      model: `${this.props.model || this.context.model}.${this.props.hinter}`,
+      model: `${this.context.model}.${this.props.hinter}`,
       value: e.target.value,
     });
     this.onChange();
