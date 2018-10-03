@@ -109,6 +109,9 @@ class Label extends Widget {
     const array = [];
     let index = 0;
     for (var line of lines) {
+      if (this.props.maxLines && index >= this.props.maxLines) {
+        break;
+      }
       array.push(this.renderLine(index++, line));
     }
     return array;
