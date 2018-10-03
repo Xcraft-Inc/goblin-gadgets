@@ -201,6 +201,7 @@ class TextFieldTyped extends Widget {
         required={this.props.required}
         selectAllOnFocus={this.props.selectAllOnFocus}
         defaultFocus={this.props.defaultFocus}
+        tabindex={this.props.tabindex}
       />
     );
   }

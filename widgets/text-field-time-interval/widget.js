@@ -29,6 +29,7 @@ class TextFieldTimeInterval extends Widget {
         fieldWidth="70px"
         spacing="overlap"
         type="time"
+        tabindex="0"
         labelText={this.props.labelText}
         labelGlyph={this.props.labelGlyph}
         labelWidth={this.props.labelWidth}
@@ -61,6 +62,7 @@ class TextFieldTimeInterval extends Widget {
           Bool.isTrue(this.props.hasNowButton) ? 'overlap' : this.props.spacing
         }
         type="time"
+        tabindex="1"
         labelWidth="0px"
         hintText={this.props.endHintText || 'Fin'}
         tooltip={this.props.endTooltip || 'Heure de fin'}
