@@ -28,7 +28,7 @@ export default function styles(theme, props) {
     backgroundColor = theme.palette.notificationBackgroundRead;
   }
 
-  const boxStyle = {
+  const box = {
     minHeight: '32px',
     display: 'flex',
     flexDirection: 'row',
@@ -46,7 +46,7 @@ export default function styles(theme, props) {
   };
 
   return {
-    box: boxStyle,
+    box,
   };
 }
 
