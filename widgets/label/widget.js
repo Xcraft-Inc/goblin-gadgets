@@ -89,9 +89,13 @@ class Label extends Widget {
   renderFragments(line) {
     const result = [];
     const fragments = this.getFragments(line);
-    let index = 0;
-    for (var fragment of fragments) {
-      result.push(this.renderFragment(index++, fragment));
+    if (fragments.length === 0) {
+      result.push(this.renderFragment(0, {em: false, text: ' '})); // U+2001 cadratin
+    } else {
+      let index = 0;
+      for (var fragment of fragments) {
+        result.push(this.renderFragment(index++, fragment));
+      }
     }
     return result;
   }
@@ -109,6 +113,12 @@ class Label extends Widget {
     const array = [];
     let index = 0;
     for (var line of lines) {
+      if (this.props.maxLines && index >= this.props.maxLines) {
+        break;
+      }
+      if (Bool.isTrue(this.props.skipEmptyLines) && line === '') {
+        continue;
+      }
       array.push(this.renderLine(index++, line));
     }
     return array;

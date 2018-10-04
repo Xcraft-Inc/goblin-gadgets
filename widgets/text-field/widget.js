@@ -35,6 +35,7 @@ class TextField extends Widget {
     this.onBlur = this.onBlur.bind(this);
     this.onChange = this.onChange.bind(this);
     this.selectAll = this.selectAll.bind(this);
+    this.hinterSearch = this.hinterSearch.bind(this);
 
     this.hasFocus = false;
     this.hasChanged = false;
@@ -81,6 +82,20 @@ class TextField extends Widget {
         this.input.focus();
       }
     }
+  }
+
+  hinterSearch(e) {
+    this.dispatch({
+      type: 'SET_VALUE',
+      field: this.props.hinter,
+      value: e.target.value,
+    });
+    this.rawDispatch({
+      type: 'hinter/search',
+      model: `${this.context.model}.${this.props.hinter}`,
+      value: e.target.value,
+    });
+    this.onChange();
   }
 
   onChange(e) {
@@ -251,7 +266,10 @@ class TextField extends Widget {
         'dispatch',
       ]);
 
-      if (props.value === null || props.value === undefined) {
+      if (
+        !props.hinter &&
+        (props.value === null || props.value === undefined)
+      ) {
         finalProps.value = '';
       }
 
@@ -318,7 +336,24 @@ class TextField extends Widget {
 
     const defaultUpdateOn = this.props.hinter ? 'change' : 'blur';
 
-    return (
+    return this.props.hinter ? (
+      <Field
+        className={`${fieldClass} ${inputClass}`}
+        onChange={this.hinterSearch}
+        onFocus={this.onFocus}
+        onBlur={this.onBlur}
+        onMouseUp={this.props.onMouseUp}
+        onKeyDown={this.props.onKeyDown}
+        disabled={Bool.isTrue(this.props.disabled)}
+        maxLength={this.props.maxLength}
+        placeholder={this.props.hintText}
+        size={this.props.size || 'size'}
+        type={this.props.type || 'text'}
+        key={key}
+        hinter={this.props.hinter}
+        {...options}
+      />
+    ) : (
       <Control
         className={`${fieldClass} ${inputClass}`}
         component={Field}
