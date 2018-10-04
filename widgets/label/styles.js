@@ -542,10 +542,7 @@ export default function styles(theme, props) {
     }
     specialDisabled = true;
   }
-  if (
-    props.kind === 'notification-close' ||
-    props.kind === 'notification-extend'
-  ) {
+  if (props.kind === 'notification-close') {
     glyphColor = theme.palette.notificationText;
     textColor = theme.palette.notificationText;
     textHoverColor = theme.palette.notificationTextHover;

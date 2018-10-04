@@ -4,7 +4,6 @@ import {Unit} from 'electrum-theme';
 
 export default function styles(theme, props) {
   let padding = theme.shapes.dynamicToolbarMargin;
-  let borderLeft = null;
   let borderRight = null;
   let borderBottom = null;
   let boxShadow = null;
@@ -16,38 +15,41 @@ export default function styles(theme, props) {
       Unit.multiply(theme.shapes.lineSpacing, 0.5) +
       ' solid ' +
       theme.palette.menuBackground;
-    if (props.position === 'top-right') {
-      borderLeft = b;
-      borderBottom = b;
-      borderRadius = '0px 0px 0px ' + padding;
-    } else {
-      borderRight = b;
-      borderBottom = b;
-      borderRadius = '0px 0px ' + padding + ' 0px';
-    }
+    borderRight = b;
+    borderBottom = b;
     boxShadow = theme.shapes.floatingShadow;
+    borderRadius =
+      props.padding === 'large' ? '0px 0px ' + padding + ' 0px' : null;
   }
 
-  let visibleTransform, hiddenTransform;
-  if (props.position === 'top-right') {
-    visibleTransform = 'translate(-100%, 0%)';
-    hiddenTransform = 'translate(0%, 0%)';
-  } else {
+  let visibleTransform = `translate(${
+    theme.shapes.dynamicToolbarButtonWidth
+  }, 0%)`;
+  let hiddenTransform = 'translate(-100%, 0%)';
+
+  if (props.direction === 'top') {
+    visibleTransform = 'translate(0%, 0%)';
+    hiddenTransform = 'translate(0%, -100%)';
+  }
+  if (props.direction === 'corner') {
+    // visibleTransform = 'translate(0%, 0%)';
+    // hiddenTransform = 'translate(-100%, -100%)';
     visibleTransform = 'translate(0%, 0%)';
     hiddenTransform = 'translate(-100%, 0%)';
+    // visibleTransform = 'translate(0%, 0%) scale(1)';
+    // hiddenTransform = 'translate(-50%, -50%) scale(0)';
   }
 
-  const delay = 700;
+  const delay = props.direction === 'top' ? 400 : 700;
 
   /******************************************************************************/
 
-  const main = {
+  const mainStyle = {
     position: 'absolute',
-    left: props.position === 'top-right' ? null : '0px',
-    right: props.position === 'top-right' ? '0px' : null,
+    left: '0px',
   };
 
-  const fullScreen = {
+  const fullScreenStyle = {
     zIndex: 10,
     position: 'fixed',
     top: '0px',
@@ -58,18 +60,16 @@ export default function styles(theme, props) {
     //backgroundColor: 'rgba(255, 0, 0, 0.2)',
   };
 
-  const hoverButton = {
+  const hoverButtonStyle = {
     position: 'absolute',
-    right: props.position === 'top-right' ? '0px' : null,
   };
 
-  const boxVisible = {
+  const boxVisibleStyle = {
     zIndex: 11,
     position: 'absolute',
     display: 'flex',
     flexDirection: 'row',
     padding: padding,
-    borderLeft: borderLeft,
     borderRight: borderRight,
     borderBottom: borderBottom,
     borderRadius: borderRadius,
@@ -79,13 +79,12 @@ export default function styles(theme, props) {
     transition: theme.transitions.easeOut(delay),
   };
 
-  const boxHidden = {
+  const boxHiddenStyle = {
     zIndex: 11,
     position: 'absolute',
     display: 'flex',
     flexDirection: 'row',
     padding: padding,
-    borderLeft: borderLeft,
     borderRight: borderRight,
     borderBottom: borderBottom,
     borderRadius: borderRadius,
@@ -95,11 +94,11 @@ export default function styles(theme, props) {
   };
 
   return {
-    main,
-    fullScreen,
-    hoverButton,
-    boxVisible,
-    boxHidden,
+    main: mainStyle,
+    fullScreen: fullScreenStyle,
+    hoverButton: hoverButtonStyle,
+    boxVisible: boxVisibleStyle,
+    boxHidden: boxHiddenStyle,
   };
 }
 

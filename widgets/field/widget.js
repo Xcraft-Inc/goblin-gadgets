@@ -696,7 +696,7 @@ class Field extends Form {
 
     return (
       <Container
-        kind={this.props.containerKind || 'row-field'}
+        kind="row-field"
         subkind="left"
         grow={this.props.grow}
         width={this.props.width}
@@ -1864,7 +1864,7 @@ class Field extends Form {
 
     return (
       <Container
-        kind={this.props.containerKind || 'row-field'}
+        kind="row-field"
         subkind="left"
         grow={this.props.grow}
         width={this.props.width}
@@ -2361,7 +2361,7 @@ class Field extends Form {
             onClick={() => {
               const service = this.context.id.split('@')[0];
               const currentValue = this.getBackendValue(
-                `widgets.${this.context.id}.${this.props.hinter}`
+                `backend.${this.context.id}.${this.props.hinter}`
               );
               if (currentValue && currentValue.length >= 1) {
                 this.doAs(service, `add-new-${this.props.hinter}`, {

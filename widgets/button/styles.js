@@ -235,12 +235,6 @@ export default function styles(theme, props) {
     backgroundColor = 'transparent';
     backgroundHoverColor = 'transparent';
   }
-  if (props.kind === 'notification-extend') {
-    boxMarginBottom = Unit.multiply(theme.shapes.containerMargin, -1);
-    borderStyle = 'none';
-    backgroundColor = 'transparent';
-    backgroundHoverColor = 'transparent';
-  }
 
   if (props.kind === 'check-button') {
     backgroundColor = 'transparent';
