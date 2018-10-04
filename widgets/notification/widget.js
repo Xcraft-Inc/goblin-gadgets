@@ -43,7 +43,6 @@ class Notification extends Widget {
       glyphColor = ColorHelpers.getMarkColor(this.context.theme, glyphColor);
     }
 
-    // TODO: Limit number of lines if this.extended === false.
     return (
       <div className={this.styles.classNames.box} onClick={this.props.onClick}>
         <Button
