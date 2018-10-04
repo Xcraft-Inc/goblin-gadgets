@@ -237,6 +237,7 @@ class Field extends Form {
             rows={this.props.rows}
             model={this.props.model}
             required={this.props.required}
+            onDebouncedChange={this.props.onDebouncedChange}
             grow="1"
           />
         </Container>
@@ -1066,6 +1067,7 @@ class Field extends Form {
           rows={this.props.rows}
           required={this.props.required}
           model={this.props.model}
+          onDebouncedChange={this.props.onDebouncedChange}
           grow="1"
         />
       </Container>

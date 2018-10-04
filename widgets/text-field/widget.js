@@ -1,6 +1,7 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 import {Control, actions} from 'react-redux-form/immutable';
+const _ = require('lodash');
 const Bool = require('gadgets/helpers/bool-helpers');
 const Tooltip = require('gadgets/helpers/tooltip-helpers');
 
@@ -48,6 +49,11 @@ class TextField extends Widget {
     };
   }
 
+  onDebouncedChangedFunc = _.debounce(
+    (onDebouncedChange, value) => onDebouncedChange(value),
+    400
+  );
+
   setText(text) {
     this.do('text', {text});
   }
@@ -77,8 +83,12 @@ class TextField extends Widget {
     }
   }
 
-  onChange() {
+  onChange(e) {
     this.hasChanged = true;
+
+    if (this.props.onDebouncedChange) {
+      this.onDebouncedChangedFunc(this.props.onDebouncedChange, e.target.value);
+    }
   }
 
   onFocus(e) {

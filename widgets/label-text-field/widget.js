@@ -93,6 +93,7 @@ class LabelTextField extends Widget {
       parser: this.props.parser,
       errors: this.props.errors,
       beforeChange: this.props.beforeChange,
+      onDebouncedChange: this.props.onDebouncedChange,
       updateOn: this.props.updateOn,
       getDisplayValue: this.props.getDisplayValue,
       getGlyph: this.props.getGlyph,
