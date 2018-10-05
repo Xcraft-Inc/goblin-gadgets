@@ -324,8 +324,6 @@ class TextField extends Widget {
           ? this.props.hinter
           : this.props.model();
 
-    const defaultUpdateOn = this.props.hinter ? 'change' : 'blur';
-
     return this.props.hinter ? (
       <Field
         className={`${fieldClass} ${inputClass}`}
@@ -353,8 +351,8 @@ class TextField extends Widget {
         parser={this.props.parser}
         errors={this.props.errors}
         mapProps={mapProps}
-        updateOn={this.props.updateOn ? this.props.updateOn : defaultUpdateOn}
-        model={this.props.hinter ? `.${this.props.hinter}` : this.props.model}
+        updateOn={this.props.updateOn ? this.props.updateOn : 'blur'}
+        model={this.props.model}
         onFocus={this.onFocus}
         onBlur={this.onBlur}
         onChange={this.onChange}
