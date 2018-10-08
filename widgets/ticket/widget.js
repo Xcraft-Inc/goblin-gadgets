@@ -3,6 +3,7 @@ import Widget from 'laboratory/widget';
 
 import Label from 'gadgets/label/widget';
 import Badge from 'gadgets/badge/widget';
+import TicketHover from 'gadgets/ticket-hover/widget';
 
 const Bool = require('gadgets/helpers/bool-helpers');
 const Tooltip = require('gadgets/helpers/tooltip-helpers');
@@ -10,7 +11,7 @@ import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
 
-class Ticket extends Widget {
+export default class Ticket extends Widget {
   constructor() {
     super(...arguments);
 
@@ -100,7 +101,6 @@ class Ticket extends Widget {
     const shapeClass = this.styles.classNames.shape;
     const hatchClass = this.styles.classNames.hatch;
     const flashClass = this.styles.classNames.flash;
-    const hoverClass = this.styles.classNames.hover;
     const contentClass = this.styles.classNames.content;
 
     const w = this.styles.props.box.width;
@@ -148,11 +148,6 @@ class Ticket extends Widget {
         <path d={this.styles.props.svg.path} />
       </svg>
     ) : null;
-    const htmlHover = (
-      <svg width={w} height={h} className={hoverClass}>
-        <path d={this.styles.props.hover.path} />
-      </svg>
-    );
 
     return (
       <div
@@ -176,7 +171,13 @@ class Ticket extends Widget {
           {this.renderHud()}
         </div>
         {Bool.isTrue(this.props.flash) ? <div className={flashClass} /> : null}
-        {htmlHover}
+        <TicketHover
+          kind={this.props.kind}
+          shape={this.props.shape}
+          hoverShape={this.props.hoverShape}
+          width={this.props.width}
+          height={this.props.height}
+        />
       </div>
     );
   }
@@ -187,7 +188,6 @@ class Ticket extends Widget {
       : this.styles.classNames.rectShadow;
     const rectClass = this.styles.classNames.rect;
     const flashClass = this.styles.classNames.flash;
-    const rectHoverClass = this.styles.classNames.rectHover;
     const contentClass = this.styles.classNames.content;
     const rectContentHatchClass = this.styles.classNames.rectContentHatch;
 
@@ -217,7 +217,13 @@ class Ticket extends Widget {
           </div>
         </div>
         {Bool.isTrue(this.props.flash) ? <div className={flashClass} /> : null}
-        <div className={rectHoverClass} />
+        <TicketHover
+          kind={this.props.kind}
+          shape={this.props.shape}
+          hoverShape={this.props.hoverShape}
+          width={this.props.width}
+          height={this.props.height}
+        />
       </div>
     );
   }
@@ -281,6 +287,3 @@ class Ticket extends Widget {
     }
   }
 }
-
-/******************************************************************************/
-export default Ticket;
