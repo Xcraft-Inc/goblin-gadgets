@@ -497,7 +497,10 @@ class DragCarrier extends Widget {
   }
 
   isSelected(item) {
-    if (this.context.dragServiceId) {
+    if (this.props.getSelectedIds) {
+      const ticketId = item.props.children.props.ticketId;
+      return ticketId && this.props.getSelectedIds().get(ticketId);
+    } else if (this.context.dragServiceId) {
       const selectedIds = this.getBackendValue(
         `backend.${this.context.dragServiceId}.selectedIds`
       );
