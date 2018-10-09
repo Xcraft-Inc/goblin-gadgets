@@ -318,7 +318,24 @@ class TextField extends Widget {
 
     const defaultUpdateOn = this.props.hinter ? 'change' : 'blur';
 
-    return (
+    return this.props.hinter ? (
+      <Field
+        className={`${fieldClass} ${inputClass}`}
+        onChange={this.hinterSearch}
+        onFocus={this.onFocus}
+        onBlur={this.onBlur}
+        onMouseUp={this.props.onMouseUp}
+        onKeyDown={this.props.onKeyDown}
+        disabled={Bool.isTrue(this.props.disabled)}
+        maxLength={this.props.maxLength}
+        placeholder={this.props.hintText}
+        size={this.props.size || 'size'}
+        type={this.props.type || 'text'}
+        key={key}
+        hinter={this.props.hinter}
+        {...options}
+      />
+    ) : (
       <Control
         className={`${fieldClass} ${inputClass}`}
         component={Field}
@@ -329,7 +346,7 @@ class TextField extends Widget {
         errors={this.props.errors}
         mapProps={mapProps}
         updateOn={this.props.updateOn ? this.props.updateOn : defaultUpdateOn}
-        model={this.props.hinter ? `.${this.props.hinter}` : this.props.model}
+        model={this.props.model}
         onFocus={this.onFocus}
         onBlur={this.onBlur}
         onChange={this.onChange}
