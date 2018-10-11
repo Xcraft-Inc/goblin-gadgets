@@ -14,6 +14,7 @@ class DialogModal extends Widget {
 
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onContentClick = this.onContentClick.bind(this);
+    this.onCloseCombo = this.onCloseCombo.bind(this);
   }
 
   componentWillMount() {
