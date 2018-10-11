@@ -2,6 +2,7 @@ import React from 'react';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import Widget from 'laboratory/widget';
 import T from 'nabu/t/widget';
+import {ColorHelpers} from 'electrum-theme';
 const Bool = require('gadgets/helpers/bool-helpers');
 const Tooltip = require('gadgets/helpers/tooltip-helpers');
 import ReactMarkdown from 'react-markdown';
@@ -174,6 +175,20 @@ class Label extends Widget {
 
   renderGlyph(index, glyph) {
     const glyphClass = this.styles.classNames.glyph;
+    let glyphStyle = null;
+
+    if (typeof glyph === 'object' && glyph.glyph) {
+      // Accept map in property glyph. By example:
+      // <Label glyph={{glyph: 'toto': color: 'red'}} />
+      if (glyph.color) {
+        const color = ColorHelpers.getMarkColor(
+          this.context.theme,
+          glyph.color
+        );
+        glyphStyle = {color};
+      }
+      glyph = glyph.glyph;
+    }
 
     if (glyph === 'solid/none') {
       return <div key={index} className={glyphClass} />;
@@ -202,7 +217,7 @@ class Label extends Widget {
     }
 
     return (
-      <div key={index} className={glyphClass}>
+      <div key={index} className={glyphClass} style={glyphStyle}>
         <FontAwesomeIcon
           icon={[`fa${prefix}`, glyph]}
           rotate={this.props.glyphRotate}
