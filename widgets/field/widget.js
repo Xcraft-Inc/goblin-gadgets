@@ -2609,7 +2609,13 @@ class Field extends Form {
       case 'subtitle':
         return this.renderSubtitle();
       case 'label':
-        return <EditLabel fullpath={this.fullPath} {...props} />;
+        return (
+          <ReadonlyLabel
+            defaultLabelWidth={defaultLabelWidth}
+            fullpath={this.fullPath}
+            {...this.props}
+          />
+        );
       default:
         return this.renderEditField();
     }

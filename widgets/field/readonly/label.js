@@ -3,7 +3,11 @@ import Widget from 'laboratory/widget';
 import Container from 'gadgets/container/widget';
 import Label from 'gadgets/label/widget';
 
-const ReadonlyLabel = props => {
+const LabelWired = Widget.connect((state, props) => {
+  return {text: state.get(props.fullpath)};
+})(Label);
+
+export default function ReadonlyLabel(props) {
   const labelWidth = props.labelWidth || props.defaultLabelWidth;
 
   return (
@@ -25,11 +29,7 @@ const ReadonlyLabel = props => {
           spacing="overlap"
         />
       )}
-      <Label grow="1" justify={props.justify} />
+      <LabelWired grow="1" justify={props.justify} fullpath={props.fullpath} />
     </Container>
   );
-};
-
-export default Widget.connect((state, props) => {
-  return {text: state.get(props.fullpath)};
-})(ReadonlyLabel);
+}
