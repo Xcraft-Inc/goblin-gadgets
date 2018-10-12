@@ -116,7 +116,7 @@ class List extends Widget {
   }
 
   render() {
-    if (!this.props.id) {
+    if (!this.props.id || !this.props.status) {
       return null;
     }
     const {showPublished, showDraft, showArchived} = this.buildStatusFlag();

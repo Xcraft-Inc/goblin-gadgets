@@ -177,6 +177,10 @@ class TextField extends Widget {
   }
 
   renderInput() {
+    if (!this.props.model && !this.props.hinter) {
+      return null;
+    }
+
     const options = {};
     if (Bool.isTrue(this.props.readonly)) {
       options.readOnly = 'readOnly';
