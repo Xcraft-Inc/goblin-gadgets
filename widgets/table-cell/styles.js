@@ -114,6 +114,7 @@ export default function styles(theme, props) {
     textTransform: textTransform,
     fontSize: fontSize,
     backgroundColor: backgroundColor,
+    alignSelf: 'center',
     cursor: 'default',
   };
 
