@@ -97,10 +97,12 @@ class Table extends Widget {
     if (this.props.onSelectionChanged) {
       this.props.onSelectionChanged(id);
     } else {
-      this.doAs('table-gadget', 'select', {
-        mode: this.props.selectionMode,
-        rowId: id,
-      });
+      if (this.props.selectionMode !== 'none') {
+        this.doAs('table-gadget', 'select', {
+          mode: this.props.selectionMode,
+          rowId: id,
+        });
+      }
     }
   }
 
