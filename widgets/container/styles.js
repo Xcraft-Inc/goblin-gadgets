@@ -1301,7 +1301,7 @@ export default function styles(theme, props) {
     width: '100%',
     height: '100%',
     display: 'flex',
-    backgroundColor: theme.palette.busyBackground,
+    backgroundColor: props.busyBackgroundColor || theme.palette.busyBackground,
   };
 
   const busyGlyphStyle = {
