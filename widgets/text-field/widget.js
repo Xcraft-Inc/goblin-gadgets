@@ -4,7 +4,6 @@ import {Control, actions} from 'react-redux-form/immutable';
 const _ = require('lodash');
 const Bool = require('gadgets/helpers/bool-helpers');
 const Tooltip = require('gadgets/helpers/tooltip-helpers');
-import Connect from 'laboratory/connect';
 
 import FlyingBalloon from 'gadgets/flying-balloon/widget';
 import Label from 'gadgets/label/widget';
@@ -299,40 +298,36 @@ class TextField extends Widget {
       }
 
       return (
-        <Connect
-          title={state => Tooltip.prepare(this.props.tooltip, state, this)}
-        >
-          <div className={boxClass}>
-            {glyph ? (
-              <Label
-                kind="text-field-combo-glyph"
-                glyph={glyph.glyph}
-                glyphColor={glyph.color}
-              />
-            ) : null}
-            {type === 'textarea' ? (
-              <textarea
-                tabIndex="0"
-                rows={this.props.rows}
-                ref={node => {
-                  this.input = node;
-                }}
-                {...finalProps}
-              />
-            ) : (
-              <input
-                tabIndex="0"
-                type={type}
-                ref={node => {
-                  this.input = node;
-                }}
-                {...finalProps}
-              />
-            )}
-            {this.renderFocusForeground(props)}
-            {this.renderFlyingBalloon(props)}
-          </div>
-        </Connect>
+        <div className={boxClass} title={Tooltip.prepare(this.props.tooltip)}>
+          {glyph ? (
+            <Label
+              kind="text-field-combo-glyph"
+              glyph={glyph.glyph}
+              glyphColor={glyph.color}
+            />
+          ) : null}
+          {type === 'textarea' ? (
+            <textarea
+              tabIndex="0"
+              rows={this.props.rows}
+              ref={node => {
+                this.input = node;
+              }}
+              {...finalProps}
+            />
+          ) : (
+            <input
+              tabIndex="0"
+              type={type}
+              ref={node => {
+                this.input = node;
+              }}
+              {...finalProps}
+            />
+          )}
+          {this.renderFocusForeground(props)}
+          {this.renderFlyingBalloon(props)}
+        </div>
       );
     };
 
