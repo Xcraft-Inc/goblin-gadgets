@@ -2,6 +2,7 @@ import React from 'react';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import Widget from 'laboratory/widget';
 import T from 'nabu/t/widget';
+import Connect from 'laboratory/connect';
 import {ColorHelpers} from 'electrum-theme';
 const Bool = require('gadgets/helpers/bool-helpers');
 const Tooltip = require('gadgets/helpers/tooltip-helpers');
@@ -263,27 +264,33 @@ class Label extends Widget {
 
     if (Bool.isTrue(this.props.insideButton)) {
       return (
-        <div
-          className={boxClass}
-          key={this.props.index}
-          disabled={this.props.disabled}
-          title={Tooltip.prepare(this.props.tooltip)}
+        <Connect
+          title={state => Tooltip.prepare(this.props.tooltip, state, this)}
         >
-          {this.renderGlyphAndText()}
-        </div>
+          <div
+            className={boxClass}
+            key={this.props.index}
+            disabled={this.props.disabled}
+          >
+            {this.renderGlyphAndText()}
+          </div>
+        </Connect>
       );
     } else {
       return (
-        <div
-          className={boxClass}
-          key={this.props.index}
-          onClick={this.props.onClick}
-          disabled={this.props.disabled}
-          title={Tooltip.prepare(this.props.tooltip)}
+        <Connect
+          title={state => Tooltip.prepare(this.props.tooltip, state, this)}
         >
-          {this.renderGlyphAndText()}
-          {this.props.children}
-        </div>
+          <div
+            className={boxClass}
+            key={this.props.index}
+            onClick={this.props.onClick}
+            disabled={this.props.disabled}
+          >
+            {this.renderGlyphAndText()}
+            {this.props.children}
+          </div>
+        </Connect>
       );
     }
   }

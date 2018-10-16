@@ -4,6 +4,7 @@ import Widget from 'laboratory/widget';
 import Label from 'gadgets/label/widget';
 import Badge from 'gadgets/badge/widget';
 
+import Connect from 'laboratory/connect';
 const Bool = require('gadgets/helpers/bool-helpers');
 const Tooltip = require('gadgets/helpers/tooltip-helpers');
 import {Unit} from 'electrum-theme';
@@ -155,29 +156,34 @@ class Ticket extends Widget {
     );
 
     return (
-      <div
-        className={boxClass}
-        title={Tooltip.prepare(this.props.tooltip)}
-        onMouseOver={this.onMouseOver}
-        onMouseOut={this.onMouseOut}
-        onMouseDown={this.onMouseDown}
-        onMouseUp={this.onMouseUp}
-        onTouchStart={this.onMouseDown}
-        onTouchEnd={this.onMouseUp}
+      <Connect
+        title={state => Tooltip.prepare(this.props.tooltip, state, this)}
       >
-        {htmlFarShadow}
-        {htmlShadow}
-        {htmlShape}
-        {htmlHatch}
-        <div className={contentClass}>
-          {this.renderBackgroundText()}
-          {this.props.children}
-          {this.renderIdenticalCount()}
-          {this.renderHud()}
+        <div
+          className={boxClass}
+          onMouseOver={this.onMouseOver}
+          onMouseOut={this.onMouseOut}
+          onMouseDown={this.onMouseDown}
+          onMouseUp={this.onMouseUp}
+          onTouchStart={this.onMouseDown}
+          onTouchEnd={this.onMouseUp}
+        >
+          {htmlFarShadow}
+          {htmlShadow}
+          {htmlShape}
+          {htmlHatch}
+          <div className={contentClass}>
+            {this.renderBackgroundText()}
+            {this.props.children}
+            {this.renderIdenticalCount()}
+            {this.renderHud()}
+          </div>
+          {Bool.isTrue(this.props.flash) ? (
+            <div className={flashClass} />
+          ) : null}
+          {htmlHover}
         </div>
-        {Bool.isTrue(this.props.flash) ? <div className={flashClass} /> : null}
-        {htmlHover}
-      </div>
+      </Connect>
     );
   }
 
@@ -192,33 +198,38 @@ class Ticket extends Widget {
     const rectContentHatchClass = this.styles.classNames.rectContentHatch;
 
     return (
-      <div
-        className={rectShadowClass}
-        title={Tooltip.prepare(this.props.tooltip)}
-        onMouseOver={this.onMouseOver}
-        onMouseOut={this.onMouseOut}
-        onMouseDown={this.onMouseDown}
-        onMouseUp={this.onMouseUp}
-        onTouchStart={this.onMouseDown}
-        onTouchEnd={this.onMouseUp}
+      <Connect
+        title={state => Tooltip.prepare(this.props.tooltip, state, this)}
       >
-        <div className={rectClass}>
-          <div
-            className={
-              Bool.isTrue(this.props.hatch)
-                ? rectContentHatchClass
-                : contentClass
-            }
-          >
-            {this.renderBackgroundText()}
-            {this.props.children}
-            {this.renderIdenticalCount()}
-            {this.renderHud()}
+        <div
+          className={rectShadowClass}
+          onMouseOver={this.onMouseOver}
+          onMouseOut={this.onMouseOut}
+          onMouseDown={this.onMouseDown}
+          onMouseUp={this.onMouseUp}
+          onTouchStart={this.onMouseDown}
+          onTouchEnd={this.onMouseUp}
+        >
+          <div className={rectClass}>
+            <div
+              className={
+                Bool.isTrue(this.props.hatch)
+                  ? rectContentHatchClass
+                  : contentClass
+              }
+            >
+              {this.renderBackgroundText()}
+              {this.props.children}
+              {this.renderIdenticalCount()}
+              {this.renderHud()}
+            </div>
           </div>
+          {Bool.isTrue(this.props.flash) ? (
+            <div className={flashClass} />
+          ) : null}
+          <div className={rectHoverClass} />
         </div>
-        {Bool.isTrue(this.props.flash) ? <div className={flashClass} /> : null}
-        <div className={rectHoverClass} />
-      </div>
+      </Connect>
     );
   }
 
