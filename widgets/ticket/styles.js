@@ -95,34 +95,46 @@ function getOutlinePath(theme, shape, width, height) {
 
 /******************************************************************************/
 
-export default function styles(theme, props) {
-  const horizontalSpacing = props.horizontalSpacing
-    ? props.horizontalSpacing
-    : '0px';
+export default function styles(
+  theme,
+  horizontalSpacing,
+  kind,
+  shape,
+  visibility,
+  opacity,
+  grow,
+  width,
+  height,
+  verticalSpacing,
+  cursor,
+  color,
+  hideContent
+) {
+  horizontalSpacing = horizontalSpacing || '0px';
 
   const r =
-    props.kind === 'thin' || props.kind === 'event'
+    kind === 'thin' || kind === 'event'
       ? theme.shapes.ticketRectRadius
       : theme.shapes.ticketCornerRadius;
 
   let radius;
-  if (props.shape === 'first') {
+  if (shape === 'first') {
     radius = r + ' ' + r + ' 0px 0px';
-  } else if (props.shape === 'last') {
+  } else if (shape === 'last') {
     radius = '0px 0px ' + r + ' ' + r;
   } else {
     radius = r;
   }
 
-  const boxOpacity = Bool.isFalse(props.visibility) ? 0 : props.opacity;
+  const boxOpacity = Bool.isFalse(visibility) ? 0 : opacity;
 
   const box = {
-    flexGrow: props.grow,
-    width: props.width,
-    height: props.height,
-    margin: '0px ' + horizontalSpacing + ' ' + props.verticalSpacing + ' 0px',
+    flexGrow: grow,
+    width: width,
+    height: height,
+    margin: '0px ' + horizontalSpacing + ' ' + verticalSpacing + ' 0px',
     position: 'relative',
-    cursor: props.cursor,
+    cursor: cursor,
     transition: theme.transitions.easeOut(),
     userSelect: 'none',
     opacity: boxOpacity,
@@ -136,15 +148,15 @@ export default function styles(theme, props) {
 
   const farShadow = {
     position: 'absolute',
-    width: props.width,
-    height: props.height,
+    width: width,
+    height: height,
     borderRadius: '10px',
     boxShadow: '0px 10px 23px 4px rgba(0, 0, 0, 0.3)',
   };
 
-  const shape = {
+  const shapeStyle = {
     position: 'absolute',
-    fill: props.color,
+    fill: color,
     transition: theme.transitions.easeOut(),
   };
 
@@ -155,12 +167,11 @@ export default function styles(theme, props) {
   };
 
   const svg = {
-    path: getOutlinePath(theme, props.shape, props.width, props.height),
+    path: getOutlinePath(theme, shape, width, height),
   };
 
-  const vp = props.kind === 'thin' ? '0px' : theme.shapes.ticketVerticalPadding;
-  const hp =
-    props.kind === 'thin' ? '0px' : theme.shapes.ticketHorizontalPadding;
+  const vp = kind === 'thin' ? '0px' : theme.shapes.ticketVerticalPadding;
+  const hp = kind === 'thin' ? '0px' : theme.shapes.ticketHorizontalPadding;
   const content = {
     position: 'relative',
     padding: vp + ' ' + hp,
@@ -168,17 +179,17 @@ export default function styles(theme, props) {
     flexDirection: 'row',
     transition: theme.transitions.easeOut(),
     userSelect: 'none',
-    visibility: Bool.isTrue(props.hideContent) ? 'hidden' : 'visible',
+    visibility: Bool.isTrue(hideContent) ? 'hidden' : 'visible',
   };
 
   const rectShadow = {
-    width: props.width,
-    height: props.height,
-    flexGrow: props.grow,
-    margin: '0px ' + horizontalSpacing + ' ' + props.verticalSpacing + ' 0px',
+    width: width,
+    height: height,
+    flexGrow: grow,
+    margin: '0px ' + horizontalSpacing + ' ' + verticalSpacing + ' 0px',
     position: 'relative',
     top: theme.shapes.ticketShadowShift,
-    cursor: props.cursor,
+    cursor: cursor,
     transition: theme.transitions.easeOut(),
     borderRadius: radius,
     backgroundColor: theme.palette.ticketShadow,
@@ -190,20 +201,20 @@ export default function styles(theme, props) {
   rectFarShadow.boxShadow = '0px 10px 23px 4px rgba(0, 0, 0, 0.3)';
 
   const rect = {
-    height: props.height,
+    height: height,
     position: 'relative',
     top: '-' + theme.shapes.ticketShadowShift,
-    cursor: props.cursor,
+    cursor: cursor,
     transition: theme.transitions.easeOut(),
     borderRadius: radius,
-    backgroundColor: props.color,
+    backgroundColor: color,
   };
 
   const hc = 'rgba(0,0,0,' + theme.palette.ticketHatchOpacity + ')';
   const hs = theme.shapes.ticketHatchSize;
   const ht = Unit.multiply(hs, 2);
   const rectContentHatch = {
-    height: props.height ? Unit.sub(props.height, Unit.multiply(vp, 2)) : null,
+    height: height ? Unit.sub(height, Unit.multiply(vp, 2)) : null,
     position: 'relative',
     padding: vp + ' ' + hp,
     display: 'flex',
@@ -262,24 +273,24 @@ export default function styles(theme, props) {
   const cover = {
     display: 'flex',
     flexGrow: 1,
-    width: props.width,
+    width: width,
     height: '100%',
     margin: '0px',
     position: 'relative',
-    cursor: props.cursor,
+    cursor: cursor,
     transition: theme.transitions.easeOut(),
-    backgroundColor: props.color,
+    backgroundColor: color,
     opacity: boxOpacity,
   };
 
-  const w = props.width ? Unit.multiply(props.width, 0.5) : null;
+  const w = width ? Unit.multiply(width, 0.5) : null;
   const coverContent = {
     display: 'flex',
-    height: props.width,
-    lineHeight: props.width,
+    height: width,
+    lineHeight: width,
     margin: theme.shapes.ticketCoverTopMargin + ' 0px 0px 0px',
     position: 'relative',
-    cursor: props.cursor,
+    cursor: cursor,
     transition: theme.transitions.easeOut(),
     transform: 'rotate(90deg)', // 90 deg CW, from top to bottom
     transformOrigin: w + ' ' + w,
@@ -302,12 +313,12 @@ export default function styles(theme, props) {
     flexGrow: 1,
     justifyContent: 'flex-start',
     alignItems: 'stretch',
-    margin: '0px ' + horizontalSpacing + ' ' + props.verticalSpacing + ' 0px',
+    margin: '0px ' + horizontalSpacing + ' ' + verticalSpacing + ' 0px',
     padding: m + ' ' + m + ' ' + Unit.multiply(m, 0.5) + ' ' + m,
     borderWidth: '2px',
     borderStyle: 'dashed none none none',
     borderColor: theme.palette.ticketSubpaneBorder,
-    backgroundColor: props.color,
+    backgroundColor: color,
     opacity: boxOpacity,
   };
   const subpaneDragged = {
@@ -320,11 +331,11 @@ export default function styles(theme, props) {
     borderWidth: '2px',
     borderStyle: 'solid',
     borderColor: theme.palette.ticketSubpaneBorder,
-    backgroundColor: props.color,
+    backgroundColor: color,
     opacity: boxOpacity,
   };
   const subpaneContent = {
-    visibility: Bool.isTrue(props.hideContent) ? 'hidden' : 'visible',
+    visibility: Bool.isTrue(hideContent) ? 'hidden' : 'visible',
   };
 
   const ts = '20px';
@@ -368,7 +379,7 @@ export default function styles(theme, props) {
     box,
     farShadow,
     shadow,
-    shape,
+    shape: shapeStyle,
     hatch,
     svg,
     content,
