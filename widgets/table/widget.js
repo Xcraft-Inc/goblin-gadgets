@@ -148,16 +148,22 @@ class Table extends Widget {
 
   renderPostHeaderCell(column, header, isLast, index) {
     // Compute the width and grow of the included columns.
-    let width = '0px';
+    let width = '0';
     let grow = 0;
     for (const name of column.get('names')) {
-      const c = header.linq.where(x => name === x.get('name')).firstOrDefault();
-      if (c) {
-        const w = c.get('width');
+      const h = header.linq.where(x => name === x.get('name')).firstOrDefault();
+      if (h) {
+        const w = h.get('width');
         if (w) {
+          if (width === '0') {
+            // We have to detect the width unit
+            const unitPattern = /^[0-9\.]+(.+)$/g;
+            const match = unitPattern.exec(w);
+            width = '0' + match[1];
+          }
           width = Unit.add(width, w);
         }
-        let g = c.get('grow');
+        let g = h.get('grow');
         if (g) {
           if (typeof g === 'string') {
             g = parseInt(g);
@@ -170,7 +176,7 @@ class Table extends Widget {
         );
       }
     }
-    if (width !== '0px' && grow !== 0) {
+    if (width !== '0' && grow !== 0) {
       console.log(
         `WARNING in Table: post-header with mix of width (${width}) and grow (${grow}) is not supported.`
       );
@@ -179,7 +185,7 @@ class Table extends Widget {
       <TableCell
         key={index}
         index={index}
-        width={width === '0px' ? null : width}
+        width={width === '0' ? null : width}
         grow={grow === 0 ? null : grow}
         textAlign={column.get('textAlign')}
         hasBorderRight="true"
