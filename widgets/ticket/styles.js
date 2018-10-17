@@ -93,74 +93,7 @@ function getOutlinePath(theme, shape, width, height) {
   return path;
 }
 
-function getHoverPath(theme, shape, hoverShape, width, height) {
-  const r = toInt(theme.shapes.ticketCornerRadius);
-  const t = toInt(theme.shapes.ticketHoverThickness);
-  const i = toInt(
-    Unit.multiply(Unit.multiply(theme.shapes.ticketCornerRadius, r), 1 / t)
-  );
-  const w = toInt(width);
-  const h = toInt(height);
-
-  let path = '';
-  if (hoverShape === 'first') {
-    // n.
-    const s = shape === 'first' ? 0 : r;
-    path = moveTo(path, 0, h - s);
-    path = lineTo(path, 0, -(h - s - r));
-    path = arcTo(path, r, r, -r, 0); // top-left external corner
-    path = lineTo(path, w - r - r, 0);
-    path = arcTo(path, r, r, r, 0); // top-right external corner
-    path = lineTo(path, 0, h - s - r);
-    path = lineTo(path, -t, 0);
-    path = lineTo(path, 0, -(h - t - s - r));
-    path = arcTo(path, i, -r, -r, 1); // top-right internal corner
-    path = lineTo(path, -(w - r - r - t - t), 0);
-    path = arcTo(path, i, -r, r, 1); // top-left internal corner
-    path = lineTo(path, 0, h - t - s - r);
-    path = close(path);
-  } else if (hoverShape === 'last') {
-    // u.
-    const s = shape === 'last' ? 0 : r;
-    path = moveTo(path, 0, s);
-    path = lineTo(path, 0, h - s - r);
-    path = arcTo(path, r, r, r, 1); // bottom-left external corner
-    path = lineTo(path, w - r - r, 0);
-    path = arcTo(path, r, r, -r, 1); // bottom-right external corner
-    path = lineTo(path, 0, -(h - s - r));
-    path = lineTo(path, -t, 0);
-    path = lineTo(path, 0, h - t - s - r);
-    path = arcTo(path, i, -r, r, 0); // bottom-right internal corner
-    path = lineTo(path, -(w - r - r - t - t), 0);
-    path = arcTo(path, i, -r, -r, 0); // bottom-left internal corner
-    path = lineTo(path, 0, -(h - t - s - r));
-    path = close(path);
-  } else if (hoverShape === 'middle') {
-    // External CW.
-    path = moveTo(path, 0, h - r);
-    path = lineTo(path, 0, -(h - r - r));
-    path = arcTo(path, r, r, -r, 0); // top-left external corner
-    path = lineTo(path, w - r - r, 0);
-    path = arcTo(path, r, r, r, 0); // top-right external corner
-    path = lineTo(path, 0, h - r - r);
-    path = arcTo(path, r, -r, r, 0); // bottom-right external corner
-    path = lineTo(path, -(w - r - r), 0);
-    path = arcTo(path, r, -r, -r, 0); // bottom-left internal corner
-    path = close(path);
-    // Internal CCW.
-    path = moveTo(path, t + r, h - t);
-    path = lineTo(path, w - r - r - t - t, 0);
-    path = arcTo(path, i, r, -r, 1); // bottom-right internal corner
-    path = lineTo(path, 0, -(h - r - r - t - t));
-    path = arcTo(path, i, -r, -r, 1); // top-right internal corner
-    path = lineTo(path, -(w - r - r - t - t), 0);
-    path = arcTo(path, i, -r, r, 1); // top-left internal corner
-    path = lineTo(path, 0, h - r - r - t - t);
-    path = arcTo(path, i, r, r, 1); // bottom-left internal corner
-    path = close(path);
-  }
-  return path;
-}
+/******************************************************************************/
 
 export default function styles(theme, props) {
   const horizontalSpacing = props.horizontalSpacing
@@ -171,6 +104,7 @@ export default function styles(theme, props) {
     props.kind === 'thin' || props.kind === 'event'
       ? theme.shapes.ticketRectRadius
       : theme.shapes.ticketCornerRadius;
+
   let radius;
   if (props.shape === 'first') {
     radius = r + ' ' + r + ' 0px 0px';
@@ -179,18 +113,10 @@ export default function styles(theme, props) {
   } else {
     radius = r;
   }
-  let hoverRadius;
-  if (props.hoverShape === 'first') {
-    hoverRadius = r + ' ' + r + ' 0px 0px';
-  } else if (props.hoverShape === 'last') {
-    hoverRadius = '0px 0px ' + r + ' ' + r;
-  } else {
-    hoverRadius = r;
-  }
 
   const boxOpacity = Bool.isFalse(props.visibility) ? 0 : props.opacity;
 
-  const boxStyle = {
+  const box = {
     flexGrow: props.grow,
     width: props.width,
     height: props.height,
@@ -202,13 +128,13 @@ export default function styles(theme, props) {
     opacity: boxOpacity,
   };
 
-  const shadowStyle = {
+  const shadow = {
     position: 'absolute',
     top: theme.shapes.ticketShadowShift,
     fill: theme.palette.ticketShadow,
   };
 
-  const farShadowStyle = {
+  const farShadow = {
     position: 'absolute',
     width: props.width,
     height: props.height,
@@ -216,41 +142,26 @@ export default function styles(theme, props) {
     boxShadow: '0px 10px 23px 4px rgba(0, 0, 0, 0.3)',
   };
 
-  const shapeStyle = {
+  const shape = {
     position: 'absolute',
     fill: props.color,
     transition: theme.transitions.easeOut(),
   };
 
-  const hatchStyle = {
+  const hatch = {
     position: 'absolute',
     fill: 'url(#hatch)',
     transition: theme.transitions.easeOut(),
   };
 
-  const svgStyle = {
+  const svg = {
     path: getOutlinePath(theme, props.shape, props.width, props.height),
-  };
-
-  const hoverStyle = {
-    position: 'absolute',
-    top: '0px',
-    fill: props.hoverShape ? theme.palette.ticketHover : 'transparent',
-    transition: theme.transitions.easeOut(),
-    path: getHoverPath(
-      theme,
-      props.shape,
-      props.hoverShape,
-      props.width,
-      props.height
-    ),
-    //- ':hover': {fill: theme.palette.ticketHover},
   };
 
   const vp = props.kind === 'thin' ? '0px' : theme.shapes.ticketVerticalPadding;
   const hp =
     props.kind === 'thin' ? '0px' : theme.shapes.ticketHorizontalPadding;
-  const contentStyle = {
+  const content = {
     position: 'relative',
     padding: vp + ' ' + hp,
     display: 'flex',
@@ -260,7 +171,7 @@ export default function styles(theme, props) {
     visibility: Bool.isTrue(props.hideContent) ? 'hidden' : 'visible',
   };
 
-  const rectShadowStyle = {
+  const rectShadow = {
     width: props.width,
     height: props.height,
     flexGrow: props.grow,
@@ -274,11 +185,11 @@ export default function styles(theme, props) {
     opacity: boxOpacity,
   };
 
-  const rectFarShadowStyle = Object.assign({}, rectShadowStyle); // clone
-  rectFarShadowStyle.top = '0px';
-  rectFarShadowStyle.boxShadow = '0px 10px 23px 4px rgba(0, 0, 0, 0.3)';
+  const rectFarShadow = Object.assign({}, rectShadow); // clone
+  rectFarShadow.top = '0px';
+  rectFarShadow.boxShadow = '0px 10px 23px 4px rgba(0, 0, 0, 0.3)';
 
-  const rectStyle = {
+  const rect = {
     height: props.height,
     position: 'relative',
     top: '-' + theme.shapes.ticketShadowShift,
@@ -291,7 +202,7 @@ export default function styles(theme, props) {
   const hc = 'rgba(0,0,0,' + theme.palette.ticketHatchOpacity + ')';
   const hs = theme.shapes.ticketHatchSize;
   const ht = Unit.multiply(hs, 2);
-  const rectContentHatchStyle = {
+  const rectContentHatch = {
     height: props.height ? Unit.sub(props.height, Unit.multiply(vp, 2)) : null,
     position: 'relative',
     padding: vp + ' ' + hp,
@@ -302,53 +213,7 @@ export default function styles(theme, props) {
     background: `repeating-linear-gradient(-45deg, ${hc}, ${hc} ${hs}, rgba(0,0,0,0) 0px, rgba(0,0,0,0) ${ht})`,
   };
 
-  let rectHoverStyle;
-  const t1 = theme.shapes.ticketHoverThickness;
-  const t2 = Unit.multiply(theme.shapes.ticketHoverThickness, 2);
-  if (props.hoverShape === 'first') {
-    // n.
-    rectHoverStyle = {
-      position: 'absolute',
-      width: 'calc(100% - ' + t2 + ')',
-      height: 'calc(100% - ' + t1 + ')',
-      top: '-' + theme.shapes.ticketShadowShift,
-      left: '0px',
-      borderRadius: hoverRadius,
-      borderWidth: t1,
-      borderStyle: 'solid solid none solid',
-      borderColor: props.hoverShape ? theme.palette.ticketHover : 'transparent',
-    };
-  } else if (props.hoverShape === 'last') {
-    // u.
-    rectHoverStyle = {
-      position: 'absolute',
-      width: 'calc(100% - ' + t2 + ')',
-      height: 'calc(100% - ' + t1 + ')',
-      top: '-' + theme.shapes.ticketShadowShift,
-      left: '0px',
-      borderRadius: hoverRadius,
-      borderWidth: t1,
-      borderStyle: 'none solid solid solid',
-      borderColor: props.hoverShape ? theme.palette.ticketHover : 'transparent',
-    };
-  } else {
-    rectHoverStyle = {
-      position: 'absolute',
-      width: 'calc(100% - ' + t2 + ' + 1px)',
-      height: 'calc(100% - ' + t2 + ' + 1px)',
-      top: '-' + theme.shapes.ticketShadowShift,
-      left: '0px',
-      borderRadius: hoverRadius,
-      borderWidth: t1,
-      borderStyle: 'solid',
-      borderColor: props.hoverShape ? theme.palette.ticketHover : 'transparent',
-    };
-  }
-  //- rectHoverStyle[':hover'] = {
-  //-   borderColor: theme.palette.ticketHover,
-  //- };
-
-  const hudGlyphShadowStyle = {
+  const hudGlyphShadow = {
     position: 'absolute',
     width: '34px',
     height: '34px',
@@ -364,7 +229,7 @@ export default function styles(theme, props) {
     transition: theme.transitions.easeOut(),
   };
 
-  const hudGlyphShadowNoneStyle = {
+  const hudGlyphShadowNone = {
     position: 'absolute',
     width: '34px',
     height: '34px',
@@ -380,7 +245,7 @@ export default function styles(theme, props) {
     transition: theme.transitions.easeOut(),
   };
 
-  const hudGlyphBoxStyle = {
+  const hudGlyphBox = {
     position: 'absolute',
     width: '30px',
     height: '30px',
@@ -394,7 +259,7 @@ export default function styles(theme, props) {
     backgroundColor: theme.palette.ticketHudBackground,
   };
 
-  const coverStyle = {
+  const cover = {
     display: 'flex',
     flexGrow: 1,
     width: props.width,
@@ -408,7 +273,7 @@ export default function styles(theme, props) {
   };
 
   const w = props.width ? Unit.multiply(props.width, 0.5) : null;
-  const coverContentStyle = {
+  const coverContent = {
     display: 'flex',
     height: props.width,
     lineHeight: props.width,
@@ -421,7 +286,7 @@ export default function styles(theme, props) {
     whiteSpace: 'nowrap',
   };
 
-  const backgroundTextStyle = {
+  const backgroundText = {
     position: 'absolute',
     top: '-3px',
     right: theme.shapes.ticketBackgroundRightMargin,
@@ -431,7 +296,7 @@ export default function styles(theme, props) {
   };
 
   const m = theme.shapes.containerMargin;
-  const subpaneRectStyle = {
+  const subpaneRect = {
     display: 'flex',
     flexDirection: 'column',
     flexGrow: 1,
@@ -445,7 +310,7 @@ export default function styles(theme, props) {
     backgroundColor: props.color,
     opacity: boxOpacity,
   };
-  const subpaneDraggedStyle = {
+  const subpaneDragged = {
     display: 'flex',
     flexDirection: 'column',
     flexGrow: 1,
@@ -458,7 +323,7 @@ export default function styles(theme, props) {
     backgroundColor: props.color,
     opacity: boxOpacity,
   };
-  const subpaneContentStyle = {
+  const subpaneContent = {
     visibility: Bool.isTrue(props.hideContent) ? 'hidden' : 'visible',
   };
 
@@ -477,7 +342,7 @@ export default function styles(theme, props) {
       opacity: 1,
     },
   };
-  const flashStyle = {
+  const flash = {
     position: 'absolute',
     left: '0px',
     top: `calc(50% - ${ts})`,
@@ -493,37 +358,35 @@ export default function styles(theme, props) {
     opacity: 0,
   };
 
-  const identicalCountStyle = {
+  const identicalCount = {
     position: 'absolute',
     right: '0px',
     bottom: '0px',
   };
 
   return {
-    box: boxStyle,
-    farShadow: farShadowStyle,
-    shadow: shadowStyle,
-    shape: shapeStyle,
-    hatch: hatchStyle,
-    svg: svgStyle,
-    hover: hoverStyle,
-    content: contentStyle,
-    rectShadow: rectShadowStyle,
-    rectFarShadow: rectFarShadowStyle,
-    rect: rectStyle,
-    rectContentHatch: rectContentHatchStyle,
-    rectHover: rectHoverStyle,
-    hudGlyphShadow: hudGlyphShadowStyle,
-    hudGlyphShadowNone: hudGlyphShadowNoneStyle,
-    hudGlyphBox: hudGlyphBoxStyle,
-    cover: coverStyle,
-    coverContent: coverContentStyle,
-    backgroundText: backgroundTextStyle,
-    subpaneRect: subpaneRectStyle,
-    subpaneDragged: subpaneDraggedStyle,
-    subpaneContent: subpaneContentStyle,
-    flash: flashStyle,
-    identicalCount: identicalCountStyle,
+    box,
+    farShadow,
+    shadow,
+    shape,
+    hatch,
+    svg,
+    content,
+    rectShadow,
+    rectFarShadow,
+    rect,
+    rectContentHatch,
+    hudGlyphShadow,
+    hudGlyphShadowNone,
+    hudGlyphBox,
+    cover,
+    coverContent,
+    backgroundText,
+    subpaneRect,
+    subpaneDragged,
+    subpaneContent,
+    flash,
+    identicalCount,
   };
 }
 

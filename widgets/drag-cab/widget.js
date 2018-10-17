@@ -199,6 +199,7 @@ class DragCab extends Widget {
         dragController={this.props.dragController}
         dragOwnerId={this.props.dragOwnerId}
         dragToDelete={this.props.dragToDelete}
+        getSelectedIds={this.props.getSelectedIds}
       />
     );
   }
