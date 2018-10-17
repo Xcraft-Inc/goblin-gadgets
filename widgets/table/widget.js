@@ -146,7 +146,7 @@ class Table extends Widget {
 
   /******************************************************************************/
 
-  renderPostHeaderCell(column, header, isLast, index) {
+  renderCoHeaderCell(column, header, isLast, index) {
     // Compute the width and grow of the included columns.
     let width = '0';
     let grow = 0;
@@ -172,13 +172,13 @@ class Table extends Widget {
         }
       } else {
         console.log(
-          `WARNING in Table: post-header uses an unknown column name (${name}).`
+          `WARNING in Table: co-header uses an unknown column name (${name}).`
         );
       }
     }
     if (width !== '0' && grow !== 0) {
       console.log(
-        `WARNING in Table: post-header with mix of width (${width}) and grow (${grow}) is not supported.`
+        `WARNING in Table: co-header with mix of width (${width}) and grow (${grow}) is not supported.`
       );
     }
     return (
@@ -197,21 +197,20 @@ class Table extends Widget {
     );
   }
 
-  renderPostHeaderCells(postHeader, header) {
+  renderCoHeaderCells(coHeader, header) {
     let index = 0;
-    return postHeader.linq
+    return coHeader.linq
       .select(column => {
-        const isLast = index === postHeader.size - 1;
-        return this.renderPostHeaderCell(column, header, isLast, index++);
+        const isLast = index === coHeader.size - 1;
+        return this.renderCoHeaderCell(column, header, isLast, index++);
       })
       .toList();
   }
 
-  renderPostHeader(postHeader, header) {
-    const styleClass = this.styles.classNames.postHeader;
+  renderCoHeader(coHeader, header, styleClass) {
     return (
       <div className={styleClass}>
-        {this.renderPostHeaderCells(postHeader, header)}
+        {this.renderCoHeaderCells(coHeader, header)}
       </div>
     );
   }
@@ -252,17 +251,49 @@ class Table extends Widget {
   }
 
   renderHeaders(data) {
+    const preHeader = data.get('pre-header');
     const postHeader = data.get('post-header');
     const header = data.get('header');
     if (!header) {
       throw new Error('Table without header');
     }
 
-    if (postHeader) {
+    if (preHeader && !postHeader) {
       return (
         <div>
-          {this.renderPostHeader(postHeader, header)}
+          {this.renderCoHeader(
+            preHeader,
+            header,
+            this.styles.classNames.preHeader
+          )}
           {this.renderHeader(header)}
+        </div>
+      );
+    } else if (!preHeader && postHeader) {
+      return (
+        <div>
+          {this.renderHeader(header)}
+          {this.renderCoHeader(
+            postHeader,
+            header,
+            this.styles.classNames.postHeader
+          )}
+        </div>
+      );
+    } else if (preHeader && postHeader) {
+      return (
+        <div>
+          {this.renderCoHeader(
+            preHeader,
+            header,
+            this.styles.classNames.preHeader
+          )}
+          {this.renderHeader(header)}
+          {this.renderCoHeader(
+            postHeader,
+            header,
+            this.styles.classNames.postHeader
+          )}
         </div>
       );
     } else {

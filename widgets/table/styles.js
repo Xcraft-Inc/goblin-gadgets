@@ -53,9 +53,16 @@ export default function styles(theme, props) {
       : null,
   };
 
-  const postHeader = {
+  const preHeader = {
     ...header,
     borderTop: Bool.isTrue(props.frame)
+      ? null
+      : '1px solid ' + theme.palette.tableBorder,
+  };
+
+  const postHeader = {
+    ...header,
+    borderBottom: Bool.isTrue(props.frame)
       ? null
       : '1px solid ' + theme.palette.tableBorder,
   };
@@ -84,6 +91,7 @@ export default function styles(theme, props) {
   return {
     box,
     table,
+    preHeader,
     postHeader,
     header,
     body,
