@@ -148,6 +148,10 @@ export default function styles(theme, props) {
     transition: theme.transitions.easeOut(),
   };
 
+  const hatchDef = {
+    position: 'absolute',
+  };
+
   const hatch = {
     position: 'absolute',
     fill: 'url(#hatch)',
@@ -370,6 +374,7 @@ export default function styles(theme, props) {
     shadow,
     shape,
     hatch,
+    hatchDef,
     svg,
     content,
     rectShadow,
