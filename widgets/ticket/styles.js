@@ -95,46 +95,34 @@ function getOutlinePath(theme, shape, width, height) {
 
 /******************************************************************************/
 
-export default function styles(
-  theme,
-  horizontalSpacing,
-  kind,
-  shape,
-  visibility,
-  opacity,
-  grow,
-  width,
-  height,
-  verticalSpacing,
-  cursor,
-  color,
-  hideContent
-) {
-  horizontalSpacing = horizontalSpacing || '0px';
+export default function styles(theme, props) {
+  const horizontalSpacing = props.horizontalSpacing
+    ? props.horizontalSpacing
+    : '0px';
 
   const r =
-    kind === 'thin' || kind === 'event'
+    props.kind === 'thin' || props.kind === 'event'
       ? theme.shapes.ticketRectRadius
       : theme.shapes.ticketCornerRadius;
 
   let radius;
-  if (shape === 'first') {
+  if (props.shape === 'first') {
     radius = r + ' ' + r + ' 0px 0px';
-  } else if (shape === 'last') {
+  } else if (props.shape === 'last') {
     radius = '0px 0px ' + r + ' ' + r;
   } else {
     radius = r;
   }
 
-  const boxOpacity = Bool.isFalse(visibility) ? 0 : opacity;
+  const boxOpacity = Bool.isFalse(props.visibility) ? 0 : props.opacity;
 
   const box = {
-    flexGrow: grow,
-    width: width,
-    height: height,
-    margin: '0px ' + horizontalSpacing + ' ' + verticalSpacing + ' 0px',
+    flexGrow: props.grow,
+    width: props.width,
+    height: props.height,
+    margin: '0px ' + horizontalSpacing + ' ' + props.verticalSpacing + ' 0px',
     position: 'relative',
-    cursor: cursor,
+    cursor: props.cursor,
     transition: theme.transitions.easeOut(),
     userSelect: 'none',
     opacity: boxOpacity,
@@ -148,15 +136,15 @@ export default function styles(
 
   const farShadow = {
     position: 'absolute',
-    width: width,
-    height: height,
+    width: props.width,
+    height: props.height,
     borderRadius: '10px',
     boxShadow: '0px 10px 23px 4px rgba(0, 0, 0, 0.3)',
   };
 
-  const shapeStyle = {
+  const shape = {
     position: 'absolute',
-    fill: color,
+    fill: props.color,
     transition: theme.transitions.easeOut(),
   };
 
@@ -167,11 +155,12 @@ export default function styles(
   };
 
   const svg = {
-    path: getOutlinePath(theme, shape, width, height),
+    path: getOutlinePath(theme, props.shape, props.width, props.height),
   };
 
-  const vp = kind === 'thin' ? '0px' : theme.shapes.ticketVerticalPadding;
-  const hp = kind === 'thin' ? '0px' : theme.shapes.ticketHorizontalPadding;
+  const vp = props.kind === 'thin' ? '0px' : theme.shapes.ticketVerticalPadding;
+  const hp =
+    props.kind === 'thin' ? '0px' : theme.shapes.ticketHorizontalPadding;
   const content = {
     position: 'relative',
     padding: vp + ' ' + hp,
@@ -179,17 +168,17 @@ export default function styles(
     flexDirection: 'row',
     transition: theme.transitions.easeOut(),
     userSelect: 'none',
-    visibility: Bool.isTrue(hideContent) ? 'hidden' : 'visible',
+    visibility: Bool.isTrue(props.hideContent) ? 'hidden' : 'visible',
   };
 
   const rectShadow = {
-    width: width,
-    height: height,
-    flexGrow: grow,
-    margin: '0px ' + horizontalSpacing + ' ' + verticalSpacing + ' 0px',
+    width: props.width,
+    height: props.height,
+    flexGrow: props.grow,
+    margin: '0px ' + horizontalSpacing + ' ' + props.verticalSpacing + ' 0px',
     position: 'relative',
     top: theme.shapes.ticketShadowShift,
-    cursor: cursor,
+    cursor: props.cursor,
     transition: theme.transitions.easeOut(),
     borderRadius: radius,
     backgroundColor: theme.palette.ticketShadow,
@@ -201,20 +190,20 @@ export default function styles(
   rectFarShadow.boxShadow = '0px 10px 23px 4px rgba(0, 0, 0, 0.3)';
 
   const rect = {
-    height: height,
+    height: props.height,
     position: 'relative',
     top: '-' + theme.shapes.ticketShadowShift,
-    cursor: cursor,
+    cursor: props.cursor,
     transition: theme.transitions.easeOut(),
     borderRadius: radius,
-    backgroundColor: color,
+    backgroundColor: props.color,
   };
 
   const hc = 'rgba(0,0,0,' + theme.palette.ticketHatchOpacity + ')';
   const hs = theme.shapes.ticketHatchSize;
   const ht = Unit.multiply(hs, 2);
   const rectContentHatch = {
-    height: height ? Unit.sub(height, Unit.multiply(vp, 2)) : null,
+    height: props.height ? Unit.sub(props.height, Unit.multiply(vp, 2)) : null,
     position: 'relative',
     padding: vp + ' ' + hp,
     display: 'flex',
@@ -273,24 +262,24 @@ export default function styles(
   const cover = {
     display: 'flex',
     flexGrow: 1,
-    width: width,
+    width: props.width,
     height: '100%',
     margin: '0px',
     position: 'relative',
-    cursor: cursor,
+    cursor: props.cursor,
     transition: theme.transitions.easeOut(),
-    backgroundColor: color,
+    backgroundColor: props.color,
     opacity: boxOpacity,
   };
 
-  const w = width ? Unit.multiply(width, 0.5) : null;
+  const w = props.width ? Unit.multiply(props.width, 0.5) : null;
   const coverContent = {
     display: 'flex',
-    height: width,
-    lineHeight: width,
+    height: props.width,
+    lineHeight: props.width,
     margin: theme.shapes.ticketCoverTopMargin + ' 0px 0px 0px',
     position: 'relative',
-    cursor: cursor,
+    cursor: props.cursor,
     transition: theme.transitions.easeOut(),
     transform: 'rotate(90deg)', // 90 deg CW, from top to bottom
     transformOrigin: w + ' ' + w,
@@ -313,12 +302,12 @@ export default function styles(
     flexGrow: 1,
     justifyContent: 'flex-start',
     alignItems: 'stretch',
-    margin: '0px ' + horizontalSpacing + ' ' + verticalSpacing + ' 0px',
+    margin: '0px ' + horizontalSpacing + ' ' + props.verticalSpacing + ' 0px',
     padding: m + ' ' + m + ' ' + Unit.multiply(m, 0.5) + ' ' + m,
     borderWidth: '2px',
     borderStyle: 'dashed none none none',
     borderColor: theme.palette.ticketSubpaneBorder,
-    backgroundColor: color,
+    backgroundColor: props.color,
     opacity: boxOpacity,
   };
   const subpaneDragged = {
@@ -331,11 +320,11 @@ export default function styles(
     borderWidth: '2px',
     borderStyle: 'solid',
     borderColor: theme.palette.ticketSubpaneBorder,
-    backgroundColor: color,
+    backgroundColor: props.color,
     opacity: boxOpacity,
   };
   const subpaneContent = {
-    visibility: Bool.isTrue(hideContent) ? 'hidden' : 'visible',
+    visibility: Bool.isTrue(props.hideContent) ? 'hidden' : 'visible',
   };
 
   const ts = '20px';
@@ -379,7 +368,7 @@ export default function styles(
     box,
     farShadow,
     shadow,
-    shape: shapeStyle,
+    shape,
     hatch,
     svg,
     content,
