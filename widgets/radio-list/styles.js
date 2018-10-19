@@ -1,8 +1,12 @@
 /******************************************************************************/
 
+export const propNames = ['direction', 'width', 'height'];
+
 export default function styles(theme, props) {
+  const {direction: directionProp, width, height} = props;
+
   let direction, wrap, overflowX, overflowY;
-  switch (props.direction) {
+  switch (directionProp) {
     case 'row':
       direction = 'row';
       wrap = null;
@@ -25,11 +29,11 @@ export default function styles(theme, props) {
   }
 
   const boxStyle = {
-    width: props.width,
-    height: props.height,
+    width,
+    height,
     display: 'flex',
     flexDirection: direction,
-    flexGrow: props.width ? null : '1',
+    flexGrow: width ? null : '1',
     flexWrap: wrap,
     alignItems: 'flex-start',
     overflowX: overflowX,

@@ -20,20 +20,99 @@ function convertJustify(justify) {
 
 /******************************************************************************/
 
+export const propNames = [
+  'width',
+  'height',
+  'grow',
+  'justify',
+  'zIndex',
+  'visibility',
+  'position',
+  'cursor',
+  'disabled',
+  'readonly',
+  'border',
+  'spacing',
+  'leftSpacing',
+  'kind',
+  'text',
+  'heightStrategy',
+  'place',
+  'active',
+  'calendarWeekend',
+  'calendarDimmed',
+  'subkind',
+  'badgePush',
+  'shortcut',
+  'shape',
+  'backgroundColor',
+  'activeColor',
+  'vpos',
+  'left',
+  'right',
+  'top',
+  'bottom',
+  'busy',
+  'focusable',
+];
+
+export function mapProps(props) {
+  return {
+    ...props,
+    text: Boolean(props.text),
+  };
+}
+
 export default function styles(theme, props) {
+  let {
+    width,
+    height,
+    grow,
+    justify,
+    zIndex,
+    visibility,
+    position,
+    cursor,
+    disabled,
+    readonly,
+    border,
+    spacing,
+    leftSpacing,
+    kind,
+    text,
+    heightStrategy,
+    place: placeProp,
+    active,
+    calendarWeekend,
+    calendarDimmed,
+    subkind,
+    badgePush,
+    shortcut,
+    shape,
+    backgroundColor: backgroundColorProp,
+    activeColor: activeColorProp,
+    vpos,
+    left,
+    right,
+    top,
+    bottom,
+    busy,
+    focusable,
+  } = props;
+
   const m = Unit.multiply(theme.shapes.containerMargin, 0.5);
 
   // Initialize all variables for a standard button.
-  let boxWidth = props.width;
+  let boxWidth = width;
   let boxMinWidth = null;
-  let boxHeight = props.height ? props.height : theme.shapes.lineHeight;
+  let boxHeight = height ? height : theme.shapes.lineHeight;
   let boxMaxWidth = null;
   let boxMaxHeight = null;
   let boxFlexDirection = 'row';
-  let boxFlexGrow = props.grow;
+  let boxFlexGrow = grow;
   let boxFlexShrink = null;
   let boxFlexBasis = null;
-  let boxJustifyContent = convertJustify(props.justify);
+  let boxJustifyContent = convertJustify(justify);
   let boxAlignItems = 'center';
   let boxAlignSelf = null;
   let boxMarginTop = '0px';
@@ -44,8 +123,8 @@ export default function styles(theme, props) {
   let boxPaddingRight = '0px';
   let boxPaddingBottom = '0px';
   let boxPaddingLeft = '0px';
-  let boxZIndex = props.zIndex;
-  let boxOpacity = Bool.isFalse(props.visibility) ? 0 : null;
+  let boxZIndex = zIndex;
+  let boxOpacity = Bool.isFalse(visibility) ? 0 : null;
   let borderWidth = '1px';
   let borderColor = theme.palette.buttonBorder;
   let borderActiveColor = theme.palette.buttonBorder;
@@ -58,23 +137,23 @@ export default function styles(theme, props) {
   let borderHoverStyle = null;
   let borderHoverWidth = null;
   let backgroundHoverColor = null;
-  let boxPosition = props.position ? props.position : 'relative';
-  let cursor = props.cursor ? props.cursor : 'default';
+  let boxPosition = position ? position : 'relative';
+  cursor = cursor || 'default';
   let transition = theme.transitions.easeOut();
   let specialDisabled = false;
   let focusedShadow = theme.shapes.focusedShadow + theme.palette.focused;
 
-  const disabled = Bool.isTrue(props.disabled) || Bool.isTrue(props.readonly);
+  disabled = Bool.isTrue(disabled) || Bool.isTrue(readonly);
 
   // Initialize variables for button without border.
-  if (props.border === 'none') {
+  if (border === 'none') {
     // Button without border must have same backgroundColor as parent !
     borderStyle = 'none';
     backgroundColor = null;
   }
 
   // Initialise right margin according to spacing.
-  if (props.spacing) {
+  if (spacing) {
     let spacingType = {
       overlap: '-1px',
       tiny: '1px',
@@ -82,18 +161,18 @@ export default function styles(theme, props) {
       big: Unit.multiply(m, 2),
       double: theme.shapes.containerMargin,
     };
-    boxMarginRight = spacingType[props.spacing];
+    boxMarginRight = spacingType[spacing];
   }
-  if (props.leftSpacing === 'overlap') {
+  if (leftSpacing === 'overlap') {
     boxMarginLeft = '-1px';
   }
 
-  if (props.kind === 'disabled-light') {
+  if (kind === 'disabled-light') {
     specialDisabled = true;
   }
 
   // task-logo button (usual parent container with kind='task-bar').
-  if (props.kind === 'task-logo') {
+  if (kind === 'task-logo') {
     boxWidth = theme.shapes.taskButtonWidth;
     boxMaxWidth = theme.shapes.taskButtonWidth;
     boxHeight = theme.shapes.taskButtonHeight;
@@ -104,7 +183,7 @@ export default function styles(theme, props) {
   }
 
   // Task button (usual parent is container with kind='task-bar').
-  if (props.kind === 'task-bar') {
+  if (kind === 'task-bar') {
     boxWidth = theme.shapes.taskButtonWidth;
     boxMaxWidth = theme.shapes.taskButtonWidth;
     boxHeight = theme.shapes.taskButtonHeight;
@@ -115,7 +194,7 @@ export default function styles(theme, props) {
   }
 
   // main-tab button (usual parent is container with kind='main-tab').
-  if (props.kind === 'main-tab') {
+  if (kind === 'main-tab') {
     boxHeight = theme.shapes.mainTabHeight;
     boxMarginRight = '1px';
     borderStyle = 'none';
@@ -123,7 +202,7 @@ export default function styles(theme, props) {
     activeColor = theme.palette.mainTabButtonActiveBackground;
   }
 
-  if (props.kind === 'main-tab-right') {
+  if (kind === 'main-tab-right') {
     boxHeight = theme.shapes.mainTabHeight;
     borderStyle = 'none';
     backgroundColor = null;
@@ -132,10 +211,10 @@ export default function styles(theme, props) {
   }
 
   // view-tab button (usual parent is container with kind='view-tab').
-  if (props.kind === 'view-tab') {
+  if (kind === 'view-tab') {
     boxMaxWidth = '250px';
     boxHeight = theme.shapes.viewTabHeight;
-    if (props.text) {
+    if (text) {
       boxMarginTop = '1px';
       boxMarginRight = '1px';
     } else {
@@ -150,13 +229,13 @@ export default function styles(theme, props) {
     activeColor = theme.palette.viewTabButtonActiveBackground;
   }
 
-  if (props.kind === 'view-tab-right') {
+  if (kind === 'view-tab-right') {
     boxHeight = Unit.add(
       theme.shapes.containerMargin,
       theme.shapes.viewTabHeight
     );
     borderStyle = 'none';
-    if (props.text) {
+    if (text) {
       backgroundColor = theme.palette.viewTabRightTextBackground;
     } else {
       backgroundColor = theme.palette.viewTabBackground;
@@ -164,7 +243,7 @@ export default function styles(theme, props) {
   }
 
   // task-tab button (usual parent is container with kind='task-bar').
-  if (props.kind === 'task-tab') {
+  if (kind === 'task-tab') {
     boxHeight = theme.shapes.taskTabHeight;
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     backgroundColor = theme.palette.taskTabInactiveBackground;
@@ -174,7 +253,7 @@ export default function styles(theme, props) {
   }
 
   // pane-navigator button (usual parent is container with kind='pane-navigator').
-  if (props.kind === 'pane-navigator') {
+  if (kind === 'pane-navigator') {
     boxHeight = theme.shapes.paneNavigatorHeight;
     boxMarginBottom = '-1px';
     backgroundColor = theme.palette.paneNavigatorBackground;
@@ -186,7 +265,7 @@ export default function styles(theme, props) {
   }
 
   // pane-hnavigator button (usual parent is container with kind='pane-hnavigator').
-  if (props.kind === 'pane-hnavigator') {
+  if (kind === 'pane-hnavigator') {
     boxHeight = theme.shapes.paneNavigatorHeight;
     boxMarginBottom = '-1px';
     backgroundColor = theme.palette.paneNavigatorBackground;
@@ -198,7 +277,7 @@ export default function styles(theme, props) {
   }
 
   // pane-vnavigator button (usual parent is container with kind='pane-vnavigator').
-  if (props.kind === 'pane-vnavigator') {
+  if (kind === 'pane-vnavigator') {
     boxWidth = theme.shapes.vnavigatorButtonSize;
     boxHeight = theme.shapes.vnavigatorButtonSize;
     boxMarginBottom = '1px';
@@ -208,12 +287,12 @@ export default function styles(theme, props) {
   }
 
   // Footer button (usual parent is container with kind='footer').
-  if (props.kind === 'button-footer') {
+  if (kind === 'button-footer') {
     boxHeight = theme.shapes.footerHeight;
     boxMarginRight = '1px';
     boxPaddingRight = m;
     boxPaddingLeft = m;
-    if (props.text) {
+    if (text) {
       backgroundColor = theme.palette.footerTextBackground;
     } else {
       backgroundColor = theme.palette.footerBackground;
@@ -222,44 +301,44 @@ export default function styles(theme, props) {
   }
 
   // Notification button (usual parent is container with kind='notification-header').
-  if (props.kind === 'button-notification') {
+  if (kind === 'button-notification') {
     boxHeight = '32px';
     backgroundColor = 'transparent';
     borderStyle = 'none';
     backgroundHoverColor = 'transparent';
     specialDisabled = true;
   }
-  if (props.kind === 'notification-close') {
+  if (kind === 'notification-close') {
     boxMarginTop = Unit.multiply(theme.shapes.containerMargin, -1);
     borderStyle = 'none';
     backgroundColor = 'transparent';
     backgroundHoverColor = 'transparent';
   }
-  if (props.kind === 'notification-extend') {
+  if (kind === 'notification-extend') {
     boxMarginBottom = Unit.multiply(theme.shapes.containerMargin, -1);
     borderStyle = 'none';
     backgroundColor = 'transparent';
     backgroundHoverColor = 'transparent';
   }
 
-  if (props.kind === 'check-button') {
+  if (kind === 'check-button') {
     backgroundColor = 'transparent';
     borderStyle = 'none';
     backgroundHoverColor = 'transparent';
     focusedShadow = null;
-    if (props.heightStrategy === 'compact') {
+    if (heightStrategy === 'compact') {
       boxHeight = '22px';
     }
     specialDisabled = true;
   }
 
-  if (props.kind === 'plugin-light') {
+  if (kind === 'plugin-light') {
     backgroundColor = 'transparent';
     borderStyle = 'none';
     backgroundHoverColor = theme.palette.pluginLightButtonBackgroundHover;
     focusedShadow = null;
   }
-  if (props.kind === 'plugin-dark') {
+  if (kind === 'plugin-dark') {
     backgroundColor = 'transparent';
     borderStyle = 'none';
     backgroundHoverColor = theme.palette.pluginDarkButtonBackgroundHover;
@@ -267,7 +346,7 @@ export default function styles(theme, props) {
   }
 
   // Warning button (usual parent is container with kind='footer').
-  if (props.kind === 'warning') {
+  if (kind === 'warning') {
     boxHeight = theme.shapes.footerHeight;
     boxPaddingLeft = theme.shapes.warningLeftPadding;
     borderStyle = 'none';
@@ -275,8 +354,8 @@ export default function styles(theme, props) {
   }
 
   // Action button (usual parent is container with kind='actions').
-  if (props.kind === 'action') {
-    let place = props.place ? props.place : 'middle';
+  if (kind === 'action') {
+    let place = placeProp || 'middle';
     if (place === '1/1') {
       place = 'single';
     } else if (place.indexOf('/') !== -1) {
@@ -310,8 +389,8 @@ export default function styles(theme, props) {
   }
 
   // Action button (usual parent is container with kind='actions-line-secondary').
-  if (props.kind === 'secondary-action') {
-    let place = props.place ? props.place : 'middle';
+  if (kind === 'secondary-action') {
+    let place = placeProp || 'middle';
     if (place === '1/1') {
       place = 'single';
     } else if (place.indexOf('/') !== -1) {
@@ -345,13 +424,13 @@ export default function styles(theme, props) {
   }
 
   // Subaction button (usual parent is container with kind='row-pane' and subkind='box').
-  if (props.kind === 'subaction') {
+  if (kind === 'subaction') {
     borderStyle = 'none';
     backgroundColor = theme.palette.subactionButtonBackground;
   }
 
-  if (props.kind === 'table-action-frame') {
-    let place = props.place ? props.place : 'middle';
+  if (kind === 'table-action-frame') {
+    let place = placeProp || 'middle';
     if (place === '1/1') {
       place = 'single';
     } else if (place.indexOf('/') !== -1) {
@@ -379,12 +458,12 @@ export default function styles(theme, props) {
     } else if (place === 'single') {
       borderRadius = '0px 0px ' + r + ' ' + r;
     }
-    if (props.grow === '0') {
+    if (grow === '0') {
       borderStyle = 'none';
     }
     transition = null;
   }
-  if (props.kind === 'table-action') {
+  if (kind === 'table-action') {
     boxHeight = theme.shapes.tableActionHeight;
     borderStyle = 'none solid solid solid';
     borderColor = theme.palette.tableBorder;
@@ -394,7 +473,7 @@ export default function styles(theme, props) {
     transition = null;
   }
 
-  if (props.kind === 'tree-expand') {
+  if (kind === 'tree-expand') {
     boxWidth = theme.shapes.treeExpandButtonWidth;
     boxMaxWidth = theme.shapes.treeExpandButtonWidth;
     borderStyle = 'none';
@@ -403,7 +482,7 @@ export default function styles(theme, props) {
   }
 
   // Combo button, place to the right of a TextFieldCombo component.
-  if (props.kind === 'combo') {
+  if (kind === 'combo') {
     const w = Unit.multiply(theme.shapes.lineHeight, 0.8);
     boxWidth = w;
     boxMinWidth = w;
@@ -416,14 +495,14 @@ export default function styles(theme, props) {
     }
   }
 
-  if (props.kind === 'round') {
+  if (kind === 'round') {
     const r = theme.shapes.actionRadius;
     borderRadius = r;
     borderStyle = 'none';
     backgroundColor = theme.palette.roundButtonBackground;
   }
 
-  if (props.kind === 'identity') {
+  if (kind === 'identity') {
     const r = theme.shapes.actionRadius;
     boxWidth = theme.shapes.identityHeight;
     boxHeight = theme.shapes.identityHeight;
@@ -432,7 +511,7 @@ export default function styles(theme, props) {
     backgroundColor = theme.palette.identityButtonBackground;
   }
 
-  if (props.kind === 'thin-left') {
+  if (kind === 'thin-left') {
     const r = theme.shapes.thinRadius;
     boxHeight = null;
     borderStyle = 'none solid none none';
@@ -440,7 +519,7 @@ export default function styles(theme, props) {
     borderColor = theme.palette.buttonBorder;
     backgroundColor = null;
   }
-  if (props.kind === 'thin-right') {
+  if (kind === 'thin-right') {
     const r = theme.shapes.thinRadius;
     boxHeight = null;
     borderStyle = 'none none none solid';
@@ -449,7 +528,7 @@ export default function styles(theme, props) {
     backgroundColor = null;
   }
 
-  if (props.kind === 'menu-item') {
+  if (kind === 'menu-item') {
     boxHeight = theme.shapes.menuButtonHeight;
     boxMarginBottom = '1px';
     boxPaddingRight = theme.shapes.containerMargin;
@@ -457,21 +536,21 @@ export default function styles(theme, props) {
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     borderStyle = 'none';
     backgroundColor = theme.palette.menuItemInactiveBackground;
-    if (props.active === 'focused') {
+    if (active === 'focused') {
       activeColor = theme.palette.menuItemFocusBackground;
     } else {
       activeColor = theme.palette.menuItemActiveBackground;
     }
   }
 
-  if (props.kind === 'combo-item') {
+  if (kind === 'combo-item') {
     boxHeight = theme.shapes.menuButtonHeight;
     boxPaddingRight = theme.shapes.containerMargin;
     boxPaddingLeft = theme.shapes.containerMargin;
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     borderStyle = 'none';
     backgroundColor = theme.palette.comboItemBackground;
-    if (props.active === 'focused') {
+    if (active === 'focused') {
       activeColor = theme.palette.comboItemFocused;
     } else {
       activeColor = theme.palette.comboItemActive;
@@ -479,7 +558,7 @@ export default function styles(theme, props) {
     backgroundHoverColor = theme.palette.comboItemHover;
   }
 
-  if (props.kind === 'combo-wrap-item') {
+  if (kind === 'combo-wrap-item') {
     boxMaxWidth = boxWidth ? boxWidth : null;
     boxHeight = theme.shapes.menuButtonHeight;
     boxMaxHeight = theme.shapes.menuButtonHeight;
@@ -488,7 +567,7 @@ export default function styles(theme, props) {
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     borderStyle = 'none';
     backgroundColor = theme.palette.comboItemBackground;
-    if (props.active === 'focused') {
+    if (active === 'focused') {
       activeColor = theme.palette.comboItemFocused;
     } else {
       activeColor = theme.palette.comboItemActive;
@@ -496,7 +575,7 @@ export default function styles(theme, props) {
     backgroundHoverColor = theme.palette.comboItemHover;
   }
 
-  if (props.kind === 'glyph-item') {
+  if (kind === 'glyph-item') {
     boxWidth = theme.shapes.glyphsDialogButtonWidth;
     boxHeight = theme.shapes.menuButtonHeight;
     boxMarginRight = theme.shapes.glyphsDialogButtonMargin;
@@ -505,7 +584,7 @@ export default function styles(theme, props) {
     activeColor = theme.palette.boxActiveBackground;
   }
 
-  if (props.kind === 'desk-title') {
+  if (kind === 'desk-title') {
     boxHeight = Unit.multiply(theme.shapes.lineHeight, 1.2);
     borderStyle = 'solid';
     borderColor = 'transparent';
@@ -525,32 +604,32 @@ export default function styles(theme, props) {
 
   // Button with a day in Calendar component.
   if (
-    props.kind === 'calendar' ||
-    props.kind === 'calendar-navigator' ||
-    props.kind === 'calendar-list' ||
-    props.kind === 'calendar-title'
+    kind === 'calendar' ||
+    kind === 'calendar-navigator' ||
+    kind === 'calendar-list' ||
+    kind === 'calendar-title'
   ) {
     borderStyle = 'none';
-    if (props.kind === 'calendar' || props.kind === 'calendar-navigator') {
+    if (kind === 'calendar' || kind === 'calendar-navigator') {
       boxWidth = theme.shapes.calendarButtonWidth;
     }
     boxHeight = theme.shapes.calendarButtonHeight;
     transition = null;
     backgroundColor = 'transparent';
-    if (props.kind === 'calendar-navigator') {
+    if (kind === 'calendar-navigator') {
       backgroundHoverColor = 'transparent';
     }
-    if (Bool.isTrue(props.calendarWeekend)) {
+    if (Bool.isTrue(calendarWeekend)) {
       backgroundColor = theme.palette.calendarWeekendBackground;
     }
-    if (Bool.isTrue(props.calendarDimmed)) {
+    if (Bool.isTrue(calendarDimmed)) {
       backgroundColor = theme.palette.calendarBackground;
       activeColor = theme.palette.calendarBackground;
       backgroundHoverColor = theme.palette.calendarBackground; // no visible hover effect
     } else {
-      if (props.subkind === 'add') {
+      if (subkind === 'add') {
         activeColor = theme.palette.calendarActiveAddBackground;
-      } else if (props.subkind === 'sub') {
+      } else if (subkind === 'sub') {
         activeColor = theme.palette.calendarActiveSubBackground;
       } else {
         activeColor = theme.palette.calendarActiveBackground;
@@ -559,7 +638,7 @@ export default function styles(theme, props) {
     specialDisabled = true;
   }
 
-  if (props.kind === 'container') {
+  if (kind === 'container') {
     boxHeight = null;
     boxAlignItems = 'stretch';
     borderStyle = 'none';
@@ -569,7 +648,7 @@ export default function styles(theme, props) {
     activeColor = theme.palette.boxActiveBackground;
   }
 
-  if (props.kind === 'container-start') {
+  if (kind === 'container-start') {
     boxHeight = null;
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     boxAlignItems = 'stretch';
@@ -579,7 +658,7 @@ export default function styles(theme, props) {
     backgroundColor = null;
   }
 
-  if (props.kind === 'box') {
+  if (kind === 'box') {
     boxAlignItems = 'stretch';
     borderStyle = 'none';
     boxMarginRight = m;
@@ -588,7 +667,7 @@ export default function styles(theme, props) {
     activeColor = theme.palette.boxActiveBackground;
   }
 
-  if (props.kind === 'chronos-navigator') {
+  if (kind === 'chronos-navigator') {
     boxMarginBottom = '1px';
     borderRadius = theme.shapes.smoothRadius;
     backgroundHoverColor = ColorManipulator.fade(
@@ -598,35 +677,35 @@ export default function styles(theme, props) {
     activeColor = theme.palette.boxActiveBackground;
   }
 
-  if (props.kind === 'recurrence') {
+  if (kind === 'recurrence') {
     boxMinWidth = theme.shapes.lineHeight;
     boxMaxHeight = theme.shapes.lineHeight;
     activeColor = theme.palette.calendarActiveBackground;
     borderActiveColor = theme.palette.calendarActiveText;
   }
 
-  if (props.kind === 'hover') {
-    boxOpacity = Bool.isTrue(props.active) ? 1 : 0.00001;
+  if (kind === 'hover') {
+    boxOpacity = Bool.isTrue(active) ? 1 : 0.00001;
     borderWidth = '4px';
     borderColor = theme.palette.taskBackground;
     backgroundHoverColor = theme.palette.buttonBackground;
     borderActiveColor = theme.palette.taskBackground;
   }
 
-  if (props.kind === 'dynamic-toolbar-left') {
+  if (kind === 'dynamic-toolbar-left') {
     borderStyle = 'none';
     backgroundColor = 'transparent';
     activeColor = theme.palette.dynamicToolbarBackground;
   }
-  if (props.kind === 'dynamic-toolbar-top-left') {
+  if (kind === 'dynamic-toolbar-top-left') {
     borderStyle = 'none solid solid none';
     backgroundColor = theme.palette.paneBackground;
   }
-  if (props.kind === 'dynamic-toolbar-top-right') {
+  if (kind === 'dynamic-toolbar-top-right') {
     borderStyle = 'none none solid solid';
     backgroundColor = theme.palette.paneBackground;
   }
-  if (props.kind === 'dynamic-toolbar') {
+  if (kind === 'dynamic-toolbar') {
     boxMinWidth = theme.shapes.toolbarButtonWidth;
     boxHeight = theme.shapes.toolbarButtonHeight;
     borderStyle = 'none';
@@ -636,7 +715,7 @@ export default function styles(theme, props) {
     );
     activeColor = theme.palette.toolbarActiveBackground;
   }
-  if (props.kind === 'toolbar') {
+  if (kind === 'toolbar') {
     boxMinWidth = theme.shapes.toolbarButtonWidth;
     boxHeight = theme.shapes.toolbarButtonHeight;
     borderStyle = 'none';
@@ -644,48 +723,48 @@ export default function styles(theme, props) {
     activeColor = theme.palette.toolbarActiveBackground;
   }
 
-  if (!props.kind) {
+  if (!kind) {
     borderRadius = theme.shapes.smoothRadius;
     activeColor = theme.palette.boxActiveBackground;
   }
 
-  if (Bool.isTrue(props.badgePush)) {
+  if (Bool.isTrue(badgePush)) {
     boxPaddingRight = Unit.add(boxPaddingRight, theme.shapes.badgeHeight);
   }
   if (
-    props.shortcut &&
-    props.kind !== 'menu-item' &&
-    props.kind !== 'combo-item' &&
-    props.kind !== 'task-bar' &&
-    props.kind !== 'task-logo'
+    shortcut &&
+    kind !== 'menu-item' &&
+    kind !== 'combo-item' &&
+    kind !== 'task-bar' &&
+    kind !== 'task-logo'
   ) {
     boxPaddingRight = Unit.add(boxPaddingRight, m);
   }
 
-  if (props.shape) {
+  if (shape) {
     const r = Unit.multiply(theme.shapes.lineHeight, 0.5);
     const s = theme.shapes.smoothRadius;
-    if (props.shape === 'rounded') {
+    if (shape === 'rounded') {
       borderRadius = r;
-    } else if (props.shape === 'left-rounded') {
+    } else if (shape === 'left-rounded') {
       borderRadius = r + ' 0px 0px ' + r;
-    } else if (props.shape === 'right-rounded') {
+    } else if (shape === 'right-rounded') {
       borderRadius = '0px ' + r + ' ' + r + ' 0px';
-    } else if (props.shape === 'left-smooth') {
+    } else if (shape === 'left-smooth') {
       borderRadius = s + ' 0px 0px ' + s;
-    } else if (props.shape === 'right-smooth') {
+    } else if (shape === 'right-smooth') {
       borderRadius = '0px ' + s + ' ' + s + ' 0px';
     }
   }
 
-  if (props.backgroundColor) {
-    backgroundColor = ColorHelpers.getMarkColor(theme, props.backgroundColor);
+  if (backgroundColorProp) {
+    backgroundColor = ColorHelpers.getMarkColor(theme, backgroundColorProp);
   }
-  if (props.activeColor) {
-    activeColor = ColorHelpers.getMarkColor(theme, props.activeColor);
+  if (activeColorProp) {
+    activeColor = ColorHelpers.getMarkColor(theme, activeColorProp);
   }
 
-  if (Bool.isTrue(props.active) || props.active === 'focused') {
+  if (Bool.isTrue(active) || active === 'focused') {
     backgroundColor = activeColor;
     borderColor = borderActiveColor;
   }
@@ -723,7 +802,7 @@ export default function styles(theme, props) {
     boxFlexBasis = '0%';
   }
 
-  if (props.vpos === 'top') {
+  if (vpos === 'top') {
     boxAlignSelf = 'flex-start';
   }
 
@@ -743,10 +822,10 @@ export default function styles(theme, props) {
     height: boxHeight,
     minHeight: boxHeight,
     maxHeight: boxMaxHeight,
-    left: props.left,
-    right: props.right,
-    top: props.top,
-    bottom: props.bottom,
+    left: left,
+    right: right,
+    top: top,
+    bottom: bottom,
     display: 'flex',
     flexDirection: boxFlexDirection,
     flexGrow: boxFlexGrow,
@@ -777,7 +856,7 @@ export default function styles(theme, props) {
     cursor: cursor,
   };
 
-  if (!disabled && !Bool.isTrue(props.busy) && boxOpacity !== 0) {
+  if (!disabled && !Bool.isTrue(busy) && boxOpacity !== 0) {
     boxStyle[':hover'] = {
       borderColor: borderHoverColor,
       borderStyle: borderHoverStyle,
@@ -790,7 +869,7 @@ export default function styles(theme, props) {
     };
   }
 
-  if (Bool.isTrue(props.focusable)) {
+  if (Bool.isTrue(focusable)) {
     boxStyle[':focus'] = {
       outline: 'none',
       boxShadow: focusedShadow,

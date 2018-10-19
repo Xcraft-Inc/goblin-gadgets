@@ -3,11 +3,34 @@ import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
 
+export const propNames = [
+  'grow',
+  'width',
+  'visibility',
+  'spacing',
+  'shape',
+  'disabled',
+  'active',
+  'readonly',
+  'justify',
+];
+
 export default function styles(theme, props) {
-  let flexGrow = props.grow;
+  const {
+    grow,
+    width,
+    visibility,
+    spacing,
+    shape,
+    disabled,
+    active,
+    readonly,
+    justify,
+  } = props;
+
+  let flexGrow = grow;
   let flexShrink = null;
   let flexBasis = null;
-  let width = props.width;
   let marginLeft = '0px';
   let marginRight = '0px';
   let padding = '0px';
@@ -15,41 +38,41 @@ export default function styles(theme, props) {
   let borderColor = theme.palette.buttonBorder;
   let fieldPaddingLeft = '10px';
   let fieldPaddingRight = '10px';
-  let opacity = Bool.isFalse(props.visibility) ? 0 : null;
+  let opacity = Bool.isFalse(visibility) ? 0 : null;
 
   const m = Unit.multiply(theme.shapes.containerMargin, 0.5);
 
   // Initialise right margin according to spacing.
-  if (props.spacing) {
+  if (spacing) {
     let spacingType = {
       overlap: '-1px',
       tiny: '1px',
       large: m,
       double: theme.shapes.containerMargin,
     };
-    marginRight = spacingType[props.spacing];
+    marginRight = spacingType[spacing];
   }
 
-  if (props.shape) {
+  if (shape) {
     const r = Unit.multiply(theme.shapes.lineHeight, 0.5);
     const s = theme.shapes.smoothRadius;
     borderRadius = r + ' 0px 0px ' + r;
-    if (props.shape === 'rounded') {
+    if (shape === 'rounded') {
       borderRadius = r;
       padding = '0px ' + r;
-    } else if (props.shape === 'left-rounded') {
+    } else if (shape === 'left-rounded') {
       borderRadius = r + ' 0px 0px ' + r;
       padding = '0px 0px 0px ' + r;
-    } else if (props.shape === 'right-rounded') {
+    } else if (shape === 'right-rounded') {
       borderRadius = '0px ' + r + ' ' + r + ' 0px';
       padding = '0px ' + r + ' 0px 0px';
-    } else if (props.shape === 'smooth') {
+    } else if (shape === 'smooth') {
       borderRadius = s;
       padding = '0px ' + s;
-    } else if (props.shape === 'left-smooth') {
+    } else if (shape === 'left-smooth') {
       borderRadius = s + ' 0px 0px ' + s;
       padding = '0px 0px 0px ' + s;
-    } else if (props.shape === 'right-smooth') {
+    } else if (shape === 'right-smooth') {
       borderRadius = '0px ' + s + ' ' + s + ' 0px';
       padding = '0px ' + s + ' 0px 0px';
     }
@@ -57,14 +80,14 @@ export default function styles(theme, props) {
 
   let color = theme.palette.textColor;
   let backgroundColor = theme.palette.textFieldBackground;
-  if (Bool.isTrue(props.disabled)) {
+  if (Bool.isTrue(disabled)) {
     color = theme.palette.textFieldDisableText;
     backgroundColor = theme.palette.textFieldDisableBackground;
-  } else if (Bool.isTrue(props.active)) {
+  } else if (Bool.isTrue(active)) {
     color = theme.palette.comboActiveGlyph;
     backgroundColor = theme.palette.comboActiveBackground;
     borderColor = theme.palette.comboActiveBackground;
-  } else if (Bool.isTrue(props.readonly)) {
+  } else if (Bool.isTrue(readonly)) {
     backgroundColor = theme.palette.textFieldReadonlyBackground;
   }
 
@@ -97,9 +120,9 @@ export default function styles(theme, props) {
 
   const boxRequiredStyle = Object.assign({}, boxStyle); // clone
   if (
-    !Bool.isTrue(props.disabled) &&
-    !Bool.isTrue(props.active) &&
-    !Bool.isTrue(props.readonly)
+    !Bool.isTrue(disabled) &&
+    !Bool.isTrue(active) &&
+    !Bool.isTrue(readonly)
   ) {
     // Change backgroundColor if required text-field is not empty.
     boxRequiredStyle.backgroundColor =
@@ -135,7 +158,7 @@ export default function styles(theme, props) {
     paddingBottom: '0px',
     paddingLeft: fieldPaddingLeft,
     margin: '0px',
-    textAlign: props.justify === 'right' ? 'right' : null,
+    textAlign: justify === 'right' ? 'right' : null,
     color: color,
     backgroundColor: 'transparent',
     outline: 'none',

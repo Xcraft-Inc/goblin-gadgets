@@ -1,8 +1,6 @@
-import {Unit} from 'electrum-theme';
-
 /******************************************************************************/
 
-export default function styles(theme, props) {
+export default function styles(theme) {
   const radioBoxStyle = {
     width: '200px',
     display: 'flex',

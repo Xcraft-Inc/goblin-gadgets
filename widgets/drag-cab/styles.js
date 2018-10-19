@@ -1,8 +1,10 @@
-import {Unit} from 'electrum-theme';
-
 /******************************************************************************/
 
+export const propNames = ['direction', 'dragHandleHeight', 'dragHandleWidth'];
+
 export default function styles(theme, props) {
+  const {direction, dragHandleHeight, dragHandleWidth} = props;
+
   const hoverOverlapX = '0px'; // overlap for hover
   const hoverOverlapY = '-1px'; // overlap for hover
 
@@ -10,12 +12,12 @@ export default function styles(theme, props) {
   let detectHeight = '100%';
   let cursor = 'move';
 
-  if (props.direction === 'horizontal') {
-    detectHeight = props.dragHandleHeight || theme.shapes.containerMargin;
+  if (direction === 'horizontal') {
+    detectHeight = dragHandleHeight || theme.shapes.containerMargin;
     cursor = 'ew-resize';
   }
-  if (props.direction === 'vertical') {
-    detectWidth = props.dragHandleWidth || theme.shapes.containerMargin;
+  if (direction === 'vertical') {
+    detectWidth = dragHandleWidth || theme.shapes.containerMargin;
     cursor = 'ns-resize';
   }
 

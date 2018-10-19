@@ -109,16 +109,20 @@ function getHoverPath(theme, shape, hoverShape, width, height) {
 
 /******************************************************************************/
 
+export const propNames = ['kind', 'hoverShape', 'shape', 'width', 'height'];
+
 export default function styles(theme, props) {
+  const {kind, hoverShape, shape, width, height} = props;
+
   const r =
-    props.kind === 'thin' || props.kind === 'event'
+    kind === 'thin' || kind === 'event'
       ? theme.shapes.ticketRectRadius
       : theme.shapes.ticketCornerRadius;
 
   let hoverRadius;
-  if (props.hoverShape === 'first') {
+  if (hoverShape === 'first') {
     hoverRadius = r + ' ' + r + ' 0px 0px';
-  } else if (props.hoverShape === 'last') {
+  } else if (hoverShape === 'last') {
     hoverRadius = '0px 0px ' + r + ' ' + r;
   } else {
     hoverRadius = r;
@@ -127,22 +131,16 @@ export default function styles(theme, props) {
   const hover = {
     position: 'absolute',
     top: '0px',
-    fill: props.hoverShape ? theme.palette.ticketHover : 'transparent',
+    fill: hoverShape ? theme.palette.ticketHover : 'transparent',
     transition: theme.transitions.easeOut(),
-    path: getHoverPath(
-      theme,
-      props.shape,
-      props.hoverShape,
-      props.width,
-      props.height
-    ),
+    path: getHoverPath(theme, shape, hoverShape, width, height),
     //- ':hover': {fill: theme.palette.ticketHover},
   };
 
   let rectHover;
   const t1 = theme.shapes.ticketHoverThickness;
   const t2 = Unit.multiply(theme.shapes.ticketHoverThickness, 2);
-  if (props.hoverShape === 'first') {
+  if (hoverShape === 'first') {
     // n.
     rectHover = {
       position: 'absolute',
@@ -153,9 +151,9 @@ export default function styles(theme, props) {
       borderRadius: hoverRadius,
       borderWidth: t1,
       borderStyle: 'solid solid none solid',
-      borderColor: props.hoverShape ? theme.palette.ticketHover : 'transparent',
+      borderColor: hoverShape ? theme.palette.ticketHover : 'transparent',
     };
-  } else if (props.hoverShape === 'last') {
+  } else if (hoverShape === 'last') {
     // u.
     rectHover = {
       position: 'absolute',
@@ -166,7 +164,7 @@ export default function styles(theme, props) {
       borderRadius: hoverRadius,
       borderWidth: t1,
       borderStyle: 'none solid solid solid',
-      borderColor: props.hoverShape ? theme.palette.ticketHover : 'transparent',
+      borderColor: hoverShape ? theme.palette.ticketHover : 'transparent',
     };
   } else {
     rectHover = {
@@ -178,7 +176,7 @@ export default function styles(theme, props) {
       borderRadius: hoverRadius,
       borderWidth: t1,
       borderStyle: 'solid',
-      borderColor: props.hoverShape ? theme.palette.ticketHover : 'transparent',
+      borderColor: hoverShape ? theme.palette.ticketHover : 'transparent',
     };
   }
 
