@@ -66,6 +66,8 @@ export function mapProps(props) {
   return {
     ...props,
     text: Boolean(props.text),
+    glyph: Boolean(props.glyph),
+    shortcut: Boolean(props.shortcut),
   };
 }
 
