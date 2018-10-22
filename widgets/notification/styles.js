@@ -4,7 +4,11 @@ import {ColorHelpers} from 'electrum-theme';
 
 /******************************************************************************/
 
+export const propNames = ['status'];
+
 export default function styles(theme, props) {
+  const {status} = props;
+
   const m = theme.shapes.containerMargin;
   const s = theme.shapes.lineSpacing;
 
@@ -15,7 +19,7 @@ export default function styles(theme, props) {
   let borderLeftStyle = null;
   let borderLeftColor = null;
 
-  if (props.status === 'not-read') {
+  if (status === 'not-read') {
     margin = '0px 0px ' + Unit.multiply(s, 0.4) + ' 0px';
     paddingLeft = Unit.sub(m, theme.shapes.notificationMarkWidth);
     borderLeftWidth = theme.shapes.notificationMarkWidth;

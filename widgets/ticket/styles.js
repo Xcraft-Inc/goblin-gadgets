@@ -95,6 +95,21 @@ function getOutlinePath(theme, shape, width, height) {
 
 /******************************************************************************/
 
+export const propNames = [
+  'horizontalSpacing',
+  'kind',
+  'shape',
+  'visibility',
+  'opacity',
+  'grow',
+  'width',
+  'height',
+  'verticalSpacing',
+  'cursor',
+  'color',
+  'hideContent',
+];
+
 export default function styles(theme, props) {
   const horizontalSpacing = props.horizontalSpacing
     ? props.horizontalSpacing

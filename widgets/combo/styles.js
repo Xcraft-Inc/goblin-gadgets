@@ -1,6 +1,18 @@
 /******************************************************************************/
 
+export const propNames = [
+  'trianglePosition',
+  'left',
+  'right',
+  'top',
+  'bottom',
+  'maxHeight',
+  'width',
+];
+
 export default function styles(theme, props) {
+  const {trianglePosition, left, right, top, bottom, maxHeight, width} = props;
+
   const fullScreenStyle = {
     visibility: 'visible',
     position: 'fixed',
@@ -17,27 +29,27 @@ export default function styles(theme, props) {
   const comboStyle = {
     visibility: 'visible',
     position: 'absolute',
-    transform: props.trianglePosition ? null : 'translate(-50%, 0%)',
+    transform: trianglePosition ? null : 'translate(-50%, 0%)',
     zIndex: 11,
-    left: props.left,
-    right: props.right,
-    top: props.top,
-    bottom: props.bottom,
+    left,
+    right,
+    top,
+    bottom,
     opacity: 1.0,
     cursor: 'default',
     userSelect: 'none',
   };
 
   const insideStyle = {
-    maxHeight: props.maxHeight,
+    maxHeight: maxHeight,
     overflowY: 'auto',
     cursor: 'default',
     userSelect: 'none',
   };
 
   const insideWrapStyle = {
-    maxHeight: props.maxHeight,
-    width: props.width,
+    maxHeight: maxHeight,
+    width: width,
     overflowY: 'auto',
     cursor: 'default',
     userSelect: 'none',

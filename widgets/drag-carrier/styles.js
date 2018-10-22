@@ -1,6 +1,6 @@
 /******************************************************************************/
 
-export default function styles(theme, props) {
+export default function styles() {
   let fullScreenStyle = {
     visibility: 'visible',
     position: 'fixed',

@@ -3,14 +3,18 @@ const Bool = require('gadgets/helpers/bool-helpers');
 
 /******************************************************************************/
 
+export const propNames = ['frame', 'navigator'];
+
 export default function styles(theme, props) {
+  const {frame, navigator} = props;
+
   const m = theme.shapes.containerMargin;
   const halfMargin = Unit.multiply(m, 0.5);
-  const border = Bool.isTrue(props.frame)
+  const border = Bool.isTrue(frame)
     ? '1px solid ' + theme.palette.tableBorder
     : null;
 
-  const boxGrow = props.navigator ? '1' : null;
+  const boxGrow = navigator ? '1' : null;
 
   const boxStyle = {
     display: 'flex',

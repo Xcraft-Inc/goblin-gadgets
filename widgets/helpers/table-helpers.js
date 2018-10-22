@@ -20,8 +20,7 @@ function darken(theme, color, coefficient) {
 
 //-----------------------------------------------------------------------------
 
-function getBackgroundColor(theme, props, hover) {
-  let backgroundColor = props.row ? props.row.get('backgroundColor') : null;
+function getBackgroundColor(theme, backgroundColor, hover) {
   switch (backgroundColor) {
     case 'warning':
       backgroundColor = theme.palette.tableWarningBackground;
@@ -47,7 +46,7 @@ function getBackgroundColor(theme, props, hover) {
   return backgroundColor;
 }
 
-function getSelectedBackgroundColor(theme, props, hover) {
+function getSelectedBackgroundColor(theme, hover) {
   let backgroundColor = theme.palette.tableSelectedBackground;
 
   if (hover === 'main') {

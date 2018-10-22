@@ -2,11 +2,15 @@ const Bool = require('gadgets/helpers/bool-helpers');
 
 /******************************************************************************/
 
+export const propNames = ['grow', 'visibility', 'width'];
+
 export default function styles(theme, props) {
-  let flexGrow = props.grow;
+  const {grow, visibility, width} = props;
+
+  let flexGrow = grow;
   let flexShrink = null;
   let flexBasis = null;
-  let opacity = Bool.isFalse(props.visibility) ? 0 : null;
+  let opacity = Bool.isFalse(visibility) ? 0 : null;
 
   if (flexGrow) {
     flexShrink = '1';
@@ -18,7 +22,7 @@ export default function styles(theme, props) {
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    width: props.width,
+    width,
     flexGrow: flexGrow,
     flexShrink: flexShrink,
     flexBasis: flexBasis,
