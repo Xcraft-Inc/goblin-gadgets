@@ -95,16 +95,18 @@ export default class Ticket extends Widget {
   }
 
   renderTicket() {
-    const boxClass = this.styles.classNames.box;
-    const farShadowClass = this.styles.classNames.farShadow;
-    const shadowClass = this.styles.classNames.shadow;
-    const shapeClass = this.styles.classNames.shape;
-    const hatchClass = this.styles.classNames.hatch;
-    const flashClass = this.styles.classNames.flash;
-    const contentClass = this.styles.classNames.content;
+    const styles = this.styles;
+    const boxClass = styles.classNames.box;
+    const farShadowClass = styles.classNames.farShadow;
+    const shadowClass = styles.classNames.shadow;
+    const shapeClass = styles.classNames.shape;
+    const hatchDefClass = styles.classNames.hatchDef;
+    const hatchClass = styles.classNames.hatch;
+    const flashClass = styles.classNames.flash;
+    const contentClass = styles.classNames.content;
 
-    const w = this.styles.props.box.width;
-    const h = this.styles.props.box.height;
+    const w = styles.props.box.width;
+    const h = styles.props.box.height;
     if (!w || !h) {
       throw new Error('Undefined ticket width or height');
     }
@@ -113,18 +115,18 @@ export default class Ticket extends Widget {
     ) : null;
     const htmlShadow = Bool.isTrue(this.props.shadow) ? null : (
       <svg width={w} height={h} className={shadowClass}>
-        <path d={this.styles.props.svg.path} />
+        <path d={styles.props.svg.path} />
       </svg>
     );
     const htmlShape = (
       <svg width={w} height={h} className={shapeClass}>
-        <path d={this.styles.props.svg.path} />
+        <path d={styles.props.svg.path} />
       </svg>
     );
     const hs = this.context.theme.shapes.ticketHatchSize;
     const ht = Unit.multiply(hs, 2);
-    const htmlHatch = Bool.isTrue(this.props.hatch) ? (
-      <svg width={w} height={h} className={hatchClass}>
+    const htmlHatchDef = (
+      <svg width={w} height={h} className={hatchDefClass}>
         <defs>
           <pattern
             id="hatch"
@@ -145,7 +147,11 @@ export default class Ticket extends Widget {
             />
           </pattern>
         </defs>
-        <path d={this.styles.props.svg.path} />
+      </svg>
+    );
+    const htmlHatch = Bool.isTrue(this.props.hatch) ? (
+      <svg width={w} height={h} className={hatchClass}>
+        <path d={styles.props.svg.path} />
       </svg>
     ) : null;
 
@@ -163,6 +169,7 @@ export default class Ticket extends Widget {
         {htmlFarShadow}
         {htmlShadow}
         {htmlShape}
+        {htmlHatchDef}
         {htmlHatch}
         <div className={contentClass}>
           {this.renderBackgroundText()}

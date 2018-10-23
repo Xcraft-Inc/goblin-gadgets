@@ -2,7 +2,22 @@ const TableHelpers = require('gadgets/helpers/table-helpers');
 
 /******************************************************************************/
 
+export const propNames = ['row', 'isExpanded'];
+
+export function mapProps(props) {
+  const {row, ...otherProps} = props;
+  if (row) {
+    return {
+      ...otherProps,
+      backgroundColor: row.get('backgroundColor'),
+    };
+  }
+  return otherProps;
+}
+
 export default function styles(theme, props) {
+  const {backgroundColor, isExpanded} = props;
+
   const m = theme.shapes.containerMargin;
 
   const rowStyle = {
@@ -10,11 +25,13 @@ export default function styles(theme, props) {
     flexDirection: 'row',
     padding: '0px ' + m + ' 0px 0px',
     backgroundColor:
-      TableHelpers.getBackgroundColor(theme, props, 'none') + ' !important',
+      TableHelpers.getBackgroundColor(theme, backgroundColor, 'none') +
+      ' !important',
     cursor: 'default',
     ':hover': {
       backgroundColor:
-        TableHelpers.getBackgroundColor(theme, props, 'main') + ' !important',
+        TableHelpers.getBackgroundColor(theme, backgroundColor, 'main') +
+        ' !important',
     },
   };
 
@@ -23,21 +40,19 @@ export default function styles(theme, props) {
     flexDirection: 'row',
     padding: '0px ' + m + ' 0px 0px',
     backgroundColor:
-      TableHelpers.getSelectedBackgroundColor(theme, props, 'none') +
-      ' !important',
+      TableHelpers.getSelectedBackgroundColor(theme, 'none') + ' !important',
     color: theme.palette.tableSelectedText,
     cursor: 'default',
     ':hover': {
       backgroundColor:
-        TableHelpers.getSelectedBackgroundColor(theme, props, 'main') +
-        ' !important',
+        TableHelpers.getSelectedBackgroundColor(theme, 'main') + ' !important',
     },
   };
 
   const expandButtonStyle = {
     width: theme.shapes.treeExpandButtonWidth,
     height: theme.shapes.treeExpandButtonWidth,
-    transform: props.isExpanded ? 'rotate(90deg)' : null,
+    transform: isExpanded ? 'rotate(90deg)' : null,
     transition: theme.transitions.easeOut(),
   };
 

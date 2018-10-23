@@ -4,23 +4,52 @@ const TableHelpers = require('gadgets/helpers/table-helpers');
 
 /******************************************************************************/
 
+export const propNames = [
+  'frame',
+  'grow',
+  'hasButtons',
+  'height',
+  'headerWithoutHorizontalSeparator',
+  'row',
+];
+
+export function mapProps(props) {
+  const {row, ...otherProps} = props;
+  if (row) {
+    return {
+      ...otherProps,
+      backgroundColor: row.get('backgroundColor'),
+    };
+  }
+  return otherProps;
+}
+
 export default function styles(theme, props) {
+  const {
+    backgroundColor,
+    frame,
+    grow,
+    hasButtons,
+    height,
+    headerWithoutHorizontalSeparator,
+  } = props;
+
   const m = theme.shapes.containerMargin;
 
-  const border = Bool.isTrue(props.frame)
+  const border = Bool.isTrue(frame)
     ? '1px solid ' + theme.palette.tableBorder
     : null;
 
   const boxStyle = {
-    flexGrow: props.grow,
+    flexGrow: grow,
   };
 
   const treeStyle = {
-    flexGrow: props.grow,
+    flexGrow: grow,
     cursor: 'default',
     overflowY: 'hidden',
     border: border,
-    borderRadius: Bool.isTrue(props.hasButtons)
+    borderRadius: Bool.isTrue(hasButtons)
       ? theme.shapes.tableActionRadius +
         ' ' +
         theme.shapes.tableActionRadius +
@@ -31,12 +60,10 @@ export default function styles(theme, props) {
   // If property 'height' is defined, vertical scroller is already visible,
   // for scrolling the body (without header). Header must have a right
   // padding with include the scroller width.
-  const paddingRight = props.height
-    ? Unit.add(theme.shapes.scrollerThickness, m)
-    : m;
+  const paddingRight = height ? Unit.add(theme.shapes.scrollerThickness, m) : m;
 
   const headerStyle = {
-    borderBottom: Bool.isTrue(props.headerWithoutHorizontalSeparator)
+    borderBottom: Bool.isTrue(headerWithoutHorizontalSeparator)
       ? null
       : '1px solid ' + theme.palette.tableBorder,
     display: 'flex',
@@ -44,14 +71,14 @@ export default function styles(theme, props) {
     padding: '0px ' + paddingRight + ' 0px ' + m,
     cursor: 'default',
     backgroundColor:
-      Bool.isTrue(props.hasButtons) && Bool.isTrue(props.frame)
+      Bool.isTrue(hasButtons) && Bool.isTrue(frame)
         ? theme.palette.tableActionBackground
         : null,
   };
 
   const bodyStyle = {
-    height: props.height,
-    overflowY: props.height ? 'scroll' : 'hidden',
+    height: height,
+    overflowY: height ? 'scroll' : 'hidden',
     marginLeft: Unit.multiply(theme.shapes.treeLevelSpacing, -1),
     cursor: 'default',
   };
@@ -85,7 +112,7 @@ export default function styles(theme, props) {
   };
 
   const verticalSeparatorStyle = {
-    visibility: Bool.isTrue(props.frame) && props.height ? 'visible' : 'hidden',
+    visibility: Bool.isTrue(frame) && height ? 'visible' : 'hidden',
     position: 'absolute',
     height: '100%',
     top: '0px',
@@ -103,7 +130,7 @@ export default function styles(theme, props) {
     ':hover + .tree-hover': {
       backgroundColor: TableHelpers.getBackgroundColor(
         theme,
-        props,
+        backgroundColor,
         'children'
       ),
     },

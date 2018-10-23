@@ -3,13 +3,24 @@ import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
 
+export const propNames = [
+  'grow',
+  'visibility',
+  'spacing',
+  'shape',
+  'width',
+  'comboDirection',
+];
+
 export default function styles(theme, props) {
-  let flexGrow = props.grow;
+  const {grow, visibility, spacing, shape, width, comboDirection} = props;
+
+  let flexGrow = grow;
   let flexShrink = null;
   let flexBasis = null;
   let marginRight = '0px';
   let borderRadius = '0px';
-  let opacity = Bool.isFalse(props.visibility) ? 0 : null;
+  let opacity = Bool.isFalse(visibility) ? 0 : null;
 
   const m = Unit.multiply(theme.shapes.containerMargin, 0.5);
 
@@ -19,17 +30,17 @@ export default function styles(theme, props) {
   }
 
   // Initialise right margin according to spacing.
-  if (props.spacing) {
+  if (spacing) {
     let spacingType = {
       overlap: '-1px',
       tiny: '1px',
       large: m,
       double: theme.shapes.containerMargin,
     };
-    marginRight = spacingType[props.spacing];
+    marginRight = spacingType[spacing];
   }
 
-  if (props.shape === 'rounded') {
+  if (shape === 'rounded') {
     borderRadius = theme.shapes.actionRadius;
   }
 
@@ -38,7 +49,7 @@ export default function styles(theme, props) {
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    width: props.width,
+    width,
     flexGrow: flexGrow,
     flexShrink: flexShrink,
     flexBasis: flexBasis,
@@ -62,8 +73,8 @@ export default function styles(theme, props) {
 
   const comboBoxStyle = {
     position: 'absolute',
-    right: props.comboDirection === 'right' ? null : '0px',
-    left: props.comboDirection === 'right' ? '0px' : null,
+    right: comboDirection === 'right' ? null : '0px',
+    left: comboDirection === 'right' ? '0px' : null,
     top: Unit.add(theme.shapes.lineHeight, '1px'),
     marginTop: theme.shapes.lineSpacing,
     zIndex: 1,

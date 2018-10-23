@@ -39,6 +39,8 @@ function getColor(props, value) {
 }
 
 export default function styles(theme, props) {
+  // TODO: props.value should not be used in styles.js as it can take many different values
+
   const value = Math.max(Math.min(props.value, 100), 0); // 0..100
 
   const boxStyle = {

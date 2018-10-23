@@ -3,12 +3,16 @@ import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
 
+export const propNames = ['grow', 'visibility', 'spacing', 'width'];
+
 export default function styles(theme, props) {
-  let flexGrow = props.grow;
+  const {grow, visibility, spacing, width} = props;
+
+  let flexGrow = grow;
   let flexShrink = null;
   let flexBasis = null;
   let marginRight = null;
-  let opacity = Bool.isFalse(props.visibility) ? 0 : null;
+  let opacity = Bool.isFalse(visibility) ? 0 : null;
 
   const m = Unit.multiply(theme.shapes.containerMargin, 0.5);
 
@@ -18,14 +22,14 @@ export default function styles(theme, props) {
   }
 
   // Initialise right margin according to spacing.
-  if (props.spacing) {
+  if (spacing) {
     let spacingType = {
       overlap: '-1px',
       tiny: '1px',
       large: m,
       double: theme.shapes.containerMargin,
     };
-    marginRight = spacingType[props.spacing];
+    marginRight = spacingType[spacing];
   }
 
   let boxStyle = {
@@ -33,7 +37,7 @@ export default function styles(theme, props) {
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'stretch',
-    width: props.width,
+    width: width,
     flexGrow: flexGrow,
     flexShrink: flexShrink,
     flexBasis: flexBasis,
