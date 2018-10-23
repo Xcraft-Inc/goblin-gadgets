@@ -16,6 +16,9 @@ const logicState = {
 // Define logic handlers according rc.json
 const logicHandlers = require('./logicHandlers.js');
 
+const getIdAndInfo = doc => {
+  return {id: doc.id, value: doc.meta.summaries.description};
+};
 // Register quest's according rc.json
 Goblin.registerQuest(goblinName, 'create', function*(
   quest,
@@ -73,14 +76,14 @@ Goblin.registerQuest(goblinName, 'handle-changes', function(quest, change) {
   if (change.type === 'add') {
     listIds.push(change.new_val.id);
     quest.goblin.setX('listIds', listIds);
-    quest.dispatch('add', {entity: change.new_val});
+    quest.dispatch('add', {entity: getIdAndInfo(change.new_val)});
   }
 
   if (change.type === 'change') {
     const row = quest.goblin
       .getState()
       .get(`private.rowById.${change.new_val.id}`);
-    quest.do({row, document: change.new_val});
+    quest.do({row, document: getIdAndInfo(change.new_val)});
   }
 
   if (change.type === 'remove') {
@@ -121,7 +124,7 @@ Goblin.registerQuest(goblinName, 'load-range', function*(
   const rows = {};
   const rowById = {};
   for (const doc of docs) {
-    rows[`${from}-item`] = doc;
+    rows[`${from}-item`] = getIdAndInfo(doc);
     rowById[doc.id] = `${from}-item`;
     from++;
   }
@@ -149,7 +152,7 @@ Goblin.registerQuest(goblinName, 'init-list', function*(quest) {
   const rows = {};
   const rowById = {};
   for (const doc of docs) {
-    rows[`${from}-item`] = doc;
+    rows[`${from}-item`] = getIdAndInfo(doc);
     rowById[doc.id] = `${from}-item`;
     from++;
   }
