@@ -51,20 +51,20 @@ exports.xcraftCommands = function() {
         const mode = action.get('mode');
         const id = action.get('rowId');
         const selectedIds = state.get('selectedIds', []);
-        if (mode === 'single') {
-          if (selectedIds.includes(id)) {
-            return state.set('selectedIds', []); // deselect
-          } else {
-            return state.set('selectedIds', [id]); // select
-          }
-        } else if (mode === 'multi') {
-          if (selectedIds.includes(id)) {
-            return state.unpush('selectedIds', id);
-          } else {
-            return state.push('selectedIds', id);
-          }
-        } else {
-          throw new Error(`Unknow mode ${mode}`);
+        switch (mode) {
+          case 'multi':
+            if (selectedIds.includes(id)) {
+              return state.unpush('selectedIds', id);
+            } else {
+              return state.push('selectedIds', id);
+            }
+          case 'single':
+          default:
+            if (selectedIds.includes(id)) {
+              return state.set('selectedIds', []); // deselect
+            } else {
+              return state.set('selectedIds', [id]); // select
+            }
         }
       },
       doubleClick: state => {
