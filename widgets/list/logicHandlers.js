@@ -2,6 +2,7 @@ module.exports = {
   create: (state, action) => {
     return state
       .set('id', action.get('id'))
+      .set('status', action.get('status'))
       .set('count', action.get('count'))
       .set('pageSize', action.get('pageSize'))
       .set('from', 0)
