@@ -1,8 +1,6 @@
 'use strict';
 const Goblin = require('xcraft-core-goblin');
-function jsifyQuestName(quest) {
-  return quest.replace(/-([a-z])/g, (m, g1) => g1.toUpperCase());
-}
+const {jsify} = require('xcraft-core-utils').string;
 
 module.exports = config => {
   const {name, initialState, actions, events, gadgets} = config;
@@ -36,7 +34,7 @@ module.exports = config => {
           for (const handler of Object.keys(gadgets[key].onActions)) {
             quest.goblin.defer(
               quest.sub(`${newGadgetId}.${handler}`, (err, msg) =>
-                quest.me[jsifyQuestName(`${key}-${handler}`)](msg.data)
+                quest.me[jsify(`${key}-${handler}`)](msg.data)
               )
             );
           }
