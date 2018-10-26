@@ -885,8 +885,19 @@ class Field extends Form {
         this.fullPath
       );
 
+      const FinalContainer = this.mapWidget(
+        Container,
+        value => {
+          const length = value ? value.length : 0;
+          const embedded = Bool.isTrue(this.props.embedded);
+          const show = Bool.toString(length > 0 || !embedded);
+          return {show};
+        },
+        this.fullPath
+      );
+
       return (
-        <Container
+        <FinalContainer
           kind={this.props.containerKind || 'row-field'}
           subkind={this.props.containerSubkind || 'light-box'}
           grow={this.props.grow}
@@ -905,7 +916,7 @@ class Field extends Form {
               this.props.dragServiceId || this.context.dragServiceId
             }
           />
-        </Container>
+        </FinalContainer>
       );
     } else if (this.props.item) {
       const Items = props => {
