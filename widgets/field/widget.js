@@ -1617,39 +1617,10 @@ class Field extends Form {
     );
   }
 
-  dynamicBuild(x) {
-    return 'COUCOU';
-  }
-
   renderEditCombo() {
     const labelWidth = this.props.labelWidth || defaultLabelWidth;
 
-    let EditCombo = props => (
-      <TextFieldCombo
-        selectAllOnFocus="true"
-        spacing={this.props.spacing}
-        shape={this.props.shape}
-        getGlyph={this.props.getGlyph}
-        hintText={this.props.hintText}
-        tooltip={this.props.tooltip || this.props.hintText}
-        width={this.props.fieldWidth}
-        model={this.props.model}
-        readonly={this.props.comboReadonly}
-        required={this.props.required}
-        list={props.list}
-        menuType="wrap"
-        menuItemWidth={this.props.menuItemWidth}
-        comboTextTransform="none"
-        onSetText={text => {
-          this.setBackendValue(this.fullPath, text);
-          if (this.props.onChange) {
-            this.props.onChange(text);
-          }
-        }}
-        grow="1"
-      />
-    );
-
+    let EditCombo = null;
     if (
       this.props.comboReadonly === 'true' &&
       this.props.list.length > 0 &&
@@ -1692,9 +1663,49 @@ class Field extends Form {
           grow="1"
         />
       );
-    }
+    } else if (
+      this.props.list.length > 0 &&
+      this.props.list[0].glyph !== undefined &&
+      this.props.list[0].text !== undefined
+    ) {
+      const TextFieldComboWired = this.mapWidget(
+        TextFieldCombo,
+        value => {
+          if (!value && value !== '') {
+            return;
+          } else {
+            return {defaultValue: value};
+          }
+        },
+        this.fullPath
+      );
 
-    if (this.props.listModel) {
+      EditCombo = props => (
+        <TextFieldComboWired
+          selectAllOnFocus="true"
+          spacing={this.props.spacing}
+          shape={this.props.shape}
+          getGlyph={this.props.getGlyph}
+          hintText={this.props.hintText}
+          tooltip={this.props.tooltip || this.props.hintText}
+          width={this.props.fieldWidth}
+          model={this.props.model}
+          readonly={this.props.comboReadonly}
+          required={this.props.required}
+          list={props.list}
+          menuType="wrap"
+          menuItemWidth={this.props.menuItemWidth}
+          comboTextTransform="none"
+          onSetText={text => {
+            this.setBackendValue(this.fullPath, text);
+            if (this.props.onChange) {
+              this.props.onChange(text);
+            }
+          }}
+          grow="1"
+        />
+      );
+    } else if (this.props.listModel) {
       EditCombo = this.mapWidget(
         EditCombo,
         list => {
@@ -1703,6 +1714,32 @@ class Field extends Form {
           };
         },
         this.getFullPathFromModel(this.props.listModel)
+      );
+    } else {
+      EditCombo = props => (
+        <TextFieldCombo
+          selectAllOnFocus="true"
+          spacing={this.props.spacing}
+          shape={this.props.shape}
+          getGlyph={this.props.getGlyph}
+          hintText={this.props.hintText}
+          tooltip={this.props.tooltip || this.props.hintText}
+          width={this.props.fieldWidth}
+          model={this.props.model}
+          readonly={this.props.comboReadonly}
+          required={this.props.required}
+          list={props.list}
+          menuType="wrap"
+          menuItemWidth={this.props.menuItemWidth}
+          comboTextTransform="none"
+          onSetText={text => {
+            this.setBackendValue(this.fullPath, text);
+            if (this.props.onChange) {
+              this.props.onChange(text);
+            }
+          }}
+          grow="1"
+        />
       );
     }
 
