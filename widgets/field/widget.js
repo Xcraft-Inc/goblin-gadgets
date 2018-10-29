@@ -1742,6 +1742,21 @@ class Field extends Form {
         },
         this.getFullPathFromModel(this.props.listModel)
       );
+      EditCombo = this.mapWidget(
+        EditCombo,
+        value => {
+          if (!value) {
+            return null;
+          }
+          const list = this.getBackendValue(
+            this.getFullPathFromModel(this.props.listModel)
+          );
+          const matching = list.filter(item => item.get('value') === value);
+          const selectedValue = matching.first().get('text');
+          return {selectedValue};
+        },
+        this.getFullPathFromModel(this.props.model)
+      );
     }
 
     return (
