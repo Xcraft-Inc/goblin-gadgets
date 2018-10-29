@@ -112,6 +112,9 @@ class Field extends Form {
     }
     if (files.length === 1) {
       this.setBackendValue(this.fullPath, files[0]);
+      if (this.props.onChange) {
+        this.props.onChange(files[0]);
+      }
     } else {
       throw new Error('Not implemented');
     }
