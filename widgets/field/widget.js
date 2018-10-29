@@ -1620,7 +1620,32 @@ class Field extends Form {
   renderEditCombo() {
     const labelWidth = this.props.labelWidth || defaultLabelWidth;
 
-    let EditCombo = null;
+    let EditCombo = props => (
+      <TextFieldCombo
+        selectAllOnFocus="true"
+        spacing={this.props.spacing}
+        shape={this.props.shape}
+        getGlyph={this.props.getGlyph}
+        hintText={this.props.hintText}
+        tooltip={this.props.tooltip || this.props.hintText}
+        width={this.props.fieldWidth}
+        model={this.props.model}
+        readonly={this.props.comboReadonly}
+        required={this.props.required}
+        list={props.list}
+        menuType="wrap"
+        menuItemWidth={this.props.menuItemWidth}
+        comboTextTransform="none"
+        onSetText={text => {
+          this.setBackendValue(this.fullPath, text);
+          if (this.props.onChange) {
+            this.props.onChange(text);
+          }
+        }}
+        grow="1"
+      />
+    );
+
     if (
       this.props.comboReadonly === 'true' &&
       this.props.list &&
@@ -1716,32 +1741,6 @@ class Field extends Form {
           };
         },
         this.getFullPathFromModel(this.props.listModel)
-      );
-    } else {
-      EditCombo = props => (
-        <TextFieldCombo
-          selectAllOnFocus="true"
-          spacing={this.props.spacing}
-          shape={this.props.shape}
-          getGlyph={this.props.getGlyph}
-          hintText={this.props.hintText}
-          tooltip={this.props.tooltip || this.props.hintText}
-          width={this.props.fieldWidth}
-          model={this.props.model}
-          readonly={this.props.comboReadonly}
-          required={this.props.required}
-          list={props.list}
-          menuType="wrap"
-          menuItemWidth={this.props.menuItemWidth}
-          comboTextTransform="none"
-          onSetText={text => {
-            this.setBackendValue(this.fullPath, text);
-            if (this.props.onChange) {
-              this.props.onChange(text);
-            }
-          }}
-          grow="1"
-        />
       );
     }
 
