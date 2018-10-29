@@ -112,6 +112,9 @@ class Field extends Form {
     }
     if (files.length === 1) {
       this.setBackendValue(this.fullPath, files[0]);
+      if (this.props.onChange) {
+        this.props.onChange(files[0]);
+      }
     } else {
       throw new Error('Not implemented');
     }
@@ -886,8 +889,19 @@ class Field extends Form {
         this.fullPath
       );
 
+      const FinalContainer = this.mapWidget(
+        Container,
+        value => {
+          const length = value ? value.length : 0;
+          const embedded = Bool.isTrue(this.props.embedded);
+          const show = Bool.toString(length > 0 || !embedded);
+          return {show};
+        },
+        this.fullPath
+      );
+
       return (
-        <Container
+        <FinalContainer
           kind={this.props.containerKind || 'row-field'}
           subkind={this.props.containerSubkind || 'light-box'}
           grow={this.props.grow}
@@ -906,7 +920,7 @@ class Field extends Form {
               this.props.dragServiceId || this.context.dragServiceId
             }
           />
-        </Container>
+        </FinalContainer>
       );
     } else if (this.props.item) {
       const Items = props => {
@@ -1605,39 +1619,10 @@ class Field extends Form {
     );
   }
 
-  dynamicBuild(x) {
-    return 'COUCOU';
-  }
-
   renderEditCombo() {
     const labelWidth = this.props.labelWidth || defaultLabelWidth;
 
-    let EditCombo = props => (
-      <TextFieldCombo
-        selectAllOnFocus="true"
-        spacing={this.props.spacing}
-        shape={this.props.shape}
-        getGlyph={this.props.getGlyph}
-        hintText={this.props.hintText}
-        tooltip={this.props.tooltip || this.props.hintText}
-        width={this.props.fieldWidth}
-        model={this.props.model}
-        readonly={this.props.comboReadonly}
-        required={this.props.required}
-        list={props.list}
-        menuType="wrap"
-        menuItemWidth={this.props.menuItemWidth}
-        comboTextTransform="none"
-        onSetText={text => {
-          this.setBackendValue(this.fullPath, text);
-          if (this.props.onChange) {
-            this.props.onChange(text);
-          }
-        }}
-        grow="1"
-      />
-    );
-
+    let EditCombo = null;
     if (
       this.props.comboReadonly === 'true' &&
       this.props.list.length > 0 &&
@@ -1680,17 +1665,83 @@ class Field extends Form {
           grow="1"
         />
       );
-    }
+    } else if (
+      this.props.list.length > 0 &&
+      this.props.list[0].glyph !== undefined &&
+      this.props.list[0].text !== undefined
+    ) {
+      const TextFieldComboWired = this.mapWidget(
+        TextFieldCombo,
+        value => {
+          if (!value && value !== '') {
+            return;
+          } else {
+            return {defaultValue: value};
+          }
+        },
+        this.fullPath
+      );
 
-    if (this.props.listModel) {
+      EditCombo = props => (
+        <TextFieldComboWired
+          selectAllOnFocus="true"
+          spacing={this.props.spacing}
+          shape={this.props.shape}
+          getGlyph={this.props.getGlyph}
+          hintText={this.props.hintText}
+          tooltip={this.props.tooltip || this.props.hintText}
+          width={this.props.fieldWidth}
+          model={this.props.model}
+          readonly={this.props.comboReadonly}
+          required={this.props.required}
+          list={props.list}
+          menuType="wrap"
+          menuItemWidth={this.props.menuItemWidth}
+          comboTextTransform="none"
+          onSetText={text => {
+            this.setBackendValue(this.fullPath, text);
+            if (this.props.onChange) {
+              this.props.onChange(text);
+            }
+          }}
+          grow="1"
+        />
+      );
+    } else if (this.props.listModel) {
       EditCombo = this.mapWidget(
         EditCombo,
         list => {
           return {
-            list: list ? list.toArray() : [],
+            list: list ? list : [],
           };
         },
         this.getFullPathFromModel(this.props.listModel)
+      );
+    } else {
+      EditCombo = props => (
+        <TextFieldCombo
+          selectAllOnFocus="true"
+          spacing={this.props.spacing}
+          shape={this.props.shape}
+          getGlyph={this.props.getGlyph}
+          hintText={this.props.hintText}
+          tooltip={this.props.tooltip || this.props.hintText}
+          width={this.props.fieldWidth}
+          model={this.props.model}
+          readonly={this.props.comboReadonly}
+          required={this.props.required}
+          list={props.list}
+          menuType="wrap"
+          menuItemWidth={this.props.menuItemWidth}
+          comboTextTransform="none"
+          onSetText={text => {
+            this.setBackendValue(this.fullPath, text);
+            if (this.props.onChange) {
+              this.props.onChange(text);
+            }
+          }}
+          grow="1"
+        />
       );
     }
 

@@ -5,11 +5,11 @@ import MouseTrap from 'mousetrap';
 import ComboHelpers from 'gadgets/helpers/combo-helpers';
 const Bool = require('gadgets/helpers/bool-helpers');
 import {Unit} from 'electrum-theme';
-
 import Button from 'gadgets/button/widget';
 import TextField from 'gadgets/text-field/widget';
 import Combo from 'gadgets/combo/widget';
 import Select from 'gadgets/select/widget';
+import {isShredder} from 'xcraft-core-shredder';
 
 /******************************************************************************/
 
@@ -341,7 +341,10 @@ class TextFieldCombo extends Widget {
   }
 
   renderCombo() {
-    const list = this.props.list;
+    let list = this.props.list;
+    if (isShredder(list)) {
+      list = list.toJS();
+    }
     if (list && this.showCombo) {
       if (this.props.menuType === 'combo' || this.props.menuType === 'wrap') {
         return this.renderComboCombo(list);

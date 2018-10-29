@@ -4,16 +4,7 @@ const initialState = new Shredder({
   id: null,
 });
 
-const buildReducer = (initalState, reducer) => (
-  state = initialState,
-  action = {}
-) => {
-  state = new Shredder(state);
-  const nState = reducer(state, action);
-  return nState.state;
-};
-
-export default buildReducer(initialState, (state, action) => {
+export default (state = initialState, action = {}) => {
   switch (action.type) {
     case 'INIT_SCROLLABLE':
       state = state.set('id', action.id);
@@ -24,4 +15,4 @@ export default buildReducer(initialState, (state, action) => {
       return state;
   }
   return state;
-});
+};
