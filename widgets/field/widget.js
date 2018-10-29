@@ -1751,6 +1751,9 @@ class Field extends Form {
           const list = this.getBackendValue(
             this.getFullPathFromModel(this.props.listModel)
           );
+          if (typeof list.get('0') === 'string') {
+            return null;
+          }
           const matching = list.filter(item => item.get('value') === value);
           const selectedValue = matching.first().get('text');
           return {selectedValue};
