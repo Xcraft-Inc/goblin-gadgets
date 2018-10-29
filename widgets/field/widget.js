@@ -1623,6 +1623,7 @@ class Field extends Form {
     let EditCombo = null;
     if (
       this.props.comboReadonly === 'true' &&
+      this.props.list &&
       this.props.list.length > 0 &&
       this.props.list[0].value !== undefined &&
       this.props.list[0].text !== undefined
@@ -1664,6 +1665,7 @@ class Field extends Form {
         />
       );
     } else if (
+      this.props.list &&
       this.props.list.length > 0 &&
       this.props.list[0].glyph !== undefined &&
       this.props.list[0].text !== undefined
