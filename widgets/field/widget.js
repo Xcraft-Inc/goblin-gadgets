@@ -1746,13 +1746,13 @@ class Field extends Form {
         EditCombo,
         value => {
           if (!value) {
-            return null;
+            return {};
           }
           const list = this.getBackendValue(
             this.getFullPathFromModel(this.props.listModel)
           );
           if (typeof list.get('0') === 'string') {
-            return null;
+            return {};
           }
           const matching = list.filter(item => item.get('value') === value);
           const selectedValue = matching.first().get('text');
