@@ -134,12 +134,6 @@ class FieldCombo extends Widget {
   /******************************************************************************/
 
   renderTextField() {
-    const autoReadonly =
-      !this.focus &&
-      this.props.selectedValue &&
-      this.props.selectedValue !== '';
-    const displayValue = autoReadonly ? this.props.selectedValue : null;
-
     const s = this.props.shape ? this.props.shape : 'smooth';
     const textFieldShapes = {
       smooth: 'left-smooth',
@@ -161,11 +155,14 @@ class FieldCombo extends Widget {
       required: this.props.required,
     };
 
-    if (displayValue) {
-      props.value = displayValue;
-    }
-
-    return <Label {...props} kind="field-combo" onClick={this.onShowCombo} />;
+    return (
+      <Label
+        {...props}
+        kind="field-combo"
+        wrap="no-strict"
+        onClick={this.onShowCombo}
+      />
+    );
   }
 
   renderButton() {
