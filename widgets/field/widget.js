@@ -655,6 +655,14 @@ class Field extends Form {
     return <Field />;
   }
 
+  renderReadonlyCombo() {
+    if (this.props.kindWhenReadonly === 'hinter') {
+      return this.renderReadonlyHinter();
+    } else {
+      return this.renderReadonlyField();
+    }
+  }
+
   renderReadonlyBool() {
     const WiredCheckButton = this.mapWidget(
       CheckButton,
@@ -1661,7 +1669,11 @@ class Field extends Form {
           }
           for (const item of this.props.list) {
             if (value === item.value) {
-              return {defaultValue: item.text};
+              return {
+                defaultValue: item.text,
+                glyph: item.glyph,
+                glyphColor: item.color,
+              };
             }
           }
           return {defaultValue: ''};
@@ -2568,7 +2580,7 @@ class Field extends Form {
       case 'delay':
         return this.renderReadonlyDelay();
       case 'combo':
-        return this.renderReadonlyField();
+        return this.renderReadonlyCombo();
       case 'radio':
         return this.renderReadonlyField();
       case 'check-list':

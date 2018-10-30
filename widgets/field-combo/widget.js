@@ -143,6 +143,7 @@ class FieldCombo extends Widget {
 
     const props = {
       glyph: this.props.glyph,
+      glyphColor: this.props.glyphColor,
       text: this.props.defaultValue,
       tooltip: this.props.tooltip,
       spacing: 'overlap',
