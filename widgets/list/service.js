@@ -82,6 +82,25 @@ Goblin.registerQuest(goblinName, 'change-status', function*(quest, status) {
   quest.do({status, count: listIds.length, pageSize});
 });
 
+Goblin.registerQuest(goblinName, 'change-visualization', function*(
+  quest,
+  orderBy,
+  filter
+) {
+  if (status.length === 0) {
+    return;
+  }
+  quest.evt('status-changed', {status});
+  const r = quest.getStorage('rethink');
+  const table = quest.goblin.getX('table');
+  const pageSize = quest.goblin.getX('pageSize');
+
+  const listIds = yield r.getBaseList({table, filter, orderBy, status});
+  quest.goblin.setX('listIds', listIds);
+  quest.me.initList();
+  quest.do({status, count: listIds.length, pageSize, orderBy, filter});
+});
+
 Goblin.registerQuest(goblinName, 'handle-changes', function(quest, change) {
   const listIds = quest.goblin.getX('listIds');
 

@@ -16,6 +16,16 @@ module.exports = {
       .set('from', 0)
       .set('to', action.get('pageSize'));
   },
+  'change-visualization': (state, action) => {
+    return state
+      .set('status', action.get('status'))
+      .set('count', action.get('count'))
+      .set('pageSize', action.get('pageSize'))
+      .set('from', 0)
+      .set('to', action.get('pageSize'))
+      .set('orderBy', action.get('orderBy'))
+      .set('filter', action.get('filter'));
+  },
   'load-range': (state, action) => {
     return state
       .set('list', action.get('rows'))
