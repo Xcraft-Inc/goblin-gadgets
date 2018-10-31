@@ -1641,6 +1641,7 @@ class Field extends Form {
         readonly={this.props.comboReadonly}
         required={this.props.required}
         list={props.list}
+        selectedValue={props.selectedValue}
         menuType="wrap"
         menuItemWidth={this.props.menuItemWidth}
         comboTextTransform="none"
@@ -1766,8 +1767,18 @@ class Field extends Form {
           if (typeof list.get('0') === 'string') {
             return {};
           }
-          const matching = list.filter(item => item.get('value') === value);
-          const selectedValue = matching.first().get('text');
+          const matching = list.find(item => item.get('value') === value);
+          if (!matching) {
+            // FIXME: Sometime value is the text instead of the id
+            // when we change the combo value too fast
+            console.warn(
+              `selected value ${value} must be a id. listModel:${
+                this.props.listModel
+              }`
+            );
+            return {};
+          }
+          const selectedValue = matching.get('text');
           return {selectedValue};
         },
         this.getFullPathFromModel(this.props.model)
