@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+const _ = require('lodash');
 
 const goblinName = path.basename(module.parent.filename, '.js');
 
@@ -165,14 +166,16 @@ Goblin.registerQuest(goblinName, 'load-range', function*(
 });
 
 Goblin.registerQuest(goblinName, 'init-list', function*(quest) {
+  const r = quest.getStorage('rethink');
+
   const pageSize = quest.goblin.getX('pageSize');
   const table = quest.goblin.getX('table');
   let from = 0;
   const to = pageSize;
   const listIds = quest.goblin.getX('listIds');
-  const documents = listIds.slice(from, to);
-  const r = quest.getStorage('rethink');
-  const docs = yield r.getAll({table, documents});
+  const slice = listIds.slice(from, to);
+  const docs = _.keyBy(yield r.getAll({table, slice}), doc => doc.id);
+
   yield r.stopOnChanges({
     goblinId: quest.goblin.id,
   });
@@ -184,7 +187,9 @@ Goblin.registerQuest(goblinName, 'init-list', function*(quest) {
   });
   const rows = {};
   const rowById = {};
-  for (const doc of docs) {
+
+  for (const item of slice) {
+    const doc = docs[item];
     rows[`${from}-item`] = getIdAndInfo(doc);
     rowById[doc.id] = `${from}-item`;
     from++;
