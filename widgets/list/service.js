@@ -172,6 +172,11 @@ Goblin.registerQuest(goblinName, 'init-list', function*(quest) {
   const table = quest.goblin.getX('table');
   let from = 0;
   const to = pageSize;
+  const status = quest.goblin
+    .getState()
+    .get('status')
+    .toArray();
+
   const listIds = quest.goblin.getX('listIds');
   const slice = listIds.slice(from, to);
   const docs = _.keyBy(yield r.getAll({table, slice}), doc => doc.id);
@@ -183,7 +188,7 @@ Goblin.registerQuest(goblinName, 'init-list', function*(quest) {
     table,
     onChangeQuest: `${goblinName}.handle-changes`,
     goblinId: quest.goblin.id,
-    status: ['published'],
+    status, // ?? or ['published']? (was written before)
   });
   const rows = {};
   const rowById = {};
