@@ -1,9 +1,7 @@
 import React from 'react';
-import CronParser from 'cron-parser';
 import Form from 'laboratory/form';
 import {date as DateConverters} from 'xcraft-core-converters';
 
-//- import * as CronHelpers from '../helpers/cron-helpers';
 const Bool = require('gadgets/helpers/bool-helpers');
 
 import Calendar from 'gadgets/calendar/widget';
@@ -16,35 +14,6 @@ import Label from 'gadgets/label/widget';
 
 function monthCount() {
   return 1; // display 2 months simultaneously
-}
-
-function pushCron(result, date, startDate, endDate, cron, deleteList) {
-  const year = DateConverters.getYear(date);
-  const month = DateConverters.getMonth(date);
-  var options = {
-    currentDate: new Date(year, month - 2, 1),
-    endDate: new Date(year, month + monthCount(), 1),
-    iterator: true,
-  };
-  try {
-    const interval = CronParser.parseExpression(cron, options);
-    /* eslint no-constant-condition: 0 */
-    while (true) {
-      const next = interval.next();
-      if (next.done) {
-        break;
-      }
-      const itemDate = DateConverters.jsToCanonical(next.value);
-      if (itemDate >= startDate && itemDate <= endDate) {
-        const deleted = deleteList.indexOf(itemDate) !== -1;
-        const item = {
-          Date: itemDate,
-          Type: deleted ? 'deleted' : 'default',
-        };
-        result.push(item);
-      }
-    }
-  } catch (e) {}
 }
 
 function getRecurrenceItems(
@@ -62,13 +31,6 @@ function getRecurrenceItems(
   }
   if (!endDate) {
     endDate = '2100-12-31';
-  }
-
-  if (days && days !== '' && months && months !== '') {
-    const cron = null; //- CronHelpers.getCron (days, months);
-    if (cron) {
-      pushCron(result, date, startDate, endDate, cron, deleteList);
-    }
   }
 
   for (var a of addList) {
