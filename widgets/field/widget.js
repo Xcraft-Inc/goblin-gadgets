@@ -656,6 +656,14 @@ class Field extends Form {
     return <Field />;
   }
 
+  renderReadonlyCombo() {
+    if (this.props.kindWhenReadonly === 'hinter') {
+      return this.renderReadonlyHinter();
+    } else {
+      return this.renderReadonlyField();
+    }
+  }
+
   renderReadonlyBool() {
     const WiredCheckButton = this.mapWidget(
       CheckButton,
@@ -1622,9 +1630,36 @@ class Field extends Form {
   renderEditCombo() {
     const labelWidth = this.props.labelWidth || defaultLabelWidth;
 
-    let EditCombo = null;
+    let EditCombo = props => (
+      <TextFieldCombo
+        selectAllOnFocus="true"
+        spacing={this.props.spacing}
+        shape={this.props.shape}
+        getGlyph={this.props.getGlyph}
+        hintText={this.props.hintText}
+        tooltip={this.props.tooltip || this.props.hintText}
+        width={this.props.fieldWidth}
+        model={this.props.model}
+        readonly={this.props.comboReadonly}
+        required={this.props.required}
+        list={props.list}
+        selectedValue={props.selectedValue}
+        menuType="wrap"
+        menuItemWidth={this.props.menuItemWidth}
+        comboTextTransform="none"
+        onSetText={text => {
+          this.setBackendValue(this.fullPath, text);
+          if (this.props.onChange) {
+            this.props.onChange(text);
+          }
+        }}
+        grow="1"
+      />
+    );
+
     if (
       this.props.comboReadonly === 'true' &&
+      this.props.list &&
       this.props.list.length > 0 &&
       this.props.list[0].value !== undefined &&
       this.props.list[0].text !== undefined
@@ -1637,7 +1672,11 @@ class Field extends Form {
           }
           for (const item of this.props.list) {
             if (value === item.value) {
-              return {defaultValue: item.text};
+              return {
+                defaultValue: item.text,
+                glyph: item.glyph,
+                glyphColor: item.color,
+              };
             }
           }
           return {defaultValue: ''};
@@ -1666,6 +1705,7 @@ class Field extends Form {
         />
       );
     } else if (
+      this.props.list &&
       this.props.list.length > 0 &&
       this.props.list[0].glyph !== undefined &&
       this.props.list[0].text !== undefined
@@ -1717,31 +1757,33 @@ class Field extends Form {
         },
         this.getFullPathFromModel(this.props.listModel)
       );
-    } else {
-      EditCombo = props => (
-        <TextFieldCombo
-          selectAllOnFocus="true"
-          spacing={this.props.spacing}
-          shape={this.props.shape}
-          getGlyph={this.props.getGlyph}
-          hintText={this.props.hintText}
-          tooltip={this.props.tooltip || this.props.hintText}
-          width={this.props.fieldWidth}
-          model={this.props.model}
-          readonly={this.props.comboReadonly}
-          required={this.props.required}
-          list={props.list}
-          menuType="wrap"
-          menuItemWidth={this.props.menuItemWidth}
-          comboTextTransform="none"
-          onSetText={text => {
-            this.setBackendValue(this.fullPath, text);
-            if (this.props.onChange) {
-              this.props.onChange(text);
-            }
-          }}
-          grow="1"
-        />
+      EditCombo = this.mapWidget(
+        EditCombo,
+        value => {
+          if (!value) {
+            return {};
+          }
+          const list = this.getBackendValue(
+            this.getFullPathFromModel(this.props.listModel)
+          );
+          if (typeof list.get('0') === 'string') {
+            return {};
+          }
+          const matching = list.find(item => item.get('value') === value);
+          if (!matching) {
+            // FIXME: Sometime value is the text instead of the id
+            // when we change the combo value too fast
+            console.warn(
+              `selected value ${value} must be a id. listModel:${
+                this.props.listModel
+              }`
+            );
+            return {};
+          }
+          const selectedValue = matching.get('text');
+          return {selectedValue};
+        },
+        this.getFullPathFromModel(this.props.model)
       );
     }
 
@@ -2551,7 +2593,7 @@ class Field extends Form {
       case 'delay':
         return this.renderReadonlyDelay();
       case 'combo':
-        return this.renderReadonlyField();
+        return this.renderReadonlyCombo();
       case 'radio':
         return this.renderReadonlyField();
       case 'check-list':

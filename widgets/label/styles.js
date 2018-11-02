@@ -439,6 +439,7 @@ export default function styles(theme, props) {
     textMarginRight = m;
     border = '1px solid ' + theme.palette.buttonBorder;
     backgroundColorFromKind = theme.palette.textFieldReadonlyBackground;
+    glyphJustify = 'flex-end';
   }
 
   if (kind === 'label-field') {
@@ -906,6 +907,7 @@ export default function styles(theme, props) {
       boxFlexGrow = '1';
     }
   } else if (textWrap === 'yes-permissive') {
+    // Intentionally empty.
   } else if (textWrap === 'yes') {
     textWordBreak = 'break-word';
   }

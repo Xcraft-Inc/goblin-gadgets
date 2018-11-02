@@ -230,6 +230,7 @@ class TextFieldCombo extends Widget {
 
     if (displayValue) {
       props.value = displayValue;
+      props.displayValue = displayValue;
     }
 
     return (
