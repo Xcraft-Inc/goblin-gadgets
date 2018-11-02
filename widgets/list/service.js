@@ -28,6 +28,7 @@ Goblin.registerQuest(goblinName, 'create', function*(
   status,
   filter,
   pageSize,
+  type,
   orderBy
 ) {
   quest.goblin.setX('desktopId', desktopId);
@@ -58,7 +59,12 @@ Goblin.registerQuest(goblinName, 'create', function*(
 
   quest.goblin.setX('listIds', listIds);
   quest.me.initList();
-  quest.do({count: listIds.length, pageSize, status: initialStatus});
+  quest.do({
+    count: listIds.length,
+    pageSize,
+    status: initialStatus,
+    type: type || 'variable',
+  });
   return quest.goblin.id;
 });
 

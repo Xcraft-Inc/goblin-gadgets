@@ -5,6 +5,7 @@ module.exports = {
       .set('status', action.get('status'))
       .set('count', action.get('count'))
       .set('pageSize', action.get('pageSize'))
+      .set('type', action.get('type'))
       .set('from', 0)
       .set('to', action.get('pageSize'));
   },
