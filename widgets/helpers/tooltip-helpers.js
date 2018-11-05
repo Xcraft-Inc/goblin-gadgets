@@ -1,7 +1,13 @@
 const {T} = require('nabu/helpers/tooltip-helpers');
 
 function prepare(text, state, widget) {
-  return text ? T(state, text, widget).replace(/<br\/>/gi, '\n') : text;
+  if (!text) {
+    return null;
+  }
+  const t = T(state, text, widget);
+  if (t) {
+    return t.replace(/<br\/>/gi, '\n');
+  }
 }
 
 //-----------------------------------------------------------------------------
