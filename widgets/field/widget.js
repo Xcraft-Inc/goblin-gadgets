@@ -1061,6 +1061,8 @@ class Field extends Form {
           model={this.props.model}
           onDebouncedChange={this.props.onDebouncedChange}
           grow="1"
+          onFocus={this.props.onFocus}
+          onBlur={this.props.onBlur}
         />
       </Container>
     );
