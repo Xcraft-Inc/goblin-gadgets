@@ -48,7 +48,7 @@ export default function styles(theme, props) {
   };
 
   const fullScreen = {
-    zIndex: 10,
+    zIndex: 8,
     position: 'fixed',
     top: '0px',
     left: '0px',
@@ -64,7 +64,7 @@ export default function styles(theme, props) {
   };
 
   const boxVisible = {
-    zIndex: 11,
+    zIndex: 9,
     position: 'absolute',
     display: 'flex',
     flexDirection: 'row',
@@ -80,7 +80,7 @@ export default function styles(theme, props) {
   };
 
   const boxHidden = {
-    zIndex: 11,
+    zIndex: 9,
     position: 'absolute',
     display: 'flex',
     flexDirection: 'row',
