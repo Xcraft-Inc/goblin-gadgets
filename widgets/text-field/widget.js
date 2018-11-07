@@ -39,6 +39,11 @@ class TextField extends Widget {
 
     this.hasFocus = false;
     this.hasChanged = false;
+
+    this.onDebouncedChangedFunc = _.debounce(
+      (onDebouncedChange, value) => onDebouncedChange(value),
+      400
+    );
   }
 
   static get wiring() {
@@ -49,11 +54,6 @@ class TextField extends Widget {
       glyph: 'glyph',
     };
   }
-
-  onDebouncedChangedFunc = _.debounce(
-    (onDebouncedChange, value) => onDebouncedChange(value),
-    400
-  );
 
   setText(text) {
     this.do('text', {text});
