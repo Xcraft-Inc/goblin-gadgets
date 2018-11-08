@@ -260,7 +260,12 @@ class TextField extends Widget {
         'dispatch',
       ]);
 
-      if (
+      if (props.hinter) {
+        const state = this.getState().widgets.get(this.props.id);
+        if (state) {
+          finalProps.defaultValue = state.get(props.hinter);
+        }
+      } else if (
         !props.hinter &&
         (props.value === null || props.value === undefined)
       ) {
