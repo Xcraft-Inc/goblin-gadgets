@@ -352,6 +352,7 @@ class TextField extends Widget {
       />
     ) : (
       <Control
+        persist
         className={`${fieldClass} ${inputClass}`}
         component={Field}
         changeAction={beforeChange}
