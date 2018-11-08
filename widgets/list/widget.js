@@ -11,20 +11,8 @@ class List extends Widget {
   constructor() {
     super(...arguments);
     this.renderItem = this.renderItem.bind(this);
-    this.renderTable = this.renderTable.bind(this);
-    this.renderRow = this.renderRow.bind(this);
+    this.extimateItemSize = this.extimateItemSize.bind(this);
     this.changeStatus = this.changeStatus.bind(this);
-    const load = range => {
-      let cFrom = this.getFormValue('.from');
-      let cTo = this.getFormValue('.to');
-      if (range[0] < this.props.pageSize) {
-        return;
-      }
-      if (range[0] - 10 < cFrom || range[1] + 10 >= cTo) {
-        this.do('load-range', {from: range[0], to: range[1]});
-      }
-    };
-    this.loadIndex = _.debounce(load, 200);
   }
 
   static connectTo(instance) {
@@ -42,50 +30,24 @@ class List extends Widget {
   }
 
   renderItem(index, key) {
-    return {model: `.list.${index}-item`, index, key};
-  }
-
-  renderRow(row) {
-    const loadingWrapper = props => {
-      if (props._loading) {
-        return <div>loading...</div>;
-      } else {
+    const ListItem = this.getWidgetToFormMapper(
+      props => {
+        setTimeout(() => this.do('load', {index}), 0);
         const Item = this.props.renderItem;
-        return <Item {...props} />;
-      }
-    };
-    const ListItem = this.getWidgetToFormMapper(loadingWrapper, item => {
-      if (!item) {
-        return {_loading: true};
-      } else {
-        return this.props.mapItem(item, row.index);
-      }
-    })(row.model);
+        return <Item {...props} height={this._height} />;
+      },
+      item => this.props.mapItem(item, index)
+    )(`.list.${index}-item`);
 
-    return <ListItem key={row.key} />;
+    return <ListItem key={key} />;
   }
 
-  renderTable(items, ref) {
-    if (!items) {
-      return null;
+  extimateItemSize(index, cache) {
+    if (index > 0) {
+      this._height = cache[0];
+      return cache[0];
     }
-
-    if (items.length) {
-      const range = [items[0].index, items[items.length - 1].index];
-      // Horrible hack qui corrige le problème de la liste de gauche qui est
-      // vide la plupart du temps lors de l'ouverture du panneau de recherche !
-      if (range.length !== 2 || range[0] !== 0 || range[1] !== 0) {
-        this.loadIndex(range);
-      }
-    }
-
-    return (
-      <div ref={ref}>
-        {items.map(row => {
-          return this.renderRow(row);
-        })}
-      </div>
-    );
+    return null;
   }
 
   changeStatus(changed, newState) {
@@ -161,11 +123,11 @@ class List extends Widget {
         </Container>
 
         <ReactList
-          pageSize={this.props.pageSize / 2}
           length={this.props.count}
           type={this.props.type || 'variable'}
-          itemsRenderer={this.renderTable}
           itemRenderer={this.renderItem}
+          itemSizeEstimator={this.extimateItemSize}
+          pageSize={this.props.pageSize}
         />
       </Container>
     );

@@ -104,6 +104,17 @@ Goblin.registerQuest(goblinName, 'handle-changes', function(quest, change) {
   }
 });
 
+Goblin.registerQuest(goblinName, 'load', function*(quest, index) {
+  const r = quest.getStorage('rethink');
+  const table = quest.goblin.getX('table');
+  const listIds = quest.goblin.getX('listIds');
+  const docs = yield r.getAll({table, documents: [listIds[index]]});
+  quest.dispatch('handle-changes', {
+    row: `${index}-item`,
+    document: getIdAndInfo(docs[0]),
+  });
+});
+
 Goblin.registerQuest(goblinName, 'load-range', function*(
   quest,
   from,

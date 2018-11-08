@@ -1,13 +1,13 @@
-const logicHandlers = require('./logicHandlers.js');
-
 export default (state, action = {}) => {
   switch (action.type) {
-    case 'change-status':
-      return state;
-    default:
-      if (logicHandlers[action.type]) {
-        return logicHandlers[action.type](state, action);
+    case 'change-status': {
+      const status = action.get('status');
+      if (!status.length) {
+        return state;
       }
+      return state.set('status', status);
+    }
+    default:
       return state;
   }
 };
