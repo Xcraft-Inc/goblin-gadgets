@@ -89,6 +89,7 @@ class LabelTextField extends Widget {
     const fieldGrow = this.props.fieldWidth ? null : '1';
 
     const props = {
+      id: this.props.id,
       model: this.props.model,
       parser: this.props.parser,
       errors: this.props.errors,
