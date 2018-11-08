@@ -73,29 +73,34 @@ Goblin.registerQuest(goblinName, 'change-status', function*(quest, status) {
 Goblin.registerQuest(goblinName, 'handle-changes', function(quest, change) {
   const listIds = quest.goblin.getX('listIds');
 
-  if (change.type === 'add') {
-    listIds.push(change.new_val.id);
-    quest.goblin.setX('listIds', listIds);
-    quest.dispatch('add', {entity: getIdAndInfo(change.new_val)});
-  }
-
-  if (change.type === 'change') {
-    const row = quest.goblin
-      .getState()
-      .get(`private.rowById.${change.new_val.id}`);
-    quest.do({row, document: getIdAndInfo(change.new_val)});
-  }
-
-  if (change.type === 'remove') {
-    const inListIndex = listIds.indexOf(change.old_val.id);
-    if (inListIndex !== -1) {
-      listIds.splice(inListIndex, 1);
+  switch (change.type) {
+    case 'add': {
+      listIds.push(change.new_val.id);
       quest.goblin.setX('listIds', listIds);
-      const from = quest.goblin.getState().get('from');
-      const to = quest.goblin.getState().get('to');
-      quest.me.loadRange({from, to, force: true});
+      quest.dispatch('add', {entity: getIdAndInfo(change.new_val)});
+      break;
     }
-    quest.dispatch('remove');
+
+    case 'change': {
+      const row = quest.goblin
+        .getState()
+        .get(`private.rowById.${change.new_val.id}`);
+      quest.do({row, document: getIdAndInfo(change.new_val)});
+      break;
+    }
+
+    case 'remove': {
+      const inListIndex = listIds.indexOf(change.old_val.id);
+      if (inListIndex !== -1) {
+        listIds.splice(inListIndex, 1);
+        quest.goblin.setX('listIds', listIds);
+        const from = quest.goblin.getState().get('from');
+        const to = quest.goblin.getState().get('to');
+        quest.me.loadRange({from, to, force: true});
+      }
+      quest.dispatch('remove');
+      break;
+    }
   }
 });
 
