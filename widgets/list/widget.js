@@ -23,7 +23,6 @@ class List extends Widget {
     return {
       id: 'id',
       count: 'count',
-      pageSize: 'pageSize',
       type: 'type',
       status: 'status',
     };
@@ -127,7 +126,6 @@ class List extends Widget {
           type={this.props.type || 'variable'}
           itemRenderer={this.renderItem}
           itemSizeEstimator={this.extimateItemSize}
-          pageSize={this.props.pageSize}
         />
       </Container>
     );
