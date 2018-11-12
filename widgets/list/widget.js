@@ -41,7 +41,7 @@ class List extends Widget {
   }
 
   estimateItemSize(index, cache) {
-    if (index > 0) {
+    if (cache[0]) {
       this._height = cache[0];
       return cache[0];
     }
