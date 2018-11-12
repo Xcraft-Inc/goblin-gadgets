@@ -10,7 +10,7 @@ class List extends Widget {
   constructor() {
     super(...arguments);
     this.renderItem = this.renderItem.bind(this);
-    this.extimateItemSize = this.extimateItemSize.bind(this);
+    this.estimateItemSize = this.estimateItemSize.bind(this);
     this.changeStatus = this.changeStatus.bind(this);
   }
 
@@ -40,7 +40,7 @@ class List extends Widget {
     return <ListItem key={key} />;
   }
 
-  extimateItemSize(index, cache) {
+  estimateItemSize(index, cache) {
     if (index > 0) {
       this._height = cache[0];
       return cache[0];
@@ -124,7 +124,7 @@ class List extends Widget {
           length={this.props.count}
           type={this.props.type || 'variable'}
           itemRenderer={this.renderItem}
-          itemSizeEstimator={this.extimateItemSize}
+          itemSizeEstimator={this.estimateItemSize}
         />
       </Container>
     );
