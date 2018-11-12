@@ -1,7 +1,6 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 import ReactList from 'react-list';
-import _ from 'lodash';
 
 import Container from 'gadgets/container/widget';
 import Label from 'gadgets/label/widget';
