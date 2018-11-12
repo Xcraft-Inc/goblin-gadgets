@@ -1,16 +1,55 @@
 import React from 'react';
+import {div, a} from 'react';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import Widget from 'laboratory/widget';
 import MouseTrap from 'mousetrap';
 import * as ShortcutHelpers from '../helpers/shortcut-helpers.js';
 const Bool = require('gadgets/helpers/bool-helpers');
-import Connect from 'laboratory/connect';
 const Tooltip = require('gadgets/helpers/tooltip-helpers');
 
 import Label from 'gadgets/label/widget';
 import Badge from 'gadgets/badge/widget';
 
 /******************************************************************************/
+
+const DivItem = props => {
+  return (
+    <div
+      this={props.this}
+      tooltip={props.tooltip}
+      key={props.index}
+      {...props.propsTabIndex}
+      onDoubleClick={props.onDoubleClick}
+      onFocus={props.onFocus}
+      onBlur={props.onBlur}
+      onMouseDown={props.onMouseDown}
+      onMouseUp={props.onMouseUp}
+      onTouchStart={props.onTouchStart}
+      onTouchEnd={props.onTouchEnd}
+      onMouseOver={props.onMouseOver}
+      onMouseOut={props.onMouseOut}
+      className={props.className}
+    >
+      {props.children}
+    </div>
+  );
+};
+
+const DivConnected = Widget.connect((state, props) => {
+  return {
+    title: Tooltip.prepare(props.tooltip, state, props.this),
+  };
+})(DivItem);
+
+const AItem = () => {
+  return <a />;
+};
+
+const AConnected = Widget.connect((state, props) => {
+  return {
+    title: Tooltip.prepare(props.tooltip, state, props.this),
+  };
+})(AItem);
 
 class Button extends Widget {
   constructor() {
@@ -250,73 +289,73 @@ class Button extends Widget {
 
     if (this.props.kind === 'container' || this.props.kind === 'box') {
       return (
-        <Connect title={state => Tooltip.prepare(tooltip, state, this)}>
-          <div
-            key={this.props.index}
-            {...propsTabIndex}
-            onDoubleClick={this.props.onDoubleClick}
-            onFocus={this.onFocus}
-            onBlur={this.onBlur}
-            onMouseDown={this.onMouseDown}
-            onMouseUp={this.onMouseUp}
-            onTouchStart={this.onMouseDown}
-            onTouchEnd={this.onMouseUp}
-            onMouseOver={this.onMouseOver}
-            onMouseOut={this.onMouseOut}
-            className={boxClass}
-          >
-            {this.props.children}
-          </div>
-        </Connect>
+        <DivConnected
+          this={this}
+          tooltip={tooltip}
+          key={this.props.index}
+          {...propsTabIndex}
+          onDoubleClick={this.props.onDoubleClick}
+          onFocus={this.onFocus}
+          onBlur={this.onBlur}
+          onMouseDown={this.onMouseDown}
+          onMouseUp={this.onMouseUp}
+          onTouchStart={this.onMouseDown}
+          onTouchEnd={this.onMouseUp}
+          onMouseOver={this.onMouseOver}
+          onMouseOut={this.onMouseOut}
+          className={boxClass}
+        >
+          {this.props.children}
+        </DivConnected>
       );
     } else if (this.props.toAnchor) {
       return (
-        <Connect title={state => Tooltip.prepare(tooltip, state, this)}>
-          <a
-            key={this.props.index}
-            {...propsTabIndex}
-            onFocus={this.onFocus}
-            onBlur={this.onBlur}
-            onMouseDown={this.onMouseDown}
-            onMouseUp={this.onMouseUp}
-            onTouchStart={this.onMouseDown}
-            onTouchEnd={this.onMouseUp}
-            onMouseOver={this.onMouseOver}
-            onMouseOut={this.onMouseOut}
-            className={boxClass}
-            href={window.location.hash + '#' + this.props.toAnchor}
-          >
-            {this.renderLayout()}
-            {this.renderTriangle()}
-            {this.renderBadge()}
-            {this.renderBusy()}
-            {this.props.children}
-          </a>
-        </Connect>
+        <AConnected // <AConnected
+          this={this}
+          tooltip={tooltip}
+          key={this.props.index}
+          {...propsTabIndex}
+          onFocus={this.onFocus}
+          onBlur={this.onBlur}
+          onMouseDown={this.onMouseDown}
+          onMouseUp={this.onMouseUp}
+          onTouchStart={this.onMouseDown}
+          onTouchEnd={this.onMouseUp}
+          onMouseOver={this.onMouseOver}
+          onMouseOut={this.onMouseOut}
+          className={boxClass}
+          href={window.location.hash + '#' + this.props.toAnchor}
+        >
+          {this.renderLayout()}
+          {this.renderTriangle()}
+          {this.renderBadge()}
+          {this.renderBusy()}
+          {this.props.children}
+        </AConnected>
       );
     } else {
       return (
-        <Connect title={state => Tooltip.prepare(tooltip, state, this)}>
-          <div
-            key={this.props.index}
-            {...propsTabIndex}
-            onFocus={this.onFocus}
-            onBlur={this.onBlur}
-            onMouseDown={this.onMouseDown}
-            onMouseUp={this.onMouseUp}
-            onTouchStart={this.onMouseDown}
-            onTouchEnd={this.onMouseUp}
-            onMouseOver={this.onMouseOver}
-            onMouseOut={this.onMouseOut}
-            className={boxClass}
-          >
-            {this.renderLayout()}
-            {this.renderTriangle()}
-            {this.renderBadge()}
-            {this.renderBusy()}
-            {this.props.children}
-          </div>
-        </Connect>
+        <DivConnected
+          this={this}
+          tooltip={tooltip}
+          key={this.props.index}
+          {...propsTabIndex}
+          onFocus={this.onFocus}
+          onBlur={this.onBlur}
+          onMouseDown={this.onMouseDown}
+          onMouseUp={this.onMouseUp}
+          onTouchStart={this.onMouseDown}
+          onTouchEnd={this.onMouseUp}
+          onMouseOver={this.onMouseOver}
+          onMouseOut={this.onMouseOut}
+          className={boxClass}
+        >
+          {this.renderLayout()}
+          {this.renderTriangle()}
+          {this.renderBadge()}
+          {this.renderBusy()}
+          {this.props.children}
+        </DivConnected>
       );
     }
   }

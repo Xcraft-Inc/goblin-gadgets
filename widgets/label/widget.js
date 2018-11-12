@@ -2,13 +2,33 @@ import React from 'react';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import Widget from 'laboratory/widget';
 import T from 'nabu/t/widget';
-import Connect from 'laboratory/connect';
 import {ColorHelpers} from 'electrum-theme';
 const Bool = require('gadgets/helpers/bool-helpers');
 const Tooltip = require('gadgets/helpers/tooltip-helpers');
 import ReactMarkdown from 'react-markdown';
 
 /******************************************************************************/
+
+const DivItem = props => {
+  return (
+    <div
+      this={props.this}
+      tooltip={props.tooltip}
+      className={props.className}
+      key={props.key}
+      onClick={props.onClick}
+      disabled={props.disabled}
+    >
+      {props.children}
+    </div>
+  );
+};
+
+const DivConnected = Widget.connect((state, props) => {
+  return {
+    title: Tooltip.prepare(props.tooltip, state, props.this),
+  };
+})(DivItem);
 
 class Label extends Widget {
   constructor() {
@@ -264,33 +284,29 @@ class Label extends Widget {
 
     if (Bool.isTrue(this.props.insideButton)) {
       return (
-        <Connect
-          title={state => Tooltip.prepare(this.props.tooltip, state, this)}
+        <DivConnected
+          this={this}
+          tooltip={this.props.tooltip}
+          className={boxClass}
+          key={this.props.index}
+          disabled={this.props.disabled}
         >
-          <div
-            className={boxClass}
-            key={this.props.index}
-            disabled={this.props.disabled}
-          >
-            {this.renderGlyphAndText()}
-          </div>
-        </Connect>
+          {this.renderGlyphAndText()}
+        </DivConnected>
       );
     } else {
       return (
-        <Connect
-          title={state => Tooltip.prepare(this.props.tooltip, state, this)}
+        <DivConnected
+          this={this}
+          tooltip={this.props.tooltip}
+          className={boxClass}
+          key={this.props.index}
+          onClick={this.props.onClick}
+          disabled={this.props.disabled}
         >
-          <div
-            className={boxClass}
-            key={this.props.index}
-            onClick={this.props.onClick}
-            disabled={this.props.disabled}
-          >
-            {this.renderGlyphAndText()}
-            {this.props.children}
-          </div>
-        </Connect>
+          {this.renderGlyphAndText()}
+          {this.props.children}
+        </DivConnected>
       );
     }
   }
