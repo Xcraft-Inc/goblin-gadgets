@@ -98,6 +98,7 @@ Goblin.registerQuest(goblinName, 'fetch', function*(quest, indices) {
   const state = quest.goblin.getState();
   const fetching = quest.goblin.getX('fetching', {});
 
+  /* ignore indices already available on in fetching */
   indices = indices.filter(
     index => !state.has(`list.${index}-item`) && !fetching[index]
   );
@@ -118,6 +119,7 @@ Goblin.registerQuest(goblinName, 'fetch', function*(quest, indices) {
   const table = quest.goblin.getX('table');
   const listIds = quest.goblin.getX('listIds');
 
+  /* generate an object of all fetched documents */
   const ids = Object.assign(
     {},
     ...indices.map(index => ({
