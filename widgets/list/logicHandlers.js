@@ -5,7 +5,19 @@ module.exports = {
   'change-status': (state, action) => {
     return state
       .set('status', action.get('status'))
-      .set('count', action.get('count'));
+      .set('count', action.get('count'))
+      .set('list', {});
+  },
+  fetch: (state, action) => {
+    const rows = action.get('rows');
+    const documents = action.get('documents');
+    for (const row in rows) {
+      const item = `${rows[row]}-item`;
+      state = state
+        .set(`list.${item}`, documents[row])
+        .set(`private.rowById.${documents[row].id}`, item);
+    }
+    return state;
   },
   'handle-changes': (state, action) => {
     return state.set(`list.${action.get('row')}`, action.get('document'));

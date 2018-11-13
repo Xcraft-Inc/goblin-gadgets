@@ -6,9 +6,18 @@ import Container from 'gadgets/container/widget';
 import Label from 'gadgets/label/widget';
 import CheckButton from 'gadgets/check-button/widget';
 
+import throttle from 'lodash/throttle';
+
 class List extends Widget {
   constructor() {
     super(...arguments);
+
+    this._indices = [];
+    this._fetch = throttle(() => {
+      this.do('fetch', {indices: this._indices});
+      this._indices = [];
+    }, 50);
+
     this.renderItem = this.renderItem.bind(this);
     this.estimateItemSize = this.estimateItemSize.bind(this);
     this.changeStatus = this.changeStatus.bind(this);
@@ -28,9 +37,14 @@ class List extends Widget {
   }
 
   renderItem(index, key) {
+    const stateList = this.getBackendState().get('list');
+
     const ListItem = this.getWidgetToFormMapper(
       props => {
-        setTimeout(() => this.do('load', {index}), 0);
+        if (!stateList.has(`${index}-item`)) {
+          this._indices.push(index);
+          this._fetch();
+        }
         const Item = this.props.renderItem;
         return <Item {...props} height={this._height} />;
       },

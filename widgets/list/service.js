@@ -58,6 +58,7 @@ Goblin.registerQuest(goblinName, 'change-status', function*(quest, status) {
 
   const listIds = yield r.getBaseList({table, filter, orderBy, status});
   quest.goblin.setX('listIds', listIds);
+  quest.goblin.setX('fetching', {});
   quest.me.initList();
   quest.do({status, count: listIds.length});
 });
@@ -93,15 +94,45 @@ Goblin.registerQuest(goblinName, 'handle-changes', function(quest, change) {
   }
 });
 
-Goblin.registerQuest(goblinName, 'load', function*(quest, index) {
+Goblin.registerQuest(goblinName, 'fetch', function*(quest, indices) {
+  const state = quest.goblin.getState();
+  const fetching = quest.goblin.getX('fetching', {});
+
+  indices = indices.filter(
+    index => !state.has(`list.${index}-item`) && !fetching[index]
+  );
+  if (!indices.length) {
+    return;
+  }
+
+  indices.forEach(index => {
+    fetching[index] = true;
+  });
+  quest.defer(() => {
+    indices.forEach(index => {
+      delete fetching[index];
+    });
+  });
+
   const r = quest.getStorage('rethink');
   const table = quest.goblin.getX('table');
   const listIds = quest.goblin.getX('listIds');
-  const docs = yield r.getAll({table, documents: [listIds[index]]});
-  quest.dispatch('handle-changes', {
-    row: `${index}-item`,
-    document: getIdAndInfo(docs[0]),
-  });
+
+  const ids = Object.assign(
+    {},
+    ...indices.map(index => ({
+      [listIds[index]]: index,
+    }))
+  );
+  const docs = yield r.getAll({table, documents: Object.keys(ids)});
+
+  const rows = {};
+  const documents = {};
+  for (const doc of docs) {
+    rows[doc.id] = ids[doc.id];
+    documents[doc.id] = getIdAndInfo(doc);
+  }
+  quest.do({rows, documents});
 });
 
 Goblin.registerQuest(goblinName, 'init-list', function*(quest) {
