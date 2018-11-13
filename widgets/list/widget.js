@@ -16,7 +16,7 @@ class List extends Widget {
     this._fetch = throttle(() => {
       this.do('fetch', {indices: this._indices});
       this._indices = [];
-    }, 50);
+    }, 200);
 
     this.renderItem = this.renderItem.bind(this);
     this.estimateItemSize = this.estimateItemSize.bind(this);
