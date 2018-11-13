@@ -13,24 +13,11 @@ import Badge from 'gadgets/badge/widget';
 /******************************************************************************/
 
 const DivItem = props => {
+  const {title, children, ...other} = props;
+
   return (
-    <div
-      this={props.this}
-      tooltip={props.tooltip}
-      key={props.index}
-      {...props.propsTabIndex}
-      onDoubleClick={props.onDoubleClick}
-      onFocus={props.onFocus}
-      onBlur={props.onBlur}
-      onMouseDown={props.onMouseDown}
-      onMouseUp={props.onMouseUp}
-      onTouchStart={props.onTouchStart}
-      onTouchEnd={props.onTouchEnd}
-      onMouseOver={props.onMouseOver}
-      onMouseOut={props.onMouseOut}
-      className={props.className}
-    >
-      {props.children}
+    <div title={title} {...other}>
+      {children}
     </div>
   );
 };
@@ -41,8 +28,14 @@ const DivConnected = Widget.connect((state, props) => {
   };
 })(DivItem);
 
-const AItem = () => {
-  return <a />;
+const AItem = props => {
+  const {title, children, ...other} = props;
+
+  return (
+    <a title={title} {...other}>
+      {children}
+    </a>
+  );
 };
 
 const AConnected = Widget.connect((state, props) => {

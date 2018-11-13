@@ -10,16 +10,11 @@ import ReactMarkdown from 'react-markdown';
 /******************************************************************************/
 
 const DivItem = props => {
+  const {title, children, ...other} = props;
+
   return (
-    <div
-      this={props.this}
-      tooltip={props.tooltip}
-      className={props.className}
-      key={props.key}
-      onClick={props.onClick}
-      disabled={props.disabled}
-    >
-      {props.children}
+    <div title={title} {...other}>
+      {children}
     </div>
   );
 };
