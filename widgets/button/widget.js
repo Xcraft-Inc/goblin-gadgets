@@ -5,7 +5,7 @@ import Widget from 'laboratory/widget';
 import MouseTrap from 'mousetrap';
 import * as ShortcutHelpers from '../helpers/shortcut-helpers.js';
 const Bool = require('gadgets/helpers/bool-helpers');
-const Tooltip = require('gadgets/helpers/tooltip-helpers');
+const {Message, Locale, Format} = require('nabu/helpers/tooltip-helpers');
 
 import Label from 'gadgets/label/widget';
 import Badge from 'gadgets/badge/widget';
@@ -13,10 +13,10 @@ import Badge from 'gadgets/badge/widget';
 /******************************************************************************/
 
 const DivItem = props => {
-  const {title, children, ...other} = props;
+  const {message, locale, tooltip, children, ...other} = props;
 
   return (
-    <div title={title} {...other}>
+    <div title={Format(message, locale, tooltip)} {...other}>
       {children}
     </div>
   );
@@ -24,15 +24,17 @@ const DivItem = props => {
 
 const DivConnected = Widget.connect((state, props) => {
   return {
-    title: Tooltip.prepare(props.tooltip, state, props.this),
+    message: Message(props.tooltip, state, props.this),
+    locale: Locale(state, props.tooltip),
+    tooltip: props.tooltip,
   };
 })(DivItem);
 
 const AItem = props => {
-  const {title, children, ...other} = props;
+  const {message, locale, tooltip, children, ...other} = props;
 
   return (
-    <a title={title} {...other}>
+    <a title={Format(message, locale, tooltip)} {...other}>
       {children}
     </a>
   );
@@ -40,7 +42,9 @@ const AItem = props => {
 
 const AConnected = Widget.connect((state, props) => {
   return {
-    title: Tooltip.prepare(props.tooltip, state, props.this),
+    message: Message(props.tooltip, state, props.this),
+    locale: Locale(state, props.tooltip),
+    tooltip: props.tooltip,
   };
 })(AItem);
 

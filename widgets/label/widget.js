@@ -4,16 +4,16 @@ import Widget from 'laboratory/widget';
 import T from 'nabu/t/widget';
 import {ColorHelpers} from 'electrum-theme';
 const Bool = require('gadgets/helpers/bool-helpers');
-const Tooltip = require('gadgets/helpers/tooltip-helpers');
+const {Message, Locale, Format} = require('nabu/helpers/tooltip-helpers');
 import ReactMarkdown from 'react-markdown';
 
 /******************************************************************************/
 
 const DivItem = props => {
-  const {title, children, ...other} = props;
+  const {message, locale, tooltip, children, ...other} = props;
 
   return (
-    <div title={title} {...other}>
+    <div title={Format(message, locale, tooltip)} {...other}>
       {children}
     </div>
   );
@@ -21,7 +21,9 @@ const DivItem = props => {
 
 const DivConnected = Widget.connect((state, props) => {
   return {
-    title: Tooltip.prepare(props.tooltip, state, props.this),
+    message: Message(props.tooltip, state, props.this),
+    locale: Locale(state, props.tooltip),
+    tooltip: props.tooltip,
   };
 })(DivItem);
 
