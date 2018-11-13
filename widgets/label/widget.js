@@ -10,7 +10,7 @@ import ReactMarkdown from 'react-markdown';
 /******************************************************************************/
 
 const DivItem = props => {
-  const {message, locale, tooltip, children, ...other} = props;
+  const {message, locale, tooltip, children, dispatch, ...other} = props;
 
   return (
     <div title={Format(message, locale, tooltip)} {...other}>
