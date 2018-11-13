@@ -141,7 +141,7 @@ Goblin.registerQuest(goblinName, 'init-list', function*(quest) {
   yield r.stopOnChanges({
     goblinId: quest.goblin.id,
   });
-  r.startQuestOnChanges({
+  yield r.startQuestOnChanges({
     table,
     onChangeQuest: `${goblinName}.handle-changes`,
     goblinId: quest.goblin.id,
