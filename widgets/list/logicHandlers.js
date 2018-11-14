@@ -3,10 +3,11 @@ module.exports = {
     return state.set('id', action.get('id')).set('count', action.get('count'));
   },
   'change-status': (state, action) => {
-    return state
-      .set('status', action.get('status'))
-      .set('count', action.get('count'))
-      .set('list', {});
+    const status = action.get('status');
+    if (status !== state.get('status')) {
+      state = state.set('status', status).set('list', {});
+    }
+    return state.set('count', action.get('count'));
   },
   fetch: (state, action) => {
     const rows = action.get('rows');
