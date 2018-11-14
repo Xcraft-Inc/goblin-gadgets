@@ -110,6 +110,18 @@ Goblin.registerQuest(goblinName, 'change-visualization', function*(
   quest.do({count: listIds.length, pageSize});
 });
 
+Goblin.registerQuest(goblinName, 'customize-visualization', function*(
+  quest,
+  listIdsQuery
+) {
+  const pageSize = quest.goblin.getX('pageSize');
+
+  const listIds = yield listIdsQuery();
+  quest.goblin.setX('listIds', listIds);
+  quest.me.initList();
+  quest.do({count: listIds.length, pageSize});
+});
+
 Goblin.registerQuest(goblinName, 'handle-changes', function(quest, change) {
   const listIds = quest.goblin.getX('listIds');
 
