@@ -5,6 +5,7 @@ const path = require('path');
 const goblinName = path.basename(module.parent.filename, '.js');
 
 const Goblin = require('xcraft-core-goblin');
+const {locks} = require('xcraft-core-utils');
 
 // Define initial logic values
 const logicState = {
@@ -28,6 +29,13 @@ Goblin.registerQuest(goblinName, 'create', function*(
   filter,
   orderBy
 ) {
+  /* This mutex prevent races when indices are fetching and the status is
+   * changing. It must not be possible to run a fetch while a change-status
+   * is running, otherwise the indices are lost.
+   */
+  const mutex = new locks.RecursiveMutex();
+  quest.goblin.setX('mutex', mutex);
+
   quest.goblin.setX('desktopId', desktopId);
   const r = quest.getStorage('rethink');
   quest.goblin.setX('table', table);
@@ -41,8 +49,8 @@ Goblin.registerQuest(goblinName, 'create', function*(
   const listIds = yield r.getBaseList({table, filter, orderBy, status});
 
   quest.goblin.setX('listIds', listIds);
-  quest.me.initList();
   quest.do({count: listIds.length});
+  yield quest.me.initList();
   return quest.goblin.id;
 });
 
@@ -50,6 +58,11 @@ Goblin.registerQuest(goblinName, 'change-status', function*(quest, status) {
   if (status.length === 0) {
     return;
   }
+
+  const uuid = quest.uuidV4();
+  yield quest.goblin.getX('mutex').lock(uuid);
+  quest.defer(() => quest.goblin.getX('mutex').unlock(uuid));
+
   quest.evt('status-changed', {status});
   const r = quest.getStorage('rethink');
   const table = quest.goblin.getX('table');
@@ -64,7 +77,11 @@ Goblin.registerQuest(goblinName, 'change-status', function*(quest, status) {
   quest.do({status, count: listIds.length});
 });
 
-Goblin.registerQuest(goblinName, 'handle-changes', function(quest, change) {
+Goblin.registerQuest(goblinName, 'handle-changes', function*(quest, change) {
+  const uuid = quest.uuidV4();
+  yield quest.goblin.getX('mutex').lock(uuid);
+  quest.defer(() => quest.goblin.getX('mutex').unlock(uuid));
+
   const listIds = quest.goblin.getX('listIds');
 
   switch (change.type) {
@@ -96,6 +113,10 @@ Goblin.registerQuest(goblinName, 'handle-changes', function(quest, change) {
 });
 
 Goblin.registerQuest(goblinName, 'fetch', function*(quest, indices, next) {
+  /* Allow recursive call on fetch (but keep safe with other quests) */
+  yield quest.goblin.getX('mutex').lock(quest.goblin.id);
+  quest.defer(() => quest.goblin.getX('mutex').unlock(quest.goblin.id));
+
   const state = quest.goblin.getState();
   const fetching = quest.goblin.getX('fetching', {});
 
