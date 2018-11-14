@@ -65,7 +65,7 @@ class List extends Widget {
       this._height = cache[0] > 40 ? cache[0] : 40;
       return this._height;
     }
-    return null;
+    return 40;
   }
 
   _changeStatus(changed, newState) {
