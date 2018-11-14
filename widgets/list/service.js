@@ -58,8 +58,9 @@ Goblin.registerQuest(goblinName, 'change-status', function*(quest, status) {
 
   const listIds = yield r.getBaseList({table, filter, orderBy, status});
   quest.goblin.setX('listIds', listIds);
+  yield quest.me.initList();
+
   quest.goblin.setX('fetching', {});
-  quest.me.initList();
   quest.do({status, count: listIds.length});
 });
 
