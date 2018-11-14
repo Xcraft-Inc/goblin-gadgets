@@ -94,7 +94,7 @@ Goblin.registerQuest(goblinName, 'handle-changes', function(quest, change) {
   }
 });
 
-Goblin.registerQuest(goblinName, 'fetch', function*(quest, indices) {
+Goblin.registerQuest(goblinName, 'fetch', function*(quest, indices, next) {
   const state = quest.goblin.getState();
   const fetching = quest.goblin.getX('fetching', {});
 
@@ -129,12 +129,21 @@ Goblin.registerQuest(goblinName, 'fetch', function*(quest, indices) {
   const docs = yield r.getAll({table, documents: Object.keys(ids)});
 
   const rows = {};
-  const documents = {};
   for (const doc of docs) {
     rows[doc.id] = ids[doc.id];
-    documents[doc.id] = getIdAndInfo(doc);
+    quest.create(
+      doc.id,
+      {
+        id: doc.id,
+        desktopId: quest.getDesktop(),
+        mustExist: true,
+        entity: doc,
+      },
+      next.parallel()
+    );
   }
-  quest.do({rows, documents});
+  quest.do({rows});
+  yield next.sync();
 });
 
 Goblin.registerQuest(goblinName, 'init-list', function*(quest) {

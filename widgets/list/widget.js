@@ -12,15 +12,14 @@ class List extends Widget {
   constructor() {
     super(...arguments);
 
-    this._indices = [];
-    this._fetch = throttle(() => {
-      this.do('fetch', {indices: this._indices});
-      this._indices = [];
-    }, 200);
-
+    this._fetchInternal = this._fetchInternal.bind(this);
     this.renderItem = this.renderItem.bind(this);
     this.estimateItemSize = this.estimateItemSize.bind(this);
     this.changeStatus = this.changeStatus.bind(this);
+    this.fetch = this.fetch.bind(this);
+
+    this._indices = [];
+    this._fetch = throttle(this._fetchInternal, 200);
   }
 
   static connectTo(instance) {
@@ -36,33 +35,39 @@ class List extends Widget {
     };
   }
 
+  _fetchInternal() {
+    this.do('fetch', {indices: this._indices});
+    this._indices = [];
+  }
+
+  fetch(index) {
+    this._indices.push(index);
+    this._fetch();
+  }
+
   renderItem(index, key) {
-    const stateList = this.getBackendState().get('list');
-
-    const ListItem = this.getWidgetToFormMapper(
-      props => {
-        if (!stateList.has(`${index}-item`)) {
-          this._indices.push(index);
-          this._fetch();
-        }
-        const Item = this.props.renderItem;
-        return <Item {...props} height={this._height} />;
-      },
-      item => this.props.mapItem(item, index)
-    )(`.list.${index}-item`);
-
-    return <ListItem key={key} />;
+    setTimeout(() => this.fetch(index), 0);
+    const Item = this.props.renderItem;
+    return (
+      <Item
+        key={key}
+        index={index}
+        listId={this.props.id}
+        itemId={`${index}-item`}
+        height={this._height}
+      />
+    );
   }
 
   estimateItemSize(index, cache) {
     if (cache[0]) {
-      this._height = cache[0];
-      return cache[0];
+      this._height = cache[0] > 40 ? cache[0] : 40;
+      return this._height;
     }
     return null;
   }
 
-  changeStatus(changed, newState) {
+  _changeStatus(changed, newState) {
     const newStatusList = ['draft', 'published', 'archived'].reduce(
       (state, status) => {
         if (changed === status) {
@@ -83,17 +88,21 @@ class List extends Widget {
   }
 
   buildStatusFlag() {
-    return ['Draft', 'Published', 'Archived'].reduce((state, status) => {
-      state[`show${status}`] = this.props.status.contains(status.toLowerCase());
+    return ['draft', 'published', 'archived'].reduce((state, status) => {
+      state[status] = this.props.status.contains(status);
       return state;
     }, {});
+  }
+
+  changeStatus(status) {
+    return () => this._changeStatus(status, !this.buildStatusFlag()[status]);
   }
 
   render() {
     if (!this.props.id || !this.props.status) {
       return null;
     }
-    const {showPublished, showDraft, showArchived} = this.buildStatusFlag();
+    const {published, draft, archived} = this.buildStatusFlag();
     return (
       <Container kind="pane">
         <Container kind="row-pane">
@@ -105,8 +114,8 @@ class List extends Widget {
                 heightStrategy="compact"
                 text="Brouillons"
                 tooltip="Montre les brouillons"
-                checked={showDraft}
-                onClick={() => this.changeStatus('draft', !showDraft)}
+                checked={draft}
+                onClick={this.changeStatus('draft')}
               />
             </Container>
             <Container kind="row">
@@ -116,8 +125,8 @@ class List extends Widget {
                 heightStrategy="compact"
                 text="Publiés"
                 tooltip="Montre les éléments publiés"
-                checked={showPublished}
-                onClick={() => this.changeStatus('published', !showPublished)}
+                checked={published}
+                onClick={this.changeStatus('published')}
               />
             </Container>
             <Container kind="row">
@@ -127,8 +136,8 @@ class List extends Widget {
                 heightStrategy="compact"
                 text="Archivés"
                 tooltip="Montre les éléments archivés"
-                checked={showArchived}
-                onClick={() => this.changeStatus('archived', !showArchived)}
+                checked={archived}
+                onClick={this.changeStatus('archived')}
               />
             </Container>
           </Container>

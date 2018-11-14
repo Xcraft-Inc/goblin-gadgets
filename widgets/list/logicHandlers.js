@@ -10,12 +10,11 @@ module.exports = {
   },
   fetch: (state, action) => {
     const rows = action.get('rows');
-    const documents = action.get('documents');
     for (const row in rows) {
       const item = `${rows[row]}-item`;
       state = state
-        .set(`list.${item}`, documents[row])
-        .set(`private.rowById.${documents[row].id}`, item);
+        .set(`list.${item}`, row)
+        .set(`private.rowById.${row}`, item);
     }
     return state;
   },
