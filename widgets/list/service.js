@@ -17,9 +17,17 @@ const logicState = {
 // Define logic handlers according rc.json
 const logicHandlers = require('./logicHandlers.js');
 
-const getIdAndInfo = doc => {
-  return {id: doc.id, value: doc.meta.summaries.description};
-};
+function* getList(quest) {
+  const r = quest.getStorage('rethink');
+  const table = quest.goblin.getX('table');
+  const orderBy = quest.goblin.getX('orderBy');
+  const filter = quest.goblin.getX('filter');
+  const status = quest.goblin.getX('status');
+
+  const listIds = yield r.getBaseList({table, filter, orderBy, status});
+  quest.goblin.setX('listIds', listIds);
+  return listIds.length;
+}
 
 // Register quest's according rc.json
 Goblin.registerQuest(goblinName, 'create', function*(
@@ -37,7 +45,6 @@ Goblin.registerQuest(goblinName, 'create', function*(
   quest.goblin.setX('mutex', mutex);
 
   quest.goblin.setX('desktopId', desktopId);
-  const r = quest.getStorage('rethink');
   quest.goblin.setX('table', table);
   quest.goblin.setX('orderBy', orderBy);
   quest.goblin.setX('filter', filter);
@@ -46,10 +53,11 @@ Goblin.registerQuest(goblinName, 'create', function*(
     .getState()
     .get('status')
     .toArray();
-  const listIds = yield r.getBaseList({table, filter, orderBy, status});
+  quest.goblin.setX('status', status);
 
-  quest.goblin.setX('listIds', listIds);
-  quest.do({count: listIds.length});
+  const count = yield* getList(quest);
+  quest.do({count});
+
   yield quest.me.initList();
   return quest.goblin.id;
 });
@@ -64,17 +72,13 @@ Goblin.registerQuest(goblinName, 'change-status', function*(quest, status) {
   quest.defer(() => quest.goblin.getX('mutex').unlock(uuid));
 
   quest.evt('status-changed', {status});
-  const r = quest.getStorage('rethink');
-  const table = quest.goblin.getX('table');
-  const orderBy = quest.goblin.getX('orderBy');
-  const filter = quest.goblin.getX('filter');
+  quest.goblin.setX('status', status);
 
-  const listIds = yield r.getBaseList({table, filter, orderBy, status});
-  quest.goblin.setX('listIds', listIds);
+  const count = yield* getList(quest);
   yield quest.me.initList();
 
   quest.goblin.setX('fetching', {});
-  quest.do({status, count: listIds.length});
+  quest.do({status, count});
 });
 
 Goblin.registerQuest(goblinName, 'handle-changes', function*(quest, change) {
@@ -86,17 +90,14 @@ Goblin.registerQuest(goblinName, 'handle-changes', function*(quest, change) {
 
   switch (change.type) {
     case 'add': {
-      listIds.push(change.new_val.id);
-      quest.goblin.setX('listIds', listIds);
-      quest.dispatch('add', {entity: getIdAndInfo(change.new_val)});
+      const count = yield* getList(quest);
+      quest.dispatch('add', {count});
       break;
     }
 
     case 'change': {
-      const row = quest.goblin
-        .getState()
-        .get(`private.rowById.${change.new_val.id}`);
-      quest.do({row, document: getIdAndInfo(change.new_val)});
+      yield* getList(quest);
+      quest.do();
       break;
     }
 

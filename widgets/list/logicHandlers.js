@@ -11,28 +11,21 @@ module.exports = {
   },
   fetch: (state, action) => {
     const rows = action.get('rows');
-    for (const row in rows) {
-      const item = `${rows[row]}-item`;
-      state = state
-        .set(`list.${item}`, row)
-        .set(`private.rowById.${row}`, item);
+    for (const id in rows) {
+      const row = `${rows[id]}-item`;
+      state = state.set(`list.${row}`, id);
     }
     return state;
   },
-  'handle-changes': (state, action) => {
-    return state.set(`list.${action.get('row')}`, action.get('document'));
+  'handle-changes': state => {
+    return state.set('list', {});
   },
   remove: state => {
     const newCount = Number(state.get('count')) - 1;
-    return state.set('count', newCount);
+    return state.set('count', newCount).set('list', {});
   },
   add: (state, action) => {
-    const entity = action.get('entity');
-    const newCount = Number(state.get('count')) + 1;
-    const newRow = `${newCount - 1}-item`;
-    return state
-      .set(`list.${newRow}`, entity)
-      .set(`private.rowById.${entity.id}`, newRow)
-      .set('count', newCount);
+    const count = action.get('count');
+    return state.set('count', count).set('list', {});
   },
 };
