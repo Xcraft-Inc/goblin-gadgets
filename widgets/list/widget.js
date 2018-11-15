@@ -11,6 +11,7 @@ class List extends Widget {
     this.renderItem = this.renderItem.bind(this);
     this.estimateItemSize = this.estimateItemSize.bind(this);
     this.fetch = this.fetch.bind(this);
+    this._height = 40;
     this._indices = [];
     this._fetch = throttle(this._fetchInternal, 200);
   }
@@ -50,7 +51,11 @@ class List extends Widget {
   }
 
   estimateItemSize(index, cache) {
-    this._height = cache[0] && cache[0] > 40 ? cache[0] : 40;
+    if (cache[index]) {
+      this._height = cache[index];
+      return this._height;
+    }
+    this._height = cache[0] ? cache[0] : 40;
     return this._height;
   }
 
