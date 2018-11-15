@@ -50,11 +50,8 @@ class List extends Widget {
   }
 
   estimateItemSize(index, cache) {
-    if (cache[0]) {
-      this._height = cache[0] > 40 ? cache[0] : 40;
-      return this._height;
-    }
-    return 40;
+    this._height = cache[0] && cache[0] > 40 ? cache[0] : 40;
+    return this._height;
   }
 
   render() {
