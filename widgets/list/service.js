@@ -112,11 +112,11 @@ Goblin.registerQuest(goblinName, 'change-visualization', function*(
 
 Goblin.registerQuest(goblinName, 'customize-visualization', function*(
   quest,
-  listIdsQuery
+  listIdsGetter
 ) {
   const pageSize = quest.goblin.getX('pageSize');
 
-  const listIds = yield listIdsQuery();
+  const listIds = yield listIdsGetter();
   quest.goblin.setX('listIds', listIds);
   quest.me.initList();
   quest.do({count: listIds.length, pageSize});
