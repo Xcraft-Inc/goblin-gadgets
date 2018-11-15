@@ -20,7 +20,7 @@ class List extends Widget {
       id: 'id',
       count: 'count',
       type: 'type',
-      status: 'status',
+      contentIndex: 'contentIndex',
     };
   }
 

@@ -1,13 +1,20 @@
 module.exports = {
   create: (state, action) => {
-    return state.set('id', action.get('id')).set('count', action.get('count'));
+    return state
+      .set('id', action.get('id'))
+      .set('count', action.get('count'))
+      .set('contentIndex', action.get('contentIndex'));
   },
-  'change-status': (state, action) => {
-    const status = action.get('status');
-    if (status !== state.get('status')) {
-      state = state.set('status', status).set('list', {});
+  'change-content-index': (state, action) => {
+    let value = action.get('value');
+    if (!Array.isArray(value)) {
+      value = [value];
     }
-    return state.set('count', action.get('count'));
+    return state
+      .set('contentIndex.name', action.get('name'))
+      .set('contentIndex.value', value)
+      .set('list', {})
+      .set('count', action.get('count'));
   },
   fetch: (state, action) => {
     const rows = action.get('rows');

@@ -11,20 +11,24 @@ const {locks} = require('xcraft-core-utils');
 const logicState = {
   count: 0,
   list: {},
-  status: ['published'],
+  contentIndex: {},
 };
 
 // Define logic handlers according rc.json
 const logicHandlers = require('./logicHandlers.js');
 
-function* getList(quest) {
+function* getList(quest, contentIndex) {
   const r = quest.getStorage('rethink');
   const table = quest.goblin.getX('table');
-  const orderBy = quest.goblin.getX('orderBy');
-  const filter = quest.goblin.getX('filter');
-  const status = quest.goblin.getX('status');
 
-  const listIds = yield r.getBaseList({table, filter, orderBy, status});
+  if (!contentIndex) {
+    contentIndex = quest.goblin
+      .getState()
+      .get('contentIndex')
+      .toJS();
+  }
+
+  const listIds = yield r.getBaseList({table, contentIndex});
   quest.goblin.setX('listIds', listIds);
   return listIds.length;
 }
@@ -34,59 +38,48 @@ Goblin.registerQuest(goblinName, 'create', function*(
   quest,
   desktopId,
   table,
-  filter,
-  orderBy
+  contentIndex
 ) {
-  /* This mutex prevent races when indices are fetching and the status is
-   * changing. It must not be possible to run a fetch while a change-status
-   * is running, otherwise the indices are lost.
+  /* This mutex prevent races when indices are fetching and the content-index
+   * is changing. It must not be possible to run a fetch while a
+   * change-content-index is running, otherwise the indices are lost.
    */
   const mutex = new locks.RecursiveMutex();
   quest.goblin.setX('mutex', mutex);
 
   quest.goblin.setX('desktopId', desktopId);
   quest.goblin.setX('table', table);
-  quest.goblin.setX('orderBy', orderBy);
-  quest.goblin.setX('filter', filter);
 
-  const status = quest.goblin
-    .getState()
-    .get('status')
-    .toArray();
-  quest.goblin.setX('status', status);
-
-  const count = yield* getList(quest);
-  quest.do({count});
+  const count = yield* getList(quest, contentIndex);
+  quest.do({count, contentIndex});
 
   yield quest.me.initList();
   return quest.goblin.id;
 });
 
-Goblin.registerQuest(goblinName, 'change-status', function*(quest, status) {
-  if (status.length === 0) {
-    return;
-  }
-
+Goblin.registerQuest(goblinName, 'change-content-index', function*(
+  quest,
+  name,
+  value
+) {
   const uuid = quest.uuidV4();
   yield quest.goblin.getX('mutex').lock(uuid);
   quest.defer(() => quest.goblin.getX('mutex').unlock(uuid));
 
-  quest.evt('status-changed', {status});
-  quest.goblin.setX('status', status);
+  const contentIndex = {name, value};
+  quest.evt('content-index-changed', contentIndex);
 
-  const count = yield* getList(quest);
+  const count = yield* getList(quest, contentIndex);
   yield quest.me.initList();
 
   quest.goblin.setX('fetching', {});
-  quest.do({status, count});
+  quest.do({count});
 });
 
 Goblin.registerQuest(goblinName, 'handle-changes', function*(quest, change) {
   const uuid = quest.uuidV4();
   yield quest.goblin.getX('mutex').lock(uuid);
   quest.defer(() => quest.goblin.getX('mutex').unlock(uuid));
-
-  const listIds = quest.goblin.getX('listIds');
 
   switch (change.type) {
     case 'add': {
@@ -102,6 +95,7 @@ Goblin.registerQuest(goblinName, 'handle-changes', function*(quest, change) {
     }
 
     case 'remove': {
+      const listIds = quest.goblin.getX('listIds');
       const inListIndex = listIds.indexOf(change.old_val.id);
       if (inListIndex !== -1) {
         listIds.splice(inListIndex, 1);
@@ -179,7 +173,10 @@ Goblin.registerQuest(goblinName, 'init-list', function*(quest) {
     table,
     onChangeQuest: `${goblinName}.handle-changes`,
     goblinId: quest.goblin.id,
-    status: ['published'],
+    contentIndex: quest.goblin
+      .getState()
+      .get('contentIndex')
+      .toJS(),
   });
 });
 
