@@ -35,12 +35,12 @@ class List extends Widget {
     this._fetch();
   }
 
-  renderItem(index, key) {
+  renderItem(index) {
     setTimeout(() => this.fetch(index), 0);
     const Item = this.props.renderItem;
     return (
       <Item
-        key={key}
+        key={index}
         index={index}
         listId={this.props.id}
         itemId={`${index}-item`}
