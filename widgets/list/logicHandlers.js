@@ -24,6 +24,13 @@ module.exports = {
       .set('from', 0)
       .set('to', action.get('pageSize'));
   },
+  'customize-visualization': (state, action) => {
+    return state
+      .set('count', action.get('count'))
+      .set('pageSize', action.get('pageSize'))
+      .set('from', 0)
+      .set('to', action.get('pageSize'));
+  },
   'load-range': (state, action) => {
     return state
       .set('list', action.get('rows'))
