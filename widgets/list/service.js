@@ -17,21 +17,55 @@ const logicState = {
 // Define logic handlers according rc.json
 const logicHandlers = require('./logicHandlers.js');
 
-function* getList(quest, contentIndex) {
-  const r = quest.getStorage('rethink');
-  const table = quest.goblin.getX('table');
-
-  if (!contentIndex) {
-    contentIndex = quest.goblin
-      .getState()
-      .get('contentIndex')
-      .toJS();
+class ListHelpers {
+  _init(quest, contentIndex) {
+    const r = quest.getStorage('rethink');
+    const table = quest.goblin.getX('table');
+    contentIndex = contentIndex
+      ? contentIndex
+      : quest.goblin
+          .getState()
+          .get('contentIndex')
+          .toJS();
+    return {r, table, contentIndex};
   }
 
-  const listIds = yield r.getBaseList({table, contentIndex});
-  quest.goblin.setX('listIds', listIds);
-  return listIds.length;
+  *ids(quest, index, range) {
+    const {r, table, contentIndex} = this._init(quest, index);
+
+    const listIds = yield r.getIds({
+      table,
+      contentIndex,
+      range,
+    });
+
+    quest.goblin.setX('listIds', listIds);
+    return listIds.length;
+  }
+
+  *count(quest, index) {
+    const {r, table, contentIndex} = this._init(quest, index);
+    return yield r.count({
+      table,
+      contentIndex,
+    });
+  }
+
+  *changes(quest) {
+    const {r, table, contentIndex} = this._init(quest);
+    yield r.stopOnChanges({
+      goblinId: quest.goblin.id,
+    });
+    yield r.startQuestOnChanges({
+      table,
+      onChangeQuest: `${goblinName}.handle-changes`,
+      goblinId: quest.goblin.id,
+      contentIndex,
+    });
+  }
 }
+
+const list = new ListHelpers();
 
 // Register quest's according rc.json
 Goblin.registerQuest(goblinName, 'create', function*(
@@ -50,7 +84,7 @@ Goblin.registerQuest(goblinName, 'create', function*(
   quest.goblin.setX('desktopId', desktopId);
   quest.goblin.setX('table', table);
 
-  const count = yield* getList(quest, contentIndex);
+  const count = yield* list.ids(quest, contentIndex);
   quest.do({count, contentIndex});
 
   yield quest.me.initList();
@@ -69,7 +103,7 @@ Goblin.registerQuest(goblinName, 'change-content-index', function*(
   const contentIndex = {name, value};
   quest.evt('content-index-changed', contentIndex);
 
-  const count = yield* getList(quest, contentIndex);
+  const count = yield* list.ids(quest, contentIndex);
   yield quest.me.initList();
 
   quest.goblin.setX('fetching', {});
@@ -83,13 +117,13 @@ Goblin.registerQuest(goblinName, 'handle-changes', function*(quest, change) {
 
   switch (change.type) {
     case 'add': {
-      const count = yield* getList(quest);
+      const count = yield* list.ids(quest);
       quest.dispatch('add', {count});
       break;
     }
 
     case 'change': {
-      yield* getList(quest);
+      yield* list.ids(quest);
       quest.do();
       break;
     }
@@ -164,20 +198,7 @@ Goblin.registerQuest(goblinName, 'fetch', function*(quest, indices, next) {
 });
 
 Goblin.registerQuest(goblinName, 'init-list', function*(quest) {
-  const table = quest.goblin.getX('table');
-  const r = quest.getStorage('rethink');
-  yield r.stopOnChanges({
-    goblinId: quest.goblin.id,
-  });
-  yield r.startQuestOnChanges({
-    table,
-    onChangeQuest: `${goblinName}.handle-changes`,
-    goblinId: quest.goblin.id,
-    contentIndex: quest.goblin
-      .getState()
-      .get('contentIndex')
-      .toJS(),
-  });
+  yield* list.changes(quest);
 });
 
 Goblin.registerQuest(goblinName, 'delete', function(quest) {
