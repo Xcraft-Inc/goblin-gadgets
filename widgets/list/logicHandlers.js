@@ -18,10 +18,21 @@ module.exports = {
   },
   fetch: (state, action) => {
     const rows = action.get('rows');
+    const ids = action.get('ids');
+
+    state = state.set(
+      'list',
+      state.get('list').filter((_, row) => {
+        const index = Number(row.replace(/-item/, ''));
+        return !!ids[index];
+      })
+    );
+
     for (const id in rows) {
       const row = `${rows[id]}-item`;
       state = state.set(`list.${row}`, id);
     }
+
     return state;
   },
   'handle-changes': state => {
@@ -31,8 +42,8 @@ module.exports = {
     const newCount = Number(state.get('count')) - 1;
     return state.set('count', newCount).set('list', {});
   },
-  add: (state, action) => {
-    const count = action.get('count');
-    return state.set('count', count).set('list', {});
+  add: state => {
+    const newCount = Number(state.get('count')) + 1;
+    return state.set('count', newCount).set('list', {});
   },
 };

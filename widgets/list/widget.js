@@ -7,13 +7,16 @@ class List extends Widget {
   constructor() {
     super(...arguments);
 
-    this._fetchInternal = this._fetchInternal.bind(this);
     this.renderItem = this.renderItem.bind(this);
     this.estimateItemSize = this.estimateItemSize.bind(this);
-    this.fetch = this.fetch.bind(this);
+
     this._height = 40;
-    this._indices = [];
-    this._fetch = throttle(this._fetchInternal, 200);
+    this._threshold = 50;
+    this._fetchInternal = this._fetchInternal.bind(this);
+    this._fetch = throttle(this._fetchInternal, 200).bind(this);
+    this._range = [];
+
+    this.listRef = React.createRef();
   }
 
   static get wiring() {
@@ -26,17 +29,36 @@ class List extends Widget {
   }
 
   _fetchInternal() {
-    this.do('fetch', {indices: this._indices});
-    this._indices = [];
-  }
+    const range = this.listRef.current.getVisibleRange();
+    const {count} = this.props;
 
-  fetch(index) {
-    this._indices.push(index);
-    this._fetch();
+    if (
+      range[0] >= this._range[0] - this._threshold / 2 &&
+      range[1] <= this._range[1] + this._threshold / 2
+    ) {
+      return;
+    }
+
+    this._range = range.slice();
+
+    /* Add a margin of this._threshold entries (if possible) for the range */
+    range[0] =
+      range[0] >= this._threshold //
+        ? range[0] - this._threshold
+        : 0;
+    range[1] =
+      range[1] + this._threshold < count
+        ? range[1] + this._threshold
+        : count - 1;
+
+    this.do('fetch', {range});
   }
 
   renderItem(index) {
-    setTimeout(() => this.fetch(index), 0);
+    if (this.listRef.current) {
+      setTimeout(this._fetch, 0);
+    }
+
     const Item = this.props.renderItem;
     return (
       <Item
@@ -66,6 +88,7 @@ class List extends Widget {
 
     return (
       <ReactList
+        ref={this.listRef}
         length={this.props.count}
         type={this.props.type || 'variable'}
         itemRenderer={this.renderItem}

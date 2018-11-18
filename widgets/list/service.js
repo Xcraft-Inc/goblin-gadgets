@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+const _ = require('lodash');
 
 const goblinName = path.basename(module.parent.filename, '.js');
 
@@ -17,8 +18,8 @@ const logicState = {
 // Define logic handlers according rc.json
 const logicHandlers = require('./logicHandlers.js');
 
-class ListHelpers {
-  _init(quest, contentIndex) {
+class List {
+  static _init(quest, contentIndex) {
     const r = quest.getStorage('rethink');
     const table = quest.goblin.getX('table');
     contentIndex = contentIndex
@@ -30,20 +31,16 @@ class ListHelpers {
     return {r, table, contentIndex};
   }
 
-  *ids(quest, index, range) {
+  static *_ids(quest, index, range) {
     const {r, table, contentIndex} = this._init(quest, index);
-
-    const listIds = yield r.getIds({
+    return yield r.getIds({
       table,
       contentIndex,
       range,
     });
-
-    quest.goblin.setX('listIds', listIds);
-    return listIds.length;
   }
 
-  *count(quest, index) {
+  static *count(quest, index) {
     const {r, table, contentIndex} = this._init(quest, index);
     return yield r.count({
       table,
@@ -51,7 +48,32 @@ class ListHelpers {
     });
   }
 
-  *changes(quest) {
+  /**
+   * Fetch the document IDs accordingly a range.
+   *
+   * @param {*} quest - Quest context
+   * @param {Object} range - Range in the list
+   * @returns {Object} the IDs
+   */
+  static *refresh(quest, range) {
+    /* The result is an array, we must correct the keys according to the
+     * offset (first index).
+     */
+    const ids = _.mapKeys(
+      Object.assign(
+        {},
+        yield* this._ids(quest, null, {
+          start: range[0],
+          length: range[1] - range[0] + 1,
+        })
+      ),
+      (_, k) => Number(k) + range[0]
+    );
+    quest.goblin.setX('ids', ids);
+    return ids;
+  }
+
+  static *changes(quest) {
     const {r, table, contentIndex} = this._init(quest);
     yield r.stopOnChanges({
       goblinId: quest.goblin.id,
@@ -65,8 +87,6 @@ class ListHelpers {
   }
 }
 
-const list = new ListHelpers();
-
 // Register quest's according rc.json
 Goblin.registerQuest(goblinName, 'create', function*(
   quest,
@@ -78,16 +98,16 @@ Goblin.registerQuest(goblinName, 'create', function*(
    * is changing. It must not be possible to run a fetch while a
    * change-content-index is running, otherwise the indices are lost.
    */
-  const mutex = new locks.RecursiveMutex();
+  const mutex = new locks.Mutex();
   quest.goblin.setX('mutex', mutex);
 
   quest.goblin.setX('desktopId', desktopId);
   quest.goblin.setX('table', table);
 
-  const count = yield* list.ids(quest, contentIndex);
+  const count = yield* List.count(quest, contentIndex);
   quest.do({count, contentIndex});
-
   yield quest.me.initList();
+
   return quest.goblin.id;
 });
 
@@ -96,92 +116,67 @@ Goblin.registerQuest(goblinName, 'change-content-index', function*(
   name,
   value
 ) {
-  const uuid = quest.uuidV4();
-  yield quest.goblin.getX('mutex').lock(uuid);
-  quest.defer(() => quest.goblin.getX('mutex').unlock(uuid));
-
   const contentIndex = {name, value};
   quest.evt('content-index-changed', contentIndex);
 
-  const count = yield* list.ids(quest, contentIndex);
+  const count = yield* List.count(quest, contentIndex);
   yield quest.me.initList();
-
-  quest.goblin.setX('fetching', {});
   quest.do({count});
+
+  yield quest.me.fetch(quest);
 });
 
 Goblin.registerQuest(goblinName, 'handle-changes', function*(quest, change) {
-  const uuid = quest.uuidV4();
-  yield quest.goblin.getX('mutex').lock(uuid);
-  quest.defer(() => quest.goblin.getX('mutex').unlock(uuid));
-
   switch (change.type) {
     case 'add': {
-      const count = yield* list.ids(quest);
-      quest.dispatch('add', {count});
+      quest.dispatch('add');
+      yield quest.me.fetch(quest);
       break;
     }
 
     case 'change': {
-      yield* list.ids(quest);
       quest.do();
+      yield quest.me.fetch(quest);
       break;
     }
 
     case 'remove': {
-      const listIds = quest.goblin.getX('listIds');
-      const inListIndex = listIds.indexOf(change.old_val.id);
-      if (inListIndex !== -1) {
-        listIds.splice(inListIndex, 1);
-        quest.goblin.setX('listIds', listIds);
-      }
       quest.dispatch('remove');
+      yield quest.me.fetch(quest);
       break;
     }
   }
 });
 
-Goblin.registerQuest(goblinName, 'fetch', function*(quest, indices, next) {
-  /* Allow recursive call on fetch (but keep safe with other quests) */
-  yield quest.goblin.getX('mutex').lock(quest.goblin.id);
-  quest.defer(() => quest.goblin.getX('mutex').unlock(quest.goblin.id));
-
-  const state = quest.goblin.getState();
-  const fetching = quest.goblin.getX('fetching', {});
-
-  /* ignore indices already available on in fetching */
-  indices = indices.filter(
-    index => !state.has(`list.${index}-item`) && !fetching[index]
-  );
-  if (!indices.length) {
-    return;
-  }
-
-  indices.forEach(index => {
-    fetching[index] = true;
-  });
-  quest.defer(() => {
-    indices.forEach(index => {
-      delete fetching[index];
-    });
-  });
+Goblin.registerQuest(goblinName, 'fetch', function*(quest, range, next) {
+  yield quest.goblin.getX('mutex').lock();
+  quest.defer(() => quest.goblin.getX('mutex').unlock());
 
   const r = quest.getStorage('rethink');
   const table = quest.goblin.getX('table');
-  const listIds = quest.goblin.getX('listIds');
+
+  if (range) {
+    quest.goblin.setX('range', range);
+  } else {
+    range = quest.goblin.getX('range', []);
+  }
+  const ids = yield* List.refresh(quest, range);
 
   /* generate an object of all fetched documents */
-  const ids = Object.assign(
+  const _ids = Object.assign(
     {},
-    ...indices.map(index => ({
-      [listIds[index]]: index,
+    ...Object.keys(ids).map(index => ({
+      [ids[index]]: index,
     }))
   );
-  const docs = yield r.getAll({table, documents: Object.keys(ids)});
+  const docs = yield r.getAll({
+    table,
+    documents: Object.keys(_ids),
+  });
 
   const rows = {};
   for (const doc of docs) {
-    rows[doc.id] = ids[doc.id];
+    rows[doc.id] = _ids[doc.id];
     quest.create(
       doc.id,
       {
@@ -193,12 +188,13 @@ Goblin.registerQuest(goblinName, 'fetch', function*(quest, indices, next) {
       next.parallel()
     );
   }
-  quest.do({rows});
+
+  quest.do({rows, ids});
   yield next.sync();
 });
 
 Goblin.registerQuest(goblinName, 'init-list', function*(quest) {
-  yield* list.changes(quest);
+  yield* List.changes(quest);
 });
 
 Goblin.registerQuest(goblinName, 'delete', function(quest) {
