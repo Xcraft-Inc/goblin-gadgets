@@ -148,12 +148,9 @@ Goblin.registerQuest(goblinName, 'handle-changes', function*(quest, change) {
   }
 });
 
-Goblin.registerQuest(goblinName, 'fetch', function*(quest, range, next) {
+Goblin.registerQuest(goblinName, 'fetch', function*(quest, range) {
   yield quest.goblin.getX('mutex').lock();
   quest.defer(() => quest.goblin.getX('mutex').unlock());
-
-  const r = quest.getStorage('rethink');
-  const table = quest.goblin.getX('table');
 
   if (range) {
     quest.goblin.setX('range', range);
@@ -162,35 +159,12 @@ Goblin.registerQuest(goblinName, 'fetch', function*(quest, range, next) {
   }
   const ids = yield* List.refresh(quest, range);
 
-  /* generate an object of all fetched documents */
-  const _ids = Object.assign(
-    {},
-    ...Object.keys(ids).map(index => ({
-      [ids[index]]: index,
-    }))
-  );
-  const docs = yield r.getAll({
-    table,
-    documents: Object.keys(_ids),
-  });
-
   const rows = {};
-  for (const doc of docs) {
-    rows[doc.id] = _ids[doc.id];
-    quest.create(
-      doc.id,
-      {
-        id: doc.id,
-        desktopId: quest.getDesktop(),
-        mustExist: true,
-        entity: doc,
-      },
-      next.parallel()
-    );
+  for (const index in ids) {
+    rows[ids[index]] = index;
   }
 
   quest.do({rows, ids});
-  yield next.sync();
 });
 
 Goblin.registerQuest(goblinName, 'init-list', function*(quest) {
