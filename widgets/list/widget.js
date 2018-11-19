@@ -11,7 +11,7 @@ class List extends Widget {
     this.estimateItemSize = this.estimateItemSize.bind(this);
 
     this._height = 40;
-    this._threshold = 50;
+    this._threshold = 80;
     this._fetchInternal = this._fetchInternal.bind(this);
     this._fetch = throttle(this._fetchInternal, 200).bind(this);
     this._range = [];
