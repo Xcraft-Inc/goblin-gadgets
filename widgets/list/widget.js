@@ -29,6 +29,10 @@ class List extends Widget {
   }
 
   _fetchInternal() {
+    if (!this.listRef.current) {
+      return;
+    }
+
     const range = this.listRef.current.getVisibleRange();
     const {count} = this.props;
 
