@@ -121,7 +121,6 @@ export default function styles(theme, props) {
   const d = Unit.multiply(m, 0.5);
 
   if (kind === 'root') {
-    fontFamily = theme.typo.font;
     position = 'relative';
     display = 'flex';
     flexDirection = 'row';
