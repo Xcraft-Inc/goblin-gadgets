@@ -361,6 +361,8 @@ export default function styles(theme, props) {
       backgroundColor = theme.palette.markSuccess;
     } else if (subkind === 'archived') {
       backgroundColor = theme.palette.markSecondary;
+    } else if (subkind === 'trashed') {
+      backgroundColor = theme.palette.markPrimary;
     } else {
       backgroundColor = theme.palette.paneHeaderBackground;
     }
