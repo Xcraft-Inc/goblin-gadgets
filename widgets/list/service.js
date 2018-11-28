@@ -120,9 +120,8 @@ Goblin.registerQuest(goblinName, 'change-content-index', function*(
   quest.evt('content-index-changed', contentIndex);
 
   const count = yield* List.count(quest, contentIndex);
-  yield quest.me.initList();
   quest.do({count});
-
+  yield quest.me.initList();
   yield quest.me.fetch(quest);
 });
 
