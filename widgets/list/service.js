@@ -157,14 +157,17 @@ Goblin.registerQuest(goblinName, 'fetch', function*(quest, range) {
   } else {
     range = quest.goblin.getX('range', []);
   }
-  const ids = yield* List.refresh(quest, range);
 
-  const rows = {};
-  for (const index in ids) {
-    rows[ids[index]] = index;
+  if (range.length > 0) {
+    const ids = yield* List.refresh(quest, range);
+
+    const rows = {};
+    for (const index in ids) {
+      rows[ids[index]] = index;
+    }
+
+    quest.do({rows, ids});
   }
-
-  quest.do({rows, ids});
 });
 
 Goblin.registerQuest(goblinName, 'init-list', function*(quest) {
