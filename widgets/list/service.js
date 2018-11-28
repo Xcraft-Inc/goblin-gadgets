@@ -167,6 +167,8 @@ Goblin.registerQuest(goblinName, 'fetch', function*(quest, range) {
       range[0]--;
     }
     range[1]++;
+  } else {
+    range = [0, 1];
   }
 
   const ids = yield* List.refresh(quest, range);
