@@ -33,7 +33,9 @@ class List extends Widget {
       return;
     }
 
-    const range = this.listRef.current.getVisibleRange();
+    const range = this.listRef.current
+      ? this.listRef.current.getVisibleRange()
+      : [0, 0];
     const {count} = this.props;
 
     if (
@@ -59,9 +61,7 @@ class List extends Widget {
   }
 
   renderItem(index) {
-    if (this.listRef.current) {
-      setTimeout(this._fetch, 0);
-    }
+    setTimeout(this._fetch, 0);
 
     const Item = this.props.renderItem;
     return (
