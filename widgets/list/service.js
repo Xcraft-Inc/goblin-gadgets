@@ -158,14 +158,27 @@ Goblin.registerQuest(goblinName, 'fetch', function*(quest, range) {
     range = quest.goblin.getX('range', []);
   }
 
+  /* Ensure at least one item before and after the requested range.
+   * It handles the case where the whole list is shorter that the view and
+   * a new item is just added (and notified by the changes event).
+   */
   if (range.length > 0) {
-    const ids = yield* List.refresh(quest, range);
-
-    const rows = {};
-    for (const index in ids) {
-      rows[ids[index]] = index;
+    if (range[0] > 0) {
+      range[0]--;
     }
+    range[1]++;
+  }
 
+  const ids = yield* List.refresh(quest, range);
+
+  let _do = false;
+  const rows = {};
+  for (const index in ids) {
+    rows[ids[index]] = index;
+    _do = true;
+  }
+
+  if (_do) {
     quest.do({rows, ids});
   }
 });
