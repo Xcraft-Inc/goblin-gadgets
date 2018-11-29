@@ -93,6 +93,11 @@ class TextFieldCombo extends Widget {
     );
 
     this.showCombo = true;
+
+    const x = this.props.onShowCombo;
+    if (x) {
+      x();
+    }
   }
 
   onHideCombo() {
@@ -365,8 +370,8 @@ class TextFieldCombo extends Widget {
     const boxClass = this.showCombo
       ? this.styles.classNames.shadowBox
       : this.focus
-        ? this.styles.classNames.focusedBox
-        : this.styles.classNames.box;
+      ? this.styles.classNames.focusedBox
+      : this.styles.classNames.box;
 
     return (
       <span disabled={this.props.disabled} className={boxClass}>
