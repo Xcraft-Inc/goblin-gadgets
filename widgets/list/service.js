@@ -1,27 +1,91 @@
 'use strict';
 
-const path = require('path');
-const _ = require('lodash');
+const path = require ('path');
+const _ = require ('lodash');
 
-const goblinName = path.basename(module.parent.filename, '.js');
+const goblinName = path.basename (module.parent.filename, '.js');
 
-const Goblin = require('xcraft-core-goblin');
+const Goblin = require ('xcraft-core-goblin');
+const {locks} = require ('xcraft-core-utils');
 
 // Define initial logic values
 const logicState = {
   count: 0,
   list: {},
-  status: ['published'],
+  contentIndex: {},
 };
 
 // Define logic handlers according rc.json
-const logicHandlers = require('./logicHandlers.js');
+const logicHandlers = require ('./logicHandlers.js');
 
-const getIdAndInfo = doc => {
-  return {id: doc.id, value: doc.meta.summaries.description};
-};
+class List {
+  static _init (quest, contentIndex) {
+    const r = quest.getStorage ('rethink');
+    const table = quest.goblin.getX ('table');
+    contentIndex = contentIndex
+      ? contentIndex
+      : quest.goblin.getState ().get ('contentIndex').toJS ();
+    return {r, table, contentIndex};
+  }
+
+  static *_ids (quest, index, range) {
+    const {r, table, contentIndex} = this._init (quest, index);
+    return yield r.getIds ({
+      table,
+      contentIndex,
+      range,
+    });
+  }
+
+  static *count (quest, index) {
+    const {r, table, contentIndex} = this._init (quest, index);
+    return yield r.count ({
+      table,
+      contentIndex,
+    });
+  }
+
+  /**
+   * Fetch the document IDs accordingly a range.
+   *
+   * @param {*} quest - Quest context
+   * @param {Object} range - Range in the list
+   * @returns {Object} the IDs
+   */
+  static *refresh (quest, range) {
+    /* The result is an array, we must correct the keys according to the
+     * offset (first index).
+     */
+    const ids = _.mapKeys (
+      Object.assign (
+        {},
+        yield* this._ids (quest, null, {
+          start: range[0],
+          length: range[1] - range[0] + 1,
+        })
+      ),
+      (_, k) => Number (k) + range[0]
+    );
+    quest.goblin.setX ('ids', ids);
+    return ids;
+  }
+
+  static *changes (quest) {
+    const {r, table, contentIndex} = this._init (quest);
+    yield r.stopOnChanges ({
+      goblinId: quest.goblin.id,
+    });
+    yield r.startQuestOnChanges ({
+      table,
+      onChangeQuest: `${goblinName}.handle-changes`,
+      goblinId: quest.goblin.id,
+      contentIndex,
+    });
+  }
+}
+
 // Register quest's according rc.json
-Goblin.registerQuest(goblinName, 'create', function*(
+Goblin.registerQuest (goblinName, 'create', function* (
   quest,
   desktopId,
   table,
@@ -29,37 +93,35 @@ Goblin.registerQuest(goblinName, 'create', function*(
   filter,
   pageSize,
   type,
-  orderBy
+  orderBy,
+  contentIndex
 ) {
-  quest.goblin.setX('desktopId', desktopId);
-  const r = quest.getStorage('rethink');
-  quest.goblin.setX('table', table);
-  quest.goblin.setX('orderBy', orderBy);
-  quest.goblin.setX('filter', filter);
+  /* This mutex prevent races when indices are fetching and the content-index
+   * is changing. It must not be possible to run a fetch while a
+   * change-content-index is running, otherwise the indices are lost.
+   */
+  const mutex = new locks.Mutex ();
+  quest.goblin.setX ('mutex', mutex);
 
-  if (!pageSize) {
-    pageSize = 100;
-    quest.goblin.setX('pageSize', 100);
-  } else {
-    quest.goblin.setX('pageSize', pageSize);
-  }
+  quest.goblin.setX ('desktopId', desktopId);
+  quest.goblin.setX ('table', table);
+
+  const count = yield* List.count (quest, contentIndex);
+  quest.do ({count, contentIndex});
+  yield quest.me.initList ();
 
   const initialStatus =
-    status ||
-    quest.goblin
-      .getState()
-      .get('status')
-      .toArray();
-  const listIds = yield r.getBaseList({
+    status || quest.goblin.getState ().get ('status').toArray ();
+  const listIds = yield r.getBaseList ({
     table,
     filter,
     orderBy,
     status: initialStatus,
   });
 
-  quest.goblin.setX('listIds', listIds);
-  quest.me.initList();
-  quest.do({
+  quest.goblin.setX ('listIds', listIds);
+  quest.me.initList ();
+  quest.do ({
     count: listIds.length,
     pageSize,
     status: initialStatus,
@@ -68,141 +130,174 @@ Goblin.registerQuest(goblinName, 'create', function*(
   return quest.goblin.id;
 });
 
-Goblin.registerQuest(goblinName, 'get-list-ids', function(quest) {
-  return quest.goblin.getX('listIds');
+Goblin.registerQuest (goblinName, 'get-list-ids', function (quest) {
+  return quest.goblin.getX ('listIds');
 });
 
-Goblin.registerQuest(goblinName, 'change-status', function*(quest, status) {
+Goblin.registerQuest (goblinName, 'change-status', function* (quest, status) {
   if (status.length === 0) {
     return;
   }
-  quest.evt('status-changed', {status});
-  const r = quest.getStorage('rethink');
-  const table = quest.goblin.getX('table');
-  const pageSize = quest.goblin.getX('pageSize');
-  const orderBy = quest.goblin.getX('orderBy');
-  const filter = quest.goblin.getX('filter');
+  quest.evt ('status-changed', {status});
+  const r = quest.getStorage ('rethink');
+  const table = quest.goblin.getX ('table');
+  const pageSize = quest.goblin.getX ('pageSize');
+  const orderBy = quest.goblin.getX ('orderBy');
+  const filter = quest.goblin.getX ('filter');
 
-  const listIds = yield r.getBaseList({table, filter, orderBy, status});
-  quest.goblin.setX('listIds', listIds);
-  quest.me.initList();
-  quest.do({status, count: listIds.length, pageSize});
+  const listIds = yield r.getBaseList ({table, filter, orderBy, status});
+  quest.goblin.setX ('listIds', listIds);
+  quest.me.initList ();
+  quest.do ({status, count: listIds.length, pageSize});
 });
 
-Goblin.registerQuest(goblinName, 'change-visualization', function*(
+Goblin.registerQuest (goblinName, 'change-visualization', function* (
   quest,
   orderBy,
   filter
 ) {
-  const r = quest.getStorage('rethink');
-  const table = quest.goblin.getX('table');
-  const pageSize = quest.goblin.getX('pageSize');
-  const status = quest.goblin
-    .getState()
-    .get('status')
-    .toArray();
-  quest.goblin.setX('orderBy', orderBy);
-  quest.goblin.setX('filter', filter);
+  const r = quest.getStorage ('rethink');
+  const table = quest.goblin.getX ('table');
+  const pageSize = quest.goblin.getX ('pageSize');
+  const status = quest.goblin.getState ().get ('status').toArray ();
+  quest.goblin.setX ('orderBy', orderBy);
+  quest.goblin.setX ('filter', filter);
 
-  const listIds = yield r.getBaseList({table, filter, orderBy, status});
-  quest.goblin.setX('listIds', listIds);
-  quest.me.initList();
-  quest.do({count: listIds.length, pageSize});
+  const listIds = yield r.getBaseList ({table, filter, orderBy, status});
+  quest.goblin.setX ('listIds', listIds);
+  quest.me.initList ();
+  quest.do ({count: listIds.length, pageSize});
 });
 
-Goblin.registerQuest(goblinName, 'customize-visualization', function*(
+Goblin.registerQuest (goblinName, 'customize-visualization', function* (
   quest,
   listIdsGetter
 ) {
-  const pageSize = quest.goblin.getX('pageSize');
+  const pageSize = quest.goblin.getX ('pageSize');
 
-  const listIds = yield listIdsGetter();
-  quest.goblin.setX('listIds', listIds);
-  quest.me.initList();
-  quest.do({count: listIds.length, pageSize});
+  const listIds = yield listIdsGetter ();
+  quest.goblin.setX ('listIds', listIds);
+  quest.me.initList ();
+  quest.do ({count: listIds.length, pageSize});
 });
 
-Goblin.registerQuest(goblinName, 'handle-changes', function(quest, change) {
-  const listIds = quest.goblin.getX('listIds');
+Goblin.registerQuest (goblinName, 'change-content-index', function* (
+  quest,
+  name,
+  value
+) {
+  const contentIndex = {name, value};
+  quest.evt ('content-index-changed', contentIndex);
+
+  const count = yield* List.count (quest, contentIndex);
+  quest.do ({count});
+  yield quest.me.initList ();
+  yield quest.me.fetch (quest);
+});
+
+Goblin.registerQuest (goblinName, 'handle-changes', function* (quest, change) {
+  const listIds = quest.goblin.getX ('listIds');
 
   if (change.type === 'add') {
-    listIds.push(change.new_val.id);
-    quest.goblin.setX('listIds', listIds);
-    quest.dispatch('add', {entity: getIdAndInfo(change.new_val)});
+    listIds.push (change.new_val.id);
+    quest.goblin.setX ('listIds', listIds);
+    quest.dispatch ('add', {entity: getIdAndInfo (change.new_val)});
   }
 
   if (change.type === 'change') {
     const row = quest.goblin
-      .getState()
-      .get(`private.rowById.${change.new_val.id}`);
-    quest.do({row, document: getIdAndInfo(change.new_val)});
+      .getState ()
+      .get (`private.rowById.${change.new_val.id}`);
+    quest.do ({row, document: getIdAndInfo (change.new_val)});
   }
 
   if (change.type === 'remove') {
-    const inListIndex = listIds.indexOf(change.old_val.id);
+    const inListIndex = listIds.indexOf (change.old_val.id);
     if (inListIndex !== -1) {
-      listIds.splice(inListIndex, 1);
-      quest.goblin.setX('listIds', listIds);
-      const from = quest.goblin.getState().get('from');
-      const to = quest.goblin.getState().get('to');
-      quest.me.loadRange({from, to, force: true});
+      listIds.splice (inListIndex, 1);
+      quest.goblin.setX ('listIds', listIds);
+      const from = quest.goblin.getState ().get ('from');
+      const to = quest.goblin.getState ().get ('to');
+      quest.me.loadRange ({from, to, force: true});
     }
-    quest.dispatch('remove');
+    quest.dispatch ('remove');
+  }
+
+  switch (change.type) {
+    case 'add': {
+      quest.dispatch ('add');
+      yield quest.me.fetch (quest);
+      break;
+    }
+
+    case 'change': {
+      quest.do ();
+      yield quest.me.fetch (quest);
+      break;
+    }
+
+    case 'remove': {
+      quest.dispatch ('remove');
+      yield quest.me.fetch (quest);
+      break;
+    }
   }
 });
 
-Goblin.registerQuest(goblinName, 'load-range', function*(
-  quest,
-  from,
-  to,
-  force
-) {
-  const cFrom = quest.goblin.getState().get('from');
-  const cTo = quest.goblin.getState().get('to');
-  if (from >= cFrom && to <= cTo && !force) {
-    return;
+Goblin.registerQuest (goblinName, 'fetch', function* (quest, range) {
+  yield quest.goblin.getX ('mutex').lock ();
+  quest.defer (() => quest.goblin.getX ('mutex').unlock ());
+
+  if (range) {
+    quest.goblin.setX ('range', range);
+  } else {
+    range = quest.goblin.getX ('range', []);
   }
 
-  quest.dispatch('updateRange', {from, to});
+  /* Ensure at least one item before and after the requested range.
+   * It handles the case where the whole list is shorter that the view and
+   * a new item is just added (and notified by the changes event).
+   */
+  if (range.length > 0) {
+    if (range[0] > 0) {
+      range[0]--;
+    }
+    range[1]++;
+  } else {
+    range = [0, 1];
+  }
 
-  const newFrom = quest.goblin.getState().get('from');
-  const newTo = quest.goblin.getState().get('to');
+  const ids = yield* List.refresh (quest, range);
 
-  const r = quest.getStorage('rethink');
-  const table = quest.goblin.getX('table');
-  const listIds = quest.goblin.getX('listIds');
-  const documents = listIds.slice(newFrom, newTo);
-  const docs = yield r.getAll({table, documents});
+  let _do = false;
   const rows = {};
-  const rowById = {};
-  for (const doc of docs) {
-    rows[`${from}-item`] = getIdAndInfo(doc);
-    rowById[doc.id] = `${from}-item`;
-    from++;
+  for (const index in ids) {
+    rows[ids[index]] = index;
+    _do = true;
   }
-  quest.do({rows, rowById});
+
+  if (_do) {
+    quest.do ({rows, ids});
+  }
 });
 
-Goblin.registerQuest(goblinName, 'init-list', function*(quest) {
-  const r = quest.getStorage('rethink');
+Goblin.registerQuest (goblinName, 'init-list', function* (quest) {
+  const r = quest.getStorage ('rethink');
 
-  const pageSize = quest.goblin.getX('pageSize');
-  const table = quest.goblin.getX('table');
+  const pageSize = quest.goblin.getX ('pageSize');
+  const table = quest.goblin.getX ('table');
   let from = 0;
   const to = pageSize;
-  const status = quest.goblin
-    .getState()
-    .get('status')
-    .toArray();
+  const status = quest.goblin.getState ().get ('status').toArray ();
 
-  const listIds = quest.goblin.getX('listIds');
-  const slice = listIds.slice(from, to);
-  const docs = _.keyBy(yield r.getAll({table, slice}), doc => doc.id);
+  const listIds = quest.goblin.getX ('listIds');
+  const slice = listIds.slice (from, to);
+  const docs = _.keyBy (yield r.getAll ({table, slice}), doc => doc.id);
 
-  yield r.stopOnChanges({
+  yield r.stopOnChanges ({
     goblinId: quest.goblin.id,
   });
-  r.startQuestOnChanges({
+  r.startQuestOnChanges ({
     table,
     onChangeQuest: `${goblinName}.handle-changes`,
     goblinId: quest.goblin.id,
@@ -213,16 +308,19 @@ Goblin.registerQuest(goblinName, 'init-list', function*(quest) {
 
   for (const item of slice) {
     const doc = docs[item];
-    rows[`${from}-item`] = getIdAndInfo(doc);
+    rows[`${from}-item`] = getIdAndInfo (doc);
     rowById[doc.id] = `${from}-item`;
     from++;
   }
-  quest.dispatch('load-range', {rows, rowById});
+  quest.dispatch ('load-range', {rows, rowById});
+
+  // ToDo : should use only this
+  yield* List.changes (quest);
 });
 
-Goblin.registerQuest(goblinName, 'delete', function(quest) {
-  quest.evt('disposed');
+Goblin.registerQuest (goblinName, 'delete', function (quest) {
+  quest.evt ('disposed');
 });
 
 // Create a Goblin with initial state and handlers
-module.exports = Goblin.configure(goblinName, logicState, logicHandlers);
+module.exports = Goblin.configure (goblinName, logicState, logicHandlers);

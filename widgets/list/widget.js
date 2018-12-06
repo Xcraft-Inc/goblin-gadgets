@@ -1,175 +1,105 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 import ReactList from 'react-list';
-import _ from 'lodash';
-
-import Container from 'gadgets/container/widget';
-import Label from 'gadgets/label/widget';
-import CheckButton from 'gadgets/check-button/widget';
+import throttle from 'lodash/throttle';
 
 class List extends Widget {
   constructor() {
     super(...arguments);
-    this.renderItem = this.renderItem.bind(this);
-    this.renderTable = this.renderTable.bind(this);
-    this.renderRow = this.renderRow.bind(this);
-    this.changeStatus = this.changeStatus.bind(this);
-    const load = range => {
-      let cFrom = this.getFormValue('.from');
-      let cTo = this.getFormValue('.to');
-      if (range[0] < this.props.pageSize) {
-        return;
-      }
-      if (range[0] - 10 < cFrom || range[1] + 10 >= cTo) {
-        this.do('load-range', {from: range[0], to: range[1]});
-      }
-    };
-    this.loadIndex = _.debounce(load, 200);
-  }
 
-  static connectTo(instance) {
-    return Widget.Wired(List)(`list@${instance.props.id}`);
+    this.renderItem = this.renderItem.bind(this);
+    this.estimateItemSize = this.estimateItemSize.bind(this);
+
+    this._height = 40;
+    this._threshold = 80;
+    this._fetchInternal = this._fetchInternal.bind(this);
+    this._fetch = throttle(this._fetchInternal, 200).bind(this);
+    this._range = [];
+
+    this.listRef = React.createRef();
   }
 
   static get wiring() {
     return {
       id: 'id',
       count: 'count',
-      pageSize: 'pageSize',
       type: 'type',
-      status: 'status',
+      contentIndex: 'contentIndex',
     };
   }
 
-  renderItem(index, key) {
-    return {model: `.list.${index}-item`, index, key};
-  }
-
-  renderRow(row) {
-    const loadingWrapper = props => {
-      if (props._loading) {
-        return <div>loading...</div>;
-      } else {
-        const Item = this.props.renderItem;
-        return <Item {...props} />;
-      }
-    };
-    const ListItem = this.getWidgetToFormMapper(loadingWrapper, item => {
-      if (!item) {
-        return {_loading: true};
-      } else {
-        return this.props.mapItem(item, row.index);
-      }
-    })(row.model);
-
-    return <ListItem key={row.key} />;
-  }
-
-  renderTable(items, ref) {
-    if (!items) {
-      return null;
+  _fetchInternal() {
+    if (!this.listRef.current) {
+      return;
     }
 
-    if (items.length) {
-      const range = [items[0].index, items[items.length - 1].index];
-      // Horrible hack qui corrige le problème de la liste de gauche qui est
-      // vide la plupart du temps lors de l'ouverture du panneau de recherche !
-      if (range.length !== 2 || range[0] !== 0 || range[1] !== 0) {
-        this.loadIndex(range);
-      }
+    const range = this.listRef.current
+      ? this.listRef.current.getVisibleRange()
+      : [0, 0];
+    const {count} = this.props;
+
+    if (
+      range[0] >= this._range[0] - this._threshold / 2 &&
+      range[1] <= this._range[1] + this._threshold / 2
+    ) {
+      return;
     }
 
+    this._range = range.slice();
+
+    /* Add a margin of this._threshold entries (if possible) for the range */
+    range[0] =
+      range[0] >= this._threshold //
+        ? range[0] - this._threshold
+        : 0;
+    range[1] =
+      range[1] + this._threshold < count
+        ? range[1] + this._threshold
+        : count - 1;
+
+    this.do('fetch', {range});
+  }
+
+  renderItem(index) {
+    setTimeout(this._fetch, 0);
+
+    const Item = this.props.renderItem;
     return (
-      <div ref={ref}>
-        {items.map(row => {
-          return this.renderRow(row);
-        })}
-      </div>
+      <Item
+        key={index}
+        index={index}
+        listId={this.props.id}
+        itemId={`${index}-item`}
+        height={this._height}
+        parentId={this.props.parentId}
+      />
     );
   }
 
-  changeStatus(changed, newState) {
-    const newStatusList = ['draft', 'published', 'archived'].reduce(
-      (state, status) => {
-        if (changed === status) {
-          if (newState) {
-            state.push(status);
-          }
-        } else {
-          const isInList = this.props.status.contains(status);
-          if (isInList) {
-            state.push(status);
-          }
-        }
-        return state;
-      },
-      []
-    );
-    this.do('change-status', {status: newStatusList});
-  }
-
-  buildStatusFlag() {
-    return ['Draft', 'Published', 'Archived'].reduce((state, status) => {
-      state[`show${status}`] = this.props.status.contains(status.toLowerCase());
-      return state;
-    }, {});
+  estimateItemSize(index, cache) {
+    if (cache[index]) {
+      this._height = cache[index];
+      return this._height;
+    }
+    this._height = cache[0] ? cache[0] : 40;
+    return this._height;
   }
 
   render() {
-    if (!this.props.id || !this.props.status) {
+    if (!this.props.id) {
       return null;
     }
-    const {showPublished, showDraft, showArchived} = this.buildStatusFlag();
-    return (
-      <Container kind="pane">
-        <Container kind="row-pane">
-          <Container kind="column" grow="1">
-            <Container kind="row">
-              <Label width="30px" />
-              <CheckButton
-                justify="left"
-                heightStrategy="compact"
-                text="Brouillons"
-                tooltip="Montre les brouillons"
-                checked={showDraft}
-                onClick={() => this.changeStatus('draft', !showDraft)}
-              />
-            </Container>
-            <Container kind="row">
-              <Label width="30px" />
-              <CheckButton
-                justify="left"
-                heightStrategy="compact"
-                text="Publiés"
-                tooltip="Montre les éléments publiés"
-                checked={showPublished}
-                onClick={() => this.changeStatus('published', !showPublished)}
-              />
-            </Container>
-            <Container kind="row">
-              <Label width="30px" />
-              <CheckButton
-                justify="left"
-                heightStrategy="compact"
-                text="Archivés"
-                tooltip="Montre les éléments archivés"
-                checked={showArchived}
-                onClick={() => this.changeStatus('archived', !showArchived)}
-              />
-            </Container>
-          </Container>
-        </Container>
 
-        <ReactList
-          pageSize={this.props.pageSize / 2}
-          length={this.props.count}
-          type={this.props.type || 'variable'}
-          itemsRenderer={this.renderTable}
-          itemRenderer={this.renderItem}
-        />
-      </Container>
+    return (
+      <ReactList
+        ref={this.listRef}
+        length={this.props.count}
+        type={this.props.type || 'variable'}
+        itemRenderer={this.renderItem}
+        itemSizeEstimator={this.estimateItemSize}
+      />
     );
   }
 }
 
-export default List;
+export default Widget.Wired(List)();

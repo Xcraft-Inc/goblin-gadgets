@@ -121,7 +121,6 @@ export default function styles(theme, props) {
   const d = Unit.multiply(m, 0.5);
 
   if (kind === 'root') {
-    fontFamily = theme.typo.font;
     position = 'relative';
     display = 'flex';
     flexDirection = 'row';
@@ -362,6 +361,8 @@ export default function styles(theme, props) {
       backgroundColor = theme.palette.markSuccess;
     } else if (subkind === 'archived') {
       backgroundColor = theme.palette.markSecondary;
+    } else if (subkind === 'trashed') {
+      backgroundColor = theme.palette.markPrimary;
     } else {
       backgroundColor = theme.palette.paneHeaderBackground;
     }
