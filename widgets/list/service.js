@@ -324,7 +324,12 @@ Goblin.registerQuest(goblinName, 'init-list', function*(quest) {
     .get('status')
     .toArray();
 
-  const listIds = quest.goblin.getX('listIds');
+  let listIds = quest.goblin.getX('listIds');
+  if (!(listIds instanceof Array)) {
+    yield* List.changes(quest);
+    return;
+  }
+
   const slice = listIds.slice(from, to);
   const docs = _.keyBy(yield r.getAll({table, slice}), doc => doc.id);
 
