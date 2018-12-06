@@ -125,12 +125,11 @@ Goblin.registerQuest(goblinName, 'create', function*(
     quest.goblin.setX('pageSize', pageSize);
   }
 
-  const initialStatus =
-    status ||
-    quest.goblin
-      .getState()
-      .get('status')
-      .toArray();
+  const goblinStatus = quest.goblin.getState().get('status');
+  const statusArray = goblinStatus
+    ? goblinStatus.toArray()
+    : ['published', 'draft'];
+  const initialStatus = status || statusArray;
   const listIds = yield r.getBaseList({
     table,
     filter,
