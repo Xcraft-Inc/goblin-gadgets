@@ -224,36 +224,6 @@ Goblin.registerQuest(goblinName, 'change-content-index', function*(
 });
 
 Goblin.registerQuest(goblinName, 'handle-changes', function*(quest, change) {
-  // NABU : old handler -- START
-  const listIds = quest.goblin.getX('listIds');
-
-  if (change.type === 'add') {
-    listIds.push(change.new_val.id);
-    quest.goblin.setX('listIds', listIds);
-    quest.dispatch('add', {entity: getIdAndInfo(change.new_val)});
-  }
-
-  if (change.type === 'change') {
-    const row = quest.goblin
-      .getState()
-      .get(`private.rowById.${change.new_val.id}`);
-    quest.do({row, document: getIdAndInfo(change.new_val)});
-  }
-
-  if (change.type === 'remove') {
-    const inListIndex = listIds.indexOf(change.old_val.id);
-    if (inListIndex !== -1) {
-      listIds.splice(inListIndex, 1);
-      quest.goblin.setX('listIds', listIds);
-      const from = quest.goblin.getState().get('from');
-      const to = quest.goblin.getState().get('to');
-      quest.me.loadRange({from, to, force: true});
-    }
-    quest.dispatch('remove');
-  }
-
-  // NABU : old handler -- STOP
-
   switch (change.type) {
     case 'add': {
       quest.dispatch('add');
