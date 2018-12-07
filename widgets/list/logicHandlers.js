@@ -6,10 +6,9 @@ module.exports = {
         .set('status', action.get('status'))
         .set('count', action.get('count'))
         //NABU : old set -- START
-        .set('pageSize', action.get('pageSize'))
         .set('type', action.get('type'))
         .set('from', 0)
-        .set('to', action.get('pageSize'))
+        .set('to', 200) // Was PageSize
         //NABU : old set -- STOP
         .set('contentIndex', action.get('contentIndex'))
     );
@@ -30,16 +29,14 @@ module.exports = {
   'change-visualization': (state, action) => {
     return state
       .set('count', action.get('count'))
-      .set('pageSize', action.get('pageSize'))
       .set('from', 0)
-      .set('to', action.get('pageSize'));
+      .set('to', 200); //was pageSize
   },
   'customize-visualization': (state, action) => {
     return state
       .set('count', action.get('count'))
-      .set('pageSize', action.get('pageSize'))
       .set('from', 0)
-      .set('to', action.get('pageSize'));
+      .set('to', 200); //was pageSize
   },
   'load-range': (state, action) => {
     return state

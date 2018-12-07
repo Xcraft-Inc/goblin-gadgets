@@ -99,7 +99,6 @@ Goblin.registerQuest(goblinName, 'create', function*(
   status,
   contentIndex,
   filter,
-  pageSize,
   type,
   orderBy
 ) {
@@ -117,13 +116,6 @@ Goblin.registerQuest(goblinName, 'create', function*(
   const r = quest.getStorage('rethink');
   quest.goblin.setX('orderBy', orderBy);
   quest.goblin.setX('filter', filter);
-
-  if (!pageSize) {
-    pageSize = 100;
-    quest.goblin.setX('pageSize', 100);
-  } else {
-    quest.goblin.setX('pageSize', pageSize);
-  }
 
   const goblinStatus = quest.goblin.getState().get('status');
   const statusArray = goblinStatus
@@ -143,7 +135,6 @@ Goblin.registerQuest(goblinName, 'create', function*(
   quest.do({
     count, // old was listIds.length
     contentIndex,
-    pageSize,
     status: initialStatus,
     type: type || 'variable',
   });
@@ -164,14 +155,13 @@ Goblin.registerQuest(goblinName, 'change-status', function*(quest, status) {
   quest.evt('status-changed', {status});
   const r = quest.getStorage('rethink');
   const table = quest.goblin.getX('table');
-  const pageSize = quest.goblin.getX('pageSize');
   const orderBy = quest.goblin.getX('orderBy');
   const filter = quest.goblin.getX('filter');
 
   const listIds = yield r.getBaseList({table, filter, orderBy, status});
   quest.goblin.setX('listIds', listIds);
   quest.me.initList();
-  quest.do({status, count: listIds.length, pageSize});
+  quest.do({status, count: listIds.length});
 });
 
 Goblin.registerQuest(goblinName, 'change-visualization', function*(
@@ -181,7 +171,6 @@ Goblin.registerQuest(goblinName, 'change-visualization', function*(
 ) {
   const r = quest.getStorage('rethink');
   const table = quest.goblin.getX('table');
-  const pageSize = quest.goblin.getX('pageSize');
   const status = quest.goblin
     .getState()
     .get('status')
@@ -192,19 +181,17 @@ Goblin.registerQuest(goblinName, 'change-visualization', function*(
   const listIds = yield r.getBaseList({table, filter, orderBy, status});
   quest.goblin.setX('listIds', listIds);
   quest.me.initList();
-  quest.do({count: listIds.length, pageSize});
+  quest.do({count: listIds.length});
 });
 
 Goblin.registerQuest(goblinName, 'customize-visualization', function*(
   quest,
   listIdsGetter
 ) {
-  const pageSize = quest.goblin.getX('pageSize');
-
   const listIds = yield listIdsGetter();
   quest.goblin.setX('listIds', listIds);
   quest.me.initList();
-  quest.do({count: listIds.length, pageSize});
+  quest.do({count: listIds.length});
 });
 
 // NABU : old crete -- STOP
@@ -285,10 +272,9 @@ Goblin.registerQuest(goblinName, 'fetch', function*(quest, range) {
 Goblin.registerQuest(goblinName, 'init-list', function*(quest) {
   const r = quest.getStorage('rethink');
 
-  const pageSize = quest.goblin.getX('pageSize');
   const table = quest.goblin.getX('table');
   let from = 0;
-  const to = pageSize;
+  const to = 200; //was pageSize
   const status = quest.goblin
     .getState()
     .get('status')
@@ -324,7 +310,7 @@ Goblin.registerQuest(goblinName, 'init-list', function*(quest) {
   quest.dispatch('load-range', {rows, rowById});
 
   // ToDo : should use only this
-  // yield* List.changes (quest);
+  //yield* List.changes (quest);
 });
 
 Goblin.registerQuest(goblinName, 'delete', function(quest) {
