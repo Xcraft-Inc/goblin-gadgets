@@ -26,29 +26,35 @@ class List {
   static _init(quest, contentIndex) {
     const r = quest.getStorage('rethink');
     const table = quest.goblin.getX('table');
+    const filter = quest.goblin.getX('filter');
+    const orderBy = quest.goblin.getX('orderBy');
     contentIndex = contentIndex
       ? contentIndex
       : quest.goblin
           .getState()
           .get('contentIndex')
           .toJS();
-    return {r, table, contentIndex};
+    return {r, table, contentIndex, filter, orderBy};
   }
 
   static *_ids(quest, index, range) {
-    const {r, table, contentIndex} = this._init(quest, index);
+    const {r, table, contentIndex, filter, orderBy} = this._init(quest, index);
     return yield r.getIds({
       table,
       contentIndex,
       range,
+      filter,
+      orderBy,
     });
   }
 
   static *count(quest, index) {
-    const {r, table, contentIndex} = this._init(quest, index);
+    const {r, table, contentIndex, filter, orderBy} = this._init(quest, index);
     return yield r.count({
       table,
       contentIndex,
+      filter,
+      orderBy,
     });
   }
 
@@ -78,7 +84,7 @@ class List {
   }
 
   static *changes(quest) {
-    const {r, table, contentIndex} = this._init(quest);
+    const {r, table, contentIndex, filter, orderBy} = this._init(quest);
     yield r.stopOnChanges({
       goblinId: quest.goblin.id,
     });
@@ -87,6 +93,8 @@ class List {
       onChangeQuest: `${goblinName}.handle-changes`,
       goblinId: quest.goblin.id,
       contentIndex,
+      filter,
+      orderBy,
     });
   }
 }
@@ -111,41 +119,26 @@ Goblin.registerQuest(goblinName, 'create', function*(
 
   quest.goblin.setX('desktopId', desktopId);
   quest.goblin.setX('table', table);
-
-  // NABU : old crete -- START
-  const r = quest.getStorage('rethink');
   quest.goblin.setX('orderBy', orderBy);
   quest.goblin.setX('filter', filter);
 
-  const goblinStatus = quest.goblin.getState().get('status');
-  const statusArray = goblinStatus
-    ? goblinStatus.toArray()
-    : ['published', 'draft'];
-  const initialStatus = status || statusArray;
-  const listIds = yield r.getBaseList({
-    table,
-    filter,
-    orderBy,
-    status: initialStatus,
-  });
-
   const count = yield* List.count(quest, contentIndex);
 
-  quest.goblin.setX('listIds', listIds);
   quest.do({
-    count, // old was listIds.length
+    count,
     contentIndex,
-    status: initialStatus,
-    type: type || 'variable',
   });
 
   yield quest.me.initList();
+  const range = [0, count + 1];
+  quest.goblin.setX('range', range);
+  yield quest.me.fetch(quest);
 
   return quest.goblin.id;
 });
 
 Goblin.registerQuest(goblinName, 'get-list-ids', function(quest) {
-  return quest.goblin.getX('listIds');
+  return quest.goblin.getX('ids');
 });
 
 Goblin.registerQuest(goblinName, 'change-status', function*(quest, status) {
@@ -153,15 +146,11 @@ Goblin.registerQuest(goblinName, 'change-status', function*(quest, status) {
     return;
   }
   quest.evt('status-changed', {status});
-  const r = quest.getStorage('rethink');
-  const table = quest.goblin.getX('table');
-  const orderBy = quest.goblin.getX('orderBy');
-  const filter = quest.goblin.getX('filter');
 
-  const listIds = yield r.getBaseList({table, filter, orderBy, status});
-  quest.goblin.setX('listIds', listIds);
+  const count = yield* List.count(quest);
   quest.me.initList();
-  quest.do({status, count: listIds.length});
+  quest.me.fetch(quest);
+  quest.do({status, count});
 });
 
 Goblin.registerQuest(goblinName, 'change-visualization', function*(
@@ -275,12 +264,11 @@ Goblin.registerQuest(goblinName, 'init-list', function*(quest) {
   const table = quest.goblin.getX('table');
   let from = 0;
   const to = 200; //was pageSize
-  const status = quest.goblin
-    .getState()
-    .get('status')
-    .toArray();
 
-  let listIds = quest.goblin.getX('listIds');
+  const hasStatus = quest.goblin.getState().get('status');
+  const status = hasStatus ? hasStatus.toArray() : ['draft', 'published'];
+
+  let listIds = quest.goblin.getX('ids');
   if (!(listIds instanceof Array)) {
     yield* List.changes(quest);
     return;
