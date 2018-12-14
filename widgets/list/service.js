@@ -26,35 +26,29 @@ class List {
   static _init(quest, contentIndex) {
     const r = quest.getStorage('rethink');
     const table = quest.goblin.getX('table');
-    const filter = quest.goblin.getX('filter');
-    const orderBy = quest.goblin.getX('orderBy');
     contentIndex = contentIndex
       ? contentIndex
       : quest.goblin
           .getState()
           .get('contentIndex')
           .toJS();
-    return {r, table, contentIndex, filter, orderBy};
+    return {r, table, contentIndex};
   }
 
   static *_ids(quest, index, range) {
-    const {r, table, contentIndex, filter, orderBy} = this._init(quest, index);
+    const {r, table, contentIndex} = this._init(quest, index);
     return yield r.getIds({
       table,
       contentIndex,
       range,
-      filter,
-      orderBy,
     });
   }
 
   static *count(quest, index) {
-    const {r, table, contentIndex, filter, orderBy} = this._init(quest, index);
+    const {r, table, contentIndex} = this._init(quest, index);
     return yield r.count({
       table,
       contentIndex,
-      filter,
-      orderBy,
     });
   }
 
@@ -84,7 +78,7 @@ class List {
   }
 
   static *changes(quest) {
-    const {r, table, contentIndex, filter, orderBy} = this._init(quest);
+    const {r, table, contentIndex} = this._init(quest);
     yield r.stopOnChanges({
       goblinId: quest.goblin.id,
     });
@@ -93,8 +87,6 @@ class List {
       onChangeQuest: `${goblinName}.handle-changes`,
       goblinId: quest.goblin.id,
       contentIndex,
-      filter,
-      orderBy,
     });
   }
 }
@@ -105,10 +97,7 @@ Goblin.registerQuest(goblinName, 'create', function*(
   desktopId,
   table,
   status,
-  contentIndex,
-  filter,
-  type,
-  orderBy
+  contentIndex
 ) {
   /* This mutex prevent races when indices are fetching and the content-index
    * is changing. It must not be possible to run a fetch while a
@@ -119,8 +108,6 @@ Goblin.registerQuest(goblinName, 'create', function*(
 
   quest.goblin.setX('desktopId', desktopId);
   quest.goblin.setX('table', table);
-  quest.goblin.setX('orderBy', orderBy);
-  quest.goblin.setX('filter', filter);
 
   const count = yield* List.count(quest, contentIndex);
 
