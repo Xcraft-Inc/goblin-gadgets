@@ -117,27 +117,23 @@ Goblin.registerQuest(goblinName, 'create', function*(
   });
 
   yield quest.me.initList();
+
+  // NABU : old crete -- START
   const range = [0, count + 1];
   quest.goblin.setX('range', range);
-  yield quest.me.fetch(quest);
+  // NABU : old crete -- STOP
 
+  yield quest.me.fetch(quest);
   return quest.goblin.id;
+});
+
+// NABU : old crete -- START
+Goblin.registerQuest(goblinName, 'set-list-ids', function(quest, listIds) {
+  return quest.goblin.setX('ids', listIds);
 });
 
 Goblin.registerQuest(goblinName, 'get-list-ids', function(quest) {
   return quest.goblin.getX('ids');
-});
-
-Goblin.registerQuest(goblinName, 'change-status', function*(quest, status) {
-  if (status.length === 0) {
-    return;
-  }
-  quest.evt('status-changed', {status});
-
-  const count = yield* List.count(quest);
-  quest.me.initList();
-  quest.me.fetch(quest);
-  quest.do({status, count});
 });
 
 Goblin.registerQuest(goblinName, 'change-visualization', function*(
@@ -166,7 +162,7 @@ Goblin.registerQuest(goblinName, 'customize-visualization', function*(
 ) {
   const listIds = yield listIdsGetter();
   quest.goblin.setX('listIds', listIds);
-  quest.me.initList();
+  //quest.me.initList();
   quest.do({count: listIds.length});
 });
 
@@ -246,46 +242,7 @@ Goblin.registerQuest(goblinName, 'fetch', function*(quest, range) {
 });
 
 Goblin.registerQuest(goblinName, 'init-list', function*(quest) {
-  const r = quest.getStorage('rethink');
-
-  const table = quest.goblin.getX('table');
-  let from = 0;
-  const to = 200; //was pageSize
-
-  const hasStatus = quest.goblin.getState().get('status');
-  const status = hasStatus ? hasStatus.toArray() : ['draft', 'published'];
-
-  let listIds = quest.goblin.getX('ids');
-  if (!(listIds instanceof Array)) {
-    yield* List.changes(quest);
-    return;
-  }
-
-  const slice = listIds.slice(from, to);
-  const docs = _.keyBy(yield r.getAll({table, slice}), doc => doc.id);
-
-  yield r.stopOnChanges({
-    goblinId: quest.goblin.id,
-  });
-  r.startQuestOnChanges({
-    table,
-    onChangeQuest: `${goblinName}.handle-changes`,
-    goblinId: quest.goblin.id,
-    status, // ?? or ['published']? (was written before)
-  });
-  const rows = {};
-  const rowById = {};
-
-  for (const item of slice) {
-    const doc = docs[item];
-    rows[`${from}-item`] = getIdAndInfo(doc);
-    rowById[doc.id] = `${from}-item`;
-    from++;
-  }
-  quest.dispatch('load-range', {rows, rowById});
-
-  // ToDo : should use only this
-  //yield* List.changes (quest);
+  yield* List.changes(quest);
 });
 
 Goblin.registerQuest(goblinName, 'delete', function(quest) {
