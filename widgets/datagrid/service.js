@@ -144,6 +144,7 @@ Goblin.registerQuest(goblinName, 'change-visualization', function*(
 
   const listIds = yield r.getBaseList({table, filter, orderBy, status});
   quest.goblin.setX('listIds', listIds);
+  quest.goblin.setX('ids', listIds);
   quest.me.initList();
   quest.do({count: listIds.length});
 });
@@ -155,7 +156,13 @@ Goblin.registerQuest(goblinName, 'customize-visualization', function*(
   const listIds = yield listIdsGetter();
   quest.goblin.setX('ids', listIds);
   //quest.me.initList();
-  quest.do({count: listIds.length});
+
+  const rows = {};
+  for (const index in listIds) {
+    rows[listIds[index]] = index;
+  }
+
+  quest.do({count: listIds.length, rows, ids: listIds});
 });
 
 // NABU : old crete -- STOP
