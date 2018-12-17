@@ -113,8 +113,8 @@ Goblin.registerQuest(goblinName, 'create', function*(quest, desktopId, hinter) {
   quest.goblin.setX('hinter', hinter);
 
   quest.goblin.setX('from', 0);
-  quest.goblin.setX('size', 200);
-  quest.goblin.setX('range', [0, 200]);
+  quest.goblin.setX('size', 10);
+  quest.goblin.setX('range', [0, 10]);
 
   const id = quest.goblin.id;
   quest.do({id});
