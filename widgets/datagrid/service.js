@@ -10,213 +10,143 @@ const {locks} = require('xcraft-core-utils');
 
 // Define initial logic values
 const logicState = {
-  count: 0,
   list: {},
-  contentIndex: {},
 };
 
 // Define logic handlers according rc.json
 const logicHandlers = require('./logicHandlers.js');
 
-class List {
-  static _init(quest, contentIndex) {
-    const r = quest.getStorage('rethink');
-    const table = quest.goblin.getX('table');
-    contentIndex = contentIndex
-      ? contentIndex
-      : quest.goblin
-          .getState()
-          .get('contentIndex')
-          .toJS();
-    return {r, table, contentIndex};
-  }
+class Datagrid {
+  static *executeSearch(quest, value, sort) {
+    const elastic = quest.getStorage('elastic');
 
-  static *_ids(quest, index, range) {
-    const {r, table, contentIndex} = this._init(quest, index);
-    return yield r.getIds({
-      table,
-      contentIndex,
-      range,
-    });
-  }
+    quest.goblin.setX('value', value);
+    quest.goblin.setX('sort', sort);
 
-  static *count(quest, index) {
-    const {r, table, contentIndex} = this._init(quest, index);
-    return yield r.count({
-      table,
-      contentIndex,
-    });
-  }
+    const hinter = quest.goblin.getX('hinter');
+    const from = quest.goblin.getX('from');
+    const size = quest.goblin.getX('size');
 
-  /**
-   * Fetch the document IDs accordingly a range.
-   *
-   * @param {*} quest - Quest context
-   * @param {Object} range - Range in the list
-   * @returns {Object} the IDs
-   */
-  static *refresh(quest, range) {
-    /* The result is an array, we must correct the keys according to the
-     * offset (first index).
-     */
-    const ids = _.mapKeys(
-      Object.assign(
-        {},
-        yield* this._ids(quest, null, {
-          start: range[0],
-          length: range[1] - range[0] + 1,
-        })
-      ),
-      (_, k) => Number(k) + range[0]
-    );
-    quest.goblin.setX('ids', ids);
-    return ids;
-  }
+    let type = hinter.type;
+    const subTypes = hinter.subTypes;
+    if (subTypes) {
+      subTypes.forEach(subType => {
+        type = `${type},${subType}`;
+      });
+    }
 
-  static *changes(quest) {
-    const {r, table, contentIndex} = this._init(quest);
-    yield r.stopOnChanges({
-      goblinId: quest.goblin.id,
+    const results = yield elastic.search({
+      type,
+      value,
+      sort,
+      from,
+      size,
     });
-    yield r.startQuestOnChanges({
-      table,
-      onChangeQuest: `${goblinName}.handle-changes`,
-      goblinId: quest.goblin.id,
-      contentIndex,
-    });
+
+    let values = [];
+    if (results) {
+      results.hits.hits.map(hit => {
+        if (!hit.highlight) {
+          return hit._source.info;
+        }
+
+        let phonetic = false;
+        let autocomplete = false;
+
+        if (hit.highlight.searchPhonetic) {
+          phonetic = true;
+        }
+        if (hit.highlight.searchAutocomplete) {
+          autocomplete = true;
+        }
+
+        if (!phonetic && !autocomplete) {
+          return hit._source.info;
+        }
+
+        // Prefer phonetic result if possible, but use autocomplete result
+        // if there are more tags.
+        if (phonetic && autocomplete) {
+          const countPhonetic = (
+            hit.highlight.searchPhonetic[0].match(/<em>/g) || []
+          ).length;
+          const countAutocomplete = (
+            hit.highlight.searchAutocomplete[0].match(/<em>/g) || []
+          ).length;
+          if (countAutocomplete > countPhonetic) {
+            phonetic = false;
+          }
+        }
+
+        return phonetic
+          ? hit.highlight.searchPhonetic[0].replace(/<\/?em>/g, '`')
+          : hit.highlight.searchAutocomplete[0].replace(/<\/?em>/g, '`');
+      });
+
+      results.hits.hits.forEach(hit => {
+        let value = hit._id;
+        if (hinter.subJoins) {
+          hinter.subJoins.forEach(subJoin => {
+            const join = hit._source[subJoin];
+            if (join) {
+              value = join;
+            }
+          });
+        }
+        if (!values.includes(value)) {
+          values.push(value);
+        }
+      });
+    }
+
+    quest.goblin.setX('ids', values);
+    return values;
   }
 }
 
 // Register quest's according rc.json
-Goblin.registerQuest(goblinName, 'create', function*(
-  quest,
-  desktopId,
-  table,
-  status,
-  contentIndex
-) {
-  /* This mutex prevent races when indices are fetching and the content-index
-   * is changing. It must not be possible to run a fetch while a
-   * change-content-index is running, otherwise the indices are lost.
-   */
+Goblin.registerQuest(goblinName, 'create', function*(quest, desktopId, hinter) {
   const mutex = new locks.Mutex();
   quest.goblin.setX('mutex', mutex);
 
   quest.goblin.setX('desktopId', desktopId);
-  quest.goblin.setX('table', table);
+  quest.goblin.setX('hinter', hinter);
 
-  const count = yield* List.count(quest, contentIndex);
+  quest.goblin.setX('from', 0);
+  quest.goblin.setX('size', 200);
+  quest.goblin.setX('range', [0, 200]);
 
-  quest.do({
-    count,
-    contentIndex,
-  });
+  const id = quest.goblin.id;
+  quest.do({id});
 
   yield quest.me.initList();
-
-  // NABU : old crete -- START
-  const range = [0, count + 1];
-  quest.goblin.setX('range', range);
-  // NABU : old crete -- STOP
-
-  yield quest.me.fetch(quest);
-  return quest.goblin.id;
+  return id;
 });
 
-// NABU : old crete -- START
 Goblin.registerQuest(goblinName, 'get-list-ids', function(quest) {
   return quest.goblin.getX('ids');
 });
 
-Goblin.registerQuest(goblinName, 'change-visualization', function*(
-  quest,
-  orderBy,
-  filter
-) {
-  const r = quest.getStorage('rethink');
-  const table = quest.goblin.getX('table');
-  const status = quest.goblin
-    .getState()
-    .get('status')
-    .toArray();
-  quest.goblin.setX('orderBy', orderBy);
-  quest.goblin.setX('filter', filter);
-
-  const listIds = yield r.getBaseList({table, filter, orderBy, status});
-  quest.goblin.setX('listIds', listIds);
-  quest.goblin.setX('ids', listIds);
-  quest.me.initList();
-  quest.do({count: listIds.length});
-});
-
 Goblin.registerQuest(goblinName, 'customize-visualization', function*(
   quest,
-  listIdsGetter
+  filter,
+  sort
 ) {
-  const listIds = yield listIdsGetter();
-  quest.goblin.setX('ids', listIds);
-  //quest.me.initList();
-
-  const rows = {};
-  for (const index in listIds) {
-    rows[listIds[index]] = index;
-  }
-
-  quest.do({count: listIds.length, rows, ids: listIds});
-});
-
-// NABU : old crete -- STOP
-
-Goblin.registerQuest(goblinName, 'change-content-index', function*(
-  quest,
-  name,
-  value
-) {
-  const contentIndex = {name, value};
-  quest.evt('content-index-changed', contentIndex);
-
-  const count = yield* List.count(quest, contentIndex);
-  quest.do({count});
-  yield quest.me.initList();
-  yield quest.me.fetch(quest);
-});
-
-Goblin.registerQuest(goblinName, 'handle-changes', function*(quest, change) {
-  switch (change.type) {
-    case 'add': {
-      quest.dispatch('add');
-      yield quest.me.fetch(quest);
-      break;
-    }
-
-    case 'change': {
-      quest.do();
-      yield quest.me.fetch(quest);
-      break;
-    }
-
-    case 'remove': {
-      quest.dispatch('remove');
-      yield quest.me.fetch(quest);
-      break;
-    }
-  }
+  const ids = yield* Datagrid.executeSearch(quest, filter, sort);
+  quest.do({ids});
 });
 
 Goblin.registerQuest(goblinName, 'fetch', function*(quest, range) {
   yield quest.goblin.getX('mutex').lock();
   quest.defer(() => quest.goblin.getX('mutex').unlock());
 
+  // TODO : understand range
   if (range) {
     quest.goblin.setX('range', range);
   } else {
     range = quest.goblin.getX('range', []);
   }
 
-  /* Ensure at least one item before and after the requested range.
-   * It handles the case where the whole list is shorter that the view and
-   * a new item is just added (and notified by the changes event).
-   */
   if (range.length > 0) {
     if (range[0] > 0) {
       range[0]--;
@@ -226,22 +156,21 @@ Goblin.registerQuest(goblinName, 'fetch', function*(quest, range) {
     range = [0, 1];
   }
 
-  const ids = yield* List.refresh(quest, range);
+  quest.goblin.setX('from', range[0]);
+  quest.goblin.setX('size', range[0] + range[1]);
 
-  let _do = false;
-  const rows = {};
-  for (const index in ids) {
-    rows[ids[index]] = index;
-    _do = true;
-  }
+  const value = quest.goblin.getX('value');
+  const sort = quest.goblin.getX('sort');
 
-  if (_do) {
-    quest.do({rows, ids});
-  }
+  const ids = yield* Datagrid.executeSearch(quest, value, sort);
+  quest.do({ids});
 });
 
 Goblin.registerQuest(goblinName, 'init-list', function*(quest) {
-  yield* List.changes(quest);
+  const value = quest.goblin.getX('value');
+  const sort = quest.goblin.getX('sort');
+  const ids = yield* Datagrid.executeSearch(quest, value, sort);
+  quest.do({ids});
 });
 
 Goblin.registerQuest(goblinName, 'delete', function(quest) {
