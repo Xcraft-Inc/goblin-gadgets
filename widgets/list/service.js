@@ -113,52 +113,9 @@ Goblin.registerQuest(goblinName, 'create', function*(
   });
 
   yield quest.me.initList();
-
-  // NABU : old crete -- START
-  const range = [0, count + 1];
-  quest.goblin.setX('range', range);
-  // NABU : old crete -- STOP
-
   yield quest.me.fetch(quest);
   return quest.goblin.id;
 });
-
-// NABU : old crete -- START
-Goblin.registerQuest(goblinName, 'get-list-ids', function(quest) {
-  return quest.goblin.getX('ids');
-});
-
-Goblin.registerQuest(goblinName, 'change-visualization', function*(
-  quest,
-  orderBy,
-  filter
-) {
-  const r = quest.getStorage('rethink');
-  const table = quest.goblin.getX('table');
-  const status = quest.goblin
-    .getState()
-    .get('status')
-    .toArray();
-  quest.goblin.setX('orderBy', orderBy);
-  quest.goblin.setX('filter', filter);
-
-  const listIds = yield r.getBaseList({table, filter, orderBy, status});
-  quest.goblin.setX('listIds', listIds);
-  quest.me.initList();
-  quest.do({count: listIds.length});
-});
-
-Goblin.registerQuest(goblinName, 'customize-visualization', function*(
-  quest,
-  listIdsGetter
-) {
-  const listIds = yield listIdsGetter();
-  quest.goblin.setX('ids', listIds);
-  //quest.me.initList();
-  quest.do({count: listIds.length});
-});
-
-// NABU : old crete -- STOP
 
 Goblin.registerQuest(goblinName, 'change-content-index', function*(
   quest,

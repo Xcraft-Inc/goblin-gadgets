@@ -24,8 +24,10 @@ class Datagrid {
     quest.goblin.setX('sort', sort);
 
     const hinter = quest.goblin.getX('hinter');
-    const from = quest.goblin.getX('from');
-    const size = quest.goblin.getX('size');
+
+    const range = quest.goblin.getX('range');
+    const from = range[0];
+    const size = range[1] - range[0] + 1;
 
     let type = hinter.type;
     const subTypes = hinter.subTypes;
@@ -45,6 +47,8 @@ class Datagrid {
 
     let values = [];
     if (results) {
+      quest.goblin.setX('count', results.hits.total);
+
       results.hits.hits.map(hit => {
         if (!hit.highlight) {
           return hit._source.info;
@@ -111,10 +115,7 @@ Goblin.registerQuest(goblinName, 'create', function*(quest, desktopId, hinter) {
 
   quest.goblin.setX('desktopId', desktopId);
   quest.goblin.setX('hinter', hinter);
-
-  quest.goblin.setX('from', 0);
-  quest.goblin.setX('size', 10);
-  quest.goblin.setX('range', [0, 10]);
+  quest.goblin.setX('range', [0, 1]);
 
   const id = quest.goblin.id;
   quest.do({id});
@@ -133,14 +134,14 @@ Goblin.registerQuest(goblinName, 'customize-visualization', function*(
   sort
 ) {
   const ids = yield* Datagrid.executeSearch(quest, filter, sort);
-  quest.do({ids});
+  const count = quest.goblin.getX('count');
+  quest.do({ids, count});
 });
 
 Goblin.registerQuest(goblinName, 'fetch', function*(quest, range) {
   yield quest.goblin.getX('mutex').lock();
   quest.defer(() => quest.goblin.getX('mutex').unlock());
 
-  // TODO : understand range
   if (range) {
     quest.goblin.setX('range', range);
   } else {
@@ -156,21 +157,21 @@ Goblin.registerQuest(goblinName, 'fetch', function*(quest, range) {
     range = [0, 1];
   }
 
-  quest.goblin.setX('from', range[0]);
-  quest.goblin.setX('size', range[0] + range[1]);
-
   const value = quest.goblin.getX('value');
   const sort = quest.goblin.getX('sort');
 
   const ids = yield* Datagrid.executeSearch(quest, value, sort);
-  quest.do({ids});
+  const count = quest.goblin.getX('count');
+  quest.do({ids, count});
 });
 
 Goblin.registerQuest(goblinName, 'init-list', function*(quest) {
   const value = quest.goblin.getX('value');
   const sort = quest.goblin.getX('sort');
+
   const ids = yield* Datagrid.executeSearch(quest, value, sort);
-  quest.do({ids});
+  const count = quest.goblin.getX('count');
+  quest.do({ids, count});
 });
 
 Goblin.registerQuest(goblinName, 'delete', function(quest) {

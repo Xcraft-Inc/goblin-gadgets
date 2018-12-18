@@ -4,19 +4,17 @@ module.exports = {
   },
   'customize-visualization': (state, action) => {
     const ids = action.get('ids');
-    return state.set('list', ids);
-  },
-  'load-range': (state, action) => {
-    const ids = action.get('ids');
-    return state.set('list', ids);
+    const count = action.get('count');
+    return state.set('list', ids).set('count', count);
   },
   'init-list': (state, action) => {
     const ids = action.get('ids');
-    return state.set('list', ids);
+    const count = action.get('count');
+    return state.set('list', ids).set('count', count);
   },
-  //NABU : old functions -- STOP
   fetch: (state, action) => {
     const ids = action.get('ids');
-    return state.set('list', ids);
+    const count = action.get('count');
+    return state.set('list', ids).set('count', count);
   },
 };
