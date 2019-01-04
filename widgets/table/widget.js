@@ -3,10 +3,56 @@ import Widget from 'laboratory/widget';
 import {Unit} from 'electrum-theme';
 const Bool = require('gadgets/helpers/bool-helpers');
 
+import {
+  date as DateConverters,
+  time as TimeConverters,
+  price as PriceConverters,
+} from 'xcraft-core-converters';
+
 import TableRow from 'gadgets/table-row/widget';
 import TableCell from 'gadgets/table-cell/widget';
 import Button from 'gadgets/button/widget';
+import Label from 'gadgets/label/widget';
+import TextField from 'gadgets/text-field/widget';
 import ScrollableContainer from 'gadgets/scrollable-container/widget';
+
+/******************************************************************************/
+
+function getFilterContent(row, columnName, type) {
+  let content = row.get(columnName);
+  switch (type) {
+    case 'date':
+      content = DateConverters.getDisplayed(content);
+      break;
+    case 'time':
+      content = TimeConverters.getDisplayed(content);
+      break;
+    case 'price':
+      content = PriceConverters.getDisplayed(content);
+      break;
+  }
+  return content ? content.toUpperCase() : '';
+}
+
+function filterRow(row, header, filter) {
+  for (const column of header) {
+    const columnName = column.get('name');
+    const type = column.get('type');
+    const content = getFilterContent(row, columnName, type);
+    if (content.includes(filter)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function filter(rows, header, filter) {
+  if (!filter || filter === '') {
+    return rows;
+  } else {
+    return rows.filter(row => filterRow(row, header, filter.toUpperCase()));
+  }
+}
 
 /******************************************************************************/
 
@@ -125,9 +171,13 @@ class Table extends Widget {
     super(...arguments);
 
     this.state = {
+      filter: '',
       sortingColumns: [],
     };
 
+    this.onChangeFilter = this.onChangeFilter.bind(this);
+    this.onUpdateFilter = this.onUpdateFilter.bind(this);
+    this.onClearFilter = this.onClearFilter.bind(this);
     this.onSortingChanged = this.onSortingChanged.bind(this);
     this.onSelectionChanged = this.onSelectionChanged.bind(this);
     this.onDoubleClick = this.onDoubleClick.bind(this);
@@ -144,10 +194,18 @@ class Table extends Widget {
   }
 
   //#region get/set
+  get filter() {
+    return this.state.filter;
+  }
+  set filter(value) {
+    this.setState({
+      filter: value,
+    });
+  }
+
   get sortingColumns() {
     return this.state.sortingColumns;
   }
-
   set sortingColumns(value) {
     this.setState({
       sortingColumns: value,
@@ -165,9 +223,15 @@ class Table extends Widget {
     }
   }
 
+  onChangeFilter(value) {
+    this.filter = value;
+  }
+
   onClearFilter() {
     this.filter = '';
   }
+
+  onUpdateFilter() {}
 
   onSortingChanged(columnName) {
     let sortingColumns = this.sortingColumns;
@@ -243,6 +307,37 @@ class Table extends Widget {
   }
 
   /******************************************************************************/
+
+  renderFilter(isFilterable) {
+    if (isFilterable) {
+      // updateOn="change" -> don't work!
+      return (
+        <div className={this.styles.classNames.filter}>
+          <Label text="Filtre" />
+          <TextField
+            grow="1"
+            model=".x"
+            updateOn="blur"
+            beforeChange={value => this.onChangeFilter(value)}
+            spacing="overlap"
+          />
+          <Button
+            glyph="solid/times"
+            tooltip="Supprime le filtre"
+            onClick={this.onClearFilter}
+            spacing="large"
+          />
+          <Button
+            text="Met à jour"
+            tooltip="Met à jour la liste selon le filtre"
+            onClick={this.onUpdateFilter}
+          />
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
 
   renderHeaderCellBase(column, isSortable, isLast, width, grow, index) {
     let glyph = null;
@@ -407,9 +502,13 @@ class Table extends Widget {
     );
   }
 
-  renderRows(data, isSortable) {
+  renderRows(data, isFilterable, isSortable) {
     const list = [];
     let rows = data.get('rows');
+    if (isFilterable) {
+      const header = data.get('header');
+      rows = filter(rows, header, this.filter);
+    }
     if (isSortable) {
       const header = data.get('header');
       rows = sort(rows, header, this.sortingColumns);
@@ -471,11 +570,13 @@ class Table extends Widget {
     }
 
     const data = Widget.shred(this.props.data);
+    const isFilterable = data.get('filtering') === 'enable';
     const isSortable = data.get('sorting') === 'enable';
     const scrollableId = getUniqueId(data);
 
     return (
       <div className={this.styles.classNames.box}>
+        {this.renderFilter(isFilterable)}
         <div className={this.styles.classNames.table}>
           {this.renderHeaders(data, isSortable)}
           <ScrollableContainer
@@ -483,9 +584,8 @@ class Table extends Widget {
             id={scrollableId}
             height={this.props.height}
           >
-            {this.renderRows(data, isSortable)}
+            {this.renderRows(data, isFilterable, isSortable)}
           </ScrollableContainer>
-          <div className={this.styles.classNames.verticalSeparator} />
         </div>
         {this.renderButtons(data)}
       </div>

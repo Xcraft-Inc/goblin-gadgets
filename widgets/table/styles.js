@@ -34,6 +34,13 @@ export default function styles(theme, props) {
     overflowY: 'hidden',
   };
 
+  const filter = {
+    margin: '0px 0px 5px 0px',
+    display: 'flex',
+    flexDirection: 'row',
+    flexGrow: '1',
+  };
+
   const table = {
     display: 'flex',
     flexDirection: 'column',
@@ -80,15 +87,6 @@ export default function styles(theme, props) {
     cursor: 'default',
   };
 
-  const verticalSeparator = {
-    visibility: Bool.isTrue(frame) && height ? 'visible' : 'hidden',
-    position: 'absolute',
-    height: '100%',
-    top: '0px',
-    right: Unit.add(theme.shapes.scrollerThickness, '1px'),
-    borderRight: '1px solid ' + theme.palette.tableBorder,
-  };
-
   const buttons = {
     display: 'flex',
     flexDirection: 'row',
@@ -97,11 +95,11 @@ export default function styles(theme, props) {
 
   return {
     box,
+    filter,
     table,
     postHeader,
     header,
     body,
-    verticalSeparator,
     buttons,
   };
 }
