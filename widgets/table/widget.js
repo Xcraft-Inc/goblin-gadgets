@@ -10,6 +10,51 @@ import ScrollableContainer from 'gadgets/scrollable-container/widget';
 
 /******************************************************************************/
 
+function getSortingColumn(row, columnName, type) {
+  let content = row.get(columnName);
+  if (type === 'price') {
+    const i = parseInt(content);
+    if (isNaN(i) || !content) {
+      content = Number.MIN_SAFE_INTEGER;
+    } else {
+      content = i;
+    }
+  }
+  return content;
+}
+
+function getColumnType(header, columnName) {
+  for (const column of header) {
+    if (column.get('name') === columnName) {
+      return column.get('type');
+    }
+  }
+  return null;
+}
+
+function sort(rows, header, sortingColumns) {
+  return rows.sort(function(a, b) {
+    for (let columnName of sortingColumns) {
+      let e = 1;
+      if (columnName.startsWith('!')) {
+        columnName = columnName.substring(1);
+        e = -1;
+      }
+      const type = getColumnType(header, columnName);
+      const ka = getSortingColumn(a, columnName, type);
+      const kb = getSortingColumn(b, columnName, type);
+      if (ka < kb) {
+        return -e;
+      } else if (ka > kb) {
+        return e;
+      }
+    }
+    return 0;
+  });
+}
+
+/******************************************************************************/
+
 function onlyUnique(value, index, self) {
   return self.indexOf(value) === index;
 }
@@ -79,6 +124,11 @@ class Table extends Widget {
   constructor() {
     super(...arguments);
 
+    this.state = {
+      sortingColumns: [],
+    };
+
+    this.onSortingChanged = this.onSortingChanged.bind(this);
     this.onSelectionChanged = this.onSelectionChanged.bind(this);
     this.onDoubleClick = this.onDoubleClick.bind(this);
     this.selectAll = this.selectAll.bind(this);
@@ -91,6 +141,51 @@ class Table extends Widget {
       data: 'data',
       selectedIds: 'selectedIds',
     };
+  }
+
+  //#region get/set
+  get sortingColumns() {
+    return this.state.sortingColumns;
+  }
+
+  set sortingColumns(value) {
+    this.setState({
+      sortingColumns: value,
+    });
+  }
+  //#endregion
+
+  componentWillMount() {
+    const defaultSortingColumns = this.props.data
+      ? this.props.data.get('defaultSortingColumns')
+      : null;
+    if (defaultSortingColumns) {
+      this.sortingColumns = defaultSortingColumns.toArray();
+    }
+  }
+
+  onSortingChanged(columnName) {
+    let sortingColumns = this.sortingColumns;
+    if (sortingColumns.length > 0 && sortingColumns[0] === columnName) {
+      sortingColumns[0] = '!' + columnName;
+      sortingColumns = sortingColumns.concat();
+    } else if (
+      sortingColumns.length > 0 &&
+      sortingColumns[0] === '!' + columnName
+    ) {
+      sortingColumns[0] = columnName;
+      sortingColumns = sortingColumns.concat();
+    } else {
+      let i = sortingColumns.indexOf(columnName);
+      if (i === -1) {
+        i = sortingColumns.indexOf('!' + columnName);
+      }
+      if (i !== -1) {
+        sortingColumns.splice(i, 1);
+      }
+      sortingColumns = [columnName].concat(sortingColumns);
+    }
+    this.sortingColumns = sortingColumns;
   }
 
   onSelectionChanged(id) {
@@ -144,7 +239,36 @@ class Table extends Widget {
 
   /******************************************************************************/
 
-  renderPostHeaderCell(column, header, isLast, index) {
+  renderHeaderCellBase(column, isSortable, isLast, width, grow, index) {
+    let glyph = null;
+    if (this.sortingColumns.length > 0) {
+      const columnName = column.get('name');
+      if (this.sortingColumns[0] === columnName) {
+        glyph = 'solid/caret-down';
+      } else if (this.sortingColumns[0] === '!' + columnName) {
+        glyph = 'solid/caret-up';
+      }
+    }
+    return (
+      <TableCell
+        key={index}
+        index={index}
+        width={width}
+        grow={grow}
+        textAlign={column.get('textAlign')}
+        isSortable={isSortable}
+        isLast={Bool.toString(isLast)}
+        isHeader="true"
+        text={column.get('description')}
+        glyph={glyph}
+        spacing="compact"
+        wrap="no"
+        selectionChanged={() => this.onSortingChanged(column.get('name'))}
+      />
+    );
+  }
+
+  renderPostHeaderCell(column, header, isSortable, isLast, index) {
     // Compute the width and grow of the included columns.
     let width = '0px';
     let grow = 0;
@@ -173,77 +297,74 @@ class Table extends Widget {
         `WARNING in Table: post-header with mix of width (${width}) and grow (${grow}) is not supported.`
       );
     }
-    return (
-      <TableCell
-        key={index}
-        index={index}
-        width={width === '0px' ? null : width}
-        grow={grow === 0 ? null : grow}
-        textAlign={column.get('textAlign')}
-        hasBorderRight="true"
-        isLast={Bool.toString(isLast)}
-        isHeader="true"
-        text={column.get('description')}
-        wrap="no"
-      />
+    return this.renderHeaderCellBase(
+      column,
+      isSortable,
+      isLast,
+      width === '0px' ? null : width,
+      grow === 0 ? null : grow,
+      index
     );
   }
 
-  renderPostHeaderCells(postHeader, header) {
+  renderPostHeaderCells(postHeader, header, isSortable) {
     let index = 0;
     return postHeader.linq
       .select(column => {
         const isLast = index === postHeader.size - 1;
-        return this.renderPostHeaderCell(column, header, isLast, index++);
+        return this.renderPostHeaderCell(
+          column,
+          header,
+          isSortable,
+          isLast,
+          index++
+        );
       })
       .toList();
   }
 
-  renderPostHeader(postHeader, header) {
-    const styleClass = this.styles.classNames.postHeader;
+  renderPostHeader(postHeader, header, isSortable) {
     return (
-      <div className={styleClass}>
-        {this.renderPostHeaderCells(postHeader, header)}
+      <div className={this.styles.classNames.postHeader}>
+        {this.renderPostHeaderCells(postHeader, header, isSortable)}
       </div>
     );
   }
 
-  renderHeaderCell(column, isLast, index) {
-    return (
-      <TableCell
-        key={index}
-        index={index}
-        width={column.get('width')}
-        grow={column.get('grow')}
-        textAlign={column.get('textAlign')}
-        isLast={Bool.toString(isLast)}
-        isHeader="true"
-        text={column.get('description')}
-        wrap="no"
-      />
+  renderHeaderCell(column, isSortable, isLast, index) {
+    return this.renderHeaderCellBase(
+      column,
+      isSortable,
+      isLast,
+      column.get('width'),
+      column.get('grow'),
+      index
     );
   }
 
-  renderHeaderCells(header) {
+  renderHeaderCells(header, isSortable) {
     let index = 0;
     return header.linq
       .select(column => {
         const isLast = index === header.size - 1;
-        return this.renderHeaderCell(column, isLast, index++);
+        return this.renderHeaderCell(column, isSortable, isLast, index++);
       })
       .toList();
   }
 
-  renderHeader(header) {
+  renderHeader(header, isSortable) {
     if (this.hasHeader(header)) {
-      const styleClass = this.styles.classNames.header;
-      return <div className={styleClass}>{this.renderHeaderCells(header)}</div>;
+      return (
+        <div className={this.styles.classNames.header}>
+          {this.renderHeaderCells(header, isSortable)}
+        </div>
+      );
     } else {
       return null;
     }
   }
 
-  renderHeaders(data) {
+  renderHeaders(data, isSortable) {
     const postHeader = data.get('post-header');
     const header = data.get('header');
     if (!header) {
@@ -253,12 +374,12 @@ class Table extends Widget {
     if (postHeader) {
       return (
         <div>
-          {this.renderPostHeader(postHeader, header)}
-          {this.renderHeader(header)}
+          {this.renderPostHeader(postHeader, header, isSortable)}
+          {this.renderHeader(header, isSortable)}
         </div>
       );
     } else {
-      return this.renderHeader(header);
+      return this.renderHeader(header, isSortable);
     }
   }
 
@@ -281,9 +402,13 @@ class Table extends Widget {
     );
   }
 
-  renderRows(data) {
+  renderRows(data, isSortable) {
     const list = [];
-    const rows = data.get('rows');
+    let rows = data.get('rows');
+    if (isSortable) {
+      const header = data.get('header');
+      rows = sort(rows, header, this.sortingColumns);
+    }
     flatten(list, rows, 0);
     diffuseSeparators(list);
 
@@ -341,24 +466,21 @@ class Table extends Widget {
     }
 
     const data = Widget.shred(this.props.data);
-    const boxClass = this.styles.classNames.box;
-    const tableClass = this.styles.classNames.table;
-    const verticalSeparatorClass = this.styles.classNames.verticalSeparator;
-
+    const isSortable = data.get('sorting') === 'enable';
     const scrollableId = getUniqueId(data);
 
     return (
-      <div className={boxClass}>
-        <div className={tableClass}>
-          {this.renderHeaders(data)}
+      <div className={this.styles.classNames.box}>
+        <div className={this.styles.classNames.table}>
+          {this.renderHeaders(data, isSortable)}
           <ScrollableContainer
             kind="table-body"
             id={scrollableId}
             height={this.props.height}
           >
-            {this.renderRows(data)}
+            {this.renderRows(data, isSortable)}
           </ScrollableContainer>
-          <div className={verticalSeparatorClass} />
+          <div className={this.styles.classNames.verticalSeparator} />
         </div>
         {this.renderButtons(data)}
       </div>

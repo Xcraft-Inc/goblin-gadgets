@@ -60,26 +60,30 @@ class TableCell extends Widget {
       text = this.props.text.get('text');
       weight = this.props.text.get('weight');
     } else {
+      glyph = this.props.glyph;
       text = this.props.text;
     }
     text = getDisplayedText(text, this.props.type);
 
-    const styleClass = this.styles.classNames.cell;
-
     return (
       <div
         key={this.props.index}
-        className={styleClass}
+        className={this.styles.classNames.cell}
         onMouseDown={this.onMouseDown}
         onDoubleClick={this.props.onDoubleClick}
       >
         <Label
-          kind="table-cell"
+          kind={
+            this.props.isHeader && glyph
+              ? 'table-cell-sorting-header'
+              : 'table-cell'
+          }
           glyph={glyph}
           glyphColor={glyphColor}
           text={text}
           weight={weight}
           justify={this.props.textAlign}
+          spacing={this.props.spacing}
           wrap={this.props.wrap}
         />
       </div>

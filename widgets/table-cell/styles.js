@@ -1,5 +1,6 @@
 import {Unit} from 'electrum-theme';
 import {isImmutable} from 'immutable';
+import {ColorManipulator} from 'electrum-theme';
 const Bool = require('gadgets/helpers/bool-helpers');
 
 /******************************************************************************/
@@ -9,6 +10,7 @@ export const propNames = [
   'grow',
   'isLast',
   'isHeader',
+  'isSortable',
   'text',
   'level',
   'fontSizeStrategy',
@@ -35,6 +37,7 @@ export default function styles(theme, props) {
     grow,
     isLast,
     isHeader,
+    isSortable,
     level,
     fontSizeStrategy,
     indent,
@@ -60,6 +63,8 @@ export default function styles(theme, props) {
   let fontWeight = null;
   let textTransform = null;
   let fontSize = theme.shapes.tableTextSize;
+  let hoverColor = null;
+  let cursor = 'default';
 
   const v1 = Unit.multiply(theme.shapes.tablePadding, 0.5);
 
@@ -122,6 +127,11 @@ export default function styles(theme, props) {
     borderRight = '1px solid ' + theme.palette.tableBorder;
   }
 
+  if (Bool.isTrue(isSortable)) {
+    hoverColor = theme.palette.actionButtonBackground;
+    cursor = 'pointer';
+  }
+
   const cell = {
     minWidth: minWidth,
     maxWidth: maxWidth,
@@ -143,7 +153,10 @@ export default function styles(theme, props) {
     textTransform: textTransform,
     fontSize: fontSize,
     backgroundColor: backgroundColor,
-    cursor: 'default',
+    cursor: cursor,
+    ':hover': {
+      color: hoverColor,
+    },
   };
 
   return {
