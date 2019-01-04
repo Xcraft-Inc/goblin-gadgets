@@ -2,7 +2,28 @@ import React from 'react';
 import Widget from 'laboratory/widget';
 import Shredder from 'xcraft-core-shredder';
 
+import {
+  date as DateConverters,
+  time as TimeConverters,
+  price as PriceConverters,
+} from 'xcraft-core-converters';
+
 import Label from 'gadgets/label/widget';
+
+/******************************************************************************/
+
+function getDisplayedText(text, type) {
+  switch (type) {
+    case 'date':
+      return DateConverters.getDisplayed(text);
+    case 'time':
+      return TimeConverters.getDisplayed(text);
+    case 'price':
+      return PriceConverters.getDisplayed(text);
+    default:
+      return text;
+  }
+}
 
 /******************************************************************************/
 
@@ -41,6 +62,7 @@ class TableCell extends Widget {
     } else {
       text = this.props.text;
     }
+    text = getDisplayedText(text, this.props.type);
 
     const styleClass = this.styles.classNames.cell;
 
