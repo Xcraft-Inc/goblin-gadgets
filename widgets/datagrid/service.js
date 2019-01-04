@@ -6,6 +6,7 @@ const _ = require('lodash');
 const goblinName = path.basename(module.parent.filename, '.js');
 
 const Goblin = require('xcraft-core-goblin');
+const common = require('goblin-workshop').common;
 const {locks} = require('xcraft-core-utils');
 
 // Define initial logic values
@@ -43,9 +44,13 @@ class Datagrid {
       sort,
       from,
       size,
+      mustExist: true,
     });
 
+    let currentValues = quest.goblin.getX('ids', []);
+    let checkValues = Array.from(currentValues.values);
     let values = [];
+
     if (results) {
       quest.goblin.setX('count', results.hits.total);
 
@@ -87,6 +92,7 @@ class Datagrid {
           : hit.highlight.searchAutocomplete[0].replace(/<\/?em>/g, '`');
       });
 
+      var index = from;
       results.hits.hits.forEach(hit => {
         let value = hit._id;
         if (hinter.subJoins) {
@@ -97,25 +103,86 @@ class Datagrid {
             }
           });
         }
-        if (!values.includes(value)) {
-          values.push(value);
+
+        var currentValue = currentValues[index];
+        if (currentValue && currentValue === value) {
+          values[index] = value;
+          index++;
+        } else if (!currentValue) {
+          if (!checkValues.includes(value)) {
+            values[index] = value;
+            checkValues.push(value);
+            index++;
+          }
         }
       });
     }
 
     quest.goblin.setX('ids', values);
+    yield quest.me.loadDatagridEntity();
+
     return values;
   }
 }
 
+Goblin.registerQuest(goblinName, 'get-entity', common.getEntityQuest);
+
+Goblin.registerQuest(goblinName, 'load-entity', common.loadEntityQuest);
+
+Goblin.registerQuest(goblinName, 'load-datagrid-entity', function*(
+  quest,
+  next
+) {
+  const ids = yield quest.me.getListIds(next);
+  const iterableIds = Object.values(ids);
+
+  quest.defer(() =>
+    iterableIds.forEach(id => {
+      if (id) {
+        quest.me.loadEntity({entityId: id});
+      }
+    })
+  );
+
+  const ownerId = quest.me.id.split('@')[1];
+  if (ownerId === 'nabuMessage-datagrid') {
+    quest.me.loadTranslations({listIds: iterableIds});
+  }
+});
+
+Goblin.registerQuest(goblinName, 'load-translations', function(quest, listIds) {
+  const nabuApi = quest.getAPI('nabu');
+
+  const ownerId = quest.me.id
+    .split('@')
+    .slice(1)
+    .join('@');
+  for (const messageId of listIds) {
+    if (messageId) {
+      quest.defer(() => nabuApi.loadTranslations({messageId, ownerId}));
+    }
+  }
+});
+
 // Register quest's according rc.json
-Goblin.registerQuest(goblinName, 'create', function*(quest, desktopId, hinter) {
+Goblin.registerQuest(goblinName, 'create', function*(
+  quest,
+  desktopId,
+  hinter,
+  sort
+) {
   const mutex = new locks.Mutex();
   quest.goblin.setX('mutex', mutex);
 
   quest.goblin.setX('desktopId', desktopId);
   quest.goblin.setX('hinter', hinter);
   quest.goblin.setX('range', [0, 1]);
+
+  let key = 'value.keyword';
+  if (sort.key !== 'nabuId') {
+    key = `${sort}-value.keyword`;
+  }
+  quest.goblin.setX('sort', {key, dir: sort.dir});
 
   const id = quest.goblin.id;
   quest.do({id});
@@ -133,6 +200,7 @@ Goblin.registerQuest(goblinName, 'customize-visualization', function*(
   filter,
   sort
 ) {
+  quest.goblin.setX('ids', []);
   const ids = yield* Datagrid.executeSearch(quest, filter, sort);
   const count = quest.goblin.getX('count');
   quest.do({ids, count});
