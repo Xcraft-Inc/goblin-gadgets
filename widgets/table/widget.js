@@ -65,6 +65,8 @@ function getSortingColumn(row, columnName, type) {
     } else {
       content = i;
     }
+  } else {
+    content = content ? content.toUpperCase() : '';
   }
   return content;
 }
