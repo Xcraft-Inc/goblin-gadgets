@@ -156,12 +156,17 @@ class Table extends Widget {
   //#endregion
 
   componentWillMount() {
-    const defaultSortingColumns = this.props.data
-      ? this.props.data.get('defaultSortingColumns')
-      : null;
-    if (defaultSortingColumns) {
-      this.sortingColumns = defaultSortingColumns.toArray();
+    if (this.props.data) {
+      const data = Widget.shred(this.props.data);
+      const defaultSortingColumns = data.get('defaultSortingColumns');
+      if (defaultSortingColumns) {
+        this.sortingColumns = defaultSortingColumns.toArray();
+      }
     }
+  }
+
+  onClearFilter() {
+    this.filter = '';
   }
 
   onSortingChanged(columnName) {
