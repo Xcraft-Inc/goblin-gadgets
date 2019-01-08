@@ -27,14 +27,6 @@ class Label extends Widget {
     super.componentDidMount();
   }
 
-  setText(text) {
-    this.do('text', {text});
-  }
-
-  setKind(kind) {
-    this.do('kind', {kind});
-  }
-
   // Splits 'abc<em>def</em>ghi' into three parts.
   // Splits 'abc`def`ghi' into three parts.
   getFragments(line) {

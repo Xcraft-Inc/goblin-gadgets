@@ -21,10 +21,6 @@ class Container extends Widget {
     };
   }
 
-  setKind(kind) {
-    this.do('kind', {kind});
-  }
-
   componentWillMount() {
     const dragController = this.props.dragController;
     const dragOwnerId = this.props.dragOwnerId;

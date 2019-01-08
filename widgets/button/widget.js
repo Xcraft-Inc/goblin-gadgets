@@ -57,14 +57,6 @@ class Button extends Widget {
     return Bool.isTrue(this.props.disabled) || Bool.isTrue(this.props.readonly);
   }
 
-  setText(text) {
-    this.do('text', {text});
-  }
-
-  setKind(kind) {
-    this.do('kind', {kind});
-  }
-
   onFocus() {
     if (Bool.isTrue(this.props.focusable) && !this.disabled) {
       this.focus = true;

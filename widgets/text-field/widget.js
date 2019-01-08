@@ -49,14 +49,6 @@ class TextField extends Widget {
     };
   }
 
-  setText(text) {
-    this.do('text', {text});
-  }
-
-  setKind(kind) {
-    this.do('kind', {kind});
-  }
-
   componentDidMount() {
     super.componentDidMount();
     if (Bool.isTrue(this.props.defaultFocus)) {
