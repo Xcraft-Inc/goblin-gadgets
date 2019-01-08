@@ -64,7 +64,6 @@ export default function styles(theme, props) {
   let textTransform = null;
   let fontSize = theme.shapes.tableTextSize;
   let hoverColor = null;
-  let cursor = 'default';
 
   const v1 = Unit.multiply(theme.shapes.tablePadding, 0.5);
 
@@ -129,7 +128,6 @@ export default function styles(theme, props) {
 
   if (Bool.isTrue(isSortable)) {
     hoverColor = theme.palette.actionButtonBackground;
-    cursor = 'pointer';
   }
 
   const cell = {
@@ -153,7 +151,6 @@ export default function styles(theme, props) {
     textTransform: textTransform,
     fontSize: fontSize,
     backgroundColor: backgroundColor,
-    cursor: cursor,
     ':hover': {
       color: hoverColor,
     },

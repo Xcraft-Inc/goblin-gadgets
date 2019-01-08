@@ -1,6 +1,7 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 import Shredder from 'xcraft-core-shredder';
+const Bool = require('gadgets/helpers/bool-helpers');
 
 import {
   date as DateConverters,
@@ -65,6 +66,11 @@ class TableCell extends Widget {
     }
     text = getDisplayedText(text, this.props.type);
 
+    let cursor = null;
+    if (Bool.isTrue(this.props.isSortable)) {
+      cursor = 'pointer';
+    }
+
     return (
       <div
         key={this.props.index}
@@ -78,6 +84,7 @@ class TableCell extends Widget {
               ? 'table-cell-sorting-header'
               : 'table-cell'
           }
+          cursor={cursor}
           glyph={glyph}
           glyphColor={glyphColor}
           text={text}
