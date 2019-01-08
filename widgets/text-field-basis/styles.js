@@ -13,6 +13,7 @@ export const propNames = [
   'active',
   'readonly',
   'justify',
+  'border',
 ];
 
 export default function styles(theme, props) {
@@ -26,6 +27,7 @@ export default function styles(theme, props) {
     active,
     readonly,
     justify,
+    border,
   } = props;
 
   let flexGrow = grow;
@@ -36,11 +38,17 @@ export default function styles(theme, props) {
   let padding = '0px';
   let borderRadius = '0px';
   let borderColor = theme.palette.buttonBorder;
+  let borderStyle = 'solid';
   let fieldPaddingLeft = '10px';
   let fieldPaddingRight = '10px';
   let opacity = Bool.isFalse(visibility) ? 0 : null;
 
   const m = Unit.multiply(theme.shapes.containerMargin, 0.5);
+
+  // Initialize variables for field without border.
+  if (border === 'none') {
+    borderStyle = 'none';
+  }
 
   // Initialise right margin according to spacing.
   if (spacing) {
@@ -105,7 +113,7 @@ export default function styles(theme, props) {
     flexGrow: flexGrow,
     flexShrink: flexShrink,
     flexBasis: flexBasis,
-    border: '1px solid ' + borderColor,
+    border: '1px ' + borderStyle + ' ' + borderColor,
     borderRadius: borderRadius,
     color: color,
     backgroundColor: backgroundColor,

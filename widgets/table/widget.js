@@ -314,8 +314,9 @@ class Table extends Widget {
         return (
           <div className={this.styles.classNames.filter}>
             <TextFieldBasis
+              border="none"
               grow="1"
-              shape="left-rounded"
+              shape="left-smooth"
               glyph={glyph}
               hintText="Filtre"
               value={this.props.filter}
@@ -323,9 +324,10 @@ class Table extends Widget {
               spacing="overlap"
             />
             <Button
+              border="none"
               glyph="solid/times"
               tooltip="Supprime le filtre (donc montre tout)"
-              shape="right-rounded"
+              shape="right-smooth"
               onClick={this.onClearFilter}
             />
           </div>
@@ -338,8 +340,9 @@ class Table extends Widget {
         return (
           <div className={this.styles.classNames.filter}>
             <TextFieldBasis
+              border="none"
               grow="1"
-              shape="rounded"
+              shape="smooth"
               glyph={glyph}
               hintText="Filtre"
               value={this.props.filter}
@@ -590,8 +593,8 @@ class Table extends Widget {
 
     return (
       <div className={this.styles.classNames.box}>
-        {this.renderFilter(isFilterable)}
         <div className={this.styles.classNames.table}>
+          {this.renderFilter(isFilterable)}
           {this.renderHeaders(data, isSortable)}
           <ScrollableContainer
             kind="table-body"
