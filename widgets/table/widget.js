@@ -81,24 +81,28 @@ function getColumnType(header, columnName) {
 }
 
 function sort(rows, header, sortingColumns) {
-  return rows.sort(function(a, b) {
-    for (let columnName of sortingColumns) {
-      let e = 1;
-      if (columnName.startsWith('!')) {
-        columnName = columnName.substring(1);
-        e = -1;
+  if (sortingColumns) {
+    return rows.sort(function(a, b) {
+      for (let columnName of sortingColumns) {
+        let e = 1;
+        if (columnName.startsWith('!')) {
+          columnName = columnName.substring(1);
+          e = -1;
+        }
+        const type = getColumnType(header, columnName);
+        const ka = getSortingColumn(a, columnName, type);
+        const kb = getSortingColumn(b, columnName, type);
+        if (ka < kb) {
+          return -e;
+        } else if (ka > kb) {
+          return e;
+        }
       }
-      const type = getColumnType(header, columnName);
-      const ka = getSortingColumn(a, columnName, type);
-      const kb = getSortingColumn(b, columnName, type);
-      if (ka < kb) {
-        return -e;
-      } else if (ka > kb) {
-        return e;
-      }
-    }
-    return 0;
-  });
+      return 0;
+    });
+  } else {
+    return rows;
+  }
 }
 
 /******************************************************************************/
@@ -172,11 +176,6 @@ class Table extends Widget {
   constructor() {
     super(...arguments);
 
-    this.state = {
-      filter: '',
-      sortingColumns: [],
-    };
-
     this.onChangeFilter = this.onChangeFilter.bind(this);
     this.onUpdateFilter = this.onUpdateFilter.bind(this);
     this.onClearFilter = this.onClearFilter.bind(this);
@@ -195,48 +194,44 @@ class Table extends Widget {
     };
   }
 
-  //#region get/set
-  get filter() {
-    return this.state.filter;
-  }
-  set filter(value) {
-    this.setState({
-      filter: value,
+  setFilter(value) {
+    this.dispatch({
+      type: 'SET_VALUE',
+      field: 'filter',
+      value: value,
     });
   }
 
-  get sortingColumns() {
-    return this.state.sortingColumns;
-  }
-  set sortingColumns(value) {
-    this.setState({
-      sortingColumns: value,
+  setSortingColumns(value) {
+    this.dispatch({
+      type: 'SET_VALUE',
+      field: 'sortingColumns',
+      value: value,
     });
   }
-  //#endregion
 
   componentWillMount() {
     if (this.props.data) {
       const data = Widget.shred(this.props.data);
       const defaultSortingColumns = data.get('defaultSortingColumns');
       if (defaultSortingColumns) {
-        this.sortingColumns = defaultSortingColumns.toArray();
+        this.setSortingColumns(defaultSortingColumns.toArray());
       }
     }
   }
 
   onChangeFilter(value) {
-    this.filter = value;
+    this.setFilter(value);
   }
 
   onClearFilter() {
-    this.filter = '';
+    this.setFilter('');
   }
 
   onUpdateFilter() {}
 
   onSortingChanged(columnName) {
-    let sortingColumns = this.sortingColumns;
+    let sortingColumns = this.props.sortingColumns.toArray();
     if (sortingColumns.length > 0 && sortingColumns[0] === columnName) {
       sortingColumns[0] = '!' + columnName;
       sortingColumns = sortingColumns.concat();
@@ -256,7 +251,7 @@ class Table extends Widget {
       }
       sortingColumns = [columnName].concat(sortingColumns);
     }
-    this.sortingColumns = sortingColumns;
+    this.setSortingColumns(sortingColumns);
   }
 
   onSelectionChanged(id) {
@@ -319,6 +314,7 @@ class Table extends Widget {
           <TextField
             grow="1"
             model=".x"
+            shape="left-rounded"
             updateOn="blur"
             beforeChange={value => this.onChangeFilter(value)}
             spacing="overlap"
@@ -326,12 +322,14 @@ class Table extends Widget {
           <Button
             glyph="solid/times"
             tooltip="Supprime le filtre"
+            shape="right-rounded"
             onClick={this.onClearFilter}
             spacing="large"
           />
           <Button
             text="Met à jour"
             tooltip="Met à jour la liste selon le filtre"
+            shape="rounded"
             onClick={this.onUpdateFilter}
           />
         </div>
@@ -343,11 +341,11 @@ class Table extends Widget {
 
   renderHeaderCellBase(column, isSortable, isLast, width, grow, index) {
     let glyph = null;
-    if (this.sortingColumns.length > 0) {
+    if (this.props.sortingColumns && this.props.sortingColumns.length > 0) {
       const columnName = column.get('name');
-      if (this.sortingColumns[0] === columnName) {
+      if (this.props.sortingColumns.get(0) === columnName) {
         glyph = 'solid/caret-down';
-      } else if (this.sortingColumns[0] === '!' + columnName) {
+      } else if (this.props.sortingColumns.get(0) === '!' + columnName) {
         glyph = 'solid/caret-up';
       }
     }
@@ -509,11 +507,11 @@ class Table extends Widget {
     let rows = data.get('rows');
     if (isFilterable) {
       const header = data.get('header');
-      rows = filter(rows, header, this.filter);
+      rows = filter(rows, header, this.props.filter);
     }
     if (isSortable) {
       const header = data.get('header');
-      rows = sort(rows, header, this.sortingColumns);
+      rows = sort(rows, header, this.props.sortingColumns);
     }
     flatten(list, rows, 0);
     diffuseSeparators(list);
@@ -596,4 +594,15 @@ class Table extends Widget {
 }
 
 /******************************************************************************/
-export default Table;
+
+export default Widget.connectWidget(state => {
+  if (!state) {
+    return {};
+  }
+  return {
+    filter: state.get('filter'),
+    sortingColumns: state.get('sortingColumns'),
+  };
+})(Table);
+
+/*****************************************************************************/
