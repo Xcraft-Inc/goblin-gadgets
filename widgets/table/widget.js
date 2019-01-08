@@ -310,8 +310,8 @@ class Table extends Widget {
       // updateOn="change" -> don't work!
       return (
         <div className={this.styles.classNames.filter}>
-          <Label text="Filtre" />
           <TextField
+            hintText="Filtre"
             grow="1"
             model=".x"
             shape="left-rounded"
@@ -321,15 +321,14 @@ class Table extends Widget {
           />
           <Button
             glyph="solid/times"
-            tooltip="Supprime le filtre"
-            shape="right-rounded"
+            tooltip="Supprime le filtre (donc montre tout)"
             onClick={this.onClearFilter}
-            spacing="large"
+            spacing="overlap"
           />
           <Button
             text="Met à jour"
             tooltip="Met à jour la liste selon le filtre"
-            shape="rounded"
+            shape="right-rounded"
             onClick={this.onUpdateFilter}
           />
         </div>
