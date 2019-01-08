@@ -330,8 +330,8 @@ class TextField extends Widget {
       typeof this.props.model === 'string'
         ? this.props.model
         : this.props.hinter
-          ? this.props.hinter
-          : this.props.model();
+        ? this.props.hinter
+        : this.props.model();
 
     return this.props.hinter ? (
       <Field

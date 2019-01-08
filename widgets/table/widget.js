@@ -12,8 +12,7 @@ import {
 import TableRow from 'gadgets/table-row/widget';
 import TableCell from 'gadgets/table-cell/widget';
 import Button from 'gadgets/button/widget';
-import Label from 'gadgets/label/widget';
-import TextField from 'gadgets/text-field/widget';
+import TextFieldBasis from 'gadgets/text-field-basis/widget';
 import ScrollableContainer from 'gadgets/scrollable-container/widget';
 
 /******************************************************************************/
@@ -307,32 +306,48 @@ class Table extends Widget {
 
   renderFilter(isFilterable) {
     if (isFilterable) {
-      // updateOn="change" -> don't work!
-      return (
-        <div className={this.styles.classNames.filter}>
-          <TextField
-            hintText="Filtre"
-            grow="1"
-            model=".x"
-            shape="left-rounded"
-            updateOn="blur"
-            beforeChange={value => this.onChangeFilter(value)}
-            spacing="overlap"
-          />
-          <Button
-            glyph="solid/times"
-            tooltip="Supprime le filtre (donc montre tout)"
-            onClick={this.onClearFilter}
-            spacing="overlap"
-          />
-          <Button
-            text="Met à jour"
-            tooltip="Met à jour la liste selon le filtre"
-            shape="right-rounded"
-            onClick={this.onUpdateFilter}
-          />
-        </div>
-      );
+      if (this.props.filter) {
+        const glyph = {
+          glyph: 'solid/filter',
+          color: this.context.theme.palette.textColor,
+        };
+        return (
+          <div className={this.styles.classNames.filter}>
+            <TextFieldBasis
+              grow="1"
+              shape="left-rounded"
+              glyph={glyph}
+              hintText="Filtre"
+              value={this.props.filter}
+              onChange={this.onChangeFilter}
+              spacing="overlap"
+            />
+            <Button
+              glyph="solid/times"
+              tooltip="Supprime le filtre (donc montre tout)"
+              shape="right-rounded"
+              onClick={this.onClearFilter}
+            />
+          </div>
+        );
+      } else {
+        const glyph = {
+          glyph: 'solid/filter',
+          color: this.context.theme.palette.hintTextColor,
+        };
+        return (
+          <div className={this.styles.classNames.filter}>
+            <TextFieldBasis
+              grow="1"
+              shape="rounded"
+              glyph={glyph}
+              hintText="Filtre"
+              value={this.props.filter}
+              onChange={this.onChangeFilter}
+            />
+          </div>
+        );
+      }
     } else {
       return null;
     }
