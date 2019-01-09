@@ -306,9 +306,9 @@ class Table extends Widget {
 
   /******************************************************************************/
 
-<<<<<<< HEAD
+
   renderCoHeaderCell(column, header, isLast, index) {
-=======
+
   renderFilter(isFilterable) {
     if (isFilterable) {
       if (this.props.filter) {
@@ -391,7 +391,7 @@ class Table extends Widget {
   }
 
   renderPostHeaderCell(column, header, isSortable, isLast, index) {
->>>>>>> master
+
     // Compute the width and grow of the included columns.
     let width = '0';
     let grow = 0;
