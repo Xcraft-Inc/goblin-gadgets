@@ -306,8 +306,7 @@ class Table extends Widget {
 
   /******************************************************************************/
 
-
-  renderCoHeaderCell(column, header, isLast, index) {
+  renderCoHeaderCell(column, header, isLast, index) {}
 
   renderFilter(isFilterable) {
     if (isFilterable) {
@@ -391,7 +390,6 @@ class Table extends Widget {
   }
 
   renderPostHeaderCell(column, header, isSortable, isLast, index) {
-
     // Compute the width and grow of the included columns.
     let width = '0';
     let grow = 0;
@@ -442,28 +440,12 @@ class Table extends Widget {
     );
   }
 
-  renderCoHeaderCells(coHeader, header) {
-
-    return this.renderHeaderCellBase(
-      column,
-      isSortable,
-      isLast,
-      width === '0px' ? null : width,
-      grow === 0 ? null : grow,
-      index
-    );
-  }
-
-  renderPostHeaderCells(postHeader, header, isSortable) {
-
+  renderCoHeaderCells(coHeader, header, isSortable) {
     let index = 0;
     return coHeader.linq
       .select(column => {
-
         const isLast = index === coHeader.size - 1;
-        return this.renderCoHeaderCell(column, header, isLast, index++);
 
-        const isLast = index === postHeader.size - 1;
         return this.renderPostHeaderCell(
           column,
           header,
@@ -471,22 +453,14 @@ class Table extends Widget {
           isLast,
           index++
         );
-
       })
       .toList();
   }
-
 
   renderCoHeader(coHeader, header, styleClass) {
     return (
       <div className={styleClass}>
         {this.renderCoHeaderCells(coHeader, header)}
-
-  renderPostHeader(postHeader, header, isSortable) {
-    return (
-      <div className={this.styles.classNames.postHeader}>
-        {this.renderPostHeaderCells(postHeader, header, isSortable)}
-
       </div>
     );
   }
@@ -524,11 +498,8 @@ class Table extends Widget {
     }
   }
 
-
-  renderHeaders(data) {
-    const preHeader = data.get('pre-header');
-
   renderHeaders(data, isSortable) {
+    const preHeader = data.get('pre-header');
 
     const postHeader = data.get('post-header');
     const header = data.get('header');
@@ -561,7 +532,6 @@ class Table extends Widget {
     } else if (preHeader && postHeader) {
       return (
         <div>
-
           {this.renderCoHeader(
             preHeader,
             header,
@@ -576,7 +546,6 @@ class Table extends Widget {
 
           {this.renderPostHeader(postHeader, header, isSortable)}
           {this.renderHeader(header, isSortable)}
-
         </div>
       );
     } else {
