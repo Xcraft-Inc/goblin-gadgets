@@ -55,14 +55,6 @@ class TextField extends Widget {
     };
   }
 
-  setText(text) {
-    this.do('text', {text});
-  }
-
-  setKind(kind) {
-    this.do('kind', {kind});
-  }
-
   componentDidMount() {
     super.componentDidMount();
     if (Bool.isTrue(this.props.defaultFocus)) {
@@ -340,8 +332,8 @@ class TextField extends Widget {
       typeof this.props.model === 'string'
         ? this.props.model
         : this.props.hinter
-          ? this.props.hinter
-          : this.props.model();
+        ? this.props.hinter
+        : this.props.model();
 
     return this.props.hinter ? (
       <Field

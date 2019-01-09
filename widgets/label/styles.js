@@ -252,6 +252,13 @@ export default function styles(theme, props) {
     textMarginRight = '0px';
   }
 
+  if (kind === 'table-cell-sorting-header') {
+    glyphMinWidth = '15px';
+    textMarginLeft = '0px';
+    textMarginRight = '0px';
+    glyphHeight = null;
+  }
+
   if (kind === 'table-cell') {
     textMarginLeft = '0px';
     textMarginRight = '0px';

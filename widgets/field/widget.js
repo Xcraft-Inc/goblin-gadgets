@@ -879,23 +879,16 @@ class Field extends Form {
     const pluginProps = getPluginProps(this.props);
     if (this.props.plugin) {
       let WiredPlugin = null;
-
+      let FinalPlugin = null;
       if (this.props.pluginType) {
         const CustomPlugin = widgetImporter(`plugin-${this.props.pluginType}`);
         WiredPlugin = Widget.Wired(CustomPlugin)(
           `${this.props.plugin}-plugin@readonly@${this.context.id}`
         );
+        FinalPlugin = this.mapWidget(WiredPlugin, 'entityIds', this.fullPath);
       } else {
-        WiredPlugin = Widget.Wired(Plugin)(
-          `${this.props.plugin}-plugin@readonly@${this.context.id}`
-        );
+        FinalPlugin = Plugin;
       }
-
-      const FinalPlugin = this.mapWidget(
-        WiredPlugin,
-        'entityIds',
-        this.fullPath
-      );
 
       const FinalContainer = this.mapWidget(
         Container,
@@ -920,6 +913,7 @@ class Field extends Form {
         >
           <FinalPlugin
             {...pluginProps}
+            id={`${this.props.plugin}-plugin@readonly@${this.context.id}`}
             readonly="true"
             embeddedLevel={
               this.props.embeddedLevel ? this.props.embeddedLevel + 1 : 1
@@ -2094,26 +2088,17 @@ class Field extends Form {
     const pluginProps = getPluginProps(this.props);
     if (this.props.plugin) {
       let WiredPlugin = null;
+      let FinalPlugin = null;
+      const pluginId = `${this.props.plugin}-plugin@${
+        this.props.mode ? `${this.props.mode}@` : ''
+      }${this.context.id}`;
       if (this.props.pluginType) {
         const CustomPlugin = widgetImporter(`plugin-${this.props.pluginType}`);
-        WiredPlugin = Widget.Wired(CustomPlugin)(
-          `${this.props.plugin}-plugin@${
-            this.props.mode ? `${this.props.mode}@` : ''
-          }${this.context.id}`
-        );
+        WiredPlugin = Widget.Wired(CustomPlugin)(pluginId);
+        FinalPlugin = this.mapWidget(WiredPlugin, 'entityIds', this.fullPath);
       } else {
-        WiredPlugin = Widget.Wired(Plugin)(
-          `${this.props.plugin}-plugin@${
-            this.props.mode ? `${this.props.mode}@` : ''
-          }${this.context.id}`
-        );
+        FinalPlugin = Plugin;
       }
-
-      const FinalPlugin = this.mapWidget(
-        WiredPlugin,
-        'entityIds',
-        this.fullPath
-      );
 
       return (
         <Container
@@ -2128,6 +2113,7 @@ class Field extends Form {
           <FinalPlugin
             extendOnAdd="true"
             {...pluginProps}
+            id={pluginId}
             dragServiceId={
               this.props.dragServiceId || this.context.dragServiceId
             }
