@@ -426,7 +426,6 @@ class Table extends Widget {
         `WARNING in Table: co-header with mix of width (${width}) and grow (${grow}) is not supported.`
       );
     }
-<<<<<<< HEAD
     return (
       <TableCell
         key={index}
@@ -444,7 +443,7 @@ class Table extends Widget {
   }
 
   renderCoHeaderCells(coHeader, header) {
-=======
+
     return this.renderHeaderCellBase(
       column,
       isSortable,
@@ -456,14 +455,14 @@ class Table extends Widget {
   }
 
   renderPostHeaderCells(postHeader, header, isSortable) {
->>>>>>> master
+
     let index = 0;
     return coHeader.linq
       .select(column => {
-<<<<<<< HEAD
+
         const isLast = index === coHeader.size - 1;
         return this.renderCoHeaderCell(column, header, isLast, index++);
-=======
+
         const isLast = index === postHeader.size - 1;
         return this.renderPostHeaderCell(
           column,
@@ -472,22 +471,22 @@ class Table extends Widget {
           isLast,
           index++
         );
->>>>>>> master
+
       })
       .toList();
   }
 
-<<<<<<< HEAD
+
   renderCoHeader(coHeader, header, styleClass) {
     return (
       <div className={styleClass}>
         {this.renderCoHeaderCells(coHeader, header)}
-=======
+
   renderPostHeader(postHeader, header, isSortable) {
     return (
       <div className={this.styles.classNames.postHeader}>
         {this.renderPostHeaderCells(postHeader, header, isSortable)}
->>>>>>> master
+
       </div>
     );
   }
@@ -525,12 +524,12 @@ class Table extends Widget {
     }
   }
 
-<<<<<<< HEAD
+
   renderHeaders(data) {
     const preHeader = data.get('pre-header');
-=======
+
   renderHeaders(data, isSortable) {
->>>>>>> master
+
     const postHeader = data.get('post-header');
     const header = data.get('header');
     if (!header) {
@@ -562,7 +561,7 @@ class Table extends Widget {
     } else if (preHeader && postHeader) {
       return (
         <div>
-<<<<<<< HEAD
+
           {this.renderCoHeader(
             preHeader,
             header,
@@ -574,10 +573,10 @@ class Table extends Widget {
             header,
             this.styles.classNames.postHeader
           )}
-=======
+
           {this.renderPostHeader(postHeader, header, isSortable)}
           {this.renderHeader(header, isSortable)}
->>>>>>> master
+
         </div>
       );
     } else {

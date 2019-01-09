@@ -100,9 +100,6 @@ class TableCell extends Widget {
         onMouseDown={this.onMouseDown}
         onDoubleClick={this.props.onDoubleClick}
       >
-<<<<<<< HEAD
-        {this.renderComponent(this.props, glyph, glyphColor, text, weight)}
-=======
         <Label
           kind={
             this.props.isHeader && glyph
@@ -118,7 +115,6 @@ class TableCell extends Widget {
           spacing={this.props.spacing}
           wrap={this.props.wrap}
         />
->>>>>>> master
       </div>
     );
   }
