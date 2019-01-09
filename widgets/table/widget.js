@@ -257,12 +257,10 @@ class Table extends Widget {
     if (this.props.onSelectionChanged) {
       this.props.onSelectionChanged(id);
     } else {
-      if (this.props.selectionMode !== 'none') {
-        this.doAs('table-gadget', 'select', {
-          mode: this.props.selectionMode,
-          rowId: id,
-        });
-      }
+      this.doAs('table-gadget', 'select', {
+        mode: this.props.selectionMode,
+        rowId: id,
+      });
     }
   }
 
@@ -305,8 +303,6 @@ class Table extends Widget {
   }
 
   /******************************************************************************/
-
-  renderCoHeaderCell(column, header, isLast, index) {}
 
   renderFilter(isFilterable) {
     if (isFilterable) {
@@ -391,22 +387,16 @@ class Table extends Widget {
 
   renderPostHeaderCell(column, header, isSortable, isLast, index) {
     // Compute the width and grow of the included columns.
-    let width = '0';
+    let width = '0px';
     let grow = 0;
     for (const name of column.get('names')) {
-      const h = header.linq.where(x => name === x.get('name')).firstOrDefault();
-      if (h) {
-        const w = h.get('width');
+      const c = header.linq.where(x => name === x.get('name')).firstOrDefault();
+      if (c) {
+        const w = c.get('width');
         if (w) {
-          if (width === '0') {
-            // We have to detect the width unit
-            const unitPattern = /^[0-9\.]+(.+)$/g;
-            const match = unitPattern.exec(w);
-            width = '0' + match[1];
-          }
           width = Unit.add(width, w);
         }
-        let g = h.get('grow');
+        let g = c.get('grow');
         if (g) {
           if (typeof g === 'string') {
             g = parseInt(g);
@@ -415,37 +405,30 @@ class Table extends Widget {
         }
       } else {
         console.log(
-          `WARNING in Table: co-header uses an unknown column name (${name}).`
+          `WARNING in Table: post-header uses an unknown column name (${name}).`
         );
       }
     }
-    if (width !== '0' && grow !== 0) {
+    if (width !== '0px' && grow !== 0) {
       console.log(
-        `WARNING in Table: co-header with mix of width (${width}) and grow (${grow}) is not supported.`
+        `WARNING in Table: post-header with mix of width (${width}) and grow (${grow}) is not supported.`
       );
     }
-    return (
-      <TableCell
-        key={index}
-        index={index}
-        width={width === '0' ? null : width}
-        grow={grow === 0 ? null : grow}
-        textAlign={column.get('textAlign')}
-        hasBorderRight="true"
-        isLast={Bool.toString(isLast)}
-        isHeader="true"
-        text={column.get('description')}
-        wrap="no"
-      />
+    return this.renderHeaderCellBase(
+      column,
+      isSortable,
+      isLast,
+      width === '0px' ? null : width,
+      grow === 0 ? null : grow,
+      index
     );
   }
 
-  renderCoHeaderCells(coHeader, header, isSortable) {
+  renderPostHeaderCells(postHeader, header, isSortable) {
     let index = 0;
-    return coHeader.linq
+    return postHeader.linq
       .select(column => {
-        const isLast = index === coHeader.size - 1;
-
+        const isLast = index === postHeader.size - 1;
         return this.renderPostHeaderCell(
           column,
           header,
@@ -457,10 +440,10 @@ class Table extends Widget {
       .toList();
   }
 
-  renderCoHeader(coHeader, header, styleClass) {
+  renderPostHeader(postHeader, header, isSortable) {
     return (
-      <div className={styleClass}>
-        {this.renderCoHeaderCells(coHeader, header)}
+      <div className={this.styles.classNames.postHeader}>
+        {this.renderPostHeaderCells(postHeader, header, isSortable)}
       </div>
     );
   }
@@ -499,51 +482,15 @@ class Table extends Widget {
   }
 
   renderHeaders(data, isSortable) {
-    const preHeader = data.get('pre-header');
-
     const postHeader = data.get('post-header');
     const header = data.get('header');
     if (!header) {
       throw new Error('Table without header');
     }
 
-    if (preHeader && !postHeader) {
+    if (postHeader) {
       return (
         <div>
-          {this.renderCoHeader(
-            preHeader,
-            header,
-            this.styles.classNames.preHeader
-          )}
-          {this.renderHeader(header)}
-        </div>
-      );
-    } else if (!preHeader && postHeader) {
-      return (
-        <div>
-          {this.renderHeader(header)}
-          {this.renderCoHeader(
-            postHeader,
-            header,
-            this.styles.classNames.postHeader
-          )}
-        </div>
-      );
-    } else if (preHeader && postHeader) {
-      return (
-        <div>
-          {this.renderCoHeader(
-            preHeader,
-            header,
-            this.styles.classNames.preHeader
-          )}
-          {this.renderHeader(header)}
-          {this.renderCoHeader(
-            postHeader,
-            header,
-            this.styles.classNames.postHeader
-          )}
-
           {this.renderPostHeader(postHeader, header, isSortable)}
           {this.renderHeader(header, isSortable)}
         </div>

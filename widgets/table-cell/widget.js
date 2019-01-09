@@ -50,33 +50,11 @@ class TableCell extends Widget {
     }
   }
 
-  renderComponent(props, glyph, glyphColor, text, weight) {
-    if (typeof text === 'string') {
-      return (
-        <Label
-          kind="table-cell"
-          glyph={glyph}
-          glyphColor={glyphColor}
-          text={text}
-          weight={weight}
-          justify={this.props.textAlign}
-          wrap={this.props.wrap}
-        />
-      );
-    } else if (typeof text === 'function') {
-      // Probably a React component
-      return text();
-    } else {
-      return text;
-    }
-  }
-
   render() {
     let glyph = null;
     let glyphColor = null;
     let text = null;
     let weight = null;
-
     if (this.props.text && this.props.text instanceof Shredder) {
       glyph = this.props.text.get('glyph');
       glyphColor = this.props.text.get('glyphColor');

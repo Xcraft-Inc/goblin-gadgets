@@ -151,14 +151,9 @@ export default function styles(theme, props) {
     textTransform: textTransform,
     fontSize: fontSize,
     backgroundColor: backgroundColor,
-<<<<<<< HEAD
-    alignSelf: 'center',
-    cursor: 'default',
-=======
     ':hover': {
       color: hoverColor,
     },
->>>>>>> master
   };
 
   return {

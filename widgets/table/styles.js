@@ -73,16 +73,9 @@ export default function styles(theme, props) {
       : null,
   };
 
-  const preHeader = {
-    ...header,
-    borderTop: Bool.isTrue(frame)
-      ? null
-      : '1px solid ' + theme.palette.tableBorder,
-  };
-
   const postHeader = {
     ...header,
-    borderBottom: Bool.isTrue(props.frame)
+    borderTop: Bool.isTrue(frame)
       ? null
       : '1px solid ' + theme.palette.tableBorder,
   };
@@ -103,7 +96,6 @@ export default function styles(theme, props) {
     box,
     filter,
     table,
-    preHeader,
     postHeader,
     header,
     body,
