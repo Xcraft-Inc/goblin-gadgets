@@ -51,9 +51,10 @@ class Datagrid {
     let checkValues = Array.from(currentValues.values);
     let values = [];
 
+    let total = 0;
+    let double = 0;
     if (results) {
-      quest.goblin.setX('count', results.hits.total);
-
+      total = results.hits.total;
       results.hits.hits.map(hit => {
         if (!hit.highlight) {
           return hit._source.info;
@@ -113,11 +114,14 @@ class Datagrid {
             values[index] = value;
             checkValues.push(value);
             index++;
+          } else {
+            double++;
           }
         }
       });
     }
 
+    quest.goblin.setX('count', total - double);
     quest.goblin.setX('ids', values);
     yield quest.me.loadDatagridEntity();
 
