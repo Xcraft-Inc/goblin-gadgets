@@ -185,13 +185,13 @@ class Table extends Widget {
     this.deselectAll = this.deselectAll.bind(this);
   }
 
-  static get wiring() {
-    return {
-      id: 'id',
-      data: 'data',
-      selectedIds: 'selectedIds',
-    };
-  }
+  //???? static get wiring() {
+  //????   return {
+  //????     id: 'id',
+  //????     data: 'data',
+  //????     selectedIds: 'selectedIds',
+  //????   };
+  //???? }
 
   setFilter(value) {
     this.dispatch({
@@ -612,7 +612,7 @@ class Table extends Widget {
 
 /******************************************************************************/
 
-export default Widget.connectWidget(state => {
+const TableWired = Widget.connectWidget(state => {
   if (!state) {
     return {};
   }
@@ -621,5 +621,40 @@ export default Widget.connectWidget(state => {
     sortingColumns: state.get('sortingColumns'),
   };
 })(Table);
+
+export default class Table2 extends Widget {
+  static get wiring() {
+    return {
+      id: 'id',
+      data: 'data',
+      selectedIds: 'selectedIds',
+    };
+  }
+  render() {
+    if (this.props.widgetId || this.props.id) {
+      return <TableWired {...this.props} />;
+    } else {
+      return <Table {...this.props} />;
+    }
+  }
+}
+
+// export default props => {
+//   if (props.widgetId || props.id) {
+//     return <TableWired {...props} />;
+//   } else {
+//     return <Table {...props} />;
+//   }
+// };
+
+//- export default Widget.connectWidget(state => {
+//-   if (!state) {
+//-     return {};
+//-   }
+//-   return {
+//-     filter: state.get('filter'),
+//-     sortingColumns: state.get('sortingColumns'),
+//-   };
+//- })(Table);
 
 /*****************************************************************************/
