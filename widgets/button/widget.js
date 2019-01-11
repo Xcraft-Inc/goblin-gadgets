@@ -25,7 +25,7 @@ const DivItem = props => {
 const DivConnected = Widget.connect((state, props) => {
   return {
     message: Message(props.tooltip, state, props.this),
-    locale: Locale(state, props.tooltip),
+    locale: Locale(state, props.tooltip, props.this),
     tooltip: props.tooltip,
   };
 })(DivItem);
@@ -43,7 +43,7 @@ const AItem = props => {
 const AConnected = Widget.connect((state, props) => {
   return {
     message: Message(props.tooltip, state, props.this),
-    locale: Locale(state, props.tooltip),
+    locale: Locale(state, props.tooltip, props.this),
     tooltip: props.tooltip,
   };
 })(AItem);
