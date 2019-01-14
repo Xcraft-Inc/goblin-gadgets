@@ -3,7 +3,7 @@ import Widget from 'laboratory/widget';
 import {Control, actions} from 'react-redux-form/immutable';
 const _ = require('lodash');
 const Bool = require('gadgets/helpers/bool-helpers');
-const Tooltip = require('gadgets/helpers/tooltip-helpers');
+const {ConnectedDiv} = require('nabu/helpers/tooltip-helpers');
 
 import FlyingBalloon from 'gadgets/flying-balloon/widget';
 import Label from 'gadgets/label/widget';
@@ -295,7 +295,11 @@ class TextField extends Widget {
       }
 
       return (
-        <div className={boxClass} title={Tooltip.prepare(this.props.tooltip)}>
+        <ConnectedDiv
+          this={this}
+          tooltip={this.props.tooltip}
+          className={boxClass}
+        >
           {glyph ? (
             <Label
               kind="text-field-combo-glyph"
@@ -324,7 +328,7 @@ class TextField extends Widget {
           )}
           {this.renderFocusForeground(props)}
           {this.renderFlyingBalloon(props)}
-        </div>
+        </ConnectedDiv>
       );
     };
 

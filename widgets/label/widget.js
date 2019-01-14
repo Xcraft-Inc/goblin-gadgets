@@ -4,28 +4,10 @@ import Widget from 'laboratory/widget';
 import T from 'nabu/t/widget';
 import {ColorHelpers} from 'electrum-theme';
 const Bool = require('gadgets/helpers/bool-helpers');
-const {Message, Locale, Format} = require('nabu/helpers/tooltip-helpers');
+const {ConnectedDiv} = require('nabu/helpers/tooltip-helpers');
 import ReactMarkdown from 'react-markdown';
 
 /******************************************************************************/
-
-const DivItem = props => {
-  const {message, locale, tooltip, children, dispatch, ...other} = props;
-
-  return (
-    <div title={Format(message, locale, tooltip)} {...other}>
-      {children}
-    </div>
-  );
-};
-
-const DivConnected = Widget.connect((state, props) => {
-  return {
-    message: Message(props.tooltip, state, props.this),
-    locale: Locale(state, props.tooltip, props.this),
-    tooltip: props.tooltip,
-  };
-})(DivItem);
 
 class Label extends Widget {
   constructor() {
@@ -273,7 +255,7 @@ class Label extends Widget {
 
     if (Bool.isTrue(this.props.insideButton)) {
       return (
-        <DivConnected
+        <ConnectedDiv
           this={this}
           tooltip={this.props.tooltip}
           className={boxClass}
@@ -281,11 +263,11 @@ class Label extends Widget {
           disabled={this.props.disabled}
         >
           {this.renderGlyphAndText()}
-        </DivConnected>
+        </ConnectedDiv>
       );
     } else {
       return (
-        <DivConnected
+        <ConnectedDiv
           this={this}
           tooltip={this.props.tooltip}
           className={boxClass}
@@ -295,7 +277,7 @@ class Label extends Widget {
         >
           {this.renderGlyphAndText()}
           {this.props.children}
-        </DivConnected>
+        </ConnectedDiv>
       );
     }
   }

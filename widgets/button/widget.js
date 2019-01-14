@@ -5,48 +5,12 @@ import Widget from 'laboratory/widget';
 import MouseTrap from 'mousetrap';
 import * as ShortcutHelpers from '../helpers/shortcut-helpers.js';
 const Bool = require('gadgets/helpers/bool-helpers');
-const {Message, Locale, Format} = require('nabu/helpers/tooltip-helpers');
+const {ConnectedDiv, ConnectedA} = require('nabu/helpers/tooltip-helpers');
 
 import Label from 'gadgets/label/widget';
 import Badge from 'gadgets/badge/widget';
 
 /******************************************************************************/
-
-const DivItem = props => {
-  const {message, locale, tooltip, children, dispatch, ...other} = props;
-
-  return (
-    <div title={Format(message, locale, tooltip)} {...other}>
-      {children}
-    </div>
-  );
-};
-
-const DivConnected = Widget.connect((state, props) => {
-  return {
-    message: Message(props.tooltip, state, props.this),
-    locale: Locale(state, props.tooltip, props.this),
-    tooltip: props.tooltip,
-  };
-})(DivItem);
-
-const AItem = props => {
-  const {message, locale, tooltip, children, ...other} = props;
-
-  return (
-    <a title={Format(message, locale, tooltip)} {...other}>
-      {children}
-    </a>
-  );
-};
-
-const AConnected = Widget.connect((state, props) => {
-  return {
-    message: Message(props.tooltip, state, props.this),
-    locale: Locale(state, props.tooltip, props.this),
-    tooltip: props.tooltip,
-  };
-})(AItem);
 
 class Button extends Widget {
   constructor() {
@@ -278,7 +242,7 @@ class Button extends Widget {
 
     if (this.props.kind === 'container' || this.props.kind === 'box') {
       return (
-        <DivConnected
+        <ConnectedDiv
           this={this}
           tooltip={tooltip}
           key={this.props.index}
@@ -295,11 +259,11 @@ class Button extends Widget {
           className={boxClass}
         >
           {this.props.children}
-        </DivConnected>
+        </ConnectedDiv>
       );
     } else if (this.props.toAnchor) {
       return (
-        <AConnected // <AConnected
+        <ConnectedA // <AConnected
           this={this}
           tooltip={tooltip}
           key={this.props.index}
@@ -320,11 +284,11 @@ class Button extends Widget {
           {this.renderBadge()}
           {this.renderBusy()}
           {this.props.children}
-        </AConnected>
+        </ConnectedA>
       );
     } else {
       return (
-        <DivConnected
+        <ConnectedDiv
           this={this}
           tooltip={tooltip}
           key={this.props.index}
@@ -344,7 +308,7 @@ class Button extends Widget {
           {this.renderBadge()}
           {this.renderBusy()}
           {this.props.children}
-        </DivConnected>
+        </ConnectedDiv>
       );
     }
   }

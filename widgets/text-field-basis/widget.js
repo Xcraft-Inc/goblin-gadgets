@@ -1,7 +1,7 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 const Bool = require('gadgets/helpers/bool-helpers');
-const Tooltip = require('gadgets/helpers/tooltip-helpers');
+const {ConnectedDiv} = require('nabu/helpers/tooltip-helpers');
 
 import Label from 'gadgets/label/widget';
 
@@ -42,7 +42,11 @@ export default class TextFieldBasis extends Widget {
     const inputClass = this.styles.classNames.input;
 
     return (
-      <div className={boxClass} title={Tooltip.prepare(this.props.tooltip)}>
+      <ConnectedDiv
+        this={this}
+        tooltip={this.props.tooltip}
+        className={boxClass}
+      >
         {this.props.glyph ? (
           <Label
             kind="text-field-combo-glyph"
@@ -67,7 +71,7 @@ export default class TextFieldBasis extends Widget {
           />
         )}
         {this.renderFocusForeground()}
-      </div>
+      </ConnectedDiv>
     );
   }
 
