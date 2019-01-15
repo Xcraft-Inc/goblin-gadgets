@@ -17,123 +17,117 @@ const logicState = {
 // Define logic handlers according rc.json
 const logicHandlers = require('./logicHandlers.js');
 
-Goblin.registerQuest(goblinName, 'execute-search', function*(
-  quest,
-  value,
-  sort,
-  next
-) {
-  const elastic = quest.getStorage('elastic');
+class Datagrid {
+  static *executeSearch(quest, value, sort) {
+    const elastic = quest.getStorage('elastic');
 
-  quest.goblin.setX('value', value);
-  quest.goblin.setX('sort', sort);
+    quest.goblin.setX('value', value);
+    quest.goblin.setX('sort', sort);
 
-  const hinter = quest.goblin.getX('hinter');
+    const hinter = quest.goblin.getX('hinter');
 
-  const range = quest.goblin.getX('range');
-  const from = range[0];
-  const size = range[1] - range[0] + 1;
+    const range = quest.goblin.getX('range');
+    const from = range[0];
+    const size = range[1] - range[0] + 1;
 
-  let type = hinter.type;
-  const subTypes = hinter.subTypes;
-  if (subTypes) {
-    subTypes.forEach(subType => {
-      type = `${type},${subType}`;
-    });
-  }
+    let type = hinter.type;
+    const subTypes = hinter.subTypes;
+    if (subTypes) {
+      subTypes.forEach(subType => {
+        type = `${type},${subType}`;
+      });
+    }
 
-  const results = yield elastic.search(
-    {
+    const results = yield elastic.search({
       type,
       value,
       sort,
       from,
       size,
       mustExist: true,
-    },
-    next
-  );
-
-  let currentValues = quest.goblin.getX('ids', []);
-  let checkValues = Array.from(currentValues.values);
-  let values = [];
-
-  let total = 0;
-  let double = 0;
-  if (results) {
-    total = results.hits.total;
-    results.hits.hits.map(hit => {
-      if (!hit.highlight) {
-        return hit._source.info;
-      }
-
-      let phonetic = false;
-      let autocomplete = false;
-
-      if (hit.highlight.searchPhonetic) {
-        phonetic = true;
-      }
-      if (hit.highlight.searchAutocomplete) {
-        autocomplete = true;
-      }
-
-      if (!phonetic && !autocomplete) {
-        return hit._source.info;
-      }
-
-      // Prefer phonetic result if possible, but use autocomplete result
-      // if there are more tags.
-      if (phonetic && autocomplete) {
-        const countPhonetic = (
-          hit.highlight.searchPhonetic[0].match(/<em>/g) || []
-        ).length;
-        const countAutocomplete = (
-          hit.highlight.searchAutocomplete[0].match(/<em>/g) || []
-        ).length;
-        if (countAutocomplete > countPhonetic) {
-          phonetic = false;
-        }
-      }
-
-      return phonetic
-        ? hit.highlight.searchPhonetic[0].replace(/<\/?em>/g, '`')
-        : hit.highlight.searchAutocomplete[0].replace(/<\/?em>/g, '`');
     });
 
-    var index = from;
-    results.hits.hits.forEach(hit => {
-      let value = hit._id;
-      if (hinter.subJoins) {
-        hinter.subJoins.forEach(subJoin => {
-          const join = hit._source[subJoin];
-          if (join) {
-            value = join;
+    let currentValues = quest.goblin.getX('ids', []);
+    let checkValues = Array.from(currentValues.values);
+    let values = [];
+
+    let total = 0;
+    let double = 0;
+    if (results) {
+      total = results.hits.total;
+      results.hits.hits.map(hit => {
+        if (!hit.highlight) {
+          return hit._source.info;
+        }
+
+        let phonetic = false;
+        let autocomplete = false;
+
+        if (hit.highlight.searchPhonetic) {
+          phonetic = true;
+        }
+        if (hit.highlight.searchAutocomplete) {
+          autocomplete = true;
+        }
+
+        if (!phonetic && !autocomplete) {
+          return hit._source.info;
+        }
+
+        // Prefer phonetic result if possible, but use autocomplete result
+        // if there are more tags.
+        if (phonetic && autocomplete) {
+          const countPhonetic = (
+            hit.highlight.searchPhonetic[0].match(/<em>/g) || []
+          ).length;
+          const countAutocomplete = (
+            hit.highlight.searchAutocomplete[0].match(/<em>/g) || []
+          ).length;
+          if (countAutocomplete > countPhonetic) {
+            phonetic = false;
           }
-        });
-      }
-
-      var currentValue = currentValues[index];
-      if (currentValue && currentValue === value) {
-        values[index] = value;
-        index++;
-      } else if (!currentValue) {
-        if (!checkValues.includes(value)) {
-          values[index] = value;
-          checkValues.push(value);
-          index++;
-        } else {
-          double++;
         }
-      }
-    });
+
+        return phonetic
+          ? hit.highlight.searchPhonetic[0].replace(/<\/?em>/g, '`')
+          : hit.highlight.searchAutocomplete[0].replace(/<\/?em>/g, '`');
+      });
+
+      var index = from;
+      results.hits.hits.forEach(hit => {
+        let value = hit._id;
+        if (hinter.subJoins) {
+          hinter.subJoins.forEach(subJoin => {
+            const join = hit._source[subJoin];
+            if (join) {
+              value = join;
+            }
+          });
+        }
+
+        var currentValue = currentValues[index];
+        if (currentValue && currentValue === value) {
+          values[index] = value;
+          index++;
+        } else if (!currentValue) {
+          if (!checkValues.includes(value)) {
+            values[index] = value;
+            checkValues.push(value);
+            index++;
+          } else {
+            double++;
+          }
+        }
+      });
+    }
+
+    quest.goblin.setX('count', total - double);
+    quest.goblin.setX('ids', values);
+    yield quest.me.loadDatagridEntity();
+
+    return values;
   }
-
-  quest.goblin.setX('count', total - double);
-  quest.goblin.setX('ids', values);
-  yield quest.me.loadDatagridEntity();
-
-  return values;
-});
+}
 
 Goblin.registerQuest(goblinName, 'get-entity', common.getEntityQuest);
 
@@ -146,16 +140,17 @@ Goblin.registerQuest(goblinName, 'load-datagrid-entity', function*(
   const ids = yield quest.me.getListIds(next);
   const iterableIds = Object.values(ids);
 
-  for (let id of iterableIds) {
-    if (id) {
-      quest.me.loadEntity({entityId: id}, next.parallel());
-    }
-  }
-  yield next.sync();
+  quest.defer(() =>
+    iterableIds.forEach(id => {
+      if (id) {
+        quest.me.loadEntity({entityId: id});
+      }
+    })
+  );
 
   const ownerId = quest.me.id.split('@')[1];
   if (ownerId === 'nabuMessage-datagrid') {
-    yield quest.me.loadTranslations({listIds: iterableIds}, next);
+    quest.me.loadTranslations({listIds: iterableIds});
   }
 });
 
@@ -207,16 +202,15 @@ Goblin.registerQuest(goblinName, 'get-list-ids', function(quest) {
 Goblin.registerQuest(goblinName, 'customize-visualization', function*(
   quest,
   filter,
-  sort,
-  next
+  sort
 ) {
   quest.goblin.setX('ids', []);
-  const ids = yield quest.me.executeSearch(quest, {value: filter, sort}, next);
+  const ids = yield* Datagrid.executeSearch(quest, filter, sort);
   const count = quest.goblin.getX('count');
   quest.do({ids, count});
 });
 
-Goblin.registerQuest(goblinName, 'fetch', function*(quest, range, next) {
+Goblin.registerQuest(goblinName, 'fetch', function*(quest, range) {
   yield quest.goblin.getX('mutex').lock();
   quest.defer(() => quest.goblin.getX('mutex').unlock());
 
@@ -238,16 +232,16 @@ Goblin.registerQuest(goblinName, 'fetch', function*(quest, range, next) {
   const value = quest.goblin.getX('value');
   const sort = quest.goblin.getX('sort');
 
-  const ids = yield quest.me.executeSearch(quest, {value, sort}, next);
+  const ids = yield* Datagrid.executeSearch(quest, value, sort);
   const count = quest.goblin.getX('count');
   quest.do({ids, count});
 });
 
-Goblin.registerQuest(goblinName, 'init-list', function*(quest, next) {
+Goblin.registerQuest(goblinName, 'init-list', function*(quest) {
   const value = quest.goblin.getX('value');
   const sort = quest.goblin.getX('sort');
 
-  const ids = yield quest.me.executeSearch(quest, {value, sort}, next);
+  const ids = yield* Datagrid.executeSearch(quest, value, sort);
   const count = quest.goblin.getX('count');
   quest.do({ids, count});
 });
