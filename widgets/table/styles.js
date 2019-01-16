@@ -35,6 +35,7 @@ export default function styles(theme, props) {
   };
 
   const filter = {
+    margin: '0px 1px',
     display: 'flex',
     flexDirection: 'row',
     flexGrow: '1',
