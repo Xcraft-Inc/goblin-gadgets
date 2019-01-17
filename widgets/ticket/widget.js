@@ -8,8 +8,11 @@ import TicketHover from 'gadgets/ticket-hover/widget';
 const Bool = require('gadgets/helpers/bool-helpers');
 const Tooltip = require('gadgets/helpers/tooltip-helpers');
 import {Unit} from 'electrum-theme';
+import getOutlinePath from './getOutlinePath';
 
 /******************************************************************************/
+
+let patternNumber = 0;
 
 export default class Ticket extends Widget {
   constructor() {
@@ -51,6 +54,30 @@ export default class Ticket extends Widget {
     if (x) {
       x(e);
     }
+  }
+
+  getPath() {
+    if (!this.path) {
+      this.path = getOutlinePath(
+        this.context.theme,
+        this.props.shape,
+        this.props.width,
+        this.props.height
+      );
+    }
+    return this.path;
+  }
+
+  getPatternId() {
+    if (!this.patternId) {
+      this.patternId = `ticket-pattern-${patternNumber}`;
+      if (patternNumber < Number.MAX_SAFE_INTEGER) {
+        patternNumber++;
+      } else {
+        patternNumber = Number.MIN_SAFE_INTEGER;
+      }
+    }
+    return this.patternId;
   }
 
   renderBackgroundText() {
@@ -115,45 +142,55 @@ export default class Ticket extends Widget {
     ) : null;
     const htmlShadow = Bool.isTrue(this.props.shadow) ? null : (
       <svg width={w} height={h} className={shadowClass}>
-        <path d={styles.props.svg.path} />
+        <path d={this.getPath()} />
       </svg>
     );
     const htmlShape = (
       <svg width={w} height={h} className={shapeClass}>
-        <path d={styles.props.svg.path} />
+        <path d={this.getPath()} />
       </svg>
     );
-    const hs = this.context.theme.shapes.ticketHatchSize;
-    const ht = Unit.multiply(hs, 2);
-    const htmlHatchDef = (
-      <svg width={w} height={h} className={hatchDefClass}>
-        <defs>
-          <pattern
-            id="hatch"
-            x="0px"
-            y="0px"
-            width={ht}
-            height={ht}
-            patternTransform="rotate(45)"
-            patternUnits="userSpaceOnUse"
-          >
-            <rect
+
+    let htmlHatch = null;
+    let htmlHatchDef = null;
+    if (Bool.isTrue(this.props.hatch)) {
+      const hs = this.context.theme.shapes.ticketHatchSize;
+      const ht = Unit.multiply(hs, 2);
+      htmlHatchDef = (
+        <svg width={w} height={h} className={hatchDefClass}>
+          <defs>
+            <pattern
+              id={this.getPatternId()}
               x="0px"
               y="0px"
-              width={hs}
+              width={ht}
               height={ht}
-              fill="#000"
-              fillOpacity={this.context.theme.palette.ticketHatchOpacity}
-            />
-          </pattern>
-        </defs>
-      </svg>
-    );
-    const htmlHatch = Bool.isTrue(this.props.hatch) ? (
-      <svg width={w} height={h} className={hatchClass}>
-        <path d={styles.props.svg.path} />
-      </svg>
-    ) : null;
+              patternTransform="rotate(45)"
+              patternUnits="userSpaceOnUse"
+            >
+              <rect
+                x="0px"
+                y="0px"
+                width={hs}
+                height={ht}
+                fill="#000"
+                fillOpacity={this.context.theme.palette.ticketHatchOpacity}
+              />
+            </pattern>
+          </defs>
+        </svg>
+      );
+      htmlHatch = (
+        <svg
+          width={w}
+          height={h}
+          className={hatchClass}
+          style={{fill: `url(#${this.getPatternId()})`}}
+        >
+          <path d={this.getPath()} />
+        </svg>
+      );
+    }
 
     return (
       <div
