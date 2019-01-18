@@ -6,7 +6,6 @@ const _ = require('lodash');
 const goblinName = path.basename(module.parent.filename, '.js');
 
 const Goblin = require('xcraft-core-goblin');
-const common = require('goblin-workshop').common;
 const {locks} = require('xcraft-core-utils');
 
 // Define initial logic values
@@ -155,49 +154,10 @@ class List {
 
     quest.goblin.setX('count', total - double);
     quest.goblin.setX('ids', values);
-    yield quest.me.loadDatagridEntity();
 
     return values;
   }
 }
-Goblin.registerQuest(goblinName, 'get-entity', common.getEntityQuest);
-
-Goblin.registerQuest(goblinName, 'load-entity', common.loadEntityQuest);
-
-Goblin.registerQuest(goblinName, 'load-datagrid-entity', function*(
-  quest,
-  next
-) {
-  const ids = yield quest.me.getListIds(next);
-  const iterableIds = Object.values(ids);
-
-  quest.defer(() =>
-    iterableIds.forEach(id => {
-      if (id) {
-        quest.me.loadEntity({entityId: id});
-      }
-    })
-  );
-
-  const ownerId = quest.me.id.split('@')[1];
-  if (ownerId === 'nabuMessage-datagrid') {
-    quest.me.loadTranslations({listIds: iterableIds});
-  }
-});
-
-Goblin.registerQuest(goblinName, 'load-translations', function(quest, listIds) {
-  const nabuApi = quest.getAPI('nabu');
-
-  const ownerId = quest.me.id
-    .split('@')
-    .slice(1)
-    .join('@');
-  for (const messageId of listIds) {
-    if (messageId) {
-      quest.defer(() => nabuApi.loadTranslations({messageId, ownerId}));
-    }
-  }
-});
 
 // Register quest's according rc.json
 Goblin.registerQuest(goblinName, 'create', function*(
