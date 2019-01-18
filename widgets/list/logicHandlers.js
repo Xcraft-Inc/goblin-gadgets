@@ -1,17 +1,10 @@
 module.exports = {
   create: (state, action) => {
-    return (
-      state
-        .set('id', action.get('id'))
-        .set('status', action.get('status'))
-        .set('count', action.get('count'))
-        //NABU : old set -- START
-        .set('type', action.get('type'))
-        .set('from', 0)
-        .set('to', 200) // Was PageSize
-        //NABU : old set -- STOP
-        .set('contentIndex', action.get('contentIndex'))
-    );
+    return state
+      .set('id', action.get('id'))
+      .set('status', action.get('status'))
+      .set('count', action.get('count'))
+      .set('contentIndex', action.get('contentIndex'));
   },
   'change-content-index': (state, action) => {
     let value = action.get('value');
@@ -24,41 +17,36 @@ module.exports = {
       .set('list', {})
       .set('count', action.get('count'));
   },
-
-  //NABU : old functions -- START
-  'change-visualization': (state, action) => {
-    return state
-      .set('count', action.get('count'))
-      .set('from', 0)
-      .set('to', 200); //was pageSize
-  },
   'customize-visualization': (state, action) => {
-    return state
-      .set('count', action.get('count'))
-      .set('from', 0)
-      .set('to', 200); //was pageSize
+    const ids = action.get('ids');
+    const count = action.get('count');
+    return state.set('list', ids).set('count', count);
   },
-  'load-range': (state, action) => {
-    return state
-      .set('list', action.get('rows'))
-      .set('private.rowById', action.get('rowById'));
+  'init-list': (state, action) => {
+    const ids = action.get('ids');
+    const count = action.get('count');
+    return state.set('list', ids).set('count', count);
   },
-  //NABU : old functions -- STOP
   fetch: (state, action) => {
     const rows = action.get('rows');
     const ids = action.get('ids');
+    const count = action.get('count');
 
-    state = state.set(
-      'list',
-      state.get('list').filter((_, row) => {
-        const index = Number(row.replace(/-item/, ''));
-        return !!ids[index];
-      })
-    );
+    if (rows) {
+      state = state.set(
+        'list',
+        state.get('list').filter((_, row) => {
+          const index = Number(`${row}`.replace(/-item/, ''));
+          return !!ids[index];
+        })
+      );
 
-    for (const id in rows) {
-      const row = `${rows[id]}-item`;
-      state = state.set(`list.${row}`, id);
+      for (const id in rows) {
+        const row = `${rows[id]}-item`;
+        state = state.set(`list.${row}`, id);
+      }
+    } else {
+      state = state.set('list', ids).set('count', count);
     }
 
     return state;

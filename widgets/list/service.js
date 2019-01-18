@@ -6,6 +6,7 @@ const _ = require('lodash');
 const goblinName = path.basename(module.parent.filename, '.js');
 
 const Goblin = require('xcraft-core-goblin');
+const common = require('goblin-workshop').common;
 const {locks} = require('xcraft-core-utils');
 
 // Define initial logic values
@@ -85,7 +86,118 @@ class List {
       contentIndex,
     });
   }
+
+  static *executeSearch(quest, value, sort) {
+    const elastic = quest.getStorage('elastic');
+
+    quest.goblin.setX('value', value);
+    quest.goblin.setX('sort', sort);
+
+    const hinter = quest.goblin.getX('hinter');
+
+    const range = quest.goblin.getX('range');
+    const from = range[0];
+    const size = range[1] - range[0] + 1;
+
+    let type = hinter.type;
+    const subTypes = hinter.subTypes;
+    if (subTypes) {
+      subTypes.forEach(subType => {
+        type = `${type},${subType}`;
+      });
+    }
+
+    const results = yield elastic.search({
+      type,
+      value,
+      sort,
+      from,
+      size,
+      mustExist: true,
+    });
+
+    let currentValues = quest.goblin.getX('ids', []);
+    let checkValues = Array.from(currentValues.values);
+    let values = [];
+
+    let total = 0;
+    let double = 0;
+    if (results) {
+      total = results.hits.total;
+      var index = from;
+
+      results.hits.hits.forEach(hit => {
+        let value = hit._id;
+        if (hinter.subJoins) {
+          hinter.subJoins.forEach(subJoin => {
+            const join = hit._source[subJoin];
+            if (join) {
+              value = join;
+            }
+          });
+        }
+
+        var currentValue = currentValues[index];
+        if (currentValue && currentValue === value) {
+          values[index] = value;
+          index++;
+        } else if (!currentValue) {
+          if (!checkValues.includes(value)) {
+            values[index] = value;
+            checkValues.push(value);
+            index++;
+          } else {
+            double++;
+          }
+        }
+      });
+    }
+
+    quest.goblin.setX('count', total - double);
+    quest.goblin.setX('ids', values);
+    yield quest.me.loadDatagridEntity();
+
+    return values;
+  }
 }
+Goblin.registerQuest(goblinName, 'get-entity', common.getEntityQuest);
+
+Goblin.registerQuest(goblinName, 'load-entity', common.loadEntityQuest);
+
+Goblin.registerQuest(goblinName, 'load-datagrid-entity', function*(
+  quest,
+  next
+) {
+  const ids = yield quest.me.getListIds(next);
+  const iterableIds = Object.values(ids);
+
+  quest.defer(() =>
+    iterableIds.forEach(id => {
+      if (id) {
+        quest.me.loadEntity({entityId: id});
+      }
+    })
+  );
+
+  const ownerId = quest.me.id.split('@')[1];
+  if (ownerId === 'nabuMessage-datagrid') {
+    quest.me.loadTranslations({listIds: iterableIds});
+  }
+});
+
+Goblin.registerQuest(goblinName, 'load-translations', function(quest, listIds) {
+  const nabuApi = quest.getAPI('nabu');
+
+  const ownerId = quest.me.id
+    .split('@')
+    .slice(1)
+    .join('@');
+  for (const messageId of listIds) {
+    if (messageId) {
+      quest.defer(() => nabuApi.loadTranslations({messageId, ownerId}));
+    }
+  }
+});
 
 // Register quest's according rc.json
 Goblin.registerQuest(goblinName, 'create', function*(
@@ -93,7 +205,9 @@ Goblin.registerQuest(goblinName, 'create', function*(
   desktopId,
   table,
   status,
-  contentIndex
+  contentIndex,
+  hinter,
+  sort
 ) {
   /* This mutex prevent races when indices are fetching and the content-index
    * is changing. It must not be possible to run a fetch while a
@@ -105,16 +219,51 @@ Goblin.registerQuest(goblinName, 'create', function*(
   quest.goblin.setX('desktopId', desktopId);
   quest.goblin.setX('table', table);
 
-  const count = yield* List.count(quest, contentIndex);
+  quest.goblin.setX('isElastic', hinter ? true : false);
+  quest.goblin.setX('hinter', hinter);
+  quest.goblin.setX('range', [0, 1]);
 
-  quest.do({
-    count,
-    contentIndex,
-  });
+  let key = 'value.keyword';
+  if (sort && sort.key !== 'nabuId') {
+    key = `${sort}-value.keyword`;
+  }
+  quest.goblin.setX('sort', {key, dir: sort ? sort.dir : 'asc'});
+
+  const id = quest.goblin.id;
+
+  if (!hinter) {
+    const count = yield* List.count(quest, contentIndex);
+
+    quest.do({
+      id,
+      count,
+      contentIndex,
+    });
+
+    yield quest.me.initList();
+    yield quest.me.fetch(quest);
+    return id;
+  }
+
+  quest.do({id});
 
   yield quest.me.initList();
-  yield quest.me.fetch(quest);
-  return quest.goblin.id;
+  return id;
+});
+
+Goblin.registerQuest(goblinName, 'get-list-ids', function(quest) {
+  return quest.goblin.getX('ids');
+});
+
+Goblin.registerQuest(goblinName, 'customize-visualization', function*(
+  quest,
+  filter,
+  sort
+) {
+  quest.goblin.setX('ids', []);
+  const ids = yield* List.executeSearch(quest, filter, sort);
+  const count = quest.goblin.getX('count');
+  quest.do({ids, count});
 });
 
 Goblin.registerQuest(goblinName, 'change-content-index', function*(
@@ -176,6 +325,18 @@ Goblin.registerQuest(goblinName, 'fetch', function*(quest, range) {
     range = [0, 1];
   }
 
+  const isElastic = quest.goblin.getX('isElastic');
+  if (isElastic) {
+    const value = quest.goblin.getX('value');
+    const sort = quest.goblin.getX('sort');
+
+    const ids = yield* List.executeSearch(quest, value, sort);
+    const count = quest.goblin.getX('count');
+
+    quest.do({ids, count});
+    return;
+  }
+
   const ids = yield* List.refresh(quest, range);
 
   let _do = false;
@@ -191,7 +352,19 @@ Goblin.registerQuest(goblinName, 'fetch', function*(quest, range) {
 });
 
 Goblin.registerQuest(goblinName, 'init-list', function*(quest) {
-  yield* List.changes(quest);
+  const isElastic = quest.goblin.getX('isElastic');
+
+  if (!isElastic) {
+    yield* List.changes(quest);
+    return;
+  }
+
+  const value = quest.goblin.getX('value');
+  const sort = quest.goblin.getX('sort');
+
+  const ids = yield* List.executeSearch(quest, value, sort);
+  const count = quest.goblin.getX('count');
+  quest.do({ids, count});
 });
 
 Goblin.registerQuest(goblinName, 'delete', function(quest) {
