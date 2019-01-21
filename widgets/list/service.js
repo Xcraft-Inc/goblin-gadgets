@@ -182,12 +182,7 @@ Goblin.registerQuest(goblinName, 'create', function*(
   quest.goblin.setX('isElastic', hinter ? true : false);
   quest.goblin.setX('hinter', hinter);
   quest.goblin.setX('range', [0, 1]);
-
-  let key = 'value.keyword';
-  if (sort && sort.key !== 'nabuId') {
-    key = `${sort}-value.keyword`;
-  }
-  quest.goblin.setX('sort', {key, dir: sort ? sort.dir : 'asc'});
+  quest.goblin.setX('sort', sort);
 
   const id = quest.goblin.id;
 
