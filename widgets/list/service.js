@@ -291,7 +291,7 @@ Goblin.registerQuest(goblinName, 'fetch', function*(quest, range) {
     const count = quest.goblin.getX('count');
 
     quest.do({ids, count});
-    quest.me.afterFetch();
+    yield quest.me.afterFetch();
 
     return;
   }
@@ -307,7 +307,7 @@ Goblin.registerQuest(goblinName, 'fetch', function*(quest, range) {
 
   if (_do) {
     quest.do({rows, ids});
-    quest.me.afterFetch();
+    yield quest.me.afterFetch();
   }
 });
 
