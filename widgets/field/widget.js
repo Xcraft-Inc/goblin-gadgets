@@ -1812,7 +1812,15 @@ class Field extends Form {
       RadioList,
       value => {
         if (value && value !== '') {
-          return {selectedIndex: this.props.list.indexOf(value)};
+          return {
+            selectedIndex: this.props.list.findIndex(item => {
+              if (typeof item === 'string') {
+                return item === value;
+              } else {
+                return item.value === value;
+              }
+            }),
+          };
         } else {
           return {};
         }
@@ -1849,9 +1857,14 @@ class Field extends Form {
           direction={this.props.direction || 'row'}
           list={this.props.list}
           selectionChanged={index => {
-            this.setBackendValue(this.fullPath, this.props.list[index]);
+            const value =
+              typeof this.props.list[index] === 'string'
+                ? this.props.list[index]
+                : this.props.list[index].value;
+
+            this.setBackendValue(this.fullPath, value);
             if (this.props.onChange) {
-              this.props.onChange(this.props.list[index], index);
+              this.props.onChange(value, index);
             }
           }}
         />

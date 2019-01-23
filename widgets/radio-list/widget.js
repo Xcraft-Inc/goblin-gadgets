@@ -12,6 +12,7 @@ class RadioList extends Widget {
 
     this.onRadioClicked = this.onRadioClicked.bind(this);
     this.onCheckClicked = this.onCheckClicked.bind(this);
+    this.getItem = this.getItem.bind(this);
   }
 
   onRadioClicked(index) {
@@ -36,6 +37,17 @@ class RadioList extends Widget {
       ((this.props.list[0] === 'no' && this.props.list[1] === 'yes') ||
         (this.props.list[0] === 'false' && this.props.list[1] === 'true'))
     );
+  }
+
+  getItem(item) {
+    if (typeof item === 'string') {
+      return item;
+    } else {
+      if (item.text) {
+        return item.text;
+      }
+      console.warn(`malformed radio item: ${JSON.stringify(item)}`);
+    }
   }
 
   /******************************************************************************/
@@ -63,7 +75,7 @@ class RadioList extends Widget {
         width={this.props.buttonWidth}
         heightStrategy={this.props.heightStrategy}
         justify="left"
-        text={text}
+        text={this.getItem(text)}
         focusable="true"
         checked={Bool.toString(index === this.props.selectedIndex)}
         onClick={() => this.onRadioClicked(index)}
