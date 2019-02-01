@@ -100,6 +100,7 @@ class DialogModal extends Widget {
             subkind={this.props.subkind}
             cursor="default"
             width={this.props.width}
+            height={this.props.height}
             onClick={this.onContentClick}
           >
             {this.props.children}
