@@ -37,7 +37,9 @@ class TranslatableTextField extends Widget {
     const nabuId = `${this.context.entityId}${this.props.model}`;
 
     this.doFor(this.context.entityId, 'change', {
-      path: this.props.model.trimLeft('.'),
+      path: this.props.model.startsWith('.')
+        ? this.props.model.slice(1)
+        : this.props.model,
       newValue: ToNabuObject(nabuId),
     });
   }
