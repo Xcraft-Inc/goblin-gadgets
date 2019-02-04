@@ -17,6 +17,7 @@ import Button from 'gadgets/button/widget';
 import CheckButton from 'gadgets/check-button/widget';
 import Label from 'gadgets/label/widget';
 import TextField from 'gadgets/text-field/widget';
+import TranslatableTextField from 'gadgets/translatable-text-field/widget';
 import LabelTextField from 'gadgets/label-text-field/widget';
 import TextFieldTyped from 'gadgets/text-field-typed/widget';
 import TextFieldCombo from 'gadgets/text-field-combo/widget';
@@ -231,6 +232,44 @@ class Field extends Form {
           verticalJustify={this.props.verticalJustify}
         >
           <LabelTextField
+            readonly="true"
+            type={this.props.type}
+            spacing={this.props.spacing}
+            shape={this.props.shape}
+            labelText={this.props.labelText}
+            labelGlyph={this.props.labelGlyph}
+            labelWidth={this.props.labelWidth || defaultLabelWidth}
+            fieldWidth={this.props.fieldWidth}
+            getGlyph={this.props.getGlyph}
+            hintText={this.props.hintText}
+            tooltip={this.props.tooltip || this.props.hintText}
+            rows={this.props.rows}
+            model={this.props.model}
+            required={this.props.required}
+            onDebouncedChange={this.props.onDebouncedChange}
+            grow="1"
+          />
+        </Container>
+      ),
+      this.fullPath
+    );
+    return <Field />;
+  }
+
+  renderReadonlyTranslatable() {
+    const Field = this.showIfFilled(
+      this.props,
+      props => (
+        <Container
+          show={props.show}
+          kind="row-field"
+          grow={this.props.grow}
+          width={this.props.width}
+          height={this.props.height}
+          verticalSpacing={this.props.verticalSpacing}
+          verticalJustify={this.props.verticalJustify}
+        >
+          <TranslatableTextField
             readonly="true"
             type={this.props.type}
             spacing={this.props.spacing}
@@ -1039,6 +1078,40 @@ class Field extends Form {
         verticalJustify={this.props.verticalJustify}
       >
         <LabelTextField
+          selectAllOnFocus="true"
+          type={this.props.type}
+          spacing={this.props.spacing}
+          shape={this.props.shape}
+          labelText={this.props.labelText}
+          labelGlyph={this.props.labelGlyph}
+          labelWidth={this.props.labelWidth || defaultLabelWidth}
+          fieldWidth={this.props.fieldWidth}
+          getGlyph={this.props.getGlyph}
+          hintText={this.props.hintText}
+          tooltip={this.props.tooltip || this.props.hintText}
+          rows={this.props.rows}
+          required={this.props.required}
+          model={this.props.model}
+          onDebouncedChange={this.props.onDebouncedChange}
+          grow="1"
+          onFocus={this.props.onFocus}
+          onBlur={this.props.onBlur}
+        />
+      </Container>
+    );
+  }
+
+  renderEditTranslatable() {
+    return (
+      <Container
+        kind="row-field"
+        grow={this.props.grow}
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
+      >
+        <TranslatableTextField
           selectAllOnFocus="true"
           type={this.props.type}
           spacing={this.props.spacing}
@@ -2623,6 +2696,8 @@ class Field extends Form {
         return this.renderTitle();
       case 'subtitle':
         return this.renderSubtitle();
+      case 'translatable':
+        return this.renderReadonlyTranslatable();
       case 'label':
         return (
           <ReadonlyLabel
@@ -2704,6 +2779,8 @@ class Field extends Form {
         return this.renderTitle();
       case 'subtitle':
         return this.renderSubtitle();
+      case 'translatable':
+        return this.renderEditTranslatable();
       case 'label':
         return (
           <ReadonlyLabel
