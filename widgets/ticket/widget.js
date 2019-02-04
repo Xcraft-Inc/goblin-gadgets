@@ -130,11 +130,6 @@ export default class Ticket extends Widget {
   }
 
   renderTicket() {
-    console.log(
-      `TICKET: height=${this.props.height} shape=${this.props.shape} color=${
-        this.props.color
-      }`
-    );
     const styles = this.styles;
     const boxClass = styles.classNames.box;
     const farShadowClass = styles.classNames.farShadow;
