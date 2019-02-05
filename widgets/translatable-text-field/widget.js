@@ -1,10 +1,11 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 
-import {T as ToNabuObject} from 'goblin-nabu/widgets/helpers/t.js';
-import TranslationField from 'goblin-nabu/widgets/helpers/translation-field';
+import Label from 'gadgets/label/widget';
+import TranslatableCombo from 'gadgets/translatable-combo/widget';
+const Bool = require('gadgets/helpers/bool-helpers');
 
-const {crypto} = require('xcraft-core-utils');
+import {T as ToNabuObject} from 'goblin-nabu/widgets/helpers/t.js';
 
 /******************************************************************************/
 
@@ -13,31 +14,14 @@ function WrapT(...args) {
   return ToNabuObject(...args);
 }
 
-const TranslationFieldConnected = Widget.connect((state, props) => {
-  const {component, nabuId} = props;
+class TranslatableTextField extends Widget {
+  constructor() {
+    super(...arguments);
 
-  const messageId = `nabuMessage@${crypto.sha256(nabuId)}`;
-  const localeName = 'fr-CH';
-  const translationId = `nabuTranslation@${localeName}-${
-    messageId.split('@')[1]
-  }`;
-
-  const message = state.get(`backend.${messageId}`);
-  if (!message) {
-    component.cmd('nabu.add-message', {
-      nabuId,
-      description: '',
-      workitemId: component.props.id || component.context.id,
-    });
+    this.renderLabel = this.renderLabel.bind(this);
+    this.renderInput = this.renderInput.bind(this);
   }
 
-  return {
-    component,
-    translationId,
-  };
-})(TranslationField);
-
-class TranslatableTextField extends Widget {
   componentDidMount() {
     const nabuId = `${this.context.entityId}${this.props.model}`;
 
@@ -49,12 +33,37 @@ class TranslatableTextField extends Widget {
     });
   }
 
+  renderLabel() {
+    return (
+      <Label
+        kind="label-text-field"
+        glyph={this.props.labelGlyph}
+        text={this.props.labelText}
+        width={this.props.labelWidth}
+        disabled={this.props.disabled}
+        wrap="no"
+        justify="left"
+      />
+    );
+  }
+
+  renderInput() {
+    return <TranslatableCombo component={this} {...this.props} />;
+  }
+
   render() {
-    const {id, ...other} = this.props;
-    const nabuId = `${this.context.entityId}${this.props.model}`;
+    if (Bool.isFalse(this.props.show)) {
+      return null;
+    }
+
+    const disabled = this.props.disabled;
+    const boxClass = this.styles.classNames.box;
 
     return (
-      <TranslationFieldConnected nabuId={nabuId} component={this} {...other} />
+      <span disabled={disabled} className={boxClass}>
+        {this.renderLabel()}
+        {this.renderInput()}
+      </span>
     );
   }
 }
