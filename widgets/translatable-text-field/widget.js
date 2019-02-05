@@ -8,6 +8,11 @@ const {crypto} = require('xcraft-core-utils');
 
 /******************************************************************************/
 
+function WrapT(...args) {
+  // Otherwise extractor complains about T not being statically evaluate-able
+  return ToNabuObject(...args);
+}
+
 const TranslationFieldConnected = Widget.connect((state, props) => {
   const {component, nabuId} = props;
 
@@ -40,7 +45,7 @@ class TranslatableTextField extends Widget {
       path: this.props.model.startsWith('.')
         ? this.props.model.slice(1)
         : this.props.model,
-      newValue: ToNabuObject(nabuId),
+      newValue: WrapT(nabuId),
     });
   }
 
