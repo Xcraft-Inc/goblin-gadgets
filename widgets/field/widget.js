@@ -2795,10 +2795,6 @@ class Field extends Form {
   }
 
   render() {
-    if (this.props.hidden) {
-      return null;
-    }
-
     if (this.readonly) {
       return this.renderReadonly();
     } else {
