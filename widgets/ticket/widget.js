@@ -57,13 +57,21 @@ export default class Ticket extends Widget {
   }
 
   getPath() {
-    if (!this.path) {
+    if (
+      !this.path ||
+      this.lastShape !== this.props.shape ||
+      this.lastWidth !== this.props.width ||
+      this.lastHeight !== this.props.height
+    ) {
       this.path = getOutlinePath(
         this.context.theme,
         this.props.shape,
         this.props.width,
         this.props.height
       );
+      this.lastShape = this.props.shape;
+      this.lastWidth = this.props.width;
+      this.lastHeight = this.props.height;
     }
     return this.path;
   }
