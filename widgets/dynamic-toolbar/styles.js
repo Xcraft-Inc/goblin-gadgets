@@ -26,8 +26,6 @@ export default function styles(theme, props) {
       borderRadius = '0px 0px ' + padding + ' 0px';
     }
     boxShadow = theme.shapes.floatingShadow;
-    borderRadius =
-      props.padding === 'large' ? '0px 0px ' + padding + ' 0px' : null;
   }
 
   let visibleTransform, hiddenTransform;
