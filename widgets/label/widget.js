@@ -83,7 +83,7 @@ class Label extends Widget {
     const result = [];
     const fragments = this.getFragments(line);
     if (fragments.length === 0) {
-      result.push(this.renderFragment(0, {em: false, text: ' '})); // U+2001 cadratin
+      result.push(this.renderFragment(0, {em: false, text: '\u{2001}'})); // U+2001 cadratin
     } else {
       let index = 0;
       for (var fragment of fragments) {
