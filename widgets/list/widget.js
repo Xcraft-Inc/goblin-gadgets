@@ -65,7 +65,7 @@ class List extends Widget {
         ? range[1] + this._threshold
         : count - 1;
 
-    this.do('fetch', {range});
+    this.doAs('list', 'fetch', {range});
   }
 
   renderItem(index) {
