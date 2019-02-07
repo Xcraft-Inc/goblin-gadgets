@@ -1,5 +1,5 @@
 function prepare(text) {
-  return text ? text.replace(/<br\/>/gi, '\n') : null;
+  return text ? text.replace(/<br\/>/gi, '\n') : text;
 }
 
 //-----------------------------------------------------------------------------
