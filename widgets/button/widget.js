@@ -1,5 +1,4 @@
 import React from 'react';
-import {div, a} from 'react';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import Widget from 'laboratory/widget';
 import MouseTrap from 'mousetrap';
