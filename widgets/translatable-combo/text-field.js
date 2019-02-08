@@ -5,7 +5,7 @@ const Bool = require('gadgets/helpers/bool-helpers');
 
 import TextField from 'gadgets/text-field/widget';
 
-const {crypto} = require('xcraft-core-utils');
+const crypto = require('xcraft-core-utils/lib/crypto.js');
 
 /******************************************************************************/
 
