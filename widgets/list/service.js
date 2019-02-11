@@ -290,7 +290,7 @@ Goblin.registerQuest(goblinName, 'fetch', function*(quest, range) {
     const ids = yield* List.executeSearch(quest, value, sort);
     const count = quest.goblin.getX('count');
 
-    quest.do({ids, count});
+    quest.dispatch('elastic-fetch', {ids, count});
     yield quest.me.afterFetch();
 
     return;
@@ -306,7 +306,7 @@ Goblin.registerQuest(goblinName, 'fetch', function*(quest, range) {
   }
 
   if (_do) {
-    quest.do({rows, ids});
+    quest.dispatch('rethink-fetch', {rows, ids});
     yield quest.me.afterFetch();
   }
 });

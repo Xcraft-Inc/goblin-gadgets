@@ -27,29 +27,30 @@ module.exports = {
     const count = action.get('count');
     return state.set('list', ids).set('count', count);
   },
-  fetch: (state, action) => {
+  'rethink-fetch': (state, action) => {
     const rows = action.get('rows');
     const ids = action.get('ids');
-    const count = action.get('count');
 
-    if (rows) {
-      state = state.set(
-        'list',
-        state.get('list').filter((_, row) => {
-          const index = Number(`${row}`.replace(/-item/, ''));
-          return !!ids[index];
-        })
-      );
+    state = state.set(
+      'list',
+      state.get('list').filter((_, row) => {
+        const index = Number(`${row}`.replace(/-item/, ''));
+        return !!ids[index];
+      })
+    );
 
-      for (const id in rows) {
-        const row = `${rows[id]}-item`;
-        state = state.set(`list.${row}`, id);
-      }
-    } else {
-      state = state.set('list', ids).set('count', count);
+    for (const id in rows) {
+      const row = `${rows[id]}-item`;
+      state = state.set(`list.${row}`, id);
     }
 
     return state;
+  },
+  'elastic-fetch': (state, action) => {
+    const ids = action.get('ids');
+    const count = action.get('count');
+
+    return state.set('list', ids).set('count', count);
   },
   'handle-changes': state => {
     return state.set('list', {});
