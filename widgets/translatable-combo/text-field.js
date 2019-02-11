@@ -5,7 +5,10 @@ const Bool = require('gadgets/helpers/bool-helpers');
 
 import TextField from 'gadgets/text-field/widget';
 
-const crypto = require('xcraft-core-utils/lib/crypto.js');
+const {
+  computeMessageId,
+  computeTranslationId,
+} = require('goblin-nabu/lib/helpers.js');
 
 /******************************************************************************/
 
@@ -84,11 +87,9 @@ class NabuTextField extends Form {
 export default Widget.connect((state, props) => {
   const {component, nabuId} = props;
 
-  const messageId = `nabuMessage@${crypto.sha256(nabuId)}`;
+  const messageId = computeMessageId(nabuId);
   const localeName = 'fr-CH';
-  let translationId = `nabuTranslation@${localeName}-${
-    messageId.split('@')[1]
-  }`;
+  let translationId = computeTranslationId(messageId, localeName);
 
   if (!state.get(`backend.${translationId}`)) {
     translationId = null;
