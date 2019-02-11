@@ -19,15 +19,6 @@ class List extends Widget {
     this.listRef = React.createRef();
   }
 
-  static get wiring() {
-    return {
-      id: 'id',
-      count: 'count',
-      type: 'type',
-      contentIndex: 'contentIndex',
-    };
-  }
-
   _fetchInternal() {
     if (!this.listRef.current) {
       return;
@@ -80,6 +71,7 @@ class List extends Widget {
         itemId={`${index}-item`}
         height={this._height}
         parentId={this.props.parentId}
+        //id={this.props.listIds ? this.props.listIds.get (index) : this.props.id}
       />
     );
   }
@@ -110,4 +102,10 @@ class List extends Widget {
   }
 }
 
-export default Widget.Wired(List)();
+export default Widget.connect((state, props) => {
+  return {
+    count: state.get(`backend.${props.id}.count`),
+    listIds: state.get(`backend.${props.id}.list`),
+    contentIndex: state.get(`backend.${props.id}.contentIndex`),
+  };
+})(List);
