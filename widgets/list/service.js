@@ -311,7 +311,7 @@ Goblin.registerQuest(goblinName, 'fetch', function*(quest, range) {
   }
 });
 
-Goblin.registerQuest(goblinName, 'after-fetch', function(quest) {
+Goblin.registerQuest(goblinName, 'after-fetch', function*(quest) {
   const afterFetch = quest.goblin.getX('afterFetch');
   if (afterFetch) {
     const childId = quest.me.id
@@ -319,7 +319,7 @@ Goblin.registerQuest(goblinName, 'after-fetch', function(quest) {
       .slice(1)
       .join('@');
     const childApi = quest.getAPI(childId);
-    quest.defer(() => childApi.afterFetch({listId: quest.me.id}));
+    yield childApi.afterFetch({listId: quest.me.id});
   }
 });
 
