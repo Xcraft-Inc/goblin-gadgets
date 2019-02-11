@@ -242,7 +242,7 @@ class Button extends Widget {
     if (this.props.kind === 'container' || this.props.kind === 'box') {
       return (
         <ConnectedDiv
-          this={this}
+          self={this}
           tooltip={tooltip}
           key={this.props.index}
           {...propsTabIndex}
@@ -263,7 +263,7 @@ class Button extends Widget {
     } else if (this.props.toAnchor) {
       return (
         <ConnectedA // <AConnected
-          this={this}
+          self={this}
           tooltip={tooltip}
           key={this.props.index}
           {...propsTabIndex}
@@ -288,7 +288,7 @@ class Button extends Widget {
     } else {
       return (
         <ConnectedDiv
-          this={this}
+          self={this}
           tooltip={tooltip}
           key={this.props.index}
           {...propsTabIndex}

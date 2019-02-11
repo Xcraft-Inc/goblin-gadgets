@@ -43,7 +43,7 @@ export default class TextFieldBasis extends Widget {
 
     return (
       <ConnectedDiv
-        this={this}
+        self={this}
         tooltip={this.props.tooltip}
         className={boxClass}
       >

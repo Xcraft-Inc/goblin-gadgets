@@ -256,7 +256,7 @@ class Label extends Widget {
     if (Bool.isTrue(this.props.insideButton)) {
       return (
         <ConnectedDiv
-          this={this}
+          self={this}
           tooltip={this.props.tooltip}
           className={boxClass}
           key={this.props.index}
@@ -268,7 +268,7 @@ class Label extends Widget {
     } else {
       return (
         <ConnectedDiv
-          this={this}
+          self={this}
           tooltip={this.props.tooltip}
           className={boxClass}
           key={this.props.index}
