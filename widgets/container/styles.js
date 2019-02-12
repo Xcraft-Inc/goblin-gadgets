@@ -223,6 +223,7 @@ export default function styles(theme, props) {
     maxWidth = theme.shapes.taskButtonWidth;
     display = 'flex';
     flexDirection = 'column';
+    flexGrow = 1;
   }
 
   if (kind === 'right') {

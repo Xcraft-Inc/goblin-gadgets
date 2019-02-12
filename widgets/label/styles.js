@@ -782,6 +782,14 @@ export default function styles(theme, props) {
     textSize = theme.shapes.ticketGlueTitleSize;
   }
 
+  if (kind === 'task-show-footer') {
+    boxJustifyContent = boxJustifyContent || 'flex-end';
+    glyphColorFromKind = theme.palette.ticketGlueTitle;
+    textColorFromKind = theme.palette.ticketGlueTitle;
+    textWeight = 'bold';
+    textSize = theme.shapes.ticketGlueTitleSize;
+  }
+
   // Button with a day in Calendar component.
   if (
     kind === 'calendar' ||

@@ -66,8 +66,17 @@ export default function styles(theme, props) {
   }
 
   if (props.kind === 'grow') {
-    (grow = '1'), (margin = null);
+    grow = '1';
+    margin = null;
     padding = null;
+  }
+
+  if (props.kind === 'sajex') {
+    grow = '1';
+    margin = null;
+    padding = null;
+    borderWidth = '0px';
+    borderStyle = 'none';
   }
 
   const boxStyle = {

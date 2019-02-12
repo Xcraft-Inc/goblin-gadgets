@@ -606,6 +606,24 @@ export default function styles(theme, props) {
     borderActiveColor = theme.palette.ticketHilitedBackground;
   }
 
+  if (kind === 'task-show-footer') {
+    boxHeight = Unit.multiply(theme.shapes.lineHeight, 1.2);
+    borderStyle = 'solid';
+    borderColor = 'transparent';
+    borderWidth = theme.shapes.ticketHoverThickness;
+    borderRadius = Unit.multiply(theme.shapes.lineHeight, 0.25);
+    boxSizing = 'border-box';
+    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-end';
+    boxMarginBottom = '3px';
+    backgroundColor = null;
+    backgroundHoverColor = theme.palette.ticketGlueHilitedBackground;
+    borderHoverStyle = 'solid';
+    borderHoverColor = theme.palette.ticketHover;
+    borderHoverWidth = theme.shapes.ticketHoverThickness;
+    activeColor = theme.palette.ticketHilitedBackground;
+    borderActiveColor = theme.palette.ticketHilitedBackground;
+  }
+
   // Button with a day in Calendar component.
   if (
     kind === 'calendar' ||
