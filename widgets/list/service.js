@@ -113,6 +113,7 @@ class List {
       from,
       size,
       mustExist: true,
+      fuzzy: 0,
     });
 
     let currentValues = quest.goblin.getX('ids', []);
