@@ -29,6 +29,8 @@ export default function styles(theme, props) {
     display,
     flexDirection,
     flexGrow,
+    flexBasis: '0',
+    flexShrink: '1',
     overflowX,
     overflowY,
     width,
