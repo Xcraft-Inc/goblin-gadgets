@@ -1,4 +1,4 @@
-import {Unit} from 'electrum-theme';
+import {Unit, ColorManipulator} from 'electrum-theme';
 import {ColorHelpers} from 'electrum-theme';
 const Bool = require('gadgets/helpers/bool-helpers');
 
@@ -367,6 +367,15 @@ export default function styles(theme, props) {
     } else {
       backgroundColor = theme.palette.paneHeaderBackground;
     }
+  }
+
+  if (kind === 'pane-warning-secondary') {
+    const mm = Unit.multiply(m, -1);
+    flexDirection = 'row';
+    height = '20px';
+    padding = Unit.multiply(m, 0.5) + ' ' + m;
+    margin = '0px ' + mm + ' ' + m + ' ' + mm;
+    backgroundColor = ColorManipulator.lighten(theme.palette.markBase, 0.4);
   }
 
   if (kind === 'pane-header-light') {

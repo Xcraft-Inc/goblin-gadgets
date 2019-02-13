@@ -147,13 +147,42 @@ class Field extends Form {
           <Label
             text={this.props.labelText}
             glyph={this.props.labelGlyph}
-            width={labelWidth}
-            kind="label-field"
+            kind={this.props.labelKind || 'label-field'}
             justify="left"
             spacing="overlap"
           />
         )}
-        <Dynamic grow="1" tooltip={this.props.tooltip} />
+        <Dynamic
+          grow="1"
+          kind={this.props.labelKind}
+          tooltip={this.props.tooltip}
+        />
+      </Container>
+    );
+  }
+
+  renderStatusDynamic() {
+    const Dynamic = this.mapWidget(
+      Label,
+      value => {
+        if (!value) {
+          return;
+        }
+        return this.props.map(value);
+      },
+      this.fullPath
+    );
+
+    return (
+      <Container
+        kind="pane-warning-secondary"
+        grow={this.props.grow}
+        width={this.props.width}
+        height={this.props.height}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
+      >
+        <Dynamic grow="1" kind="pane-warning" tooltip={this.props.tooltip} />
       </Container>
     );
   }
@@ -2550,6 +2579,8 @@ class Field extends Form {
         return this.renderEditData();
       case 'dynamic':
         return this.renderDynamic();
+      case 'status-dynamic':
+        return this.renderStatusDynamic();
       case 'table-dynamic':
         return this.renderTableDynamic();
       case 'button-dynamic':
@@ -2629,6 +2660,8 @@ class Field extends Form {
         return this.renderEditData();
       case 'dynamic':
         return this.renderDynamic();
+      case 'status-dynamic':
+        return this.renderStatusDynamic();
       case 'table-dynamic':
         return this.renderTableDynamic();
       case 'button-dynamic':
