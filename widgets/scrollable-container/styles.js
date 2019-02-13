@@ -4,6 +4,8 @@ export default function styles(theme, props) {
   let display = props.display;
   let flexDirection = props.flexDirection;
   let flexGrow = '1';
+  let flexBasis = null;
+  let flexShrink = null;
   let overflowX = 'auto';
   let overflowY = 'auto';
   let width = props.width;
@@ -16,6 +18,8 @@ export default function styles(theme, props) {
 
   if (props.kind === 'panes') {
     padding = '0px ' + m + ' 0px ' + m;
+    flexBasis = '0';
+    flexShrink = '1';
   }
 
   if (props.kind === 'table-body') {
@@ -29,8 +33,8 @@ export default function styles(theme, props) {
     display,
     flexDirection,
     flexGrow,
-    flexBasis: '0',
-    flexShrink: '1',
+    flexBasis,
+    flexShrink,
     overflowX,
     overflowY,
     width,
