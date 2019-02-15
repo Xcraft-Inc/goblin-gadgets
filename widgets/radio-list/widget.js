@@ -40,7 +40,7 @@ class RadioList extends Widget {
   }
 
   getItem(item) {
-    if (typeof item === 'string') {
+    if (!item || typeof item === 'string') {
       return item;
     } else {
       if (item.text) {
