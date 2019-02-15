@@ -22,7 +22,7 @@ function getDisplayedText(text, type) {
     case 'price':
       return PriceConverters.getDisplayed(text);
     default:
-      return text;
+      return typeof text === 'string' ? text.replace(/\n/g, ', ') : text;
   }
 }
 
