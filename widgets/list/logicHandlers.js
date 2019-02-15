@@ -34,7 +34,7 @@ module.exports = {
     state = state.set(
       'list',
       state.get('list').filter((_, row) => {
-        const index = Number(`${row}`.replace(/-item/, ''));
+        const index = Number(row.replace(/-item/, ''));
         return !!ids[index];
       })
     );

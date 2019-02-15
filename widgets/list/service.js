@@ -95,8 +95,8 @@ class List {
     const hinter = quest.goblin.getX('hinter');
 
     const range = quest.goblin.getX('range');
-    const from = range[0];
-    const size = range[1] - range[0] + 1;
+    const from = range ? range[0] : undefined;
+    const size = range ? range[1] - range[0] + 1 : undefined;
 
     let type = hinter.type;
     const subTypes = hinter.subTypes;
@@ -182,7 +182,6 @@ Goblin.registerQuest(goblinName, 'create', function*(
 
   quest.goblin.setX('isElastic', hinter ? true : false);
   quest.goblin.setX('hinter', hinter);
-  quest.goblin.setX('range', [0, 1]);
   quest.goblin.setX('sort', sort);
   quest.goblin.setX('afterFetch', afterFetch);
 
@@ -198,7 +197,6 @@ Goblin.registerQuest(goblinName, 'create', function*(
     });
 
     yield quest.me.initList();
-    yield quest.me.fetch(quest);
     return id;
   }
 
