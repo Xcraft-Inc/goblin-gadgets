@@ -745,6 +745,16 @@ export default function styles(theme, props) {
     activeColor = theme.palette.toolbarActiveBackground;
   }
 
+  if (kind === 'flat-combo') {
+    backgroundColor = disabled
+      ? theme.palette.flatComboDisableInactiveBackground
+      : theme.palette.flatComboInactiveBackground;
+    activeColor = disabled
+      ? theme.palette.flatComboDisableActiveBackground
+      : theme.palette.flatComboActiveBackground;
+    specialDisabled = true;
+  }
+
   if (!kind) {
     borderRadius = theme.shapes.smoothRadius;
     activeColor = theme.palette.boxActiveBackground;

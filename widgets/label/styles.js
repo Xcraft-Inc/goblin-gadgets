@@ -880,6 +880,20 @@ export default function styles(theme, props) {
     }
   }
 
+  if (kind === 'flat-combo') {
+    if (Bool.isTrue(active)) {
+      textColorFromKind = disabled
+        ? theme.palette.flatComboDisableActiveText
+        : theme.palette.flatComboActiveText;
+    } else {
+      textColorFromKind = disabled
+        ? theme.palette.flatComboDisableInactiveText
+        : theme.palette.flatComboInactiveText;
+    }
+    glyphColorFromKind = textColorFromKind;
+    specialDisabled = true;
+  }
+
   if (Bool.isTrue(empty)) {
     border = '2px dotted #ccc';
     boxHeight = Unit.sub(theme.shapes.lineHeight, '2px');
