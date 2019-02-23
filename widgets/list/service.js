@@ -259,7 +259,9 @@ Goblin.registerQuest(goblinName, 'handle-changes', function*(quest, change) {
 
 Goblin.registerQuest(goblinName, 'fetch', function*(quest, range) {
   yield quest.goblin.getX('mutex').lock();
-  quest.defer(() => quest.goblin.getX('mutex').unlock());
+  quest.defer(
+    () => quest.goblin.getX('mutex') && quest.goblin.getX('mutex').unlock()
+  );
 
   if (range) {
     quest.goblin.setX('range', range);
