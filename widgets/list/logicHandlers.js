@@ -20,12 +20,22 @@ module.exports = {
   'customize-visualization': (state, action) => {
     const ids = action.get('ids');
     const count = action.get('count');
-    return state.set('list', ids).set('count', count);
+    const highlights = action.get('highlights');
+
+    return state
+      .set('list', ids)
+      .set('count', count)
+      .set('highlights', highlights);
   },
   'init-list': (state, action) => {
     const ids = action.get('ids');
     const count = action.get('count');
-    return state.set('list', ids).set('count', count);
+    const highlights = action.get('highlights');
+
+    return state
+      .set('list', ids)
+      .set('count', count)
+      .set('highlights', highlights);
   },
   'rethink-fetch': (state, action) => {
     const rows = action.get('rows');
@@ -49,8 +59,12 @@ module.exports = {
   'elastic-fetch': (state, action) => {
     const ids = action.get('ids');
     const count = action.get('count');
+    const highlights = action.get('highlights');
 
-    return state.set('list', ids).set('count', count);
+    return state
+      .set('list', ids)
+      .set('count', count)
+      .set('highlights', highlights);
   },
   'handle-changes': state => {
     return state.set('list', {});

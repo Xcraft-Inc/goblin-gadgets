@@ -13,6 +13,7 @@ const logicState = {
   count: 0,
   list: {},
   contentIndex: {},
+  highlights: [],
 };
 
 // Define logic handlers according rc.json
@@ -91,6 +92,7 @@ class List {
 
     quest.goblin.setX('value', value);
     quest.goblin.setX('sort', sort);
+    quest.goblin.setX('highlights', []);
 
     const hinter = quest.goblin.getX('hinter');
 
@@ -118,42 +120,70 @@ class List {
     let currentValues = quest.goblin.getX('ids', []);
     let checkValues = Array.from(currentValues.values);
     let values = [];
+    let highlights = {};
 
     let total = 0;
     let double = 0;
+    let notHigh = 0;
     if (results) {
       total = results.hits.total;
       var index = from;
 
       results.hits.hits.forEach(hit => {
-        let value = hit._id;
+        let valueId = hit._id;
+        let hitId = hit._id;
         if (hinter.subJoins) {
           hinter.subJoins.forEach(subJoin => {
             const join = hit._source[subJoin];
             if (join) {
-              value = join;
+              valueId = join;
             }
           });
         }
 
-        var currentValue = currentValues[index];
-        if (currentValue && currentValue === value) {
-          values[index] = value;
-          index++;
-        } else if (!currentValue) {
-          if (!checkValues.includes(value)) {
-            values[index] = value;
-            checkValues.push(value);
-            index++;
+        let hasHigh = true;
+        if (hit.highlight) {
+          const phonetic =
+            hit.highlight.searchPhonetic &&
+            hit.highlight.searchPhonetic[0].includes('<em>')
+              ? hit.highlight.searchPhonetic[0].replace(/<\/?em>/g, '`')
+              : undefined;
+          const auto =
+            hit.highlight.searchAutocomplete &&
+            hit.highlight.searchAutocomplete[0].includes('<em>')
+              ? hit.highlight.searchAutocomplete[0].replace(/<\/?em>/g, '`')
+              : undefined;
+
+          const valueHighlight = phonetic ? phonetic : auto;
+          if (valueHighlight) {
+            highlights[hitId] = valueHighlight;
           } else {
-            double++;
+            hasHigh = false;
+            notHigh++;
+          }
+        }
+
+        if (hasHigh) {
+          var currentValue = currentValues[index];
+          if (currentValue && currentValue === valueId) {
+            values[index] = valueId;
+            index++;
+          } else if (!currentValue) {
+            if (!checkValues.includes(valueId)) {
+              values[index] = valueId;
+              checkValues.push(valueId);
+              index++;
+            } else {
+              double++;
+            }
           }
         }
       });
     }
 
-    quest.goblin.setX('count', total - double);
+    quest.goblin.setX('count', total - double - notHigh);
     quest.goblin.setX('ids', values);
+    quest.goblin.setX('highlights', highlights);
 
     return values;
   }
@@ -218,7 +248,8 @@ Goblin.registerQuest(goblinName, 'customize-visualization', function*(
   quest.goblin.setX('ids', []);
   const ids = yield* List.executeSearch(quest, filter, sort);
   const count = quest.goblin.getX('count');
-  quest.do({ids, count});
+  const highlights = quest.goblin.getX('highlights');
+  quest.do({ids, count, highlights});
 });
 
 Goblin.registerQuest(goblinName, 'change-content-index', function*(
@@ -289,8 +320,9 @@ Goblin.registerQuest(goblinName, 'fetch', function*(quest, range) {
 
     const ids = yield* List.executeSearch(quest, value, sort);
     const count = quest.goblin.getX('count');
+    const highlights = quest.goblin.getX('highlights');
 
-    quest.dispatch('elastic-fetch', {ids, count});
+    quest.dispatch('elastic-fetch', {ids, count, highlights});
     yield quest.me.afterFetch();
 
     return;
@@ -336,7 +368,8 @@ Goblin.registerQuest(goblinName, 'init-list', function*(quest) {
 
   const ids = yield* List.executeSearch(quest, value, sort);
   const count = quest.goblin.getX('count');
-  quest.do({ids, count});
+  const highlights = quest.goblin.getX('highlights');
+  quest.do({ids, count, highlights});
 });
 
 Goblin.registerQuest(goblinName, 'delete', function(quest) {
