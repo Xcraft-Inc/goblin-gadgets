@@ -54,7 +54,11 @@ class Button extends Widget {
   }
 
   get disabled() {
-    return Bool.isTrue(this.props.disabled) || Bool.isTrue(this.props.readonly);
+    return (
+      Bool.isTrue(this.props.disabled) ||
+      Bool.isTrue(this.props.readonly) ||
+      Bool.isTrue(this.props.busy)
+    );
   }
 
   onFocus() {
