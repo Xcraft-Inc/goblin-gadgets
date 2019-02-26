@@ -1139,6 +1139,7 @@ class Field extends Form {
           grow="1"
           onFocus={this.props.onFocus}
           onBlur={this.props.onBlur}
+          style={this.props.style}
         />
       </Container>
     );

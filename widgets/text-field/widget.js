@@ -299,6 +299,7 @@ class TextField extends Widget {
           self={this}
           tooltip={this.props.tooltip}
           className={boxClass}
+          style={this.props.style}
         >
           {glyph ? (
             <Label

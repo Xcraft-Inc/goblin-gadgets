@@ -274,6 +274,7 @@ class Label extends Widget {
           key={this.props.index}
           onClick={this.props.onClick}
           disabled={this.props.disabled}
+          style={this.props.style}
         >
           {this.renderGlyphAndText()}
           {this.props.children}

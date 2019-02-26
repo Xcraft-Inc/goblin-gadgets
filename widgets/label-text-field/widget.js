@@ -130,7 +130,14 @@ class LabelTextField extends Widget {
       props.selectedId = this.props.selectedId;
     }
 
-    return <TextField {...props} onFocus={this.onFocus} onBlur={this.onBlur} />;
+    return (
+      <TextField
+        {...props}
+        style={this.props.style}
+        onFocus={this.onFocus}
+        onBlur={this.onBlur}
+      />
+    );
   }
 
   renderAction() {
