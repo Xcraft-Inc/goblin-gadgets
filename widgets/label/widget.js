@@ -258,7 +258,7 @@ class Label extends Widget {
         <ConnectedDiv
           self={this}
           tooltip={this.props.tooltip}
-          className={boxClass}
+          className={this.props.className || boxClass}
           key={this.props.index}
           disabled={this.props.disabled}
         >
@@ -270,11 +270,10 @@ class Label extends Widget {
         <ConnectedDiv
           self={this}
           tooltip={this.props.tooltip}
-          className={boxClass}
+          className={this.props.className || boxClass}
           key={this.props.index}
           onClick={this.props.onClick}
           disabled={this.props.disabled}
-          style={this.props.style}
         >
           {this.renderGlyphAndText()}
           {this.props.children}

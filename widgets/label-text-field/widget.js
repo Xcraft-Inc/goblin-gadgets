@@ -123,6 +123,7 @@ class LabelTextField extends Widget {
       defaultFocus: this.props.defaultFocus,
       visibility: this.props.visibility,
       required: this.props.required,
+      className: this.props.className,
     };
 
     if (displayValue) {
@@ -130,14 +131,7 @@ class LabelTextField extends Widget {
       props.selectedId = this.props.selectedId;
     }
 
-    return (
-      <TextField
-        {...props}
-        style={this.props.style}
-        onFocus={this.onFocus}
-        onBlur={this.onBlur}
-      />
-    );
+    return <TextField {...props} onFocus={this.onFocus} onBlur={this.onBlur} />;
   }
 
   renderAction() {

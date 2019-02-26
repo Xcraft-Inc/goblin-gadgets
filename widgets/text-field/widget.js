@@ -298,8 +298,7 @@ class TextField extends Widget {
         <ConnectedDiv
           self={this}
           tooltip={this.props.tooltip}
-          className={boxClass}
-          style={this.props.style}
+          className={this.props.className || boxClass}
         >
           {glyph ? (
             <Label
