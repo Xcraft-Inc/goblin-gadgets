@@ -1,3 +1,4 @@
+//T:2019-02-27
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
@@ -202,8 +203,8 @@ class Combo extends Widget {
               this.props.trianglePosition
                 ? this.props.trianglePosition
                 : this.props.top
-                  ? 'top'
-                  : 'bottom'
+                ? 'top'
+                : 'bottom'
             }
             triangleShift={this.props.triangleShift}
           >

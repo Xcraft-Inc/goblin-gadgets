@@ -1,3 +1,4 @@
+//T:2019-02-27
 export function isInside(rect, x, y) {
   if (rect && rect.left < rect.right && rect.top < rect.bottom) {
     return (

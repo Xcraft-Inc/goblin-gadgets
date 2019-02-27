@@ -1,3 +1,4 @@
+//T:2019-02-2019
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
@@ -287,8 +288,8 @@ class FieldCombo extends Widget {
     const boxClass = this.showCombo
       ? this.styles.classNames.shadowBox
       : this.focus
-        ? this.styles.classNames.focusedBox
-        : this.styles.classNames.box;
+      ? this.styles.classNames.focusedBox
+      : this.styles.classNames.box;
 
     return (
       <span disabled={this.props.disabled} className={boxClass}>

@@ -1,6 +1,3 @@
-import {Unit} from 'electrum-theme';
-import {ColorManipulator} from 'electrum-theme';
-
 /******************************************************************************/
 
 export default function styles(theme, props) {
