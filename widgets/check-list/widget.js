@@ -1,12 +1,9 @@
 //T:2019-02-27
 import React from 'react';
 import Widget from 'laboratory/widget';
-const Bool = require('gadgets/helpers/bool-helpers');
-
-import Container from 'gadgets/container/widget';
-import CheckButton from 'gadgets/check-button/widget';
-import Button from 'gadgets/button/widget';
+import * as Bool from 'gadgets/helpers/bool-helpers';
 import T from 't';
+import CheckButton from 'gadgets/check-button/widget';
 
 /******************************************************************************/
 

@@ -2,11 +2,10 @@
 
 import React from 'react';
 import Widget from 'laboratory/widget';
+import * as Bool from 'gadgets/helpers/bool-helpers';
 
 import TreeCell from 'gadgets/tree-cell/widget';
 import Button from 'gadgets/button/widget';
-
-const Bool = require('gadgets/helpers/bool-helpers');
 
 /******************************************************************************/
 

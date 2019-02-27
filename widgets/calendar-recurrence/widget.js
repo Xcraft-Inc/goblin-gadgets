@@ -3,11 +3,8 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 import {date as DateConverters} from 'xcraft-core-converters';
-const Bool = require('gadgets/helpers/bool-helpers');
 
 import Container from 'gadgets/container/widget';
-import Label from 'gadgets/label/widget';
-import Button from 'gadgets/button/widget';
 import Calendar from 'gadgets/calendar/widget';
 import CalendarList from 'gadgets/calendar-list/widget';
 

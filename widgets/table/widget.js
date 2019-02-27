@@ -1,7 +1,8 @@
+//T:2019-02-27
 import React from 'react';
 import Widget from 'laboratory/widget';
 import {Unit} from 'electrum-theme';
-const Bool = require('gadgets/helpers/bool-helpers');
+import * as Bool from 'gadgets/helpers/bool-helpers';
 
 import {
   date as DateConverters,
@@ -14,6 +15,7 @@ import TableCell from 'gadgets/table-cell/widget';
 import Button from 'gadgets/button/widget';
 import TextFieldBasis from 'gadgets/text-field-basis/widget';
 import ScrollableContainer from 'gadgets/scrollable-container/widget';
+import T from 't';
 
 /******************************************************************************/
 
@@ -310,7 +312,7 @@ class Table extends Widget {
               grow="1"
               shape="left-smooth"
               glyph={glyph}
-              hintText="Filtre"
+              hintText={T('Filtre')}
               value={this.props.filter}
               onChange={this.onChangeFilter}
               spacing="overlap"
@@ -318,7 +320,7 @@ class Table extends Widget {
             <Button
               border="none"
               glyph="solid/times"
-              tooltip="Supprime le filtre (donc montre tout)"
+              tooltip={T('Supprime le filtre (donc montre tout)')}
               shape="right-smooth"
               onClick={this.onClearFilter}
             />
@@ -336,7 +338,7 @@ class Table extends Widget {
               grow="1"
               shape="smooth"
               glyph={glyph}
-              hintText="Filtre"
+              hintText={T('Filtre')}
               value={this.props.filter}
               onChange={this.onChangeFilter}
             />
@@ -549,7 +551,7 @@ class Table extends Widget {
             }
             place={isAllDeselected ? '1/1' : '1/2'}
             glyph="solid/check"
-            text="Tout sélectionner"
+            text={T('Tout sélectionner')}
             grow={isAllSelected ? '0' : '1'}
             spacing={isAllDeselected ? null : 'overlap'}
             onClick={this.selectAll}
@@ -562,7 +564,7 @@ class Table extends Widget {
             }
             place={isAllSelected ? '1/1' : '2/2'}
             glyph="solid/ban"
-            text="Tout désélectionner"
+            text={T('Tout désélectionner')}
             grow={isAllDeselected ? '0' : '1'}
             onClick={this.deselectAll}
           />

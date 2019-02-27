@@ -2,8 +2,7 @@
 
 import {Unit} from 'electrum-theme';
 import {isImmutable} from 'immutable';
-import {ColorManipulator} from 'electrum-theme';
-const Bool = require('gadgets/helpers/bool-helpers');
+import * as Bool from 'gadgets/helpers/bool-helpers';
 
 /******************************************************************************/
 

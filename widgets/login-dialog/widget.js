@@ -1,5 +1,5 @@
+//T:2019-02-27
 import React from 'react';
-import Widget from 'laboratory/widget';
 import Form from 'laboratory/form';
 
 import DialogModal from 'gadgets/dialog-modal/widget';
@@ -8,6 +8,7 @@ import Button from 'gadgets/button/widget';
 import Label from 'gadgets/label/widget';
 import LabelTextField from 'gadgets/label-text-field/widget';
 import Separator from 'gadgets/separator/widget';
+import T from 't';
 
 /******************************************************************************/
 
@@ -63,7 +64,7 @@ class LoginDialog extends Form {
       <DialogModal width="400px" height="320px">
         <Form {...this.formConfig}>
           <Container kind="row-pane">
-            <Label text="Identifiez-vous" grow="1" kind="big-center" />
+            <Label text={T('Identifiez-vous')} grow="1" kind="big-center" />
           </Container>
           <Separator kind="space" height="30px" />
           <Container kind="row-pane">
@@ -71,7 +72,7 @@ class LoginDialog extends Form {
               model=".user"
               defaultFocus="true"
               labelGlyph="solid/user"
-              hintText="Nom d´utilisateur"
+              hintText={T("Nom d'utilisateur")}
               grow="1"
             />
           </Container>
@@ -79,7 +80,7 @@ class LoginDialog extends Form {
             <LabelTextField
               model=".password"
               labelGlyph="solid/lock"
-              hintText="Mot de passe"
+              hintText={T('Mot de passe')}
               type="password"
               grow="1"
             />
@@ -90,7 +91,7 @@ class LoginDialog extends Form {
           <Container kind="row-pane">
             <Button
               glyph="solid/check"
-              text="Se connecter"
+              text={T('Se connecter')}
               grow="1"
               kind="action"
               place="1/2"
@@ -98,7 +99,7 @@ class LoginDialog extends Form {
             />
             <Button
               glyph="solid/times"
-              text="Annuler"
+              text={T('Annuler')}
               grow="1"
               kind="action"
               place="2/2"

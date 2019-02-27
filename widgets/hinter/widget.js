@@ -1,8 +1,8 @@
 //T:2019-02-27
-import T from 't';
 import React from 'react';
 import Widget from 'laboratory/widget';
-const Bool = require('gadgets/helpers/bool-helpers');
+import * as Bool from 'gadgets/helpers/bool-helpers';
+import T from 't';
 
 import Container from 'gadgets/container/widget';
 import Label from 'gadgets/label/widget';
@@ -63,12 +63,12 @@ class Hinter extends Widget {
 
     // FIXME: set glyph/tooltip according to work context of hinter !
     const clickGlyph = 'solid/eye';
-    const clickTooltip = T('Voir les détails');
+    const clickTooltip = T('Voir les détails\n(clic)');
     let doubleclickGlyph = 'solid/check';
-    let doubleclickTooltip = T('Choisir');
+    let doubleclickTooltip = T('Choisir\n(double-clic)');
     if (Bool.isTrue(this.props.editOnClick)) {
       doubleclickGlyph = 'solid/pencil';
-      doubleclickTooltip = T('Editer');
+      doubleclickTooltip = T('Editer\n(double-clic)');
     }
 
     return (
@@ -77,7 +77,7 @@ class Hinter extends Widget {
           <Button
             width="32px"
             glyph={clickGlyph}
-            tooltip={clickTooltip + '\n(clic)'}
+            tooltip={clickTooltip}
             onClick={() => this.handleClick(index, row)}
             spacing="overlap"
           />
@@ -85,7 +85,7 @@ class Hinter extends Widget {
         <Button
           width="32px"
           glyph={doubleclickGlyph}
-          tooltip={doubleclickTooltip + '\n(double-clic)'}
+          tooltip={doubleclickTooltip}
           onClick={() => this.handleDbClick(index, row)}
         />
       </div>
@@ -154,7 +154,6 @@ class Hinter extends Widget {
   }
 
   renderButtonNew() {
-    const titleText = this.props.titleText;
     if (this.props.displayNewButton && this.props.onNew) {
       return (
         <Container kind="actions">
@@ -165,7 +164,9 @@ class Hinter extends Widget {
             text={
               this.props.newButtonTitle
                 ? this.props.newButtonTitle
-                : T(`Nouveau ${titleText}`, '', {titleText})
+                : T('Nouveau {titleText}', '', {
+                    titleText: this.props.titleText,
+                  })
             }
             width="0px"
             grow="1"

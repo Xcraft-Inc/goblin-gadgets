@@ -6,8 +6,8 @@ import Label from 'gadgets/label/widget';
 import Badge from 'gadgets/badge/widget';
 import TicketHover from 'gadgets/ticket-hover/widget';
 
-const Bool = require('gadgets/helpers/bool-helpers');
-const Tooltip = require('gadgets/helpers/tooltip-helpers');
+import * as Bool from 'gadgets/helpers/bool-helpers';
+import {prepare} from 'gadgets/helpers/tooltip-helpers';
 import {Unit} from 'electrum-theme';
 import getOutlinePath from './getOutlinePath';
 
@@ -204,7 +204,7 @@ export default class Ticket extends Widget {
     return (
       <div
         className={boxClass}
-        title={Tooltip.prepare(this.props.tooltip)}
+        title={prepare(this.props.tooltip)}
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}
         onMouseDown={this.onMouseDown}

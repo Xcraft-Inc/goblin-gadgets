@@ -2,9 +2,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
-import MouseTrap from 'mousetrap';
 import ComboHelpers from 'gadgets/helpers/combo-helpers';
-const Bool = require('gadgets/helpers/bool-helpers');
+import * as Bool from 'gadgets/helpers/bool-helpers';
 import {Unit} from 'electrum-theme';
 import {isImmutable} from 'immutable';
 

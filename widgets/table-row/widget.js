@@ -2,8 +2,7 @@
 import T from 't';
 import React from 'react';
 import Widget from 'laboratory/widget';
-const Bool = require('gadgets/helpers/bool-helpers');
-
+import * as Bool from 'gadgets/helpers/bool-helpers';
 import TableCell from 'gadgets/table-cell/widget';
 
 /******************************************************************************/

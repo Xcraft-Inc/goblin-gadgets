@@ -4,8 +4,8 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import Widget from 'laboratory/widget';
 import MouseTrap from 'mousetrap';
 import * as ShortcutHelpers from '../helpers/shortcut-helpers.js';
-const Bool = require('gadgets/helpers/bool-helpers');
-const {ConnectedDiv, ConnectedA} = require('nabu/helpers/tooltip-helpers');
+import * as Bool from 'gadgets/helpers/bool-helpers';
+import {ConnectedDiv, ConnectedA} from 'nabu/helpers/tooltip-helpers';
 
 import Label from 'gadgets/label/widget';
 import Badge from 'gadgets/badge/widget';

@@ -1,10 +1,8 @@
 //T:2019-02-27
 import React from 'react';
-import Widget from 'laboratory/widget';
 import Form from 'laboratory/form';
 import {ColorManipulator} from 'electrum-theme';
-const Bool = require('gadgets/helpers/bool-helpers');
-import {Unit} from 'electrum-theme';
+import * as Bool from 'gadgets/helpers/bool-helpers';
 
 import Button from 'gadgets/button/widget';
 import Container from 'gadgets/container/widget';
@@ -13,7 +11,6 @@ import TextField from 'gadgets/text-field/widget';
 import TextFieldCombo from 'gadgets/text-field-combo/widget';
 import LabelTextField from 'gadgets/label-text-field/widget';
 import TextFieldTyped from 'gadgets/text-field-typed/widget';
-import Separator from 'gadgets/separator/widget';
 import Splitter from 'gadgets/splitter/widget';
 import CheckButton from 'gadgets/check-button/widget';
 import Gauge from 'gadgets/gauge/widget';

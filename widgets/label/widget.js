@@ -5,8 +5,8 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import Widget from 'laboratory/widget';
 import T from 'nabu/t/widget';
 import {ColorHelpers} from 'electrum-theme';
-const Bool = require('gadgets/helpers/bool-helpers');
-const {ConnectedDiv} = require('nabu/helpers/tooltip-helpers');
+import * as Bool from 'gadgets/helpers/bool-helpers';
+import {ConnectedDiv} from 'nabu/helpers/tooltip-helpers';
 import ReactMarkdown from 'react-markdown';
 
 /******************************************************************************/

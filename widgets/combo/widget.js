@@ -5,7 +5,7 @@ import Widget from 'laboratory/widget';
 import MouseTrap from 'mousetrap';
 import {ColorHelpers} from 'electrum-theme';
 import * as RectHelpers from '../helpers/rect-helpers.js';
-const Bool = require('gadgets/helpers/bool-helpers');
+import * as Bool from 'gadgets/helpers/bool-helpers';
 import {Unit} from 'electrum-theme';
 
 import Container from 'gadgets/container/widget';

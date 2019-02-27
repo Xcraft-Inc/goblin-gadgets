@@ -5,7 +5,7 @@ import {
   time as TimeConverters,
   date as DateConverters,
 } from 'xcraft-core-converters';
-const Bool = require('gadgets/helpers/bool-helpers');
+import * as Bool from 'gadgets/helpers/bool-helpers';
 
 import Gauge from 'gadgets/gauge/widget';
 
