@@ -1,3 +1,4 @@
+//T:2019-02-17
 import React from 'react';
 import Widget from 'laboratory/widget';
 import Bool from 'gadgets/helpers/bool-helpers';
@@ -11,7 +12,7 @@ class Badge extends Widget {
   render() {
     let truncatedValue = this.props.value ? this.props.value.toString() : '';
     if (truncatedValue.length > 3) {
-      truncatedValue = truncatedValue.substring(0, 3) + '...';
+      truncatedValue = truncatedValue.substring(0, 3) + '…';
     }
 
     return (
