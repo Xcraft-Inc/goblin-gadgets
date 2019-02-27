@@ -1,3 +1,4 @@
+//T:2019-02-27
 // See http://www.javascripter.net/faq/operatin.htm
 function getOSName() {
   const v = navigator.appVersion;

@@ -1,3 +1,4 @@
+//T:2019-02-27
 // Convert string '123px' to int 123.
 function toInt(value) {
   if (typeof value === 'string') {
