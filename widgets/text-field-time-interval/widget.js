@@ -1,3 +1,5 @@
+//T:2019-02-27
+import T from 't';
 import React from 'react';
 import Widget from 'laboratory/widget';
 const Bool = require('gadgets/helpers/bool-helpers');
@@ -32,8 +34,8 @@ class TextFieldTimeInterval extends Widget {
         labelText={this.props.labelText}
         labelGlyph={this.props.labelGlyph}
         labelWidth={this.props.labelWidth}
-        hintText={this.props.startHintText || 'Début'}
-        tooltip={this.props.startTooltip || 'Heure de début'}
+        hintText={this.props.startHintText || T('Début', 'heure de début')}
+        tooltip={this.props.startTooltip || T('Heure de début')}
         selectAllOnFocus={this.props.selectAllOnFocus}
         readonly={this.props.readonly}
         disabled={this.props.disabled}
@@ -62,8 +64,8 @@ class TextFieldTimeInterval extends Widget {
         }
         type="time"
         labelWidth="0px"
-        hintText={this.props.endHintText || 'Fin'}
-        tooltip={this.props.endTooltip || 'Heure de fin'}
+        hintText={this.props.endHintText || T('Fin', 'heure de fin')}
+        tooltip={this.props.endTooltip || T('Heure de fin')}
         selectAllOnFocus={this.props.selectAllOnFocus}
         readonly={this.props.readonly}
         disabled={this.props.disabled}
@@ -91,7 +93,7 @@ class TextFieldTimeInterval extends Widget {
           glyph="solid/arrow-alt-circle-left"
           disabled={Bool.isTrue(this.props.disabled || this.props.readonly)}
           spacing={this.props.spacing}
-          tooltip="Maintenant"
+          tooltip={T('Maintenant')}
           onClick={this.onNowClicked}
         />
       );
