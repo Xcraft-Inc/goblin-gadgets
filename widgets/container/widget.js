@@ -1,3 +1,4 @@
+//T:2019-02-27
 import React from 'react';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import Widget from 'laboratory/widget';
@@ -9,7 +10,8 @@ class Container extends Widget {
     super(...arguments);
 
     this.panelBottoms = [];
-    this.handleScroll = this.handleScroll.bind(this);
+    // TODO: remove this code, it does nothing
+    //this.handleScroll = this.handleScroll.bind(this);
   }
 
   static get wiring() {
@@ -30,13 +32,14 @@ class Container extends Widget {
     if (count !== 0 && count !== 2) {
       // These 2 properties must exist all together, or none !
       console.error(
-        'Container has invalid properties:' +
-          ` dragController=${dragController} dragOwnerId=${dragOwnerId}`
+        `Container has invalid properties: dragController=${dragController} dragOwnerId=${dragOwnerId}`
       );
     }
-    if (this.props.navigationFor) {
-      this.initNavigation();
-    }
+
+    // TODO: remove this code, it does nothing
+    //if (this.props.navigationFor) {
+    //  this.initNavigation();
+    //}
   }
 
   componentDidMount() {
@@ -48,7 +51,8 @@ class Container extends Widget {
       )[0];
       if (panelElem) {
         this.computePanelBottoms(panelElem);
-        panelElem.addEventListener('scroll', this.handleScroll, true);
+        // TODO: remove this code, it does nothing
+        //panelElem.addEventListener('scroll', this.handleScroll, true);
       }
     }
     if (this.props.dragController) {
@@ -83,7 +87,8 @@ class Container extends Widget {
         `[data-navigation-name="${this.props.navigationFor}"]`
       )[0];
       if (panelElem) {
-        panelElem.removeEventListener('scroll', this.handleScroll, true);
+        // TODO: remove this code, it does nothing
+        //panelElem.removeEventListener('scroll', this.handleScroll, true);
       }
     }
     if (this.props.dragController && window.document.dragControllers) {
@@ -146,16 +151,8 @@ class Container extends Widget {
     }
   }
 
-  setNavigation(index) {
-    // FIXME: what's the purpose of this? It's not used...
-    const children = React.Children.map(this.props.children, (child, i) => {
-      const active = {
-        active: Bool.toString(i === index),
-      };
-      return React.cloneElement(child, active);
-    });
-  }
-
+  // TODO: remove this code, it does nothing; setNavigation had no side effects
+  /*
   initNavigation() {
     this.setNavigation(0);
   }
@@ -165,6 +162,7 @@ class Container extends Widget {
     const index = this.getPanelIndex(e.target.scrollTop, max);
     this.setNavigation(index);
   }
+  */
 
   /******************************************************************************/
 
