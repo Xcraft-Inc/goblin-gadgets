@@ -1,5 +1,7 @@
+//T:2019-02-27
 import React from 'react';
 import Widget from 'laboratory/widget';
+import T from 't';
 
 import Container from 'gadgets/container/widget';
 import Label from 'gadgets/label/widget';
@@ -50,7 +52,7 @@ class Map extends Widget {
   render() {
     return (
       <Container kind="panes">
-        <Label text="Carte" grow="1" kind="title" />
+        <Label text={T('Carte')} grow="1" kind="title" />
         <div
           ref={node => this.initMap(node)}
           style={{width: '700px', height: '600px', position: 'relative'}}
