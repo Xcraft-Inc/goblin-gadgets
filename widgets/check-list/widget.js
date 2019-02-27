@@ -1,6 +1,8 @@
+//T:2019-02-27
 import React from 'react';
 import Widget from 'laboratory/widget';
 import * as Bool from 'gadgets/helpers/bool-helpers';
+import T from 't';
 import CheckButton from 'gadgets/check-button/widget';
 
 /******************************************************************************/
@@ -95,7 +97,7 @@ class CheckList extends Widget {
           <div className={headerClass}>
             <CheckButton
               kind={this.props.kind || 'check'}
-              text="Enlève tout"
+              text={T('Enlève tout')}
               checked="false"
               readonly={this.props.readonly}
               onClick={this.onClearAll}
@@ -107,7 +109,7 @@ class CheckList extends Widget {
           <div className={headerClass}>
             <CheckButton
               kind={this.props.kind || 'check'}
-              text="Met tout"
+              text={T('Met tout')}
               checked="true"
               readonly={this.props.readonly}
               onClick={this.onSetAll}

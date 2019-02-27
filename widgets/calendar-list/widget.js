@@ -1,7 +1,10 @@
+//T:2019-02-27
+
 import React from 'react';
 import Form from 'laboratory/form';
 import {date as DateConverters} from 'xcraft-core-converters';
 import * as Bool from 'gadgets/helpers/bool-helpers';
+import T from 't';
 
 import Button from 'gadgets/button/widget';
 
@@ -163,8 +166,8 @@ class CalendarList extends Form {
           kind="calendar-list"
           subkind="base"
           active={this.showBase ? 'true' : 'false'}
-          text="Régul."
-          tooltip="Montre ou cache les dates régulières"
+          text={T('Régul.')}
+          tooltip={T('Montre ou cache les dates régulières')}
           grow="1"
           spacing="overlap"
           onClick={this.onShowBase}
@@ -173,8 +176,8 @@ class CalendarList extends Form {
           kind="calendar-list"
           subkind="add"
           active={this.showAdd ? 'true' : 'false'}
-          text="Ajouts"
-          tooltip="Montre ou cache les dates ajoutées"
+          text={T('Ajouts')}
+          tooltip={T('Montre ou cache les dates ajoutées')}
           grow="1"
           spacing="overlap"
           onClick={this.onShowAdd}
@@ -183,8 +186,8 @@ class CalendarList extends Form {
           kind="calendar-list"
           subkind="sub"
           active={this.showSub ? 'true' : 'false'}
-          text="Supp."
-          tooltip="Montre ou cache les dates supprimées"
+          text={T('Supp.')}
+          tooltip={T('Montre ou cache les dates supprimées')}
           grow="1"
           spacing="overlap"
           onClick={this.onShowSub}
@@ -192,7 +195,7 @@ class CalendarList extends Form {
         <Button
           kind="calendar-navigator"
           glyph="solid/trash"
-          tooltip="Supprime toutes les exceptions"
+          tooltip={T('Supprime toutes les exceptions')}
           disabled={!this.hasAdd || Bool.isTrue(this.props.readonly)}
           onClick={this.onFlushAdd}
         />

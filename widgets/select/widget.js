@@ -1,13 +1,11 @@
+//T:2019-02-27
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
 import MouseTrap from 'mousetrap';
-import {Unit} from 'electrum-theme';
-import {ColorHelpers} from 'electrum-theme';
 import * as RectHelpers from '../helpers/rect-helpers.js';
 
 import Container from 'gadgets/container/widget';
-import Button from 'gadgets/button/widget';
 import Separator from 'gadgets/separator/widget';
 
 /******************************************************************************/

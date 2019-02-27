@@ -1,6 +1,8 @@
+//T:2019-02-27
 import React from 'react';
 import Widget from 'laboratory/widget';
 import * as Bool from 'gadgets/helpers/bool-helpers';
+import T from 't';
 
 import TreeRow from 'gadgets/tree-row/widget';
 import TreeCell from 'gadgets/tree-cell/widget';
@@ -259,22 +261,22 @@ class Tree extends Widget {
     switch (index) {
       case 0:
         glyph = 'solid/check';
-        text = 'Tout sélectionner';
+        text = T('Tout sélectionner');
         onClick = this.selectAll;
         break;
       case 1:
         glyph = 'solid/ban';
-        text = 'Tout désélectionner';
+        text = T('Tout désélectionner');
         onClick = this.deselectAll;
         break;
       case 2:
         glyph = 'solid/angle-double-down';
-        text = 'Tout étendre';
+        text = T('Tout étendre');
         onClick = () => this.expandAll(data);
         break;
       case 3:
         glyph = 'solid/angle-double-left';
-        text = 'Tout compacter';
+        text = T('Tout compacter');
         onClick = this.compactAll;
         break;
     }

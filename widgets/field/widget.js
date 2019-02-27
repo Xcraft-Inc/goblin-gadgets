@@ -1,3 +1,5 @@
+//T:2019-02-27
+
 import React from 'react';
 import Form from 'laboratory/form';
 import Widget from 'laboratory/widget';
@@ -6,6 +8,7 @@ import {
   date as DateConverters,
   time as TimeConverters,
 } from 'xcraft-core-converters';
+import T from 't';
 
 /******************************************************************************/
 //migrated
@@ -883,7 +886,7 @@ class Field extends Form {
         entity => {
           let glyph = 'solid/spinner';
           let glyphColor = null;
-          let text = 'Chargement...';
+          let text = T('Chargement...');
           if (entity) {
             glyph = entity.get('meta.summaries.glyph');
             glyphColor = entity.get('meta.summaries.glyphColor');
@@ -913,7 +916,7 @@ class Field extends Form {
           leftSpacing="overlap"
           spacing={this.props.spacing}
           glyph="solid/pencil"
-          tooltip="Editer"
+          tooltip={T('Editer')}
           onClick={() => {
             {
               const entity = this.getModelValue(props.entityId, true);
@@ -1709,8 +1712,9 @@ class Field extends Form {
   }
 
   renderEditDelay() {
-    const help =
-      '1a = 1 année<br/>2mo = 2 mois<br/>3j = 3 jours<br/>4h = 4 heures<br/>5m = 5 minutes';
+    const help = T(
+      '1a = 1 année<br/>2mo = 2 mois<br/>3j = 3 jours<br/>4h = 4 heures<br/>5m = 5 minutes'
+    );
     return (
       <Container
         kind="row-field"
@@ -2221,7 +2225,7 @@ class Field extends Form {
         entity => {
           let glyph = 'solid/spinner';
           let glyphColor = null;
-          let text = 'chargement...';
+          let text = T('chargement...');
           if (entity) {
             glyph = entity.get('meta.summaries.glyph');
             glyphColor = entity.get('meta.summaries.glyphColor');
@@ -2511,7 +2515,7 @@ class Field extends Form {
           shape={this.props.onValue ? 'right-smooth' : null}
           leftSpacing="overlap"
           glyph="solid/eraser"
-          tooltip="Entrer une nouvelle référence"
+          tooltip={T('Entrer une nouvelle référence')}
           onClick={() => this.setBackendValue(this.fullPath, null)}
         />
         {this.props.onValue ? null : (
@@ -2521,7 +2525,7 @@ class Field extends Form {
             spacing={this.props.spacing}
             leftSpacing="overlap"
             glyph="solid/eye"
-            tooltip="Voir les détails"
+            tooltip={T('Voir les détails')}
             onClick={() =>
               this.navToDetail(
                 this.context.id,
@@ -2579,7 +2583,7 @@ class Field extends Form {
             shape="right-smooth"
             leftSpacing="overlap"
             glyph="solid/plus"
-            tooltip="Créer"
+            tooltip={T('Créer')}
             onClick={() => {
               const service = this.context.id.split('@')[0];
               const currentValue = this.getBackendValue(

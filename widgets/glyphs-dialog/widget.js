@@ -1,3 +1,5 @@
+//T:2019-02-27
+import T from 't';
 import React from 'react';
 import Widget from 'laboratory/widget';
 import ComboHelpers from 'gadgets/helpers/combo-helpers';
@@ -103,10 +105,10 @@ class GlyphsDialog extends Widget {
     return (
       <div className={mainClass}>
         <Container kind="row">
-          <Label text="Choix des pictogrammes" grow="1" kind="title" />
+          <Label text={T('Choix des pictogrammes')} grow="1" kind="title" />
           <Button
             glyph="solid/trash"
-            tooltip="Supprime tous les pictogrammes"
+            tooltip={T('Supprime tous les pictogrammes')}
             onClick={this.onClearGlyphs}
           />
         </Container>
@@ -210,7 +212,7 @@ class GlyphsDialog extends Widget {
           <Label grow="1" />
           <Button
             glyph="solid/check"
-            text="Fermer"
+            text={T('Fermer', 'dialogue')}
             kind="action"
             width="150px"
             place="1/1"

@@ -1,3 +1,5 @@
+//T:2019-02-27
+import T from 't';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
@@ -624,7 +626,13 @@ class DragCarrier extends Widget {
   /******************************************************************************/
 
   renderTooMany(n, index) {
-    const text = `Et encore ${n} autres...`;
+    const text = T(
+      '{Et encore {numberOfItems} autres…}',
+      `lors d'un drag&drop de beaucoup d'éléments`,
+      {
+        numberOfItems: n,
+      }
+    );
     return (
       <Container key={index} kind="drag-too-many">
         <Label text={text} />
