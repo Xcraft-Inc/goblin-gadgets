@@ -1,6 +1,8 @@
+//T:2019-02-27
 import React from 'react';
 import Widget from 'laboratory/widget';
 import * as Bool from 'gadgets/helpers/bool-helpers';
+import T from 't';
 
 import Container from 'gadgets/container/widget';
 import Label from 'gadgets/label/widget';
@@ -61,12 +63,12 @@ class Hinter extends Widget {
 
     // FIXME: set glyph/tooltip according to work context of hinter !
     const clickGlyph = 'solid/eye';
-    const clickTooltip = 'Voir les détails';
+    const clickTooltip = T('Voir les détails\n(clic)');
     let doubleclickGlyph = 'solid/check';
-    let doubleclickTooltip = 'Choisir';
+    let doubleclickTooltip = T('Choisir\n(double-clic)');
     if (Bool.isTrue(this.props.editOnClick)) {
       doubleclickGlyph = 'solid/pencil';
-      doubleclickTooltip = 'Editer';
+      doubleclickTooltip = T('Editer\n(double-clic)');
     }
 
     return (
@@ -75,7 +77,7 @@ class Hinter extends Widget {
           <Button
             width="32px"
             glyph={clickGlyph}
-            tooltip={clickTooltip + '\n(clic)'}
+            tooltip={clickTooltip}
             onClick={() => this.handleClick(index, row)}
             spacing="overlap"
           />
@@ -83,7 +85,7 @@ class Hinter extends Widget {
         <Button
           width="32px"
           glyph={doubleclickGlyph}
-          tooltip={doubleclickTooltip + '\n(double-clic)'}
+          tooltip={doubleclickTooltip}
           onClick={() => this.handleDbClick(index, row)}
         />
       </div>
@@ -162,7 +164,9 @@ class Hinter extends Widget {
             text={
               this.props.newButtonTitle
                 ? this.props.newButtonTitle
-                : `Nouveau ${this.props.titleText}`
+                : T('Nouveau {titleText}', '', {
+                    titleText: this.props.titleText,
+                  })
             }
             width="0px"
             grow="1"
