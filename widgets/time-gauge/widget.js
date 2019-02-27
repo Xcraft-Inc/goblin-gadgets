@@ -4,7 +4,7 @@ import {
   time as TimeConverters,
   date as DateConverters,
 } from 'xcraft-core-converters';
-const Bool = require('gadgets/helpers/bool-helpers');
+import * as Bool from 'gadgets/helpers/bool-helpers';
 
 import Gauge from 'gadgets/gauge/widget';
 
@@ -51,7 +51,7 @@ class TimeGauge extends Widget {
     }
 
     const delta = minutes - nowMinutes;
-    const value = 100 - delta * 100 / range;
+    const value = 100 - (delta * 100) / range;
     const flash = value > 100;
     const limit = Math.min(Math.max(value, 0), 100);
 

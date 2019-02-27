@@ -1,6 +1,6 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
-const Bool = require('gadgets/helpers/bool-helpers');
+import * as Bool from 'gadgets/helpers/bool-helpers';
 
 import TreeRow from 'gadgets/tree-row/widget';
 import TreeCell from 'gadgets/tree-cell/widget';

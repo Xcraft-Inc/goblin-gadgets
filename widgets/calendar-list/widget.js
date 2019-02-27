@@ -1,13 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Form from 'laboratory/form';
-import Widget from 'laboratory/widget';
 import {date as DateConverters} from 'xcraft-core-converters';
-const Bool = require('gadgets/helpers/bool-helpers');
+import * as Bool from 'gadgets/helpers/bool-helpers';
 
-import Label from 'gadgets/label/widget';
 import Button from 'gadgets/button/widget';
-import Calendar from 'gadgets/calendar/widget';
 
 /******************************************************************************/
 

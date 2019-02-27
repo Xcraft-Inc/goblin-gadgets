@@ -1,6 +1,6 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
-const Bool = require('gadgets/helpers/bool-helpers');
+import * as Bool from 'gadgets/helpers/bool-helpers';
 
 import CheckButton from 'gadgets/check-button/widget';
 
