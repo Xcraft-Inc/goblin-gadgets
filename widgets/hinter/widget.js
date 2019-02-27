@@ -1,6 +1,6 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
-const Bool = require('gadgets/helpers/bool-helpers');
+import * as Bool from 'gadgets/helpers/bool-helpers';
 
 import Container from 'gadgets/container/widget';
 import Label from 'gadgets/label/widget';

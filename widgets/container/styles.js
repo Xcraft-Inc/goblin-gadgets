@@ -1,6 +1,6 @@
 import {Unit} from 'electrum-theme';
 import {ColorHelpers} from 'electrum-theme';
-const Bool = require('gadgets/helpers/bool-helpers');
+import * as Bool from 'gadgets/helpers/bool-helpers';
 
 const isWebkit = 'WebkitAppearance' in document.documentElement.style;
 

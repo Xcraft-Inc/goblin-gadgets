@@ -1,9 +1,9 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 import {Control, actions} from 'react-redux-form/immutable';
-const _ = require('lodash');
-const Bool = require('gadgets/helpers/bool-helpers');
-const {ConnectedDiv} = require('nabu/helpers/tooltip-helpers');
+import {debounce} from 'lodash';
+import * as Bool from 'gadgets/helpers/bool-helpers';
+import {ConnectedDiv} from 'nabu/helpers/tooltip-helpers';
 
 import FlyingBalloon from 'gadgets/flying-balloon/widget';
 import Label from 'gadgets/label/widget';
@@ -40,7 +40,7 @@ class TextField extends Widget {
     this.hasFocus = false;
     this.hasChanged = false;
 
-    this.onDebouncedChangedFunc = _.debounce(
+    this.onDebouncedChangedFunc = debounce(
       (onDebouncedChange, value) => onDebouncedChange(value),
       400
     );

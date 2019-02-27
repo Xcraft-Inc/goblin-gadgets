@@ -1,5 +1,4 @@
-import {Unit} from 'electrum-theme';
-const Bool = require('gadgets/helpers/bool-helpers');
+import * as Bool from 'gadgets/helpers/bool-helpers';
 
 /******************************************************************************/
 

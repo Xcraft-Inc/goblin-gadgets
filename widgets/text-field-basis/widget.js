@@ -1,7 +1,7 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
-const Bool = require('gadgets/helpers/bool-helpers');
-const {ConnectedDiv} = require('nabu/helpers/tooltip-helpers');
+import * as Bool from 'gadgets/helpers/bool-helpers';
+import {ConnectedDiv} from 'nabu/helpers/tooltip-helpers';
 
 import Label from 'gadgets/label/widget';
 

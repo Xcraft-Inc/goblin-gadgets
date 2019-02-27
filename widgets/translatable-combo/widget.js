@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 
 import MouseTrap from 'mousetrap';
 import ComboHelpers from 'gadgets/helpers/combo-helpers';
-const Bool = require('gadgets/helpers/bool-helpers');
+import * as Bool from 'gadgets/helpers/bool-helpers';
 import {Unit} from 'electrum-theme';
 import Button from 'gadgets/button/widget';
 import Combo from 'gadgets/combo/widget';

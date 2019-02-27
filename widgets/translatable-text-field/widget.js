@@ -3,7 +3,7 @@ import Widget from 'laboratory/widget';
 
 import Label from 'gadgets/label/widget';
 import TranslatableCombo from 'gadgets/translatable-combo/widget';
-const Bool = require('gadgets/helpers/bool-helpers');
+import * as Bool from 'gadgets/helpers/bool-helpers';
 
 import {T as ToNabuObject} from 'goblin-nabu/widgets/helpers/t.js';
 

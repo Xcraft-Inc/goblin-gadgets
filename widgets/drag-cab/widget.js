@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
 import {Unit} from 'electrum-theme';
-const Bool = require('gadgets/helpers/bool-helpers');
+import * as Bool from 'gadgets/helpers/bool-helpers';
 import DragCarrier from 'gadgets/drag-carrier/widget';
 
 /******************************************************************************/

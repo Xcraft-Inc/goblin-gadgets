@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
-import MouseTrap from 'mousetrap';
 import ComboHelpers from 'gadgets/helpers/combo-helpers';
-const Bool = require('gadgets/helpers/bool-helpers');
+import * as Bool from 'gadgets/helpers/bool-helpers';
 import {Unit} from 'electrum-theme';
 import {isImmutable} from 'immutable';
 
@@ -287,8 +286,8 @@ class FieldCombo extends Widget {
     const boxClass = this.showCombo
       ? this.styles.classNames.shadowBox
       : this.focus
-        ? this.styles.classNames.focusedBox
-        : this.styles.classNames.box;
+      ? this.styles.classNames.focusedBox
+      : this.styles.classNames.box;
 
     return (
       <span disabled={this.props.disabled} className={boxClass}>
