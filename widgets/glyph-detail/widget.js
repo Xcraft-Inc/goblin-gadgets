@@ -1,5 +1,7 @@
+//T:2019-02-27
 import React from 'react';
 import Widget from 'laboratory/widget';
+import T from 't';
 
 import Container from 'gadgets/container/widget';
 import Label from 'gadgets/label/widget';
@@ -42,7 +44,7 @@ class GlyphDetail extends Widget {
           grow="1"
           kind="action"
           glyph="solid/pencil"
-          text="Editer"
+          text={T('Editer')}
           place="1/2"
           onClick={this.onEdit}
         />
@@ -51,7 +53,7 @@ class GlyphDetail extends Widget {
           grow="0.5"
           kind="action"
           glyph="solid/trash"
-          text="Supprimer"
+          text={T('Supprimer')}
           place="2/2"
           onClick={this.onDelete}
         />
@@ -79,7 +81,7 @@ class GlyphDetail extends Widget {
         <Container kind="panes">
           <Container kind="pane">
             <Container kind="row-pane">
-              <Label text="Pictogramme" kind="title" />
+              <Label text={T('Pictogramme')} kind="title" />
             </Container>
             <Container kind="row-pane">
               <Name />
