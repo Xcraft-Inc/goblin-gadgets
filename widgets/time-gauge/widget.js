@@ -52,7 +52,7 @@ class TimeGauge extends Widget {
     }
 
     const delta = minutes - nowMinutes;
-    const value = 100 - delta * 100 / range;
+    const value = 100 - (delta * 100) / range;
     const flash = value > 100;
     const limit = Math.min(Math.max(value, 0), 100);
 
