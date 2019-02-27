@@ -100,7 +100,6 @@ class TextField extends Widget {
   }
 
   onFocus(e) {
-    //- console.log ('text-field.onFocus');
     if (!Bool.isTrue(this.props.readonly)) {
       this.hasChanged = false;
       this.hasFocus = true;
@@ -119,7 +118,6 @@ class TextField extends Widget {
   }
 
   onBlur(e) {
-    //- console.log ('text-field.onBlur');
     this.hasChanged = false;
     this.hasFocus = false;
 
@@ -186,10 +184,6 @@ class TextField extends Widget {
         }
 
         if (this.props.getDisplayValue) {
-          //console.log (
-          //  `TextField.value: this.hasFocus=${this.hasFocus} this.hasChanged=${this.hasChanged}`
-          //);
-          //console.dir (props);
           return this.props.getDisplayValue(
             this.hasChanged ? props.viewValue : props.modelValue, // (*)
             this.hasFocus && !this.hasChanged, // onFocus ?
