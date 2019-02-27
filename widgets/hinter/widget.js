@@ -1,3 +1,5 @@
+//T:2019-02-27
+import T from 't';
 import React from 'react';
 import Widget from 'laboratory/widget';
 const Bool = require('gadgets/helpers/bool-helpers');
@@ -61,12 +63,12 @@ class Hinter extends Widget {
 
     // FIXME: set glyph/tooltip according to work context of hinter !
     const clickGlyph = 'solid/eye';
-    const clickTooltip = 'Voir les détails';
+    const clickTooltip = T('Voir les détails');
     let doubleclickGlyph = 'solid/check';
-    let doubleclickTooltip = 'Choisir';
+    let doubleclickTooltip = T('Choisir');
     if (Bool.isTrue(this.props.editOnClick)) {
       doubleclickGlyph = 'solid/pencil';
-      doubleclickTooltip = 'Editer';
+      doubleclickTooltip = T('Editer');
     }
 
     return (
@@ -152,6 +154,7 @@ class Hinter extends Widget {
   }
 
   renderButtonNew() {
+    const titleText = this.props.titleText;
     if (this.props.displayNewButton && this.props.onNew) {
       return (
         <Container kind="actions">
@@ -162,7 +165,7 @@ class Hinter extends Widget {
             text={
               this.props.newButtonTitle
                 ? this.props.newButtonTitle
-                : `Nouveau ${this.props.titleText}`
+                : T(`Nouveau ${titleText}`, '', {titleText})
             }
             width="0px"
             grow="1"

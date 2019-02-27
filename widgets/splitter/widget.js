@@ -1,3 +1,4 @@
+//T:2019-02-27:Nothing to translate !
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
@@ -104,11 +105,11 @@ class Splitter extends Widget {
     if (this.kind === 'vertical') {
       const rx = x - this.offset - this.firstPaneRect.left;
       this.firstSize =
-        100 * rx / (this.containerRect.width - this.resizerRect.width);
+        (100 * rx) / (this.containerRect.width - this.resizerRect.width);
     } else {
       const ry = y - this.offset - this.firstPaneRect.top;
       this.firstSize =
-        100 * ry / (this.containerRect.height - this.resizerRect.height);
+        (100 * ry) / (this.containerRect.height - this.resizerRect.height);
     }
     this.lastSize = 100 - this.firstSize;
 

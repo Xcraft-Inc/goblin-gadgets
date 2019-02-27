@@ -1,3 +1,5 @@
+//T:2019-02-27
+import T from 't';
 import React from 'react';
 import Widget from 'laboratory/widget';
 import ComboHelpers from 'gadgets/helpers/combo-helpers';
@@ -21,7 +23,7 @@ function getMonthsRank(date) {
 
 function getDateFromRank(rank) {
   const year = rank / 12;
-  const month = rank % 12 + 1;
+  const month = (rank % 12) + 1;
   return DateConverters.getDate(year, month, 1);
 }
 
@@ -536,7 +538,7 @@ class Calendar extends Widget {
     const monthCount = this.monthCount;
     if (monthCount > 1) {
       return this.renderPrevNext(
-        `${monthCount} mois`,
+        T(`${monthCount} mois`, '', {monthCount}),
         'solid/chevron-left',
         'solid/chevron-right',
         () => this.onVisibleDateAddMonths(-monthCount),
@@ -558,7 +560,7 @@ class Calendar extends Widget {
           {this.renderMonthsOfYear()}
           <Separator kind="space" height="20px" />
           {this.renderPrevNext(
-            'année',
+            T('année'),
             'solid/step-backward',
             'solid/step-forward',
             this.onVisibleDatePrevYear,

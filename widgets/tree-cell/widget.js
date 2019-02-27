@@ -1,3 +1,4 @@
+//T:2019-02-27:Nothing to translate !
 import React from 'react';
 import Widget from 'laboratory/widget';
 import Shredder from 'xcraft-core-shredder';
