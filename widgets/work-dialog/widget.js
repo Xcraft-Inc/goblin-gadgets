@@ -1,3 +1,5 @@
+//T:2019-02-27
+import T from 't';
 import React from 'react';
 import Widget from 'laboratory/widget';
 import ComboHelpers from 'gadgets/helpers/combo-helpers';
@@ -92,7 +94,7 @@ class WorkDialog extends Widget {
     return (
       <div className={mainClass}>
         <Container kind="row">
-          <Label text="Activités" grow="1" kind="title" />
+          <Label text={T('Activités')} grow="1" kind="title" />
         </Container>
         <div className={tableClass}>
           <Table
@@ -113,7 +115,7 @@ class WorkDialog extends Widget {
         <Label grow="1" />
         <Button
           glyph="solid/check"
-          text="Ouvrir"
+          text={T('Ouvrir')}
           kind="action"
           width="150px"
           place="1/1"

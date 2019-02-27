@@ -1,10 +1,9 @@
 //T:2019-02-27
+import T from 't';
 import React from 'react';
 import Widget from 'laboratory/widget';
-import T from 't';
 const Bool = require('gadgets/helpers/bool-helpers');
 import {time as TimeConverters} from 'xcraft-core-converters';
-
 import TextFieldTyped from 'gadgets/text-field-typed/widget';
 import Button from 'gadgets/button/widget';
 
@@ -34,7 +33,7 @@ class TextFieldTimeInterval extends Widget {
         labelText={this.props.labelText}
         labelGlyph={this.props.labelGlyph}
         labelWidth={this.props.labelWidth}
-        hintText={this.props.startHintText || T('Début')}
+        hintText={this.props.startHintText || T('Début', 'heure de début')}
         tooltip={this.props.startTooltip || T('Heure de début')}
         selectAllOnFocus={this.props.selectAllOnFocus}
         readonly={this.props.readonly}
@@ -64,7 +63,7 @@ class TextFieldTimeInterval extends Widget {
         }
         type="time"
         labelWidth="0px"
-        hintText={this.props.endHintText || T('Fin')}
+        hintText={this.props.endHintText || T('Fin', 'heure de fin')}
         tooltip={this.props.endTooltip || T('Heure de fin')}
         selectAllOnFocus={this.props.selectAllOnFocus}
         readonly={this.props.readonly}
