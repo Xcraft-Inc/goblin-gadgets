@@ -538,7 +538,7 @@ class Calendar extends Widget {
     const monthCount = this.monthCount;
     if (monthCount > 1) {
       return this.renderPrevNext(
-        T(`${monthCount} mois`, '', {monthCount}),
+        T(`{monthCount} mois`, '', {monthCount}),
         'solid/chevron-left',
         'solid/chevron-right',
         () => this.onVisibleDateAddMonths(-monthCount),
