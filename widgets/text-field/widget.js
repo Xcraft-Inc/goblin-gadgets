@@ -4,7 +4,11 @@ import Widget from 'laboratory/widget';
 import {Control, actions} from 'react-redux-form/immutable';
 import {debounce} from 'lodash';
 import * as Bool from 'gadgets/helpers/bool-helpers';
-import {ConnectedDiv} from 'nabu/helpers/tooltip-helpers';
+import {
+  TranslatableDiv,
+  TranslatableTextarea,
+  TranslatableInput,
+} from 'nabu/helpers/element-helpers';
 
 import FlyingBalloon from 'gadgets/flying-balloon/widget';
 import Label from 'gadgets/label/widget';
@@ -289,10 +293,12 @@ class TextField extends Widget {
         glyph = this.props.getGlyph(finalProps.value);
       }
 
+      const {placeholder, ...otherProps} = finalProps;
+
       return (
-        <ConnectedDiv
+        <TranslatableDiv
           self={this}
-          tooltip={this.props.tooltip}
+          msgid={this.props.tooltip}
           className={this.props.className || boxClass}
         >
           {glyph ? (
@@ -303,27 +309,31 @@ class TextField extends Widget {
             />
           ) : null}
           {type === 'textarea' ? (
-            <textarea
+            <TranslatableTextarea
+              self={this}
+              msgid={placeholder}
               tabIndex="0"
               rows={this.props.rows}
               ref={node => {
                 this.input = node;
               }}
-              {...finalProps}
+              {...otherProps}
             />
           ) : (
-            <input
+            <TranslatableInput
+              self={this}
+              msgid={placeholder}
               tabIndex="0"
               type={type}
               ref={node => {
                 this.input = node;
               }}
-              {...finalProps}
+              {...otherProps}
             />
           )}
           {this.renderFocusForeground(props)}
           {this.renderFlyingBalloon(props)}
-        </ConnectedDiv>
+        </TranslatableDiv>
       );
     };
 

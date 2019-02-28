@@ -6,7 +6,7 @@ import Widget from 'laboratory/widget';
 import T from 'nabu/t/widget';
 import {ColorHelpers} from 'electrum-theme';
 import * as Bool from 'gadgets/helpers/bool-helpers';
-import {ConnectedDiv} from 'nabu/helpers/tooltip-helpers';
+import {TranslatableDiv} from 'nabu/helpers/element-helpers';
 import ReactMarkdown from 'react-markdown';
 
 /******************************************************************************/
@@ -257,21 +257,21 @@ class Label extends Widget {
 
     if (Bool.isTrue(this.props.insideButton)) {
       return (
-        <ConnectedDiv
+        <TranslatableDiv
           self={this}
-          tooltip={this.props.tooltip}
+          msgid={this.props.tooltip}
           className={this.props.className || boxClass}
           key={this.props.index}
           disabled={this.props.disabled}
         >
           {this.renderGlyphAndText()}
-        </ConnectedDiv>
+        </TranslatableDiv>
       );
     } else {
       return (
-        <ConnectedDiv
+        <TranslatableDiv
           self={this}
-          tooltip={this.props.tooltip}
+          msgid={this.props.tooltip}
           className={this.props.className || boxClass}
           key={this.props.index}
           onClick={this.props.onClick}
@@ -279,7 +279,7 @@ class Label extends Widget {
         >
           {this.renderGlyphAndText()}
           {this.props.children}
-        </ConnectedDiv>
+        </TranslatableDiv>
       );
     }
   }

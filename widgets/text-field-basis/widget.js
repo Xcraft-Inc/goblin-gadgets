@@ -3,7 +3,11 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 import * as Bool from 'gadgets/helpers/bool-helpers';
-import {ConnectedDiv} from 'nabu/helpers/tooltip-helpers';
+import {
+  TranslatableDiv,
+  TranslatableTextarea,
+  TranslatableInput,
+} from 'nabu/helpers/element-helpers';
 
 import Label from 'gadgets/label/widget';
 
@@ -44,9 +48,9 @@ export default class TextFieldBasis extends Widget {
     const inputClass = this.styles.classNames.input;
 
     return (
-      <ConnectedDiv
+      <TranslatableDiv
         self={this}
-        tooltip={this.props.tooltip}
+        msgid={this.props.tooltip}
         className={boxClass}
       >
         {this.props.glyph ? (
@@ -57,23 +61,25 @@ export default class TextFieldBasis extends Widget {
           />
         ) : null}
         {type === 'textarea' ? (
-          <textarea
+          <TranslatableTextarea
+            self={this}
+            msgid={this.props.hintText}
             className={`${fieldClass} ${inputClass}`}
-            placeholder={this.props.hintText}
             value={this.props.value || ''}
             onChange={this.onChange}
           />
         ) : (
-          <input
+          <TranslatableInput
+            self={this}
+            msgid={this.props.hintText}
             className={`${fieldClass} ${inputClass}`}
             type="text"
-            placeholder={this.props.hintText}
             value={this.props.value || ''}
             onChange={this.onChange}
           />
         )}
         {this.renderFocusForeground()}
-      </ConnectedDiv>
+      </TranslatableDiv>
     );
   }
 

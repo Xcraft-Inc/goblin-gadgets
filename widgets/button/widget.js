@@ -5,7 +5,7 @@ import Widget from 'laboratory/widget';
 import MouseTrap from 'mousetrap';
 import * as ShortcutHelpers from '../helpers/shortcut-helpers.js';
 import * as Bool from 'gadgets/helpers/bool-helpers';
-import {ConnectedDiv, ConnectedA} from 'nabu/helpers/tooltip-helpers';
+import {TranslatableDiv, TranslatableA} from 'nabu/helpers/element-helpers';
 
 import Label from 'gadgets/label/widget';
 import Badge from 'gadgets/badge/widget';
@@ -246,9 +246,9 @@ class Button extends Widget {
 
     if (this.props.kind === 'container' || this.props.kind === 'box') {
       return (
-        <ConnectedDiv
+        <TranslatableDiv
           self={this}
-          tooltip={tooltip}
+          msgid={tooltip}
           key={this.props.index}
           {...propsTabIndex}
           onDoubleClick={this.props.onDoubleClick}
@@ -263,13 +263,13 @@ class Button extends Widget {
           className={boxClass}
         >
           {this.props.children}
-        </ConnectedDiv>
+        </TranslatableDiv>
       );
     } else if (this.props.toAnchor) {
       return (
-        <ConnectedA // <AConnected
+        <TranslatableA // <AConnected
           self={this}
-          tooltip={tooltip}
+          msgid={tooltip}
           key={this.props.index}
           {...propsTabIndex}
           onFocus={this.onFocus}
@@ -288,13 +288,13 @@ class Button extends Widget {
           {this.renderBadge()}
           {this.renderBusy()}
           {this.props.children}
-        </ConnectedA>
+        </TranslatableA>
       );
     } else {
       return (
-        <ConnectedDiv
+        <TranslatableDiv
           self={this}
-          tooltip={tooltip}
+          msgid={tooltip}
           key={this.props.index}
           {...propsTabIndex}
           onFocus={this.onFocus}
@@ -312,7 +312,7 @@ class Button extends Widget {
           {this.renderBadge()}
           {this.renderBusy()}
           {this.props.children}
-        </ConnectedDiv>
+        </TranslatableDiv>
       );
     }
   }
