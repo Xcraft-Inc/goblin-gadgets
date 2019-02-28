@@ -246,7 +246,7 @@ export default class Ticket extends Widget {
     return (
       <div
         className={rectShadowClass}
-        title={Tooltip.prepare(this.props.tooltip)}
+        title={prepare(this.props.tooltip)}
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}
         onMouseDown={this.onMouseDown}
