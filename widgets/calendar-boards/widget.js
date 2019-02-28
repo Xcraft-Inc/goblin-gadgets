@@ -1,6 +1,6 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
-
+import T from 't';
 import Container from 'gadgets/container/widget';
 import Calendar from 'gadgets/calendar/widget';
 import RadioList from 'gadgets/radio-list/widget';
@@ -37,10 +37,10 @@ function getRadioList(boards, selectedDate) {
     const date = board.get('date');
     if (date === selectedDate) {
       const info = board.get('info');
-      list.push(info);
+      list.push({value: board.get('id'), text: info});
     }
   }
-  list.push('Créer');
+  list.push({value: '', text: T('Créer')});
   return list;
 }
 
