@@ -41,6 +41,7 @@ class TextField extends Widget {
     this.onChange = this.onChange.bind(this);
     this.selectAll = this.selectAll.bind(this);
     this.hinterSearch = this.hinterSearch.bind(this);
+    this.setInput = this.setInput.bind(this);
 
     this.hasFocus = false;
     this.hasChanged = false;
@@ -79,6 +80,10 @@ class TextField extends Widget {
         this.input.focus();
       }
     }
+  }
+
+  setInput(node) {
+    this.input = node;
   }
 
   hinterSearch(e) {
@@ -314,9 +319,7 @@ class TextField extends Widget {
               msgid={placeholder}
               tabIndex="0"
               rows={this.props.rows}
-              ref={node => {
-                this.input = node;
-              }}
+              onRef={this.setInput}
               {...otherProps}
             />
           ) : (
@@ -325,9 +328,7 @@ class TextField extends Widget {
               msgid={placeholder}
               tabIndex="0"
               type={type}
-              ref={node => {
-                this.input = node;
-              }}
+              onRef={this.setInput}
               {...otherProps}
             />
           )}
