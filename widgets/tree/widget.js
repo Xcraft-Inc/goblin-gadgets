@@ -1,8 +1,8 @@
 //T:2019-02-27
+import T from 't';
 import React from 'react';
 import Widget from 'laboratory/widget';
 import * as Bool from 'gadgets/helpers/bool-helpers';
-import T from 't';
 
 import TreeRow from 'gadgets/tree-row/widget';
 import TreeCell from 'gadgets/tree-cell/widget';
