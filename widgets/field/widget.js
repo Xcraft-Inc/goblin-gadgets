@@ -1713,7 +1713,7 @@ class Field extends Form {
 
   renderEditDelay() {
     const help = T(
-      '1a = 1 année<br/>2mo = 2 mois<br/>3j = 3 jours<br/>4h = 4 heures<br/>5m = 5 minutes'
+      '1a = 1 année\n2mo = 2 mois\n3j = 3 jours\n4h = 4 heures\n5m = 5 minutes'
     );
     return (
       <Container
