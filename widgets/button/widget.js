@@ -193,10 +193,11 @@ class Button extends Widget {
   }
 
   renderLabel(boxStyle) {
+    const {tooltip, ...otherProps} = this.props;
     return (
       <Label
         key="label"
-        {...this.props}
+        {...otherProps}
         disabled={this.disabled}
         grow="1"
         buttonBackgroundColor={boxStyle.backgroundColor}
