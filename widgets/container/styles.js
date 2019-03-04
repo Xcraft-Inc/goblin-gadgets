@@ -373,6 +373,15 @@ export default function styles(theme, props) {
     }
   }
 
+  if (kind === 'pane-warning-button') {
+    position = 'absolute';
+    (right = '0px'), (top = '-40px'), (flexDirection = 'row');
+    flexGrow = grow;
+    padding = '0px';
+    margin = Unit.multiply(m, -1) + ' 0px 0px 0px';
+    backgroundColor = 'transparent';
+  }
+
   if (kind === 'pane-header-light') {
     minHeight = height;
     flexDirection = 'row';

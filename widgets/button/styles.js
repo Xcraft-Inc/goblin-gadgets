@@ -755,6 +755,12 @@ export default function styles(theme, props) {
     specialDisabled = true;
   }
 
+  if (kind === 'pane-warning') {
+    boxHeight = '40px';
+    backgroundColor = 'transparent';
+    borderStyle = 'none';
+  }
+
   if (!kind) {
     borderRadius = theme.shapes.smoothRadius;
     activeColor = theme.palette.boxActiveBackground;
