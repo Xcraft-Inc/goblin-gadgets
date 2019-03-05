@@ -5,9 +5,8 @@ import Widget from 'laboratory/widget';
 import Label from 'gadgets/label/widget';
 import Badge from 'gadgets/badge/widget';
 import TicketHover from 'gadgets/ticket-hover/widget';
-
+import {TranslatableDiv} from 'nabu/helpers/element-helpers';
 import * as Bool from 'gadgets/helpers/bool-helpers';
-import {prepare} from 'gadgets/helpers/tooltip-helpers';
 import {Unit} from 'electrum-theme';
 import getOutlinePath from './getOutlinePath';
 
@@ -202,9 +201,10 @@ export default class Ticket extends Widget {
     }
 
     return (
-      <div
+      <TranslatableDiv
+        self={this}
         className={boxClass}
-        title={prepare(this.props.tooltip)}
+        msgid={this.props.tooltip}
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}
         onMouseDown={this.onMouseDown}
@@ -231,7 +231,7 @@ export default class Ticket extends Widget {
           width={this.props.width}
           height={this.props.height}
         />
-      </div>
+      </TranslatableDiv>
     );
   }
 
@@ -245,9 +245,10 @@ export default class Ticket extends Widget {
     const rectContentHatchClass = this.styles.classNames.rectContentHatch;
 
     return (
-      <div
+      <TranslatableDiv
+        self={this}
         className={rectShadowClass}
-        title={prepare(this.props.tooltip)}
+        msgid={this.props.tooltip}
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}
         onMouseDown={this.onMouseDown}
@@ -277,7 +278,7 @@ export default class Ticket extends Widget {
           width={this.props.width}
           height={this.props.height}
         />
-      </div>
+      </TranslatableDiv>
     );
   }
 
