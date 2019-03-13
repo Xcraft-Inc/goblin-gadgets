@@ -103,6 +103,8 @@ class List extends Widget {
 
 export default Widget.connect((state, props) => {
   return {
+    id: props.id,
+    type: props.type,
     count: state.get(`backend.${props.id}.count`),
     listIds: state.get(`backend.${props.id}.list`),
     contentIndex: state.get(`backend.${props.id}.contentIndex`),
