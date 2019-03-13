@@ -14,7 +14,18 @@ export default function styles(theme, props) {
   let labelHeight = theme.shapes.badgeHeight;
   let labelRadius = theme.shapes.badgeRadius;
   let color = theme.palette.badgeText;
+
   let backgroundColor = theme.palette.badgeBackground;
+  if (props.color) {
+    switch (props.color) {
+      case 'red':
+        backgroundColor = theme.palette.markSecondary;
+        break;
+      case 'green':
+      default:
+        backgroundColor = theme.palette.markSuccess;
+    }
+  }
 
   if (props.kind === 'chronos-count' || props.kind === 'identical-count') {
     color = theme.palette.chronoBadgeText;
