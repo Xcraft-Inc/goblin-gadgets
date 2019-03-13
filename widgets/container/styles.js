@@ -493,7 +493,9 @@ export default function styles(theme, props) {
   }
 
   if (kind === 'panes') {
-    overflowY = isWebkit ? 'overlay' : 'auto';
+    if (props.subkind !== 'no-overlay') {
+      overflowY = isWebkit ? 'overlay' : 'auto';
+    }
     flexGrow = 1;
     padding = '0px ' + m + ' 0px ' + m;
     if (subkind === 'top-margin') {
