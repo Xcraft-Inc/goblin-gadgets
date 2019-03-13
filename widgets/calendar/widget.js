@@ -132,6 +132,19 @@ class Calendar extends Widget {
     }
   }
 
+  getBadgeColor(date) {
+    if (!this.props.badges || this.props.badges.length === 0) {
+      return null;
+    } else {
+      for (const badge of this.props.badges) {
+        if (badge.date === date) {
+          return badge.color;
+        }
+      }
+      return null;
+    }
+  }
+
   get startVisibleDate() {
     const month = DateConverters.getMonth(this.props.visibleDate);
     const year = DateConverters.getYear(this.props.visibleDate);
@@ -241,7 +254,16 @@ class Calendar extends Widget {
   /******************************************************************************/
 
   // Return the html for a [1]..[31] button.
-  renderButton(date, active, dimmed, weekend, subkind, badgeValue, index) {
+  renderButton(
+    date,
+    active,
+    dimmed,
+    weekend,
+    subkind,
+    badgeValue,
+    badgeColor,
+    index
+  ) {
     const tooltip = DateConverters.getDisplayed(date, 'Wdmy');
     let d = DateConverters.getDay(date); // 1..31
     if (subkind === 'sub') {
@@ -260,6 +282,7 @@ class Calendar extends Widget {
         badgePosition="top-right"
         badgeValue={badgeValue}
         badgeShape="circle"
+        badgeColor={badgeColor}
         badgeSize="0.8"
         onClick={() => this.onDateClicked(date)}
       />
@@ -299,6 +322,7 @@ class Calendar extends Widget {
         weekend = 'true';
       }
       const badgeValue = this.getBadgeValue(firstDate);
+      const badgeColor = this.getBadgeColor(firstDate);
 
       const button = this.renderButton(
         firstDate,
@@ -307,6 +331,7 @@ class Calendar extends Widget {
         weekend,
         subkind,
         badgeValue,
+        badgeColor,
         i
       );
       line.push(button);
