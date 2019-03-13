@@ -71,7 +71,6 @@ class List extends Widget {
         itemId={`${index}-item`}
         height={this._height}
         parentId={this.props.parentId}
-        //id={this.props.listIds ? this.props.listIds.get (index) : this.props.id}
       />
     );
   }
