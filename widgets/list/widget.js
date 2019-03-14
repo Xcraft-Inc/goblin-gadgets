@@ -72,7 +72,6 @@ class List extends Widget {
         itemId={`${index}-item`}
         height={this._height}
         parentId={this.props.parentId}
-        //id={this.props.listIds ? this.props.listIds.get (index) : this.props.id}
       />
     );
   }
@@ -105,6 +104,8 @@ class List extends Widget {
 
 export default Widget.connect((state, props) => {
   return {
+    id: props.id,
+    type: props.type,
     count: state.get(`backend.${props.id}.count`),
     listIds: state.get(`backend.${props.id}.list`),
     contentIndex: state.get(`backend.${props.id}.contentIndex`),
