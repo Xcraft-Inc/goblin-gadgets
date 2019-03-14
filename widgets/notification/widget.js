@@ -15,6 +15,7 @@ class Notification extends Widget {
       extended: false,
     };
     this.swapExtended = this.swapExtended.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
   //#region get/set
@@ -37,6 +38,12 @@ class Notification extends Widget {
     return this.props.data.message && this.props.data.message.length > 30;
   }
 
+  onClick(e) {
+    if (this.props.onClick) {
+      this.props.onClick(e);
+    }
+  }
+
   render() {
     let glyphColor = this.props.data.color;
     if (glyphColor) {
@@ -44,7 +51,7 @@ class Notification extends Widget {
     }
 
     return (
-      <div className={this.styles.classNames.box} onClick={this.props.onClick}>
+      <div className={this.styles.classNames.box} onClick={this.onClick}>
         <Button
           glyph={this.props.data.glyph}
           backgroundColor={glyphColor}
