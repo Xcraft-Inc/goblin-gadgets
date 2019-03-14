@@ -154,6 +154,7 @@ class Button extends Widget {
           value={this.props.badgeValue}
           layer={this.props.badgePosition || 'over'}
           shape={this.props.badgeShape}
+          color={this.props.badgeColor}
           size={this.props.badgeSize}
           disabled={this.props.calendarDimmed}
         />
@@ -194,10 +195,11 @@ class Button extends Widget {
   }
 
   renderLabel(boxStyle) {
+    const {tooltip, ...otherProps} = this.props;
     return (
       <Label
         key="label"
-        {...this.props}
+        {...otherProps}
         disabled={this.disabled}
         grow="1"
         buttonBackgroundColor={boxStyle.backgroundColor}

@@ -18,17 +18,35 @@ function getBadge(badges, date) {
 }
 
 function getBadges(boards) {
-  const badges = [];
-  for (const board of boards) {
-    const date = board.get('date');
-    const badge = getBadge(badges, date);
-    if (badge) {
-      badge.value++;
-    } else {
-      badges.push({date: date, value: 1});
+  const boardsByDate = boards.reduce((boards, b) => {
+    const date = b.get('date');
+    if (!boards[date]) {
+      boards[date] = [];
     }
-  }
-  return badges;
+    boards[date].push(b);
+    return boards;
+  }, {});
+
+  const colorByDate = Object.keys(boardsByDate).reduce((colors, date) => {
+    colors[date] = boardsByDate[date].some(b => b.get('status') === 'published')
+      ? 'red'
+      : 'green';
+    return colors;
+  }, {});
+
+  const countByDate = Object.keys(boardsByDate).reduce((counts, date) => {
+    counts[date] = boardsByDate[date].length;
+    return counts;
+  }, {});
+
+  return Object.keys(boardsByDate).reduce((badges, date) => {
+    badges.push({
+      date: date,
+      value: countByDate[date],
+      color: colorByDate[date],
+    });
+    return badges;
+  }, []);
 }
 
 function getRadioList(boards, selectedDate) {
