@@ -3,15 +3,22 @@ import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
 
-export const propNames = ['grow', 'visibility', 'spacing', 'width'];
+export const propNames = [
+  'grow',
+  'visibility',
+  'spacing',
+  'width',
+  'customMarginLeft',
+];
 
 export default function styles(theme, props) {
-  const {grow, visibility, spacing, width} = props;
+  const {grow, visibility, spacing, width, customMarginLeft} = props;
 
   let flexGrow = grow;
   let flexShrink = null;
   let flexBasis = null;
   let marginRight = null;
+  let marginLeft = customMarginLeft || null;
   let opacity = Bool.isFalse(visibility) ? 0 : null;
 
   const m = Unit.multiply(theme.shapes.containerMargin, 0.5);
@@ -43,7 +50,7 @@ export default function styles(theme, props) {
     flexBasis: flexBasis,
     padding: '0px',
     marginTop: '0px',
-    marginLeft: '0px',
+    marginLeft: marginLeft || '0px',
     marginBottom: '0px',
     marginRight: marginRight,
     opacity: opacity,
