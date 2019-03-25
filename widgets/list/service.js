@@ -199,7 +199,7 @@ Goblin.registerQuest(goblinName, 'create', function*(
   contentIndex,
   hinter,
   sort,
-  afterFetch
+  callAfterFetch
 ) {
   /* This mutex prevent races when indices are fetching and the content-index
    * is changing. It must not be possible to run a fetch while a
@@ -214,7 +214,7 @@ Goblin.registerQuest(goblinName, 'create', function*(
   quest.goblin.setX('isElastic', hinter ? true : false);
   quest.goblin.setX('hinter', hinter);
   quest.goblin.setX('sort', sort);
-  quest.goblin.setX('afterFetch', afterFetch);
+  quest.goblin.setX('callAfterFetch', callAfterFetch);
 
   const id = quest.goblin.id;
 
@@ -345,8 +345,8 @@ Goblin.registerQuest(goblinName, 'fetch', function*(quest, range) {
 });
 
 Goblin.registerQuest(goblinName, 'after-fetch', function*(quest) {
-  const afterFetch = quest.goblin.getX('afterFetch');
-  if (afterFetch) {
+  const callAfterFetch = quest.goblin.getX('callAfterFetch');
+  if (callAfterFetch) {
     const childId = quest.me.id
       .split('@')
       .slice(1)
