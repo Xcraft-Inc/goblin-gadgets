@@ -1,3 +1,7 @@
+'use strict';
+
+const Goblin = require('xcraft-core-goblin');
+
 module.exports = {
   create: (state, action) => {
     return state
@@ -37,7 +41,7 @@ module.exports = {
       .set('count', count)
       .set('highlights', highlights);
   },
-  'rethink-fetch': (state, action) => {
+  'rethink-fetch': Goblin.Shredder.mutableReducer((state, action) => {
     const rows = action.get('rows');
     const ids = action.get('ids');
 
@@ -55,7 +59,7 @@ module.exports = {
     }
 
     return state;
-  },
+  }),
   'elastic-fetch': (state, action) => {
     const ids = action.get('ids');
     const count = action.get('count');
