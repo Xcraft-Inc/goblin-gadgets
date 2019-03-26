@@ -33,7 +33,7 @@ module.exports = config => {
         if (gadgets[key].onActions) {
           for (const handler of Object.keys(gadgets[key].onActions)) {
             quest.goblin.defer(
-              quest.sub(`${newGadgetId}.${handler}`, function*(err, msg) {
+              quest.sub(`${newGadgetId}.${handler}`, function*(err, {msg}) {
                 yield quest.me[jsify(`${key}-${handler}`)](msg.data);
               })
             );
