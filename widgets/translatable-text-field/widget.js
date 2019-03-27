@@ -48,7 +48,12 @@ class TranslatableTextField extends Widget {
   }
 
   renderInput() {
-    return <TranslatableCombo component={this} {...this.props} />;
+    return (
+      <TranslatableCombo
+        workitemId={this.props.id || this.context.id}
+        {...this.props}
+      />
+    );
   }
 
   render() {

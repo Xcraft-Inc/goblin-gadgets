@@ -13,12 +13,34 @@ const {
 /******************************************************************************/
 
 class NabuTextField extends Form {
+  constructor() {
+    super(...arguments);
+
+    this.mustAdd = this.mustAdd.bind(this);
+  }
+
+  componentDidMount() {
+    this.mustAdd();
+  }
+
+  componentDidUpdate() {
+    this.mustAdd();
+  }
+
+  mustAdd() {
+    const {message, nabuId, workitemId} = this.props;
+    if (!message) {
+      this.cmd('nabu.add-message', {
+        nabuId,
+        description: '',
+        custom: true,
+        workitemId,
+      });
+    }
+  }
+
   render() {
     const {translationId} = this.props;
-
-    if (!translationId) {
-      return <div />;
-    }
 
     const Form = this.Form;
 
@@ -35,7 +57,7 @@ class NabuTextField extends Form {
 
     const props = {
       id: this.props.id,
-      model: `backend.${translationId}.text`,
+      model: translationId ? `backend.${translationId}.text` : null,
       parser: this.props.parser,
       errors: this.props.errors,
       beforeChange: this.props.beforeChange,
@@ -63,7 +85,7 @@ class NabuTextField extends Form {
       defaultValue: this.props.defaultValue,
       rows: this.props.rows || '1',
       readonly: visibleReadonly,
-      disabled: this.props.disabled,
+      disabled: this.props.disabled || !translationId,
       selectAllOnFocus: this.props.selectAllOnFocus,
       defaultFocus: this.props.defaultFocus,
       verticalSpacing: this.props.verticalSpacing || 'compact',
@@ -85,28 +107,20 @@ class NabuTextField extends Form {
 }
 
 export default Widget.connect((state, props) => {
-  const {component, nabuId} = props;
+  const {nabuId, localeName} = props;
 
   const messageId = computeMessageId(nabuId);
-  const localeName = 'fr-CH';
-  let translationId = computeTranslationId(messageId, localeName);
 
-  if (!state.get(`backend.${translationId}`)) {
+  let translationId = localeName
+    ? computeTranslationId(messageId, localeName)
+    : null;
+
+  if (translationId && !state.get(`backend.${translationId}`)) {
     translationId = null;
   }
 
-  const message = state.get(`backend.${messageId}`);
-  if (!message) {
-    component.cmd('nabu.add-message', {
-      nabuId,
-      description: '',
-      custom: true,
-      workitemId: component.props.id || component.context.id,
-    });
-  }
-
   return {
-    component,
+    message: state.get(`backend.${messageId}`),
     translationId,
   };
 })(NabuTextField);

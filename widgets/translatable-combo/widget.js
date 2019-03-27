@@ -13,6 +13,8 @@ import Select from 'gadgets/select/widget';
 import {isShredder} from 'xcraft-core-shredder';
 import NabuTextField from './text-field';
 
+const {getToolbarId} = require('goblin-nabu/lib/helpers.js');
+
 /******************************************************************************/
 
 class TranslatableCombo extends Widget {
@@ -150,61 +152,41 @@ class TranslatableCombo extends Widget {
     this.onShowCombo();
   }
 
-  setText(item) {
-    const x = this.props.onSetText;
-    if (x) {
-      if (item.value) {
-        x(item.value);
-      } else {
-        x(item.text);
-      }
-    }
+  setValue(value) {
+    this.setState({
+      selectedValue: value,
+    });
   }
 
   getItem(item) {
-    if (typeof item === 'string') {
-      const active = this.props.defaultValue === item;
-      if (this.props.menuType === 'wrap') {
-        return {
-          text: item,
-          active: Bool.toString(active),
-          action: x => this.setText(x),
-        };
-      } else {
-        return {
-          text: item,
-          glyph: active ? 'check' : 'none',
-          active: Bool.toString(active),
-          action: x => this.setText(x),
-        };
-      }
+    const active =
+      this.state.selectedValue === item.value ||
+      (!this.state.selectedValue && this.props.defaultValue === item.value);
+
+    if (this.props.menuType === 'wrap') {
+      return {
+        text: item.text,
+        value: item.value,
+        glyph: item.glyph,
+        color: item.color,
+        active: Bool.toString(active),
+        action: () => this.setValue(item.value),
+      };
     } else {
-      const active = this.props.defaultValue === item.text;
-      if (this.props.menuType === 'wrap') {
-        return {
-          text: item.text,
-          value: item.value,
-          glyph: item.glyph,
-          color: item.color,
-          active: Bool.toString(active),
-          action: x => this.setText(x),
-        };
-      } else {
-        return {
-          text: item.text,
-          value: item.value,
-          glyph: active ? 'check' : 'none',
-          active: Bool.toString(active),
-          action: x => this.setText(x),
-        };
-      }
+      return {
+        text: item.text,
+        value: item.value,
+        glyph: active ? 'check' : 'none',
+        active: Bool.toString(active),
+        action: () => this.setValue(item.value),
+      };
     }
   }
 
   /******************************************************************************/
 
   renderTextField() {
-    const {shape, list, component, ...other} = this.props;
+    const {shape, list, defaultValue, ...other} = this.props;
 
     const s = shape || 'smooth';
     const textFieldShapes = {
@@ -217,7 +199,7 @@ class TranslatableCombo extends Widget {
     return (
       <NabuTextField
         nabuId={nabuId}
-        component={component}
+        localeName={this.state.selectedValue || defaultValue}
         shape={textFieldShape}
         embeddedFocus="true"
         onFocus={this.onFocus}
@@ -285,29 +267,21 @@ class TranslatableCombo extends Widget {
     const x = [];
     let index = 0;
     let defaultIndex = null;
-    if (typeof list[0] === 'string') {
-      for (let item of list) {
-        if (this.props.defaultValue === item) {
-          defaultIndex = index;
-        }
-        x.push({
-          text: item,
-          action: x => this.setText(x),
-        });
-        index++;
+
+    for (let item of list) {
+      if (
+        this.state.selectedValue === item.value ||
+        (!this.state.selectedValue && this.props.defaultValue === item.value)
+      ) {
+        defaultIndex = index;
       }
-    } else {
-      for (let item of list) {
-        if (this.props.defaultValue === item.text) {
-          defaultIndex = index;
-        }
-        x.push({
-          text: item.text,
-          action: x => this.setText(x),
-        });
-        index++;
-      }
+      x.push({
+        text: item.text,
+        action: () => this.setValue(item.value),
+      });
+      index++;
     }
+
     return (
       <Select
         menuType={this.props.menuType}
@@ -326,18 +300,21 @@ class TranslatableCombo extends Widget {
   }
 
   renderCombo() {
-    let list = this.props.list;
+    let list = this.props.list || [];
     if (isShredder(list)) {
       list = list.toJS();
     }
-    if (list && this.showCombo) {
+    list = list.map(locale => ({
+      value: locale.name,
+      text: locale.name, // TODO: change to text when translatable field is inserted
+    }));
+
+    if (this.showCombo) {
       if (this.props.menuType === 'combo' || this.props.menuType === 'wrap') {
         return this.renderComboCombo(list);
       } else {
         return this.renderComboSelect(list);
       }
-    } else {
-      return null;
     }
   }
 
@@ -364,12 +341,21 @@ class TranslatableCombo extends Widget {
 
 /******************************************************************************/
 export default Widget.connect((state, props) => {
+  const {workitemId} = props;
+  const locales = state.get('backend.nabu.locales');
+
+  if (!locales || locales.length === 0) {
+    return {};
+  }
+
+  const toolbarId = getToolbarId(workitemId);
+  const selectedLocaleId = state.get(`backend.${toolbarId}.selectedLocaleId`);
+  const defaultLocale =
+    locales.find(locale => locale.get('id') === selectedLocaleId) ||
+    locales.first();
+
   return {
-    list: state.get(`backend.nabu.locales`)
-      ? state
-          .get(`backend.nabu.locales`)
-          .map(locale => locale.get('name'))
-          .toJS()
-      : [],
+    list: locales,
+    defaultValue: defaultLocale.get('name'),
   };
 })(TranslatableCombo);
