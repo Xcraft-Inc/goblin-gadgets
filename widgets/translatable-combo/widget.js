@@ -306,7 +306,7 @@ class TranslatableCombo extends Widget {
     }
     list = list.map(locale => ({
       value: locale.name,
-      text: locale.name, // TODO: change to text when translatable field is inserted
+      text: locale.text || locale.name,
     }));
 
     if (this.showCombo) {
