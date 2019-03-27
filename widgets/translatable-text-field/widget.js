@@ -5,7 +5,7 @@ import Label from 'gadgets/label/widget';
 import TranslatableCombo from 'gadgets/translatable-combo/widget';
 import * as Bool from 'gadgets/helpers/bool-helpers';
 
-import {T as ToNabuObject} from 'goblin-nabu/widgets/helpers/t.js';
+import ToNabuObject from 'goblin-nabu/widgets/helpers/t.js';
 
 /******************************************************************************/
 
