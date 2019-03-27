@@ -29,7 +29,7 @@ class TranslatableTextField extends Widget {
       path: this.props.model.startsWith('.')
         ? this.props.model.slice(1)
         : this.props.model,
-      newValue: WrapT(nabuId),
+      newValue: WrapT(nabuId, null, null, null, true),
     });
   }
 

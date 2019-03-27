@@ -100,6 +100,7 @@ export default Widget.connect((state, props) => {
     component.cmd('nabu.add-message', {
       nabuId,
       description: '',
+      custom: true,
       workitemId: component.props.id || component.context.id,
     });
   }
