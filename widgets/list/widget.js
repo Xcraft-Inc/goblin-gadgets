@@ -76,11 +76,19 @@ class List extends Widget {
   }
 
   estimateItemSize(index, cache) {
-    if (cache[index]) {
+    /* Ensure that the first item is never 0, it prevents a strange bug where
+     * the list is not beginning by 0 because the first items have a bad
+     * height of 0.
+     */
+    if (cache['0'] === 0) {
+      cache['0'] = 40;
+    }
+
+    if (cache[index] > 0) {
       this._height = cache[index];
       return this._height;
     }
-    this._height = cache[0] ? cache[0] : 40;
+    this._height = cache['0'] > 0 ? cache['0'] : 40;
     return this._height;
   }
 
