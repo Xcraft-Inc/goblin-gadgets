@@ -2,7 +2,7 @@
 
 export default function styles(theme) {
   const radioBoxStyle = {
-    width: '200px',
+    width: '400px',
     display: 'flex',
     padding: '0px 10px',
     flexDirection: 'column',

@@ -496,7 +496,7 @@ export default function styles(theme, props) {
     if (props.subkind !== 'no-overlay') {
       overflowY = isWebkit ? 'overlay' : 'auto';
     }
-    flexGrow = 1;
+    flexGrow = grow || 1;
     padding = '0px ' + m + ' 0px ' + m;
     if (subkind === 'top-margin') {
       margin = m + ' 0px 0px 0px';
