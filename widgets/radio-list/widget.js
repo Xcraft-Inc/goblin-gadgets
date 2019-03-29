@@ -61,7 +61,7 @@ class RadioList extends Widget {
         text={this.props.list[1]}
         focusable="true"
         checked={Bool.toString(this.props.selectedIndex === 1)}
-        onClick={() => this.onCheckClicked()}
+        onClick={this.onCheckClicked}
       />
     );
   }
