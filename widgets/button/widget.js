@@ -77,6 +77,10 @@ class Button extends Widget {
 
   onKeySpace(e) {
     e.preventDefault();
+
+    /* ensure that space is immediatly available for other */
+    MouseTrap.unbind('space');
+
     if (this.disabled && !Bool.isTrue(this.props.focusable)) {
       return;
     }
