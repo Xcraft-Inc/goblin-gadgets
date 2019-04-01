@@ -26,6 +26,7 @@ class Button extends Widget {
     this.onMouseOver = this.onMouseOver.bind(this);
     this.onMouseOut = this.onMouseOut.bind(this);
     this.onKeySpace = this.onKeySpace.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
   componentDidMount() {
@@ -110,11 +111,6 @@ class Button extends Widget {
     if (x) {
       x(e);
     }
-    // Do not connect to onClick, because it's never called when button
-    // dont have the focus.
-    if (this.props.onClick) {
-      this.props.onClick(e);
-    }
   }
 
   onMouseOver(e) {
@@ -134,6 +130,15 @@ class Button extends Widget {
     const x = this.props.mouseOut;
     if (x) {
       x(e);
+    }
+  }
+
+  onClick(e) {
+    if (this.disabled) {
+      return;
+    }
+    if (this.props.onClick) {
+      this.props.onClick(e);
     }
   }
 
@@ -268,6 +273,7 @@ class Button extends Widget {
           onTouchEnd={this.onMouseUp}
           onMouseOver={this.onMouseOver}
           onMouseOut={this.onMouseOut}
+          onClick={this.onClick}
           className={boxClass}
         >
           {this.props.children}
@@ -288,6 +294,7 @@ class Button extends Widget {
           onTouchEnd={this.onMouseUp}
           onMouseOver={this.onMouseOver}
           onMouseOut={this.onMouseOut}
+          onClick={this.onClick}
           className={boxClass}
           href={window.location.hash + '#' + this.props.toAnchor}
         >
@@ -313,6 +320,7 @@ class Button extends Widget {
           onTouchEnd={this.onMouseUp}
           onMouseOver={this.onMouseOver}
           onMouseOut={this.onMouseOut}
+          onClick={this.onClick}
           className={boxClass}
         >
           {this.renderLayout()}
