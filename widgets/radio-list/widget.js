@@ -15,7 +15,7 @@ class RadioList extends Widget {
     this.getItem = this.getItem.bind(this);
   }
 
-  onRadioClicked(index) {
+  onRadioClicked(e, {index}) {
     const x = this.props.selectionChanged;
     if (x) {
       x(index);
@@ -78,7 +78,8 @@ class RadioList extends Widget {
         text={this.getItem(text)}
         focusable="true"
         checked={Bool.toString(index === this.props.selectedIndex)}
-        onClick={() => this.onRadioClicked(index)}
+        userData={{index}}
+        onClick={this.onRadioClicked}
       />
     );
   }
