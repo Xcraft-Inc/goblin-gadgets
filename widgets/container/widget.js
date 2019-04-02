@@ -78,6 +78,7 @@ class Container extends Widget {
   }
 
   componentWillUnmount() {
+    super.componentWillUnmount();
     if (this.props.navigationFor) {
       const panelElem = document.querySelectorAll(
         `[data-navigation-name="${this.props.navigationFor}"]`

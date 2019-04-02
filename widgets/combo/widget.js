@@ -57,6 +57,7 @@ class Combo extends Widget {
   }
 
   componentWillUnmount() {
+    super.componentWillUnmount();
     window.document.combo = 'hidden';
 
     MouseTrap.unbind('esc');

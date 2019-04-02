@@ -23,6 +23,7 @@ class DialogModal extends Widget {
   }
 
   componentWillUnmount() {
+    super.componentWillUnmount();
     MouseTrap.unbind('esc');
     MouseTrap.unbind('enter');
   }

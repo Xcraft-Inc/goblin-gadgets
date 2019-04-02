@@ -23,6 +23,7 @@ class Select extends Widget {
   }
 
   componentWillUnmount() {
+    super.componentWillUnmount();
     MouseTrap.unbind('esc');
   }
 

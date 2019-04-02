@@ -128,6 +128,7 @@ class DragCarrier extends Widget {
   }
 
   componentWillUnmount() {
+    super.componentWillUnmount();
     MouseTrap.unbind('esc');
   }
 

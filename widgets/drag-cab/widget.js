@@ -91,6 +91,7 @@ class DragCab extends Widget {
   }
 
   componentWillUnmount() {
+    super.componentWillUnmount();
     const index = window.document.dragCabs.indexOf(this);
     if (index !== -1) {
       window.document.dragCabs.splice(index, 1);

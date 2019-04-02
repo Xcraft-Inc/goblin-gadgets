@@ -16,6 +16,7 @@ class ScrollableContainer extends Widget {
   }
 
   componentWillUnmount() {
+    super.componentWillUnmount();
     if (this.node) {
       this.node.removeEventListener('scroll', this.handleScroll);
     }

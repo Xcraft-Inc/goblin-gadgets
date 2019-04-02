@@ -21,6 +21,7 @@ class TimeGauge extends Widget {
   }
 
   componentWillUnmount() {
+    super.componentWillUnmount();
     clearInterval(this.timer);
   }
 
