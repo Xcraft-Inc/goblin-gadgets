@@ -281,7 +281,7 @@ class Button extends Widget {
       );
     } else if (this.props.toAnchor) {
       return (
-        <ConnectedA // <AConnected
+        <ConnectedA
           self={this}
           tooltip={tooltip}
           key={this.props.index}
@@ -332,7 +332,6 @@ class Button extends Widget {
       );
     }
   }
-  // (*) je n'arrive pas à généraliser cela !!!
 }
 
 export default Button;
