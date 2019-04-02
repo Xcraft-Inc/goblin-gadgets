@@ -33,7 +33,6 @@ class Button extends Widget {
     super.componentDidMount();
   }
 
-  //#region get/set
   get focus() {
     return this.state.focus;
   }
@@ -43,7 +42,6 @@ class Button extends Widget {
       focus: value,
     });
   }
-  //#endregion
 
   static get wiring() {
     return {
