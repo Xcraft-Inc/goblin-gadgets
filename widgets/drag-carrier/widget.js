@@ -113,7 +113,6 @@ class DragCarrier extends Widget {
 
   componentDidMount() {
     super.componentDidMount();
-
     if (
       window.document.flyingDialogs &&
       window.document.flyingDialogs.length > 0
