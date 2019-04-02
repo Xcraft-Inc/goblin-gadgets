@@ -33,6 +33,11 @@ class Button extends Widget {
     super.componentDidMount();
   }
 
+  componentWillUnmount() {
+    super.componentWillUnmount();
+    MouseTrap.unbind('space');
+  }
+
   get focus() {
     return this.state.focus;
   }
@@ -76,12 +81,6 @@ class Button extends Widget {
 
   onKeySpace(e) {
     e.preventDefault();
-
-    /* Ensure that space is immediatly available for other. It can't
-     * be done only in onBlur() because it's possible that a rerender
-     * has recreate this Button (arrow func in onClick for example).
-     */
-    MouseTrap.unbind('space');
 
     if (this.disabled && !Bool.isTrue(this.props.focusable)) {
       return;
