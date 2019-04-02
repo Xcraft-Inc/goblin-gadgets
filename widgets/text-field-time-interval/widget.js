@@ -13,12 +13,34 @@ class TextFieldTimeInterval extends Widget {
     super(...arguments);
 
     this.onNowClicked = this.onNowClicked.bind(this);
+    this.endBeforeChange = this.endBeforeChange.bind(this);
+    this.startBeforeChange = this.startBeforeChange.bind(this);
   }
 
   onNowClicked() {
     const now = TimeConverters.getNowCanonical();
     this.setModelValue(this.props.startModel, now, true);
     this.setModelValue(this.props.endModel, now, true);
+  }
+
+  endBeforeChange(value) {
+    if (
+      !this.props.endValue ||
+      this.props.endValue === '' ||
+      value > this.props.endValue
+    ) {
+      this.setModelValue(this.props.endModel, value, true);
+    }
+  }
+
+  startBeforeChange(value) {
+    if (
+      !this.props.startValue ||
+      this.props.startValue === '' ||
+      value < this.props.startValue
+    ) {
+      this.setModelValue(this.props.startModel, value, true);
+    }
   }
 
   /******************************************************************************/
@@ -40,15 +62,7 @@ class TextFieldTimeInterval extends Widget {
         required={this.props.required}
         model={this.props.startModel}
         entityId={this.props.entityId}
-        beforeChange={value => {
-          if (
-            !this.props.endValue ||
-            this.props.endValue === '' ||
-            value > this.props.endValue
-          ) {
-            this.setModelValue(this.props.endModel, value, true);
-          }
-        }}
+        beforeChange={this.endBeforeChange}
       />
     );
   }
@@ -70,15 +84,7 @@ class TextFieldTimeInterval extends Widget {
         required={this.props.required}
         model={this.props.endModel}
         entityId={this.props.entityId}
-        beforeChange={value => {
-          if (
-            !this.props.startValue ||
-            this.props.startValue === '' ||
-            value < this.props.startValue
-          ) {
-            this.setModelValue(this.props.startModel, value, true);
-          }
-        }}
+        beforeChange={this.startBeforeChange}
       />
     );
   }
