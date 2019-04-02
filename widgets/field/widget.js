@@ -67,6 +67,7 @@ class Field extends Form {
   constructor() {
     super(...arguments);
     this.handleFileChange = this.handleFileChange.bind(this);
+    this.radioListSelectionChanged = this.radioListSelectionChanged.bind(this);
   }
 
   get readonly() {
@@ -1965,6 +1966,18 @@ class Field extends Form {
     );
   }
 
+  radioListSelectionChanged(index) {
+    const value =
+      typeof this.props.list[index] === 'string'
+        ? this.props.list[index]
+        : this.props.list[index].value;
+
+    this.setBackendValue(this.fullPath, value);
+    if (this.props.onChange) {
+      this.props.onChange(value, index);
+    }
+  }
+
   renderEditRadio() {
     const WiredRadioList = this.mapWidget(
       RadioList,
@@ -2014,17 +2027,7 @@ class Field extends Form {
           height={this.props.height}
           direction={this.props.direction || 'row'}
           list={this.props.list}
-          selectionChanged={index => {
-            const value =
-              typeof this.props.list[index] === 'string'
-                ? this.props.list[index]
-                : this.props.list[index].value;
-
-            this.setBackendValue(this.fullPath, value);
-            if (this.props.onChange) {
-              this.props.onChange(value, index);
-            }
-          }}
+          selectionChanged={this.radioListSelectionChanged}
         />
       </Container>
     );
