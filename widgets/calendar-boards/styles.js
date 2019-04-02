@@ -11,6 +11,7 @@ export default function styles(theme) {
   const detailBoxStyle = {
     height: '240px',
     maxHeight: '240px',
+    minWidth: '250px',
     padding: '10px',
     display: 'flex',
     flexDirection: 'column',
