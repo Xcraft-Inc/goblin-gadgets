@@ -89,14 +89,10 @@ export default class Ticket extends Widget {
   }
 
   renderBackgroundText() {
-    if (this.props.backgroundText) {
-      const backgroundTextClass = this.styles.classNames.backgroundText;
-      return (
-        <div className={backgroundTextClass}>{this.props.backgroundText}</div>
-      );
-    } else {
-      return null;
-    }
+    const backgroundTextClass = this.styles.classNames.backgroundText;
+    return (
+      <div className={backgroundTextClass}>{this.props.backgroundText}</div>
+    );
   }
 
   renderHud() {
