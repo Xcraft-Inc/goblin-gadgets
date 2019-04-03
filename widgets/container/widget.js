@@ -183,10 +183,10 @@ class Container extends Widget {
   }
 
   render() {
-    const {disabled, kind, anchor, show, index} = this.props;
+    const {disabled, kind, anchor, show, index, className} = this.props;
     const navName = this.props.navigation - name;
 
-    const boxClass = this.styles.classNames.box;
+    const boxClass = className ? className : this.styles.classNames.box;
     const triangleClass = this.styles.classNames.triangle;
 
     if (Bool.isFalse(show)) {
