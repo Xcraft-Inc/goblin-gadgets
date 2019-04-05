@@ -18,8 +18,8 @@ export default class Ticket extends Widget {
   constructor() {
     super(...arguments);
 
-    this.onMouseEnter = this.onMouseEnter.bind(this);
-    this.onMouseLeave = this.onMouseLeave.bind(this);
+    this.onMouseOver = this.onMouseOver.bind(this);
+    this.onMouseOut = this.onMouseOut.bind(this);
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
   }
@@ -28,15 +28,15 @@ export default class Ticket extends Widget {
     super.componentDidMount();
   }
 
-  onMouseEnter() {
-    const x = this.props.onMouseEnter;
+  onMouseOver() {
+    const x = this.props.onMouseOver;
     if (x) {
       x();
     }
   }
 
-  onMouseLeave() {
-    const x = this.props.onMouseLeave;
+  onMouseOut() {
+    const x = this.props.onMouseOut;
     if (x) {
       x();
     }
@@ -89,14 +89,10 @@ export default class Ticket extends Widget {
   }
 
   renderBackgroundText() {
-    if (this.props.backgroundText) {
-      const backgroundTextClass = this.styles.classNames.backgroundText;
-      return (
-        <div className={backgroundTextClass}>{this.props.backgroundText}</div>
-      );
-    } else {
-      return null;
-    }
+    const backgroundTextClass = this.styles.classNames.backgroundText;
+    return (
+      <div className={backgroundTextClass}>{this.props.backgroundText}</div>
+    );
   }
 
   renderHud() {
@@ -205,8 +201,8 @@ export default class Ticket extends Widget {
         self={this}
         className={boxClass}
         msgid={this.props.tooltip}
-        onMouseEnter={this.onMouseEnter}
-        onMouseLeave={this.onMouseLeave}
+        onMouseOver={this.onMouseOver}
+        onMouseOut={this.onMouseOut}
         onMouseDown={this.onMouseDown}
         onMouseUp={this.onMouseUp}
         onTouchStart={this.onMouseDown}
@@ -249,8 +245,8 @@ export default class Ticket extends Widget {
         self={this}
         className={rectShadowClass}
         msgid={this.props.tooltip}
-        onMouseEnter={this.onMouseEnter}
-        onMouseLeave={this.onMouseLeave}
+        onMouseOver={this.onMouseOver}
+        onMouseOut={this.onMouseOut}
         onMouseDown={this.onMouseDown}
         onMouseUp={this.onMouseUp}
         onTouchStart={this.onMouseDown}
@@ -293,8 +289,8 @@ export default class Ticket extends Widget {
     return (
       <div
         className={rectClass}
-        onMouseEnter={this.onMouseEnter}
-        onMouseLeave={this.onMouseLeave}
+        onMouseOver={this.onMouseOver}
+        onMouseOut={this.onMouseOut}
         onMouseDown={this.onMouseDown}
         onMouseUp={this.onMouseUp}
         onTouchStart={this.onMouseDown}
@@ -312,8 +308,8 @@ export default class Ticket extends Widget {
     return (
       <div
         className={coverClass}
-        onMouseEnter={this.onMouseEnter}
-        onMouseLeave={this.onMouseLeave}
+        onMouseOver={this.onMouseOver}
+        onMouseOut={this.onMouseOut}
         onMouseDown={this.onMouseDown}
         onMouseUp={this.onMouseUp}
         onTouchStart={this.onMouseDown}

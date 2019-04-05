@@ -27,13 +27,18 @@ class Button extends Widget {
     this.onMouseOver = this.onMouseOver.bind(this);
     this.onMouseOut = this.onMouseOut.bind(this);
     this.onKeySpace = this.onKeySpace.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
   componentDidMount() {
     super.componentDidMount();
   }
 
-  //#region get/set
+  componentWillUnmount() {
+    super.componentWillUnmount();
+    MouseTrap.unbind('space');
+  }
+
   get focus() {
     return this.state.focus;
   }
@@ -43,7 +48,6 @@ class Button extends Widget {
       focus: value,
     });
   }
-  //#endregion
 
   static get wiring() {
     return {
@@ -79,12 +83,6 @@ class Button extends Widget {
   onKeySpace(e) {
     e.preventDefault();
 
-    /* Ensure that space is immediatly available for other. It can't
-     * be done only in onBlur() because it's possible that a rerender
-     * has recreate this Button (arrow func in onClick for example).
-     */
-    MouseTrap.unbind('space');
-
     if (this.disabled && !Bool.isTrue(this.props.focusable)) {
       return;
     }
@@ -111,11 +109,6 @@ class Button extends Widget {
     if (x) {
       x(e);
     }
-    // Do not connect to onClick, because it's never called when button
-    // dont have the focus.
-    if (this.props.onClick) {
-      this.props.onClick(e);
-    }
   }
 
   onMouseOver(e) {
@@ -135,6 +128,15 @@ class Button extends Widget {
     const x = this.props.mouseOut;
     if (x) {
       x(e);
+    }
+  }
+
+  onClick(e) {
+    if (this.disabled) {
+      return;
+    }
+    if (this.props.onClick) {
+      this.props.onClick(e);
     }
   }
 
@@ -269,6 +271,7 @@ class Button extends Widget {
           onTouchEnd={this.onMouseUp}
           onMouseOver={this.onMouseOver}
           onMouseOut={this.onMouseOut}
+          onClick={this.onClick}
           className={boxClass}
         >
           {this.props.children}
@@ -289,6 +292,7 @@ class Button extends Widget {
           onTouchEnd={this.onMouseUp}
           onMouseOver={this.onMouseOver}
           onMouseOut={this.onMouseOut}
+          onClick={this.onClick}
           className={boxClass}
           href={window.location.hash + '#' + this.props.toAnchor}
         >
@@ -314,6 +318,7 @@ class Button extends Widget {
           onTouchEnd={this.onMouseUp}
           onMouseOver={this.onMouseOver}
           onMouseOut={this.onMouseOut}
+          onClick={this.onClick}
           className={boxClass}
         >
           {this.renderLayout()}
@@ -325,7 +330,6 @@ class Button extends Widget {
       );
     }
   }
-  // (*) je n'arrive pas à généraliser cela !!!
 }
 
 export default Button;

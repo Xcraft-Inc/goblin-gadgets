@@ -81,7 +81,6 @@ class DragCab extends Widget {
 
   componentDidMount() {
     super.componentDidMount();
-
     if (!this.props.dragOwnerId) {
       throw new Error('DragCab has not dragOwnerId');
     }
@@ -92,6 +91,7 @@ class DragCab extends Widget {
   }
 
   componentWillUnmount() {
+    super.componentWillUnmount();
     const index = window.document.dragCabs.indexOf(this);
     if (index !== -1) {
       window.document.dragCabs.splice(index, 1);

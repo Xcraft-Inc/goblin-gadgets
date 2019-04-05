@@ -100,6 +100,7 @@ export default function styles(theme, props) {
   let borderRadius = null;
   let boxShadow = null;
   let margin = marginBottom ? '0px 0px ' + marginBottom + ' 0px' : '0px';
+  let marginLeft = null;
   let padding = '0px';
   let backgroundColor = null;
   let color = null;
@@ -256,9 +257,12 @@ export default function styles(theme, props) {
     flexGrow = 1;
     justifyContent = 'flex-start';
     alignItems = 'center';
+    overflowX = 'hidden';
   }
 
   if (kind === 'main-tab-right') {
+    boxShadow = `${theme.palette.mainTabBackground} 0px 0px 30px 12px`;
+    marginLeft = '7px';
     minHeight = theme.shapes.mainTabHeight;
     display = 'flex';
     flexDirection = 'row';
@@ -1270,6 +1274,7 @@ export default function styles(theme, props) {
     borderRadius: borderRadius,
     boxShadow: boxShadow,
     margin: margin,
+    marginLeft: marginLeft,
     padding: padding,
     backgroundColor: backgroundColor,
     color: color,

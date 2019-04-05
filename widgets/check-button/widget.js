@@ -17,7 +17,7 @@ class CheckButton extends Widget {
   onButtonClicked(e) {
     const x = this.props.onClick;
     if (x) {
-      x(e);
+      x(e, this.props.userData);
     }
   }
 

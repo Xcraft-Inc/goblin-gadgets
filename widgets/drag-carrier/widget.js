@@ -115,7 +115,6 @@ class DragCarrier extends Widget {
 
   componentDidMount() {
     super.componentDidMount();
-
     if (
       window.document.flyingDialogs &&
       window.document.flyingDialogs.length > 0
@@ -130,6 +129,7 @@ class DragCarrier extends Widget {
   }
 
   componentWillUnmount() {
+    super.componentWillUnmount();
     MouseTrap.unbind('esc');
   }
 

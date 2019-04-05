@@ -163,7 +163,7 @@ export default function styles(theme, props) {
     backgroundColor: 'transparent',
     outline: 'none',
     border: 'none',
-    pointerEvents: 'all',
+    pointerEvents: 'auto',
   };
 
   const textareaStyle = {
