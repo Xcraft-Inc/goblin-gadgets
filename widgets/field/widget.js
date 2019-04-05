@@ -2555,26 +2555,29 @@ class Field extends Form {
           width={this.props.labelWidth || defaultLabelWidth}
         />
         <Form
-          {...this.formConfigWithComponent(() => (
-            <Hinter
-              selectAllOnFocus="true"
-              id={this.context.id}
-              shape={
-                !this.props.onValue && this.props.enableAdd
-                  ? 'left-smooth'
-                  : 'smooth'
-              }
-              getGlyph={this.props.getGlyph}
-              hintText={this.props.hintText}
-              tooltip={this.props.tooltip || this.props.hintText}
-              hinter={this.props.hinter}
-              comboType={this.props.hinter}
-              spacing={this.props.spacing}
-              width={this.props.fieldWidth}
-              grow="1"
-              requiredHinter={this.props.requiredHinter || 'true'}
-            />
-          ))}
+          {...this.formConfigWithComponent(
+            React.forwardRef((props, ref) => (
+              <Hinter
+                ref={ref}
+                selectAllOnFocus="true"
+                id={this.context.id}
+                shape={
+                  !this.props.onValue && this.props.enableAdd
+                    ? 'left-smooth'
+                    : 'smooth'
+                }
+                getGlyph={this.props.getGlyph}
+                hintText={this.props.hintText}
+                tooltip={this.props.tooltip || this.props.hintText}
+                hinter={this.props.hinter}
+                comboType={this.props.hinter}
+                spacing={this.props.spacing}
+                width={this.props.fieldWidth}
+                grow="1"
+                requiredHinter={this.props.requiredHinter || 'true'}
+              />
+            ))
+          )}
         />
         {!this.props.onValue && this.props.enableAdd ? (
           <Button
@@ -2638,26 +2641,29 @@ class Field extends Form {
               width={this.props.labelWidth || defaultLabelWidth}
             />
             <Form
-              {...this.formConfigWithComponent(() => (
-                <TextField
-                  id={this.context.id}
-                  shape={
-                    !this.props.onValue && this.props.enableAdd
-                      ? 'left-smooth'
-                      : 'smooth'
-                  }
-                  getGlyph={this.props.getGlyph}
-                  hintText={this.props.hintText}
-                  tooltip={this.props.tooltip || this.props.hintText}
-                  hinter={this.props.hinter}
-                  comboType={this.props.hinter}
-                  spacing={this.props.spacing}
-                  width={this.props.fieldWidth}
-                  grow="1"
-                  requiredHinter="true"
-                  autocomplete={this.fullPath}
-                />
-              ))}
+              {...this.formConfigWithComponent(
+                React.forwardRef((props, ref) => (
+                  <TextField
+                    ref={ref}
+                    id={this.context.id}
+                    shape={
+                      !this.props.onValue && this.props.enableAdd
+                        ? 'left-smooth'
+                        : 'smooth'
+                    }
+                    getGlyph={this.props.getGlyph}
+                    hintText={this.props.hintText}
+                    tooltip={this.props.tooltip || this.props.hintText}
+                    hinter={this.props.hinter}
+                    comboType={this.props.hinter}
+                    spacing={this.props.spacing}
+                    width={this.props.fieldWidth}
+                    grow="1"
+                    requiredHinter="true"
+                    autocomplete={this.fullPath}
+                  />
+                ))
+              )}
             />
           </Container>
         );
