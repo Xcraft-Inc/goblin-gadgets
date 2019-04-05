@@ -87,7 +87,7 @@ export default function styles(theme, props) {
     margin: theme.shapes.containerMargin,
   };
 
-  const nabuTextField = {
+  const nabuTextFieldStyle = {
     width: '100%',
   };
 
@@ -97,7 +97,7 @@ export default function styles(theme, props) {
     focusedBox: focusedBoxStyle,
     comboBox: comboBoxStyle,
     emptyCombo: emptyComboStyle,
-    nabuTextField,
+    nabuTextField: nabuTextFieldStyle,
   };
 }
 
