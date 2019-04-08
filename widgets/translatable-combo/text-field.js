@@ -99,7 +99,7 @@ class NabuTextField extends Form {
     }
 
     return (
-      <Form {...this.formConfig}>
+      <Form {...this.formConfig} className={this.props.className}>
         <TextField {...props} />
       </Form>
     );

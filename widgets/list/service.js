@@ -324,8 +324,10 @@ Goblin.registerQuest(goblinName, 'fetch', function*(quest, range) {
     const highlights = quest.goblin.getX('highlights');
 
     quest.dispatch('elastic-fetch', {ids, count, highlights});
-    yield quest.me.afterFetch();
-
+    const callAfterFetch = quest.goblin.getX('callAfterFetch');
+    if (callAfterFetch) {
+      yield quest.me.afterFetch();
+    }
     return;
   }
 
@@ -340,20 +342,20 @@ Goblin.registerQuest(goblinName, 'fetch', function*(quest, range) {
 
   if (_do) {
     quest.dispatch('rethink-fetch', {rows, ids});
-    yield quest.me.afterFetch();
+    const callAfterFetch = quest.goblin.getX('callAfterFetch');
+    if (callAfterFetch) {
+      yield quest.me.afterFetch();
+    }
   }
 });
 
 Goblin.registerQuest(goblinName, 'after-fetch', function*(quest) {
-  const callAfterFetch = quest.goblin.getX('callAfterFetch');
-  if (callAfterFetch) {
-    const childId = quest.me.id
-      .split('@')
-      .slice(1)
-      .join('@');
-    const childApi = quest.getAPI(childId);
-    yield childApi.afterFetch({listId: quest.me.id});
-  }
+  const childId = quest.me.id
+    .split('@')
+    .slice(1)
+    .join('@');
+  const childApi = quest.getAPI(childId);
+  yield childApi.afterFetch({listId: quest.me.id});
 });
 
 Goblin.registerQuest(goblinName, 'init-list', function*(quest) {

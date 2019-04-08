@@ -205,6 +205,7 @@ class TranslatableCombo extends Widget {
         onFocus={this.onFocus}
         onBlur={this.onBlur}
         onMouseUp={this.onMouseUp}
+        className={this.styles.classNames.nabuTextField}
         {...other}
       />
     );
