@@ -302,8 +302,8 @@ class TextField extends Widget {
 
       return (
         <TranslatableDiv
-          self={this}
           msgid={this.props.tooltip}
+          workitemId={this.context.desktopId || this.getNearestId()}
           className={this.props.className || boxClass}
         >
           {glyph ? (
@@ -315,8 +315,8 @@ class TextField extends Widget {
           ) : null}
           {type === 'textarea' ? (
             <TranslatableTextarea
-              self={this}
               msgid={placeholder}
+              workitemId={this.context.desktopId || this.getNearestId()}
               tabIndex="0"
               rows={this.props.rows}
               onRef={this.setInput}
@@ -324,8 +324,8 @@ class TextField extends Widget {
             />
           ) : (
             <TranslatableInput
-              self={this}
               msgid={placeholder}
+              workitemId={this.context.desktopId || this.getNearestId()}
               tabIndex="0"
               type={type}
               onRef={this.setInput}

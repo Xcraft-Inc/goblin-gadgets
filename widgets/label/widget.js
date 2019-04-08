@@ -258,8 +258,8 @@ class Label extends Widget {
     if (Bool.isTrue(this.props.insideButton)) {
       return (
         <TranslatableDiv
-          self={this}
           msgid={this.props.tooltip}
+          workitemId={this.context.desktopId || this.getNearestId()}
           className={this.props.className || boxClass}
           key={this.props.index}
           disabled={this.props.disabled}
@@ -270,8 +270,8 @@ class Label extends Widget {
     } else {
       return (
         <TranslatableDiv
-          self={this}
           msgid={this.props.tooltip}
+          workitemId={this.context.desktopId || this.getNearestId()}
           className={this.props.className || boxClass}
           key={this.props.index}
           onClick={this.props.onClick}

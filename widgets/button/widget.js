@@ -258,8 +258,8 @@ class Button extends Widget {
     if (this.props.kind === 'container' || this.props.kind === 'box') {
       return (
         <TranslatableDiv
-          self={this}
           msgid={tooltip}
+          workitemId={this.context.desktopId || this.getNearestId()}
           key={this.props.index}
           {...propsTabIndex}
           onDoubleClick={this.props.onDoubleClick}
@@ -280,8 +280,8 @@ class Button extends Widget {
     } else if (this.props.toAnchor) {
       return (
         <TranslatableA // <AConnected
-          self={this}
           msgid={tooltip}
+          workitemId={this.context.desktopId || this.getNearestId()}
           key={this.props.index}
           {...propsTabIndex}
           onFocus={this.onFocus}
@@ -306,8 +306,8 @@ class Button extends Widget {
     } else {
       return (
         <TranslatableDiv
-          self={this}
           msgid={tooltip}
+          workitemId={this.context.desktopId || this.getNearestId()}
           key={this.props.index}
           {...propsTabIndex}
           onFocus={this.onFocus}

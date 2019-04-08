@@ -49,8 +49,8 @@ export default class TextFieldBasis extends Widget {
 
     return (
       <TranslatableDiv
-        self={this}
         msgid={this.props.tooltip}
+        workitemId={this.context.desktopId || this.getNearestId()}
         className={boxClass}
       >
         {this.props.glyph ? (
@@ -62,16 +62,16 @@ export default class TextFieldBasis extends Widget {
         ) : null}
         {type === 'textarea' ? (
           <TranslatableTextarea
-            self={this}
             msgid={this.props.hintText}
+            workitemId={this.context.desktopId || this.getNearestId()}
             className={`${fieldClass} ${inputClass}`}
             value={this.props.value || ''}
             onChange={this.onChange}
           />
         ) : (
           <TranslatableInput
-            self={this}
             msgid={this.props.hintText}
+            workitemId={this.context.desktopId || this.getNearestId()}
             className={`${fieldClass} ${inputClass}`}
             type="text"
             value={this.props.value || ''}
