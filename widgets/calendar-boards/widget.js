@@ -54,9 +54,9 @@ function getRadioList(boards, selectedDate) {
   for (const board of boards) {
     const date = board.get('date');
     const status = board.get('status');
-    if (date === selectedDate && status !== 'archived') {
+    if (date === selectedDate) {
       const info = board.get('info');
-      list.push({value: board.get('id'), text: info});
+      list.push({value: board.get('id'), text: `${info} ${status}`});
     }
   }
   list.push({value: '', text: T('Créer')});
@@ -67,8 +67,7 @@ function getRadioIndex(boards, selectedDate, selectedBoardId) {
   let index = 0;
   for (const board of boards) {
     const date = board.get('date');
-    const status = board.get('status');
-    if (date === selectedDate && status !== 'archived') {
+    if (date === selectedDate) {
       const id = board.get('id');
       if (id === selectedBoardId) {
         return index;
@@ -83,8 +82,7 @@ function getRadioBoardId(boards, selectedDate, index) {
   let i = 0;
   for (const board of boards) {
     const date = board.get('date');
-    const status = board.get('status');
-    if (date === selectedDate && status !== 'archived') {
+    if (date === selectedDate) {
       if (i === index) {
         return board.get('id');
       }
