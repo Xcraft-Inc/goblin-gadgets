@@ -37,6 +37,12 @@ class Notification extends Widget {
 
   get hasExtendButton() {
     const message = this.props.data.message._string || this.props.data.message;
+
+    /* Markdown are always full */
+    if (message.startsWith('```') && message.endsWith('```')) {
+      return false;
+    }
+
     return message && message.length > 30;
   }
 
