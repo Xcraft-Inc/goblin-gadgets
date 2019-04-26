@@ -36,7 +36,8 @@ class Notification extends Widget {
   }
 
   get hasExtendButton() {
-    return this.props.data.message && this.props.data.message.length > 30;
+    const message = this.props.data.message._string || this.props.data.message;
+    return message && message.length > 30;
   }
 
   onClick(e) {
