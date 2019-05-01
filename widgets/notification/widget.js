@@ -36,9 +36,13 @@ class Notification extends Widget {
   }
 
   get hasExtendButton() {
-    const message = this.props.data.message._string || this.props.data.message;
+    let message = this.props.data.message._string || this.props.data.message;
     if (!message) {
       return false;
+    }
+
+    if (message.nabuId) {
+      message = message.nabuId;
     }
 
     /* Markdown are always full */
