@@ -289,11 +289,11 @@ Goblin.registerQuest(goblinName, 'handle-changes', function*(quest, change) {
   }
 });
 
+const fetchLock = locks.getMutex;
 Goblin.registerQuest(goblinName, 'fetch', function*(quest, range) {
-  yield quest.goblin.getX('mutex').lock();
-  quest.defer(
-    () => quest.goblin.getX('mutex') && quest.goblin.getX('mutex').unlock()
-  );
+  const locky = quest.goblin.id;
+  yield fetchLock.lock(locky);
+  quest.defer(() => fetchLock.unlock(locky));
 
   if (range) {
     quest.goblin.setX('range', range);
