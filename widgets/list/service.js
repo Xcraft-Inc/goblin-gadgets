@@ -13,7 +13,7 @@ const {locks} = require('xcraft-core-utils');
 const logicState = {
   count: 0,
   list: {},
-  contentIndex: {},
+  options: {contentIndex: {}},
   highlights: [],
 };
 
@@ -21,33 +21,59 @@ const logicState = {
 const logicHandlers = require('./logicHandlers.js');
 
 class List {
-  static _init(quest, contentIndex) {
+  static _init(quest, options) {
     const r = quest.getStorage('rethink');
     const table = quest.goblin.getX('table');
-    contentIndex = contentIndex
-      ? contentIndex
-      : quest.goblin
-          .getState()
-          .get('contentIndex')
-          .toJS();
-    return {r, table, contentIndex};
+    const mode = quest.goblin.getX('mode');
+    if (!options) {
+      options = quest.goblin
+        .getState()
+        .get('options')
+        .toJS();
+    }
+
+    return {r, table, mode, options};
   }
 
-  static *_ids(quest, index, range) {
-    const {r, table, contentIndex} = this._init(quest, index);
-    return yield r.getIds({
-      table,
-      contentIndex,
-      range,
-    });
+  static *_ids(quest, range) {
+    const {r, table, mode, options} = this._init(quest);
+    switch (mode) {
+      case 'index': {
+        return yield r.getIds({
+          table,
+          contentIndex: options.contentIndex,
+          range,
+        });
+      }
+      case 'entity': {
+        const collection = yield r.getIn({
+          table,
+          documentId: options.entityId,
+          path: options.path,
+        });
+        return collection.slice(range.start, range.start + range.length);
+      }
+    }
   }
 
-  static *count(quest, index) {
-    const {r, table, contentIndex} = this._init(quest, index);
-    return yield r.count({
-      table,
-      contentIndex,
-    });
+  static *count(quest, initOptions) {
+    const {r, table, mode, options} = this._init(quest, initOptions);
+    switch (mode) {
+      case 'index': {
+        return yield r.count({
+          table,
+          contentIndex: options.contentIndex,
+        });
+      }
+      case 'entity': {
+        const collection = yield r.getIn({
+          table,
+          documentId: options.entityId,
+          path: options.path,
+        });
+        return collection.length;
+      }
+    }
   }
 
   /**
@@ -64,7 +90,7 @@ class List {
     const ids = _.mapKeys(
       Object.assign(
         {},
-        yield* this._ids(quest, null, {
+        yield* this._ids(quest, {
           start: range[0],
           length: range[1] - range[0] + 1,
         })
@@ -76,16 +102,20 @@ class List {
   }
 
   static *changes(quest) {
-    const {r, table, contentIndex} = this._init(quest);
-    yield r.stopOnChanges({
-      goblinId: quest.goblin.id,
-    });
-    yield r.startQuestOnChanges({
-      table,
-      onChangeQuest: `${goblinName}.handle-changes`,
-      goblinId: quest.goblin.id,
-      contentIndex,
-    });
+    const {r, table, mode, options} = this._init(quest);
+    switch (mode) {
+      case 'index': {
+        yield r.stopOnChanges({
+          goblinId: quest.goblin.id,
+        });
+        yield r.startQuestOnChanges({
+          table,
+          onChangeQuest: `${goblinName}.handle-changes`,
+          goblinId: quest.goblin.id,
+          contentIndex: options.contentIndex,
+        });
+      }
+    }
   }
 
   static *executeSearch(quest, value, sort) {
@@ -192,18 +222,16 @@ class List {
 
 //contentIndex => options
 //  classic on index case:
-//  {index: contentIndex}
+//  {contentIndex: {name:'',value:''}}
 //  collection case:
-//  {entityId: type@guid, pathToIds: '.collection'}
-//  custom query case:
-//  {query: query string} (no change feed?)
+//  {entityId: type@guid, path: '.collection'}
 // Register quest's according rc.json
 Goblin.registerQuest(goblinName, 'create', function*(
   quest,
   desktopId,
   table,
   status,
-  contentIndex,
+  options,
   hinter,
   sort,
   callAfterFetch
@@ -222,16 +250,26 @@ Goblin.registerQuest(goblinName, 'create', function*(
   quest.goblin.setX('hinter', hinter);
   quest.goblin.setX('sort', sort);
   quest.goblin.setX('callAfterFetch', callAfterFetch);
-
+  if (!options) {
+    quest.goblin.setX('mode', 'index');
+  } else {
+    if (options.contentIndex) {
+      quest.goblin.setX('mode', 'index');
+    } else if (options.entityId && options.path) {
+      quest.goblin.setX('mode', 'entity');
+    } else {
+      throw new Error('List create, bad options provided');
+    }
+  }
   const id = quest.goblin.id;
 
   if (!hinter) {
-    const count = yield* List.count(quest, contentIndex);
+    const count = yield* List.count(quest, options);
 
     quest.do({
       id,
       count,
-      contentIndex,
+      options,
     });
 
     yield quest.me.initList();
@@ -268,7 +306,7 @@ Goblin.registerQuest(goblinName, 'change-content-index', function*(
   const contentIndex = {name, value};
   quest.evt('content-index-changed', contentIndex);
 
-  const count = yield* List.count(quest, contentIndex);
+  const count = yield* List.count(quest, {contentIndex});
   quest.do({count});
   yield quest.me.initList();
   yield quest.me.fetch(quest);

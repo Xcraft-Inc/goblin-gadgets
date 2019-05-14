@@ -9,7 +9,7 @@ module.exports = {
       .set('id', action.get('id'))
       .set('status', action.get('status'))
       .set('count', action.get('count'))
-      .set('contentIndex', action.get('contentIndex'));
+      .set('options', action.get('options'));
   },
   'change-content-index': (state, action) => {
     let value = action.get('value');
@@ -17,8 +17,8 @@ module.exports = {
       value = [value];
     }
     return state
-      .set('contentIndex.name', action.get('name'))
-      .set('contentIndex.value', value)
+      .set('options.contentIndex.name', action.get('name'))
+      .set('options.contentIndex.value', value)
       .set('list', {})
       .set('count', action.get('count'));
   },

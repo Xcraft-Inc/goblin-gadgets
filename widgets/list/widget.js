@@ -116,6 +116,6 @@ export default Widget.connect((state, props) => {
     type: props.type,
     count: state.get(`backend.${props.id}.count`),
     listIds: state.get(`backend.${props.id}.list`),
-    contentIndex: state.get(`backend.${props.id}.contentIndex`),
+    contentIndex: state.get(`backend.${props.id}.options.contentIndex`),
   };
 })(List);
