@@ -190,6 +190,13 @@ class List {
   }
 }
 
+//contentIndex => options
+//  classic on index case:
+//  {index: contentIndex}
+//  collection case:
+//  {entityId: type@guid, pathToIds: '.collection'}
+//  custom query case:
+//  {query: query string} (no change feed?)
 // Register quest's according rc.json
 Goblin.registerQuest(goblinName, 'create', function*(
   quest,
