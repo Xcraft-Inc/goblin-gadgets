@@ -49,7 +49,7 @@ class List {
         const collection = yield r.getIn({
           table,
           documentId: options.entityId,
-          path: options.path,
+          path: [options.path],
         });
         return collection.slice(range.start, range.start + range.length);
       }
@@ -69,7 +69,7 @@ class List {
         const collection = yield r.getIn({
           table,
           documentId: options.entityId,
-          path: options.path,
+          path: [options.path],
         });
         return collection.length;
       }
@@ -280,6 +280,25 @@ Goblin.registerQuest(goblinName, 'create', function*(
 
   yield quest.me.initList();
   return id;
+});
+
+Goblin.registerQuest(goblinName, 'change-options', function*(quest, options) {
+  if (options.contentIndex) {
+    quest.goblin.setX('mode', 'index');
+  } else if (options.entityId && options.path) {
+    quest.goblin.setX('mode', 'entity');
+  } else {
+    throw new Error('List create, bad options provided');
+  }
+
+  const count = yield* List.count(quest, options);
+
+  quest.do({
+    count,
+    options,
+  });
+
+  yield quest.me.initList();
 });
 
 Goblin.registerQuest(goblinName, 'get-list-ids', function(quest) {

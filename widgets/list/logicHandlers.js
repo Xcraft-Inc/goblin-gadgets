@@ -11,6 +11,11 @@ module.exports = {
       .set('count', action.get('count'))
       .set('options', action.get('options'));
   },
+  'change-options': (state, action) => {
+    return state
+      .set('options', action.get('options'))
+      .set('count', action.get('count'));
+  },
   'change-content-index': (state, action) => {
     let value = action.get('value');
     if (!Array.isArray(value)) {
