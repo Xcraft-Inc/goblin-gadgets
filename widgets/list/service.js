@@ -102,20 +102,17 @@ class List {
   }
 
   static *changes(quest) {
-    const {r, table, mode, options} = this._init(quest);
-    switch (mode) {
-      case 'index': {
-        yield r.stopOnChanges({
-          goblinId: quest.goblin.id,
-        });
-        yield r.startQuestOnChanges({
-          table,
-          onChangeQuest: `${goblinName}.handle-changes`,
-          goblinId: quest.goblin.id,
-          contentIndex: options.contentIndex,
-        });
-      }
-    }
+    const {r, table, options} = this._init(quest);
+    yield r.stopOnChanges({
+      goblinId: quest.goblin.id,
+    });
+
+    yield r.startQuestOnChanges({
+      table,
+      onChangeQuest: `${goblinName}.handle-changes`,
+      goblinId: quest.goblin.id,
+      options: options,
+    });
   }
 
   static *executeSearch(quest, value, sort) {
@@ -332,22 +329,47 @@ Goblin.registerQuest(goblinName, 'change-content-index', function*(
 });
 
 Goblin.registerQuest(goblinName, 'handle-changes', function*(quest, change) {
-  switch (change.type) {
-    case 'add': {
-      quest.dispatch('add');
-      yield quest.me.fetch(quest);
+  const mode = quest.goblin.getX('mode');
+  switch (mode) {
+    case 'index': {
+      switch (change.type) {
+        case 'add': {
+          quest.dispatch('add');
+          yield quest.me.fetch(quest);
+          break;
+        }
+
+        case 'change': {
+          quest.do();
+          yield quest.me.fetch(quest);
+          break;
+        }
+
+        case 'remove': {
+          quest.dispatch('remove');
+          yield quest.me.fetch(quest);
+          break;
+        }
+      }
       break;
     }
+    case 'entity': {
+      if (change.type === 'change') {
+        const path = quest.goblin.getState().get('options.path');
+        let fetch = false;
+        if (change.new_val[path].length > change.old_val[path].length) {
+          quest.dispatch('add');
+          fetch = true;
+        }
+        if (change.new_val[path].length < change.old_val[path].length) {
+          quest.dispatch('remove');
+          fetch = true;
+        }
+        if (fetch) {
+          yield quest.me.fetch(quest);
+        }
+      }
 
-    case 'change': {
-      quest.do();
-      yield quest.me.fetch(quest);
-      break;
-    }
-
-    case 'remove': {
-      quest.dispatch('remove');
-      yield quest.me.fetch(quest);
       break;
     }
   }
