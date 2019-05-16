@@ -903,10 +903,10 @@ class Wizard extends Form {
         <Container kind="views">
           {this.renderMenu()}
           {this.renderProperties()}
-          <Splitter kind="vertical" firstSize="600px">
+          <Container kind="view" width="600px">
             <Preview />
             <Container kind="row" />
-          </Splitter>
+          </Container>
         </Container>
       </Form>
     );
