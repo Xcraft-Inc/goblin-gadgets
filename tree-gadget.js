@@ -30,11 +30,11 @@ exports.xcraftCommands = function() {
         return state.set('data', action.get('data'));
       },
       selectAll: state => {
-        const rows = state
+        let rows = state
           .get('data.rows')
-          .linq.select(row => row.get('id'))
-          .distinct(id => id)
-          .toList();
+          .map(row => row.get('id'))
+          .toArray();
+        rows = [...new Set(rows)];
         return state.set('selectedIds', rows);
       },
       deselectAll: state => {

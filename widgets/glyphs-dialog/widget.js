@@ -87,16 +87,21 @@ class GlyphsDialog extends Widget {
     const allGlyphs = Widget.shred(this.props.allGlyphs);
     const selectedGlyphs = Widget.shred(this.props.selectedGlyphs);
     let index = 0;
-    return allGlyphs.linq
-      .orderBy(glyph => glyph.get('order'))
-      .select(glyph => {
+    return allGlyphs
+      .sort((a, b) => a.get('order') - b.get('order'))
+      .map(glyph => {
         const id = glyph.get('id');
-        const selected = selectedGlyphs.linq
-          .where(x => x.get('id') === id)
-          .any();
+        const selected =
+          selectedGlyphs.map(x => {
+            if (x.get('id') === id) {
+              return x;
+            }
+          }).length > 0
+            ? true
+            : false;
         return this.renderGlyphButton(glyph, selected ? true : false, index++);
       })
-      .toList();
+      .toArray();
   }
 
   renderMain() {
@@ -163,12 +168,12 @@ class GlyphsDialog extends Widget {
     const selectedGlyphs = this.shred(this.props.selectedGlyphs);
     const dndEnable = selectedGlyphs.count() > 1;
     let index = 0;
-    return selectedGlyphs.linq
-      .orderBy(glyph => glyph.get('order'))
-      .select(glyph => {
+    return selectedGlyphs
+      .sort((a, b) => a.get('order') - b.get('order'))
+      .map(glyph => {
         return this.renderGlyphSample(glyph, dndEnable, index++);
       })
-      .toList();
+      .toArray();
   }
 
   render() {

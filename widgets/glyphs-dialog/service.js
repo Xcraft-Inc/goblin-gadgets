@@ -12,7 +12,9 @@ const logicState = {};
 // Returns the order to insert an element before the one given the id.
 // If id is undefined, returns the order to insert at the end.
 function getGlyphOrder(list, id) {
-  const glyphs = list.linq.orderBy(glyph => glyph.get('order', 0)).toList();
+  const glyphs = list
+    .sort((a, b) => a.get('order', 0) - b.get('order', 0))
+    .toArray();
   if (id) {
     for (let i = 0; i < glyphs.length; i++) {
       const glyph = glyphs[i];
@@ -26,7 +28,7 @@ function getGlyphOrder(list, id) {
       }
     }
   }
-  if (glyphs.length == 0) {
+  if (glyphs.length === 0) {
     return 0; // first order if list is empty
   } else {
     const lastGlyph = glyphs[glyphs.length - 1];

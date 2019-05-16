@@ -64,8 +64,8 @@ class TableRow extends Widget {
   renderRowCells(header, row) {
     let index = 0;
     const h = Widget.shred(header);
-    return h.linq
-      .select(column => {
+    return h
+      .map(column => {
         const text = row.get(column.get('name'));
         const isLast = index === h.size - 1;
 
@@ -81,7 +81,7 @@ class TableRow extends Widget {
           index++
         );
       })
-      .toList();
+      .toArray();
   }
 
   render() {

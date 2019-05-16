@@ -87,8 +87,8 @@ class TreeRow extends Widget {
   renderRowCells(header, row) {
     let index = 0;
     const h = Widget.shred(header);
-    return h.linq
-      .select(column => {
+    return h
+      .map(column => {
         const text = row.get(column.get('name'));
 
         return this.renderRowCell(
@@ -101,7 +101,7 @@ class TreeRow extends Widget {
           index++
         );
       })
-      .toList();
+      .toArray();
   }
 
   render() {

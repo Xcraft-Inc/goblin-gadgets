@@ -155,7 +155,9 @@ class Tree extends Widget {
   }
 
   hasHeader(header) {
-    return header.linq.where(column => column.get('description')).any();
+    return header.map(column => column.get('description')).length > 0
+      ? true
+      : false;
   }
 
   /******************************************************************************/
@@ -178,12 +180,12 @@ class Tree extends Widget {
 
   renderHeaderCells(header) {
     let index = 0;
-    return header.linq
-      .select(column => {
+    return header
+      .map(column => {
         const isLast = index === header.size - 1;
         return this.renderHeaderCell(column, isLast, index++);
       })
-      .toList();
+      .toArray();
   }
 
   renderHeader(header) {

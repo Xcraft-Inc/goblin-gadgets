@@ -163,11 +163,11 @@ function diffuseSeparators(list) {
 // Return a unique id for memorize scroller position.
 function getUniqueId(data) {
   const header = data.get('header');
-  const names = header.linq
-    .select(column => {
+  const names = header
+    .map(column => {
       return column.get('name');
     })
-    .toList();
+    .toArray();
   const rowsCount = data.get('rows').size;
   return `Table:${names.join('/')}:${rowsCount}`;
 }
@@ -293,7 +293,9 @@ class Table extends Widget {
   }
 
   hasHeader(header) {
-    return header.linq.where(column => column.get('description')).any();
+    return header.map(column => column.get('description')).length > 0
+      ? true
+      : false;
   }
 
   /******************************************************************************/
@@ -384,7 +386,12 @@ class Table extends Widget {
     let width = '0px';
     let grow = 0;
     for (const name of column.get('names')) {
-      const c = header.linq.where(x => name === x.get('name')).firstOrDefault();
+      const c =
+        header.map(x => {
+          if (name === x.get('name')) {
+            return x;
+          }
+        })[0] || null;
       if (c) {
         const w = c.get('width');
         if (w) {
@@ -420,8 +427,8 @@ class Table extends Widget {
 
   renderPostHeaderCells(postHeader, header, isSortable) {
     let index = 0;
-    return postHeader.linq
-      .select(column => {
+    return postHeader
+      .map(column => {
         const isLast = index === postHeader.size - 1;
         return this.renderPostHeaderCell(
           column,
@@ -431,7 +438,7 @@ class Table extends Widget {
           index++
         );
       })
-      .toList();
+      .toArray();
   }
 
   renderPostHeader(postHeader, header, isSortable) {
@@ -455,12 +462,12 @@ class Table extends Widget {
 
   renderHeaderCells(header, isSortable) {
     let index = 0;
-    return header.linq
-      .select(column => {
+    return header
+      .map(column => {
         const isLast = index === header.size - 1;
         return this.renderHeaderCell(column, isSortable, isLast, index++);
       })
-      .toList();
+      .toArray();
   }
 
   renderHeader(header, isSortable) {
