@@ -356,18 +356,18 @@ Goblin.registerQuest(goblinName, 'handle-changes', function*(quest, change) {
     case 'entity': {
       if (change.type === 'change') {
         const path = quest.goblin.getState().get('options.path');
-        let fetch = false;
+
         if (change.new_val[path].length > change.old_val[path].length) {
           quest.dispatch('add');
-          fetch = true;
         }
         if (change.new_val[path].length < change.old_val[path].length) {
           quest.dispatch('remove');
-          fetch = true;
         }
-        if (fetch) {
-          yield quest.me.fetch(quest);
+        if (change.new_val[path].length === change.old_val[path].length) {
+          quest.do();
         }
+
+        yield quest.me.fetch(quest);
       }
 
       break;
