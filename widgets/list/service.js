@@ -53,6 +53,12 @@ class List {
         });
         return collection.slice(range.start, range.start + range.length);
       }
+      case 'query': {
+        return yield r.query({
+          query: options.query.toString(),
+          args: options.queryArgs || [],
+        });
+      }
     }
   }
 
@@ -72,6 +78,12 @@ class List {
           path: [options.path],
         });
         return collection.length;
+      }
+      case 'query': {
+        return yield r.queryCount({
+          query: options.query,
+          args: options.queryArgs || [],
+        });
       }
     }
   }
@@ -254,6 +266,8 @@ Goblin.registerQuest(goblinName, 'create', function*(
       quest.goblin.setX('mode', 'index');
     } else if (options.entityId && options.path) {
       quest.goblin.setX('mode', 'entity');
+    } else if (options.query) {
+      quest.goblin.setX('mode', 'query');
     } else {
       throw new Error('List create, bad options provided');
     }
@@ -284,6 +298,8 @@ Goblin.registerQuest(goblinName, 'change-options', function*(quest, options) {
     quest.goblin.setX('mode', 'index');
   } else if (options.entityId && options.path) {
     quest.goblin.setX('mode', 'entity');
+  } else if (options.query) {
+    quest.goblin.setX('mode', 'query');
   } else {
     throw new Error('List create, bad options provided');
   }
@@ -331,6 +347,7 @@ Goblin.registerQuest(goblinName, 'change-content-index', function*(
 Goblin.registerQuest(goblinName, 'handle-changes', function*(quest, change) {
   const mode = quest.goblin.getX('mode');
   switch (mode) {
+    case 'query':
     case 'index': {
       switch (change.type) {
         case 'add': {
