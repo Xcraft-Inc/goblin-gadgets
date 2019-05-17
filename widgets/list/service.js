@@ -54,7 +54,7 @@ class List {
         return collection.slice(range.start, range.start + range.length);
       }
       case 'query': {
-        return yield r.query({
+        return yield r.queryIds({
           query: options.query.toString(),
           args: options.queryArgs || [],
         });
@@ -312,6 +312,7 @@ Goblin.registerQuest(goblinName, 'change-options', function*(quest, options) {
   });
 
   yield quest.me.initList();
+  yield quest.me.fetch();
 });
 
 Goblin.registerQuest(goblinName, 'get-list-ids', function(quest) {
