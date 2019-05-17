@@ -18,7 +18,7 @@ const logicState = {
 };
 
 // Define logic handlers according rc.json
-const logicHandlers = require('./logicHandlers.js');
+const logicHandlers = require('./logic-handlers.js');
 
 class List {
   static _init(quest, options) {
