@@ -6,7 +6,7 @@ const initialState = new Shredder({
 
 export default (state = initialState, action = {}) => {
   if (action.type === 'SET') {
-    return state.set(action.field, action.value);
+    return state.set(action.field, action.pos);
   }
   return state;
 };
