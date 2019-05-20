@@ -66,7 +66,7 @@ class Notification extends Widget {
     }
 
     return (
-      <div className={this.styles.classNames.box} onClick={this.onClick}>
+      <div className={this.styles.classNames.box}>
         <Button
           glyph={this.props.data.glyph}
           backgroundColor={glyphColor}
@@ -76,12 +76,14 @@ class Notification extends Widget {
           onClick={this.props.onClickNotification}
         />
         <Label
+          className={this.styles.classNames.action}
           text={this.props.data.message}
           kind="notification"
           grow="1"
           wrap={this.extended ? null : 'no'}
           maxLines={this.extended ? null : 2}
           skipEmptyLines={this.extended ? false : true}
+          onClick={this.onClick}
         />
         <Container kind="column">
           <Button
