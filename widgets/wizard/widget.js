@@ -53,6 +53,16 @@ function getPropertyValue(property, mode) {
   return value;
 }
 
+function compareStrings(s1, s2) {
+  if (s1 < s2) {
+    return -1;
+  }
+  if (s1 > s2) {
+    return 1;
+  }
+  return 0;
+}
+
 class Wizard extends Form {
   constructor() {
     super(...arguments);
@@ -89,7 +99,7 @@ class Wizard extends Form {
   }
 
   get previewSettings() {
-    return this.getModelValue('.previewSettings').linq.where(
+    return this.getModelValue('.previewSettings').filter(
       preview => preview.size > 0
     );
   }
@@ -104,11 +114,11 @@ class Wizard extends Form {
 
   getCode() {
     var result = `<${this.widget} `;
-    this.properties.linq
-      .where(property => property.size > 0)
-      .orderBy(property => property.get('group'))
-      .orderBy(property => property.get('field'))
-      .select(property => {
+    this.properties
+      .filter(property => property.size > 0)
+      .sort((p1, p2) => compareStrings(p1.get('group'), p2.get('group')))
+      .sort((p1, p2) => compareStrings(p1.get('field'), p2.get('field')))
+      .forEach(property => {
         const field = property.get('field');
         const value = getPropertyValue(property, 'finalValue');
         if (value !== '') {
@@ -146,12 +156,13 @@ class Wizard extends Form {
 
   renderMenuItems() {
     let index = 0;
-    return this.widgets.linq
-      .orderBy(widget => widget.get('id'))
-      .select(widget => {
+    return this.widgets
+      .sort(widget => widget.get('id'))
+      .sort((w1, w2) => compareStrings(w1.get('id'), w2.get('id')))
+      .map(widget => {
         return this.renderMenuItem(widget.get('id'), index++);
       })
-      .toList();
+      .toArray();
   }
 
   renderMenu() {
@@ -233,14 +244,14 @@ class Wizard extends Form {
 
   renderPropertyList(group) {
     let index = 0;
-    return this.properties.linq
-      .where(property => property.size > 0)
-      .where(property => property.get('group') === group)
-      .orderBy(property => property.get('field'))
-      .select(property => {
+    return this.properties
+      .filter(property => property.size > 0)
+      .filter(property => property.get('group') === group)
+      .sort((p1, p2) => compareStrings(p1.get('field'), p2.get('field')))
+      .map(property => {
         return this.renderProperty(property, index++);
       })
-      .toList();
+      .toArray();
   }
 
   renderPropertyGroup(group, index) {
@@ -256,10 +267,10 @@ class Wizard extends Form {
 
   renderPropertyGroups() {
     const groups = [];
-    this.properties.linq
-      .where(property => property.size > 0)
-      .orderBy(property => property.get('group'))
-      .select(property => {
+    this.properties
+      .filter(property => property.size > 0)
+      .sort((p1, p2) => compareStrings(p1.get('group'), p2.get('group')))
+      .map(property => {
         const group = property.get('group');
         if (groups.indexOf(group) === -1) {
           groups.push(group);
@@ -575,7 +586,7 @@ class Wizard extends Form {
 
   wireWidgetBase(component, props) {
     return this.WithModel(component, properties => {
-      properties.linq.select(property => {
+      properties.map(property => {
         if (typeof property !== 'string') {
           const field = property.get('field');
           const value = getPropertyValue(property, 'finalValue');
@@ -643,9 +654,9 @@ class Wizard extends Form {
 
   renderWidget(index) {
     const props = {};
-    this.properties.linq
-      .where(property => property.size > 0)
-      .select(property => {
+    this.properties
+      .filter(property => property.size > 0)
+      .forEach(property => {
         const field = property.get('field');
         const value = getPropertyValue(property, 'finalValue');
         props[field] = value;
@@ -811,12 +822,12 @@ class Wizard extends Form {
   renderPreviewSettingsLine(group) {
     let index = 0;
     return this.previewSettings
-      .where(preview => preview.get('group') === group)
-      .orderBy(preview => preview.get('order'))
-      .select(preview => {
+      .filter(preview => preview.get('group') === group)
+      .sort((p1, p2) => compareStrings(p1.get('order'), p2.get('order')))
+      .map(preview => {
         return this.renderPreviewSetting(preview, index++);
       })
-      .toList();
+      .toArray();
   }
 
   renderPreviewSettingsGroup(group, index) {
@@ -831,12 +842,12 @@ class Wizard extends Form {
   renderPreviewSettings() {
     const groups = [];
     this.previewSettings
-      .where(preview => {
+      .filter(preview => {
         const f = preview.get('for');
         return !f || f === this.widget;
       })
-      .orderBy(preview => preview.get('order'))
-      .select(preview => {
+      .sort((p1, p2) => compareStrings(p1.get('order'), p2.get('order')))
+      .forEach(preview => {
         const group = preview.get('group');
         if (groups.indexOf(group) === -1) {
           groups.push(group);
