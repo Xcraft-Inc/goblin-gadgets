@@ -21,6 +21,26 @@ const logicState = {
 const logicHandlers = require('./logic-handlers.js');
 
 class List {
+  static resolveMode(quest, options) {
+    if (!options) {
+      quest.goblin.setX('mode', 'index');
+    } else {
+      if (options.contentIndex) {
+        quest.goblin.setX('mode', 'index');
+      } else if (options.entityId && options.path) {
+        if (options.orderBy && options.pathType) {
+          quest.goblin.setX('mode', 'entity-ordered');
+        } else {
+          quest.goblin.setX('mode', 'entity');
+        }
+      } else if (options.query) {
+        quest.goblin.setX('mode', 'query');
+      } else {
+        throw new Error('List create, bad options provided');
+      }
+    }
+  }
+
   static _init(quest, options) {
     const r = quest.getStorage('rethink');
     const table = quest.goblin.getX('table');
@@ -53,6 +73,16 @@ class List {
         });
         return collection.slice(range.start, range.start + range.length);
       }
+      case 'entity-ordered': {
+        return yield r.getOrderedCollectionIds({
+          table,
+          documentId: options.entityId,
+          collectionTable: options.pathType,
+          collection: options.path,
+          orderBy: options.orderBy,
+          range,
+        });
+      }
       case 'query': {
         return yield r.queryIds({
           query: options.query.toString(),
@@ -78,6 +108,15 @@ class List {
           path: [options.path],
         });
         return collection.length;
+      }
+      case 'entity-ordered': {
+        return yield r.getOrderedCollectionCount({
+          table,
+          documentId: options.entityId,
+          collectionTable: options.pathType,
+          collection: options.path,
+          orderBy: options.orderBy,
+        });
       }
       case 'query': {
         return yield r.queryCount({
@@ -259,19 +298,9 @@ Goblin.registerQuest(goblinName, 'create', function*(
   quest.goblin.setX('hinter', hinter);
   quest.goblin.setX('sort', sort);
   quest.goblin.setX('callAfterFetch', callAfterFetch);
-  if (!options) {
-    quest.goblin.setX('mode', 'index');
-  } else {
-    if (options.contentIndex) {
-      quest.goblin.setX('mode', 'index');
-    } else if (options.entityId && options.path) {
-      quest.goblin.setX('mode', 'entity');
-    } else if (options.query) {
-      quest.goblin.setX('mode', 'query');
-    } else {
-      throw new Error('List create, bad options provided');
-    }
-  }
+
+  List.resolveMode(quest, options);
+
   const id = quest.goblin.id;
 
   if (!hinter) {
@@ -294,15 +323,7 @@ Goblin.registerQuest(goblinName, 'create', function*(
 });
 
 Goblin.registerQuest(goblinName, 'change-options', function*(quest, options) {
-  if (options.contentIndex) {
-    quest.goblin.setX('mode', 'index');
-  } else if (options.entityId && options.path) {
-    quest.goblin.setX('mode', 'entity');
-  } else if (options.query) {
-    quest.goblin.setX('mode', 'query');
-  } else {
-    throw new Error('List create, bad options provided');
-  }
+  List.resolveMode(quest, options);
 
   const count = yield* List.count(quest, options);
 
@@ -371,6 +392,7 @@ Goblin.registerQuest(goblinName, 'handle-changes', function*(quest, change) {
       }
       break;
     }
+    case 'entity-ordered':
     case 'entity': {
       if (change.type === 'change') {
         const path = quest.goblin.getState().get('options.path');
