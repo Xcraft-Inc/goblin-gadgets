@@ -3,6 +3,11 @@ import React from 'react';
 import Widget from 'laboratory/widget';
 import ReactList from 'react-list';
 import throttle from 'lodash/throttle';
+import {isImmutable} from 'immutable';
+
+function get(obj, key) {
+  return isImmutable(obj) ? obj.get(key) : obj[key];
+}
 
 class List extends Widget {
   constructor() {
@@ -16,18 +21,59 @@ class List extends Widget {
     this._fetchInternal = this._fetchInternal.bind(this);
     this._fetch = throttle(this._fetchInternal, 200).bind(this);
     this._range = {};
+    this._mount = this._mount.bind(this);
 
-    this.listRef = React.createRef();
+    this._listRef = null;
   }
 
-  _fetchInternal() {
-    if (!this.listRef.current) {
+  _mount(node) {
+    if (!node) {
       return;
     }
 
-    const range = this.listRef.current
-      ? this.listRef.current.getVisibleRange()
-      : [0, 0];
+    this._listRef = node;
+
+    let top = 0;
+    let cache = null;
+    const state = this.getWidgetCacheState(this.widgetId);
+    if (state) {
+      top = state.get('top');
+      cache = state.get('cache');
+    }
+
+    if (cache) {
+      /* Use our cached cache if possible, then scrollTo can compute
+       * something good (not perfect with variable list, but good enough).
+       */
+      this._listRef.cache = cache.toJS();
+    }
+    if (top) {
+      this._listRef.scrollTo(top);
+    }
+  }
+
+  componentWillUnmount() {
+    super.componentWillUnmount();
+
+    if (!this._listRef) {
+      return;
+    }
+
+    /* Save the current visible range and cache in the session cache */
+    const [top, bottom] = this._listRef.getVisibleRange();
+    this.dispatchToCache(this.widgetId, {
+      top,
+      bottom,
+      cache: this._listRef.cache,
+    });
+  }
+
+  _fetchInternal() {
+    if (!this._listRef) {
+      return;
+    }
+
+    const range = this._listRef ? this._listRef.getVisibleRange() : [0, 0];
     const {count} = this.props;
 
     /* Ensure to test against the right list id. Because the fetching is
@@ -77,19 +123,33 @@ class List extends Widget {
   }
 
   estimateItemSize(index, cache) {
-    /* Ensure that the first item is never 0, it prevents a strange bug where
-     * the list is not beginning by 0 because the first items have a bad
-     * height of 0.
-     */
-    if (cache['0'] === 0) {
-      cache['0'] = 40;
+    let _cache = null;
+    const state = this.getWidgetCacheState(this.widgetId);
+    if (state) {
+      _cache = state.get('cache');
     }
 
-    if (cache[index] > 0) {
-      this._height = cache[index];
+    if (Object.keys(cache).length > 0 || !_cache) {
+      /* Ensure that the first item is never 0, it prevents a strange bug where
+       * the list is not beginning by 0 because the first items have a bad
+       * height of 0.
+       */
+      if (cache['0'] === 0) {
+        cache['0'] = 40;
+      }
+    } else {
+      /* Use the cached cache, then it's possible to restore a mostly good
+       * list height. It's not 100% accurate, because the content of the list
+       * can change at any time.
+       */
+      cache = _cache;
+    }
+
+    if (get(cache, index) > 0) {
+      this._height = get(cache, index);
       return this._height;
     }
-    this._height = cache['0'] > 0 ? cache['0'] : 40;
+    this._height = get(cache, '0') > 0 ? get(cache, '0') : 40;
     return this._height;
   }
 
@@ -100,7 +160,7 @@ class List extends Widget {
 
     return (
       <ReactList
-        ref={this.listRef}
+        ref={this._mount}
         length={this.props.count}
         type={this.props.type || 'variable'}
         itemRenderer={this.renderItem}
