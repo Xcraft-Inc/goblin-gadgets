@@ -149,7 +149,18 @@ class List extends Widget {
       this._height = get(cache, index);
       return this._height;
     }
-    this._height = get(cache, '0') > 0 ? get(cache, '0') : 40;
+    if (get(cache, '0')) {
+      this._height = get(cache, '0');
+    } else if (this._listRef) {
+      /* Generate cache even for uniform list, then it's possible to compute
+       * a correct scroller height value.
+       */
+      this._listRef.cacheSizes();
+      this._height = this._listRef.cache['0'];
+    } else {
+      this._height = 40;
+    }
+
     return this._height;
   }
 
