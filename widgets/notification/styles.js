@@ -1,4 +1,3 @@
-import ReactDOM from 'react-dom';
 import {Unit} from 'electrum-theme';
 import {ColorHelpers} from 'electrum-theme';
 
