@@ -41,7 +41,7 @@ class List extends Widget {
       cache = state.get('cache');
     }
 
-    if (cache) {
+    if (cache && cache.size > 0) {
       /* Use our cached cache if possible, then scrollTo can compute
        * something good (not perfect with variable list, but good enough).
        */
