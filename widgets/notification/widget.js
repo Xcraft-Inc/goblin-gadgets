@@ -65,6 +65,11 @@ class Notification extends Widget {
       glyphColor = ColorHelpers.getMarkColor(this.context.theme, glyphColor);
     }
 
+    let cursor = null;
+    if (this.props.onClick) {
+      cursor = 'pointer';
+    }
+
     return (
       <div className={this.styles.classNames.box}>
         <Button
@@ -76,7 +81,7 @@ class Notification extends Widget {
           onClick={this.props.onClickNotification}
         />
         <Label
-          className={this.styles.classNames.action}
+          cursor={cursor}
           text={this.props.data.message}
           kind="notification"
           grow="1"

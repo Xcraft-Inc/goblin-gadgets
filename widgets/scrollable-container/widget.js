@@ -12,16 +12,12 @@ class ScrollableContainer extends Widget {
   constructor() {
     super(...arguments);
 
-    this.handleScroll = this.handleScroll.bind(this);
-    this.node = null;
-    this.useState = false; // does not work with true!
+    this._node = null;
   }
 
   componentWillUnmount() {
     super.componentWillUnmount();
-    if (this.node) {
-      this.node.removeEventListener('scroll', this.handleScroll);
-    }
+    this.unmount();
   }
 
   get isHorizontal() {
@@ -46,36 +42,40 @@ class ScrollableContainer extends Widget {
 
   // Called once, when the component is mounted.
   mount(node) {
-    if (node) {
-      this.node = node;
-      node.addEventListener('scroll', this.handleScroll);
+    if (!node || !this.props.restoreScroll) {
+      return;
+    }
 
-      if (this.isHorizontal) {
-        const max = node.scrollWidth - node.offsetWidth;
-        const left = this.getScrollPos('horizontalScrollPos') * max;
-        node.scroll({left});
-      }
-      if (this.isVertical) {
-        const max = node.scrollHeight - node.offsetHeight;
-        const top = this.getScrollPos('verticalScrollPos') * max;
-        node.scroll({top});
-      }
+    this._node = node;
+    if (this.isHorizontal) {
+      const max = node.scrollWidth - node.offsetWidth;
+      const left = this.getScrollPos('horizontalScrollPos') * max;
+      node.scroll({left});
+    }
+    if (this.isVertical) {
+      const max = node.scrollHeight - node.offsetHeight;
+      const top = this.getScrollPos('verticalScrollPos') * max;
+      node.scroll({top});
     }
   }
 
   // Called whenever the scroller is moved.
-  handleScroll(e) {
+  unmount() {
+    if (!this._node || !this.props.restoreScroll) {
+      return;
+    }
+
     if (this.isHorizontal) {
-      const max = e.target.scrollWidth - e.target.offsetWidth;
-      const top = e.target.scrollLeft;
+      const max = this._node.scrollWidth - this._node.offsetWidth;
+      const top = this._node.scrollLeft;
       const pos = max > 0 ? top / max : 0;
       if (this.getScrollPos('horizontalScrollPos') !== pos) {
         this.setScrollPos('horizontalScrollPos', pos);
       }
     }
     if (this.isVertical) {
-      const max = e.target.scrollHeight - e.target.offsetHeight;
-      const top = e.target.scrollTop;
+      const max = this._node.scrollHeight - this._node.offsetHeight;
+      const top = this._node.scrollTop;
       const pos = max > 0 ? top / max : 0;
       if (this.getScrollPos('verticalScrollPos') !== pos) {
         this.setScrollPos('verticalScrollPos', pos);
@@ -90,22 +90,11 @@ class ScrollableContainer extends Widget {
     }
 
     let pos = 0;
-    if (this.useState) {
-      const state = this.getWidgetState();
-      if (state) {
-        pos = state.get(field);
-      }
-    } else {
-      if (
-        window.document &&
-        window.document.scrollableContainer &&
-        window.document.scrollableContainer[this.props.id] &&
-        window.document.scrollableContainer[this.props.id][field]
-      ) {
-        pos = window.document.scrollableContainer[this.props.id][field];
-      }
+    const state = this.getWidgetCacheState(this.widgetId);
+    if (state) {
+      pos = state.get(field);
     }
-    // console.log(`getScrollPos id='${this.props.id}' field='${field}' pos='${pos}'`);
+
     return pos; // return 0..1
   }
 
@@ -115,19 +104,7 @@ class ScrollableContainer extends Widget {
       throw new Error('Missing id in ScrollableContainer');
     }
 
-    // console.log(`setScrollPos id='${this.props.id}' field='${field}' pos='${pos}'`);
-    if (this.useState) {
-      // dispatch does not work because it causes a redraw!
-      this.dispatch({type: 'SET', field, pos});
-    } else {
-      if (!window.document.scrollableContainer) {
-        window.document.scrollableContainer = {};
-      }
-      if (!window.document.scrollableContainer[this.props.id]) {
-        window.document.scrollableContainer[this.props.id] = {};
-      }
-      window.document.scrollableContainer[this.props.id][field] = pos;
-    }
+    this.dispatchToCache(this.widgetId, {[field]: pos});
   }
 
   /******************************************************************************/
