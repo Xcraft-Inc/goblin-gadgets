@@ -6,7 +6,7 @@ import {ColorHelpers} from 'electrum-theme';
 export const propNames = ['status', 'onClick'];
 
 export default function styles(theme, props) {
-  const {status, onClick} = props;
+  const {status} = props;
 
   const m = theme.shapes.containerMargin;
   const s = theme.shapes.lineSpacing;
@@ -31,8 +31,6 @@ export default function styles(theme, props) {
     backgroundColor = theme.palette.notificationBackgroundRead;
   }
 
-  const action = onClick ? {cursor: 'pointer'} : {};
-
   const box = {
     minHeight: '32px',
     display: 'flex',
@@ -51,7 +49,6 @@ export default function styles(theme, props) {
   };
 
   return {
-    action,
     box,
   };
 }
