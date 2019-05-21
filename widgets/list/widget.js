@@ -173,6 +173,7 @@ class List extends Widget {
       <ReactList
         ref={this._mount}
         length={this.props.count}
+        threshold={250}
         type={this.props.type || 'variable'}
         itemRenderer={this.renderItem}
         itemSizeEstimator={this.estimateItemSize}
