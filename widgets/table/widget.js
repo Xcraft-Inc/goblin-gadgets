@@ -601,6 +601,7 @@ class Table extends Widget {
             kind="table-body"
             id={scrollableId}
             height={this.props.height}
+            restoreScroll={false}
           >
             {this.renderRows(data, isFilterable, isSortable)}
           </ScrollableContainer>

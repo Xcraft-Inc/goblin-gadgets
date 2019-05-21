@@ -42,7 +42,7 @@ class ScrollableContainer extends Widget {
 
   // Called once, when the component is mounted.
   mount(node) {
-    if (!node) {
+    if (!node || !this.props.restoreScroll) {
       return;
     }
 
@@ -61,7 +61,7 @@ class ScrollableContainer extends Widget {
 
   // Called whenever the scroller is moved.
   unmount() {
-    if (!this._node) {
+    if (!this._node || !this.props.restoreScroll) {
       return;
     }
 
