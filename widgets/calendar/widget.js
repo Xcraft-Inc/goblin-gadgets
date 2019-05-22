@@ -166,7 +166,7 @@ class Calendar extends Widget {
   }
 
   getDOW3Letters(dow) {
-    return DateConverters.getDOWDescription(dow).substring(0, 3);
+    return DateConverters.getDOWDescription(dow, 'u3');
   }
 
   changeDate(date) {
@@ -421,7 +421,7 @@ class Calendar extends Widget {
     const textClass = this.styles.classNames.dowText;
     return (
       <div className={textClass} key={index}>
-        {text}
+        <Label text={text} />
       </div>
     );
   }
@@ -508,7 +508,7 @@ class Calendar extends Widget {
     const active = month >= firstVisibleMonth && month < lastVisibleMonth;
     return (
       <Button
-        text={DateConverters.getMonthDescription(month - 1, '1').toUpperCase()}
+        text={DateConverters.getMonthDescription(month - 1, '1')}
         tooltip={DateConverters.getMonthDescription(month - 1)}
         kind="calendar-navigator"
         grow="1"
