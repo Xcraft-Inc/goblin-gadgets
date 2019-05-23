@@ -22,6 +22,7 @@ export default function styles(theme, props) {
       ? {
           transform: `scale(${scale})`,
           transformOrigin: 'top left',
+          width: `${100 / scale}%`,
         }
       : null;
 
