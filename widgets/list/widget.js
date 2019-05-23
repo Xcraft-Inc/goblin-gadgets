@@ -123,13 +123,9 @@ class List extends Widget {
   }
 
   estimateItemSize(index, cache) {
-    let _cache = null;
     const state = this.getWidgetCacheState(this.widgetId);
-    if (state) {
-      _cache = state.get('cache');
-    }
 
-    if (Object.keys(cache).length > 0 || !_cache) {
+    if (cache.hasOwnProperty('0') || (state && !state.has('cache'))) {
       /* Ensure that the first item is never 0, it prevents a strange bug where
        * the list is not beginning by 0 because the first items have a bad
        * height of 0.
@@ -137,18 +133,19 @@ class List extends Widget {
       if (cache['0'] === 0) {
         cache['0'] = 40;
       }
-    } else {
+    } else if (state) {
       /* Use the cached cache, then it's possible to restore a mostly good
        * list height. It's not 100% accurate, because the content of the list
        * can change at any time.
        */
-      cache = _cache;
+      cache = state.get('cache');
     }
 
     if (get(cache, index) > 0) {
       this._height = get(cache, index);
       return this._height;
     }
+
     if (get(cache, '0')) {
       this._height = get(cache, '0');
     } else if (this._listRef) {
