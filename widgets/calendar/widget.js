@@ -11,7 +11,11 @@ import Button from 'gadgets/button/widget';
 import Separator from 'gadgets/separator/widget';
 import Combo from 'gadgets/combo/widget';
 
-import {date as DateConverters} from 'xcraft-core-converters';
+import {
+  date as DateConverters,
+  month as MonthConverters,
+  dow as DowConverters,
+} from 'xcraft-core-converters';
 
 /******************************************************************************/
 
@@ -166,7 +170,7 @@ class Calendar extends Widget {
   }
 
   getDOW3Letters(dow) {
-    return DateConverters.getDOWDescription(dow, 'u3');
+    return DowConverters.getDisplayed(dow, 'short');
   }
 
   changeDate(date) {
@@ -508,8 +512,8 @@ class Calendar extends Widget {
     const active = month >= firstVisibleMonth && month < lastVisibleMonth;
     return (
       <Button
-        text={DateConverters.getMonthDescription(month - 1, '1')}
-        tooltip={DateConverters.getMonthDescription(month - 1)}
+        text={MonthConverters.getDisplayed(month, 'one-letter')}
+        tooltip={MonthConverters.getDisplayed(month)}
         kind="calendar-navigator"
         grow="1"
         onClick={() => this.onVisibleDateMonth(month)}
