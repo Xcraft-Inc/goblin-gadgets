@@ -7,8 +7,15 @@ export default function styles() {
     backgroundColor: '#fff',
   };
 
+  const code = {
+    userSelect: 'text',
+    backgroundColor: '#f2f2f2',
+    padding: '0px 20px',
+  };
+
   return {
     container,
+    code,
   };
 }
 

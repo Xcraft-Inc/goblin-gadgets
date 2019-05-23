@@ -96,8 +96,8 @@ class WidgetDocPreview extends Widget {
       .map((value, name) => `${name}="${value}" `)
       .join(' ');
     code += '/>';
-    code += `\n`;
-    return <Label text={code} />;
+    code += `\n\n`;
+    return <pre className={this.styles.classNames.code}>{code}</pre>;
   }
 
   renderSettings() {
