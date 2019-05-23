@@ -17,14 +17,14 @@ class WidgetDoc extends Widget {
       return null;
     }
     return (
-      <Container kind="views">
-        <Container kind="view">
+      <Container className={this.styles.classNames.container} kind="views">
+        <Container className={this.styles.classNames.widget} kind="view">
           <WidgetDocMenu widgetId={this.props.widgetId} />
         </Container>
-        <Container kind="view">
+        <Container className={this.styles.classNames.properties} kind="view">
           <WidgetDocProperties widgetId={this.props.widgetId} />
         </Container>
-        <Container kind="view" grow="1">
+        <Container className={this.styles.classNames.preview} kind="view">
           <WidgetDocPreview widgetId={this.props.widgetId} />
         </Container>
       </Container>

@@ -4,6 +4,7 @@ import widgetList from '../widget-doc/widget-list';
 import Container from 'goblin-gadgets/widgets/container/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import CheckButton from 'goblin-gadgets/widgets/check-button/widget';
+import WidgetDocPreviewContainer from '../widget-doc-preview-container/widget';
 
 /******************************************************************************/
 
@@ -85,8 +86,9 @@ class WidgetDocPreview extends Widget {
     super(...arguments);
   }
 
-  renderCode(widgetName) {
-    var code = `<${widgetName} `;
+  renderCode() {
+    const widgetName = this.widgetInfo.name;
+    let code = `<${widgetName} `;
     code += this.props.props
       .map((value, name) => `${name}="${value}" `)
       .join(' ');
@@ -130,29 +132,43 @@ class WidgetDocPreview extends Widget {
     );
   }
 
+  renderWidget(key) {
+    return <this.widgetInfo.widget key={key} {...this.props.props.toJS()} />;
+  }
+
+  renderWidgets() {
+    return Array.from({length: this.props.items}, (v, k) =>
+      this.renderWidget(k)
+    );
+  }
+
   render() {
-    const widgetInfo = widgetList.find(
+    this.widgetInfo = widgetList.find(
       widget => widget.name === this.props.selectedWidget
     );
-    if (!widgetInfo) {
+    if (!this.widgetInfo) {
       return null;
     }
 
     return (
       <React.Fragment>
-        <Container kind="pane">
+        <Container className={this.styles.classNames.container} kind="pane">
           <Label text="Settings" grow="1" kind="title" />
           {this.renderSettings()}
         </Container>
-        <Container kind="pane">
+        <Container className={this.styles.classNames.container} kind="pane">
           <Label text="Code" grow="1" kind="title" />
-          <Container kind="row-pane">
-            {this.renderCode(widgetInfo.name)}
-          </Container>
+          <Container kind="row-pane">{this.renderCode()}</Container>
         </Container>
-        <Container kind="pane">
-          <Label text={widgetInfo.name} grow="1" kind="title" />
-          <widgetInfo.widget {...this.props.props.toJS()} />
+        <Container
+          className={this.styles.classNames.container}
+          kind="pane"
+          grow="1"
+        >
+          <Label text={this.widgetInfo.name} grow="1" kind="title" />
+          <WidgetDocPreviewContainer widgetId={this.props.widgetId}>
+            {this.renderWidgets()}
+          </WidgetDocPreviewContainer>
         </Container>
       </React.Fragment>
     );
@@ -160,9 +176,11 @@ class WidgetDocPreview extends Widget {
 }
 
 export default Widget.connectWidget(state => {
+  const settings = state.get('settings');
   return {
     selectedWidget: state.get('selectedWidget'),
     props: state.get('props'),
+    items: settings.get('items'),
   };
 })(WidgetDocPreview);
 

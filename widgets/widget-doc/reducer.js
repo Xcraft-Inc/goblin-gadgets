@@ -4,7 +4,7 @@ const initialState = new Shredder({
   selectedWidget: null,
   props: {},
   settings: {
-    scale: 2,
+    scale: 1,
     color: 'pane',
     items: 1,
     layout: 'row',

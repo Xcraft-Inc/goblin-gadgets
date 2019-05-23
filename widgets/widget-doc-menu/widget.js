@@ -37,7 +37,11 @@ export default class WidgetDocMenu extends Widget {
   }
 
   render() {
-    return widgetList.map(widget => this.renderWidgetListItem(widget));
+    return (
+      <div className={this.styles.classNames.container}>
+        {widgetList.map(widget => this.renderWidgetListItem(widget))}
+      </div>
+    );
   }
 }
 
