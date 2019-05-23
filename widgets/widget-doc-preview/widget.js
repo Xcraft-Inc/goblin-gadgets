@@ -140,17 +140,17 @@ class WidgetDocPreview extends Widget {
 
     return (
       <React.Fragment>
-        <Container kind="pane">
+        <Container className={this.styles.classNames.container} kind="pane">
           <Label text="Settings" grow="1" kind="title" />
           {this.renderSettings()}
         </Container>
-        <Container kind="pane">
+        <Container className={this.styles.classNames.container} kind="pane">
           <Label text="Code" grow="1" kind="title" />
           <Container kind="row-pane">
             {this.renderCode(widgetInfo.name)}
           </Container>
         </Container>
-        <Container kind="pane">
+        <Container className={this.styles.classNames.container} kind="pane">
           <Label text={widgetInfo.name} grow="1" kind="title" />
           <widgetInfo.widget {...this.props.props.toJS()} />
         </Container>

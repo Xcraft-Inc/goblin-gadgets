@@ -30,7 +30,11 @@ class WidgetDocProperties extends Widget {
 
   renderGroup(groupName, properties) {
     return (
-      <Container kind="pane" key={groupName}>
+      <Container
+        className={this.styles.classNames.container}
+        kind="pane"
+        key={groupName}
+      >
         <Container kind="row-pane">
           <Label text={groupName} grow="1" kind="title" />
         </Container>
