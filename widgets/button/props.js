@@ -13,6 +13,7 @@ export default [
     name: 'disabled',
     group: 'main',
     type: Type.bool,
+    defaultValue: false,
   },
   {
     name: 'kind',
@@ -59,10 +60,13 @@ export default [
       'view-tab-right',
       'warning',
     ]),
+    description: 'The kind property change the style of the button.',
+    defaultValue: '',
   },
   {
     name: 'active',
     group: 'aspect',
     type: Type.bool,
+    defaultValue: false,
   },
 ];

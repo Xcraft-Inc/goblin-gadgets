@@ -8,6 +8,8 @@ export default function styles() {
 
   const propertyRowContainer = {
     display: 'flex',
+    flexWrap: 'wrap',
+    alignItems: 'flex-end',
     padding: '5px 0px',
   };
 
@@ -16,19 +18,23 @@ export default function styles() {
   };
 
   const type = {
+    fontSize: '80%',
     fontWeight: 'lighter',
     opacity: '0.75',
   };
 
   const required = {
+    fontSize: '80%',
     color: 'red',
   };
 
   const optional = {
+    fontSize: '80%',
     fontStyle: 'italic',
   };
 
   const defaultValue = {
+    fontSize: '80%',
     color: 'green',
   };
 

@@ -23,6 +23,7 @@ export default function styles() {
 
   const properties = {
     ...column,
+    maxWidth: '40%',
   };
 
   const preview = {

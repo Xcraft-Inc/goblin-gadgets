@@ -84,13 +84,12 @@ class WidgetDocProperty extends Widget {
   }
 
   renderDefaultValue() {
-    if (this.props.prop.defaultValue) {
+    if ('defaultValue' in this.props.prop) {
       return (
         <React.Fragment>
-          {'default: '}
           <Label
             className={this.styles.classNames.defaultValue}
-            text={JSON.stringify(this.props.prop.defaultValue)}
+            text={'default: ' + JSON.stringify(this.props.prop.defaultValue)}
           />
         </React.Fragment>
       );
