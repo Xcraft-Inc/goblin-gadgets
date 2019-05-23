@@ -6,7 +6,6 @@ export const propNames = ['frame', 'color', 'scale'];
 
 export default function styles(theme, props) {
   const {frame, color, scale} = props;
-  console.log('frame:', frame);
 
   const frameStyle = frame
     ? {
