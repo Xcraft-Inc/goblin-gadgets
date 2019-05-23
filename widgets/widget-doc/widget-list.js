@@ -3,8 +3,9 @@ import buttonProps from 'goblin-gadgets/widgets/button/props';
 
 export default [
   {
-    name: 'button',
+    name: 'Button',
     widget: Button,
+    widgetPath: 'goblin-gadgets/widgets/button/widget',
     props: buttonProps,
   },
 ];

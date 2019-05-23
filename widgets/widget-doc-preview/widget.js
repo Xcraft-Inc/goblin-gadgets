@@ -88,11 +88,15 @@ class WidgetDocPreview extends Widget {
 
   renderCode() {
     const widgetName = this.widgetInfo.name;
-    let code = `<${widgetName} `;
+    let code = '\n';
+    code += `import ${widgetName} from '${this.widgetInfo.widgetPath}'`;
+    code += `\n`;
+    code += `<${widgetName} `;
     code += this.props.props
       .map((value, name) => `${name}="${value}" `)
       .join(' ');
     code += '/>';
+    code += `\n`;
     return <Label text={code} />;
   }
 
