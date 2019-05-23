@@ -10,6 +10,18 @@ export default [
     defaultValue: '',
   },
   {
+    name: 'textColor',
+    group: 'aspect',
+    type: Type.color,
+    defaultValue: '',
+  },
+  {
+    name: 'glyphColor',
+    group: 'aspect',
+    type: Type.color,
+    defaultValue: '',
+  },
+  {
     name: 'disabled',
     group: 'main',
     type: Type.bool,
@@ -59,14 +71,16 @@ export default [
       'view-tab',
       'view-tab-right',
       'warning',
+      'text',
     ]),
     description: 'The kind property change the style of the button.',
     defaultValue: '',
   },
   {
-    name: 'active',
+    name: 'glyph',
     group: 'aspect',
-    type: Type.bool,
-    defaultValue: false,
+    type: Type.glyph,
+    description: 'Display a glyph before text.',
+    defaultValue: '',
   },
 ];
