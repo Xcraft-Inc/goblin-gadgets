@@ -16,27 +16,27 @@ export default function styles(theme, props) {
 
   const boxGrow = navigator ? '1' : null;
 
-  const boxStyle = {
+  const box = {
     display: 'flex',
     flexDirection: 'row',
     flexGrow: boxGrow,
     border: border,
   };
 
-  const monthStyle = {
+  const month = {
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: theme.palette.calendarBackground,
     marginRight: theme.shapes.lineSpacing,
   };
 
-  const singleMonthStyle = {
+  const singleMonth = {
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: theme.palette.calendarBackground,
   };
 
-  const headerStyle = {
+  const header = {
     width: Unit.multiply(theme.shapes.calendarButtonWidth, 7),
     display: 'flex',
     flexDirection: 'row',
@@ -44,11 +44,11 @@ export default function styles(theme, props) {
     color: theme.palette.calendarHeaderText,
   };
 
-  const headerTitleStyle = {
+  const headerTitle = {
     flexGrow: '1',
   };
 
-  const dowTextStyle = {
+  const dowText = {
     width: theme.shapes.calendarButtonWidth,
     textAlign: 'center',
     lineHeight: theme.shapes.calendarButtonHeight,
@@ -59,19 +59,19 @@ export default function styles(theme, props) {
     ),
   };
 
-  const dowLineStyle = {
+  const dowLine = {
     display: 'flex',
     flexDirection: 'row',
     margin: '0px 0px 2px 0px',
   };
 
-  const lineStyle = {
+  const line = {
     display: 'flex',
     flexDirection: 'row',
     margin: '0px',
   };
 
-  const columnStyle = {
+  const column = {
     display: 'flex',
     flexDirection: 'column',
   };
@@ -84,23 +84,23 @@ export default function styles(theme, props) {
     padding: '0px 0px 0px ' + halfMargin,
   };
 
-  const doubleStyle = {
+  const double = {
     display: 'flex',
     flexDirection: 'row',
   };
 
   return {
-    box: boxStyle,
-    month: monthStyle,
-    singleMonth: singleMonthStyle,
-    header: headerStyle,
-    headerTitle: headerTitleStyle,
-    dowText: dowTextStyle,
-    dowLine: dowLineStyle,
-    line: lineStyle,
-    column: columnStyle,
+    box,
+    month,
+    singleMonth,
+    header,
+    headerTitle,
+    dowText,
+    dowLine,
+    line,
+    column,
     navigator: navigatorStyle,
-    double: doubleStyle,
+    double,
   };
 }
 
