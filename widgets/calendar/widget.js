@@ -434,8 +434,8 @@ class Calendar extends Widget {
   renderDOWs() {
     const line = [];
     let i = 0;
-    for (i = 0; i < 7; ++i) {
-      const dow = this.getDOW3Letters(i);
+    for (i = 0; i < 7; i++) {
+      const dow = this.getDOW3Letters(i + 1);
       line.push(this.renderDOW(dow, i));
     }
     return line;
