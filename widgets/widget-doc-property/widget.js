@@ -1,64 +1,7 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
-import Container from 'goblin-gadgets/widgets/container/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
-import TextFieldBasis from 'goblin-gadgets/widgets/text-field-basis/widget';
-import CheckButton from 'goblin-gadgets/widgets/check-button/widget';
-import TextFieldCombo from 'goblin-gadgets/widgets/text-field-combo/widget';
-
-/******************************************************************************/
-
-class WidgetDocPropertyControl extends Widget {
-  constructor() {
-    super(...arguments);
-    this.onChange = this.onChange.bind(this);
-    this.onCheckButtonClick = this.onCheckButtonClick.bind(this);
-  }
-
-  onChange(value) {
-    this.dispatch({type: 'SET', path: this.props.path, value});
-  }
-
-  onCheckButtonClick() {
-    this.onChange(!this.props.value);
-  }
-
-  render() {
-    switch (this.props.type.type) {
-      case 'bool':
-        return (
-          <CheckButton
-            kind="switch"
-            checked={this.props.value}
-            onClick={this.onCheckButtonClick}
-          />
-        );
-      case 'enum':
-        return (
-          <Container kind="row">
-            <TextFieldBasis value={this.props.value} disabled={true} />
-            <TextFieldCombo
-              list={this.props.type.values}
-              defaultValue={this.props.value}
-              onSetText={this.onChange}
-              menuType="combo"
-            />
-          </Container>
-        );
-      case 'string':
-      default:
-        return (
-          <TextFieldBasis value={this.props.value} onChange={this.onChange} />
-        );
-    }
-  }
-}
-
-const Control = Widget.connectWidget((state, props) => {
-  return {
-    value: state.get(props.path),
-  };
-})(WidgetDocPropertyControl);
+import WidgetDocPropertyControl from '../widget-doc-property-control/widget';
 
 /******************************************************************************/
 
@@ -99,7 +42,7 @@ class WidgetDocProperty extends Widget {
   renderControl() {
     const name = this.props.prop.name;
     return (
-      <Control
+      <WidgetDocPropertyControl
         widgetId={this.props.widgetId}
         path={`props.${name}`}
         type={this.props.prop.type}
