@@ -159,7 +159,7 @@ class TextFieldCombo extends Widget {
       } else {
         return {
           text: item,
-          glyph: active ? 'check' : 'none',
+          glyph: active ? 'solid/check' : 'solid/none',
           active: Bool.toString(active),
           action: x => this.setText(x),
         };
