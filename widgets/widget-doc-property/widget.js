@@ -64,18 +64,36 @@ const Control = Widget.connectWidget((state, props) => {
 
 class WidgetDocProperty extends Widget {
   renderType() {
-    return <Label text={this.props.prop.type.type} />;
+    return (
+      <Label
+        className={this.styles.classNames.type}
+        text={this.props.prop.type.type}
+      />
+    );
   }
 
   renderRequired() {
     if (this.props.prop.required) {
-      return <Label text="required" />;
+      return (
+        <Label className={this.styles.classNames.required} text="required" />
+      );
     }
+    return (
+      <Label className={this.styles.classNames.optional} text="optional" />
+    );
   }
 
   renderDefaultValue() {
     if (this.props.prop.defaultValue) {
-      return <Label text={JSON.stringify(this.props.prop.defaultValue)} />;
+      return (
+        <React.Fragment>
+          {'default: '}
+          <Label
+            className={this.styles.classNames.defaultValue}
+            text={JSON.stringify(this.props.prop.defaultValue)}
+          />
+        </React.Fragment>
+      );
     }
   }
 
@@ -90,16 +108,33 @@ class WidgetDocProperty extends Widget {
     );
   }
 
+  renderDescription() {
+    if (this.props.prop.description) {
+      return (
+        <div className={this.styles.classNames.propertyRowContainer}>
+          <Label
+            className={this.styles.classNames.description}
+            text={this.props.prop.description}
+          />
+        </div>
+      );
+    }
+  }
+
   render() {
     return (
       <div className={this.styles.classNames.propertyContainer}>
-        <Container kind="row">
-          <Label text={this.props.prop.name} />
+        <div className={this.styles.classNames.propertyRowContainer}>
+          <Label
+            className={this.styles.classNames.name}
+            text={this.props.prop.name}
+          />
           {this.renderType()}
           {this.renderRequired()}
           {this.renderDefaultValue()}
-        </Container>
+        </div>
         {this.renderControl()}
+        {this.renderDescription()}
       </div>
     );
   }

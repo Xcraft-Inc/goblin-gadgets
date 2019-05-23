@@ -35,7 +35,7 @@ class WidgetDocProperties extends Widget {
         kind="pane"
         key={groupName}
       >
-        <Container kind="row-pane">
+        <Container kind="row">
           <Label text={groupName} grow="1" kind="title" />
         </Container>
         {this.renderProperties(properties)}

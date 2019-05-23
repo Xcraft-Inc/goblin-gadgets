@@ -11,6 +11,7 @@ export default function styles() {
     display: 'flex',
     flexDirection: 'column',
     margin: '0px 5px 0px 0px',
+    padding: '10px',
     overflowY: 'auto',
     backgroundColor: '#F2F2F2',
   };
