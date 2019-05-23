@@ -25,6 +25,6 @@ export default {
   },
 
   glyph: {
-    type: 'size',
+    type: 'glyph',
   },
 };
