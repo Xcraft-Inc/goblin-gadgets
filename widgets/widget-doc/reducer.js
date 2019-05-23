@@ -3,6 +3,13 @@ import Shredder from 'xcraft-core-shredder';
 const initialState = new Shredder({
   selectedWidget: null,
   props: {},
+  settings: {
+    scale: 2,
+    color: 'pane',
+    items: 1,
+    layout: 'row',
+    frame: false,
+  },
 });
 
 export default (state = initialState, action = {}) => {
