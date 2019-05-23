@@ -28,6 +28,8 @@ export default function styles() {
   const preview = {
     ...column,
     flexGrow: '1',
+    flexBasis: '0',
+    display: 'block',
   };
 
   return {
