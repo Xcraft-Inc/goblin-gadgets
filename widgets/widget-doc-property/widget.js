@@ -5,7 +5,7 @@ import WidgetDocPropertyControl from '../widget-doc-property-control/widget';
 
 /******************************************************************************/
 
-class WidgetDocProperty extends Widget {
+export default class WidgetDocProperty extends Widget {
   renderType() {
     return (
       <Label
@@ -44,7 +44,7 @@ class WidgetDocProperty extends Widget {
     return (
       <WidgetDocPropertyControl
         widgetId={this.props.widgetId}
-        path={`props.${name}`}
+        path={`${this.props.path}.${name}`}
         type={this.props.prop.type}
       />
     );
@@ -81,11 +81,5 @@ class WidgetDocProperty extends Widget {
     );
   }
 }
-
-export default Widget.connectWidget(state => {
-  return {
-    selectedWidget: state.get('selectedWidget'),
-  };
-})(WidgetDocProperty);
 
 /******************************************************************************/

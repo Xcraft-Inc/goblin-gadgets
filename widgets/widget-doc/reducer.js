@@ -19,5 +19,14 @@ export default (state = initialState, action = {}) => {
   if (action.type === 'DEL') {
     return state.del(action.path);
   }
+  if (action.type === 'SET_SELECTED_WIDGET') {
+    const selectedWidget = action.name;
+    const propsPath = `props.${selectedWidget}`;
+    const widgetProps = state.get(propsPath);
+    if (!widgetProps) {
+      state = state.set(propsPath, {});
+    }
+    return state.set('selectedWidget', selectedWidget);
+  }
   return state;
 };

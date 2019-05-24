@@ -18,7 +18,7 @@ const WidgetListItem = Widget.connectWidget((state, props) => {
 
 export default class WidgetDocMenu extends Widget {
   setSelectedWidget(name) {
-    this.dispatch({type: 'SET', path: 'selectedWidget', value: name});
+    this.dispatch({type: 'SET_SELECTED_WIDGET', name});
   }
 
   renderWidgetListItem(widget) {

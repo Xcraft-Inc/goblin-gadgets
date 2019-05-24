@@ -20,6 +20,7 @@ class WidgetDocProperties extends Widget {
         key={prop.name}
         widgetId={this.props.widgetId}
         prop={prop}
+        path={`props.${this.props.selectedWidget}`}
       />
     );
   }

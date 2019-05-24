@@ -92,10 +92,10 @@ class WidgetDocPreview extends Widget {
     let code = '\n';
     code += `import ${widgetName} from '${this.widgetInfo.widgetPath}'`;
     code += `\n`;
-    code += `<${widgetName} `;
+    code += `<${widgetName}`;
     code += this.props.props
-      .map((value, name) => `${name}="${value}" `)
-      .join(' ');
+      .map((value, name) => ` ${name}="${value}"`)
+      .join('');
     code += '/>';
     code += `\n\n`;
     return <pre className={this.styles.classNames.code}>{code}</pre>;
@@ -249,9 +249,10 @@ class WidgetDocPreview extends Widget {
 
 export default Widget.connectWidget(state => {
   const settings = state.get('settings');
+  const selectedWidget = state.get('selectedWidget');
   return {
-    selectedWidget: state.get('selectedWidget'),
-    props: state.get('props'),
+    selectedWidget,
+    props: state.get('props').get(selectedWidget),
     items: settings.get('items'),
   };
 })(WidgetDocPreview);
