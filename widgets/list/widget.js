@@ -123,9 +123,15 @@ class List extends Widget {
   }
 
   estimateItemSize(index, cache) {
-    const state = this.getWidgetCacheState(this.widgetId);
+    let state = null;
+    let inputCache = cache.hasOwnProperty('0');
 
-    if (cache.hasOwnProperty('0') || (state && !state.has('cache'))) {
+    if (!inputCache) {
+      state = this.getWidgetCacheState(this.widgetId);
+      inputCache = state && !state.has('cache');
+    }
+
+    if (inputCache) {
       /* Ensure that the first item is never 0, it prevents a strange bug where
        * the list is not beginning by 0 because the first items have a bad
        * height of 0.
