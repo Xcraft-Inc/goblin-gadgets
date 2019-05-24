@@ -10,6 +10,11 @@ export default [
     defaultValue: '',
   },
   {
+    name: 'onClick',
+    group: 'main',
+    type: Type.function,
+  },
+  {
     name: 'textColor',
     group: 'aspect',
     type: Type.color,
