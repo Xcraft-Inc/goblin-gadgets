@@ -11,6 +11,7 @@ export default function styles() {
     userSelect: 'text',
     backgroundColor: '#f2f2f2',
     padding: '0px 20px',
+    overflow: 'auto',
   };
 
   return {

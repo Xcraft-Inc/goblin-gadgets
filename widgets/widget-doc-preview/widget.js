@@ -162,7 +162,7 @@ class WidgetDocPreview extends Widget {
         </Container>
         <Container className={this.styles.classNames.container} kind="pane">
           <Label text="Code" grow="1" kind="title" />
-          <Container kind="row-pane">{this.renderCode()}</Container>
+          {this.renderCode()}
         </Container>
         <Container
           className={this.styles.classNames.container}

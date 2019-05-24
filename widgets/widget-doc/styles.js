@@ -8,8 +8,6 @@ export default function styles() {
   };
 
   const column = {
-    display: 'flex',
-    flexDirection: 'column',
     margin: '0px 5px 0px 0px',
     padding: '10px',
     overflowY: 'auto',
@@ -30,7 +28,6 @@ export default function styles() {
     ...column,
     flexGrow: '1',
     flexBasis: '0',
-    display: 'block',
   };
 
   return {
