@@ -97,6 +97,7 @@ class WidgetDocPropertyControl extends Widget {
             kind="switch"
             checked={this.props.value}
             onClick={this.onCheckButtonClick}
+            grow="1"
           />
         );
       case 'enum':
@@ -195,7 +196,11 @@ class WidgetDocPropertyControl extends Widget {
       case 'string':
       default:
         return (
-          <TextFieldBasis value={this.props.value} onChange={this.onChange} />
+          <TextFieldBasis
+            value={this.props.value}
+            onChange={this.onChange}
+            grow="1"
+          />
         );
     }
   }
