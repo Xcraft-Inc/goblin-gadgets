@@ -7,7 +7,7 @@ import labelProps from 'goblin-gadgets/widgets/label/props';
 import Container from 'goblin-gadgets/widgets/container/widget';
 import containerProps from 'goblin-gadgets/widgets/container/props';
 
-export default [
+const widgetList = [
   {
     name: 'Button',
     widget: Button,
@@ -27,3 +27,8 @@ export default [
     props: containerProps,
   },
 ];
+
+export default widgetList;
+export function registerWidget(widgetDefinition) {
+  widgetList.push(widgetDefinition);
+}
