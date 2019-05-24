@@ -57,6 +57,8 @@ const sizeList = [
   '500px',
 ];
 
+const componentList = ['short-text', 'long-text', 'button', 'button-10'];
+
 /******************************************************************************/
 
 class WidgetDocPropertyControl extends Widget {
@@ -130,6 +132,18 @@ class WidgetDocPropertyControl extends Widget {
             <TextFieldBasis value={this.props.value} onChange={this.onChange} />
             <TextFieldCombo
               list={sizeList}
+              defaultValue={this.props.value}
+              onSetText={this.onChange}
+              menuType="combo"
+            />
+          </Container>
+        );
+      case 'component':
+        return (
+          <Container kind="row">
+            <TextFieldBasis value={this.props.value} onChange={this.onChange} />
+            <TextFieldCombo
+              list={componentList}
               defaultValue={this.props.value}
               onSetText={this.onChange}
               menuType="combo"

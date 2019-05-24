@@ -5,6 +5,7 @@ import Container from 'goblin-gadgets/widgets/container/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import CheckButton from 'goblin-gadgets/widgets/check-button/widget';
 import WidgetDocPreviewContainer from '../widget-doc-preview-container/widget';
+import Button from 'goblin-gadgets/widgets/button/widget';
 
 /******************************************************************************/
 
@@ -136,8 +137,58 @@ class WidgetDocPreview extends Widget {
     );
   }
 
+  getComponent(name) {
+    switch (name) {
+      case 'short-text':
+        return 'Hello world';
+      case 'long-text':
+        return (
+          <Label
+            text={`
+              Ticket
+              Deuxième ligne
+              Troisième ligne
+              Quatrième ligne
+              Cinquième ligne
+              Sixième ligne
+              Septième ligne
+              Huitième ligne
+              Neuvième ligne
+              Dixième ligne plus longue que les autres
+            `}
+          />
+        );
+      case 'button':
+        return <Button text="Hello world" />;
+      case 'button-10':
+        return (
+          <React.Fragment>
+            <Button text="000" />
+            <Button text="111" />
+            <Button text="222" />
+            <Button text="333" />
+            <Button text="444" />
+            <Button text="555" />
+            <Button text="666" />
+            <Button text="777" />
+            <Button text="888" />
+            <Button text="999" />
+          </React.Fragment>
+        );
+    }
+    return name;
+  }
+
   renderWidget(key) {
-    return <this.widgetInfo.widget key={key} {...this.props.props.toJS()} />;
+    const props = this.props.props.toJS();
+    for (const propName in props) {
+      const type = this.widgetInfo.props.find(prop => prop.name === propName)
+        .type;
+      if (type.type === 'component') {
+        props[propName] = this.getComponent(props[propName]);
+      }
+    }
+    return <this.widgetInfo.widget key={key} {...props} />;
   }
 
   renderWidgets() {

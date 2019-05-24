@@ -16,6 +16,10 @@ export default {
     values,
   }),
 
+  component: {
+    type: 'component',
+  },
+
   color: {
     type: 'color',
   },
