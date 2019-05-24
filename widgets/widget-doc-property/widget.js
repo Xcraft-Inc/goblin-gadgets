@@ -15,18 +15,7 @@ export default class WidgetDocProperty extends Widget {
     );
   }
 
-  renderRequired() {
-    if (this.props.prop.required) {
-      return (
-        <Label className={this.styles.classNames.required} text="required" />
-      );
-    }
-    return (
-      <Label className={this.styles.classNames.optional} text="optional" />
-    );
-  }
-
-  renderDefaultValue() {
+  renderRequiredOrDefaultValue() {
     if ('defaultValue' in this.props.prop) {
       return (
         <React.Fragment>
@@ -37,6 +26,14 @@ export default class WidgetDocProperty extends Widget {
         </React.Fragment>
       );
     }
+    if (this.props.prop.required) {
+      return (
+        <Label className={this.styles.classNames.required} text="required" />
+      );
+    }
+    return (
+      <Label className={this.styles.classNames.optional} text="optional" />
+    );
   }
 
   renderControl() {
@@ -72,8 +69,7 @@ export default class WidgetDocProperty extends Widget {
             text={this.props.prop.name}
           />
           {this.renderType()}
-          {this.renderRequired()}
-          {this.renderDefaultValue()}
+          {this.renderRequiredOrDefaultValue()}
         </div>
         {this.renderControl()}
         {this.renderDescription()}

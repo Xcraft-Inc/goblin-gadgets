@@ -9,6 +9,7 @@ export default function styles() {
   const propertyRowContainer = {
     display: 'flex',
     flexWrap: 'wrap',
+    justifyContent: 'space-between',
     alignItems: 'flex-end',
     padding: '5px 0px',
   };
