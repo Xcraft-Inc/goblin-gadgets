@@ -22,8 +22,10 @@ class CheckButton extends Widget {
   }
 
   render() {
+    let {checked, ...otherProps} = this.props;
+    checked = Bool.isTrue(checked);
+
     let kind, border, glyph, active;
-    const checked = Bool.isTrue(this.props.checked);
     if (this.props.kind === 'switch') {
       kind = 'check-button';
       glyph = checked ? 'light/toggle-on' : 'light/toggle-off'; // [ o] [x ]
@@ -41,19 +43,11 @@ class CheckButton extends Widget {
 
     return (
       <Button
+        {...otherProps}
         kind={kind}
         border={border}
         glyph={glyph}
-        width={this.props.width}
-        text={this.props.text}
-        tooltip={this.props.tooltip}
         active={active}
-        disabled={this.props.disabled}
-        readonly={this.props.readonly}
-        focusable={this.props.focusable}
-        spacing={this.props.spacing}
-        heightStrategy={this.props.heightStrategy}
-        justify={this.props.justify}
         onClick={this.onButtonClicked}
       />
     );
