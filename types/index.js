@@ -20,6 +20,10 @@ export default {
     type: 'component',
   },
 
+  function: {
+    type: 'function',
+  },
+
   color: {
     type: 'color',
   },

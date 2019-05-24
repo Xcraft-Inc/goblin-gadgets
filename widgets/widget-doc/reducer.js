@@ -16,5 +16,8 @@ export default (state = initialState, action = {}) => {
   if (action.type === 'SET') {
     return state.set(action.path, action.value);
   }
+  if (action.type === 'DEL') {
+    return state.del(action.path);
+  }
   return state;
 };

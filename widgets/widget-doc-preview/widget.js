@@ -179,13 +179,30 @@ class WidgetDocPreview extends Widget {
     return name;
   }
 
+  getFunction(name) {
+    switch (name) {
+      case 'alert':
+        return () => alert(new Date().toLocaleDateString());
+
+      case 'log':
+        return (...args) => console.log(...args);
+    }
+    return () => {};
+  }
+
   renderWidget(key) {
     const props = this.props.props.toJS();
     for (const propName in props) {
-      const type = this.widgetInfo.props.find(prop => prop.name === propName)
-        .type;
-      if (type.type === 'component') {
+      const propDef = this.widgetInfo.props.find(
+        prop => prop.name === propName
+      );
+      if (!propDef) {
+        continue;
+      }
+      if (propDef.type.type === 'component') {
         props[propName] = this.getComponent(props[propName]);
+      } else if (propDef.type.type === 'function') {
+        props[propName] = this.getFunction(props[propName]);
       }
     }
     return <this.widgetInfo.widget key={key} {...props} />;
