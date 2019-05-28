@@ -103,7 +103,7 @@ class WidgetDocPreview extends Widget {
 
   renderSettings() {
     return (
-      <React.Fragment>
+      <div className={this.styles.classNames.settings}>
         <SettingsList
           text="Scale"
           widgetId={this.props.widgetId}
@@ -133,7 +133,7 @@ class WidgetDocPreview extends Widget {
           widgetId={this.props.widgetId}
           path="settings.frame"
         />
-      </React.Fragment>
+      </div>
     );
   }
 
@@ -214,7 +214,7 @@ class WidgetDocPreview extends Widget {
     );
   }
 
-  render() {
+  renderPreview() {
     this.widgetInfo = widgetList.find(
       widget => widget.name === this.props.selectedWidget
     );
@@ -223,26 +223,35 @@ class WidgetDocPreview extends Widget {
     }
 
     return (
-      <React.Fragment>
-        <Container className={this.styles.classNames.container} kind="pane">
-          <Label text="Settings" grow="1" kind="title" />
-          {this.renderSettings()}
-        </Container>
-        <Container className={this.styles.classNames.container} kind="pane">
-          <Label text="Code" grow="1" kind="title" />
+      <Container kind="panes">
+        <Container kind="pane">
+          <Label text="Code" kind="title" />
           {this.renderCode()}
         </Container>
-        <Container
-          className={this.styles.classNames.container}
-          kind="pane"
-          grow="1"
-        >
-          <Label text={this.widgetInfo.name} grow="1" kind="title" />
+
+        <Container kind="pane">
+          <Label text="Settings" kind="title" />
+          {this.renderSettings()}
+        </Container>
+
+        <Container kind="pane" grow="1">
+          <Label text={this.widgetInfo.name} kind="title" />
           <WidgetDocPreviewContainer widgetId={this.props.widgetId}>
             {this.renderWidgets()}
           </WidgetDocPreviewContainer>
         </Container>
-      </React.Fragment>
+      </Container>
+    );
+  }
+
+  render() {
+    return (
+      <Container kind="view" grow="1">
+        <Container kind="pane-header">
+          <Label text="Preview" kind="pane-header" />
+        </Container>
+        {this.renderPreview()}
+      </Container>
     );
   }
 }

@@ -2,55 +2,66 @@
 
 export default function styles() {
   const propertyContainer = {
-    borderBottom: '1px solid grey',
-    padding: '5px',
+    display: 'flex',
+    flexDirection: 'column',
   };
 
   const propertyRowContainer = {
     display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
+    flexDirection: 'row',
+    alignItems: 'center',
     padding: '5px 0px',
   };
 
   const name = {
-    fontWeight: 'bold',
+    width: '180px',
+  };
+
+  const control = {
+    flexGrow: '1',
+    marginRight: '10px',
   };
 
   const type = {
+    width: '80px',
     fontSize: '80%',
     fontWeight: 'lighter',
     opacity: '0.75',
   };
 
+  const defaultValue = {
+    width: '60px',
+    fontSize: '80%',
+    color: 'green',
+  };
+
   const required = {
+    width: '60px',
     fontSize: '80%',
     color: 'red',
   };
 
   const optional = {
+    width: '60px',
     fontSize: '80%',
     fontStyle: 'italic',
   };
 
-  const defaultValue = {
-    fontSize: '80%',
-    color: 'green',
-  };
-
   const description = {
+    margin: '0px 0px 10px 180px',
     fontSize: '80%',
+    opacity: '0.5',
   };
 
   return {
     propertyContainer,
     propertyRowContainer,
     name,
+    control,
     type,
+    defaultValue,
     required,
     optional,
-    defaultValue,
     description,
   };
 }

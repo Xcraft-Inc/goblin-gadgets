@@ -1,6 +1,8 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 import widgetList from '../widget-doc/widget-list';
+import Container from 'goblin-gadgets/widgets/container/widget';
+import Label from 'goblin-gadgets/widgets/label/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 
 /******************************************************************************/
@@ -38,9 +40,18 @@ export default class WidgetDocMenu extends Widget {
 
   render() {
     return (
-      <div className={this.styles.classNames.container}>
-        {widgetList.map(widget => this.renderWidgetListItem(widget))}
-      </div>
+      <Container
+        kind="view"
+        spacing="large"
+        backgroundColor={this.context.theme.palette.footerBackground}
+      >
+        <Container kind="pane-header">
+          <Label text="Widgets" kind="pane-header" />
+        </Container>
+        <Container kind="panes">
+          {widgetList.map(widget => this.renderWidgetListItem(widget))}
+        </Container>
+      </Container>
     );
   }
 }

@@ -2,9 +2,9 @@ import React from 'react';
 import Widget from 'laboratory/widget';
 import Container from 'goblin-gadgets/widgets/container/widget';
 import TextFieldBasis from 'goblin-gadgets/widgets/text-field-basis/widget';
-import CheckButton from 'goblin-gadgets/widgets/check-button/widget';
 import TextFieldCombo from 'goblin-gadgets/widgets/text-field-combo/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
+import Label from 'goblin-gadgets/widgets/label/widget';
 
 /******************************************************************************/
 
@@ -89,114 +89,60 @@ class WidgetDocPropertyControl extends Widget {
     this.dispatch({type: 'DEL', path: this.props.path});
   }
 
+  renderCombo(list, readonly) {
+    return (
+      <React.Fragment>
+        <TextFieldBasis
+          shape="left-smooth"
+          spacing="overlap"
+          readonly={readonly}
+          value={this.props.value}
+          onChange={readonly ? null : this.onChange}
+          grow="1"
+        />
+        <TextFieldCombo
+          spacing="tiny"
+          list={list}
+          defaultValue={this.props.value}
+          onSetText={this.onChange}
+          menuType="combo"
+        />
+      </React.Fragment>
+    );
+  }
+
   renderControl() {
     switch (this.props.type.type) {
       case 'bool':
         return (
-          <CheckButton
-            kind="switch"
-            checked={this.props.value}
-            onClick={this.onCheckButtonClick}
-            grow="1"
-          />
+          <React.Fragment>
+            <Button
+              width="32px"
+              focusable="true"
+              glyph={this.props.value ? 'solid/check' : null}
+              onClick={this.onCheckButtonClick}
+            />
+            <Label grow="1" />
+          </React.Fragment>
         );
       case 'enum':
-        return (
-          <React.Fragment>
-            <TextFieldBasis value={this.props.value} disabled={true} grow="1" />
-            <TextFieldCombo
-              list={this.props.type.values}
-              defaultValue={this.props.value}
-              onSetText={this.onChange}
-              menuType="combo"
-            />
-          </React.Fragment>
-        );
+        return this.renderCombo(this.props.type.values, true);
       case 'color':
-        return (
-          <React.Fragment>
-            <TextFieldBasis
-              value={this.props.value}
-              onChange={this.onChange}
-              grow="1"
-            />
-            <TextFieldCombo
-              list={colorList}
-              defaultValue={this.props.value}
-              onSetText={this.onChange}
-              menuType="combo"
-            />
-          </React.Fragment>
-        );
+        return this.renderCombo(colorList, false);
       case 'glyph':
-        return (
-          <React.Fragment>
-            <TextFieldBasis
-              value={this.props.value}
-              onChange={this.onChange}
-              grow="1"
-            />
-            <TextFieldCombo
-              list={glyphList}
-              defaultValue={this.props.value}
-              onSetText={this.onChange}
-              menuType="combo"
-            />
-          </React.Fragment>
-        );
+        return this.renderCombo(glyphList, false);
       case 'size':
-        return (
-          <React.Fragment>
-            <TextFieldBasis
-              value={this.props.value}
-              onChange={this.onChange}
-              grow="1"
-            />
-            <TextFieldCombo
-              list={sizeList}
-              defaultValue={this.props.value}
-              onSetText={this.onChange}
-              menuType="combo"
-            />
-          </React.Fragment>
-        );
+        return this.renderCombo(sizeList, false);
       case 'component':
-        return (
-          <React.Fragment>
-            <TextFieldBasis
-              value={this.props.value}
-              onChange={this.onChange}
-              grow="1"
-            />
-            <TextFieldCombo
-              list={componentList}
-              defaultValue={this.props.value}
-              onSetText={this.onChange}
-              menuType="combo"
-            />
-          </React.Fragment>
-        );
+        return this.renderCombo(componentList, false);
       case 'function':
-        return (
-          <React.Fragment>
-            <TextFieldBasis
-              value={this.props.value}
-              onChange={this.onChange}
-              grow="1"
-              disabled={true}
-            />
-            <TextFieldCombo
-              list={functionList}
-              defaultValue={this.props.value}
-              onSetText={this.onChange}
-              menuType="combo"
-            />
-          </React.Fragment>
-        );
+        return this.renderCombo(functionList, true);
       case 'string':
       default:
         return (
           <TextFieldBasis
+            spacing="tiny"
+            shape="smooth"
             value={this.props.value}
             onChange={this.onChange}
             grow="1"
@@ -210,8 +156,8 @@ class WidgetDocPropertyControl extends Widget {
       <Container kind="row">
         {this.renderControl()}
         <Button
+          kind="combo"
           glyph="solid/times"
-          kind="check-button"
           onClick={this.clear}
           visibility={this.props.value !== undefined}
         />

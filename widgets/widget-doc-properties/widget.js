@@ -31,11 +31,7 @@ class WidgetDocProperties extends Widget {
 
   renderGroup(groupName, properties) {
     return (
-      <Container
-        className={this.styles.classNames.container}
-        kind="pane"
-        key={groupName}
-      >
+      <Container kind="pane" key={groupName}>
         <Container kind="row">
           <Label text={groupName} grow="1" kind="title" />
         </Container>
@@ -44,11 +40,7 @@ class WidgetDocProperties extends Widget {
     );
   }
 
-  renderGroups(groups) {
-    return [...groups].map(([key, value]) => this.renderGroup(key, value));
-  }
-
-  render() {
+  renderGroups() {
     const widgetInfo = widgetList.find(
       widget => widget.name === this.props.selectedWidget
     );
@@ -65,7 +57,18 @@ class WidgetDocProperties extends Widget {
       list.push(prop);
     }
 
-    return this.renderGroups(groups);
+    return [...groups].map(([key, value]) => this.renderGroup(key, value));
+  }
+
+  render() {
+    return (
+      <Container kind="view" width="670px" spacing="large">
+        <Container kind="pane-header">
+          <Label text="Properties" kind="pane-header" />
+        </Container>
+        <Container kind="panes">{this.renderGroups()}</Container>
+      </Container>
+    );
   }
 }
 
