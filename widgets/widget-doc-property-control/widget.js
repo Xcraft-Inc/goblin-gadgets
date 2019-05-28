@@ -105,7 +105,8 @@ class WidgetDocPropertyControl extends Widget {
           list={list}
           defaultValue={this.props.value}
           onSetText={this.onChange}
-          menuType="combo"
+          menuType="wrap"
+          menuItemWidth="200px"
         />
       </React.Fragment>
     );
