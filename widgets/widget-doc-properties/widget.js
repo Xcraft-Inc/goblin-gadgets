@@ -152,7 +152,19 @@ class WidgetDocProperties extends Widget {
       list.push(prop);
     }
 
-    return [...groups].map(([key, value]) => this.renderGroup(key, value));
+    const result = [...groups]
+      .map(([key, value]) => this.renderGroup(key, value))
+      .filter(r => !!r);
+
+    if (result.length > 0) {
+      return result;
+    } else {
+      return (
+        <div className={this.styles.classNames.empty}>
+          <Label text="Aucune propriété ne correspond au filtre" />
+        </div>
+      );
+    }
   }
 
   /******************************************************************************/

@@ -7,8 +7,17 @@ export default function styles() {
     flexDirection: 'row',
   };
 
+  const empty = {
+    height: '300px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  };
+
   return {
     filter,
+    empty,
   };
 }
 
