@@ -129,41 +129,36 @@ export default [
     name: 'triangleShift',
     group: 'aspect',
     type: Type.size,
-    unit: 'px',
   },
   {
     name: 'width',
     group: 'Layout',
     type: Type.size,
-    unit: 'px',
   },
   {
     name: 'height',
     group: 'Layout',
     type: Type.size,
-    unit: 'px',
   },
   {
     name: 'marginBottom',
     group: 'Layout',
     type: Type.size,
-    unit: 'px',
   },
   {
     name: 'floatingHeight',
     group: 'Layout',
     type: Type.size,
-    unit: 'px',
   },
   {
     name: 'grow',
     group: 'Layout',
-    type: Type.string,
+    type: Type.grow,
   },
   {
     name: 'spacing',
     group: 'Layout',
-    type: Type.enum(['', 'compact', 'glued', 'large']),
+    type: Type.spacing,
   },
   {
     name: 'backgroundColor',
