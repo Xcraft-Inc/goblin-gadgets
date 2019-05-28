@@ -10,12 +10,13 @@ import Button from 'goblin-gadgets/widgets/button/widget';
 /******************************************************************************/
 
 function filterProp(prop) {
-  const i = prop.indexOf(' — ');
-  if (i !== -1) {
-    return prop.substring(0, i);
-  } else {
-    return prop;
+  if (prop.indexOf) {
+    const i = prop.indexOf(' — ');
+    if (i !== -1) {
+      return prop.substring(0, i);
+    }
   }
+  return prop;
 }
 
 /******************************************************************************/

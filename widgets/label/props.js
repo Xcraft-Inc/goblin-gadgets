@@ -105,12 +105,6 @@ export default [
     defaultValue: '',
   },
   {
-    name: 'shape',
-    group: 'aspect',
-    type: Type.shape,
-    defaultValue: '',
-  },
-  {
     name: 'insideButton',
     group: 'aspect',
     type: Type.bool,
