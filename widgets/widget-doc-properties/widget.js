@@ -49,6 +49,13 @@ class WidgetDocProperties extends Widget {
       ) {
         return true;
       } else if (
+        prop.type.defaultValue &&
+        prop.type.defaultValue.toLowerCase().includes(f)
+      ) {
+        return true;
+      } else if (prop.type.type === f) {
+        return true;
+      } else if (
         prop.type.type === 'enum' &&
         prop.type.values.find(e => e.includes(f))
       ) {
