@@ -89,16 +89,22 @@ class WidgetDocPreview extends Widget {
 
   renderCode() {
     const widgetName = this.widgetInfo.name;
-    let code = '\n';
-    code += `import ${widgetName} from '${this.widgetInfo.widgetPath}'`;
-    code += `\n`;
-    code += `<${widgetName}`;
-    code += this.props.props
+
+    const code1 = `import ${widgetName} from '${this.widgetInfo.widgetPath}'`;
+
+    let code2 = '';
+    code2 += `<${widgetName}`;
+    code2 += this.props.props
       .map((value, name) => ` ${name}="${value}"`)
       .join('');
-    code += '/>';
-    code += `\n\n`;
-    return <pre className={this.styles.classNames.code}>{code}</pre>;
+    code2 += '/>';
+
+    return (
+      <div className={this.styles.classNames.container}>
+        <pre className={this.styles.classNames.code}>{code1}</pre>
+        <pre className={this.styles.classNames.code}>{code2}</pre>
+      </div>
+    );
   }
 
   renderSettings() {

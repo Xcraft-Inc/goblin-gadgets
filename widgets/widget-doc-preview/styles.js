@@ -1,15 +1,14 @@
 export default function styles() {
   const container = {
-    margin: '5px 0px',
-    padding: '10px',
+    margin: '10px 0px',
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: '#fff',
   };
 
   const code = {
+    margin: '5px 0px',
+    whiteSpace: 'normal',
     userSelect: 'text',
-    overflow: 'auto',
   };
 
   const settings = {
