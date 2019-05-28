@@ -157,7 +157,7 @@ class WidgetDocPropertyControl extends Widget {
         {this.renderControl()}
         <Button
           kind="combo"
-          glyph="solid/times"
+          glyph="solid/eraser"
           onClick={this.clear}
           visibility={this.props.value !== undefined}
         />
