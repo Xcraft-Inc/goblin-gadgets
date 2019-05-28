@@ -89,6 +89,8 @@ class WidgetDocPropertyControl extends Widget {
     this.dispatch({type: 'DEL', path: this.props.path});
   }
 
+  /******************************************************************************/
+
   renderCombo(list, readonly) {
     return (
       <React.Fragment>
@@ -166,6 +168,8 @@ class WidgetDocPropertyControl extends Widget {
     );
   }
 }
+
+/******************************************************************************/
 
 export default Widget.connectWidget((state, props) => {
   return {

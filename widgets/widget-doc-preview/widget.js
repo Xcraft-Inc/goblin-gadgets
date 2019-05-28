@@ -98,6 +98,8 @@ class WidgetDocPreview extends Widget {
     super(...arguments);
   }
 
+  /******************************************************************************/
+
   renderCode() {
     const widgetName = this.widgetInfo.name;
 
@@ -117,6 +119,8 @@ class WidgetDocPreview extends Widget {
       </div>
     );
   }
+
+  /******************************************************************************/
 
   renderSettings() {
     return (
@@ -153,6 +157,8 @@ class WidgetDocPreview extends Widget {
       </div>
     );
   }
+
+  /******************************************************************************/
 
   getComponent(name) {
     switch (name) {
@@ -230,6 +236,8 @@ class WidgetDocPreview extends Widget {
       this.renderWidget(k)
     );
   }
+
+  /******************************************************************************/
 
   renderPreview() {
     this.widgetInfo = widgetList.find(

@@ -1,14 +1,14 @@
 export default function styles() {
-  const container = {
-    margin: '5px 0px',
-    padding: '10px',
+  const filter = {
+    minHeight: '34px',
+    maxHeight: '34px',
+    margin: '0px 20px 20px 20px',
     display: 'flex',
-    flexDirection: 'column',
-    backgroundColor: '#fff',
+    flexDirection: 'row',
   };
 
   return {
-    container,
+    filter,
   };
 }
 
