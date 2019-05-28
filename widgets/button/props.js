@@ -121,7 +121,7 @@ export default [
   {
     name: 'glyphRotate',
     group: 'glyph',
-    type: Type.enum(['', '90', '180', '270']),
+    type: Type.angle,
     defaultValue: '',
   },
   {
@@ -145,20 +145,13 @@ export default [
   {
     name: 'glyphSize',
     group: 'glyph',
-    type: Type.enum(['', '50%', '75%', '100%', '150%', '200%']),
+    type: Type.percentage,
     defaultValue: '',
   },
   {
     name: 'shape',
     group: 'aspect',
-    type: Type.enum([
-      '',
-      'rounded',
-      'left-rounded',
-      'right-rounded',
-      'left-smooth',
-      'right-smooth',
-    ]),
+    type: Type.shape,
     defaultValue: '',
   },
   {
@@ -171,21 +164,13 @@ export default [
   {
     name: 'shortcut',
     group: 'aspect',
-    type: Type.enum(['', '_ctrl_+A', '_shift_+A', '_alt_+A']),
+    type: Type.shortcut,
     defaultValue: '',
   },
   {
     name: 'justify',
     group: 'aspect',
-    type: Type.enum([
-      '',
-      'start',
-      'center',
-      'end',
-      'around',
-      'between',
-      'none',
-    ]),
+    type: Type.justify,
     defaultValue: '',
   },
   {
@@ -203,13 +188,13 @@ export default [
   {
     name: 'grow',
     group: 'layout',
-    type: Type.enum(['', '0.5', '1']),
+    type: Type.grow,
     defaultValue: '',
   },
   {
     name: 'spacing',
     group: 'layout',
-    type: Type.enum(['', 'overlap', 'tiny', 'large', 'double']),
+    type: Type.spacing,
     defaultValue: '',
   },
   {
@@ -227,25 +212,25 @@ export default [
   {
     name: 'fontSize',
     group: 'text',
-    type: Type.enum(['', '50%', '75%', '100%', '150%', '200%']),
+    type: Type.percentage,
     defaultValue: '',
   },
   {
     name: 'fontWeight',
     group: 'text',
-    type: Type.enum(['', 'bold']),
+    type: Type.fontWeight,
     defaultValue: '',
   },
   {
     name: 'fontStyle',
     group: 'text',
-    type: Type.enum(['', 'italic', 'oblique']),
+    type: Type.fontStyle,
     defaultValue: '',
   },
   {
     name: 'textTransform',
     group: 'text',
-    type: Type.enum(['', 'uppercase', 'none']),
+    type: Type.textTransform,
     defaultValue: '',
   },
   {
@@ -287,20 +272,7 @@ export default [
   {
     name: 'cursor',
     group: 'aspect',
-    type: Type.enum([
-      '',
-      'default',
-      'none',
-      'pointer',
-      'cell',
-      'crosshair',
-      'text',
-      'move',
-      'not-allowed',
-      'ew-resize',
-      'ns-resize',
-      'grab',
-    ]),
+    type: Type.cursor,
     defaultValue: '',
   },
   {
