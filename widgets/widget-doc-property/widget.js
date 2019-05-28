@@ -58,23 +58,6 @@ export default class WidgetDocProperty extends Widget {
     }
   }
 
-  render_OLD() {
-    return (
-      <div className={this.styles.classNames.propertyContainer}>
-        <div className={this.styles.classNames.propertyRowContainer}>
-          <Label
-            className={this.styles.classNames.name}
-            text={this.props.prop.name}
-          />
-          {this.renderType()}
-          {this.renderRequiredOrDefaultValue()}
-        </div>
-        {this.renderControl()}
-        {this.renderDescription()}
-      </div>
-    );
-  }
-
   render() {
     return (
       <div className={this.styles.classNames.propertyContainer}>
