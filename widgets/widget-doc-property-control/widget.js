@@ -8,59 +8,88 @@ import Label from 'goblin-gadgets/widgets/label/widget';
 
 /******************************************************************************/
 
-const colorList = [
-  '',
-  'base',
-  'primary',
-  'secondary',
-  'success',
-  'pick',
-  'drop',
-  'task',
-  'white',
-  'lightgrey',
-  'grey',
-  'black',
-  'red',
-  'green',
-  'blue',
-  'yellow',
-  '#d2e6f9 — light blue',
-  '#8ab6df — blue',
-  '#f5ddb8 — light orange',
-  '#fbce89 — orange',
-  '#c6f7da — light green',
-  '#74f7a9 — green',
-];
-
-const glyphList = [
-  '',
-  'solid/check',
-  'solid/times',
-  'solid/bicycle',
-  'solid/car',
-  'solid/rocket',
-  'solid/calendar',
-];
-
-const sizeList = [
-  '',
-  '0px',
-  '1px',
-  '2px',
-  '10px',
-  '20px',
-  '32px',
-  '50px',
-  '100px',
-  '200px',
-  '300px',
-  '500px',
-];
-
-const componentList = ['short-text', 'long-text', 'button', 'button-10'];
-
-const functionList = ['alert', 'log'];
+const List = {
+  color: [
+    '',
+    'base',
+    'primary',
+    'secondary',
+    'success',
+    'pick',
+    'drop',
+    'task',
+    'white',
+    'lightgrey',
+    'grey',
+    'black',
+    'red',
+    'green',
+    'blue',
+    'yellow',
+    '#d2e6f9 — light blue',
+    '#8ab6df — blue',
+    '#f5ddb8 — light orange',
+    '#fbce89 — orange',
+    '#c6f7da — light green',
+    '#74f7a9 — green',
+  ],
+  glyph: [
+    '',
+    'solid/check',
+    'solid/times',
+    'solid/bicycle',
+    'solid/car',
+    'solid/rocket',
+    'solid/calendar',
+  ],
+  size: [
+    '',
+    '0px',
+    '1px',
+    '2px',
+    '10px',
+    '20px',
+    '32px',
+    '50px',
+    '100px',
+    '200px',
+    '300px',
+    '500px',
+  ],
+  component: ['short-text', 'long-text', 'button', 'button-10'],
+  function: ['alert', 'log'],
+  shape: [
+    '',
+    'rounded',
+    'left-rounded',
+    'right-rounded',
+    'left-smooth',
+    'right-smooth',
+  ],
+  angle: ['', '90', '180', '270'],
+  percentage: ['', '50%', '75%', '100%', '150%', '200%'],
+  spacing: ['', 'overlap', 'tiny', 'large', 'double'],
+  shortcut: ['', '_ctrl_+A', '_shift_+A', '_alt_+A'],
+  grow: ['', '0.5', '1'],
+  fontStyle: ['', 'italic', 'oblique'],
+  cursor: [
+    '',
+    'default',
+    'none',
+    'pointer',
+    'cell',
+    'crosshair',
+    'text',
+    'move',
+    'not-allowed',
+    'ew-resize',
+    'ns-resize',
+    'grab',
+  ],
+  fontWeight: ['', 'bold', 'bolder', 'lighter'],
+  textTransform: ['', 'capitalize', 'uppercase', 'lowercase'],
+  justify: ['', 'start', 'center', 'end', 'around', 'between', 'none'],
+};
 
 /******************************************************************************/
 
@@ -115,7 +144,8 @@ class WidgetDocPropertyControl extends Widget {
   }
 
   renderControl() {
-    switch (this.props.type.type) {
+    const type = this.props.type.type;
+    switch (type) {
       case 'bool':
         return (
           <React.Fragment>
@@ -131,15 +161,23 @@ class WidgetDocPropertyControl extends Widget {
       case 'enum':
         return this.renderCombo(this.props.type.values, true);
       case 'color':
-        return this.renderCombo(colorList, false);
       case 'glyph':
-        return this.renderCombo(glyphList, false);
       case 'size':
-        return this.renderCombo(sizeList, false);
       case 'component':
-        return this.renderCombo(componentList, false);
+      case 'shortcut':
+      case 'angle':
+      case 'percentage':
+      case 'fontWeight':
+        return this.renderCombo(List[type], false);
       case 'function':
-        return this.renderCombo(functionList, true);
+      case 'shape':
+      case 'spacing':
+      case 'grow':
+      case 'fontStyle':
+      case 'cursor':
+      case 'textTransform':
+      case 'justify':
+        return this.renderCombo(List[type], true);
       case 'string':
       default:
         return (

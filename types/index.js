@@ -35,4 +35,48 @@ export default {
   glyph: {
     type: 'glyph',
   },
+
+  shape: {
+    type: 'shape',
+  },
+
+  angle: {
+    type: 'angle',
+  },
+
+  percentage: {
+    type: 'percentage',
+  },
+
+  spacing: {
+    type: 'spacing',
+  },
+
+  shortcut: {
+    type: 'shortcut',
+  },
+
+  grow: {
+    type: 'grow',
+  },
+
+  fontStyle: {
+    type: 'fontStyle',
+  },
+
+  cursor: {
+    type: 'cursor',
+  },
+
+  fontWeight: {
+    type: 'fontWeight',
+  },
+
+  textTransform: {
+    type: 'textTransform',
+  },
+
+  justify: {
+    type: 'justify',
+  },
 };
