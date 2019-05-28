@@ -66,7 +66,7 @@ class WidgetDocPreviewSettingsList extends Widget {
 
   render() {
     return (
-      <Container kind="row">
+      <Container kind="row-pane" subkind="left">
         <Label text={this.props.text} width="80px" />
         {this.props.list.map(value => this.renderItem(value))}
       </Container>
