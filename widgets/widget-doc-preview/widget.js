@@ -9,6 +9,17 @@ import Button from 'goblin-gadgets/widgets/button/widget';
 
 /******************************************************************************/
 
+function filterProp(prop) {
+  const i = prop.indexOf(' — ');
+  if (i !== -1) {
+    return prop.substring(0, i);
+  } else {
+    return prop;
+  }
+}
+
+/******************************************************************************/
+
 class WidgetDocPreviewSettingsSwitch extends Widget {
   constructor() {
     super(...arguments);
@@ -95,7 +106,7 @@ class WidgetDocPreview extends Widget {
     let code2 = '';
     code2 += `<${widgetName}`;
     code2 += this.props.props
-      .map((value, name) => ` ${name}="${value}"`)
+      .map((value, name) => ` ${name}="${filterProp(value)}"`)
       .join('');
     code2 += '/>';
 
@@ -197,7 +208,7 @@ class WidgetDocPreview extends Widget {
   }
 
   renderWidget(key) {
-    const props = this.props.props.toJS();
+    const props = this.props.props.map(p => filterProp(p)).toJS();
     for (const propName in props) {
       const propDef = this.widgetInfo.props.find(
         prop => prop.name === propName
