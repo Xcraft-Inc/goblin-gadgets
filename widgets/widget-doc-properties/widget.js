@@ -70,23 +70,38 @@ class WidgetDocProperties extends Widget {
   /******************************************************************************/
 
   renderFilter() {
-    return (
-      <div className={this.styles.classNames.filter}>
-        <Label text="Filtre" />
-        <TextFieldBasis
-          grow="1"
-          shape="left-rounded"
-          spacing="overlap"
-          value={this.filter}
-          onChange={this.onChangeFilter}
-        />
-        <Button
-          shape="right-rounded"
-          glyph="solid/eraser"
-          onClick={() => (this.filter = '')}
-        />
-      </div>
-    );
+    if (this.filter) {
+      return (
+        <div className={this.styles.classNames.filter}>
+          <Label text="Filtre" />
+          <TextFieldBasis
+            grow="1"
+            shape="left-rounded"
+            spacing="overlap"
+            value={this.filter}
+            onChange={this.onChangeFilter}
+          />
+          <Button
+            shape="right-rounded"
+            glyph="solid/eraser"
+            onClick={() => (this.filter = '')}
+          />
+        </div>
+      );
+    } else {
+      return (
+        <div className={this.styles.classNames.filter}>
+          <Label text="Filtre" />
+          <TextFieldBasis
+            grow="1"
+            shape="rounded"
+            spacing="overlap"
+            value={this.filter}
+            onChange={this.onChangeFilter}
+          />
+        </div>
+      );
+    }
   }
 
   /******************************************************************************/
