@@ -73,7 +73,7 @@ class WidgetDocProperties extends Widget {
     if (this.filter) {
       return (
         <div className={this.styles.classNames.filter}>
-          <Label text="Filtre" />
+          <Label text="Filter" />
           <TextFieldBasis
             grow="1"
             shape="left-rounded"
@@ -91,7 +91,7 @@ class WidgetDocProperties extends Widget {
     } else {
       return (
         <div className={this.styles.classNames.filter}>
-          <Label text="Filtre" />
+          <Label text="Filter" />
           <TextFieldBasis
             grow="1"
             shape="rounded"
@@ -161,7 +161,7 @@ class WidgetDocProperties extends Widget {
     } else {
       return (
         <div className={this.styles.classNames.empty}>
-          <Label text="Aucune propriété ne correspond au filtre" />
+          <Label text="No property matches the filter" />
         </div>
       );
     }
