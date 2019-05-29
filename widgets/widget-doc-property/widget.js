@@ -6,34 +6,6 @@ import WidgetDocPropertyControl from '../widget-doc-property-control/widget';
 /******************************************************************************/
 
 export default class WidgetDocProperty extends Widget {
-  renderType() {
-    return (
-      <Label
-        className={this.styles.classNames.type}
-        text={this.props.prop.type.type}
-      />
-    );
-  }
-
-  renderRequiredOrDefaultValue() {
-    if ('defaultValue' in this.props.prop) {
-      return (
-        <Label
-          className={this.styles.classNames.defaultValue}
-          text={JSON.stringify(this.props.prop.defaultValue)}
-        />
-      );
-    } else if (this.props.prop.required) {
-      return (
-        <Label className={this.styles.classNames.required} text="required" />
-      );
-    } else {
-      return (
-        <Label className={this.styles.classNames.optional} text="optional" />
-      );
-    }
-  }
-
   renderControl() {
     const name = this.props.prop.name;
     return (
@@ -45,6 +17,44 @@ export default class WidgetDocProperty extends Widget {
         />
       </div>
     );
+  }
+
+  renderType() {
+    return (
+      <Label
+        className={this.styles.classNames.type}
+        wrap="no"
+        text={this.props.prop.type.type}
+      />
+    );
+  }
+
+  renderRequiredOrDefaultValue() {
+    if ('defaultValue' in this.props.prop) {
+      return (
+        <Label
+          className={this.styles.classNames.defaultValue}
+          wrap="no"
+          text={JSON.stringify(this.props.prop.defaultValue)}
+        />
+      );
+    } else if (this.props.prop.required) {
+      return (
+        <Label
+          className={this.styles.classNames.required}
+          wrap="no"
+          text="required"
+        />
+      );
+    } else {
+      return (
+        <Label
+          className={this.styles.classNames.optional}
+          wrap="no"
+          text="optional"
+        />
+      );
+    }
   }
 
   renderDescription() {
@@ -64,6 +74,7 @@ export default class WidgetDocProperty extends Widget {
         <div className={this.styles.classNames.propertyRowContainer}>
           <Label
             className={this.styles.classNames.name}
+            wrap="no"
             text={this.props.prop.name}
           />
           {this.renderControl()}
