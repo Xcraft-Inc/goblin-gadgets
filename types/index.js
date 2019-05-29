@@ -7,6 +7,10 @@ export default {
     type: 'string',
   },
 
+  nabu: {
+    type: 'nabu',
+  },
+
   number: {
     type: 'number',
   },

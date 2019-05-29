@@ -1,11 +1,16 @@
 //T:2019-02-27
 import React from 'react';
+import Props from './props';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import Widget from 'laboratory/widget';
 import MouseTrap from 'mousetrap';
 import * as ShortcutHelpers from '../helpers/shortcut-helpers.js';
 import * as Bool from 'gadgets/helpers/bool-helpers';
 import {TranslatableDiv, TranslatableA} from 'nabu/helpers/element-helpers';
+import {
+  makePropTypes,
+  makeDefaultProps,
+} from 'xcraft-core-utils/lib/prop-types';
 
 import Label from 'gadgets/label/widget';
 import Badge from 'gadgets/badge/widget';
@@ -331,5 +336,12 @@ class Button extends Widget {
     }
   }
 }
+
+/******************************************************************************/
+
+//- Button.propTypes = makePropTypes(Props);
+//- Button.defaultProps = makeDefaultProps(Props);
+
+/******************************************************************************/
 
 export default Button;

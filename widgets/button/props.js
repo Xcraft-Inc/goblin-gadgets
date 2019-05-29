@@ -4,7 +4,7 @@ export default [
   {
     name: 'text',
     group: 'main',
-    type: Type.string,
+    type: Type.nabu,
     description: 'The text of the button',
     required: true,
     defaultValue: '',
@@ -68,6 +68,7 @@ export default [
       'task-bar',
       'task-tab',
       'task-logo',
+      'task-show-footer',
       'thin-left',
       'thin-right',
       'toolbar',
@@ -149,8 +150,7 @@ export default [
   {
     name: 'tooltip',
     group: 'aspect',
-    type: Type.string,
-    field: 'tooltip',
+    type: Type.nabu,
   },
   {
     name: 'shortcut',
