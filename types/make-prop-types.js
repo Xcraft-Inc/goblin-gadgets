@@ -27,6 +27,42 @@ function getPropType(prop) {
     case 'glyph':
       propType = PropTypes.string;
       break;
+    case 'shape':
+      propType = PropTypes.string;
+      break;
+    case 'angle':
+      propType = PropTypes.string;
+      break;
+    case 'percentage':
+      propType = PropTypes.string;
+      break;
+    case 'spacing':
+      propType = PropTypes.string;
+      break;
+    case 'shortcut':
+      propType = PropTypes.string;
+      break;
+    case 'grow':
+      propType = PropTypes.string;
+      break;
+    case 'fontStyle':
+      propType = PropTypes.string;
+      break;
+    case 'cursor':
+      propType = PropTypes.string;
+      break;
+    case 'fontWeight':
+      propType = PropTypes.string;
+      break;
+    case 'textTransform':
+      propType = PropTypes.string;
+      break;
+    case 'justify':
+      propType = PropTypes.string;
+      break;
+    case 'dataTable':
+      propType = PropTypes.node;
+      break;
     default:
       throw new Error(`Unknown prop type: '${prop.type.type}'`);
   }
