@@ -1097,6 +1097,7 @@ export default function styles(theme, props) {
   };
 
   const textStyle = {
+    display: 'block', // required because <T/> use a 'span' (previously, all the styling was planned for a 'div')
     width: textWidth,
     marginTop: textMarginTop,
     marginRight: textMarginRight,
