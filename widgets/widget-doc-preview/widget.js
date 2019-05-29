@@ -109,7 +109,7 @@ class WidgetDocPreview extends Widget {
     let code2 = '';
     code2 += `<${widgetName}`;
     code2 += this.props.props
-      .map((value, name) => ` ${name}="${filterProp(value)}"`)
+      .map((value, name) => ` ${name}="${value}"`)
       .join('');
     code2 += '/>';
 
@@ -215,7 +215,7 @@ class WidgetDocPreview extends Widget {
   }
 
   renderWidget(key) {
-    const props = this.props.props.map(p => filterProp(p)).toJS();
+    const props = this.props.props.toJS();
     for (const propName in props) {
       const propDef = this.widgetInfo.props.find(
         prop => prop.name === propName

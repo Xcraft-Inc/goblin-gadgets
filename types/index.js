@@ -83,4 +83,7 @@ export default {
   justify: {
     type: 'justify',
   },
+  dataTable: {
+    type: 'dataTable',
+  },
 };
