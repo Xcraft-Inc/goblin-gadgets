@@ -9,18 +9,6 @@ import Button from 'goblin-gadgets/widgets/button/widget';
 
 /******************************************************************************/
 
-function filterProp(prop) {
-  if (prop.indexOf) {
-    const i = prop.indexOf(' — ');
-    if (i !== -1) {
-      return prop.substring(0, i);
-    }
-  }
-  return prop;
-}
-
-/******************************************************************************/
-
 class WidgetDocPreviewSettingsSwitch extends Widget {
   constructor() {
     super(...arguments);
@@ -99,8 +87,6 @@ class WidgetDocPreview extends Widget {
     super(...arguments);
   }
 
-  /******************************************************************************/
-
   renderCode() {
     const widgetName = this.widgetInfo.name;
 
@@ -120,8 +106,6 @@ class WidgetDocPreview extends Widget {
       </div>
     );
   }
-
-  /******************************************************************************/
 
   renderSettings() {
     return (
@@ -158,8 +142,6 @@ class WidgetDocPreview extends Widget {
       </div>
     );
   }
-
-  /******************************************************************************/
 
   getComponent(name) {
     switch (name) {
@@ -207,7 +189,6 @@ class WidgetDocPreview extends Widget {
     switch (name) {
       case 'alert':
         return () => alert(new Date().toLocaleDateString());
-
       case 'log':
         return (...args) => console.log(...args);
     }
@@ -237,8 +218,6 @@ class WidgetDocPreview extends Widget {
       this.renderWidget(k)
     );
   }
-
-  /******************************************************************************/
 
   renderPreview() {
     this.widgetInfo = widgetList.find(
