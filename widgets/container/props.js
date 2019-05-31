@@ -7,6 +7,11 @@ export default [
     type: Type.component,
   },
   {
+    name: 'onClick',
+    group: 'main',
+    type: Type.function,
+  },
+  {
     name: 'disabled',
     group: 'aspect',
     type: Type.bool,
@@ -22,7 +27,32 @@ export default [
     type: Type.bool,
   },
   {
+    name: 'hidden',
+    group: 'aspect',
+    type: Type.bool,
+  },
+  {
+    name: 'visibility',
+    group: 'aspect',
+    type: Type.bool,
+  },
+  {
     name: 'busy',
+    group: 'aspect',
+    type: Type.bool,
+  },
+  {
+    name: 'isDragged',
+    group: 'aspect',
+    type: Type.bool,
+  },
+  {
+    name: 'isTransparentWhenDrag',
+    group: 'aspect',
+    type: Type.bool,
+  },
+  {
+    name: 'hasHeLeft',
     group: 'aspect',
     type: Type.bool,
   },
@@ -96,6 +126,11 @@ export default [
     ]),
   },
   {
+    name: 'cursor',
+    group: 'aspect',
+    type: Type.cursor,
+  },
+  {
     name: 'subkind',
     group: 'aspect',
     type: Type.enum([
@@ -141,6 +176,36 @@ export default [
     type: Type.size,
   },
   {
+    name: 'minWidth',
+    group: 'Layout',
+    type: Type.size,
+  },
+  {
+    name: 'minHeight',
+    group: 'Layout',
+    type: Type.size,
+  },
+  {
+    name: 'maxWidth',
+    group: 'Layout',
+    type: Type.size,
+  },
+  {
+    name: 'maxHeight',
+    group: 'Layout',
+    type: Type.size,
+  },
+  {
+    name: 'verticalJustify',
+    group: 'Layout',
+    type: Type.enum(['', 'top']),
+  },
+  {
+    name: 'verticalSpacing',
+    group: 'Layout',
+    type: Type.spacing,
+  },
+  {
     name: 'marginBottom',
     group: 'Layout',
     type: Type.size,
@@ -162,6 +227,11 @@ export default [
   },
   {
     name: 'backgroundColor',
+    group: 'aspect',
+    type: Type.color,
+  },
+  {
+    name: 'busyBackgroundColor',
     group: 'aspect',
     type: Type.color,
   },

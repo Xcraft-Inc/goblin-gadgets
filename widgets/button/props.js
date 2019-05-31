@@ -5,11 +5,42 @@ export default [
     name: 'text',
     group: 'main',
     type: Type.nabu,
-    description: 'The text of the button',
     defaultValue: '',
   },
   {
+    name: 'children',
+    group: 'main',
+    type: Type.component,
+    defaultValue: '',
+  },
+  {
+    name: 'onDoubleClick',
+    group: 'main',
+    type: Type.function,
+    description: "Works only with kind 'container' and 'box'",
+  },
+  {
     name: 'onClick',
+    group: 'main',
+    type: Type.function,
+  },
+  {
+    name: 'onMouseDown',
+    group: 'main',
+    type: Type.function,
+  },
+  {
+    name: 'onMouseUp',
+    group: 'main',
+    type: Type.function,
+  },
+  {
+    name: 'onMouseOver',
+    group: 'main',
+    type: Type.function,
+  },
+  {
+    name: 'onMouseOut',
     group: 'main',
     type: Type.function,
   },
@@ -236,11 +267,31 @@ export default [
     type: Type.bool,
   },
   {
+    name: 'badgePosition',
+    group: 'badge',
+    type: Type.enum(['', 'top-right', 'over']),
+    defaultValue: 'over',
+  },
+  {
+    name: 'badgeShape',
+    group: 'badge',
+    type: Type.enum(['', 'circle']),
+  },
+  {
+    name: 'badgeColor',
+    group: 'badge',
+    type: Type.enum(['', 'red', 'green']),
+  },
+  {
+    name: 'badgeSize',
+    group: 'badge',
+    type: Type.percentage,
+  },
+  {
     name: 'place',
     group: 'aspect',
     type: Type.enum([
       '',
-      'single',
       '1/1',
       '1/2',
       '2/2',
@@ -279,5 +330,10 @@ export default [
     group: 'aspect',
     type: Type.bool,
     defaultValue: true,
+  },
+  {
+    name: 'toAnchor',
+    group: 'aspect',
+    type: Type.string,
   },
 ];

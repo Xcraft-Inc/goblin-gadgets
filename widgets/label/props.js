@@ -4,9 +4,13 @@ export default [
   {
     name: 'text',
     group: 'main',
-    type: Type.string,
-    description: 'The text of the button',
-    required: true,
+    type: Type.nabu,
+    defaultValue: '',
+  },
+  {
+    name: 'onClick',
+    group: 'main',
+    type: Type.function,
     defaultValue: '',
   },
   {
@@ -68,8 +72,23 @@ export default [
     defaultValue: false,
   },
   {
-    name: 'glyph',
+    name: 'maxLines',
     group: 'aspect',
+    type: Type.number,
+  },
+  {
+    name: 'skipEmptyLines',
+    group: 'aspect',
+    type: Type.bool,
+  },
+  {
+    name: 'singleLine',
+    group: 'aspect',
+    type: Type.bool,
+  },
+  {
+    name: 'glyph',
+    group: 'glyph',
     type: Type.glyph,
     description: 'Display a glyph before text.',
     defaultValue: '',
@@ -218,4 +237,7 @@ export default [
     type: Type.bool,
     defaultValue: true,
   },
+  // GetGlyph ? GetText ?
+  // Create custom function to choose a glyph or a text ?
+  // ClassName ? Possibility to get a className from a parent node ?
 ];
