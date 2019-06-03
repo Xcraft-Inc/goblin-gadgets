@@ -163,7 +163,7 @@ export default [
   {
     name: 'tooltip',
     group: 'aspect',
-    type: Types.types.nabu,
+    type: types.nabu,
     defaultValue: '',
   },
   {
@@ -247,10 +247,7 @@ export default [
   {
     name: 'wrap',
     group: 'text',
-<<<<<<< HEAD
-    type: types.enum(['', 'no', 'no-strict', 'yes', 'yes-permissive']),
-=======
-    type: Types.types.enum([
+    type: types.enum([
       '',
       'no',
       'no-end',
@@ -258,7 +255,6 @@ export default [
       'yes',
       'yes-permissive',
     ]),
->>>>>>> eb172670760ba4d8f77e61a772a0cb17925118fc
     defaultValue: '',
   },
   {
