@@ -27,17 +27,17 @@ export default [
   {
     name: 'hasButtons',
     group: 'main',
-    type: Type.bool,
+    type: Types.types.bool,
     defaultValue: 'single',
   },
   {
     name: 'height',
     group: 'main',
-    type: Type.size,
+    type: Types.types.size,
   },
   {
     name: 'headerWithoutHorizontalSeparator',
     group: 'main',
-    type: Type.bool,
+    type: Types.types.bool,
   },
 ];
