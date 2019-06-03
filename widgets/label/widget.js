@@ -1,12 +1,17 @@
 //T:2019-02-27
 
 import React from 'react';
+import Props from './props';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import Widget from 'laboratory/widget';
 import T from 'nabu/t/widget';
 import {ColorHelpers} from 'electrum-theme';
 import * as Bool from 'gadgets/helpers/bool-helpers';
 import {TranslatableDiv} from 'nabu/helpers/element-helpers';
+import {
+  makePropTypes,
+  makeDefaultProps,
+} from 'xcraft-core-utils/lib/prop-types';
 import ReactMarkdown from 'react-markdown';
 
 /******************************************************************************/
@@ -284,6 +289,11 @@ class Label extends Widget {
     }
   }
 }
+
+/******************************************************************************/
+
+Label.propTypes = makePropTypes(Props);
+Label.defaultProps = makeDefaultProps(Props);
 
 /******************************************************************************/
 export default Label;

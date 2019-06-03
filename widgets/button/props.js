@@ -302,6 +302,10 @@ export default [
       '2/4',
       '3/4',
       '4/4',
+      'single',
+      'left',
+      'middle',
+      'right',
     ]),
   },
   {

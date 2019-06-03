@@ -24,4 +24,20 @@ export default [
     type: Types.types.string,
     defaultValue: 'single',
   },
+  {
+    name: 'hasButtons',
+    group: 'main',
+    type: Type.bool,
+    defaultValue: 'single',
+  },
+  {
+    name: 'height',
+    group: 'main',
+    type: Type.size,
+  },
+  {
+    name: 'headerWithoutHorizontalSeparator',
+    group: 'main',
+    type: Type.bool,
+  },
 ];

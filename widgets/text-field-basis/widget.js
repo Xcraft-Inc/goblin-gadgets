@@ -3,17 +3,21 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 import * as Bool from 'gadgets/helpers/bool-helpers';
+import Props from './props';
 import {
   TranslatableDiv,
   TranslatableTextarea,
   TranslatableInput,
 } from 'nabu/helpers/element-helpers';
-
+import {
+  makePropTypes,
+  makeDefaultProps,
+} from 'xcraft-core-utils/lib/prop-types';
 import Label from 'gadgets/label/widget';
 
 /******************************************************************************/
 
-export default class TextFieldBasis extends Widget {
+class TextFieldBasis extends Widget {
   constructor() {
     super(...arguments);
     this.onChange = this.onChange.bind(this);
@@ -92,3 +96,9 @@ export default class TextFieldBasis extends Widget {
 }
 
 /******************************************************************************/
+
+TextFieldBasis.propTypes = makePropTypes(Props);
+TextFieldBasis.defaultProps = makeDefaultProps(Props);
+
+/******************************************************************************/
+export default TextFieldBasis;

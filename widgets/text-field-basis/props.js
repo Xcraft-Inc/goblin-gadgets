@@ -37,6 +37,7 @@ export default [
     type: Types.types.enum([
       '',
       'rounded',
+      'smooth',
       'left-rounded',
       'right-rounded',
       'left-smooth',

@@ -1,8 +1,13 @@
 //T:2019-02-27
 import React from 'react';
+import Props from './props';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import Widget from 'laboratory/widget';
 import * as Bool from 'gadgets/helpers/bool-helpers';
+import {
+  makePropTypes,
+  makeDefaultProps,
+} from 'xcraft-core-utils/lib/prop-types';
 /******************************************************************************/
 
 class Container extends Widget {
@@ -227,6 +232,11 @@ class Container extends Widget {
     }
   }
 }
+
+/******************************************************************************/
+
+Container.propTypes = makePropTypes(Props);
+Container.defaultProps = makeDefaultProps(Props);
 
 /******************************************************************************/
 export default Container;

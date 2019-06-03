@@ -94,6 +94,7 @@ export default [
       'pane-top',
       'pane-vnavigator',
       'right',
+      'root',
       'row',
       'row-pane',
       'row-pane-drag',

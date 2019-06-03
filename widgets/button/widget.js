@@ -339,8 +339,8 @@ class Button extends Widget {
 
 /******************************************************************************/
 
-//- Button.propTypes = makePropTypes(Props);
-//- Button.defaultProps = makeDefaultProps(Props);
+Button.propTypes = makePropTypes(Props);
+Button.defaultProps = makeDefaultProps(Props);
 
 /******************************************************************************/
 

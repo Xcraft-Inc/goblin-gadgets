@@ -11,7 +11,6 @@ export default [
     name: 'onClick',
     group: 'main',
     type: Types.types.function,
-    defaultValue: '',
   },
   {
     name: 'textColor',
@@ -37,7 +36,11 @@ export default [
     type: Types.types.enum([
       '',
       'big-center',
+      'button-footer',
+      'button-notification',
       'center-to-box',
+      'check-button',
+      'combo',
       'compact',
       'floating-footer',
       'floating-header',
@@ -47,13 +50,20 @@ export default [
       'large-left',
       'large-right',
       'large-single',
+      'main-tab',
+      'main-tab-right',
+      'menu-item',
       'notification',
       'one-line-height',
       'pane-header',
       'task',
+      'task-logo',
+      'task-show-footer',
       'ticket-warning',
       'title',
       'title-recurrence',
+      'view-tab',
+      'view-tab-right',
     ]),
     description: 'The kind property change the style of the button.',
     defaultValue: '',
@@ -102,14 +112,23 @@ export default [
   {
     name: 'glyphFlip',
     group: 'glyph',
+<<<<<<< Updated upstream
     type: Types.types.enum(['', 'horizontal', 'vertical']),
     defaultValue: '',
+=======
+    type: Type.enum(['horizontal', 'vertical', 'both']),
+>>>>>>> Stashed changes
   },
   {
     name: 'glyphSpin',
     group: 'glyph',
+<<<<<<< Updated upstream
     type: Types.types.enum(['', 'yes']),
     defaultValue: '',
+=======
+    type: Type.bool,
+    defaultValue: false,
+>>>>>>> Stashed changes
   },
   {
     name: 'glyphPosition',
