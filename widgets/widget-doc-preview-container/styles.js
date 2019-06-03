@@ -28,7 +28,6 @@ export default function styles(theme, props) {
 
   const previewContainer = {
     margin: '10px 0px',
-    flexGrow: '1',
     display: 'flex',
     flexDirection: 'column',
     backgroundColor,
