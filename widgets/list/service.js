@@ -154,14 +154,28 @@ class List {
 
   static *changes(quest) {
     const {r, table, options} = this._init(quest);
+    const goblinId = quest.goblin.id;
     yield r.stopOnChanges({
-      goblinId: quest.goblin.id,
+      goblinId,
     });
+
+    let changeSub = quest.goblin.getX('changeSub');
+    if (!changeSub) {
+      changeSub = quest.sub(
+        `*::${quest.getStorage('rethink').id}.${goblinId}-cursor.data`,
+        function*(err, {msg, resp}) {
+          yield resp.cmd(`${goblinName}.handle-changes`, {
+            id: goblinId,
+            change: msg.data,
+          });
+        }
+      );
+      quest.goblin.setX('changeSub', changeSub);
+    }
 
     yield r.startQuestOnChanges({
       table,
-      onChangeQuest: `${goblinName}.handle-changes`,
-      goblinId: quest.goblin.id,
+      goblinId,
       options: options,
     });
   }
