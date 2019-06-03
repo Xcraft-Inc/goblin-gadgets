@@ -6,7 +6,7 @@ import TextFieldCombo from 'goblin-gadgets/widgets/text-field-combo/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import {isShredder} from 'xcraft-core-shredder';
-import Types from 'goblin-gadgets/types/types.js';
+import {types} from 'goblin-gadgets/types/types.js';
 
 /******************************************************************************/
 
@@ -75,9 +75,26 @@ class WidgetDocPropertyControl extends Widget {
   }
 
   renderControl() {
-    const type = this.props.type.type;
-    switch (type) {
-      case 'bool':
+    const widget = this.props.type.widget;
+    if (!widget) {
+      throw new Error(
+        `Controller is not defined for type ${this.props.type.type}`
+      );
+    }
+
+    switch (widget) {
+      case 'text-field':
+      default:
+        return (
+          <TextFieldBasis
+            spacing="tiny"
+            shape="smooth"
+            value={this.props.value}
+            onChange={this.onChange}
+            grow="1"
+          />
+        );
+      case 'check-box':
         return (
           <React.Fragment>
             <Button
@@ -89,38 +106,11 @@ class WidgetDocPropertyControl extends Widget {
             <Label grow="1" />
           </React.Fragment>
         );
-      case 'enum':
-        return this.renderCombo(this.props.type.values, true);
-      case 'color':
-      case 'glyph':
-      case 'size':
-      case 'component':
-      case 'shortcut':
-      case 'angle':
-      case 'percentage':
-      case 'fontWeight':
-        return this.renderCombo(Types.typeSamples[type], false);
-      case 'function':
-      case 'shape':
-      case 'spacing':
-      case 'grow':
-      case 'fontStyle':
-      case 'cursor':
-      case 'textTransform':
-      case 'justify':
-      case 'dataTable':
-        return this.renderCombo(Types.typeSamples[type], true);
-      case 'string':
-      default:
-        return (
-          <TextFieldBasis
-            spacing="tiny"
-            shape="smooth"
-            value={this.props.value}
-            onChange={this.onChange}
-            grow="1"
-          />
-        );
+      case 'combo': {
+        const list = this.props.type.samples || this.props.type.values;
+        const readonly = this.props.type.readonly;
+        return this.renderCombo(list, readonly);
+      }
     }
   }
 
