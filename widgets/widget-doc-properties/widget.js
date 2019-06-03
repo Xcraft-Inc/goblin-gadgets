@@ -6,8 +6,19 @@ import Label from 'goblin-gadgets/widgets/label/widget';
 import TextFieldBasis from 'goblin-gadgets/widgets/text-field-basis/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import WidgetDocProperty from '../widget-doc-property/widget';
+import Types from 'goblin-gadgets/types/types.js';
 
 /******************************************************************************/
+
+function includes(sample, filter) {
+  if (typeof sample === 'string') {
+    return sample.includes(filter);
+  } else if (typeof sample === 'object' && sample.text) {
+    return sample.text.includes(filter);
+  } else {
+    return false;
+  }
+}
 
 /******************************************************************************/
 
@@ -61,7 +72,8 @@ class WidgetDocProperties extends Widget {
       ) {
         return true;
       }
-      return false;
+      const samples = Types.typeSamples[prop.type.type];
+      return samples && samples.find(sample => includes(sample, f));
     } else {
       return true;
     }

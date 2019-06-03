@@ -1,40 +1,40 @@
-import Type from 'goblin-gadgets/types/index.js';
+import Types from 'goblin-gadgets/types/types.js';
 
 export default [
   {
     name: 'active',
     group: 'aspect',
-    type: Type.bool,
+    type: Types.types.bool,
     defaultValue: 'false',
   },
   {
     name: 'disabled',
     group: 'aspect',
-    type: Type.bool,
+    type: Types.types.bool,
     defaultValue: 'false',
   },
   {
     name: 'value',
     group: 'text',
-    type: Type.string,
+    type: Types.types.string,
     defaultValue: '',
   },
   {
     name: 'readonly',
     group: 'text',
-    type: Type.bool,
+    type: Types.types.bool,
     defaultValue: 'false',
   },
   {
     name: 'tooltip',
     group: 'aspect',
-    type: Type.string,
+    type: Types.types.string,
     defaultValue: '',
   },
   {
     name: 'shape',
     group: 'aspect',
-    type: Type.enum([
+    type: Types.types.enum([
       '',
       'rounded',
       'left-rounded',
@@ -47,38 +47,38 @@ export default [
   {
     name: 'rows',
     group: 'text',
-    type: Type.enum(['', '1', '2', '3', '4', '5', '10']),
+    type: Types.types.enum(['', '1', '2', '3', '4', '5', '10']),
     defaultValue: '',
   },
   {
     name: 'width',
     group: 'layout',
-    type: Type.size,
+    type: Types.types.size,
     defaultValue: '',
   },
   {
     name: 'grow',
     group: 'layout',
-    type: Type.enum(['', '0.5', '1']),
+    type: Types.types.enum(['', '0.5', '1']),
     defaultValue: '',
   },
   {
     name: 'justify',
     group: 'text',
-    type: Type.enum(['', 'left', 'right']),
+    type: Types.types.enum(['', 'left', 'right']),
     defaultValue: '',
     description: 'Works only with text input not with textarea',
   },
   {
     name: 'show',
     group: 'aspect',
-    type: Type.bool,
+    type: Types.types.bool,
     defaultValue: 'true',
   },
   {
     name: 'visibility',
     group: 'aspect',
-    type: Type.bool,
+    type: Types.types.bool,
     defaultValue: 'true',
   },
 ];

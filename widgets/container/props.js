@@ -1,65 +1,65 @@
-import Type from 'goblin-gadgets/types/index.js';
+import Types from 'goblin-gadgets/types/types.js';
 
 export default [
   {
     name: 'children',
     group: 'main',
-    type: Type.component,
+    type: Types.types.component,
   },
   {
     name: 'onClick',
     group: 'main',
-    type: Type.function,
+    type: Types.types.function,
   },
   {
     name: 'disabled',
     group: 'aspect',
-    type: Type.bool,
+    type: Types.types.bool,
   },
   {
     name: 'show',
     group: 'aspect',
-    type: Type.bool,
+    type: Types.types.bool,
   },
   {
     name: 'selected',
     group: 'aspect',
-    type: Type.bool,
+    type: Types.types.bool,
   },
   {
     name: 'hidden',
     group: 'aspect',
-    type: Type.bool,
+    type: Types.types.bool,
   },
   {
     name: 'visibility',
     group: 'aspect',
-    type: Type.bool,
+    type: Types.types.bool,
   },
   {
     name: 'busy',
     group: 'aspect',
-    type: Type.bool,
+    type: Types.types.bool,
   },
   {
     name: 'isDragged',
     group: 'aspect',
-    type: Type.bool,
+    type: Types.types.bool,
   },
   {
     name: 'isTransparentWhenDrag',
     group: 'aspect',
-    type: Type.bool,
+    type: Types.types.bool,
   },
   {
     name: 'hasHeLeft',
     group: 'aspect',
-    type: Type.bool,
+    type: Types.types.bool,
   },
   {
     name: 'kind',
     group: 'aspect',
-    type: Type.enum([
+    type: Types.types.enum([
       '',
       'actions',
       'box',
@@ -128,12 +128,12 @@ export default [
   {
     name: 'cursor',
     group: 'aspect',
-    type: Type.cursor,
+    type: Types.types.cursor,
   },
   {
     name: 'subkind',
     group: 'aspect',
-    type: Type.enum([
+    type: Types.types.enum([
       '',
       'box',
       'box-left',
@@ -153,86 +153,86 @@ export default [
   {
     name: 'border',
     group: 'aspect',
-    type: Type.enum(['', 'top', 'right', 'bottom', 'left']),
+    type: Types.types.enum(['', 'top', 'right', 'bottom', 'left']),
   },
   {
     name: 'trianglePosition',
     group: 'aspect',
-    type: Type.enum(['', 'top', 'right', 'bottom', 'left', 'none']),
+    type: Types.types.enum(['', 'top', 'right', 'bottom', 'left', 'none']),
   },
   {
     name: 'triangleShift',
     group: 'aspect',
-    type: Type.size,
+    type: Types.types.size,
   },
   {
     name: 'width',
     group: 'Layout',
-    type: Type.size,
+    type: Types.types.size,
   },
   {
     name: 'height',
     group: 'Layout',
-    type: Type.size,
+    type: Types.types.size,
   },
   {
     name: 'minWidth',
     group: 'Layout',
-    type: Type.size,
+    type: Types.types.size,
   },
   {
     name: 'minHeight',
     group: 'Layout',
-    type: Type.size,
+    type: Types.types.size,
   },
   {
     name: 'maxWidth',
     group: 'Layout',
-    type: Type.size,
+    type: Types.types.size,
   },
   {
     name: 'maxHeight',
     group: 'Layout',
-    type: Type.size,
+    type: Types.types.size,
   },
   {
     name: 'verticalJustify',
     group: 'Layout',
-    type: Type.enum(['', 'top']),
+    type: Types.types.enum(['', 'top']),
   },
   {
     name: 'verticalSpacing',
     group: 'Layout',
-    type: Type.spacing,
+    type: Types.types.spacing,
   },
   {
     name: 'marginBottom',
     group: 'Layout',
-    type: Type.size,
+    type: Types.types.size,
   },
   {
     name: 'floatingHeight',
     group: 'Layout',
-    type: Type.size,
+    type: Types.types.size,
   },
   {
     name: 'grow',
     group: 'Layout',
-    type: Type.grow,
+    type: Types.types.grow,
   },
   {
     name: 'spacing',
     group: 'Layout',
-    type: Type.spacing,
+    type: Types.types.spacing,
   },
   {
     name: 'backgroundColor',
     group: 'aspect',
-    type: Type.color,
+    type: Types.types.color,
   },
   {
     name: 'busyBackgroundColor',
     group: 'aspect',
-    type: Type.color,
+    type: Types.types.color,
   },
 ];
