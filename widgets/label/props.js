@@ -112,23 +112,13 @@ export default [
   {
     name: 'glyphFlip',
     group: 'glyph',
-<<<<<<< Updated upstream
-    type: Types.types.enum(['', 'horizontal', 'vertical']),
-    defaultValue: '',
-=======
-    type: Type.enum(['horizontal', 'vertical', 'both']),
->>>>>>> Stashed changes
+    type: Types.types.enum(['horizontal', 'vertical', 'both']),
   },
   {
     name: 'glyphSpin',
     group: 'glyph',
-<<<<<<< Updated upstream
-    type: Types.types.enum(['', 'yes']),
-    defaultValue: '',
-=======
-    type: Type.bool,
+    type: Types.types.bool,
     defaultValue: false,
->>>>>>> Stashed changes
   },
   {
     name: 'glyphPosition',
