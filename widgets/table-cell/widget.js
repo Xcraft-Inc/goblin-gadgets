@@ -94,7 +94,9 @@ class TableCell extends Widget {
           justify={this.props.textAlign}
           spacing={this.props.spacing}
           wrap={this.props.wrap}
-        />
+        >
+          {this.props.children}
+        </Label>
       </div>
     );
   }
