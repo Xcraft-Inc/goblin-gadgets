@@ -40,8 +40,9 @@ class WidgetDocPropertyControl extends Widget {
   renderCombo(list, readonly) {
     let value = list.find(item => {
       if (isShredder(this.props.value)) {
-        const x = JSON.stringify(item.value, null, 1);
+        // For prop dataTable.
         const y = JSON.stringify(this.props.value.toJS(), null, 1);
+        const x = JSON.stringify(item.value, null, 1);
         return x === y;
       } else if (typeof item === 'object') {
         return item.value === this.props.value;
@@ -58,7 +59,7 @@ class WidgetDocPropertyControl extends Widget {
           shape="left-smooth"
           spacing="overlap"
           readonly={readonly}
-          value={value}
+          value={value || this.props.value}
           onChange={readonly ? null : this.onChange}
           grow="1"
         />
