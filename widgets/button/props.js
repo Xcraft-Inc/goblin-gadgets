@@ -261,7 +261,7 @@ export default [
   {
     name: 'badgeValue',
     group: 'badge',
-    type: types.string,
+    type: types.oneOfType([types.string, types.percentage]),
   },
   {
     name: 'badgePush',

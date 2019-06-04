@@ -30,6 +30,12 @@ const types = {
     values: values,
   }),
 
+  oneOfType: values => ({
+    type: 'oneOfType',
+    widget: 'oneOfType',
+    values: values,
+  }),
+
   component: {
     type: 'component',
     widget: 'combo',

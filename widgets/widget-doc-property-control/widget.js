@@ -6,7 +6,6 @@ import TextFieldCombo from 'goblin-gadgets/widgets/text-field-combo/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import {isShredder} from 'xcraft-core-shredder';
-import {types} from 'goblin-gadgets/types/types.js';
 
 /******************************************************************************/
 
@@ -16,11 +15,21 @@ class WidgetDocPropertyControl extends Widget {
     this.onChange = this.onChange.bind(this);
     this.onChangeNumber = this.onChangeNumber.bind(this);
     this.onCheckButtonClick = this.onCheckButtonClick.bind(this);
+    this.onChangeType = this.onChangeType.bind(this);
     this.clear = this.clear.bind(this);
+    if (this.props.type.type === 'oneOfType') {
+      this.state = {
+        type: this.props.type.values[0],
+      };
+    }
   }
 
   onChange(value) {
     this.dispatch({type: 'SET', path: this.props.path, value});
+  }
+
+  onChangeType(type) {
+    this.setState({type});
   }
 
   onChangeNumber(value) {
@@ -84,6 +93,29 @@ class WidgetDocPropertyControl extends Widget {
     }
 
     switch (widget) {
+      case 'oneOfType':
+        // eslint-disable-next-line no-case-declarations
+        const list = this.props.type.values.map(item => {
+          return {text: item.type, value: item};
+        });
+        return (
+          <React.Fragment>
+            <TextFieldCombo
+              spacing="tiny"
+              list={list}
+              defaultValue={this.state.type.type}
+              onSetText={this.onChangeType}
+              menuType="wrap"
+              menuItemWidth="200px"
+            />
+            <WidgetDocPropertyControl
+              widgetId={this.props.widgetId}
+              path={this.props.path}
+              type={this.state.type}
+              value={this.props.value}
+            />
+          </React.Fragment>
+        );
       case 'text-field':
       default:
         return (
@@ -119,12 +151,14 @@ class WidgetDocPropertyControl extends Widget {
     return (
       <Container kind="row">
         {this.renderControl()}
-        <Button
-          kind="combo"
-          glyph="solid/eraser"
-          onClick={this.clear}
-          visibility={this.props.value !== undefined}
-        />
+        {this.props.type.type !== 'oneOfType' && (
+          <Button
+            kind="combo"
+            glyph="solid/eraser"
+            onClick={this.clear}
+            visibility={this.props.value !== undefined}
+          />
+        )}
       </Container>
     );
   }
