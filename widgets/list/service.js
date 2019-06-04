@@ -162,7 +162,7 @@ class List {
     let changeSub = quest.goblin.getX('changeSub');
     if (!changeSub) {
       changeSub = quest.sub(
-        `*::${quest.getStorage('rethink').id}.${goblinId}-cursor.data`,
+        `*::${quest.getStorage('rethink').id}.${goblinId}-cursor.changed`,
         function*(err, {msg, resp}) {
           yield resp.cmd(`${goblinName}.handle-changes`, {
             id: goblinId,
