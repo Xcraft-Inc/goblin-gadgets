@@ -2,25 +2,21 @@ const types = {
   bool: {
     type: 'bool',
     widget: 'check-box',
-    checker: 'bool',
   },
 
   string: {
     type: 'string',
     widget: 'text-field',
-    checker: 'string',
   },
 
   nabu: {
     type: 'nabu',
     widget: 'text-field',
-    checker: 'nabu',
   },
 
   number: {
     type: 'number',
     widget: 'text-field',
-    checker: 'string',
   },
 
   enum: values => ({
@@ -41,7 +37,6 @@ const types = {
     widget: 'combo',
     readonly: false,
     samples: ['short-text', 'long-text', 'button', 'button-10'],
-    checker: 'component',
   },
 
   function: {
@@ -49,7 +44,6 @@ const types = {
     widget: 'combo',
     readonly: false,
     samples: ['alert', 'log'],
-    checker: 'function',
   },
 
   color: {
@@ -80,7 +74,6 @@ const types = {
       {text: '#c6f7da — light green', value: '#c6f7da'},
       {text: '#74f7a9 — green', value: '#74f7a9'},
     ],
-    checker: 'string',
   },
 
   size: {
@@ -101,7 +94,6 @@ const types = {
       '300px',
       '500px',
     ],
-    checker: 'string',
   },
 
   glyph: {
@@ -117,7 +109,6 @@ const types = {
       'solid/rocket',
       'solid/calendar',
     ],
-    checker: 'string',
   },
 
   shape: {
@@ -132,7 +123,6 @@ const types = {
       'left-smooth',
       'right-smooth',
     ],
-    checker: 'string',
   },
 
   angle: {
@@ -140,7 +130,6 @@ const types = {
     widget: 'combo',
     readonly: false,
     samples: ['', '90', '180', '270'],
-    checker: 'string',
   },
 
   percentage: {
@@ -148,7 +137,6 @@ const types = {
     widget: 'combo',
     readonly: false,
     samples: ['', '50%', '75%', '100%', '150%', '200%'],
-    checker: 'string',
   },
 
   spacing: {
@@ -156,7 +144,6 @@ const types = {
     widget: 'combo',
     readonly: true,
     samples: ['', 'overlap', 'tiny', 'large', 'double'],
-    checker: 'string',
   },
 
   shortcut: {
@@ -164,7 +151,6 @@ const types = {
     widget: 'combo',
     readonly: false,
     samples: ['', '_ctrl_+A', '_shift_+A', '_alt_+A'],
-    checker: 'string',
   },
 
   grow: {
@@ -172,7 +158,6 @@ const types = {
     widget: 'combo',
     readonly: true,
     samples: ['', '0.5', '1'],
-    checker: 'string',
   },
 
   fontStyle: {
@@ -180,7 +165,6 @@ const types = {
     widget: 'combo',
     readonly: true,
     samples: ['', 'italic', 'oblique'],
-    checker: 'string',
   },
 
   cursor: {
@@ -201,7 +185,6 @@ const types = {
       'ns-resize',
       'grab',
     ],
-    checker: 'string',
   },
 
   fontWeight: {
@@ -209,7 +192,6 @@ const types = {
     widget: 'combo',
     readonly: false,
     samples: ['', 'bold', 'bolder', 'lighter'],
-    checker: 'string',
   },
 
   textTransform: {
@@ -217,7 +199,6 @@ const types = {
     widget: 'combo',
     readonly: true,
     samples: ['', 'capitalize', 'uppercase', 'lowercase'],
-    checker: 'string',
   },
 
   justify: {
@@ -225,7 +206,6 @@ const types = {
     widget: 'combo',
     readonly: true,
     samples: ['', 'start', 'center', 'end', 'around', 'between', 'none'],
-    checker: 'string',
   },
 };
 
