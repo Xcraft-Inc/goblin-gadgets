@@ -21,11 +21,25 @@ class TextFieldBasis extends Widget {
   constructor() {
     super(...arguments);
     this.onChange = this.onChange.bind(this);
+    this.onBlur = this.onBlur.bind(this);
+    this.onFocus = this.onFocus.bind(this);
   }
 
   onChange(e) {
     if (this.props.onChange) {
       this.props.onChange(e.target.value);
+    }
+  }
+
+  onFocus(e) {
+    if (this.props.onFocus) {
+      this.props.onFocus(e.target.value);
+    }
+  }
+
+  onBlur(e) {
+    if (this.props.onBlur) {
+      this.props.onBlur(e.target.value);
     }
   }
 
@@ -69,8 +83,11 @@ class TextFieldBasis extends Widget {
             msgid={this.props.hintText}
             workitemId={this.context.desktopId || this.getNearestId()}
             className={`${fieldClass} ${inputClass}`}
-            value={this.props.value || ''}
+            value={this.props.value}
+            defaultValue={this.props.defaultValue}
             onChange={this.onChange}
+            onFocus={this.onFocus}
+            onBlur={this.onBlur}
           />
         ) : (
           <TranslatableInput
@@ -78,8 +95,11 @@ class TextFieldBasis extends Widget {
             workitemId={this.context.desktopId || this.getNearestId()}
             className={`${fieldClass} ${inputClass}`}
             type="text"
-            value={this.props.value || ''}
+            value={this.props.value}
+            defaultValue={this.props.defaultValue}
             onChange={this.onChange}
+            onFocus={this.onFocus}
+            onBlur={this.onBlur}
           />
         )}
         {this.renderFocusForeground()}
