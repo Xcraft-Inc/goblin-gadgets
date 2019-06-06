@@ -17,7 +17,7 @@ export default [
     name: 'onDoubleClick',
     group: 'main',
     type: types.function,
-    description: "Works only with kind 'container' and 'box'",
+    description: "Works only with kind 'container' and 'box'.",
   },
   {
     name: 'onClick',
@@ -120,14 +120,12 @@ export default [
       'view-tab-right',
       'warning',
     ]),
-    description: 'The kind property change the style of the button.',
     defaultValue: '',
   },
   {
     name: 'glyph',
     group: 'glyph',
     type: types.glyph,
-    description: 'Display a glyph before text.',
   },
   {
     name: 'active',

@@ -244,7 +244,7 @@ export default [
     name: 'data',
     group: 'main',
     type: types.dataTable,
-    description: 'The data of table',
+    description: 'The data of table.',
     required: true,
   },
   {

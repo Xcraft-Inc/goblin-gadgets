@@ -114,14 +114,12 @@ export default [
       'view-tab-right',
       'warning',
     ]),
-    description: 'The kind property change the style of the button.',
     defaultValue: '',
   },
   {
     name: 'shape',
     group: 'aspect',
     type: types.shape,
-    description: 'Change shape of the button.',
     defaultValue: '',
   },
   {
@@ -149,7 +147,6 @@ export default [
     name: 'glyph',
     group: 'glyph',
     type: types.glyph,
-    description: 'Display a glyph before text.',
     defaultValue: '',
   },
   {

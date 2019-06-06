@@ -68,7 +68,7 @@ export default [
     group: 'text',
     type: types.enum(['', 'left', 'right']),
     defaultValue: '',
-    description: 'Works only with text input not with textarea',
+    description: "Works only with text multiline (use property 'rows').",
   },
   {
     name: 'show',
