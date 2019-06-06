@@ -6,6 +6,9 @@ import Label from 'goblin-gadgets/widgets/label/widget';
 import CheckButton from 'goblin-gadgets/widgets/check-button/widget';
 import WidgetDocPreviewContainer from '../widget-doc-preview-container/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
+import TextFieldBasis from '../text-field-basis/widget';
+import wrapRawInput from 'goblin-laboratory/widgets/input-wrapper/widget.js';
+import parseCode from './parse-code';
 
 /******************************************************************************/
 
@@ -82,9 +85,22 @@ const SettingsList = Widget.connectWidget((state, props) => {
 
 /******************************************************************************/
 
+const TextField = wrapRawInput(TextFieldBasis);
+
 class WidgetDocPreview extends Widget {
   constructor() {
     super(...arguments);
+    this.onChange = this.onChange.bind(this);
+  }
+
+  onChange(value) {
+    const props = parseCode(value);
+
+    this.dispatch({
+      type: 'SET',
+      path: 'props.' + this.widgetInfo.name,
+      value: props,
+    });
   }
 
   renderCode() {
@@ -101,8 +117,10 @@ class WidgetDocPreview extends Widget {
         );
         if (propDef.type.samplesData) {
           value = JSON.stringify(propDef.type.samplesData[value]);
-        } else {
+        } else if (typeof value === 'string') {
           value = `"${value}"`;
+        } else {
+          value = `{${JSON.stringify(value)}}`;
         }
         value = value ? value.replace(/\n/gi, '\\n') : '';
         return ` ${propName}=${value}`;
@@ -113,7 +131,7 @@ class WidgetDocPreview extends Widget {
     return (
       <div className={this.styles.classNames.container}>
         <pre className={this.styles.classNames.code}>{code1}</pre>
-        <pre className={this.styles.classNames.code}>{code2}</pre>
+        <TextField rows={'3'} onChange={this.onChange} value={code2} />
       </div>
     );
   }
