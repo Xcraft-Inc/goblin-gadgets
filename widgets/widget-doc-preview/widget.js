@@ -95,7 +95,17 @@ class WidgetDocPreview extends Widget {
     let code2 = '';
     code2 += `<${widgetName}`;
     code2 += this.props.props
-      .map((value, name) => ` ${name}="${value}"`)
+      .map((value, propName) => {
+        const propDef = this.widgetInfo.props.find(
+          prop => prop.name === propName
+        );
+        if (propDef.type.samplesData) {
+          value = JSON.stringify(propDef.type.samplesData[value]);
+        } else {
+          value = `"${value}"`;
+        }
+        return ` ${propName}=${value}`;
+      })
       .join('');
     code2 += '/>';
 
