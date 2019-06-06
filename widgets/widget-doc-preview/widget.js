@@ -104,6 +104,7 @@ class WidgetDocPreview extends Widget {
         } else {
           value = `"${value}"`;
         }
+        value = value ? value.replace(/\n/gi, '\\n') : '';
         return ` ${propName}=${value}`;
       })
       .join('');
