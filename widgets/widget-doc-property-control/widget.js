@@ -102,6 +102,7 @@ class WidgetDocPropertyControl extends Widget {
           <React.Fragment>
             <TextFieldCombo
               spacing="tiny"
+              comboGlyph="solid/ellipsis-v"
               list={list}
               defaultValue={this.state.type.type}
               onSetText={this.onChangeType}

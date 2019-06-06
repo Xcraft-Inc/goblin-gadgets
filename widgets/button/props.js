@@ -6,6 +6,7 @@ export default [
     group: 'main',
     type: types.nabu,
     defaultValue: '',
+    defaultValueForDoc: "D'accord",
   },
   {
     name: 'children',
@@ -261,7 +262,7 @@ export default [
   {
     name: 'badgeValue',
     group: 'badge',
-    type: types.oneOfType([types.string, types.percentage]),
+    type: types.oneOfType([types.number, types.string]),
   },
   {
     name: 'badgePush',

@@ -19,6 +19,7 @@ export default function styles() {
 
   const control = {
     flexGrow: '1',
+    flexBasis: '0',
     marginRight: '10px',
   };
 

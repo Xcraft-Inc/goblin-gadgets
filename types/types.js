@@ -26,7 +26,18 @@ const types = {
 
   number: {
     type: 'number',
-    widget: 'text-field',
+    widget: 'combo',
+    readonly: false,
+    samples: [
+      {text: '', value: null},
+      {text: '0', value: 0},
+      {text: '1', value: 1},
+      {text: '2', value: 2},
+      {text: '3', value: 3},
+      {text: '10', value: 10},
+      {text: '123', value: 123},
+      {text: "9'999", value: 9999},
+    ],
   },
 
   enum: values => ({
