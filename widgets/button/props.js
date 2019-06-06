@@ -6,7 +6,7 @@ export default [
     group: 'main',
     type: types.nabu,
     defaultValue: '',
-    defaultValueForDoc: "D'accord",
+    initialValueForDoc: "D'accord",
   },
   {
     name: 'children',

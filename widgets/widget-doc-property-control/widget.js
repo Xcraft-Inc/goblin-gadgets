@@ -46,7 +46,7 @@ class WidgetDocPropertyControl extends Widget {
 
   /******************************************************************************/
 
-  renderCombo(list, readonly) {
+  renderCombo(list, readonly, multiline) {
     let value = list.find(item => {
       if (isShredder(this.props.value)) {
         // For prop dataTable.
@@ -68,6 +68,7 @@ class WidgetDocPropertyControl extends Widget {
           shape="left-smooth"
           spacing="overlap"
           readonly={readonly}
+          rows={multiline ? '5' : null}
           value={value || this.props.value}
           onChange={readonly ? null : this.onChange}
           grow="1"
@@ -143,14 +144,15 @@ class WidgetDocPropertyControl extends Widget {
       case 'combo': {
         const list = this.props.type.samples || this.props.type.values;
         const readonly = this.props.type.readonly;
-        return this.renderCombo(list, readonly);
+        const multiline = this.props.type.multiline;
+        return this.renderCombo(list, readonly, multiline);
       }
     }
   }
 
   render() {
     return (
-      <Container kind="row">
+      <div className={this.styles.classNames.control}>
         {this.renderControl()}
         {this.props.type.type !== 'oneOfType' && (
           <Button
@@ -160,7 +162,7 @@ class WidgetDocPropertyControl extends Widget {
             visibility={this.props.value !== undefined}
           />
         )}
-      </Container>
+      </div>
     );
   }
 }

@@ -9,7 +9,7 @@ export default function styles() {
   const propertyRowContainer = {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'baseline',
     padding: '5px 0px',
   };
 

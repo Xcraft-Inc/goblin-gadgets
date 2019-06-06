@@ -14,13 +14,29 @@ const types = {
   nabu: {
     type: 'nabu',
     widget: 'combo',
+    multiline: true,
     readonly: false,
     samples: [
       '',
       "D'accord",
       'Annuler',
-      'Ceci est un petit texte',
-      "Un matin, au coucher du soleil, un jeune vieillard assis debout sur un mur de pierre en bois lisait son journal, plié en quatre dans sa poche, à la lueur d'une bougie éteinte. Soudain, il entendit un bruit silencieux. Il monta les escaliers de la cave pour descendre au grenier et vit, par le trou de la serrure bouché, un nègre blanc qui déterrait les morts pour les manger vivants, et sa femme qui pleurait en riant la mort de ses quatre fils, morts noyés dans une piscine vide, le premier Jean, le deuxième Paul, le troisième Pierre et le quatrième André qui n'était pas encore né.",
+      {text: 'Petit texte', value: 'Ceci est un petit texte'},
+      {text: '3 courtes lignes', value: 'Pierre\nJacques\nJean'},
+      {
+        text: '7 courtes lignes',
+        value:
+          '1: Lundi\n2: Mardi\n3: Mercredi\n4: Jeudi\n5: Vendredi\n6: Samedi\n7: Dimanche',
+      },
+      {
+        text: '3 lignes courtes et longues',
+        value:
+          "1) Bref\n2) Un jeune vieillard, assis debout sur un mur de pierre en bois, lisait un journal plié en quatre dans sa poche, à la lueur d'une bougie éteinte.\n3) Certes",
+      },
+      {
+        text: 'Très long texte',
+        value:
+          "Un matin, au coucher du soleil, un jeune vieillard assis debout sur un mur de pierre en bois, lisait un journal plié en quatre dans sa poche, à la lueur d'une bougie éteinte. Soudain, il entendit un bruit silencieux. Il monta les escaliers de la cave pour descendre au grenier et vit, par le trou de la serrure bouché, un nègre blanc qui déterrait les morts pour les manger vivants, et sa femme qui pleurait en riant la mort de ses quatre fils, morts noyés dans une piscine vide, le premier Jean, le deuxième Paul, le troisième Pierre et le quatrième André qui n'était pas encore né.",
+      },
     ],
   },
 
