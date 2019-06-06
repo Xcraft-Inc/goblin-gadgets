@@ -209,6 +209,9 @@ class WidgetDocPreview extends Widget {
       } else if (propDef.type.type === 'function') {
         props[propName] = this.getFunction(props[propName]);
       }
+      if (propDef.type.samplesData) {
+        props[propName] = propDef.type.samplesData[props[propName]];
+      }
     }
     return <this.widgetInfo.widget key={key} {...props} />;
   }
