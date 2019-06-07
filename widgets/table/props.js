@@ -1,10 +1,13 @@
 import {types, addType} from 'goblin-gadgets/types/types.js';
 import PropTypes from 'prop-types';
+import Shredder from 'xcraft-core-shredder';
 
 const samples = [
   {text: 'Petite table', value: 'T1'},
   {text: 'Moyenne table', value: 'T2'},
   {text: 'Grande table', value: 'T3'},
+  {text: 'Table avec filtre et tri', value: 'T4'},
+  {text: 'Table à plusieurs niveaux', value: 'T5'},
 ];
 
 const samplesData = {
@@ -228,6 +231,207 @@ const samplesData = {
       },
     ],
   },
+  T4: {
+    header: [
+      {
+        name: 'column1',
+        description: 'Nom',
+        width: '200px',
+        textAlign: 'left',
+      },
+      {
+        name: 'column2',
+        description: 'Largeur',
+        width: '100px',
+        textAlign: 'right',
+      },
+      {
+        name: 'column3',
+        description: 'Longueur',
+        width: '100px',
+        textAlign: 'right',
+      },
+      {
+        name: 'column4',
+        description: 'Hauteur',
+        width: '100px',
+        textAlign: 'right',
+      },
+    ],
+    filtering: 'enable',
+    sorting: 'enable',
+    defaultSortingColumns: ['column1'],
+    rows: [
+      {
+        column1: 'Table basse',
+        column2: '100',
+        column3: '120',
+        column4: '30',
+      },
+      {
+        column1: 'Table à manger',
+        column2: '200',
+        column3: '330',
+        column4: '70',
+      },
+      {
+        column1: 'Lit simple',
+        column2: '90',
+        column3: '210',
+        column4: '50',
+      },
+      {
+        column1: 'Lit double',
+        column2: '180',
+        column3: '210',
+        column4: '50',
+      },
+      {
+        column1: 'Armoire simple',
+        column2: '100',
+        column3: '80',
+        column4: '200',
+      },
+      {
+        column1: 'Armoire double',
+        column2: '200',
+        column3: '80',
+        column4: '200',
+      },
+      {
+        column1: 'Armoire triple',
+        column2: '280',
+        column3: '80',
+        column4: '200',
+      },
+      {
+        column1: 'Chaise',
+        column2: '60',
+        column3: '60',
+        column4: '110',
+      },
+    ],
+  },
+  T5: {
+    header: [
+      {
+        name: 'column1',
+        description: 'Groupe',
+        width: '200px',
+        textAlign: 'left',
+        indent: 'space',
+      },
+      {
+        name: 'column2',
+        description: 'Description',
+        grow: '1',
+        textAlign: 'left',
+        indent: 'space',
+      },
+    ],
+    rows: [
+      {
+        column1: 'Jours',
+        column2: '',
+        horizontalSeparator: 'both',
+        rows: [
+          {
+            column1: 'Lundi',
+            column2: '8h00 – 18h30',
+          },
+          {
+            column1: 'Mardi',
+            column2: '8h00 – 18h30',
+          },
+          {
+            column1: 'Mercredi',
+            column2: '8h00 – 18h30',
+          },
+          {
+            column1: 'Jeudi',
+            column2: '8h00 – 18h30',
+          },
+          {
+            column1: 'Vendredi',
+            column2: '8h00 – 18h30',
+          },
+          {
+            column1: 'Samedi',
+            column2: '',
+            rows: [
+              {
+                column1: 'Matin',
+                column2: '8h00 – 12h00',
+              },
+              {
+                column1: 'Après-midi',
+                column2: '13h30 – 17h00',
+              },
+            ],
+          },
+          {
+            column1: 'Dimanche',
+            column2: 'Fermé',
+          },
+        ],
+      },
+      {
+        column1: 'Mois',
+        column2: '',
+        horizontalSeparator: 'both',
+        rows: [
+          {
+            column1: 'Janvier',
+            column2: '',
+          },
+          {
+            column1: 'Février',
+            column2: 'Fermeture annuelle',
+          },
+          {
+            column1: 'Mars',
+            column2: '',
+          },
+          {
+            column1: 'Avril',
+            column2: '',
+          },
+          {
+            column1: 'Mai',
+            column2: '',
+          },
+          {
+            column1: 'Juin',
+            column2: '',
+          },
+          {
+            column1: 'Juillet',
+            column2: '',
+          },
+          {
+            column1: 'Août',
+            column2: '',
+          },
+          {
+            column1: 'Septembre',
+            column2: '',
+          },
+          {
+            column1: 'Octobre',
+            column2: '',
+          },
+          {
+            column1: 'Novembre',
+            column2: '',
+          },
+          {
+            column1: 'Décembre',
+            column2: '',
+          },
+        ],
+      },
+    ],
+  },
 };
 
 addType('dataTable', {
@@ -248,35 +452,58 @@ export default [
     required: true,
   },
   {
-    name: 'grow',
-    group: 'main',
-    type: types.grow,
-  },
-  {
-    name: 'frame',
-    group: 'main',
-    type: types.bool,
-  },
-  {
     name: 'selectionMode',
     group: 'main',
-    type: types.string,
+    type: types.enum(['single', 'multi']),
     defaultValue: 'single',
+  },
+  {
+    name: 'filter',
+    group: 'main',
+    type: types.string,
+  },
+  {
+    name: 'sortingColumns',
+    group: 'main',
+    type: types.enum([
+      {text: 'Column 1', value: new Shredder(['column1'])},
+      {text: 'Column 2, 1', value: new Shredder(['column2', 'column1'])},
+      {text: 'Column 3, 1', value: new Shredder(['column3', 'column1'])},
+      {text: 'Column 4, 1', value: new Shredder(['column4', 'column1'])},
+    ]),
+    description: "Only for data with sorting: 'enable'.",
+  },
+
+  {
+    name: 'frame',
+    group: 'aspect',
+    type: types.bool,
   },
   {
     name: 'hasButtons',
-    group: 'main',
+    group: 'aspect',
     type: types.bool,
-    defaultValue: 'single',
-  },
-  {
-    name: 'height',
-    group: 'main',
-    type: types.size,
   },
   {
     name: 'headerWithoutHorizontalSeparator',
-    group: 'main',
+    group: 'aspect',
     type: types.bool,
+  },
+  {
+    name: 'fontSizeStrategy',
+    group: 'aspect',
+    type: types.enum(['', 'decrease']),
+    description: 'Only for multi-level tables.',
+  },
+
+  {
+    name: 'grow',
+    group: 'layout',
+    type: types.grow,
+  },
+  {
+    name: 'height',
+    group: 'layout',
+    type: types.size,
   },
 ];
