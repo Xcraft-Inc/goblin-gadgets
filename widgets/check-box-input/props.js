@@ -70,6 +70,16 @@ export default [
     type: types.percentage,
   },
   {
+    name: 'width',
+    group: 'layout',
+    type: types.size,
+  },
+  {
+    name: 'height',
+    group: 'layout',
+    type: types.size,
+  },
+  {
     name: 'grow',
     group: 'layout',
     type: types.grow,
