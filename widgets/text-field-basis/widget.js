@@ -47,29 +47,18 @@ class TextFieldBasis extends Widget {
     if (Bool.isTrue(this.props.embeddedFocus)) {
       return null;
     } else {
-      const focusClass = this.styles.classNames.focus;
-      return <div className={`toto ${focusClass}`} />;
+      return <div className={`toto ${this.styles.classNames.focus}`} />;
     }
   }
 
   renderInput() {
-    const boxClass = Bool.isTrue(this.props.required)
-      ? this.styles.classNames.boxRequired
-      : this.styles.classNames.box;
-
     const type = this.props.rows ? 'textarea' : 'text';
-    const fieldClass =
-      type === 'textarea'
-        ? this.styles.classNames.textarea + ' mousetrap'
-        : this.styles.classNames.field + ' mousetrap';
-
-    const inputClass = this.styles.classNames.input;
 
     return (
       <TranslatableDiv
         msgid={this.props.tooltip}
         workitemId={this.context.desktopId || this.getNearestId()}
-        className={boxClass}
+        className={this.styles.classNames.box}
       >
         {this.props.glyph ? (
           <Label
@@ -82,7 +71,9 @@ class TextFieldBasis extends Widget {
           <TranslatableTextarea
             msgid={this.props.hintText}
             workitemId={this.context.desktopId || this.getNearestId()}
-            className={`${fieldClass} ${inputClass}`}
+            className={`${this.styles.classNames.textarea} mousetrap ${
+              this.styles.classNames.input
+            }`}
             value={this.props.value}
             defaultValue={this.props.defaultValue}
             onChange={this.onChange}
@@ -93,7 +84,9 @@ class TextFieldBasis extends Widget {
           <TranslatableInput
             msgid={this.props.hintText}
             workitemId={this.context.desktopId || this.getNearestId()}
-            className={`${fieldClass} ${inputClass}`}
+            className={`${this.styles.classNames.field} mousetrap ${
+              this.styles.classNames.input
+            }`}
             type="text"
             value={this.props.value}
             defaultValue={this.props.defaultValue}

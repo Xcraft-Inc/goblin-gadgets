@@ -12,6 +12,7 @@ export const propNames = [
   'disabled',
   'active',
   'readonly',
+  'required',
   'justify',
   'border',
 ];
@@ -26,6 +27,7 @@ export default function styles(theme, props) {
     disabled,
     active,
     readonly,
+    required,
     justify,
     border,
   } = props;
@@ -126,14 +128,14 @@ export default function styles(theme, props) {
     opacity: opacity,
   };
 
-  const boxRequired = Object.assign({}, box); // clone
   if (
+    Bool.isTrue(required) &&
     !Bool.isTrue(disabled) &&
     !Bool.isTrue(active) &&
     !Bool.isTrue(readonly)
   ) {
     // Change backgroundColor if required text-field is not empty.
-    boxRequired.backgroundColor = theme.palette.textFieldRequiredBackground;
+    box.backgroundColor = theme.palette.textFieldRequiredBackground;
   }
 
   const input = {
@@ -196,7 +198,6 @@ export default function styles(theme, props) {
 
   return {
     box,
-    boxRequired,
     focus,
     field,
     textarea,

@@ -8,6 +8,17 @@ export default [
     defaultValue: 'false',
   },
   {
+    name: 'required',
+    group: 'aspect',
+    type: types.bool,
+  },
+  {
+    name: 'disabled',
+    group: 'aspect',
+    type: types.bool,
+    defaultValue: 'false',
+  },
+  {
     name: 'onChange',
     group: 'event',
     type: types.function,
@@ -21,12 +32,6 @@ export default [
     name: 'onBlur',
     group: 'event',
     type: types.function,
-  },
-  {
-    name: 'disabled',
-    group: 'aspect',
-    type: types.bool,
-    defaultValue: 'false',
   },
   {
     name: 'value',
