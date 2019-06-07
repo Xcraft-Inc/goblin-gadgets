@@ -9,11 +9,12 @@ export default function styles() {
   const propertyRowContainer = {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'baseline',
+    alignItems: 'flex-start',
     padding: '5px 0px',
   };
 
   const name = {
+    marginTop: '6px',
     width: '180px',
   };
 
@@ -24,6 +25,7 @@ export default function styles() {
   };
 
   const type = {
+    marginTop: '8px',
     width: '80px',
     fontSize: '80%',
     fontWeight: 'lighter',
@@ -31,18 +33,21 @@ export default function styles() {
   };
 
   const defaultValue = {
+    marginTop: '8px',
     width: '60px',
     fontSize: '80%',
     color: 'green',
   };
 
   const required = {
+    marginTop: '8px',
     width: '60px',
     fontSize: '80%',
     color: 'red',
   };
 
   const optional = {
+    marginTop: '8px',
     width: '60px',
     fontSize: '80%',
     fontStyle: 'italic',
