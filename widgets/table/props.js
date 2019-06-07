@@ -244,18 +244,21 @@ const samplesData = {
         description: 'Largeur',
         width: '100px',
         textAlign: 'right',
+        type: 'price',
       },
       {
         name: 'column3',
         description: 'Longueur',
         width: '100px',
         textAlign: 'right',
+        type: 'price',
       },
       {
         name: 'column4',
         description: 'Hauteur',
         width: '100px',
         textAlign: 'right',
+        type: 'price',
       },
     ],
     filtering: 'enable',
@@ -434,6 +437,8 @@ const samplesData = {
   },
 };
 
+/******************************************************************************/
+
 addType('dataTable', {
   type: 'dataTable',
   widget: 'combo',
@@ -442,6 +447,27 @@ addType('dataTable', {
   samplesData: samplesData,
   propType: PropTypes.node,
 });
+
+addType('sortingColumns', {
+  type: 'sortingColumns',
+  widget: 'combo',
+  readonly: true,
+  samples: [
+    {text: 'Column 1', value: 'S1'},
+    {text: 'Column 2, 1', value: 'S2'},
+    {text: 'Column 3, 1', value: 'S3'},
+    {text: 'Column 4, 1', value: 'S4'},
+  ],
+  samplesData: {
+    S1: new Shredder(['column1']),
+    S2: new Shredder(['column2', 'column1']),
+    S3: new Shredder(['column3', 'column1']),
+    S4: new Shredder(['column4', 'column1']),
+  },
+  propType: PropTypes.node,
+});
+
+/******************************************************************************/
 
 export default [
   {
@@ -465,12 +491,7 @@ export default [
   {
     name: 'sortingColumns',
     group: 'main',
-    type: types.enum([
-      {text: 'Column 1', value: new Shredder(['column1'])},
-      {text: 'Column 2, 1', value: new Shredder(['column2', 'column1'])},
-      {text: 'Column 3, 1', value: new Shredder(['column3', 'column1'])},
-      {text: 'Column 4, 1', value: new Shredder(['column4', 'column1'])},
-    ]),
+    type: types.sortingColumns,
     description: "Only for data with sorting: 'enable'.",
   },
 
