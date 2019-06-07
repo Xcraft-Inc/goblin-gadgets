@@ -32,6 +32,9 @@ class CheckBoxInput extends Widget {
     if (this.props.kind === 'switch') {
       kind = 'check-button';
       glyph = checked ? 'light/toggle-on' : 'light/toggle-off'; // [ o] [x ]
+    } else if (this.props.kind === 'simple') {
+      kind = null;
+      glyph = checked ? 'solid/check' : null;
     } else if (this.props.kind === 'radio') {
       kind = 'check-button';
       glyph = checked ? 'regular/dot-circle' : 'regular/circle'; // o

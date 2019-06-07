@@ -26,7 +26,14 @@ export default [
   {
     name: 'kind',
     group: 'aspect',
-    type: types.enum(['', 'active', 'check-button', 'radio', 'switch']),
+    type: types.enum([
+      '',
+      'simple',
+      'active',
+      'check-button',
+      'radio',
+      'switch',
+    ]),
     defaultValue: 'check-button',
   },
   {

@@ -128,11 +128,12 @@ class WidgetDocPropertyControl extends Widget {
         return (
           <React.Fragment>
             <CheckBoxInput
+              kind="simple"
+              width="32px"
               checked={this.props.value}
               onChange={this.onChange}
-              glyphSize={'150%'}
-              grow={'1'}
             />
+            <Label grow="1" />
           </React.Fragment>
         );
       case 'combo': {
