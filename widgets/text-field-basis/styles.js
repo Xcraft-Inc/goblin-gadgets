@@ -104,7 +104,7 @@ export default function styles(theme, props) {
     flexBasis = '0%';
   }
 
-  const boxStyle = {
+  const box = {
     width: width,
     display: 'flex',
     flexDirection: 'row',
@@ -126,18 +126,17 @@ export default function styles(theme, props) {
     opacity: opacity,
   };
 
-  const boxRequiredStyle = Object.assign({}, boxStyle); // clone
+  const boxRequired = Object.assign({}, box); // clone
   if (
     !Bool.isTrue(disabled) &&
     !Bool.isTrue(active) &&
     !Bool.isTrue(readonly)
   ) {
     // Change backgroundColor if required text-field is not empty.
-    boxRequiredStyle.backgroundColor =
-      theme.palette.textFieldRequiredBackground;
+    boxRequired.backgroundColor = theme.palette.textFieldRequiredBackground;
   }
 
-  const inputStyle = {
+  const input = {
     ':focus + .toto': {
       borderRadius: borderRadius,
       boxShadow: theme.shapes.focusedShadow + theme.palette.focused,
@@ -146,7 +145,7 @@ export default function styles(theme, props) {
     },
   };
 
-  const focusStyle = {
+  const focus = {
     position: 'absolute',
     top: '0px',
     left: '0px',
@@ -156,7 +155,7 @@ export default function styles(theme, props) {
     pointerEvents: 'none',
   };
 
-  const fieldStyle = {
+  const field = {
     width: '100%',
     flexGrow: 1,
     height: theme.shapes.lineHeight,
@@ -174,7 +173,7 @@ export default function styles(theme, props) {
     pointerEvents: 'all',
   };
 
-  const textareaStyle = {
+  const textarea = {
     width: '100%',
     flexGrow: 1,
     fontSize: '100%',
@@ -191,17 +190,17 @@ export default function styles(theme, props) {
     fontFamily: 'sans-serif',
   };
 
-  inputStyle['::placeholder'] = {
+  input['::placeholder'] = {
     color: theme.palette.hintTextColor,
   };
 
   return {
-    box: boxStyle,
-    boxRequired: boxRequiredStyle,
-    focus: focusStyle,
-    field: fieldStyle,
-    textarea: textareaStyle,
-    input: inputStyle,
+    box,
+    boxRequired,
+    focus,
+    field,
+    textarea,
+    input,
   };
 }
 
