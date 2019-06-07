@@ -8,6 +8,21 @@ export default [
     defaultValue: 'false',
   },
   {
+    name: 'onChange',
+    group: 'event',
+    type: types.function,
+  },
+  {
+    name: 'onFocus',
+    group: 'event',
+    type: types.function,
+  },
+  {
+    name: 'onBlur',
+    group: 'event',
+    type: types.function,
+  },
+  {
     name: 'disabled',
     group: 'aspect',
     type: types.bool,
@@ -34,15 +49,7 @@ export default [
   {
     name: 'shape',
     group: 'aspect',
-    type: types.enum([
-      '',
-      'rounded',
-      'smooth',
-      'left-rounded',
-      'right-rounded',
-      'left-smooth',
-      'right-smooth',
-    ]),
+    type: types.shape,
     defaultValue: '',
   },
   {
@@ -60,13 +67,13 @@ export default [
   {
     name: 'grow',
     group: 'layout',
-    type: types.enum(['', '0.5', '1']),
+    type: types.grow,
     defaultValue: '',
   },
   {
     name: 'justify',
     group: 'text',
-    type: types.enum(['', 'left', 'right']),
+    type: types.justify,
     defaultValue: '',
     description: "Works only with text multiline (use property 'rows').",
   },

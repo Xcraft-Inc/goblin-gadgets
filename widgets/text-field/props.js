@@ -9,27 +9,27 @@ export default [
   {
     name: 'onChange',
     group: 'event',
-    type: types.func,
+    type: types.function,
   },
   {
     name: 'onFocus',
     group: 'event',
-    type: types.func,
+    type: types.function,
   },
   {
     name: 'onBlur',
     group: 'event',
-    type: types.func,
+    type: types.function,
   },
   {
     name: 'onMouseUp',
     group: 'event',
-    type: types.func,
+    type: types.function,
   },
   {
     name: 'onDebouncedChange',
     group: 'event',
-    type: types.func,
+    type: types.function,
   },
   {
     name: 'selectAllOnFocus',
@@ -60,6 +60,12 @@ export default [
     defaultValue: '',
   },
   {
+    name: 'hintText',
+    group: 'text',
+    type: types.string,
+    defaultValue: '',
+  },
+  {
     name: 'tooltip',
     group: 'aspect',
     type: types.string,
@@ -68,21 +74,18 @@ export default [
   {
     name: 'shape',
     group: 'aspect',
-    type: types.enum([
-      '',
-      'rounded',
-      'smooth',
-      'left-rounded',
-      'right-rounded',
-      'left-smooth',
-      'right-smooth',
-    ]),
+    type: types.shape,
     defaultValue: '',
   },
   {
     name: 'autocomplete',
     group: 'text',
     type: types.string,
+  },
+  {
+    name: 'maxLength',
+    group: 'text',
+    type: types.number,
   },
   {
     name: 'rows',
@@ -93,13 +96,13 @@ export default [
   {
     name: 'grow',
     group: 'layout',
-    type: types.enum(['', '0.5', '1']),
+    type: types.grow,
     defaultValue: '',
   },
   {
     name: 'justify',
     group: 'text',
-    type: types.enum(['', 'left', 'right']),
+    type: types.justify,
     defaultValue: '',
     description: 'Works only with text input not with textarea',
   },
