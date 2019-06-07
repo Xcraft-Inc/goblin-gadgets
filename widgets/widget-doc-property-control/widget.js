@@ -1,11 +1,11 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
-import Container from 'goblin-gadgets/widgets/container/widget';
 import TextFieldBasis from 'goblin-gadgets/widgets/text-field-basis/widget';
 import TextFieldCombo from 'goblin-gadgets/widgets/text-field-combo/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import {isShredder} from 'xcraft-core-shredder';
+import CheckBoxInput from 'goblin-gadgets/widgets/check-box-input/widget';
 
 /******************************************************************************/
 
@@ -14,7 +14,6 @@ class WidgetDocPropertyControl extends Widget {
     super(...arguments);
     this.onChange = this.onChange.bind(this);
     this.onChangeNumber = this.onChangeNumber.bind(this);
-    this.onCheckButtonClick = this.onCheckButtonClick.bind(this);
     this.onChangeType = this.onChangeType.bind(this);
     this.clear = this.clear.bind(this);
     if (this.props.type.type === 'oneOfType') {
@@ -34,10 +33,6 @@ class WidgetDocPropertyControl extends Widget {
 
   onChangeNumber(value) {
     this.onChange(Number(value));
-  }
-
-  onCheckButtonClick() {
-    this.onChange(!this.props.value);
   }
 
   clear() {
@@ -132,13 +127,12 @@ class WidgetDocPropertyControl extends Widget {
       case 'check-box':
         return (
           <React.Fragment>
-            <Button
-              width="32px"
-              focusable="true"
-              glyph={this.props.value ? 'solid/check' : null}
-              onClick={this.onCheckButtonClick}
+            <CheckBoxInput
+              checked={this.props.value}
+              onChange={this.onChange}
+              glyphSize={'150%'}
+              grow={'1'}
             />
-            <Label grow="1" />
           </React.Fragment>
         );
       case 'combo': {
