@@ -1,6 +1,7 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 import Container from 'goblin-gadgets/widgets/container/widget';
+import ThemeContext from 'laboratory/theme-context/widget';
 
 /******************************************************************************/
 
@@ -9,36 +10,48 @@ class WidgetDocPreviewContainer extends Widget {
     super(...arguments);
   }
 
-  render() {
-    const layout = this.props.layout.split('-');
-
-    if (layout[0] === '') {
+  renderThemeContext(theme) {
+    if (theme !== 'none') {
       return (
-        <div className={this.styles.classNames.previewContainer}>
-          <div>{this.props.children}</div>
-        </div>
-      );
-    } else if (layout[0] !== '' && layout[1] === 'grow') {
-      return (
-        <div className={this.styles.classNames.previewContainer}>
-          <Container kind={layout[0]} grow={'1'}>
-            {this.props.children}
-          </Container>
-        </div>
-      );
-    } else {
-      return (
-        <div className={this.styles.classNames.previewContainer}>
-          <Container kind={layout[0]}>{this.props.children}</Container>
-        </div>
+        <ThemeContext labId={this.context.labId} frameThemeContext={theme}>
+          {this.renderContainer()}
+        </ThemeContext>
       );
     }
+    return this.renderContainer();
+  }
+
+  renderContainer() {
+    const layout = this.props.layout.split('-');
+    let containerProps = {};
+    let ContainerComponent = 'div';
+    if (layout[0] !== 'div') {
+      containerProps.kind = layout[0];
+      ContainerComponent = Container;
+      if (layout[1] === 'grow') {
+        containerProps.grow = '1';
+      }
+    }
+    return (
+      <ContainerComponent {...containerProps}>
+        {this.props.children}
+      </ContainerComponent>
+    );
+  }
+
+  render() {
+    return (
+      <div className={this.styles.classNames.previewContainer}>
+        {this.renderThemeContext(this.props.theme)}
+      </div>
+    );
   }
 }
 
 export default Widget.connectWidget(state => {
   const settings = state.get('settings');
   return {
+    theme: settings.get('theme'),
     frame: settings.get('frame'),
     scale: settings.get('scale'),
     color: settings.get('color'),

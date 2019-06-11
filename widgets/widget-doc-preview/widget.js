@@ -140,6 +140,12 @@ class WidgetDocPreview extends Widget {
     return (
       <div className={this.styles.classNames.settings}>
         <SettingsList
+          text="Theme"
+          widgetId={this.props.widgetId}
+          path="settings.theme"
+          list={['theme', 'horizon', 'shop', 'none']}
+        />
+        <SettingsList
           text="Scale"
           widgetId={this.props.widgetId}
           path="settings.scale"
@@ -161,7 +167,7 @@ class WidgetDocPreview extends Widget {
           text="Layout"
           widgetId={this.props.widgetId}
           path="settings.layout"
-          list={['', 'row', 'row-grow', 'column', 'column-grow', 'wrap']}
+          list={['div', 'row', 'row-grow', 'column', 'column-grow', 'wrap']}
         />
         <SettingsSwitch
           text="Frame"
@@ -242,7 +248,7 @@ class WidgetDocPreview extends Widget {
         props[propName] = propDef.type.samplesData[props[propName]];
       }
     }
-    return <this.widgetInfo.widget key={key} {...props} />;
+    return <this.widgetInfo.widget key={this.props.theme + key} {...props} />;
   }
 
   renderWidgets() {
@@ -298,6 +304,7 @@ export default Widget.connectWidget(state => {
   const selectedWidget = state.get('selectedWidget');
   return {
     selectedWidget,
+    theme: settings.get('theme'),
     props: state.get('props').get(selectedWidget),
     items: settings.get('items'),
   };
