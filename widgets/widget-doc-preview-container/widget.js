@@ -10,12 +10,29 @@ class WidgetDocPreviewContainer extends Widget {
   }
 
   render() {
-    const {layout} = this.props;
-    return (
-      <div className={this.styles.classNames.previewContainer}>
-        <Container kind={layout}>{this.props.children}</Container>
-      </div>
-    );
+    const layout = this.props.layout.split('-');
+
+    if (layout[0] === '') {
+      return (
+        <div className={this.styles.classNames.previewContainer}>
+          <div>{this.props.children}</div>
+        </div>
+      );
+    } else if (layout[0] !== '' && layout[1] === 'grow') {
+      return (
+        <div className={this.styles.classNames.previewContainer}>
+          <Container kind={layout[0]} grow={'1'}>
+            {this.props.children}
+          </Container>
+        </div>
+      );
+    } else {
+      return (
+        <div className={this.styles.classNames.previewContainer}>
+          <Container kind={layout[0]}>{this.props.children}</Container>
+        </div>
+      );
+    }
   }
 }
 

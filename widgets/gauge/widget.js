@@ -1,6 +1,11 @@
 //T:2019-02-27:Nothing to translate !
 import React from 'react';
 import Widget from 'laboratory/widget';
+import Props from './props';
+import {
+  makePropTypes,
+  makeDefaultProps,
+} from 'xcraft-core-utils/lib/prop-types';
 
 /******************************************************************************/
 
@@ -22,6 +27,11 @@ class Gauge extends Widget {
     );
   }
 }
+
+/******************************************************************************/
+
+Gauge.propTypes = makePropTypes(Props);
+Gauge.defaultProps = makeDefaultProps(Props);
 
 /******************************************************************************/
 export default Gauge;

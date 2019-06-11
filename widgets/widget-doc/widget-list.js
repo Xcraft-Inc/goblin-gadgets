@@ -16,6 +16,9 @@ import CheckBoxInputProps from 'goblin-gadgets/widgets/check-box-input/props';
 import Table from 'goblin-gadgets/widgets/table/widget';
 import tableProps from 'goblin-gadgets/widgets/table/props';
 
+import Gauge from 'goblin-gadgets/widgets/gauge/widget';
+import GaugeProps from 'goblin-gadgets/widgets/gauge/props';
+
 const widgetList = [
   {
     name: 'Button',
@@ -52,6 +55,12 @@ const widgetList = [
     widget: CheckBoxInput,
     widgetPath: 'goblin-gadgets/widgets/check-box-input/widget',
     props: CheckBoxInputProps,
+  },
+  {
+    name: 'Gauge',
+    widget: Gauge,
+    widgetPath: 'goblin-gadgets/widgets/gauge/widget',
+    props: GaugeProps,
   },
 ];
 

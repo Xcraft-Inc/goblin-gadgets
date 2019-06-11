@@ -161,7 +161,7 @@ class WidgetDocPreview extends Widget {
           text="Layout"
           widgetId={this.props.widgetId}
           path="settings.layout"
-          list={['row', 'column', 'wrap']}
+          list={['', 'row', 'row-grow', 'column', 'column-grow', 'wrap']}
         />
         <SettingsSwitch
           text="Frame"
