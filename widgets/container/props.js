@@ -154,6 +154,7 @@ export default [
     group: 'aspect',
     type: types.enum([
       '',
+      'archived',
       'box',
       'box-left',
       'business',
