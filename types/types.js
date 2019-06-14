@@ -1,7 +1,7 @@
 const types = {
   bool: {
     type: 'bool',
-    widget: 'check-box',
+    widget: 'checkbox',
   },
 
   string: {

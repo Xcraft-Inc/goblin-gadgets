@@ -11,7 +11,7 @@ import Button from 'gadgets/button/widget';
 
 /******************************************************************************/
 
-class CheckBoxInput extends Widget {
+class CheckboxInput extends Widget {
   constructor() {
     super(...arguments);
     this.onChange = this.onChange.bind(this);
@@ -28,13 +28,14 @@ class CheckBoxInput extends Widget {
     let {checked, ...otherProps} = this.props;
     checked = Bool.isTrue(checked);
 
-    let kind, border, glyph, active;
+    let kind, border, glyph, glyphColor, active;
     if (this.props.kind === 'switch') {
       kind = 'check-button';
       glyph = checked ? 'light/toggle-on' : 'light/toggle-off'; // [ o] [x ]
-    } else if (this.props.kind === 'simple') {
+    } else if (this.props.kind === 'big') {
       kind = null;
-      glyph = checked ? 'solid/check' : null;
+      glyph = 'solid/check';
+      glyphColor = checked ? this.props.glyphColor : 'transparent';
     } else if (this.props.kind === 'radio') {
       kind = 'check-button';
       glyph = checked ? 'regular/dot-circle' : 'regular/circle'; // o
@@ -53,6 +54,7 @@ class CheckBoxInput extends Widget {
         kind={kind}
         border={border}
         glyph={glyph}
+        glyphColor={glyphColor}
         active={active}
         onClick={this.onChange}
       />
@@ -62,8 +64,8 @@ class CheckBoxInput extends Widget {
 
 /******************************************************************************/
 
-CheckBoxInput.propTypes = makePropTypes(Props);
-CheckBoxInput.defaultProps = makeDefaultProps(Props);
+CheckboxInput.propTypes = makePropTypes(Props);
+CheckboxInput.defaultProps = makeDefaultProps(Props);
 
 /******************************************************************************/
-export default CheckBoxInput;
+export default CheckboxInput;

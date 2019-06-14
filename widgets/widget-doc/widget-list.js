@@ -10,8 +10,8 @@ import containerProps from 'goblin-gadgets/widgets/container/props';
 import TextFieldBasis from 'goblin-gadgets/widgets/text-field-basis/widget';
 import textFieldBasisProps from 'goblin-gadgets/widgets/text-field-basis/props';
 
-import CheckBoxInput from 'goblin-gadgets/widgets/check-box-input/widget';
-import CheckBoxInputProps from 'goblin-gadgets/widgets/check-box-input/props';
+import CheckboxInput from 'goblin-gadgets/widgets/checkbox-input/widget';
+import CheckboxInputProps from 'goblin-gadgets/widgets/checkbox-input/props';
 
 import Table from 'goblin-gadgets/widgets/table/widget';
 import tableProps from 'goblin-gadgets/widgets/table/props';
@@ -51,10 +51,10 @@ const widgetList = [
     props: tableProps,
   },
   {
-    name: 'CheckBoxInput',
-    widget: CheckBoxInput,
-    widgetPath: 'goblin-gadgets/widgets/check-box-input/widget',
-    props: CheckBoxInputProps,
+    name: 'CheckboxInput',
+    widget: CheckboxInput,
+    widgetPath: 'goblin-gadgets/widgets/checkbox-input/widget',
+    props: CheckboxInputProps,
   },
   {
     name: 'Gauge',
