@@ -76,6 +76,7 @@ class TextFieldBasis extends Widget {
             }`}
             value={this.props.value}
             defaultValue={this.props.defaultValue}
+            rows={this.props.rows}
             onChange={this.onChange}
             onFocus={this.onFocus}
             onBlur={this.onBlur}

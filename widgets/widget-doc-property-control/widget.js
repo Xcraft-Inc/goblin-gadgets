@@ -63,7 +63,7 @@ class WidgetDocPropertyControl extends Widget {
           shape="left-smooth"
           spacing="overlap"
           readonly={readonly}
-          rows={multiline ? '5' : null}
+          rows={multiline ? '2' : null}
           value={value || this.props.value}
           onChange={readonly ? null : this.onChange}
           grow="1"
