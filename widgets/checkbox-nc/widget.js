@@ -17,7 +17,7 @@ export default class CheckboxNC extends Widget {
     this.onChange = this.onChange.bind(this);
   }
 
-  onChange(e) {
+  onChange() {
     const checked = !Bool.isTrue(this.props.checked);
     if (this.props.onChange) {
       this.props.onChange(checked);

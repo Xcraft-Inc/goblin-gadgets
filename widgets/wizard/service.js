@@ -1450,8 +1450,8 @@ const properties = {
       value: 'true',
     },
   },
-  CheckButton: {
-    id: 'CheckButton',
+  Checkbox: {
+    id: 'Checkbox',
     kind: {
       id: 'kind',
       group: 'Aspect',
@@ -1493,8 +1493,8 @@ const properties = {
       group: 'Text',
       type: 'text',
       field: 'text',
-      list: ['', 'CheckButton', 'Mise à jour automatique', 'Mode avancé'],
-      value: 'CheckButton',
+      list: ['', 'Checkbox', 'Mise à jour automatique', 'Mode avancé'],
+      value: 'Checkbox',
     },
     spacing: {
       id: 'spacing',

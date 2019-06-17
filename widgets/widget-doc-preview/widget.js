@@ -3,7 +3,7 @@ import Widget from 'laboratory/widget';
 import widgetList from '../widget-doc/widget-list';
 import Container from 'goblin-gadgets/widgets/container/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
-import CheckButton from 'goblin-gadgets/widgets/check-button/widget';
+import Checkbox from 'goblin-gadgets/widgets/checkbox/widget';
 import WidgetDocPreviewContainer from '../widget-doc-preview-container/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import TextFieldBasis from '../text-field-basis/widget';
@@ -27,10 +27,10 @@ class WidgetDocPreviewSettingsSwitch extends Widget {
     return (
       <Container kind="row">
         <Label text={this.props.text} width="80px" />
-        <CheckButton
+        <Checkbox
           checked={this.props.value}
           kind="switch"
-          onClick={this.onClick}
+          onChange={this.onClick}
         />
       </Container>
     );
@@ -57,12 +57,12 @@ class WidgetDocPreviewSettingsList extends Widget {
 
   renderItem(value) {
     return (
-      <CheckButton
+      <Checkbox
         key={value}
         text={value}
         checked={this.props.value === value}
         kind="active"
-        onClick={() => this.onClick(value)}
+        onChange={() => this.onClick(value)}
       />
     );
   }

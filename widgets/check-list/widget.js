@@ -3,7 +3,7 @@ import T from 't';
 import React from 'react';
 import Widget from 'laboratory/widget';
 import * as Bool from 'gadgets/helpers/bool-helpers';
-import CheckButton from 'gadgets/check-button/widget';
+import Checkbox from 'gadgets/checkbox/widget';
 
 /******************************************************************************/
 
@@ -95,24 +95,24 @@ class CheckList extends Widget {
       if (this.props.value === this.allValue) {
         return (
           <div className={headerClass}>
-            <CheckButton
+            <Checkbox
               kind={this.props.kind || 'check'}
               text={T('Enlève tout')}
               checked="false"
               readonly={this.props.readonly}
-              onClick={this.onClearAll}
+              onChange={this.onClearAll}
             />
           </div>
         );
       } else {
         return (
           <div className={headerClass}>
-            <CheckButton
+            <Checkbox
               kind={this.props.kind || 'check'}
               text={T('Met tout')}
               checked="true"
               readonly={this.props.readonly}
-              onClick={this.onSetAll}
+              onChange={this.onSetAll}
             />
           </div>
         );
@@ -124,7 +124,7 @@ class CheckList extends Widget {
 
   renderRow(row, index) {
     return (
-      <CheckButton
+      <Checkbox
         key={index}
         kind={this.props.kind || 'check'}
         heightStrategy={this.props.heightStrategy}
@@ -132,7 +132,7 @@ class CheckList extends Widget {
         focusable="true"
         checked={Bool.toString(this.isChecked(row.name))}
         readonly={this.props.readonly}
-        onClick={() => this.onButtonClicked(row.name)}
+        onChange={() => this.onButtonClicked(row.name)}
       />
     );
   }

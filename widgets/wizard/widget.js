@@ -12,7 +12,7 @@ import TextFieldCombo from 'gadgets/text-field-combo/widget';
 import LabelTextField from 'gadgets/label-text-field/widget';
 import TextFieldTyped from 'gadgets/text-field-typed/widget';
 import Splitter from 'gadgets/splitter/widget';
-import CheckButton from 'gadgets/check-button/widget';
+import Checkbox from 'gadgets/checkbox/widget';
 import Gauge from 'gadgets/gauge/widget';
 import Ticket from 'gadgets/ticket/widget';
 import Field from 'gadgets/field/widget';
@@ -209,7 +209,7 @@ class Wizard extends Form {
         </Container>
       );
     } else if (type === 'bool') {
-      const CheckButton = this.WithModel(Button, val => {
+      const Checkbox = this.WithModel(Button, val => {
         if (val === 'true') {
           return {glyph: 'solid/check'};
         } else {
@@ -220,10 +220,10 @@ class Wizard extends Form {
       return (
         <Container kind="row-pane" subkind="left" key={index}>
           <Label text={field} width="180px" />
-          <CheckButton
+          <Checkbox
             width="32px"
             focusable="true"
-            onClick={() => {
+            onChange={() => {
               this.setModelValue(
                 model,
                 this.getModelValue(model) === 'false' ? 'true' : 'false'
@@ -619,8 +619,8 @@ class Wizard extends Form {
         return <TextFieldTyped key={index} model=".x" {...props} />;
       case 'Field':
         return this.renderWidgetBaseField(index, props);
-      case 'CheckButton':
-        return <CheckButton key={index} {...props} />;
+      case 'Checkbox':
+        return <Checkbox key={index} {...props} />;
       case 'Gauge':
         return (
           <Container
@@ -760,7 +760,7 @@ class Wizard extends Form {
   /******************************************************************************/
 
   renderPreviewSettingSwitch(value, getter, setter, index) {
-    const SettingSwitch = this.WithModel(CheckButton, _ => {
+    const SettingSwitch = this.WithModel(Checkbox, _ => {
       return {checked: Bool.toString(getter() === value)};
     })('.previewSettings');
     return (
@@ -768,7 +768,7 @@ class Wizard extends Form {
         key={index}
         text={value}
         kind="active"
-        onClick={() => {
+        onChange={() => {
           setter(value);
         }}
       />
@@ -793,11 +793,11 @@ class Wizard extends Form {
 
   renderPreviewSettingBool(preview, index) {
     return (
-      <CheckButton
+      <Checkbox
         key={index * 100}
         kind="switch"
         checked={Bool.toString(preview.get('value'))}
-        onClick={() => {
+        onChange={() => {
           this.setPreviewSettingValue(preview.get('id'), !preview.get('value'));
         }}
       />

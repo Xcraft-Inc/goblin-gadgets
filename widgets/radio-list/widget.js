@@ -3,7 +3,7 @@ import React from 'react';
 import Widget from 'laboratory/widget';
 import * as Bool from 'gadgets/helpers/bool-helpers';
 
-import CheckButton from 'gadgets/check-button/widget';
+import Checkbox from 'gadgets/checkbox/widget';
 
 /******************************************************************************/
 
@@ -16,7 +16,7 @@ class RadioList extends Widget {
     this.getItem = this.getItem.bind(this);
   }
 
-  onRadioClicked(e, {index}) {
+  onRadioClicked(index) {
     const x = this.props.selectionChanged;
     if (x) {
       x(index);
@@ -56,13 +56,13 @@ class RadioList extends Widget {
   // Render a single check button, with the text of the second option (yes/true).
   renderCheck() {
     return (
-      <CheckButton
+      <Checkbox
         kind="check"
         heightStrategy={this.props.heightStrategy}
         text={this.props.list[1]}
         focusable="true"
         checked={Bool.toString(this.props.selectedIndex === 1)}
-        onClick={this.onCheckClicked}
+        onChange={this.onCheckClicked}
       />
     );
   }
@@ -70,7 +70,7 @@ class RadioList extends Widget {
   // Render a single radio button.
   renderRow(text, index) {
     return (
-      <CheckButton
+      <Checkbox
         key={index}
         kind={this.props.kind || 'radio'}
         width={this.props.buttonWidth}
@@ -79,8 +79,7 @@ class RadioList extends Widget {
         text={this.getItem(text)}
         focusable="true"
         checked={Bool.toString(index === this.props.selectedIndex)}
-        userData={{index}}
-        onClick={this.onRadioClicked}
+        onChange={() => this.onRadioClicked(index)}
       />
     );
   }

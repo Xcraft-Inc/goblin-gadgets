@@ -17,7 +17,7 @@ import ReadonlyLabel from './readonly/label.js';
 
 import Container from 'gadgets/container/widget';
 import Button from 'gadgets/button/widget';
-import CheckButton from 'gadgets/check-button/widget';
+import Checkbox from 'gadgets/checkbox/widget';
 import Label from 'gadgets/label/widget';
 import TextField from 'gadgets/text-field/widget';
 import TranslatableTextField from 'gadgets/translatable-text-field/widget';
@@ -751,8 +751,8 @@ class Field extends Form {
   }
 
   renderReadonlyBool() {
-    const WiredCheckButton = this.mapWidget(
-      CheckButton,
+    const WiredCheckbox = this.mapWidget(
+      Checkbox,
       value => {
         return {checked: value};
       },
@@ -780,7 +780,7 @@ class Field extends Form {
             spacing="overlap"
           />
         )}
-        <WiredCheckButton
+        <WiredCheckbox
           kind={this.props.subkind}
           glyph={this.props.glyph}
           text={this.props.labelText}
@@ -2089,8 +2089,8 @@ class Field extends Form {
   }
 
   renderEditBool() {
-    const WiredCheckButton = this.mapWidget(
-      CheckButton,
+    const WiredCheckbox = this.mapWidget(
+      Checkbox,
       value => {
         return {checked: value};
       },
@@ -2118,12 +2118,12 @@ class Field extends Form {
             spacing="overlap"
           />
         )}
-        <WiredCheckButton
+        <WiredCheckbox
           kind={this.props.subkind}
           glyph={this.props.glyph}
           text={this.props.labelText}
           tooltip={this.props.tooltip || this.props.hintText}
-          onClick={() => {
+          onChange={() => {
             const checked = Bool.isTrue(this.getBackendValue(this.fullPath));
             this.setBackendValue(this.fullPath, Bool.toString(!checked));
             if (this.props.onClick) {
