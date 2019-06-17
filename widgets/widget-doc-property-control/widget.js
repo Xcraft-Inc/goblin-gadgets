@@ -5,7 +5,7 @@ import TextFieldCombo from 'goblin-gadgets/widgets/text-field-combo/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import {isShredder} from 'xcraft-core-shredder';
-import CheckboxInput from 'goblin-gadgets/widgets/checkbox-input/widget';
+import CheckboxNC from 'goblin-gadgets/widgets/checkbox-nc/widget';
 
 /******************************************************************************/
 
@@ -127,7 +127,7 @@ class WidgetDocPropertyControl extends Widget {
       case 'checkbox':
         return (
           <React.Fragment>
-            <CheckboxInput
+            <CheckboxNC
               kind="big"
               checked={this.props.value}
               onChange={this.onChange}

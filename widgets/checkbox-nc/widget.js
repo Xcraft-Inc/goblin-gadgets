@@ -11,7 +11,7 @@ import Button from 'gadgets/button/widget';
 
 /******************************************************************************/
 
-class CheckboxInput extends Widget {
+export default class CheckboxNC extends Widget {
   constructor() {
     super(...arguments);
     this.onChange = this.onChange.bind(this);
@@ -64,8 +64,7 @@ class CheckboxInput extends Widget {
 
 /******************************************************************************/
 
-CheckboxInput.propTypes = makePropTypes(Props);
-CheckboxInput.defaultProps = makeDefaultProps(Props);
+CheckboxNC.propTypes = makePropTypes(Props);
+CheckboxNC.defaultProps = makeDefaultProps(Props);
 
 /******************************************************************************/
-export default CheckboxInput;
