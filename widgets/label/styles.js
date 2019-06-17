@@ -989,7 +989,9 @@ export default function styles(theme, props) {
     if (backgroundColor) {
       backgroundColor = theme.palette.buttonDisableBackground;
     }
-    glyphColor = theme.palette.buttonDisableGlyph;
+    if (glyphColor !== 'transparent') {
+      glyphColor = theme.palette.buttonDisableGlyph;
+    }
     textColor = theme.palette.buttonDisableText;
   }
 
