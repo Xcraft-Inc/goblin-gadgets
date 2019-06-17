@@ -35,6 +35,8 @@ class List {
         }
       } else if (options.query) {
         quest.goblin.setX('mode', 'query');
+      } else if (options.field) {
+        quest.goblin.setX('mode', 'search');
       } else {
         throw new Error('List create, bad options provided');
       }
@@ -95,6 +97,10 @@ class List {
   static *count(quest, initOptions) {
     const {r, table, mode, options} = this._init(quest, initOptions);
     switch (mode) {
+      case 'search': {
+        //TODO
+        return 0;
+      }
       case 'index': {
         return yield r.count({
           table,
@@ -184,17 +190,19 @@ class List {
     const elastic = quest.getStorage('elastic');
 
     quest.goblin.setX('value', value);
-    quest.goblin.setX('sort', sort);
     quest.goblin.setX('highlights', []);
 
-    const hinter = quest.goblin.getX('hinter');
+    const options = quest.goblin
+      .getState()
+      .get('options')
+      .toJS();
 
     const range = quest.goblin.getX('range');
     const from = range ? range[0] : undefined;
     const size = range ? range[1] - range[0] + 1 : undefined;
 
-    let type = hinter.type;
-    const subTypes = hinter.subTypes;
+    let type = options.type;
+    const subTypes = options.subTypes;
     if (subTypes) {
       subTypes.forEach(subType => {
         type = `${type},${subType}`;
@@ -225,8 +233,8 @@ class List {
       results.hits.hits.forEach(hit => {
         let valueId = hit._id;
         let hitId = hit._id;
-        if (hinter.subJoins) {
-          hinter.subJoins.forEach(subJoin => {
+        if (options.subJoins) {
+          options.subJoins.forEach(subJoin => {
             const join = hit._source[subJoin];
             if (join) {
               valueId = join;
@@ -287,15 +295,23 @@ class List {
 //  {contentIndex: {name:'',value:''}}
 //  collection case:
 //  {entityId: type@guid, path: '.collection'}
+//  search case:
+//  {
+//   field: 'id',
+//   fields: ['info'],
+//   type: 'document',
+//   subTypes: [''],
+//   subJoins: [''],
+//   sort: {dir: 'asc', key: 'value.keyword'},
+//   filter: {}
+// }
 // Register quest's according rc.json
 Goblin.registerQuest(goblinName, 'create', function*(
   quest,
   desktopId,
   table,
   status,
-  options,
-  hinter,
-  sort
+  options
 ) {
   /* This mutex prevent races when indices are fetching and the content-index
    * is changing. It must not be possible to run a fetch while a
@@ -307,28 +323,12 @@ Goblin.registerQuest(goblinName, 'create', function*(
   quest.goblin.setX('desktopId', desktopId);
   quest.goblin.setX('table', table);
 
-  quest.goblin.setX('isElastic', hinter ? true : false);
-  quest.goblin.setX('hinter', hinter);
-  quest.goblin.setX('sort', sort);
-
   List.resolveMode(quest, options);
 
   const id = quest.goblin.id;
+  const count = yield* List.count(quest, options);
 
-  if (!hinter) {
-    const count = yield* List.count(quest, options);
-
-    quest.do({
-      id,
-      count,
-      options,
-    });
-
-    yield quest.me.initList();
-    return id;
-  }
-
-  quest.do({id});
+  quest.do({id, count});
 
   yield quest.me.initList();
   return id;
@@ -381,6 +381,8 @@ Goblin.registerQuest(goblinName, 'change-content-index', function*(
 Goblin.registerQuest(goblinName, 'handle-changes', function*(quest, change) {
   const mode = quest.goblin.getX('mode');
   switch (mode) {
+    case 'search':
+      break;
     case 'query':
     case 'index': {
       switch (change.type) {
@@ -452,10 +454,13 @@ Goblin.registerQuest(goblinName, 'fetch', function*(quest, range) {
     range = [0, 1];
   }
 
-  const isElastic = quest.goblin.getX('isElastic');
-  if (isElastic) {
+  const mode = quest.goblin.getX('mode');
+  if (mode === 'search') {
     const value = quest.goblin.getX('value');
-    const sort = quest.goblin.getX('sort');
+    const sort = quest.goblin
+      .getState()
+      .get('options.sort')
+      .toJS();
 
     const ids = yield* List.executeSearch(quest, value, sort);
     const count = quest.goblin.getX('count');
@@ -480,15 +485,18 @@ Goblin.registerQuest(goblinName, 'fetch', function*(quest, range) {
 });
 
 Goblin.registerQuest(goblinName, 'init-list', function*(quest) {
-  const isElastic = quest.goblin.getX('isElastic');
+  const mode = quest.goblin.getX('mode');
 
-  if (!isElastic) {
+  if (mode !== 'search') {
     yield* List.changes(quest);
     return;
   }
 
   const value = quest.goblin.getX('value');
-  const sort = quest.goblin.getX('sort');
+  const sort = quest.goblin
+    .getState()
+    .get('options.sort')
+    .toJS();
 
   const ids = yield* List.executeSearch(quest, value, sort);
   const count = quest.goblin.getX('count');
