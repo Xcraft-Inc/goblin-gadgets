@@ -1,31 +1,37 @@
 /******************************************************************************/
 
+export const propNames = [
+  'kind',
+  'display',
+  'flexDirection',
+  'width',
+  'height',
+];
+
 export default function styles(theme, props) {
-  let display = props.display;
-  let flexDirection = props.flexDirection;
+  const {kind, display, flexDirection, width, height} = props;
+
   let flexGrow = '1';
   let flexBasis = null;
   let flexShrink = null;
   let overflowX = 'auto';
   let overflowY = 'auto';
-  let width = props.width;
-  let height = props.height;
   let margin = null;
   let padding = null;
   let cursor = null;
 
   const m = theme.shapes.containerMargin;
 
-  if (props.kind === 'panes') {
+  if (kind === 'panes') {
     padding = '0px ' + m + ' 0px ' + m;
     flexBasis = '0';
     flexShrink = '1';
   }
 
-  if (props.kind === 'table-body') {
+  if (kind === 'table-body') {
     flexGrow = null;
     overflowX = 'hidden';
-    overflowY = props.height ? 'scroll' : 'hidden';
+    overflowY = height ? 'scroll' : 'hidden';
     cursor = 'default';
   }
 

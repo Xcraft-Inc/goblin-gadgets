@@ -3,11 +3,11 @@ import * as Bool from 'gadgets/helpers/bool-helpers';
 /******************************************************************************/
 
 //  Compute the color of gauge.
-function getColor(props, value) {
+function getColor(gradient, value) {
   if (value) {
     value /= 100; // 0..1
     let red, green, blue;
-    if (props.gradient === 'red-yellow-green') {
+    if (gradient === 'red-yellow-green') {
       if (value < 0.5) {
         // From red to yellow.
         value = value * 2; // 0..1
@@ -20,7 +20,7 @@ function getColor(props, value) {
         green = 255;
       }
       blue = 0;
-    } else if (props.gradient === 'yellow-green') {
+    } else if (gradient === 'yellow-green') {
       // From yellow to green.
       red = 255 - 255 * value; // 0/1 -> 255/0
       green = 255;
@@ -37,16 +37,27 @@ function getColor(props, value) {
   }
 }
 
-export default function styles(theme, props) {
-  // TODO: props.value should not be used in styles.js as it can take many different values
+/******************************************************************************/
 
-  const value = Math.max(Math.min(props.value, 100), 0); // 0..100
+export const propNames = [
+  'value',
+  'direction',
+  'flash',
+  'kind',
+  'disabled',
+  'gradient',
+];
+
+export default function styles(theme, props) {
+  const {value, direction, flash, kind, disabled, gradient} = props;
+
+  const gaugeValue = Math.max(Math.min(value, 100), 0); // 0..100
 
   const boxStyle = {
     position: 'relative',
     display: 'flex',
-    height: props.direction === 'horizontal' ? null : '100%',
-    width: props.direction === 'horizontal' ? '100%' : null,
+    height: direction === 'horizontal' ? null : '100%',
+    width: direction === 'horizontal' ? '100%' : null,
     alignItems: 'flex-end',
   };
 
@@ -64,38 +75,39 @@ export default function styles(theme, props) {
 
   const contentStyle = {
     position: 'absolute',
-    height: props.direction === 'horizontal' ? '100%' : value + '%',
-    width: props.direction === 'horizontal' ? value + '%' : '100%',
-    backgroundColor: getColor(props, value),
-    animationName: Bool.isTrue(props.flash) ? keyframes : null,
+    height: direction === 'horizontal' ? '100%' : gaugeValue + '%',
+    width: direction === 'horizontal' ? gaugeValue + '%' : '100%',
+    backgroundColor: getColor(gradient, gaugeValue),
+    animationName: Bool.isTrue(flash) ? keyframes : null,
     animationDuration: '1s',
     animationIterationCount: 'infinite',
   };
 
   const glossStyle = {
     position: 'absolute',
-    height: props.direction === 'horizontal' ? '1px' : `calc(${value}% - 8px)`,
-    left: props.direction === 'horizontal' ? '1px' : '2px',
-    bottom: props.direction === 'horizontal' ? null : '1px',
-    top: props.direction === 'horizontal' ? '2px' : null,
-    width: props.direction === 'horizontal' ? `calc(${value}% - 8px)` : '1px',
-    margin: props.direction === 'horizontal' ? '0px 2px' : '2px 0px',
+    height: direction === 'horizontal' ? '1px' : `calc(${gaugeValue}% - 8px)`,
+    left: direction === 'horizontal' ? '1px' : '2px',
+    bottom: direction === 'horizontal' ? null : '1px',
+    top: direction === 'horizontal' ? '2px' : null,
+    width: direction === 'horizontal' ? `calc(${gaugeValue}% - 8px)` : '1px',
+    margin: direction === 'horizontal' ? '0px 2px' : '2px 0px',
     backgroundColor: theme.palette.ticketGaugeContentGlossy,
-    animationName: Bool.isTrue(props.flash) ? keyframes : null,
+    animationName: Bool.isTrue(flash) ? keyframes : null,
     animationDuration: '1s',
     animationIterationCount: 'infinite',
   };
 
-  if (props.kind === 'mission') {
+  if (kind === 'mission') {
     //  Compute radius at left border, for including into left of Ticket kind='thin'.
-    const topLeftRadius = value >= 90 ? theme.shapes.ticketRectRadius : '0px';
+    const topLeftRadius =
+      gaugeValue >= 90 ? theme.shapes.ticketRectRadius : '0px';
     const bottomLeftRadius = theme.shapes.ticketRectRadius;
 
     contentStyle.borderRadius = `${topLeftRadius} 0px 0px ${bottomLeftRadius}`;
     glossStyle.visibility = 'hidden';
   }
 
-  if (props.kind === 'rounded') {
+  if (kind === 'rounded') {
     boxStyle.borderRadius = '50px';
     boxStyle.backgroundColor = theme.palette.ticketGaugeBackground;
     boxStyle.boxShadow = theme.palette.ticketGaugeBackgroundShadow;
@@ -104,15 +116,15 @@ export default function styles(theme, props) {
     contentStyle.left = '1px';
     contentStyle.borderRadius = '50px';
     contentStyle.width =
-      props.direction === 'horizontal'
-        ? `calc(${value}% - 2px)`
+      direction === 'horizontal'
+        ? `calc(${gaugeValue}% - 2px)`
         : 'calc(100% - 2px)';
     contentStyle.height =
-      props.direction === 'horizontal'
+      direction === 'horizontal'
         ? 'calc(100% - 2px)'
-        : `calc(${value}% - 2px)`;
+        : `calc(${gaugeValue}% - 2px)`;
     contentStyle.boxShadow = theme.palette.ticketGaugeContentShadow;
-    if (value === 0) {
+    if (gaugeValue === 0) {
       boxStyle.border = '1px solid ' + theme.palette.ticketGaugeEmptyBorder;
       boxStyle.backgroundColor = null;
       boxStyle.boxShadow = null;
@@ -121,7 +133,7 @@ export default function styles(theme, props) {
     }
   }
 
-  if (Bool.isTrue(props.disabled)) {
+  if (Bool.isTrue(disabled)) {
     boxStyle.backgroundColor = theme.palette.buttonDisableBackground;
     boxStyle.boxShadow = null;
     contentStyle.visibility = 'hidden';

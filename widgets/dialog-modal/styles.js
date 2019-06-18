@@ -1,10 +1,23 @@
 /******************************************************************************/
 
+export const propNames = [
+  'zIndex',
+  'left',
+  'right',
+  'top',
+  'bottom',
+  'width',
+  'height',
+  'center',
+];
+
 export default function styles(theme, props) {
-  const fullScreenStyle = {
+  const {zIndex, left, right, top, bottom, width, height, center} = props;
+
+  const fullScreen = {
     visibility: 'visible',
     position: 'fixed',
-    zIndex: props.zIndex || 10,
+    zIndex: zIndex || 10,
     top: '0px',
     left: '0px',
     width: '100%',
@@ -14,40 +27,40 @@ export default function styles(theme, props) {
     backgroundColor: theme.palette.flyingDialogFullScreenBackground,
   };
 
-  let top, right, bottom, left, transform;
-  if (props.left || props.right) {
+  let comboTop, comboRight, comboBottom, comboLeft, transform;
+  if (left || right) {
     transform = 'translate(0%, -50%)';
-    left = props.left;
-    right = props.right;
-    top = props.center;
+    comboLeft = left;
+    comboRight = right;
+    comboTop = center;
   } else {
     transform = 'translate(-50%, 0%)';
-    left = props.center;
-    top = props.top;
-    bottom = props.bottom;
+    comboLeft = center;
+    comboTop = top;
+    comboBottom = bottom;
   }
 
-  const comboStyle = {
+  const combo = {
     visibility: 'visible',
     position: 'absolute',
-    width: props.width,
-    height: props.height,
+    width: width,
+    height: height,
     transform: transform,
-    zIndex: props.zIndex || 10,
+    zIndex: zIndex || 10,
     display: 'flex',
     flexDirection: 'column',
-    left: left,
-    right: right,
-    top: top,
-    bottom: bottom,
+    left: comboLeft,
+    right: comboRight,
+    top: comboTop,
+    bottom: comboBottom,
     opacity: 1.0,
     cursor: 'default',
     userSelect: 'none',
   };
 
   return {
-    fullScreen: fullScreenStyle,
-    combo: comboStyle,
+    fullScreen,
+    combo,
   };
 }
 

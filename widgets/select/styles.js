@@ -1,6 +1,10 @@
 /******************************************************************************/
 
+export const propNames = ['left', 'top', 'bottom', 'maxHeight'];
+
 export default function styles(theme, props) {
+  const {left, top, bottom, maxHeight} = props;
+
   const fullScreenStyle = {
     visibility: 'visible',
     position: 'fixed',
@@ -18,9 +22,9 @@ export default function styles(theme, props) {
     visibility: 'visible',
     position: 'absolute',
     zIndex: 11,
-    left: props.left,
-    top: props.top,
-    bottom: props.bottom,
+    left: left,
+    top: top,
+    bottom: bottom,
     opacity: 1.0,
     cursor: 'default',
     userSelect: 'none',
@@ -28,7 +32,7 @@ export default function styles(theme, props) {
 
   const insideStyle = {
     display: 'flex',
-    maxHeight: props.maxHeight,
+    maxHeight: maxHeight,
     cursor: 'default',
     userSelect: 'none',
   };

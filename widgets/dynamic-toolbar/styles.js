@@ -2,34 +2,38 @@ import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
 
+export const propNames = ['padding', 'position'];
+
 export default function styles(theme, props) {
-  let padding = theme.shapes.dynamicToolbarMargin;
+  const {padding, position} = props;
+
+  let boxPadding = theme.shapes.dynamicToolbarMargin;
   let borderLeft = null;
   let borderRight = null;
   let borderBottom = null;
   let boxShadow = null;
   let borderRadius = null;
 
-  if (props.padding === 'large') {
-    padding = theme.shapes.containerMargin;
+  if (padding === 'large') {
+    boxPadding = theme.shapes.containerMargin;
     const b =
       Unit.multiply(theme.shapes.lineSpacing, 0.5) +
       ' solid ' +
       theme.palette.menuBackground;
-    if (props.position === 'top-right') {
+    if (position === 'top-right') {
       borderLeft = b;
       borderBottom = b;
-      borderRadius = '0px 0px 0px ' + padding;
+      borderRadius = '0px 0px 0px ' + boxPadding;
     } else {
       borderRight = b;
       borderBottom = b;
-      borderRadius = '0px 0px ' + padding + ' 0px';
+      borderRadius = '0px 0px ' + boxPadding + ' 0px';
     }
     boxShadow = theme.shapes.floatingShadow;
   }
 
   let visibleTransform, hiddenTransform;
-  if (props.position === 'top-right') {
+  if (position === 'top-right') {
     visibleTransform = 'translate(-100%, 0%)';
     hiddenTransform = 'translate(0%, 0%)';
   } else {
@@ -43,8 +47,8 @@ export default function styles(theme, props) {
 
   const main = {
     position: 'absolute',
-    left: props.position === 'top-right' ? null : '0px',
-    right: props.position === 'top-right' ? '0px' : null,
+    left: position === 'top-right' ? null : '0px',
+    right: position === 'top-right' ? '0px' : null,
   };
 
   const fullScreen = {
@@ -60,7 +64,7 @@ export default function styles(theme, props) {
 
   const hoverButton = {
     position: 'absolute',
-    right: props.position === 'top-right' ? '0px' : null,
+    right: position === 'top-right' ? '0px' : null,
   };
 
   const boxVisible = {
@@ -68,7 +72,7 @@ export default function styles(theme, props) {
     position: 'absolute',
     display: 'flex',
     flexDirection: 'row',
-    padding: padding,
+    padding: boxPadding,
     borderLeft: borderLeft,
     borderRight: borderRight,
     borderBottom: borderBottom,
@@ -84,7 +88,7 @@ export default function styles(theme, props) {
     position: 'absolute',
     display: 'flex',
     flexDirection: 'row',
-    padding: padding,
+    padding: boxPadding,
     borderLeft: borderLeft,
     borderRight: borderRight,
     borderBottom: borderBottom,

@@ -1,10 +1,14 @@
 /******************************************************************************/
 
+export const propNames = ['grow', 'width', 'height'];
+
 export default function styles(theme, props) {
+  const {grow, width, height} = props;
+
   const box = {
-    flexGrow: props.grow,
-    width: props.width,
-    height: props.height,
+    flexGrow: grow,
+    width: width,
+    height: height,
     display: 'flex',
     flexDirection: 'row',
   };

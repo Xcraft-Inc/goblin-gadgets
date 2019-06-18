@@ -1,30 +1,34 @@
 /******************************************************************************/
 
+export const propNames = ['kind', 'height'];
+
 export default function styles(theme, props) {
+  const {kind, height} = props;
+
   let flexGrow = '1';
   let overflowY = 'auto';
-  let height = null;
+  let boxHeight = null;
   let margin = null;
   let padding = null;
   let cursor = null;
 
   const m = theme.shapes.containerMargin;
 
-  if (props.kind === 'panes') {
+  if (kind === 'panes') {
     padding = '0px ' + m + ' 0px ' + m;
   }
 
-  if (props.kind === 'table-body') {
+  if (kind === 'table-body') {
     flexGrow = null;
-    overflowY = props.height ? 'scroll' : 'hidden';
-    height = props.height;
+    overflowY = height ? 'scroll' : 'hidden';
+    boxHeight = height;
     cursor = 'default';
   }
 
   const box = {
     flexGrow: flexGrow,
     overflowY: overflowY,
-    height: height,
+    height: boxHeight,
     margin: margin,
     padding: padding,
     cursor: cursor,

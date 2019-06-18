@@ -1,13 +1,17 @@
 /******************************************************************************/
 
+export const propNames = ['width', 'height', 'backgroundColor', 'boxShadow'];
+
 export default function styles(theme, props) {
-  const boxStyle = {
-    width: props.width,
-    height: props.height,
+  const {width, height, backgroundColor, boxShadow} = props;
+
+  const box = {
+    width: width,
+    height: height,
     display: 'flex',
     flexDirection: 'row',
-    backgroundColor: props.backgroundColor,
-    boxShadow: props.boxShadow,
+    backgroundColor: backgroundColor,
+    boxShadow: boxShadow,
     zIndex: '2',
     position: 'absolute',
     left: '0px',
@@ -18,7 +22,7 @@ export default function styles(theme, props) {
   };
 
   return {
-    box: boxStyle,
+    box,
   };
 }
 

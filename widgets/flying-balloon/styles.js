@@ -12,7 +12,7 @@ export default function styles(theme, props) {
   // This box is an invisible floating box that contains a component Container
   // with kind='flying-balloon'. For example, if trianglePosition='left', the
   // floating box is positioned to the right the parent box.
-  const boxStyle = {
+  const box = {
     width: width || '100%',
     maxWidth: maxWidth || '200px',
     display: 'flex',
@@ -22,27 +22,27 @@ export default function styles(theme, props) {
     zIndex: zIndex || 1,
   };
   if (trianglePosition === 'left') {
-    boxStyle.left = '100%';
-    boxStyle.margin = '0px 0px 0px ' + t;
-    boxStyle.alignItems = 'flex-start';
+    box.left = '100%';
+    box.margin = '0px 0px 0px ' + t;
+    box.alignItems = 'flex-start';
   } else if (trianglePosition === 'right') {
-    boxStyle.right = '100%';
-    boxStyle.margin = '0px ' + t + ' 0px 0px';
-    boxStyle.alignItems = 'flex-end';
+    box.right = '100%';
+    box.margin = '0px ' + t + ' 0px 0px';
+    box.alignItems = 'flex-end';
   } else if (trianglePosition === 'bottom') {
-    boxStyle.left = '-1px';
-    boxStyle.bottom = '100%';
-    boxStyle.margin = '0px 0px ' + t + ' 0px';
-    boxStyle.alignItems = 'flex-start';
+    box.left = '-1px';
+    box.bottom = '100%';
+    box.margin = '0px 0px ' + t + ' 0px';
+    box.alignItems = 'flex-start';
   } else {
-    boxStyle.left = '-1px';
-    boxStyle.top = '100%';
-    boxStyle.margin = t + ' 0px 0px 0px';
-    boxStyle.alignItems = 'flex-start';
+    box.left = '-1px';
+    box.top = '100%';
+    box.margin = t + ' 0px 0px 0px';
+    box.alignItems = 'flex-start';
   }
 
   return {
-    box: boxStyle,
+    box,
   };
 }
 

@@ -4,9 +4,13 @@ import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
 
+export const propNames = ['kind', 'width', 'height'];
+
 export default function styles(theme, props) {
-  let width = null;
-  let height = '1px';
+  const {kind, width, height} = props;
+
+  let boxWidth = null;
+  let boxHeight = '1px';
   let grow = null;
   let borderWidth = '1px 0px 0px 0px';
   let borderStyle = 'solid';
@@ -17,63 +21,63 @@ export default function styles(theme, props) {
 
   const s = theme.shapes.lineSpacing;
 
-  if (props.width) {
-    width = props.width;
+  if (width) {
+    boxWidth = width;
   }
 
   let topMargin = '0px';
   let bottomMargin = s;
-  if (props.height) {
-    const h = Unit.multiply(props.height, 0.5);
+  if (height) {
+    const h = Unit.multiply(height, 0.5);
     topMargin = Unit.add(topMargin, h);
     bottomMargin = Unit.add(bottomMargin, h);
   }
 
   margin = topMargin + ' 0px ' + bottomMargin + ' 0px';
 
-  if (props.kind === 'task') {
-    height = theme.shapes.taskSeparatorHeight;
+  if (kind === 'task') {
+    boxHeight = theme.shapes.taskSeparatorHeight;
     margin = '0px';
     borderWidth = '0px';
     borderStyle = 'none';
     backgroundColor = theme.palette.taskSeparatorBackground;
   }
 
-  if (props.kind === 'space') {
+  if (kind === 'space') {
     borderWidth = '0px';
     borderStyle = 'none';
   }
 
-  if (props.kind === 'exact') {
-    height = props.height;
+  if (kind === 'exact') {
+    boxHeight = height;
     margin = '0px';
     borderWidth = '0px';
     borderStyle = 'none';
   }
 
-  if (props.kind === 'menu-separator') {
-    height = theme.shapes.flyingBalloonPadding;
+  if (kind === 'menu-separator') {
+    boxHeight = theme.shapes.flyingBalloonPadding;
     margin = '0px';
     borderWidth = '0px';
     borderStyle = 'none';
   }
 
-  if (props.kind === 'floating-footer') {
+  if (kind === 'floating-footer') {
     borderColor = theme.palette.floatingSecondary;
   }
 
-  if (props.kind === 'ticket-warning') {
+  if (kind === 'ticket-warning') {
     borderColor = theme.palette.text;
     margin = '0px 0px 5px 0px';
   }
 
-  if (props.kind === 'grow') {
+  if (kind === 'grow') {
     grow = '1';
     margin = null;
     padding = null;
   }
 
-  if (props.kind === 'sajex') {
+  if (kind === 'sajex') {
     grow = '1';
     margin = null;
     padding = null;
@@ -82,8 +86,8 @@ export default function styles(theme, props) {
   }
 
   const boxStyle = {
-    width: width,
-    height: height,
+    width: boxWidth,
+    height: boxHeight,
     flexGrow: grow,
     borderWidth: borderWidth,
     borderStyle: borderStyle,

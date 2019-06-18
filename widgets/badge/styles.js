@@ -3,7 +3,18 @@ import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
 
+export const propNames = [
+  'kind',
+  'color',
+  'layer',
+  'shape',
+  'disabled',
+  'size',
+];
+
 export default function styles(theme, props) {
+  const {kind, color, layer, shape, disabled, size} = props;
+
   let boxWidth = theme.shapes.lineHeight;
   let boxHeight = theme.shapes.lineHeight;
   let boxAlignSelf = null;
@@ -13,11 +24,11 @@ export default function styles(theme, props) {
   let boxMargin = null;
   let labelHeight = theme.shapes.badgeHeight;
   let labelRadius = theme.shapes.badgeRadius;
-  let color = theme.palette.badgeText;
+  let foregroundColor = theme.palette.badgeText;
 
   let backgroundColor = theme.palette.badgeBackground;
-  if (props.color) {
-    switch (props.color) {
+  if (color) {
+    switch (color) {
       case 'red':
         backgroundColor = theme.palette.markSecondary;
         break;
@@ -27,28 +38,28 @@ export default function styles(theme, props) {
     }
   }
 
-  if (props.kind === 'chronos-count' || props.kind === 'identical-count') {
-    color = theme.palette.chronoBadgeText;
+  if (kind === 'chronos-count' || kind === 'identical-count') {
+    foregroundColor = theme.palette.chronoBadgeText;
     backgroundColor = theme.palette.chronoBadgeBackground;
   }
 
   // If badge has layer='over', place it on top-right corner of parent.
-  if (props.layer === 'over') {
+  if (layer === 'over') {
     boxPosition = 'absolute';
     boxRight = '0px';
     boxTop = '0px';
   }
-  if (props.layer === 'top-right') {
+  if (layer === 'top-right') {
     boxPosition = 'absolute';
     boxRight = '-7px';
     boxTop = '-7px';
   }
 
-  if (props.shape === 'circle') {
+  if (shape === 'circle') {
     labelRadius = Unit.multiply(theme.shapes.lineHeight, 0.5);
   }
 
-  if (Bool.isTrue(props.disabled)) {
+  if (Bool.isTrue(disabled)) {
     backgroundColor = theme.palette.buttonDisableBackground;
   }
 
@@ -64,7 +75,7 @@ export default function styles(theme, props) {
     position: boxPosition,
     right: boxRight,
     top: boxTop,
-    transform: props.size ? `scale(${props.size})` : null,
+    transform: size ? `scale(${size})` : null,
   };
 
   const m = Unit.multiply(labelHeight, 0.25);
@@ -81,7 +92,7 @@ export default function styles(theme, props) {
     alignItems: 'center',
     fontSize: Unit.multiply(theme.shapes.badgeTextSize, theme.typo.fontScale),
     fontWeight: 'bold',
-    color: color,
+    color: foregroundColor,
     backgroundColor: backgroundColor,
   };
 
