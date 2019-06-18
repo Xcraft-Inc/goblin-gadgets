@@ -77,6 +77,10 @@ class TextFieldNC extends Widget {
             value={this.props.value}
             defaultValue={this.props.defaultValue}
             rows={this.props.rows}
+            disabled={
+              Bool.isTrue(this.props.disabled) ||
+              Bool.isTrue(this.props.readonly)
+            }
             onChange={this.onChange}
             onFocus={this.onFocus}
             onBlur={this.onBlur}
@@ -91,6 +95,10 @@ class TextFieldNC extends Widget {
             type="text"
             value={this.props.value}
             defaultValue={this.props.defaultValue}
+            disabled={
+              Bool.isTrue(this.props.disabled) ||
+              Bool.isTrue(this.props.readonly)
+            }
             onChange={this.onChange}
             onFocus={this.onFocus}
             onBlur={this.onBlur}
