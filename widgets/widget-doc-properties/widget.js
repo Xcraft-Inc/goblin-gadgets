@@ -3,7 +3,7 @@ import Widget from 'laboratory/widget';
 import widgetList from '../widget-doc/widget-list';
 import Container from 'goblin-gadgets/widgets/container/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
-import TextFieldBasis from 'goblin-gadgets/widgets/text-field-basis/widget';
+import TextFieldNC from 'goblin-gadgets/widgets/text-field-nc/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import WidgetDocProperty from '../widget-doc-property/widget';
 import {types} from 'goblin-gadgets/types/types.js';
@@ -86,7 +86,7 @@ class WidgetDocProperties extends Widget {
       return (
         <div className={this.styles.classNames.filter}>
           <Label text="Filter" />
-          <TextFieldBasis
+          <TextFieldNC
             grow="1"
             shape="left-rounded"
             spacing="overlap"
@@ -104,7 +104,7 @@ class WidgetDocProperties extends Widget {
       return (
         <div className={this.styles.classNames.filter}>
           <Label text="Filter" />
-          <TextFieldBasis
+          <TextFieldNC
             grow="1"
             shape="rounded"
             spacing="overlap"

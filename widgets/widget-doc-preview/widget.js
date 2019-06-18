@@ -6,7 +6,7 @@ import Label from 'goblin-gadgets/widgets/label/widget';
 import Checkbox from 'goblin-gadgets/widgets/checkbox/widget';
 import WidgetDocPreviewContainer from '../widget-doc-preview-container/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
-import TextFieldBasis from '../text-field-basis/widget';
+import TextFieldNC from '../text-field-nc/widget';
 import wrapRawInput from 'goblin-laboratory/widgets/input-wrapper/widget.js';
 import parseCode from './parse-code';
 
@@ -85,7 +85,7 @@ const SettingsList = Widget.connectWidget((state, props) => {
 
 /******************************************************************************/
 
-const TextField = wrapRawInput(TextFieldBasis);
+const TextField = wrapRawInput(TextFieldNC);
 
 class WidgetDocPreview extends Widget {
   constructor() {

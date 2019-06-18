@@ -7,8 +7,8 @@ import labelProps from 'goblin-gadgets/widgets/label/props';
 import Container from 'goblin-gadgets/widgets/container/widget';
 import containerProps from 'goblin-gadgets/widgets/container/props';
 
-import TextFieldBasis from 'goblin-gadgets/widgets/text-field-basis/widget';
-import textFieldBasisProps from 'goblin-gadgets/widgets/text-field-basis/props';
+import TextFieldNC from 'goblin-gadgets/widgets/text-field-nc/widget';
+import TextFieldNCProps from 'goblin-gadgets/widgets/text-field-nc/props';
 
 import CheckboxNC from 'goblin-gadgets/widgets/checkbox-nc/widget';
 import CheckboxNCProps from 'goblin-gadgets/widgets/checkbox-nc/props';
@@ -39,10 +39,10 @@ const widgetList = [
     props: containerProps,
   },
   {
-    name: 'TextFieldBasis',
-    widget: TextFieldBasis,
-    widgetPath: 'goblin-gadgets/widgets/text-field-basis/widget',
-    props: textFieldBasisProps,
+    name: 'TextFieldNC',
+    widget: TextFieldNC,
+    widgetPath: 'goblin-gadgets/widgets/text-field-nc/widget',
+    props: TextFieldNCProps,
   },
   {
     name: 'Table',

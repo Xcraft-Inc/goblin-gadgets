@@ -17,7 +17,7 @@ import Label from 'gadgets/label/widget';
 
 /******************************************************************************/
 
-class TextFieldBasis extends Widget {
+class TextFieldNC extends Widget {
   constructor() {
     super(...arguments);
     this.onChange = this.onChange.bind(this);
@@ -111,8 +111,8 @@ class TextFieldBasis extends Widget {
 
 /******************************************************************************/
 
-TextFieldBasis.propTypes = makePropTypes(Props);
-TextFieldBasis.defaultProps = makeDefaultProps(Props);
+TextFieldNC.propTypes = makePropTypes(Props);
+TextFieldNC.defaultProps = makeDefaultProps(Props);
 
 /******************************************************************************/
-export default TextFieldBasis;
+export default TextFieldNC;

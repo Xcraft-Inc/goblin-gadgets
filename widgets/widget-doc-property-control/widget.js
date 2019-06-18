@@ -1,6 +1,6 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
-import TextFieldBasis from 'goblin-gadgets/widgets/text-field-basis/widget';
+import TextFieldNC from 'goblin-gadgets/widgets/text-field-nc/widget';
 import TextFieldCombo from 'goblin-gadgets/widgets/text-field-combo/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
@@ -59,7 +59,7 @@ class WidgetDocPropertyControl extends Widget {
     }
     return (
       <React.Fragment>
-        <TextFieldBasis
+        <TextFieldNC
           shape="left-smooth"
           spacing="overlap"
           readonly={readonly}
@@ -116,7 +116,7 @@ class WidgetDocPropertyControl extends Widget {
       case 'text-field':
       default:
         return (
-          <TextFieldBasis
+          <TextFieldNC
             spacing="tiny"
             shape="smooth"
             value={this.props.value}
