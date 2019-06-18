@@ -32,7 +32,7 @@ function omit(object, props) {
 
 /******************************************************************************/
 
-class TextField extends Widget {
+export default class TextFieldOld extends Widget {
   constructor() {
     super(...arguments);
 
@@ -400,4 +400,3 @@ class TextField extends Widget {
 }
 
 /******************************************************************************/
-export default TextField;
