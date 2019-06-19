@@ -14,6 +14,7 @@ import {
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
 import Label from 'gadgets/label/widget';
+import FlyingBalloon from 'gadgets/flying-balloon/widget';
 
 /******************************************************************************/
 
@@ -40,6 +41,32 @@ class TextFieldNC extends Widget {
   onBlur(e) {
     if (this.props.onBlur) {
       this.props.onBlur(e.target.value);
+    }
+  }
+
+  /******************************************************************************/
+
+  renderFlyingBalloon() {
+    if (this.props.warning || this.props.info) {
+      const trianglePosition = {
+        bottom: 'top',
+        top: 'bottom',
+        left: 'right',
+        right: 'left',
+        undefined: 'top',
+      }[this.props.flyingBalloonAnchor];
+
+      return (
+        <FlyingBalloon
+          width="150%"
+          maxWidth="500px"
+          primaryText={this.props.warning}
+          secondaryText={this.props.info}
+          trianglePosition={trianglePosition}
+        />
+      );
+    } else {
+      return null;
     }
   }
 
@@ -71,9 +98,7 @@ class TextFieldNC extends Widget {
           <TranslatableTextarea
             msgid={this.props.hintText}
             workitemId={this.context.desktopId || this.getNearestId()}
-            className={`${this.styles.classNames.textarea} mousetrap ${
-              this.styles.classNames.input
-            }`}
+            className={`${this.styles.classNames.textarea} mousetrap ${this.styles.classNames.input}`}
             value={this.props.value}
             defaultValue={this.props.defaultValue}
             rows={this.props.rows}
@@ -89,9 +114,7 @@ class TextFieldNC extends Widget {
           <TranslatableInput
             msgid={this.props.hintText}
             workitemId={this.context.desktopId || this.getNearestId()}
-            className={`${this.styles.classNames.field} mousetrap ${
-              this.styles.classNames.input
-            }`}
+            className={`${this.styles.classNames.field} mousetrap ${this.styles.classNames.input}`}
             type="text"
             value={this.props.value}
             defaultValue={this.props.defaultValue}
@@ -105,6 +128,7 @@ class TextFieldNC extends Widget {
           />
         )}
         {this.renderFocusForeground()}
+        {this.renderFlyingBalloon()}
       </TranslatableDiv>
     );
   }
