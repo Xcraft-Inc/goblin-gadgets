@@ -283,7 +283,7 @@ class TextFieldCombo extends Widget {
   }
 
   renderTextField() {
-    if (this.props.readonly) {
+    if (Bool.isTrue(this.props.readonly) && this.props.glyph) {
       return this.renderTextFieldReadonly();
     } else {
       return this.renderTextFieldEdit();

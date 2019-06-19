@@ -1813,7 +1813,7 @@ class Field extends Form {
           menuType="wrap"
           menuItemWidth={this.props.menuItemWidth}
           comboTextTransform="none"
-          onChange={text => {
+          onSetText={text => {
             this.setBackendValue(this.fullPath, text);
             if (this.props.onChange) {
               this.props.onChange(text);
