@@ -228,7 +228,7 @@ class List {
     let notHigh = 0;
     if (results) {
       total = results.hits.total;
-      var index = from;
+      var index = Number.isInteger(from) ? from : 0;
 
       results.hits.hits.forEach(hit => {
         let valueId = hit._id;
