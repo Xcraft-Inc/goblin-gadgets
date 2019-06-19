@@ -172,6 +172,7 @@ export default [
       'padding',
       'top-margin',
       'trashed',
+      'warning',
       'wide-info',
       'wrap',
     ]),
