@@ -24,7 +24,6 @@ import TranslatableTextField from 'gadgets/translatable-text-field/widget';
 import LabelTextField from 'gadgets/label-text-field/widget';
 import TextFieldTyped from 'gadgets/text-field-typed/widget';
 import TextFieldCombo from 'gadgets/text-field-combo/widget';
-import FieldCombo from 'gadgets/field-combo/widget';
 import TextFieldTimeInterval from 'gadgets/text-field-time-interval/widget';
 import RadioList from 'gadgets/radio-list/widget';
 import CheckList from 'gadgets/check-list/widget';
@@ -1783,7 +1782,7 @@ class Field extends Form {
       this.props.list[0].text !== undefined
     ) {
       const FieldComboWired = this.mapWidget(
-        FieldCombo,
+        TextFieldCombo,
         value => {
           if (!value) {
             return;
@@ -1809,6 +1808,7 @@ class Field extends Form {
           tooltip={this.props.tooltip || this.props.hintText}
           width={this.props.fieldWidth}
           model={this.props.model}
+          readonly={this.props.comboReadonly}
           list={props.list}
           menuType="wrap"
           menuItemWidth={this.props.menuItemWidth}
@@ -1892,9 +1892,7 @@ class Field extends Form {
             // FIXME: Sometime value is the text instead of the id
             // when we change the combo value too fast
             console.warn(
-              `selected value ${value} must be a id. listModel:${
-                this.props.listModel
-              }`
+              `selected value ${value} must be a id. listModel:${this.props.listModel}`
             );
             return {};
           }
