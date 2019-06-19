@@ -27,26 +27,22 @@ module.exports = {
       .set('list', {})
       .set('count', action.get('count'));
   },
-  'customize-visualization': (state, action) => {
+  'init-list': Goblin.Shredder.mutableReducer((state, action) => {
     const ids = action.get('ids');
     const count = action.get('count');
     const highlights = action.get('highlights');
 
-    return state
-      .set('list', ids)
-      .set('count', count)
-      .set('highlights', highlights);
-  },
-  'init-list': (state, action) => {
-    const ids = action.get('ids');
-    const count = action.get('count');
-    const highlights = action.get('highlights');
+    const items = ids.reduce((list, id, index) => {
+      list[`${index}-item`] = id;
+      return list;
+    }, {});
 
-    return state
-      .set('list', ids)
-      .set('count', count)
-      .set('highlights', highlights);
-  },
+    state = state.set(`list`, items);
+
+    state = state.set('count', count);
+    state = state.set('highlights', highlights);
+    return state;
+  }),
   'rethink-fetch': Goblin.Shredder.mutableReducer((state, action) => {
     const rows = action.get('rows');
     const ids = action.get('ids');
@@ -66,16 +62,6 @@ module.exports = {
 
     return state;
   }),
-  'elastic-fetch': (state, action) => {
-    const ids = action.get('ids');
-    const count = action.get('count');
-    const highlights = action.get('highlights');
-
-    return state
-      .set('list', ids)
-      .set('count', count)
-      .set('highlights', highlights);
-  },
   'handle-changes': state => {
     return state.set('list', {});
   },

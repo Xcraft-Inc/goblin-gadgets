@@ -361,7 +361,7 @@ Goblin.registerQuest(goblinName, 'customize-visualization', function*(
   const ids = yield* List.executeSearch(quest, filter, sort);
   const count = quest.goblin.getX('count');
   const highlights = quest.goblin.getX('highlights');
-  quest.do({ids, count, highlights});
+  quest.dispatch('init-list', {ids, count, highlights});
 });
 
 Goblin.registerQuest(goblinName, 'change-content-index', function*(
@@ -466,7 +466,7 @@ Goblin.registerQuest(goblinName, 'fetch', function*(quest, range) {
     const count = quest.goblin.getX('count');
     const highlights = quest.goblin.getX('highlights');
 
-    quest.dispatch('elastic-fetch', {ids, count, highlights});
+    quest.dispatch('init-list', {ids, count, highlights});
     return;
   }
 
