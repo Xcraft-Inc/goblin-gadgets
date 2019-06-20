@@ -33,14 +33,12 @@ class TextFieldComboNC extends Widget {
   }
 
   showCombo() {
-    if (!this.props.list) {
+    if (!this.list) {
       return;
     }
     const node = this.node;
 
-    const itemCount = this.props.list.size
-      ? this.props.list.size
-      : this.props.list.length; // FIXME: pouèrk !
+    const itemCount = this.list.length;
 
     this.comboLocation = ComboHelpers.getComboLocation(
       node,
@@ -64,9 +62,8 @@ class TextFieldComboNC extends Widget {
       showCombo: true,
     });
 
-    const x = this.props.showCombo;
-    if (x) {
-      x();
+    if (this.props.showCombo) {
+      this.props.showCombo();
     }
   }
 
@@ -78,7 +75,7 @@ class TextFieldComboNC extends Widget {
 
   doChange(item) {
     if (this.props.onChange) {
-      this.props.onChange(item.value);
+      this.props.onChange(item.id);
     }
   }
 
@@ -91,7 +88,7 @@ class TextFieldComboNC extends Widget {
   }
 
   onBlur() {
-    MouseTrap.unbind('esc');
+    MouseTrap.unbind('up');
     MouseTrap.unbind('down');
     this.setState({
       focus: false,
@@ -109,43 +106,73 @@ class TextFieldComboNC extends Widget {
     this.showCombo();
   }
 
-  getItem(item) {
-    if (typeof item === 'string') {
-      item = {
-        text: item,
-        value: item,
-      };
+  convertList() {
+    this.list = this.props.list || [];
+    if (isShredder(this.list)) {
+      this.list = this.list.toJS();
     }
-    const active = this.props.selectedValue === item.value;
-    item = {
-      ...item,
-      active,
-      action: this.doChange,
-    };
-    if (this.props.menuType !== 'wrap') {
-      item.glyph = active ? 'solid/check' : 'solid/none';
+
+    if (this.list.length > 0 || this.list.size > 0) {
+      this.list = this.list.map(item => {
+        switch (typeof item) {
+          case 'string':
+            item = {
+              id: item,
+              text: item,
+              value: item,
+              active: this.props.selectedId === item,
+              action: this.doChange,
+            };
+            break;
+          case 'object':
+            item = {
+              id: item.id,
+              text: item.value,
+              value: item.value,
+              glyph: item.glyph,
+              color: item.color,
+              active: this.props.selectedId === item.id,
+              action: this.doChange,
+            };
+            break;
+          default:
+            throw Error('Item Format not accepted in TextFieldComboNC !');
+        }
+        if (this.props.menuType !== 'wrap') {
+          item.glyph = item.active ? 'solid/check' : 'solid/none';
+        }
+        return item;
+      });
     }
-    return item;
   }
 
   /******************************************************************************/
 
   renderTextField() {
-    const autoReadonly =
-      !this.state.focus &&
-      this.props.selectedValue &&
-      this.props.selectedValue !== '';
-    const displayValue = autoReadonly ? this.props.selectedValue : null;
-    const visibleReadonly = Bool.isTrue(this.props.readonly)
-      ? Bool.isTrue(this.props.readonly)
-      : autoReadonly;
-
     const s = this.props.shape ? this.props.shape : 'smooth';
     const textFieldShapes = {
       smooth: 'left-smooth',
       rounded: 'left-rounded',
     };
     const textFieldShape = textFieldShapes[s];
+
+    let selectedItem = this.list.find(
+      item => item.id === this.props.selectedId
+    );
+
+    if (!selectedItem) {
+      selectedItem = {
+        id: this.props.selectedId,
+        text: this.props.selectedId,
+        value: this.props.selectedId,
+        glyph: null,
+      };
+    }
+
+    let glyph = {glyph: selectedItem.glyph, color: selectedItem.color};
+    if (this.props.menuType !== 'wrap' || !selectedItem.glyph) {
+      glyph = null;
+    }
 
     const props = {
       parser: this.props.parser,
@@ -160,11 +187,12 @@ class TextFieldComboNC extends Widget {
       spacing: 'overlap',
       shape: textFieldShape,
       flyingBalloonAnchor: this.props.flyingBalloonAnchor,
-      defaultValue: this.props.defaultValue,
+      value: selectedItem.value,
+      glyph,
       width: this.props.width,
       grow: this.props.width ? null : '1',
       rows: this.props.rows,
-      readonly: Bool.toString(visibleReadonly),
+      readonly: Bool.toString(this.props.readonly),
       disabled: this.props.disabled,
       selectAllOnFocus: this.props.selectAllOnFocus,
       defaultFocus: this.props.defaultFocus,
@@ -172,15 +200,11 @@ class TextFieldComboNC extends Widget {
       required: this.props.required,
     };
 
-    if (displayValue) {
-      props.value = displayValue;
-      props.displayValue = displayValue;
-    }
-
     return (
       <TextFieldNC
         {...props}
         embeddedFocus="true"
+        onChange={this.onChange}
         onFocus={this.onFocus}
         onBlur={this.onBlur}
         onMouseUp={this.onMouseUp}
@@ -218,13 +242,6 @@ class TextFieldComboNC extends Widget {
     if (!this.state.showCombo) {
       return null;
     }
-    let list = this.props.list;
-    if (isShredder(list)) {
-      list = list.toJS();
-    }
-
-    list = list.map(item => this.getItem(item));
-
     return (
       <Combo
         menuType={this.props.menuType}
@@ -238,7 +255,7 @@ class TextFieldComboNC extends Widget {
         bottom={this.comboLocation.bottom}
         maxHeight={this.comboLocation.maxHeight}
         width={this.comboLocation.width}
-        list={list}
+        list={this.list}
         comboTextTransform={this.props.comboTextTransform}
         close={this.hideCombo}
       />
@@ -249,6 +266,8 @@ class TextFieldComboNC extends Widget {
     if (Bool.isFalse(this.props.show)) {
       return null;
     }
+
+    this.convertList();
 
     const boxClass = this.state.showCombo
       ? this.styles.classNames.shadowBox

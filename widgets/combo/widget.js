@@ -51,7 +51,9 @@ class Combo extends Widget {
     let index = 0;
     for (let item of this.props.list) {
       if (Bool.isTrue(item.active)) {
-        this.activeIndex = index;
+        this.setState({
+          activeIndex: index,
+        });
       }
       index++;
     }
@@ -68,19 +70,21 @@ class Combo extends Widget {
   }
 
   onNextIndex(e) {
-    let index = this.activeIndex;
+    let index = this.state.activeIndex;
     while (index < this.props.list.length - 1) {
       index++;
       if (!this.props.list[index].separator) {
         break;
       }
     }
-    this.activeIndex = index;
+    this.setState({
+      activeIndex: index,
+    });
     e.preventDefault();
   }
 
   onPrevIndex(e) {
-    let index = this.activeIndex;
+    let index = this.state.activeIndex;
     if (index === -1) {
       index = this.props.list.length;
     }
@@ -110,7 +114,7 @@ class Combo extends Widget {
   }
 
   onMouseUp(e) {
-    const node = ReactDOM.findDOMNode(this);
+    const node = this.node;
     const rect = node.children[0].getBoundingClientRect();
     if (!RectHelpers.isInside(rect, e.clientX, e.clientY)) {
       // If the mouse is outside the menu combo, close it.
@@ -191,6 +195,7 @@ class Combo extends Widget {
 
     return (
       <div
+        ref={node => (this.node = node)}
         className={fullScreenClass}
         onMouseUp={this.onMouseUp}
         onTouchEnd={this.onMouseUp}
