@@ -23,7 +23,8 @@ class TextFieldComboNC extends Widget {
 
     this.comboLocation = null;
 
-    this.doChange = this.doChange.bind(this);
+    this.doChangeCombo = this.doChangeCombo.bind(this);
+    this.doChangeTextField = this.doChangeTextField.bind(this);
     this.onFocus = this.onFocus.bind(this);
     this.onBlur = this.onBlur.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
@@ -73,7 +74,13 @@ class TextFieldComboNC extends Widget {
     });
   }
 
-  doChange(item) {
+  doChangeTextField(id) {
+    if (this.props.onChange) {
+      this.props.onChange(id);
+    }
+  }
+
+  doChangeCombo(item) {
     if (this.props.onChange) {
       this.props.onChange(item.id);
     }
@@ -121,7 +128,7 @@ class TextFieldComboNC extends Widget {
               text: item,
               value: item,
               active: this.props.selectedId === item,
-              action: this.doChange,
+              action: this.doChangeCombo,
             };
             break;
           case 'object':
@@ -132,7 +139,7 @@ class TextFieldComboNC extends Widget {
               glyph: item.glyph,
               color: item.color,
               active: this.props.selectedId === item.id,
-              action: this.doChange,
+              action: this.doChangeCombo,
             };
             break;
           default:
@@ -204,7 +211,7 @@ class TextFieldComboNC extends Widget {
       <TextFieldNC
         {...props}
         embeddedFocus="true"
-        onChange={this.onChange}
+        onChange={this.doChangeTextField}
         onFocus={this.onFocus}
         onBlur={this.onBlur}
         onMouseUp={this.onMouseUp}
