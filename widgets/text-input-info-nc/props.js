@@ -11,6 +11,7 @@ addType('checkFunction', {
   samples: [
     {text: 'Test length 5/10/15', value: 'T1'},
     {text: 'Test empty', value: 'T2'},
+    {text: 'Test password', value: 'T3'},
   ],
   samplesData: {
     T1: function(value) {
@@ -25,6 +26,13 @@ addType('checkFunction', {
     T2: function(value) {
       if (!value) {
         return {warning: 'Donnez une valeur'};
+      }
+    },
+    T3: function(value) {
+      if (!value) {
+        return {info: 'Donnez votre mot de passe'};
+      } else if (value && value.length < 8) {
+        return {warning: 'Mot de passe trop court'};
       }
     },
   },
