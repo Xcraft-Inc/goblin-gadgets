@@ -17,7 +17,7 @@ import Badge from 'gadgets/badge/widget';
 
 /******************************************************************************/
 
-class Button extends Widget {
+export default class Button extends Widget {
   constructor() {
     super(...arguments);
 
@@ -341,7 +341,3 @@ class Button extends Widget {
 
 Button.propTypes = makePropTypes(Props);
 Button.defaultProps = makeDefaultProps(Props);
-
-/******************************************************************************/
-
-export default Button;
