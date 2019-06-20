@@ -13,7 +13,7 @@ import {
 import TableRow from 'gadgets/table-row/widget';
 import TableCell from 'gadgets/table-cell/widget';
 import Button from 'gadgets/button/widget';
-import TextFieldNC from 'gadgets/text-field-nc/widget';
+import TextInputNC from 'gadgets/text-input-nc/widget';
 import ScrollableContainer from 'gadgets/scrollable-container/widget';
 import T from 't';
 
@@ -309,7 +309,7 @@ class Table extends Widget {
         };
         return (
           <div className={this.styles.classNames.filter}>
-            <TextFieldNC
+            <TextInputNC
               border="none"
               grow="1"
               shape="left-smooth"
@@ -335,7 +335,7 @@ class Table extends Widget {
         };
         return (
           <div className={this.styles.classNames.filter}>
-            <TextFieldNC
+            <TextInputNC
               border="none"
               grow="1"
               shape="smooth"

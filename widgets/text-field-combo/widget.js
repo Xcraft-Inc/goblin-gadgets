@@ -9,6 +9,7 @@ import {Unit} from 'electrum-theme';
 import Button from 'gadgets/button/widget';
 import TextField from 'gadgets/text-field/widget';
 import Combo from 'gadgets/combo/widget';
+import Label from 'gadgets/label/widget';
 import Select from 'gadgets/select/widget';
 import {isShredder} from 'xcraft-core-shredder';
 
@@ -189,7 +190,7 @@ class TextFieldCombo extends Widget {
 
   /******************************************************************************/
 
-  renderTextField() {
+  renderTextFieldEdit() {
     const autoReadonly =
       !this.focus &&
       this.props.selectedValue &&
@@ -246,6 +247,47 @@ class TextFieldCombo extends Widget {
         onMouseUp={this.onMouseUp}
       />
     );
+  }
+
+  renderTextFieldReadonly() {
+    const s = this.props.shape ? this.props.shape : 'smooth';
+    const textFieldShapes = {
+      smooth: 'left-smooth',
+      rounded: 'left-rounded',
+    };
+    const textFieldShape = textFieldShapes[s];
+
+    const props = {
+      glyph: this.props.glyph,
+      glyphColor: this.props.glyphColor,
+      text: this.props.defaultValue,
+      tooltip: this.props.tooltip,
+      spacing: 'overlap',
+      shape: textFieldShape,
+      flyingBalloonAnchor: this.props.flyingBalloonAnchor,
+      grow: '1',
+      rows: this.props.rows,
+      disabled: this.props.disabled,
+      visibility: this.props.visibility,
+      required: this.props.required,
+    };
+
+    return (
+      <Label
+        {...props}
+        kind="field-combo"
+        wrap="no-strict"
+        onClick={this.onShowCombo}
+      />
+    );
+  }
+
+  renderTextField() {
+    if (Bool.isTrue(this.props.readonly) && this.props.glyph) {
+      return this.renderTextFieldReadonly();
+    } else {
+      return this.renderTextFieldEdit();
+    }
   }
 
   renderButton() {
