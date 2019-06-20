@@ -7,7 +7,6 @@ import Checkbox from 'goblin-gadgets/widgets/checkbox/widget';
 import WidgetDocPreviewContainer from '../widget-doc-preview-container/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import TextFieldNC from '../text-field-nc/widget';
-import wrapRawInput from 'goblin-laboratory/widgets/input-wrapper/widget.js';
 import parseCode from './parse-code';
 
 /******************************************************************************/
@@ -85,8 +84,6 @@ const SettingsList = Widget.connectWidget((state, props) => {
 
 /******************************************************************************/
 
-const TextField = wrapRawInput(TextFieldNC);
-
 class WidgetDocPreview extends Widget {
   constructor() {
     super(...arguments);
@@ -131,7 +128,7 @@ class WidgetDocPreview extends Widget {
     return (
       <div className={this.styles.classNames.container}>
         <pre className={this.styles.classNames.code}>{code1}</pre>
-        <TextField rows={'3'} onChange={this.onChange} value={code2} />
+        <TextFieldNC rows={'3'} onChange={this.onChange} value={code2} />
       </div>
     );
   }

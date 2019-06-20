@@ -1,10 +1,9 @@
 import React from 'react';
-import TextFieldNC from '../text-field-nc/widget';
 import withC from 'goblin-laboratory/widgets/connect-helpers/with-c';
 import C from 'goblin-laboratory/widgets/connect-helpers/c';
-import wrapRawInput from 'goblin-laboratory/widgets/input-wrapper/widget.js';
+import TextFieldNC from '../text-field-nc/widget';
 
-const TextField = withC(wrapRawInput(TextFieldNC), {value: 'onChange'});
+const TextField = withC(TextFieldNC, {value: 'onChange'});
 TextField.displayName = 'TextFieldNew';
 
 // export default TextField;
