@@ -94,14 +94,4 @@ export default [
     type: types.bool,
     defaultValue: 'true',
   },
-  {
-    name: 'warning',
-    group: 'aspect',
-    type: types.nabu,
-  },
-  {
-    name: 'info',
-    group: 'aspect',
-    type: types.nabu,
-  },
 ];

@@ -1,5 +1,5 @@
 import {types} from 'goblin-gadgets/types/types.js';
-import textInputNCProps from '../text-input-nc/props';
+import textInputInfoNCProps from '../text-input-info-nc/props';
 
 export default [
   {
@@ -22,5 +22,5 @@ export default [
     group: 'functionality',
     type: types.number, // TODO positive number
   },
-  ...textInputNCProps,
+  ...textInputInfoNCProps,
 ];
