@@ -11,7 +11,7 @@ class WidgetDocPreviewContainer extends Widget {
   }
 
   renderThemeContext(theme) {
-    if (theme !== 'none') {
+    if (theme && theme !== 'none') {
       return (
         <ThemeContext labId={this.context.labId} frameThemeContext={theme}>
           {this.renderContainer()}
@@ -23,13 +23,17 @@ class WidgetDocPreviewContainer extends Widget {
 
   renderContainer() {
     const layout = this.props.layout.split('-');
-    let containerProps = {};
     let ContainerComponent = 'div';
+    let containerProps = {};
     if (layout[0] !== 'div') {
-      containerProps.kind = layout[0];
       ContainerComponent = Container;
+      containerProps.kind = layout[0];
       if (layout[1] === 'grow') {
         containerProps.grow = '1';
+      }
+    } else {
+      if (layout[1] === 'grow') {
+        containerProps.className = this.styles.classNames.grow;
       }
     }
     return (
@@ -53,6 +57,7 @@ export default Widget.connectWidget(state => {
   return {
     theme: settings.get('theme'),
     frame: settings.get('frame'),
+    layoutFrame: settings.get('layoutFrame'),
     scale: settings.get('scale'),
     color: settings.get('color'),
     layout: settings.get('layout'),
