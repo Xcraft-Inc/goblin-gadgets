@@ -18,7 +18,7 @@ import FlyingBalloon from 'gadgets/flying-balloon/widget';
 
 /******************************************************************************/
 
-class TextFieldNC extends Widget {
+class TextInputNC extends Widget {
   constructor() {
     super(...arguments);
     this.onChange = this.onChange.bind(this);
@@ -143,8 +143,8 @@ class TextFieldNC extends Widget {
 
 /******************************************************************************/
 
-TextFieldNC.propTypes = makePropTypes(Props);
-TextFieldNC.defaultProps = makeDefaultProps(Props);
+TextInputNC.propTypes = makePropTypes(Props);
+TextInputNC.defaultProps = makeDefaultProps(Props);
 
 /******************************************************************************/
-export default TextFieldNC;
+export default TextInputNC;
