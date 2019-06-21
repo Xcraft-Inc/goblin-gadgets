@@ -186,7 +186,7 @@ class List {
     });
   }
 
-  static *executeSearch(quest, value, sort) {
+  static *executeSearch(quest, value, sort, filter) {
     const elastic = quest.getStorage('elastic');
 
     quest.goblin.setX('value', value);
@@ -213,6 +213,7 @@ class List {
       type,
       value,
       sort,
+      filter,
       from,
       size,
       mustExist: true,
@@ -354,11 +355,13 @@ Goblin.registerQuest(goblinName, 'get-list-ids', function(quest) {
 
 Goblin.registerQuest(goblinName, 'customize-visualization', function*(
   quest,
+  value,
   filter,
   sort
 ) {
   quest.goblin.setX('ids', []);
-  const ids = yield* List.executeSearch(quest, filter, sort);
+  quest.do();
+  const ids = yield* List.executeSearch(quest, value, sort, filter);
   const count = quest.goblin.getX('count');
   const highlights = quest.goblin.getX('highlights');
   quest.dispatch('init-list', {ids, count, highlights});
@@ -493,12 +496,17 @@ Goblin.registerQuest(goblinName, 'init-list', function*(quest) {
   }
 
   const value = quest.goblin.getX('value');
-  const sort = quest.goblin
+  const options = quest.goblin
     .getState()
-    .get('options.sort')
+    .get('options')
     .toJS();
 
-  const ids = yield* List.executeSearch(quest, value, sort);
+  const ids = yield* List.executeSearch(
+    quest,
+    value,
+    options.sort,
+    options.filter
+  );
   const count = quest.goblin.getX('count');
   const highlights = quest.goblin.getX('highlights');
   quest.do({ids, count, highlights});

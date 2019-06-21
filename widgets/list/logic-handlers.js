@@ -4,7 +4,7 @@
 const Goblin = require('xcraft-core-goblin');
 
 module.exports = {
-  create: (state, action) => {
+  'create': (state, action) => {
     return state
       .set('id', action.get('id'))
       .set('status', action.get('status'))
@@ -15,6 +15,17 @@ module.exports = {
     return state
       .set('options', action.get('options'))
       .set('count', action.get('count'));
+  },
+  'customize-visualization': (state, action) => {
+    const sort = action.get('sort');
+    const filter = action.get('filter');
+    if (sort) {
+      state = state.set('options.sort', sort);
+    }
+    if (filter) {
+      state = state.set('options.filter', filter);
+    }
+    return state;
   },
   'change-content-index': (state, action) => {
     let value = action.get('value');
@@ -65,11 +76,11 @@ module.exports = {
   'handle-changes': state => {
     return state.set('list', {});
   },
-  remove: state => {
+  'remove': state => {
     const newCount = Number(state.get('count')) - 1;
     return state.set('count', newCount).set('list', {});
   },
-  add: state => {
+  'add': state => {
     const newCount = Number(state.get('count')) + 1;
     return state.set('count', newCount).set('list', {});
   },
