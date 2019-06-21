@@ -19,7 +19,7 @@ import LabelTextField from 'gadgets/label-text-field/widget';
 
 /******************************************************************************/
 
-class TextFieldTyped extends Widget {
+export default class TextFieldTypedOld extends Widget {
   constructor() {
     super(...arguments);
 
@@ -209,4 +209,3 @@ class TextFieldTyped extends Widget {
 }
 
 /******************************************************************************/
-export default TextFieldTyped;
