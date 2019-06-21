@@ -2,15 +2,23 @@ import {ColorManipulator} from 'electrum-theme';
 
 /******************************************************************************/
 
-export const propNames = ['frame', 'color', 'scale'];
+export const propNames = ['frame', 'layoutFrame', 'color', 'scale'];
 
 export default function styles(theme, props) {
-  const {frame, color, scale} = props;
+  const {frame, layoutFrame, color, scale} = props;
 
   const frameStyle = frame
     ? {
         '& > div > *': {
           outline: '1px solid red',
+        },
+      }
+    : null;
+
+  const layoutFrameStyle = layoutFrame
+    ? {
+        '& > div': {
+          outline: '1px solid green',
         },
       }
     : null;
@@ -28,17 +36,23 @@ export default function styles(theme, props) {
 
   const previewContainer = {
     margin: '10px 0px',
-    display: 'flex',
-    // flexDirection: 'column',
     flexGrow: '1',
+    display: 'flex',
+    flexDirection: 'column',
     backgroundColor,
     color: ColorManipulator.emphasize(backgroundColor, 1),
     ...scaleStyle,
     ...frameStyle,
+    ...layoutFrameStyle,
+  };
+
+  const grow = {
+    flexGrow: '1',
   };
 
   return {
     previewContainer,
+    grow,
   };
 }
 

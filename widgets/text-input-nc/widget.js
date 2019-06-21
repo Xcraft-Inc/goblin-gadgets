@@ -14,11 +14,10 @@ import {
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
 import Label from 'gadgets/label/widget';
-import FlyingBalloon from 'gadgets/flying-balloon/widget';
 
 /******************************************************************************/
 
-class TextInputNC extends Widget {
+export default class TextInputNC extends Widget {
   constructor() {
     super(...arguments);
     this.onChange = this.onChange.bind(this);
@@ -45,30 +44,6 @@ class TextInputNC extends Widget {
   }
 
   /******************************************************************************/
-
-  renderFlyingBalloon() {
-    if (this.props.warning || this.props.info) {
-      const trianglePosition = {
-        bottom: 'top',
-        top: 'bottom',
-        left: 'right',
-        right: 'left',
-        undefined: 'top',
-      }[this.props.flyingBalloonAnchor];
-
-      return (
-        <FlyingBalloon
-          width="150%"
-          maxWidth="500px"
-          primaryText={this.props.warning}
-          secondaryText={this.props.info}
-          trianglePosition={trianglePosition}
-        />
-      );
-    } else {
-      return null;
-    }
-  }
 
   renderFocusForeground() {
     if (Bool.isTrue(this.props.embeddedFocus)) {
@@ -128,7 +103,7 @@ class TextInputNC extends Widget {
           />
         )}
         {this.renderFocusForeground()}
-        {this.renderFlyingBalloon()}
+        {this.props.children}
       </TranslatableDiv>
     );
   }
@@ -145,6 +120,3 @@ class TextInputNC extends Widget {
 
 TextInputNC.propTypes = makePropTypes(Props);
 TextInputNC.defaultProps = makeDefaultProps(Props);
-
-/******************************************************************************/
-export default TextInputNC;

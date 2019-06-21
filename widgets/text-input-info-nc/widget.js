@@ -1,13 +1,59 @@
 import React from 'react';
+import Props from './props';
 import Widget from 'laboratory/widget';
 import TextInputNC from '../text-input-nc/widget';
+import FlyingBalloon from 'gadgets/flying-balloon/widget';
+import {
+  makePropTypes,
+  makeDefaultProps,
+} from 'xcraft-core-utils/lib/prop-types';
+
+/******************************************************************************/
 
 export default class TextInputInfoNC extends Widget {
-  render() {
-    let checkProps;
+  renderFlyingBalloon() {
+    let warning = this.props.warning;
+    let info = this.props.info;
+
     if (this.props.check) {
-      checkProps = this.props.check(this.props.value);
+      const checkProps = this.props.check(this.props.value);
+      if (checkProps) {
+        warning = checkProps.warning;
+        info = checkProps.info;
+      }
     }
-    return <TextInputNC {...checkProps} {...this.props} />;
+
+    if (warning || info) {
+      const trianglePosition = {
+        bottom: 'top',
+        top: 'bottom',
+        left: 'right',
+        right: 'left',
+        undefined: 'top',
+      }[this.props.flyingBalloonAnchor];
+
+      return (
+        <FlyingBalloon
+          width="150%"
+          maxWidth="500px"
+          primaryText={warning}
+          secondaryText={info}
+          trianglePosition={trianglePosition}
+        />
+      );
+    } else {
+      return null;
+    }
+  }
+
+  render() {
+    return (
+      <TextInputNC {...this.props}>{this.renderFlyingBalloon()}</TextInputNC>
+    );
   }
 }
+
+/******************************************************************************/
+
+TextInputInfoNC.propTypes = makePropTypes(Props);
+TextInputInfoNC.defaultProps = makeDefaultProps(Props);

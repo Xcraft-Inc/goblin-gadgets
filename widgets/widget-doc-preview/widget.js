@@ -25,7 +25,11 @@ class WidgetDocPreviewSettingsSwitch extends Widget {
   render() {
     return (
       <Container kind="row">
-        <Label text={this.props.text} width="80px" />
+        <Label
+          text={this.props.text}
+          width={this.props.labelWidth || '80px'}
+          justify={this.props.labelJustify}
+        />
         <Checkbox
           checked={this.props.value}
           kind="switch"
@@ -69,7 +73,11 @@ class WidgetDocPreviewSettingsList extends Widget {
   render() {
     return (
       <Container kind="row-pane" subkind="left">
-        <Label text={this.props.text} width="80px" />
+        <Label
+          text={this.props.text}
+          width={this.props.labelWidth || '80px'}
+          justify={this.props.labelJustify}
+        />
         {this.props.list.map(value => this.renderItem(value))}
       </Container>
     );
@@ -164,13 +172,30 @@ class WidgetDocPreview extends Widget {
           text="Layout"
           widgetId={this.props.widgetId}
           path="settings.layout"
-          list={['div', 'row', 'row-grow', 'column', 'column-grow', 'wrap']}
+          list={[
+            'div',
+            'div-grow',
+            'row',
+            'row-grow',
+            'column',
+            'column-grow',
+            'wrap',
+          ]}
         />
-        <SettingsSwitch
-          text="Frame"
-          widgetId={this.props.widgetId}
-          path="settings.frame"
-        />
+        <Container kind="row">
+          <SettingsSwitch
+            text="Frame"
+            widgetId={this.props.widgetId}
+            path="settings.frame"
+          />
+          <SettingsSwitch
+            text="Layout frame"
+            labelJustify="end"
+            labelWidth="160px"
+            widgetId={this.props.widgetId}
+            path="settings.layoutFrame"
+          />
+        </Container>
       </div>
     );
   }

@@ -1,5 +1,6 @@
 //T:2019-02-27
 import React from 'react';
+import Props from './props';
 import Widget from 'laboratory/widget';
 import {Unit} from 'electrum-theme';
 import * as Bool from 'gadgets/helpers/bool-helpers';
@@ -9,6 +10,11 @@ import {
   time as TimeConverters,
   price as PriceConverters,
 } from 'xcraft-core-converters';
+
+import {
+  makePropTypes,
+  makeDefaultProps,
+} from 'xcraft-core-utils/lib/prop-types';
 
 import TableRow from 'gadgets/table-row/widget';
 import TableCell from 'gadgets/table-cell/widget';
@@ -642,3 +648,6 @@ export default class TableExported extends Widget {
 }
 
 /*****************************************************************************/
+
+Table.propTypes = makePropTypes(Props);
+Table.defaultProps = makeDefaultProps(Props);

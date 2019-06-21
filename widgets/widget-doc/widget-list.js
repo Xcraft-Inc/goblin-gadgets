@@ -7,6 +7,12 @@ import labelProps from 'goblin-gadgets/widgets/label/props';
 import Container from 'goblin-gadgets/widgets/container/widget';
 import containerProps from 'goblin-gadgets/widgets/container/props';
 
+import TextFieldTypedNC from 'goblin-gadgets/widgets/text-field-typed-nc/widget';
+import TextFieldTypedNCProps from 'goblin-gadgets/widgets/text-field-typed-nc/props';
+
+import TextFieldNC from 'goblin-gadgets/widgets/text-field-nc/widget';
+import TextFieldNCProps from 'goblin-gadgets/widgets/text-field-nc/props';
+
 import TextInputNC from 'goblin-gadgets/widgets/text-input-nc/widget';
 import TextInputNCProps from 'goblin-gadgets/widgets/text-input-nc/props';
 
@@ -37,6 +43,18 @@ const widgetList = [
     widget: Container,
     widgetPath: 'goblin-gadgets/widgets/container/widget',
     props: containerProps,
+  },
+  {
+    name: 'TextFieldTypedNC',
+    widget: TextFieldTypedNC,
+    widgetPath: 'goblin-gadgets/widgets/text-field-typed-nc/widget',
+    props: TextFieldTypedNCProps,
+  },
+  {
+    name: 'TextFieldNC',
+    widget: TextFieldNC,
+    widgetPath: 'goblin-gadgets/widgets/text-field-nc/widget',
+    props: TextFieldNCProps,
   },
   {
     name: 'TextInputNC',

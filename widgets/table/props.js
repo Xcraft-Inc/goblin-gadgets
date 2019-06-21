@@ -68,7 +68,7 @@ const samplesData = {
         textAlign: 'center',
       },
     ],
-    header: [
+    'header': [
       {
         name: 'lu',
         description: 'Lundi',
@@ -112,7 +112,7 @@ const samplesData = {
         textAlign: 'right',
       },
     ],
-    rows: [
+    'rows': [
       {
         lu: '10.00',
         ma: '12.00',
@@ -445,7 +445,7 @@ addType('dataTable', {
   readonly: true,
   samples: samples,
   samplesData: samplesData,
-  propType: PropTypes.node,
+  propType: PropTypes.object,
 });
 
 addType('sortingColumns', {
@@ -464,7 +464,7 @@ addType('sortingColumns', {
     S3: new Shredder(['column3', 'column1']),
     S4: new Shredder(['column4', 'column1']),
   },
-  propType: PropTypes.node,
+  propType: PropTypes.object,
 });
 
 /******************************************************************************/
@@ -476,6 +476,7 @@ export default [
     type: types.dataTable,
     description: 'The data of table.',
     required: true,
+    defaultValue: samplesData.T1,
   },
   {
     name: 'selectionMode',
