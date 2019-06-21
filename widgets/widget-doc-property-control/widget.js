@@ -5,7 +5,6 @@ import TextFieldCombo from 'goblin-gadgets/widgets/text-field-combo/widget';
 import TextFieldComboNC from 'goblin-gadgets/widgets/text-field-combo-nc/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
-import {isShredder} from 'xcraft-core-shredder';
 import CheckboxNC from 'goblin-gadgets/widgets/checkbox-nc/widget';
 
 /******************************************************************************/
@@ -44,23 +43,6 @@ class WidgetDocPropertyControl extends Widget {
   /******************************************************************************/
 
   renderCombo(list, readonly, multiline) {
-    /*
-    let value = list.find(item => {
-      if (isShredder(this.props.value)) {
-        // For prop dataTable.
-        const y = JSON.stringify(this.props.value.toJS(), null, 1);
-        const x = JSON.stringify(item.value, null, 1);
-        return x === y;
-      } else if (typeof item === 'object') {
-        return item.value === this.props.value;
-      } else {
-        return item === this.props.value;
-      }
-    });
-    if (typeof value === 'object') {
-      value = value.id;
-    }
-    */
     return (
       <React.Fragment>
         <TextFieldComboNC

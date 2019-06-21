@@ -1,6 +1,5 @@
 //T:2019-02-27:Nothing to translate !
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
 import MouseTrap from 'mousetrap';
 import ComboHelpers from 'gadgets/helpers/combo-helpers';
@@ -15,7 +14,7 @@ import {isShredder} from 'xcraft-core-shredder';
 
 /******************************************************************************/
 
-class TextFieldCombo extends Widget {
+class TextFieldComboOld extends Widget {
   constructor() {
     super(...arguments);
 
@@ -70,7 +69,7 @@ class TextFieldCombo extends Widget {
     if (!this.props.list) {
       return;
     }
-    const node = ReactDOM.findDOMNode(this);
+    const node = this.node;
 
     const itemCount = this.props.list.size
       ? this.props.list.size
@@ -415,7 +414,11 @@ class TextFieldCombo extends Widget {
       : this.styles.classNames.box;
 
     return (
-      <span disabled={this.props.disabled} className={boxClass}>
+      <span
+        ref={node => (this.node = node)}
+        disabled={this.props.disabled}
+        className={boxClass}
+      >
         {this.renderTextField()}
         {this.renderButton()}
         {this.renderCombo()}
@@ -425,4 +428,4 @@ class TextFieldCombo extends Widget {
 }
 
 /******************************************************************************/
-export default TextFieldCombo;
+export default TextFieldComboOld;
