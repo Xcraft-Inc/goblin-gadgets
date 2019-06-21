@@ -96,7 +96,7 @@ class CheckList extends Widget {
         return (
           <div className={headerClass}>
             <Checkbox
-              kind={this.props.kind || 'check'}
+              kind={this.props.kind}
               text={T('Enlève tout')}
               checked="false"
               readonly={this.props.readonly}
@@ -108,7 +108,7 @@ class CheckList extends Widget {
         return (
           <div className={headerClass}>
             <Checkbox
-              kind={this.props.kind || 'check'}
+              kind={this.props.kind}
               text={T('Met tout')}
               checked="true"
               readonly={this.props.readonly}
@@ -126,7 +126,7 @@ class CheckList extends Widget {
     return (
       <Checkbox
         key={index}
-        kind={this.props.kind || 'check'}
+        kind={this.props.kind}
         heightStrategy={this.props.heightStrategy}
         text={row.description}
         focusable="true"
