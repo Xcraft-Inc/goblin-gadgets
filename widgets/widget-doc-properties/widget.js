@@ -6,7 +6,6 @@ import Label from 'goblin-gadgets/widgets/label/widget';
 import TextInputNC from 'goblin-gadgets/widgets/text-input-nc/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import WidgetDocProperty from '../widget-doc-property/widget';
-import {types} from 'goblin-gadgets/types/types.js';
 
 /******************************************************************************/
 

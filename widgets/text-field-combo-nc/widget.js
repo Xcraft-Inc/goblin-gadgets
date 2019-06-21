@@ -131,17 +131,19 @@ class TextFieldComboNC extends Widget {
               action: this.doChangeCombo,
             };
             break;
-          case 'object':
+          case 'object': {
+            const id = item.id !== undefined ? item.id : item.value;
             item = {
-              id: item.id,
-              text: item.value,
+              id,
+              text: item.text,
               value: item.value,
               glyph: item.glyph,
               color: item.color,
-              active: this.props.selectedId === item.id,
+              active: this.props.selectedId === id,
               action: this.doChangeCombo,
             };
             break;
+          }
           default:
             throw Error('Item Format not accepted in TextFieldComboNC !');
         }
@@ -188,7 +190,7 @@ class TextFieldComboNC extends Widget {
         spacing={'overlap'}
         shape={textFieldShape}
         flyingBalloonAnchor={this.props.flyingBalloonAnchor}
-        value={selectedItem.value}
+        value={selectedItem.id}
         glyph={glyph}
         width={this.props.width}
         grow={this.props.width ? null : '1'}
