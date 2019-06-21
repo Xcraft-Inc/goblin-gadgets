@@ -361,7 +361,17 @@ Goblin.registerQuest(goblinName, 'customize-visualization', function*(
 ) {
   quest.goblin.setX('ids', []);
   quest.do();
-  const ids = yield* List.executeSearch(quest, value, sort, filter);
+  const options = quest.goblin
+    .getState()
+    .get('options')
+    .toJS();
+
+  const ids = yield* List.executeSearch(
+    quest,
+    value,
+    options.sort,
+    options.filter
+  );
   const count = quest.goblin.getX('count');
   const highlights = quest.goblin.getX('highlights');
   quest.dispatch('init-list', {ids, count, highlights});
