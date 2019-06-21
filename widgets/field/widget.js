@@ -1971,27 +1971,44 @@ class Field extends Form {
     }
 
     return (
-      <Container
-        kind="row-field"
+      <LabelRow
+        show={this.props.show}
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
+        labelText={this.props.labelText}
+        labelGlyph={this.props.labelGlyph}
+        labelWidth={this.props.labelWidth || defaultLabelWidth}
+        spacing={this.props.spacing}
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
-        {labelWidth === '0px' ? null : (
-          <Label
-            text={this.props.labelText}
-            glyph={this.props.labelGlyph}
-            width={labelWidth}
-            kind="label-field"
-            justify="left"
-            spacing="overlap"
-          />
-        )}
         <EditCombo list={this.props.list} />
-      </Container>
+      </LabelRow>
     );
+
+    //- return (
+    //-   <Container
+    //-     kind="row-field"
+    //-     grow={this.props.grow}
+    //-     width={this.props.width}
+    //-     height={this.props.height}
+    //-     verticalSpacing={this.props.verticalSpacing}
+    //-     verticalJustify={this.props.verticalJustify}
+    //-   >
+    //-     {labelWidth === '0px' ? null : (
+    //-       <Label
+    //-         text={this.props.labelText}
+    //-         glyph={this.props.labelGlyph}
+    //-         width={labelWidth}
+    //-         kind="label-field"
+    //-         justify="left"
+    //-         spacing="overlap"
+    //-       />
+    //-     )}
+    //-     <EditCombo list={this.props.list} />
+    //-   </Container>
+    //- );
   }
 
   renderEditFlatCombo() {

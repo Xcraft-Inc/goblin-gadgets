@@ -21,11 +21,10 @@ export default class LabelRow extends Widget {
   }
 
   renderLabel() {
-    if (
-      this.props.labelWidth === '0px' ||
-      (this.props.labelText === undefined &&
-        this.props.labelGlyph === undefined)
-    ) {
+    // La condition pour ne pas afficher le Label est que la propriété labelWidth
+    // soit définie à 0px. Il faut afficher le Label même si labelText/labelGlyph
+    // ne sont pas définis !
+    if (this.props.labelWidth === '0px') {
       return null;
     }
 
