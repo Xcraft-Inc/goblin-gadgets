@@ -63,10 +63,10 @@ const types = {
     values: values,
   }),
 
-  oneOfType: values => ({
+  oneOfType: types => ({
     type: 'oneOfType',
     widget: 'oneOfType',
-    values: values,
+    types,
   }),
 
   component: {
