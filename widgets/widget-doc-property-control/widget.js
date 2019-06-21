@@ -18,7 +18,7 @@ class WidgetDocPropertyControl extends Widget {
     this.clear = this.clear.bind(this);
     if (this.props.type.type === 'oneOfType') {
       this.state = {
-        type: this.props.type.values[0],
+        type: this.props.type.types[0],
       };
     }
   }
@@ -91,7 +91,7 @@ class WidgetDocPropertyControl extends Widget {
     switch (widget) {
       case 'oneOfType':
         // eslint-disable-next-line no-case-declarations
-        const list = this.props.type.values.map(item => {
+        const list = this.props.type.types.map(item => {
           return {text: item.type, value: item};
         });
         return (

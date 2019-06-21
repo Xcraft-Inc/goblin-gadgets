@@ -14,6 +14,9 @@ const initialState = new Shredder({
 });
 
 export default (state = initialState, action = {}) => {
+  if (action.type === 'INIT') {
+    return state.set('props', action.props);
+  }
   if (action.type === 'SET') {
     return state.set(action.path, action.value);
   }

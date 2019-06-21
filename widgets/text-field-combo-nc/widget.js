@@ -181,40 +181,36 @@ class TextFieldComboNC extends Widget {
       glyph = null;
     }
 
-    const props = {
-      parser: this.props.parser,
-      errors: this.props.errors,
-      updateOn: this.props.updateOn,
-      getDisplayValue: this.props.getDisplayValue,
-      getGlyph: this.props.getGlyph,
-      hinter: this.props.hinter,
-      hintText: this.props.hintText,
-      tooltip: this.props.tooltip,
-      filterKeys: this.props.filterKeys,
-      spacing: 'overlap',
-      shape: textFieldShape,
-      flyingBalloonAnchor: this.props.flyingBalloonAnchor,
-      value: selectedItem.value,
-      glyph,
-      width: this.props.width,
-      grow: this.props.width ? null : '1',
-      rows: this.props.rows,
-      readonly: Bool.toString(this.props.readonly),
-      disabled: this.props.disabled,
-      selectAllOnFocus: this.props.selectAllOnFocus,
-      defaultFocus: this.props.defaultFocus,
-      visibility: this.props.visibility,
-      required: this.props.required,
-    };
-
     return (
       <TextFieldNC
-        {...props}
+        hintText={this.props.hintText}
+        tooltip={this.props.tooltip}
+        spacing={'overlap'}
+        shape={textFieldShape}
+        flyingBalloonAnchor={this.props.flyingBalloonAnchor}
+        value={selectedItem.value}
+        glyph={glyph}
+        width={this.props.width}
+        grow={this.props.width ? null : '1'}
+        rows={this.props.rows}
+        readonly={Bool.toString(this.props.readonly)}
+        disabled={this.props.disabled}
+        required={this.props.required}
         embeddedFocus="true"
+        visibility={this.props.visibility}
         onChange={this.doChangeTextField}
         onFocus={this.onFocus}
         onBlur={this.onBlur}
         onMouseUp={this.onMouseUp}
+        //hinter={this.props.hinter}
+        //parser={this.props.parser}
+        //errors={this.props.errors}
+        //updateOn={this.props.updateOn}
+        //getDisplayValue={this.props.getDisplayValue}
+        //getGlyph={this.props.getGlyph}
+        //filterKeys={this.props.filterKeys}
+        //selectAllOnFocus={this.props.selectAllOnFocus}
+        //defaultFocus={this.props.defaultFocus}
       />
     );
   }
@@ -240,7 +236,7 @@ class TextFieldComboNC extends Widget {
         glyphSize="120%"
         shape={buttonShape}
         disabled={this.props.disabled}
-        onClick={this.showCombo}
+        onClick={this.props.readonly ? undefined : this.showCombo}
       />
     );
   }
@@ -283,7 +279,12 @@ class TextFieldComboNC extends Widget {
       : this.styles.classNames.box;
 
     return (
-      <span ref={node => (this.node = node)} className={boxClass}>
+      <span
+        ref={node => (this.node = node)}
+        onClick={this.props.readonly ? this.showCombo : undefined}
+        disabled={this.props.disabled}
+        className={boxClass}
+      >
         {this.renderTextField()}
         {this.renderButton()}
         {this.renderCombo()}

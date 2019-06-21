@@ -1,11 +1,13 @@
 const types = {
   bool: {
     type: 'bool',
+    defaultValue: false,
     widget: 'checkbox',
   },
 
   string: {
     type: 'string',
+    defaultValue: '',
     widget: 'combo',
     readonly: false,
     samples: ['', 'Accept', 'Close'],
@@ -13,6 +15,7 @@ const types = {
 
   nabu: {
     type: 'nabu',
+    defaultValue: '',
     widget: 'combo',
     multiline: true,
     readonly: false,
@@ -42,6 +45,7 @@ const types = {
 
   number: {
     type: 'number',
+    defaultValue: 0,
     widget: 'combo',
     readonly: false,
     samples: [
@@ -58,22 +62,31 @@ const types = {
 
   enum: values => ({
     type: 'enum',
+    defaultValue: values[0],
     widget: 'combo',
     readonly: true,
     values: values,
   }),
 
-  oneOfType: values => ({
+  oneOfType: types => ({
     type: 'oneOfType',
+    defaultValue: types[0].defaultValue,
     widget: 'oneOfType',
-    values: values,
+    types,
   }),
 
   component: {
     type: 'component',
     widget: 'combo',
     readonly: false,
-    samples: ['short-text', 'long-text', 'button', 'button-10'],
+    samples: [
+      'short-text',
+      'long-text',
+      'text-field',
+      'text-field-multiline',
+      'button',
+      'button-10',
+    ],
   },
 
   function: {
@@ -181,6 +194,13 @@ const types = {
     widget: 'combo',
     readonly: true,
     samples: ['', 'overlap', 'tiny', 'large', 'double'],
+  },
+
+  verticalSpacing: {
+    type: 'verticalSpacing',
+    widget: 'combo',
+    readonly: true,
+    samples: ['', 'overlap', 'compact', 'normal', 'large'],
   },
 
   shortcut: {
