@@ -12,7 +12,6 @@ export default [
     name: 'children',
     group: 'main',
     type: types.component,
-    defaultValue: '',
   },
   {
     name: 'onDoubleClick',
@@ -59,7 +58,6 @@ export default [
     name: 'disabled',
     group: 'main',
     type: types.bool,
-    defaultValue: false,
   },
   {
     name: 'kind',
@@ -121,7 +119,6 @@ export default [
       'view-tab-right',
       'warning',
     ]),
-    defaultValue: '',
   },
   {
     name: 'glyph',
@@ -132,31 +129,26 @@ export default [
     name: 'active',
     group: 'aspect',
     type: types.bool,
-    defaultValue: false,
   },
   {
     name: 'readonly',
     group: 'aspect',
     type: types.bool,
-    defaultValue: false,
   },
   {
     name: 'focusable',
     group: 'aspect',
     type: types.bool,
-    defaultValue: false,
   },
   {
     name: 'busy',
     group: 'aspect',
     type: types.bool,
-    defaultValue: false,
   },
   {
     name: 'border',
     group: 'aspect',
     type: types.enum(['', 'none']),
-    defaultValue: '',
   },
   {
     name: 'glyphRotate',
@@ -177,7 +169,6 @@ export default [
     name: 'glyphPosition',
     group: 'glyph',
     type: types.enum(['', 'left', 'right']),
-    defaultValue: 'left',
   },
   {
     name: 'glyphSize',
@@ -273,7 +264,6 @@ export default [
     name: 'badgePosition',
     group: 'badge',
     type: types.enum(['', 'top-right', 'over']),
-    defaultValue: 'over',
   },
   {
     name: 'badgeShape',
@@ -330,13 +320,11 @@ export default [
     name: 'show',
     group: 'aspect',
     type: types.bool,
-    defaultValue: true,
   },
   {
     name: 'visibility',
     group: 'aspect',
     type: types.bool,
-    defaultValue: true,
   },
   {
     name: 'toAnchor',

@@ -16,7 +16,6 @@ export default [
     name: 'kind',
     group: 'aspect',
     type: types.enum(['', 'mission', 'rounded']),
-    defaultValue: '',
   },
   {
     name: 'direction',
@@ -28,12 +27,10 @@ export default [
     name: 'disabled',
     group: 'aspect',
     type: types.bool,
-    defaultValue: false,
   },
   {
     name: 'flash',
     group: 'aspect',
     type: types.bool,
-    defaultValue: false,
   },
 ];

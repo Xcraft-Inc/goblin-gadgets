@@ -5,7 +5,6 @@ export default [
     name: 'labelWidth',
     group: 'Label',
     type: types.size,
-    defaultValue: '120px',
   },
   {
     name: 'labelText',
@@ -26,19 +25,16 @@ export default [
     name: 'disabled',
     group: 'aspect',
     type: types.bool,
-    defaultValue: false,
   },
   {
     name: 'show',
     group: 'aspect',
     type: types.bool,
-    defaultValue: true,
   },
   {
     name: 'visibility',
     group: 'aspect',
     type: types.bool,
-    defaultValue: true,
   },
   {
     name: 'width',
@@ -64,7 +60,6 @@ export default [
     name: 'verticalJustify',
     group: 'Layout',
     type: types.enum(['', 'top']),
-    defaultValue: 'top',
   },
   {
     name: 'grow',

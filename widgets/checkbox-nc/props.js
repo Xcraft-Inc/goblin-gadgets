@@ -21,31 +21,26 @@ export default [
     name: 'disabled',
     group: 'main',
     type: types.bool,
-    defaultValue: false,
   },
   {
     name: 'kind',
     group: 'aspect',
     type: types.enum(['', 'big', 'active', 'check-button', 'radio', 'switch']),
-    defaultValue: 'check-button',
   },
   {
     name: 'readonly',
     group: 'aspect',
     type: types.bool,
-    defaultValue: false,
   },
   {
     name: 'focusable',
     group: 'aspect',
     type: types.bool,
-    defaultValue: false,
   },
   {
     name: 'busy',
     group: 'aspect',
     type: types.bool,
-    defaultValue: false,
   },
   {
     name: 'glyphFlip',
@@ -101,7 +96,6 @@ export default [
     name: 'badgePosition',
     group: 'badge',
     type: types.enum(['', 'top-right', 'over']),
-    defaultValue: 'over',
   },
   {
     name: 'badgeShape',
@@ -122,13 +116,11 @@ export default [
     name: 'show',
     group: 'aspect',
     type: types.bool,
-    defaultValue: true,
   },
   {
     name: 'visibility',
     group: 'aspect',
     type: types.bool,
-    defaultValue: true,
   },
   {
     name: 'toAnchor',
