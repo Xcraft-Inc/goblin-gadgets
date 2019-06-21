@@ -21,6 +21,14 @@ export default class LabelRow extends Widget {
   }
 
   renderLabel() {
+    if (
+      this.props.labelWidth === '0px' ||
+      (this.props.labelText === undefined &&
+        this.props.labelGlyph === undefined)
+    ) {
+      return null;
+    }
+
     return (
       <Label
         kind="label-text-field"

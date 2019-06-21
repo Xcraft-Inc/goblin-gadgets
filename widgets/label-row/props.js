@@ -51,15 +51,20 @@ export default [
     type: types.size,
   },
   {
-    name: 'verticalJustify',
+    name: 'spacing',
     group: 'Layout',
-    type: types.enum(['', 'top']),
-    defaultValue: 'top',
+    type: types.spacing,
   },
   {
     name: 'verticalSpacing',
     group: 'Layout',
     type: types.verticalSpacing,
+  },
+  {
+    name: 'verticalJustify',
+    group: 'Layout',
+    type: types.enum(['', 'top']),
+    defaultValue: 'top',
   },
   {
     name: 'grow',

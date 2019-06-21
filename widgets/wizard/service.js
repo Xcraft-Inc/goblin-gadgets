@@ -1859,7 +1859,7 @@ const properties = {
       group: 'Layout',
       type: 'combo',
       field: 'spacing',
-      list: ['', 'compact', 'glued', 'large'],
+      list: ['', 'compact', 'large'],
       value: '',
     },
     backgroundColor: {

@@ -657,9 +657,6 @@ export default function styles(theme, props) {
     if (spacing === 'compact') {
       height = theme.shapes.lineHeight;
       bottomMargin = '0px';
-    } else if (spacing === 'glued') {
-      height = theme.shapes.lineHeight;
-      bottomMargin = Unit.multiply(halfMargin, -1);
     } else if (spacing === 'overlap') {
       bottomMargin = '-1px';
     }

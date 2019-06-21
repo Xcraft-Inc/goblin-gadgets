@@ -21,6 +21,7 @@ import Checkbox from 'gadgets/checkbox/widget';
 import Label from 'gadgets/label/widget';
 import TextField from 'gadgets/text-field/widget';
 import TranslatableTextField from 'gadgets/translatable-text-field/widget';
+import LabelRow from 'gadgets/label-row/widget';
 import LabelTextField from 'gadgets/label-text-field/widget';
 import TextFieldTyped from 'gadgets/text-field-typed/widget';
 import TextFieldCombo from 'gadgets/text-field-combo/widget';
@@ -222,7 +223,7 @@ class Field extends Form {
   }
 
   //#region Readonly
-  renderReadonlyField() {
+  renderReadonlyField_OLD() {
     const Field = this.showIfFilled(
       this.props,
       props => (
@@ -254,6 +255,41 @@ class Field extends Form {
             grow="1"
           />
         </Container>
+      ),
+      this.fullPath
+    );
+    return <Field />;
+  }
+
+  renderReadonlyField() {
+    const Field = this.showIfFilled(
+      this.props,
+      props => (
+        <LabelRow
+          show={props.show}
+          labelText={this.props.labelText}
+          labelGlyph={this.props.labelGlyph}
+          labelWidth={this.props.labelWidth || defaultLabelWidth}
+          spacing={this.props.spacing}
+          verticalSpacing={this.props.verticalSpacing}
+          verticalJustify={this.props.verticalJustify}
+          grow="1"
+        >
+          <TextField
+            readonly="true"
+            type={this.props.type}
+            shape={this.props.shape}
+            grow={this.props.fieldWidth ? null : '1'}
+            width={this.props.fieldWidth}
+            spacing={this.props.spacing}
+            hintText={this.props.hintText}
+            tooltip={this.props.tooltip || this.props.hintText}
+            rows={this.props.rows}
+            model={this.props.model}
+            required={this.props.required}
+            onDebouncedChange={this.props.onDebouncedChange}
+          />
+        </LabelRow>
       ),
       this.fullPath
     );
@@ -1113,20 +1149,20 @@ class Field extends Form {
   //#endregion
 
   //#region Edit
-  renderEditField() {
+  renderEditField_OLD() {
     return (
       <Container
         kind="row-field"
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
+        spacing={this.props.spacing}
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
         <LabelTextField
           selectAllOnFocus="true"
           type={this.props.type}
-          spacing={this.props.spacing}
           shape={this.props.shape}
           labelText={this.props.labelText}
           labelGlyph={this.props.labelGlyph}
@@ -1145,6 +1181,37 @@ class Field extends Form {
           className={this.props.className}
         />
       </Container>
+    );
+  }
+
+  renderEditField() {
+    return (
+      <LabelRow
+        show={this.props.show}
+        labelText={this.props.labelText}
+        labelGlyph={this.props.labelGlyph}
+        labelWidth={this.props.labelWidth || defaultLabelWidth}
+        spacing={this.props.spacing}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
+        grow="1"
+      >
+        <TextField
+          type={this.props.type}
+          shape={this.props.shape}
+          grow={this.props.fieldWidth ? null : '1'}
+          width={this.props.fieldWidth}
+          spacing={this.props.spacing}
+          hintText={this.props.hintText}
+          tooltip={this.props.tooltip || this.props.hintText}
+          rows={this.props.rows}
+          model={this.props.model}
+          required={this.props.required}
+          onDebouncedChange={this.props.onDebouncedChange}
+          onFocus={this.props.onFocus}
+          onBlur={this.props.onBlur}
+        />
+      </LabelRow>
     );
   }
 
