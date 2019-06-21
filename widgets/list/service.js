@@ -460,12 +460,17 @@ Goblin.registerQuest(goblinName, 'fetch', function*(quest, range) {
   const mode = quest.goblin.getX('mode');
   if (mode === 'search') {
     const value = quest.goblin.getX('value');
-    const sort = quest.goblin
+    const options = quest.goblin
       .getState()
-      .get('options.sort')
+      .get('options')
       .toJS();
 
-    const ids = yield* List.executeSearch(quest, value, sort);
+    const ids = yield* List.executeSearch(
+      quest,
+      value,
+      options.sort,
+      options.filter
+    );
     const count = quest.goblin.getX('count');
     const highlights = quest.goblin.getX('highlights');
 
