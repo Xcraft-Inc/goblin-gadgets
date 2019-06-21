@@ -794,27 +794,18 @@ class Field extends Form {
       this.fullPath
     );
 
-    const labelWidth = this.props.labelWidth || defaultLabelWidth;
-
     return (
-      <Container
-        kind={this.props.containerKind || 'row-field'}
-        subkind="left"
+      <LabelRow
+        show={this.props.show}
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
+        labelGlyph={this.props.labelGlyph}
+        labelWidth={this.props.labelWidth || defaultLabelWidth}
+        spacing={this.props.spacing}
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
-        {labelWidth === '0px' ? null : (
-          <Label
-            glyph={this.props.labelGlyph}
-            width={labelWidth}
-            kind="label-field"
-            justify="left"
-            spacing="overlap"
-          />
-        )}
         <WiredCheckbox
           kind={this.props.subkind}
           glyph={this.props.glyph}
@@ -822,8 +813,39 @@ class Field extends Form {
           tooltip={this.props.tooltip || this.props.hintText}
           readonly="true"
         />
-      </Container>
+      </LabelRow>
     );
+
+    //- const labelWidth = this.props.labelWidth || defaultLabelWidth;
+    //-
+    //- return (
+    //-   <Container
+    //-     kind={this.props.containerKind || 'row-field'}
+    //-     subkind="left"
+    //-     grow={this.props.grow}
+    //-     width={this.props.width}
+    //-     height={this.props.height}
+    //-     verticalSpacing={this.props.verticalSpacing}
+    //-     verticalJustify={this.props.verticalJustify}
+    //-   >
+    //-     {labelWidth === '0px' ? null : (
+    //-       <Label
+    //-         glyph={this.props.labelGlyph}
+    //-         width={labelWidth}
+    //-         kind="label-field"
+    //-         justify="left"
+    //-         spacing="overlap"
+    //-       />
+    //-     )}
+    //-     <WiredCheckbox
+    //-       kind={this.props.subkind}
+    //-       glyph={this.props.glyph}
+    //-       text={this.props.labelText}
+    //-       tooltip={this.props.tooltip || this.props.hintText}
+    //-       readonly="true"
+    //-     />
+    //-   </Container>
+    //- );
   }
 
   renderReadonlyFileInput() {
@@ -2179,27 +2201,18 @@ class Field extends Form {
       this.fullPath
     );
 
-    const labelWidth = this.props.labelWidth || defaultLabelWidth;
-
     return (
-      <Container
-        kind={this.props.containerKind || 'row-field'}
-        subkind="left"
+      <LabelRow
+        show={this.props.show}
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
+        labelGlyph={this.props.labelGlyph}
+        labelWidth={this.props.labelWidth || defaultLabelWidth}
+        spacing={this.props.spacing}
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
-        {labelWidth === '0px' ? null : (
-          <Label
-            glyph={this.props.labelGlyph}
-            width={labelWidth}
-            kind="label-field"
-            justify="left"
-            spacing="overlap"
-          />
-        )}
         <WiredCheckbox
           kind={this.props.subkind}
           glyph={this.props.glyph}
@@ -2213,8 +2226,45 @@ class Field extends Form {
             }
           }}
         />
-      </Container>
+      </LabelRow>
     );
+
+    //- const labelWidth = this.props.labelWidth || defaultLabelWidth;
+    //-
+    //- return (
+    //-   <Container
+    //-     kind={this.props.containerKind || 'row-field'}
+    //-     subkind="left"
+    //-     grow={this.props.grow}
+    //-     width={this.props.width}
+    //-     height={this.props.height}
+    //-     verticalSpacing={this.props.verticalSpacing}
+    //-     verticalJustify={this.props.verticalJustify}
+    //-   >
+    //-     {labelWidth === '0px' ? null : (
+    //-       <Label
+    //-         glyph={this.props.labelGlyph}
+    //-         width={labelWidth}
+    //-         kind="label-field"
+    //-         justify="left"
+    //-         spacing="overlap"
+    //-       />
+    //-     )}
+    //-     <WiredCheckbox
+    //-       kind={this.props.subkind}
+    //-       glyph={this.props.glyph}
+    //-       text={this.props.labelText}
+    //-       tooltip={this.props.tooltip || this.props.hintText}
+    //-       onChange={() => {
+    //-         const checked = Bool.isTrue(this.getBackendValue(this.fullPath));
+    //-         this.setBackendValue(this.fullPath, Bool.toString(!checked));
+    //-         if (this.props.onClick) {
+    //-           this.props.onClick();
+    //-         }
+    //-       }}
+    //-     />
+    //-   </Container>
+    //- );
   }
 
   renderCalendar() {
