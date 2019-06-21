@@ -280,7 +280,8 @@ class WidgetDocPreview extends Widget {
         props[propName] = propDef.type.samplesData[props[propName]];
       }
     }
-    return <this.widgetInfo.widget key={this.props.theme + key} {...props} />;
+    key = this.props.theme ? this.props.theme + key : key;
+    return <this.widgetInfo.widget key={key} {...props} />;
   }
 
   renderWidgets() {
