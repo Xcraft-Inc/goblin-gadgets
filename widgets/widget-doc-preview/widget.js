@@ -7,6 +7,7 @@ import Checkbox from 'goblin-gadgets/widgets/checkbox/widget';
 import WidgetDocPreviewContainer from '../widget-doc-preview-container/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import TextFieldNC from '../text-field-nc/widget';
+import TextInputNC from '../text-input-nc/widget';
 import parseCode from './parse-code';
 
 /******************************************************************************/
@@ -223,6 +224,15 @@ class WidgetDocPreview extends Widget {
         );
       case 'button':
         return <Button text="Hello world" />;
+      case 'text-field':
+        return <TextInputNC value="Jean Dupond" />;
+      case 'text-field-multiline':
+        return (
+          <TextInputNC
+            value={'Lundi\nMardi\nMercredi\nJeudi\nVendredi\nSamedi\nDimanche'}
+            rows="7"
+          />
+        );
       case 'button-10':
         return (
           <React.Fragment>

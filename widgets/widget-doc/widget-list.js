@@ -7,23 +7,26 @@ import labelProps from 'goblin-gadgets/widgets/label/props';
 import Container from 'goblin-gadgets/widgets/container/widget';
 import containerProps from 'goblin-gadgets/widgets/container/props';
 
+import LabelRow from 'goblin-gadgets/widgets/label-row/widget';
+import labelRowProps from 'goblin-gadgets/widgets/label-row/props';
+
 import TextFieldTypedNC from 'goblin-gadgets/widgets/text-field-typed-nc/widget';
-import TextFieldTypedNCProps from 'goblin-gadgets/widgets/text-field-typed-nc/props';
+import textFieldTypedNCProps from 'goblin-gadgets/widgets/text-field-typed-nc/props';
 
 import TextFieldNC from 'goblin-gadgets/widgets/text-field-nc/widget';
-import TextFieldNCProps from 'goblin-gadgets/widgets/text-field-nc/props';
+import textFieldNCProps from 'goblin-gadgets/widgets/text-field-nc/props';
 
 import TextInputNC from 'goblin-gadgets/widgets/text-input-nc/widget';
-import TextInputNCProps from 'goblin-gadgets/widgets/text-input-nc/props';
+import textInputNCProps from 'goblin-gadgets/widgets/text-input-nc/props';
 
 import CheckboxNC from 'goblin-gadgets/widgets/checkbox-nc/widget';
-import CheckboxNCProps from 'goblin-gadgets/widgets/checkbox-nc/props';
+import checkboxNCProps from 'goblin-gadgets/widgets/checkbox-nc/props';
 
 import Table from 'goblin-gadgets/widgets/table/widget';
 import tableProps from 'goblin-gadgets/widgets/table/props';
 
 import Gauge from 'goblin-gadgets/widgets/gauge/widget';
-import GaugeProps from 'goblin-gadgets/widgets/gauge/props';
+import gaugeProps from 'goblin-gadgets/widgets/gauge/props';
 
 const widgetList = [
   {
@@ -45,22 +48,28 @@ const widgetList = [
     props: containerProps,
   },
   {
+    name: 'LabelRow',
+    widget: LabelRow,
+    widgetPath: 'goblin-gadgets/widgets/label-row/widget',
+    props: labelRowProps,
+  },
+  {
     name: 'TextFieldTypedNC',
     widget: TextFieldTypedNC,
     widgetPath: 'goblin-gadgets/widgets/text-field-typed-nc/widget',
-    props: TextFieldTypedNCProps,
+    props: textFieldTypedNCProps,
   },
   {
     name: 'TextFieldNC',
     widget: TextFieldNC,
     widgetPath: 'goblin-gadgets/widgets/text-field-nc/widget',
-    props: TextFieldNCProps,
+    props: textFieldNCProps,
   },
   {
     name: 'TextInputNC',
     widget: TextInputNC,
     widgetPath: 'goblin-gadgets/widgets/text-input-nc/widget',
-    props: TextInputNCProps,
+    props: textInputNCProps,
   },
   {
     name: 'Table',
@@ -72,13 +81,13 @@ const widgetList = [
     name: 'CheckboxNC',
     widget: CheckboxNC,
     widgetPath: 'goblin-gadgets/widgets/checkbox-nc/widget',
-    props: CheckboxNCProps,
+    props: checkboxNCProps,
   },
   {
     name: 'Gauge',
     widget: Gauge,
     widgetPath: 'goblin-gadgets/widgets/gauge/widget',
-    props: GaugeProps,
+    props: gaugeProps,
   },
 ];
 

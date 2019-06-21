@@ -230,7 +230,7 @@ export default [
   {
     name: 'verticalSpacing',
     group: 'Layout',
-    type: types.spacing,
+    type: types.verticalSpacing,
   },
   {
     name: 'marginBottom',

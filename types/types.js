@@ -73,7 +73,14 @@ const types = {
     type: 'component',
     widget: 'combo',
     readonly: false,
-    samples: ['short-text', 'long-text', 'button', 'button-10'],
+    samples: [
+      'short-text',
+      'long-text',
+      'text-field',
+      'text-field-multiline',
+      'button',
+      'button-10',
+    ],
   },
 
   function: {
@@ -181,6 +188,13 @@ const types = {
     widget: 'combo',
     readonly: true,
     samples: ['', 'overlap', 'tiny', 'large', 'double'],
+  },
+
+  verticalSpacing: {
+    type: 'verticalSpacing',
+    widget: 'combo',
+    readonly: true,
+    samples: ['', 'overlap', 'compact', 'normal', 'large'],
   },
 
   shortcut: {
