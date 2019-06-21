@@ -2,9 +2,9 @@ import React from 'react';
 import Widget from 'laboratory/widget';
 import TextFieldNC from 'goblin-gadgets/widgets/text-field-nc/widget';
 import TextFieldCombo from 'goblin-gadgets/widgets/text-field-combo/widget';
+import TextFieldComboNC from 'goblin-gadgets/widgets/text-field-combo-nc/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
-import {isShredder} from 'xcraft-core-shredder';
 import CheckboxNC from 'goblin-gadgets/widgets/checkbox-nc/widget';
 
 /******************************************************************************/
@@ -28,6 +28,7 @@ class WidgetDocPropertyControl extends Widget {
   }
 
   onChangeType(type) {
+    this.clear();
     this.setState({type});
   }
 
@@ -42,37 +43,17 @@ class WidgetDocPropertyControl extends Widget {
   /******************************************************************************/
 
   renderCombo(list, readonly, multiline) {
-    let value = list.find(item => {
-      if (isShredder(this.props.value)) {
-        // For prop dataTable.
-        const y = JSON.stringify(this.props.value.toJS(), null, 1);
-        const x = JSON.stringify(item.value, null, 1);
-        return x === y;
-      } else if (typeof item === 'object') {
-        return item.value === this.props.value;
-      } else {
-        return item === this.props.value;
-      }
-    });
-    if (typeof value === 'object') {
-      value = value.text;
-    }
     return (
       <React.Fragment>
-        <TextFieldNC
+        <TextFieldComboNC
           shape="left-smooth"
           spacing="overlap"
           readonly={readonly}
           rows={multiline ? '2' : null}
-          value={value || this.props.value}
-          onChange={readonly ? null : this.onChange}
           grow="1"
-        />
-        <TextFieldCombo
-          spacing="tiny"
           list={list}
-          defaultValue={value}
-          onSetText={this.onChange}
+          selectedId={this.props.value}
+          onChange={this.onChange}
           menuType="wrap"
           menuItemWidth="200px"
         />
