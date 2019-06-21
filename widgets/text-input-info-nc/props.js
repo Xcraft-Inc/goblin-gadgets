@@ -46,6 +46,7 @@ export default [
     name: 'check',
     group: 'info',
     type: types.checkFunction,
+    description: 'Function to validate the text entered by the user.',
   },
   {
     name: 'warning',

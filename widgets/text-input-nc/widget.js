@@ -17,7 +17,7 @@ import Label from 'gadgets/label/widget';
 
 /******************************************************************************/
 
-class TextInputNC extends Widget {
+export default class TextInputNC extends Widget {
   constructor() {
     super(...arguments);
     this.onChange = this.onChange.bind(this);
@@ -120,6 +120,3 @@ class TextInputNC extends Widget {
 
 TextInputNC.propTypes = makePropTypes(Props);
 TextInputNC.defaultProps = makeDefaultProps(Props);
-
-/******************************************************************************/
-export default TextInputNC;

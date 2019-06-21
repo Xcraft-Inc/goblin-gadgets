@@ -1,7 +1,14 @@
 import React from 'react';
+import Props from './props';
 import Widget from 'laboratory/widget';
 import TextInputNC from '../text-input-nc/widget';
 import FlyingBalloon from 'gadgets/flying-balloon/widget';
+import {
+  makePropTypes,
+  makeDefaultProps,
+} from 'xcraft-core-utils/lib/prop-types';
+
+/******************************************************************************/
 
 export default class TextInputInfoNC extends Widget {
   renderFlyingBalloon() {
@@ -45,3 +52,8 @@ export default class TextInputInfoNC extends Widget {
     );
   }
 }
+
+/******************************************************************************/
+
+TextInputInfoNC.propTypes = makePropTypes(Props);
+TextInputInfoNC.defaultProps = makeDefaultProps(Props);

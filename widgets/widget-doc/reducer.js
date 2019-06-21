@@ -7,8 +7,9 @@ const initialState = new Shredder({
     scale: 1,
     color: 'pane',
     items: 1,
-    layout: 'row',
+    layout: 'div',
     frame: false,
+    layoutFrame: false,
   },
 });
 
