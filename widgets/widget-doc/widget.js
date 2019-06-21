@@ -4,12 +4,25 @@ import Container from 'goblin-gadgets/widgets/container/widget';
 import WidgetDocMenu from '../widget-doc-menu/widget';
 import WidgetDocProperties from '../widget-doc-properties/widget';
 import WidgetDocPreview from '../widget-doc-preview/widget';
+import widgetList from '../widget-doc/widget-list';
 
 /******************************************************************************/
 
 class WidgetDoc extends Widget {
   constructor() {
     super(...arguments);
+
+    const props = {};
+    for (const widget of widgetList) {
+      const widgetProps = {};
+      for (const propDef of widget.props) {
+        if (propDef.required) {
+          widgetProps[propDef.name] = propDef.type.defaultValue;
+        }
+      }
+      props[widget.name] = widgetProps;
+    }
+    this.dispatch({type: 'INIT', props});
   }
 
   render() {
