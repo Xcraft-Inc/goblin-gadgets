@@ -441,6 +441,7 @@ const samplesData = {
 
 addType('dataTable', {
   type: 'dataTable',
+  defaultValue: 'T1',
   widget: 'combo',
   readonly: true,
   samples: samples,
@@ -476,7 +477,6 @@ export default [
     type: types.dataTable,
     description: 'The data of table.',
     required: true,
-    defaultValue: samplesData.T1,
   },
   {
     name: 'selectionMode',

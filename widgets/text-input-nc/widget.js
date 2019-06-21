@@ -23,7 +23,19 @@ export default class TextInputNC extends Widget {
     this.onChange = this.onChange.bind(this);
     this.onBlur = this.onBlur.bind(this);
     this.onFocus = this.onFocus.bind(this);
+    this.setInput = this.setInput.bind(this);
   }
+
+  /*****************************************************************************/
+
+  componentDidMount() {
+    super.componentDidMount();
+    if (Bool.isTrue(this.props.autoFocus)) {
+      this.selectAll();
+    }
+  }
+
+  /*****************************************************************************/
 
   onChange(e) {
     if (this.props.onChange) {
@@ -43,7 +55,25 @@ export default class TextInputNC extends Widget {
     }
   }
 
-  /******************************************************************************/
+  /*****************************************************************************/
+
+  selectAll() {
+    const selectAllOnFocus = this.props.selectAllOnFocus; // || !!this.props.hinter;
+    if (Bool.isTrue(selectAllOnFocus)) {
+      if (this.input) {
+        this.input.focus();
+        this.input.select();
+      }
+    } else {
+      if (this.input) {
+        this.input.focus();
+      }
+    }
+  }
+
+  setInput(node) {
+    this.input = node;
+  }
 
   renderFocusForeground() {
     if (Bool.isTrue(this.props.embeddedFocus)) {
@@ -81,6 +111,7 @@ export default class TextInputNC extends Widget {
               Bool.isTrue(this.props.disabled) ||
               Bool.isTrue(this.props.readonly)
             }
+            onRef={this.setInput}
             onChange={this.onChange}
             onFocus={this.onFocus}
             onBlur={this.onBlur}
@@ -97,6 +128,7 @@ export default class TextInputNC extends Widget {
               Bool.isTrue(this.props.disabled) ||
               Bool.isTrue(this.props.readonly)
             }
+            onRef={this.setInput}
             onChange={this.onChange}
             onFocus={this.onFocus}
             onBlur={this.onBlur}

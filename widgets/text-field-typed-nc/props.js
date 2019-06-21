@@ -22,6 +22,7 @@ export default [
       'percent',
       'delay',
     ]),
+    required: true,
   },
   ...props,
 ];

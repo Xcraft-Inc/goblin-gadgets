@@ -202,15 +202,14 @@ class TextFieldComboNC extends Widget {
         onFocus={this.onFocus}
         onBlur={this.onBlur}
         onMouseUp={this.onMouseUp}
+        autoFocus={this.props.autoFocus}
+        selectAllOnFocus={this.props.selectAllOnFocus}
         //hinter={this.props.hinter}
-        //parser={this.props.parser}
-        //errors={this.props.errors}
-        //updateOn={this.props.updateOn}
         //getDisplayValue={this.props.getDisplayValue}
         //getGlyph={this.props.getGlyph}
-        //filterKeys={this.props.filterKeys}
-        //selectAllOnFocus={this.props.selectAllOnFocus}
-        //defaultFocus={this.props.defaultFocus}
+        //parser={this.props.parser} <Control prop from redux-form>
+        //errors={this.props.errors} <Control prop from redux-form>
+        //updateOn={this.props.updateOn} <Control prop from redux-form>
       />
     );
   }
