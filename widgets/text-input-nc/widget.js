@@ -30,8 +30,11 @@ export default class TextInputNC extends Widget {
 
   componentDidMount() {
     super.componentDidMount();
-    if (Bool.isTrue(this.props.autoFocus)) {
-      this.selectAll();
+    if (Bool.isTrue(this.props.autoFocus) && this.input) {
+      this.input.focus();
+      if (Bool.isTrue(this.props.selectAllOnFocus)) {
+        this.input.select();
+      }
     }
   }
 
@@ -47,6 +50,11 @@ export default class TextInputNC extends Widget {
     if (this.props.onFocus) {
       this.props.onFocus(e.target.value);
     }
+    if (Bool.isTrue(this.props.selectAllOnFocus)) {
+      if (this.input) {
+        this.input.select();
+      }
+    }
   }
 
   onBlur(e) {
@@ -56,20 +64,6 @@ export default class TextInputNC extends Widget {
   }
 
   /*****************************************************************************/
-
-  selectAll() {
-    const selectAllOnFocus = this.props.selectAllOnFocus; // || !!this.props.hinter;
-    if (Bool.isTrue(selectAllOnFocus)) {
-      if (this.input) {
-        this.input.focus();
-        this.input.select();
-      }
-    } else {
-      if (this.input) {
-        this.input.focus();
-      }
-    }
-  }
 
   setInput(node) {
     this.input = node;
