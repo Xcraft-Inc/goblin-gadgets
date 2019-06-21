@@ -32,7 +32,6 @@ import CalendarRecurrence from 'gadgets/calendar-recurrence/widget';
 import Calendar from 'gadgets/calendar/widget';
 import CalendarBoards from 'gadgets/calendar-boards/widget';
 import Table from 'gadgets/table/widget';
-import FlatCombo from 'gadgets/flat-combo/widget';
 
 import Plugin from 'desktop/plugin/widget';
 
@@ -741,48 +740,6 @@ class Field extends Form {
     } else {
       return this.renderReadonlyField();
     }
-  }
-
-  renderReadonlyFlatCombo() {
-    const labelWidth = this.props.labelWidth || defaultLabelWidth;
-
-    return (
-      <Container
-        kind="row-field"
-        subkind="left"
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
-        {labelWidth === '0px' ? null : (
-          <Label
-            text={this.props.labelText}
-            glyph={this.props.labelGlyph}
-            tooltip={this.props.tooltip}
-            width={labelWidth}
-            kind="label-field"
-            justify="left"
-            spacing="overlap"
-          />
-        )}
-        <FlatCombo
-          buttonWidth={this.props.buttonWidth}
-          height={this.props.height}
-          direction={this.props.direction || 'row'}
-          list={this.props.list}
-          value={this.props.value}
-          readonly={Bool.toString(this.readonly)}
-          selectionChanged={name => {
-            this.setBackendValue(this.fullPath, name);
-            if (this.props.onChange) {
-              this.props.onChange(name);
-            }
-          }}
-        />
-      </Container>
-    );
   }
 
   renderReadonlyBool() {
@@ -2033,47 +1990,6 @@ class Field extends Form {
     //- );
   }
 
-  renderEditFlatCombo() {
-    const labelWidth = this.props.labelWidth || defaultLabelWidth;
-
-    return (
-      <Container
-        kind="row-field"
-        subkind="left"
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
-        {labelWidth === '0px' ? null : (
-          <Label
-            text={this.props.labelText}
-            glyph={this.props.labelGlyph}
-            tooltip={this.props.tooltip}
-            width={labelWidth}
-            kind="label-field"
-            justify="left"
-            spacing="overlap"
-          />
-        )}
-        <FlatCombo
-          buttonWidth={this.props.buttonWidth}
-          height={this.props.height}
-          direction={this.props.direction || 'row'}
-          list={this.props.list}
-          value={this.props.value}
-          selectionChanged={name => {
-            this.setBackendValue(this.fullPath, name);
-            if (this.props.onChange) {
-              this.props.onChange(name);
-            }
-          }}
-        />
-      </Container>
-    );
-  }
-
   radioListSelectionChanged(index) {
     const value =
       typeof this.props.list[index] === 'string'
@@ -2898,8 +2814,6 @@ class Field extends Form {
         return this.renderReadonlyDelay();
       case 'combo':
         return this.renderReadonlyCombo();
-      case 'flat-combo':
-        return this.renderReadonlyFlatCombo();
       case 'radio':
         return this.renderReadonlyField();
       case 'check-list':
@@ -2981,8 +2895,6 @@ class Field extends Form {
         return this.renderEditDelay();
       case 'combo':
         return this.renderEditCombo();
-      case 'flat-combo':
-        return this.renderEditFlatCombo();
       case 'radio':
         return this.renderEditRadio();
       case 'check-list':
