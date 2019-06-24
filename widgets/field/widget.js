@@ -289,13 +289,13 @@ class Field extends Form {
           spacing={this.props.spacing}
           verticalSpacing={this.props.verticalSpacing}
           verticalJustify={this.props.verticalJustify}
-          grow="1"
+          grow={this.props.fieldWidth ? null : '1'}
         >
           <TextField
             readonly="true"
             type={this.props.type}
             shape={this.props.shape}
-            grow={this.props.fieldWidth ? null : '1'}
+            grow="1"
             width={this.props.fieldWidth}
             spacing={this.props.spacing}
             hintText={this.props.hintText}
@@ -1233,12 +1233,12 @@ class Field extends Form {
         spacing={this.props.spacing}
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
-        grow="1"
+        grow={this.props.fieldWidth ? null : '1'}
       >
         <TextField
           type={this.props.type}
           shape={this.props.shape}
-          grow={this.props.fieldWidth ? null : '1'}
+          grow="1"
           width={this.props.fieldWidth}
           spacing={this.props.spacing}
           hintText={this.props.hintText}
