@@ -80,6 +80,11 @@ export default class TextInputNC extends Widget {
   renderInput() {
     const type = this.props.rows ? 'textarea' : 'text';
 
+    let value = this.props.value;
+    if (value === null) {
+      value = '';
+    }
+
     return (
       <TranslatableDiv
         msgid={this.props.tooltip}
@@ -98,7 +103,7 @@ export default class TextInputNC extends Widget {
             msgid={this.props.hintText}
             workitemId={this.context.desktopId || this.getNearestId()}
             className={`${this.styles.classNames.textarea} mousetrap ${this.styles.classNames.input}`}
-            value={this.props.value}
+            value={value}
             defaultValue={this.props.defaultValue}
             rows={this.props.rows}
             disabled={
@@ -116,7 +121,7 @@ export default class TextInputNC extends Widget {
             workitemId={this.context.desktopId || this.getNearestId()}
             className={`${this.styles.classNames.field} mousetrap ${this.styles.classNames.input}`}
             type="text"
-            value={this.props.value}
+            value={value}
             defaultValue={this.props.defaultValue}
             disabled={
               Bool.isTrue(this.props.disabled) ||
