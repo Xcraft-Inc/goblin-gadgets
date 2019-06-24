@@ -32,6 +32,12 @@ export default [
     type: types.function,
   },
   {
+    name: 'onValidate',
+    group: 'event',
+    type: types.function,
+    description: 'When "enter" is pressed',
+  },
+  {
     name: 'value',
     group: 'text',
     type: types.string,
