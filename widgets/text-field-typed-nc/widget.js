@@ -23,7 +23,7 @@ import Props from './props';
 
 /******************************************************************************/
 
-export default class TextFieldTyped extends Widget {
+export default class TextFieldTypedNC extends Widget {
   constructor() {
     super(...arguments);
 
