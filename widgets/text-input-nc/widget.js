@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Widget from 'laboratory/widget';
+import MouseTrap from 'mousetrap';
 import * as Bool from 'gadgets/helpers/bool-helpers';
 import Props from './props';
 import {
@@ -24,6 +25,7 @@ export default class TextInputNC extends Widget {
     this.onBlur = this.onBlur.bind(this);
     this.onFocus = this.onFocus.bind(this);
     this.setInput = this.setInput.bind(this);
+    this.validate = this.validate.bind(this);
   }
 
   /*****************************************************************************/
@@ -35,6 +37,16 @@ export default class TextInputNC extends Widget {
       if (Bool.isTrue(this.props.selectAllOnFocus)) {
         this.input.select();
       }
+    }
+    if (this.input) {
+      MouseTrap(this.input).bind('return', this.validate);
+    }
+  }
+
+  componentWillUnmount() {
+    super.componentWillUnmount();
+    if (this.input) {
+      MouseTrap(this.input).unbind('return');
     }
   }
 
@@ -60,6 +72,12 @@ export default class TextInputNC extends Widget {
   onBlur(e) {
     if (this.props.onBlur) {
       this.props.onBlur(e.target.value);
+    }
+  }
+
+  validate() {
+    if (this.props.onValidate) {
+      this.props.onValidate(this.props.value);
     }
   }
 
