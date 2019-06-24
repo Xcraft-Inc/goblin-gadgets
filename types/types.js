@@ -1,4 +1,8 @@
 const types = {
+  any: {
+    type: 'any',
+  },
+
   bool: {
     type: 'bool',
     defaultValue: false,
