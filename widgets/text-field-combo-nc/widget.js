@@ -132,6 +132,20 @@ class TextFieldComboNC extends Widget {
             };
             break;
           case 'object': {
+            if (item.id === undefined) {
+              console.warn(
+                `Id not defined for ${JSON.stringify(
+                  item
+                )} in TextFieldComboNC !`
+              );
+            }
+            if (item.text === undefined) {
+              console.warn(
+                `Text not defined for ${JSON.stringify(
+                  item
+                )} in TextFieldComboNC !`
+              );
+            }
             const id =
               item.id !== undefined
                 ? item.id

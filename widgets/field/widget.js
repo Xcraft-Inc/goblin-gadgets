@@ -1917,7 +1917,7 @@ class Field extends Form {
       this.props.comboReadonly === 'true' &&
       this.props.list &&
       this.props.list.length > 0 &&
-      this.props.list[0].value !== undefined &&
+      this.props.list[0].id !== undefined &&
       this.props.list[0].text !== undefined
     ) {
       const FieldComboWired = this.mapWidget(
@@ -1927,7 +1927,7 @@ class Field extends Form {
             return;
           }
           for (const item of this.props.list) {
-            if (value === item.value) {
+            if (value === item.id) {
               return {
                 defaultValue: item.text,
                 glyph: item.glyph,
@@ -2026,7 +2026,7 @@ class Field extends Form {
           if (typeof list.get('0') === 'string') {
             return {};
           }
-          const matching = list.find(item => item.get('value') === value);
+          const matching = list.find(item => item.get('id') === value);
           if (!matching) {
             // FIXME: Sometime value is the text instead of the id
             // when we change the combo value too fast
