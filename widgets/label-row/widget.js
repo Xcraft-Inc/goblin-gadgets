@@ -21,6 +21,13 @@ export default class LabelRow extends Widget {
   }
 
   renderLabel() {
+    // La condition pour ne pas afficher le Label est que la propriété labelWidth
+    // soit définie à 0px. Il faut afficher le Label même si labelText/labelGlyph
+    // ne sont pas définis !
+    if (this.props.labelWidth === '0px') {
+      return null;
+    }
+
     return (
       <Label
         kind="label-text-field"

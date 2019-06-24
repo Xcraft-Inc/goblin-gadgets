@@ -12,7 +12,7 @@ import {isShredder} from 'xcraft-core-shredder';
 
 /******************************************************************************/
 
-class TextFieldComboNC extends Widget {
+class TextFieldComboNew extends Widget {
   constructor() {
     super(...arguments);
 
@@ -295,4 +295,4 @@ class TextFieldComboNC extends Widget {
 }
 
 /******************************************************************************/
-export default TextFieldComboNC;
+export default TextFieldComboNew;

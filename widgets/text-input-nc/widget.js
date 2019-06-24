@@ -23,7 +23,22 @@ export default class TextInputNC extends Widget {
     this.onChange = this.onChange.bind(this);
     this.onBlur = this.onBlur.bind(this);
     this.onFocus = this.onFocus.bind(this);
+    this.setInput = this.setInput.bind(this);
   }
+
+  /*****************************************************************************/
+
+  componentDidMount() {
+    super.componentDidMount();
+    if (Bool.isTrue(this.props.autoFocus) && this.input) {
+      this.input.focus();
+      if (Bool.isTrue(this.props.selectAllOnFocus)) {
+        this.input.select();
+      }
+    }
+  }
+
+  /*****************************************************************************/
 
   onChange(e) {
     if (this.props.onChange) {
@@ -35,6 +50,11 @@ export default class TextInputNC extends Widget {
     if (this.props.onFocus) {
       this.props.onFocus(e.target.value);
     }
+    if (Bool.isTrue(this.props.selectAllOnFocus)) {
+      if (this.input) {
+        this.input.select();
+      }
+    }
   }
 
   onBlur(e) {
@@ -43,7 +63,11 @@ export default class TextInputNC extends Widget {
     }
   }
 
-  /******************************************************************************/
+  /*****************************************************************************/
+
+  setInput(node) {
+    this.input = node;
+  }
 
   renderFocusForeground() {
     if (Bool.isTrue(this.props.embeddedFocus)) {
@@ -81,6 +105,7 @@ export default class TextInputNC extends Widget {
               Bool.isTrue(this.props.disabled) ||
               Bool.isTrue(this.props.readonly)
             }
+            onRef={this.setInput}
             onChange={this.onChange}
             onFocus={this.onFocus}
             onBlur={this.onBlur}
@@ -97,6 +122,7 @@ export default class TextInputNC extends Widget {
               Bool.isTrue(this.props.disabled) ||
               Bool.isTrue(this.props.readonly)
             }
+            onRef={this.setInput}
             onChange={this.onChange}
             onFocus={this.onFocus}
             onBlur={this.onBlur}
