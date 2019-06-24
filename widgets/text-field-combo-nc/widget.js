@@ -63,8 +63,8 @@ class TextFieldComboNC extends Widget {
       showCombo: true,
     });
 
-    if (this.props.showCombo) {
-      this.props.showCombo();
+    if (this.props.onShowCombo) {
+      this.props.onShowCombo();
     }
   }
 
@@ -132,20 +132,32 @@ class TextFieldComboNC extends Widget {
             };
             break;
           case 'object': {
-            const id = item.id !== undefined ? item.id : item.value;
+            const id =
+              item.id !== undefined
+                ? item.id
+                : item.value !== undefined
+                ? item.value
+                : item.text;
             item = {
               id,
-              text: item.text,
+              text: item.text !== undefined ? item.text : id,
               value: item.value,
               glyph: item.glyph,
               color: item.color,
               active: this.props.selectedId === id,
               action: this.doChangeCombo,
             };
+            if (typeof item.glyph === 'object') {
+              item.color = item.glyph.color;
+              item.glyph = item.glyph.glyph;
+            }
             break;
           }
           default:
-            throw Error('Item Format not accepted in TextFieldComboNC !');
+            throw Error(
+              'Item Format not accepted in TextFieldComboNC ! ' +
+                JSON.stringify(item)
+            );
         }
         if (this.props.menuType !== 'wrap') {
           item.glyph = item.active ? 'solid/check' : 'solid/none';
@@ -179,8 +191,17 @@ class TextFieldComboNC extends Widget {
     }
 
     let glyph = {glyph: selectedItem.glyph, color: selectedItem.color};
-    if (this.props.menuType !== 'wrap' || !selectedItem.glyph) {
+    if (this.props.getGlyph && glyph.glyph === null) {
+      glyph = this.props.getGlyph(this.props.selectedId);
+    }
+    if (this.props.menuType !== 'wrap') {
       glyph = null;
+    }
+
+    let value = selectedItem.id;
+
+    if (this.props.readonly && selectedItem.text) {
+      value = selectedItem.text;
     }
 
     return (
@@ -190,7 +211,7 @@ class TextFieldComboNC extends Widget {
         spacing={'overlap'}
         shape={textFieldShape}
         flyingBalloonAnchor={this.props.flyingBalloonAnchor}
-        value={selectedItem.id}
+        value={value}
         glyph={glyph}
         width={this.props.width}
         grow={this.props.width ? null : '1'}
