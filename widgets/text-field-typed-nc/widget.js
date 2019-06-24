@@ -162,5 +162,5 @@ export default class TextFieldTypedNC extends Widget {
 
 /******************************************************************************/
 
-TextFieldTyped.propTypes = makePropTypes(Props);
-TextFieldTyped.defaultProps = makeDefaultProps(Props);
+TextFieldTypedNC.propTypes = makePropTypes(Props);
+TextFieldTypedNC.defaultProps = makeDefaultProps(Props);
