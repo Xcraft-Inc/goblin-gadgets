@@ -44,7 +44,7 @@ export default [
   {
     name: 'tooltip',
     group: 'aspect',
-    type: types.string,
+    type: types.nabu,
   },
   {
     name: 'shape',
