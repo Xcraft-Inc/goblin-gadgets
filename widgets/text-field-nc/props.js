@@ -1,6 +1,16 @@
 import {types} from 'goblin-gadgets/types/types.js';
 import textInputInfoNCProps from '../text-input-info-nc/props';
 
+const props = textInputInfoNCProps.map(prop => {
+  if (prop.name === 'value') {
+    return {
+      ...prop,
+      type: types.any,
+    };
+  }
+  return prop;
+});
+
 export default [
   {
     name: 'format',
@@ -22,5 +32,5 @@ export default [
     group: 'functionality',
     type: types.number, // TODO positive number
   },
-  ...textInputInfoNCProps,
+  ...props,
 ];
