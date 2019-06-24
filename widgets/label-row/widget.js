@@ -34,7 +34,7 @@ export default class LabelRow extends Widget {
         glyph={this.props.labelGlyph}
         text={this.props.labelText}
         width={this.props.labelWidth || '120px'}
-        wrap="no"
+        wrap={this.props.labelWrap || 'no'}
         justify="left"
         disabled={this.props.disabled}
         visibility={this.props.visibility}

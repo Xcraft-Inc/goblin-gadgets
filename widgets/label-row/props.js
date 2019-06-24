@@ -12,6 +12,18 @@ export default [
     type: types.nabu,
   },
   {
+    name: 'labelWrap',
+    group: 'Label',
+    type: types.enum([
+      '',
+      'no',
+      'no-end',
+      'no-strict',
+      'yes',
+      'yes-permissive',
+    ]),
+  },
+  {
     name: 'labelGlyph',
     group: 'Label',
     type: types.glyph,
