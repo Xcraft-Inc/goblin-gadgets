@@ -73,7 +73,7 @@ export default [
   {
     name: 'hintText',
     group: 'text',
-    type: types.string,
+    type: types.nabu,
   },
   {
     name: 'tooltip',

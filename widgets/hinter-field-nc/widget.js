@@ -11,7 +11,7 @@ import {
 
 import Container from 'gadgets/container/widget';
 import Label from 'gadgets/label/widget';
-import TextInputNC from 'gadgets/text-input-nc/widget';
+import TextFieldNC from 'gadgets/text-field-nc/widget';
 import Button from 'gadgets/button/widget';
 
 /******************************************************************************/
@@ -54,13 +54,15 @@ export default class HinterFieldNC extends Widget {
         width={this.props.width}
         grow={this.props.grow}
       >
-        <TextInputNC
+        <TextFieldNC
           shape={this.hasButtonAdd ? 'left-smooth' : 'smooth'}
           required="true"
           visibility={this.props.visibility}
           disabled={this.props.disabled}
           readonly={this.props.readonly}
-          value={this.props.searchValue}
+          value={
+            this.props.searchValue === undefined ? '' : this.props.searchValue
+          }
           hintText={this.props.hintText}
           tooltip={this.props.tooltip}
           grow="1"
