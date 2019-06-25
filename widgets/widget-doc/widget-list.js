@@ -10,6 +10,9 @@ import containerProps from 'goblin-gadgets/widgets/container/props';
 import LabelRow from 'goblin-gadgets/widgets/label-row/widget';
 import labelRowProps from 'goblin-gadgets/widgets/label-row/props';
 
+import HinterFieldNC from 'goblin-gadgets/widgets/hinter-field-nc/widget';
+import hinterFieldNCProps from 'goblin-gadgets/widgets/hinter-field-nc/props';
+
 import TextFieldTypedNC from 'goblin-gadgets/widgets/text-field-typed-nc/widget';
 import textFieldTypedNCProps from 'goblin-gadgets/widgets/text-field-typed-nc/props';
 
@@ -52,6 +55,12 @@ const widgetList = [
     widget: LabelRow,
     widgetPath: 'goblin-gadgets/widgets/label-row/widget',
     props: labelRowProps,
+  },
+  {
+    name: 'HinterFieldNC',
+    widget: HinterFieldNC,
+    widgetPath: 'goblin-gadgets/widgets/hinter-field-nc/widget',
+    props: hinterFieldNCProps,
   },
   {
     name: 'TextFieldTypedNC',
