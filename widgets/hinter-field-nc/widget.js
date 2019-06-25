@@ -59,6 +59,7 @@ export default class HinterFieldNC extends Widget {
           hintText={this.props.hintText}
           tooltip={this.props.tooltip}
           grow="1"
+          onChange={this.props.onSearchChange}
         />
         {this.renderSearchButtonAdd()}
       </Container>

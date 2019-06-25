@@ -25,6 +25,11 @@ export default [
 
   // Event
   {
+    name: 'onSearchChange',
+    group: 'event',
+    type: types.function,
+  },
+  {
     name: 'onAdd',
     group: 'event',
     type: types.function,
