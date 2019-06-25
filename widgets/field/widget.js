@@ -36,6 +36,7 @@ import Table from 'goblin-gadgets/widgets/table/widget';
 import Plugin from 'goblin-desktop/widgets/plugin/widget';
 
 import importer from 'goblin-laboratory/widgets/importer';
+import HinterField from 'goblin-gadgets/widgets/hinter-field/widget';
 const widgetImporter = importer('widget');
 
 /******************************************************************************/
@@ -2639,6 +2640,26 @@ class Field extends Form {
   }
 
   renderEditHinter() {
+    return (
+      <LabelRow
+        show={this.props.show}
+        grow={this.props.grow}
+        width={this.props.width}
+        height={this.props.height}
+        labelText={this.props.labelText}
+        labelWrap={this.props.labelWrap}
+        labelGlyph={this.props.labelGlyph}
+        labelWidth={this.props.labelWidth || defaultLabelWidth}
+        spacing={this.props.spacing}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
+      >
+        <HinterField {...this.props} />
+      </LabelRow>
+    );
+  }
+
+  renderEditHinter_old() {
     const targetPath = this.props.targetModel
       ? this.getFullPathFromModel(this.props.targetModel)
       : this.fullPath;
