@@ -1,5 +1,6 @@
 import Button from 'goblin-gadgets/widgets/button/widget';
 import buttonProps from 'goblin-gadgets/widgets/button/props';
+import buttonScenarios from 'goblin-gadgets/widgets/button/scenarios';
 
 import Label from 'goblin-gadgets/widgets/label/widget';
 import labelProps from 'goblin-gadgets/widgets/label/props';
@@ -12,6 +13,7 @@ import labelRowProps from 'goblin-gadgets/widgets/label-row/props';
 
 import HinterFieldNC from 'goblin-gadgets/widgets/hinter-field-nc/widget';
 import hinterFieldNCProps from 'goblin-gadgets/widgets/hinter-field-nc/props';
+import hinterFieldNCScenarios from 'goblin-gadgets/widgets/hinter-field-nc/scenarios';
 
 import TextFieldTypedNC from 'goblin-gadgets/widgets/text-field-typed-nc/widget';
 import textFieldTypedNCProps from 'goblin-gadgets/widgets/text-field-typed-nc/props';
@@ -37,6 +39,7 @@ const widgetList = [
     widget: Button,
     widgetPath: 'goblin-gadgets/widgets/button/widget',
     props: buttonProps,
+    scenarios: buttonScenarios,
   },
   {
     name: 'Label',
@@ -61,6 +64,7 @@ const widgetList = [
     widget: HinterFieldNC,
     widgetPath: 'goblin-gadgets/widgets/hinter-field-nc/widget',
     props: hinterFieldNCProps,
+    scenarios: hinterFieldNCScenarios,
   },
   {
     name: 'TextFieldTypedNC',
