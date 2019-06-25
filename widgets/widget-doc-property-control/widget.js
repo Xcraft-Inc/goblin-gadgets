@@ -44,20 +44,18 @@ class WidgetDocPropertyControl extends Widget {
 
   renderCombo(list, readonly, multiline) {
     return (
-      <React.Fragment>
-        <TextFieldComboNC
-          shape="left-smooth"
-          spacing="overlap"
-          readonly={readonly}
-          rows={multiline ? '2' : null}
-          grow="1"
-          list={list}
-          selectedId={this.props.value}
-          onChange={this.onChange}
-          menuType="wrap"
-          menuItemWidth="200px"
-        />
-      </React.Fragment>
+      <TextFieldComboNC
+        shape="left-smooth"
+        spacing="overlap"
+        readonly={readonly}
+        rows={multiline ? '2' : null}
+        grow="1"
+        list={list}
+        selectedId={this.props.value !== undefined ? this.props.value : ''}
+        onChange={this.onChange}
+        menuType="wrap"
+        menuItemWidth="200px"
+      />
     );
   }
 
