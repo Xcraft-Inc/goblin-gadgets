@@ -128,8 +128,8 @@ export default class HinterFieldNC extends Widget {
             this.hasButtonClear || this.hasButtonShow ? 'left-smooth' : 'smooth'
           }
           visibility={this.props.visibility}
-          glyph={this.props.glyph}
-          glyphColor={this.props.glyphColor}
+          glyph={this.props.selectedGlyph}
+          glyphColor={this.props.selectedGlyphColor}
           text={this.props.selectedValue}
           tooltip={this.props.tooltip}
           wrap={this.props.wrap}

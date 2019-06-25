@@ -47,12 +47,12 @@ export default [
 
   // Glyph
   {
-    name: 'glyph',
+    name: 'selectedGlyph',
     group: 'glyph',
     type: types.glyph,
   },
   {
-    name: 'glyphColor',
+    name: 'selectedGlyphColor',
     group: 'glyph',
     type: types.color,
   },
