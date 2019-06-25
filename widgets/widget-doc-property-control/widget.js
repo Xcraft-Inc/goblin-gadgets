@@ -1,7 +1,7 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 import TextFieldNC from 'goblin-gadgets/widgets/text-field-nc/widget';
-import TextFieldCombo from 'goblin-gadgets/widgets/text-field-combo/widget';
+import ButtonCombo from 'goblin-gadgets/widgets/button-combo/widget';
 import TextFieldComboNC from 'goblin-gadgets/widgets/text-field-combo-nc/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
@@ -27,9 +27,9 @@ class WidgetDocPropertyControl extends Widget {
     this.dispatch({type: 'SET', path: this.props.path, value});
   }
 
-  onChangeType(type) {
+  onChangeType(item) {
     this.clear();
-    this.setState({type});
+    this.setState({type: item.value});
   }
 
   onChangeNumber(value) {
@@ -73,16 +73,21 @@ class WidgetDocPropertyControl extends Widget {
       case 'oneOfType':
         // eslint-disable-next-line no-case-declarations
         const list = this.props.type.types.map(item => {
-          return {text: item.type, value: item};
+          return {
+            id: item.type,
+            text: item.type,
+            value: item,
+            action: this.onChangeType,
+            active: this.state.type.type === item.type,
+          };
         });
         return (
           <React.Fragment>
-            <TextFieldCombo
+            <ButtonCombo
               spacing="tiny"
               comboGlyph="solid/ellipsis-v"
               list={list}
               selectedId={this.state.type.type}
-              onChange={this.onChangeType}
               menuType="wrap"
               menuItemWidth="200px"
             />
