@@ -4,7 +4,7 @@
 const Goblin = require('xcraft-core-goblin');
 
 module.exports = {
-  create: (state, action) => {
+  'create': (state, action) => {
     return state
       .set('id', action.get('id'))
       .set('status', action.get('status'))
@@ -15,6 +15,17 @@ module.exports = {
     return state
       .set('options', action.get('options'))
       .set('count', action.get('count'));
+  },
+  'customize-visualization': (state, action) => {
+    const sort = action.get('sort');
+    const filter = action.get('filter');
+    if (sort) {
+      state = state.set('options.sort', sort);
+    }
+    if (filter) {
+      state = state.set('options.filter', filter);
+    }
+    return state;
   },
   'change-content-index': (state, action) => {
     let value = action.get('value');
@@ -27,26 +38,22 @@ module.exports = {
       .set('list', {})
       .set('count', action.get('count'));
   },
-  'customize-visualization': (state, action) => {
+  'init-list': Goblin.Shredder.mutableReducer((state, action) => {
     const ids = action.get('ids');
     const count = action.get('count');
     const highlights = action.get('highlights');
 
-    return state
-      .set('list', ids)
-      .set('count', count)
-      .set('highlights', highlights);
-  },
-  'init-list': (state, action) => {
-    const ids = action.get('ids');
-    const count = action.get('count');
-    const highlights = action.get('highlights');
+    const items = ids.reduce((list, id, index) => {
+      list[`${index}-item`] = id;
+      return list;
+    }, {});
 
-    return state
-      .set('list', ids)
-      .set('count', count)
-      .set('highlights', highlights);
-  },
+    state = state.set(`list`, items);
+
+    state = state.set('count', count);
+    state = state.set('highlights', highlights);
+    return state;
+  }),
   'rethink-fetch': Goblin.Shredder.mutableReducer((state, action) => {
     const rows = action.get('rows');
     const ids = action.get('ids');
@@ -66,24 +73,14 @@ module.exports = {
 
     return state;
   }),
-  'elastic-fetch': (state, action) => {
-    const ids = action.get('ids');
-    const count = action.get('count');
-    const highlights = action.get('highlights');
-
-    return state
-      .set('list', ids)
-      .set('count', count)
-      .set('highlights', highlights);
-  },
   'handle-changes': state => {
     return state.set('list', {});
   },
-  remove: state => {
+  'remove': state => {
     const newCount = Number(state.get('count')) - 1;
     return state.set('count', newCount).set('list', {});
   },
-  add: state => {
+  'add': state => {
     const newCount = Number(state.get('count')) + 1;
     return state.set('count', newCount).set('list', {});
   },
