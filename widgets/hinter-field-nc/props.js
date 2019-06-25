@@ -22,6 +22,11 @@ export default [
     group: 'aspect',
     type: types.bool,
   },
+  {
+    name: 'required',
+    group: 'aspect',
+    type: types.bool,
+  },
 
   // Event
   {

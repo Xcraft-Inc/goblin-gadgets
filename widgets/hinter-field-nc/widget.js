@@ -56,7 +56,7 @@ export default class HinterFieldNC extends Widget {
       >
         <TextFieldNC
           shape={this.hasButtonAdd ? 'left-smooth' : 'smooth'}
-          required="true"
+          required={this.props.required}
           visibility={this.props.visibility}
           disabled={this.props.disabled}
           readonly={this.props.readonly}
