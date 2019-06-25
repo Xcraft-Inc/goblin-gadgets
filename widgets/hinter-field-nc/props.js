@@ -62,11 +62,13 @@ export default [
     name: 'searchValue',
     group: 'text',
     type: types.string,
+    description: 'Use this property for editing a search value.',
   },
   {
     name: 'selectedValue',
     group: 'text',
     type: types.string,
+    description: 'Use this property for showing a selected value.',
   },
   {
     name: 'hintText',
