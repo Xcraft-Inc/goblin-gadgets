@@ -174,6 +174,7 @@ const types = {
       'rounded',
       'left-rounded',
       'right-rounded',
+      'smooth',
       'left-smooth',
       'right-smooth',
     ],
