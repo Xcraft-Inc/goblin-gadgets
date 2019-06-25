@@ -425,7 +425,7 @@ export default function styles(theme, props) {
   }
 
   if (kind === 'markdown') {
-    boxPaddingTop = '7px';
+    boxPaddingTop = '6px';
     boxPaddingRight = '10px';
     boxPaddingBottom = '7px';
     boxPaddingLeft = '10px';
@@ -438,6 +438,7 @@ export default function styles(theme, props) {
     boxSizing = 'border-box';
     boxHeight = Unit.add('32px', '2px');
     boxAlignItems = 'flex-start';
+    glyphPaddingTop = '2px';
     glyphHeight = null;
     glyphJustify = 'center';
   }
