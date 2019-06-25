@@ -425,7 +425,7 @@ export default function styles(theme, props) {
   }
 
   if (kind === 'markdown') {
-    boxPaddingTop = '7px';
+    boxPaddingTop = '6px';
     boxPaddingRight = '10px';
     boxPaddingBottom = '7px';
     boxPaddingLeft = '10px';
@@ -438,6 +438,7 @@ export default function styles(theme, props) {
     boxSizing = 'border-box';
     boxHeight = Unit.add('32px', '2px');
     boxAlignItems = 'flex-start';
+    glyphPaddingTop = '2px';
     glyphHeight = null;
     glyphJustify = 'center';
   }
@@ -952,6 +953,8 @@ export default function styles(theme, props) {
       borderRadius = r + ' 0px 0px ' + r;
     } else if (shape === 'right-rounded') {
       borderRadius = '0px ' + r + ' ' + r + ' 0px';
+    } else if (shape === 'smooth') {
+      borderRadius = s;
     } else if (shape === 'left-smooth') {
       borderRadius = s + ' 0px 0px ' + s;
     } else if (shape === 'right-smooth') {
