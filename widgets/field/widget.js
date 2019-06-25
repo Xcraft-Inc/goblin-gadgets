@@ -1,9 +1,9 @@
 //T:2019-02-27
 
 import React from 'react';
-import Form from 'laboratory/form';
-import Widget from 'laboratory/widget';
-import * as Bool from 'gadgets/helpers/bool-helpers';
+import Form from 'goblin-laboratory/widgets/form';
+import Widget from 'goblin-laboratory/widgets/widget';
+import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import {
   date as DateConverters,
   time as TimeConverters,
@@ -15,27 +15,27 @@ import T from 't';
 import ReadonlyLabel from './readonly/label.js';
 /******************************************************************************/
 
-import Container from 'gadgets/container/widget';
-import Button from 'gadgets/button/widget';
-import Checkbox from 'gadgets/checkbox/widget';
-import Label from 'gadgets/label/widget';
-import TextField from 'gadgets/text-field/widget';
-import TranslatableTextField from 'gadgets/translatable-text-field/widget';
-import LabelRow from 'gadgets/label-row/widget';
-import LabelTextField from 'gadgets/label-text-field/widget';
-import TextFieldTyped from 'gadgets/text-field-typed/widget';
-import TextFieldCombo from 'gadgets/text-field-combo/widget';
-import TextFieldTimeInterval from 'gadgets/text-field-time-interval/widget';
-import RadioList from 'gadgets/radio-list/widget';
-import CheckList from 'gadgets/check-list/widget';
-import CalendarRecurrence from 'gadgets/calendar-recurrence/widget';
-import Calendar from 'gadgets/calendar/widget';
-import CalendarBoards from 'gadgets/calendar-boards/widget';
-import Table from 'gadgets/table/widget';
+import Container from 'goblin-gadgets/widgets/container/widget';
+import Button from 'goblin-gadgets/widgets/button/widget';
+import Checkbox from 'goblin-gadgets/widgets/checkbox/widget';
+import Label from 'goblin-gadgets/widgets/label/widget';
+import TextField from 'goblin-gadgets/widgets/text-field/widget';
+import TranslatableTextField from 'goblin-gadgets/widgets/translatable-text-field/widget';
+import LabelRow from 'goblin-gadgets/widgets/label-row/widget';
+import LabelTextField from 'goblin-gadgets/widgets/label-text-field/widget';
+import TextFieldTyped from 'goblin-gadgets/widgets/text-field-typed/widget';
+import TextFieldCombo from 'goblin-gadgets/widgets/text-field-combo/widget';
+import TextFieldTimeInterval from 'goblin-gadgets/widgets/text-field-time-interval/widget';
+import RadioList from 'goblin-gadgets/widgets/radio-list/widget';
+import CheckList from 'goblin-gadgets/widgets/check-list/widget';
+import CalendarRecurrence from 'goblin-gadgets/widgets/calendar-recurrence/widget';
+import Calendar from 'goblin-gadgets/widgets/calendar/widget';
+import CalendarBoards from 'goblin-gadgets/widgets/calendar-boards/widget';
+import Table from 'goblin-gadgets/widgets/table/widget';
 
-import Plugin from 'desktop/plugin/widget';
+import Plugin from 'goblin-desktop/widgets/plugin/widget';
 
-import importer from 'laboratory/importer';
+import importer from 'goblin-laboratory/widgets/importer';
 const widgetImporter = importer('widget');
 
 /******************************************************************************/
