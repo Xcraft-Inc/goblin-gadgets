@@ -81,8 +81,8 @@ class WidgetDocPropertyControl extends Widget {
               spacing="tiny"
               comboGlyph="solid/ellipsis-v"
               list={list}
-              defaultValue={this.state.type.type}
-              onSetText={this.onChangeType}
+              selectedId={this.state.type.type}
+              onChange={this.onChangeType}
               menuType="wrap"
               menuItemWidth="200px"
             />

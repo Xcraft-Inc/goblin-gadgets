@@ -9,6 +9,7 @@ import {
   time as TimeConverters,
 } from 'xcraft-core-converters';
 import T from 't';
+import C from 'goblin-laboratory/widgets/connect-helpers/c';
 
 /******************************************************************************/
 //migrated
@@ -54,6 +55,7 @@ const pluginBlackListedProps = [
   'dragServiceId',
   'embeddedLevel',
 ];
+
 function getPluginProps(propsToFilter) {
   return Object.entries(propsToFilter).reduce((props, [key, value]) => {
     if (!pluginBlackListedProps.includes(key)) {
@@ -1895,20 +1897,13 @@ class Field extends Form {
         hintText={this.props.hintText}
         tooltip={this.props.tooltip || this.props.hintText}
         width={this.props.fieldWidth}
-        model={this.props.model}
         readonly={this.props.comboReadonly}
         required={this.props.required}
         list={props.list}
-        selectedValue={props.selectedValue}
+        selectedId={C(this.props.model)}
         menuType="wrap"
         menuItemWidth={this.props.menuItemWidth}
         comboTextTransform="none"
-        onSetText={text => {
-          this.setBackendValue(this.fullPath, text);
-          if (this.props.onChange) {
-            this.props.onChange(text);
-          }
-        }}
         grow="1"
       />
     );
@@ -1946,18 +1941,12 @@ class Field extends Form {
           shape={this.props.shape}
           tooltip={this.props.tooltip || this.props.hintText}
           width={this.props.fieldWidth}
-          model={this.props.model}
+          selectedId={C(this.props.model)}
           readonly={this.props.comboReadonly}
           list={props.list}
           menuType="wrap"
           menuItemWidth={this.props.menuItemWidth}
           comboTextTransform="none"
-          onSetText={text => {
-            this.setBackendValue(this.fullPath, text);
-            if (this.props.onChange) {
-              this.props.onChange(text);
-            }
-          }}
           grow="1"
         />
       );
@@ -1988,19 +1977,13 @@ class Field extends Form {
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
           width={this.props.fieldWidth}
-          model={this.props.model}
+          selectedId={C(this.props.model)}
           readonly={this.props.comboReadonly}
           required={this.props.required}
           list={props.list}
           menuType="wrap"
           menuItemWidth={this.props.menuItemWidth}
           comboTextTransform="none"
-          onSetText={text => {
-            this.setBackendValue(this.fullPath, text);
-            if (this.props.onChange) {
-              this.props.onChange(text);
-            }
-          }}
           grow="1"
         />
       );
