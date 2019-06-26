@@ -7,6 +7,14 @@ export default function styles() {
     flexDirection: 'row',
   };
 
+  const scenarios = {
+    minHeight: '34px',
+    maxHeight: '34px',
+    margin: '0px 20px 20px 20px',
+    display: 'flex',
+    flexDirection: 'row',
+  };
+
   const empty = {
     height: '300px',
     display: 'flex',
@@ -17,6 +25,7 @@ export default function styles() {
 
   return {
     filter,
+    scenarios,
     empty,
   };
 }

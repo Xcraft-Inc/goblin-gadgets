@@ -56,7 +56,7 @@ export default class HinterFieldNC extends Widget {
       >
         <TextFieldNC
           shape={this.hasButtonAdd ? 'left-smooth' : 'smooth'}
-          required="true"
+          required={this.props.required}
           visibility={this.props.visibility}
           disabled={this.props.disabled}
           readonly={this.props.readonly}
@@ -67,6 +67,9 @@ export default class HinterFieldNC extends Widget {
           tooltip={this.props.tooltip}
           grow="1"
           onChange={this.props.onSearchChange}
+          onFocus={this.props.onSearchFocus}
+          onBlur={this.props.onSearchBlur}
+          changeMode="immediate"
         />
         {this.renderSearchButtonAdd()}
       </Container>

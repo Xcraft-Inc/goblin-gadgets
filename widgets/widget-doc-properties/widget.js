@@ -5,6 +5,7 @@ import Container from 'goblin-gadgets/widgets/container/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import TextInputNC from 'goblin-gadgets/widgets/text-input-nc/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
+import Checkbox from 'goblin-gadgets/widgets/checkbox/widget';
 import WidgetDocProperty from '../widget-doc-property/widget';
 
 /******************************************************************************/
@@ -30,6 +31,7 @@ class WidgetDocProperties extends Widget {
     };
 
     this.onChangeFilter = this.onChangeFilter.bind(this);
+    this.setScenario = this.setScenario.bind(this);
   }
 
   //#region get/set
@@ -78,6 +80,18 @@ class WidgetDocProperties extends Widget {
     }
   }
 
+  setScenario(scenario, props) {
+    for (const prop of props) {
+      const path = `props.${this.props.selectedWidget}.${prop.name}`;
+      this.dispatch({type: 'DEL', path: path});
+    }
+
+    for (const [propName, propValue] of Object.entries(scenario)) {
+      const path = `props.${this.props.selectedWidget}.${propName}`;
+      this.dispatch({type: 'SET', path: path, value: propValue});
+    }
+  }
+
   /******************************************************************************/
 
   renderFilter() {
@@ -102,7 +116,7 @@ class WidgetDocProperties extends Widget {
     } else {
       return (
         <div className={this.styles.classNames.filter}>
-          <Label text="Filter" />
+          <Label width="100px" text="Filter" />
           <TextInputNC
             grow="1"
             shape="rounded"
@@ -113,6 +127,44 @@ class WidgetDocProperties extends Widget {
         </div>
       );
     }
+  }
+
+  /******************************************************************************/
+
+  renderScenario(name, scenario, props, index) {
+    return (
+      <Checkbox
+        ref={index}
+        kind="active"
+        text={name}
+        onChange={() => this.setScenario(scenario, props)}
+      />
+    );
+  }
+
+  renderScenariosList(scenarios, props) {
+    const result = [];
+    let index = 0;
+    for (const [name, scenario] of Object.entries(scenarios)) {
+      result.push(this.renderScenario(name, scenario, props, index++));
+    }
+    return result;
+  }
+
+  renderScenarios() {
+    const widgetInfo = widgetList.find(
+      widget => widget.name === this.props.selectedWidget
+    );
+    if (!widgetInfo || !widgetInfo.scenarios) {
+      return null;
+    }
+
+    return (
+      <div className={this.styles.classNames.scenarios}>
+        <Label width="100px" text="Scenarios" />
+        {this.renderScenariosList(widgetInfo.scenarios, widgetInfo.props)}
+      </div>
+    );
   }
 
   /******************************************************************************/
@@ -187,6 +239,7 @@ class WidgetDocProperties extends Widget {
           <Label text="Properties" kind="pane-header" />
         </Container>
         {this.renderFilter()}
+        {this.renderScenarios()}
         <Container kind="panes">{this.renderGroups()}</Container>
       </Container>
     );
