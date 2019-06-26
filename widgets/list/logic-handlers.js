@@ -11,6 +11,9 @@ module.exports = {
       .set('count', action.get('count'))
       .set('options', action.get('options'));
   },
+  'set-count': (state, action) => {
+    return state.set('count', action.get('count'));
+  },
   'change-options': (state, action) => {
     return state
       .set('options', action.get('options'))
@@ -38,38 +41,20 @@ module.exports = {
       .set('list', {})
       .set('count', action.get('count'));
   },
-  'init-list': Goblin.Shredder.mutableReducer((state, action) => {
+  'fetch': Goblin.Shredder.mutableReducer((state, action) => {
     const ids = action.get('ids');
-    const count = action.get('count');
-    const highlights = action.get('highlights');
 
+    const highlights = action.get('highlights');
+    if (highlights) {
+      state = state.set('highlights', highlights);
+    }
+    const offset = action.get('offset');
     const items = ids.reduce((list, id, index) => {
-      list[`${index}-item`] = id;
+      list[`${offset + index}-item`] = id;
       return list;
     }, {});
 
     state = state.set(`list`, items);
-
-    state = state.set('count', count);
-    state = state.set('highlights', highlights);
-    return state;
-  }),
-  'rethink-fetch': Goblin.Shredder.mutableReducer((state, action) => {
-    const rows = action.get('rows');
-    const ids = action.get('ids');
-
-    state = state.set(
-      'list',
-      state.get('list').filter((_, row) => {
-        const index = Number(row.replace(/-item/, ''));
-        return !!ids[index];
-      })
-    );
-
-    for (const id in rows) {
-      const row = `${rows[id]}-item`;
-      state = state.set(`list.${row}`, id);
-    }
 
     return state;
   }),

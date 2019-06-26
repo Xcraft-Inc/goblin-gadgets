@@ -24,6 +24,7 @@ export default {
     onClear: func,
     onShow: func,
   },
+  'empty': {},
 };
 
 function func() {
