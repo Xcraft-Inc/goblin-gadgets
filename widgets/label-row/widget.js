@@ -1,17 +1,15 @@
-//T:2019-02-27
-
 import React from 'react';
 import Props from './props';
-import Widget from 'laboratory/widget';
-import * as Bool from 'gadgets/helpers/bool-helpers';
+import Widget from 'goblin-laboratory/widgets/widget';
+import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 
 import {
   makePropTypes,
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
 
-import Container from 'gadgets/container/widget';
-import Label from 'gadgets/label/widget';
+import Container from 'goblin-gadgets/widgets/container/widget';
+import Label from 'goblin-gadgets/widgets/label/widget';
 
 /******************************************************************************/
 
