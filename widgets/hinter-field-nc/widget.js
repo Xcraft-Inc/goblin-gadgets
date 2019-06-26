@@ -19,12 +19,15 @@ import Button from 'gadgets/button/widget';
 export default class HinterFieldNC extends Widget {
   constructor() {
     super(...arguments);
+    this.add = this.add.bind(this);
   }
-
-  /******************************************************************************/
 
   get hasButtonAdd() {
     return !Bool.isTrue(this.props.readonly) && this.props.onAdd;
+  }
+
+  add() {
+    this.props.onAdd(this.props.searchValue);
   }
 
   renderSearchButtonAdd() {
@@ -38,7 +41,7 @@ export default class HinterFieldNC extends Widget {
           tooltip={T('Créer')}
           visibility={this.props.visibility}
           disabled={this.props.disabled}
-          onClick={this.props.onAdd}
+          onClick={this.add}
         />
       );
     } else {
@@ -67,6 +70,9 @@ export default class HinterFieldNC extends Widget {
           tooltip={this.props.tooltip}
           grow="1"
           onChange={this.props.onSearchChange}
+          onFocus={this.props.onSearchFocus}
+          onBlur={this.props.onSearchBlur}
+          changeMode="immediate"
         />
         {this.renderSearchButtonAdd()}
       </Container>
