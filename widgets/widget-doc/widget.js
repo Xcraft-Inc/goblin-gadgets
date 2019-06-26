@@ -21,10 +21,9 @@ class WidgetDoc extends Widget {
         }
       }
       if (widget.scenarios) {
-        const name = 'default';
-        const scenario = widget.scenarios[name];
+        const scenario = widget.scenarios[0];
         if (scenario) {
-          for (const [propName, propValue] of Object.entries(scenario)) {
+          for (const [propName, propValue] of Object.entries(scenario.props)) {
             widgetProps[propName] = propValue;
           }
         }

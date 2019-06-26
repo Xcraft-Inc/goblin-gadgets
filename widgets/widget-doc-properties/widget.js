@@ -93,13 +93,13 @@ class WidgetDocProperties extends Widget {
     return widgetInfo ? widgetInfo.scenarios : null;
   }
 
-  setScenario(name, scenario) {
+  setScenario(scenario) {
     for (const prop of this.properties) {
       const path = `props.${this.props.selectedWidget}.${prop.name}`;
       this.dispatch({type: 'DEL', path: path});
     }
 
-    for (const [propName, propValue] of Object.entries(scenario)) {
+    for (const [propName, propValue] of Object.entries(scenario.props)) {
       const path = `props.${this.props.selectedWidget}.${propName}`;
       this.dispatch({type: 'SET', path: path, value: propValue});
     }
@@ -144,13 +144,13 @@ class WidgetDocProperties extends Widget {
 
   /******************************************************************************/
 
-  renderScenario(name, scenario, index) {
+  renderScenario(scenario, index) {
     return (
       <Button
         key={index}
-        text={name}
+        text={scenario.name}
         spacing="overlap"
-        onClick={() => this.setScenario(name, scenario)}
+        onClick={() => this.setScenario(scenario)}
       />
     );
   }
@@ -158,8 +158,8 @@ class WidgetDocProperties extends Widget {
   renderScenariosList(scenarios) {
     const result = [];
     let index = 0;
-    for (const [name, scenario] of Object.entries(scenarios)) {
-      result.push(this.renderScenario(name, scenario, index++));
+    for (const scenario of scenarios) {
+      result.push(this.renderScenario(scenario, index++));
     }
     return result;
   }

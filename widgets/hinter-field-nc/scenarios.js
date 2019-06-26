@@ -1,31 +1,46 @@
-export default {
-  'search': {
-    searchValue: 'Jean Dupond',
-    required: true,
-    onAdd: func,
+export default [
+  {
+    name: 'search',
+    props: {
+      searchValue: 'Jean Dupond',
+      required: true,
+      onAdd: func,
+    },
   },
-  'search-new': {
-    searchValue: '',
-    hintText: 'Entrez un client',
-    required: true,
-    onAdd: func,
+  {
+    name: 'search-new',
+    props: {
+      searchValue: '',
+      hintText: 'Entrez un client',
+      required: true,
+      onAdd: func,
+    },
   },
-  'selection': {
-    selectedValue: 'Swiss System AG',
-    selectedGlyph: 'solid/rocket',
-    selectedGlyphColor: 'red',
-    onClear: func,
-    onShow: func,
+  {
+    name: 'selection',
+    props: {
+      selectedValue: 'Swiss System AG',
+      selectedGlyph: 'solid/rocket',
+      selectedGlyphColor: 'red',
+      onClear: func,
+      onShow: func,
+    },
   },
-  'selection-readonly': {
-    selectedValue: 'Velocité Lausanne',
-    selectedGlyph: 'solid/bicycle',
-    readonly: true,
-    onClear: func,
-    onShow: func,
+  {
+    name: 'selection-readonly',
+    props: {
+      selectedValue: 'Velocité Lausanne',
+      selectedGlyph: 'solid/bicycle',
+      readonly: true,
+      onClear: func,
+      onShow: func,
+    },
   },
-  'empty': {},
-};
+  {
+    name: 'empty',
+    props: {},
+  },
+];
 
 function func() {
   //

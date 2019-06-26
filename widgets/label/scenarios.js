@@ -1,17 +1,29 @@
-export default {
-  default: {
-    text: 'Adresse du client',
-    width: '200px',
+export default [
+  {
+    name: 'default',
+    props: {
+      text: 'Adresse du client',
+      width: '200px',
+    },
   },
-  markdown: {
-    kind: 'markdown',
-    text: '```# Bonjour\n\n- Madame\n- Monsieur\n```',
-    width: '300px',
+  {
+    name: 'markdown',
+    props: {
+      kind: 'markdown',
+      text: '```# Bonjour\n\n- Madame\n- Monsieur\n```',
+      width: '300px',
+    },
   },
-  big: {
-    kind: 'big-center',
-    text: 'Grand titre',
-    width: '200px',
+  {
+    name: 'big',
+    props: {
+      kind: 'big-center',
+      text: 'Grand titre',
+      width: '200px',
+    },
   },
-  empty: {},
-};
+  {
+    name: 'empty',
+    props: {},
+  },
+];
