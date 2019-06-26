@@ -80,8 +80,22 @@ class WidgetDocProperties extends Widget {
     }
   }
 
-  setScenario(scenario, props) {
-    for (const prop of props) {
+  get properties() {
+    const widgetInfo = widgetList.find(
+      widget => widget.name === this.props.selectedWidget
+    );
+    return widgetInfo ? widgetInfo.props : null;
+  }
+
+  get scenarios() {
+    const widgetInfo = widgetList.find(
+      widget => widget.name === this.props.selectedWidget
+    );
+    return widgetInfo ? widgetInfo.scenarios : null;
+  }
+
+  setScenario(scenario) {
+    for (const prop of this.properties) {
       const path = `props.${this.props.selectedWidget}.${prop.name}`;
       this.dispatch({type: 'DEL', path: path});
     }
@@ -131,40 +145,38 @@ class WidgetDocProperties extends Widget {
 
   /******************************************************************************/
 
-  renderScenario(name, scenario, props, index) {
+  renderScenario(name, scenario, index) {
     return (
       <Checkbox
         ref={index}
         kind="active"
         text={name}
-        onChange={() => this.setScenario(scenario, props)}
+        onChange={() => this.setScenario(scenario)}
       />
     );
   }
 
-  renderScenariosList(scenarios, props) {
+  renderScenariosList(scenarios) {
     const result = [];
     let index = 0;
     for (const [name, scenario] of Object.entries(scenarios)) {
-      result.push(this.renderScenario(name, scenario, props, index++));
+      result.push(this.renderScenario(name, scenario, index++));
     }
     return result;
   }
 
   renderScenarios() {
-    const widgetInfo = widgetList.find(
-      widget => widget.name === this.props.selectedWidget
-    );
-    if (!widgetInfo || !widgetInfo.scenarios) {
+    const scenarios = this.scenarios;
+    if (scenarios) {
+      return (
+        <div className={this.styles.classNames.scenarios}>
+          <Label width="100px" text="Scenarios" />
+          {this.renderScenariosList(scenarios)}
+        </div>
+      );
+    } else {
       return null;
     }
-
-    return (
-      <div className={this.styles.classNames.scenarios}>
-        <Label width="100px" text="Scenarios" />
-        {this.renderScenariosList(widgetInfo.scenarios, widgetInfo.props)}
-      </div>
-    );
   }
 
   /******************************************************************************/
@@ -199,15 +211,13 @@ class WidgetDocProperties extends Widget {
   }
 
   renderGroups() {
-    const widgetInfo = widgetList.find(
-      widget => widget.name === this.props.selectedWidget
-    );
-    if (!widgetInfo) {
+    const properties = this.properties;
+    if (!properties) {
       return null;
     }
 
     const groups = new Map();
-    for (const prop of widgetInfo.props) {
+    for (const prop of properties) {
       if (!groups.has(prop.group)) {
         groups.set(prop.group, []);
       }
