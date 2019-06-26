@@ -1,6 +1,7 @@
 import {types} from 'goblin-gadgets/types/types.js';
 
 export default [
+  // Main
   {
     name: 'text',
     group: 'main',
@@ -13,6 +14,13 @@ export default [
     type: types.function,
   },
   {
+    name: 'disabled',
+    group: 'main',
+    type: types.bool,
+  },
+
+  // Aspect
+  {
     name: 'textColor',
     group: 'aspect',
     type: types.color,
@@ -21,11 +29,6 @@ export default [
     name: 'glyphColor',
     group: 'aspect',
     type: types.color,
-  },
-  {
-    name: 'disabled',
-    group: 'main',
-    type: types.bool,
   },
   {
     name: 'kind',
@@ -138,6 +141,48 @@ export default [
     type: types.bool,
   },
   {
+    name: 'insideButton',
+    group: 'aspect',
+    type: types.bool,
+  },
+  {
+    name: 'tooltip',
+    group: 'aspect',
+    type: types.nabu,
+  },
+  {
+    name: 'justify',
+    group: 'aspect',
+    type: types.justify,
+  },
+  {
+    name: 'backgroundColor',
+    group: 'aspect',
+    type: types.color,
+  },
+  {
+    name: 'cursor',
+    group: 'aspect',
+    type: types.cursor,
+  },
+  {
+    name: 'empty',
+    group: 'aspect',
+    type: types.bool,
+  },
+  {
+    name: 'show',
+    group: 'aspect',
+    type: types.bool,
+  },
+  {
+    name: 'visibility',
+    group: 'aspect',
+    type: types.bool,
+  },
+
+  // Glyph
+  {
     name: 'glyph',
     group: 'glyph',
     type: types.glyph,
@@ -167,21 +212,8 @@ export default [
     group: 'glyph',
     type: types.percentage,
   },
-  {
-    name: 'insideButton',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'tooltip',
-    group: 'aspect',
-    type: types.nabu,
-  },
-  {
-    name: 'justify',
-    group: 'aspect',
-    type: types.justify,
-  },
+
+  // Layout
   {
     name: 'width',
     group: 'layout',
@@ -212,14 +244,11 @@ export default [
     group: 'layout',
     type: types.enum(['', 'top']),
   },
+
+  // Text
   {
     name: 'textColor',
     group: 'text',
-    type: types.color,
-  },
-  {
-    name: 'backgroundColor',
-    group: 'aspect',
     type: types.color,
   },
   {
@@ -253,21 +282,6 @@ export default [
       'yes',
       'yes-permissive',
     ]),
-  },
-  {
-    name: 'cursor',
-    group: 'aspect',
-    type: types.cursor,
-  },
-  {
-    name: 'show',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'visibility',
-    group: 'aspect',
-    type: types.bool,
   },
   // GetGlyph ? GetText ?
   // Create custom function to choose a glyph or a text ?
