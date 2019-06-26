@@ -161,7 +161,7 @@ class WidgetDocProperties extends Widget {
   renderScenario(name, scenario, index) {
     return (
       <Checkbox
-        ref={index}
+        key={index}
         kind="active"
         text={name}
         checked={this.scenarioName === name}
