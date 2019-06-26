@@ -9,10 +9,16 @@ export default function styles() {
 
   const scenarios = {
     minHeight: '34px',
-    maxHeight: '34px',
     margin: '0px 20px 20px 20px',
     display: 'flex',
     flexDirection: 'row',
+    alignItems: 'baseline',
+  };
+
+  const scenarioButtons = {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   };
 
   const empty = {
@@ -26,6 +32,7 @@ export default function styles() {
   return {
     filter,
     scenarios,
+    scenarioButtons,
     empty,
   };
 }

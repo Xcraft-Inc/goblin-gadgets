@@ -170,7 +170,9 @@ class WidgetDocProperties extends Widget {
       return (
         <div className={this.styles.classNames.scenarios}>
           <Label width="100px" text="Scenarios" />
-          {this.renderScenariosList(scenarios)}
+          <div className={this.styles.classNames.scenarioButtons}>
+            {this.renderScenariosList(scenarios)}
+          </div>
         </div>
       );
     } else {
