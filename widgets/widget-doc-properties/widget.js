@@ -5,7 +5,6 @@ import Container from 'goblin-gadgets/widgets/container/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import TextInputNC from 'goblin-gadgets/widgets/text-input-nc/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
-import Checkbox from 'goblin-gadgets/widgets/checkbox/widget';
 import WidgetDocProperty from '../widget-doc-property/widget';
 
 /******************************************************************************/
@@ -28,7 +27,6 @@ class WidgetDocProperties extends Widget {
 
     this.state = {
       filter: '',
-      scenarioName: null,
     };
 
     this.onChangeFilter = this.onChangeFilter.bind(this);
@@ -43,16 +41,6 @@ class WidgetDocProperties extends Widget {
   set filter(value) {
     this.setState({
       filter: value,
-    });
-  }
-
-  get scenarioName() {
-    return this.state.scenarioName;
-  }
-
-  set scenarioName(value) {
-    this.setState({
-      scenarioName: value,
     });
   }
   //#endregion
@@ -106,8 +94,6 @@ class WidgetDocProperties extends Widget {
   }
 
   setScenario(name, scenario) {
-    this.scenarioName = name;
-
     for (const prop of this.properties) {
       const path = `props.${this.props.selectedWidget}.${prop.name}`;
       this.dispatch({type: 'DEL', path: path});
@@ -125,7 +111,7 @@ class WidgetDocProperties extends Widget {
     if (this.filter) {
       return (
         <div className={this.styles.classNames.filter}>
-          <Label text="Filter" />
+          <Label width="100px" text="Filter" />
           <TextInputNC
             grow="1"
             shape="left-rounded"
@@ -160,12 +146,11 @@ class WidgetDocProperties extends Widget {
 
   renderScenario(name, scenario, index) {
     return (
-      <Checkbox
+      <Button
         key={index}
-        kind="active"
         text={name}
-        checked={this.scenarioName === name}
-        onChange={() => this.setScenario(name, scenario)}
+        spacing="overlap"
+        onClick={() => this.setScenario(name, scenario)}
       />
     );
   }
