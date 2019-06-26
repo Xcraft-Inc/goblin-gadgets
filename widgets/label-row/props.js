@@ -1,6 +1,7 @@
 import {types} from 'goblin-gadgets/types/types.js';
 
 export default [
+  // Label
   {
     name: 'labelWidth',
     group: 'Label',
@@ -28,11 +29,15 @@ export default [
     group: 'Label',
     type: types.glyph,
   },
+
+  // Main
   {
     name: 'children',
     group: 'main',
     type: types.component,
   },
+
+  // Aspect
   {
     name: 'disabled',
     group: 'aspect',
@@ -48,6 +53,8 @@ export default [
     group: 'aspect',
     type: types.bool,
   },
+
+  // Layout
   {
     name: 'width',
     group: 'Layout',

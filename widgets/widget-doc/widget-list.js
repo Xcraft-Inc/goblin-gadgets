@@ -12,6 +12,7 @@ import containerScenarios from 'goblin-gadgets/widgets/container/scenarios';
 
 import LabelRow from 'goblin-gadgets/widgets/label-row/widget';
 import labelRowProps from 'goblin-gadgets/widgets/label-row/props';
+import labelRowScenarios from 'goblin-gadgets/widgets/label-row/scenarios';
 
 import HinterFieldNC from 'goblin-gadgets/widgets/hinter-field-nc/widget';
 import hinterFieldNCProps from 'goblin-gadgets/widgets/hinter-field-nc/props';
@@ -63,6 +64,7 @@ const widgetList = [
     widget: LabelRow,
     widgetPath: 'goblin-gadgets/widgets/label-row/widget',
     props: labelRowProps,
+    scenarios: labelRowScenarios,
   },
   {
     name: 'HinterFieldNC',
