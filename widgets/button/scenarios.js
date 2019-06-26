@@ -15,4 +15,5 @@ export default {
     glyph: 'solid/bicycle',
     text: 'Bike',
   },
+  'empty': {},
 };

@@ -4,9 +4,11 @@ import buttonScenarios from 'goblin-gadgets/widgets/button/scenarios';
 
 import Label from 'goblin-gadgets/widgets/label/widget';
 import labelProps from 'goblin-gadgets/widgets/label/props';
+import labelScenarios from 'goblin-gadgets/widgets/label/scenarios';
 
 import Container from 'goblin-gadgets/widgets/container/widget';
 import containerProps from 'goblin-gadgets/widgets/container/props';
+import containerScenarios from 'goblin-gadgets/widgets/container/scenarios';
 
 import LabelRow from 'goblin-gadgets/widgets/label-row/widget';
 import labelRowProps from 'goblin-gadgets/widgets/label-row/props';
@@ -26,6 +28,7 @@ import textInputNCProps from 'goblin-gadgets/widgets/text-input-nc/props';
 
 import CheckboxNC from 'goblin-gadgets/widgets/checkbox-nc/widget';
 import checkboxNCProps from 'goblin-gadgets/widgets/checkbox-nc/props';
+import checkboxNCScenarios from 'goblin-gadgets/widgets/checkbox-nc/scenarios';
 
 import Table from 'goblin-gadgets/widgets/table/widget';
 import tableProps from 'goblin-gadgets/widgets/table/props';
@@ -46,12 +49,14 @@ const widgetList = [
     widget: Label,
     widgetPath: 'goblin-gadgets/widgets/label/widget',
     props: labelProps,
+    scenarios: labelScenarios,
   },
   {
     name: 'Container',
     widget: Container,
     widgetPath: 'goblin-gadgets/widgets/container/widget',
     props: containerProps,
+    scenarios: containerScenarios,
   },
   {
     name: 'LabelRow',
@@ -95,6 +100,7 @@ const widgetList = [
     widget: CheckboxNC,
     widgetPath: 'goblin-gadgets/widgets/checkbox-nc/widget',
     props: checkboxNCProps,
+    scenarios: checkboxNCScenarios,
   },
   {
     name: 'Gauge',

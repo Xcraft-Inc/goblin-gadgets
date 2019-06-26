@@ -1,6 +1,7 @@
 const types = {
   any: {
     type: 'any',
+    widget: 'text-field',
   },
 
   bool: {
