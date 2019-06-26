@@ -54,6 +54,7 @@ export default class HinterFieldNC extends Widget {
       <React.Fragment>
         <TextFieldNC
           shape={this.hasButtonAdd ? 'left-smooth' : 'smooth'}
+          autoFocus={this.props.autoFocus}
           required={this.props.required}
           visibility={this.props.visibility}
           disabled={this.props.disabled}
