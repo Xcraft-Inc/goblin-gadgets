@@ -1,18 +1,18 @@
 //T:2019-02-27
 import React from 'react';
 import Props from './props';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import T from 't';
-import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import {
   makePropTypes,
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
 
-import Container from 'gadgets/container/widget';
-import Label from 'gadgets/label/widget';
-import TextFieldNC from 'gadgets/text-field-nc/widget';
-import Button from 'gadgets/button/widget';
+import Container from 'goblin-gadgets/widgets/container/widget';
+import Label from 'goblin-gadgets/widgets/label/widget';
+import TextFieldNC from 'goblin-gadgets/widgets/text-field-nc/widget';
+import Button from 'goblin-gadgets/widgets/button/widget';
 
 /******************************************************************************/
 
@@ -51,12 +51,7 @@ export default class HinterFieldNC extends Widget {
 
   renderSearch() {
     return (
-      <Container
-        kind="row"
-        visibility={this.props.visibility}
-        width={this.props.width}
-        grow={this.props.grow}
-      >
+      <React.Fragment>
         <TextFieldNC
           shape={this.hasButtonAdd ? 'left-smooth' : 'smooth'}
           required={this.props.required}
@@ -75,7 +70,7 @@ export default class HinterFieldNC extends Widget {
           changeMode="immediate"
         />
         {this.renderSearchButtonAdd()}
-      </Container>
+      </React.Fragment>
     );
   }
 
@@ -129,12 +124,7 @@ export default class HinterFieldNC extends Widget {
 
   renderSelection() {
     return (
-      <Container
-        kind="row"
-        visibility={this.props.visibility}
-        width={this.props.width}
-        grow={this.props.grow}
-      >
+      <React.Fragment>
         <Label
           kind="markdown"
           shape={
@@ -150,22 +140,36 @@ export default class HinterFieldNC extends Widget {
         />
         {this.renderSelectionButtonClear()}
         {this.renderSelectionButtonShow()}
-      </Container>
+      </React.Fragment>
     );
   }
 
   /******************************************************************************/
+
+  renderContent() {
+    if (this.props.selectedValue !== undefined) {
+      return this.renderSelection();
+    } else {
+      return this.renderSearch();
+    }
+  }
 
   render() {
     if (Bool.isFalse(this.props.show)) {
       return null;
     }
 
-    if (this.props.selectedValue !== undefined) {
-      return this.renderSelection();
-    } else {
-      return this.renderSearch();
-    }
+    return (
+      <Container
+        kind="row"
+        visibility={this.props.visibility}
+        width={this.props.width}
+        grow={this.props.grow}
+        addClassName="hinter-container"
+      >
+        {this.renderContent()}
+      </Container>
+    );
   }
 }
 
