@@ -20,6 +20,15 @@ class WidgetDoc extends Widget {
           widgetProps[propDef.name] = propDef.type.defaultValue;
         }
       }
+      if (widget.scenarios) {
+        const name = 'default';
+        const scenario = widget.scenarios[name];
+        if (scenario) {
+          for (const [propName, propValue] of Object.entries(scenario)) {
+            widgetProps[propName] = propValue;
+          }
+        }
+      }
       props[widget.name] = widgetProps;
     }
     this.dispatch({type: 'INIT', props});
