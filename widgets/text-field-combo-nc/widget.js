@@ -198,7 +198,7 @@ class TextFieldComboNC extends Widget {
       glyph = null;
     }
 
-    let value = selectedItem.id;
+    let value = selectedItem.id || '';
 
     if (this.props.readonly && selectedItem.text) {
       value = selectedItem.text;
