@@ -28,21 +28,21 @@ const types = {
       '',
       "D'accord",
       'Annuler',
-      {text: 'Petit texte', value: 'Ceci est un petit texte'},
-      {text: '3 courtes lignes', value: 'Pierre\nJacques\nJean'},
+      {text: 'Petit texte', id: 'Ceci est un petit texte'},
+      {text: '3 courtes lignes', id: 'Pierre\nJacques\nJean'},
       {
         text: '7 courtes lignes',
-        value:
+        id:
           '1: Lundi\n2: Mardi\n3: Mercredi\n4: Jeudi\n5: Vendredi\n6: Samedi\n7: Dimanche',
       },
       {
         text: '3 lignes courtes et longues',
-        value:
+        id:
           "1) Bref\n2) Un jeune vieillard, assis debout sur un mur de pierre en bois, lisait un journal plié en quatre dans sa poche, à la lueur d'une bougie éteinte.\n3) Certes",
       },
       {
         text: 'Très long texte',
-        value:
+        id:
           "Un matin, au coucher du soleil, un jeune vieillard assis debout sur un mur de pierre en bois, lisait un journal plié en quatre dans sa poche, à la lueur d'une bougie éteinte. Soudain, il entendit un bruit silencieux. Il monta les escaliers de la cave pour descendre au grenier et vit, par le trou de la serrure bouché, un nègre blanc qui déterrait les morts pour les manger vivants, et sa femme qui pleurait en riant la mort de ses quatre fils, morts noyés dans une piscine vide, le premier Jean, le deuxième Paul, le troisième Pierre et le quatrième André qui n'était pas encore né.",
       },
     ],
@@ -54,14 +54,14 @@ const types = {
     widget: 'combo',
     readonly: false,
     samples: [
-      {text: '', value: null},
-      {text: '0', value: 0},
-      {text: '1', value: 1},
-      {text: '2', value: 2},
-      {text: '3', value: 3},
-      {text: '10', value: 10},
-      {text: '123', value: 123},
-      {text: "9'999", value: 9999},
+      {text: '', id: null},
+      {text: '0', id: 0},
+      {text: '1', id: 1},
+      {text: '2', id: 2},
+      {text: '3', id: 3},
+      {text: '10', id: 10},
+      {text: '123', id: 123},
+      {text: "9'999", id: 9999},
     ],
   },
 
@@ -122,12 +122,12 @@ const types = {
       'green',
       'blue',
       'yellow',
-      {text: '#d2e6f9 — light blue', value: '#d2e6f9'},
-      {text: '#8ab6df — blue', value: '#8ab6df'},
-      {text: '#f5ddb8 — light orange', value: '#f5ddb8'},
-      {text: '#fbce89 — orange', value: '#fbce89'},
-      {text: '#c6f7da — light green', value: '#c6f7da'},
-      {text: '#74f7a9 — green', value: '#74f7a9'},
+      {text: '#d2e6f9 — light blue', id: '#d2e6f9'},
+      {text: '#8ab6df — blue', id: '#8ab6df'},
+      {text: '#f5ddb8 — light orange', id: '#f5ddb8'},
+      {text: '#fbce89 — orange', id: '#fbce89'},
+      {text: '#c6f7da — light green', id: '#c6f7da'},
+      {text: '#74f7a9 — green', id: '#74f7a9'},
     ],
   },
 

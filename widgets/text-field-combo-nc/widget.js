@@ -2,12 +2,9 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 import MouseTrap from 'mousetrap';
-import ComboHelpers from 'gadgets/helpers/combo-helpers';
 import * as Bool from 'gadgets/helpers/bool-helpers';
-import {Unit} from 'electrum-theme';
-import Button from 'gadgets/button/widget';
+import ButtonCombo from 'gadgets/button-combo/widget';
 import TextFieldNC from 'gadgets/text-field-nc/widget';
-import Combo from 'gadgets/combo/widget';
 import {isShredder} from 'xcraft-core-shredder';
 
 /******************************************************************************/
@@ -17,11 +14,8 @@ class TextFieldComboNC extends Widget {
     super(...arguments);
 
     this.state = {
-      showCombo: false,
       focus: false,
     };
-
-    this.comboLocation = null;
 
     this.doChangeCombo = this.doChangeCombo.bind(this);
     this.doChangeTextField = this.doChangeTextField.bind(this);
@@ -29,49 +23,6 @@ class TextFieldComboNC extends Widget {
     this.onBlur = this.onBlur.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
     this.onKeyCombo = this.onKeyCombo.bind(this);
-    this.showCombo = this.showCombo.bind(this);
-    this.hideCombo = this.hideCombo.bind(this);
-  }
-
-  showCombo() {
-    if (!this.list) {
-      return;
-    }
-    const node = this.node;
-
-    const itemCount = this.list.length;
-
-    this.comboLocation = ComboHelpers.getComboLocation(
-      node,
-      this.context.theme.shapes.flyingBalloonTriangleSize,
-      this.context.theme.shapes.flyingBalloonPadding,
-      itemCount,
-      this.props.menuItemWidth,
-      this.context.theme.shapes.menuButtonHeight, // height of Button kind='combo-wrap-item'
-      null,
-      null,
-      Unit.multiply(this.context.theme.shapes.dialogDistanceFromEdge, 2)
-    );
-
-    this.selectLocation = ComboHelpers.getSelectLocation(
-      node,
-      this.context.theme.shapes.flyingBalloonTriangleSize,
-      this.context.theme.shapes.flyingBalloonPadding
-    );
-
-    this.setState({
-      showCombo: true,
-    });
-
-    if (this.props.onShowCombo) {
-      this.props.onShowCombo();
-    }
-  }
-
-  hideCombo() {
-    this.setState({
-      showCombo: false,
-    });
   }
 
   doChangeTextField(id) {
@@ -132,6 +83,20 @@ class TextFieldComboNC extends Widget {
             };
             break;
           case 'object': {
+            if (item.id === undefined) {
+              console.warn(
+                `Id not defined for ${JSON.stringify(
+                  item
+                )} in TextFieldComboNC !`
+              );
+            }
+            if (item.text === undefined) {
+              console.warn(
+                `Text not defined for ${JSON.stringify(
+                  item
+                )} in TextFieldComboNC !`
+              );
+            }
             const id =
               item.id !== undefined
                 ? item.id
@@ -194,7 +159,7 @@ class TextFieldComboNC extends Widget {
     if (this.props.getGlyph && glyph.glyph === null) {
       glyph = this.props.getGlyph(this.props.selectedId);
     }
-    if (this.props.menuType !== 'wrap') {
+    if (this.props.menuType !== 'wrap' || !glyph.glyph) {
       glyph = null;
     }
 
@@ -237,55 +202,7 @@ class TextFieldComboNC extends Widget {
     );
   }
 
-  renderButton() {
-    const shape = this.props.shape;
-    let glyph = this.state.showCombo ? 'solid/caret-up' : 'solid/caret-down';
-    if (this.props.comboGlyph) {
-      glyph = this.props.comboGlyph;
-    }
-
-    const s = shape ? shape : 'smooth';
-    const buttonShapes = {
-      smooth: 'right-smooth',
-      rounded: 'right-rounded',
-    };
-    const buttonShape = buttonShapes[s];
-
-    return (
-      <Button
-        kind="combo"
-        glyph={glyph}
-        glyphSize="120%"
-        shape={buttonShape}
-        disabled={this.props.disabled}
-        onClick={this.props.readonly ? undefined : this.showCombo}
-      />
-    );
-  }
-
-  renderCombo() {
-    if (!this.state.showCombo) {
-      return null;
-    }
-    return (
-      <Combo
-        menuType={this.props.menuType}
-        menuItemWidth={
-          this.props.menuItemWidth || this.comboLocation.menuItemWidth
-        }
-        menuItemTooltips={this.props.menuItemTooltips}
-        left={this.comboLocation.center}
-        triangleShift={this.comboLocation.triangleShift}
-        top={this.comboLocation.top}
-        bottom={this.comboLocation.bottom}
-        maxHeight={this.comboLocation.maxHeight}
-        width={this.comboLocation.width}
-        list={this.list}
-        comboTextTransform={this.props.comboTextTransform}
-        close={this.hideCombo}
-      />
-    );
-  }
+  renderButtonCombo() {}
 
   render() {
     if (Bool.isFalse(this.props.show)) {
@@ -294,23 +211,24 @@ class TextFieldComboNC extends Widget {
 
     this.convertList();
 
-    const boxClass = this.state.showCombo
-      ? this.styles.classNames.shadowBox
-      : this.state.focus
-      ? this.styles.classNames.focusedBox
-      : this.styles.classNames.box;
-
     return (
-      <span
-        ref={node => (this.node = node)}
-        onClick={this.props.readonly ? this.showCombo : undefined}
+      <ButtonCombo
+        menuType={this.props.menuType}
+        menuItemWidth={this.props.menuItemWidth}
+        menuItemTooltips={this.props.menuItemTooltips}
+        readonly={this.props.readonly}
         disabled={this.props.disabled}
-        className={boxClass}
+        onShowCombo={this.props.onShowCombo}
+        node={this.node}
+        list={this.list}
+        shape={this.props.shape}
+        comboGlyph={this.props.comboGlyph}
+        comboTextTransform={this.props.comboTextTransform}
+        focus={this.state.focus}
+        grow={this.props.grow}
       >
         {this.renderTextField()}
-        {this.renderButton()}
-        {this.renderCombo()}
-      </span>
+      </ButtonCombo>
     );
   }
 }

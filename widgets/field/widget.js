@@ -9,6 +9,7 @@ import {
   time as TimeConverters,
 } from 'xcraft-core-converters';
 import T from 't';
+import C from 'goblin-laboratory/widgets/connect-helpers/c';
 
 /******************************************************************************/
 //migrated
@@ -36,6 +37,7 @@ import Table from 'goblin-gadgets/widgets/table/widget';
 import Plugin from 'goblin-desktop/widgets/plugin/widget';
 
 import importer from 'goblin-laboratory/widgets/importer';
+import HinterField from 'goblin-gadgets/widgets/hinter-field/widget';
 const widgetImporter = importer('widget');
 
 /******************************************************************************/
@@ -54,6 +56,7 @@ const pluginBlackListedProps = [
   'dragServiceId',
   'embeddedLevel',
 ];
+
 function getPluginProps(propsToFilter) {
   return Object.entries(propsToFilter).reduce((props, [key, value]) => {
     if (!pluginBlackListedProps.includes(key)) {
@@ -1895,20 +1898,13 @@ class Field extends Form {
         hintText={this.props.hintText}
         tooltip={this.props.tooltip || this.props.hintText}
         width={this.props.fieldWidth}
-        model={this.props.model}
         readonly={this.props.comboReadonly}
         required={this.props.required}
         list={props.list}
-        selectedValue={props.selectedValue}
+        selectedId={C(this.props.model)}
         menuType="wrap"
         menuItemWidth={this.props.menuItemWidth}
         comboTextTransform="none"
-        onSetText={text => {
-          this.setBackendValue(this.fullPath, text);
-          if (this.props.onChange) {
-            this.props.onChange(text);
-          }
-        }}
         grow="1"
       />
     );
@@ -1917,7 +1913,7 @@ class Field extends Form {
       this.props.comboReadonly === 'true' &&
       this.props.list &&
       this.props.list.length > 0 &&
-      this.props.list[0].value !== undefined &&
+      this.props.list[0].id !== undefined &&
       this.props.list[0].text !== undefined
     ) {
       const FieldComboWired = this.mapWidget(
@@ -1927,7 +1923,7 @@ class Field extends Form {
             return;
           }
           for (const item of this.props.list) {
-            if (value === item.value) {
+            if (value === item.id) {
               return {
                 defaultValue: item.text,
                 glyph: item.glyph,
@@ -1946,18 +1942,12 @@ class Field extends Form {
           shape={this.props.shape}
           tooltip={this.props.tooltip || this.props.hintText}
           width={this.props.fieldWidth}
-          model={this.props.model}
+          selectedId={C(this.props.model)}
           readonly={this.props.comboReadonly}
           list={props.list}
           menuType="wrap"
           menuItemWidth={this.props.menuItemWidth}
           comboTextTransform="none"
-          onSetText={text => {
-            this.setBackendValue(this.fullPath, text);
-            if (this.props.onChange) {
-              this.props.onChange(text);
-            }
-          }}
           grow="1"
         />
       );
@@ -1988,19 +1978,13 @@ class Field extends Form {
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
           width={this.props.fieldWidth}
-          model={this.props.model}
+          selectedId={C(this.props.model)}
           readonly={this.props.comboReadonly}
           required={this.props.required}
           list={props.list}
           menuType="wrap"
           menuItemWidth={this.props.menuItemWidth}
           comboTextTransform="none"
-          onSetText={text => {
-            this.setBackendValue(this.fullPath, text);
-            if (this.props.onChange) {
-              this.props.onChange(text);
-            }
-          }}
           grow="1"
         />
       );
@@ -2026,7 +2010,7 @@ class Field extends Form {
           if (typeof list.get('0') === 'string') {
             return {};
           }
-          const matching = list.find(item => item.get('value') === value);
+          const matching = list.find(item => item.get('id') === value);
           if (!matching) {
             // FIXME: Sometime value is the text instead of the id
             // when we change the combo value too fast
@@ -2639,6 +2623,26 @@ class Field extends Form {
   }
 
   renderEditHinter() {
+    return (
+      <LabelRow
+        show={this.props.show}
+        grow={this.props.grow}
+        width={this.props.width}
+        height={this.props.height}
+        labelText={this.props.labelText}
+        labelWrap={this.props.labelWrap}
+        labelGlyph={this.props.labelGlyph}
+        labelWidth={this.props.labelWidth || defaultLabelWidth}
+        spacing={this.props.spacing}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
+      >
+        <HinterField {...this.props} />
+      </LabelRow>
+    );
+  }
+
+  renderEditHinter_old() {
     const targetPath = this.props.targetModel
       ? this.getFullPathFromModel(this.props.targetModel)
       : this.fullPath;
