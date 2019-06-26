@@ -24,7 +24,7 @@ class WidgetDocPropertyControl extends Widget {
   }
 
   onChange(value) {
-    this.dispatch({type: 'SET', path: this.props.path, value});
+    this.dispatch({type: 'SET_PROP', path: this.props.path, value});
   }
 
   onChangeType(type) {
@@ -37,7 +37,7 @@ class WidgetDocPropertyControl extends Widget {
   }
 
   clear() {
-    this.dispatch({type: 'DEL', path: this.props.path});
+    this.dispatch({type: 'DEL_PROP', path: this.props.path});
   }
 
   /******************************************************************************/

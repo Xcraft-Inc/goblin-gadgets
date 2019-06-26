@@ -96,12 +96,12 @@ class WidgetDocProperties extends Widget {
   setScenario(scenario) {
     for (const prop of this.properties) {
       const path = `props.${this.props.selectedWidget}.${prop.name}`;
-      this.dispatch({type: 'DEL', path: path});
+      this.dispatch({type: 'DEL_PROP', path: path});
     }
 
     for (const [propName, propValue] of Object.entries(scenario.props)) {
       const path = `props.${this.props.selectedWidget}.${propName}`;
-      this.dispatch({type: 'SET', path: path, value: propValue});
+      this.dispatch({type: 'SET_PROP', path: path, value: propValue});
     }
   }
 

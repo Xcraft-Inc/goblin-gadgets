@@ -12,25 +12,33 @@ class WidgetDoc extends Widget {
   constructor() {
     super(...arguments);
 
-    const props = {};
+    const requiredProps = {};
+    const defaultProps = {};
+
     for (const widget of widgetList) {
-      const widgetProps = {};
+      const widgetRequiredProps = {};
+      const widgetDefaultProps = {};
+
       for (const propDef of widget.props) {
         if (propDef.required) {
-          widgetProps[propDef.name] = propDef.type.defaultValue;
+          widgetRequiredProps[propDef.name] = propDef.type.defaultValue;
+          widgetDefaultProps[propDef.name] = propDef.type.defaultValue;
         }
       }
+      requiredProps[widget.name] = widgetRequiredProps;
+
       if (widget.scenarios) {
         const scenario = widget.scenarios[0];
         if (scenario) {
           for (const [propName, propValue] of Object.entries(scenario.props)) {
-            widgetProps[propName] = propValue;
+            widgetDefaultProps[propName] = propValue;
           }
         }
       }
-      props[widget.name] = widgetProps;
+      defaultProps[widget.name] = widgetDefaultProps;
     }
-    this.dispatch({type: 'INIT', props});
+
+    this.dispatch({type: 'INIT', requiredProps, defaultProps});
   }
 
   render() {
