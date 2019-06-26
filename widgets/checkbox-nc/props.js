@@ -1,6 +1,7 @@
 import {types} from 'goblin-gadgets/types/types.js';
 
 export default [
+  // Main
   {
     name: 'checked',
     group: 'main',
@@ -13,15 +14,72 @@ export default [
     type: types.function,
   },
   {
+    name: 'disabled',
+    group: 'main',
+    type: types.bool,
+  },
+
+  // Text
+  {
+    name: 'text',
+    group: 'text',
+    type: types.nabu,
+    defaultValue: '',
+  },
+  {
+    name: 'textColor',
+    group: 'text',
+    type: types.color,
+  },
+  {
+    name: 'fontSize',
+    group: 'text',
+    type: types.percentage,
+  },
+  {
+    name: 'fontWeight',
+    group: 'text',
+    type: types.fontWeight,
+  },
+  {
+    name: 'fontStyle',
+    group: 'text',
+    type: types.fontStyle,
+  },
+  {
+    name: 'textTransform',
+    group: 'text',
+    type: types.textTransform,
+  },
+  {
+    name: 'wrap',
+    group: 'text',
+    type: types.enum(['', 'no', 'no-strict', 'yes', 'yes-permissive']),
+  },
+
+  // Glyph
+  {
     name: 'glyphColor',
     group: 'glyph',
     type: types.color,
   },
   {
-    name: 'disabled',
-    group: 'main',
-    type: types.bool,
+    name: 'glyphFlip',
+    group: 'glyph',
+    type: types.enum(['', 'horizontal', 'vertical']),
   },
+  {
+    name: 'glyphSpin',
+    group: 'glyph',
+    type: types.enum(['', 'yes']),
+  },
+  {
+    name: 'glyphSize',
+    group: 'glyph',
+    type: types.percentage,
+  },
+
+  // Aspect
   {
     name: 'kind',
     group: 'aspect',
@@ -43,20 +101,37 @@ export default [
     type: types.bool,
   },
   {
-    name: 'glyphFlip',
-    group: 'glyph',
-    type: types.enum(['', 'horizontal', 'vertical']),
+    name: 'backgroundColor',
+    group: 'aspect',
+    type: types.color,
   },
   {
-    name: 'glyphSpin',
-    group: 'glyph',
-    type: types.enum(['', 'yes']),
+    name: 'activeColor',
+    group: 'aspect',
+    type: types.color,
   },
   {
-    name: 'glyphSize',
-    group: 'glyph',
-    type: types.percentage,
+    name: 'cursor',
+    group: 'aspect',
+    type: types.cursor,
   },
+  {
+    name: 'show',
+    group: 'aspect',
+    type: types.bool,
+  },
+  {
+    name: 'visibility',
+    group: 'aspect',
+    type: types.bool,
+  },
+  {
+    name: 'toAnchor',
+    group: 'aspect',
+    type: types.string,
+  },
+
+  // Layout
   {
     name: 'width',
     group: 'layout',
@@ -72,16 +147,8 @@ export default [
     group: 'layout',
     type: types.grow,
   },
-  {
-    name: 'backgroundColor',
-    group: 'aspect',
-    type: types.color,
-  },
-  {
-    name: 'activeColor',
-    group: 'aspect',
-    type: types.color,
-  },
+
+  // Badge
   {
     name: 'badgeValue',
     group: 'badge',
@@ -106,25 +173,5 @@ export default [
     name: 'badgeColor',
     group: 'badge',
     type: types.enum(['', 'red', 'green']),
-  },
-  {
-    name: 'cursor',
-    group: 'aspect',
-    type: types.cursor,
-  },
-  {
-    name: 'show',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'visibility',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'toAnchor',
-    group: 'aspect',
-    type: types.string,
   },
 ];
