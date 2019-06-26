@@ -13,11 +13,6 @@ class HinterFieldSearch extends Widget {
     super(...arguments);
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleSearchFocus = this.handleSearchFocus.bind(this);
-    this.handleOutsideClick = this.handleOutsideClick.bind(this);
-  }
-
-  componentWillUnmount() {
-    this.removeOutsideClickListener();
   }
 
   handleSearchChange(value) {
@@ -35,24 +30,6 @@ class HinterFieldSearch extends Widget {
 
   handleSearchFocus() {
     this.navToHinter();
-    this.addOutsideClickListener();
-  }
-
-  addOutsideClickListener() {
-    document.addEventListener('click', this.handleOutsideClick);
-  }
-
-  removeOutsideClickListener() {
-    document.removeEventListener('click', this.handleOutsideClick);
-  }
-
-  handleOutsideClick(e) {
-    const target = e.target;
-    const containers = [...document.getElementsByClassName('hinter-container')];
-    if (!containers.some(container => container.contains(target))) {
-      this.hideHinter();
-      this.removeOutsideClickListener();
-    }
   }
 
   render() {
