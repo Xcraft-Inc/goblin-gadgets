@@ -28,6 +28,7 @@ class WidgetDocProperties extends Widget {
 
     this.state = {
       filter: '',
+      scenarioName: null,
     };
 
     this.onChangeFilter = this.onChangeFilter.bind(this);
@@ -42,6 +43,16 @@ class WidgetDocProperties extends Widget {
   set filter(value) {
     this.setState({
       filter: value,
+    });
+  }
+
+  get scenarioName() {
+    return this.state.scenarioName;
+  }
+
+  set scenarioName(value) {
+    this.setState({
+      scenarioName: value,
     });
   }
   //#endregion
@@ -94,7 +105,9 @@ class WidgetDocProperties extends Widget {
     return widgetInfo ? widgetInfo.scenarios : null;
   }
 
-  setScenario(scenario) {
+  setScenario(name, scenario) {
+    this.scenarioName = name;
+
     for (const prop of this.properties) {
       const path = `props.${this.props.selectedWidget}.${prop.name}`;
       this.dispatch({type: 'DEL', path: path});
@@ -151,7 +164,8 @@ class WidgetDocProperties extends Widget {
         ref={index}
         kind="active"
         text={name}
-        onChange={() => this.setScenario(scenario)}
+        checked={this.scenarioName === name}
+        onChange={() => this.setScenario(name, scenario)}
       />
     );
   }
