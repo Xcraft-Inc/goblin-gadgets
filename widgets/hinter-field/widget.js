@@ -13,7 +13,11 @@ class HinterFieldSearch extends Widget {
     super(...arguments);
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleSearchFocus = this.handleSearchFocus.bind(this);
-    this.handleSearchBlur = this.handleSearchBlur.bind(this);
+    this.handleOutsideClick = this.handleOutsideClick.bind(this);
+  }
+
+  componentWillUnmount() {
+    this.removeOutsideClickListener();
   }
 
   handleSearchChange(value) {
@@ -31,10 +35,24 @@ class HinterFieldSearch extends Widget {
 
   handleSearchFocus() {
     this.navToHinter();
+    this.addOutsideClickListener();
   }
 
-  handleSearchBlur() {
-    setTimeout(() => this.hideHinter(), 100);
+  addOutsideClickListener() {
+    document.addEventListener('click', this.handleOutsideClick);
+  }
+
+  removeOutsideClickListener() {
+    document.removeEventListener('click', this.handleOutsideClick);
+  }
+
+  handleOutsideClick(e) {
+    const target = e.target;
+    const containers = [...document.getElementsByClassName('hinter-container')];
+    if (!containers.some(container => container.contains(target))) {
+      this.hideHinter();
+      this.removeOutsideClickListener();
+    }
   }
 
   render() {
@@ -44,7 +62,6 @@ class HinterFieldSearch extends Widget {
         searchValue={C(`widgets.${this.widgetId}.${this.props.hinter}`)}
         onSearchChange={this.handleSearchChange}
         onSearchFocus={this.handleSearchFocus}
-        onSearchBlur={this.handleSearchBlur}
         {...otherProps}
       />
     );
