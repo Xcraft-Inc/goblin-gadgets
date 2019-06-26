@@ -74,7 +74,7 @@ class HinterFieldControl extends Widget {
   render() {
     const {summary = 'info', selectedId, onChange, ...otherProps} = this.props;
 
-    this.workitemId = this.context.id;
+    this.workitemId = this.context.id || this.context.nearestParentId;
 
     let selectedValuePath;
     let selectedGlyphPath;
@@ -86,12 +86,17 @@ class HinterFieldControl extends Widget {
       selectedGlyphColorPath = `${summariesPath}.glyphColor`;
     }
 
+    const props = {};
+    if (!this.props.hideAddButton) {
+      props.onAdd = this.add;
+    }
+
     // FIXME: Set context.model for compatibility with navToHinter
     return (
       <WithModel model={`backend.${this.workitemId}`}>
         <HinterFieldSearch
           widgetId={`${this.workitemId}$hinter-field`}
-          onAdd={this.add}
+          {...props}
           onClear={this.clear}
           onShow={this.show}
           selectedValue={C(selectedValuePath)}
