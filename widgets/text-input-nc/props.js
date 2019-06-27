@@ -35,12 +35,17 @@ export default [
     name: 'onValidate',
     group: 'event',
     type: types.function,
-    description: 'When "enter" is pressed',
+    description: 'When "enter" is pressed.',
   },
   {
     name: 'value',
     group: 'text',
     type: types.string,
+  },
+  {
+    name: 'hintText',
+    group: 'text',
+    type: types.nabu,
   },
   {
     name: 'readonly',
@@ -75,8 +80,7 @@ export default [
   {
     name: 'justify',
     group: 'text',
-    type: types.justify,
-    description: "Works only with text multiline (use property 'rows').",
+    type: types.textJustify,
   },
   {
     name: 'show',

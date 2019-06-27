@@ -15,7 +15,14 @@ const types = {
     defaultValue: '',
     widget: 'combo',
     readonly: false,
-    samples: ['', 'Accept', 'Close'],
+    samples: [
+      '',
+      "D'accord",
+      'Annuler',
+      'Jean Dupond',
+      '481.95',
+      "Un jeune vieillard, assis debout sur un mur de pierre en bois, lisait un journal plié en quatre dans sa poche, à la lueur d'une bougie éteinte.",
+    ],
   },
 
   nabu: {
@@ -286,6 +293,13 @@ const types = {
     widget: 'combo',
     readonly: true,
     samples: ['', 'start', 'center', 'end', 'around', 'between', 'none'],
+  },
+
+  textJustify: {
+    type: 'textJustify',
+    widget: 'combo',
+    readonly: true,
+    samples: ['', 'left', 'center', 'right'],
   },
 };
 

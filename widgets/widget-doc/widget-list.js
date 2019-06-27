@@ -24,9 +24,11 @@ import textFieldTypedNCScenarios from 'goblin-gadgets/widgets/text-field-typed-n
 
 import TextFieldNC from 'goblin-gadgets/widgets/text-field-nc/widget';
 import textFieldNCProps from 'goblin-gadgets/widgets/text-field-nc/props';
+import textFieldNCScenarios from 'goblin-gadgets/widgets/text-field-nc/scenarios';
 
 import TextInputNC from 'goblin-gadgets/widgets/text-input-nc/widget';
 import textInputNCProps from 'goblin-gadgets/widgets/text-input-nc/props';
+import textInputNCScenarios from 'goblin-gadgets/widgets/text-input-nc/scenarios';
 
 import CheckboxNC from 'goblin-gadgets/widgets/checkbox-nc/widget';
 import checkboxNCProps from 'goblin-gadgets/widgets/checkbox-nc/props';
@@ -34,9 +36,11 @@ import checkboxNCScenarios from 'goblin-gadgets/widgets/checkbox-nc/scenarios';
 
 import Table from 'goblin-gadgets/widgets/table/widget';
 import tableProps from 'goblin-gadgets/widgets/table/props';
+import tableScenarios from 'goblin-gadgets/widgets/table/scenarios';
 
 import Gauge from 'goblin-gadgets/widgets/gauge/widget';
 import gaugeProps from 'goblin-gadgets/widgets/gauge/props';
+import gaugeScenarios from 'goblin-gadgets/widgets/gauge/scenarios';
 
 const widgetList = [
   {
@@ -86,18 +90,21 @@ const widgetList = [
     widget: TextFieldNC,
     widgetPath: 'goblin-gadgets/widgets/text-field-nc/widget',
     props: textFieldNCProps,
+    scenarios: textFieldNCScenarios,
   },
   {
     name: 'TextInputNC',
     widget: TextInputNC,
     widgetPath: 'goblin-gadgets/widgets/text-input-nc/widget',
     props: textInputNCProps,
+    scenarios: textInputNCScenarios,
   },
   {
     name: 'Table',
     widget: Table,
     widgetPath: 'goblin-gadgets/widgets/table/widget',
     props: tableProps,
+    scenarios: tableScenarios,
   },
   {
     name: 'CheckboxNC',
@@ -111,6 +118,7 @@ const widgetList = [
     widget: Gauge,
     widgetPath: 'goblin-gadgets/widgets/gauge/widget',
     props: gaugeProps,
+    scenarios: gaugeScenarios,
   },
 ];
 

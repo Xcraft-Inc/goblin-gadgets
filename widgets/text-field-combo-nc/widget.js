@@ -2,14 +2,15 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 import MouseTrap from 'mousetrap';
+import {isShredder} from 'xcraft-core-shredder';
 import * as Bool from 'gadgets/helpers/bool-helpers';
+
 import ButtonCombo from 'gadgets/button-combo/widget';
 import TextFieldNC from 'gadgets/text-field-nc/widget';
-import {isShredder} from 'xcraft-core-shredder';
 
 /******************************************************************************/
 
-class TextFieldComboNC extends Widget {
+export default class TextFieldComboNC extends Widget {
   constructor() {
     super(...arguments);
 
@@ -135,12 +136,12 @@ class TextFieldComboNC extends Widget {
   /******************************************************************************/
 
   renderTextField() {
-    const s = this.props.shape ? this.props.shape : 'smooth';
+    const shape = this.props.shape || 'smooth';
     const textFieldShapes = {
       smooth: 'left-smooth',
       rounded: 'left-rounded',
     };
-    const textFieldShape = textFieldShapes[s];
+    const textFieldShape = textFieldShapes[shape];
 
     let selectedItem = this.list.find(
       item => item.id === this.props.selectedId
@@ -222,6 +223,7 @@ class TextFieldComboNC extends Widget {
         onShowCombo={this.props.onShowCombo}
         node={this.node}
         list={this.list}
+        spacing={this.props.spacing}
         shape={this.props.shape}
         comboGlyph={this.props.comboGlyph}
         comboTextTransform={this.props.comboTextTransform}
@@ -236,4 +238,3 @@ class TextFieldComboNC extends Widget {
 }
 
 /******************************************************************************/
-export default TextFieldComboNC;

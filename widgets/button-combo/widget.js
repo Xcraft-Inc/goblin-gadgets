@@ -2,14 +2,15 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 import ComboHelpers from 'gadgets/helpers/combo-helpers';
-import * as Bool from 'gadgets/helpers/bool-helpers';
 import {Unit} from 'electrum-theme';
+import * as Bool from 'gadgets/helpers/bool-helpers';
+
 import Button from 'gadgets/button/widget';
 import Combo from 'gadgets/combo/widget';
 
 /******************************************************************************/
 
-class ButtonCombo extends Widget {
+export default class ButtonCombo extends Widget {
   constructor() {
     super(...arguments);
 
@@ -70,26 +71,30 @@ class ButtonCombo extends Widget {
   }
 
   renderButton() {
+<<<<<<< HEAD
     if (this.props.hideButtonCombo) {
       return;
     }
 
     const shape = this.props.shape;
+=======
+>>>>>>> b5a87170431cf9ce7fba08a04d3fce3e98210297
     let glyph = this.state.showCombo ? 'solid/caret-up' : 'solid/caret-down';
     if (this.props.comboGlyph) {
       glyph = this.props.comboGlyph;
     }
 
-    const s = shape ? shape : 'smooth';
+    const shape = this.props.shape || 'smooth';
     const buttonShapes = {
       smooth: 'right-smooth',
       rounded: 'right-rounded',
     };
-    const buttonShape = buttonShapes[s];
+    const buttonShape = buttonShapes[shape];
 
     return (
       <Button
         kind="combo"
+        vpos="top"
         glyph={glyph}
         glyphSize="120%"
         shape={buttonShape}
@@ -155,4 +160,3 @@ class ButtonCombo extends Widget {
 }
 
 /******************************************************************************/
-export default ButtonCombo;

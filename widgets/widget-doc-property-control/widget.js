@@ -45,8 +45,8 @@ class WidgetDocPropertyControl extends Widget {
   renderCombo(list, readonly, multiline) {
     return (
       <TextFieldComboNC
-        shape="left-smooth"
-        spacing="overlap"
+        shape="smooth"
+        spacing="tiny"
         readonly={readonly}
         rows={multiline ? '2' : null}
         grow="1"
@@ -103,7 +103,7 @@ class WidgetDocPropertyControl extends Widget {
           <TextFieldNC
             spacing="tiny"
             shape="smooth"
-            value={this.props.value}
+            value={this.props.value || ''}
             onChange={this.onChange}
             grow="1"
           />
