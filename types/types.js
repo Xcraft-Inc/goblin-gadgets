@@ -292,7 +292,7 @@ const types = {
     type: 'textJustify',
     widget: 'combo',
     readonly: true,
-    samples: ['', 'right'],
+    samples: ['', 'left', 'center', 'right'],
   },
 };
 
