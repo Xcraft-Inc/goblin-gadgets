@@ -157,15 +157,18 @@ class TextFieldComboNC extends Widget {
 
     let glyph = {glyph: selectedItem.glyph, color: selectedItem.color};
     if (this.props.getGlyph && glyph.glyph === null) {
-      glyph = this.props.getGlyph(this.props.selectedId);
+      glyph = this.props.getGlyph(this.props.selectedId) || null;
     }
-    if (this.props.menuType !== 'wrap' || !glyph.glyph) {
+    if (this.props.menuType !== 'wrap' || !glyph || !glyph.glyph) {
       glyph = null;
     }
 
     let value = selectedItem.id || '';
 
-    if (this.props.readonly && selectedItem.text) {
+    if (
+      (this.props.readonly || this.props.comboReadonly) &&
+      selectedItem.text
+    ) {
       value = selectedItem.text;
     }
 
@@ -202,8 +205,6 @@ class TextFieldComboNC extends Widget {
     );
   }
 
-  renderButtonCombo() {}
-
   render() {
     if (Bool.isFalse(this.props.show)) {
       return null;
@@ -226,6 +227,7 @@ class TextFieldComboNC extends Widget {
         comboTextTransform={this.props.comboTextTransform}
         focus={this.state.focus}
         grow={this.props.grow}
+        hideButtonCombo={this.props.hideButtonCombo}
       >
         {this.renderTextField()}
       </ButtonCombo>

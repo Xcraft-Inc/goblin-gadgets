@@ -10,9 +10,12 @@ TextFieldCombo.displayName = 'TextFieldCombo';
 
 // Convert model to value for backward compatibility, should be removed
 export default props => {
-  let {selectedId, model, ...otherProps} = props;
+  let {selectedId, model, list, listModel, ...otherProps} = props;
   if (model) {
     selectedId = C(model);
   }
-  return <TextFieldCombo {...otherProps} selectedId={selectedId} />;
+  if (listModel) {
+    list = C(listModel);
+  }
+  return <TextFieldCombo {...otherProps} selectedId={selectedId} list={list} />;
 };

@@ -770,11 +770,44 @@ class Field extends Form {
   }
 
   renderReadonlyCombo() {
-    if (this.props.kindWhenReadonly === 'hinter') {
-      return this.renderReadonlyHinter();
-    } else {
-      return this.renderReadonlyField();
-    }
+    return (
+      <LabelRow
+        show={this.props.show}
+        grow={this.props.grow}
+        width={this.props.width}
+        height={this.props.height}
+        labelText={this.props.labelText}
+        labelWrap={this.props.labelWrap}
+        labelGlyph={this.props.labelGlyph}
+        labelWidth={this.props.labelWidth || defaultLabelWidth}
+        spacing={this.props.spacing}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
+      >
+        <TextFieldCombo
+          selectAllOnFocus="true"
+          spacing={this.props.spacing}
+          shape={this.props.shape}
+          getGlyph={this.props.getGlyph}
+          hintText={this.props.hintText}
+          tooltip={this.props.tooltip || this.props.hintText}
+          width={this.props.fieldWidth}
+          hideButtonCombo={this.props.hideButtonCombo}
+          selectedId={
+            this.props.selectedId ? this.props.selectedId : C(this.props.model)
+          }
+          readonly={true}
+          required={this.props.required}
+          list={
+            this.props.listModel ? C(this.props.listModel) : this.props.list
+          }
+          menuType="wrap"
+          menuItemWidth={this.props.menuItemWidth}
+          comboTextTransform="none"
+          grow="1"
+        />
+      </LabelRow>
+    );
   }
 
   renderReadonlyBool() {

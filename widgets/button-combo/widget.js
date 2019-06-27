@@ -70,6 +70,10 @@ class ButtonCombo extends Widget {
   }
 
   renderButton() {
+    if (this.props.hideButtonCombo) {
+      return;
+    }
+
     const shape = this.props.shape;
     let glyph = this.state.showCombo ? 'solid/caret-up' : 'solid/caret-down';
     if (this.props.comboGlyph) {
@@ -134,7 +138,11 @@ class ButtonCombo extends Widget {
     return (
       <span
         ref={this.setRef}
-        onClick={this.props.readonly ? this.showCombo : undefined}
+        onClick={
+          this.props.readonly && !this.props.hideButtonCombo
+            ? this.showCombo
+            : undefined
+        }
         disabled={this.props.disabled}
         className={boxClass}
       >
