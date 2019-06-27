@@ -46,18 +46,29 @@ export const propNames = [
   'kind',
   'disabled',
   'gradient',
+  'width',
+  'height',
 ];
 
 export default function styles(theme, props) {
-  const {value, direction, flash, kind, disabled, gradient} = props;
+  const {
+    value,
+    direction,
+    flash,
+    kind,
+    disabled,
+    gradient,
+    width,
+    height,
+  } = props;
 
   const gaugeValue = Math.max(Math.min(value, 100), 0); // 0..100
 
-  const boxStyle = {
+  const box = {
     position: 'relative',
     display: 'flex',
-    height: direction === 'horizontal' ? null : '100%',
-    width: direction === 'horizontal' ? '100%' : null,
+    height: height || (direction === 'horizontal' ? null : '100%'),
+    width: width || (direction === 'horizontal' ? '100%' : null),
     alignItems: 'flex-end',
   };
 
@@ -73,7 +84,7 @@ export default function styles(theme, props) {
     },
   };
 
-  const contentStyle = {
+  const content = {
     position: 'absolute',
     height: direction === 'horizontal' ? '100%' : gaugeValue + '%',
     width: direction === 'horizontal' ? gaugeValue + '%' : '100%',
@@ -83,7 +94,7 @@ export default function styles(theme, props) {
     animationIterationCount: 'infinite',
   };
 
-  const glossStyle = {
+  const gloss = {
     position: 'absolute',
     height: direction === 'horizontal' ? '1px' : `calc(${gaugeValue}% - 8px)`,
     left: direction === 'horizontal' ? '1px' : '2px',
@@ -103,47 +114,47 @@ export default function styles(theme, props) {
       gaugeValue >= 90 ? theme.shapes.ticketRectRadius : '0px';
     const bottomLeftRadius = theme.shapes.ticketRectRadius;
 
-    contentStyle.borderRadius = `${topLeftRadius} 0px 0px ${bottomLeftRadius}`;
-    glossStyle.visibility = 'hidden';
+    content.borderRadius = `${topLeftRadius} 0px 0px ${bottomLeftRadius}`;
+    gloss.visibility = 'hidden';
   }
 
   if (kind === 'rounded') {
-    boxStyle.borderRadius = '50px';
-    boxStyle.backgroundColor = theme.palette.ticketGaugeBackground;
-    boxStyle.boxShadow = theme.palette.ticketGaugeBackgroundShadow;
-    contentStyle.position = 'absolute';
-    contentStyle.bottom = '1px';
-    contentStyle.left = '1px';
-    contentStyle.borderRadius = '50px';
-    contentStyle.width =
+    box.borderRadius = '50px';
+    box.backgroundColor = theme.palette.ticketGaugeBackground;
+    box.boxShadow = theme.palette.ticketGaugeBackgroundShadow;
+    content.position = 'absolute';
+    content.bottom = '1px';
+    content.left = '1px';
+    content.borderRadius = '50px';
+    content.width =
       direction === 'horizontal'
         ? `calc(${gaugeValue}% - 2px)`
         : 'calc(100% - 2px)';
-    contentStyle.height =
+    content.height =
       direction === 'horizontal'
         ? 'calc(100% - 2px)'
         : `calc(${gaugeValue}% - 2px)`;
-    contentStyle.boxShadow = theme.palette.ticketGaugeContentShadow;
+    content.boxShadow = theme.palette.ticketGaugeContentShadow;
     if (gaugeValue === 0) {
-      boxStyle.border = '1px solid ' + theme.palette.ticketGaugeEmptyBorder;
-      boxStyle.backgroundColor = null;
-      boxStyle.boxShadow = null;
-      contentStyle.visibility = 'hidden';
-      glossStyle.visibility = 'hidden';
+      box.border = '1px solid ' + theme.palette.ticketGaugeEmptyBorder;
+      box.backgroundColor = null;
+      box.boxShadow = null;
+      content.visibility = 'hidden';
+      gloss.visibility = 'hidden';
     }
   }
 
   if (Bool.isTrue(disabled)) {
-    boxStyle.backgroundColor = theme.palette.buttonDisableBackground;
-    boxStyle.boxShadow = null;
-    contentStyle.visibility = 'hidden';
-    glossStyle.visibility = 'hidden';
+    box.backgroundColor = theme.palette.buttonDisableBackground;
+    box.boxShadow = null;
+    content.visibility = 'hidden';
+    gloss.visibility = 'hidden';
   }
 
   return {
-    box: boxStyle,
-    content: contentStyle,
-    gloss: glossStyle,
+    box,
+    content,
+    gloss,
   };
 }
 

@@ -36,9 +36,11 @@ import checkboxNCScenarios from 'goblin-gadgets/widgets/checkbox-nc/scenarios';
 
 import Table from 'goblin-gadgets/widgets/table/widget';
 import tableProps from 'goblin-gadgets/widgets/table/props';
+import tableScenarios from 'goblin-gadgets/widgets/table/scenarios';
 
 import Gauge from 'goblin-gadgets/widgets/gauge/widget';
 import gaugeProps from 'goblin-gadgets/widgets/gauge/props';
+import gaugeScenarios from 'goblin-gadgets/widgets/gauge/scenarios';
 
 const widgetList = [
   {
@@ -102,6 +104,7 @@ const widgetList = [
     widget: Table,
     widgetPath: 'goblin-gadgets/widgets/table/widget',
     props: tableProps,
+    scenarios: tableScenarios,
   },
   {
     name: 'CheckboxNC',
@@ -115,6 +118,7 @@ const widgetList = [
     widget: Gauge,
     widgetPath: 'goblin-gadgets/widgets/gauge/widget',
     props: gaugeProps,
+    scenarios: gaugeScenarios,
   },
 ];
 
