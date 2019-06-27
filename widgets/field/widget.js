@@ -1887,145 +1887,6 @@ class Field extends Form {
   }
 
   renderEditCombo() {
-    const labelWidth = this.props.labelWidth || defaultLabelWidth;
-
-    let EditCombo = props => (
-      <TextFieldCombo
-        selectAllOnFocus="true"
-        spacing={this.props.spacing}
-        shape={this.props.shape}
-        getGlyph={this.props.getGlyph}
-        hintText={this.props.hintText}
-        tooltip={this.props.tooltip || this.props.hintText}
-        width={this.props.fieldWidth}
-        readonly={this.props.comboReadonly}
-        required={this.props.required}
-        list={props.list}
-        selectedId={C(this.props.model)}
-        menuType="wrap"
-        menuItemWidth={this.props.menuItemWidth}
-        comboTextTransform="none"
-        grow="1"
-      />
-    );
-
-    if (
-      this.props.comboReadonly === 'true' &&
-      this.props.list &&
-      this.props.list.length > 0 &&
-      this.props.list[0].id !== undefined &&
-      this.props.list[0].text !== undefined
-    ) {
-      const FieldComboWired = this.mapWidget(
-        TextFieldCombo,
-        value => {
-          if (!value) {
-            return;
-          }
-          for (const item of this.props.list) {
-            if (value === item.id) {
-              return {
-                defaultValue: item.text,
-                glyph: item.glyph,
-                glyphColor: item.color,
-              };
-            }
-          }
-          return {defaultValue: ''};
-        },
-        this.fullPath
-      );
-
-      EditCombo = props => (
-        <FieldComboWired
-          spacing={this.props.spacing}
-          shape={this.props.shape}
-          tooltip={this.props.tooltip || this.props.hintText}
-          width={this.props.fieldWidth}
-          selectedId={C(this.props.model)}
-          readonly={this.props.comboReadonly}
-          list={props.list}
-          menuType="wrap"
-          menuItemWidth={this.props.menuItemWidth}
-          comboTextTransform="none"
-          grow="1"
-        />
-      );
-    } else if (
-      this.props.list &&
-      this.props.list.length > 0 &&
-      this.props.list[0].glyph !== undefined &&
-      this.props.list[0].text !== undefined
-    ) {
-      const TextFieldComboWired = this.mapWidget(
-        TextFieldCombo,
-        value => {
-          if (!value && value !== '') {
-            return;
-          } else {
-            return {defaultValue: value};
-          }
-        },
-        this.fullPath
-      );
-
-      EditCombo = props => (
-        <TextFieldComboWired
-          selectAllOnFocus="true"
-          spacing={this.props.spacing}
-          shape={this.props.shape}
-          getGlyph={this.props.getGlyph}
-          hintText={this.props.hintText}
-          tooltip={this.props.tooltip || this.props.hintText}
-          width={this.props.fieldWidth}
-          selectedId={C(this.props.model)}
-          readonly={this.props.comboReadonly}
-          required={this.props.required}
-          list={props.list}
-          menuType="wrap"
-          menuItemWidth={this.props.menuItemWidth}
-          comboTextTransform="none"
-          grow="1"
-        />
-      );
-    } else if (this.props.listModel) {
-      EditCombo = this.mapWidget(
-        EditCombo,
-        list => {
-          return {
-            list: list ? list : [],
-          };
-        },
-        this.getFullPathFromModel(this.props.listModel)
-      );
-      EditCombo = this.mapWidget(
-        EditCombo,
-        value => {
-          if (!value) {
-            return {};
-          }
-          const list = this.getBackendValue(
-            this.getFullPathFromModel(this.props.listModel)
-          );
-          if (typeof list.get('0') === 'string') {
-            return {};
-          }
-          const matching = list.find(item => item.get('id') === value);
-          if (!matching) {
-            // FIXME: Sometime value is the text instead of the id
-            // when we change the combo value too fast
-            console.warn(
-              `selected value ${value} must be a id. listModel:${this.props.listModel}`
-            );
-            return {};
-          }
-          const selectedValue = matching.get('text');
-          return {selectedValue};
-        },
-        this.getFullPathFromModel(this.props.model)
-      );
-    }
-
     return (
       <LabelRow
         show={this.props.show}
@@ -2040,32 +1901,27 @@ class Field extends Form {
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
-        <EditCombo list={this.props.list} />
+        <TextFieldCombo
+          selectAllOnFocus="true"
+          spacing={this.props.spacing}
+          shape={this.props.shape}
+          getGlyph={this.props.getGlyph}
+          hintText={this.props.hintText}
+          tooltip={this.props.tooltip || this.props.hintText}
+          width={this.props.fieldWidth}
+          selectedId={C(this.props.model)}
+          readonly={this.props.comboReadonly}
+          required={this.props.required}
+          list={
+            this.props.listModel ? C(this.props.listModel) : this.props.list
+          }
+          menuType="wrap"
+          menuItemWidth={this.props.menuItemWidth}
+          comboTextTransform="none"
+          grow="1"
+        />
       </LabelRow>
     );
-
-    //- return (
-    //-   <Container
-    //-     kind="row-field"
-    //-     grow={this.props.grow}
-    //-     width={this.props.width}
-    //-     height={this.props.height}
-    //-     verticalSpacing={this.props.verticalSpacing}
-    //-     verticalJustify={this.props.verticalJustify}
-    //-   >
-    //-     {labelWidth === '0px' ? null : (
-    //-       <Label
-    //-         text={this.props.labelText}
-    //-         glyph={this.props.labelGlyph}
-    //-         width={labelWidth}
-    //-         kind="label-field"
-    //-         justify="left"
-    //-         spacing="overlap"
-    //-       />
-    //-     )}
-    //-     <EditCombo list={this.props.list} />
-    //-   </Container>
-    //- );
   }
 
   radioListSelectionChanged(index) {
