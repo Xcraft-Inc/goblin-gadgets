@@ -194,6 +194,18 @@ class WidgetDocProperties extends Widget {
   }
 
   renderProperties(properties) {
+    properties.sort(function(a, b) {
+      const ka = a.name;
+      const kb = b.name;
+      if (ka < kb) {
+        return -1;
+      } else if (ka > kb) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+
     return properties.map(prop => this.renderProp(prop));
   }
 
@@ -225,8 +237,9 @@ class WidgetDocProperties extends Widget {
       const list = groups.get(prop.group);
       list.push(prop);
     }
+    const sortedGroups = new Map([...groups.entries()].sort());
 
-    const result = [...groups]
+    const result = [...sortedGroups]
       .map(([key, value]) => this.renderGroup(key, value))
       .filter(r => !!r);
 
