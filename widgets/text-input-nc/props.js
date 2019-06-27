@@ -75,8 +75,7 @@ export default [
   {
     name: 'justify',
     group: 'text',
-    type: types.justify,
-    description: "Works only with text multiline (use property 'rows').",
+    type: types.textJustify,
   },
   {
     name: 'show',

@@ -287,6 +287,13 @@ const types = {
     readonly: true,
     samples: ['', 'start', 'center', 'end', 'around', 'between', 'none'],
   },
+
+  textJustify: {
+    type: 'textJustify',
+    widget: 'combo',
+    readonly: true,
+    samples: ['', 'right'],
+  },
 };
 
 //-----------------------------------------------------------------------------
