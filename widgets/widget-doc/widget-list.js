@@ -28,6 +28,7 @@ import textFieldNCScenarios from 'goblin-gadgets/widgets/text-field-nc/scenarios
 
 import TextInputNC from 'goblin-gadgets/widgets/text-input-nc/widget';
 import textInputNCProps from 'goblin-gadgets/widgets/text-input-nc/props';
+import textInputNCScenarios from 'goblin-gadgets/widgets/text-input-nc/scenarios';
 
 import CheckboxNC from 'goblin-gadgets/widgets/checkbox-nc/widget';
 import checkboxNCProps from 'goblin-gadgets/widgets/checkbox-nc/props';
@@ -94,6 +95,7 @@ const widgetList = [
     widget: TextInputNC,
     widgetPath: 'goblin-gadgets/widgets/text-input-nc/widget',
     props: textInputNCProps,
+    scenarios: textInputNCScenarios,
   },
   {
     name: 'Table',
