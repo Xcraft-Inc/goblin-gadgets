@@ -43,6 +43,11 @@ export default [
     type: types.string,
   },
   {
+    name: 'hintText',
+    group: 'text',
+    type: types.nabu,
+  },
+  {
     name: 'readonly',
     group: 'text',
     type: types.bool,
