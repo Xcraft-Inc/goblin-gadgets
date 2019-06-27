@@ -86,6 +86,7 @@ class ButtonCombo extends Widget {
     return (
       <Button
         kind="combo"
+        vpos="top"
         glyph={glyph}
         glyphSize="120%"
         shape={buttonShape}
