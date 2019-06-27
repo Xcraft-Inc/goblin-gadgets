@@ -2,8 +2,9 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 import ComboHelpers from 'gadgets/helpers/combo-helpers';
-import * as Bool from 'gadgets/helpers/bool-helpers';
 import {Unit} from 'electrum-theme';
+import * as Bool from 'gadgets/helpers/bool-helpers';
+
 import Button from 'gadgets/button/widget';
 import Combo from 'gadgets/combo/widget';
 
@@ -70,18 +71,17 @@ class ButtonCombo extends Widget {
   }
 
   renderButton() {
-    const shape = this.props.shape;
     let glyph = this.state.showCombo ? 'solid/caret-up' : 'solid/caret-down';
     if (this.props.comboGlyph) {
       glyph = this.props.comboGlyph;
     }
 
-    const s = shape ? shape : 'smooth';
+    const shape = this.props.shape || 'smooth';
     const buttonShapes = {
       smooth: 'right-smooth',
       rounded: 'right-rounded',
     };
-    const buttonShape = buttonShapes[s];
+    const buttonShape = buttonShapes[shape];
 
     return (
       <Button

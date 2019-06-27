@@ -45,7 +45,7 @@ class WidgetDocPropertyControl extends Widget {
   renderCombo(list, readonly, multiline) {
     return (
       <TextFieldComboNC
-        shape="left-smooth"
+        shape="smooth"
         spacing="overlap"
         readonly={readonly}
         rows={multiline ? '2' : null}
