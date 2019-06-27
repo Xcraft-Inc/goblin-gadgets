@@ -244,9 +244,11 @@ class WidgetDocProperties extends Widget {
     if (properties.length > 0) {
       return (
         <Container kind="pane" key={groupName}>
-          <Container kind="row">
-            <Label text={groupName} grow="1" kind="title" />
-          </Container>
+          {groupName === '_' ? null : (
+            <Container kind="row">
+              <Label text={groupName} grow="1" kind="title" />
+            </Container>
+          )}
           {this.renderProperties(properties)}
         </Container>
       );
@@ -261,9 +263,7 @@ class WidgetDocProperties extends Widget {
 
     const groups = new Map();
     for (const prop of properties) {
-      const groupName = this.grouped
-        ? prop.group || 'properties'
-        : 'properties';
+      const groupName = this.grouped ? prop.group || '_' : '_';
       if (!groups.has(groupName)) {
         groups.set(groupName, []);
       }
