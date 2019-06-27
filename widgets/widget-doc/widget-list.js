@@ -24,6 +24,7 @@ import textFieldTypedNCScenarios from 'goblin-gadgets/widgets/text-field-typed-n
 
 import TextFieldNC from 'goblin-gadgets/widgets/text-field-nc/widget';
 import textFieldNCProps from 'goblin-gadgets/widgets/text-field-nc/props';
+import textFieldNCScenarios from 'goblin-gadgets/widgets/text-field-nc/scenarios';
 
 import TextInputNC from 'goblin-gadgets/widgets/text-input-nc/widget';
 import textInputNCProps from 'goblin-gadgets/widgets/text-input-nc/props';
@@ -86,6 +87,7 @@ const widgetList = [
     widget: TextFieldNC,
     widgetPath: 'goblin-gadgets/widgets/text-field-nc/widget',
     props: textFieldNCProps,
+    scenarios: textFieldNCScenarios,
   },
   {
     name: 'TextInputNC',
