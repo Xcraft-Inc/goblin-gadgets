@@ -202,6 +202,15 @@ class List {
     });
   }
 
+  static *generateFacets(quest) {
+    const elastic = quest.getStorage('elastic');
+    //TODO:dyn
+    const res = yield elastic.generateFacets({
+      facets: [{name: 'customers', field: 'customer'}],
+    });
+    return {customers: res.customers.buckets};
+  }
+
   static *executeSearch(quest, value, sort, filter, range) {
     const elastic = quest.getStorage('elastic');
 
@@ -408,6 +417,17 @@ Goblin.registerQuest(goblinName, 'customize-visualization', function*(
   yield quest.me.fetch();
 });
 
+Goblin.registerQuest(goblinName, 'set-filter-value', function*(
+  quest,
+  filterValue
+) {
+  quest.goblin.setX('value', filterValue);
+  const count = yield* List.count(quest);
+  quest.dispatch('set-count', {count});
+  yield quest.me.initList();
+  yield quest.me.fetch();
+});
+
 Goblin.registerQuest(goblinName, 'change-content-index', function*(
   quest,
   name,
@@ -506,6 +526,11 @@ Goblin.registerQuest(goblinName, 'fetch', function*(quest, range) {
 });
 
 Goblin.registerQuest(goblinName, 'init-list', function*(quest) {
+  const mode = quest.goblin.getX('mode');
+  if (mode === 'search') {
+    const facets = yield* List.generateFacets(quest);
+    quest.dispatch('set-facets', {facets});
+  }
   yield* List.changes(quest);
 });
 

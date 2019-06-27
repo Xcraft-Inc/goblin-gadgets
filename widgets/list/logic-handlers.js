@@ -11,6 +11,10 @@ module.exports = {
       .set('count', action.get('count'))
       .set('options', action.get('options'));
   },
+  'set-facets': (state, action) => {
+    const facets = action.get('facets');
+    return state.set('facets', facets);
+  },
   'set-count': (state, action) => {
     return state.set('count', action.get('count'));
   },
