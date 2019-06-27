@@ -71,14 +71,9 @@ export default class ButtonCombo extends Widget {
   }
 
   renderButton() {
-<<<<<<< HEAD
     if (this.props.hideButtonCombo) {
       return;
     }
-
-    const shape = this.props.shape;
-=======
->>>>>>> b5a87170431cf9ce7fba08a04d3fce3e98210297
     let glyph = this.state.showCombo ? 'solid/caret-up' : 'solid/caret-down';
     if (this.props.comboGlyph) {
       glyph = this.props.comboGlyph;
