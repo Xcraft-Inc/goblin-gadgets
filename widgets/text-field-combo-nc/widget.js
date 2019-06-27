@@ -10,7 +10,7 @@ import TextFieldNC from 'gadgets/text-field-nc/widget';
 
 /******************************************************************************/
 
-class TextFieldComboNC extends Widget {
+export default class TextFieldComboNC extends Widget {
   constructor() {
     super(...arguments);
 
@@ -236,4 +236,3 @@ class TextFieldComboNC extends Widget {
 }
 
 /******************************************************************************/
-export default TextFieldComboNC;

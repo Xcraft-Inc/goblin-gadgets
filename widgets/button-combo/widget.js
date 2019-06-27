@@ -10,7 +10,7 @@ import Combo from 'gadgets/combo/widget';
 
 /******************************************************************************/
 
-class ButtonCombo extends Widget {
+export default class ButtonCombo extends Widget {
   constructor() {
     super(...arguments);
 
@@ -90,7 +90,6 @@ class ButtonCombo extends Widget {
         glyph={glyph}
         glyphSize="120%"
         shape={buttonShape}
-        spacing={this.props.spacing}
         disabled={this.props.disabled}
         onClick={this.props.readonly ? undefined : this.showCombo}
       />
@@ -149,4 +148,3 @@ class ButtonCombo extends Widget {
 }
 
 /******************************************************************************/
-export default ButtonCombo;

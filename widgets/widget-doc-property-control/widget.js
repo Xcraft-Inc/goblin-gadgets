@@ -1,5 +1,6 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
+import TextInputNC from 'goblin-gadgets/widgets/text-input-nc/widget';
 import TextFieldNC from 'goblin-gadgets/widgets/text-field-nc/widget';
 import ButtonCombo from 'goblin-gadgets/widgets/button-combo/widget';
 import TextFieldComboNC from 'goblin-gadgets/widgets/text-field-combo-nc/widget';
@@ -100,7 +101,7 @@ class WidgetDocPropertyControl extends Widget {
       case 'text-field':
       default:
         return (
-          <TextFieldNC
+          <TextInputNC
             spacing="tiny"
             shape="smooth"
             value={this.props.value}
