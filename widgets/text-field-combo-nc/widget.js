@@ -222,6 +222,7 @@ class TextFieldComboNC extends Widget {
         onShowCombo={this.props.onShowCombo}
         node={this.node}
         list={this.list}
+        spacing={this.props.spacing}
         shape={this.props.shape}
         comboGlyph={this.props.comboGlyph}
         comboTextTransform={this.props.comboTextTransform}

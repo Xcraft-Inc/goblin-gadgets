@@ -46,7 +46,7 @@ class WidgetDocPropertyControl extends Widget {
     return (
       <TextFieldComboNC
         shape="smooth"
-        spacing="overlap"
+        spacing="tiny"
         readonly={readonly}
         rows={multiline ? '2' : null}
         grow="1"

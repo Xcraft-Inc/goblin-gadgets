@@ -90,6 +90,7 @@ class ButtonCombo extends Widget {
         glyph={glyph}
         glyphSize="120%"
         shape={buttonShape}
+        spacing={this.props.spacing}
         disabled={this.props.disabled}
         onClick={this.props.readonly ? undefined : this.showCombo}
       />
