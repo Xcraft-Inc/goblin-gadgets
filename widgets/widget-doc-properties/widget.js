@@ -205,10 +205,10 @@ class WidgetDocProperties extends Widget {
 
   /******************************************************************************/
 
-  renderProp(prop) {
+  renderProp(prop, index) {
     return (
       <WidgetDocProperty
-        key={prop.name}
+        key={index}
         widgetId={this.props.widgetId}
         prop={prop}
         path={`props.${this.props.selectedWidget}`}
@@ -229,7 +229,7 @@ class WidgetDocProperties extends Widget {
       }
     });
 
-    return properties.map(prop => this.renderProp(prop));
+    return properties.map((prop, index) => this.renderProp(prop, index));
   }
 
   renderGroup(groupName, properties) {

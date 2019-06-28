@@ -180,11 +180,6 @@ export default [
     group: 'aspect',
     type: types.bool,
   },
-  {
-    name: 'empty',
-    group: 'aspect',
-    type: types.bool,
-  },
 
   // Glyph
   {
