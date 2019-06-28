@@ -44,7 +44,18 @@ class WidgetDocPropertyControl extends Widget {
   /******************************************************************************/
 
   renderCombo(list, readonly, multiline) {
-    if (this.props.type.type === 'number') {
+    if (
+      this.props.type.type === 'date' ||
+      this.props.type.type === 'time' ||
+      this.props.type.type === 'datetime' ||
+      this.props.type.type === 'price' ||
+      this.props.type.type === 'weight' ||
+      this.props.type.type === 'length' ||
+      this.props.type.type === 'volume' ||
+      this.props.type.type === 'number' ||
+      this.props.type.type === 'percent' ||
+      this.props.type.type === 'delay'
+    ) {
       let selectedId = this.props.value;
       if (selectedId === undefined) {
         selectedId = null;

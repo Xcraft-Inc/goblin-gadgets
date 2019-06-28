@@ -73,6 +73,35 @@ const types = {
     ],
   },
 
+  date: {
+    type: 'date',
+    widget: 'combo',
+    readonly: false,
+    samples: [
+      {id: null, text: ''},
+      {id: '1969-07-21', text: 'Premiers pas sur la lune'},
+      {id: '2020-04-01', text: "Prochain poisson d'avril"},
+      {id: '2019-05-01', text: 'Fête du travail 2019'},
+      {id: '2019-12-25', text: 'Noël 2019'},
+      {id: '2020-12-25', text: 'Noël 2020'},
+    ],
+  },
+
+  time: {
+    type: 'time',
+    widget: 'combo',
+    readonly: false,
+    samples: [
+      {id: null, text: ''},
+      {id: '08:00:00', text: 'Au travail'},
+      {id: '10:00:00', text: 'Début de la pause'},
+      {id: '10:30:00', text: 'Fin de la pause'},
+      {id: '12:30:00', text: 'Miam miam'},
+      {id: '17:30:00', text: 'Fin du travail'},
+      {id: '22:15:00', text: 'Hop, au lit'},
+    ],
+  },
+
   enum: values => ({
     type: 'enum',
     defaultValue: values[0],
