@@ -86,17 +86,12 @@ class HinterFieldControl extends Widget {
       selectedGlyphColorPath = `${summariesPath}.glyphColor`;
     }
 
-    const props = {};
-    if (!this.props.hideAddButton) {
-      props.onAdd = this.add;
-    }
-
     // FIXME: Set context.model for compatibility with navToHinter
     return (
       <WithModel model={`backend.${this.workitemId}`}>
         <HinterFieldSearch
           widgetId={`${this.workitemId}$hinter-field`}
-          {...props}
+          onAdd={this.add}
           onClear={this.clear}
           onShow={this.show}
           selectedValue={C(selectedValuePath)}
