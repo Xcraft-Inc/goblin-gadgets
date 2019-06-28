@@ -185,15 +185,6 @@ class WidgetDocProperties extends Widget {
     );
   }
 
-  renderScenariosList(scenarios) {
-    const result = [];
-    let index = 0;
-    for (const scenario of scenarios) {
-      result.push(this.renderScenario(scenario, index++));
-    }
-    return result;
-  }
-
   renderScenarios() {
     const scenarios = this.scenarios;
     if (scenarios) {
@@ -201,7 +192,9 @@ class WidgetDocProperties extends Widget {
         <div className={this.styles.classNames.scenarios}>
           <Label width="100px" text="Scenarios" />
           <div className={this.styles.classNames.scenarioButtons}>
-            {this.renderScenariosList(scenarios)}
+            {scenarios.map((scenario, index) =>
+              this.renderScenario(scenario, index)
+            )}
           </div>
         </div>
       );
