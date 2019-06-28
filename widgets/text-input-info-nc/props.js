@@ -9,14 +9,14 @@ addType('checkFunction', {
   widget: 'combo',
   readonly: true,
   samples: [
-    {text: 'Test length 5/10/15', value: 'T1'},
-    {text: 'Test empty', value: 'T2'},
-    {text: 'Test password', value: 'T3'},
+    {id: 'T1', text: 'Test length 5/10/15'},
+    {id: 'T2', text: 'Test empty'},
+    {id: 'T3', text: 'Test password'},
   ],
   samplesData: {
     T1: function(value) {
       if (value && value.length >= 15) {
-        return {info: 'Attention', warning: 'Vraiment trop long'};
+        return {info: 'Attention', warning: 'Vraiment trop long !'};
       } else if (value && value.length >= 10) {
         return {warning: 'Trop long'};
       } else if (value && value.length >= 5) {
