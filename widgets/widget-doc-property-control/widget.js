@@ -50,6 +50,10 @@ class WidgetDocPropertyControl extends Widget {
       // When the scenarios returns a react fragment for property 'children' (by example),
       // the value received here is a Shredder. In this case, the combo will display 'object'.
       selectedId = 'object';
+    } else if (typeof selectedId === 'function') {
+      // When the scenarios returns a function for property 'onAdd' (by example),
+      // the value received here is a function. In this case, the combo will display 'function'.
+      selectedId = 'function';
     }
 
     return (

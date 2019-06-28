@@ -104,6 +104,11 @@ export default class TextInputNC extends Widget {
     }
     if (typeof value === 'object') {
       console.warn('TextInputNC: Invalid value (object or Shredder)!');
+      value = 'OBJECT!';
+    }
+    if (typeof value === 'function') {
+      console.warn('TextInputNC: Invalid value (function)!');
+      value = 'FUNCTION!';
     }
 
     return (
