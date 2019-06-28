@@ -43,6 +43,15 @@ class WidgetDocPropertyControl extends Widget {
   /******************************************************************************/
 
   renderCombo(list, readonly, multiline) {
+    let selectedId = this.props.value;
+    if (selectedId === undefined) {
+      selectedId = '';
+    } else if (typeof selectedId === 'object') {
+      // When the scenarios returns a react fragment for property 'children' (by example),
+      // the value received here is a Shredder. In this case, the combo will display 'object'.
+      selectedId = 'object';
+    }
+
     return (
       <TextFieldComboNC
         shape="smooth"
@@ -51,7 +60,7 @@ class WidgetDocPropertyControl extends Widget {
         rows={multiline ? '2' : null}
         grow="1"
         list={list}
-        selectedId={this.props.value !== undefined ? this.props.value : ''}
+        selectedId={selectedId}
         onChange={this.onChange}
         menuType="wrap"
         menuItemWidth="200px"
