@@ -1,47 +1,57 @@
 export default [
   {
-    name: '10',
+    name: 'default',
     props: {
       kind: 'rounded',
       direction: 'horizontal',
-      height: '12px',
-      value: 10,
-    },
-  },
-  {
-    name: '30',
-    props: {
-      kind: 'rounded',
-      direction: 'horizontal',
+      gradient: 'red-yellow-green',
       height: '12px',
       value: 30,
     },
   },
   {
-    name: '50',
+    name: '0',
     props: {
       kind: 'rounded',
       direction: 'horizontal',
       height: '12px',
-      value: 50,
+      value: 0,
     },
   },
   {
-    name: '70',
+    name: '20',
     props: {
       kind: 'rounded',
       direction: 'horizontal',
       height: '12px',
-      value: 70,
+      value: 20,
     },
   },
   {
-    name: '90',
+    name: '40',
     props: {
       kind: 'rounded',
       direction: 'horizontal',
       height: '12px',
-      value: 90,
+      value: 40,
+    },
+  },
+  {
+    name: '60',
+    props: {
+      kind: 'rounded',
+      direction: 'horizontal',
+      height: '12px',
+      value: 60,
+    },
+  },
+  {
+    name: '80',
+    props: {
+      kind: 'rounded',
+      direction: 'horizontal',
+      height: '12px',
+      value: 80,
       flash: true,
     },
   },

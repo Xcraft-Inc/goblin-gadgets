@@ -35,22 +35,22 @@ const types = {
       '',
       "D'accord",
       'Annuler',
-      {text: 'Petit texte', id: 'Ceci est un petit texte'},
-      {text: '3 courtes lignes', id: 'Pierre\nJacques\nJean'},
+      {id: 'Ceci est un petit texte', text: 'Petit texte'},
+      {id: 'Pierre\nJacques\nJean', text: '3 courtes lignes'},
       {
-        text: '7 courtes lignes',
         id:
           '1: Lundi\n2: Mardi\n3: Mercredi\n4: Jeudi\n5: Vendredi\n6: Samedi\n7: Dimanche',
+        text: '7 courtes lignes',
       },
       {
-        text: '3 lignes courtes et longues',
         id:
           "1) Bref\n2) Un jeune vieillard, assis debout sur un mur de pierre en bois, lisait un journal plié en quatre dans sa poche, à la lueur d'une bougie éteinte.\n3) Certes",
+        text: '3 lignes courtes et longues',
       },
       {
-        text: 'Très long texte',
         id:
           "Un matin, au coucher du soleil, un jeune vieillard assis debout sur un mur de pierre en bois, lisait un journal plié en quatre dans sa poche, à la lueur d'une bougie éteinte. Soudain, il entendit un bruit silencieux. Il monta les escaliers de la cave pour descendre au grenier et vit, par le trou de la serrure bouché, un nègre blanc qui déterrait les morts pour les manger vivants, et sa femme qui pleurait en riant la mort de ses quatre fils, morts noyés dans une piscine vide, le premier Jean, le deuxième Paul, le troisième Pierre et le quatrième André qui n'était pas encore né.",
+        text: 'Très long texte',
       },
     ],
   },
@@ -61,14 +61,15 @@ const types = {
     widget: 'combo',
     readonly: false,
     samples: [
-      {text: '', id: null},
-      {text: '0', id: 0},
-      {text: '1', id: 1},
-      {text: '2', id: 2},
-      {text: '3', id: 3},
-      {text: '10', id: 10},
-      {text: '123', id: 123},
-      {text: "9'999", id: 9999},
+      {id: null, text: ''},
+      {id: 0, text: '0'},
+      {id: 1, text: '1'},
+      {id: 2, text: '2'},
+      {id: 3, text: '3'},
+      {id: 10, text: '10'},
+      {id: 50, text: '50'},
+      {id: 123, text: '123'},
+      {id: 999, text: "9'999"},
     ],
   },
 

@@ -3,6 +3,7 @@ import Widget from 'laboratory/widget';
 import TextFieldNC from 'goblin-gadgets/widgets/text-field-nc/widget';
 import ButtonCombo from 'goblin-gadgets/widgets/button-combo/widget';
 import TextFieldComboNC from 'goblin-gadgets/widgets/text-field-combo-nc/widget';
+import TextFieldTypedComboNC from 'goblin-gadgets/widgets/text-field-typed-combo-nc/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import CheckboxNC from 'goblin-gadgets/widgets/checkbox-nc/widget';
@@ -43,33 +44,56 @@ class WidgetDocPropertyControl extends Widget {
   /******************************************************************************/
 
   renderCombo(list, readonly, multiline) {
-    let selectedId = this.props.value;
-    if (selectedId === undefined) {
-      selectedId = '';
-    } else if (typeof selectedId === 'object') {
-      // When the scenarios returns a react fragment for property 'children' (by example),
-      // the value received here is a Shredder. In this case, the combo will display 'object'.
-      selectedId = 'object';
-    } else if (typeof selectedId === 'function') {
-      // When the scenarios returns a function for property 'onAdd' (by example),
-      // the value received here is a function. In this case, the combo will display 'function'.
-      selectedId = 'function';
-    }
+    if (this.props.type.type === 'number') {
+      let selectedId = this.props.value;
+      if (selectedId === undefined) {
+        selectedId = null;
+      }
 
-    return (
-      <TextFieldComboNC
-        shape="smooth"
-        spacing="tiny"
-        readonly={readonly}
-        rows={multiline ? '2' : null}
-        grow="1"
-        list={list}
-        selectedId={selectedId}
-        onChange={this.onChange}
-        menuType="wrap"
-        menuItemWidth="200px"
-      />
-    );
+      return (
+        <TextFieldTypedComboNC
+          type={this.props.type.type}
+          shape="smooth"
+          spacing="tiny"
+          readonly={readonly}
+          rows={multiline ? '2' : null}
+          grow="1"
+          list={list}
+          selectedId={selectedId}
+          onChange={this.onChange}
+          menuType="wrap"
+          menuItemWidth="200px"
+        />
+      );
+    } else {
+      let selectedId = this.props.value;
+      if (selectedId === undefined) {
+        selectedId = '';
+      } else if (typeof selectedId === 'object') {
+        // When the scenarios returns a react fragment for property 'children' (by example),
+        // the value received here is a Shredder. In this case, the combo will display 'object'.
+        selectedId = 'object';
+      } else if (typeof selectedId === 'function') {
+        // When the scenarios returns a function for property 'onAdd' (by example),
+        // the value received here is a function. In this case, the combo will display 'function'.
+        selectedId = 'function';
+      }
+
+      return (
+        <TextFieldComboNC
+          shape="smooth"
+          spacing="tiny"
+          readonly={readonly}
+          rows={multiline ? '2' : null}
+          grow="1"
+          list={list}
+          selectedId={selectedId}
+          onChange={this.onChange}
+          menuType="wrap"
+          menuItemWidth="200px"
+        />
+      );
+    }
   }
 
   renderControl() {

@@ -102,13 +102,19 @@ export default class TextInputNC extends Widget {
     if (value === null || value === undefined) {
       value = '';
     }
-    if (typeof value === 'object') {
-      console.warn('TextInputNC: Invalid value (object or Shredder)!');
-      value = 'OBJECT!';
-    }
-    if (typeof value === 'function') {
-      console.warn('TextInputNC: Invalid value (function)!');
-      value = 'FUNCTION!';
+    switch (typeof value) {
+      case 'number':
+        console.warn(`TextInputNC: Invalid value of type 'number' (${value})`);
+        value = value + ''; // convert to string
+        break;
+      case 'object':
+        console.warn('TextInputNC: Invalid value (object or Shredder)!');
+        value = 'OBJECT!';
+        break;
+      case 'function':
+        console.warn('TextInputNC: Invalid value (function)!');
+        value = 'FUNCTION!';
+        break;
     }
 
     return (
