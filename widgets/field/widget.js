@@ -878,6 +878,26 @@ class Field extends Form {
   }
 
   renderReadonlyHinter() {
+    return (
+      <LabelRow
+        show={this.props.show}
+        grow={this.props.grow}
+        width={this.props.width}
+        height={this.props.height}
+        labelText={this.props.labelText}
+        labelWrap={this.props.labelWrap}
+        labelGlyph={this.props.labelGlyph}
+        labelWidth={this.props.labelWidth || defaultLabelWidth}
+        spacing={this.props.spacing}
+        verticalSpacing={this.props.verticalSpacing}
+        verticalJustify={this.props.verticalJustify}
+      >
+        <HinterField {...this.props} />
+      </LabelRow>
+    );
+  }
+
+  renderReadonlyHinter_old() {
     const targetPath = this.props.targetModel
       ? this.getFullPathFromModel(this.props.targetModel)
       : this.fullPath;

@@ -23,7 +23,7 @@ export default class HinterFieldNC extends Widget {
   }
 
   get hasButtonAdd() {
-    return !Bool.isTrue(this.props.readonly) && this.props.onAdd;
+    return !Bool.isTrue(this.props.readonly) && this.props.enableAdd;
   }
 
   add() {
@@ -53,7 +53,7 @@ export default class HinterFieldNC extends Widget {
     return (
       <React.Fragment>
         <TextFieldNC
-          shape={this.hasButtonAdd ? 'left-smooth' : 'smooth'}
+          shape={this.enableAdd ? 'left-smooth' : 'smooth'}
           autoFocus={this.props.autoFocus}
           required={this.props.required}
           visibility={this.props.visibility}
