@@ -18,6 +18,10 @@ import HinterFieldNC from 'goblin-gadgets/widgets/hinter-field-nc/widget';
 import hinterFieldNCProps from 'goblin-gadgets/widgets/hinter-field-nc/props';
 import hinterFieldNCScenarios from 'goblin-gadgets/widgets/hinter-field-nc/scenarios';
 
+import TextFieldComboNC from 'goblin-gadgets/widgets/text-field-combo-nc/widget';
+import textFieldComboNCProps from 'goblin-gadgets/widgets/text-field-combo-nc/props';
+import textFieldComboNCScenarios from 'goblin-gadgets/widgets/text-field-combo-nc/scenarios';
+
 import TextFieldTypedNC from 'goblin-gadgets/widgets/text-field-typed-nc/widget';
 import textFieldTypedNCProps from 'goblin-gadgets/widgets/text-field-typed-nc/props';
 import textFieldTypedNCScenarios from 'goblin-gadgets/widgets/text-field-typed-nc/scenarios';
@@ -77,6 +81,13 @@ const widgetList = [
     widgetPath: 'goblin-gadgets/widgets/hinter-field-nc/widget',
     props: hinterFieldNCProps,
     scenarios: hinterFieldNCScenarios,
+  },
+  {
+    name: 'TextFieldComboNC',
+    widget: TextFieldComboNC,
+    widgetPath: 'goblin-gadgets/widgets/text-field-combo-nc/widget',
+    props: textFieldComboNCProps,
+    scenarios: textFieldComboNCScenarios,
   },
   {
     name: 'TextFieldTypedNC',
