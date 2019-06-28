@@ -1,2 +1,1 @@
-import * as scenarios from '../label-nc/scenarios';
-export default scenarios;
+export {default} from '../label-nc/scenarios.js';

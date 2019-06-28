@@ -1,2 +1,1 @@
-import * as props from '../label-nc/props.js';
-export default props;
+export {default} from '../label-nc/props.js';
