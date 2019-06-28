@@ -16,7 +16,7 @@ import Markdown from 'gadgets/markdown/widget';
 
 /******************************************************************************/
 
-class Label extends Widget {
+export default class LabelNC extends Widget {
   constructor() {
     super(...arguments);
   }
@@ -292,8 +292,5 @@ class Label extends Widget {
 
 /******************************************************************************/
 
-Label.propTypes = makePropTypes(Props);
-Label.defaultProps = makeDefaultProps(Props);
-
-/******************************************************************************/
-export default Label;
+LabelNC.propTypes = makePropTypes(Props);
+LabelNC.defaultProps = makeDefaultProps(Props);
