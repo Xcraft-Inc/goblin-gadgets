@@ -99,8 +99,11 @@ export default class TextInputNC extends Widget {
     const type = this.props.rows ? 'textarea' : 'text';
 
     let value = this.props.value;
-    if (value === null) {
+    if (value === null || value === undefined) {
       value = '';
+    }
+    if (typeof value === 'object') {
+      console.warn('TextInputNC: Invalid value (object or Shredder)!');
     }
 
     return (
