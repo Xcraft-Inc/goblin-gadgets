@@ -17,10 +17,10 @@ export default [
       backgroundColor: '#def',
       children: (
         <React.Fragment>
-          <Button width="100px" text="A" />
-          <Button width="100px" text="B" />
-          <Button width="100px" text="C" />
-          <Button width="100px" text="D" />
+          <Button key="A" width="100px" text="A" />
+          <Button key="B" width="100px" text="B" />
+          <Button key="C" width="100px" text="C" />
+          <Button key="D" width="100px" text="D" />
         </React.Fragment>
       ),
     },
@@ -32,10 +32,10 @@ export default [
       backgroundColor: '#def',
       children: (
         <React.Fragment>
-          <Button width="100px" text="A" />
-          <Button width="100px" text="B" />
-          <Button width="100px" text="C" />
-          <Button width="100px" text="D" />
+          <Button key="A" width="100px" text="A" />
+          <Button key="B" width="100px" text="B" />
+          <Button key="C" width="100px" text="C" />
+          <Button key="D" width="100px" text="D" />
         </React.Fragment>
       ),
     },
