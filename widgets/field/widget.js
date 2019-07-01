@@ -797,6 +797,7 @@ class Field extends Form {
             this.props.selectedId ? this.props.selectedId : C(this.props.model)
           }
           readonly={true}
+          restrictsToList={this.props.restrictsToList}
           required={this.props.required}
           list={
             this.props.listModel ? C(this.props.listModel) : this.props.list
@@ -1964,9 +1965,7 @@ class Field extends Form {
           width={this.props.fieldWidth}
           selectedId={C(this.props.model)}
           readonly={false}
-          restrictsToList={
-            this.props.restrictsToList || this.props.comboReadonly
-          }
+          restrictsToList={this.props.restrictsToList}
           required={this.props.required}
           list={
             this.props.listModel ? C(this.props.listModel) : this.props.list

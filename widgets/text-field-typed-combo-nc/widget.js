@@ -167,7 +167,7 @@ export default class TextFieldTypedComboNC extends Widget {
     let value = selectedItem.id || '';
 
     if (
-      (this.props.readonly || this.props.comboReadonly) &&
+      (this.props.readonly || this.props.restrictsToList) &&
       selectedItem.text
     ) {
       value = selectedItem.text;
