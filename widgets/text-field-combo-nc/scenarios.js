@@ -15,7 +15,6 @@ export default [
       list: 'colors',
       width: '100px',
       menuType: 'wrap',
-      readonly: true,
     },
   },
   {
@@ -42,8 +41,10 @@ export default [
     name: 'localities',
     props: {
       list: 'localities',
+      width: '300px',
+      widthItemWidth: '200px',
       hintText: 'Domicile',
-      readonly: true,
+      menuType: 'wrap',
     },
   },
   {

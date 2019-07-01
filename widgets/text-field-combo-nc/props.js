@@ -201,6 +201,11 @@ export default [
     type: types.size,
   },
   {
+    name: 'fieldWidth',
+    group: 'layout',
+    type: types.size,
+  },
+  {
     name: 'rows',
     group: 'text',
     type: types.enum(['', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']),

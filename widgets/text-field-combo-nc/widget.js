@@ -182,8 +182,8 @@ export default class TextFieldComboNC extends Widget {
         flyingBalloonAnchor={this.props.flyingBalloonAnchor}
         value={value}
         glyph={glyph}
-        width={this.props.width}
-        grow={this.props.width ? null : '1'}
+        width={this.props.fieldWidth}
+        grow={this.props.fieldWidth ? null : '1'}
         rows={this.props.rows}
         readonly={Bool.toString(this.props.readonly)}
         disabled={this.props.disabled}
@@ -215,6 +215,8 @@ export default class TextFieldComboNC extends Widget {
 
     return (
       <ButtonCombo
+        width={this.props.width}
+        grow={this.props.grow}
         menuType={this.props.menuType}
         menuItemWidth={this.props.menuItemWidth}
         menuItemTooltips={this.props.menuItemTooltips}
@@ -228,7 +230,6 @@ export default class TextFieldComboNC extends Widget {
         comboGlyph={this.props.comboGlyph}
         comboTextTransform={this.props.comboTextTransform}
         focus={this.state.focus}
-        grow={this.props.grow}
         hideButtonCombo={this.props.hideButtonCombo}
       >
         {this.renderTextField()}

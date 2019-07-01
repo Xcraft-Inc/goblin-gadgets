@@ -50,7 +50,7 @@ export default function styles(theme, props) {
     justifyContent: 'flex-start',
     alignItems: 'center',
     width,
-    flexGrow: flexGrow,
+    flexGrow: width ? null : flexGrow,
     flexShrink: flexShrink,
     flexBasis: flexBasis,
     padding: '0px',
