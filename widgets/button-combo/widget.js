@@ -29,7 +29,11 @@ export default class ButtonCombo extends Widget {
   }
 
   showCombo() {
-    if (!this.props.list) {
+    if (
+      !this.props.list ||
+      Bool.isTrue(this.props.readonly) ||
+      Bool.isTrue(this.props.disabled)
+    ) {
       return;
     }
 
