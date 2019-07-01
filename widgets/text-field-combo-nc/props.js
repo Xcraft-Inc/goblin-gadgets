@@ -130,7 +130,7 @@ addType('dataList', {
   type: 'dataList',
   defaultValue: 'T1',
   widget: 'combo',
-  readonly: true,
+  restrictsToList: true,
   samples: samples,
   samplesData: samplesList,
   propType: PropTypes.object,

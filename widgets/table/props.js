@@ -443,7 +443,7 @@ addType('dataTable', {
   type: 'dataTable',
   defaultValue: 'T1',
   widget: 'combo',
-  readonly: true,
+  restrictsToList: true,
   samples: samples,
   samplesData: samplesData,
   propType: PropTypes.object,
@@ -452,7 +452,7 @@ addType('dataTable', {
 addType('sortingColumns', {
   type: 'sortingColumns',
   widget: 'combo',
-  readonly: true,
+  restrictsToList: true,
   samples: [
     {id: 'S1', text: 'Column 1'},
     {id: 'S2', text: 'Column 2, 1'},

@@ -43,7 +43,7 @@ class WidgetDocPropertyControl extends Widget {
 
   /******************************************************************************/
 
-  renderCombo(list, readonly, multiline) {
+  renderCombo(list, restrictsToList, multiline) {
     if (
       this.props.type.type === 'date' ||
       this.props.type.type === 'time' ||
@@ -66,7 +66,7 @@ class WidgetDocPropertyControl extends Widget {
           type={this.props.type.type}
           shape="smooth"
           spacing="tiny"
-          readonly={readonly}
+          restrictsToList={restrictsToList}
           rows={multiline ? '2' : null}
           grow="1"
           list={list}
@@ -94,7 +94,7 @@ class WidgetDocPropertyControl extends Widget {
         <TextFieldComboNC
           shape="smooth"
           spacing="tiny"
-          readonly={readonly}
+          restrictsToList={restrictsToList}
           rows={multiline ? '2' : null}
           grow="1"
           list={list}
@@ -169,9 +169,9 @@ class WidgetDocPropertyControl extends Widget {
         );
       case 'combo': {
         const list = this.props.type.samples || this.props.type.values;
-        const readonly = this.props.type.readonly;
+        const restrictsToList = this.props.type.restrictsToList;
         const multiline = this.props.type.multiline;
-        return this.renderCombo(list, readonly, multiline);
+        return this.renderCombo(list, restrictsToList, multiline);
       }
     }
   }

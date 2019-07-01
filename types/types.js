@@ -14,7 +14,7 @@ const types = {
     type: 'string',
     defaultValue: '',
     widget: 'combo',
-    readonly: false,
+    restrictsToList: false,
     samples: [
       '',
       "D'accord",
@@ -30,7 +30,7 @@ const types = {
     defaultValue: '',
     widget: 'combo',
     multiline: true,
-    readonly: false,
+    restrictsToList: false,
     samples: [
       '',
       "D'accord",
@@ -59,7 +59,7 @@ const types = {
     type: 'number',
     defaultValue: 0,
     widget: 'combo',
-    readonly: false,
+    restrictsToList: false,
     samples: [
       {id: null, text: ''},
       {id: 0, text: '0'},
@@ -76,7 +76,7 @@ const types = {
   date: {
     type: 'date',
     widget: 'combo',
-    readonly: false,
+    restrictsToList: false,
     samples: [
       {id: null, text: ''},
       {id: '1969-07-21', text: 'Premiers pas sur la lune'},
@@ -90,7 +90,7 @@ const types = {
   time: {
     type: 'time',
     widget: 'combo',
-    readonly: false,
+    restrictsToList: false,
     samples: [
       {id: null, text: ''},
       {id: '08:00:00', text: 'Au travail'},
@@ -106,7 +106,7 @@ const types = {
     type: 'enum',
     defaultValue: values[0],
     widget: 'combo',
-    readonly: true,
+    restrictsToList: true,
     values: values,
   }),
 
@@ -120,7 +120,7 @@ const types = {
   component: {
     type: 'component',
     widget: 'combo',
-    readonly: false,
+    restrictsToList: false,
     samples: [
       'short-text',
       'long-text',
@@ -134,14 +134,14 @@ const types = {
   function: {
     type: 'function',
     widget: 'combo',
-    readonly: false,
+    restrictsToList: false,
     samples: ['alert', 'log'],
   },
 
   color: {
     type: 'color',
     widget: 'combo',
-    readonly: false,
+    restrictsToList: false,
     samples: [
       '',
       'base',
@@ -171,7 +171,7 @@ const types = {
   size: {
     type: 'size',
     widget: 'combo',
-    readonly: false,
+    restrictsToList: false,
     samples: [
       '',
       '0px',
@@ -191,7 +191,7 @@ const types = {
   glyph: {
     type: 'glyph',
     widget: 'combo',
-    readonly: false,
+    restrictsToList: false,
     samples: [
       '',
       'solid/check',
@@ -206,7 +206,7 @@ const types = {
   shape: {
     type: 'shape',
     widget: 'combo',
-    readonly: true,
+    restrictsToList: true,
     samples: [
       '',
       'rounded',
@@ -221,56 +221,56 @@ const types = {
   angle: {
     type: 'angle',
     widget: 'combo',
-    readonly: false,
+    restrictsToList: false,
     samples: ['', '90', '180', '270'],
   },
 
   percentage: {
     type: 'percentage',
     widget: 'combo',
-    readonly: false,
+    restrictsToList: false,
     samples: ['', '50%', '75%', '100%', '150%', '200%'],
   },
 
   spacing: {
     type: 'spacing',
     widget: 'combo',
-    readonly: true,
+    restrictsToList: true,
     samples: ['', 'overlap', 'tiny', 'large', 'double'],
   },
 
   verticalSpacing: {
     type: 'verticalSpacing',
     widget: 'combo',
-    readonly: true,
+    restrictsToList: true,
     samples: ['', 'overlap', 'compact', 'normal', 'large'],
   },
 
   shortcut: {
     type: 'shortcut',
     widget: 'combo',
-    readonly: false,
+    restrictsToList: false,
     samples: ['', '_ctrl_+A', '_shift_+A', '_alt_+A'],
   },
 
   grow: {
     type: 'grow',
     widget: 'combo',
-    readonly: true,
+    restrictsToList: true,
     samples: ['', '0.5', '1'],
   },
 
   fontStyle: {
     type: 'fontStyle',
     widget: 'combo',
-    readonly: true,
+    restrictsToList: true,
     samples: ['', 'italic', 'oblique'],
   },
 
   cursor: {
     type: 'cursor',
     widget: 'combo',
-    readonly: true,
+    restrictsToList: true,
     samples: [
       '',
       'default',
@@ -290,7 +290,7 @@ const types = {
   fontWeight: {
     type: 'fontWeight',
     widget: 'combo',
-    readonly: false,
+    restrictsToList: false,
     samples: [
       '',
       'normal',
@@ -314,21 +314,21 @@ const types = {
   textTransform: {
     type: 'textTransform',
     widget: 'combo',
-    readonly: true,
+    restrictsToList: true,
     samples: ['', 'capitalize', 'uppercase', 'lowercase'],
   },
 
   justify: {
     type: 'justify',
     widget: 'combo',
-    readonly: true,
+    restrictsToList: true,
     samples: ['', 'start', 'center', 'end', 'around', 'between', 'none'],
   },
 
   textJustify: {
     type: 'textJustify',
     widget: 'combo',
-    readonly: true,
+    restrictsToList: true,
     samples: ['', 'left', 'center', 'right'],
   },
 };

@@ -7,7 +7,7 @@ import textInputNCProps from '../text-input-nc/props';
 addType('checkFunction', {
   type: 'checkFunction',
   widget: 'combo',
-  readonly: true,
+  restrictsToList: true,
   samples: [
     {id: 'T1', text: 'Test length 5/10/15'},
     {id: 'T2', text: 'Test empty'},
