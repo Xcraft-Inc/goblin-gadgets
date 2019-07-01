@@ -147,7 +147,9 @@ export default class ButtonCombo extends Widget {
     return (
       <span
         ref={this.setRef}
-        onClick={this.showCombo}
+        onClick={
+          Bool.isTrue(this.props.restrictsToList) ? this.showCombo : undefined
+        }
         disabled={
           Bool.isTrue(this.props.disabled) || Bool.isTrue(this.props.readonly)
         }
