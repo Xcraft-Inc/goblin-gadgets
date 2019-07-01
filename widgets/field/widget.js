@@ -1963,7 +1963,10 @@ class Field extends Form {
           tooltip={this.props.tooltip || this.props.hintText}
           width={this.props.fieldWidth}
           selectedId={C(this.props.model)}
-          readonly={this.props.comboReadonly}
+          readonly={false}
+          restrictsToList={
+            this.props.restrictsToList || this.props.comboReadonly
+          }
           required={this.props.required}
           list={
             this.props.listModel ? C(this.props.listModel) : this.props.list

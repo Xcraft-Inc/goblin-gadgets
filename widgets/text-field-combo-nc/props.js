@@ -155,7 +155,7 @@ export default [
     type: types.bool,
   },
   {
-    name: 'comboReadonly',
+    name: 'restrictsToList',
     group: 'text',
     type: types.bool,
   },

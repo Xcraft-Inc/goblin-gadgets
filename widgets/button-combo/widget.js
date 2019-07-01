@@ -32,7 +32,8 @@ export default class ButtonCombo extends Widget {
     if (
       !this.props.list ||
       Bool.isTrue(this.props.readonly) ||
-      Bool.isTrue(this.props.disabled)
+      Bool.isTrue(this.props.disabled) ||
+      Bool.isTrue(this.props.hideButtonCombo)
     ) {
       return;
     }
@@ -97,8 +98,10 @@ export default class ButtonCombo extends Widget {
         glyph={glyph}
         glyphSize="120%"
         shape={buttonShape}
-        disabled={this.props.disabled}
-        onClick={this.props.readonly ? undefined : this.showCombo}
+        disabled={
+          Bool.isTrue(this.props.disabled) || Bool.isTrue(this.props.readonly)
+        }
+        onClick={this.showCombo}
       />
     );
   }
@@ -123,7 +126,9 @@ export default class ButtonCombo extends Widget {
         list={this.props.list}
         comboTextTransform={this.props.comboTextTransform}
         close={this.hideCombo}
-        disabled={this.props.disabled}
+        disabled={
+          Bool.isTrue(this.props.disabled) || Bool.isTrue(this.props.readonly)
+        }
       />
     );
   }
@@ -142,12 +147,10 @@ export default class ButtonCombo extends Widget {
     return (
       <span
         ref={this.setRef}
-        onClick={
-          this.props.readonly && !this.props.hideButtonCombo
-            ? this.showCombo
-            : undefined
+        onClick={this.showCombo}
+        disabled={
+          Bool.isTrue(this.props.disabled) || Bool.isTrue(this.props.readonly)
         }
-        disabled={this.props.disabled}
         className={boxClass}
       >
         {this.props.children}

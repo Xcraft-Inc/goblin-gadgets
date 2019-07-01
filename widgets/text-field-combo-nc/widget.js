@@ -167,7 +167,7 @@ export default class TextFieldComboNC extends Widget {
     let value = selectedItem.id || '';
 
     if (
-      (this.props.readonly || this.props.comboReadonly) &&
+      (this.props.readonly || this.props.restrictsToList) &&
       selectedItem.text
     ) {
       value = selectedItem.text;
@@ -185,7 +185,7 @@ export default class TextFieldComboNC extends Widget {
         width={this.props.fieldWidth}
         grow={this.props.fieldWidth ? null : '1'}
         rows={this.props.rows}
-        readonly={Bool.toString(this.props.readonly)}
+        readonly={Bool.toString(this.props.restrictsToList)}
         disabled={this.props.disabled}
         required={this.props.required}
         embeddedFocus="true"
@@ -221,6 +221,7 @@ export default class TextFieldComboNC extends Widget {
         menuItemWidth={this.props.menuItemWidth}
         menuItemTooltips={this.props.menuItemTooltips}
         readonly={this.props.readonly}
+        restrictsToList={this.props.restrictsToList}
         disabled={this.props.disabled}
         onShowCombo={this.props.onShowCombo}
         node={this.node}

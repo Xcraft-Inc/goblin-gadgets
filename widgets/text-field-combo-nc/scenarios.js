@@ -6,7 +6,7 @@ export default [
       hintText: 'Collaborateur',
       width: '200px',
       menuType: 'wrap',
-      readonly: true,
+      restrictsToList: true,
     },
   },
   {
@@ -24,7 +24,7 @@ export default [
       hintText: "Mois de l'échéance",
       width: '200px',
       menuType: 'wrap',
-      readonly: true,
+      restrictsToList: true,
     },
   },
   {
@@ -34,7 +34,7 @@ export default [
       hintText: 'Moyen de transport',
       width: '200px',
       menuType: 'wrap',
-      readonly: true,
+      restrictsToList: true,
     },
   },
   {
@@ -52,7 +52,7 @@ export default [
     props: {
       list: 'strange',
       shape: 'rounded',
-      readonly: true,
+      restrictsToList: true,
     },
   },
   {
@@ -61,7 +61,7 @@ export default [
       list: 'multiline',
       width: '300px',
       rows: '3',
-      readonly: true,
+      restrictsToList: true,
     },
   },
   {
