@@ -1,6 +1,7 @@
 import {types} from 'goblin-gadgets/types/types.js';
 
 export default [
+  // Aspect.
   {
     name: 'value',
     group: 'aspect',
@@ -33,6 +34,8 @@ export default [
     group: 'aspect',
     type: types.bool,
   },
+
+  // Layout.
   {
     name: 'width',
     group: 'layout',

@@ -4,17 +4,17 @@ export default [
   // Label
   {
     name: 'labelWidth',
-    group: 'Label',
+    group: 'label',
     type: types.size,
   },
   {
     name: 'labelText',
-    group: 'Label',
+    group: 'label',
     type: types.nabu,
   },
   {
     name: 'labelWrap',
-    group: 'Label',
+    group: 'label',
     type: types.enum([
       '',
       'no',
@@ -26,7 +26,7 @@ export default [
   },
   {
     name: 'labelGlyph',
-    group: 'Label',
+    group: 'label',
     type: types.glyph,
   },
 
@@ -57,32 +57,32 @@ export default [
   // Layout
   {
     name: 'width',
-    group: 'Layout',
+    group: 'layout',
     type: types.size,
   },
   {
     name: 'height',
-    group: 'Layout',
+    group: 'layout',
     type: types.size,
   },
   {
     name: 'spacing',
-    group: 'Layout',
+    group: 'layout',
     type: types.spacing,
   },
   {
     name: 'verticalSpacing',
-    group: 'Layout',
+    group: 'layout',
     type: types.verticalSpacing,
   },
   {
     name: 'verticalJustify',
-    group: 'Layout',
+    group: 'layout',
     type: types.enum(['', 'top']),
   },
   {
     name: 'grow',
-    group: 'Layout',
+    group: 'layout',
     type: types.grow,
   },
 ];

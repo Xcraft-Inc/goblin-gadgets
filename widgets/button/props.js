@@ -1,6 +1,7 @@
 import {types} from 'goblin-gadgets/types/types.js';
 
 export default [
+  // Main.
   {
     name: 'text',
     group: 'main',
@@ -44,20 +45,12 @@ export default [
     type: types.function,
   },
   {
-    name: 'textColor',
-    group: 'aspect',
-    type: types.color,
-  },
-  {
-    name: 'glyphColor',
-    group: 'glyph',
-    type: types.color,
-  },
-  {
     name: 'disabled',
     group: 'main',
     type: types.bool,
   },
+
+  // Aspect.
   {
     name: 'kind',
     group: 'aspect',
@@ -120,9 +113,9 @@ export default [
     ]),
   },
   {
-    name: 'glyph',
-    group: 'glyph',
-    type: types.glyph,
+    name: 'textColor',
+    group: 'aspect',
+    type: types.color,
   },
   {
     name: 'active',
@@ -150,6 +143,89 @@ export default [
     type: types.enum(['', 'none']),
   },
   {
+    name: 'shape',
+    group: 'aspect',
+    type: types.shape,
+  },
+  {
+    name: 'tooltip',
+    group: 'aspect',
+    type: types.nabu,
+  },
+  {
+    name: 'shortcut',
+    group: 'aspect',
+    type: types.shortcut,
+  },
+  {
+    name: 'justify',
+    group: 'aspect',
+    type: types.justify,
+  },
+  {
+    name: 'backgroundColor',
+    group: 'aspect',
+    type: types.color,
+  },
+  {
+    name: 'activeColor',
+    group: 'aspect',
+    type: types.color,
+  },
+  {
+    name: 'cursor',
+    group: 'aspect',
+    type: types.cursor,
+  },
+  {
+    name: 'show',
+    group: 'aspect',
+    type: types.bool,
+  },
+  {
+    name: 'visibility',
+    group: 'aspect',
+    type: types.bool,
+  },
+  {
+    name: 'toAnchor',
+    group: 'aspect',
+    type: types.string,
+  },
+  {
+    name: 'place',
+    group: 'aspect',
+    type: types.enum([
+      '',
+      '1/1',
+      '1/2',
+      '2/2',
+      '1/3',
+      '2/3',
+      '3/3',
+      '1/4',
+      '2/4',
+      '3/4',
+      '4/4',
+      'single',
+      'left',
+      'middle',
+      'right',
+    ]),
+  },
+
+  // Glyph.
+  {
+    name: 'glyphColor',
+    group: 'glyph',
+    type: types.color,
+  },
+  {
+    name: 'glyph',
+    group: 'glyph',
+    type: types.glyph,
+  },
+  {
     name: 'glyphRotate',
     group: 'glyph',
     type: types.angle,
@@ -174,26 +250,8 @@ export default [
     group: 'glyph',
     type: types.percentage,
   },
-  {
-    name: 'shape',
-    group: 'aspect',
-    type: types.shape,
-  },
-  {
-    name: 'tooltip',
-    group: 'aspect',
-    type: types.nabu,
-  },
-  {
-    name: 'shortcut',
-    group: 'aspect',
-    type: types.shortcut,
-  },
-  {
-    name: 'justify',
-    group: 'aspect',
-    type: types.justify,
-  },
+
+  // Layout.
   {
     name: 'width',
     group: 'layout',
@@ -214,16 +272,8 @@ export default [
     group: 'layout',
     type: types.spacing,
   },
-  {
-    name: 'backgroundColor',
-    group: 'aspect',
-    type: types.color,
-  },
-  {
-    name: 'activeColor',
-    group: 'aspect',
-    type: types.color,
-  },
+
+  // Text.
   {
     name: 'fontSize',
     group: 'text',
@@ -249,6 +299,8 @@ export default [
     group: 'text',
     type: types.enum(['', 'no', 'no-strict', 'yes', 'yes-permissive']),
   },
+
+  // Badge.
   {
     name: 'badgeValue',
     group: 'badge',
@@ -279,27 +331,8 @@ export default [
     group: 'badge',
     type: types.percentage,
   },
-  {
-    name: 'place',
-    group: 'aspect',
-    type: types.enum([
-      '',
-      '1/1',
-      '1/2',
-      '2/2',
-      '1/3',
-      '2/3',
-      '3/3',
-      '1/4',
-      '2/4',
-      '3/4',
-      '4/4',
-      'single',
-      'left',
-      'middle',
-      'right',
-    ]),
-  },
+
+  // Calendar.
   {
     name: 'calendarWeekend',
     group: 'calendar',
@@ -309,25 +342,5 @@ export default [
     name: 'calendarDimmed',
     group: 'calendar',
     type: types.bool,
-  },
-  {
-    name: 'cursor',
-    group: 'aspect',
-    type: types.cursor,
-  },
-  {
-    name: 'show',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'visibility',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'toAnchor',
-    group: 'aspect',
-    type: types.string,
   },
 ];

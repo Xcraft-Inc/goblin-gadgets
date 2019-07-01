@@ -139,6 +139,7 @@ addType('dataList', {
 /******************************************************************************/
 
 export default [
+  // Event.
   {
     name: 'onChange',
     group: 'event',
@@ -149,6 +150,8 @@ export default [
     group: 'event',
     type: types.function,
   },
+
+  // Text.
   {
     name: 'readonly',
     group: 'text',
@@ -160,15 +163,27 @@ export default [
     type: types.bool,
   },
   {
+    name: 'selectedId',
+    group: 'text',
+    type: types.string,
+  },
+  {
+    name: 'hintText',
+    group: 'text',
+    type: types.nabu,
+  },
+  {
+    name: 'rows',
+    group: 'text',
+    type: types.enum(['', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']),
+  },
+
+  // Menu.
+  {
     name: 'list',
     group: 'menu',
     type: types.dataList,
     required: true,
-  },
-  {
-    name: 'selectedId',
-    group: 'text',
-    type: types.string,
   },
   {
     name: 'menuType',
@@ -181,34 +196,41 @@ export default [
     type: types.enum(['', 'top', 'bottom', 'left', 'right']),
   },
   {
+    name: 'menuItemWidth',
+    group: 'menu',
+    type: types.size,
+  },
+  {
+    name: 'menuItemTooltips',
+    group: 'menu',
+    type: types.bool,
+  },
+  {
+    name: 'comboGlyph',
+    group: 'menu',
+    type: types.glyph,
+  },
+  {
+    name: 'comboTextTransform',
+    group: 'menu',
+    type: types.enum(['', 'none']),
+  },
+  {
+    name: 'hideButtonCombo',
+    group: 'menu',
+    type: types.bool,
+  },
+
+  // Aspect.
+  {
     name: 'shape',
     group: 'aspect',
     type: types.shape,
   },
   {
-    name: 'hintText',
-    group: 'text',
-    type: types.nabu,
-  },
-  {
     name: 'tooltip',
     group: 'aspect',
     type: types.nabu,
-  },
-  {
-    name: 'width',
-    group: 'layout',
-    type: types.size,
-  },
-  {
-    name: 'fieldWidth',
-    group: 'layout',
-    type: types.size,
-  },
-  {
-    name: 'rows',
-    group: 'text',
-    type: types.enum(['', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']),
   },
   {
     name: 'required',
@@ -240,32 +262,18 @@ export default [
     group: 'aspect',
     type: types.bool,
   },
+
+  // Layout.
   {
-    name: 'menuItemWidth',
-    group: 'menu',
+    name: 'width',
+    group: 'layout',
     type: types.size,
   },
   {
-    name: 'menuItemTooltips',
-    group: 'menu',
-    type: types.bool,
+    name: 'fieldWidth',
+    group: 'layout',
+    type: types.size,
   },
-  {
-    name: 'comboGlyph',
-    group: 'menu',
-    type: types.glyph,
-  },
-  {
-    name: 'comboTextTransform',
-    group: 'menu',
-    type: types.enum(['', 'none']),
-  },
-  {
-    name: 'hideButtonCombo',
-    group: 'menu',
-    type: types.bool,
-  },
-
   {
     name: 'spacing',
     group: 'layout',

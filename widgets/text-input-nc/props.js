@@ -1,6 +1,7 @@
 import {types} from 'goblin-gadgets/types/types.js';
 
 export default [
+  // Aspect.
   {
     name: 'active',
     group: 'aspect',
@@ -16,6 +17,28 @@ export default [
     group: 'aspect',
     type: types.bool,
   },
+  {
+    name: 'tooltip',
+    group: 'aspect',
+    type: types.nabu,
+  },
+  {
+    name: 'shape',
+    group: 'aspect',
+    type: types.shape,
+  },
+  {
+    name: 'show',
+    group: 'aspect',
+    type: types.bool,
+  },
+  {
+    name: 'visibility',
+    group: 'aspect',
+    type: types.bool,
+  },
+
+  // Event.
   {
     name: 'onChange',
     group: 'event',
@@ -37,6 +60,8 @@ export default [
     type: types.function,
     description: 'When "enter" is pressed.',
   },
+
+  // Text.
   {
     name: 'value',
     group: 'text',
@@ -53,20 +78,17 @@ export default [
     type: types.bool,
   },
   {
-    name: 'tooltip',
-    group: 'aspect',
-    type: types.nabu,
-  },
-  {
-    name: 'shape',
-    group: 'aspect',
-    type: types.shape,
-  },
-  {
     name: 'rows',
     group: 'text',
     type: types.enum(['', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']),
   },
+  {
+    name: 'justify',
+    group: 'text',
+    type: types.textJustify,
+  },
+
+  // Layout.
   {
     name: 'width',
     group: 'layout',
@@ -76,20 +98,5 @@ export default [
     name: 'grow',
     group: 'layout',
     type: types.grow,
-  },
-  {
-    name: 'justify',
-    group: 'text',
-    type: types.textJustify,
-  },
-  {
-    name: 'show',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'visibility',
-    group: 'aspect',
-    type: types.bool,
   },
 ];

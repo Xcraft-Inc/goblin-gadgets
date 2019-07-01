@@ -1,6 +1,7 @@
 import {types} from 'goblin-gadgets/types/types.js';
 
 export default [
+  // Main.
   {
     name: 'children',
     group: 'main',
@@ -11,6 +12,8 @@ export default [
     group: 'main',
     type: types.function,
   },
+
+  // Aspect.
   {
     name: 'disabled',
     group: 'aspect',
@@ -193,66 +196,6 @@ export default [
     type: types.size,
   },
   {
-    name: 'width',
-    group: 'Layout',
-    type: types.size,
-  },
-  {
-    name: 'height',
-    group: 'Layout',
-    type: types.size,
-  },
-  {
-    name: 'minWidth',
-    group: 'Layout',
-    type: types.size,
-  },
-  {
-    name: 'minHeight',
-    group: 'Layout',
-    type: types.size,
-  },
-  {
-    name: 'maxWidth',
-    group: 'Layout',
-    type: types.size,
-  },
-  {
-    name: 'maxHeight',
-    group: 'Layout',
-    type: types.size,
-  },
-  {
-    name: 'verticalJustify',
-    group: 'Layout',
-    type: types.enum(['', 'top']),
-  },
-  {
-    name: 'verticalSpacing',
-    group: 'Layout',
-    type: types.verticalSpacing,
-  },
-  {
-    name: 'marginBottom',
-    group: 'Layout',
-    type: types.size,
-  },
-  {
-    name: 'floatingHeight',
-    group: 'Layout',
-    type: types.size,
-  },
-  {
-    name: 'grow',
-    group: 'Layout',
-    type: types.grow,
-  },
-  {
-    name: 'spacing',
-    group: 'Layout',
-    type: types.spacing,
-  },
-  {
     name: 'backgroundColor',
     group: 'aspect',
     type: types.color,
@@ -261,5 +204,67 @@ export default [
     name: 'busyBackgroundColor',
     group: 'aspect',
     type: types.color,
+  },
+
+  // Layout.
+  {
+    name: 'width',
+    group: 'layout',
+    type: types.size,
+  },
+  {
+    name: 'height',
+    group: 'layout',
+    type: types.size,
+  },
+  {
+    name: 'minWidth',
+    group: 'layout',
+    type: types.size,
+  },
+  {
+    name: 'minHeight',
+    group: 'layout',
+    type: types.size,
+  },
+  {
+    name: 'maxWidth',
+    group: 'layout',
+    type: types.size,
+  },
+  {
+    name: 'maxHeight',
+    group: 'layout',
+    type: types.size,
+  },
+  {
+    name: 'verticalJustify',
+    group: 'layout',
+    type: types.enum(['', 'top']),
+  },
+  {
+    name: 'verticalSpacing',
+    group: 'layout',
+    type: types.verticalSpacing,
+  },
+  {
+    name: 'marginBottom',
+    group: 'layout',
+    type: types.size,
+  },
+  {
+    name: 'floatingHeight',
+    group: 'layout',
+    type: types.size,
+  },
+  {
+    name: 'grow',
+    group: 'layout',
+    type: types.grow,
+  },
+  {
+    name: 'spacing',
+    group: 'layout',
+    type: types.spacing,
   },
 ];

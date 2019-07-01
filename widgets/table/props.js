@@ -471,6 +471,7 @@ addType('sortingColumns', {
 /******************************************************************************/
 
 export default [
+  // Main.
   {
     name: 'data',
     group: 'main',
@@ -495,6 +496,7 @@ export default [
     description: "Only for data with sorting: 'enable'.",
   },
 
+  // Aspect.
   {
     name: 'frame',
     group: 'aspect',
@@ -517,6 +519,7 @@ export default [
     description: 'Only for multi-level tables.',
   },
 
+  // Layout.
   {
     name: 'grow',
     group: 'layout',
