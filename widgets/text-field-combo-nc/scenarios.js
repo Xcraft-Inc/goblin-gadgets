@@ -41,9 +41,9 @@ export default [
     name: 'localities',
     props: {
       list: 'localities',
-      width: '300px',
-      widthItemWidth: '200px',
       hintText: 'Domicile',
+      width: '300px',
+      menuItemWidth: '200px',
       menuType: 'wrap',
     },
   },
@@ -62,6 +62,7 @@ export default [
       width: '300px',
       rows: '3',
       restrictsToList: true,
+      menuType: 'wrap',
     },
   },
   {
