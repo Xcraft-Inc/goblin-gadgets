@@ -173,31 +173,59 @@ export default class TextFieldComboNC extends Widget {
       value = selectedItem.text;
     }
 
-    return (
-      <TextFieldNC
-        hintText={this.props.hintText}
-        tooltip={this.props.tooltip}
-        spacing={'overlap'}
-        shape={textFieldShape}
-        flyingBalloonAnchor={this.props.flyingBalloonAnchor}
-        value={value}
-        glyph={glyph}
-        width={this.props.fieldWidth}
-        grow={this.props.fieldWidth ? null : '1'}
-        rows={this.props.rows}
-        readonly={Bool.toString(this.props.restrictsToList)}
-        disabled={this.props.disabled}
-        required={this.props.required}
-        embeddedFocus="true"
-        visibility={this.props.visibility}
-        onChange={this.doChangeTextField}
-        onFocus={this.onFocus}
-        onBlur={this.onBlur}
-        onMouseUp={this.onMouseUp}
-        autoFocus={this.props.autoFocus}
-        selectAllOnFocus={this.props.selectAllOnFocus}
-      />
-    );
+    if (this.props.renderTextField) {
+      return (
+        <this.props.renderTextField
+          hintText={this.props.hintText}
+          tooltip={this.props.tooltip}
+          spacing={'overlap'}
+          shape={textFieldShape}
+          flyingBalloonAnchor={this.props.flyingBalloonAnchor}
+          value={value}
+          glyph={glyph}
+          width={this.props.fieldWidth}
+          grow={this.props.fieldWidth ? null : '1'}
+          rows={this.props.rows}
+          readonly={Bool.toString(this.props.restrictsToList)}
+          disabled={this.props.disabled}
+          required={this.props.required}
+          embeddedFocus="true"
+          visibility={this.props.visibility}
+          onChange={this.doChangeTextField}
+          onFocus={this.onFocus}
+          onBlur={this.onBlur}
+          onMouseUp={this.onMouseUp}
+          autoFocus={this.props.autoFocus}
+          selectAllOnFocus={this.props.selectAllOnFocus}
+        />
+      );
+    } else {
+      return (
+        <TextFieldNC
+          hintText={this.props.hintText}
+          tooltip={this.props.tooltip}
+          spacing={'overlap'}
+          shape={textFieldShape}
+          flyingBalloonAnchor={this.props.flyingBalloonAnchor}
+          value={value}
+          glyph={glyph}
+          width={this.props.fieldWidth}
+          grow={this.props.fieldWidth ? null : '1'}
+          rows={this.props.rows}
+          readonly={Bool.toString(this.props.restrictsToList)}
+          disabled={this.props.disabled}
+          required={this.props.required}
+          embeddedFocus="true"
+          visibility={this.props.visibility}
+          onChange={this.doChangeTextField}
+          onFocus={this.onFocus}
+          onBlur={this.onBlur}
+          onMouseUp={this.onMouseUp}
+          autoFocus={this.props.autoFocus}
+          selectAllOnFocus={this.props.selectAllOnFocus}
+        />
+      );
+    }
   }
 
   render() {
