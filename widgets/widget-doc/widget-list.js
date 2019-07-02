@@ -46,6 +46,10 @@ import Gauge from 'goblin-gadgets/widgets/gauge/widget';
 import gaugeProps from 'goblin-gadgets/widgets/gauge/props';
 import gaugeScenarios from 'goblin-gadgets/widgets/gauge/scenarios';
 
+import Triangle from 'goblin-gadgets/widgets/triangle/widget';
+import triangleProps from 'goblin-gadgets/widgets/triangle/props';
+import triangleScenarios from 'goblin-gadgets/widgets/triangle/scenarios';
+
 const widgetList = [
   {
     name: 'Button',
@@ -130,6 +134,13 @@ const widgetList = [
     widgetPath: 'goblin-gadgets/widgets/gauge/widget',
     props: gaugeProps,
     scenarios: gaugeScenarios,
+  },
+  {
+    name: 'Triangle',
+    widget: Triangle,
+    widgetPath: 'goblin-gadgets/widgets/triangle/widget',
+    props: triangleProps,
+    scenarios: triangleScenarios,
   },
 ];
 
