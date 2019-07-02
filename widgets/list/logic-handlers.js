@@ -13,9 +13,12 @@ module.exports = {
   },
   'set-facets': (state, action) => {
     const facets = action.get('facets');
-    return state
-      .set('facets.customers', facets.customers)
-      .set('options.filter', facets.filter);
+    for (const filter of facets.filters) {
+      state = state
+        .set(`facets.${filter.name}`, facets.buckets[filter.name])
+        .set(`options.filters.${filter.name}`, filter);
+    }
+    return state;
   },
   'set-count': (state, action) => {
     return state.set('count', action.get('count'));
@@ -32,7 +35,7 @@ module.exports = {
       state = state.set('options.sort', sort);
     }
     if (filter) {
-      state = state.set('options.filter', filter);
+      state = state.set(`options.filters.${filter.name}`, filter);
     }
     return state;
   },

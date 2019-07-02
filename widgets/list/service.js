@@ -67,7 +67,7 @@ class List {
           quest,
           value,
           options.sort,
-          options.filter,
+          options.filters,
           range
         );
       }
@@ -111,7 +111,7 @@ class List {
       case 'search': {
         const value = quest.goblin.getX('value');
         //TODO: execute a real count aggregation
-        yield* List.executeSearch(quest, value, options.sort, options.filter);
+        yield* List.executeSearch(quest, value, options.sort, options.filters);
         return quest.goblin.getX('count');
       }
       case 'index': {
@@ -206,15 +206,18 @@ class List {
     const elastic = quest.getStorage('elastic');
     //TODO:dyn
     const res = yield elastic.generateFacets({
-      facets: [{name: 'customers', field: 'customer'}],
+      facets: [
+        {name: 'customer', field: 'customer'},
+        {name: 'status', field: 'docStatus'},
+      ],
     });
     return {
-      customers: res.customers.buckets,
-      filter: {name: 'customer', value: res.customers.buckets.map(b => b.key)},
+      buckets: {customer: res.customer.buckets, status: res.status.buckets},
+      filters: [{name: 'customer', value: []}, {name: 'status', value: []}],
     };
   }
 
-  static *executeSearch(quest, value, sort, filter, range) {
+  static *executeSearch(quest, value, sort, filters, range) {
     const elastic = quest.getStorage('elastic');
 
     quest.goblin.setX('value', value);
@@ -256,7 +259,7 @@ class List {
       type,
       value,
       sort,
-      filter,
+      filters: filters ? Object.values(filters) : null,
       from: afterSearch ? -1 : from,
       size,
       afterSearch,
@@ -358,7 +361,6 @@ class List {
 //   subTypes: [''],
 //   subJoins: [''],
 //   sort: {dir: 'asc', key: 'value.keyword'},
-//   filter: {}
 // }
 // Register quest's according rc.json
 Goblin.registerQuest(goblinName, 'create', function*(
