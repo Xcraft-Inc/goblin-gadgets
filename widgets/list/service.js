@@ -208,7 +208,10 @@ class List {
     const res = yield elastic.generateFacets({
       facets: [{name: 'customers', field: 'customer'}],
     });
-    return {customers: res.customers.buckets};
+    return {
+      customers: res.customers.buckets,
+      filter: {name: 'customer', value: res.customers.buckets.map(b => b.key)},
+    };
   }
 
   static *executeSearch(quest, value, sort, filter, range) {
@@ -383,6 +386,11 @@ Goblin.registerQuest(goblinName, 'create', function*(
   quest.dispatch('set-count', {count});
 
   yield quest.me.initList();
+  const mode = quest.goblin.getX('mode');
+  if (mode === 'search') {
+    const facets = yield* List.generateFacets(quest);
+    quest.dispatch('set-facets', {facets});
+  }
   return id;
 });
 
@@ -526,11 +534,6 @@ Goblin.registerQuest(goblinName, 'fetch', function*(quest, range) {
 });
 
 Goblin.registerQuest(goblinName, 'init-list', function*(quest) {
-  const mode = quest.goblin.getX('mode');
-  if (mode === 'search') {
-    const facets = yield* List.generateFacets(quest);
-    quest.dispatch('set-facets', {facets});
-  }
   yield* List.changes(quest);
 });
 

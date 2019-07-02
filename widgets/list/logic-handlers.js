@@ -13,7 +13,9 @@ module.exports = {
   },
   'set-facets': (state, action) => {
     const facets = action.get('facets');
-    return state.set('facets', facets);
+    return state
+      .set('facets.customers', facets.customers)
+      .set('options.filter', facets.filter);
   },
   'set-count': (state, action) => {
     return state.set('count', action.get('count'));
