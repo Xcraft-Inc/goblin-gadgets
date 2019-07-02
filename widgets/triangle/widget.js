@@ -1,7 +1,6 @@
 import React from 'react';
 import Props from './props';
 import Widget from 'laboratory/widget';
-import * as Bool from 'gadgets/helpers/bool-helpers';
 import {
   makePropTypes,
   makeDefaultProps,
