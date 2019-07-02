@@ -35,7 +35,6 @@ export default function styles(theme, props) {
       : null;
 
   const previewContainer = {
-    position: 'relative',
     margin: '10px 0px',
     flexGrow: '1',
     display: 'flex',
