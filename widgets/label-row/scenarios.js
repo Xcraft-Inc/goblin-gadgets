@@ -15,8 +15,8 @@ export default [
       labelText: 'NPA | Ville',
       children: (
         <React.Fragment>
-          <TextInputNC width="100px" value="1000" spacing="overlap" />
-          <TextInputNC grow="1" value="Lausanne" />
+          <TextInputNC key="1" width="100px" value="1000" spacing="overlap" />
+          <TextInputNC key="2" grow="1" value="Lausanne" />
         </React.Fragment>
       ),
     },

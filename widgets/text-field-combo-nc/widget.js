@@ -2,14 +2,15 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 import MouseTrap from 'mousetrap';
+import {isShredder} from 'xcraft-core-shredder';
 import * as Bool from 'gadgets/helpers/bool-helpers';
+
 import ButtonCombo from 'gadgets/button-combo/widget';
 import TextFieldNC from 'gadgets/text-field-nc/widget';
-import {isShredder} from 'xcraft-core-shredder';
 
 /******************************************************************************/
 
-class TextFieldComboNC extends Widget {
+export default class TextFieldComboNC extends Widget {
   constructor() {
     super(...arguments);
 
@@ -135,12 +136,12 @@ class TextFieldComboNC extends Widget {
   /******************************************************************************/
 
   renderTextField() {
-    const s = this.props.shape ? this.props.shape : 'smooth';
+    const shape = this.props.shape || 'smooth';
     const textFieldShapes = {
       smooth: 'left-smooth',
       rounded: 'left-rounded',
     };
-    const textFieldShape = textFieldShapes[s];
+    const textFieldShape = textFieldShapes[shape];
 
     let selectedItem = this.list.find(
       item => item.id === this.props.selectedId
@@ -157,52 +158,75 @@ class TextFieldComboNC extends Widget {
 
     let glyph = {glyph: selectedItem.glyph, color: selectedItem.color};
     if (this.props.getGlyph && glyph.glyph === null) {
-      glyph = this.props.getGlyph(this.props.selectedId);
+      glyph = this.props.getGlyph(this.props.selectedId) || null;
     }
-    if (this.props.menuType !== 'wrap' || !glyph.glyph) {
+    if (this.props.menuType !== 'wrap' || !glyph || !glyph.glyph) {
       glyph = null;
     }
 
     let value = selectedItem.id || '';
 
-    if (this.props.readonly && selectedItem.text) {
+    if (
+      (this.props.readonly || this.props.restrictsToList) &&
+      selectedItem.text
+    ) {
       value = selectedItem.text;
     }
 
-    return (
-      <TextFieldNC
-        hintText={this.props.hintText}
-        tooltip={this.props.tooltip}
-        spacing={'overlap'}
-        shape={textFieldShape}
-        flyingBalloonAnchor={this.props.flyingBalloonAnchor}
-        value={value}
-        glyph={glyph}
-        width={this.props.width}
-        grow={this.props.width ? null : '1'}
-        rows={this.props.rows}
-        readonly={Bool.toString(this.props.readonly)}
-        disabled={this.props.disabled}
-        required={this.props.required}
-        embeddedFocus="true"
-        visibility={this.props.visibility}
-        onChange={this.doChangeTextField}
-        onFocus={this.onFocus}
-        onBlur={this.onBlur}
-        onMouseUp={this.onMouseUp}
-        autoFocus={this.props.autoFocus}
-        selectAllOnFocus={this.props.selectAllOnFocus}
-        //hinter={this.props.hinter}
-        //getDisplayValue={this.props.getDisplayValue}
-        //getGlyph={this.props.getGlyph}
-        //parser={this.props.parser} <Control prop from redux-form>
-        //errors={this.props.errors} <Control prop from redux-form>
-        //updateOn={this.props.updateOn} <Control prop from redux-form>
-      />
-    );
+    if (this.props.renderTextField) {
+      return (
+        <this.props.renderTextField
+          hintText={this.props.hintText}
+          tooltip={this.props.tooltip}
+          spacing={'overlap'}
+          shape={textFieldShape}
+          flyingBalloonAnchor={this.props.flyingBalloonAnchor}
+          value={value}
+          glyph={glyph}
+          width={this.props.fieldWidth}
+          grow={this.props.fieldWidth ? null : '1'}
+          rows={this.props.rows}
+          readonly={Bool.toString(this.props.restrictsToList)}
+          disabled={this.props.disabled}
+          required={this.props.required}
+          embeddedFocus="true"
+          visibility={this.props.visibility}
+          onChange={this.doChangeTextField}
+          onFocus={this.onFocus}
+          onBlur={this.onBlur}
+          onMouseUp={this.onMouseUp}
+          autoFocus={this.props.autoFocus}
+          selectAllOnFocus={this.props.selectAllOnFocus}
+        />
+      );
+    } else {
+      return (
+        <TextFieldNC
+          hintText={this.props.hintText}
+          tooltip={this.props.tooltip}
+          spacing={'overlap'}
+          shape={textFieldShape}
+          flyingBalloonAnchor={this.props.flyingBalloonAnchor}
+          value={value}
+          glyph={glyph}
+          width={this.props.fieldWidth}
+          grow={this.props.fieldWidth ? null : '1'}
+          rows={this.props.rows}
+          readonly={Bool.toString(this.props.restrictsToList)}
+          disabled={this.props.disabled}
+          required={this.props.required}
+          embeddedFocus="true"
+          visibility={this.props.visibility}
+          onChange={this.doChangeTextField}
+          onFocus={this.onFocus}
+          onBlur={this.onBlur}
+          onMouseUp={this.onMouseUp}
+          autoFocus={this.props.autoFocus}
+          selectAllOnFocus={this.props.selectAllOnFocus}
+        />
+      );
+    }
   }
-
-  renderButtonCombo() {}
 
   render() {
     if (Bool.isFalse(this.props.show)) {
@@ -213,19 +237,23 @@ class TextFieldComboNC extends Widget {
 
     return (
       <ButtonCombo
+        width={this.props.width}
+        grow={this.props.grow}
         menuType={this.props.menuType}
         menuItemWidth={this.props.menuItemWidth}
         menuItemTooltips={this.props.menuItemTooltips}
         readonly={this.props.readonly}
+        restrictsToList={this.props.restrictsToList}
         disabled={this.props.disabled}
         onShowCombo={this.props.onShowCombo}
         node={this.node}
         list={this.list}
+        spacing={this.props.spacing}
         shape={this.props.shape}
         comboGlyph={this.props.comboGlyph}
         comboTextTransform={this.props.comboTextTransform}
         focus={this.state.focus}
-        grow={this.props.grow}
+        hideButtonCombo={this.props.hideButtonCombo}
       >
         {this.renderTextField()}
       </ButtonCombo>
@@ -234,4 +262,3 @@ class TextFieldComboNC extends Widget {
 }
 
 /******************************************************************************/
-export default TextFieldComboNC;

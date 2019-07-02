@@ -14,8 +14,15 @@ const types = {
     type: 'string',
     defaultValue: '',
     widget: 'combo',
-    readonly: false,
-    samples: ['', 'Accept', 'Close'],
+    restrictsToList: false,
+    samples: [
+      '',
+      "D'accord",
+      'Annuler',
+      'Jean Dupond',
+      '481.95',
+      "Un jeune vieillard, assis debout sur un mur de pierre en bois, lisait un journal plié en quatre dans sa poche, à la lueur d'une bougie éteinte.",
+    ],
   },
 
   nabu: {
@@ -23,27 +30,27 @@ const types = {
     defaultValue: '',
     widget: 'combo',
     multiline: true,
-    readonly: false,
+    restrictsToList: false,
     samples: [
       '',
       "D'accord",
       'Annuler',
-      {text: 'Petit texte', id: 'Ceci est un petit texte'},
-      {text: '3 courtes lignes', id: 'Pierre\nJacques\nJean'},
+      {id: 'Ceci est un petit texte', text: 'Petit texte'},
+      {id: 'Pierre\nJacques\nJean', text: '3 courtes lignes'},
       {
-        text: '7 courtes lignes',
         id:
           '1: Lundi\n2: Mardi\n3: Mercredi\n4: Jeudi\n5: Vendredi\n6: Samedi\n7: Dimanche',
+        text: '7 courtes lignes',
       },
       {
-        text: '3 lignes courtes et longues',
         id:
           "1) Bref\n2) Un jeune vieillard, assis debout sur un mur de pierre en bois, lisait un journal plié en quatre dans sa poche, à la lueur d'une bougie éteinte.\n3) Certes",
+        text: '3 lignes courtes et longues',
       },
       {
-        text: 'Très long texte',
         id:
           "Un matin, au coucher du soleil, un jeune vieillard assis debout sur un mur de pierre en bois, lisait un journal plié en quatre dans sa poche, à la lueur d'une bougie éteinte. Soudain, il entendit un bruit silencieux. Il monta les escaliers de la cave pour descendre au grenier et vit, par le trou de la serrure bouché, un nègre blanc qui déterrait les morts pour les manger vivants, et sa femme qui pleurait en riant la mort de ses quatre fils, morts noyés dans une piscine vide, le premier Jean, le deuxième Paul, le troisième Pierre et le quatrième André qui n'était pas encore né.",
+        text: 'Très long texte',
       },
     ],
   },
@@ -52,16 +59,46 @@ const types = {
     type: 'number',
     defaultValue: 0,
     widget: 'combo',
-    readonly: false,
+    restrictsToList: false,
     samples: [
-      {text: '', id: null},
-      {text: '0', id: 0},
-      {text: '1', id: 1},
-      {text: '2', id: 2},
-      {text: '3', id: 3},
-      {text: '10', id: 10},
-      {text: '123', id: 123},
-      {text: "9'999", id: 9999},
+      {id: null, text: ''},
+      {id: 0, text: '0'},
+      {id: 1, text: '1'},
+      {id: 2, text: '2'},
+      {id: 3, text: '3'},
+      {id: 10, text: '10'},
+      {id: 50, text: '50'},
+      {id: 123, text: '123'},
+      {id: 999, text: "9'999"},
+    ],
+  },
+
+  date: {
+    type: 'date',
+    widget: 'combo',
+    restrictsToList: false,
+    samples: [
+      {id: null, text: ''},
+      {id: '1969-07-21', text: 'Premiers pas sur la lune'},
+      {id: '2020-04-01', text: "Prochain poisson d'avril"},
+      {id: '2019-05-01', text: 'Fête du travail 2019'},
+      {id: '2019-12-25', text: 'Noël 2019'},
+      {id: '2020-12-25', text: 'Noël 2020'},
+    ],
+  },
+
+  time: {
+    type: 'time',
+    widget: 'combo',
+    restrictsToList: false,
+    samples: [
+      {id: null, text: ''},
+      {id: '08:00:00', text: 'Au travail'},
+      {id: '10:00:00', text: 'Début de la pause'},
+      {id: '10:30:00', text: 'Fin de la pause'},
+      {id: '12:30:00', text: 'Miam miam'},
+      {id: '17:30:00', text: 'Fin du travail'},
+      {id: '22:15:00', text: 'Hop, au lit'},
     ],
   },
 
@@ -69,7 +106,7 @@ const types = {
     type: 'enum',
     defaultValue: values[0],
     widget: 'combo',
-    readonly: true,
+    restrictsToList: true,
     values: values,
   }),
 
@@ -83,7 +120,7 @@ const types = {
   component: {
     type: 'component',
     widget: 'combo',
-    readonly: false,
+    restrictsToList: false,
     samples: [
       'short-text',
       'long-text',
@@ -97,14 +134,14 @@ const types = {
   function: {
     type: 'function',
     widget: 'combo',
-    readonly: false,
+    restrictsToList: false,
     samples: ['alert', 'log'],
   },
 
   color: {
     type: 'color',
     widget: 'combo',
-    readonly: false,
+    restrictsToList: false,
     samples: [
       '',
       'base',
@@ -122,19 +159,19 @@ const types = {
       'green',
       'blue',
       'yellow',
-      {text: '#d2e6f9 — light blue', id: '#d2e6f9'},
-      {text: '#8ab6df — blue', id: '#8ab6df'},
-      {text: '#f5ddb8 — light orange', id: '#f5ddb8'},
-      {text: '#fbce89 — orange', id: '#fbce89'},
-      {text: '#c6f7da — light green', id: '#c6f7da'},
-      {text: '#74f7a9 — green', id: '#74f7a9'},
+      {id: '#d2e6f9', text: '#d2e6f9 — light blue'},
+      {id: '#8ab6df', text: '#8ab6df — blue'},
+      {id: '#f5ddb8', text: '#f5ddb8 — light orange'},
+      {id: '#fbce89', text: '#fbce89 — orange'},
+      {id: '#c6f7da', text: '#c6f7da — light green'},
+      {id: '#74f7a9', text: '#74f7a9 — green'},
     ],
   },
 
   size: {
     type: 'size',
     widget: 'combo',
-    readonly: false,
+    restrictsToList: false,
     samples: [
       '',
       '0px',
@@ -154,7 +191,7 @@ const types = {
   glyph: {
     type: 'glyph',
     widget: 'combo',
-    readonly: false,
+    restrictsToList: false,
     samples: [
       '',
       'solid/check',
@@ -169,7 +206,7 @@ const types = {
   shape: {
     type: 'shape',
     widget: 'combo',
-    readonly: true,
+    restrictsToList: true,
     samples: [
       '',
       'rounded',
@@ -184,56 +221,56 @@ const types = {
   angle: {
     type: 'angle',
     widget: 'combo',
-    readonly: false,
+    restrictsToList: false,
     samples: ['', '90', '180', '270'],
   },
 
   percentage: {
     type: 'percentage',
     widget: 'combo',
-    readonly: false,
+    restrictsToList: false,
     samples: ['', '50%', '75%', '100%', '150%', '200%'],
   },
 
   spacing: {
     type: 'spacing',
     widget: 'combo',
-    readonly: true,
+    restrictsToList: true,
     samples: ['', 'overlap', 'tiny', 'large', 'double'],
   },
 
   verticalSpacing: {
     type: 'verticalSpacing',
     widget: 'combo',
-    readonly: true,
+    restrictsToList: true,
     samples: ['', 'overlap', 'compact', 'normal', 'large'],
   },
 
   shortcut: {
     type: 'shortcut',
     widget: 'combo',
-    readonly: false,
+    restrictsToList: false,
     samples: ['', '_ctrl_+A', '_shift_+A', '_alt_+A'],
   },
 
   grow: {
     type: 'grow',
     widget: 'combo',
-    readonly: true,
+    restrictsToList: true,
     samples: ['', '0.5', '1'],
   },
 
   fontStyle: {
     type: 'fontStyle',
     widget: 'combo',
-    readonly: true,
+    restrictsToList: true,
     samples: ['', 'italic', 'oblique'],
   },
 
   cursor: {
     type: 'cursor',
     widget: 'combo',
-    readonly: true,
+    restrictsToList: true,
     samples: [
       '',
       'default',
@@ -253,7 +290,7 @@ const types = {
   fontWeight: {
     type: 'fontWeight',
     widget: 'combo',
-    readonly: false,
+    restrictsToList: false,
     samples: [
       '',
       'normal',
@@ -277,15 +314,22 @@ const types = {
   textTransform: {
     type: 'textTransform',
     widget: 'combo',
-    readonly: true,
+    restrictsToList: true,
     samples: ['', 'capitalize', 'uppercase', 'lowercase'],
   },
 
   justify: {
     type: 'justify',
     widget: 'combo',
-    readonly: true,
+    restrictsToList: true,
     samples: ['', 'start', 'center', 'end', 'around', 'between', 'none'],
+  },
+
+  textJustify: {
+    type: 'textJustify',
+    widget: 'combo',
+    restrictsToList: true,
+    samples: ['', 'left', 'center', 'right'],
   },
 };
 

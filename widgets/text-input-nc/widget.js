@@ -99,8 +99,22 @@ export default class TextInputNC extends Widget {
     const type = this.props.rows ? 'textarea' : 'text';
 
     let value = this.props.value;
-    if (value === null) {
+    if (value === null || value === undefined) {
       value = '';
+    }
+    switch (typeof value) {
+      case 'number':
+        console.warn(`TextInputNC: Invalid value of type 'number' (${value})`);
+        value = value + ''; // convert to string
+        break;
+      case 'object':
+        console.warn('TextInputNC: Invalid value (object or Shredder)!');
+        value = 'OBJECT!';
+        break;
+      case 'function':
+        console.warn('TextInputNC: Invalid value (function)!');
+        value = 'FUNCTION!';
+        break;
     }
 
     return (

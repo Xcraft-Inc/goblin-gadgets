@@ -3,6 +3,7 @@ import Widget from 'laboratory/widget';
 import TextFieldNC from 'goblin-gadgets/widgets/text-field-nc/widget';
 import ButtonCombo from 'goblin-gadgets/widgets/button-combo/widget';
 import TextFieldComboNC from 'goblin-gadgets/widgets/text-field-combo-nc/widget';
+import TextFieldTypedComboNC from 'goblin-gadgets/widgets/text-field-typed-combo-nc/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import CheckboxNC from 'goblin-gadgets/widgets/checkbox-nc/widget';
@@ -42,21 +43,68 @@ class WidgetDocPropertyControl extends Widget {
 
   /******************************************************************************/
 
-  renderCombo(list, readonly, multiline) {
-    return (
-      <TextFieldComboNC
-        shape="left-smooth"
-        spacing="overlap"
-        readonly={readonly}
-        rows={multiline ? '2' : null}
-        grow="1"
-        list={list}
-        selectedId={this.props.value !== undefined ? this.props.value : ''}
-        onChange={this.onChange}
-        menuType="wrap"
-        menuItemWidth="200px"
-      />
-    );
+  renderCombo(list, restrictsToList, multiline) {
+    if (
+      this.props.type.type === 'date' ||
+      this.props.type.type === 'time' ||
+      this.props.type.type === 'datetime' ||
+      this.props.type.type === 'price' ||
+      this.props.type.type === 'weight' ||
+      this.props.type.type === 'length' ||
+      this.props.type.type === 'volume' ||
+      this.props.type.type === 'number' ||
+      this.props.type.type === 'percent' ||
+      this.props.type.type === 'delay'
+    ) {
+      let selectedId = this.props.value;
+      if (selectedId === undefined) {
+        selectedId = null;
+      }
+
+      return (
+        <TextFieldTypedComboNC
+          type={this.props.type.type}
+          shape="smooth"
+          spacing="tiny"
+          restrictsToList={restrictsToList}
+          rows={multiline ? '2' : null}
+          grow="1"
+          list={list}
+          selectedId={selectedId}
+          onChange={this.onChange}
+          menuType="wrap"
+          menuItemWidth="200px"
+        />
+      );
+    } else {
+      let selectedId = this.props.value;
+      if (selectedId === undefined) {
+        selectedId = '';
+      } else if (typeof selectedId === 'object') {
+        // When the scenarios returns a react fragment for property 'children' (by example),
+        // the value received here is a Shredder. In this case, the combo will display 'object'.
+        selectedId = 'object';
+      } else if (typeof selectedId === 'function') {
+        // When the scenarios returns a function for property 'onAdd' (by example),
+        // the value received here is a function. In this case, the combo will display 'function'.
+        selectedId = 'function';
+      }
+
+      return (
+        <TextFieldComboNC
+          shape="smooth"
+          spacing="tiny"
+          restrictsToList={restrictsToList}
+          rows={multiline ? '2' : null}
+          grow="1"
+          list={list}
+          selectedId={selectedId}
+          onChange={this.onChange}
+          menuType="wrap"
+          menuItemWidth="200px"
+        />
+      );
+    }
   }
 
   renderControl() {
@@ -103,7 +151,7 @@ class WidgetDocPropertyControl extends Widget {
           <TextFieldNC
             spacing="tiny"
             shape="smooth"
-            value={this.props.value}
+            value={this.props.value || ''}
             onChange={this.onChange}
             grow="1"
           />
@@ -121,9 +169,9 @@ class WidgetDocPropertyControl extends Widget {
         );
       case 'combo': {
         const list = this.props.type.samples || this.props.type.values;
-        const readonly = this.props.type.readonly;
+        const restrictsToList = this.props.type.restrictsToList;
         const multiline = this.props.type.multiline;
-        return this.renderCombo(list, readonly, multiline);
+        return this.renderCombo(list, restrictsToList, multiline);
       }
     }
   }

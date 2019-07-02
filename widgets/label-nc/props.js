@@ -1,7 +1,7 @@
 import {types} from 'goblin-gadgets/types/types.js';
 
 export default [
-  // Main.
+  // Main
   {
     name: 'text',
     group: 'main',
@@ -9,38 +9,7 @@ export default [
     defaultValue: '',
   },
   {
-    name: 'children',
-    group: 'main',
-    type: types.component,
-  },
-  {
-    name: 'onDoubleClick',
-    group: 'main',
-    type: types.function,
-    description: "Works only with kind 'container' and 'box'.",
-  },
-  {
     name: 'onClick',
-    group: 'main',
-    type: types.function,
-  },
-  {
-    name: 'onMouseDown',
-    group: 'main',
-    type: types.function,
-  },
-  {
-    name: 'onMouseUp',
-    group: 'main',
-    type: types.function,
-  },
-  {
-    name: 'onMouseOver',
-    group: 'main',
-    type: types.function,
-  },
-  {
-    name: 'onMouseOut',
     group: 'main',
     type: types.function,
   },
@@ -50,61 +19,95 @@ export default [
     type: types.bool,
   },
 
-  // Aspect.
+  // Aspect
+  {
+    name: 'textColor',
+    group: 'aspect',
+    type: types.color,
+  },
+  {
+    name: 'glyphColor',
+    group: 'aspect',
+    type: types.color,
+  },
   {
     name: 'kind',
     group: 'aspect',
     type: types.enum([
       '',
       'action',
-      'button-notification',
+      'big-center',
       'button-footer',
-      'box',
+      'button-notification',
       'calendar',
       'calendar-list',
-      'calendar-navigator',
       'calendar-title',
+      'calendar-navigator',
+      'center-to-box',
       'check-button',
-      'chronos-navigator',
       'chronos-navigator',
       'combo',
       'combo-item',
       'combo-wrap-item',
-      'container',
+      'compact',
       'desk-title',
       'disabled-light',
       'dynamic-toolbar',
       'dynamic-toolbar-left',
       'dynamic-toolbar-top-left',
       'dynamic-toolbar-top-right',
+      'field-combo',
+      'floating-footer',
+      'floating-header',
+      'flying-balloon',
+      'footer',
       'glyph-item',
       'hover',
       'identity',
+      'info',
       'label',
+      'label-field',
+      'label-text-field',
+      'large-left',
+      'large-right',
+      'large-single',
       'main-tab',
       'main-tab-right',
+      'markdown',
       'menu-item',
+      'mission-top',
+      'notification',
       'notification-close',
       'notification-extend',
-      'pane-navigator',
+      'one-line-height',
+      'pane-header',
       'pane-hnavigator',
+      'pane-navigator',
       'pane-vnavigator',
       'pane-warning',
-      'plugin-dark',
       'plugin-light',
+      'plugin-dark',
       'recurrence',
       'round',
       'secondary-action',
       'subaction',
       'table-action',
       'table-action-frame',
+      'table-cell',
+      'table-cell-sorting-header',
+      'task',
       'task-bar',
-      'task-tab',
       'task-logo',
       'task-show-footer',
+      'task-tab',
       'text',
+      'text-field-combo-glyph',
       'thin-left',
       'thin-right',
+      'ticket-hud',
+      'ticket-warning',
+      'title',
+      'title-recurrence',
       'toolbar',
       'tree-expand',
       'view-tab',
@@ -113,9 +116,9 @@ export default [
     ]),
   },
   {
-    name: 'textColor',
+    name: 'shape',
     group: 'aspect',
-    type: types.color,
+    type: types.shape,
   },
   {
     name: 'active',
@@ -123,39 +126,29 @@ export default [
     type: types.bool,
   },
   {
-    name: 'readonly',
+    name: 'maxLines',
+    group: 'aspect',
+    type: types.number,
+  },
+  {
+    name: 'skipEmptyLines',
     group: 'aspect',
     type: types.bool,
   },
   {
-    name: 'focusable',
+    name: 'singleLine',
     group: 'aspect',
     type: types.bool,
   },
   {
-    name: 'busy',
+    name: 'insideButton',
     group: 'aspect',
     type: types.bool,
-  },
-  {
-    name: 'border',
-    group: 'aspect',
-    type: types.enum(['', 'none']),
-  },
-  {
-    name: 'shape',
-    group: 'aspect',
-    type: types.shape,
   },
   {
     name: 'tooltip',
     group: 'aspect',
     type: types.nabu,
-  },
-  {
-    name: 'shortcut',
-    group: 'aspect',
-    type: types.shortcut,
   },
   {
     name: 'justify',
@@ -168,14 +161,14 @@ export default [
     type: types.color,
   },
   {
-    name: 'activeColor',
-    group: 'aspect',
-    type: types.color,
-  },
-  {
     name: 'cursor',
     group: 'aspect',
     type: types.cursor,
+  },
+  {
+    name: 'empty',
+    group: 'aspect',
+    type: types.bool,
   },
   {
     name: 'show',
@@ -187,39 +180,8 @@ export default [
     group: 'aspect',
     type: types.bool,
   },
-  {
-    name: 'toAnchor',
-    group: 'aspect',
-    type: types.string,
-  },
-  {
-    name: 'place',
-    group: 'aspect',
-    type: types.enum([
-      '',
-      '1/1',
-      '1/2',
-      '2/2',
-      '1/3',
-      '2/3',
-      '3/3',
-      '1/4',
-      '2/4',
-      '3/4',
-      '4/4',
-      'single',
-      'left',
-      'middle',
-      'right',
-    ]),
-  },
 
-  // Glyph.
-  {
-    name: 'glyphColor',
-    group: 'glyph',
-    type: types.color,
-  },
+  // Glyph
   {
     name: 'glyph',
     group: 'glyph',
@@ -233,17 +195,17 @@ export default [
   {
     name: 'glyphFlip',
     group: 'glyph',
-    type: types.enum(['', 'horizontal', 'vertical']),
+    type: types.enum(['horizontal', 'vertical', 'both']),
   },
   {
     name: 'glyphSpin',
     group: 'glyph',
-    type: types.enum(['', 'yes']),
+    type: types.bool,
   },
   {
     name: 'glyphPosition',
     group: 'glyph',
-    type: types.enum(['', 'left', 'right']),
+    type: types.enum(['', 'left', 'center', 'right']),
   },
   {
     name: 'glyphSize',
@@ -251,7 +213,7 @@ export default [
     type: types.percentage,
   },
 
-  // Layout.
+  // Layout
   {
     name: 'width',
     group: 'layout',
@@ -272,8 +234,23 @@ export default [
     group: 'layout',
     type: types.spacing,
   },
+  {
+    name: 'bottomSpacing',
+    group: 'layout',
+    type: types.enum(['', 'large']),
+  },
+  {
+    name: 'vpos',
+    group: 'layout',
+    type: types.enum(['', 'top']),
+  },
 
-  // Text.
+  // Text
+  {
+    name: 'textColor',
+    group: 'text',
+    type: types.color,
+  },
   {
     name: 'fontSize',
     group: 'text',
@@ -297,50 +274,16 @@ export default [
   {
     name: 'wrap',
     group: 'text',
-    type: types.enum(['', 'no', 'no-strict', 'yes', 'yes-permissive']),
+    type: types.enum([
+      '',
+      'no',
+      'no-end',
+      'no-strict',
+      'yes',
+      'yes-permissive',
+    ]),
   },
-
-  // Badge.
-  {
-    name: 'badgeValue',
-    group: 'badge',
-    type: types.oneOfType([types.number, types.string]),
-  },
-  {
-    name: 'badgePush',
-    group: 'badge',
-    type: types.bool,
-  },
-  {
-    name: 'badgePosition',
-    group: 'badge',
-    type: types.enum(['', 'top-right', 'over']),
-  },
-  {
-    name: 'badgeShape',
-    group: 'badge',
-    type: types.enum(['', 'circle']),
-  },
-  {
-    name: 'badgeColor',
-    group: 'badge',
-    type: types.enum(['', 'red', 'green']),
-  },
-  {
-    name: 'badgeSize',
-    group: 'badge',
-    type: types.percentage,
-  },
-
-  // Calendar.
-  {
-    name: 'calendarWeekend',
-    group: 'calendar',
-    type: types.bool,
-  },
-  {
-    name: 'calendarDimmed',
-    group: 'calendar',
-    type: types.bool,
-  },
+  // GetGlyph ? GetText ?
+  // Create custom function to choose a glyph or a text ?
+  // ClassName ? Possibility to get a className from a parent node ?
 ];

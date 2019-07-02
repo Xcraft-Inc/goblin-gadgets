@@ -2,14 +2,15 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 import ComboHelpers from 'gadgets/helpers/combo-helpers';
-import * as Bool from 'gadgets/helpers/bool-helpers';
 import {Unit} from 'electrum-theme';
+import * as Bool from 'gadgets/helpers/bool-helpers';
+
 import Button from 'gadgets/button/widget';
 import Combo from 'gadgets/combo/widget';
 
 /******************************************************************************/
 
-class ButtonCombo extends Widget {
+export default class ButtonCombo extends Widget {
   constructor() {
     super(...arguments);
 
@@ -28,7 +29,12 @@ class ButtonCombo extends Widget {
   }
 
   showCombo() {
-    if (!this.props.list) {
+    if (
+      !this.props.list ||
+      Bool.isTrue(this.props.readonly) ||
+      Bool.isTrue(this.props.disabled) ||
+      Bool.isTrue(this.props.hideButtonCombo)
+    ) {
       return;
     }
 
@@ -70,27 +76,32 @@ class ButtonCombo extends Widget {
   }
 
   renderButton() {
-    const shape = this.props.shape;
+    if (this.props.hideButtonCombo) {
+      return;
+    }
     let glyph = this.state.showCombo ? 'solid/caret-up' : 'solid/caret-down';
     if (this.props.comboGlyph) {
       glyph = this.props.comboGlyph;
     }
 
-    const s = shape ? shape : 'smooth';
+    const shape = this.props.shape || 'smooth';
     const buttonShapes = {
       smooth: 'right-smooth',
       rounded: 'right-rounded',
     };
-    const buttonShape = buttonShapes[s];
+    const buttonShape = buttonShapes[shape];
 
     return (
       <Button
         kind="combo"
+        vpos="top"
         glyph={glyph}
         glyphSize="120%"
         shape={buttonShape}
-        disabled={this.props.disabled}
-        onClick={this.props.readonly ? undefined : this.showCombo}
+        disabled={
+          Bool.isTrue(this.props.disabled) || Bool.isTrue(this.props.readonly)
+        }
+        onClick={this.showCombo}
       />
     );
   }
@@ -115,7 +126,9 @@ class ButtonCombo extends Widget {
         list={this.props.list}
         comboTextTransform={this.props.comboTextTransform}
         close={this.hideCombo}
-        disabled={this.props.disabled}
+        disabled={
+          Bool.isTrue(this.props.disabled) || Bool.isTrue(this.props.readonly)
+        }
       />
     );
   }
@@ -134,8 +147,12 @@ class ButtonCombo extends Widget {
     return (
       <span
         ref={this.setRef}
-        onClick={this.props.readonly ? this.showCombo : undefined}
-        disabled={this.props.disabled}
+        onClick={
+          Bool.isTrue(this.props.restrictsToList) ? this.showCombo : undefined
+        }
+        disabled={
+          Bool.isTrue(this.props.disabled) || Bool.isTrue(this.props.readonly)
+        }
         className={boxClass}
       >
         {this.props.children}
@@ -147,4 +164,3 @@ class ButtonCombo extends Widget {
 }
 
 /******************************************************************************/
-export default ButtonCombo;

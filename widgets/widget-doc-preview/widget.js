@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import Widget from 'laboratory/widget';
 import widgetList from '../widget-doc/widget-list';
 import Container from 'goblin-gadgets/widgets/container/widget';
@@ -311,7 +312,7 @@ class WidgetDocPreview extends Widget {
         </Container>
 
         <div className={this.styles.classNames.samples}>
-          <Label text={this.widgetInfo.name} kind="title" />
+          <Label text={_.kebabCase(this.widgetInfo.name)} kind="title" />
           <WidgetDocPreviewContainer widgetId={this.props.widgetId}>
             {this.renderWidgets()}
           </WidgetDocPreviewContainer>

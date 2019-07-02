@@ -27,9 +27,11 @@ class WidgetDocProperties extends Widget {
 
     this.state = {
       filter: '',
+      grouped: true,
     };
 
     this.onChangeFilter = this.onChangeFilter.bind(this);
+    this.onSwapGrouped = this.onSwapGrouped.bind(this);
     this.setScenario = this.setScenario.bind(this);
   }
 
@@ -43,10 +45,24 @@ class WidgetDocProperties extends Widget {
       filter: value,
     });
   }
+
+  get grouped() {
+    return this.state.grouped;
+  }
+
+  set grouped(value) {
+    this.setState({
+      grouped: value,
+    });
+  }
   //#endregion
 
   onChangeFilter(value) {
     this.filter = value;
+  }
+
+  onSwapGrouped() {
+    this.grouped = !this.grouped;
   }
 
   shouldWeShow(prop) {
@@ -124,6 +140,13 @@ class WidgetDocProperties extends Widget {
             glyph="solid/eraser"
             onClick={() => (this.filter = '')}
           />
+          <Label width="20px" />
+          <Button
+            shape="rounded"
+            glyph="light/cube"
+            active={this.grouped}
+            onClick={this.onSwapGrouped}
+          />
         </div>
       );
     } else {
@@ -136,6 +159,13 @@ class WidgetDocProperties extends Widget {
             spacing="overlap"
             value={this.filter}
             onChange={this.onChangeFilter}
+          />
+          <Label width="20px" />
+          <Button
+            shape="rounded"
+            glyph="light/cube"
+            active={this.grouped}
+            onClick={this.onSwapGrouped}
           />
         </div>
       );
@@ -155,15 +185,6 @@ class WidgetDocProperties extends Widget {
     );
   }
 
-  renderScenariosList(scenarios) {
-    const result = [];
-    let index = 0;
-    for (const scenario of scenarios) {
-      result.push(this.renderScenario(scenario, index++));
-    }
-    return result;
-  }
-
   renderScenarios() {
     const scenarios = this.scenarios;
     if (scenarios) {
@@ -171,7 +192,9 @@ class WidgetDocProperties extends Widget {
         <div className={this.styles.classNames.scenarios}>
           <Label width="100px" text="Scenarios" />
           <div className={this.styles.classNames.scenarioButtons}>
-            {this.renderScenariosList(scenarios)}
+            {scenarios.map((scenario, index) =>
+              this.renderScenario(scenario, index)
+            )}
           </div>
         </div>
       );
@@ -182,10 +205,10 @@ class WidgetDocProperties extends Widget {
 
   /******************************************************************************/
 
-  renderProp(prop) {
+  renderProp(prop, index) {
     return (
       <WidgetDocProperty
-        key={prop.name}
+        key={index}
         widgetId={this.props.widgetId}
         prop={prop}
         path={`props.${this.props.selectedWidget}`}
@@ -194,7 +217,19 @@ class WidgetDocProperties extends Widget {
   }
 
   renderProperties(properties) {
-    return properties.map(prop => this.renderProp(prop));
+    properties.sort(function(a, b) {
+      const ka = a.name;
+      const kb = b.name;
+      if (ka < kb) {
+        return -1;
+      } else if (ka > kb) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+
+    return properties.map((prop, index) => this.renderProp(prop, index));
   }
 
   renderGroup(groupName, properties) {
@@ -202,9 +237,11 @@ class WidgetDocProperties extends Widget {
     if (properties.length > 0) {
       return (
         <Container kind="pane" key={groupName}>
-          <Container kind="row">
-            <Label text={groupName} grow="1" kind="title" />
-          </Container>
+          {groupName === '_' ? null : (
+            <Container kind="row">
+              <Label text={groupName} grow="1" kind="title" />
+            </Container>
+          )}
           {this.renderProperties(properties)}
         </Container>
       );
@@ -219,14 +256,16 @@ class WidgetDocProperties extends Widget {
 
     const groups = new Map();
     for (const prop of properties) {
-      if (!groups.has(prop.group)) {
-        groups.set(prop.group, []);
+      const groupName = this.grouped ? prop.group || '_' : '_';
+      if (!groups.has(groupName)) {
+        groups.set(groupName, []);
       }
-      const list = groups.get(prop.group);
+      const list = groups.get(groupName);
       list.push(prop);
     }
+    const sortedGroups = new Map([...groups.entries()].sort());
 
-    const result = [...groups]
+    const result = [...sortedGroups]
       .map(([key, value]) => this.renderGroup(key, value))
       .filter(r => !!r);
 

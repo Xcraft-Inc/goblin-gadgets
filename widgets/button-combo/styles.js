@@ -44,15 +44,15 @@ export default function styles(theme, props) {
     borderRadius = theme.shapes.actionRadius;
   }
 
-  const boxStyle = {
+  const box = {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
     width,
-    flexGrow: flexGrow,
-    flexShrink: flexShrink,
-    flexBasis: flexBasis,
+    flexGrow: width ? null : flexGrow,
+    flexShrink: width ? null : flexShrink,
+    flexBasis: width ? null : flexBasis,
     padding: '0px',
     marginTop: '0px',
     marginLeft: '0px',
@@ -62,16 +62,15 @@ export default function styles(theme, props) {
     opacity: opacity,
   };
 
-  const shadowBoxStyle = {...boxStyle};
-  shadowBoxStyle.boxShadow = theme.shapes.comboShadow;
-  shadowBoxStyle.borderRadius = borderRadius;
+  const shadowBox = {...box};
+  shadowBox.boxShadow = theme.shapes.comboShadow;
+  shadowBox.borderRadius = borderRadius;
 
-  const focusedBoxStyle = {...boxStyle};
-  focusedBoxStyle.boxShadow =
-    theme.shapes.focusedShadow + theme.palette.focused;
-  focusedBoxStyle.borderRadius = borderRadius;
+  const focusedBox = {...box};
+  focusedBox.boxShadow = theme.shapes.focusedShadow + theme.palette.focused;
+  focusedBox.borderRadius = borderRadius;
 
-  const comboBoxStyle = {
+  const comboBox = {
     position: 'absolute',
     right: comboDirection === 'right' ? null : '0px',
     left: comboDirection === 'right' ? '0px' : null,
@@ -83,16 +82,16 @@ export default function styles(theme, props) {
     boxShadow: theme.shapes.calendarShadow,
   };
 
-  const emptyComboStyle = {
+  const emptyCombo = {
     margin: theme.shapes.containerMargin,
   };
 
   return {
-    box: boxStyle,
-    shadowBox: shadowBoxStyle,
-    focusedBox: focusedBoxStyle,
-    comboBox: comboBoxStyle,
-    emptyCombo: emptyComboStyle,
+    box,
+    shadowBox,
+    focusedBox,
+    comboBox,
+    emptyCombo,
   };
 }
 
