@@ -113,6 +113,12 @@ export default [
     ]),
   },
   {
+    name: 'subkind',
+    group: 'aspect',
+    type: types.enum(['', 'add', 'sub', 'base']),
+    description: "Only with kind='calendar' and active='true'.",
+  },
+  {
     name: 'textColor',
     group: 'aspect',
     type: types.color,
