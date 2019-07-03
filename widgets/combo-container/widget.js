@@ -1,6 +1,6 @@
-//T:2019-02-27
 import React from 'react';
 import Widget from 'laboratory/widget';
+import Triangle from 'goblin-gadgets/widgets/triangle/widget';
 
 /******************************************************************************/
 
@@ -35,25 +35,27 @@ export default class ComboContainer extends Widget {
     const windowCenterY = window.innerHeight / 2;
     // Combo under element
     if (centerY <= windowCenterY) {
-      this.side = 'down';
+      this.side = 'bottom';
       this.calculateSafeArea();
     }
   }
 
   calculateLocationWithChildrenSize(height) {
+    // TODO: include also triangleSize
     if (height < window.innerHeight - this.positionInfo.bottom) {
-      this.side = 'down';
+      this.side = 'bottom';
     }
     // If no place under element, we place it above
     // TODO: Do better !
     else {
-      this.side = 'up';
+      this.side = 'top';
     }
     this.calculateSafeArea();
   }
 
   calculateSafeArea() {
     let justifyContent = '';
+    let triangleSize = /*this.props.triangleSize ||*/ 10;
 
     if (this.positionInfo.centerX > window.innerWidth / 2) {
       this.horizontalPositionStyle = {
@@ -65,17 +67,25 @@ export default class ComboContainer extends Widget {
       this.horizontalPositionStyle = {minWidth: this.positionInfo.centerX * 2};
       justifyContent = 'flex-start';
     }
-    if (this.side === 'down') {
+    if (this.side === 'bottom') {
       this.safeAreaStyle = {
-        top: this.positionInfo.bottom,
+        top: this.positionInfo.bottom + triangleSize,
         justifyContent,
         alignItems: 'flex-start',
       };
+      this.triangleContainerStyle = {
+        top: this.positionInfo.bottom,
+        left: this.positionInfo.centerX,
+      };
     } else {
       this.safeAreaStyle = {
-        bottom: window.innerHeight - this.positionInfo.top,
+        bottom: window.innerHeight - this.positionInfo.top + triangleSize,
         justifyContent,
         alignItems: 'flex-end',
+      };
+      this.triangleContainerStyle = {
+        top: window.innerHeight - this.positionInfo.top,
+        left: this.positionInfo.centerX,
       };
     }
   }
@@ -138,6 +148,12 @@ export default class ComboContainer extends Widget {
           >
             {this.props.children}
           </div>
+        </div>
+        <div
+          style={this.triangleContainerStyle}
+          className={this.styles.classNames.triangleContainer}
+        >
+          <Triangle position={this.side} />
         </div>
       </React.Fragment>
     );

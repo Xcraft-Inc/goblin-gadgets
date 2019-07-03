@@ -36,11 +36,18 @@ export default function styles() {
     top: 0,
   };
 
+  const triangleContainer = {
+    position: 'fixed',
+    width: '0px',
+    height: '0px',
+  };
+
   return {
     childrenDiv,
     safeArea,
     horizontalPosition,
     fullScreen,
+    triangleContainer,
   };
 }
 
