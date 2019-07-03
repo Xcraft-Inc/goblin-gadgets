@@ -35,7 +35,7 @@ addType('dataDates', {
   restrictsToList: true,
   samples: samplesDates,
   samplesData: samplesDatesList,
-  propType: PropTypes.object,
+  propType: PropTypes.array,
 });
 
 /******************************************************************************/
@@ -64,7 +64,7 @@ addType('dataBadges', {
   restrictsToList: true,
   samples: samplesBadges,
   samplesData: samplesBadgesList,
-  propType: PropTypes.object,
+  propType: PropTypes.array,
 });
 
 /******************************************************************************/

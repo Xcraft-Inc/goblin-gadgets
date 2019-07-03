@@ -1,10 +1,16 @@
 //T:2019-02-27
 import T from 't';
 import React from 'react';
+import Props from './props';
 import Widget from 'laboratory/widget';
 import ComboHelpers from 'gadgets/helpers/combo-helpers';
 
 import * as Bool from 'gadgets/helpers/bool-helpers';
+
+import {
+  makePropTypes,
+  makeDefaultProps,
+} from 'xcraft-core-utils/lib/prop-types';
 
 import Label from 'gadgets/label/widget';
 import Button from 'gadgets/button/widget';
@@ -33,7 +39,7 @@ function getDateFromRank(rank) {
 
 /******************************************************************************/
 
-class Calendar extends Widget {
+export default class Calendar extends Widget {
   constructor() {
     super(...arguments);
 
@@ -639,4 +645,6 @@ class Calendar extends Widget {
 }
 
 /******************************************************************************/
-export default Calendar;
+
+Calendar.propTypes = makePropTypes(Props);
+Calendar.defaultProps = makeDefaultProps(Props);
