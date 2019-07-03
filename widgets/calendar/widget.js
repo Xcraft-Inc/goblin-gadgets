@@ -270,6 +270,7 @@ export default class Calendar extends Widget {
     date,
     active,
     dimmed,
+    hidden,
     weekend,
     subkind,
     badgeValue,
@@ -280,6 +281,10 @@ export default class Calendar extends Widget {
     let d = DateConverters.getDay(date); // 1..31
     if (subkind === 'sub') {
       d = '(' + d + ')';
+    }
+    if (hidden) {
+      d = '';
+      badgeValue = '';
     }
     return (
       <Button
@@ -309,13 +314,14 @@ export default class Calendar extends Widget {
     let i = 0;
     for (i = 0; i < 7; ++i) {
       // monday..sunday
-      let active = 'false';
-      let dimmed = 'false';
-      let weekend = 'false';
+      let active = false;
+      let dimmed = false;
+      let hidden = false;
+      let weekend = false;
       let subkind = null;
       const type = this.getDateType(firstDate);
       if (type) {
-        active = 'true';
+        active = true;
         subkind = type;
       }
       if (
@@ -324,14 +330,17 @@ export default class Calendar extends Widget {
         DateConverters.getMonth(firstDate) !==
           DateConverters.getMonth(startOfMonth)
       ) {
-        dimmed = 'true';
+        dimmed = true;
+        if (Bool.isTrue(this.props.hideDaysOutOfMonth)) {
+          hidden = true;
+        }
       }
       if (firstDate < startDate || firstDate > endDate) {
-        dimmed = 'true';
+        dimmed = true;
       }
       if (i >= 5) {
         // saturday or sunday ?
-        weekend = 'true';
+        weekend = true;
       }
       const badgeValue = this.getBadgeValue(firstDate);
       const badgeColor = this.getBadgeColor(firstDate);
@@ -340,6 +349,7 @@ export default class Calendar extends Widget {
         firstDate,
         active,
         dimmed,
+        hidden,
         weekend,
         subkind,
         badgeValue,

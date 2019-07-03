@@ -52,10 +52,12 @@ const samplesBadgesList = {
     {date: '2019-03-22', value: '3', color: 'red'},
   ],
   april2019: [
+    {date: '2019-03-31', value: '1', color: 'red'},
     {date: '2019-04-02', value: '1', color: 'red'},
     {date: '2019-04-03', value: '2', color: 'red'},
     {date: '2019-04-05', value: '3', color: 'red'},
     {date: '2019-04-16', value: '4', color: 'red'},
+    {date: '2019-05-01', value: '1', color: 'red'},
   ],
 };
 
@@ -111,6 +113,11 @@ export default [
   },
   {
     name: 'navigator',
+    group: 'aspect',
+    type: types.bool,
+  },
+  {
+    name: 'hideDaysOutOfMonth',
     group: 'aspect',
     type: types.bool,
   },

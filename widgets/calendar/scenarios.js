@@ -29,6 +29,7 @@ export default [
       visibleDate: '2019-03-01',
       frame: true,
       monthCount: 2,
+      hideDaysOutOfMonth: true,
     },
   },
   {
@@ -39,6 +40,7 @@ export default [
       visibleDate: '2019-09-01',
       frame: true,
       monthCount: 3,
+      hideDaysOutOfMonth: true,
     },
   },
   {
