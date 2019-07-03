@@ -124,7 +124,7 @@ class CalendarRecurrence extends Widget {
     return (
       <Container kind="row">
         <Calendar
-          monthCount="1"
+          monthCount={1}
           startDate={this.props.startDate}
           endDate={this.props.endDate}
           visibleDate={this.visibleDate}

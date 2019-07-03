@@ -154,7 +154,7 @@ class CalendarBoards extends Widget {
   renderCalendar() {
     return (
       <Calendar
-        monthCount="1"
+        monthCount={1}
         frame="true"
         visibleDate={this.props.visibleDate}
         dates={this.props.selectedDate ? [this.props.selectedDate] : []}
