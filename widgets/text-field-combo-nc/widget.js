@@ -178,7 +178,7 @@ export default class TextFieldComboNC extends Widget {
         <this.props.renderTextField
           hintText={this.props.hintText}
           tooltip={this.props.tooltip}
-          spacing={'overlap'}
+          spacing="overlap"
           shape={textFieldShape}
           flyingBalloonAnchor={this.props.flyingBalloonAnchor}
           value={value}
@@ -204,7 +204,7 @@ export default class TextFieldComboNC extends Widget {
         <TextFieldNC
           hintText={this.props.hintText}
           tooltip={this.props.tooltip}
-          spacing={'overlap'}
+          spacing="overlap"
           shape={textFieldShape}
           flyingBalloonAnchor={this.props.flyingBalloonAnchor}
           value={value}
