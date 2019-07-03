@@ -7,17 +7,17 @@ import Widget from 'laboratory/widget';
 export default class ComboContainer extends Widget {
   constructor() {
     super(...arguments);
-
-    this.location = null;
     this.setChildrenDivRef = this.setChildrenDivRef.bind(this);
-    this.comboState = 'close';
+    this.reset();
   }
 
-  resetLocation() {
+  reset() {
     this.side = null;
-    this.location = null;
     this.positionInfo = null;
     this.safeAreaStyle = null;
+    this.horizontalPositionStyle = null;
+    this.childrenDivRef = null;
+    this.comboState = 'close';
   }
 
   setChildrenDivRef(node) {
@@ -57,24 +57,25 @@ export default class ComboContainer extends Widget {
 
     if (this.positionInfo.centerX > window.innerWidth / 2) {
       this.horizontalPositionStyle = {
-        width: (window.innerWidth - this.positionInfo.centerX) * 2,
+        minWidth: (window.innerWidth - this.positionInfo.centerX) * 2,
       };
 
       justifyContent = 'flex-end';
     } else {
-      this.horizontalPositionStyle = {width: this.positionInfo.centerX * 2};
-
+      this.horizontalPositionStyle = {minWidth: this.positionInfo.centerX * 2};
       justifyContent = 'flex-start';
     }
     if (this.side === 'down') {
       this.safeAreaStyle = {
         top: this.positionInfo.bottom,
         justifyContent,
+        alignItems: 'flex-start',
       };
     } else {
       this.safeAreaStyle = {
-        bottom: this.positionInfo.top,
+        bottom: window.innerHeight - this.positionInfo.top,
         justifyContent,
+        alignItems: 'flex-end',
       };
     }
   }
@@ -122,22 +123,30 @@ export default class ComboContainer extends Widget {
 
   renderCombo() {
     return (
-      <div
-        style={this.safeAreaStyle}
-        className={this.styles.classNames.safeArea}
-      >
+      <React.Fragment>
         <div
-          style={this.horizontalPositionStyle}
-          className={this.styles.classNames.horizontalPosition}
+          className={this.styles.classNames.fullScreen}
+          onClick={this.props.onClose}
+        ></div>
+        <div
+          style={this.safeAreaStyle}
+          className={this.styles.classNames.safeArea}
         >
-          {this.props.children}
+          <div
+            style={this.horizontalPositionStyle}
+            className={this.styles.classNames.horizontalPosition}
+          >
+            {this.props.children}
+          </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 
   render() {
-    if (this.comboState === 'close' && this.props.show) {
+    if (!this.props.show) {
+      this.reset();
+    } else if (this.comboState === 'close') {
       this.comboState = 'waiting-position';
     }
     if (this.comboState === 'waiting-position') {
@@ -156,8 +165,7 @@ export default class ComboContainer extends Widget {
     }
     if (this.comboState === 'get-children-size') {
       return this.renderForSize();
-    }
-    if (this.comboState === 'render-combo') {
+    } else if (this.comboState === 'render-combo') {
       return this.renderCombo();
     }
     return null;
