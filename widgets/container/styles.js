@@ -101,6 +101,7 @@ export default function styles(theme, props) {
   let boxShadow = null;
   let margin = marginBottom ? '0px 0px ' + marginBottom + ' 0px' : '0px';
   let marginLeft = null;
+  let marginRight = null;
   let padding = '0px';
   let backgroundColor = null;
   let color = null;
@@ -120,6 +121,17 @@ export default function styles(theme, props) {
   const m = theme.shapes.containerMargin;
   const s = theme.shapes.lineSpacing;
   const d = Unit.multiply(m, 0.5);
+
+  if (spacing) {
+    let spacingType = {
+      overlap: '-1px',
+      tiny: '1px',
+      large: m,
+      big: Unit.multiply(m, 2),
+      double: theme.shapes.containerMargin,
+    };
+    marginRight = spacingType[spacing];
+  }
 
   if (kind === 'root') {
     position = 'relative';
@@ -1266,6 +1278,7 @@ export default function styles(theme, props) {
     boxShadow: boxShadow,
     margin: margin,
     marginLeft: marginLeft,
+    marginRight: marginRight,
     padding: padding,
     backgroundColor: backgroundColor,
     color: color,
