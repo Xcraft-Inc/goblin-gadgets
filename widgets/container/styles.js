@@ -654,12 +654,6 @@ export default function styles(theme, props) {
     } else if (subkind === 'left') {
       justifyContent = 'flex-start';
     }
-    if (spacing === 'compact') {
-      height = theme.shapes.lineHeight;
-      bottomMargin = '0px';
-    } else if (spacing === 'overlap') {
-      bottomMargin = '-1px';
-    }
     if (Bool.isTrue(selected) && subkind !== 'large-box') {
       backgroundColor = theme.palette.paneSelectedBackground;
       color = theme.palette.paneSelectedText;
