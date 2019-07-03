@@ -160,12 +160,22 @@ export default class HinterFieldNC extends Widget {
       return null;
     }
 
+    const width = this.props.width;
+    let grow = this.props.grow;
+    if (width && grow) {
+      console.warn(
+        `HinterField: Conflicting definitions for width=${width} and grow=${grow} (only one is useful).`
+      );
+    } else if (!width && !grow) {
+      grow = '1';
+    }
+
     return (
       <Container
         kind="row"
         visibility={this.props.visibility}
-        width={this.props.width}
-        grow={this.props.grow}
+        width={width}
+        grow={grow}
         addClassName="hinter-container"
       >
         {this.renderContent()}
