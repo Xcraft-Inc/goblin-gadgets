@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 /******************************************************************************/
 
 const samplesDates = [
-  {id: 'march2019', text: 'Mars 2019'},
-  {id: 'april2019', text: 'Avril 2019'},
+  {id: 'march2019', text: 'March 2019'},
+  {id: 'april2019', text: 'April 2019'},
 ];
 
 const samplesDatesList = {
@@ -41,8 +41,8 @@ addType('dataDates', {
 /******************************************************************************/
 
 const samplesBadges = [
-  {id: 'march2019', text: 'Mars 2019'},
-  {id: 'april2019', text: 'Avril 2019'},
+  {id: 'march2019', text: 'March 2019'},
+  {id: 'april2019', text: 'April 2019'},
 ];
 
 const samplesBadgesList = {
@@ -55,6 +55,7 @@ const samplesBadgesList = {
     {date: '2019-04-02', value: '1', color: 'red'},
     {date: '2019-04-03', value: '2', color: 'red'},
     {date: '2019-04-05', value: '3', color: 'red'},
+    {date: '2019-04-16', value: '4', color: 'red'},
   ],
 };
 

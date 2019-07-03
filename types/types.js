@@ -80,12 +80,11 @@ const types = {
     samples: [
       {id: null, text: ''},
       {id: '1969-07-21', text: 'Premiers pas sur la lune'},
-      {id: '2020-04-01', text: "Prochain poisson d'avril"},
       {id: '2019-01-01', text: 'Début 2019'},
+      {id: '2020-04-01', text: "Poisson d'avril 2019"},
       {id: '2019-05-01', text: 'Fête du travail 2019'},
-      {id: '2019-12-31', text: 'Fin 2019'},
       {id: '2019-12-25', text: 'Noël 2019'},
-      {id: '2020-12-25', text: 'Noël 2020'},
+      {id: '2019-12-31', text: 'Fin 2019'},
     ],
   },
 

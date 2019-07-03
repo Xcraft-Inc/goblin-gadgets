@@ -302,7 +302,7 @@ export default class Calendar extends Widget {
   }
 
   // Return an array of 7 buttons, for a week.
-  renderButtons(firstDate) {
+  renderButtons(startOfMonth, firstDate) {
     const line = [];
     const startDate = this.props.startDate;
     const endDate = this.props.endDate;
@@ -320,9 +320,9 @@ export default class Calendar extends Widget {
       }
       if (
         DateConverters.getYear(firstDate) !==
-          DateConverters.getYear(this.props.visibleDate) ||
+          DateConverters.getYear(startOfMonth) ||
         DateConverters.getMonth(firstDate) !==
-          DateConverters.getMonth(this.props.visibleDate)
+          DateConverters.getMonth(startOfMonth)
       ) {
         dimmed = 'true';
       }
@@ -353,11 +353,11 @@ export default class Calendar extends Widget {
   }
 
   // Return the html for a line of 7 buttons (for a week).
-  renderLineOfButtons(firstDate, index) {
+  renderLineOfButtons(startOfMonth, firstDate, index) {
     const lineClass = this.styles.classNames.line;
     return (
       <div className={lineClass} key={index}>
-        {this.renderButtons(firstDate)}
+        {this.renderButtons(startOfMonth, firstDate)}
       </div>
     );
   }
@@ -415,13 +415,13 @@ export default class Calendar extends Widget {
 
   // Return the html for the header, with 2 buttons next/prevMonth and the title.
   // By example: '<' mai 2016 '>'
-  renderHeader(header, firstMonth, lastMonth) {
+  renderHeader(header, isFirstMonth, isLastMonth) {
     const headerClass = this.styles.classNames.header;
     return (
       <div className={headerClass} key="header">
-        {this.renderPrevMonthButton(firstMonth)}
+        {this.renderPrevMonthButton(isFirstMonth)}
         {this.renderTitleButton(header)}
-        {this.renderNextMonthButton(lastMonth)}
+        {this.renderNextMonthButton(isLastMonth)}
       </div>
     );
   }
@@ -459,12 +459,18 @@ export default class Calendar extends Widget {
 
   // Return an array of lines, with header then week's lines.
   // The array must have from 4 to 6 lines.
-  renderColumnOfLines(header, firstDate, firstMonth, lastMonth) {
+  renderColumnOfLines(
+    header,
+    startOfMonth,
+    firstDate,
+    isFirstMonth,
+    isLastMonth
+  ) {
     const column = [];
-    column.push(this.renderHeader(header, firstMonth, lastMonth));
+    column.push(this.renderHeader(header, isFirstMonth, isLastMonth));
     column.push(this.renderLineOfDOWs());
     for (let i = 0; i < 6; ++i) {
-      const line = this.renderLineOfButtons(firstDate, i);
+      const line = this.renderLineOfButtons(startOfMonth, firstDate, i);
       column.push(line);
       firstDate = DateConverters.addDays(firstDate, 7);
     }
@@ -472,27 +478,31 @@ export default class Calendar extends Widget {
   }
 
   // Retourne all the html content of the calendar.
-  renderLines(firstMonth, lastMonth) {
-    const firstDate = DateConverters.getCalendarStartDate(
-      this.props.visibleDate
-    );
-    const header = DateConverters.getDisplayed(this.props.visibleDate, 'My'); // 'mai 2016' by example
+  renderLines(startOfMonth, isFirstMonth, isLastMonth) {
+    const firstDate = DateConverters.getCalendarStartDate(startOfMonth);
+    const header = DateConverters.getDisplayed(startOfMonth, 'My'); // 'mai 2016' by example
 
     const columnClass = this.styles.classNames.column;
     return (
       <div className={columnClass}>
-        {this.renderColumnOfLines(header, firstDate, firstMonth, lastMonth)}
+        {this.renderColumnOfLines(
+          header,
+          startOfMonth,
+          firstDate,
+          isFirstMonth,
+          isLastMonth
+        )}
       </div>
     );
   }
 
-  renderMonth(firstMonth, lastMonth, index) {
-    const monthClass = lastMonth
+  renderMonth(startOfMonth, isFirstMonth, isLastMonth, index) {
+    const monthClass = isLastMonth
       ? this.styles.classNames.singleMonth
       : this.styles.classNames.month;
     return (
       <div className={monthClass} key={index}>
-        {this.renderLines(firstMonth, lastMonth)}
+        {this.renderLines(startOfMonth, isFirstMonth, isLastMonth)}
       </div>
     );
   }
@@ -503,11 +513,11 @@ export default class Calendar extends Widget {
     for (var m = 0; m < monthCount; m++) {
       const year = DateConverters.getYear(this.props.visibleDate);
       const month = DateConverters.getMonth(this.props.visibleDate);
-      const date = DateConverters.getDate(year, month + m, 1);
+      const startOfMonth = DateConverters.getDate(year, month + m, 1);
 
-      const firstMonth = m === 0;
-      const lastMonth = m === monthCount - 1;
-      result.push(this.renderMonth(date, firstMonth, lastMonth, m));
+      const isFirstMonth = m === 0;
+      const isLastMonth = m === monthCount - 1;
+      result.push(this.renderMonth(startOfMonth, isFirstMonth, isLastMonth, m));
     }
     return result;
   }
