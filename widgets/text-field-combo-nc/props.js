@@ -128,7 +128,7 @@ const samplesList = {
 
 addType('dataList', {
   type: 'dataList',
-  defaultValue: 'T1',
+  //? defaultValue: 'T1',
   widget: 'combo',
   restrictsToList: true,
   samples: samples,

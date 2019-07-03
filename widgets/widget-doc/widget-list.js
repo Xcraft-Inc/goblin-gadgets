@@ -46,6 +46,10 @@ import Gauge from 'goblin-gadgets/widgets/gauge/widget';
 import gaugeProps from 'goblin-gadgets/widgets/gauge/props';
 import gaugeScenarios from 'goblin-gadgets/widgets/gauge/scenarios';
 
+import Calendar from 'goblin-gadgets/widgets/calendar/widget';
+import calendarProps from 'goblin-gadgets/widgets/calendar/props';
+import calendarScenarios from 'goblin-gadgets/widgets/calendar/scenarios';
+
 import Triangle from 'goblin-gadgets/widgets/triangle/widget';
 import triangleProps from 'goblin-gadgets/widgets/triangle/props';
 import triangleScenarios from 'goblin-gadgets/widgets/triangle/scenarios';
@@ -134,6 +138,13 @@ const widgetList = [
     widgetPath: 'goblin-gadgets/widgets/gauge/widget',
     props: gaugeProps,
     scenarios: gaugeScenarios,
+  },
+  {
+    name: 'Calendar',
+    widget: Calendar,
+    widgetPath: 'goblin-gadgets/widgets/calendar/widget',
+    props: calendarProps,
+    scenarios: calendarScenarios,
   },
   {
     name: 'Triangle',
