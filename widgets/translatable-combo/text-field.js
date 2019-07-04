@@ -79,7 +79,7 @@ class NabuTextField extends Form {
       messageInfo: this.props.messageInfo,
       messageWarning: this.props.messageWarning,
       filterKeys: this.props.filterKeys,
-      spacing: this.props.spacing,
+      horizontalSpacing: this.props.horizontalSpacing,
       shape: textFieldShape,
       tabIndex: this.props.tabIndex,
       defaultValue: this.props.defaultValue,

@@ -77,7 +77,7 @@ class Notification extends Widget {
           backgroundColor={glyphColor}
           kind="round"
           vpos="top"
-          spacing="large"
+          horizontalSpacing="large"
           onClick={this.props.onClickNotification}
         />
         <Label

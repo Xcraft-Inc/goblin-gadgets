@@ -142,7 +142,7 @@ class GlyphsDialog extends Widget {
             glyph={glyph.get('glyph')}
             glyphColor={glyph.get('color')}
             glyphSize="300%"
-            spacing="compact"
+            horizontalSpacing="compact"
             justify="center"
             cursor="ew-resize"
           />
@@ -157,7 +157,7 @@ class GlyphsDialog extends Widget {
           glyph={glyph.get('glyph')}
           glyphColor={glyph.get('color')}
           glyphSize="300%"
-          spacing="compact"
+          horizontalSpacing="compact"
           justify="center"
         />
       );

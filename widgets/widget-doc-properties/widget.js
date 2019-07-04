@@ -131,7 +131,7 @@ class WidgetDocProperties extends Widget {
           <TextInputNC
             grow="1"
             shape="left-rounded"
-            spacing="overlap"
+            horizontalSpacing="overlap"
             value={this.filter}
             onChange={this.onChangeFilter}
           />
@@ -156,7 +156,7 @@ class WidgetDocProperties extends Widget {
           <TextInputNC
             grow="1"
             shape="rounded"
-            spacing="overlap"
+            horizontalSpacing="overlap"
             value={this.filter}
             onChange={this.onChangeFilter}
           />
@@ -179,7 +179,7 @@ class WidgetDocProperties extends Widget {
       <Button
         key={index}
         text={scenario.name}
-        spacing="overlap"
+        horizontalSpacing="overlap"
         onClick={() => this.setScenario(scenario)}
       />
     );
@@ -284,7 +284,7 @@ class WidgetDocProperties extends Widget {
 
   render() {
     return (
-      <Container kind="view" width="670px" spacing="large">
+      <Container kind="view" width="670px" horizontalSpacing="large">
         <Container kind="pane-header">
           <Label text="Properties" kind="pane-header" />
         </Container>

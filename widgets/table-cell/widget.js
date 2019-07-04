@@ -92,7 +92,7 @@ class TableCell extends Widget {
           text={text}
           weight={weight}
           justify={this.props.textAlign}
-          spacing={this.props.spacing}
+          horizontalSpacing={this.props.horizontalSpacing}
           wrap={this.props.wrap}
         >
           {this.props.children}

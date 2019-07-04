@@ -68,7 +68,7 @@ export default class LabelRow extends Widget {
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.spacing}
+        horizontalSpacing={this.props.horizontalSpacing}
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify || 'top'}
         disabled={this.props.disabled}

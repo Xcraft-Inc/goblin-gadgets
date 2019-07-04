@@ -21,7 +21,7 @@ export const propNames = [
   'subkind',
   'floatingHeight',
   'grow',
-  'spacing',
+  'horizontalSpacing',
   'markColor',
   'selected',
   'verticalJustify',
@@ -53,7 +53,7 @@ export default function styles(theme, props) {
     subkind,
     floatingHeight,
     grow,
-    spacing,
+    horizontalSpacing,
     markColor,
     selected,
     verticalJustify,
@@ -122,7 +122,7 @@ export default function styles(theme, props) {
   const s = theme.shapes.lineSpacing;
   const d = Unit.multiply(m, 0.5);
 
-  if (spacing) {
+  if (horizontalSpacing) {
     let spacingType = {
       overlap: '-1px',
       tiny: '1px',
@@ -130,7 +130,7 @@ export default function styles(theme, props) {
       big: Unit.multiply(m, 2),
       double: theme.shapes.containerMargin,
     };
-    marginRight = spacingType[spacing];
+    marginRight = spacingType[horizontalSpacing];
   }
 
   if (kind === 'root') {
@@ -322,8 +322,9 @@ export default function styles(theme, props) {
     display = 'flex';
     flexDirection = 'column';
     flexGrow = grow;
-    if (spacing === 'large') {
+    if (horizontalSpacing === 'large') {
       margin = '0px ' + theme.shapes.viewSpacing + ' 0px 0px';
+      marginRight = null;
     } else {
       margin = '0px';
     }

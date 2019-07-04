@@ -1,4 +1,3 @@
-//T:2019-02-27
 import T from 't';
 import React from 'react';
 import Props from './props';
@@ -47,6 +46,7 @@ export default class Calendar extends Widget {
 
     this.state = {
       showCombo: false,
+      visibleDate: null,
     };
 
     this.onPrevMonth = this.onPrevMonth.bind(this);
@@ -69,6 +69,16 @@ export default class Calendar extends Widget {
   set showCombo(value) {
     this.setState({
       showCombo: value,
+    });
+  }
+
+  get visibleDate() {
+    return this.state.visibleDate || this.props.visibleDate;
+  }
+
+  set visibleDate(value) {
+    this.setState({
+      visibleDate: value,
     });
   }
   //#endregion
@@ -98,7 +108,7 @@ export default class Calendar extends Widget {
 
   get comboList() {
     const list = [];
-    const nowRank = getMonthsRank(this.props.visibleDate);
+    const nowRank = getMonthsRank(this.visibleDate);
     const startCount = Math.max(
       this.props.startDate
         ? getMonthsRank(this.props.startDate) - nowRank
@@ -158,8 +168,8 @@ export default class Calendar extends Widget {
   }
 
   get startVisibleDate() {
-    const month = DateConverters.getMonth(this.props.visibleDate);
-    const year = DateConverters.getYear(this.props.visibleDate);
+    const month = DateConverters.getMonth(this.visibleDate);
+    const year = DateConverters.getYear(this.visibleDate);
     return DateConverters.getDate(year, month, 1);
   }
 
@@ -180,7 +190,9 @@ export default class Calendar extends Widget {
   }
 
   changeDate(date) {
-    var x = this.props.visibleDateChanged;
+    this.visibleDate = date;
+
+    const x = this.props.visibleDateChanged;
     if (x) {
       x(date);
     }
@@ -189,14 +201,14 @@ export default class Calendar extends Widget {
   // Called when the '<' button is clicked.
   // Modify internalState.visibleDate (fix visible year and month).
   onPrevMonth() {
-    const newDate = DateConverters.addMonths(this.props.visibleDate, -1);
+    const newDate = DateConverters.addMonths(this.visibleDate, -1);
     this.changeDate(newDate);
   }
 
   // Called when the '>' button is clicked.
   // Modify internalState.visibleDate (fix visible year and month).
   onNextMonth() {
-    const newDate = DateConverters.addMonths(this.props.visibleDate, 1);
+    const newDate = DateConverters.addMonths(this.visibleDate, 1);
     this.changeDate(newDate);
   }
 
@@ -227,25 +239,25 @@ export default class Calendar extends Widget {
   }
 
   onVisibleDateMonth(month) {
-    const s = DateConverters.split(this.props.visibleDate);
+    const s = DateConverters.split(this.visibleDate);
     const date = DateConverters.getDate(s.year, month, 1);
     this.changeDate(date);
   }
 
   onVisibleDateAddMonths(months) {
-    const date = DateConverters.addMonths(this.props.visibleDate, months);
+    const date = DateConverters.addMonths(this.visibleDate, months);
     this.changeDate(date);
   }
 
   onVisibleDatePrevYear() {
-    const s = DateConverters.split(this.props.visibleDate);
+    const s = DateConverters.split(this.visibleDate);
     const year = s.month === 1 ? s.year - 1 : s.year;
     const date = DateConverters.getDate(year, 1, 1);
     this.changeDate(date);
   }
 
   onVisibleDateNextYear() {
-    const s = DateConverters.split(this.props.visibleDate);
+    const s = DateConverters.split(this.visibleDate);
     const date = DateConverters.getDate(s.year + 1, 1, 1);
     this.changeDate(date);
   }
@@ -379,9 +391,7 @@ export default class Calendar extends Widget {
           glyph="solid/chevron-left"
           kind="calendar-navigator"
           key="prevMonth"
-          disabled={Bool.toString(
-            this.props.visibleDate < this.props.startDate
-          )}
+          disabled={Bool.toString(this.visibleDate < this.props.startDate)}
           onClick={this.onPrevMonth}
         />
       );
@@ -412,7 +422,7 @@ export default class Calendar extends Widget {
           kind="calendar-navigator"
           key="nextMonth"
           disabled={Bool.toString(
-            DateConverters.moveAtEndingOfMonth(this.props.visibleDate) >=
+            DateConverters.moveAtEndingOfMonth(this.visibleDate) >=
               this.props.endDate
           )}
           onClick={this.onNextMonth}
@@ -521,8 +531,8 @@ export default class Calendar extends Widget {
     const result = [];
     const monthCount = this.monthCount;
     for (var m = 0; m < monthCount; m++) {
-      const year = DateConverters.getYear(this.props.visibleDate);
-      const month = DateConverters.getMonth(this.props.visibleDate);
+      const year = DateConverters.getYear(this.visibleDate);
+      const month = DateConverters.getMonth(this.visibleDate);
       const startOfMonth = DateConverters.getDate(year, month + m, 1);
 
       const isFirstMonth = m === 0;
@@ -544,7 +554,7 @@ export default class Calendar extends Widget {
         grow="1"
         onClick={() => this.onVisibleDateMonth(month)}
         active={Bool.toString(active)}
-        spacing="tiny"
+        horizontalSpacing="tiny"
       />
     );
   }
@@ -563,7 +573,7 @@ export default class Calendar extends Widget {
 
   renderMonthsOfYear() {
     const result = [];
-    const visibleMonth = DateConverters.split(this.props.visibleDate).month;
+    const visibleMonth = DateConverters.split(this.visibleDate).month;
     for (let month = 1; month <= 12; month += 4) {
       result.push(this.renderLineOfMonths(month, visibleMonth));
     }

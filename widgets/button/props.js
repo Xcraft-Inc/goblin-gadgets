@@ -274,9 +274,9 @@ export default [
     type: types.grow,
   },
   {
-    name: 'spacing',
+    name: 'horizontalSpacing',
     group: 'layout',
-    type: types.spacing,
+    type: types.horizontalSpacing,
   },
 
   // Text.

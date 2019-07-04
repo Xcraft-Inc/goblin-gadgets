@@ -323,7 +323,7 @@ class Table extends Widget {
               hintText={T('Filtre')}
               value={this.props.filter}
               onChange={this.onChangeFilter}
-              spacing="overlap"
+              horizontalSpacing="overlap"
             />
             <Button
               border="none"
@@ -380,7 +380,7 @@ class Table extends Widget {
         isHeader="true"
         text={column.get('description')}
         glyph={glyph}
-        spacing="compact"
+        horizontalSpacing="compact"
         wrap="no"
         selectionChanged={() => this.onSortingChanged(column.get('name'))}
       />
@@ -566,7 +566,7 @@ class Table extends Widget {
             glyph="solid/check"
             text={T('Tout sélectionner')}
             grow={isAllSelected ? '0' : '1'}
-            spacing={isAllDeselected ? null : 'overlap'}
+            horizontalSpacing={isAllDeselected ? null : 'overlap'}
             onClick={this.selectAll}
           />
           <Button

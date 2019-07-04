@@ -65,7 +65,7 @@ class WidgetDocPropertyControl extends Widget {
         <TextFieldTypedComboNC
           type={this.props.type.type}
           shape="smooth"
-          spacing="tiny"
+          horizontalSpacing="tiny"
           restrictsToList={restrictsToList}
           rows={multiline ? '2' : null}
           grow="1"
@@ -93,7 +93,7 @@ class WidgetDocPropertyControl extends Widget {
       return (
         <TextFieldComboNC
           shape="smooth"
-          spacing="tiny"
+          horizontalSpacing="tiny"
           restrictsToList={restrictsToList}
           rows={multiline ? '2' : null}
           grow="1"
@@ -130,7 +130,7 @@ class WidgetDocPropertyControl extends Widget {
         return (
           <React.Fragment>
             <ButtonCombo
-              spacing="tiny"
+              horizontalSpacing="tiny"
               comboGlyph="solid/ellipsis-v"
               list={list}
               selectedId={this.state.type.type}
@@ -149,7 +149,7 @@ class WidgetDocPropertyControl extends Widget {
       default:
         return (
           <TextFieldNC
-            spacing="tiny"
+            horizontalSpacing="tiny"
             shape="smooth"
             value={this.props.value || ''}
             onChange={this.onChange}

@@ -32,7 +32,7 @@ export const propNames = [
   'disabled',
   'readonly',
   'border',
-  'spacing',
+  'horizontalSpacing',
   'leftSpacing',
   'kind',
   'text',
@@ -76,7 +76,7 @@ export default function styles(theme, props) {
     disabled,
     readonly,
     border,
-    spacing,
+    horizontalSpacing,
     leftSpacing,
     kind,
     text,
@@ -152,8 +152,8 @@ export default function styles(theme, props) {
     backgroundColor = null;
   }
 
-  // Initialise right margin according to spacing.
-  if (spacing) {
+  // Initialise right margin according to horizontalSpacing.
+  if (horizontalSpacing) {
     let spacingType = {
       overlap: '-1px',
       tiny: '1px',
@@ -161,7 +161,7 @@ export default function styles(theme, props) {
       big: Unit.multiply(m, 2),
       double: theme.shapes.containerMargin,
     };
-    boxMarginRight = spacingType[spacing];
+    boxMarginRight = spacingType[horizontalSpacing];
   }
   if (leftSpacing === 'overlap') {
     boxMarginLeft = '-1px';

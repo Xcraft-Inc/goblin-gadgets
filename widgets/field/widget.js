@@ -150,7 +150,7 @@ class Field extends Form {
         labelWrap={this.props.labelWrap}
         labelGlyph={this.props.labelGlyph}
         labelWidth={this.props.labelWidth || defaultLabelWidth}
-        spacing={this.props.spacing}
+        horizontalSpacing={this.props.horizontalSpacing}
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
@@ -176,7 +176,7 @@ class Field extends Form {
     //-         width={labelWidth}
     //-         kind="label-field"
     //-         justify="left"
-    //-         spacing="overlap"
+    //-         horizontalSpacing="overlap"
     //-       />
     //-     )}
     //-     <Dynamic grow="1" tooltip={this.props.tooltip} />
@@ -259,7 +259,7 @@ class Field extends Form {
           <LabelTextField
             readonly="true"
             type={this.props.type}
-            spacing={this.props.spacing}
+            horizontalSpacing={this.props.horizontalSpacing}
             shape={this.props.shape}
             labelText={this.props.labelText}
             labelWrap={this.props.labelWrap}
@@ -292,7 +292,7 @@ class Field extends Form {
           labelWrap={this.props.labelWrap}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
-          spacing={this.props.spacing}
+          horizontalSpacing={this.props.horizontalSpacing}
           verticalSpacing={this.props.verticalSpacing}
           verticalJustify={this.props.verticalJustify}
           grow={this.props.fieldWidth ? null : '1'}
@@ -303,7 +303,7 @@ class Field extends Form {
             shape={this.props.shape}
             grow="1"
             width={this.props.fieldWidth}
-            spacing={this.props.spacing}
+            horizontalSpacing={this.props.horizontalSpacing}
             hintText={this.props.hintText}
             tooltip={this.props.tooltip || this.props.hintText}
             rows={this.props.rows}
@@ -334,7 +334,7 @@ class Field extends Form {
           <TranslatableTextField
             readonly="true"
             type={this.props.type}
-            spacing={this.props.spacing}
+            horizontalSpacing={this.props.horizontalSpacing}
             shape={this.props.shape}
             labelText={this.props.labelText}
             labelWrap={this.props.labelWrap}
@@ -393,7 +393,7 @@ class Field extends Form {
           <TextFieldTyped
             readonly="true"
             type="date"
-            spacing={this.props.spacing}
+            horizontalSpacing={this.props.horizontalSpacing}
             shape={this.props.shape}
             labelText={this.props.labelText}
             labelWrap={this.props.labelWrap}
@@ -428,7 +428,7 @@ class Field extends Form {
           <TextFieldTyped
             readonly="true"
             type="time"
-            spacing={this.props.spacing}
+            horizontalSpacing={this.props.horizontalSpacing}
             shape={this.props.shape}
             labelText={this.props.labelText}
             labelWrap={this.props.labelWrap}
@@ -463,7 +463,7 @@ class Field extends Form {
           <TextFieldTyped
             readonly="true"
             type="datetime"
-            spacing={this.props.spacing}
+            horizontalSpacing={this.props.horizontalSpacing}
             shape={this.props.shape}
             labelText={this.props.labelText}
             labelWrap={this.props.labelWrap}
@@ -498,7 +498,7 @@ class Field extends Form {
           <TextFieldTimeInterval
             readonly="true"
             type="time"
-            spacing={this.props.spacing}
+            horizontalSpacing={this.props.horizontalSpacing}
             labelText={this.props.labelText}
             labelWrap={this.props.labelWrap}
             labelGlyph={this.props.labelGlyph}
@@ -533,7 +533,7 @@ class Field extends Form {
           <TextFieldTyped
             readonly="true"
             type="price"
-            spacing={this.props.spacing}
+            horizontalSpacing={this.props.horizontalSpacing}
             shape={this.props.shape}
             labelText={this.props.labelText}
             labelWrap={this.props.labelWrap}
@@ -569,7 +569,7 @@ class Field extends Form {
             readonly="true"
             type="weight"
             unit={this.props.unit}
-            spacing={this.props.spacing}
+            horizontalSpacing={this.props.horizontalSpacing}
             shape={this.props.shape}
             labelText={this.props.labelText}
             labelWrap={this.props.labelWrap}
@@ -605,7 +605,7 @@ class Field extends Form {
             readonly="true"
             type="length"
             unit={this.props.unit}
-            spacing={this.props.spacing}
+            horizontalSpacing={this.props.horizontalSpacing}
             shape={this.props.shape}
             labelText={this.props.labelText}
             labelWrap={this.props.labelWrap}
@@ -641,7 +641,7 @@ class Field extends Form {
             readonly="true"
             type="volume"
             unit={this.props.unit}
-            spacing={this.props.spacing}
+            horizontalSpacing={this.props.horizontalSpacing}
             shape={this.props.shape}
             labelText={this.props.labelText}
             labelWrap={this.props.labelWrap}
@@ -677,7 +677,7 @@ class Field extends Form {
             readonly="true"
             type="number"
             unit={this.props.unit}
-            spacing={this.props.spacing}
+            horizontalSpacing={this.props.horizontalSpacing}
             shape={this.props.shape}
             labelText={this.props.labelText}
             labelWrap={this.props.labelWrap}
@@ -713,7 +713,7 @@ class Field extends Form {
             readonly="true"
             type="percent"
             unit={this.props.unit}
-            spacing={this.props.spacing}
+            horizontalSpacing={this.props.horizontalSpacing}
             shape={this.props.shape}
             labelText={this.props.labelText}
             labelWrap={this.props.labelWrap}
@@ -749,7 +749,7 @@ class Field extends Form {
             readonly="true"
             type="delay"
             unit={this.props.unit}
-            spacing={this.props.spacing}
+            horizontalSpacing={this.props.horizontalSpacing}
             shape={this.props.shape}
             labelText={this.props.labelText}
             labelWrap={this.props.labelWrap}
@@ -780,13 +780,12 @@ class Field extends Form {
         labelWrap={this.props.labelWrap}
         labelGlyph={this.props.labelGlyph}
         labelWidth={this.props.labelWidth || defaultLabelWidth}
-        spacing={this.props.spacing}
+        horizontalSpacing={this.props.horizontalSpacing}
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
         <TextFieldCombo
           selectAllOnFocus="true"
-          spacing={this.props.spacing}
           shape={this.props.shape}
           getGlyph={this.props.getGlyph}
           hintText={this.props.hintText}
@@ -828,7 +827,7 @@ class Field extends Form {
         height={this.props.height}
         labelGlyph={this.props.labelGlyph}
         labelWidth={this.props.labelWidth || defaultLabelWidth}
-        spacing={this.props.spacing}
+        horizontalSpacing={this.props.horizontalSpacing}
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
@@ -860,7 +859,7 @@ class Field extends Form {
     //-         width={labelWidth}
     //-         kind="label-field"
     //-         justify="left"
-    //-         spacing="overlap"
+    //-         horizontalSpacing="overlap"
     //-       />
     //-     )}
     //-     <WiredCheckbox
@@ -889,7 +888,7 @@ class Field extends Form {
         labelWrap={this.props.labelWrap}
         labelGlyph={this.props.labelGlyph}
         labelWidth={this.props.labelWidth || defaultLabelWidth}
-        spacing={this.props.spacing}
+        horizontalSpacing={this.props.horizontalSpacing}
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
@@ -946,7 +945,7 @@ class Field extends Form {
         labelWrap={this.props.labelWrap}
         labelGlyph={this.props.labelGlyph}
         labelWidth={this.props.labelWidth || defaultLabelWidth}
-        spacing={this.props.spacing}
+        horizontalSpacing={this.props.horizontalSpacing}
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
@@ -968,7 +967,7 @@ class Field extends Form {
       //-   height={this.props.height}
       //-   verticalSpacing={this.props.verticalSpacing}
       //-   verticalJustify="top"
-      //-   spacing={this.props.spacing}
+      //-   horizontalSpacing={this.props.horizontalSpacing}
       //- >
       //-   <Label
       //-     kind="label-text-field"
@@ -1007,7 +1006,13 @@ class Field extends Form {
     const summary = this.props.summary || 'info';
     const Viewer = props => {
       if (!props.entityId) {
-        return <Label grow="1" empty="true" spacing={this.props.spacing} />;
+        return (
+          <Label
+            grow="1"
+            empty="true"
+            horizontalSpacing={this.props.horizontalSpacing}
+          />
+        );
       }
       const Info = this.mapWidget(
         Label,
@@ -1042,7 +1047,7 @@ class Field extends Form {
           kind="combo"
           shape="right-smooth"
           leftSpacing="overlap"
-          spacing={this.props.spacing}
+          horizontalSpacing={this.props.horizontalSpacing}
           glyph="solid/pencil"
           tooltip={T('Editer')}
           onClick={() => {
@@ -1072,7 +1077,7 @@ class Field extends Form {
         labelWrap={this.props.labelWrap}
         labelGlyph={this.props.labelGlyph}
         labelWidth={this.props.labelWidth || defaultLabelWidth}
-        spacing={this.props.spacing}
+        horizontalSpacing={this.props.horizontalSpacing}
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
@@ -1159,7 +1164,13 @@ class Field extends Form {
     } else if (this.props.item) {
       const Items = props => {
         if (!props.entityIds) {
-          return <Label grow="1" empty="true" spacing={this.props.spacing} />;
+          return (
+            <Label
+              grow="1"
+              empty="true"
+              horizontalSpacing={this.props.horizontalSpacing}
+            />
+          );
         }
         return (
           <Container
@@ -1216,7 +1227,7 @@ class Field extends Form {
             width={labelWidth}
             kind="label-field"
             justify="left"
-            spacing="overlap"
+            horizontalSpacing="overlap"
           />
         )}
         <Value kind="title" grow="1" justify={this.props.justify} />
@@ -1252,7 +1263,7 @@ class Field extends Form {
             width={labelWidth}
             kind="label-field"
             justify="left"
-            spacing="overlap"
+            horizontalSpacing="overlap"
           />
         )}
         <Value grow="1" justify={this.props.justify} />
@@ -1269,7 +1280,7 @@ class Field extends Form {
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
-        spacing={this.props.spacing}
+        horizontalSpacing={this.props.horizontalSpacing}
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
@@ -1305,7 +1316,7 @@ class Field extends Form {
         labelWrap={this.props.labelWrap}
         labelGlyph={this.props.labelGlyph}
         labelWidth={this.props.labelWidth || defaultLabelWidth}
-        spacing={this.props.spacing}
+        horizontalSpacing={this.props.horizontalSpacing}
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
         grow={this.props.fieldWidth ? null : '1'}
@@ -1315,7 +1326,6 @@ class Field extends Form {
           shape={this.props.shape}
           grow="1"
           width={this.props.fieldWidth}
-          spacing={this.props.spacing}
           hintText={this.props.hintText}
           tooltip={this.props.tooltip || this.props.hintText}
           rows={this.props.rows}
@@ -1336,13 +1346,13 @@ class Field extends Form {
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
+        horizontalSpacing={this.props.horizontalSpacing}
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
         <TranslatableTextField
           selectAllOnFocus="true"
           type={this.props.type}
-          spacing={this.props.spacing}
           shape={this.props.shape}
           labelText={this.props.labelText}
           labelWrap={this.props.labelWrap}
@@ -1435,13 +1445,13 @@ class Field extends Form {
           grow="0"
           width={this.props.width}
           height={this.props.height}
+          horizontalSpacing={this.props.horizontalSpacing}
           verticalSpacing={this.props.verticalSpacing}
           verticalJustify={this.props.verticalJustify}
         >
           <WiredTextFieldTyped
             type="date"
             selectAllOnFocus="true"
-            spacing={this.props.spacing}
             shape={this.props.shape}
             labelText={this.props.labelText}
             labelWrap={this.props.labelWrap}
@@ -1462,13 +1472,13 @@ class Field extends Form {
           grow="0"
           width={this.props.width}
           height={this.props.height}
+          horizontalSpacing={this.props.horizontalSpacing}
           verticalSpacing={this.props.verticalSpacing}
           verticalJustify={this.props.verticalJustify}
         >
           <TextFieldTyped
             type="date"
             selectAllOnFocus="true"
-            spacing={this.props.spacing}
             shape={this.props.shape}
             labelText={this.props.labelText}
             labelWrap={this.props.labelWrap}
@@ -1522,13 +1532,13 @@ class Field extends Form {
           grow="0"
           width={this.props.width}
           height={this.props.height}
+          horizontalSpacing={this.props.horizontalSpacing}
           verticalSpacing={this.props.verticalSpacing}
           verticalJustify={this.props.verticalJustify}
         >
           <WiredTextFieldTyped
             type="time"
             selectAllOnFocus="true"
-            spacing={this.props.spacing}
             shape={this.props.shape}
             labelText={this.props.labelText}
             labelWrap={this.props.labelWrap}
@@ -1549,13 +1559,13 @@ class Field extends Form {
           grow="0"
           width={this.props.width}
           height={this.props.height}
+          horizontalSpacing={this.props.horizontalSpacing}
           verticalSpacing={this.props.verticalSpacing}
           verticalJustify={this.props.verticalJustify}
         >
           <TextFieldTyped
             type="time"
             selectAllOnFocus="true"
-            spacing={this.props.spacing}
             shape={this.props.shape}
             labelText={this.props.labelText}
             labelWrap={this.props.labelWrap}
@@ -1609,13 +1619,13 @@ class Field extends Form {
           grow="0"
           width={this.props.width}
           height={this.props.height}
+          horizontalSpacing={this.props.horizontalSpacing}
           verticalSpacing={this.props.verticalSpacing}
           verticalJustify={this.props.verticalJustify}
         >
           <WiredTextFieldTyped
             type="datetime"
             selectAllOnFocus="true"
-            spacing={this.props.spacing}
             shape={this.props.shape}
             labelText={this.props.labelText}
             labelWrap={this.props.labelWrap}
@@ -1638,13 +1648,13 @@ class Field extends Form {
           grow="0"
           width={this.props.width}
           height={this.props.height}
+          horizontalSpacing={this.props.horizontalSpacing}
           verticalSpacing={this.props.verticalSpacing}
           verticalJustify={this.props.verticalJustify}
         >
           <TextFieldTyped
             type="datetime"
             selectAllOnFocus="true"
-            spacing={this.props.spacing}
             shape={this.props.shape}
             labelText={this.props.labelText}
             labelWrap={this.props.labelWrap}
@@ -1692,13 +1702,13 @@ class Field extends Form {
         grow="0"
         width={this.props.width}
         height={this.props.height}
+        horizontalSpacing={this.props.horizontalSpacing}
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
         <TimeInterval
           type="time"
           selectAllOnFocus="true"
-          spacing={this.props.spacing}
           labelText={this.props.labelText}
           labelWrap={this.props.labelWrap}
           labelGlyph={this.props.labelGlyph}
@@ -1723,13 +1733,13 @@ class Field extends Form {
         grow="0"
         width={this.props.width}
         height={this.props.height}
+        horizontalSpacing={this.props.horizontalSpacing}
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
         <TextFieldTyped
           type="price"
           selectAllOnFocus="true"
-          spacing={this.props.spacing}
           shape={this.props.shape}
           labelText={this.props.labelText}
           labelWrap={this.props.labelWrap}
@@ -1753,6 +1763,7 @@ class Field extends Form {
         grow="0"
         width={this.props.width}
         height={this.props.height}
+        horizontalSpacing={this.props.horizontalSpacing}
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
@@ -1761,7 +1772,6 @@ class Field extends Form {
           selectAllOnFocus="true"
           unit={this.props.unit}
           decimals={this.props.decimals}
-          spacing={this.props.spacing}
           shape={this.props.shape}
           labelText={this.props.labelText}
           labelWrap={this.props.labelWrap}
@@ -1785,6 +1795,7 @@ class Field extends Form {
         grow="0"
         width={this.props.width}
         height={this.props.height}
+        horizontalSpacing={this.props.horizontalSpacing}
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
@@ -1793,7 +1804,6 @@ class Field extends Form {
           selectAllOnFocus="true"
           unit={this.props.unit}
           decimals={this.props.decimals}
-          spacing={this.props.spacing}
           shape={this.props.shape}
           labelText={this.props.labelText}
           labelWrap={this.props.labelWrap}
@@ -1817,6 +1827,7 @@ class Field extends Form {
         grow="0"
         width={this.props.width}
         height={this.props.height}
+        horizontalSpacing={this.props.horizontalSpacing}
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
@@ -1825,7 +1836,6 @@ class Field extends Form {
           selectAllOnFocus="true"
           unit={this.props.unit}
           decimals={this.props.decimals}
-          spacing={this.props.spacing}
           shape={this.props.shape}
           labelText={this.props.labelText}
           labelWrap={this.props.labelWrap}
@@ -1849,6 +1859,7 @@ class Field extends Form {
         grow="0"
         width={this.props.width}
         height={this.props.height}
+        horizontalSpacing={this.props.horizontalSpacing}
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
@@ -1857,7 +1868,6 @@ class Field extends Form {
           selectAllOnFocus="true"
           unit={this.props.unit}
           decimals={this.props.decimals}
-          spacing={this.props.spacing}
           shape={this.props.shape}
           labelText={this.props.labelText}
           labelWrap={this.props.labelWrap}
@@ -1881,6 +1891,7 @@ class Field extends Form {
         grow="0"
         width={this.props.width}
         height={this.props.height}
+        horizontalSpacing={this.props.horizontalSpacing}
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
@@ -1889,7 +1900,6 @@ class Field extends Form {
           selectAllOnFocus="true"
           unit={this.props.unit}
           decimals={this.props.decimals}
-          spacing={this.props.spacing}
           shape={this.props.shape}
           labelText={this.props.labelText}
           labelWrap={this.props.labelWrap}
@@ -1916,6 +1926,7 @@ class Field extends Form {
         grow="0"
         width={this.props.width}
         height={this.props.height}
+        horizontalSpacing={this.props.horizontalSpacing}
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
@@ -1923,7 +1934,6 @@ class Field extends Form {
           type="delay"
           selectAllOnFocus="true"
           unit={this.props.unit}
-          spacing={this.props.spacing}
           shape={this.props.shape}
           labelText={this.props.labelText}
           labelWrap={this.props.labelWrap}
@@ -1951,13 +1961,12 @@ class Field extends Form {
         labelWrap={this.props.labelWrap}
         labelGlyph={this.props.labelGlyph}
         labelWidth={this.props.labelWidth || defaultLabelWidth}
-        spacing={this.props.spacing}
+        horizontalSpacing={this.props.horizontalSpacing}
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
         <TextFieldCombo
           selectAllOnFocus="true"
-          spacing={this.props.spacing}
           shape={this.props.shape}
           getGlyph={this.props.getGlyph}
           hintText={this.props.hintText}
@@ -2020,7 +2029,7 @@ class Field extends Form {
         height={this.props.height}
         labelGlyph={this.props.labelGlyph}
         labelWidth={this.props.labelWidth || defaultLabelWidth}
-        spacing={this.props.spacing}
+        horizontalSpacing={this.props.horizontalSpacing}
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
@@ -2054,7 +2063,7 @@ class Field extends Form {
     //-         width={labelWidth}
     //-         kind="label-field"
     //-         justify="left"
-    //-         spacing="overlap"
+    //-         horizontalSpacing="overlap"
     //-       />
     //-     )}
     //-     <WiredRadioList
@@ -2091,7 +2100,7 @@ class Field extends Form {
         labelWrap={this.props.labelWrap}
         labelGlyph={this.props.labelGlyph}
         labelWidth={this.props.labelWidth || defaultLabelWidth}
-        spacing={this.props.spacing}
+        horizontalSpacing={this.props.horizontalSpacing}
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
@@ -2129,7 +2138,7 @@ class Field extends Form {
     //-         width={labelWidth}
     //-         kind="label-field"
     //-         justify="left"
-    //-         spacing="overlap"
+    //-         horizontalSpacing="overlap"
     //-       />
     //-     )}
     //-     <WiredCheckList
@@ -2165,7 +2174,7 @@ class Field extends Form {
         height={this.props.height}
         labelGlyph={this.props.labelGlyph}
         labelWidth={this.props.labelWidth || defaultLabelWidth}
-        spacing={this.props.spacing}
+        horizontalSpacing={this.props.horizontalSpacing}
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
@@ -2203,7 +2212,7 @@ class Field extends Form {
     //-         width={labelWidth}
     //-         kind="label-field"
     //-         justify="left"
-    //-         spacing="overlap"
+    //-         horizontalSpacing="overlap"
     //-       />
     //-     )}
     //-     <WiredCheckbox
@@ -2309,7 +2318,13 @@ class Field extends Form {
     const summary = this.props.summary || 'info';
     const Viewer = props => {
       if (!props.entityId) {
-        return <Label grow="1" empty="true" spacing={this.props.spacing} />;
+        return (
+          <Label
+            grow="1"
+            empty="true"
+            horizontalSpacing={this.props.horizontalSpacing}
+          />
+        );
       }
       const Info = this.mapWidget(
         Label,
@@ -2392,7 +2407,13 @@ class Field extends Form {
     } else if (this.props.item) {
       const Items = props => {
         if (!props.entityIds) {
-          return <Label grow="1" empty="true" spacing={this.props.spacing} />;
+          return (
+            <Label
+              grow="1"
+              empty="true"
+              horizontalSpacing={this.props.horizontalSpacing}
+            />
+          );
         }
         return (
           <Container
@@ -2498,7 +2519,7 @@ class Field extends Form {
           labelWrap={this.props.labelWrap}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
-          spacing={this.props.spacing}
+          horizontalSpacing={this.props.horizontalSpacing}
           verticalSpacing={this.props.verticalSpacing}
           verticalJustify={this.props.verticalJustify}
           disabled={this.props.disabled}
@@ -2544,7 +2565,7 @@ class Field extends Form {
         labelWrap={this.props.labelWrap}
         labelGlyph={this.props.labelGlyph}
         labelWidth={this.props.labelWidth || defaultLabelWidth}
-        spacing={this.props.spacing}
+        horizontalSpacing={this.props.horizontalSpacing}
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
@@ -2624,7 +2645,7 @@ class Field extends Form {
         labelWrap={this.props.labelWrap}
         labelGlyph={this.props.labelGlyph}
         labelWidth={this.props.labelWidth || defaultLabelWidth}
-        spacing={this.props.spacing}
+        horizontalSpacing={this.props.horizontalSpacing}
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
@@ -2649,7 +2670,6 @@ class Field extends Form {
           <Button
             kind="combo"
             shape="right-smooth"
-            spacing={this.props.spacing}
             leftSpacing="overlap"
             glyph="solid/eye"
             tooltip={T('Voir les détails')}
@@ -2670,7 +2690,7 @@ class Field extends Form {
       //-   height={this.props.height}
       //-   verticalSpacing={this.props.verticalSpacing}
       //-   verticalJustify="top"
-      //-   spacing={this.props.spacing}
+      //-   horizontalSpacing={this.props.horizontalSpacing}
       //- >
       //-   <Label
       //-     kind="label-text-field"
@@ -2700,7 +2720,7 @@ class Field extends Form {
       //-     <Button
       //-       kind="combo"
       //-       shape="right-smooth"
-      //-       spacing={this.props.spacing}
+      //-       horizontalSpacing={this.props.horizontalSpacing}
       //-       leftSpacing="overlap"
       //-       glyph="solid/eye"
       //-       tooltip={T('Voir les détails')}
@@ -2726,7 +2746,7 @@ class Field extends Form {
         labelWrap={this.props.labelWrap}
         labelGlyph={this.props.labelGlyph}
         labelWidth={this.props.labelWidth || defaultLabelWidth}
-        spacing={this.props.spacing}
+        horizontalSpacing={this.props.horizontalSpacing}
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
@@ -2747,7 +2767,6 @@ class Field extends Form {
                 tooltip={this.props.tooltip || this.props.hintText}
                 hinter={this.props.hinter}
                 comboType={this.props.hinter}
-                spacing={this.props.spacing}
                 width={this.props.fieldWidth}
                 grow="1"
                 requiredHinter={this.props.requiredHinter || 'true'}
@@ -2783,7 +2802,7 @@ class Field extends Form {
       //-   height={this.props.height}
       //-   verticalSpacing={this.props.verticalSpacing}
       //-   verticalJustify="top"
-      //-   spacing={this.props.spacing}
+      //-   horizontalSpacing={this.props.horizontalSpacing}
       //- >
       //-   <Label
       //-     kind="label-text-field"
@@ -2809,7 +2828,7 @@ class Field extends Form {
       //-           tooltip={this.props.tooltip || this.props.hintText}
       //-           hinter={this.props.hinter}
       //-           comboType={this.props.hinter}
-      //-           spacing={this.props.spacing}
+      //-           horizontalSpacing={this.props.horizontalSpacing}
       //-           width={this.props.fieldWidth}
       //-           grow="1"
       //-           requiredHinter={this.props.requiredHinter || 'true'}
@@ -2871,7 +2890,7 @@ class Field extends Form {
             labelWrap={this.props.labelWrap}
             labelGlyph={this.props.labelGlyph}
             labelWidth={this.props.labelWidth || defaultLabelWidth}
-            spacing={this.props.spacing}
+            horizontalSpacing={this.props.horizontalSpacing}
             verticalSpacing={this.props.verticalSpacing}
             verticalJustify={this.props.verticalJustify}
           >
@@ -2891,7 +2910,6 @@ class Field extends Form {
                     tooltip={this.props.tooltip || this.props.hintText}
                     hinter={this.props.hinter}
                     comboType={this.props.hinter}
-                    spacing={this.props.spacing}
                     width={this.props.fieldWidth}
                     grow="1"
                     requiredHinter="true"
@@ -2910,7 +2928,7 @@ class Field extends Form {
         //-    height={this.props.height}
         //-    verticalSpacing={this.props.verticalSpacing}
         //-    verticalJustify="top"
-        //-    spacing={this.props.spacing}
+        //-    horizontalSpacing={this.props.horizontalSpacing}
         //-  >
         //-    <Label
         //-      kind="label-text-field"
@@ -2935,7 +2953,7 @@ class Field extends Form {
         //-            tooltip={this.props.tooltip || this.props.hintText}
         //-            hinter={this.props.hinter}
         //-            comboType={this.props.hinter}
-        //-            spacing={this.props.spacing}
+        //-            horizontalSpacing={this.props.horizontalSpacing}
         //-            width={this.props.fieldWidth}
         //-            grow="1"
         //-            requiredHinter="true"
