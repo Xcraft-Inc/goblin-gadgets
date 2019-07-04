@@ -324,6 +324,7 @@ export default function styles(theme, props) {
     flexGrow = grow;
     if (spacing === 'large') {
       margin = '0px ' + theme.shapes.viewSpacing + ' 0px 0px';
+      marginRight = null;
     } else {
       margin = '0px';
     }
