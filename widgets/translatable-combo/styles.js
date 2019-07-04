@@ -1,4 +1,5 @@
 import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as SpacingHelpers from 'gadgets/helpers/spacing-helpers';
 import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
@@ -29,23 +30,15 @@ export default function styles(theme, props) {
   let borderRadius = '0px';
   let opacity = Bool.isFalse(visibility) ? 0 : null;
 
-  const m = Unit.multiply(theme.shapes.containerMargin, 0.5);
-
   if (flexGrow) {
     flexShrink = '1';
     flexBasis = '0%';
   }
 
-  // Initialise right margin according to horizontalSpacing.
-  if (horizontalSpacing) {
-    let spacingType = {
-      overlap: '-1px',
-      tiny: '1px',
-      large: m,
-      double: theme.shapes.containerMargin,
-    };
-    marginRight = spacingType[horizontalSpacing];
-  }
+  marginRight = SpacingHelpers.getHorizontalSpacingRightMargin(
+    theme,
+    horizontalSpacing
+  );
 
   if (shape === 'rounded') {
     borderRadius = theme.shapes.actionRadius;

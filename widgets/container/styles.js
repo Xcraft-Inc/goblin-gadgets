@@ -1,6 +1,7 @@
 import {Unit} from 'electrum-theme';
 import {ColorHelpers} from 'electrum-theme';
 import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as SpacingHelpers from 'gadgets/helpers/spacing-helpers';
 
 const isWebkit = 'WebkitAppearance' in document.documentElement.style;
 
@@ -122,16 +123,10 @@ export default function styles(theme, props) {
   const s = theme.shapes.lineSpacing;
   const d = Unit.multiply(m, 0.5);
 
-  if (horizontalSpacing) {
-    let spacingType = {
-      overlap: '-1px',
-      tiny: '1px',
-      large: m,
-      big: Unit.multiply(m, 2),
-      double: theme.shapes.containerMargin,
-    };
-    marginRight = spacingType[horizontalSpacing];
-  }
+  marginRight = SpacingHelpers.getHorizontalSpacingRightMargin(
+    theme,
+    horizontalSpacing
+  );
 
   if (kind === 'root') {
     position = 'relative';

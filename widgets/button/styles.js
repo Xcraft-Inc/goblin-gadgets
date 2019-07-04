@@ -2,6 +2,7 @@ import {Unit} from 'electrum-theme';
 import {ColorHelpers} from 'electrum-theme';
 import {ColorManipulator} from 'electrum-theme';
 import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as SpacingHelpers from 'gadgets/helpers/spacing-helpers';
 
 function convertJustify(justify) {
   switch (justify) {
@@ -152,17 +153,11 @@ export default function styles(theme, props) {
     backgroundColor = null;
   }
 
-  // Initialise right margin according to horizontalSpacing.
-  if (horizontalSpacing) {
-    let spacingType = {
-      overlap: '-1px',
-      tiny: '1px',
-      large: m,
-      big: Unit.multiply(m, 2),
-      double: theme.shapes.containerMargin,
-    };
-    boxMarginRight = spacingType[horizontalSpacing];
-  }
+  boxMarginRight = SpacingHelpers.getHorizontalSpacingRightMargin(
+    theme,
+    horizontalSpacing
+  );
+
   if (leftSpacing === 'overlap') {
     boxMarginLeft = '-1px';
   }

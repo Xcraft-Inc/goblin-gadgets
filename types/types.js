@@ -237,7 +237,16 @@ const types = {
     type: 'horizontalSpacing',
     widget: 'combo',
     restrictsToList: true,
-    samples: ['', 'overlap', 'tiny', 'large', 'double'],
+    samples: [
+      '',
+      'overlap',
+      'zero',
+      'tiny',
+      'compact',
+      'large',
+      'big',
+      'double',
+    ],
   },
 
   verticalSpacing: {
