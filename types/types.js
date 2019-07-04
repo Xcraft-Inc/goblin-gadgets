@@ -233,8 +233,8 @@ const types = {
     samples: ['', '50%', '75%', '100%', '150%', '200%'],
   },
 
-  spacing: {
-    type: 'spacing',
+  horizontalSpacing: {
+    type: 'horizontalSpacing',
     widget: 'combo',
     restrictsToList: true,
     samples: ['', 'overlap', 'tiny', 'large', 'double'],

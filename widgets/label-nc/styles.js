@@ -37,7 +37,7 @@ export const propNames = [
   'textTransform',
   'fontSize',
   'cursor',
-  'spacing',
+  'horizontalSpacing',
   'disabled',
   'readonly',
   'insideButton',
@@ -87,7 +87,7 @@ export default function styles(theme, props) {
     textTransform,
     fontSize,
     cursor,
-    spacing,
+    horizontalSpacing,
     disabled,
     readonly,
     insideButton,
@@ -183,7 +183,7 @@ export default function styles(theme, props) {
 
   if (Bool.isTrue(insideButton)) {
     boxHeight = height ? height : theme.shapes.lineHeight;
-    spacing = null;
+    horizontalSpacing = null;
     textWrap = textWrap ? textWrap : 'no';
   } else {
     textWrap = textWrap ? textWrap : 'yes';
@@ -197,8 +197,8 @@ export default function styles(theme, props) {
   if (bottomSpacing === 'large') {
     boxMarginBottom = m;
   }
-  // Initialise right margin according to spacing.
-  if (spacing) {
+  // Initialise right margin according to horizontalSpacing.
+  if (horizontalSpacing) {
     const spacingType = {
       overlap: '-1px',
       zero: '0px',
@@ -208,9 +208,9 @@ export default function styles(theme, props) {
       big: Unit.multiply(m, 2),
       double: theme.shapes.containerMargin,
     };
-    boxMarginRight = spacingType[spacing];
+    boxMarginRight = spacingType[horizontalSpacing];
   }
-  if (spacing === 'compact' || spacing === 'zero') {
+  if (horizontalSpacing === 'compact' || horizontalSpacing === 'zero') {
     glyphMinWidth = null;
   }
 

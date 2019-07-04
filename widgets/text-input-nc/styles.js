@@ -7,7 +7,7 @@ export const propNames = [
   'grow',
   'width',
   'visibility',
-  'spacing',
+  'horizontalSpacing',
   'shape',
   'disabled',
   'active',
@@ -22,7 +22,7 @@ export default function styles(theme, props) {
     grow,
     width,
     visibility,
-    spacing,
+    horizontalSpacing,
     shape,
     disabled,
     active,
@@ -52,15 +52,15 @@ export default function styles(theme, props) {
     borderStyle = 'none';
   }
 
-  // Initialise right margin according to spacing.
-  if (spacing) {
+  // Initialise right margin according to horizontalSpacing.
+  if (horizontalSpacing) {
     let spacingType = {
       overlap: '-1px',
       tiny: '1px',
       large: m,
       double: theme.shapes.containerMargin,
     };
-    marginRight = spacingType[spacing];
+    marginRight = spacingType[horizontalSpacing];
   }
 
   if (shape) {

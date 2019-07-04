@@ -284,11 +284,11 @@ const properties = {
       list: ['', '0.5', '1'],
       value: '',
     },
-    spacing: {
-      id: 'spacing',
+    horizontalSpacing: {
+      id: 'horizontalSpacing',
       group: 'Layout',
       type: 'combo',
-      field: 'spacing',
+      field: 'horizontalSpacing',
       list: ['', 'overlap', 'tiny', 'large', 'double'],
       value: '',
     },
@@ -615,11 +615,11 @@ const properties = {
       list: ['', '0.5', '1'],
       value: '',
     },
-    spacing: {
-      id: 'spacing',
+    horizontalSpacing: {
+      id: 'horizontalSpacing',
       group: 'Layout',
       type: 'combo',
-      field: 'spacing',
+      field: 'horizontalSpacing',
       list: ['', 'overlap', 'tiny', 'large', 'double'],
       value: '',
     },
@@ -863,11 +863,11 @@ const properties = {
       list: ['', '0.5', '1'],
       value: '1',
     },
-    spacing: {
-      id: 'spacing',
+    horizontalSpacing: {
+      id: 'horizontalSpacing',
       group: 'Layout',
       type: 'combo',
-      field: 'spacing',
+      field: 'horizontalSpacing',
       list: ['', 'overlap', 'tiny', 'large', 'double'],
       value: '',
     },
@@ -1048,11 +1048,11 @@ const properties = {
       list: ['', '0.5', '1'],
       value: '1',
     },
-    spacing: {
-      id: 'spacing',
+    horizontalSpacing: {
+      id: 'horizontalSpacing',
       group: 'Layout',
       type: 'combo',
-      field: 'spacing',
+      field: 'horizontalSpacing',
       list: ['', 'overlap', 'tiny', 'large', 'double'],
       value: '',
     },
@@ -1230,11 +1230,11 @@ const properties = {
       list: ['', '0.5', '1'],
       value: '1',
     },
-    spacing: {
-      id: 'spacing',
+    horizontalSpacing: {
+      id: 'horizontalSpacing',
       group: 'Layout',
       type: 'combo',
-      field: 'spacing',
+      field: 'horizontalSpacing',
       list: ['', 'overlap', 'tiny', 'large', 'double'],
       value: '',
     },
@@ -1406,11 +1406,11 @@ const properties = {
       list: ['', '0.5', '1'],
       value: '1',
     },
-    spacing: {
-      id: 'spacing',
+    horizontalSpacing: {
+      id: 'horizontalSpacing',
       group: 'Layout',
       type: 'combo',
-      field: 'spacing',
+      field: 'horizontalSpacing',
       list: ['', 'overlap', 'tiny', 'large', 'double'],
       value: '',
     },
@@ -1496,11 +1496,11 @@ const properties = {
       list: ['', 'Checkbox', 'Mise à jour automatique', 'Mode avancé'],
       value: 'Checkbox',
     },
-    spacing: {
-      id: 'spacing',
+    horizontalSpacing: {
+      id: 'horizontalSpacing',
       group: 'Layout',
       type: 'combo',
-      field: 'spacing',
+      field: 'horizontalSpacing',
       list: ['', 'overlap', 'tiny', 'large', 'double'],
       value: '',
     },
@@ -1854,11 +1854,11 @@ const properties = {
       list: ['', '0.5', '1'],
       value: '',
     },
-    spacing: {
-      id: 'spacing',
+    horizontalSpacing: {
+      id: 'horizontalSpacing',
       group: 'Layout',
       type: 'combo',
-      field: 'spacing',
+      field: 'horizontalSpacing',
       list: ['', 'compact', 'large'],
       value: '',
     },

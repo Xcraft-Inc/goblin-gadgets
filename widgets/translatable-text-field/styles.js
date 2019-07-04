@@ -3,10 +3,10 @@ import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
 
-export const propNames = ['grow', 'visibility', 'spacing', 'width'];
+export const propNames = ['grow', 'visibility', 'horizontalSpacing', 'width'];
 
 export default function styles(theme, props) {
-  const {grow, visibility, spacing, width} = props;
+  const {grow, visibility, horizontalSpacing, width} = props;
 
   let flexGrow = grow;
   let flexShrink = null;
@@ -21,15 +21,15 @@ export default function styles(theme, props) {
     flexBasis = '0%';
   }
 
-  // Initialise right margin according to spacing.
-  if (spacing) {
+  // Initialise right margin according to horizontalSpacing.
+  if (horizontalSpacing) {
     let spacingType = {
       overlap: '-1px',
       tiny: '1px',
       large: m,
       double: theme.shapes.containerMargin,
     };
-    marginRight = spacingType[spacing];
+    marginRight = spacingType[horizontalSpacing];
   }
 
   let boxStyle = {

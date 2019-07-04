@@ -114,7 +114,9 @@ class LabelTextField extends Widget {
       messageInfo: this.props.messageInfo,
       messageWarning: this.props.messageWarning,
       filterKeys: this.props.filterKeys,
-      spacing: this.hasActionButton() ? 'overlap' : this.props.spacing,
+      horizontalSpacing: this.hasActionButton()
+        ? 'overlap'
+        : this.props.horizontalSpacing,
       shape: textFieldShape,
       tabIndex: this.props.tabIndex,
       defaultValue: this.props.defaultValue,

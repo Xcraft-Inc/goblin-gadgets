@@ -554,7 +554,7 @@ export default class Calendar extends Widget {
         grow="1"
         onClick={() => this.onVisibleDateMonth(month)}
         active={Bool.toString(active)}
-        spacing="tiny"
+        horizontalSpacing="tiny"
       />
     );
   }

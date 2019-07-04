@@ -169,7 +169,7 @@ class Wizard extends Form {
     return (
       <Container
         kind="view"
-        spacing="large"
+        horizontalSpacing="large"
         backgroundColor={this.context.theme.palette.footerBackground}
       >
         <Container kind="pane-header">
@@ -290,7 +290,7 @@ class Wizard extends Form {
     })('.properties');
 
     return (
-      <Container kind="view" width="500px" spacing="large">
+      <Container kind="view" width="500px" horizontalSpacing="large">
         <Container kind="pane-header">
           <Label text="Properties" kind="pane-header" />
         </Container>

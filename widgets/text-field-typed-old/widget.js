@@ -197,7 +197,7 @@ export default class TextFieldTypedOld extends Widget {
             : 'left'
         }
         grow={this.props.grow}
-        spacing={this.props.spacing}
+        horizontalSpacing={this.props.horizontalSpacing}
         readonly={this.props.readonly}
         disabled={this.props.disabled}
         required={this.props.required}

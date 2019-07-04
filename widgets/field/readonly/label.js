@@ -28,7 +28,7 @@ export default function ReadonlyLabel(props) {
           width={labelWidth}
           kind="label-field"
           justify="left"
-          spacing="overlap"
+          horizontalSpacing="overlap"
         />
       )}
       <LabelWired grow="1" justify={props.justify} fullpath={props.fullpath} />
