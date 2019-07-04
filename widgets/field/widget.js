@@ -157,31 +157,6 @@ class Field extends Form {
         <Dynamic grow="1" tooltip={this.props.tooltip} />
       </LabelRow>
     );
-
-    //- const labelWidth = this.props.labelWidth || defaultLabelWidth;
-    //-
-    //- return (
-    //-   <Container
-    //-     kind="row-field"
-    //-     grow={this.props.grow}
-    //-     width={this.props.width}
-    //-     height={this.props.height}
-    //-     verticalSpacing={this.props.verticalSpacing}
-    //-     verticalJustify={this.props.verticalJustify}
-    //-   >
-    //-     {labelWidth === '0px' ? null : (
-    //-       <Label
-    //-         text={this.props.labelText}
-    //-         glyph={this.props.labelGlyph}
-    //-         width={labelWidth}
-    //-         kind="label-field"
-    //-         justify="left"
-    //-         horizontalSpacing="overlap"
-    //-       />
-    //-     )}
-    //-     <Dynamic grow="1" tooltip={this.props.tooltip} />
-    //-   </Container>
-    //- );
   }
 
   renderTableDynamic() {
@@ -243,45 +218,6 @@ class Field extends Form {
   }
 
   //#region Readonly
-  renderReadonlyField_OLD() {
-    const Field = this.showIfFilled(
-      this.props,
-      props => (
-        <Container
-          show={props.show}
-          kind="row-field"
-          grow={this.props.grow}
-          width={this.props.width}
-          height={this.props.height}
-          verticalSpacing={this.props.verticalSpacing}
-          verticalJustify={this.props.verticalJustify}
-        >
-          <LabelTextField
-            readonly="true"
-            type={this.props.type}
-            horizontalSpacing={this.props.horizontalSpacing}
-            shape={this.props.shape}
-            labelText={this.props.labelText}
-            labelWrap={this.props.labelWrap}
-            labelGlyph={this.props.labelGlyph}
-            labelWidth={this.props.labelWidth || defaultLabelWidth}
-            fieldWidth={this.props.fieldWidth}
-            getGlyph={this.props.getGlyph}
-            hintText={this.props.hintText}
-            tooltip={this.props.tooltip || this.props.hintText}
-            rows={this.props.rows}
-            model={this.props.model}
-            required={this.props.required}
-            onDebouncedChange={this.props.onDebouncedChange}
-            grow="1"
-          />
-        </Container>
-      ),
-      this.fullPath
-    );
-    return <Field />;
-  }
-
   renderReadonlyField() {
     const Field = this.showIfFilled(
       this.props,
@@ -303,7 +239,6 @@ class Field extends Form {
             shape={this.props.shape}
             grow="1"
             width={this.props.fieldWidth}
-            horizontalSpacing={this.props.horizontalSpacing}
             hintText={this.props.hintText}
             tooltip={this.props.tooltip || this.props.hintText}
             rows={this.props.rows}
@@ -328,13 +263,13 @@ class Field extends Form {
           grow={this.props.grow}
           width={this.props.width}
           height={this.props.height}
+          horizontalSpacing={this.props.horizontalSpacing}
           verticalSpacing={this.props.verticalSpacing}
           verticalJustify={this.props.verticalJustify}
         >
           <TranslatableTextField
             readonly="true"
             type={this.props.type}
-            horizontalSpacing={this.props.horizontalSpacing}
             shape={this.props.shape}
             labelText={this.props.labelText}
             labelWrap={this.props.labelWrap}
@@ -387,13 +322,13 @@ class Field extends Form {
           grow="0"
           width={this.props.width}
           height={this.props.height}
+          horizontalSpacing={this.props.horizontalSpacing}
           verticalSpacing={this.props.verticalSpacing}
           verticalJustify={this.props.verticalJustify}
         >
           <TextFieldTyped
             readonly="true"
             type="date"
-            horizontalSpacing={this.props.horizontalSpacing}
             shape={this.props.shape}
             labelText={this.props.labelText}
             labelWrap={this.props.labelWrap}
@@ -422,13 +357,13 @@ class Field extends Form {
           grow="0"
           width={this.props.width}
           height={this.props.height}
+          horizontalSpacing={this.props.horizontalSpacing}
           verticalSpacing={this.props.verticalSpacing}
           verticalJustify={this.props.verticalJustify}
         >
           <TextFieldTyped
             readonly="true"
             type="time"
-            horizontalSpacing={this.props.horizontalSpacing}
             shape={this.props.shape}
             labelText={this.props.labelText}
             labelWrap={this.props.labelWrap}
@@ -457,13 +392,13 @@ class Field extends Form {
           grow="0"
           width={this.props.width}
           height={this.props.height}
+          horizontalSpacing={this.props.horizontalSpacing}
           verticalSpacing={this.props.verticalSpacing}
           verticalJustify={this.props.verticalJustify}
         >
           <TextFieldTyped
             readonly="true"
             type="datetime"
-            horizontalSpacing={this.props.horizontalSpacing}
             shape={this.props.shape}
             labelText={this.props.labelText}
             labelWrap={this.props.labelWrap}
@@ -492,13 +427,13 @@ class Field extends Form {
           grow="0"
           width={this.props.width}
           height={this.props.height}
+          horizontalSpacing={this.props.horizontalSpacing}
           verticalSpacing={this.props.verticalSpacing}
           verticalJustify={this.props.verticalJustify}
         >
           <TextFieldTimeInterval
             readonly="true"
             type="time"
-            horizontalSpacing={this.props.horizontalSpacing}
             labelText={this.props.labelText}
             labelWrap={this.props.labelWrap}
             labelGlyph={this.props.labelGlyph}
@@ -527,13 +462,13 @@ class Field extends Form {
           grow="0"
           width={this.props.width}
           height={this.props.height}
+          horizontalSpacing={this.props.horizontalSpacing}
           verticalSpacing={this.props.verticalSpacing}
           verticalJustify={this.props.verticalJustify}
         >
           <TextFieldTyped
             readonly="true"
             type="price"
-            horizontalSpacing={this.props.horizontalSpacing}
             shape={this.props.shape}
             labelText={this.props.labelText}
             labelWrap={this.props.labelWrap}
@@ -562,6 +497,7 @@ class Field extends Form {
           grow="0"
           width={this.props.width}
           height={this.props.height}
+          horizontalSpacing={this.props.horizontalSpacing}
           verticalSpacing={this.props.verticalSpacing}
           verticalJustify={this.props.verticalJustify}
         >
@@ -569,7 +505,6 @@ class Field extends Form {
             readonly="true"
             type="weight"
             unit={this.props.unit}
-            horizontalSpacing={this.props.horizontalSpacing}
             shape={this.props.shape}
             labelText={this.props.labelText}
             labelWrap={this.props.labelWrap}
@@ -598,6 +533,7 @@ class Field extends Form {
           grow="0"
           width={this.props.width}
           height={this.props.height}
+          horizontalSpacing={this.props.horizontalSpacing}
           verticalSpacing={this.props.verticalSpacing}
           verticalJustify={this.props.verticalJustify}
         >
@@ -605,7 +541,6 @@ class Field extends Form {
             readonly="true"
             type="length"
             unit={this.props.unit}
-            horizontalSpacing={this.props.horizontalSpacing}
             shape={this.props.shape}
             labelText={this.props.labelText}
             labelWrap={this.props.labelWrap}
@@ -634,6 +569,7 @@ class Field extends Form {
           grow="0"
           width={this.props.width}
           height={this.props.height}
+          horizontalSpacing={this.props.horizontalSpacing}
           verticalSpacing={this.props.verticalSpacing}
           verticalJustify={this.props.verticalJustify}
         >
@@ -641,7 +577,6 @@ class Field extends Form {
             readonly="true"
             type="volume"
             unit={this.props.unit}
-            horizontalSpacing={this.props.horizontalSpacing}
             shape={this.props.shape}
             labelText={this.props.labelText}
             labelWrap={this.props.labelWrap}
@@ -670,6 +605,7 @@ class Field extends Form {
           grow="0"
           width={this.props.width}
           height={this.props.height}
+          horizontalSpacing={this.props.horizontalSpacing}
           verticalSpacing={this.props.verticalSpacing}
           verticalJustify={this.props.verticalJustify}
         >
@@ -677,7 +613,6 @@ class Field extends Form {
             readonly="true"
             type="number"
             unit={this.props.unit}
-            horizontalSpacing={this.props.horizontalSpacing}
             shape={this.props.shape}
             labelText={this.props.labelText}
             labelWrap={this.props.labelWrap}
@@ -706,6 +641,7 @@ class Field extends Form {
           grow="0"
           width={this.props.width}
           height={this.props.height}
+          horizontalSpacing={this.props.horizontalSpacing}
           verticalSpacing={this.props.verticalSpacing}
           verticalJustify={this.props.verticalJustify}
         >
@@ -713,7 +649,6 @@ class Field extends Form {
             readonly="true"
             type="percent"
             unit={this.props.unit}
-            horizontalSpacing={this.props.horizontalSpacing}
             shape={this.props.shape}
             labelText={this.props.labelText}
             labelWrap={this.props.labelWrap}
@@ -742,6 +677,7 @@ class Field extends Form {
           grow="0"
           width={this.props.width}
           height={this.props.height}
+          horizontalSpacing={this.props.horizontalSpacing}
           verticalSpacing={this.props.verticalSpacing}
           verticalJustify={this.props.verticalJustify}
         >
@@ -749,7 +685,6 @@ class Field extends Form {
             readonly="true"
             type="delay"
             unit={this.props.unit}
-            horizontalSpacing={this.props.horizontalSpacing}
             shape={this.props.shape}
             labelText={this.props.labelText}
             labelWrap={this.props.labelWrap}
@@ -840,37 +775,6 @@ class Field extends Form {
         />
       </LabelRow>
     );
-
-    //- const labelWidth = this.props.labelWidth || defaultLabelWidth;
-    //-
-    //- return (
-    //-   <Container
-    //-     kind={this.props.containerKind || 'row-field'}
-    //-     subkind="left"
-    //-     grow={this.props.grow}
-    //-     width={this.props.width}
-    //-     height={this.props.height}
-    //-     verticalSpacing={this.props.verticalSpacing}
-    //-     verticalJustify={this.props.verticalJustify}
-    //-   >
-    //-     {labelWidth === '0px' ? null : (
-    //-       <Label
-    //-         glyph={this.props.labelGlyph}
-    //-         width={labelWidth}
-    //-         kind="label-field"
-    //-         justify="left"
-    //-         horizontalSpacing="overlap"
-    //-       />
-    //-     )}
-    //-     <WiredCheckbox
-    //-       kind={this.props.subkind}
-    //-       glyph={this.props.glyph}
-    //-       text={this.props.labelText}
-    //-       tooltip={this.props.tooltip || this.props.hintText}
-    //-       readonly="true"
-    //-     />
-    //-   </Container>
-    //- );
   }
 
   renderReadonlyFileInput() {
@@ -895,111 +799,6 @@ class Field extends Form {
         <HinterField {...this.props} />
       </LabelRow>
     );
-  }
-
-  renderReadonlyHinter_old() {
-    const targetPath = this.props.targetModel
-      ? this.getFullPathFromModel(this.props.targetModel)
-      : this.fullPath;
-
-    const summary = this.props.summary || 'info';
-    let HinterLabel = null;
-
-    if (this.props.targetModel) {
-      HinterLabel = this.mapWidget(Label, 'text', targetPath);
-    } else {
-      HinterLabel = this.mapWidget(
-        Label,
-        value => {
-          let text = '';
-          let glyph = null;
-          let glyphColor = null;
-          if (value && value !== '') {
-            if (!this.props.onValue) {
-              text = this.getModelValue(
-                `${value}.meta.summaries.${summary}`,
-                true
-              );
-              glyph = this.getModelValue(`${value}.meta.summaries.glyph`, true);
-              glyphColor = this.getModelValue(
-                `${value}.meta.summaries.glyphColor`,
-                true
-              );
-            }
-            return {text, glyph, glyphColor};
-          } else {
-            return {};
-          }
-        },
-        this.fullPath
-      );
-    }
-
-    const HinterLineValue = props => (
-      <LabelRow
-        show={this.props.show}
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        labelText={this.props.labelText}
-        labelWrap={this.props.labelWrap}
-        labelGlyph={this.props.labelGlyph}
-        labelWidth={this.props.labelWidth || defaultLabelWidth}
-        horizontalSpacing={this.props.horizontalSpacing}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
-        <HinterLabel
-          kind="markdown"
-          shape="left-smooth"
-          width={this.props.labelWidth || defaultLabelWidth}
-          hintText={this.props.hintText}
-          tooltip={this.props.tooltip || this.props.hintText}
-          wrap={this.props.wrap}
-          grow="2"
-        />
-      </LabelRow>
-
-      //- <Container
-      //-   kind="row-field"
-      //-   grow={this.props.grow}
-      //-   width={this.props.width}
-      //-   height={this.props.height}
-      //-   verticalSpacing={this.props.verticalSpacing}
-      //-   verticalJustify="top"
-      //-   horizontalSpacing={this.props.horizontalSpacing}
-      //- >
-      //-   <Label
-      //-     kind="label-text-field"
-      //-     wrap="no"
-      //-     text={this.props.labelText}
-      //-     glyph={this.props.labelGlyph}
-      //-     width={this.props.labelWidth || defaultLabelWidth}
-      //-   />
-      //-   <HinterLabel
-      //-     kind="markdown"
-      //-     shape="left-smooth"
-      //-     width={this.props.labelWidth || defaultLabelWidth}
-      //-     hintText={this.props.hintText}
-      //-     tooltip={this.props.tooltip || this.props.hintText}
-      //-     wrap={this.props.wrap}
-      //-     grow="2"
-      //-   />
-      //- </Container>
-    );
-
-    const HinterLine = props =>
-      props.existingValue || this.props.showStrategy === 'alwaysVisible' ? (
-        <HinterLineValue {...props} />
-      ) : null;
-
-    const HinterField = this.mapWidget(
-      HinterLine,
-      'existingValue',
-      this.fullPath
-    );
-
-    return <HinterField />;
   }
 
   renderReadonlyEntity() {
@@ -1085,31 +884,6 @@ class Field extends Form {
         <EntityAction />
       </LabelRow>
     );
-
-    //- const labelWidth = this.props.labelWidth || defaultLabelWidth;
-    //-
-    //- return (
-    //-   <Container
-    //-     kind="row-field"
-    //-     grow={this.props.grow}
-    //-     width={this.props.width}
-    //-     height={this.props.height}
-    //-     verticalSpacing={this.props.verticalSpacing}
-    //-     verticalJustify={this.props.verticalJustify}
-    //-   >
-    //-     {labelWidth === '0px' ? null : (
-    //-       <Label
-    //-         kind="label-field"
-    //-         text={this.props.labelText}
-    //-         glyph={this.props.labelGlyph}
-    //-         width={labelWidth}
-    //-         justify="left"
-    //-       />
-    //-     )}
-    //-     <EntityViewer />
-    //-     <EntityAction />
-    //-   </Container>
-    //- );
   }
 
   renderReadonlyEntities() {
@@ -1273,41 +1047,6 @@ class Field extends Form {
   //#endregion
 
   //#region Edit
-  renderEditField_OLD() {
-    return (
-      <Container
-        kind="row-field"
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        horizontalSpacing={this.props.horizontalSpacing}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
-        <LabelTextField
-          selectAllOnFocus="true"
-          type={this.props.type}
-          shape={this.props.shape}
-          labelText={this.props.labelText}
-          labelGlyph={this.props.labelGlyph}
-          labelWidth={this.props.labelWidth || defaultLabelWidth}
-          fieldWidth={this.props.fieldWidth}
-          getGlyph={this.props.getGlyph}
-          hintText={this.props.hintText}
-          tooltip={this.props.tooltip || this.props.hintText}
-          rows={this.props.rows}
-          required={this.props.required}
-          model={this.props.model}
-          onDebouncedChange={this.props.onDebouncedChange}
-          grow="1"
-          onFocus={this.props.onFocus}
-          onBlur={this.props.onBlur}
-          className={this.props.className}
-        />
-      </Container>
-    );
-  }
-
   renderEditField() {
     return (
       <LabelRow
@@ -2042,39 +1781,6 @@ class Field extends Form {
         />
       </LabelRow>
     );
-
-    //- const labelWidth = this.props.labelWidth || defaultLabelWidth;
-    //-
-    //- return (
-    //-   <Container
-    //-     kind="row-field"
-    //-     subkind="left"
-    //-     grow={this.props.grow}
-    //-     width={this.props.width}
-    //-     height={this.props.height}
-    //-     verticalSpacing={this.props.verticalSpacing}
-    //-     verticalJustify={this.props.verticalJustify}
-    //-   >
-    //-     {labelWidth === '0px' ? null : (
-    //-       <Label
-    //-         text={this.props.labelText}
-    //-         glyph={this.props.labelGlyph}
-    //-         tooltip={this.props.tooltip}
-    //-         width={labelWidth}
-    //-         kind="label-field"
-    //-         justify="left"
-    //-         horizontalSpacing="overlap"
-    //-       />
-    //-     )}
-    //-     <WiredRadioList
-    //-       buttonWidth={this.props.buttonWidth}
-    //-       height={this.props.height}
-    //-       direction={this.props.direction || 'row'}
-    //-       list={this.props.list}
-    //-       selectionChanged={this.radioListSelectionChanged}
-    //-     />
-    //-   </Container>
-    //- );
   }
 
   renderCheckList() {
@@ -2118,43 +1824,6 @@ class Field extends Form {
         />
       </LabelRow>
     );
-
-    //- const labelWidth = this.props.labelWidth || defaultLabelWidth;
-    //-
-    //- return (
-    //-   <Container
-    //-     kind="row-field"
-    //-     subkind="left"
-    //-     grow={this.props.grow}
-    //-     width={this.props.width}
-    //-     height={this.props.height}
-    //-     verticalSpacing={this.props.verticalSpacing}
-    //-     verticalJustify={this.props.verticalJustify}
-    //-   >
-    //-     {labelWidth === '0px' ? null : (
-    //-       <Label
-    //-         text={this.props.labelText}
-    //-         glyph={this.props.labelGlyph}
-    //-         width={labelWidth}
-    //-         kind="label-field"
-    //-         justify="left"
-    //-         horizontalSpacing="overlap"
-    //-       />
-    //-     )}
-    //-     <WiredCheckList
-    //-       width={this.props.width}
-    //-       height={this.props.height}
-    //-       heightStrategy="compact"
-    //-       direction={this.props.direction || 'column'}
-    //-       showHeader={this.props.showHeader}
-    //-       list={this.props.list}
-    //-       readonly={Bool.toString(this.readonly)}
-    //-       selectionChanged={value => {
-    //-         this.setBackendValue(this.fullPath, value);
-    //-       }}
-    //-     />
-    //-   </Container>
-    //- );
   }
 
   renderEditBool() {
@@ -2193,43 +1862,6 @@ class Field extends Form {
         />
       </LabelRow>
     );
-
-    //- const labelWidth = this.props.labelWidth || defaultLabelWidth;
-    //-
-    //- return (
-    //-   <Container
-    //-     kind={this.props.containerKind || 'row-field'}
-    //-     subkind="left"
-    //-     grow={this.props.grow}
-    //-     width={this.props.width}
-    //-     height={this.props.height}
-    //-     verticalSpacing={this.props.verticalSpacing}
-    //-     verticalJustify={this.props.verticalJustify}
-    //-   >
-    //-     {labelWidth === '0px' ? null : (
-    //-       <Label
-    //-         glyph={this.props.labelGlyph}
-    //-         width={labelWidth}
-    //-         kind="label-field"
-    //-         justify="left"
-    //-         horizontalSpacing="overlap"
-    //-       />
-    //-     )}
-    //-     <WiredCheckbox
-    //-       kind={this.props.subkind}
-    //-       glyph={this.props.glyph}
-    //-       text={this.props.labelText}
-    //-       tooltip={this.props.tooltip || this.props.hintText}
-    //-       onChange={() => {
-    //-         const checked = Bool.isTrue(this.getBackendValue(this.fullPath));
-    //-         this.setBackendValue(this.fullPath, Bool.toString(!checked));
-    //-         if (this.props.onClick) {
-    //-           this.props.onClick();
-    //-         }
-    //-       }}
-    //-     />
-    //-   </Container>
-    //- );
   }
 
   renderCalendar() {
@@ -2318,13 +1950,7 @@ class Field extends Form {
     const summary = this.props.summary || 'info';
     const Viewer = props => {
       if (!props.entityId) {
-        return (
-          <Label
-            grow="1"
-            empty="true"
-            horizontalSpacing={this.props.horizontalSpacing}
-          />
-        );
+        return <Label grow="1" empty="true" />;
       }
       const Info = this.mapWidget(
         Label,
@@ -2357,6 +1983,7 @@ class Field extends Form {
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
+        horizontalSpacing={this.props.horizontalSpacing}
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
@@ -2388,6 +2015,7 @@ class Field extends Form {
           grow={this.props.grow}
           width={this.props.width}
           height={this.props.height}
+          horizontalSpacing={this.props.horizontalSpacing}
           verticalSpacing={this.props.verticalSpacing}
           verticalJustify="top"
         >
@@ -2407,13 +2035,7 @@ class Field extends Form {
     } else if (this.props.item) {
       const Items = props => {
         if (!props.entityIds) {
-          return (
-            <Label
-              grow="1"
-              empty="true"
-              horizontalSpacing={this.props.horizontalSpacing}
-            />
-          );
+          return <Label grow="1" empty="true" />;
         }
         return (
           <Container
@@ -2421,6 +2043,7 @@ class Field extends Form {
             grow={this.props.grow}
             width={this.props.width}
             height={this.props.height}
+            horizontalSpacing={this.props.horizontalSpacing}
             verticalSpacing={this.props.verticalSpacing}
             verticalJustify={this.props.verticalJustify}
           >
@@ -2527,28 +2150,6 @@ class Field extends Form {
           <FinalCombo style={{flexGrow: 1}} />
         </LabelRow>
       );
-
-      //- return (
-      //-   <Container
-      //-     kind="row-field"
-      //-     grow={this.props.grow}
-      //-     width={this.props.width}
-      //-     height={this.props.height}
-      //-     verticalSpacing={this.props.verticalSpacing}
-      //-     verticalJustify={this.props.verticalJustify}
-      //-   >
-      //-     <Label
-      //-       kind="label-text-field"
-      //-       glyph={this.props.labelGlyph}
-      //-       text={this.props.labelText}
-      //-       width={this.props.labelWidth || defaultLabelWidth}
-      //-       disabled={this.props.disabled}
-      //-       wrap="no"
-      //-       justify="left"
-      //-     />
-      //-     <FinalCombo style={{flexGrow: 1}} />
-      //-   </Container>
-      //- );
     }
 
     return <FinalCombo />;
@@ -2572,307 +2173,6 @@ class Field extends Form {
         <HinterField {...this.props} />
       </LabelRow>
     );
-  }
-
-  renderEditHinter_old() {
-    const targetPath = this.props.targetModel
-      ? this.getFullPathFromModel(this.props.targetModel)
-      : this.fullPath;
-
-    const summary = this.props.summary || 'info';
-
-    const Hinter = this.mapWidget(
-      TextField,
-      value => {
-        if (value && value !== '') {
-          let selectedId = null;
-          if (!this.props.onValue) {
-            selectedId = value;
-            value = this.getModelValue(
-              `${value}.meta.summaries.${summary}`,
-              true
-            );
-          }
-          return {selectedValue: value, selectedId};
-        } else {
-          return {};
-        }
-      },
-      this.fullPath
-    );
-
-    const Form = this.Form;
-
-    let HinterLabel = null;
-
-    if (this.props.targetModel) {
-      HinterLabel = this.mapWidget(Label, 'text', targetPath);
-    } else {
-      HinterLabel = this.mapWidget(
-        Label,
-        value => {
-          let text = '';
-          let glyph = null;
-          let glyphColor = null;
-          if (value && value !== '') {
-            if (!this.props.onValue) {
-              text = this.getModelValue(
-                `${value}.meta.summaries.${summary}`,
-                true
-              );
-              glyph = this.getModelValue(`${value}.meta.summaries.glyph`, true);
-              glyphColor = this.getModelValue(
-                `${value}.meta.summaries.glyphColor`,
-                true
-              );
-            }
-            return {text, glyph, glyphColor};
-          } else {
-            return {};
-          }
-        },
-        this.fullPath
-      );
-    }
-
-    const HinterLineValue = props => (
-      <LabelRow
-        show={this.props.show}
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        labelText={this.props.labelText}
-        labelWrap={this.props.labelWrap}
-        labelGlyph={this.props.labelGlyph}
-        labelWidth={this.props.labelWidth || defaultLabelWidth}
-        horizontalSpacing={this.props.horizontalSpacing}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
-        <HinterLabel
-          kind="markdown"
-          shape="left-smooth"
-          width={this.props.labelWidth || defaultLabelWidth}
-          hintText={this.props.hintText}
-          tooltip={this.props.tooltip || this.props.hintText}
-          wrap={this.props.wrap}
-          grow="2"
-        />
-        <Button
-          kind="combo"
-          shape={this.props.onValue ? 'right-smooth' : null}
-          leftSpacing="overlap"
-          glyph="solid/eraser"
-          tooltip={T('Entrer une nouvelle référence')}
-          onClick={() => this.setBackendValue(this.fullPath, null)}
-        />
-        {this.props.onValue ? null : (
-          <Button
-            kind="combo"
-            shape="right-smooth"
-            leftSpacing="overlap"
-            glyph="solid/eye"
-            tooltip={T('Voir les détails')}
-            onClick={() =>
-              this.navToDetail(
-                this.context.id,
-                props.existingValue,
-                this.props.hinter
-              )
-            }
-          />
-        )}
-      </LabelRow>
-      //- <Container
-      //-   kind="row-field"
-      //-   grow={this.props.grow}
-      //-   width={this.props.width}
-      //-   height={this.props.height}
-      //-   verticalSpacing={this.props.verticalSpacing}
-      //-   verticalJustify="top"
-      //-   horizontalSpacing={this.props.horizontalSpacing}
-      //- >
-      //-   <Label
-      //-     kind="label-text-field"
-      //-     wrap="no"
-      //-     text={this.props.labelText}
-      //-     glyph={this.props.labelGlyph}
-      //-     width={this.props.labelWidth || defaultLabelWidth}
-      //-   />
-      //-   <HinterLabel
-      //-     kind="markdown"
-      //-     shape="left-smooth"
-      //-     width={this.props.labelWidth || defaultLabelWidth}
-      //-     hintText={this.props.hintText}
-      //-     tooltip={this.props.tooltip || this.props.hintText}
-      //-     wrap={this.props.wrap}
-      //-     grow="2"
-      //-   />
-      //-   <Button
-      //-     kind="combo"
-      //-     shape={this.props.onValue ? 'right-smooth' : null}
-      //-     leftSpacing="overlap"
-      //-     glyph="solid/eraser"
-      //-     tooltip={T('Entrer une nouvelle référence')}
-      //-     onClick={() => this.setBackendValue(this.fullPath, null)}
-      //-   />
-      //-   {this.props.onValue ? null : (
-      //-     <Button
-      //-       kind="combo"
-      //-       shape="right-smooth"
-      //-       horizontalSpacing={this.props.horizontalSpacing}
-      //-       leftSpacing="overlap"
-      //-       glyph="solid/eye"
-      //-       tooltip={T('Voir les détails')}
-      //-       onClick={() =>
-      //-         this.navToDetail(
-      //-           this.context.id,
-      //-           props.existingValue,
-      //-           this.props.hinter
-      //-         )
-      //-       }
-      //-     />
-      //-   )}
-      //- </Container>
-    );
-
-    const HinterLineCreate = props => (
-      <LabelRow
-        show={this.props.show}
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        labelText={this.props.labelText}
-        labelWrap={this.props.labelWrap}
-        labelGlyph={this.props.labelGlyph}
-        labelWidth={this.props.labelWidth || defaultLabelWidth}
-        horizontalSpacing={this.props.horizontalSpacing}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
-        <Form
-          {...this.formConfigWithComponent(
-            React.forwardRef((props, ref) => (
-              <Hinter
-                ref={ref}
-                selectAllOnFocus="true"
-                id={this.context.id}
-                shape={
-                  !this.props.onValue && this.props.enableAdd
-                    ? 'left-smooth'
-                    : 'smooth'
-                }
-                getGlyph={this.props.getGlyph}
-                hintText={this.props.hintText}
-                tooltip={this.props.tooltip || this.props.hintText}
-                hinter={this.props.hinter}
-                comboType={this.props.hinter}
-                width={this.props.fieldWidth}
-                grow="1"
-                requiredHinter={this.props.requiredHinter || 'true'}
-              />
-            ))
-          )}
-        />
-        {!this.props.onValue && this.props.enableAdd ? (
-          <Button
-            kind="combo"
-            shape="right-smooth"
-            leftSpacing="overlap"
-            glyph="solid/plus"
-            tooltip={T('Créer')}
-            onClick={() => {
-              const service = this.context.id.split('@')[0];
-              const currentValue = this.getBackendValue(
-                `widgets.${this.context.id}.${this.props.hinter}`
-              );
-              if (currentValue && currentValue.length >= 1) {
-                this.doAs(service, `add-new-${this.props.hinter}`, {
-                  value: currentValue,
-                });
-              }
-            }}
-          />
-        ) : null}
-      </LabelRow>
-      //- <Container
-      //-   kind="row-field"
-      //-   grow={this.props.grow}
-      //-   width={this.props.width}
-      //-   height={this.props.height}
-      //-   verticalSpacing={this.props.verticalSpacing}
-      //-   verticalJustify="top"
-      //-   horizontalSpacing={this.props.horizontalSpacing}
-      //- >
-      //-   <Label
-      //-     kind="label-text-field"
-      //-     wrap="no"
-      //-     text={this.props.labelText}
-      //-     glyph={this.props.labelGlyph}
-      //-     width={this.props.labelWidth || defaultLabelWidth}
-      //-   />
-      //-   <Form
-      //-     {...this.formConfigWithComponent(
-      //-       React.forwardRef((props, ref) => (
-      //-         <Hinter
-      //-           ref={ref}
-      //-           selectAllOnFocus="true"
-      //-           id={this.context.id}
-      //-           shape={
-      //-             !this.props.onValue && this.props.enableAdd
-      //-               ? 'left-smooth'
-      //-               : 'smooth'
-      //-           }
-      //-           getGlyph={this.props.getGlyph}
-      //-           hintText={this.props.hintText}
-      //-           tooltip={this.props.tooltip || this.props.hintText}
-      //-           hinter={this.props.hinter}
-      //-           comboType={this.props.hinter}
-      //-           horizontalSpacing={this.props.horizontalSpacing}
-      //-           width={this.props.fieldWidth}
-      //-           grow="1"
-      //-           requiredHinter={this.props.requiredHinter || 'true'}
-      //-         />
-      //-       ))
-      //-     )}
-      //-   />
-      //-   {!this.props.onValue && this.props.enableAdd ? (
-      //-     <Button
-      //-       kind="combo"
-      //-       shape="right-smooth"
-      //-       leftSpacing="overlap"
-      //-       glyph="solid/plus"
-      //-       tooltip={T('Créer')}
-      //-       onClick={() => {
-      //-         const service = this.context.id.split('@')[0];
-      //-         const currentValue = this.getBackendValue(
-      //-           `widgets.${this.context.id}.${this.props.hinter}`
-      //-         );
-      //-         if (currentValue && currentValue.length >= 1) {
-      //-           this.doAs(service, `add-new-${this.props.hinter}`, {
-      //-             value: currentValue,
-      //-           });
-      //-         }
-      //-       }}
-      //-     />
-      //-   ) : null}
-      //- </Container>
-    );
-
-    const HinterLine = props =>
-      props.existingValue ? (
-        <HinterLineValue {...props} />
-      ) : (
-        <HinterLineCreate {...props} />
-      );
-
-    const HinterField = this.mapWidget(
-      HinterLine,
-      'existingValue',
-      this.fullPath
-    );
-
-    return <HinterField />;
   }
 
   renderCompleteHinter() {
@@ -2920,50 +2220,6 @@ class Field extends Form {
             />
           </LabelRow>
         );
-        //-return (
-        //-  <Container
-        //-    kind="row-field"
-        //-    grow={this.props.grow}
-        //-    width={this.props.width}
-        //-    height={this.props.height}
-        //-    verticalSpacing={this.props.verticalSpacing}
-        //-    verticalJustify="top"
-        //-    horizontalSpacing={this.props.horizontalSpacing}
-        //-  >
-        //-    <Label
-        //-      kind="label-text-field"
-        //-      wrap="no"
-        //-      text={this.props.labelText}
-        //-      glyph={this.props.labelGlyph}
-        //-      width={this.props.labelWidth || defaultLabelWidth}
-        //-    />
-        //-    <Form
-        //-      {...this.formConfigWithComponent(
-        //-        React.forwardRef((props, ref) => (
-        //-          <TextField
-        //-            ref={ref}
-        //-            id={this.context.id}
-        //-            shape={
-        //-              !this.props.onValue && this.props.enableAdd
-        //-                ? 'left-smooth'
-        //-                : 'smooth'
-        //-            }
-        //-            getGlyph={this.props.getGlyph}
-        //-            hintText={this.props.hintText}
-        //-            tooltip={this.props.tooltip || this.props.hintText}
-        //-            hinter={this.props.hinter}
-        //-            comboType={this.props.hinter}
-        //-            horizontalSpacing={this.props.horizontalSpacing}
-        //-            width={this.props.fieldWidth}
-        //-            grow="1"
-        //-            requiredHinter="true"
-        //-            autocomplete={this.fullPath}
-        //-          />
-        //-        ))
-        //-      )}
-        //-    />
-        //-  </Container>
-        //- );
       } else {
         return this.renderEditField();
       }
@@ -2984,6 +2240,7 @@ class Field extends Form {
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
+        horizontalSpacing={this.props.horizontalSpacing}
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
@@ -3003,6 +2260,7 @@ class Field extends Form {
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
+        horizontalSpacing={this.props.horizontalSpacing}
         verticalSpacing={this.props.verticalSpacing}
         verticalJustify={this.props.verticalJustify}
       >
