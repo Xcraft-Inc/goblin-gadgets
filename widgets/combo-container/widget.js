@@ -9,6 +9,12 @@ export default class ComboContainer extends Widget {
     super(...arguments);
     this.setChildrenDivRef = this.setChildrenDivRef.bind(this);
     this.reset();
+    if (this.props.triangleSize) {
+      const triangle = this.props.triangleSize.split('px');
+      this.triangleSize = parseInt(triangle[0]);
+    } else {
+      this.triangleSize = 10;
+    }
   }
 
   reset() {
@@ -42,7 +48,10 @@ export default class ComboContainer extends Widget {
 
   calculateLocationWithChildrenSize(height) {
     // TODO: include also triangleSize
-    if (height < window.innerHeight - this.positionInfo.bottom) {
+    if (
+      height + this.triangleSize <
+      window.innerHeight - this.positionInfo.bottom
+    ) {
       this.side = 'bottom';
     }
     // If no place under element, we place it above
@@ -55,7 +64,6 @@ export default class ComboContainer extends Widget {
 
   calculateSafeArea() {
     let justifyContent = '';
-    let triangleSize = /*this.props.triangleSize ||*/ 10;
 
     if (this.positionInfo.centerX > window.innerWidth / 2) {
       this.horizontalPositionStyle = {
@@ -69,7 +77,7 @@ export default class ComboContainer extends Widget {
     }
     if (this.side === 'bottom') {
       this.safeAreaStyle = {
-        top: this.positionInfo.bottom + triangleSize,
+        top: this.positionInfo.bottom + this.triangleSize,
         justifyContent,
         alignItems: 'flex-start',
       };
@@ -79,12 +87,12 @@ export default class ComboContainer extends Widget {
       };
     } else {
       this.safeAreaStyle = {
-        bottom: window.innerHeight - this.positionInfo.top + triangleSize,
+        bottom: window.innerHeight - this.positionInfo.top + this.triangleSize,
         justifyContent,
         alignItems: 'flex-end',
       };
       this.triangleContainerStyle = {
-        top: window.innerHeight - this.positionInfo.top,
+        bottom: window.innerHeight - this.positionInfo.top,
         left: this.positionInfo.centerX,
       };
     }
@@ -153,7 +161,7 @@ export default class ComboContainer extends Widget {
           style={this.triangleContainerStyle}
           className={this.styles.classNames.triangleContainer}
         >
-          <Triangle position={this.side} />
+          <Triangle position={this.side} size={this.props.triangleSize} />
         </div>
       </React.Fragment>
     );
