@@ -208,12 +208,15 @@ class List {
     const res = yield elastic.generateFacets({
       facets: [
         {name: 'customer', field: 'customer'},
-        {name: 'status', field: 'docStatus'},
+        {name: 'docStatus', field: 'docStatus'},
       ],
     });
     return {
-      buckets: {customer: res.customer.buckets, status: res.status.buckets},
-      filters: [{name: 'customer', value: []}, {name: 'status', value: []}],
+      buckets: {
+        customer: res.customer.buckets,
+        docStatus: res.docStatus.buckets,
+      },
+      filters: [{name: 'customer', value: []}, {name: 'docStatus', value: []}],
     };
   }
 
