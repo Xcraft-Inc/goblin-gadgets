@@ -242,7 +242,7 @@ export default [
   {
     name: 'vpos',
     group: 'layout',
-    type: types.enum(['', 'top']),
+    type: types.enum(['', 'top', 'first-line']),
   },
 
   // Text

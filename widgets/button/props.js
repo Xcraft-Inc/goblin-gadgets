@@ -278,6 +278,11 @@ export default [
     group: 'layout',
     type: types.horizontalSpacing,
   },
+  {
+    name: 'vpos',
+    group: 'layout',
+    type: types.enum(['', 'top', 'first-line']),
+  },
 
   // Text.
   {

@@ -840,6 +840,9 @@ export default function styles(theme, props) {
 
   if (vpos === 'top') {
     boxAlignSelf = 'flex-start';
+  } else if (vpos === 'first-line') {
+    boxAlignSelf = 'flex-start';
+    boxMarginTop = '3px';
   }
 
   if (!boxJustifyContent) {
