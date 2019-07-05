@@ -49,12 +49,9 @@ class TextFieldTimeInterval extends Widget {
   renderStartTextField() {
     return (
       <TextFieldTyped
-        fieldWidth="70px"
+        width="70px"
         horizontalSpacing="overlap"
         type="time"
-        labelText={this.props.labelText}
-        labelGlyph={this.props.labelGlyph}
-        labelWidth={this.props.labelWidth}
         hintText={this.props.startHintText || T('Début', 'heure de début')}
         tooltip={this.props.startTooltip || T('Heure de début')}
         selectAllOnFocus={this.props.selectAllOnFocus}
@@ -62,7 +59,6 @@ class TextFieldTimeInterval extends Widget {
         disabled={this.props.disabled}
         required={this.props.required}
         model={this.props.startModel}
-        entityId={this.props.entityId}
         beforeChange={this.endBeforeChange}
       />
     );
@@ -71,14 +67,13 @@ class TextFieldTimeInterval extends Widget {
   renderEndTextField() {
     return (
       <TextFieldTyped
-        fieldWidth="70px"
+        width="70px"
         horizontalSpacing={
           Bool.isTrue(this.props.hasNowButton)
             ? 'overlap'
             : this.props.horizontalSpacing
         }
         type="time"
-        labelWidth="0px"
         hintText={this.props.endHintText || T('Fin', 'heure de fin')}
         tooltip={this.props.endTooltip || T('Heure de fin')}
         selectAllOnFocus={this.props.selectAllOnFocus}
@@ -86,14 +81,16 @@ class TextFieldTimeInterval extends Widget {
         disabled={this.props.disabled}
         required={this.props.required}
         model={this.props.endModel}
-        entityId={this.props.entityId}
         beforeChange={this.startBeforeChange}
       />
     );
   }
 
   renderNowButton() {
-    if (Bool.isTrue(this.props.hasNowButton)) {
+    if (
+      Bool.isTrue(this.props.hasNowButton) &&
+      !Bool.isTrue(this.props.readonly)
+    ) {
       return (
         <Button
           shape="right-rounded"
