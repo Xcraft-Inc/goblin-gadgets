@@ -4,10 +4,6 @@ import React from 'react';
 import Form from 'goblin-laboratory/widgets/form';
 import Widget from 'goblin-laboratory/widgets/widget';
 import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
-import {
-  date as DateConverters,
-  time as TimeConverters,
-} from 'xcraft-core-converters';
 import T from 't';
 import C from 'goblin-laboratory/widgets/connect-helpers/c';
 
@@ -117,95 +113,6 @@ class Field extends Form {
   }
 
   /******************************************************************************/
-
-  renderDynamic() {
-    const Dynamic = this.mapWidget(
-      Label,
-      value => {
-        if (!value) {
-          return;
-        }
-        return this.props.map(value);
-      },
-      this.fullPath
-    );
-
-    return (
-      <LabelRow
-        show={this.props.show}
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        labelText={this.props.labelText}
-        labelWrap={this.props.labelWrap}
-        labelGlyph={this.props.labelGlyph}
-        labelWidth={this.props.labelWidth || defaultLabelWidth}
-        horizontalSpacing={this.props.horizontalSpacing}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
-        <Dynamic grow="1" tooltip={this.props.tooltip} />
-      </LabelRow>
-    );
-  }
-
-  renderTableDynamic() {
-    let Dynamic = this.mapWidget(
-      Table,
-      value => {
-        if (!value) {
-          return;
-        }
-        return this.props.map(value);
-      },
-      this.fullPath
-    );
-
-    if (this.props.selected) {
-      Dynamic = this.mapWidget(
-        Dynamic,
-        value => {
-          return {
-            selected: value,
-          };
-        },
-        this.getFullPathFromModel(this.props.selected)
-      );
-    }
-
-    return (
-      <Dynamic
-        grow="1"
-        tooltip={this.props.tooltip}
-        onSelectionChanged={this.props.onSelectionChanged}
-        selectionMode={this.props.selectionMode}
-        hasButtons={this.props.hasButtons}
-        frame={this.props.frame}
-        height={this.props.height}
-      />
-    );
-  }
-
-  renderButtonDynamic() {
-    const Dynamic = this.mapWidget(
-      Button,
-      value => {
-        if (!value) {
-          return;
-        }
-        return this.props.map(value);
-      },
-      this.fullPath
-    );
-
-    return (
-      <Dynamic
-        {...this.props}
-        kind={this.props.buttonKind}
-        tooltip={this.props.tooltip}
-      />
-    );
-  }
 
   //#region Readonly
   renderReadonlyField() {
@@ -1576,12 +1483,6 @@ class Field extends Form {
         return this.renderReadonlyGadget();
       case 'data':
         return this.renderEditData();
-      case 'dynamic':
-        return this.renderDynamic();
-      case 'table-dynamic':
-        return this.renderTableDynamic();
-      case 'button-dynamic':
-        return this.renderButtonDynamic();
       case 'date':
       case 'time':
       case 'datetime':
@@ -1648,12 +1549,6 @@ class Field extends Form {
         return this.renderEditGadget();
       case 'data':
         return this.renderEditData();
-      case 'dynamic':
-        return this.renderDynamic();
-      case 'table-dynamic':
-        return this.renderTableDynamic();
-      case 'button-dynamic':
-        return this.renderButtonDynamic();
       case 'date':
       case 'time':
       case 'datetime':
