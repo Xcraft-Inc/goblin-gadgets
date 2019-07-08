@@ -1,5 +1,3 @@
-/******************************************************************************/
-
 export default function styles() {
   const childrenDiv = {
     position: 'absolute',
@@ -40,6 +38,7 @@ export default function styles() {
     position: 'fixed',
     width: '0px',
     height: '0px',
+    zIndex: 3,
   };
 
   return {

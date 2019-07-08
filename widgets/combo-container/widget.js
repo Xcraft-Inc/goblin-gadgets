@@ -47,7 +47,6 @@ export default class ComboContainer extends Widget {
   }
 
   calculateLocationWithChildrenSize(height) {
-    // TODO: include also triangleSize
     if (
       height + this.triangleSize <
       window.innerHeight - this.positionInfo.bottom
@@ -69,7 +68,6 @@ export default class ComboContainer extends Widget {
       this.horizontalPositionStyle = {
         minWidth: (window.innerWidth - this.positionInfo.centerX) * 2,
       };
-
       justifyContent = 'flex-end';
     } else {
       this.horizontalPositionStyle = {minWidth: this.positionInfo.centerX * 2};
@@ -82,7 +80,7 @@ export default class ComboContainer extends Widget {
         alignItems: 'flex-start',
       };
       this.triangleContainerStyle = {
-        top: this.positionInfo.bottom,
+        top: this.positionInfo.bottom + 1,
         left: this.positionInfo.centerX,
       };
     } else {
@@ -92,7 +90,7 @@ export default class ComboContainer extends Widget {
         alignItems: 'flex-end',
       };
       this.triangleContainerStyle = {
-        bottom: window.innerHeight - this.positionInfo.top,
+        bottom: window.innerHeight - this.positionInfo.top - 1,
         left: this.positionInfo.centerX,
       };
     }
@@ -161,7 +159,11 @@ export default class ComboContainer extends Widget {
           style={this.triangleContainerStyle}
           className={this.styles.classNames.triangleContainer}
         >
-          <Triangle position={this.side} size={this.props.triangleSize} />
+          <Triangle
+            position={this.side}
+            color={'white'}
+            size={this.props.triangleSize}
+          />
         </div>
       </React.Fragment>
     );
