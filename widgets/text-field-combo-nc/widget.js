@@ -240,6 +240,7 @@ class TextFieldComboNC extends Widget {
         onChange={this.doChangeTextField}
         onFocus={this.onFocus}
         onBlur={this.onBlur}
+        onValidate={this.props.onValidate}
         autoFocus={this.props.autoFocus}
         selectAllOnFocus={this.props.selectAllOnFocus}
       />
@@ -287,4 +288,4 @@ class TextFieldComboNC extends Widget {
 
 /******************************************************************************/
 
-export default wrapRawInput(TextFieldComboNC);
+export default wrapRawInput(TextFieldComboNC, 'selectedId');
