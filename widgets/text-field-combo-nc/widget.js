@@ -1,12 +1,11 @@
-//T:2019-02-27:Nothing to translate !
 import React from 'react';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import MouseTrap from 'mousetrap';
 import {isShredder} from 'xcraft-core-shredder';
-import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 
-import ButtonCombo from 'gadgets/button-combo/widget';
-import TextFieldNC from 'gadgets/text-field-nc/widget';
+import ButtonCombo from 'goblin-gadgets/widgets/button-combo/widget';
+import TextFieldNC from 'goblin-gadgets/widgets/text-field-nc/widget';
 import wrapRawInput from 'goblin-laboratory/widgets/input-wrapper/widget.js';
 
 /******************************************************************************/

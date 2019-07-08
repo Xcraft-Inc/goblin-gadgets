@@ -1,8 +1,8 @@
 import React from 'react';
-import Widget from 'laboratory/widget';
-import * as Bool from 'gadgets/helpers/bool-helpers';
+import Widget from 'goblin-laboratory/widgets/widget';
+import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 
-import Button from 'gadgets/button/widget';
+import Button from 'goblin-gadgets/widgets/button/widget';
 import FlatList from '../flat-list/widget';
 import ComboContainer from '../combo-container/widget';
 
