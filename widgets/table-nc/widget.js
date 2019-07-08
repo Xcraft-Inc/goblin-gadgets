@@ -179,7 +179,7 @@ function getUniqueId(data) {
 }
 
 /******************************************************************************/
-class TableNC extends Widget {
+export default class TableNC extends Widget {
   constructor() {
     super(...arguments);
 
@@ -619,35 +619,6 @@ class TableNC extends Widget {
 }
 
 /******************************************************************************/
-
-const TableWired = Widget.connectWidget(state => {
-  if (!state) {
-    return {};
-  }
-  return {
-    filter: state.get('filter'),
-    sortingColumns: state.get('sortingColumns'),
-  };
-})(TableNC);
-
-export default class TableExported extends Widget {
-  static get wiring() {
-    return {
-      id: 'id',
-      data: 'data',
-      selectedIds: 'selectedIds',
-    };
-  }
-  render() {
-    if (this.props.widgetId || this.props.id) {
-      return <TableWired {...this.props} />;
-    } else {
-      return <TableNC {...this.props} />;
-    }
-  }
-}
-
-/*****************************************************************************/
 
 TableNC.propTypes = makePropTypes(Props);
 TableNC.defaultProps = makeDefaultProps(Props);
