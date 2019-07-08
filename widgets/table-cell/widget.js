@@ -82,7 +82,7 @@ class TableCell extends Widget {
       >
         <Label
           kind={
-            this.props.isHeader && glyph
+            Bool.isTrue(this.props.isHeader) && glyph
               ? 'table-cell-sorting-header'
               : 'table-cell'
           }

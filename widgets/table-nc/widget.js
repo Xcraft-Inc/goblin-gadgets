@@ -377,7 +377,7 @@ class TableNC extends Widget {
         textAlign={column.get('textAlign')}
         isSortable={isSortable}
         isLast={Bool.toString(isLast)}
-        isHeader="true"
+        isHeader={true}
         text={column.get('description')}
         glyph={glyph}
         horizontalSpacing="compact"

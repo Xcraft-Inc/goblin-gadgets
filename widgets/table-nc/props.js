@@ -35,22 +35,22 @@ const samplesData = {
     rows: [
       {
         content: 'C6',
-        dimensions: '11.4x16.2x1',
+        dimensions: {glyph: 'solid/check', text: '11.4x16.2x1'},
         weight: '150g',
       },
       {
         content: 'A4',
-        dimensions: '21x29.7x1',
+        dimensions: {glyph: 'solid/times', text: '21x29.7x1'},
         weight: '100g',
       },
       {
         content: 'XT9',
-        dimensions: '50x50x100',
+        dimensions: {glyph: 'solid/calendar', text: '50x50x100'},
         weight: '1kg',
       },
       {
         content: 'N1',
-        dimensions: '1x2x3',
+        dimensions: {glyph: 'solid/rocket', text: '1x2x3'},
         weight: '10g',
       },
     ],

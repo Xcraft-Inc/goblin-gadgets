@@ -53,7 +53,7 @@ class TableRow extends Widget {
         indent={indent}
         fontSizeStrategy={this.props.fontSizeStrategy}
         isLast={Bool.toString(isLast)}
-        isHeader="false"
+        isHeader={false}
         text={text}
         selectionChanged={() => this.onSelectionChanged(rowId)}
         onDoubleClick={() => this.onDoubleClick(rowId)}
