@@ -95,23 +95,6 @@ class Field extends Form {
     return this.getFullPathFromModel(this.props.model);
   }
 
-  showIfFilled(props, Component, path) {
-    return this.mapWidget(
-      Component,
-      value => {
-        if (
-          props.showStrategy !== 'alwaysVisible' &&
-          (!value || value === '')
-        ) {
-          return {show: 'false'};
-        } else {
-          return {show: 'true'};
-        }
-      },
-      path
-    );
-  }
-
   isShowed(value) {
     return Boolean(this.props.showStrategy === 'alwaysVisible' || value);
   }
