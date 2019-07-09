@@ -581,78 +581,6 @@ class Field extends Form {
       throw new Error('Property plugin is required in this case!');
     }
   }
-
-  renderTitle() {
-    console.log("Field kind='title' is deprecated!");
-    const Value = this.mapWidget(
-      Label,
-      value => {
-        return {text: value};
-      },
-      this.fullPath
-    );
-
-    const labelWidth = this.props.labelWidth || defaultLabelWidth;
-
-    return (
-      <Container
-        kind="row-field"
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
-        {labelWidth === '0px' ? null : (
-          <Label
-            text={this.props.labelText}
-            glyph={this.props.labelGlyph}
-            width={labelWidth}
-            kind="label-field"
-            justify="left"
-            horizontalSpacing="overlap"
-          />
-        )}
-        <Value kind="title" grow="1" justify={this.props.justify} />
-      </Container>
-    );
-  }
-
-  renderSubtitle() {
-    console.log("Field kind='subtitle' is deprecated!");
-    const Value = this.mapWidget(
-      Label,
-      value => {
-        return {text: value};
-      },
-      this.fullPath
-    );
-
-    const labelWidth = this.props.labelWidth || defaultLabelWidth;
-
-    return (
-      <Container
-        kind="row-field"
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
-        {labelWidth === '0px' ? null : (
-          <Label
-            text={this.props.labelText}
-            glyph={this.props.labelGlyph}
-            width={labelWidth}
-            kind="label-field"
-            justify="left"
-            horizontalSpacing="overlap"
-          />
-        )}
-        <Value grow="1" justify={this.props.justify} />
-      </Container>
-    );
-  }
   //#endregion
 
   //#region Edit
@@ -759,20 +687,6 @@ class Field extends Form {
     const DisplayGadget = this.mapWidget(GadgetLoader, 'available', target);
 
     return <DisplayGadget />;
-  }
-
-  renderEditData() {
-    const Component = widgetImporter(this.props.component);
-
-    const Dynamic = this.mapWidget(
-      Component,
-      value => {
-        return {data: value};
-      },
-      this.fullPath
-    );
-
-    return <Dynamic {...this.props} />;
   }
 
   renderEditTyped() {
@@ -1481,8 +1395,6 @@ class Field extends Form {
         return this.renderReadonlyField();
       case 'gadget':
         return this.renderReadonlyGadget();
-      case 'data':
-        return this.renderEditData();
       case 'date':
       case 'time':
       case 'datetime':
@@ -1522,10 +1434,6 @@ class Field extends Form {
         return this.renderReadonlyEntities();
       case 'combo-ids':
         return this.renderComboIds();
-      case 'title':
-        return this.renderTitle();
-      case 'subtitle':
-        return this.renderSubtitle();
       case 'translatable':
         return this.renderReadonlyTranslatable();
       case 'label':
@@ -1547,8 +1455,6 @@ class Field extends Form {
         return this.renderEditField();
       case 'gadget':
         return this.renderEditGadget();
-      case 'data':
-        return this.renderEditData();
       case 'date':
       case 'time':
       case 'datetime':
@@ -1590,10 +1496,6 @@ class Field extends Form {
         return this.renderEditEntities();
       case 'combo-ids':
         return this.renderComboIds();
-      case 'title':
-        return this.renderTitle();
-      case 'subtitle':
-        return this.renderSubtitle();
       case 'translatable':
         return this.renderEditTranslatable();
       case 'label':
