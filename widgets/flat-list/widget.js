@@ -19,6 +19,12 @@ export default class FlatList extends Widget {
     this.state = {
       activeIndex: -1,
     };
+
+    this.previousProps = {};
+
+    this.containerStyle = {};
+
+    this.itemsRef = [];
   }
 
   componentWillMount() {
@@ -90,6 +96,36 @@ export default class FlatList extends Widget {
     }
   }
 
+  calculateSize() {
+    const itemCount = this.props.list.length;
+    let itemHeight = this.context.theme.shapes.menuButtonHeight;
+    // Props maxHeight and itemWidth come from combo-container
+    let maxHeight = this.props.maxHeight - 25; // -20px padding and -5px from top or bottom
+    let itemWidth = this.props.itemWidth;
+    if (
+      this.previousProps.itemCount !== itemCount ||
+      this.previousProps.itemHeight !== itemHeight ||
+      this.previousProps.maxHeight !== maxHeight
+    ) {
+      this.previousProps.itemCount = itemCount;
+      this.previousProps.itemHeight = itemHeight;
+      this.previousProps.maxHeight = maxHeight;
+      this.containerStyle = {};
+      if (itemCount && itemHeight && maxHeight) {
+        // -20 px to remove padding
+        itemWidth = itemWidth ? itemWidth - 20 : 240;
+        itemHeight = itemHeight
+          ? parseInt(itemHeight.substring(0, itemHeight.length - 2))
+          : 48;
+        let maxRows = Math.floor(maxHeight / itemHeight);
+        const columnCount = Math.max(Math.ceil(itemCount / maxRows), 1);
+        this.containerStyle.width = itemWidth * columnCount + 'px';
+        maxRows = Math.ceil(itemCount / columnCount);
+        this.containerStyle.height = maxRows * itemHeight + 'px';
+      }
+    }
+  }
+
   renderItem(item, index, isActive) {
     if (item.separator) {
       return <Separator key={index} kind="menu-separator" />;
@@ -107,8 +143,6 @@ export default class FlatList extends Widget {
         glyph={item.glyph}
         glyphColor={item.color}
         width={this.props.menuItemWidth}
-        horizontalSpacing="overlap"
-        focusable="true"
         active={isActive}
         onClick={() => this.onClickedItem(item)}
       />
@@ -125,8 +159,14 @@ export default class FlatList extends Widget {
   }
 
   render() {
+    this.calculateSize();
     return (
-      <div className={this.styles.classNames.box}>{this.renderItems()}</div>
+      <div
+        style={{...this.containerStyle}}
+        className={this.styles.classNames.box}
+      >
+        {this.renderItems()}
+      </div>
     );
   }
 }

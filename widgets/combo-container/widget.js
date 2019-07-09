@@ -15,6 +15,7 @@ export default class ComboContainer extends Widget {
     } else {
       this.triangleSize = 10;
     }
+    this.childrenProps = {};
   }
 
   reset() {
@@ -29,7 +30,8 @@ export default class ComboContainer extends Widget {
   setChildrenDivRef(node) {
     if (node) {
       this.childrenDivRef = node;
-      const {height} = this.childrenDivRef.getBoundingClientRect();
+      const {width, height} = this.childrenDivRef.getBoundingClientRect();
+      this.childrenProps.itemWidth = width;
       this.calculateLocationWithChildrenSize(height);
       this.comboState = 'render-combo';
       this.forceUpdate();
@@ -83,6 +85,8 @@ export default class ComboContainer extends Widget {
         top: this.positionInfo.bottom + 1,
         left: this.positionInfo.centerX,
       };
+      this.childrenProps.maxHeight =
+        window.innerHeight - this.positionInfo.bottom + this.triangleSize;
     } else {
       this.safeAreaStyle = {
         bottom: window.innerHeight - this.positionInfo.top + this.triangleSize,
@@ -90,9 +94,10 @@ export default class ComboContainer extends Widget {
         alignItems: 'flex-end',
       };
       this.triangleContainerStyle = {
-        bottom: window.innerHeight - this.positionInfo.top - 1,
+        bottom: window.innerHeight - this.positionInfo.top + 1,
         left: this.positionInfo.centerX,
       };
+      this.childrenProps.maxHeight = this.positionInfo.top - this.triangleSize;
     }
   }
 
@@ -138,6 +143,9 @@ export default class ComboContainer extends Widget {
   }
 
   renderCombo() {
+    const childrenWithProps = React.Children.map(this.props.children, child =>
+      React.cloneElement(child, {...this.childrenProps})
+    );
     return (
       <React.Fragment>
         <div
@@ -152,7 +160,7 @@ export default class ComboContainer extends Widget {
             style={this.horizontalPositionStyle}
             className={this.styles.classNames.horizontalPosition}
           >
-            {this.props.children}
+            {childrenWithProps}
           </div>
         </div>
         <div
