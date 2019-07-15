@@ -41,6 +41,10 @@ export default class ButtonCombo extends Widget {
     this.setState({
       showCombo: false,
     });
+
+    if (this.props.onHideCombo) {
+      this.props.onHideCombo();
+    }
   }
 
   onChange(item) {

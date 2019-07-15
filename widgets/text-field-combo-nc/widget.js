@@ -27,6 +27,8 @@ class TextFieldComboNC extends Widget {
     this.onDownKey = this.onDownKey.bind(this);
     this.onEnterKey = this.onEnterKey.bind(this);
     this.setListRef = this.setListRef.bind(this);
+    this.onShowCombo = this.onShowCombo.bind(this);
+    this.onHideCombo = this.onHideCombo.bind(this);
     this.setButtonComboRef = this.setButtonComboRef.bind(this);
   }
 
@@ -49,11 +51,38 @@ class TextFieldComboNC extends Widget {
     }
   }
 
-  onFocus() {
+  onShowCombo() {
+    this.bindKeys();
+    if (this.props.onShowCombo) {
+      this.props.onShowCombo();
+    }
+  }
+
+  onHideCombo() {
+    if (!this.state.focus) {
+      this.unbindKeys();
+    }
+    if (this.props.onHideCombo) {
+      this.props.onHideCombo();
+    }
+  }
+
+  bindKeys() {
     MouseTrap.bind('up', this.onUpKey, 'keydown');
     MouseTrap.bind('down', this.onDownKey, 'keydown');
     MouseTrap.bind('enter', this.onEnterKey, 'keydown');
     MouseTrap.bind('esc', this.onEscKey, 'keydown');
+  }
+
+  unbindKeys() {
+    MouseTrap.unbind('up', 'keydown');
+    MouseTrap.unbind('down', 'keydown');
+    MouseTrap.unbind('enter', 'keydown');
+    MouseTrap.unbind('esc', 'keydown');
+  }
+
+  onFocus() {
+    this.bindKeys();
     this.setState({
       focus: true,
     });
@@ -63,10 +92,7 @@ class TextFieldComboNC extends Widget {
   }
 
   onBlur() {
-    MouseTrap.unbind('up');
-    MouseTrap.unbind('down');
-    MouseTrap.unbind('enter');
-    MouseTrap.unbind('esc');
+    this.unbindKeys();
     this.setState({
       focus: false,
     });
@@ -76,18 +102,14 @@ class TextFieldComboNC extends Widget {
   }
 
   onUpKey() {
-    if (this.buttonComboRef) {
-      this.buttonComboRef.showCombo();
-    }
+    this.showCombo();
     if (this.listRef) {
       this.listRef.onUpKey();
     }
   }
 
   onDownKey() {
-    if (this.buttonComboRef) {
-      this.buttonComboRef.showCombo();
-    }
+    this.showCombo();
     if (this.listRef) {
       this.listRef.onDownKey();
     }
@@ -266,7 +288,8 @@ class TextFieldComboNC extends Widget {
         readonly={this.props.readonly}
         restrictsToList={this.props.restrictsToList}
         disabled={this.props.disabled}
-        onShowCombo={this.props.onShowCombo}
+        onShowCombo={this.onShowCombo}
+        onHideCombo={this.onHideCombo}
         node={this.node}
         selectedId={this.props.selectedId}
         list={this.list}
