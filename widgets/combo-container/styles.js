@@ -13,7 +13,6 @@ export default function styles() {
     right: 0,
     bottom: 5,
     top: 5,
-    // Put combo over sidebar in westeros
     zIndex: 3,
   };
 
@@ -33,6 +32,7 @@ export default function styles() {
     right: 0,
     bottom: 0,
     top: 0,
+    zIndex: 2,
   };
 
   const triangleContainer = {
