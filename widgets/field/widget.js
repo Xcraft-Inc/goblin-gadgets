@@ -27,7 +27,8 @@ import CheckList from 'goblin-gadgets/widgets/check-list/widget';
 import CalendarRecurrence from 'goblin-gadgets/widgets/calendar-recurrence/widget';
 import Calendar from 'goblin-gadgets/widgets/calendar/widget';
 import CalendarBoards from 'goblin-gadgets/widgets/calendar-boards/widget';
-import Table from 'goblin-gadgets/widgets/table/widget';
+import FileInput from 'goblin-gadgets/widgets/file-input/widget';
+import DirectoryInput from 'goblin-gadgets/widgets/directory-input/widget';
 
 import Plugin from 'goblin-desktop/widgets/plugin/widget';
 
@@ -67,7 +68,6 @@ class Field extends Form {
   constructor() {
     super(...arguments);
 
-    this.handleFileChange = this.handleFileChange.bind(this);
     this.radioListSelectionChanged = this.radioListSelectionChanged.bind(this);
     this.isShowed = this.isShowed.bind(this);
   }
@@ -93,23 +93,6 @@ class Field extends Form {
 
   isShowed(value) {
     return Boolean(this.props.showStrategy === 'alwaysVisible' || value);
-  }
-
-  handleFileChange(ev) {
-    ev.persist();
-    const fileList = ev.target.files;
-    const files = [];
-    for (let i = 0; i < fileList.length; i++) {
-      files.push(fileList[i].path);
-    }
-    if (files.length === 1) {
-      this.setBackendValue(this.fullPath, files[0]);
-      if (this.props.onChange) {
-        this.props.onChange(files[0]);
-      }
-    } else {
-      throw new Error('Not implemented');
-    }
   }
 
   /******************************************************************************/
@@ -372,10 +355,6 @@ class Field extends Form {
     );
   }
 
-  renderReadonlyFileInput() {
-    throw new Error('Not implemented');
-  }
-
   renderReadonlyHinter() {
     const {
       show,
@@ -581,78 +560,6 @@ class Field extends Form {
       throw new Error('Property plugin is required in this case!');
     }
   }
-
-  renderTitle() {
-    console.log("Field kind='title' is deprecated!");
-    const Value = this.mapWidget(
-      Label,
-      value => {
-        return {text: value};
-      },
-      this.fullPath
-    );
-
-    const labelWidth = this.props.labelWidth || defaultLabelWidth;
-
-    return (
-      <Container
-        kind="row-field"
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
-        {labelWidth === '0px' ? null : (
-          <Label
-            text={this.props.labelText}
-            glyph={this.props.labelGlyph}
-            width={labelWidth}
-            kind="label-field"
-            justify="left"
-            horizontalSpacing="overlap"
-          />
-        )}
-        <Value kind="title" grow="1" justify={this.props.justify} />
-      </Container>
-    );
-  }
-
-  renderSubtitle() {
-    console.log("Field kind='subtitle' is deprecated!");
-    const Value = this.mapWidget(
-      Label,
-      value => {
-        return {text: value};
-      },
-      this.fullPath
-    );
-
-    const labelWidth = this.props.labelWidth || defaultLabelWidth;
-
-    return (
-      <Container
-        kind="row-field"
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
-      >
-        {labelWidth === '0px' ? null : (
-          <Label
-            text={this.props.labelText}
-            glyph={this.props.labelGlyph}
-            width={labelWidth}
-            kind="label-field"
-            justify="left"
-            horizontalSpacing="overlap"
-          />
-        )}
-        <Value grow="1" justify={this.props.justify} />
-      </Container>
-    );
-  }
   //#endregion
 
   //#region Edit
@@ -759,20 +666,6 @@ class Field extends Form {
     const DisplayGadget = this.mapWidget(GadgetLoader, 'available', target);
 
     return <DisplayGadget />;
-  }
-
-  renderEditData() {
-    const Component = widgetImporter(this.props.component);
-
-    const Dynamic = this.mapWidget(
-      Component,
-      value => {
-        return {data: value};
-      },
-      this.fullPath
-    );
-
-    return <Dynamic {...this.props} />;
   }
 
   renderEditTyped() {
@@ -1429,48 +1322,69 @@ class Field extends Form {
     return <HinterField />;
   }
 
-  renderEditFileInput() {
+  renderFileInput() {
+    const {
+      show,
+      labelText,
+      labelWrap,
+      labelGlyph,
+      labelWidth = defaultLabelWidth,
+      horizontalSpacing,
+      verticalSpacing,
+      verticalJustify,
+      width,
+      grow,
+      kind,
+      ...otherProps
+    } = this.props;
     return (
-      <Container
-        kind="row-field"
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        horizontalSpacing={this.props.horizontalSpacing}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
+      <LabelRow
+        show={show}
+        labelText={labelText}
+        labelWrap={labelWrap}
+        labelGlyph={labelGlyph}
+        labelWidth={labelWidth}
+        horizontalSpacing={horizontalSpacing}
+        verticalSpacing={verticalSpacing}
+        verticalJustify={verticalJustify}
+        width={width}
+        grow={grow}
       >
-        <input
-          type="file"
-          onChange={this.handleFileChange}
-          accept={this.props.accept}
-        />
-      </Container>
+        <FileInput {...otherProps} />
+      </LabelRow>
     );
   }
 
-  renderEditDirectoryInput() {
+  renderDirectoryInput() {
+    const {
+      show,
+      labelText,
+      labelWrap,
+      labelGlyph,
+      labelWidth = defaultLabelWidth,
+      horizontalSpacing,
+      verticalSpacing,
+      verticalJustify,
+      width,
+      grow,
+      kind,
+      ...otherProps
+    } = this.props;
     return (
-      <Container
-        kind="row-field"
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        horizontalSpacing={this.props.horizontalSpacing}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
+      <LabelRow
+        show={show}
+        labelText={labelText}
+        labelWrap={labelWrap}
+        labelGlyph={labelGlyph}
+        labelWidth={labelWidth}
+        horizontalSpacing={horizontalSpacing}
+        verticalSpacing={verticalSpacing}
+        verticalJustify={verticalJustify}
+        width={width}
+        grow={grow}
       >
-        <input
-          type="file"
-          onChange={this.handleFileChange}
-          ref={n => {
-            if (n) {
-              n.directory = true;
-              n.webkitdirectory = true;
-            }
-          }}
-        />
-      </Container>
+        <DirectoryInput {...otherProps} />
+      </LabelRow>
     );
   }
   //#endregion
@@ -1481,8 +1395,6 @@ class Field extends Form {
         return this.renderReadonlyField();
       case 'gadget':
         return this.renderReadonlyGadget();
-      case 'data':
-        return this.renderEditData();
       case 'date':
       case 'time':
       case 'datetime':
@@ -1515,17 +1427,15 @@ class Field extends Form {
       case 'complete-hinter':
         return this.renderReadonlyField();
       case 'file':
-        return this.renderReadonlyFileInput();
+        return this.renderFileInput();
+      case 'directory':
+        return this.renderDirectoryInput();
       case 'id':
         return this.renderReadonlyEntity();
       case 'ids':
         return this.renderReadonlyEntities();
       case 'combo-ids':
         return this.renderComboIds();
-      case 'title':
-        return this.renderTitle();
-      case 'subtitle':
-        return this.renderSubtitle();
       case 'translatable':
         return this.renderReadonlyTranslatable();
       case 'label':
@@ -1547,8 +1457,6 @@ class Field extends Form {
         return this.renderEditField();
       case 'gadget':
         return this.renderEditGadget();
-      case 'data':
-        return this.renderEditData();
       case 'date':
       case 'time':
       case 'datetime':
@@ -1581,19 +1489,15 @@ class Field extends Form {
       case 'complete-hinter':
         return this.renderCompleteHinter();
       case 'file':
-        return this.renderEditFileInput();
+        return this.renderFileInput();
       case 'directory':
-        return this.renderEditDirectoryInput();
+        return this.renderDirectoryInput();
       case 'id':
         return this.renderEditEntity();
       case 'ids':
         return this.renderEditEntities();
       case 'combo-ids':
         return this.renderComboIds();
-      case 'title':
-        return this.renderTitle();
-      case 'subtitle':
-        return this.renderSubtitle();
       case 'translatable':
         return this.renderEditTranslatable();
       case 'label':

@@ -1,6 +1,7 @@
 import React from 'react';
 import Widget from 'laboratory/widget';
 import Container from 'goblin-gadgets/widgets/container/widget';
+import Button from 'goblin-gadgets/widgets/button/widget';
 import WidgetDocMenu from '../widget-doc-menu/widget';
 import WidgetDocProperties from '../widget-doc-properties/widget';
 import WidgetDocPreview from '../widget-doc-preview/widget';
@@ -41,6 +42,26 @@ class WidgetDoc extends Widget {
     this.dispatch({type: 'INIT', requiredProps, defaultProps});
   }
 
+  renderCloseButton() {
+    if (this.props.onClose) {
+      return (
+        <div className={this.styles.classNames.closeButton}>
+          <Button
+            width="90px"
+            height="90px"
+            border="none"
+            glyph="solid/times"
+            glyphSize="300%"
+            onClick={this.props.onClose}
+            tooltip="Close"
+          />
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
+
   render() {
     if (!this.props.ready) {
       return null;
@@ -50,6 +71,7 @@ class WidgetDoc extends Widget {
         <WidgetDocMenu widgetId={this.props.widgetId} />
         <WidgetDocProperties widgetId={this.props.widgetId} />
         <WidgetDocPreview widgetId={this.props.widgetId} />
+        {this.renderCloseButton()}
       </Container>
     );
   }
