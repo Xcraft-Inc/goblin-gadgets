@@ -255,6 +255,7 @@ export default function styles(theme, props) {
     display = 'flex';
     flexDirection = 'row';
     backgroundColor = theme.palette.mainTabBackground;
+    flexShrink = 0;
   }
 
   if (kind === 'main-tab') {
