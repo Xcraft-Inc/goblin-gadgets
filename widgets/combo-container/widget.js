@@ -30,8 +30,7 @@ export default class ComboContainer extends Widget {
   setChildrenDivRef(node) {
     if (node) {
       this.childrenDivRef = node;
-      const {width, height} = this.childrenDivRef.getBoundingClientRect();
-      this.childrenProps.itemWidth = width;
+      const {height} = this.childrenDivRef.getBoundingClientRect();
       this.calculateLocationWithChildrenSize(height);
       this.comboState = 'render-combo';
       this.forceUpdate();

@@ -2,6 +2,7 @@ import React from 'react';
 import Widget from 'laboratory/widget';
 import Button from 'gadgets/button/widget';
 import Separator from 'gadgets/separator/widget';
+import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
 
@@ -20,11 +21,15 @@ export default class FlatList extends Widget {
       activeIndex: -1,
     };
 
+    this.itemHeight = this.context.theme.shapes.menuButtonHeight || 48 + 'px';
+
+    this.menuItemWidth =
+      this.props.menuItemWidth || this.props.containerWidth + 'px';
+    this.itemWidth = Unit.parse(this.menuItemWidth).value - 20 + 'px';
+
     this.previousProps = {};
 
     this.containerStyle = {};
-
-    this.itemsRef = [];
   }
 
   componentWillMount() {
@@ -98,10 +103,10 @@ export default class FlatList extends Widget {
 
   calculateSize() {
     const itemCount = this.props.list.length;
-    let itemHeight = this.context.theme.shapes.menuButtonHeight;
-    // Props maxHeight and itemWidth come from combo-container
-    let maxHeight = this.props.maxHeight - 25; // -20px padding and -5px from top or bottom
-    let itemWidth = this.props.itemWidth;
+    let itemHeight = this.itemHeight;
+    let itemWidth = this.itemWidth;
+    // Prop maxHeight come from combo-container
+    let maxHeight = this.props.maxHeight - 20; // -10px padding and -5 px top/bottom
     if (
       this.previousProps.itemCount !== itemCount ||
       this.previousProps.itemHeight !== itemHeight ||
@@ -112,11 +117,9 @@ export default class FlatList extends Widget {
       this.previousProps.maxHeight = maxHeight;
       this.containerStyle = {};
       if (itemCount && itemHeight && maxHeight) {
-        // -20 px to remove padding
-        itemWidth = itemWidth ? itemWidth - 20 : 240;
-        itemHeight = itemHeight
-          ? parseInt(itemHeight.substring(0, itemHeight.length - 2))
-          : 48;
+        itemWidth = Unit.parse(itemWidth).value;
+        itemHeight = Unit.parse(itemHeight).value;
+
         let maxRows = Math.floor(maxHeight / itemHeight);
         const columnCount = Math.max(Math.ceil(itemCount / maxRows), 1);
         this.containerStyle.width = itemWidth * columnCount + 'px';
@@ -130,19 +133,18 @@ export default class FlatList extends Widget {
     if (item.separator) {
       return <Separator key={index} kind="menu-separator" />;
     }
-    let kind = 'combo-wrap-item';
     if (this.props.menuType !== 'wrap') {
       item.glyph = isActive ? 'solid/check' : 'solid/none';
-      kind = this.props.menuType === 'menu' ? 'menu-item' : 'combo-item';
     }
     return (
       <Button
         key={index}
-        kind={kind}
         text={item.text}
         glyph={item.glyph}
         glyphColor={item.color}
-        width={this.props.menuItemWidth}
+        height={this.itemHeight}
+        width={this.itemWidth}
+        border={'none'}
         active={isActive}
         onClick={() => this.onClickedItem(item)}
       />

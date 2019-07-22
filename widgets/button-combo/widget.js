@@ -100,6 +100,7 @@ export default class ButtonCombo extends Widget {
           onChange={this.onChange}
           onEscKey={this.hideCombo}
           ref={this.props.setListRef}
+          containerWidth={this.node ? this.node.clientWidth : undefined}
         />
       </ComboContainer>
     );
