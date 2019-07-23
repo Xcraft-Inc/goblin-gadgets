@@ -8,7 +8,7 @@ export default function styles(theme) {
     backgroundColor: 'white',
     boxSizing: 'content-box',
     boxShadow: theme.shapes.calendarShadow,
-    //overflowX: 'auto',
+    overflowX: 'overlay',
     cursor: 'default',
     userSelect: 'none',
     padding: '10px',
