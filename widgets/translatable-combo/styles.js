@@ -1,4 +1,5 @@
 import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as SpacingHelpers from 'gadgets/helpers/spacing-helpers';
 import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
@@ -6,14 +7,21 @@ import {Unit} from 'electrum-theme';
 export const propNames = [
   'grow',
   'visibility',
-  'spacing',
+  'horizontalSpacing',
   'shape',
   'width',
   'comboDirection',
 ];
 
 export default function styles(theme, props) {
-  const {grow, visibility, spacing, shape, width, comboDirection} = props;
+  const {
+    grow,
+    visibility,
+    horizontalSpacing,
+    shape,
+    width,
+    comboDirection,
+  } = props;
 
   let flexGrow = grow;
   let flexShrink = null;
@@ -22,23 +30,15 @@ export default function styles(theme, props) {
   let borderRadius = '0px';
   let opacity = Bool.isFalse(visibility) ? 0 : null;
 
-  const m = Unit.multiply(theme.shapes.containerMargin, 0.5);
-
   if (flexGrow) {
     flexShrink = '1';
     flexBasis = '0%';
   }
 
-  // Initialise right margin according to spacing.
-  if (spacing) {
-    let spacingType = {
-      overlap: '-1px',
-      tiny: '1px',
-      large: m,
-      double: theme.shapes.containerMargin,
-    };
-    marginRight = spacingType[spacing];
-  }
+  marginRight = SpacingHelpers.getHorizontalSpacingRightMargin(
+    theme,
+    horizontalSpacing
+  );
 
   if (shape === 'rounded') {
     borderRadius = theme.shapes.actionRadius;

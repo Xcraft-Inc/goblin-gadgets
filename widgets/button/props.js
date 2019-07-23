@@ -113,6 +113,12 @@ export default [
     ]),
   },
   {
+    name: 'subkind',
+    group: 'aspect',
+    type: types.enum(['', 'add', 'sub', 'base']),
+    description: "Only with kind='calendar' and active='true'.",
+  },
+  {
     name: 'textColor',
     group: 'aspect',
     type: types.color,
@@ -268,9 +274,14 @@ export default [
     type: types.grow,
   },
   {
-    name: 'spacing',
+    name: 'horizontalSpacing',
     group: 'layout',
-    type: types.spacing,
+    type: types.horizontalSpacing,
+  },
+  {
+    name: 'vpos',
+    group: 'layout',
+    type: types.enum(['', 'top', 'first-line']),
   },
 
   // Text.

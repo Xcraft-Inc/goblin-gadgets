@@ -3,6 +3,11 @@ import {types} from 'goblin-gadgets/types/types.js';
 export default [
   // Aspect.
   {
+    name: 'inputType',
+    group: 'aspect',
+    type: types.enum(['', 'textarea', 'password']),
+  },
+  {
     name: 'active',
     group: 'aspect',
     type: types.bool,

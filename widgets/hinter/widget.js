@@ -79,7 +79,7 @@ class Hinter extends Widget {
             glyph={clickGlyph}
             tooltip={clickTooltip}
             onClick={() => this.handleClick(index, row)}
-            spacing="overlap"
+            horizontalSpacing="overlap"
           />
         )}
         <Button

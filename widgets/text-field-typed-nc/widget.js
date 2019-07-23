@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Widget from 'laboratory/widget';
+import T from 't';
 import {
   date as DateConverters,
   time as TimeConverters,
@@ -135,22 +136,64 @@ export default class TextFieldTypedNC extends Widget {
   }
 
   render() {
-    let {type, unit, justify, ...otherProps} = this.props;
+    let {
+      type,
+      unit,
+      decimals,
+      minDate,
+      maxDate,
+      minTime,
+      maxTime,
+      mode,
+      defaultDate,
+      defaultTime,
+      justify,
+      width,
+      tooltip,
+      ...otherProps
+    } = this.props;
 
     if (!justify) {
       justify =
-        this.props.type === 'price' ||
-        this.props.type === 'weight' ||
-        this.props.type === 'length' ||
-        this.props.type === 'number' ||
-        this.props.type === 'percent'
+        type === 'price' ||
+        type === 'weight' ||
+        type === 'length' ||
+        type === 'number' ||
+        type === 'percent'
           ? 'right'
           : 'left';
+    }
+
+    if (!width) {
+      switch (type) {
+        case 'datetime':
+          width = '160px';
+          break;
+        case 'volume':
+        case 'delay':
+          width = '200px';
+          break;
+        default:
+          width = '120px';
+          break;
+      }
+    }
+
+    if (!tooltip) {
+      switch (type) {
+        case 'delay':
+          tooltip = T(
+            '1a = 1 année\n2mo = 2 mois\n3j = 3 jours\n4h = 4 heures\n5m = 5 minutes'
+          );
+          break;
+      }
     }
 
     return (
       <TextFieldNC
         {...otherProps}
+        width={width}
+        tooltip={tooltip}
         justify={justify}
         format={this.format}
         parse={this.parse}

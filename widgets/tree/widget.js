@@ -290,7 +290,7 @@ class Tree extends Widget {
         }
         place={`${existingIndex + 1}/${existingCount}`}
         grow={existingButton ? '1' : '0'}
-        spacing={
+        horizontalSpacing={
           existingButton && existingIndex < existingCount - 1
             ? Bool.isTrue(this.props.frame)
               ? 'overlap'

@@ -82,7 +82,7 @@ class TableCell extends Widget {
       >
         <Label
           kind={
-            this.props.isHeader && glyph
+            Bool.isTrue(this.props.isHeader) && glyph
               ? 'table-cell-sorting-header'
               : 'table-cell'
           }
@@ -92,7 +92,7 @@ class TableCell extends Widget {
           text={text}
           weight={weight}
           justify={this.props.textAlign}
-          spacing={this.props.spacing}
+          horizontalSpacing={this.props.horizontalSpacing}
           wrap={this.props.wrap}
         >
           {this.props.children}

@@ -128,7 +128,7 @@ const samplesList = {
 
 addType('dataList', {
   type: 'dataList',
-  defaultValue: 'T1',
+  //? defaultValue: 'T1',
   widget: 'combo',
   restrictsToList: true,
   samples: samples,
@@ -275,9 +275,9 @@ export default [
     type: types.size,
   },
   {
-    name: 'spacing',
+    name: 'horizontalSpacing',
     group: 'layout',
-    type: types.spacing,
+    type: types.horizontalSpacing,
   },
   {
     name: 'grow',

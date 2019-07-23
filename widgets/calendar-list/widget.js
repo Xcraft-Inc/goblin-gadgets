@@ -168,7 +168,7 @@ class CalendarList extends Form {
           text={T('Régul.')}
           tooltip={T('Montre ou cache les dates régulières')}
           grow="1"
-          spacing="overlap"
+          horizontalSpacing="overlap"
           onClick={this.onShowBase}
         />
         <Button
@@ -178,7 +178,7 @@ class CalendarList extends Form {
           text={T('Ajouts')}
           tooltip={T('Montre ou cache les dates ajoutées')}
           grow="1"
-          spacing="overlap"
+          horizontalSpacing="overlap"
           onClick={this.onShowAdd}
         />
         <Button
@@ -188,7 +188,7 @@ class CalendarList extends Form {
           text={T('Supp.')}
           tooltip={T('Montre ou cache les dates supprimées')}
           grow="1"
-          spacing="overlap"
+          horizontalSpacing="overlap"
           onClick={this.onShowSub}
         />
         <Button

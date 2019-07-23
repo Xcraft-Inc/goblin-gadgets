@@ -1,4 +1,5 @@
 import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as SpacingHelpers from 'gadgets/helpers/spacing-helpers';
 import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
@@ -7,7 +8,7 @@ export const propNames = [
   'grow',
   'width',
   'visibility',
-  'spacing',
+  'horizontalSpacing',
   'shape',
   'disabled',
   'active',
@@ -22,7 +23,7 @@ export default function styles(theme, props) {
     grow,
     width,
     visibility,
-    spacing,
+    horizontalSpacing,
     shape,
     disabled,
     active,
@@ -45,23 +46,15 @@ export default function styles(theme, props) {
   let fieldPaddingRight = '10px';
   let opacity = Bool.isFalse(visibility) ? 0 : null;
 
-  const m = Unit.multiply(theme.shapes.containerMargin, 0.5);
-
   // Initialize variables for field without border.
   if (border === 'none') {
     borderStyle = 'none';
   }
 
-  // Initialise right margin according to spacing.
-  if (spacing) {
-    let spacingType = {
-      overlap: '-1px',
-      tiny: '1px',
-      large: m,
-      double: theme.shapes.containerMargin,
-    };
-    marginRight = spacingType[spacing];
-  }
+  marginRight = SpacingHelpers.getHorizontalSpacingRightMargin(
+    theme,
+    horizontalSpacing
+  );
 
   if (shape) {
     const r = Unit.multiply(theme.shapes.lineHeight, 0.5);

@@ -1,12 +1,13 @@
 import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as SpacingHelpers from 'gadgets/helpers/spacing-helpers';
 import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
 
-export const propNames = ['grow', 'visibility', 'spacing', 'width'];
+export const propNames = ['grow', 'visibility', 'horizontalSpacing', 'width'];
 
 export default function styles(theme, props) {
-  const {grow, visibility, spacing, width} = props;
+  const {grow, visibility, horizontalSpacing, width} = props;
 
   let flexGrow = grow;
   let flexShrink = null;
@@ -14,23 +15,15 @@ export default function styles(theme, props) {
   let marginRight = null;
   let opacity = Bool.isFalse(visibility) ? 0 : null;
 
-  const m = Unit.multiply(theme.shapes.containerMargin, 0.5);
-
   if (flexGrow) {
     flexShrink = '1';
     flexBasis = '0%';
   }
 
-  // Initialise right margin according to spacing.
-  if (spacing) {
-    let spacingType = {
-      overlap: '-1px',
-      tiny: '1px',
-      large: m,
-      double: theme.shapes.containerMargin,
-    };
-    marginRight = spacingType[spacing];
-  }
+  marginRight = SpacingHelpers.getHorizontalSpacingRightMargin(
+    theme,
+    horizontalSpacing
+  );
 
   let boxStyle = {
     display: 'flex',

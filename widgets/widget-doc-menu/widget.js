@@ -42,7 +42,7 @@ export default class WidgetDocMenu extends Widget {
     return (
       <Container
         kind="view"
-        spacing="large"
+        horizontalSpacing="large"
         backgroundColor={this.context.theme.palette.footerBackground}
       >
         <Container kind="pane-header">

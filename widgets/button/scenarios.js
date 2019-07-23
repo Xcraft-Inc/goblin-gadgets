@@ -25,6 +25,15 @@ export default [
     },
   },
   {
+    name: 'calendar',
+    props: {
+      kind: 'calendar',
+      subkind: 'add',
+      active: true,
+      text: '31',
+    },
+  },
+  {
     name: 'empty',
     props: {},
   },

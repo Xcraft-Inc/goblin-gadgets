@@ -1,12 +1,10 @@
-//T:2019-02-27:Nothing to translate !
 import React from 'react';
-import Widget from 'laboratory/widget';
-import ComboHelpers from 'gadgets/helpers/combo-helpers';
-import {Unit} from 'electrum-theme';
-import * as Bool from 'gadgets/helpers/bool-helpers';
+import Widget from 'goblin-laboratory/widgets/widget';
+import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 
-import Button from 'gadgets/button/widget';
-import Combo from 'gadgets/combo/widget';
+import Button from 'goblin-gadgets/widgets/button/widget';
+import FlatList from '../flat-list/widget';
+import ComboContainer from '../combo-container/widget';
 
 /******************************************************************************/
 
@@ -22,6 +20,7 @@ export default class ButtonCombo extends Widget {
     this.showCombo = this.showCombo.bind(this);
     this.hideCombo = this.hideCombo.bind(this);
     this.setRef = this.setRef.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   setRef(node) {
@@ -29,37 +28,6 @@ export default class ButtonCombo extends Widget {
   }
 
   showCombo() {
-    if (
-      !this.props.list ||
-      Bool.isTrue(this.props.readonly) ||
-      Bool.isTrue(this.props.disabled) ||
-      Bool.isTrue(this.props.hideButtonCombo)
-    ) {
-      return;
-    }
-
-    const itemCount = this.props.list.length;
-
-    const node = this.node;
-
-    this.comboLocation = ComboHelpers.getComboLocation(
-      node,
-      this.context.theme.shapes.flyingBalloonTriangleSize,
-      this.context.theme.shapes.flyingBalloonPadding,
-      itemCount,
-      this.props.menuItemWidth,
-      this.context.theme.shapes.menuButtonHeight, // height of Button kind='combo-wrap-item'
-      null,
-      null,
-      Unit.multiply(this.context.theme.shapes.dialogDistanceFromEdge, 2)
-    );
-
-    this.selectLocation = ComboHelpers.getSelectLocation(
-      node,
-      this.context.theme.shapes.flyingBalloonTriangleSize,
-      this.context.theme.shapes.flyingBalloonPadding
-    );
-
     this.setState({
       showCombo: true,
     });
@@ -73,10 +41,21 @@ export default class ButtonCombo extends Widget {
     this.setState({
       showCombo: false,
     });
+
+    if (this.props.onHideCombo) {
+      this.props.onHideCombo();
+    }
+  }
+
+  onChange(item) {
+    if (this.props.onChange) {
+      this.props.onChange(item);
+    }
+    this.hideCombo();
   }
 
   renderButton() {
-    if (this.props.hideButtonCombo) {
+    if (Bool.isTrue(this.props.readonly) || this.props.hideButtonCombo) {
       return;
     }
     let glyph = this.state.showCombo ? 'solid/caret-up' : 'solid/caret-down';
@@ -107,29 +86,23 @@ export default class ButtonCombo extends Widget {
   }
 
   renderCombo() {
-    if (!this.state.showCombo) {
-      return null;
-    }
     return (
-      <Combo
-        menuType={this.props.menuType}
-        menuItemWidth={
-          this.props.menuItemWidth || this.comboLocation.menuItemWidth
-        }
-        menuItemTooltips={this.props.menuItemTooltips}
-        left={this.comboLocation.center}
-        triangleShift={this.comboLocation.triangleShift}
-        top={this.comboLocation.top}
-        bottom={this.comboLocation.bottom}
-        maxHeight={this.comboLocation.maxHeight}
-        width={this.comboLocation.width}
-        list={this.props.list}
-        comboTextTransform={this.props.comboTextTransform}
-        close={this.hideCombo}
-        disabled={
-          Bool.isTrue(this.props.disabled) || Bool.isTrue(this.props.readonly)
-        }
-      />
+      <ComboContainer
+        show={this.state.showCombo}
+        positionRef={this.node}
+        onClose={this.hideCombo}
+      >
+        <FlatList
+          list={this.props.list}
+          selectedId={this.props.selectedId}
+          menuType={this.props.menuType}
+          menuItemWidth={this.props.menuItemWidth}
+          onChange={this.onChange}
+          onEscKey={this.hideCombo}
+          ref={this.props.setListRef}
+          containerWidth={this.node ? this.node.clientWidth : undefined}
+        />
+      </ComboContainer>
     );
   }
 
@@ -148,7 +121,9 @@ export default class ButtonCombo extends Widget {
       <span
         ref={this.setRef}
         onClick={
-          Bool.isTrue(this.props.restrictsToList) ? this.showCombo : undefined
+          Bool.isTrue(this.props.restrictsToList) && !this.state.showCombo
+            ? this.showCombo
+            : undefined
         }
         disabled={
           Bool.isTrue(this.props.disabled) || Bool.isTrue(this.props.readonly)

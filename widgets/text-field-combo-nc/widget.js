@@ -1,16 +1,16 @@
-//T:2019-02-27:Nothing to translate !
 import React from 'react';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import MouseTrap from 'mousetrap';
 import {isShredder} from 'xcraft-core-shredder';
-import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 
-import ButtonCombo from 'gadgets/button-combo/widget';
-import TextFieldNC from 'gadgets/text-field-nc/widget';
+import ButtonCombo from 'goblin-gadgets/widgets/button-combo/widget';
+import TextFieldNC from 'goblin-gadgets/widgets/text-field-nc/widget';
+import wrapRawInput from 'goblin-laboratory/widgets/input-wrapper/widget.js';
 
 /******************************************************************************/
 
-export default class TextFieldComboNC extends Widget {
+class TextFieldComboNC extends Widget {
   constructor() {
     super(...arguments);
 
@@ -22,8 +22,21 @@ export default class TextFieldComboNC extends Widget {
     this.doChangeTextField = this.doChangeTextField.bind(this);
     this.onFocus = this.onFocus.bind(this);
     this.onBlur = this.onBlur.bind(this);
-    this.onMouseUp = this.onMouseUp.bind(this);
-    this.onKeyCombo = this.onKeyCombo.bind(this);
+    this.onEscKey = this.onEscKey.bind(this);
+    this.onUpKey = this.onUpKey.bind(this);
+    this.onDownKey = this.onDownKey.bind(this);
+    this.onEnterKey = this.onEnterKey.bind(this);
+    this.setListRef = this.setListRef.bind(this);
+    this.onShowCombo = this.onShowCombo.bind(this);
+    this.onHideCombo = this.onHideCombo.bind(this);
+    this.setButtonComboRef = this.setButtonComboRef.bind(this);
+  }
+
+  setListRef(ref) {
+    this.listRef = ref;
+  }
+  setButtonComboRef(ref) {
+    this.buttonComboRef = ref;
   }
 
   doChangeTextField(id) {
@@ -33,36 +46,91 @@ export default class TextFieldComboNC extends Widget {
   }
 
   doChangeCombo(item) {
-    if (this.props.onChange) {
-      this.props.onChange(item.id);
+    if (this.props.onValidate) {
+      this.props.onValidate(item.id);
     }
+  }
+
+  onShowCombo() {
+    this.bindKeys();
+    if (this.props.onShowCombo) {
+      this.props.onShowCombo();
+    }
+  }
+
+  onHideCombo() {
+    if (!this.state.focus) {
+      this.unbindKeys();
+    }
+    if (this.props.onHideCombo) {
+      this.props.onHideCombo();
+    }
+  }
+
+  bindKeys() {
+    MouseTrap.bind('up', this.onUpKey, 'keydown');
+    MouseTrap.bind('down', this.onDownKey, 'keydown');
+    MouseTrap.bind('enter', this.onEnterKey, 'keydown');
+    MouseTrap.bind('esc', this.onEscKey, 'keydown');
+  }
+
+  unbindKeys() {
+    MouseTrap.unbind('up', 'keydown');
+    MouseTrap.unbind('down', 'keydown');
+    MouseTrap.unbind('enter', 'keydown');
+    MouseTrap.unbind('esc', 'keydown');
   }
 
   onFocus() {
-    MouseTrap.bind('up', this.onKeyCombo, 'keydown');
-    MouseTrap.bind('down', this.onKeyCombo, 'keydown');
+    this.bindKeys();
     this.setState({
       focus: true,
     });
-  }
-
-  onBlur() {
-    MouseTrap.unbind('up');
-    MouseTrap.unbind('down');
-    this.setState({
-      focus: false,
-    });
-  }
-
-  onMouseUp() {
-    if (Bool.isTrue(this.props.readonly)) {
-      this.showCombo();
+    if (this.props.onFocus) {
+      this.props.onFocus(this.props.selectedId);
     }
   }
 
-  onKeyCombo(e) {
-    e.preventDefault();
+  onBlur() {
+    this.unbindKeys();
+    this.setState({
+      focus: false,
+    });
+    if (this.props.onBlur) {
+      this.props.onBlur(this.props.selectedId);
+    }
+  }
+
+  onUpKey() {
     this.showCombo();
+    if (this.listRef) {
+      this.listRef.onUpKey();
+    }
+  }
+
+  onDownKey() {
+    this.showCombo();
+    if (this.listRef) {
+      this.listRef.onDownKey();
+    }
+  }
+
+  onEnterKey() {
+    if (this.listRef) {
+      this.listRef.onEnterKey();
+    }
+  }
+
+  onEscKey() {
+    if (this.listRef) {
+      this.listRef.onEscKey();
+    }
+  }
+
+  showCombo() {
+    if (this.buttonComboRef) {
+      this.buttonComboRef.showCombo();
+    }
   }
 
   convertList() {
@@ -79,7 +147,6 @@ export default class TextFieldComboNC extends Widget {
               id: item,
               text: item,
               value: item,
-              active: this.props.selectedId === item,
               action: this.doChangeCombo,
             };
             break;
@@ -110,7 +177,6 @@ export default class TextFieldComboNC extends Widget {
               value: item.value,
               glyph: item.glyph,
               color: item.color,
-              active: this.props.selectedId === id,
               action: this.doChangeCombo,
             };
             if (typeof item.glyph === 'object') {
@@ -124,9 +190,6 @@ export default class TextFieldComboNC extends Widget {
               'Item Format not accepted in TextFieldComboNC ! ' +
                 JSON.stringify(item)
             );
-        }
-        if (this.props.menuType !== 'wrap') {
-          item.glyph = item.active ? 'solid/check' : 'solid/none';
         }
         return item;
       });
@@ -173,59 +236,36 @@ export default class TextFieldComboNC extends Widget {
       value = selectedItem.text;
     }
 
+    let TextComponent = TextFieldNC;
     if (this.props.renderTextField) {
-      return (
-        <this.props.renderTextField
-          hintText={this.props.hintText}
-          tooltip={this.props.tooltip}
-          spacing={'overlap'}
-          shape={textFieldShape}
-          flyingBalloonAnchor={this.props.flyingBalloonAnchor}
-          value={value}
-          glyph={glyph}
-          width={this.props.fieldWidth}
-          grow={this.props.fieldWidth ? null : '1'}
-          rows={this.props.rows}
-          readonly={Bool.toString(this.props.restrictsToList)}
-          disabled={this.props.disabled}
-          required={this.props.required}
-          embeddedFocus="true"
-          visibility={this.props.visibility}
-          onChange={this.doChangeTextField}
-          onFocus={this.onFocus}
-          onBlur={this.onBlur}
-          onMouseUp={this.onMouseUp}
-          autoFocus={this.props.autoFocus}
-          selectAllOnFocus={this.props.selectAllOnFocus}
-        />
-      );
-    } else {
-      return (
-        <TextFieldNC
-          hintText={this.props.hintText}
-          tooltip={this.props.tooltip}
-          spacing={'overlap'}
-          shape={textFieldShape}
-          flyingBalloonAnchor={this.props.flyingBalloonAnchor}
-          value={value}
-          glyph={glyph}
-          width={this.props.fieldWidth}
-          grow={this.props.fieldWidth ? null : '1'}
-          rows={this.props.rows}
-          readonly={Bool.toString(this.props.restrictsToList)}
-          disabled={this.props.disabled}
-          required={this.props.required}
-          embeddedFocus="true"
-          visibility={this.props.visibility}
-          onChange={this.doChangeTextField}
-          onFocus={this.onFocus}
-          onBlur={this.onBlur}
-          onMouseUp={this.onMouseUp}
-          autoFocus={this.props.autoFocus}
-          selectAllOnFocus={this.props.selectAllOnFocus}
-        />
-      );
+      TextComponent = this.prop.renderTextField;
     }
+    return (
+      <TextComponent
+        hintText={this.props.hintText}
+        tooltip={this.props.tooltip}
+        horizontalSpacing="overlap"
+        shape={textFieldShape}
+        flyingBalloonAnchor={this.props.flyingBalloonAnchor}
+        value={value}
+        glyph={glyph}
+        width={this.props.fieldWidth}
+        grow={this.props.fieldWidth ? null : '1'}
+        rows={this.props.rows}
+        readonly={this.props.restrictsToList}
+        changeMode={'passthrough'}
+        disabled={this.props.disabled}
+        required={this.props.required}
+        embeddedFocus="true"
+        visibility={this.props.visibility}
+        onChange={this.doChangeTextField}
+        onFocus={this.onFocus}
+        onBlur={this.onBlur}
+        onValidate={this.props.onValidate}
+        autoFocus={this.props.autoFocus}
+        selectAllOnFocus={this.props.selectAllOnFocus}
+      />
+    );
   }
 
   render() {
@@ -233,7 +273,10 @@ export default class TextFieldComboNC extends Widget {
       return null;
     }
 
-    this.convertList();
+    if (this.props.list !== this.previousList) {
+      this.convertList();
+      this.previousList = this.props.list;
+    }
 
     return (
       <ButtonCombo
@@ -245,15 +288,19 @@ export default class TextFieldComboNC extends Widget {
         readonly={this.props.readonly}
         restrictsToList={this.props.restrictsToList}
         disabled={this.props.disabled}
-        onShowCombo={this.props.onShowCombo}
+        onShowCombo={this.onShowCombo}
+        onHideCombo={this.onHideCombo}
         node={this.node}
+        selectedId={this.props.selectedId}
         list={this.list}
-        spacing={this.props.spacing}
+        horizontalSpacing={this.props.horizontalSpacing}
         shape={this.props.shape}
         comboGlyph={this.props.comboGlyph}
         comboTextTransform={this.props.comboTextTransform}
         focus={this.state.focus}
         hideButtonCombo={this.props.hideButtonCombo}
+        setListRef={this.setListRef}
+        ref={this.setButtonComboRef}
       >
         {this.renderTextField()}
       </ButtonCombo>
@@ -262,3 +309,5 @@ export default class TextFieldComboNC extends Widget {
 }
 
 /******************************************************************************/
+
+export default wrapRawInput(TextFieldComboNC, 'selectedId');

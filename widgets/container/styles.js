@@ -1,6 +1,7 @@
 import {Unit} from 'electrum-theme';
 import {ColorHelpers} from 'electrum-theme';
 import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as SpacingHelpers from 'gadgets/helpers/spacing-helpers';
 
 const isWebkit = 'WebkitAppearance' in document.documentElement.style;
 
@@ -21,7 +22,7 @@ export const propNames = [
   'subkind',
   'floatingHeight',
   'grow',
-  'spacing',
+  'horizontalSpacing',
   'markColor',
   'selected',
   'verticalJustify',
@@ -53,7 +54,7 @@ export default function styles(theme, props) {
     subkind,
     floatingHeight,
     grow,
-    spacing,
+    horizontalSpacing,
     markColor,
     selected,
     verticalJustify,
@@ -101,6 +102,7 @@ export default function styles(theme, props) {
   let boxShadow = null;
   let margin = marginBottom ? '0px 0px ' + marginBottom + ' 0px' : '0px';
   let marginLeft = null;
+  let marginRight = null;
   let padding = '0px';
   let backgroundColor = null;
   let color = null;
@@ -120,6 +122,11 @@ export default function styles(theme, props) {
   const m = theme.shapes.containerMargin;
   const s = theme.shapes.lineSpacing;
   const d = Unit.multiply(m, 0.5);
+
+  marginRight = SpacingHelpers.getHorizontalSpacingRightMargin(
+    theme,
+    horizontalSpacing
+  );
 
   if (kind === 'root') {
     position = 'relative';
@@ -248,6 +255,7 @@ export default function styles(theme, props) {
     display = 'flex';
     flexDirection = 'row';
     backgroundColor = theme.palette.mainTabBackground;
+    flexShrink = 0;
   }
 
   if (kind === 'main-tab') {
@@ -310,8 +318,9 @@ export default function styles(theme, props) {
     display = 'flex';
     flexDirection = 'column';
     flexGrow = grow;
-    if (spacing === 'large') {
+    if (horizontalSpacing === 'large') {
       margin = '0px ' + theme.shapes.viewSpacing + ' 0px 0px';
+      marginRight = null;
     } else {
       margin = '0px';
     }
@@ -653,12 +662,6 @@ export default function styles(theme, props) {
       bottomMargin = Unit.multiply(m, 0.25);
     } else if (subkind === 'left') {
       justifyContent = 'flex-start';
-    }
-    if (spacing === 'compact') {
-      height = theme.shapes.lineHeight;
-      bottomMargin = '0px';
-    } else if (spacing === 'overlap') {
-      bottomMargin = '-1px';
     }
     if (Bool.isTrue(selected) && subkind !== 'large-box') {
       backgroundColor = theme.palette.paneSelectedBackground;
@@ -1272,6 +1275,7 @@ export default function styles(theme, props) {
     boxShadow: boxShadow,
     margin: margin,
     marginLeft: marginLeft,
+    marginRight: marginRight,
     padding: padding,
     backgroundColor: backgroundColor,
     color: color,

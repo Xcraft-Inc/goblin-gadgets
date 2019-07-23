@@ -96,7 +96,10 @@ export default class TextInputNC extends Widget {
   }
 
   renderInput() {
-    const type = this.props.rows ? 'textarea' : 'text';
+    let type = this.props.inputType;
+    if (!type && this.props.rows) {
+      type = 'textarea';
+    }
 
     let value = this.props.value;
     if (value === null || value === undefined) {
@@ -152,7 +155,7 @@ export default class TextInputNC extends Widget {
             msgid={this.props.hintText}
             workitemId={this.context.desktopId || this.getNearestId()}
             className={`${this.styles.classNames.field} mousetrap ${this.styles.classNames.input}`}
-            type="text"
+            type={type || 'text'}
             value={value}
             defaultValue={this.props.defaultValue}
             disabled={

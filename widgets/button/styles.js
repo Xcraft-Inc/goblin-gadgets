@@ -2,6 +2,7 @@ import {Unit} from 'electrum-theme';
 import {ColorHelpers} from 'electrum-theme';
 import {ColorManipulator} from 'electrum-theme';
 import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as SpacingHelpers from 'gadgets/helpers/spacing-helpers';
 
 function convertJustify(justify) {
   switch (justify) {
@@ -32,7 +33,7 @@ export const propNames = [
   'disabled',
   'readonly',
   'border',
-  'spacing',
+  'horizontalSpacing',
   'leftSpacing',
   'kind',
   'text',
@@ -76,7 +77,7 @@ export default function styles(theme, props) {
     disabled,
     readonly,
     border,
-    spacing,
+    horizontalSpacing,
     leftSpacing,
     kind,
     text,
@@ -152,17 +153,11 @@ export default function styles(theme, props) {
     backgroundColor = null;
   }
 
-  // Initialise right margin according to spacing.
-  if (spacing) {
-    let spacingType = {
-      overlap: '-1px',
-      tiny: '1px',
-      large: m,
-      big: Unit.multiply(m, 2),
-      double: theme.shapes.containerMargin,
-    };
-    boxMarginRight = spacingType[spacing];
-  }
+  boxMarginRight = SpacingHelpers.getHorizontalSpacingRightMargin(
+    theme,
+    horizontalSpacing
+  );
+
   if (leftSpacing === 'overlap') {
     boxMarginLeft = '-1px';
   }
@@ -845,6 +840,9 @@ export default function styles(theme, props) {
 
   if (vpos === 'top') {
     boxAlignSelf = 'flex-start';
+  } else if (vpos === 'first-line') {
+    boxAlignSelf = 'flex-start';
+    boxMarginTop = '3px';
   }
 
   if (!boxJustifyContent) {

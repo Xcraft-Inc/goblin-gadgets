@@ -33,7 +33,7 @@ export default class FlatCombo extends Widget {
         readonly={this.props.readonly}
         text={item.description}
         tooltip={item.tooltip}
-        spacing="overlap"
+        horizontalSpacing="overlap"
         focusable="true"
         active={Bool.toString(this.isChecked(item.name))}
         onClick={() => this.onButtonClicked(item.name)}

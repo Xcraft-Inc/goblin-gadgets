@@ -4,6 +4,7 @@ import {Unit} from 'electrum-theme';
 import {ColorHelpers} from 'electrum-theme';
 import {ColorManipulator} from 'electrum-theme';
 import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as SpacingHelpers from 'gadgets/helpers/spacing-helpers';
 
 function convertJustify(justify) {
   switch (justify) {
@@ -37,7 +38,7 @@ export const propNames = [
   'textTransform',
   'fontSize',
   'cursor',
-  'spacing',
+  'horizontalSpacing',
   'disabled',
   'readonly',
   'insideButton',
@@ -87,7 +88,7 @@ export default function styles(theme, props) {
     textTransform,
     fontSize,
     cursor,
-    spacing,
+    horizontalSpacing,
     disabled,
     readonly,
     insideButton,
@@ -183,7 +184,7 @@ export default function styles(theme, props) {
 
   if (Bool.isTrue(insideButton)) {
     boxHeight = height ? height : theme.shapes.lineHeight;
-    spacing = null;
+    horizontalSpacing = null;
     textWrap = textWrap ? textWrap : 'no';
   } else {
     textWrap = textWrap ? textWrap : 'yes';
@@ -197,20 +198,12 @@ export default function styles(theme, props) {
   if (bottomSpacing === 'large') {
     boxMarginBottom = m;
   }
-  // Initialise right margin according to spacing.
-  if (spacing) {
-    const spacingType = {
-      overlap: '-1px',
-      zero: '0px',
-      tiny: '1px',
-      compact: '5px',
-      large: m,
-      big: Unit.multiply(m, 2),
-      double: theme.shapes.containerMargin,
-    };
-    boxMarginRight = spacingType[spacing];
-  }
-  if (spacing === 'compact' || spacing === 'zero') {
+  // Initialise right margin according to horizontalSpacing.
+  boxMarginRight = SpacingHelpers.getHorizontalSpacingRightMargin(
+    theme,
+    horizontalSpacing
+  );
+  if (horizontalSpacing === 'compact' || horizontalSpacing === 'zero') {
     glyphMinWidth = null;
   }
 
@@ -915,6 +908,9 @@ export default function styles(theme, props) {
 
   if (vpos === 'top') {
     boxAlignSelf = 'flex-start';
+  } else if (vpos === 'first-line') {
+    boxAlignSelf = 'flex-start';
+    boxMarginTop = '3px';
   }
 
   if (textWrap === 'no') {
