@@ -38,9 +38,10 @@ export default function styles(theme, props) {
   let flexBasis = null;
   let marginLeft = '0px';
   let marginRight = '0px';
-  let padding = '0px';
-  let borderRadius = '0px';
-  let borderColor = theme.palette.buttonBorder;
+  let padding = theme.shapes.textFieldPadding;
+  let borderRadius = theme.shapes.textFieldBorderRadius;
+  let borderColor = theme.palette.textFieldBorderColor;
+  let borderSize = theme.shapes.textFieldBorderSize;
   let borderStyle = 'solid';
   let fieldPaddingLeft = '10px';
   let fieldPaddingRight = '10px';
@@ -108,7 +109,7 @@ export default function styles(theme, props) {
     flexGrow: flexGrow,
     flexShrink: flexShrink,
     flexBasis: flexBasis,
-    border: '1px ' + borderStyle + ' ' + borderColor,
+    border: borderSize + ' ' + borderStyle + ' ' + borderColor,
     borderRadius: borderRadius,
     color: color,
     backgroundColor: backgroundColor,
