@@ -58,6 +58,10 @@ import ChatBalloon from 'goblin-gadgets/widgets/chat-balloon/widget';
 import chatBalloonProps from 'goblin-gadgets/widgets/chat-balloon/props';
 import chatBalloonScenarios from 'goblin-gadgets/widgets/chat-balloon/scenarios';
 
+import DocumentContainer from 'goblin-gadgets/widgets/document-container/widget';
+import documentContainerProps from 'goblin-gadgets/widgets/document-container/props';
+import documentContainerScenarios from 'goblin-gadgets/widgets/document-container/scenarios';
+
 const widgetList = [
   {
     name: 'Button',
@@ -163,6 +167,13 @@ const widgetList = [
     widgetPath: 'goblin-gadgets/widgets/chat-balloon/widget',
     props: chatBalloonProps,
     scenarios: chatBalloonScenarios,
+  },
+  {
+    name: 'DocumentContainer',
+    widget: DocumentContainer,
+    widgetPath: 'goblin-gadgets/widgets/document-container/widget',
+    props: documentContainerProps,
+    scenarios: documentContainerScenarios,
   },
 ];
 
