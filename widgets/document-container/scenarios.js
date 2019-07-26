@@ -20,6 +20,17 @@ export default [
     },
   },
   {
+    name: 'special',
+    props: {
+      width: '200px',
+      height: '150px',
+      cornerSize: '50px',
+      color: 'pink',
+      hoverColor: 'orange',
+      transition: '1.0s ease-out',
+    },
+  },
+  {
     name: 'empty',
     props: {},
   },
