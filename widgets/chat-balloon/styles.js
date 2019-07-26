@@ -12,7 +12,7 @@ export const propNames = [
 
 export default function styles(theme, props) {
   const {
-    type,
+    type = 'sended',
     look = 'round',
     width,
     dateTimeColor = theme.palette.textColor,

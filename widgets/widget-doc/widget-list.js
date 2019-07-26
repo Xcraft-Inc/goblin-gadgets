@@ -54,6 +54,10 @@ import Triangle from 'goblin-gadgets/widgets/triangle/widget';
 import triangleProps from 'goblin-gadgets/widgets/triangle/props';
 import triangleScenarios from 'goblin-gadgets/widgets/triangle/scenarios';
 
+import ChatBalloon from 'goblin-gadgets/widgets/chat-balloon/widget';
+import chatBalloonProps from 'goblin-gadgets/widgets/chat-balloon/props';
+import chatBalloonScenarios from 'goblin-gadgets/widgets/chat-balloon/scenarios';
+
 const widgetList = [
   {
     name: 'Button',
@@ -152,6 +156,13 @@ const widgetList = [
     widgetPath: 'goblin-gadgets/widgets/triangle/widget',
     props: triangleProps,
     scenarios: triangleScenarios,
+  },
+  {
+    name: 'ChatBalloon',
+    widget: ChatBalloon,
+    widgetPath: 'goblin-gadgets/widgets/chat-balloon/widget',
+    props: chatBalloonProps,
+    scenarios: chatBalloonScenarios,
   },
 ];
 
