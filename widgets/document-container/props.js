@@ -18,6 +18,11 @@ export default [
     type: types.size,
   },
   {
+    name: 'hoverCornerSize',
+    group: 'layout',
+    type: types.size,
+  },
+  {
     name: 'grow',
     group: 'layout',
     type: types.grow,

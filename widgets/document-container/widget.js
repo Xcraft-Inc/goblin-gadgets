@@ -12,8 +12,8 @@ export default class DocumentContainer extends Widget {
   render() {
     return (
       <div className={this.styles.classNames.documentContainer}>
-        <div className={`parts-hover ${this.styles.classNames.mainPart}`} />
-        <div className={`parts-hover ${this.styles.classNames.rightPart}`} />
+        <div className={`main-hover ${this.styles.classNames.mainPart}`} />
+        <div className={`right-hover ${this.styles.classNames.rightPart}`} />
         <div className={`corner-hover ${this.styles.classNames.cornerPart}`} />
         <div
           className={this.styles.classNames.foreground}
