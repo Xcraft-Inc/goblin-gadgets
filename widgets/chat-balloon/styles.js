@@ -17,9 +17,9 @@ export default function styles(theme, props) {
     type = 'sended',
     look = 'round',
     width,
-    dateTimeColor = theme.palette.textColor,
+    dateTimeColor = '#888',
     backgroundColor = theme.palette.rootBackground,
-    textColor = '#888',
+    textColor = theme.palette.textColor,
     transition = '0.2s ease-out',
   } = props;
 

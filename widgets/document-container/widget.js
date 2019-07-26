@@ -1,5 +1,10 @@
 import React from 'react';
+import Props from './props';
 import Widget from 'goblin-laboratory/widgets/widget';
+import {
+  makePropTypes,
+  makeDefaultProps,
+} from 'xcraft-core-utils/lib/prop-types';
 
 // Container with a paper sheet look, with the top right corner folded.
 
@@ -20,3 +25,10 @@ export default class DocumentContainer extends Widget {
     );
   }
 }
+
+/******************************************************************************/
+
+DocumentContainer.propTypes = makePropTypes(Props);
+DocumentContainer.defaultProps = makeDefaultProps(Props);
+
+/******************************************************************************/

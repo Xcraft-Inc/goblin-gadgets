@@ -1,7 +1,12 @@
 import React from 'react';
+import Props from './props';
 import Widget from 'goblin-laboratory/widgets/widget';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import Label from 'goblin-gadgets/widgets/label/widget';
+import {
+  makePropTypes,
+  makeDefaultProps,
+} from 'xcraft-core-utils/lib/prop-types';
 
 export default class ChatBalloon extends Widget {
   renderDatetime() {
@@ -51,3 +56,10 @@ export default class ChatBalloon extends Widget {
     );
   }
 }
+
+/******************************************************************************/
+
+ChatBalloon.propTypes = makePropTypes(Props);
+ChatBalloon.defaultProps = makeDefaultProps(Props);
+
+/******************************************************************************/
