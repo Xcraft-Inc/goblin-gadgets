@@ -11,6 +11,7 @@ export const propNames = [
   'hoverColor',
   'cornerSize',
   'hoverCornerSize',
+  'hoverFontSize',
   'transition',
 ];
 
@@ -23,6 +24,7 @@ export default function styles(theme, props) {
     hoverColor,
     cornerSize = '12px',
     hoverCornerSize = '16px',
+    hoverFontSize = null,
     transition = '0.2s ease-out',
   } = props;
 
@@ -51,6 +53,7 @@ export default function styles(theme, props) {
     'flexGrow': grow,
     'display': 'flex',
     'flexDirection': 'row',
+    'fontSize': '100%',
     ':hover .main-hover': {
       backgroundColor: hoverColor,
       right: hoverCornerSize,
@@ -66,6 +69,9 @@ export default function styles(theme, props) {
       borderLeft: `${hbs} solid transparent`,
       borderRight: `${hbs} solid transparent`,
       transform: `translate(${htx}, ${hty}) scale(1.4142) rotate(45deg)`,
+    },
+    ':hover .children-hover': {
+      fontSize: hoverFontSize,
     },
   };
 

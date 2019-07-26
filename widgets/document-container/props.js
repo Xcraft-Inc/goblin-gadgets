@@ -40,6 +40,11 @@ export default [
     type: types.color,
   },
   {
+    name: 'hoverFontSize',
+    group: 'aspect',
+    type: types.percentage,
+  },
+  {
     name: 'transition',
     group: 'aspect',
     type: types.enum([
