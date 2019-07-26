@@ -31,15 +31,39 @@ export default function styles(theme, props) {
     hoverColor = ColorHelpers.getMarkColor(theme, hoverColor);
   }
 
+  const bs = Unit.sub(Unit.multiply(cornerSize, 0.5), '1px');
+  const tx = Unit.multiply(cornerSize, -0.5);
+  const ty = Unit.multiply(cornerSize, 0.5);
+
+  // Use + for dispatch the style to next brother (only one).
+  // Use ~ for dispatch the style to all the following brothers.
+  // Use nothing for dispatch the style to children.
   const documentContainer = {
-    position: 'relative',
-    width: width,
-    height: height,
-    flexGrow: grow,
-    display: 'flex',
-    transition: transition,
-    flexDirection: 'row',
+    'position': 'relative',
+    'width': width,
+    'height': height,
+    'flexGrow': grow,
+    'display': 'flex',
+    'flexDirection': 'row',
+    ':hover .parts-hover': {
+      backgroundColor: hoverColor,
+    },
+    ':hover .corner-hover': {
+      borderTop: `${bs} solid ${hoverColor}`,
+    },
   };
+
+  //     +--------------+\                   ^
+  //     |              | \                  |
+  //     |              | o----- cornerPart  | cornerSize
+  //     |              |   \                |
+  //     |       o      +----\               v
+  //     |       |      |    |
+  //     |       |      |  o---- rightPart
+  //     |       |      |    |
+  //     +-------|------+----|
+  //             |      <---->
+  //         mainPart  cornerSize
 
   const mainPart = {
     position: 'absolute',
@@ -48,6 +72,7 @@ export default function styles(theme, props) {
     top: 0,
     bottom: 0,
     backgroundColor: color,
+    transition: transition,
   };
 
   const rightPart = {
@@ -57,30 +82,30 @@ export default function styles(theme, props) {
     top: cornerSize,
     bottom: 0,
     backgroundColor: color,
+    transition: transition,
   };
 
-  // Style for top-right corner:
+  // Style for top-right corner (cornerPart):
+  // Square of zero size with a large border, rotated 45 degrees clockwise.
+  // So, the borderTop becomes the corner!
   //
-  //            borderTop
-  //            +-------+
-  //            |\     /|
-  //            | \   / |
-  //            |  \ /  |
-  // borderLeft |   X   | borderRight
-  //            |  / \  |
-  //            | /   \ |
-  //            |/     \|
-  //            +-------+
-  //          borderBottom
-  //
-  // borderTop:    turned 45 degrees CW
+  //                  ^
+  //                / |X\
+  //               /  |XX\
+  //   borderLeft /   |XXX\ borderTop
+  //             /    |XXXX\
+  //            /     |XXXXX\
+  //           <------+------>
+  //            \     |     /
+  //             \    |    /
+  // borderBottom \   |   / borderRight
+  //               \  |  /
+  //                \ | /
+  //                  v
+  // borderTop:    visible (X)
   // borderBottom: invisible
   // borderLeft:   invisible
   // borderRight:  invisible
-
-  const bs = Unit.sub(Unit.multiply(cornerSize, 0.5), '1px');
-  const tx = Unit.multiply(cornerSize, -0.5);
-  const ty = Unit.multiply(cornerSize, 0.5);
 
   const cornerPart = {
     position: 'absolute',
@@ -93,19 +118,16 @@ export default function styles(theme, props) {
     borderLeft: `${bs} solid transparent`,
     borderRight: `${bs} solid transparent`,
     transform: `translate(${tx}, ${ty}) scale(1.4142) rotate(45deg)`,
+    transition: transition,
   };
 
   const foreground = {
-    'position': 'absolute',
-    'left': 0,
-    'right': 0,
-    'top': 0,
-    'bottom': 0,
-    'backgroundColor': 'transparent',
-    'transition': transition,
-    ':hover': {
-      backgroundColor: hoverColor,
-    },
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    backgroundColor: 'transparent',
   };
 
   return {
