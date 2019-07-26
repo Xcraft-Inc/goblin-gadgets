@@ -1,3 +1,5 @@
+import {ColorHelpers} from 'electrum-theme';
+
 /******************************************************************************/
 
 export const propNames = [
@@ -11,7 +13,7 @@ export const propNames = [
 ];
 
 export default function styles(theme, props) {
-  const {
+  let {
     type = 'sended',
     look = 'round',
     width,
@@ -91,6 +93,10 @@ export default function styles(theme, props) {
       triangleRightColor = backgroundColor;
       break;
   }
+
+  dateTimeColor = ColorHelpers.getMarkColor(theme, dateTimeColor);
+  backgroundColor = ColorHelpers.getMarkColor(theme, backgroundColor);
+  textColor = ColorHelpers.getMarkColor(theme, textColor);
 
   const chatBalloon = {
     width: width,

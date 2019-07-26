@@ -1,3 +1,4 @@
+import {ColorHelpers} from 'electrum-theme';
 import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
@@ -13,7 +14,7 @@ export const propNames = [
 ];
 
 export default function styles(theme, props) {
-  const {
+  let {
     width,
     height,
     grow,
@@ -22,6 +23,13 @@ export default function styles(theme, props) {
     cornerSize = '12px',
     transition = '0.2s ease-out',
   } = props;
+
+  if (color) {
+    color = ColorHelpers.getMarkColor(theme, color);
+  }
+  if (hoverColor) {
+    hoverColor = ColorHelpers.getMarkColor(theme, hoverColor);
+  }
 
   const documentContainer = {
     position: 'relative',
