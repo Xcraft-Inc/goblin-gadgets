@@ -19,17 +19,19 @@ export default class FlatList extends Widget {
 
     this.state = {
       activeIndex: -1,
+      initialized: false,
     };
 
-    this.itemHeight = this.context.theme.shapes.menuButtonHeight || 48 + 'px';
+    this.itemHeight = null;
+    this.itemWidth = null;
 
     this.menuItemWidth =
       this.props.menuItemWidth || this.props.containerWidth + 'px';
-    this.itemWidth = Unit.parse(this.menuItemWidth).value - 20 + 'px';
 
     this.previousProps = {};
 
     this.containerStyle = {};
+    this.setItemRef = this.setItemRef.bind(this);
   }
 
   componentWillMount() {
@@ -45,6 +47,18 @@ export default class FlatList extends Widget {
 
   componentWillUnmount() {
     window.document.combo = 'hidden';
+  }
+
+  setItemRef(node) {
+    if (node) {
+      const menuItemWidth = Unit.parse(this.menuItemWidth).value;
+      this.itemWidth = menuItemWidth - (node.offsetWidth - menuItemWidth);
+      const menuItemHeight = Unit.parse(
+        this.context.theme.shapes.menuButtonHeight
+      ).value;
+      this.itemHeight = menuItemHeight - (node.offsetHeight - menuItemHeight);
+      this.setState({initialized: true});
+    }
   }
 
   onDownKey() {
@@ -106,19 +120,21 @@ export default class FlatList extends Widget {
     let itemHeight = this.itemHeight;
     let itemWidth = this.itemWidth;
     // Prop maxHeight come from combo-container
-    let maxHeight = this.props.maxHeight - 20; // -10px padding and -5 px top/bottom
+    let maxHeight = this.props.maxHeight - 10; // -10px top/bottom
     if (
       this.previousProps.itemCount !== itemCount ||
+      this.previousProps.maxHeight !== maxHeight ||
       this.previousProps.itemHeight !== itemHeight ||
-      this.previousProps.maxHeight !== maxHeight
+      this.previousProps.itemWidth !== itemWidth
     ) {
       this.previousProps.itemCount = itemCount;
-      this.previousProps.itemHeight = itemHeight;
       this.previousProps.maxHeight = maxHeight;
+      this.previousProps.itemHeight = itemHeight;
+      this.previousProps.itemWidth = itemWidth;
       this.containerStyle = {};
-      if (itemCount && itemHeight && maxHeight) {
-        itemWidth = Unit.parse(itemWidth).value;
-        itemHeight = Unit.parse(itemHeight).value;
+      if (itemCount && itemWidth && itemHeight && maxHeight) {
+        itemWidth = this.menuItemWidth;
+        itemHeight = this.context.theme.shapes.menuButtonHeight;
 
         let maxRows = Math.floor(maxHeight / itemHeight);
         const columnCount = Math.max(Math.ceil(itemCount / maxRows), 1);
@@ -127,6 +143,25 @@ export default class FlatList extends Widget {
         this.containerStyle.height = maxRows * itemHeight + 'px';
       }
     }
+  }
+
+  renderHiddenItem() {
+    const item = {};
+    return (
+      <div ref={this.setItemRef} className={this.styles.classNames.hidden}>
+        <Button
+          key={'x'}
+          text={item.text}
+          glyph={item.glyph}
+          glyphColor={item.color}
+          height={this.context.theme.shapes.menuButtonHeight}
+          width={this.menuItemWidth}
+          border={'none'}
+          active={false}
+          onClick={() => this.onClickedItem(item)}
+        />
+      </div>
+    );
   }
 
   renderItem(item, index, isActive) {
@@ -142,10 +177,9 @@ export default class FlatList extends Widget {
         text={item.text}
         glyph={item.glyph}
         glyphColor={item.color}
-        height={this.itemHeight}
-        width={this.itemWidth}
+        height={this.itemHeight + 'px'}
+        width={this.itemWidth + 'px'}
         border={'none'}
-        active={isActive}
         onClick={() => this.onClickedItem(item)}
       />
     );
@@ -161,15 +195,21 @@ export default class FlatList extends Widget {
   }
 
   render() {
-    this.calculateSize();
-    return (
-      <div
-        style={{...this.containerStyle}}
-        className={this.styles.classNames.box}
-      >
-        {this.renderItems()}
-      </div>
-    );
+    if (!this.state.initialized) {
+      return this.renderHiddenItem();
+    } else {
+      this.calculateSize();
+      return (
+        <React.Fragment>
+          <div
+            style={{...this.containerStyle}}
+            className={this.styles.classNames.box}
+          >
+            {this.renderItems()}
+          </div>
+        </React.Fragment>
+      );
+    }
   }
 }
 

@@ -245,8 +245,8 @@ class TextFieldComboNC extends Widget {
         hintText={this.props.hintText}
         tooltip={this.props.tooltip}
         horizontalSpacing="overlap"
-        shape={textFieldShape}
-        flyingBalloonAnchor={this.props.flyingBalloonAnchor}
+        //shape={textFieldShape}
+        //flyingBalloonAnchor={this.props.flyingBalloonAnchor}
         value={value}
         glyph={glyph}
         width={this.props.fieldWidth}

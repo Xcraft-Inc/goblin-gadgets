@@ -41,7 +41,7 @@ export default function styles(theme, props) {
   let padding = theme.shapes.textFieldPadding;
   let borderRadius = theme.shapes.textFieldBorderRadius;
   let borderColor = theme.palette.textFieldBorderColor;
-  let borderSize = theme.shapes.textFieldBorderSize;
+  let borderWidth = theme.shapes.textFieldBorderWidth;
   let borderStyle = 'solid';
   let fieldPaddingLeft = '10px';
   let fieldPaddingRight = '10px';
@@ -109,7 +109,7 @@ export default function styles(theme, props) {
     flexGrow: flexGrow,
     flexShrink: flexShrink,
     flexBasis: flexBasis,
-    border: borderSize + ' ' + borderStyle + ' ' + borderColor,
+    border: borderWidth + ' ' + borderStyle + ' ' + borderColor,
     borderRadius: borderRadius,
     color: color,
     backgroundColor: backgroundColor,

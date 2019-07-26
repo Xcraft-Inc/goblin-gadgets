@@ -11,12 +11,18 @@ export default function styles(theme) {
     overflowX: 'overlay',
     cursor: 'default',
     userSelect: 'none',
-    padding: '10px',
     borderRadius: '1px',
+  };
+
+  const hidden = {
+    position: 'absolute',
+    visibility: 'hidden',
+    overflow: 'auto',
   };
 
   return {
     box,
+    hidden,
   };
 }
 
