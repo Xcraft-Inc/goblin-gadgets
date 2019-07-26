@@ -19,7 +19,7 @@ export default function styles(theme, props) {
     width,
     dateTimeColor = theme.palette.textColor,
     backgroundColor = theme.palette.rootBackground,
-    textColor = theme.palette.textColor,
+    textColor = '#888',
     transition = '0.2s ease-out',
   } = props;
 
