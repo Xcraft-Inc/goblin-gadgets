@@ -40,9 +40,14 @@ export default [
     type: types.color,
   },
   {
-    name: 'hoverFontSize',
+    name: 'hoverChildrenFontSize',
     group: 'aspect',
     type: types.percentage,
+  },
+  {
+    name: 'hoverChildrenOpacity',
+    group: 'aspect',
+    type: types.number,
   },
   {
     name: 'transition',

@@ -11,7 +11,8 @@ export const propNames = [
   'hoverColor',
   'cornerSize',
   'hoverCornerSize',
-  'hoverFontSize',
+  'hoverChildrenFontSize',
+  'hoverChildrenOpacity',
   'transition',
 ];
 
@@ -24,7 +25,8 @@ export default function styles(theme, props) {
     hoverColor,
     cornerSize = '12px',
     hoverCornerSize = '16px',
-    hoverFontSize = null,
+    hoverChildrenFontSize = null,
+    hoverChildrenOpacity = null,
     transition = '0.2s ease-out',
   } = props;
 
@@ -71,7 +73,8 @@ export default function styles(theme, props) {
       transform: `translate(${htx}, ${hty}) scale(1.4142) rotate(45deg)`,
     },
     ':hover .children-hover': {
-      fontSize: hoverFontSize,
+      fontSize: hoverChildrenFontSize,
+      opacity: hoverChildrenOpacity,
     },
   };
 
