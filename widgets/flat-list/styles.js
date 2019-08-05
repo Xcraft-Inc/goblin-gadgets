@@ -12,6 +12,7 @@ export default function styles(theme) {
     cursor: 'default',
     userSelect: 'none',
     borderRadius: '1px',
+    padding: theme.shapes.menuPadding,
   };
 
   const hidden = {

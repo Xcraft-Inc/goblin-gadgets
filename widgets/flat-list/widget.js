@@ -26,7 +26,9 @@ export default class FlatList extends Widget {
     this.itemWidth = null;
 
     this.menuItemWidth =
-      this.props.menuItemWidth || this.props.containerWidth + 'px';
+      Unit.parse(this.props.menuItemWidth || this.props.containerWidth).value -
+      Unit.parse(this.context.theme.shapes.menuPadding).value * 2 +
+      'px';
 
     this.previousProps = {};
 
@@ -117,31 +119,20 @@ export default class FlatList extends Widget {
 
   calculateSize() {
     const itemCount = this.props.list.length;
-    let itemHeight = this.itemHeight;
-    let itemWidth = this.itemWidth;
-    // Prop maxHeight come from combo-container
-    let maxHeight = this.props.maxHeight - 10; // -10px top/bottom
-    if (
-      this.previousProps.itemCount !== itemCount ||
-      this.previousProps.maxHeight !== maxHeight ||
-      this.previousProps.itemHeight !== itemHeight ||
-      this.previousProps.itemWidth !== itemWidth
-    ) {
-      this.previousProps.itemCount = itemCount;
-      this.previousProps.maxHeight = maxHeight;
-      this.previousProps.itemHeight = itemHeight;
-      this.previousProps.itemWidth = itemWidth;
-      this.containerStyle = {};
-      if (itemCount && itemWidth && itemHeight && maxHeight) {
-        itemWidth = this.menuItemWidth;
-        itemHeight = this.context.theme.shapes.menuButtonHeight;
+    let itemHeight = Unit.parse(this.context.theme.shapes.menuButtonHeight)
+      .value;
 
-        let maxRows = Math.floor(maxHeight / itemHeight);
-        const columnCount = Math.max(Math.ceil(itemCount / maxRows), 1);
-        this.containerStyle.width = itemWidth * columnCount + 'px';
-        maxRows = Math.ceil(itemCount / columnCount);
-        this.containerStyle.height = maxRows * itemHeight + 'px';
-      }
+    let itemWidth = Unit.parse(this.menuItemWidth).value;
+    let maxHeight =
+      this.props.maxHeight -
+      this.props.triangleSize -
+      Unit.parse(this.context.theme.shapes.menuPadding).value * 2;
+    if (itemCount && itemWidth && itemHeight && maxHeight) {
+      let maxRows = Math.floor(maxHeight / itemHeight);
+      const columnCount = Math.max(Math.ceil(itemCount / maxRows), 1);
+      this.containerStyle.width = itemWidth * columnCount + 'px';
+      maxRows = Math.ceil(itemCount / columnCount);
+      this.containerStyle.height = maxRows * itemHeight + 'px';
     }
   }
 
@@ -150,7 +141,6 @@ export default class FlatList extends Widget {
     return (
       <div ref={this.setItemRef} className={this.styles.classNames.hidden}>
         <Button
-          key={'x'}
           text={item.text}
           glyph={item.glyph}
           glyphColor={item.color}

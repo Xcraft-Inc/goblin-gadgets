@@ -98,6 +98,7 @@ export default class ComboContainer extends Widget {
       };
       this.childrenProps.maxHeight = this.positionInfo.top - this.triangleSize;
     }
+    this.childrenProps.triangleSize = this.triangleSize;
   }
 
   getPositionInfo() {
