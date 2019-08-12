@@ -30,6 +30,8 @@ export default [
       hoverCornerSize: '80px',
       color: 'pink',
       hoverColor: 'orange',
+      borderSize: '3px',
+      borderColor: 'blue',
       transition: '1.0s ease-out',
     },
   },

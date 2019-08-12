@@ -10,6 +10,8 @@ export const propNames = [
   'color',
   'hoverColor',
   'cornerSize',
+  'borderSize',
+  'borderColor',
   'hoverCornerSize',
   'hoverChildrenFontSize',
   'hoverChildrenOpacity',
@@ -24,6 +26,8 @@ export default function styles(theme, props) {
     color,
     hoverColor,
     cornerSize = '12px',
+    borderSize = '1px',
+    borderColor = 'black',
     hoverCornerSize = '16px',
     hoverChildrenFontSize = null,
     hoverChildrenOpacity = null,
@@ -37,13 +41,27 @@ export default function styles(theme, props) {
     hoverColor = ColorHelpers.getMarkColor(theme, hoverColor);
   }
 
-  const bs = Unit.sub(Unit.multiply(cornerSize, 0.5), '1px');
-  const tx = Unit.multiply(cornerSize, -0.5);
-  const ty = Unit.multiply(cornerSize, 0.5);
+  const bs = Unit.multiply(cornerSize, 0.5);
+  const tx = Unit.sub(
+    Unit.multiply(cornerSize, -0.5),
+    Unit.multiply(borderSize, 0.707)
+  );
+  const ty = Unit.add(
+    Unit.multiply(cornerSize, 0.5),
+    Unit.multiply(borderSize, 0.707)
+  );
 
-  const hbs = Unit.sub(Unit.multiply(hoverCornerSize, 0.5), '1px');
-  const htx = Unit.multiply(hoverCornerSize, -0.5);
-  const hty = Unit.multiply(hoverCornerSize, 0.5);
+  const hbs = Unit.multiply(hoverCornerSize, 0.5);
+  const htx = Unit.sub(Unit.multiply(hoverCornerSize, -0.5), borderSize);
+  const hty = Unit.add(Unit.multiply(hoverCornerSize, 0.5), borderSize);
+
+  const cbs = cornerSize;
+  const ctx = Unit.multiply(cornerSize, -0.5);
+  const cty = Unit.multiply(cornerSize, 0.5);
+
+  const hcbs = hoverCornerSize;
+  const hctx = Unit.multiply(hoverCornerSize, -0.5);
+  const hcty = Unit.multiply(hoverCornerSize, 0.5);
 
   // Use + for dispatch the style to next brother (only one).
   // Use ~ for dispatch the style to all the following brothers.
@@ -65,6 +83,10 @@ export default function styles(theme, props) {
       width: hoverCornerSize,
       top: hoverCornerSize,
     },
+    ':hover .top-hover': {
+      width: hoverCornerSize,
+      height: hoverCornerSize,
+    },
     ':hover .corner-hover': {
       borderTop: `${hbs} solid ${hoverColor}`,
       borderBottom: `${hbs} solid transparent`,
@@ -72,11 +94,19 @@ export default function styles(theme, props) {
       borderRight: `${hbs} solid transparent`,
       transform: `translate(${htx}, ${hty}) scale(1.4142) rotate(45deg)`,
     },
+    ':hover .border-hover': {
+      width: hcbs,
+      height: hcbs,
+      backgroundColor: borderColor,
+      transform: `translate(${hctx}, ${hcty}) scale(1.4142) rotate(45deg)`,
+    },
     ':hover .children-hover': {
       fontSize: hoverChildrenFontSize,
       opacity: hoverChildrenOpacity,
     },
   };
+
+  const border = `${borderSize} solid ${borderColor}`;
 
   //     +--------------+\                   ^
   //     |              | \                  |
@@ -97,6 +127,9 @@ export default function styles(theme, props) {
     top: 0,
     bottom: 0,
     backgroundColor: color,
+    borderLeft: border,
+    borderTop: border,
+    borderBottom: border,
     transition: transition,
   };
 
@@ -107,6 +140,19 @@ export default function styles(theme, props) {
     top: cornerSize,
     bottom: 0,
     backgroundColor: color,
+    borderRight: border,
+    borderBottom: border,
+    transition: transition,
+  };
+
+  const topPart = {
+    position: 'absolute',
+    right: 0,
+    width: cornerSize,
+    height: cornerSize,
+    top: 0,
+    borderLeft: border,
+    borderBottom: border,
     transition: transition,
   };
 
@@ -146,6 +192,17 @@ export default function styles(theme, props) {
     transition: transition,
   };
 
+  const cornerBorder = {
+    position: 'absolute',
+    width: cbs,
+    height: cbs,
+    right: '0px',
+    top: '0px',
+    backgroundColor: borderColor,
+    transform: `translate(${ctx}, ${cty}) scale(1.4142) rotate(45deg)`,
+    transition: transition,
+  };
+
   const foreground = {
     position: 'absolute',
     left: 0,
@@ -160,7 +217,9 @@ export default function styles(theme, props) {
     documentContainer,
     mainPart,
     rightPart,
+    topPart,
     cornerPart,
+    cornerBorder,
     foreground,
   };
 }

@@ -12,9 +12,13 @@ export default class DocumentContainer extends Widget {
   render() {
     return (
       <div className={this.styles.classNames.documentContainer}>
+        <div
+          className={`border-hover ${this.styles.classNames.cornerBorder}`}
+        />
+        <div className={`corner-hover ${this.styles.classNames.cornerPart}`} />
         <div className={`main-hover ${this.styles.classNames.mainPart}`} />
         <div className={`right-hover ${this.styles.classNames.rightPart}`} />
-        <div className={`corner-hover ${this.styles.classNames.cornerPart}`} />
+        <div className={`top-hover ${this.styles.classNames.topPart}`} />
         <div
           className={this.styles.classNames.foreground}
           onClick={this.props.onClick}
