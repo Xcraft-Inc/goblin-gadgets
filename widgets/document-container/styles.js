@@ -153,6 +153,7 @@ export default function styles(theme, props) {
     top: 0,
     bottom: 0,
     backgroundColor: 'transparent',
+    display: 'flex',
   };
 
   return {
