@@ -76,7 +76,6 @@ export default class ComboContainer extends Widget {
     }
     this.childrenProps.triangleSize = this.triangleSize;
     this.comboState = 'render-combo';
-    this.forceUpdate();
   }
 
   getPositionInfo() {
