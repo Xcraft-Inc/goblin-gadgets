@@ -30,6 +30,11 @@ export default [
     type: types.color,
   },
   {
+    name: 'hoverColor',
+    group: 'aspect',
+    type: types.color,
+  },
+  {
     name: 'borderSize',
     group: 'aspect',
     type: types.size,

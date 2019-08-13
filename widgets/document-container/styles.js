@@ -4,17 +4,23 @@ export const propNames = [
   'width',
   'height',
   'grow',
+  'color',
+  'hoverColor',
   'hoverChildrenFontSize',
   'hoverChildrenOpacity',
+  'transition',
 ];
 
 export default function styles(theme, props) {
-  let {
+  const {
     width,
     height,
     grow,
+    color = 'white',
+    hoverColor = 'white',
     hoverChildrenFontSize = null,
     hoverChildrenOpacity = null,
+    transition = theme.transitions.hover,
   } = props;
 
   // Use + for dispatch the style to next brother (only one).
@@ -28,10 +34,19 @@ export default function styles(theme, props) {
     'display': 'flex',
     'flexDirection': 'row',
     'fontSize': '100%',
+    'transition': transition,
     ':hover .children-hover': {
       fontSize: hoverChildrenFontSize,
       opacity: hoverChildrenOpacity,
     },
+    ':hover .color-hover': {
+      fill: hoverColor,
+    },
+  };
+
+  const pathColor = {
+    transition: transition,
+    fill: color,
   };
 
   const foreground = {
@@ -46,6 +61,7 @@ export default function styles(theme, props) {
 
   return {
     documentContainer,
+    pathColor,
     foreground,
   };
 }

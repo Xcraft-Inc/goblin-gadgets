@@ -25,11 +25,10 @@ export default class DocumentContainer extends Widget {
 
     return (
       <div className={this.styles.classNames.documentContainer}>
-        <svg>
+        <svg className={`color-hover ${this.styles.classNames.pathColor}`}>
           <path
-            fill={this.props.color || 'white'}
             stroke={this.props.borderColor || 'black'}
-            strokeWidth={this.props.borderSize}
+            strokeWidth={this.props.borderSize || '2px'}
             strokeLinejoin="round"
             d={path}
           />
