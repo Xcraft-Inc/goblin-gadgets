@@ -18,6 +18,11 @@ export default [
     type: types.size,
   },
   {
+    name: 'hoverCornerSize',
+    group: 'layout',
+    type: types.size,
+  },
+  {
     name: 'grow',
     group: 'layout',
     type: types.grow,
@@ -36,6 +41,11 @@ export default [
   },
   {
     name: 'borderColor',
+    group: 'aspect',
+    type: types.color,
+  },
+  {
+    name: 'hoverColor',
     group: 'aspect',
     type: types.color,
   },
