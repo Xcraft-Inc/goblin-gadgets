@@ -1,9 +1,4 @@
 export default function styles() {
-  const childrenDiv = {
-    position: 'absolute',
-    visibility: 'hidden',
-    overflow: 'auto',
-  };
   const safeArea = {
     display: 'flex',
     flexDirection: 'row',
@@ -43,7 +38,6 @@ export default function styles() {
   };
 
   return {
-    childrenDiv,
     safeArea,
     horizontalPosition,
     fullScreen,

@@ -161,12 +161,26 @@ export default class FlatList extends Widget {
     if (this.props.menuType !== 'wrap') {
       item.glyph = isActive ? 'solid/check' : 'solid/none';
     }
+    let glyphProps = {};
+    if (item.glyph) {
+      if (item.glyph.glyph) {
+        glyphProps = {
+          glyph: item.glyph.glyph,
+          glyphColor: item.glyph.color,
+        };
+      } else {
+        glyphProps = {
+          glyph: item.glyph,
+          glyphColor: item.color,
+        };
+      }
+    }
     return (
       <Button
+        {...glyphProps}
         key={index}
+        justify={'flex-start'}
         text={item.text}
-        glyph={item.glyph}
-        glyphColor={item.color}
         height={this.itemHeight + 'px'}
         width={this.itemWidth + 'px'}
         border={'none'}
@@ -190,14 +204,12 @@ export default class FlatList extends Widget {
     } else {
       this.calculateSize();
       return (
-        <React.Fragment>
-          <div
-            style={{...this.containerStyle}}
-            className={this.styles.classNames.box}
-          >
-            {this.renderItems()}
-          </div>
-        </React.Fragment>
+        <div
+          style={{...this.containerStyle}}
+          className={this.styles.classNames.box}
+        >
+          {this.renderItems()}
+        </div>
       );
     }
   }
