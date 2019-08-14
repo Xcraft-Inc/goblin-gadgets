@@ -341,6 +341,42 @@ const types = {
     restrictsToList: true,
     samples: ['', 'left', 'center', 'right'],
   },
+
+  place: {
+    type: 'place',
+    widget: 'combo',
+    restrictsToList: false,
+    samples: [
+      '',
+      '1/1',
+      '1/2',
+      '2/2',
+      '1/3',
+      '2/3',
+      '3/3',
+      '1/4',
+      '2/4',
+      '3/4',
+      '4/4',
+      'single',
+      'left',
+      'middle',
+      'right',
+    ],
+  },
+
+  transition: {
+    type: 'transition',
+    widget: 'combo',
+    restrictsToList: false,
+    samples: [
+      '',
+      '0.0s ease-out',
+      '0.2s ease-out',
+      '0.5s ease-out',
+      '1.0s ease-out',
+    ],
+  },
 };
 
 //-----------------------------------------------------------------------------

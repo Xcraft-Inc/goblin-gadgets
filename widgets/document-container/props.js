@@ -57,13 +57,7 @@ export default [
   {
     name: 'transition',
     group: 'aspect',
-    type: types.enum([
-      '',
-      '0.0s ease-out',
-      '0.2s ease-out',
-      '0.5s ease-out',
-      '1.0s ease-out',
-    ]),
+    type: types.transition,
   },
 
   // Main.
