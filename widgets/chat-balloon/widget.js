@@ -11,7 +11,7 @@ export default class ChatBalloon extends Widget {
   renderDatetime() {
     return (
       <div className={this.styles.classNames.dateTime}>
-        <Label text={this.props.dateTime} />
+        <Label kind="compact" text={this.props.dateTime} />
       </div>
     );
   }
