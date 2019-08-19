@@ -19,17 +19,21 @@ export default class FlatList extends Widget {
 
     this.state = {
       activeIndex: -1,
+      initialized: false,
     };
 
-    this.itemHeight = this.context.theme.shapes.menuButtonHeight || 48 + 'px';
+    this.itemHeight = null;
+    this.itemWidth = null;
 
     this.menuItemWidth =
-      this.props.menuItemWidth || this.props.containerWidth + 'px';
-    this.itemWidth = Unit.parse(this.menuItemWidth).value - 20 + 'px';
+      Unit.parse(this.props.menuItemWidth || this.props.containerWidth).value -
+      Unit.parse(this.context.theme.shapes.menuPadding).value * 2 +
+      'px';
 
     this.previousProps = {};
 
     this.containerStyle = {};
+    this.setItemRef = this.setItemRef.bind(this);
   }
 
   componentWillMount() {
@@ -45,6 +49,18 @@ export default class FlatList extends Widget {
 
   componentWillUnmount() {
     window.document.combo = 'hidden';
+  }
+
+  setItemRef(node) {
+    if (node) {
+      const menuItemWidth = Unit.parse(this.menuItemWidth).value;
+      this.itemWidth = menuItemWidth - (node.offsetWidth - menuItemWidth);
+      const menuItemHeight = Unit.parse(
+        this.context.theme.shapes.menuButtonHeight
+      ).value;
+      this.itemHeight = menuItemHeight - (node.offsetHeight - menuItemHeight);
+      this.setState({initialized: true});
+    }
   }
 
   onDownKey() {
@@ -103,30 +119,39 @@ export default class FlatList extends Widget {
 
   calculateSize() {
     const itemCount = this.props.list.length;
-    let itemHeight = this.itemHeight;
-    let itemWidth = this.itemWidth;
-    // Prop maxHeight come from combo-container
-    let maxHeight = this.props.maxHeight - 20; // -10px padding and -5 px top/bottom
-    if (
-      this.previousProps.itemCount !== itemCount ||
-      this.previousProps.itemHeight !== itemHeight ||
-      this.previousProps.maxHeight !== maxHeight
-    ) {
-      this.previousProps.itemCount = itemCount;
-      this.previousProps.itemHeight = itemHeight;
-      this.previousProps.maxHeight = maxHeight;
-      this.containerStyle = {};
-      if (itemCount && itemHeight && maxHeight) {
-        itemWidth = Unit.parse(itemWidth).value;
-        itemHeight = Unit.parse(itemHeight).value;
+    let itemHeight = Unit.parse(this.context.theme.shapes.menuButtonHeight)
+      .value;
 
-        let maxRows = Math.floor(maxHeight / itemHeight);
-        const columnCount = Math.max(Math.ceil(itemCount / maxRows), 1);
-        this.containerStyle.width = itemWidth * columnCount + 'px';
-        maxRows = Math.ceil(itemCount / columnCount);
-        this.containerStyle.height = maxRows * itemHeight + 'px';
-      }
+    let itemWidth = Unit.parse(this.menuItemWidth).value;
+    let maxHeight =
+      this.props.maxHeight -
+      this.props.triangleSize -
+      Unit.parse(this.context.theme.shapes.menuPadding).value * 2;
+    if (itemCount && itemWidth && itemHeight && maxHeight) {
+      let maxRows = Math.floor(maxHeight / itemHeight);
+      const columnCount = Math.max(Math.ceil(itemCount / maxRows), 1);
+      this.containerStyle.width = itemWidth * columnCount + 'px';
+      maxRows = Math.ceil(itemCount / columnCount);
+      this.containerStyle.height = maxRows * itemHeight + 'px';
     }
+  }
+
+  renderHiddenItem() {
+    const item = {};
+    return (
+      <div ref={this.setItemRef} className={this.styles.classNames.hidden}>
+        <Button
+          text={item.text}
+          glyph={item.glyph}
+          glyphColor={item.color}
+          height={this.context.theme.shapes.menuButtonHeight}
+          width={this.menuItemWidth}
+          border={'none'}
+          active={false}
+          onClick={() => this.onClickedItem(item)}
+        />
+      </div>
+    );
   }
 
   renderItem(item, index, isActive) {
@@ -136,16 +161,29 @@ export default class FlatList extends Widget {
     if (this.props.menuType !== 'wrap') {
       item.glyph = isActive ? 'solid/check' : 'solid/none';
     }
+    let glyphProps = {};
+    if (item.glyph) {
+      if (item.glyph.glyph) {
+        glyphProps = {
+          glyph: item.glyph.glyph,
+          glyphColor: item.glyph.color,
+        };
+      } else {
+        glyphProps = {
+          glyph: item.glyph,
+          glyphColor: item.color,
+        };
+      }
+    }
     return (
       <Button
+        {...glyphProps}
         key={index}
+        justify={'flex-start'}
         text={item.text}
-        glyph={item.glyph}
-        glyphColor={item.color}
-        height={this.itemHeight}
-        width={this.itemWidth}
+        height={this.itemHeight + 'px'}
+        width={this.itemWidth + 'px'}
         border={'none'}
-        active={isActive}
         onClick={() => this.onClickedItem(item)}
       />
     );
@@ -161,15 +199,19 @@ export default class FlatList extends Widget {
   }
 
   render() {
-    this.calculateSize();
-    return (
-      <div
-        style={{...this.containerStyle}}
-        className={this.styles.classNames.box}
-      >
-        {this.renderItems()}
-      </div>
-    );
+    if (!this.state.initialized) {
+      return this.renderHiddenItem();
+    } else {
+      this.calculateSize();
+      return (
+        <div
+          style={{...this.containerStyle}}
+          className={this.styles.classNames.box}
+        >
+          {this.renderItems()}
+        </div>
+      );
+    }
   }
 }
 

@@ -25,7 +25,6 @@ export default [
       dateTime: '25.12.2019 - 23:00',
       message:
         "Un jeune vieillard, assis debout sur un mur de pierre en bois, lisait un journal plié en quatre dans sa poche, à la lueur d'une bougie éteinte.",
-      hasMagnifyingGlass: true,
     },
   },
   {
@@ -39,7 +38,6 @@ export default [
       dateTime: '25.12.2019 - 23:00',
       message:
         "Un jeune vieillard, assis debout sur un mur de pierre en bois, lisait un journal plié en quatre dans sa poche, à la lueur d'une bougie éteinte.",
-      hasMagnifyingGlass: true,
     },
   },
   {

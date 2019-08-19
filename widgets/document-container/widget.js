@@ -5,16 +5,34 @@ import {
   makePropTypes,
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
+import getPath from './getPath';
 
 // Container with a paper sheet look, with the top right corner folded.
 
 export default class DocumentContainer extends Widget {
   render() {
+    if (!this.props.width || !this.props.height) {
+      console.warn('DocumentContainer: width and height are required.');
+      return null;
+    }
+
+    const path = getPath(
+      this.props.width,
+      this.props.height,
+      this.props.cornerSize || '16px',
+      this.props.borderSize || '2px'
+    );
+
     return (
       <div className={this.styles.classNames.documentContainer}>
-        <div className={`main-hover ${this.styles.classNames.mainPart}`} />
-        <div className={`right-hover ${this.styles.classNames.rightPart}`} />
-        <div className={`corner-hover ${this.styles.classNames.cornerPart}`} />
+        <svg className={`color-hover ${this.styles.classNames.pathColor}`}>
+          <path
+            stroke={this.props.borderColor || 'black'}
+            strokeWidth={this.props.borderSize || '2px'}
+            strokeLinejoin="round"
+            d={path}
+          />
+        </svg>
         <div
           className={this.styles.classNames.foreground}
           onClick={this.props.onClick}

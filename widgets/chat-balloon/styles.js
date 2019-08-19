@@ -9,7 +9,6 @@ export const propNames = [
   'dateTimeColor',
   'backgroundColor',
   'textColor',
-  'transition',
 ];
 
 export default function styles(theme, props) {
@@ -20,7 +19,6 @@ export default function styles(theme, props) {
     dateTimeColor = '#888',
     backgroundColor = theme.palette.rootBackground,
     textColor = theme.palette.textColor,
-    transition = '0.2s ease-out',
   } = props;
 
   let dateTimeMargin,
@@ -32,24 +30,20 @@ export default function styles(theme, props) {
     triangleRight,
     triangleLeftColor,
     triangleRightColor,
-    triangleTop,
-    documentRadius;
+    triangleTop;
 
   switch (look) {
     case 'smooth':
       dateTimeMargin = '0px 0px 3px 0px';
       triangleTop = '0px';
-      documentRadius = '8px';
       break;
     case 'round':
       dateTimeMargin = '0px 0px 3px 0px';
       triangleTop = '0px';
-      documentRadius = '50px';
       break;
     default:
       dateTimeMargin = '0px 30px 3px 30px';
       triangleTop = '10px';
-      documentRadius = '8px';
       break;
   }
 
@@ -140,28 +134,7 @@ export default function styles(theme, props) {
   const message = {
     display: 'flex',
     flexDirection: 'row',
-    padding: '20px',
-  };
-
-  const magnifyingGlass = {
-    'margin': '0px 5px 0px -20px',
-    'padding': '0px',
-    'minWidth': '50px',
-    'minHeight': '50px',
-    'display': 'flex',
-    'flexDirection': 'column',
-    'justifyContent': 'center',
-    'alignItems': 'center',
-    'borderRadius': documentRadius,
-    'userSelect': 'none',
-    'color': '#ddd',
-    'fontSize': '150%',
-    'transition': transition,
-    ':hover': {
-      color: '#fff',
-      backgroundColor: 'rgba(255,255,255,0.2)',
-      fontSize: '180%',
-    },
+    padding: '10px 20px',
   };
 
   const triangle = {
@@ -184,7 +157,6 @@ export default function styles(theme, props) {
     boxBalloon,
     balloon,
     message,
-    magnifyingGlass,
     triangle,
   };
 }

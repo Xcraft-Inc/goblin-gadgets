@@ -7,7 +7,6 @@ import Triangle from 'goblin-gadgets/widgets/triangle/widget';
 export default class ComboContainer extends Widget {
   constructor() {
     super(...arguments);
-    this.setChildrenDivRef = this.setChildrenDivRef.bind(this);
     this.reset();
     if (this.props.triangleSize) {
       const triangle = this.props.triangleSize.split('px');
@@ -27,36 +26,13 @@ export default class ComboContainer extends Widget {
     this.comboState = 'close';
   }
 
-  setChildrenDivRef(node) {
-    if (node) {
-      this.childrenDivRef = node;
-      const {height} = this.childrenDivRef.getBoundingClientRect();
-      this.calculateLocationWithChildrenSize(height);
-      this.comboState = 'render-combo';
-      this.forceUpdate();
-    }
-  }
-
   calculateLocation() {
     const {centerX, centerY, top, bottom} = this.positionInfo;
     const windowCenterY = window.innerHeight / 2;
-    // Combo under element
+    // Combo placed above or under
     if (centerY <= windowCenterY) {
       this.side = 'bottom';
-      this.calculateSafeArea();
-    }
-  }
-
-  calculateLocationWithChildrenSize(height) {
-    if (
-      height + this.triangleSize <
-      window.innerHeight - this.positionInfo.bottom
-    ) {
-      this.side = 'bottom';
-    }
-    // If no place under element, we place it above
-    // TODO: Do better !
-    else {
+    } else {
       this.side = 'top';
     }
     this.calculateSafeArea();
@@ -98,6 +74,8 @@ export default class ComboContainer extends Widget {
       };
       this.childrenProps.maxHeight = this.positionInfo.top - this.triangleSize;
     }
+    this.childrenProps.triangleSize = this.triangleSize;
+    this.comboState = 'render-combo';
   }
 
   getPositionInfo() {
@@ -128,17 +106,6 @@ export default class ComboContainer extends Widget {
     } else {
       this.positionInfo = null;
     }
-  }
-
-  renderForSize() {
-    return (
-      <div
-        ref={this.setChildrenDivRef}
-        className={this.styles.classNames.childrenDiv}
-      >
-        {this.props.children}
-      </div>
-    );
   }
 
   renderCombo() {
@@ -190,15 +157,8 @@ export default class ComboContainer extends Widget {
     }
     if (this.comboState === 'calculate-side') {
       this.calculateLocation();
-      if (!this.side) {
-        this.comboState = 'get-children-size';
-      } else {
-        this.comboState = 'render-combo';
-      }
     }
-    if (this.comboState === 'get-children-size') {
-      return this.renderForSize();
-    } else if (this.comboState === 'render-combo') {
+    if (this.comboState === 'render-combo') {
       return this.renderCombo();
     }
     return null;

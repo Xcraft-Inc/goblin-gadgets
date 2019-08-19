@@ -18,6 +18,11 @@ export default [
     type: types.size,
   },
   {
+    name: 'hoverCornerSize',
+    group: 'layout',
+    type: types.size,
+  },
+  {
     name: 'grow',
     group: 'layout',
     type: types.grow,
@@ -30,17 +35,17 @@ export default [
     type: types.color,
   },
   {
-    name: 'hoverColor',
-    group: 'aspect',
-    type: types.color,
-  },
-  {
     name: 'borderSize',
     group: 'aspect',
     type: types.size,
   },
   {
     name: 'borderColor',
+    group: 'aspect',
+    type: types.color,
+  },
+  {
+    name: 'hoverColor',
     group: 'aspect',
     type: types.color,
   },
@@ -57,7 +62,13 @@ export default [
   {
     name: 'transition',
     group: 'aspect',
-    type: types.transition,
+    type: types.enum([
+      '',
+      '0.0s ease-out',
+      '0.2s ease-out',
+      '0.5s ease-out',
+      '1.0s ease-out',
+    ]),
   },
 
   // Main.
