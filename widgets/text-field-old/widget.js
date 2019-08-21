@@ -324,11 +324,11 @@ export default class TextFieldOld extends Widget {
             />
           ) : (
             <TranslatableInput
-              msgid={placeholder}
+              placeholder={placeholder}
               workitemId={this.context.desktopId || this.getNearestId()}
               tabIndex="0"
               type={type}
-              onRef={this.setInput}
+              inputRef={this.setInput}
               {...otherProps}
             />
           )}
