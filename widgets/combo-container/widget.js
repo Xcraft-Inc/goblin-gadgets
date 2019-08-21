@@ -135,8 +135,8 @@ export default class ComboContainer extends Widget {
         >
           <Triangle
             position={this.side}
-            color={'white'}
             size={this.props.triangleSize}
+            color={this.context.theme.palette.comboItemBackground}
           />
         </div>
       </React.Fragment>

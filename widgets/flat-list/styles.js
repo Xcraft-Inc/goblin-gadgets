@@ -5,7 +5,7 @@ export default function styles(theme) {
     display: 'flex',
     flexDirection: 'column',
     flexWrap: 'wrap',
-    backgroundColor: 'white',
+    backgroundColor: theme.palette.comboItemBackground,
     boxSizing: 'content-box',
     boxShadow: theme.shapes.calendarShadow,
     overflowX: 'overlay',
