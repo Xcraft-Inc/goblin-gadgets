@@ -77,6 +77,7 @@ export default [
       'dynamic-toolbar-left',
       'dynamic-toolbar-top-left',
       'dynamic-toolbar-top-right',
+      'flat-list-combo-item',
       'glyph-item',
       'hover',
       'identity',

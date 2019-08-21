@@ -751,6 +751,11 @@ export default function styles(theme, props) {
     textSize = theme.shapes.menuTextSize;
     textTransform = textTransform || 'uppercase';
   }
+  if (kind === 'flat-list-combo-item') {
+    textSize = theme.shapes.menuTextSize;
+    textColor = theme.palette.comboItemText;
+    glyphColor = theme.palette.comboItemText;
+  }
 
   if (kind === 'combo-wrap-item') {
     textWidth = 'max-content';

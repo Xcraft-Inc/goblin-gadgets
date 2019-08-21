@@ -179,6 +179,7 @@ export default class FlatList extends Widget {
       <Button
         {...glyphProps}
         key={index}
+        kind="flat-list-combo-item"
         justify={'flex-start'}
         text={item.text}
         height={this.itemHeight + 'px'}

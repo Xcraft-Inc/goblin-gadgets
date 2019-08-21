@@ -56,6 +56,7 @@ export default [
       'dynamic-toolbar-left',
       'dynamic-toolbar-top-left',
       'dynamic-toolbar-top-right',
+      'flat-list-combo-item',
       'field-combo',
       'floating-footer',
       'floating-header',

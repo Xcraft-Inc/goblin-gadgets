@@ -557,6 +557,17 @@ export default function styles(theme, props) {
     }
     backgroundHoverColor = theme.palette.comboItemHover;
   }
+  if (kind === 'flat-list-combo-item') {
+    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
+    borderStyle = 'none';
+    backgroundColor = theme.palette.comboItemBackground;
+    if (active === 'focused') {
+      activeColor = theme.palette.comboItemFocused;
+    } else {
+      activeColor = theme.palette.comboItemActive;
+    }
+    backgroundHoverColor = theme.palette.comboItemHover;
+  }
 
   if (kind === 'combo-wrap-item') {
     boxMaxWidth = boxWidth ? boxWidth : null;
@@ -769,6 +780,7 @@ export default function styles(theme, props) {
     shortcut &&
     kind !== 'menu-item' &&
     kind !== 'combo-item' &&
+    kind !== 'flat-list-combo-item' &&
     kind !== 'task-bar' &&
     kind !== 'task-logo'
   ) {
