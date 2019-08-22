@@ -7,6 +7,12 @@ export default (state = initialState, action = {}) => {
     case 'CHANGE': {
       return state.set(action.path, action.newValue);
     }
+    case 'FOCUS': {
+      return state.set('active', true);
+    }
+    case 'BLUR': {
+      return state.set('active', false);
+    }
   }
   return state;
 };
