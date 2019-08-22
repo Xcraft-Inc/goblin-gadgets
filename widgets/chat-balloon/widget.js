@@ -8,6 +8,17 @@ import {
 } from 'xcraft-core-utils/lib/prop-types';
 
 export default class ChatBalloon extends Widget {
+  constructor() {
+    super(...arguments);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    if (this.props.onClick) {
+      this.props.onClick();
+    }
+  }
+
   renderDatetime() {
     return (
       <div className={this.styles.classNames.dateTime}>
@@ -19,7 +30,10 @@ export default class ChatBalloon extends Widget {
   renderMessage() {
     return (
       <div className={this.styles.classNames.boxBalloon}>
-        <div className={this.styles.classNames.balloon}>
+        <div
+          className={this.styles.classNames.balloon}
+          onClick={this.handleClick}
+        >
           <div className={this.styles.classNames.triangle} />
           <div className={this.styles.classNames.message}>
             <Label kind="compact" text={this.props.message} />

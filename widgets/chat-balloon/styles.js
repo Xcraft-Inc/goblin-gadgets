@@ -1,4 +1,5 @@
 import {ColorHelpers} from 'electrum-theme';
+import {ColorManipulator} from 'electrum-theme';
 
 /******************************************************************************/
 
@@ -9,6 +10,7 @@ export const propNames = [
   'dateTimeColor',
   'backgroundColor',
   'textColor',
+  'onClick',
 ];
 
 export default function styles(theme, props) {
@@ -19,6 +21,7 @@ export default function styles(theme, props) {
     dateTimeColor = '#888',
     backgroundColor = theme.palette.rootBackground,
     textColor = theme.palette.textColor,
+    onClick,
   } = props;
 
   let dateTimeMargin,
@@ -121,14 +124,20 @@ export default function styles(theme, props) {
   };
 
   const balloon = {
-    margin: balloonMargin,
-    position: 'relative',
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: borderRadius,
-    color: textColor,
-    backgroundColor: backgroundColor,
+    'margin': balloonMargin,
+    'position': 'relative',
+    'display': 'flex',
+    'flexDirection': 'row',
+    'alignItems': 'center',
+    'borderRadius': borderRadius,
+    'color': textColor,
+    'backgroundColor': backgroundColor,
+    'transition': 'all 0.2s ease-out',
+    ':hover': {
+      backgroundColor: onClick
+        ? ColorManipulator.emphasize(backgroundColor, 0.2)
+        : backgroundColor,
+    },
   };
 
   const message = {
