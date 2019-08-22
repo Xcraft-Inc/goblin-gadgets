@@ -137,6 +137,54 @@ export default function styles(theme, props) {
     color = theme.palette.text;
   }
 
+  if (kind === 'configurator-header') {
+    if (!height) {
+      throw new Error(
+        'Container with kind=configurator-header must have a height'
+      );
+    }
+    // The property floating-height must correspond to the floating Container height !
+    // The calculate height of floating-header Container fill the space on top of floating Container.
+    const hh = Unit.add(
+      Unit.multiply(height, 0.5),
+      theme.shapes.floatingPadding
+    );
+    height = 'calc(50vh - ' + hh + ')';
+    display = 'flex';
+    flexDirection = 'row';
+    margin = '0px auto auto auto';
+    display = 'flex';
+    justifyContent = 'center';
+    alignItems = 'center';
+    backgroundColor = 'transparent';
+    zIndex = '2';
+  }
+
+  if (kind === 'configurator-content') {
+    display = 'flex';
+    flexDirection = 'column';
+    margin = 'auto';
+    padding = subkind === 'full' ? null : theme.shapes.floatingPadding;
+    borderRadius = theme.shapes.floatingRadius;
+    display = 'flex';
+    flexDirection = 'column';
+    justifyContent = 'center';
+    backgroundColor = theme.palette.flyingDialogBackground;
+    boxShadow = theme.shapes.floatingShadow;
+    zIndex = '10';
+  }
+
+  if (kind === 'configurator-footer') {
+    display = 'flex';
+    flexDirection = 'column';
+    margin = 'auto';
+    display = 'flex';
+    flexDirection = 'column';
+    justifyContent = 'flex-end';
+    alignItems = 'center';
+    zIndex = '2';
+  }
+
   if (kind === 'floating') {
     position = 'fixed';
     left = '50%';
