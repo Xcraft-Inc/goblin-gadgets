@@ -249,12 +249,14 @@ export default function styles(theme, props) {
 
   if (kind === 'table-cell-sorting-header') {
     glyphMinWidth = '15px';
+    boxMarginRight = '0px';
     textMarginLeft = '0px';
     textMarginRight = '0px';
     glyphHeight = null;
   }
 
   if (kind === 'table-cell') {
+    boxMarginRight = '0px';
     textMarginLeft = '0px';
     textMarginRight = '0px';
     glyphHeight = null;
