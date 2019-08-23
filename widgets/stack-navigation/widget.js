@@ -149,9 +149,9 @@ class StackNavigationWidget extends Widget {
     const {lastScreen, beforeLastScreen, operation} = this.props;
 
     console.log(
-      `StackNavigation: operation=${operation} last=${lastScreen.get(
-        'widget'
-      )} beforeLast=${beforeLastScreen ? beforeLastScreen.get('widget') : null}`
+      `StackNavigation: operation=${operation} last=${
+        lastScreen ? lastScreen.get('widget') : null
+      } beforeLast=${beforeLastScreen ? beforeLastScreen.get('widget') : null}`
     );
 
     const lastComponent = this.getComponent(lastScreen);
