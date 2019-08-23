@@ -512,6 +512,16 @@ export default [
     type: types.bool,
   },
   {
+    name: 'compactMargins',
+    group: 'aspect',
+    type: types.bool,
+  },
+  {
+    name: 'simpleHeader',
+    group: 'aspect',
+    type: types.bool,
+  },
+  {
     name: 'fontSizeStrategy',
     group: 'aspect',
     type: types.enum(['', 'decrease']),

@@ -378,6 +378,7 @@ export default class TableNC extends Widget {
         isSortable={isSortable}
         isLast={Bool.toString(isLast)}
         isHeader={true}
+        simpleHeader={this.props.simpleHeader}
         text={column.get('description')}
         glyph={glyph}
         horizontalSpacing="compact"
@@ -519,6 +520,7 @@ export default class TableNC extends Widget {
         bottomSeparator={item.bottomSeparator}
         isLast={item.isLast}
         fontSizeStrategy={this.props.fontSizeStrategy}
+        compactMargins={this.props.compactMargins}
         selected={Bool.toString(this.isSelected(item.row.get('id', null)))}
         selectionChanged={this.onSelectionChanged}
         onDoubleClick={this.onDoubleClick}

@@ -3,7 +3,13 @@ const TableHelpers = require('gadgets/helpers/table-helpers');
 
 /******************************************************************************/
 
-export const propNames = ['topSeparator', 'bottomSeparator', 'isLast', 'row'];
+export const propNames = [
+  'topSeparator',
+  'bottomSeparator',
+  'isLast',
+  'row',
+  'compactMargins',
+];
 
 export function mapProps(props) {
   const {row, ...otherProps} = props;
@@ -17,9 +23,15 @@ export function mapProps(props) {
 }
 
 export default function styles(theme, props) {
-  const {backgroundColor, topSeparator, bottomSeparator, isLast} = props;
+  const {
+    backgroundColor,
+    topSeparator,
+    bottomSeparator,
+    isLast,
+    compactMargins,
+  } = props;
 
-  const m = theme.shapes.containerMargin;
+  const m = compactMargins ? '0px' : theme.shapes.containerMargin;
   const v1 = Unit.multiply(theme.shapes.tablePadding, 0.75);
   const v2 = Unit.multiply(theme.shapes.tablePadding, 0.25);
 
@@ -33,16 +45,16 @@ export default function styles(theme, props) {
   const paddingBottom = bottomSeparator || isLast ? v1 : v2;
 
   const rowStyle = {
-    borderTop: borderTop,
-    display: 'flex',
-    flexDirection: 'row',
-    padding: paddingTop + ' ' + m + ' ' + paddingBottom + ' ' + m,
-    backgroundColor: TableHelpers.getBackgroundColor(
+    'borderTop': borderTop,
+    'display': 'flex',
+    'flexDirection': 'row',
+    'padding': paddingTop + ' ' + m + ' ' + paddingBottom + ' ' + m,
+    'backgroundColor': TableHelpers.getBackgroundColor(
       theme,
       backgroundColor,
       'none'
     ),
-    cursor: 'default',
+    'cursor': 'default',
     ':hover': {
       backgroundColor: TableHelpers.getBackgroundColor(
         theme,
@@ -53,13 +65,13 @@ export default function styles(theme, props) {
   };
 
   const rowSelectedStyle = {
-    borderTop: borderTop,
-    display: 'flex',
-    flexDirection: 'row',
-    padding: paddingTop + ' ' + m + ' ' + paddingBottom + ' ' + m,
-    backgroundColor: TableHelpers.getSelectedBackgroundColor(theme, 'none'),
-    color: theme.palette.tableSelectedText,
-    cursor: 'default',
+    'borderTop': borderTop,
+    'display': 'flex',
+    'flexDirection': 'row',
+    'padding': paddingTop + ' ' + m + ' ' + paddingBottom + ' ' + m,
+    'backgroundColor': TableHelpers.getSelectedBackgroundColor(theme, 'none'),
+    'color': theme.palette.tableSelectedText,
+    'cursor': 'default',
     ':hover': {
       backgroundColor: TableHelpers.getSelectedBackgroundColor(theme, 'main'),
     },

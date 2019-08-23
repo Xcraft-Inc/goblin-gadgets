@@ -18,6 +18,7 @@ export const propNames = [
   'indent',
   'textAlign',
   'hasBorderRight',
+  'simpleHeader',
 ];
 
 export function mapProps(props) {
@@ -44,6 +45,7 @@ export default function styles(theme, props) {
     indent,
     textAlign,
     hasBorderRight,
+    simpleHeader,
   } = props;
 
   let minWidth = null;
@@ -83,7 +85,7 @@ export default function styles(theme, props) {
     // All cells have a right margin, except the last.
     marginRight = theme.shapes.tablePadding;
   }
-  if (Bool.isTrue(isHeader)) {
+  if (Bool.isTrue(isHeader) && !Bool.isTrue(simpleHeader)) {
     fontWeight = 'bold';
     textTransform = 'uppercase';
   }
@@ -132,26 +134,26 @@ export default function styles(theme, props) {
   }
 
   const cell = {
-    minWidth: minWidth,
-    maxWidth: maxWidth,
-    flexGrow: flexGrow,
-    flexShrink: flexShrink,
-    flexBasis: flexBasis,
-    overflow: overflow,
-    marginLeft: marginLeft,
-    marginRight: marginRight,
-    marginTop: marginTop,
-    marginBottom: marginBottom,
-    paddingLeft: paddingLeft,
-    paddingRight: paddingRight,
-    paddingTop: paddingTop,
-    paddingBottom: paddingBottom,
-    borderRight: borderRight,
-    textAlign: textAlign,
-    fontWeight: fontWeight,
-    textTransform: textTransform,
-    fontSize: fontSize,
-    backgroundColor: backgroundColor,
+    'minWidth': minWidth,
+    'maxWidth': maxWidth,
+    'flexGrow': flexGrow,
+    'flexShrink': flexShrink,
+    'flexBasis': flexBasis,
+    'overflow': overflow,
+    'marginLeft': marginLeft,
+    'marginRight': marginRight,
+    'marginTop': marginTop,
+    'marginBottom': marginBottom,
+    'paddingLeft': paddingLeft,
+    'paddingRight': paddingRight,
+    'paddingTop': paddingTop,
+    'paddingBottom': paddingBottom,
+    'borderRight': borderRight,
+    'textAlign': textAlign,
+    'fontWeight': fontWeight,
+    'textTransform': textTransform,
+    'fontSize': fontSize,
+    'backgroundColor': backgroundColor,
     ':hover': {
       color: hoverColor,
     },

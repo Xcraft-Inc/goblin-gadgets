@@ -55,11 +55,13 @@ class TableCell extends Widget {
   render() {
     let glyph = null;
     let glyphColor = null;
+    let textColor = null;
     let text = null;
     let weight = null;
     if (this.props.text && this.props.text instanceof Shredder) {
       glyph = this.props.text.get('glyph');
       glyphColor = this.props.text.get('glyphColor');
+      textColor = this.props.text.get('textColor');
       text = this.props.text.get('text');
       weight = this.props.text.get('weight');
     } else {
@@ -89,6 +91,7 @@ class TableCell extends Widget {
           cursor={cursor}
           glyph={glyph}
           glyphColor={glyphColor}
+          textColor={textColor}
           text={text}
           weight={weight}
           justify={this.props.textAlign}
