@@ -58,7 +58,11 @@ class TableCell extends Widget {
     let textColor = null;
     let text = null;
     let weight = null;
-    if (this.props.text && this.props.text instanceof Shredder) {
+    if (
+      this.props.text &&
+      this.props.text instanceof Shredder &&
+      !this.props.text.get('nabuId')
+    ) {
       glyph = this.props.text.get('glyph');
       glyphColor = this.props.text.get('glyphColor');
       textColor = this.props.text.get('textColor');
