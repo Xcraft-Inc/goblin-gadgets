@@ -28,6 +28,10 @@ function getDisplayedText(text, type) {
   }
 }
 
+function isNabu(t) {
+  return t.get('nabuId') || t.get('_type') === 'translatableString';
+}
+
 /******************************************************************************/
 
 class TableCell extends Widget {
@@ -61,7 +65,7 @@ class TableCell extends Widget {
     if (
       this.props.text &&
       this.props.text instanceof Shredder &&
-      !this.props.text.get('nabuId')
+      !isNabu(this.props.text)
     ) {
       // In this case, the props text is a Shredder, but not a T() !
       glyph = this.props.text.get('glyph');
