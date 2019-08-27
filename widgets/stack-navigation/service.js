@@ -23,11 +23,20 @@ const logicHandlers = {
   back: state => {
     return state.set('operation', 'back');
   },
+  replace: (state, action) => {
+    return state
+      .set('operation', 'replace')
+      .push('stack', fromJS(action.get('screen')));
+  },
   endOpenAnimation: state => {
     return state.set('operation', null);
   },
   _endBackAnimation: state => {
     return state.set('operation', null).pop('stack');
+  },
+  _endReplaceAnimation: state => {
+    const stack = state.get('stack');
+    return state.set('operation', null).del(`stack.[${stack.size - 2}]`);
   },
 };
 
@@ -42,10 +51,22 @@ const quests = {
 
     const operation = state.get('operation');
     if (operation) {
-      // If operation is running, do not open the new screen.
+      // If an operation is running, do not open the new screen.
       return;
     }
 
+    serviceId = yield quest.me._initService({service, serviceId, serviceArgs});
+
+    quest.do({
+      screen: {
+        widget,
+        widgetProps,
+        serviceId,
+      },
+    });
+  },
+
+  _initService: function*(quest, service, serviceId, serviceArgs) {
     const desktopId = quest.goblin.getX('desktopId');
     if (!serviceId && service) {
       serviceId = `${service}@${quest.uuidV4()}`;
@@ -57,16 +78,7 @@ const quests = {
         desktopId,
       });
     }
-
-    quest.do({
-      screen: {
-        widget,
-        widgetProps,
-        service,
-        serviceId,
-        serviceArgs,
-      },
-    });
+    return serviceId;
   },
 
   back: function(quest) {
@@ -74,11 +86,38 @@ const quests = {
 
     const operation = state.get('operation');
     if (operation) {
-      // If operation is running, do not open the new screen.
+      // If an operation is running, do nothing.
       return;
     }
 
     quest.do();
+  },
+
+  replace: function*(
+    quest,
+    widget,
+    widgetProps,
+    service,
+    serviceId,
+    serviceArgs
+  ) {
+    const state = quest.goblin.getState();
+
+    const operation = state.get('operation');
+    if (operation) {
+      // If an operation is running, do nothing.
+      return;
+    }
+
+    serviceId = yield quest.me._initService({service, serviceId, serviceArgs});
+
+    quest.do({
+      screen: {
+        widget,
+        widgetProps,
+        serviceId,
+      },
+    });
   },
 
   endAnimation: function*(quest) {
@@ -87,6 +126,8 @@ const quests = {
 
     if (operation === 'back') {
       yield quest.me.endBackAnimation();
+    } else if (operation === 'replace') {
+      yield quest.me.endReplaceAnimation();
     } else {
       yield quest.me.endOpenAnimation();
     }
@@ -114,6 +155,28 @@ const quests = {
   },
 
   _endBackAnimation: function(quest) {
+    quest.do();
+  },
+
+  endReplaceAnimation: function*(quest) {
+    const state = quest.goblin.getState();
+    const stack = state.get('stack');
+    const beforeLast = stack.get(stack.size - 2);
+    if (!beforeLast) {
+      return;
+    }
+    const serviceId = beforeLast.get('serviceId');
+
+    // Pop stack first and kill after
+    // Using a quest.do here doesn't work: the kill is done before pop...
+    yield quest.me._endReplaceAnimation();
+
+    if (serviceId) {
+      yield quest.kill([serviceId]);
+    }
+  },
+
+  _endReplaceAnimation: function(quest) {
     quest.do();
   },
 

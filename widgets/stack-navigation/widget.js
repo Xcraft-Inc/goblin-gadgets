@@ -47,7 +47,11 @@ const animationPairs = {
       beforeLast: 'none',
     },
   },
+
+  replace: null, // set below
 };
+
+animationPairs.replace = animationPairs.open;
 
 /******************************************************************************/
 
@@ -114,6 +118,9 @@ class StackNavigationWidget extends Widget {
     let animation = null;
     if (lastComponent.animations) {
       animation = lastComponent.animations[this.props.operation];
+      if (!animation && this.props.operation === 'replace') {
+        animation = lastComponent.animations.open;
+      }
     }
 
     let animations = null;
