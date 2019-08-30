@@ -9,6 +9,7 @@ const logicState = {
   id: null,
   stack: [],
   operation: null,
+  operationParams: null,
 };
 
 const logicHandlers = {
@@ -24,19 +25,32 @@ const logicHandlers = {
     return state.set('operation', 'back');
   },
   replace: (state, action) => {
+    let replaceCount = action.get('replaceCount');
+    if (!replaceCount || replaceCount < 1) {
+      replaceCount = 1;
+    }
     return state
       .set('operation', 'replace')
+      .set('operationParams', {replaceCount})
       .push('stack', fromJS(action.get('screen')));
   },
   endOpenAnimation: state => {
-    return state.set('operation', null);
+    return state.set('operation', null).set('operationParams', null);
   },
   _endBackAnimation: state => {
-    return state.set('operation', null).pop('stack');
+    return state
+      .set('operation', null)
+      .set('operationParams', null)
+      .pop('stack');
   },
   _endReplaceAnimation: state => {
-    const stack = state.get('stack');
-    return state.set('operation', null).del(`stack.[${stack.size - 2}]`);
+    let stack = state.get('stack');
+    const replaceCount = state.get('operationParams.replaceCount');
+    stack = stack.splice(stack.size - 1 - replaceCount, replaceCount);
+    return state
+      .set('operation', null)
+      .set('operationParams', null)
+      .set('stack', stack);
   },
 };
 
@@ -161,18 +175,20 @@ const quests = {
   endReplaceAnimation: function*(quest) {
     const state = quest.goblin.getState();
     const stack = state.get('stack');
-    const beforeLast = stack.get(stack.size - 2);
-    if (!beforeLast) {
-      return;
-    }
-    const serviceId = beforeLast.get('serviceId');
+    let replaceCount = state.get('operationParams.replaceCount');
 
     // Pop stack first and kill after
     // Using a quest.do here doesn't work: the kill is done before pop...
     yield quest.me._endReplaceAnimation();
 
-    if (serviceId) {
-      yield quest.kill([serviceId]);
+    for (let i = 0; i < replaceCount; i++) {
+      const screen = stack.get(stack.size - 2 - i);
+      if (screen) {
+        const serviceId = screen.get('serviceId');
+        if (serviceId) {
+          yield quest.kill([serviceId]);
+        }
+      }
     }
   },
 
