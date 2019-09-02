@@ -16,7 +16,15 @@ export const propNames = [
   'required',
   'justify',
   'border',
+  'value',
 ];
+
+export function mapProps(props) {
+  return {
+    ...props,
+    value: Boolean(props.value),
+  };
+}
 
 export default function styles(theme, props) {
   const {
@@ -31,6 +39,7 @@ export default function styles(theme, props) {
     required,
     justify,
     border,
+    value,
   } = props;
 
   let flexGrow = grow;
@@ -124,6 +133,7 @@ export default function styles(theme, props) {
 
   if (
     Bool.isTrue(required) &&
+    !Bool.isTrue(value) &&
     !Bool.isTrue(disabled) &&
     !Bool.isTrue(active) &&
     !Bool.isTrue(readonly)
