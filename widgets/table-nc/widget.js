@@ -521,6 +521,7 @@ export default class TableNC extends Widget {
         isLast={item.isLast}
         fontSizeStrategy={this.props.fontSizeStrategy}
         compactMargins={this.props.compactMargins}
+        selectionMode={this.props.selectionMode}
         selected={Bool.toString(this.isSelected(item.row.get('id', null)))}
         selectionChanged={this.onSelectionChanged}
         onDoubleClick={this.onDoubleClick}

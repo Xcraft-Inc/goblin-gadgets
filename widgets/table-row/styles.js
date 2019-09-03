@@ -9,6 +9,7 @@ export const propNames = [
   'isLast',
   'row',
   'compactMargins',
+  'selectionMode',
 ];
 
 export function mapProps(props) {
@@ -29,6 +30,7 @@ export default function styles(theme, props) {
     bottomSeparator,
     isLast,
     compactMargins,
+    selectionMode,
   } = props;
 
   const m = compactMargins ? '0px' : theme.shapes.containerMargin;
@@ -56,11 +58,10 @@ export default function styles(theme, props) {
     ),
     'cursor': 'default',
     ':hover': {
-      backgroundColor: TableHelpers.getBackgroundColor(
-        theme,
-        backgroundColor,
-        'main'
-      ),
+      backgroundColor:
+        selectionMode === 'none'
+          ? null
+          : TableHelpers.getBackgroundColor(theme, backgroundColor, 'main'),
     },
   };
 
@@ -73,7 +74,10 @@ export default function styles(theme, props) {
     'color': theme.palette.tableSelectedText,
     'cursor': 'default',
     ':hover': {
-      backgroundColor: TableHelpers.getSelectedBackgroundColor(theme, 'main'),
+      backgroundColor:
+        selectionMode === 'none'
+          ? null
+          : TableHelpers.getSelectedBackgroundColor(theme, 'main'),
     },
   };
 

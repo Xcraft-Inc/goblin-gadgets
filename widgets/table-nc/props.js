@@ -481,7 +481,7 @@ export default [
   {
     name: 'selectionMode',
     group: 'main',
-    type: types.enum(['single', 'multi']),
+    type: types.enum(['none', 'single', 'multi']),
   },
   {
     name: 'filter',
