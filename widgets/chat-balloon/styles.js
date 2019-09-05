@@ -124,26 +124,46 @@ export default function styles(theme, props) {
   };
 
   const balloon = {
-    'margin': balloonMargin,
-    'position': 'relative',
-    'display': 'flex',
-    'flexDirection': 'row',
-    'alignItems': 'center',
-    'borderRadius': borderRadius,
-    'color': textColor,
-    'backgroundColor': backgroundColor,
-    'transition': 'all 0.2s ease-out',
-    ':hover': {
-      backgroundColor: onClick
-        ? ColorManipulator.emphasize(backgroundColor, 0.2)
-        : backgroundColor,
-    },
+    margin: balloonMargin,
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: borderRadius,
+    color: textColor,
+    backgroundColor: backgroundColor,
+    transition: 'all 0.2s ease-out',
+    //? ':hover': {
+    //?   backgroundColor: onClick
+    //?     ? ColorManipulator.emphasize(backgroundColor, 0.2)
+    //?     : backgroundColor,
+    //? },
   };
 
   const message = {
     display: 'flex',
     flexDirection: 'row',
     padding: '10px 20px',
+  };
+
+  const hover = {
+    'position': 'absolute',
+    'left': 0,
+    'right': 0,
+    'top': 0,
+    'bottom': 0,
+    'display': 'flex',
+    'flexDirection': 'row',
+    'justifyContent': 'center',
+    'alignItems': 'center',
+    'borderRadius': borderRadius,
+    'fontSize': '200%',
+    'opacity': 0,
+    'transition': 'all 0.2s ease-out',
+    ':hover': {
+      opacity: onClick ? 0.8 : 0,
+      backgroundColor: onClick ? backgroundColor : null,
+    },
   };
 
   const triangle = {
@@ -166,6 +186,7 @@ export default function styles(theme, props) {
     boxBalloon,
     balloon,
     message,
+    hover,
     triangle,
   };
 }

@@ -38,6 +38,9 @@ export default class ChatBalloon extends Widget {
           <div className={this.styles.classNames.message}>
             <Label kind="compact" text={this.props.message} />
           </div>
+          <div className={this.styles.classNames.hover}>
+            <Label glyph="solid/search" />
+          </div>
         </div>
       </div>
     );
