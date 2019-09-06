@@ -235,9 +235,9 @@ class List {
     }
 
     let values = [];
-    let afterSearch = null;
+    let searchAfter = null;
     if (from + size > 9999) {
-      afterSearch = [quest.goblin.getX('afterSearch')];
+      searchAfter = [quest.goblin.getX('searchAfter')];
     }
 
     let results = yield elastic.search({
@@ -245,9 +245,9 @@ class List {
       value,
       sort,
       filter,
-      from: afterSearch ? -1 : from,
+      from: searchAfter ? -1 : from,
       size,
-      afterSearch,
+      searchAfter,
       mustExist: true,
       source: false,
     });
@@ -257,7 +257,7 @@ class List {
     if (results.hits.hits.length > 0) {
       const sortField = options.sort.key.replace('.keyword', '');
       quest.goblin.setX(
-        'afterSearch',
+        'searchAfter',
         results.hits.hits[results.hits.hits.length - 1]._source[sortField]
       );
     }
