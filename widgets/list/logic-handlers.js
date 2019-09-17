@@ -55,11 +55,11 @@ module.exports = {
     }, {});
 
     state = state.set(`list`, items);
-
+    state = state.set(`count`, ids.length);
     return state;
   }),
   'handle-changes': state => {
-    return state.set('list', {});
+    return state.set('count', 0).set('list', {});
   },
   'remove': state => {
     const newCount = Number(state.get('count')) - 1;

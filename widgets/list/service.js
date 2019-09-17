@@ -426,7 +426,6 @@ Goblin.registerQuest(goblinName, 'handle-changes', function*(quest, change) {
   const mode = quest.goblin.getX('mode');
   switch (mode) {
     case 'search':
-      break;
     case 'query':
     case 'index': {
       switch (change.type) {
