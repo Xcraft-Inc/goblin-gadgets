@@ -275,23 +275,23 @@ const animations = {
 
   zoomInX: {
     name: keyframesZoomInX,
-    duration: '0.4s',
+    duration: '0.6s',
     timingFunction: 'ease',
   },
   zoomOutX: {
     name: keyframesZoomOutX,
-    duration: '0.4s',
+    duration: '0.6s',
     timingFunction: 'ease',
   },
 
   zoomInY: {
     name: keyframesZoomInY,
-    duration: '0.4s',
+    duration: '0.6s',
     timingFunction: 'ease',
   },
   zoomOutY: {
     name: keyframesZoomOutY,
-    duration: '0.4s',
+    duration: '0.6s',
     timingFunction: 'ease',
   },
 };
