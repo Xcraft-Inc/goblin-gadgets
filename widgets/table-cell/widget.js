@@ -8,6 +8,7 @@ import * as Bool from 'gadgets/helpers/bool-helpers';
 import {
   date as DateConverters,
   time as TimeConverters,
+  datetime as DateTimeConverters,
   price as PriceConverters,
 } from 'xcraft-core-converters';
 
@@ -21,6 +22,8 @@ function getDisplayedText(text, type) {
       return DateConverters.getDisplayed(text);
     case 'time':
       return TimeConverters.getDisplayed(text);
+    case 'datetime':
+      return DateTimeConverters.getDisplayed(text);
     case 'price':
       return PriceConverters.getDisplayed(text);
     default:
