@@ -139,6 +139,62 @@ const keyframesZoomOut = {
   },
 };
 
+const keyframesZoomInX = {
+  '0%': {
+    transform: 'scaleX(0.33)',
+    opacity: 0,
+  },
+  '75%': {
+    opacity: 1,
+  },
+  '100%': {
+    transform: 'scaleX(1)',
+    opacity: 1,
+  },
+};
+
+const keyframesZoomOutX = {
+  '0%': {
+    transform: 'scaleX(1)',
+    opacity: 1,
+  },
+  '25%': {
+    opacity: 1,
+  },
+  '100%': {
+    transform: 'scaleX(0.33)',
+    opacity: 0,
+  },
+};
+
+const keyframesZoomInY = {
+  '0%': {
+    transform: 'scaleY(0.33)',
+    opacity: 0,
+  },
+  '75%': {
+    opacity: 1,
+  },
+  '100%': {
+    transform: 'scaleY(1)',
+    opacity: 1,
+  },
+};
+
+const keyframesZoomOutY = {
+  '0%': {
+    transform: 'scaleY(1)',
+    opacity: 1,
+  },
+  '25%': {
+    opacity: 1,
+  },
+  '100%': {
+    transform: 'scaleY(0.33)',
+    opacity: 0,
+  },
+};
+
 /******************************************************************************/
 
 const animations = {
@@ -213,6 +269,28 @@ const animations = {
   },
   zoomOut: {
     name: keyframesZoomOut,
+    duration: '0.4s',
+    timingFunction: 'ease',
+  },
+
+  zoomInX: {
+    name: keyframesZoomInX,
+    duration: '0.4s',
+    timingFunction: 'ease',
+  },
+  zoomOutX: {
+    name: keyframesZoomOutX,
+    duration: '0.4s',
+    timingFunction: 'ease',
+  },
+
+  zoomInY: {
+    name: keyframesZoomInY,
+    duration: '0.4s',
+    timingFunction: 'ease',
+  },
+  zoomOutY: {
+    name: keyframesZoomOutY,
     duration: '0.4s',
     timingFunction: 'ease',
   },

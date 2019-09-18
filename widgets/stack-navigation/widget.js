@@ -20,6 +20,14 @@ const animationPairs = {
       last: 'zoomIn',
       beforeLast: 'none',
     },
+    zoomX: {
+      last: 'zoomInX',
+      beforeLast: 'none',
+    },
+    zoomY: {
+      last: 'zoomInY',
+      beforeLast: 'none',
+    },
 
     fade: {
       last: 'fadeIn',
@@ -39,6 +47,14 @@ const animationPairs = {
 
     zoom: {
       last: 'zoomOut',
+      beforeLast: 'none',
+    },
+    zoomX: {
+      last: 'zoomOutX',
+      beforeLast: 'none',
+    },
+    zoomY: {
+      last: 'zoomOutY',
       beforeLast: 'none',
     },
 
