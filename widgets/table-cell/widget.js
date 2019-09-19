@@ -59,7 +59,9 @@ class TableCell extends Widget {
     }
   }
 
-  render() {
+  /******************************************************************************/
+
+  renderLabel() {
     let glyph = null;
     let glyphColor = null;
     let textColor = null;
@@ -114,6 +116,28 @@ class TableCell extends Widget {
         </Label>
       </div>
     );
+  }
+
+  // Table accept a function in text, to render a specific component.
+  renderFunction() {
+    return (
+      <div
+        key={this.props.index}
+        className={this.styles.classNames.cell}
+        onMouseDown={this.onMouseDown}
+        onDoubleClick={this.props.onDoubleClick}
+      >
+        {this.props.text()}
+      </div>
+    );
+  }
+
+  render() {
+    if (typeof this.props.text === 'function') {
+      return this.renderFunction();
+    } else {
+      return this.renderLabel();
+    }
   }
 }
 
