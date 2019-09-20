@@ -54,6 +54,10 @@ export default class TextFieldTypedNC extends Widget {
           canonicalValue,
           this.props.decimals
         );
+      case 'integer':
+        return NumberConverters.getDisplayed(canonicalValue, 0);
+      case 'double':
+        return NumberConverters.getDisplayed(canonicalValue, 2);
       case 'percent':
         return PercentConverters.getDisplayed(
           canonicalValue,
