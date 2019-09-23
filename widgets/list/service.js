@@ -401,6 +401,7 @@ Goblin.registerQuest(goblinName, 'customize-visualization', function*(
   filter,
   sort
 ) {
+  quest.goblin.setX('value', value || '');
   quest.do();
   const count = yield* List.count(quest);
   quest.dispatch('set-count', {count});
