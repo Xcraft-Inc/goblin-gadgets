@@ -15,6 +15,7 @@ export default function styles(theme, props) {
   const {zIndex, left, right, top, bottom, width, height, center} = props;
 
   const fullScreen = {
+    display: 'flex',
     visibility: 'visible',
     position: 'fixed',
     zIndex: zIndex || 10,

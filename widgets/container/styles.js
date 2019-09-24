@@ -186,11 +186,11 @@ export default function styles(theme, props) {
   }
 
   if (kind === 'floating') {
-    position = 'fixed';
-    left = '50%';
-    top = '50%';
+    //position = 'fixed';
+    //left = '50%';
+    //top = '50%';
     maxHeight = '80%';
-    transform = 'translate(-50%, -50%)';
+    // transform = 'translate(-50%, -50%)';
     display = 'flex';
     flexDirection = 'column';
     margin = 'auto';
