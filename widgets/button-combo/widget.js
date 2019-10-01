@@ -6,6 +6,7 @@ import Button from 'goblin-gadgets/widgets/button/widget';
 import FlatList from 'goblin-gadgets/widgets/flat-list/widget';
 import ComboContainer from 'goblin-gadgets/widgets/combo-container/widget';
 import Calendar from 'goblin-gadgets/widgets/calendar/widget';
+import {date as DateConverters} from 'xcraft-core-converters';
 
 /******************************************************************************/
 
@@ -118,6 +119,11 @@ export default class ButtonCombo extends Widget {
   }
 
   renderComboCalendar() {
+    let date = this.props.value;
+    if (!date) {
+      date = DateConverters.getNowCanonical();
+    }
+
     return (
       <ComboContainer
         show={this.state.showCombo}
@@ -126,8 +132,8 @@ export default class ButtonCombo extends Widget {
       >
         <Calendar
           frame={true}
-          visibleDate={this.props.value}
-          dates={[this.props.value]}
+          visibleDate={date}
+          dates={this.props.value ? [this.props.value] : null}
           dateClicked={this.handleDateClicked}
         />
       </ComboContainer>
