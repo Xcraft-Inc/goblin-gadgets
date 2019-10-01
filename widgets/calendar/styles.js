@@ -44,8 +44,14 @@ export default function styles(theme, props) {
     color: theme.palette.calendarHeaderText,
   };
 
-  const headerTitle = {
+  const headerTitleMonth = {
     flexGrow: '1',
+    paddingRight: '5px',
+  };
+
+  const headerTitleYear = {
+    flexGrow: '1',
+    paddingLeft: '5px',
   };
 
   const dowText = {
@@ -94,7 +100,8 @@ export default function styles(theme, props) {
     month,
     singleMonth,
     header,
-    headerTitle,
+    headerTitleMonth,
+    headerTitleYear,
     dowText,
     dowLine,
     line,

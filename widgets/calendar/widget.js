@@ -24,16 +24,24 @@ import {
 
 /******************************************************************************/
 
-function getMonthsRank(date) {
+function getMonthRank(date) {
   const year = DateConverters.getYear(date);
   const month = DateConverters.getMonth(date);
   return year * 12 + (month - 1);
 }
 
-function getDateFromRank(rank) {
+function getYearRank(date) {
+  return DateConverters.getYear(date);
+}
+
+function getDateFromMonthRank(rank) {
   const year = rank / 12;
   const month = (rank % 12) + 1;
   return DateConverters.getDate(year, month, 1);
+}
+
+function getDateFromYearRank(rank) {
+  return DateConverters.getDate(rank, 1, 1);
 }
 
 /******************************************************************************/
@@ -42,33 +50,48 @@ export default class Calendar extends Widget {
   constructor() {
     super(...arguments);
 
-    this.comboButton = null; // FIXME: managed many buttons...
+    this.comboMonthsButton = null;
+    this.comboYearsButton = null;
 
     this.state = {
-      showCombo: false,
+      showComboMonths: false,
+      showComboYears: false,
       visibleDate: null,
     };
 
     this.onPrevMonth = this.onPrevMonth.bind(this);
     this.onNextMonth = this.onNextMonth.bind(this);
-    this.onOpenCombo = this.onOpenCombo.bind(this);
-    this.onCloseCombo = this.onCloseCombo.bind(this);
+    this.onOpenComboMonths = this.onOpenComboMonths.bind(this);
+    this.onOpenComboYears = this.onOpenComboYears.bind(this);
+    this.onCloseComboMonths = this.onCloseComboMonths.bind(this);
+    this.onCloseComboYears = this.onCloseComboYears.bind(this);
+    this.onComboMonthsClicked = this.onComboMonthsClicked.bind(this);
+    this.onComboYearsClicked = this.onComboYearsClicked.bind(this);
     this.onVisibleDateMonth = this.onVisibleDateMonth.bind(this);
     this.onVisibleDateAddMonths = this.onVisibleDateAddMonths.bind(this);
     this.onVisibleDatePrevYear = this.onVisibleDatePrevYear.bind(this);
     this.onVisibleDateNextYear = this.onVisibleDateNextYear.bind(this);
     this.onDateClicked = this.onDateClicked.bind(this);
-    this.onComboClicked = this.onComboClicked.bind(this);
   }
 
   //#region get/set
-  get showCombo() {
-    return this.state.showCombo;
+  get showComboMonths() {
+    return this.state.showComboMonths;
   }
 
-  set showCombo(value) {
+  set showComboMonths(value) {
     this.setState({
-      showCombo: value,
+      showComboMonths: value,
+    });
+  }
+
+  get showComboYears() {
+    return this.state.showComboYears;
+  }
+
+  set showComboYears(value) {
+    this.setState({
+      showComboYears: value,
     });
   }
 
@@ -92,36 +115,61 @@ export default class Calendar extends Widget {
 
   /******************************************************************************/
 
-  onComboClicked(item) {
-    this.onCloseCombo();
-    this.changeDate(item.date);
+  onComboMonthsClicked(item) {
+    this.onCloseComboMonths();
+    //? this.changeDate(item.date);
+    this.dateClicked(item.date);
   }
 
-  getComboItem(date, isActive) {
+  onComboYearsClicked(item) {
+    this.onCloseComboYears();
+    //? this.changeDate(item.date);
+    this.dateClicked(item.date);
+  }
+
+  getComboMonthsItem(date, isActive) {
     return {
       date: date,
-      text: DateConverters.getDisplayed(date, 'My'),
+      text: DateConverters.getDisplayed(date, 'M'),
       glyph: isActive ? 'solid/check-circle' : 'regular/circle',
-      action: this.onComboClicked,
+      action: this.onComboMonthsClicked,
     };
   }
 
-  get comboList() {
+  getComboYearsItem(date, isActive) {
+    return {
+      date: date,
+      text: date.substring(0, 4),
+      glyph: isActive ? 'solid/check-circle' : 'regular/circle',
+      action: this.onComboYearsClicked,
+    };
+  }
+
+  get comboMonthsList() {
     const list = [];
-    const nowRank = getMonthsRank(this.visibleDate);
+    const year = DateConverters.getYear(this.visibleDate);
+    const month = DateConverters.getMonth(this.visibleDate);
+    for (let m = 1; m <= 12; m++) {
+      const date = DateConverters.getDate(year, m, 1);
+      list.push(this.getComboMonthsItem(date, m === month));
+    }
+    return list;
+  }
+
+  get comboYearsList() {
+    const list = [];
+    const nowRank = getYearRank(this.visibleDate);
     const startCount = Math.max(
-      this.props.startDate
-        ? getMonthsRank(this.props.startDate) - nowRank
-        : -999,
-      -12
+      this.props.startDate ? getYearRank(this.props.startDate) - nowRank : -999,
+      -10
     );
     const endCount = Math.min(
-      this.props.endDate ? getMonthsRank(this.props.endDate) - nowRank : 999,
-      12
+      this.props.endDate ? getYearRank(this.props.endDate) - nowRank : 999,
+      10
     );
     for (let i = startCount; i <= endCount; i++) {
-      const date = getDateFromRank(nowRank + i);
-      list.push(this.getComboItem(date, i === 0));
+      const date = getDateFromYearRank(nowRank + i);
+      list.push(this.getComboYearsItem(date, i === 0));
     }
     return list;
   }
@@ -212,22 +260,40 @@ export default class Calendar extends Widget {
     this.changeDate(newDate);
   }
 
-  onOpenCombo() {
-    const node = this.comboButton;
-    const itemCount = this.comboList.length;
-    this.comboLocation = ComboHelpers.getComboLocation(
+  onOpenComboMonths() {
+    const node = this.comboMonthsButton;
+    const itemCount = this.comboMonthsList.length;
+    this.comboMonthsLocation = ComboHelpers.getComboLocation(
       node,
       this.context.theme.shapes.flyingBalloonTriangleSize,
       this.context.theme.shapes.flyingBalloonPadding,
       itemCount,
-      '200px',
+      '170px',
       this.context.theme.shapes.menuButtonHeight // height of Button kind='combo-wrap-item'
     );
-    this.showCombo = true;
+    this.showComboMonths = true;
   }
 
-  onCloseCombo() {
-    this.showCombo = false;
+  onOpenComboYears() {
+    const node = this.comboYearsButton;
+    const itemCount = this.comboYearsList.length;
+    this.comboYearsLocation = ComboHelpers.getComboLocation(
+      node,
+      this.context.theme.shapes.flyingBalloonTriangleSize,
+      this.context.theme.shapes.flyingBalloonPadding,
+      itemCount,
+      '120px',
+      this.context.theme.shapes.menuButtonHeight // height of Button kind='combo-wrap-item'
+    );
+    this.showComboYears = true;
+  }
+
+  onCloseComboMonths() {
+    this.showComboMonths = false;
+  }
+
+  onCloseComboYears() {
+    this.showComboYears = false;
   }
 
   onVisibleDateNow() {
@@ -268,10 +334,14 @@ export default class Calendar extends Widget {
       date <= this.endVisibleDate &&
       !Bool.isTrue(this.props.readonly)
     ) {
-      const x = this.props.dateClicked;
-      if (x) {
-        x(date);
-      }
+      this.dateClicked(date);
+    }
+  }
+
+  dateClicked(date) {
+    const x = this.props.dateClicked;
+    if (x) {
+      x(date);
     }
   }
 
@@ -400,17 +470,34 @@ export default class Calendar extends Widget {
     }
   }
 
-  renderTitleButton(header) {
-    const buttonClass = this.styles.classNames.headerTitle;
+  renderTitleButton(headerMonth, headerYear) {
     return (
-      <div ref={x => (this.comboButton = x)} className={buttonClass}>
-        <Button
-          kind="calendar-title"
-          text={header}
-          active={Bool.toString(this.showCombo)}
-          onClick={this.onOpenCombo}
-        />
-      </div>
+      <React.Fragment>
+        <div
+          ref={x => (this.comboMonthsButton = x)}
+          className={this.styles.classNames.headerTitleMonth}
+        >
+          <Button
+            kind="calendar-title"
+            text={headerMonth}
+            justify="end"
+            active={Bool.toString(this.showComboMonths)}
+            onClick={this.onOpenComboMonths}
+          />
+        </div>
+        <div
+          ref={x => (this.comboYearsButton = x)}
+          className={this.styles.classNames.headerTitleYear}
+        >
+          <Button
+            kind="calendar-title"
+            text={headerYear}
+            justify="start"
+            active={Bool.toString(this.showComboYears)}
+            onClick={this.onOpenComboYears}
+          />
+        </div>
+      </React.Fragment>
     );
   }
 
@@ -435,12 +522,12 @@ export default class Calendar extends Widget {
 
   // Return the html for the header, with 2 buttons next/prevMonth and the title.
   // By example: '<' mai 2016 '>'
-  renderHeader(header, isFirstMonth, isLastMonth) {
+  renderHeader(headerMonth, headerYear, isFirstMonth, isLastMonth) {
     const headerClass = this.styles.classNames.header;
     return (
       <div className={headerClass} key="header">
         {this.renderPrevMonthButton(isFirstMonth)}
-        {this.renderTitleButton(header)}
+        {this.renderTitleButton(headerMonth, headerYear)}
         {this.renderNextMonthButton(isLastMonth)}
       </div>
     );
@@ -480,14 +567,17 @@ export default class Calendar extends Widget {
   // Return an array of lines, with header then week's lines.
   // The array must have from 4 to 6 lines.
   renderColumnOfLines(
-    header,
+    headerMonth,
+    headerYear,
     startOfMonth,
     firstDate,
     isFirstMonth,
     isLastMonth
   ) {
     const column = [];
-    column.push(this.renderHeader(header, isFirstMonth, isLastMonth));
+    column.push(
+      this.renderHeader(headerMonth, headerYear, isFirstMonth, isLastMonth)
+    );
     column.push(this.renderLineOfDOWs());
     for (let i = 0; i < 6; ++i) {
       const line = this.renderLineOfButtons(startOfMonth, firstDate, i);
@@ -500,13 +590,15 @@ export default class Calendar extends Widget {
   // Retourne all the html content of the calendar.
   renderLines(startOfMonth, isFirstMonth, isLastMonth) {
     const firstDate = DateConverters.getCalendarStartDate(startOfMonth);
-    const header = DateConverters.getDisplayed(startOfMonth, 'My'); // 'mai 2016' by example
+    const headerMonth = DateConverters.getDisplayed(startOfMonth, 'M'); // 'mai' by example
+    const headerYear = startOfMonth.substring(0, 4); // '2016' by example
 
     const columnClass = this.styles.classNames.column;
     return (
       <div className={columnClass}>
         {this.renderColumnOfLines(
-          header,
+          headerMonth,
+          headerYear,
           startOfMonth,
           firstDate,
           isFirstMonth,
@@ -638,19 +730,39 @@ export default class Calendar extends Widget {
     }
   }
 
-  renderCombo() {
-    if (this.showCombo && this.comboLocation) {
+  renderComboMonths() {
+    if (this.showComboMonths && this.comboMonthsLocation) {
       return (
         <Combo
           menuType="wrap"
-          menuItemWidth={this.comboLocation.menuItemWidth}
-          left={this.comboLocation.center}
-          top={this.comboLocation.top}
-          bottom={this.comboLocation.bottom}
-          maxHeight={this.comboLocation.maxHeight}
-          width={this.comboLocation.width}
-          list={this.comboList}
-          close={this.onCloseCombo}
+          menuItemWidth={this.comboMonthsLocation.menuItemWidth}
+          left={this.comboMonthsLocation.center}
+          top={this.comboMonthsLocation.top}
+          bottom={this.comboMonthsLocation.bottom}
+          maxHeight={this.comboMonthsLocation.maxHeight}
+          width={this.comboMonthsLocation.width}
+          list={this.comboMonthsList}
+          close={this.onCloseComboMonths}
+        />
+      );
+    } else {
+      return null;
+    }
+  }
+
+  renderComboYears() {
+    if (this.showComboYears && this.comboYearsLocation) {
+      return (
+        <Combo
+          menuType="wrap"
+          menuItemWidth={this.comboYearsLocation.menuItemWidth}
+          left={this.comboYearsLocation.center}
+          top={this.comboYearsLocation.top}
+          bottom={this.comboYearsLocation.bottom}
+          maxHeight={this.comboYearsLocation.maxHeight}
+          width={this.comboYearsLocation.width}
+          list={this.comboYearsList}
+          close={this.onCloseComboYears}
         />
       );
     } else {
@@ -668,7 +780,8 @@ export default class Calendar extends Widget {
       <div className={boxClass}>
         {this.renderMonths()}
         {this.renderNavigator()}
-        {this.renderCombo()}
+        {this.renderComboMonths()}
+        {this.renderComboYears()}
       </div>
     );
   }
