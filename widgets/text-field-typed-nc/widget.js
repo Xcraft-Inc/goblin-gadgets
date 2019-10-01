@@ -21,7 +21,8 @@ import {
   makePropTypes,
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
-import TextFieldNC from '../text-field-nc/widget';
+import TextFieldNC from 'goblin-gadgets/widgets/text-field-nc/widget';
+import ButtonCombo from 'goblin-gadgets/widgets/button-combo/widget';
 import Props from './props';
 
 /******************************************************************************/
@@ -33,6 +34,7 @@ export default class TextFieldTypedNC extends Widget {
     this.format = this.format.bind(this);
     this.parse = this.parse.bind(this);
     this.check = this.check.bind(this);
+    this.handleDateClicked = this.handleDateClicked.bind(this);
   }
 
   getDisplayed(canonicalValue) {
@@ -145,6 +147,12 @@ export default class TextFieldTypedNC extends Widget {
     };
   }
 
+  handleDateClicked(date) {
+    this.props.onChange(date);
+  }
+
+  /******************************************************************************/
+
   render() {
     let {
       type,
@@ -199,17 +207,48 @@ export default class TextFieldTypedNC extends Widget {
       }
     }
 
-    return (
-      <TextFieldNC
-        {...otherProps}
-        width={width}
-        tooltip={tooltip}
-        justify={justify}
-        format={this.format}
-        parse={this.parse}
-        check={this.check}
-      />
-    );
+    if (type === 'date') {
+      return (
+        <ButtonCombo
+          width={this.props.width}
+          grow={this.props.grow}
+          comboType="calendar"
+          value={this.props.value}
+          readonly={this.props.readonly}
+          disabled={this.props.disabled}
+          node={this.node}
+          horizontalSpacing={this.props.horizontalSpacing}
+          shape={this.props.shape}
+          comboGlyph={this.props.comboGlyph}
+          hideButtonCombo={this.props.hideButtonCombo}
+          ref={this.setButtonComboRef}
+          onDateClicked={this.handleDateClicked}
+        >
+          <TextFieldNC
+            {...otherProps}
+            width={width}
+            tooltip={tooltip}
+            justify={justify}
+            format={this.format}
+            parse={this.parse}
+            check={this.check}
+            horizontalSpacing="overlap"
+          />
+        </ButtonCombo>
+      );
+    } else {
+      return (
+        <TextFieldNC
+          {...otherProps}
+          width={width}
+          tooltip={tooltip}
+          justify={justify}
+          format={this.format}
+          parse={this.parse}
+          check={this.check}
+        />
+      );
+    }
   }
 }
 

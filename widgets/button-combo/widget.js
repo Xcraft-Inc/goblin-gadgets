@@ -3,8 +3,9 @@ import Widget from 'goblin-laboratory/widgets/widget';
 import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 
 import Button from 'goblin-gadgets/widgets/button/widget';
-import FlatList from '../flat-list/widget';
-import ComboContainer from '../combo-container/widget';
+import FlatList from 'goblin-gadgets/widgets/flat-list/widget';
+import ComboContainer from 'goblin-gadgets/widgets/combo-container/widget';
+import Calendar from 'goblin-gadgets/widgets/calendar/widget';
 
 /******************************************************************************/
 
@@ -21,6 +22,7 @@ export default class ButtonCombo extends Widget {
     this.hideCombo = this.hideCombo.bind(this);
     this.setRef = this.setRef.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.handleDateClicked = this.handleDateClicked.bind(this);
   }
 
   setRef(node) {
@@ -54,6 +56,15 @@ export default class ButtonCombo extends Widget {
     this.hideCombo();
   }
 
+  handleDateClicked(date) {
+    if (this.props.onDateClicked) {
+      this.props.onDateClicked(date);
+    }
+    this.hideCombo();
+  }
+
+  /******************************************************************************/
+
   renderButton() {
     if (Bool.isTrue(this.props.readonly) || this.props.hideButtonCombo) {
       return;
@@ -85,7 +96,7 @@ export default class ButtonCombo extends Widget {
     );
   }
 
-  renderCombo() {
+  renderComboList() {
     return (
       <ComboContainer
         show={this.state.showCombo}
@@ -104,6 +115,31 @@ export default class ButtonCombo extends Widget {
         />
       </ComboContainer>
     );
+  }
+
+  renderComboCalendar() {
+    return (
+      <ComboContainer
+        show={this.state.showCombo}
+        positionRef={this.node}
+        onClose={this.hideCombo}
+      >
+        <Calendar
+          frame={true}
+          visibleDate={this.props.value}
+          dates={[this.props.value]}
+          dateClicked={this.handleDateClicked}
+        />
+      </ComboContainer>
+    );
+  }
+
+  renderCombo() {
+    if (this.props.comboType === 'calendar') {
+      return this.renderComboCalendar();
+    } else {
+      return this.renderComboList();
+    }
   }
 
   render() {
