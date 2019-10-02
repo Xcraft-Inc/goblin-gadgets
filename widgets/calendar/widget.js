@@ -24,39 +24,6 @@ import {
 
 /******************************************************************************/
 
-function getMonthRank(date) {
-  const year = DateConverters.getYear(date);
-  const month = DateConverters.getMonth(date);
-  return year * 12 + (month - 1);
-}
-
-function getYearRank(date) {
-  return DateConverters.getYear(date);
-}
-
-function getDateFromMonthRank(rank) {
-  const year = rank / 12;
-  const month = (rank % 12) + 1;
-  return DateConverters.getDate(year, month, 1);
-}
-
-function getDateFromYearRank(rank) {
-  return DateConverters.getDate(rank, 1, 1);
-}
-
-function getYearMonth(date) {
-  const year = DateConverters.getYear(date);
-  const month = DateConverters.getMonth(date);
-  return DateConverters.getDate(year, month, 1);
-}
-
-function getYear(date) {
-  const year = DateConverters.getYear(date);
-  return DateConverters.getDate(year, 1, 1);
-}
-
-/******************************************************************************/
-
 export default class Calendar extends Widget {
   constructor() {
     super(...arguments);
@@ -148,8 +115,9 @@ export default class Calendar extends Widget {
   get comboMonthsList() {
     const list = [];
     const year = DateConverters.getYear(this.visibleDate);
+    const day = DateConverters.getDay(this.visibleDate);
     for (let month = 1; month <= 12; month++) {
-      const date = DateConverters.getDate(year, month, 1);
+      const date = DateConverters.getDate(year, month, day, true);
       list.push({
         id: date,
         text: DateConverters.getDisplayed(date, 'M'),
@@ -160,20 +128,26 @@ export default class Calendar extends Widget {
 
   get comboYearsList() {
     const list = [];
-    const nowRank = getYearRank(this.visibleDate);
+    const nowRank = DateConverters.getYear(this.visibleDate);
+    const month = DateConverters.getMonth(this.visibleDate);
+    const day = DateConverters.getDay(this.visibleDate);
     const startCount = Math.max(
-      this.props.startDate ? getYearRank(this.props.startDate) - nowRank : -999,
+      this.props.startDate
+        ? DateConverters.getYear(this.props.startDate) - nowRank
+        : -999,
       -10
     );
     const endCount = Math.min(
-      this.props.endDate ? getYearRank(this.props.endDate) - nowRank : 999,
+      this.props.endDate
+        ? DateConverters.getYear(this.props.endDate) - nowRank
+        : 999,
       10
     );
     for (let i = startCount; i <= endCount; i++) {
-      const date = getDateFromYearRank(nowRank + i);
+      const date = DateConverters.getDate(nowRank + i, month, day, true);
       list.push({
         id: date,
-        text: date.substring(0, 4),
+        text: DateConverters.getDisplayed(date, 'y'),
       });
     }
     return list;
@@ -570,7 +544,7 @@ export default class Calendar extends Widget {
   renderLines(startOfMonth, isFirstMonth, isLastMonth) {
     const firstDate = DateConverters.getCalendarStartDate(startOfMonth);
     const headerMonth = DateConverters.getDisplayed(startOfMonth, 'M'); // 'mai' by example
-    const headerYear = startOfMonth.substring(0, 4); // '2016' by example
+    const headerYear = DateConverters.getDisplayed(startOfMonth, 'y'); // '2016' by example
 
     const columnClass = this.styles.classNames.column;
     return (
@@ -719,7 +693,7 @@ export default class Calendar extends Widget {
         <FlatList
           menuItemWidth="160px"
           list={this.comboMonthsList}
-          selectedId={getYearMonth(this.props.visibleDate)}
+          selectedId={this.props.visibleDate}
           onChange={this.onComboMonthsClicked}
           onEscKey={this.onCloseComboMonths}
         />
@@ -737,7 +711,7 @@ export default class Calendar extends Widget {
         <FlatList
           menuItemWidth="120px"
           list={this.comboYearsList}
-          selectedId={getYear(this.props.visibleDate)}
+          selectedId={this.props.visibleDate}
           onChange={this.onComboYearsClicked}
           onEscKey={this.onCloseComboYears}
         />
