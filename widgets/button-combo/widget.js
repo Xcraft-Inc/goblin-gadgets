@@ -72,7 +72,9 @@ export default class ButtonCombo extends Widget {
     }
     let glyph = this.state.showCombo ? 'solid/caret-up' : 'solid/caret-down';
     if (this.props.comboGlyph) {
-      glyph = this.props.comboGlyph;
+      glyph = this.state.showCombo
+        ? this.props.comboGlyphHide || this.props.comboGlyph
+        : this.props.comboGlyph;
     }
 
     const shape = this.props.shape || 'smooth';
