@@ -37,21 +37,15 @@ export default function styles(theme, props) {
   };
 
   const header = {
-    width: Unit.multiply(theme.shapes.calendarButtonWidth, 7),
+    //? width: Unit.multiply(theme.shapes.calendarButtonWidth, 7),
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
     color: theme.palette.calendarHeaderText,
   };
 
-  const headerTitleMonth = {
+  const headerTitleSajex = {
     flexGrow: '1',
-    paddingRight: '5px',
-  };
-
-  const headerTitleYear = {
-    flexGrow: '1',
-    paddingLeft: '5px',
   };
 
   const dowText = {
@@ -100,8 +94,7 @@ export default function styles(theme, props) {
     month,
     singleMonth,
     header,
-    headerTitleMonth,
-    headerTitleYear,
+    headerTitleSajex,
     dowText,
     dowLine,
     line,

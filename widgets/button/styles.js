@@ -664,6 +664,10 @@ export default function styles(theme, props) {
         activeColor = theme.palette.calendarActiveBackground;
       }
     }
+    if (kind === 'calendar-title') {
+      boxPaddingLeft = '5px';
+      boxPaddingRight = '5px';
+    }
     specialDisabled = true;
   }
 

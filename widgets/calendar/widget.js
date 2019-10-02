@@ -2,7 +2,6 @@ import T from 't';
 import React from 'react';
 import Props from './props';
 import Widget from 'laboratory/widget';
-import ComboHelpers from 'gadgets/helpers/combo-helpers';
 
 import * as Bool from 'gadgets/helpers/bool-helpers';
 
@@ -14,7 +13,8 @@ import {
 import Label from 'gadgets/label/widget';
 import Button from 'gadgets/button/widget';
 import Separator from 'gadgets/separator/widget';
-import Combo from 'gadgets/combo/widget';
+import ComboContainer from 'goblin-gadgets/widgets/combo-container/widget';
+import FlatList from 'goblin-gadgets/widgets/flat-list/widget';
 
 import {
   date as DateConverters,
@@ -44,14 +44,22 @@ function getDateFromYearRank(rank) {
   return DateConverters.getDate(rank, 1, 1);
 }
 
+function getYearMonth(date) {
+  const year = DateConverters.getYear(date);
+  const month = DateConverters.getMonth(date);
+  return DateConverters.getDate(year, month, 1);
+}
+
+function getYear(date) {
+  const year = DateConverters.getYear(date);
+  return DateConverters.getDate(year, 1, 1);
+}
+
 /******************************************************************************/
 
 export default class Calendar extends Widget {
   constructor() {
     super(...arguments);
-
-    this.comboMonthsButton = null;
-    this.comboYearsButton = null;
 
     this.state = {
       showComboMonths: false,
@@ -59,6 +67,8 @@ export default class Calendar extends Widget {
       visibleDate: null,
     };
 
+    this.setRefMonths = this.setRefMonths.bind(this);
+    this.setRefYears = this.setRefYears.bind(this);
     this.onPrevMonth = this.onPrevMonth.bind(this);
     this.onNextMonth = this.onNextMonth.bind(this);
     this.onOpenComboMonths = this.onOpenComboMonths.bind(this);
@@ -115,43 +125,35 @@ export default class Calendar extends Widget {
 
   /******************************************************************************/
 
+  setRefMonths(node) {
+    this.nodeMonths = node;
+  }
+
+  setRefYears(node) {
+    this.nodeYears = node;
+  }
+
   onComboMonthsClicked(item) {
     this.onCloseComboMonths();
-    //? this.changeDate(item.date);
-    this.dateClicked(item.date);
+    //? this.changeDate(item.id);
+    this.dateClicked(item.id);
   }
 
   onComboYearsClicked(item) {
     this.onCloseComboYears();
-    //? this.changeDate(item.date);
-    this.dateClicked(item.date);
-  }
-
-  getComboMonthsItem(date, isActive) {
-    return {
-      date: date,
-      text: DateConverters.getDisplayed(date, 'M'),
-      glyph: isActive ? 'solid/check-circle' : 'regular/circle',
-      action: this.onComboMonthsClicked,
-    };
-  }
-
-  getComboYearsItem(date, isActive) {
-    return {
-      date: date,
-      text: date.substring(0, 4),
-      glyph: isActive ? 'solid/check-circle' : 'regular/circle',
-      action: this.onComboYearsClicked,
-    };
+    //? this.changeDate(item.id);
+    this.dateClicked(item.id);
   }
 
   get comboMonthsList() {
     const list = [];
     const year = DateConverters.getYear(this.visibleDate);
-    const month = DateConverters.getMonth(this.visibleDate);
-    for (let m = 1; m <= 12; m++) {
-      const date = DateConverters.getDate(year, m, 1);
-      list.push(this.getComboMonthsItem(date, m === month));
+    for (let month = 1; month <= 12; month++) {
+      const date = DateConverters.getDate(year, month, 1);
+      list.push({
+        id: date,
+        text: DateConverters.getDisplayed(date, 'M'),
+      });
     }
     return list;
   }
@@ -169,7 +171,10 @@ export default class Calendar extends Widget {
     );
     for (let i = startCount; i <= endCount; i++) {
       const date = getDateFromYearRank(nowRank + i);
-      list.push(this.getComboYearsItem(date, i === 0));
+      list.push({
+        id: date,
+        text: date.substring(0, 4),
+      });
     }
     return list;
   }
@@ -261,30 +266,10 @@ export default class Calendar extends Widget {
   }
 
   onOpenComboMonths() {
-    const node = this.comboMonthsButton;
-    const itemCount = this.comboMonthsList.length;
-    this.comboMonthsLocation = ComboHelpers.getComboLocation(
-      node,
-      this.context.theme.shapes.flyingBalloonTriangleSize,
-      this.context.theme.shapes.flyingBalloonPadding,
-      itemCount,
-      '170px',
-      this.context.theme.shapes.menuButtonHeight // height of Button kind='combo-wrap-item'
-    );
     this.showComboMonths = true;
   }
 
   onOpenComboYears() {
-    const node = this.comboYearsButton;
-    const itemCount = this.comboYearsList.length;
-    this.comboYearsLocation = ComboHelpers.getComboLocation(
-      node,
-      this.context.theme.shapes.flyingBalloonTriangleSize,
-      this.context.theme.shapes.flyingBalloonPadding,
-      itemCount,
-      '120px',
-      this.context.theme.shapes.menuButtonHeight // height of Button kind='combo-wrap-item'
-    );
     this.showComboYears = true;
   }
 
@@ -473,30 +458,24 @@ export default class Calendar extends Widget {
   renderTitleButton(headerMonth, headerYear) {
     return (
       <React.Fragment>
-        <div
-          ref={x => (this.comboMonthsButton = x)}
-          className={this.styles.classNames.headerTitleMonth}
-        >
+        <div className={this.styles.classNames.headerTitleSajex} />
+        <div ref={this.setRefMonths}>
           <Button
             kind="calendar-title"
             text={headerMonth}
-            justify="end"
             active={Bool.toString(this.showComboMonths)}
             onClick={this.onOpenComboMonths}
           />
         </div>
-        <div
-          ref={x => (this.comboYearsButton = x)}
-          className={this.styles.classNames.headerTitleYear}
-        >
+        <div ref={this.setRefYears}>
           <Button
             kind="calendar-title"
             text={headerYear}
-            justify="start"
             active={Bool.toString(this.showComboYears)}
             onClick={this.onOpenComboYears}
           />
         </div>
+        <div className={this.styles.classNames.headerTitleSajex} />
       </React.Fragment>
     );
   }
@@ -731,43 +710,39 @@ export default class Calendar extends Widget {
   }
 
   renderComboMonths() {
-    if (this.showComboMonths && this.comboMonthsLocation) {
-      return (
-        <Combo
-          menuType="wrap"
-          menuItemWidth={this.comboMonthsLocation.menuItemWidth}
-          left={this.comboMonthsLocation.center}
-          top={this.comboMonthsLocation.top}
-          bottom={this.comboMonthsLocation.bottom}
-          maxHeight={this.comboMonthsLocation.maxHeight}
-          width={this.comboMonthsLocation.width}
+    return (
+      <ComboContainer
+        show={this.showComboMonths}
+        positionRef={this.nodeMonths}
+        onClose={this.onCloseComboMonths}
+      >
+        <FlatList
+          menuItemWidth="160px"
           list={this.comboMonthsList}
-          close={this.onCloseComboMonths}
+          selectedId={getYearMonth(this.props.visibleDate)}
+          onChange={this.onComboMonthsClicked}
+          onEscKey={this.onCloseComboMonths}
         />
-      );
-    } else {
-      return null;
-    }
+      </ComboContainer>
+    );
   }
 
   renderComboYears() {
-    if (this.showComboYears && this.comboYearsLocation) {
-      return (
-        <Combo
-          menuType="wrap"
-          menuItemWidth={this.comboYearsLocation.menuItemWidth}
-          left={this.comboYearsLocation.center}
-          top={this.comboYearsLocation.top}
-          bottom={this.comboYearsLocation.bottom}
-          maxHeight={this.comboYearsLocation.maxHeight}
-          width={this.comboYearsLocation.width}
+    return (
+      <ComboContainer
+        show={this.showComboYears}
+        positionRef={this.nodeYears}
+        onClose={this.onCloseComboYears}
+      >
+        <FlatList
+          menuItemWidth="120px"
           list={this.comboYearsList}
-          close={this.onCloseComboYears}
+          selectedId={getYear(this.props.visibleDate)}
+          onChange={this.onComboYearsClicked}
+          onEscKey={this.onCloseComboYears}
         />
-      );
-    } else {
-      return null;
-    }
+      </ComboContainer>
+    );
   }
 
   render() {
