@@ -254,6 +254,9 @@ export default class TableNC extends Widget {
   }
 
   onSelectionChanged(id) {
+    if (!this.props.id && !this.context.id) {
+      return;
+    }
     if (this.props.onSelectionChanged) {
       this.props.onSelectionChanged(id);
     } else {
@@ -265,16 +268,25 @@ export default class TableNC extends Widget {
   }
 
   onDoubleClick(id) {
+    if (!this.props.id && !this.context.id) {
+      return;
+    }
     this.doAs('table-gadget', 'doubleClick', {
       rowId: id,
     });
   }
 
   selectAll() {
+    if (!this.props.id && !this.context.id) {
+      return;
+    }
     this.doAs('table-gadget', 'selectAll');
   }
 
   deselectAll() {
+    if (!this.props.id && !this.context.id) {
+      return;
+    }
     this.doAs('table-gadget', 'deselectAll');
   }
 
