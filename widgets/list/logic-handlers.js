@@ -55,6 +55,7 @@ module.exports = {
     }, {});
 
     state = state.set(`list`, items);
+    state = state.set('count', action.get('count'));
     return state;
   }),
   'handle-changes': state => {

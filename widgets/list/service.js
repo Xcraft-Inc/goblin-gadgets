@@ -499,9 +499,9 @@ Goblin.registerQuest(goblinName, 'fetch', function*(quest, range) {
   }
 
   const ids = yield* List.refresh(quest, range);
-
+  const count = quest.goblin.getX('count');
   if (ids.length > 0) {
-    quest.do({ids, offset: range[0]});
+    quest.do({count, ids, offset: range[0]});
   }
 });
 
