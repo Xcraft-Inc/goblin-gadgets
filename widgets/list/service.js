@@ -115,10 +115,12 @@ class List {
         return quest.goblin.getX('count');
       }
       case 'index': {
-        return yield r.count({
+        const count = yield r.count({
           table,
           contentIndex: options.contentIndex,
         });
+        quest.goblin.setX('count', count);
+        return count;
       }
       case 'entity': {
         const collection = yield r.getIn({
@@ -126,22 +128,28 @@ class List {
           documentId: options.entityId,
           path: [options.path],
         });
-        return collection.length;
+        const count = collection.length;
+        quest.goblin.setX('count', count);
+        return count;
       }
       case 'entity-ordered': {
-        return yield r.getOrderedCollectionCount({
+        const count = yield r.getOrderedCollectionCount({
           table,
           documentId: options.entityId,
           collectionTable: options.pathType,
           collection: options.path,
           orderBy: options.orderBy,
         });
+        quest.goblin.setX('count', count);
+        return count;
       }
       case 'query': {
-        return yield r.queryCount({
+        const count = yield r.queryCount({
           query: options.query,
           args: options.queryArgs || [],
         });
+        quest.goblin.setX('count', count);
+        return count;
       }
     }
   }
