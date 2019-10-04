@@ -21,8 +21,12 @@ const logicHandlers = {
       .set('operation', 'open')
       .push('stack', fromJS(action.get('screen')));
   },
-  back: state => {
-    return state.set('operation', 'back');
+  back: (state, action) => {
+    let backCount = action.get('backCount');
+    if (!backCount || backCount < 1) {
+      backCount = 1;
+    }
+    return state.set('operation', 'back').set('operationParams', {backCount});
   },
   replace: (state, action) => {
     let replaceCount = action.get('replaceCount');
@@ -38,10 +42,13 @@ const logicHandlers = {
     return state.set('operation', null).set('operationParams', null);
   },
   _endBackAnimation: state => {
+    let stack = state.get('stack');
+    const backCount = state.get('operationParams.backCount');
+    stack = stack.splice(stack.size - backCount, backCount);
     return state
       .set('operation', null)
       .set('operationParams', null)
-      .pop('stack');
+      .set('stack', stack);
   },
   _endReplaceAnimation: state => {
     let stack = state.get('stack');
@@ -153,18 +160,21 @@ const quests = {
 
   endBackAnimation: function*(quest) {
     const state = quest.goblin.getState();
-    const last = state.get('stack').last();
-    if (!last) {
-      return;
-    }
-    const serviceId = last.get('serviceId');
+    const stack = state.get('stack');
+    const backCount = state.get('operationParams.backCount');
 
     // Pop stack first and kill after
     // Using a quest.do here doesn't work: the kill is done before pop...
     yield quest.me._endBackAnimation();
 
-    if (serviceId) {
-      yield quest.kill([serviceId]);
+    for (let i = 0; i < backCount; i++) {
+      const screen = stack.get(stack.size - 1 - i);
+      if (screen) {
+        const serviceId = screen.get('serviceId');
+        if (serviceId) {
+          yield quest.kill([serviceId]);
+        }
+      }
     }
   },
 
@@ -175,7 +185,7 @@ const quests = {
   endReplaceAnimation: function*(quest) {
     const state = quest.goblin.getState();
     const stack = state.get('stack');
-    let replaceCount = state.get('operationParams.replaceCount');
+    const replaceCount = state.get('operationParams.replaceCount');
 
     // Pop stack first and kill after
     // Using a quest.do here doesn't work: the kill is done before pop...

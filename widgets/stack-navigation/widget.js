@@ -131,7 +131,7 @@ class StackNavigationWidget extends Widget {
       <Component
         serviceId={screen.get('serviceId')}
         {...widgetProps}
-        settings={this.props.settings}
+        settings={this.props.settings} // TODO: should be removed
       />
     );
   }
@@ -144,20 +144,18 @@ class StackNavigationWidget extends Widget {
     );
   }
 
-  renderAnimation(lastScreen, lastComponent, beforeLastScreen) {
+  renderAnimation(
+    lastScreen,
+    lastComponent,
+    beforeLastScreen,
+    operation,
+    animation
+  ) {
     const beforeLastComponent = this.getComponent(beforeLastScreen);
-
-    let animation = null;
-    if (lastComponent.animations) {
-      animation = lastComponent.animations[this.props.operation];
-      if (!animation && this.props.operation === 'replace') {
-        animation = lastComponent.animations.open;
-      }
-    }
 
     let animations = null;
     if (animation) {
-      animations = animationPairs[this.props.operation][animation];
+      animations = animationPairs[operation][animation];
       if (!animations) {
         console.warn(
           `StackNavigation: Animation '${animation}' is not defined.`
@@ -185,7 +183,21 @@ class StackNavigationWidget extends Widget {
   }
 
   render() {
-    const {lastScreen, beforeLastScreen, operation} = this.props;
+    const {navigationState} = this.props;
+    const stack = navigationState.get('stack');
+    const operation = navigationState.get('operation');
+    const operationParams = navigationState.get('operationParams');
+    const lastScreen = stack.get(stack.length - 1);
+
+    let beforeLastScreen = null;
+    if (operation === 'back') {
+      const backCount = operationParams.get('backCount');
+      if (stack.length >= backCount + 1) {
+        beforeLastScreen = stack.get(stack.length - (backCount + 1));
+      }
+    } else if (stack.length >= 2) {
+      beforeLastScreen = stack.get(stack.length - 2);
+    }
 
     console.log(
       `StackNavigation: operation=${operation} last=${
@@ -195,7 +207,29 @@ class StackNavigationWidget extends Widget {
 
     const lastComponent = this.getComponent(lastScreen);
     if (operation) {
-      return this.renderAnimation(lastScreen, lastComponent, beforeLastScreen);
+      let componentForAnimation = lastComponent;
+      if (operation === 'back') {
+        const backCount = operationParams.get('backCount');
+        if (backCount > 1) {
+          const screenForAnimation = stack.get(stack.length - backCount);
+          componentForAnimation = this.getComponent(screenForAnimation);
+        }
+      }
+      let animation = null;
+      if (componentForAnimation.animations) {
+        animation = componentForAnimation.animations[operation];
+        if (!animation && operation === 'replace') {
+          animation = componentForAnimation.animations.open;
+        }
+      }
+
+      return this.renderAnimation(
+        lastScreen,
+        lastComponent,
+        beforeLastScreen,
+        operation,
+        animation
+      );
     } else {
       return this.renderFix(lastScreen, lastComponent);
     }
@@ -205,12 +239,8 @@ class StackNavigationWidget extends Widget {
 /******************************************************************************/
 
 const StackNavigationNC = Widget.connect((state, props) => {
-  const navigationState = state.get(props.model);
-  const stack = navigationState.get('stack');
   return {
-    lastScreen: stack.get(stack.length - 1),
-    beforeLastScreen: stack.length < 2 ? null : stack.get(stack.length - 2),
-    operation: navigationState.get('operation'),
+    navigationState: state.get(props.model),
   };
 })(StackNavigationWidget);
 
