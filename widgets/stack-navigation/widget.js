@@ -15,6 +15,14 @@ const animationPairs = {
       last: 'leftToCenter',
       beforeLast: 'centerToRight',
     },
+    topToBottom: {
+      last: 'topToCenter',
+      beforeLast: 'centerToBottom',
+    },
+    bottomToTop: {
+      last: 'bottomToCenter',
+      beforeLast: 'centerToTop',
+    },
 
     zoom: {
       last: 'zoomIn',
@@ -43,6 +51,14 @@ const animationPairs = {
     rightToLeft: {
       last: 'centerToLeft',
       beforeLast: 'rightToCenter',
+    },
+    bottomToTop: {
+      last: 'centerToTop',
+      beforeLast: 'bottomToCenter',
+    },
+    topToBottom: {
+      last: 'centerToBottom',
+      beforeLast: 'topToCenter',
     },
 
     zoom: {
