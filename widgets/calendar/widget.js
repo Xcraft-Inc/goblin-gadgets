@@ -116,11 +116,14 @@ export default class Calendar extends Widget {
     const list = [];
     const year = DateConverters.getYear(this.visibleDate);
     const day = DateConverters.getDay(this.visibleDate);
+    const isLast =
+      this.visibleDate === DateConverters.moveAtEndingOfMonth(this.visibleDate);
     for (let month = 1; month <= 12; month++) {
-      const date = DateConverters.getDate(year, month, day, true);
+      const date = DateConverters.getDate(year, month, isLast ? 31 : day, true);
       list.push({
         id: date,
         text: DateConverters.getDisplayed(date, 'M'),
+        isLast,
       });
     }
     return list;
