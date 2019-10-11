@@ -85,24 +85,33 @@ const center = {
   ...centerVertical,
 };
 
+// Do not go to the edge to have a not too big movement (100vw/vh replaced by 30vw/vh).
 const topLeft = {
-  ...left,
-  ...top,
+  left: '-30vw',
+  right: '30vw',
+  top: '-30vh',
+  bottom: '30vh',
 };
 
 const topRight = {
-  ...right,
-  ...top,
+  left: '30vw',
+  right: '-30vw',
+  top: '-30vh',
+  bottom: '30vh',
 };
 
 const bottomLeft = {
-  ...left,
-  ...bottom,
+  left: '-30vw',
+  right: '30vw',
+  top: '30vh',
+  bottom: '-30vh',
 };
 
 const bottomRight = {
-  ...right,
-  ...bottom,
+  left: '30vw',
+  right: '-30vw',
+  top: '30vh',
+  bottom: '-30vh',
 };
 
 const keyframesBottomLeftToCenter = {
