@@ -11,35 +11,49 @@ const centerHorizontal = {
   right: '0vw',
 };
 
-const left = {
-  left: '-100vw',
-  right: '100vw',
-};
+function left(params = {}) {
+  const {pos = '100'} = params;
+  return {
+    left: `-${pos}vw`,
+    right: `${pos}vw`,
+  };
+}
 
-const right = {
-  left: '100vw',
-  right: '-100vw',
-};
+function right(params = {}) {
+  const {pos = '100'} = params;
+  return {
+    left: `${pos}vw`,
+    right: `-${pos}vw`,
+  };
+}
 
-const keyframesRightToCenter = {
-  '0%': {...right},
-  '100%': {...centerHorizontal},
-};
+function keyframesRightToCenter(params = {}) {
+  return {
+    '0%': {...right(params)},
+    '100%': {...centerHorizontal},
+  };
+}
 
-const keyframesCenterToRight = {
-  '0%': {...centerHorizontal},
-  '100%': {...right},
-};
+function keyframesCenterToRight(params = {}) {
+  return {
+    '0%': {...centerHorizontal},
+    '100%': {...right(params)},
+  };
+}
 
-const keyframesCenterToLeft = {
-  '0%': {...centerHorizontal},
-  '100%': {...left},
-};
+function keyframesCenterToLeft(params = {}) {
+  return {
+    '0%': {...centerHorizontal},
+    '100%': {...left(params)},
+  };
+}
 
-const keyframesLeftToCenter = {
-  '0%': {...left},
-  '100%': {...centerHorizontal},
-};
+function keyframesLeftToCenter(params = {}) {
+  return {
+    '0%': {...left(params)},
+    '100%': {...centerHorizontal},
+  };
+}
 
 /******************************************************************************/
 
@@ -48,35 +62,49 @@ const centerVertical = {
   bottom: '0vh',
 };
 
-const top = {
-  top: '-100vh',
-  bottom: '100vh',
-};
+function top(params = {}) {
+  const {pos = '100'} = params;
+  return {
+    top: `-${pos}vh`,
+    bottom: `${pos}vh`,
+  };
+}
 
-const bottom = {
-  top: '100vh',
-  bottom: '-100vh',
-};
+function bottom(params = {}) {
+  const {pos = '100'} = params;
+  return {
+    top: `${pos}vh`,
+    bottom: `-${pos}vh`,
+  };
+}
 
-const keyframesBottomToCenter = {
-  '0%': {...bottom},
-  '100%': {...centerVertical},
-};
+function keyframesBottomToCenter(params = {}) {
+  return {
+    '0%': {...bottom(params)},
+    '100%': {...centerVertical},
+  };
+}
 
-const keyframesCenterToBottom = {
-  '0%': {...centerVertical},
-  '100%': {...bottom},
-};
+function keyframesCenterToBottom(params = {}) {
+  return {
+    '0%': {...centerVertical},
+    '100%': {...bottom(params)},
+  };
+}
 
-const keyframesCenterToTop = {
-  '0%': {...centerVertical},
-  '100%': {...top},
-};
+function keyframesCenterToTop(params = {}) {
+  return {
+    '0%': {...centerVertical},
+    '100%': {...top(params)},
+  };
+}
 
-const keyframesTopToCenter = {
-  '0%': {...top},
-  '100%': {...centerVertical},
-};
+function keyframesTopToCenter(params = {}) {
+  return {
+    '0%': {...top(params)},
+    '100%': {...centerVertical},
+  };
+}
 
 /******************************************************************************/
 
@@ -86,335 +114,472 @@ const center = {
 };
 
 // Do not go to the edge to have a not too big movement (100vw/vh replaced by 30vw/vh).
-const topLeft = {
-  left: '-30vw',
-  right: '30vw',
-  top: '-30vh',
-  bottom: '30vh',
-};
+function topLeft(params = {}) {
+  const {posX = 100, posY = 100} = params;
+  return {
+    left: `-${posX}vw`,
+    right: `${posX}vw`,
+    top: `-${posY}vh`,
+    bottom: `${posY}vh`,
+  };
+}
 
-const topRight = {
-  left: '30vw',
-  right: '-30vw',
-  top: '-30vh',
-  bottom: '30vh',
-};
+function topRight(params = {}) {
+  const {posX = 100, posY = 100} = params;
+  return {
+    left: `${posX}vw`,
+    right: `-${posX}vw`,
+    top: `-${posY}vh`,
+    bottom: `${posY}vh`,
+  };
+}
 
-const bottomLeft = {
-  left: '-30vw',
-  right: '30vw',
-  top: '30vh',
-  bottom: '-30vh',
-};
+function bottomLeft(params = {}) {
+  const {posX = 100, posY = 100} = params;
+  return {
+    left: `-${posX}vw`,
+    right: `${posX}vw`,
+    top: `${posY}vh`,
+    bottom: `-${posY}vh`,
+  };
+}
 
-const bottomRight = {
-  left: '30vw',
-  right: '-30vw',
-  top: '30vh',
-  bottom: '-30vh',
-};
+function bottomRight(params = {}) {
+  const {posX = 100, posY = 100} = params;
+  return {
+    left: `${posX}vw`,
+    right: `-${posX}vw`,
+    top: `${posY}vh`,
+    bottom: `-${posY}vh`,
+  };
+}
 
-const keyframesBottomLeftToCenter = {
-  '0%': {...bottomLeft},
-  '100%': {...center},
-};
+function keyframesBottomLeftToCenter(params = {}) {
+  return {
+    '0%': {...bottomLeft(params)},
+    '100%': {...center},
+  };
+}
 
-const keyframesCenterToBottomLeft = {
-  '0%': {...center},
-  '100%': {...bottomLeft},
-};
+function keyframesCenterToBottomLeft(params = {}) {
+  return {
+    '0%': {...center},
+    '100%': {...bottomLeft(params)},
+  };
+}
 
-const keyframesBottomRightToCenter = {
-  '0%': {...bottomRight},
-  '100%': {...center},
-};
+function keyframesBottomRightToCenter(params = {}) {
+  return {
+    '0%': {...bottomRight(params)},
+    '100%': {...center},
+  };
+}
 
-const keyframesCenterToBottomRight = {
-  '0%': {...center},
-  '100%': {...bottomRight},
-};
+function keyframesCenterToBottomRight(params = {}) {
+  return {
+    '0%': {...center},
+    '100%': {...bottomRight(params)},
+  };
+}
 
-const keyframesCenterToTopLeft = {
-  '0%': {...center},
-  '100%': {...topLeft},
-};
+function keyframesCenterToTopLeft(params = {}) {
+  return {
+    '0%': {...center},
+    '100%': {...topLeft(params)},
+  };
+}
 
-const keyframesTopLeftToCenter = {
-  '0%': {...topLeft},
-  '100%': {...center},
-};
+function keyframesTopLeftToCenter(params = {}) {
+  return {
+    '0%': {...topLeft(params)},
+    '100%': {...center},
+  };
+}
 
-const keyframesCenterToTopRight = {
-  '0%': {...center},
-  '100%': {...topRight},
-};
+function keyframesCenterToTopRight(params = {}) {
+  return {
+    '0%': {...center},
+    '100%': {...topRight(params)},
+  };
+}
 
-const keyframesTopRightToCenter = {
-  '0%': {...topRight},
-  '100%': {...center},
-};
+function keyframesTopRightToCenter(params = {}) {
+  return {
+    '0%': {...topRight(params)},
+    '100%': {...center},
+  };
+}
 
 /******************************************************************************/
 
-const keyframesFadeIn = {
-  '0%': {
-    opacity: 0,
-  },
-  '100%': {
-    opacity: 1,
-  },
-};
+function keyframesFadeIn(params = {}) {
+  const {fadeIn = 0, fadeOut = 1} = params;
+  return {
+    '0%': {
+      opacity: fadeIn,
+    },
+    '100%': {
+      opacity: fadeOut,
+    },
+  };
+}
 
-const keyframesFadeOut = {
-  '0%': {
-    opacity: 1,
-  },
-  '100%': {
-    opacity: 0,
-  },
-};
+function keyframesFadeOut(params = {}) {
+  const {fadeIn = 1, fadeOut = 0} = params;
+  return {
+    '0%': {
+      opacity: fadeIn,
+    },
+    '100%': {
+      opacity: fadeOut,
+    },
+  };
+}
 
 /******************************************************************************/
 
-const keyframesZoomIn = {
-  '0%': {
-    transform: 'scale(0.5)',
-    opacity: 0,
-  },
-  '75%': {
-    opacity: 1,
-  },
-  '100%': {
-    transform: 'scale(1)',
-    opacity: 1,
-  },
-};
+function keyframesZoomIn(params = {}) {
+  const {zoomIn = '0.5s', zoomOut = 1} = params;
+  return {
+    '0%': {
+      transform: `scale(${zoomIn})`,
+      opacity: 0,
+    },
+    '75%': {
+      opacity: 1,
+    },
+    '100%': {
+      transform: `scale(${zoomOut})`,
+      opacity: 1,
+    },
+  };
+}
 
 // For timingFunction, see https://cubic-bezier.com
-const keyframesZoomInBounce = {
-  '0%': {
-    animationTimingFunction: 'cubic-bezier(.4,0,0.2,1.6)',
-    transform: 'scale(0)',
-  },
-  '100%': {
-    transform: 'scale(1)',
-  },
-};
+function keyframesZoomInBounce(params = {}) {
+  const {zoomIn = 0, zoomOut = 1} = params;
+  return {
+    '0%': {
+      animationTimingFunction: 'cubic-bezier(.4,0,0.2,1.6)',
+      transform: `scale(${zoomIn})`,
+    },
+    '100%': {
+      transform: `scale(${zoomOut})`,
+    },
+  };
+}
 
-const keyframesZoomOut = {
-  '0%': {
-    transform: 'scale(1)',
-    opacity: 1,
-  },
-  '25%': {
-    opacity: 1,
-  },
-  '100%': {
-    transform: 'scale(0.5)',
-    opacity: 0,
-  },
-};
+function keyframesZoomOut(params = {}) {
+  const {zoomIn = 1, zoomOut = '0.5s'} = params;
+  return {
+    '0%': {
+      transform: `scale(${zoomIn})`,
+      opacity: 1,
+    },
+    '25%': {
+      opacity: 1,
+    },
+    '100%': {
+      transform: `scale(${zoomOut})`,
+      opacity: 0,
+    },
+  };
+}
 
-const keyframesZoomInX = {
-  '0%': {
-    transform: 'scaleX(0.33)',
-    opacity: 0,
-  },
-  '75%': {
-    opacity: 1,
-  },
-  '100%': {
-    transform: 'scaleX(1)',
-    opacity: 1,
-  },
-};
+function keyframesZoomInX(params = {}) {
+  const {zoomIn = 0.33, zoomOut = 1} = params;
+  return {
+    '0%': {
+      transform: `scaleX(${zoomIn})`,
+      opacity: 0,
+    },
+    '75%': {
+      opacity: 1,
+    },
+    '100%': {
+      transform: `scaleX(${zoomOut})`,
+      opacity: 1,
+    },
+  };
+}
 
-const keyframesZoomOutX = {
-  '0%': {
-    transform: 'scaleX(1)',
-    opacity: 1,
-  },
-  '25%': {
-    opacity: 1,
-  },
-  '100%': {
-    transform: 'scaleX(0.33)',
-    opacity: 0,
-  },
-};
+function keyframesZoomOutX(params = {}) {
+  const {zoomIn = 1, zoomOut = 0.33} = params;
+  return {
+    '0%': {
+      transform: `scaleX(${zoomIn})`,
+      opacity: 1,
+    },
+    '25%': {
+      opacity: 1,
+    },
+    '100%': {
+      transform: `scaleX(${zoomOut})`,
+      opacity: 0,
+    },
+  };
+}
 
-const keyframesZoomInY = {
-  '0%': {
-    transform: 'scaleY(0.33)',
-    opacity: 0,
-  },
-  '75%': {
-    opacity: 1,
-  },
-  '100%': {
-    transform: 'scaleY(1)',
-    opacity: 1,
-  },
-};
+function keyframesZoomInY(params = {}) {
+  const {zoomIn = 0.33, zoomOut = 1} = params;
+  return {
+    '0%': {
+      transform: `scaleY(${zoomIn})`,
+      opacity: 0,
+    },
+    '75%': {
+      opacity: 1,
+    },
+    '100%': {
+      transform: `scaleY(${zoomOut})`,
+      opacity: 1,
+    },
+  };
+}
 
-const keyframesZoomOutY = {
-  '0%': {
-    transform: 'scaleY(1)',
-    opacity: 1,
-  },
-  '25%': {
-    opacity: 1,
-  },
-  '100%': {
-    transform: 'scaleY(0.33)',
-    opacity: 0,
-  },
-};
+function keyframesZoomOutY(params = {}) {
+  const {zoomIn = 1, zoomOut = 0.33} = params;
+  return {
+    '0%': {
+      transform: `scaleY(${zoomIn})`,
+      opacity: 1,
+    },
+    '25%': {
+      opacity: 1,
+    },
+    '100%': {
+      transform: `scaleY(${zoomOut})`,
+      opacity: 0,
+    },
+  };
+}
 
 /******************************************************************************/
 
 const animations = {
-  none: {
-    name: keyframesNone,
-    duration: '0s',
-    timingFunction: 'ease',
+  none: function() {
+    return {
+      name: keyframesNone,
+      duration: '0s',
+      timingFunction: 'ease',
+    };
   },
 
-  rightToCenter: {
-    name: keyframesRightToCenter,
-    duration: '0.5s',
-    timingFunction: 'ease',
+  rightToCenter: function(params) {
+    const {duration = '0.5s'} = params;
+    return {
+      name: keyframesRightToCenter(params),
+      duration,
+      timingFunction: 'ease',
+    };
   },
-  centerToRight: {
-    name: keyframesCenterToRight,
-    duration: '0.5s',
-    timingFunction: 'ease',
+  centerToRight: function(params) {
+    const {duration = '0.5s'} = params;
+    return {
+      name: keyframesCenterToRight(params),
+      duration,
+      timingFunction: 'ease',
+    };
   },
-  centerToLeft: {
-    name: keyframesCenterToLeft,
-    duration: '0.5s',
-    timingFunction: 'ease',
+  centerToLeft: function(params) {
+    const {duration = '0.5s'} = params;
+    return {
+      name: keyframesCenterToLeft(params),
+      duration,
+      timingFunction: 'ease',
+    };
   },
-  leftToCenter: {
-    name: keyframesLeftToCenter,
-    duration: '0.5s',
-    timingFunction: 'ease',
-  },
-
-  bottomToCenter: {
-    name: keyframesBottomToCenter,
-    duration: '0.5s',
-    timingFunction: 'ease',
-  },
-  centerToBottom: {
-    name: keyframesCenterToBottom,
-    duration: '0.5s',
-    timingFunction: 'ease',
-  },
-  centerToTop: {
-    name: keyframesCenterToTop,
-    duration: '0.5s',
-    timingFunction: 'ease',
-  },
-  topToCenter: {
-    name: keyframesTopToCenter,
-    duration: '0.5s',
-    timingFunction: 'ease',
+  leftToCenter: function(params) {
+    const {duration = '0.5s'} = params;
+    return {
+      name: keyframesLeftToCenter(params),
+      duration,
+      timingFunction: 'ease',
+    };
   },
 
-  bottomLeftToCenter: {
-    name: keyframesBottomLeftToCenter,
-    duration: '0.5s',
-    timingFunction: 'ease',
+  bottomToCenter: function(params) {
+    const {duration = '0.5s'} = params;
+    return {
+      name: keyframesBottomToCenter(params),
+      duration,
+      timingFunction: 'ease',
+    };
   },
-  centerToBottomLeft: {
-    name: keyframesCenterToBottomLeft,
-    duration: '0.5s',
-    timingFunction: 'ease',
+  centerToBottom: function(params) {
+    const {duration = '0.5s'} = params;
+    return {
+      name: keyframesCenterToBottom(params),
+      duration,
+      timingFunction: 'ease',
+    };
   },
-  bottomRightToCenter: {
-    name: keyframesBottomRightToCenter,
-    duration: '0.5s',
-    timingFunction: 'ease',
+  centerToTop: function(params) {
+    const {duration = '0.5s'} = params;
+    return {
+      name: keyframesCenterToTop(params),
+      duration,
+      timingFunction: 'ease',
+    };
   },
-  centerToBottomRight: {
-    name: keyframesCenterToBottomRight,
-    duration: '0.5s',
-    timingFunction: 'ease',
-  },
-  centerToTopLeft: {
-    name: keyframesCenterToTopLeft,
-    duration: '0.5s',
-    timingFunction: 'ease',
-  },
-  topLeftToCenter: {
-    name: keyframesTopLeftToCenter,
-    duration: '0.5s',
-    timingFunction: 'ease',
-  },
-  centerToTopRight: {
-    name: keyframesCenterToTopRight,
-    duration: '0.5s',
-    timingFunction: 'ease',
-  },
-  topRightToCenter: {
-    name: keyframesTopRightToCenter,
-    duration: '0.5s',
-    timingFunction: 'ease',
+  topToCenter: function(params) {
+    const {duration = '0.5s'} = params;
+    return {
+      name: keyframesTopToCenter(params),
+      duration,
+      timingFunction: 'ease',
+    };
   },
 
-  fadeIn: {
-    name: keyframesFadeIn,
-    duration: '0.4s',
-    timingFunction: 'ease',
+  bottomLeftToCenter: function(params) {
+    const {duration = '0.5s'} = params;
+    return {
+      name: keyframesBottomLeftToCenter(params),
+      duration,
+      timingFunction: 'ease',
+    };
   },
-  fadeOut: {
-    name: keyframesFadeOut,
-    duration: '0.4s',
-    timingFunction: 'ease',
+  centerToBottomLeft: function(params) {
+    const {duration = '0.5s'} = params;
+    return {
+      name: keyframesCenterToBottomLeft(params),
+      duration,
+      timingFunction: 'ease',
+    };
+  },
+  bottomRightToCenter: function(params) {
+    const {duration = '0.5s'} = params;
+    return {
+      name: keyframesBottomRightToCenter(params),
+      duration,
+      timingFunction: 'ease',
+    };
+  },
+  centerToBottomRight: function(params) {
+    const {duration = '0.5s'} = params;
+    return {
+      name: keyframesCenterToBottomRight(params),
+      duration,
+      timingFunction: 'ease',
+    };
+  },
+  centerToTopLeft: function(params) {
+    const {duration = '0.5s'} = params;
+    return {
+      name: keyframesCenterToTopLeft(params),
+      duration,
+      timingFunction: 'ease',
+    };
+  },
+  topLeftToCenter: function(params) {
+    const {duration = '0.5s'} = params;
+    return {
+      name: keyframesTopLeftToCenter(params),
+      duration,
+      timingFunction: 'ease',
+    };
+  },
+  centerToTopRight: function(params) {
+    const {duration = '0.5s'} = params;
+    return {
+      name: keyframesCenterToTopRight(params),
+      duration,
+      timingFunction: 'ease',
+    };
+  },
+  topRightToCenter: function(params) {
+    const {duration = '0.5s'} = params;
+    return {
+      name: keyframesTopRightToCenter(params),
+      duration,
+      timingFunction: 'ease',
+    };
   },
 
-  zoomIn: {
-    name: keyframesZoomIn,
-    duration: '0.4s',
-    timingFunction: 'ease',
+  fadeIn: function(params) {
+    const {duration = '0.4s'} = params;
+    return {
+      name: keyframesFadeIn(params),
+      duration,
+      timingFunction: 'ease',
+    };
   },
-  zoomInBounce: {
-    name: keyframesZoomInBounce,
-    duration: '0.4s',
-    timingFunction: 'ease',
-  },
-  zoomOut: {
-    name: keyframesZoomOut,
-    duration: '0.4s',
-    timingFunction: 'ease',
-  },
-
-  zoomInX: {
-    name: keyframesZoomInX,
-    duration: '0.6s',
-    timingFunction: 'ease',
-  },
-  zoomOutX: {
-    name: keyframesZoomOutX,
-    duration: '0.6s',
-    timingFunction: 'ease',
+  fadeOut: function(params) {
+    const {duration = '0.4s'} = params;
+    return {
+      name: keyframesFadeOut(params),
+      duration,
+      timingFunction: 'ease',
+    };
   },
 
-  zoomInY: {
-    name: keyframesZoomInY,
-    duration: '0.6s',
-    timingFunction: 'ease',
+  zoomIn: function(params) {
+    const {duration = '0.4s'} = params;
+    return {
+      name: keyframesZoomIn(params),
+      duration,
+      timingFunction: 'ease',
+    };
   },
-  zoomOutY: {
-    name: keyframesZoomOutY,
-    duration: '0.6s',
-    timingFunction: 'ease',
+  zoomInBounce: function(params) {
+    const {duration = '0.4s'} = params;
+    return {
+      name: keyframesZoomInBounce(params),
+      duration,
+      timingFunction: 'ease',
+    };
+  },
+  zoomOut: function(params) {
+    const {duration = '0.4s'} = params;
+    return {
+      name: keyframesZoomOut(params),
+      duration,
+      timingFunction: 'ease',
+    };
+  },
+
+  zoomInX: function(params) {
+    const {duration = '0.6s'} = params;
+    return {
+      name: keyframesZoomInX(params),
+      duration,
+      timingFunction: 'ease',
+    };
+  },
+  zoomOutX: function(params) {
+    const {duration = '0.6s'} = params;
+    return {
+      name: keyframesZoomOutX(params),
+      duration,
+      timingFunction: 'ease',
+    };
+  },
+
+  zoomInY: function(params) {
+    const {duration = '0.6s'} = params;
+    return {
+      name: keyframesZoomInY(params),
+      duration,
+      timingFunction: 'ease',
+    };
+  },
+  zoomOutY: function(params) {
+    const {duration = '0.6s'} = params;
+    return {
+      name: keyframesZoomOutY(params),
+      duration,
+      timingFunction: 'ease',
+    };
   },
 };
 
-export default function getAnimation(animation) {
-  return animations[animation];
+export default function getAnimation(animation, params) {
+  const f = animations[animation];
+  if (f) {
+    return f(params);
+  } else {
+    return null;
+  }
 }
 
 /******************************************************************************/
