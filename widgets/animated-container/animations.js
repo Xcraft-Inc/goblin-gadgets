@@ -80,6 +80,73 @@ const keyframesTopToCenter = {
 
 /******************************************************************************/
 
+const center = {
+  ...centerHorizontal,
+  ...centerVertical,
+};
+
+const topLeft = {
+  ...left,
+  ...top,
+};
+
+const topRight = {
+  ...right,
+  ...top,
+};
+
+const bottomLeft = {
+  ...left,
+  ...bottom,
+};
+
+const bottomRight = {
+  ...right,
+  ...bottom,
+};
+
+const keyframesBottomLeftToCenter = {
+  '0%': {...bottomLeft},
+  '100%': {...center},
+};
+
+const keyframesCenterToBottomLeft = {
+  '0%': {...center},
+  '100%': {...bottomLeft},
+};
+
+const keyframesBottomRightToCenter = {
+  '0%': {...bottomRight},
+  '100%': {...center},
+};
+
+const keyframesCenterToBottomRight = {
+  '0%': {...center},
+  '100%': {...bottomRight},
+};
+
+const keyframesCenterToTopLeft = {
+  '0%': {...center},
+  '100%': {...topLeft},
+};
+
+const keyframesTopLeftToCenter = {
+  '0%': {...topLeft},
+  '100%': {...center},
+};
+
+const keyframesCenterToTopRight = {
+  '0%': {...center},
+  '100%': {...topRight},
+};
+
+const keyframesTopRightToCenter = {
+  '0%': {...topRight},
+  '100%': {...center},
+};
+
+/******************************************************************************/
+
 const keyframesFadeIn = {
   '0%': {
     opacity: 0,
@@ -242,6 +309,47 @@ const animations = {
   },
   topToCenter: {
     name: keyframesTopToCenter,
+    duration: '0.5s',
+    timingFunction: 'ease',
+  },
+
+  bottomLeftToCenter: {
+    name: keyframesBottomLeftToCenter,
+    duration: '0.5s',
+    timingFunction: 'ease',
+  },
+  centerToBottomLeft: {
+    name: keyframesCenterToBottomLeft,
+    duration: '0.5s',
+    timingFunction: 'ease',
+  },
+  bottomRightToCenter: {
+    name: keyframesBottomRightToCenter,
+    duration: '0.5s',
+    timingFunction: 'ease',
+  },
+  centerToBottomRight: {
+    name: keyframesCenterToBottomRight,
+    duration: '0.5s',
+    timingFunction: 'ease',
+  },
+  centerToTopLeft: {
+    name: keyframesCenterToTopLeft,
+    duration: '0.5s',
+    timingFunction: 'ease',
+  },
+  topLeftToCenter: {
+    name: keyframesTopLeftToCenter,
+    duration: '0.5s',
+    timingFunction: 'ease',
+  },
+  centerToTopRight: {
+    name: keyframesCenterToTopRight,
+    duration: '0.5s',
+    timingFunction: 'ease',
+  },
+  topRightToCenter: {
+    name: keyframesTopRightToCenter,
     duration: '0.5s',
     timingFunction: 'ease',
   },
