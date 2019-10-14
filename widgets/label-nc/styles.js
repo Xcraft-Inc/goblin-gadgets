@@ -823,7 +823,6 @@ export default function styles(theme, props) {
       textColorFromKind = theme.palette.calendarDimmedText;
     }
     if (kind === 'calendar-navigator') {
-      textHoverColor = theme.palette.calendarActiveBackground;
       if (disabled) {
         textColorFromKind = theme.palette.calendarDimmedText;
       }

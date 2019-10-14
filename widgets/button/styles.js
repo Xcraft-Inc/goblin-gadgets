@@ -645,9 +645,7 @@ export default function styles(theme, props) {
     boxHeight = theme.shapes.calendarButtonHeight;
     transition = null;
     backgroundColor = 'transparent';
-    if (kind === 'calendar-navigator') {
-      backgroundHoverColor = 'transparent';
-    }
+    backgroundHoverColor = theme.palette.calendarBackgroundHover;
     if (Bool.isTrue(calendarWeekend)) {
       backgroundColor = theme.palette.calendarWeekendBackground;
     }
