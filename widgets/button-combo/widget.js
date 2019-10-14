@@ -134,6 +134,7 @@ export default class ButtonCombo extends Widget {
       >
         <Calendar
           frame={true}
+          shadow={true}
           visibleDate={date}
           dates={this.props.value ? [this.props.value] : null}
           dateClicked={this.handleDateClicked}

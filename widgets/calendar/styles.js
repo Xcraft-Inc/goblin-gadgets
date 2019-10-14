@@ -3,10 +3,10 @@ import * as Bool from 'gadgets/helpers/bool-helpers';
 
 /******************************************************************************/
 
-export const propNames = ['frame', 'navigator'];
+export const propNames = ['frame', 'navigator', 'shadow'];
 
 export default function styles(theme, props) {
-  const {frame, navigator} = props;
+  const {frame, navigator, shadow} = props;
 
   const m = theme.shapes.containerMargin;
   const halfMargin = Unit.multiply(m, 0.5);
@@ -21,6 +21,7 @@ export default function styles(theme, props) {
     flexDirection: 'row',
     flexGrow: boxGrow,
     border: border,
+    boxShadow: shadow ? theme.shapes.calendarShadow : null,
   };
 
   const month = {
