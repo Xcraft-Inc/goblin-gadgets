@@ -493,6 +493,7 @@ export default function styles(theme, props) {
       backgroundColor = theme.palette.textFieldDisableBackground;
       specialDisabled = true;
     }
+    backgroundHoverColor = theme.palette.comboButtonBackgroundHover;
   }
 
   if (kind === 'round') {
