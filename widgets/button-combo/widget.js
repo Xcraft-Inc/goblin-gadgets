@@ -130,6 +130,7 @@ export default class ButtonCombo extends Widget {
       <ComboContainer
         show={this.state.showCombo}
         positionRef={this.node}
+        horizontalMargin="16px"
         onClose={this.hideCombo}
       >
         <Calendar

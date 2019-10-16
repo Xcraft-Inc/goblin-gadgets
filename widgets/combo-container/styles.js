@@ -1,7 +1,7 @@
 export const propNames = ['horizontalMargin'];
 
 export default function styles(theme, props) {
-  const {horizontalMargin = '16px'} = props;
+  const {horizontalMargin} = props;
 
   const safeArea = {
     display: 'flex',
