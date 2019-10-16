@@ -239,7 +239,7 @@ function keyframesFadeOut(params = {}) {
 /******************************************************************************/
 
 function keyframesZoomIn(params = {}) {
-  const {zoomIn = '0.5s', zoomOut = 1} = params;
+  const {zoomIn = 0.5, zoomOut = 1} = params;
   return {
     '0%': {
       transform: `scale(${zoomIn})`,
@@ -270,7 +270,7 @@ function keyframesZoomInBounce(params = {}) {
 }
 
 function keyframesZoomOut(params = {}) {
-  const {zoomIn = 1, zoomOut = '0.5s'} = params;
+  const {zoomIn = 1, zoomOut = 0.5} = params;
   return {
     '0%': {
       transform: `scale(${zoomIn})`,
