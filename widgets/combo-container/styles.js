@@ -1,4 +1,8 @@
-export default function styles() {
+export const propNames = ['horizontalMargin'];
+
+export default function styles(theme, props) {
+  const {horizontalMargin = '16px'} = props;
+
   const safeArea = {
     display: 'flex',
     flexDirection: 'row',
@@ -12,6 +16,8 @@ export default function styles() {
   };
 
   const horizontalPosition = {
+    'marginLeft': horizontalMargin,
+    'marginRight': horizontalMargin,
     'display': 'flex',
     'flexDirection': 'row',
     'justifyContent': 'center',
