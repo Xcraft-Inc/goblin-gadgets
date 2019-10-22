@@ -2,6 +2,7 @@ import T from 't';
 import React from 'react';
 import Props from './props';
 import Widget from 'laboratory/widget';
+import MouseTrap from 'mousetrap';
 
 import * as Bool from 'gadgets/helpers/bool-helpers';
 
@@ -49,6 +50,7 @@ export default class Calendar extends Widget {
     this.onVisibleDatePrevYear = this.onVisibleDatePrevYear.bind(this);
     this.onVisibleDateNextYear = this.onVisibleDateNextYear.bind(this);
     this.onDateClicked = this.onDateClicked.bind(this);
+    this.onEscKey = this.onEscKey.bind(this);
   }
 
   //#region get/set
@@ -88,6 +90,21 @@ export default class Calendar extends Widget {
       id: 'id',
       msg: 'msg',
     };
+  }
+
+  /******************************************************************************/
+
+  componentWillMount() {
+    if (this.props.onEscKey) {
+      MouseTrap.bind('esc', this.onEscKey);
+    }
+  }
+
+  componentWillUnmount() {
+    super.componentWillUnmount();
+    if (this.props.onEscKey) {
+      MouseTrap.unbind('esc');
+    }
   }
 
   /******************************************************************************/
@@ -304,6 +321,12 @@ export default class Calendar extends Widget {
     const x = this.props.dateClicked;
     if (x) {
       x(date);
+    }
+  }
+
+  onEscKey() {
+    if (this.props.onEscKey) {
+      this.props.onEscKey();
     }
   }
 

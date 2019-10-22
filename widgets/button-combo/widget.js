@@ -139,6 +139,7 @@ export default class ButtonCombo extends Widget {
           visibleDate={date}
           dates={this.props.value ? [this.props.value] : null}
           dateClicked={this.handleDateClicked}
+          onEscKey={this.hideCombo}
         />
       </ComboContainer>
     );
