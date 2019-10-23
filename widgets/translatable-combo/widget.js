@@ -349,8 +349,9 @@ export default Widget.connect((state, props) => {
     return {};
   }
 
-  const toolbarId = getToolbarId(workitemId);
-  const selectedLocaleId = state.get(`backend.${toolbarId}.selectedLocaleId`);
+  const selectedLocaleId = state.get(
+    `backend.${state.get(`backend.${window.labId}.clientSessionId`)}.locale`
+  );
   const defaultLocale =
     locales.find(locale => locale.get('id') === selectedLocaleId) ||
     locales.first();
