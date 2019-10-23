@@ -2,7 +2,7 @@ import T from 't';
 import React from 'react';
 import Props from './props';
 import Widget from 'laboratory/widget';
-import MouseTrap from 'mousetrap';
+import KeyTrap from 'goblin-gadgets/widgets/key-trap.js';
 
 import * as Bool from 'gadgets/helpers/bool-helpers';
 
@@ -96,14 +96,14 @@ export default class Calendar extends Widget {
 
   componentWillMount() {
     if (this.props.onEscKey) {
-      MouseTrap.bind('esc', this.onEscKey);
+      KeyTrap.bind('Escape', this.onEscKey);
     }
   }
 
   componentWillUnmount() {
     super.componentWillUnmount();
     if (this.props.onEscKey) {
-      MouseTrap.unbind('esc');
+      KeyTrap.unbind('Escape', this.onEscKey);
     }
   }
 

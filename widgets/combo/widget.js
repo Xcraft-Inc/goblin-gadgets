@@ -1,12 +1,11 @@
 //T:2019-02-27
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
-import MouseTrap from 'mousetrap';
 import {ColorHelpers} from 'electrum-theme';
 import * as RectHelpers from '../helpers/rect-helpers.js';
 import * as Bool from 'gadgets/helpers/bool-helpers';
 import {Unit} from 'electrum-theme';
+import KeyTrap from 'goblin-gadgets/widgets/key-trap.js';
 
 import Container from 'gadgets/container/widget';
 import Button from 'gadgets/button/widget';
@@ -43,10 +42,10 @@ class Combo extends Widget {
   componentWillMount() {
     window.document.combo = 'visible';
 
-    MouseTrap.bind('esc', this.onCloseCombo);
-    MouseTrap.bind('up', this.onPrevIndex);
-    MouseTrap.bind('down', this.onNextIndex);
-    MouseTrap.bind('enter', this.onEnterAction);
+    KeyTrap.bind('Escape', this.onCloseCombo);
+    KeyTrap.bind('ArrowUp', this.onPrevIndex);
+    KeyTrap.bind('ArrowDown', this.onNextIndex);
+    KeyTrap.bind('Enter', this.onEnterAction);
 
     let index = 0;
     for (let item of this.props.list) {
@@ -63,10 +62,10 @@ class Combo extends Widget {
     super.componentWillUnmount();
     window.document.combo = 'hidden';
 
-    MouseTrap.unbind('esc');
-    MouseTrap.unbind('up');
-    MouseTrap.unbind('down');
-    MouseTrap.unbind('enter');
+    KeyTrap.unbind('Escape', this.onCloseCombo);
+    KeyTrap.unbind('ArrowUp', this.onPrevIndex);
+    KeyTrap.unbind('ArrowDown', this.onNextIndex);
+    KeyTrap.unbind('Enter', this.onEnterAction);
   }
 
   onNextIndex(e) {

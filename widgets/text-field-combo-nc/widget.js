@@ -1,6 +1,6 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
-import MouseTrap from 'mousetrap';
+import KeyTrap from 'goblin-gadgets/widgets/key-trap.js';
 import {isShredder} from 'xcraft-core-shredder';
 import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 
@@ -68,17 +68,17 @@ class TextFieldComboNC extends Widget {
   }
 
   bindKeys() {
-    MouseTrap.bind('up', this.onUpKey, 'keydown');
-    MouseTrap.bind('down', this.onDownKey, 'keydown');
-    MouseTrap.bind('enter', this.onEnterKey, 'keydown');
-    MouseTrap.bind('esc', this.onEscKey, 'keydown');
+    KeyTrap.bind('ArrowUp', this.onUpKey);
+    KeyTrap.bind('ArrowDown', this.onDownKey);
+    KeyTrap.bind('Enter', this.onEnterKey);
+    KeyTrap.bind('Escape', this.onEscKey);
   }
 
   unbindKeys() {
-    MouseTrap.unbind('up', 'keydown');
-    MouseTrap.unbind('down', 'keydown');
-    MouseTrap.unbind('enter', 'keydown');
-    MouseTrap.unbind('esc', 'keydown');
+    KeyTrap.unbind('ArrowUp', this.onUpKey);
+    KeyTrap.unbind('ArrowDown', this.onDownKey);
+    KeyTrap.unbind('Enter', this.onEnterKey);
+    KeyTrap.unbind('Escape', this.onEscKey);
   }
 
   onFocus() {
