@@ -1,3 +1,27 @@
+//****************************************************************************//
+//            _                          _                                    //
+//           | |                        | |                                   //
+//           | | __  ___  _   _  ______ | |_  _ __   __ _  _ __               //
+//           | |/ / / _ \| | | ||______|| __|| '__| / _` || '_ \              //
+//           |   < |  __/| |_| |        | |_ | |   | (_| || |_) |             //
+//           |_|\_\ \___| \__, |         \__||_|    \__,_|| .__/              //
+//                         __/ |                          | |                 //
+//                        |___/                           |_|                 //
+//                                                                            //
+//  This helpers replaces MouseTrap for nested keys.                          //
+//  When multiple actors subscribe to an action for the same key, the action  //
+//  must be performed only for the last registered.                           //
+//****************************************************************************//
+
+// Powered by https://www.messletters.com/en/big-text/
+
+// For example, a popup contains a sub-popup in which a combo-menu has been opened.
+// The Esc key must close the items in the following order:
+// 1) combo-menu
+// 2) sub-popup
+// 3) popup
+// For this, it is necessary that all actors use key-trap.
+
 /******************************************************************************/
 
 function bind(key, action) {
