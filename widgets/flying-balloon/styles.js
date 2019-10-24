@@ -20,6 +20,9 @@ export default function styles(theme, props) {
     justifyContent: 'flex-start',
     position: 'absolute',
     zIndex: zIndex || 1,
+    // Show the flying-balloon when text-input has the focus.
+    // Hide the flying-balloon when text-input does not have the focus.
+    visibility: 'hidden',
   };
   if (trianglePosition === 'left') {
     box.left = '100%';

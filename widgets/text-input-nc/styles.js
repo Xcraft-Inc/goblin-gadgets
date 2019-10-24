@@ -142,12 +142,19 @@ export default function styles(theme, props) {
     box.backgroundColor = theme.palette.textFieldRequiredBackground;
   }
 
+  // Use + for dispatch the style to next brother (only one).
+  // Use ~ for dispatch the style to all the following brothers.
   const input = {
     ':focus + .toto': {
       borderRadius: borderRadius,
       boxShadow: theme.shapes.focusedShadow + theme.palette.focused,
       pointerEvents: 'none',
       zIndex: 1,
+    },
+    // Show the flying-balloon when text-input has the focus.
+    // Hide the flying-balloon when text-input does not have the focus.
+    ':focus ~ .flying-balloon': {
+      visibility: 'visible',
     },
   };
 
