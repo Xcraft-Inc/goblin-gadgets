@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Widget from 'laboratory/widget';
-import MouseTrap from 'mousetrap';
+import KeyTrap from 'goblin-gadgets/widgets/key-trap.js';
 import * as RectHelpers from '../helpers/rect-helpers.js';
 
 import Container from 'gadgets/container/widget';
@@ -19,14 +19,14 @@ class DialogModal extends Widget {
   }
 
   componentWillMount() {
-    MouseTrap.bind('esc', this.onCloseCombo);
-    MouseTrap.bind('enter', this.onCloseCombo);
+    KeyTrap.bind('Escape', this.onCloseCombo);
+    KeyTrap.bind('Enter', this.onCloseCombo);
   }
 
   componentWillUnmount() {
     super.componentWillUnmount();
-    MouseTrap.unbind('esc');
-    MouseTrap.unbind('enter');
+    KeyTrap.unbind('Escape', this.onCloseCombo);
+    KeyTrap.unbind('Enter', this.onCloseCombo);
   }
 
   onCloseCombo() {
