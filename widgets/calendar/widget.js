@@ -311,6 +311,8 @@ export default class Calendar extends Widget {
     if (
       date >= this.startVisibleDate &&
       date <= this.endVisibleDate &&
+      date >= this.props.startDate &&
+      date <= this.props.endDate &&
       !Bool.isTrue(this.props.readonly)
     ) {
       this.dateClicked(date);

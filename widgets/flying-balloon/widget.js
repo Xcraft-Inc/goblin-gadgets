@@ -13,7 +13,6 @@ class FlyingBalloon extends Widget {
   }
 
   render() {
-    //???? const boxClass = this.styles.classNames.box;
     const boxClass = `flying-balloon ${this.styles.classNames.box}`;
     const primaryBottomSpacing =
       this.props.primaryText && this.props.secondaryText ? 'large' : null;
