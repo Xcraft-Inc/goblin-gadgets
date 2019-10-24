@@ -15,15 +15,11 @@ function bind(key, action) {
   }
 }
 
-function _unbind(key, action, final) {
-  console.log(
-    `key-trap.unbind: key='${key}' final=${final} size=${record.size}`
-  );
+function unbind(key, action) {
+  console.log(`key-trap.unbind: key='${key}' size=${record.size}`);
   const actions = record.get(key);
   if (!actions) {
-    if (!final) {
-      console.warn(`key-trap.unbind: key='${key}' are not binded`);
-    }
+    console.warn(`key-trap.unbind: key='${key}' are not binded`);
     return;
   }
 
@@ -35,18 +31,8 @@ function _unbind(key, action, final) {
       record.delete(key);
     }
   } else {
-    if (!final) {
-      console.warn(`key-trap.unbind: no action are binded for key='${key}'`);
-    }
+    console.warn(`key-trap.unbind: no action are binded for key='${key}'`);
   }
-}
-
-function unbind(key, action) {
-  _unbind(key, action, false);
-}
-
-function finalUnbind(key, action) {
-  _unbind(key, action, true);
 }
 
 /******************************************************************************/
@@ -74,4 +60,4 @@ document.addEventListener('keydown', _handleKeyDown);
 
 /******************************************************************************/
 
-module.exports = {bind, unbind, finalUnbind};
+module.exports = {bind, unbind};
