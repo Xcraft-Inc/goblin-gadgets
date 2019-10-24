@@ -1,7 +1,12 @@
 /******************************************************************************/
 
 function bind(key, action) {
-  console.log(`key-trap.bind: key='${key}' size=${record.size}`);
+  //- console.log(`key-trap.bind: key='${key}' size=${record.size}`);
+  if (!action) {
+    console.warn(`key-trap.bind: no action for key='${key}'`);
+    return;
+  }
+
   if (!record.has(key)) {
     record.set(key, []);
   }
@@ -16,7 +21,12 @@ function bind(key, action) {
 }
 
 function unbind(key, action) {
-  console.log(`key-trap.unbind: key='${key}' size=${record.size}`);
+  //- console.log(`key-trap.unbind: key='${key}' size=${record.size}`);
+  if (!action) {
+    console.warn(`key-trap.unbind: no action for key='${key}'`);
+    return;
+  }
+
   const actions = record.get(key);
   if (!actions) {
     console.warn(`key-trap.unbind: key='${key}' are not binded`);
