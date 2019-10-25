@@ -81,8 +81,7 @@ function _handleKeyDown(e) {
       return;
     }
     const action = actions[actions.length - 1];
-    action();
-    e.stopPropagation();
+    action(e);
   }
 }
 
