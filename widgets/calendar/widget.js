@@ -245,6 +245,22 @@ export default class Calendar extends Widget {
     }
   }
 
+  get startDate() {
+    if (this.props.startDate) {
+      return this.props.startDate;
+    } else {
+      return '1900-01-01';
+    }
+  }
+
+  get endDate() {
+    if (this.props.endDate) {
+      return this.props.endDate;
+    } else {
+      return '9999-12-31';
+    }
+  }
+
   // Called when the '<' button is clicked.
   // Modify internalState.visibleDate (fix visible year and month).
   onPrevMonth() {
@@ -311,8 +327,8 @@ export default class Calendar extends Widget {
     if (
       date >= this.startVisibleDate &&
       date <= this.endVisibleDate &&
-      date >= this.props.startDate &&
-      date <= this.props.endDate &&
+      date >= this.startDate &&
+      date <= this.endDate &&
       !Bool.isTrue(this.props.readonly)
     ) {
       this.dateClicked(date);
@@ -378,8 +394,6 @@ export default class Calendar extends Widget {
   // Return an array of 7 buttons, for a week.
   renderButtons(startOfMonth, firstDate) {
     const line = [];
-    const startDate = this.props.startDate;
-    const endDate = this.props.endDate;
     let i = 0;
     for (i = 0; i < 7; ++i) {
       // monday..sunday
@@ -404,7 +418,7 @@ export default class Calendar extends Widget {
           hidden = true;
         }
       }
-      if (firstDate < startDate || firstDate > endDate) {
+      if (firstDate < this.startDate || firstDate > this.endDate) {
         dimmed = true;
       }
       if (i >= 5) {
@@ -448,7 +462,7 @@ export default class Calendar extends Widget {
           glyph="solid/chevron-left"
           kind="calendar-navigator"
           key="prevMonth"
-          disabled={Bool.toString(this.visibleDate < this.props.startDate)}
+          disabled={Bool.toString(this.visibleDate < this.startDate)}
           onClick={this.onPrevMonth}
         />
       );
@@ -490,8 +504,7 @@ export default class Calendar extends Widget {
           kind="calendar-navigator"
           key="nextMonth"
           disabled={Bool.toString(
-            DateConverters.moveAtEndingOfMonth(this.visibleDate) >=
-              this.props.endDate
+            DateConverters.moveAtEndingOfMonth(this.visibleDate) >= this.endDate
           )}
           onClick={this.onNextMonth}
         />
