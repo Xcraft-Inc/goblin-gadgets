@@ -130,16 +130,16 @@ export default function styles(theme, props) {
 
     content.borderRadius = `${topLeftRadius} 0px 0px ${bottomLeftRadius}`;
     gloss.visibility = 'hidden';
-  }
-
-  if (kind === 'rounded') {
-    box.borderRadius = '50px';
+  } else {
+    if (kind === 'rounded') {
+      box.borderRadius = '50px';
+      content.borderRadius = '50px';
+    }
     box.backgroundColor = theme.palette.ticketGaugeBackground;
     box.boxShadow = theme.palette.ticketGaugeBackgroundShadow;
     content.position = 'absolute';
     content.bottom = '1px';
     content.left = '1px';
-    content.borderRadius = '50px';
     content.width =
       direction === 'horizontal'
         ? `calc(${gaugeValue}% - 2px)`
