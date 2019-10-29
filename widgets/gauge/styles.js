@@ -25,6 +25,20 @@ function getColor(gradient, value) {
       red = 255 - 255 * value; // 0/1 -> 255/0
       green = 255;
       blue = 0;
+    } else if (gradient === 'blue-petrol-green') {
+      if (value < 0.5) {
+        // From blue to purple.
+        value = value * 2; // 0..1
+        blue = 255;
+        red = 0;
+        green = 255 * value; // 0/1 -> 0/255
+      } else {
+        // From purple to green.
+        value = (value - 0.5) * 2; // 0..1
+        blue = 255 - 255 * value; // 0/1 -> 255/0
+        green = 255;
+      }
+      red = 0;
     } else {
       // From orange to red.
       red = 255;

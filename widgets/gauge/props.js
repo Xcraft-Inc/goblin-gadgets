@@ -11,7 +11,12 @@ export default [
   {
     name: 'gradient',
     group: 'aspect',
-    type: types.enum(['', 'red-yellow-green', 'yellow-green']),
+    type: types.enum([
+      '',
+      'red-yellow-green',
+      'yellow-green',
+      'blue-petrol-green',
+    ]),
   },
   {
     name: 'kind',
