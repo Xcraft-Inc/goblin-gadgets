@@ -28,7 +28,9 @@ class Container extends Widget {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    super.componentDidMount();
+
     const dragController = this.props.dragController;
     const dragOwnerId = this.props.dragOwnerId;
     let count = 0;
@@ -40,15 +42,6 @@ class Container extends Widget {
         `Container has invalid properties: dragController=${dragController} dragOwnerId=${dragOwnerId}`
       );
     }
-
-    // TODO: remove this code, it does nothing
-    //if (this.props.navigationFor) {
-    //  this.initNavigation();
-    //}
-  }
-
-  componentDidMount() {
-    super.componentDidMount();
 
     if (this.props.navigationFor) {
       const panelElem = document.querySelectorAll(
