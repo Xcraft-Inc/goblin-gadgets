@@ -12,7 +12,7 @@ import {
   makePropTypes,
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
-import Markdown from 'gadgets/markdown/widget';
+import Markdown from 'goblin-gadgets/widgets/markdown/widget';
 
 /******************************************************************************/
 

@@ -12,7 +12,7 @@ import {
   price as PriceConverters,
 } from 'xcraft-core-converters';
 
-import Label from 'gadgets/label/widget';
+import Label from 'goblin-gadgets/widgets/label/widget';
 
 /******************************************************************************/
 
@@ -107,6 +107,7 @@ class TableCell extends Widget {
           glyphColor={glyphColor}
           textColor={textColor}
           text={text}
+          userSelect="all"
           weight={weight}
           justify={this.props.textAlign}
           horizontalSpacing={this.props.horizontalSpacing}

@@ -2,6 +2,7 @@
 
 export default function styles(theme) {
   const markdown = {
+    'userSelect': 'text',
     '& pre': {
       display: 'block',
       margin: 0,

@@ -63,6 +63,7 @@ export const propNames = [
   'buttonBackgroundColor',
   'fontWeight',
   'fontStyle',
+  'userSelect',
 ];
 
 export function mapProps(props) {
@@ -113,6 +114,7 @@ export default function styles(theme, props) {
     buttonBackgroundColor,
     fontWeight,
     fontStyle,
+    userSelect,
   } = props;
 
   const m = Unit.multiply(theme.shapes.containerMargin, 0.5);
@@ -253,6 +255,7 @@ export default function styles(theme, props) {
     textMarginLeft = '0px';
     textMarginRight = '0px';
     glyphHeight = null;
+    userSelect = 'all';
   }
 
   if (kind === 'table-cell') {
@@ -260,6 +263,7 @@ export default function styles(theme, props) {
     textMarginLeft = '0px';
     textMarginRight = '0px';
     glyphHeight = null;
+    userSelect = 'all';
   }
 
   if (kind === 'table-action-frame' || kind === 'table-action') {
@@ -1061,7 +1065,7 @@ export default function styles(theme, props) {
     backgroundColor: backgroundColor,
     opacity: boxOpacity,
     zIndex: boxZIndex,
-    userSelect: 'none',
+    userSelect: userSelect || 'none',
     cursor: cursor,
   };
 
@@ -1100,7 +1104,7 @@ export default function styles(theme, props) {
   const linesStyle = {
     width: '100%',
     overflow: linesOverflow,
-    userSelect: 'none',
+    userSelect: userSelect || 'none',
   };
 
   const textStyle = {
@@ -1126,7 +1130,7 @@ export default function styles(theme, props) {
     wordBreak: textWordBreak,
     textAlign: textAlign,
     direction: textDirection,
-    userSelect: 'none',
+    userSelect: userSelect || 'none',
   };
 
   const normalFragmentStyle = {
