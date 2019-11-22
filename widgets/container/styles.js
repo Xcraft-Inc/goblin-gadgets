@@ -317,7 +317,7 @@ export default function styles(theme, props) {
   }
 
   if (kind === 'main-tab-right') {
-    boxShadow = `${theme.palette.mainTabBackground} 0px 0px 30px 12px`;
+    //- boxShadow = `${theme.palette.mainTabBackground} 0px 0px 30px 12px`;
     marginLeft = '7px';
     minHeight = theme.shapes.mainTabHeight;
     display = 'flex';
