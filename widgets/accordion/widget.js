@@ -39,7 +39,13 @@ class Accordion extends Widget {
   }
 
   render() {
-    const {expanded, ...otherProps} = this.props;
+    const {
+      expanded,
+      hasOpacity,
+      hasOverflow,
+      transition,
+      ...otherProps
+    } = this.props;
 
     let maxHeight = '0';
     let opacity = '0';
@@ -58,7 +64,7 @@ class Accordion extends Widget {
       }
     }
 
-    if (!this.props.hasOpacity) {
+    if (!hasOpacity) {
       opacity = null;
     }
 
