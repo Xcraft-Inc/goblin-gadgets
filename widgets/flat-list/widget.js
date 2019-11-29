@@ -17,8 +17,12 @@ export default class FlatList extends Widget {
     this.onDownKey = this.onDownKey.bind(this);
     this.onEnterKey = this.onEnterKey.bind(this);
 
+    const activeIndex = this.props.list.findIndex(
+      item => item.id === this.props.selectedId
+    );
+
     this.state = {
-      activeIndex: -1,
+      activeIndex: activeIndex, // -1 is not selected
       initialized: false,
     };
 
@@ -36,15 +40,8 @@ export default class FlatList extends Widget {
     this.setItemRef = this.setItemRef.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     window.document.combo = 'visible';
-    this.props.list.map((item, index) => {
-      if (item.id === this.props.selectedId) {
-        this.setState({
-          activeIndex: index,
-        });
-      }
-    });
   }
 
   componentWillUnmount() {
@@ -158,26 +155,24 @@ export default class FlatList extends Widget {
     if (item.separator) {
       return <Separator key={index} kind="menu-separator" />;
     }
-    if (this.props.menuType !== 'wrap') {
-      item.glyph = isActive ? 'solid/check' : 'solid/none';
-    }
-    let glyphProps = {};
+
+    const additionnalProps = {};
     if (item.glyph) {
       if (item.glyph.glyph) {
-        glyphProps = {
-          glyph: item.glyph.glyph,
-          glyphColor: item.glyph.color,
-        };
+        additionnalProps.glyph = item.glyph.glyph;
+        additionnalProps.glyphColor = item.glyph.color;
       } else {
-        glyphProps = {
-          glyph: item.glyph,
-          glyphColor: item.color,
-        };
+        additionnalProps.glyph = item.glyph;
+        additionnalProps.glyphColor = item.color;
       }
+    } else {
+      additionnalProps.glyph = isActive ? 'solid/check' : 'solid/none';
     }
+    additionnalProps.active = isActive;
+
     return (
       <Button
-        {...glyphProps}
+        {...additionnalProps}
         key={index}
         kind="flat-list-combo-item"
         justify={'flex-start'}
