@@ -32,7 +32,7 @@ import DirectoryInput from 'goblin-gadgets/widgets/directory-input/widget';
 
 import Plugin from 'goblin-desktop/widgets/plugin/widget';
 
-import importer from 'goblin/importer';
+import importer from 'goblin_importer';
 import HinterField from 'goblin-gadgets/widgets/hinter-field/widget';
 const widgetImporter = importer('widget');
 
