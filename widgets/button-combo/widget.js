@@ -170,7 +170,9 @@ export default class ButtonCombo extends Widget {
       <span
         ref={this.setRef}
         onClick={
-          Bool.isTrue(this.props.restrictsToList) && !this.state.showCombo
+          Bool.isTrue(this.props.restrictsToList) &&
+          !Bool.isTrue(this.props.readonly) &&
+          !this.state.showCombo
             ? this.showCombo
             : undefined
         }
