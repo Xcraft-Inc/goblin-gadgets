@@ -44,7 +44,8 @@ class LoginDialog extends Form {
   }
 
   onOk() {
-    this.submit();
+    // Deprecated
+    // this.submit();
   }
 
   onCancel() {
