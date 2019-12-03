@@ -2,12 +2,12 @@
 import T from 't';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import MouseTrap from 'mousetrap';
 import {Unit} from 'electrum-theme';
 import * as Bool from 'gadgets/helpers/bool-helpers';
-import Container from 'gadgets/container/widget';
-import Label from 'gadgets/label/widget';
+import Container from 'goblin-gadgets/widgets/container/widget';
+import Label from 'goblin-gadgets/widgets/label/widget';
 
 /******************************************************************************/
 

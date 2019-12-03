@@ -2,7 +2,7 @@
 import React from 'react';
 import Props from './props';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import MouseTrap from 'mousetrap';
 import * as ShortcutHelpers from '../helpers/shortcut-helpers.js';
 import * as Bool from 'gadgets/helpers/bool-helpers';
@@ -12,8 +12,8 @@ import {
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
 
-import Label from 'gadgets/label/widget';
-import Badge from 'gadgets/badge/widget';
+import Label from 'goblin-gadgets/widgets/label/widget';
+import Badge from 'goblin-gadgets/widgets/badge/widget';
 
 /******************************************************************************/
 

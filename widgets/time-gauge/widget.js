@@ -1,13 +1,13 @@
 //T:2019-02-27
 import React from 'react';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import {
   time as TimeConverters,
   date as DateConverters,
 } from 'xcraft-core-converters';
 import * as Bool from 'gadgets/helpers/bool-helpers';
 
-import Gauge from 'gadgets/gauge/widget';
+import Gauge from 'goblin-gadgets/widgets/gauge/widget';
 
 /******************************************************************************/
 

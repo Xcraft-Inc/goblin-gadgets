@@ -1,7 +1,7 @@
 //T:2019-02-27
 import React from 'react';
 import Props from './props';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import {Unit} from 'electrum-theme';
 import * as Bool from 'gadgets/helpers/bool-helpers';
 
@@ -16,11 +16,11 @@ import {
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
 
-import TableRow from 'gadgets/table-row/widget';
-import TableCell from 'gadgets/table-cell/widget';
-import Button from 'gadgets/button/widget';
-import TextInputNC from 'gadgets/text-input-nc/widget';
-import ScrollableContainer from 'gadgets/scrollable-container/widget';
+import TableRow from 'goblin-gadgets/widgets/table-row/widget';
+import TableCell from 'goblin-gadgets/widgets/table-cell/widget';
+import Button from 'goblin-gadgets/widgets/button/widget';
+import TextInputNC from 'goblin-gadgets/widgets/text-input-nc/widget';
+import ScrollableContainer from 'goblin-gadgets/widgets/scrollable-container/widget';
 import T from 't';
 
 /******************************************************************************/

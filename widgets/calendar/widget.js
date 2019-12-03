@@ -1,7 +1,7 @@
 import T from 't';
 import React from 'react';
 import Props from './props';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import KeyTrap from 'goblin-gadgets/widgets/key-trap.js';
 
 import * as Bool from 'gadgets/helpers/bool-helpers';
@@ -11,9 +11,9 @@ import {
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
 
-import Label from 'gadgets/label/widget';
-import Button from 'gadgets/button/widget';
-import Separator from 'gadgets/separator/widget';
+import Label from 'goblin-gadgets/widgets/label/widget';
+import Button from 'goblin-gadgets/widgets/button/widget';
+import Separator from 'goblin-gadgets/widgets/separator/widget';
 import ComboContainer from 'goblin-gadgets/widgets/combo-container/widget';
 import FlatList from 'goblin-gadgets/widgets/flat-list/widget';
 

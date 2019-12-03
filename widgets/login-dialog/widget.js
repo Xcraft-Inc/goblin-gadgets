@@ -1,13 +1,13 @@
 //T:2019-02-27
 import React from 'react';
-import Form from 'laboratory/form';
+import Form from 'goblin-laboratory/widgets/form';
 
-import DialogModal from 'gadgets/dialog-modal/widget';
-import Container from 'gadgets/container/widget';
-import Button from 'gadgets/button/widget';
-import Label from 'gadgets/label/widget';
-import LabelTextField from 'gadgets/label-text-field/widget';
-import Separator from 'gadgets/separator/widget';
+import DialogModal from 'goblin-gadgets/widgets/dialog-modal/widget';
+import Container from 'goblin-gadgets/widgets/container/widget';
+import Button from 'goblin-gadgets/widgets/button/widget';
+import Label from 'goblin-gadgets/widgets/label/widget';
+import LabelTextField from 'goblin-gadgets/widgets/label-text-field/widget';
+import Separator from 'goblin-gadgets/widgets/separator/widget';
 import T from 't';
 
 /******************************************************************************/

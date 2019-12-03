@@ -1,5 +1,5 @@
 import React from 'react';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import withC from 'goblin-laboratory/widgets/connect-helpers/with-c';
 import TableNC from '../table-nc/widget';
 

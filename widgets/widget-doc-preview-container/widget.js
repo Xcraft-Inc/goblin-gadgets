@@ -1,7 +1,7 @@
 import React from 'react';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import Container from 'goblin-gadgets/widgets/container/widget';
-import ThemeContext from 'laboratory/theme-context/widget';
+import ThemeContext from 'goblin-laboratory/widgets/theme-context/widget';
 
 /******************************************************************************/
 

@@ -1,7 +1,7 @@
 //T:2019-02-27
 
 import React from 'react';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import Shredder from 'xcraft-core-shredder';
 import * as Bool from 'gadgets/helpers/bool-helpers';
 

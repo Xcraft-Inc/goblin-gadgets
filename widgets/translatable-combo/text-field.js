@@ -1,9 +1,9 @@
 import React from 'react';
-import Widget from 'laboratory/widget';
-import Form from 'laboratory/form';
+import Widget from 'goblin-laboratory/widgets/widget';
+import Form from 'goblin-laboratory/widgets/form';
 import * as Bool from 'gadgets/helpers/bool-helpers';
 
-import TextField from 'gadgets/text-field/widget';
+import TextField from 'goblin-gadgets/widgets/text-field/widget';
 
 const {
   computeMessageId,

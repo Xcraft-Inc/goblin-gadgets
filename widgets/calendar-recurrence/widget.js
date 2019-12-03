@@ -1,12 +1,12 @@
 //T:2019-02-27
 
 import React from 'react';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import {date as DateConverters} from 'xcraft-core-converters';
 
-import Container from 'gadgets/container/widget';
-import Calendar from 'gadgets/calendar/widget';
-import CalendarList from 'gadgets/calendar-list/widget';
+import Container from 'goblin-gadgets/widgets/container/widget';
+import Calendar from 'goblin-gadgets/widgets/calendar/widget';
+import CalendarList from 'goblin-gadgets/widgets/calendar-list/widget';
 
 /******************************************************************************/
 

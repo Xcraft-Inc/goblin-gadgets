@@ -1,15 +1,15 @@
 //T:2019-02-27:Nothing to translate !
 import React from 'react';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import MouseTrap from 'mousetrap';
-import ComboHelpers from 'gadgets/helpers/combo-helpers';
+import ComboHelpers from 'goblin-gadgets/widgets/helpers/combo-helpers';
 import * as Bool from 'gadgets/helpers/bool-helpers';
 import {Unit} from 'electrum-theme';
-import Button from 'gadgets/button/widget';
-import TextField from 'gadgets/text-field/widget';
-import Combo from 'gadgets/combo/widget';
-import Label from 'gadgets/label/widget';
-import Select from 'gadgets/select/widget';
+import Button from 'goblin-gadgets/widgets/button/widget';
+import TextField from 'goblin-gadgets/widgets/text-field/widget';
+import Combo from 'goblin-gadgets/widgets/combo/widget';
+import Label from 'goblin-gadgets/widgets/label/widget';
+import Select from 'goblin-gadgets/widgets/select/widget';
 import {isShredder} from 'xcraft-core-shredder';
 
 /******************************************************************************/

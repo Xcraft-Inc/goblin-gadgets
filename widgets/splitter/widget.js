@@ -1,7 +1,7 @@
 //T:2019-02-27:Nothing to translate !
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import {Unit} from 'electrum-theme';
 
 /******************************************************************************/

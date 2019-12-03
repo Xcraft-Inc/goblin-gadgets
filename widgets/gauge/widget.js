@@ -1,6 +1,6 @@
 //T:2019-02-27:Nothing to translate !
 import React from 'react';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import Props from './props';
 import {
   makePropTypes,

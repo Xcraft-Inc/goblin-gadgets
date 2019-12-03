@@ -1,6 +1,6 @@
 import React from 'react';
 import Props from './props';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import {
   makePropTypes,
   makeDefaultProps,

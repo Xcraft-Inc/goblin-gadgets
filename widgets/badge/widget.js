@@ -1,7 +1,7 @@
 //T:2019-02-27
 import React from 'react';
-import Widget from 'laboratory/widget';
-import Bool from 'gadgets/helpers/bool-helpers';
+import Widget from 'goblin-laboratory/widgets/widget';
+import Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 /******************************************************************************/
 
 class Badge extends Widget {

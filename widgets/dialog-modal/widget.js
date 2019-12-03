@@ -1,11 +1,11 @@
 //T:2019-02-27
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import KeyTrap from 'goblin-gadgets/widgets/key-trap.js';
 import * as RectHelpers from '../helpers/rect-helpers.js';
 
-import Container from 'gadgets/container/widget';
+import Container from 'goblin-gadgets/widgets/container/widget';
 
 /******************************************************************************/
 

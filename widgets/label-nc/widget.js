@@ -3,7 +3,7 @@
 import React from 'react';
 import Props from './props';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import T from 'nabu/t/widget';
 import {ColorHelpers} from 'electrum-theme';
 import * as Bool from 'gadgets/helpers/bool-helpers';

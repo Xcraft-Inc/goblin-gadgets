@@ -1,8 +1,8 @@
 //T:2019-02-27
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Widget from 'laboratory/widget';
-import Button from 'gadgets/button/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
+import Button from 'goblin-gadgets/widgets/button/widget';
 
 /******************************************************************************/
 

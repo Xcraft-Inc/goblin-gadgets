@@ -1,7 +1,7 @@
 //T:2019-02-27
 
 import React from 'react';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import {
   date as DateConverters,
   time as TimeConverters,
@@ -15,7 +15,7 @@ import {
   delay as DelayConverters,
 } from 'xcraft-core-converters';
 
-import LabelTextField from 'gadgets/label-text-field/widget';
+import LabelTextField from 'goblin-gadgets/widgets/label-text-field/widget';
 
 /******************************************************************************/
 

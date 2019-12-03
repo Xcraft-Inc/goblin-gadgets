@@ -1,12 +1,12 @@
 //T:2019-02-27
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import MouseTrap from 'mousetrap';
 import * as RectHelpers from '../helpers/rect-helpers.js';
 
-import Container from 'gadgets/container/widget';
-import Separator from 'gadgets/separator/widget';
+import Container from 'goblin-gadgets/widgets/container/widget';
+import Separator from 'goblin-gadgets/widgets/separator/widget';
 
 /******************************************************************************/
 

@@ -1,7 +1,7 @@
 //T:2019-02-27
 import T from 't';
 import React from 'react';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import _ from 'lodash';
 /******************************************************************************/
 

@@ -1,6 +1,6 @@
 //T:2019-02-27
 import React from 'react';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import {ColorHelpers} from 'electrum-theme';
 
 import Label from 'goblin-gadgets/widgets/label/widget';

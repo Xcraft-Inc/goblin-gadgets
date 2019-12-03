@@ -1,12 +1,12 @@
 //T:2019-02-27
 
 import React from 'react';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import * as Bool from 'gadgets/helpers/bool-helpers';
 
-import Button from 'gadgets/button/widget';
-import Label from 'gadgets/label/widget';
-import TextField from 'gadgets/text-field/widget';
+import Button from 'goblin-gadgets/widgets/button/widget';
+import Label from 'goblin-gadgets/widgets/label/widget';
+import TextField from 'goblin-gadgets/widgets/text-field/widget';
 
 /******************************************************************************/
 

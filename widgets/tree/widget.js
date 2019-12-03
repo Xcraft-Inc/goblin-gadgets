@@ -1,12 +1,12 @@
 //T:2019-02-27
 import T from 't';
 import React from 'react';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import * as Bool from 'gadgets/helpers/bool-helpers';
 
-import TreeRow from 'gadgets/tree-row/widget';
-import TreeCell from 'gadgets/tree-cell/widget';
-import Button from 'gadgets/button/widget';
+import TreeRow from 'goblin-gadgets/widgets/tree-row/widget';
+import TreeCell from 'goblin-gadgets/widgets/tree-cell/widget';
+import Button from 'goblin-gadgets/widgets/button/widget';
 
 /******************************************************************************/
 
