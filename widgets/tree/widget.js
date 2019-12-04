@@ -7,6 +7,7 @@ import * as Bool from 'gadgets/helpers/bool-helpers';
 import TreeRow from 'goblin-gadgets/widgets/tree-row/widget';
 import TreeCell from 'goblin-gadgets/widgets/tree-cell/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
@@ -30,6 +31,7 @@ function pushIds(ids, row) {
 class Tree extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.state = {
       expand: '',

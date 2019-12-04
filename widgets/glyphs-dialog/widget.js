@@ -12,12 +12,14 @@ import Container from 'goblin-gadgets/widgets/container/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import DragCab from 'goblin-gadgets/widgets/drag-cab/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 class GlyphsDialog extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.onToggleGlyph = this.onToggleGlyph.bind(this);
     this.onClearGlyphs = this.onClearGlyphs.bind(this);

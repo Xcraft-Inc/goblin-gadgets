@@ -4,12 +4,14 @@ import Widget from 'goblin-laboratory/widgets/widget';
 import * as Bool from 'gadgets/helpers/bool-helpers';
 
 import Checkbox from 'goblin-gadgets/widgets/checkbox/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 class RadioList extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.onRadioClicked = this.onRadioClicked.bind(this);
     this.onCheckClicked = this.onCheckClicked.bind(this);

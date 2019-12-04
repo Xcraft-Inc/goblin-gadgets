@@ -6,10 +6,16 @@ import {
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
 import getPath from './getPath';
+import * as styles from './styles';
 
 // Container with a paper sheet look, with the top right corner folded.
 
 export default class DocumentContainer extends Widget {
+  constructor() {
+    super(...arguments);
+    this.styles = styles;
+  }
+
   render() {
     if (!this.props.width || !this.props.height) {
       console.warn('DocumentContainer: width and height are required.');

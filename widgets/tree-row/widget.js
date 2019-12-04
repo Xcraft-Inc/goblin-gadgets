@@ -6,12 +6,14 @@ import * as Bool from 'gadgets/helpers/bool-helpers';
 
 import TreeCell from 'goblin-gadgets/widgets/tree-cell/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 class TreeRow extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.onSelectionChanged = this.onSelectionChanged.bind(this);
     this.onDoubleClick = this.onDoubleClick.bind(this);

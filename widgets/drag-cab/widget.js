@@ -5,6 +5,7 @@ import Widget from 'goblin-laboratory/widgets/widget';
 import {Unit} from 'electrum-theme';
 import * as Bool from 'gadgets/helpers/bool-helpers';
 import DragCarrier from 'goblin-gadgets/widgets/drag-carrier/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
@@ -45,6 +46,7 @@ function findDragController(theme, x, y) {
 class DragCab extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.state = {
       dragInProcess: false,

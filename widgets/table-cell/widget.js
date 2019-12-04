@@ -4,6 +4,7 @@ import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import Shredder from 'xcraft-core-shredder';
 import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as styles from './styles';
 
 import {
   date as DateConverters,
@@ -40,6 +41,7 @@ function isNabu(t) {
 class TableCell extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onDoubleClick = this.onDoubleClick.bind(this);

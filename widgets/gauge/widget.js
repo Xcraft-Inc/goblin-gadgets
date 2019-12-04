@@ -6,12 +6,14 @@ import {
   makePropTypes,
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 class Gauge extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
   }
 
   render() {

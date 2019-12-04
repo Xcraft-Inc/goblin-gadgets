@@ -6,12 +6,14 @@ import WidgetDocMenu from '../widget-doc-menu/widget';
 import WidgetDocProperties from '../widget-doc-properties/widget';
 import WidgetDocPreview from '../widget-doc-preview/widget';
 import widgetList from '../widget-doc/widget-list';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 class WidgetDoc extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     const requiredProps = {};
     const defaultProps = {};

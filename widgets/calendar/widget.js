@@ -22,12 +22,14 @@ import {
   month as MonthConverters,
   dow as DowConverters,
 } from 'xcraft-core-converters';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 export default class Calendar extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.state = {
       showComboMonths: false,

@@ -12,7 +12,6 @@ import Button from 'goblin-gadgets/widgets/button/widget';
 class GlyphDetail extends Widget {
   constructor() {
     super(...arguments);
-
     this.onEdit = this.onEdit.bind(this);
     this.onDelete = this.onDelete.bind(this);
   }

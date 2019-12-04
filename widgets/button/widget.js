@@ -14,12 +14,14 @@ import {
 
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Badge from 'goblin-gadgets/widgets/badge/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 export default class Button extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.state = {
       focus: false,

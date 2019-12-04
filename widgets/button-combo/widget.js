@@ -7,12 +7,14 @@ import FlatList from 'goblin-gadgets/widgets/flat-list/widget';
 import ComboContainer from 'goblin-gadgets/widgets/combo-container/widget';
 import Calendar from 'goblin-gadgets/widgets/calendar/widget';
 import {date as DateConverters} from 'xcraft-core-converters';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 export default class ButtonCombo extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.state = {
       showCombo: false,

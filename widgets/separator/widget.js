@@ -2,12 +2,14 @@
 
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 class Separator extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
   }
 
   render() {

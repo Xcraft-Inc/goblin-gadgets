@@ -5,12 +5,14 @@ import {
   makePropTypes,
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 export default class Triangle extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
   }
 
   renderTriangle() {

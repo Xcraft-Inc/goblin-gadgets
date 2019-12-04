@@ -4,12 +4,14 @@ import Widget from 'goblin-laboratory/widgets/widget';
 
 import Container from 'goblin-gadgets/widgets/container/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 class FlyingBalloon extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
   }
 
   render() {

@@ -4,12 +4,14 @@ import Widget from 'goblin-laboratory/widgets/widget';
 import * as Bool from 'gadgets/helpers/bool-helpers';
 
 import Button from 'goblin-gadgets/widgets/button/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 export default class FlatCombo extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.onButtonClicked = this.onButtonClicked.bind(this);
   }

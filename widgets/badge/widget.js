@@ -2,11 +2,14 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
+import * as styles from './styles';
+
 /******************************************************************************/
 
 class Badge extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
   }
 
   render() {

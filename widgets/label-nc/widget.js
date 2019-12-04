@@ -13,12 +13,14 @@ import {
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
 import Markdown from 'goblin-gadgets/widgets/markdown/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 export default class LabelNC extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
   }
 
   static get wiring() {

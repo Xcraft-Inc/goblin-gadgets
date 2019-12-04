@@ -10,12 +10,14 @@ import KeyTrap from 'goblin-gadgets/widgets/key-trap.js';
 import Container from 'goblin-gadgets/widgets/container/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import Separator from 'goblin-gadgets/widgets/separator/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 class Combo extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.state = {
       activeIndex: -1,

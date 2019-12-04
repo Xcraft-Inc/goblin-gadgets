@@ -15,12 +15,15 @@ import {
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
 import Label from 'goblin-gadgets/widgets/label/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 export default class TextInputNC extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
+    
     this.onChange = this.onChange.bind(this);
     this.onBlur = this.onBlur.bind(this);
     this.onFocus = this.onFocus.bind(this);

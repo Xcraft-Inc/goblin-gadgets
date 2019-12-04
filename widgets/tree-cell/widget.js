@@ -4,12 +4,14 @@ import Widget from 'goblin-laboratory/widgets/widget';
 import Shredder from 'xcraft-core-shredder';
 
 import Label from 'goblin-gadgets/widgets/label/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 class TreeCell extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onDoubleClick = this.onDoubleClick.bind(this);

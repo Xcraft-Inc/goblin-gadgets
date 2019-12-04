@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Widget from 'goblin-laboratory/widgets/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
@@ -13,6 +14,7 @@ import Button from 'goblin-gadgets/widgets/button/widget';
 class DynamicToolbar extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.state = {
       showToolbar: false,

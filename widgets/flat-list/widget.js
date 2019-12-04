@@ -3,12 +3,15 @@ import Widget from 'goblin-laboratory/widgets/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import Separator from 'goblin-gadgets/widgets/separator/widget';
 import {Unit} from 'electrum-theme';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 export default class FlatList extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
+    
     this.onClickedItem = this.onClickedItem.bind(this);
     this.renderItem = this.renderItem.bind(this);
 

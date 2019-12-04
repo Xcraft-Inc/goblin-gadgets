@@ -5,12 +5,14 @@ import Widget from 'goblin-laboratory/widgets/widget';
 import Container from 'goblin-gadgets/widgets/container/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Separator from 'goblin-gadgets/widgets/separator/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 class ChatDialog extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
   }
 
   renderMessage(message, index) {

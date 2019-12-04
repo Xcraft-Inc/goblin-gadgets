@@ -2,12 +2,14 @@ import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import Container from 'goblin-gadgets/widgets/container/widget';
 import ThemeContext from 'goblin-laboratory/widgets/theme-context/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 class WidgetDocPreviewContainer extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
   }
 
   renderThemeContext(theme) {

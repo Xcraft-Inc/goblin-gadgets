@@ -9,6 +9,7 @@ import {TranslatableDiv} from 'nabu/helpers/element-helpers';
 import * as Bool from 'gadgets/helpers/bool-helpers';
 import {Unit} from 'electrum-theme';
 import getOutlinePath from './getOutlinePath';
+import * as styles from './styles';
 
 /******************************************************************************/
 
@@ -17,6 +18,7 @@ let patternNumber = 0;
 export default class Ticket extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.onMouseOver = this.onMouseOver.bind(this);
     this.onMouseOut = this.onMouseOut.bind(this);

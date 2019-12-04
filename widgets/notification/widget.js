@@ -6,12 +6,15 @@ import {ColorHelpers} from 'electrum-theme';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import Container from 'goblin-gadgets/widgets/container/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 class Notification extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
+    
     this.state = {
       extended: false,
     };

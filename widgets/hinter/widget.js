@@ -8,12 +8,14 @@ import Container from 'goblin-gadgets/widgets/container/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import Calendar from 'goblin-gadgets/widgets/calendar/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 class Hinter extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.state = {
       hover: -1,

@@ -10,12 +10,14 @@ import Container from 'goblin-gadgets/widgets/container/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Table from 'goblin-gadgets/widgets/table/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 class WorkDialog extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.state = {
       hasSelection: false,

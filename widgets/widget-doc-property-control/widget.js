@@ -7,12 +7,15 @@ import TextFieldTypedComboNC from 'goblin-gadgets/widgets/text-field-typed-combo
 import Button from 'goblin-gadgets/widgets/button/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import CheckboxNC from 'goblin-gadgets/widgets/checkbox-nc/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 class WidgetDocPropertyControl extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
+    
     this.onChange = this.onChange.bind(this);
     this.onChangeNumber = this.onChangeNumber.bind(this);
     this.onChangeType = this.onChangeType.bind(this);

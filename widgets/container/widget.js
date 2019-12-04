@@ -8,11 +8,14 @@ import {
   makePropTypes,
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
+import * as styles from './styles';
+
 /******************************************************************************/
 
 class Container extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.panelBottoms = [];
     // TODO: remove this code, it does nothing

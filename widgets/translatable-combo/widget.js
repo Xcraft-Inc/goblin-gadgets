@@ -12,6 +12,7 @@ import Select from 'goblin-gadgets/widgets/select/widget';
 
 import {isShredder} from 'xcraft-core-shredder';
 import NabuTextField from './text-field';
+import * as styles from './styles';
 
 const {getToolbarId} = require('goblin-nabu/lib/helpers.js');
 
@@ -20,6 +21,7 @@ const {getToolbarId} = require('goblin-nabu/lib/helpers.js');
 class TranslatableCombo extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.state = {
       showCombo: false,

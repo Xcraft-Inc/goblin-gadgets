@@ -11,12 +11,14 @@ import Combo from 'goblin-gadgets/widgets/combo/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Select from 'goblin-gadgets/widgets/select/widget';
 import {isShredder} from 'xcraft-core-shredder';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 class TextFieldComboOld extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.state = {
       showCombo: false,

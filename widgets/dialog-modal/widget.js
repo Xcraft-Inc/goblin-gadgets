@@ -6,12 +6,14 @@ import KeyTrap from 'goblin-gadgets/widgets/key-trap.js';
 import * as RectHelpers from '../helpers/rect-helpers.js';
 
 import Container from 'goblin-gadgets/widgets/container/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 class DialogModal extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onContentClick = this.onContentClick.bind(this);

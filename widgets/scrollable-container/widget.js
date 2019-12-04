@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
@@ -11,6 +12,7 @@ import Widget from 'goblin-laboratory/widgets/widget';
 class ScrollableContainer extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this._node = null;
   }

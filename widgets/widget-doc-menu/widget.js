@@ -4,6 +4,7 @@ import widgetList from '../widget-doc/widget-list';
 import Container from 'goblin-gadgets/widgets/container/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
@@ -19,6 +20,11 @@ const WidgetListItem = Widget.connectWidget((state, props) => {
 /******************************************************************************/
 
 export default class WidgetDocMenu extends Widget {
+  constructor() {
+    super(...arguments);
+    this.styles = styles;
+  }
+  
   setSelectedWidget(name) {
     this.dispatch({type: 'SET_SELECTED_WIDGET', name});
   }

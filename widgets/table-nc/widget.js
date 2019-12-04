@@ -22,6 +22,7 @@ import Button from 'goblin-gadgets/widgets/button/widget';
 import TextInputNC from 'goblin-gadgets/widgets/text-input-nc/widget';
 import ScrollableContainer from 'goblin-gadgets/widgets/scrollable-container/widget';
 import T from 't';
+import * as styles from './styles';
 
 /******************************************************************************/
 
@@ -182,6 +183,7 @@ function getUniqueId(data) {
 export default class TableNC extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.onChangeFilter = this.onChangeFilter.bind(this);
     this.onUpdateFilter = this.onUpdateFilter.bind(this);

@@ -7,12 +7,14 @@ import * as Bool from 'gadgets/helpers/bool-helpers';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import TextField from 'goblin-gadgets/widgets/text-field/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 class LabelTextField extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.state = {
       readonly: true,

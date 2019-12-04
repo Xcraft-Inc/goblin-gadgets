@@ -1,12 +1,14 @@
 //T:2019-02-27
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 class Accordion extends Widget {
   constructor(props) {
     super(...arguments);
+    this.styles = styles;
 
     this.setDivRef = this.setDivRef.bind(this);
     this.handleTransitionEnd = this.handleTransitionEnd.bind(this);

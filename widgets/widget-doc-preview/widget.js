@@ -10,12 +10,15 @@ import Button from 'goblin-gadgets/widgets/button/widget';
 import TextFieldNC from '../text-field-nc/widget';
 import TextInputNC from '../text-input-nc/widget';
 import parseCode from './parse-code';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 class WidgetDocPreviewSettingsSwitch extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
+    
     this.onClick = this.onClick.bind(this);
   }
 

@@ -16,6 +16,7 @@ import Checkbox from 'goblin-gadgets/widgets/checkbox/widget';
 import Gauge from 'goblin-gadgets/widgets/gauge/widget';
 import Ticket from 'goblin-gadgets/widgets/ticket/widget';
 import Field from 'goblin-gadgets/widgets/field/widget';
+import * as styles from './styles';
 
 function getOnlyDigits(value) {
   let result = '';
@@ -66,6 +67,7 @@ function compareStrings(s1, s2) {
 class Wizard extends Form {
   constructor() {
     super(...arguments);
+    this.styles = styles;
   }
 
   static get wiring() {
