@@ -38,7 +38,7 @@ function getFilterContent(row, columnName, type) {
       content = PriceConverters.getDisplayed(content);
       break;
   }
-  return content ? content.toUpperCase() : '';
+  return typeof content === 'string' ? content.toUpperCase() : '';
 }
 
 function filterRow(row, header, filter) {
@@ -73,7 +73,7 @@ function getSortingColumn(row, columnName, type) {
       content = i;
     }
   } else {
-    content = content ? content.toUpperCase() : '';
+    content = typeof content === 'string' ? content.toUpperCase() : '';
   }
   return content;
 }
