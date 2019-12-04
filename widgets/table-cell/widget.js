@@ -109,7 +109,7 @@ class TableCell extends Widget {
           glyphColor={glyphColor}
           textColor={textColor}
           text={text}
-          userSelect="all"
+          // userSelect="all" // for debug
           weight={weight}
           justify={this.props.textAlign}
           horizontalSpacing={this.props.horizontalSpacing}

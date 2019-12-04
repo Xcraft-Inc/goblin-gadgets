@@ -255,7 +255,6 @@ export default function styles(theme, props) {
     textMarginLeft = '0px';
     textMarginRight = '0px';
     glyphHeight = null;
-    userSelect = 'all';
   }
 
   if (kind === 'table-cell') {
@@ -263,7 +262,6 @@ export default function styles(theme, props) {
     textMarginLeft = '0px';
     textMarginRight = '0px';
     glyphHeight = null;
-    userSelect = 'all';
   }
 
   if (kind === 'table-action-frame' || kind === 'table-action') {
