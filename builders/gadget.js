@@ -23,7 +23,11 @@ module.exports = config => {
     },
   };
 
-  Goblin.registerQuest(goblinName, 'create', function(quest, options) {
+  Goblin.registerQuest(goblinName, 'create', function*(
+    quest,
+    desktopId,
+    options
+  ) {
     const childrenGadgets = {};
     if (gadgets) {
       for (const key of Object.keys(gadgets)) {
@@ -42,8 +46,9 @@ module.exports = config => {
           }
         }
 
-        quest.create(`${gadget.type}-gadget`, {
+        yield quest.create(`${gadget.type}-gadget`, {
           id: newGadgetId,
+          desktopId,
           options: gadget.options,
         });
       }

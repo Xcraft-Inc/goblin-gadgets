@@ -481,7 +481,7 @@ export default [
   {
     name: 'selectionMode',
     group: 'main',
-    type: types.enum(['single', 'multi']),
+    type: types.enum(['none', 'single', 'multi']),
   },
   {
     name: 'filter',
@@ -508,6 +508,16 @@ export default [
   },
   {
     name: 'headerWithoutHorizontalSeparator',
+    group: 'aspect',
+    type: types.bool,
+  },
+  {
+    name: 'compactMargins',
+    group: 'aspect',
+    type: types.bool,
+  },
+  {
+    name: 'simpleHeader',
     group: 'aspect',
     type: types.bool,
   },

@@ -5,18 +5,25 @@ export default function styles(theme) {
     display: 'flex',
     flexDirection: 'column',
     flexWrap: 'wrap',
-    backgroundColor: 'white',
+    backgroundColor: theme.palette.comboItemBackground,
     boxSizing: 'content-box',
     boxShadow: theme.shapes.calendarShadow,
     overflowX: 'overlay',
     cursor: 'default',
     userSelect: 'none',
-    padding: '10px',
     borderRadius: '1px',
+    padding: theme.shapes.menuPadding,
+  };
+
+  const hidden = {
+    position: 'absolute',
+    visibility: 'hidden',
+    overflow: 'auto',
   };
 
   return {
     box,
+    hidden,
   };
 }
 

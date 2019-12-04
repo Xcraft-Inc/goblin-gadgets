@@ -9,6 +9,7 @@ export const propNames = [
   'hasButtons',
   'height',
   'headerWithoutHorizontalSeparator',
+  'compactMargins',
 ];
 
 export default function styles(theme, props) {
@@ -18,9 +19,10 @@ export default function styles(theme, props) {
     hasButtons,
     height,
     headerWithoutHorizontalSeparator,
+    compactMargins,
   } = props;
 
-  const m = theme.shapes.containerMargin;
+  const m = compactMargins ? '0px' : theme.shapes.containerMargin;
   const v1 = Unit.multiply(theme.shapes.tablePadding, 0.5);
 
   const border = Bool.isTrue(frame)

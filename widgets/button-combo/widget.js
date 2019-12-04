@@ -3,8 +3,10 @@ import Widget from 'goblin-laboratory/widgets/widget';
 import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 
 import Button from 'goblin-gadgets/widgets/button/widget';
-import FlatList from '../flat-list/widget';
-import ComboContainer from '../combo-container/widget';
+import FlatList from 'goblin-gadgets/widgets/flat-list/widget';
+import ComboContainer from 'goblin-gadgets/widgets/combo-container/widget';
+import Calendar from 'goblin-gadgets/widgets/calendar/widget';
+import {date as DateConverters} from 'xcraft-core-converters';
 
 /******************************************************************************/
 
@@ -21,6 +23,7 @@ export default class ButtonCombo extends Widget {
     this.hideCombo = this.hideCombo.bind(this);
     this.setRef = this.setRef.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.handleDateClicked = this.handleDateClicked.bind(this);
   }
 
   setRef(node) {
@@ -54,13 +57,24 @@ export default class ButtonCombo extends Widget {
     this.hideCombo();
   }
 
+  handleDateClicked(date) {
+    if (this.props.onDateClicked) {
+      this.props.onDateClicked(date);
+    }
+    this.hideCombo();
+  }
+
+  /******************************************************************************/
+
   renderButton() {
     if (Bool.isTrue(this.props.readonly) || this.props.hideButtonCombo) {
       return;
     }
     let glyph = this.state.showCombo ? 'solid/caret-up' : 'solid/caret-down';
     if (this.props.comboGlyph) {
-      glyph = this.props.comboGlyph;
+      glyph = this.state.showCombo
+        ? this.props.comboGlyphHide || this.props.comboGlyph
+        : this.props.comboGlyph;
     }
 
     const shape = this.props.shape || 'smooth';
@@ -85,7 +99,7 @@ export default class ButtonCombo extends Widget {
     );
   }
 
-  renderCombo() {
+  renderComboList() {
     return (
       <ComboContainer
         show={this.state.showCombo}
@@ -100,10 +114,43 @@ export default class ButtonCombo extends Widget {
           onChange={this.onChange}
           onEscKey={this.hideCombo}
           ref={this.props.setListRef}
-          containerWidth={this.node ? this.node.clientWidth : undefined}
+          containerWidth={this.node ? this.node.offsetWidth : undefined}
         />
       </ComboContainer>
     );
+  }
+
+  renderComboCalendar() {
+    let date = this.props.value;
+    if (!date) {
+      date = DateConverters.getNowCanonical();
+    }
+
+    return (
+      <ComboContainer
+        show={this.state.showCombo}
+        positionRef={this.node}
+        horizontalMargin="16px"
+        onClose={this.hideCombo}
+      >
+        <Calendar
+          frame={true}
+          shadow={true}
+          visibleDate={date}
+          dates={this.props.value ? [this.props.value] : null}
+          dateClicked={this.handleDateClicked}
+          onEscKey={this.hideCombo}
+        />
+      </ComboContainer>
+    );
+  }
+
+  renderCombo() {
+    if (this.props.comboType === 'calendar') {
+      return this.renderComboCalendar();
+    } else {
+      return this.renderComboList();
+    }
   }
 
   render() {

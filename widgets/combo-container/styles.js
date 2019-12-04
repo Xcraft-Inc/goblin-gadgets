@@ -1,9 +1,8 @@
-export default function styles() {
-  const childrenDiv = {
-    position: 'absolute',
-    visibility: 'hidden',
-    overflow: 'auto',
-  };
+export const propNames = ['horizontalMargin'];
+
+export default function styles(theme, props) {
+  const {horizontalMargin} = props;
+
   const safeArea = {
     display: 'flex',
     flexDirection: 'row',
@@ -17,6 +16,8 @@ export default function styles() {
   };
 
   const horizontalPosition = {
+    'marginLeft': horizontalMargin,
+    'marginRight': horizontalMargin,
     'display': 'flex',
     'flexDirection': 'row',
     'justifyContent': 'center',
@@ -43,7 +44,6 @@ export default function styles() {
   };
 
   return {
-    childrenDiv,
     safeArea,
     horizontalPosition,
     fullScreen,

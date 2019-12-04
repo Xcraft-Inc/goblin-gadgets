@@ -249,12 +249,14 @@ export default function styles(theme, props) {
 
   if (kind === 'table-cell-sorting-header') {
     glyphMinWidth = '15px';
+    boxMarginRight = '0px';
     textMarginLeft = '0px';
     textMarginRight = '0px';
     glyphHeight = null;
   }
 
   if (kind === 'table-cell') {
+    boxMarginRight = '0px';
     textMarginLeft = '0px';
     textMarginRight = '0px';
     glyphHeight = null;
@@ -751,6 +753,11 @@ export default function styles(theme, props) {
     textSize = theme.shapes.menuTextSize;
     textTransform = textTransform || 'uppercase';
   }
+  if (kind === 'flat-list-combo-item') {
+    textSize = theme.shapes.menuTextSize;
+    textColor = theme.palette.comboItemText;
+    glyphColor = theme.palette.comboItemText;
+  }
 
   if (kind === 'combo-wrap-item') {
     textWidth = 'max-content';
@@ -816,7 +823,6 @@ export default function styles(theme, props) {
       textColorFromKind = theme.palette.calendarDimmedText;
     }
     if (kind === 'calendar-navigator') {
-      textHoverColor = theme.palette.calendarActiveBackground;
       if (disabled) {
         textColorFromKind = theme.palette.calendarDimmedText;
       }

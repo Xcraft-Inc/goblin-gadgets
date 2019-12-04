@@ -254,6 +254,9 @@ export default class TableNC extends Widget {
   }
 
   onSelectionChanged(id) {
+    if (!this.props.id && !this.context.id) {
+      return;
+    }
     if (this.props.onSelectionChanged) {
       this.props.onSelectionChanged(id);
     } else {
@@ -265,16 +268,25 @@ export default class TableNC extends Widget {
   }
 
   onDoubleClick(id) {
+    if (!this.props.id && !this.context.id) {
+      return;
+    }
     this.doAs('table-gadget', 'doubleClick', {
       rowId: id,
     });
   }
 
   selectAll() {
+    if (!this.props.id && !this.context.id) {
+      return;
+    }
     this.doAs('table-gadget', 'selectAll');
   }
 
   deselectAll() {
+    if (!this.props.id && !this.context.id) {
+      return;
+    }
     this.doAs('table-gadget', 'deselectAll');
   }
 
@@ -378,6 +390,7 @@ export default class TableNC extends Widget {
         isSortable={isSortable}
         isLast={Bool.toString(isLast)}
         isHeader={true}
+        simpleHeader={this.props.simpleHeader}
         text={column.get('description')}
         glyph={glyph}
         horizontalSpacing="compact"
@@ -519,6 +532,8 @@ export default class TableNC extends Widget {
         bottomSeparator={item.bottomSeparator}
         isLast={item.isLast}
         fontSizeStrategy={this.props.fontSizeStrategy}
+        compactMargins={this.props.compactMargins}
+        selectionMode={this.props.selectionMode}
         selected={Bool.toString(this.isSelected(item.row.get('id', null)))}
         selectionChanged={this.onSelectionChanged}
         onDoubleClick={this.onDoubleClick}

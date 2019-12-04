@@ -16,7 +16,15 @@ export const propNames = [
   'required',
   'justify',
   'border',
+  'value',
 ];
+
+export function mapProps(props) {
+  return {
+    ...props,
+    value: Boolean(props.value),
+  };
+}
 
 export default function styles(theme, props) {
   const {
@@ -31,6 +39,7 @@ export default function styles(theme, props) {
     required,
     justify,
     border,
+    value,
   } = props;
 
   let flexGrow = grow;
@@ -38,9 +47,10 @@ export default function styles(theme, props) {
   let flexBasis = null;
   let marginLeft = '0px';
   let marginRight = '0px';
-  let padding = '0px';
-  let borderRadius = '0px';
-  let borderColor = theme.palette.buttonBorder;
+  let padding = theme.shapes.textFieldPadding;
+  let borderRadius = theme.shapes.textFieldBorderRadius;
+  let borderColor = theme.palette.textFieldBorderColor;
+  let borderWidth = theme.shapes.textFieldBorderWidth;
   let borderStyle = 'solid';
   let fieldPaddingLeft = '10px';
   let fieldPaddingRight = '10px';
@@ -108,7 +118,7 @@ export default function styles(theme, props) {
     flexGrow: flexGrow,
     flexShrink: flexShrink,
     flexBasis: flexBasis,
-    border: '1px ' + borderStyle + ' ' + borderColor,
+    border: borderWidth + ' ' + borderStyle + ' ' + borderColor,
     borderRadius: borderRadius,
     color: color,
     backgroundColor: backgroundColor,
@@ -123,6 +133,7 @@ export default function styles(theme, props) {
 
   if (
     Bool.isTrue(required) &&
+    !Bool.isTrue(value) &&
     !Bool.isTrue(disabled) &&
     !Bool.isTrue(active) &&
     !Bool.isTrue(readonly)

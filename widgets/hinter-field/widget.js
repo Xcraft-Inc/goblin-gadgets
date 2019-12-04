@@ -13,23 +13,49 @@ class HinterFieldSearch extends Widget {
     super(...arguments);
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleSearchFocus = this.handleSearchFocus.bind(this);
+    this.handleSearchBlur = this.handleSearchBlur.bind(this);
   }
 
   handleSearchChange(value) {
-    this.dispatchTo(this.widgetId, {
-      type: 'CHANGE',
-      path: this.props.hinter,
-      newValue: value,
-    });
-    this.rawDispatch({
-      type: 'hinter/search',
-      model: `${this.context.model}.${this.props.hinter}`,
-      value,
-    });
+    const state = this.getWidgetState();
+    const cValue = state.get(this.props.hinter);
+
+    if (cValue === undefined && value === '') {
+      return; //avoid first rerender
+    }
+
+    if (state.get('active') === true && cValue !== value) {
+      this.dispatchTo(this.widgetId, {
+        type: 'CHANGE',
+        path: this.props.hinter,
+        newValue: value,
+      });
+      this.rawDispatch({
+        type: 'hinter/search',
+        model: `${this.context.model}.${this.props.hinter}`,
+        value,
+      });
+    }
   }
 
   handleSearchFocus() {
+    this.dispatchTo(this.widgetId, {
+      type: 'FOCUS',
+      path: this.props.hinter,
+    });
     this.navToHinter();
+    const state = this.getWidgetState();
+    const value = state.get(this.props.hinter);
+    if (value && value !== '') {
+      this.handleSearchChange(value);
+    }
+  }
+
+  handleSearchBlur() {
+    this.dispatchTo(this.widgetId, {
+      type: 'BLUR',
+      path: this.props.hinter,
+    });
   }
 
   render() {
@@ -39,6 +65,7 @@ class HinterFieldSearch extends Widget {
         searchValue={C(`widgets.${this.widgetId}.${this.props.hinter}`)}
         onSearchChange={this.handleSearchChange}
         onSearchFocus={this.handleSearchFocus}
+        onSearchBlur={this.handleSearchBlur}
         {...otherProps}
       />
     );

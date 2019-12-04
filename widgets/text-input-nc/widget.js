@@ -9,7 +9,7 @@ import {
   TranslatableDiv,
   TranslatableTextarea,
   TranslatableInput,
-} from 'nabu/helpers/element-helpers';
+} from 'goblin-nabu/widgets/helpers/element-helpers';
 import {
   makePropTypes,
   makeDefaultProps,
@@ -112,7 +112,6 @@ export default class TextInputNC extends Widget {
         break;
       case 'object':
         console.warn('TextInputNC: Invalid value (object or Shredder)!');
-        value = 'OBJECT!';
         break;
       case 'function':
         console.warn('TextInputNC: Invalid value (function)!');
@@ -152,7 +151,7 @@ export default class TextInputNC extends Widget {
           />
         ) : (
           <TranslatableInput
-            msgid={this.props.hintText}
+            placeholder={this.props.hintText}
             workitemId={this.context.desktopId || this.getNearestId()}
             className={`${this.styles.classNames.field} mousetrap ${this.styles.classNames.input}`}
             type={type || 'text'}
@@ -162,7 +161,7 @@ export default class TextInputNC extends Widget {
               Bool.isTrue(this.props.disabled) ||
               Bool.isTrue(this.props.readonly)
             }
-            onRef={this.setInput}
+            inputRef={this.setInput}
             onChange={this.onChange}
             onFocus={this.onFocus}
             onBlur={this.onBlur}

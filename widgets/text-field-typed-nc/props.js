@@ -19,6 +19,8 @@ export default [
       'length',
       'volume',
       'number',
+      'integer',
+      'double',
       'percent',
       'delay',
     ]),

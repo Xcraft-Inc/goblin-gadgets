@@ -12,6 +12,8 @@ import {
   length as LengthConverters,
   volume as VolumeConverters,
   number as NumberConverters,
+  integer as IntegerConverters,
+  double as DoubleConverters,
   percent as PercentConverters,
   delay as DelayConverters,
 } from 'xcraft-core-converters';
@@ -19,7 +21,8 @@ import {
   makePropTypes,
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
-import TextFieldNC from '../text-field-nc/widget';
+import TextFieldNC from 'goblin-gadgets/widgets/text-field-nc/widget';
+import ButtonCombo from 'goblin-gadgets/widgets/button-combo/widget';
 import Props from './props';
 
 /******************************************************************************/
@@ -31,6 +34,7 @@ export default class TextFieldTypedNC extends Widget {
     this.format = this.format.bind(this);
     this.parse = this.parse.bind(this);
     this.check = this.check.bind(this);
+    this.handleDateClicked = this.handleDateClicked.bind(this);
   }
 
   getDisplayed(canonicalValue) {
@@ -54,6 +58,10 @@ export default class TextFieldTypedNC extends Widget {
           canonicalValue,
           this.props.decimals
         );
+      case 'integer':
+        return IntegerConverters.getDisplayed(canonicalValue);
+      case 'double':
+        return DoubleConverters.getDisplayed(canonicalValue);
       case 'percent':
         return PercentConverters.getDisplayed(
           canonicalValue,
@@ -105,6 +113,10 @@ export default class TextFieldTypedNC extends Widget {
         return VolumeConverters.parseEdited(displayedValue, this.props.unit);
       case 'number':
         return NumberConverters.parseEdited(displayedValue);
+      case 'integer':
+        return IntegerConverters.parseEdited(displayedValue);
+      case 'double':
+        return DoubleConverters.parseEdited(displayedValue);
       case 'percent':
         return PercentConverters.parseEdited(displayedValue);
       case 'delay':
@@ -134,6 +146,12 @@ export default class TextFieldTypedNC extends Widget {
       warning: error,
     };
   }
+
+  handleDateClicked(date) {
+    this.props.onChange(date);
+  }
+
+  /******************************************************************************/
 
   render() {
     let {
@@ -189,17 +207,49 @@ export default class TextFieldTypedNC extends Widget {
       }
     }
 
-    return (
-      <TextFieldNC
-        {...otherProps}
-        width={width}
-        tooltip={tooltip}
-        justify={justify}
-        format={this.format}
-        parse={this.parse}
-        check={this.check}
-      />
-    );
+    if (type === 'date') {
+      return (
+        <ButtonCombo
+          width={this.props.width}
+          grow={this.props.grow}
+          comboType="calendar"
+          value={this.props.value}
+          readonly={this.props.readonly}
+          disabled={this.props.disabled}
+          node={this.node}
+          horizontalSpacing={this.props.horizontalSpacing}
+          shape={this.props.shape}
+          comboGlyph="regular/calendar-alt"
+          comboGlyphHide="regular/calendar"
+          hideButtonCombo={this.props.hideButtonCombo}
+          ref={this.setButtonComboRef}
+          onDateClicked={this.handleDateClicked}
+        >
+          <TextFieldNC
+            {...otherProps}
+            width={width}
+            tooltip={tooltip}
+            justify={justify}
+            format={this.format}
+            parse={this.parse}
+            check={this.check}
+            horizontalSpacing="overlap"
+          />
+        </ButtonCombo>
+      );
+    } else {
+      return (
+        <TextFieldNC
+          {...otherProps}
+          width={width}
+          tooltip={tooltip}
+          justify={justify}
+          format={this.format}
+          parse={this.parse}
+          check={this.check}
+        />
+      );
+    }
   }
 }
 

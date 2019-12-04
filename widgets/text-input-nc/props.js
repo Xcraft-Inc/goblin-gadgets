@@ -70,7 +70,7 @@ export default [
   {
     name: 'value',
     group: 'text',
-    type: types.string,
+    type: types.nabu,
   },
   {
     name: 'hintText',

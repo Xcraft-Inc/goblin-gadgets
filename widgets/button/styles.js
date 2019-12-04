@@ -120,15 +120,15 @@ export default function styles(theme, props) {
   let boxMarginRight = '0px';
   let boxMarginBottom = '0px';
   let boxMarginLeft = '0px';
-  let boxPaddingTop = '0px';
-  let boxPaddingRight = '0px';
-  let boxPaddingBottom = '0px';
-  let boxPaddingLeft = '0px';
+  let boxPaddingTop = theme.shapes.boxPaddingTop;
+  let boxPaddingRight = theme.shapes.boxPaddingRight;
+  let boxPaddingBottom = theme.shapes.boxPaddingBottom;
+  let boxPaddingLeft = theme.shapes.boxPaddingLeft;
   let boxZIndex = zIndex;
   let boxOpacity = Bool.isFalse(visibility) ? 0 : null;
-  let borderWidth = '1px';
-  let borderColor = theme.palette.buttonBorder;
-  let borderActiveColor = theme.palette.buttonBorder;
+  let borderWidth = theme.shapes.buttonBorderWidth;
+  let borderColor = theme.palette.buttonBorderColor;
+  let borderActiveColor = theme.palette.buttonBorderColor;
   let borderStyle = 'solid';
   let borderRadius = '0px';
   let boxSizing = null;
@@ -493,6 +493,7 @@ export default function styles(theme, props) {
       backgroundColor = theme.palette.textFieldDisableBackground;
       specialDisabled = true;
     }
+    backgroundHoverColor = theme.palette.comboButtonBackgroundHover;
   }
 
   if (kind === 'round') {
@@ -547,6 +548,17 @@ export default function styles(theme, props) {
     boxHeight = theme.shapes.menuButtonHeight;
     boxPaddingRight = theme.shapes.containerMargin;
     boxPaddingLeft = theme.shapes.containerMargin;
+    boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
+    borderStyle = 'none';
+    backgroundColor = theme.palette.comboItemBackground;
+    if (active === 'focused') {
+      activeColor = theme.palette.comboItemFocused;
+    } else {
+      activeColor = theme.palette.comboItemActive;
+    }
+    backgroundHoverColor = theme.palette.comboItemHover;
+  }
+  if (kind === 'flat-list-combo-item') {
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     borderStyle = 'none';
     backgroundColor = theme.palette.comboItemBackground;
@@ -634,9 +646,7 @@ export default function styles(theme, props) {
     boxHeight = theme.shapes.calendarButtonHeight;
     transition = null;
     backgroundColor = 'transparent';
-    if (kind === 'calendar-navigator') {
-      backgroundHoverColor = 'transparent';
-    }
+    backgroundHoverColor = theme.palette.calendarBackgroundHover;
     if (Bool.isTrue(calendarWeekend)) {
       backgroundColor = theme.palette.calendarWeekendBackground;
     }
@@ -652,6 +662,10 @@ export default function styles(theme, props) {
       } else {
         activeColor = theme.palette.calendarActiveBackground;
       }
+    }
+    if (kind === 'calendar-title') {
+      boxPaddingLeft = '5px';
+      boxPaddingRight = '5px';
     }
     specialDisabled = true;
   }
@@ -769,6 +783,7 @@ export default function styles(theme, props) {
     shortcut &&
     kind !== 'menu-item' &&
     kind !== 'combo-item' &&
+    kind !== 'flat-list-combo-item' &&
     kind !== 'task-bar' &&
     kind !== 'task-logo'
   ) {
