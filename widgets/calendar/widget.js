@@ -179,11 +179,15 @@ export default class Calendar extends Widget {
     if (!this.props.dates || this.props.dates.length === 0) {
       return null;
     } else if (typeof this.props.dates[0] === 'string') {
-      return this.props.dates.indexOf(date) === -1 ? null : 'base';
+      return this.props.dates.indexOf(date) === -1 ? null : {type: 'base'};
     } else {
       for (const d of this.props.dates) {
         if (d.date === date) {
-          return d.type;
+          return {
+            type: d.type,
+            color: d.color,
+            tooltip: d.tooltip,
+          };
         }
       }
       return null;
@@ -360,11 +364,15 @@ export default class Calendar extends Widget {
     hidden,
     weekend,
     subkind,
+    color,
+    tooltip,
     badgeValue,
     badgeColor,
     index
   ) {
-    const tooltip = DateConverters.getDisplayed(date, 'Wdmy');
+    if (!tooltip) {
+      tooltip = DateConverters.getDisplayed(date, 'Wdmy');
+    }
     let d = DateConverters.getDay(date); // 1..31
     if (subkind === 'sub') {
       d = '(' + d + ')';
@@ -380,6 +388,7 @@ export default class Calendar extends Widget {
         tooltip={tooltip}
         kind="calendar"
         subkind={subkind}
+        border={color}
         active={active}
         calendarDimmed={dimmed}
         calendarWeekend={weekend}
@@ -404,10 +413,14 @@ export default class Calendar extends Widget {
       let hidden = false;
       let weekend = false;
       let subkind = null;
+      let color = null;
+      let tooltip = null;
       const type = this.getDateType(firstDate);
       if (type) {
         active = true;
-        subkind = type;
+        subkind = type.type;
+        color = type.color;
+        tooltip = type.tooltip;
       }
       if (
         DateConverters.getYear(firstDate) !==
@@ -437,6 +450,8 @@ export default class Calendar extends Widget {
         hidden,
         weekend,
         subkind,
+        color,
+        tooltip,
         badgeValue,
         badgeColor,
         i

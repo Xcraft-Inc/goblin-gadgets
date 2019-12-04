@@ -655,12 +655,16 @@ export default function styles(theme, props) {
       activeColor = theme.palette.calendarBackground;
       backgroundHoverColor = theme.palette.calendarBackground; // no visible hover effect
     } else {
-      if (subkind === 'add') {
-        activeColor = theme.palette.calendarActiveAddBackground;
-      } else if (subkind === 'sub') {
-        activeColor = theme.palette.calendarActiveSubBackground;
+      if (border) {
+        activeColor = border;
       } else {
-        activeColor = theme.palette.calendarActiveBackground;
+        if (subkind === 'add') {
+          activeColor = theme.palette.calendarActiveAddBackground;
+        } else if (subkind === 'sub') {
+          activeColor = theme.palette.calendarActiveSubBackground;
+        } else {
+          activeColor = theme.palette.calendarActiveBackground;
+        }
       }
     }
     if (kind === 'calendar-title') {
