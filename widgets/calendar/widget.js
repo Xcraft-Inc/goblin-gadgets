@@ -175,7 +175,7 @@ export default class Calendar extends Widget {
     return list;
   }
 
-  getDateType(date) {
+  getDateData(date) {
     if (!this.props.dates || this.props.dates.length === 0) {
       return null;
     } else if (typeof this.props.dates[0] === 'string') {
@@ -183,11 +183,7 @@ export default class Calendar extends Widget {
     } else {
       for (const d of this.props.dates) {
         if (d.date === date) {
-          return {
-            type: d.type,
-            color: d.color,
-            tooltip: d.tooltip,
-          };
+          return d;
         }
       }
       return null;
@@ -394,8 +390,8 @@ export default class Calendar extends Widget {
         calendarColor={color}
         badgePosition="top-right"
         badgeValue={badgeValue}
-        badgeShape="circle"
         badgeColor={badgeColor}
+        badgeShape="circle"
         badgeSize="0.8"
         onClick={() => this.onDateClicked(date)}
       />
@@ -415,12 +411,20 @@ export default class Calendar extends Widget {
       let subkind = null;
       let color = null;
       let tooltip = null;
-      const type = this.getDateType(firstDate);
-      if (type) {
+
+      let badgeValue = this.getBadgeValue(firstDate);
+      let badgeColor = this.getBadgeColor(firstDate);
+
+      const data = this.getDateData(firstDate);
+      if (data) {
         active = true;
-        subkind = type.type;
-        color = type.color;
-        tooltip = type.tooltip;
+        subkind = data.type;
+        color = data.color;
+        tooltip = data.tooltip;
+        if (data.badgeValue) {
+          badgeValue = data.badgeValue;
+          badgeColor = data.badgeColor;
+        }
       }
       if (
         DateConverters.getYear(firstDate) !==
@@ -440,8 +444,6 @@ export default class Calendar extends Widget {
         // saturday or sunday ?
         weekend = true;
       }
-      const badgeValue = this.getBadgeValue(firstDate);
-      const badgeColor = this.getBadgeColor(firstDate);
 
       const button = this.renderButton(
         firstDate,

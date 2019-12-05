@@ -32,6 +32,9 @@ export default function styles(theme, props) {
       case 'red':
         backgroundColor = theme.palette.markSecondary;
         break;
+      case 'dark':
+        backgroundColor = theme.palette.markDark;
+        break;
       case 'green':
       default:
         backgroundColor = theme.palette.markSuccess;
