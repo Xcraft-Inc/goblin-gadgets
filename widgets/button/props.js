@@ -339,4 +339,9 @@ export default [
     group: 'calendar',
     type: types.bool,
   },
+  {
+    name: 'calendarColor',
+    group: 'calendar',
+    type: types.color,
+  },
 ];

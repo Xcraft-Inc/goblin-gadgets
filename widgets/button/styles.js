@@ -42,6 +42,7 @@ export const propNames = [
   'active',
   'calendarWeekend',
   'calendarDimmed',
+  'calendarColor',
   'subkind',
   'badgePush',
   'shortcut',
@@ -86,6 +87,7 @@ export default function styles(theme, props) {
     active,
     calendarWeekend,
     calendarDimmed,
+    calendarColor,
     subkind,
     badgePush,
     shortcut,
@@ -655,8 +657,8 @@ export default function styles(theme, props) {
       activeColor = theme.palette.calendarBackground;
       backgroundHoverColor = theme.palette.calendarBackground; // no visible hover effect
     } else {
-      if (border) {
-        activeColor = border;
+      if (calendarColor) {
+        activeColor = calendarColor;
       } else {
         if (subkind === 'add') {
           activeColor = theme.palette.calendarActiveAddBackground;

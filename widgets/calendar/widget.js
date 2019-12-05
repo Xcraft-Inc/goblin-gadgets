@@ -388,10 +388,10 @@ export default class Calendar extends Widget {
         tooltip={tooltip}
         kind="calendar"
         subkind={subkind}
-        border={color}
         active={active}
         calendarDimmed={dimmed}
         calendarWeekend={weekend}
+        calendarColor={color}
         badgePosition="top-right"
         badgeValue={badgeValue}
         badgeShape="circle"
