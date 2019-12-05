@@ -43,6 +43,7 @@ export const propNames = [
   'calendarWeekend',
   'calendarDimmed',
   'calendarColor',
+  'calendarSelected',
   'subkind',
   'badgePush',
   'shortcut',
@@ -88,6 +89,7 @@ export default function styles(theme, props) {
     calendarWeekend,
     calendarDimmed,
     calendarColor,
+    calendarSelected,
     subkind,
     badgePush,
     shortcut,
@@ -130,6 +132,7 @@ export default function styles(theme, props) {
   let boxOpacity = Bool.isFalse(visibility) ? 0 : null;
   let borderWidth = theme.shapes.buttonBorderWidth;
   let borderColor = theme.palette.buttonBorderColor;
+  let borderColorForced = null;
   let borderActiveColor = theme.palette.buttonBorderColor;
   let borderStyle = 'solid';
   let borderRadius = '0px';
@@ -670,6 +673,12 @@ export default function styles(theme, props) {
         }
       }
       backgroundHoverColor = ColorManipulator.lighten(activeColor, coefficient);
+      if (calendarSelected) {
+        borderWidth = '3px';
+        borderColorForced = theme.palette.calendarActiveBackground;
+        borderStyle = 'solid';
+        boxSizing = 'border-box';
+      }
     }
     if (kind === 'calendar-title') {
       boxPaddingLeft = '5px';
@@ -848,11 +857,20 @@ export default function styles(theme, props) {
     }
   }
 
+  if (borderColorForced) {
+    borderColor = borderColorForced;
+  }
+
   // If component has specific width and border, reduce the width to
   // take into account the thickness of the borders left and right.
   // Buttons without left or right border (with only bottom border) are
   // considered as without border (for example task button).
-  if (boxWidth && boxWidth !== '0px' && !borderStyle.startsWith('none')) {
+  if (
+    boxWidth &&
+    boxWidth !== '0px' &&
+    !borderStyle.startsWith('none') &&
+    boxSizing !== 'border-box'
+  ) {
     boxWidth = Unit.sub(boxWidth, Unit.multiply(borderWidth, 2));
   }
 

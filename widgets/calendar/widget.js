@@ -356,6 +356,7 @@ export default class Calendar extends Widget {
   renderButton(
     date,
     active,
+    selected,
     dimmed,
     hidden,
     weekend,
@@ -388,6 +389,7 @@ export default class Calendar extends Widget {
         calendarDimmed={dimmed}
         calendarWeekend={weekend}
         calendarColor={color}
+        calendarSelected={selected}
         badgePosition="top-right"
         badgeValue={badgeValue}
         badgeColor={badgeColor}
@@ -405,6 +407,7 @@ export default class Calendar extends Widget {
     for (i = 0; i < 7; ++i) {
       // monday..sunday
       let active = false;
+      let selected = false;
       let dimmed = false;
       let hidden = false;
       let weekend = false;
@@ -427,9 +430,7 @@ export default class Calendar extends Widget {
         }
       }
       if (firstDate === this.props.selectedDate) {
-        active = true;
-        subkind = null;
-        color = null;
+        selected = true;
       }
       if (
         DateConverters.getYear(firstDate) !==
@@ -453,6 +454,7 @@ export default class Calendar extends Widget {
       const button = this.renderButton(
         firstDate,
         active,
+        selected,
         dimmed,
         hidden,
         weekend,
