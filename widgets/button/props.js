@@ -320,7 +320,7 @@ export default [
   {
     name: 'badgeColor',
     group: 'badge',
-    type: types.enum(['', 'red', 'green']),
+    type: types.enum(['', 'red', 'green', 'dark']),
   },
   {
     name: 'badgeSize',
