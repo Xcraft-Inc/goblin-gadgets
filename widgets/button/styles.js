@@ -674,6 +674,7 @@ export default function styles(theme, props) {
       }
       backgroundHoverColor = ColorManipulator.lighten(activeColor, coefficient);
       if (calendarSelected) {
+        borderRadius = '20px';
         borderWidth = '3px';
         borderColorForced = theme.palette.calendarActiveBackground;
         borderStyle = 'solid';
