@@ -224,7 +224,7 @@ export default class Calendar extends Widget {
 
   get endVisibleDate() {
     return DateConverters.addDays(
-      DateConverters.addMonths(this.startVisibleDate, 1),
+      DateConverters.addMonths(this.startVisibleDate, this.monthCount),
       -1
     );
   }
