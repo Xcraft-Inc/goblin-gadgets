@@ -265,7 +265,7 @@ export default class LabelNC extends Widget {
     if (Bool.isTrue(this.props.insideButton)) {
       return (
         <TranslatableDiv
-          msgid={this.props.tooltip}
+        title={this.props.tooltip}
           workitemId={this.context.desktopId || this.getNearestId()}
           className={this.props.className || boxClass}
           key={this.props.index}
@@ -277,7 +277,7 @@ export default class LabelNC extends Widget {
     } else {
       return (
         <TranslatableDiv
-          msgid={this.props.tooltip}
+        title={this.props.tooltip}
           workitemId={this.context.desktopId || this.getNearestId()}
           className={this.props.className || boxClass}
           key={this.props.index}

@@ -265,7 +265,7 @@ export default class Button extends Widget {
     if (this.props.kind === 'container' || this.props.kind === 'box') {
       return (
         <TranslatableDiv
-          msgid={tooltip}
+          title={tooltip}
           workitemId={this.context.desktopId || this.getNearestId()}
           key={this.props.index}
           {...propsTabIndex}
@@ -313,7 +313,7 @@ export default class Button extends Widget {
     } else {
       return (
         <TranslatableDiv
-          msgid={tooltip}
+          title={tooltip}
           workitemId={this.context.desktopId || this.getNearestId()}
           key={this.props.index}
           {...propsTabIndex}
