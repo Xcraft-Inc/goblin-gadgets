@@ -124,7 +124,7 @@ export default class TextInputNC extends Widget {
 
     return (
       <TranslatableDiv
-        msgid={this.props.tooltip}
+      title={this.props.tooltip}
         workitemId={this.context.desktopId || this.getNearestId()}
         className={this.styles.classNames.box}
       >

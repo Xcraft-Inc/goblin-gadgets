@@ -201,7 +201,7 @@ export default class Ticket extends Widget {
     return (
       <TranslatableDiv
         className={boxClass}
-        msgid={this.props.tooltip}
+        title={this.props.tooltip}
         workitemId={this.context.desktopId || this.getNearestId()}
         onMouseOver={this.onMouseOver}
         onMouseOut={this.onMouseOut}
@@ -245,7 +245,7 @@ export default class Ticket extends Widget {
     return (
       <TranslatableDiv
         className={rectShadowClass}
-        msgid={this.props.tooltip}
+        title={this.props.tooltip}
         workitemId={this.context.desktopId || this.getNearestId()}
         onMouseOver={this.onMouseOver}
         onMouseOut={this.onMouseOut}
