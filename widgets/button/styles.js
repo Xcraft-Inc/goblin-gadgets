@@ -648,7 +648,6 @@ export default function styles(theme, props) {
     boxHeight = theme.shapes.calendarButtonHeight;
     transition = null;
     backgroundColor = 'transparent';
-    backgroundHoverColor = theme.palette.calendarBackgroundHover;
     if (Bool.isTrue(calendarWeekend)) {
       backgroundColor = theme.palette.calendarWeekendBackground;
     }
@@ -657,6 +656,7 @@ export default function styles(theme, props) {
       activeColor = theme.palette.calendarBackground;
       backgroundHoverColor = theme.palette.calendarBackground; // no visible hover effect
     } else {
+      let coefficient = 0.3;
       if (calendarColor) {
         activeColor = calendarColor;
       } else {
@@ -666,8 +666,10 @@ export default function styles(theme, props) {
           activeColor = theme.palette.calendarActiveSubBackground;
         } else {
           activeColor = theme.palette.calendarActiveBackground;
+          coefficient = 0.8;
         }
       }
+      backgroundHoverColor = ColorManipulator.lighten(activeColor, coefficient);
     }
     if (kind === 'calendar-title') {
       boxPaddingLeft = '5px';

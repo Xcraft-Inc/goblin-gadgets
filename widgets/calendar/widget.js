@@ -426,6 +426,11 @@ export default class Calendar extends Widget {
           badgeColor = data.badgeColor;
         }
       }
+      if (firstDate === this.props.selectedDate) {
+        active = true;
+        subkind = null;
+        color = null;
+      }
       if (
         DateConverters.getYear(firstDate) !==
           DateConverters.getYear(startOfMonth) ||

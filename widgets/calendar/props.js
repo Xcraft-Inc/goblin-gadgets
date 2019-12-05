@@ -91,6 +91,11 @@ export default [
     type: types.date,
   },
   {
+    name: 'selectedDate',
+    group: 'dates',
+    type: types.date,
+  },
+  {
     name: 'dates',
     group: 'dates',
     type: types.dataDates,
