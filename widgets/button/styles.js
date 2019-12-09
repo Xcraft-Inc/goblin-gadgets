@@ -654,13 +654,14 @@ export default function styles(theme, props) {
     transition = null;
     backgroundColor = 'transparent';
     if (Bool.isTrue(calendarDimmed)) {
-      backgroundColor = theme.palette.calendarBackground;
+      //? backgroundColor = theme.palette.calendarBackground;
+      backgroundHoverColor = theme.palette.calendarBackground; // no visible hover effect
       activeColor = theme.palette.calendarBackground;
-      if (Bool.isTrue(calendarWeekend)) {
-        backgroundHoverColor = theme.palette.calendarWeekendBackground; // no visible hover effect
-      } else {
-        backgroundHoverColor = theme.palette.calendarBackground; // no visible hover effect
-      }
+      //? if (Bool.isTrue(calendarWeekend)) {
+      //?   backgroundHoverColor = theme.palette.calendarWeekendBackground; // no visible hover effect
+      //? } else {
+      //?   backgroundHoverColor = theme.palette.calendarBackground; // no visible hover effect
+      //? }
     } else {
       let coefficient = 0.3;
       if (calendarColor) {
@@ -686,10 +687,10 @@ export default function styles(theme, props) {
         borderRadius = calendarItemShape === 'round' ? '20px' : null;
       }
     }
-    if (Bool.isTrue(calendarWeekend)) {
-      backgroundColor = theme.palette.calendarWeekendBackground;
-      borderRadius = null;
-    }
+    //???? if (Bool.isTrue(calendarWeekend)) {
+    //????   backgroundColor = theme.palette.calendarWeekendBackground;
+    //????   borderRadius = null;
+    //???? }
     if (kind === 'calendar-title') {
       boxPaddingLeft = '5px';
       boxPaddingRight = '5px';

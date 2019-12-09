@@ -367,6 +367,10 @@ export default class Calendar extends Widget {
     badgeColor,
     index
   ) {
+    if (hidden) {
+      return <div key={index} className={this.styles.classNames.button} />;
+    }
+
     if (!tooltip) {
       tooltip = DateConverters.getDisplayed(date, 'Wdmy');
     }
@@ -378,26 +382,33 @@ export default class Calendar extends Widget {
       d = '';
       badgeValue = '';
     }
+
+    const style =
+      weekend && !dimmed
+        ? this.styles.classNames.buttonWeekend
+        : this.styles.classNames.button;
+
     return (
-      <Button
-        key={index}
-        text={d}
-        tooltip={tooltip}
-        kind="calendar"
-        subkind={subkind}
-        active={active}
-        calendarDimmed={dimmed}
-        calendarWeekend={weekend}
-        calendarColor={color}
-        calendarSelected={selected}
-        calendarItemShape={this.props.itemsShape}
-        badgePosition="top-right"
-        badgeValue={badgeValue}
-        badgeColor={badgeColor}
-        badgeShape="circle"
-        badgeSize="0.8"
-        onClick={() => this.onDateClicked(date)}
-      />
+      <div key={index} className={style}>
+        <Button
+          text={d}
+          tooltip={tooltip}
+          kind="calendar"
+          subkind={subkind}
+          active={active}
+          calendarDimmed={dimmed}
+          calendarWeekend={weekend}
+          calendarColor={color}
+          calendarSelected={selected}
+          calendarItemShape={this.props.itemsShape}
+          badgePosition="top-right"
+          badgeValue={badgeValue}
+          badgeColor={badgeColor}
+          badgeShape="circle"
+          badgeSize="0.8"
+          onClick={dimmed ? null : () => this.onDateClicked(date)}
+        />
+      </div>
     );
   }
 
@@ -608,7 +619,7 @@ export default class Calendar extends Widget {
     return column;
   }
 
-  // Retourne all the html content of the calendar.
+  // Return all the html content of the calendar.
   renderLines(startOfMonth, isFirstMonth, isLastMonth) {
     const firstDate = DateConverters.getCalendarStartDate(startOfMonth);
     const headerMonth = DateConverters.getDisplayed(startOfMonth, 'M'); // 'mai' by example
