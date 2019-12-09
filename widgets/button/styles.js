@@ -44,6 +44,7 @@ export const propNames = [
   'calendarDimmed',
   'calendarColor',
   'calendarSelected',
+  'calendarItemShape',
   'subkind',
   'badgePush',
   'shortcut',
@@ -90,6 +91,7 @@ export default function styles(theme, props) {
     calendarDimmed,
     calendarColor,
     calendarSelected,
+    calendarItemShape,
     subkind,
     badgePush,
     shortcut,
@@ -651,9 +653,6 @@ export default function styles(theme, props) {
     boxHeight = theme.shapes.calendarButtonHeight;
     transition = null;
     backgroundColor = 'transparent';
-    if (Bool.isTrue(calendarWeekend)) {
-      backgroundColor = theme.palette.calendarWeekendBackground;
-    }
     if (Bool.isTrue(calendarDimmed)) {
       backgroundColor = theme.palette.calendarBackground;
       activeColor = theme.palette.calendarBackground;
@@ -674,12 +673,18 @@ export default function styles(theme, props) {
       }
       backgroundHoverColor = ColorManipulator.lighten(activeColor, coefficient);
       if (calendarSelected) {
-        borderRadius = '20px';
+        borderRadius = calendarItemShape === 'round' ? null : '20px';
         borderWidth = '3px';
         borderColorForced = theme.palette.calendarActiveBackground;
         borderStyle = 'solid';
         boxSizing = 'border-box';
+      } else {
+        borderRadius = calendarItemShape === 'round' ? '20px' : null;
       }
+    }
+    if (Bool.isTrue(calendarWeekend)) {
+      backgroundColor = theme.palette.calendarWeekendBackground;
+      borderRadius = null;
     }
     if (kind === 'calendar-title') {
       boxPaddingLeft = '5px';

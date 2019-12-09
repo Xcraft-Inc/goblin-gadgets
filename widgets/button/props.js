@@ -349,4 +349,9 @@ export default [
     group: 'calendar',
     type: types.bool,
   },
+  {
+    name: 'calendarItemShape',
+    group: 'calendar',
+    type: types.enum(['', 'square', 'round']),
+  },
 ];

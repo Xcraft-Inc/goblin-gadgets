@@ -390,6 +390,7 @@ export default class Calendar extends Widget {
         calendarWeekend={weekend}
         calendarColor={color}
         calendarSelected={selected}
+        calendarItemShape={this.props.itemsShape}
         badgePosition="top-right"
         badgeValue={badgeValue}
         badgeColor={badgeColor}

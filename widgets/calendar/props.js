@@ -132,6 +132,11 @@ export default [
     group: 'aspect',
     type: types.number,
   },
+  {
+    name: 'itemsShape',
+    group: 'aspect',
+    type: types.enum(['', 'square', 'round']),
+  },
 
   // Events.
   {
