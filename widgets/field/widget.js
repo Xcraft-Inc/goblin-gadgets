@@ -189,13 +189,17 @@ class Field extends Form {
       ? `backend.${this.context.id}.gadgets.${this.props.name}`
       : `${this.context.model}.gadgets.${this.props.name}`;
 
+    const parentId = this.context.id || this.context.model;
+
     const GadgetLoader = props => {
       if (props.available) {
         const gadgetInfo = this.getBackendValue(target, true);
         const type = gadgetInfo.get('type');
         const Gadget = widgetImporter(type);
         const WiredGadget = Widget.Wired(Gadget)(gadgetInfo.get('id'));
-        return <WiredGadget readonly="true" {...this.props} />;
+        return (
+          <WiredGadget readonly="true" {...this.props} parentId={parentId} />
+        );
       } else {
         return null;
       }
@@ -652,13 +656,15 @@ class Field extends Form {
       ? `backend.${this.context.id}.gadgets.${this.props.name}`
       : `${this.context.model}.gadgets.${this.props.name}`;
 
+    const parentId = this.context.id || this.context.model;
+
     const GadgetLoader = props => {
       if (props.available) {
         const gadgetInfo = this.getBackendValue(target, true);
         const type = gadgetInfo.get('type');
         const Gadget = widgetImporter(type);
         const WiredGadget = Widget.Wired(Gadget)(gadgetInfo.get('id'));
-        return <WiredGadget {...this.props} />;
+        return <WiredGadget {...this.props} parentId={parentId} />;
       } else {
         return null;
       }
