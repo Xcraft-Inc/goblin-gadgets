@@ -656,7 +656,11 @@ export default function styles(theme, props) {
     if (Bool.isTrue(calendarDimmed)) {
       backgroundColor = theme.palette.calendarBackground;
       activeColor = theme.palette.calendarBackground;
-      backgroundHoverColor = theme.palette.calendarBackground; // no visible hover effect
+      if (Bool.isTrue(calendarWeekend)) {
+        backgroundHoverColor = theme.palette.calendarWeekendBackground; // no visible hover effect
+      } else {
+        backgroundHoverColor = theme.palette.calendarBackground; // no visible hover effect
+      }
     } else {
       let coefficient = 0.3;
       if (calendarColor) {
