@@ -904,6 +904,9 @@ export default function styles(theme, props) {
     boxJustifyContent = null;
   }
 
+  const isGradient =
+    backgroundColor && backgroundColor.startsWith('repeating-linear-gradient(');
+
   const boxStyle = {
     opacity: boxOpacity,
     overflow: 'hidden',
@@ -938,7 +941,8 @@ export default function styles(theme, props) {
     marginRight: boxMarginRight,
     marginBottom: boxMarginBottom,
     marginLeft: boxMarginLeft,
-    backgroundColor: backgroundColor,
+    backgroundColor: isGradient ? null : backgroundColor,
+    background: isGradient ? backgroundColor : null,
     position: boxPosition,
     transition: transition,
     zIndex: boxZIndex,
