@@ -1,10 +1,10 @@
 //T:2019-02-27
 import React from 'react';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 
-import Container from 'gadgets/container/widget';
-import Splitter from 'gadgets/splitter/widget';
-import Hinter from 'gadgets/hinter/widget';
+import Container from 'goblin-gadgets/widgets/container/widget';
+import Splitter from 'goblin-gadgets/widgets/splitter/widget';
+import Hinter from 'goblin-gadgets/widgets/hinter/widget';
 
 /******************************************************************************/
 

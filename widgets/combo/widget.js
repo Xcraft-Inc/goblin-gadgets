@@ -1,21 +1,23 @@
 //T:2019-02-27
 import React from 'react';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import {ColorHelpers} from 'electrum-theme';
 import * as RectHelpers from '../helpers/rect-helpers.js';
 import * as Bool from 'gadgets/helpers/bool-helpers';
 import {Unit} from 'electrum-theme';
 import KeyTrap from 'goblin-gadgets/widgets/key-trap.js';
 
-import Container from 'gadgets/container/widget';
-import Button from 'gadgets/button/widget';
-import Separator from 'gadgets/separator/widget';
+import Container from 'goblin-gadgets/widgets/container/widget';
+import Button from 'goblin-gadgets/widgets/button/widget';
+import Separator from 'goblin-gadgets/widgets/separator/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 class Combo extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.state = {
       activeIndex: -1,

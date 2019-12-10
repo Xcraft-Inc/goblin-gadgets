@@ -1,15 +1,17 @@
 //T:2019-02-27
 import T from 't';
 import React from 'react';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import * as Bool from 'gadgets/helpers/bool-helpers';
-import Checkbox from 'gadgets/checkbox/widget';
+import Checkbox from 'goblin-gadgets/widgets/checkbox/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 class CheckList extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.onButtonClicked = this.onButtonClicked.bind(this);
     this.onSetAll = this.onSetAll.bind(this);

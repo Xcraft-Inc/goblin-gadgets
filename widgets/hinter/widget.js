@@ -1,19 +1,21 @@
 //T:2019-02-27
 import T from 't';
 import React from 'react';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import * as Bool from 'gadgets/helpers/bool-helpers';
 
-import Container from 'gadgets/container/widget';
-import Label from 'gadgets/label/widget';
-import Button from 'gadgets/button/widget';
-import Calendar from 'gadgets/calendar/widget';
+import Container from 'goblin-gadgets/widgets/container/widget';
+import Label from 'goblin-gadgets/widgets/label/widget';
+import Button from 'goblin-gadgets/widgets/button/widget';
+import Calendar from 'goblin-gadgets/widgets/calendar/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 class Hinter extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.state = {
       hover: -1,

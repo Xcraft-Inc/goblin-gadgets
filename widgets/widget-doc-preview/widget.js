@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import widgetList from '../widget-doc/widget-list';
 import Container from 'goblin-gadgets/widgets/container/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
@@ -10,12 +10,15 @@ import Button from 'goblin-gadgets/widgets/button/widget';
 import TextFieldNC from '../text-field-nc/widget';
 import TextInputNC from '../text-input-nc/widget';
 import parseCode from './parse-code';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 class WidgetDocPreviewSettingsSwitch extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
+    
     this.onClick = this.onClick.bind(this);
   }
 

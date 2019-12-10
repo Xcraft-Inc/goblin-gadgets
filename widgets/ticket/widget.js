@@ -1,14 +1,15 @@
 //T:2019-02-27
 import React from 'react';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 
-import Label from 'gadgets/label/widget';
-import Badge from 'gadgets/badge/widget';
-import TicketHover from 'gadgets/ticket-hover/widget';
+import Label from 'goblin-gadgets/widgets/label/widget';
+import Badge from 'goblin-gadgets/widgets/badge/widget';
+import TicketHover from 'goblin-gadgets/widgets/ticket-hover/widget';
 import {TranslatableDiv} from 'nabu/helpers/element-helpers';
 import * as Bool from 'gadgets/helpers/bool-helpers';
 import {Unit} from 'electrum-theme';
 import getOutlinePath from './getOutlinePath';
+import * as styles from './styles';
 
 /******************************************************************************/
 
@@ -17,6 +18,7 @@ let patternNumber = 0;
 export default class Ticket extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.onMouseOver = this.onMouseOver.bind(this);
     this.onMouseOut = this.onMouseOut.bind(this);
@@ -199,7 +201,7 @@ export default class Ticket extends Widget {
     return (
       <TranslatableDiv
         className={boxClass}
-        msgid={this.props.tooltip}
+        title={this.props.tooltip}
         workitemId={this.context.desktopId || this.getNearestId()}
         onMouseOver={this.onMouseOver}
         onMouseOut={this.onMouseOut}
@@ -243,7 +245,7 @@ export default class Ticket extends Widget {
     return (
       <TranslatableDiv
         className={rectShadowClass}
-        msgid={this.props.tooltip}
+        title={this.props.tooltip}
         workitemId={this.context.desktopId || this.getNearestId()}
         onMouseOver={this.onMouseOver}
         onMouseOut={this.onMouseOut}

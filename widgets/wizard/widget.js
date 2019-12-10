@@ -1,21 +1,22 @@
 //T:2019-02-27
 import React from 'react';
-import Form from 'laboratory/form';
+import Form from 'goblin-laboratory/widgets/form';
 import {ColorManipulator} from 'electrum-theme';
 import * as Bool from 'gadgets/helpers/bool-helpers';
 
-import Button from 'gadgets/button/widget';
-import Container from 'gadgets/container/widget';
-import Label from 'gadgets/label/widget';
-import TextField from 'gadgets/text-field/widget';
-import TextFieldCombo from 'gadgets/text-field-combo/widget';
-import LabelTextField from 'gadgets/label-text-field/widget';
-import TextFieldTyped from 'gadgets/text-field-typed/widget';
-import Splitter from 'gadgets/splitter/widget';
-import Checkbox from 'gadgets/checkbox/widget';
-import Gauge from 'gadgets/gauge/widget';
-import Ticket from 'gadgets/ticket/widget';
-import Field from 'gadgets/field/widget';
+import Button from 'goblin-gadgets/widgets/button/widget';
+import Container from 'goblin-gadgets/widgets/container/widget';
+import Label from 'goblin-gadgets/widgets/label/widget';
+import TextField from 'goblin-gadgets/widgets/text-field/widget';
+import TextFieldCombo from 'goblin-gadgets/widgets/text-field-combo/widget';
+import LabelTextField from 'goblin-gadgets/widgets/label-text-field/widget';
+import TextFieldTyped from 'goblin-gadgets/widgets/text-field-typed/widget';
+import Splitter from 'goblin-gadgets/widgets/splitter/widget';
+import Checkbox from 'goblin-gadgets/widgets/checkbox/widget';
+import Gauge from 'goblin-gadgets/widgets/gauge/widget';
+import Ticket from 'goblin-gadgets/widgets/ticket/widget';
+import Field from 'goblin-gadgets/widgets/field/widget';
+import * as styles from './styles';
 
 function getOnlyDigits(value) {
   let result = '';
@@ -66,6 +67,7 @@ function compareStrings(s1, s2) {
 class Wizard extends Form {
   constructor() {
     super(...arguments);
+    this.styles = styles;
   }
 
   static get wiring() {

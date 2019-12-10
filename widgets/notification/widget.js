@@ -1,17 +1,20 @@
 //T:2019-02-27
 import React from 'react';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import {ColorHelpers} from 'electrum-theme';
 
-import Label from 'gadgets/label/widget';
-import Button from 'gadgets/button/widget';
-import Container from 'gadgets/container/widget';
+import Label from 'goblin-gadgets/widgets/label/widget';
+import Button from 'goblin-gadgets/widgets/button/widget';
+import Container from 'goblin-gadgets/widgets/container/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 class Notification extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
+    
     this.state = {
       extended: false,
     };
@@ -89,6 +92,7 @@ class Notification extends Widget {
           maxLines={this.extended ? null : 2}
           skipEmptyLines={this.extended ? false : true}
           onClick={this.onClick}
+          userSelect={'text'}
         />
         <Container kind="column">
           <Button

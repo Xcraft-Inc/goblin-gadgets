@@ -1,8 +1,8 @@
 import React from 'react';
 import Props from './props';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import TextInputNC from '../text-input-nc/widget';
-import FlyingBalloon from 'gadgets/flying-balloon/widget';
+import FlyingBalloon from 'goblin-gadgets/widgets/flying-balloon/widget';
 import {
   makePropTypes,
   makeDefaultProps,

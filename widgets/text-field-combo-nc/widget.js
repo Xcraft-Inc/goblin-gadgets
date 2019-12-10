@@ -18,6 +18,8 @@ class TextFieldComboNC extends Widget {
       focus: false,
     };
 
+    this.isBinded = false;
+
     this.doChangeCombo = this.doChangeCombo.bind(this);
     this.doChangeTextField = this.doChangeTextField.bind(this);
     this.onFocus = this.onFocus.bind(this);
@@ -68,17 +70,23 @@ class TextFieldComboNC extends Widget {
   }
 
   bindKeys() {
-    KeyTrap.bind('ArrowUp', this.onUpKey);
-    KeyTrap.bind('ArrowDown', this.onDownKey);
-    KeyTrap.bind('Enter', this.onEnterKey);
-    KeyTrap.bind('Escape', this.onEscKey);
+    if (!this.isBinded) {
+      KeyTrap.bind('ArrowUp', this.onUpKey);
+      KeyTrap.bind('ArrowDown', this.onDownKey);
+      KeyTrap.bind('Enter', this.onEnterKey);
+      KeyTrap.bind('Escape', this.onEscKey);
+      this.isBinded = true;
+    }
   }
 
   unbindKeys() {
-    KeyTrap.unbind('ArrowUp', this.onUpKey);
-    KeyTrap.unbind('ArrowDown', this.onDownKey);
-    KeyTrap.unbind('Enter', this.onEnterKey);
-    KeyTrap.unbind('Escape', this.onEscKey);
+    if (this.isBinded) {
+      KeyTrap.unbind('ArrowUp', this.onUpKey);
+      KeyTrap.unbind('ArrowDown', this.onDownKey);
+      KeyTrap.unbind('Enter', this.onEnterKey);
+      KeyTrap.unbind('Escape', this.onEscKey);
+      this.isBinded = false;
+    }
   }
 
   onFocus() {

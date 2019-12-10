@@ -1,23 +1,25 @@
 //T:2019-02-27
 import T from 't';
 import React from 'react';
-import Widget from 'laboratory/widget';
-import ComboHelpers from 'gadgets/helpers/combo-helpers';
+import Widget from 'goblin-laboratory/widgets/widget';
+import ComboHelpers from 'goblin-gadgets/widgets/helpers/combo-helpers';
 import * as Bool from 'gadgets/helpers/bool-helpers';
 import {ColorHelpers} from 'electrum-theme';
 import {Unit} from 'electrum-theme';
 
-import DialogModal from 'gadgets/dialog-modal/widget';
-import Container from 'gadgets/container/widget';
-import Button from 'gadgets/button/widget';
-import Label from 'gadgets/label/widget';
-import DragCab from 'gadgets/drag-cab/widget';
+import DialogModal from 'goblin-gadgets/widgets/dialog-modal/widget';
+import Container from 'goblin-gadgets/widgets/container/widget';
+import Button from 'goblin-gadgets/widgets/button/widget';
+import Label from 'goblin-gadgets/widgets/label/widget';
+import DragCab from 'goblin-gadgets/widgets/drag-cab/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 class GlyphsDialog extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.onToggleGlyph = this.onToggleGlyph.bind(this);
     this.onClearGlyphs = this.onClearGlyphs.bind(this);

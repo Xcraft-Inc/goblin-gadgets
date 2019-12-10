@@ -90,6 +90,17 @@ export default function styles(theme, props) {
     flexDirection: 'row',
   };
 
+  const button = {
+    width: theme.shapes.calendarButtonWidth,
+    height: theme.shapes.calendarButtonHeight,
+    backgroundColor: theme.palette.calendarBackground,
+  };
+
+  const buttonWeekend = {
+    ...button,
+    backgroundColor: theme.palette.calendarWeekendBackground,
+  };
+
   return {
     box,
     month,
@@ -102,6 +113,8 @@ export default function styles(theme, props) {
     column,
     navigator: navigatorStyle,
     double,
+    button,
+    buttonWeekend,
   };
 }
 

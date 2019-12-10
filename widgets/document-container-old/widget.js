@@ -5,10 +5,16 @@ import {
   makePropTypes,
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
+import * as styles from './styles';
 
 // Container with a paper sheet look, with the top right corner folded.
 
 export default class DocumentContainerOld extends Widget {
+  constructor() {
+    super(...arguments);
+    this.styles = styles;
+  }
+  
   render() {
     return (
       <div className={this.styles.classNames.documentContainer}>

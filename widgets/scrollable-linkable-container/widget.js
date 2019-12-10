@@ -1,13 +1,17 @@
 //T:2019-02-27
 import T from 't';
 import React from 'react';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import _ from 'lodash';
+import * as styles from './styles';
+
 /******************************************************************************/
 
 class ScrollableLinkableContainer extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
+    
     this.handleScroll = _.debounce(this.handleScroll.bind(this), 500);
   }
 

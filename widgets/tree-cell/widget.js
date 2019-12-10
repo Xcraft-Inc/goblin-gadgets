@@ -1,15 +1,17 @@
 //T:2019-02-27:Nothing to translate !
 import React from 'react';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import Shredder from 'xcraft-core-shredder';
 
-import Label from 'gadgets/label/widget';
+import Label from 'goblin-gadgets/widgets/label/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 class TreeCell extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onDoubleClick = this.onDoubleClick.bind(this);

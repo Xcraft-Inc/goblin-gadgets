@@ -1,12 +1,15 @@
 import React from 'react';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import Triangle from 'goblin-gadgets/widgets/triangle/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 export default class ComboContainer extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
+    
     this.reset();
     if (this.props.triangleSize) {
       const triangle = this.props.triangleSize.split('px');

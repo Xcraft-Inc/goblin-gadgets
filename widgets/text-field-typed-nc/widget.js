@@ -1,7 +1,7 @@
 //T:2019-02-27
 
 import React from 'react';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import T from 't';
 import {
   date as DateConverters,
@@ -214,6 +214,8 @@ export default class TextFieldTypedNC extends Widget {
           grow={this.props.grow}
           comboType="calendar"
           value={this.props.value}
+          minDate={this.props.minDate}
+          maxDate={this.props.maxDate}
           readonly={this.props.readonly}
           disabled={this.props.disabled}
           node={this.node}

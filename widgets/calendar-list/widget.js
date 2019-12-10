@@ -1,17 +1,19 @@
 //T:2019-02-27
 import T from 't';
 import React from 'react';
-import Form from 'laboratory/form';
+import Form from 'goblin-laboratory/widgets/form';
 import {date as DateConverters} from 'xcraft-core-converters';
 import * as Bool from 'gadgets/helpers/bool-helpers';
 
-import Button from 'gadgets/button/widget';
+import Button from 'goblin-gadgets/widgets/button/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 class CalendarList extends Form {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.state = {
       showBase: false,

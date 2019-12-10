@@ -1,14 +1,16 @@
 //T:2019-02-27:Nothing to translate !
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import {Unit} from 'electrum-theme';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 class Splitter extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);

@@ -1,17 +1,19 @@
 //T:2019-02-27
 import T from 't';
 import React from 'react';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import * as Bool from 'gadgets/helpers/bool-helpers';
 import {time as TimeConverters} from 'xcraft-core-converters';
-import TextFieldTyped from 'gadgets/text-field-typed/widget';
-import Button from 'gadgets/button/widget';
+import TextFieldTyped from 'goblin-gadgets/widgets/text-field-typed/widget';
+import Button from 'goblin-gadgets/widgets/button/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 class TextFieldTimeInterval extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.onNowClicked = this.onNowClicked.bind(this);
     this.endBeforeChange = this.endBeforeChange.bind(this);

@@ -2,11 +2,14 @@ import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import T from 't';
 import Label from '../label/widget';
+import * as styles from './styles';
 
 let count = 0;
 export default class FileInputNC extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
+    
     this.handleFileChange = this.handleFileChange.bind(this);
     this.id = 'FileInput-' + count;
     count++;

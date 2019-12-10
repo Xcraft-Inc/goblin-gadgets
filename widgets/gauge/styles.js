@@ -25,6 +25,20 @@ function getColor(gradient, value) {
       red = 255 - 255 * value; // 0/1 -> 255/0
       green = 255;
       blue = 0;
+    } else if (gradient === 'blue-petrol-green') {
+      if (value < 0.5) {
+        // From blue to purple.
+        value = value * 2; // 0..1
+        blue = 255;
+        red = 0;
+        green = 255 * value; // 0/1 -> 0/255
+      } else {
+        // From purple to green.
+        value = (value - 0.5) * 2; // 0..1
+        blue = 255 - 255 * value; // 0/1 -> 255/0
+        green = 255;
+      }
+      red = 0;
     } else {
       // From orange to red.
       red = 255;
@@ -116,16 +130,16 @@ export default function styles(theme, props) {
 
     content.borderRadius = `${topLeftRadius} 0px 0px ${bottomLeftRadius}`;
     gloss.visibility = 'hidden';
-  }
-
-  if (kind === 'rounded') {
-    box.borderRadius = '50px';
+  } else {
+    if (kind === 'rounded') {
+      box.borderRadius = '50px';
+      content.borderRadius = '50px';
+    }
     box.backgroundColor = theme.palette.ticketGaugeBackground;
     box.boxShadow = theme.palette.ticketGaugeBackgroundShadow;
     content.position = 'absolute';
     content.bottom = '1px';
     content.left = '1px';
-    content.borderRadius = '50px';
     content.width =
       direction === 'horizontal'
         ? `calc(${gaugeValue}% - 2px)`

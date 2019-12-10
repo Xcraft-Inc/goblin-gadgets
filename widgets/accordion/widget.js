@@ -1,12 +1,14 @@
 //T:2019-02-27
 import React from 'react';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 class Accordion extends Widget {
   constructor(props) {
     super(...arguments);
+    this.styles = styles;
 
     this.setDivRef = this.setDivRef.bind(this);
     this.handleTransitionEnd = this.handleTransitionEnd.bind(this);
@@ -39,7 +41,13 @@ class Accordion extends Widget {
   }
 
   render() {
-    const {expanded, ...otherProps} = this.props;
+    const {
+      expanded,
+      hasOpacity,
+      hasOverflow,
+      transition,
+      ...otherProps
+    } = this.props;
 
     let maxHeight = '0';
     let opacity = '0';
@@ -58,7 +66,7 @@ class Accordion extends Widget {
       }
     }
 
-    if (!this.props.hasOpacity) {
+    if (!hasOpacity) {
       opacity = null;
     }
 

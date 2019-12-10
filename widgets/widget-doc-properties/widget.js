@@ -1,11 +1,12 @@
 import React from 'react';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import widgetList from '../widget-doc/widget-list';
 import Container from 'goblin-gadgets/widgets/container/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import TextInputNC from 'goblin-gadgets/widgets/text-input-nc/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import WidgetDocProperty from '../widget-doc-property/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
@@ -24,6 +25,7 @@ function includes(sample, filter) {
 class WidgetDocProperties extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.state = {
       filter: '',

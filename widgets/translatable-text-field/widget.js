@@ -1,11 +1,12 @@
 import React from 'react';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 
-import Label from 'gadgets/label/widget';
-import TranslatableCombo from 'gadgets/translatable-combo/widget';
+import Label from 'goblin-gadgets/widgets/label/widget';
+import TranslatableCombo from 'goblin-gadgets/widgets/translatable-combo/widget';
 import * as Bool from 'gadgets/helpers/bool-helpers';
 
 import ToNabuObject from 'goblin-nabu/widgets/helpers/t.js';
+import * as styles from './styles';
 
 /******************************************************************************/
 
@@ -17,6 +18,7 @@ function WrapT(...args) {
 class TranslatableTextField extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.renderLabel = this.renderLabel.bind(this);
     this.renderInput = this.renderInput.bind(this);

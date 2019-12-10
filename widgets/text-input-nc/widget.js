@@ -1,7 +1,7 @@
 //T:2019-02-27
 
 import React from 'react';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import MouseTrap from 'mousetrap';
 import * as Bool from 'gadgets/helpers/bool-helpers';
 import Props from './props';
@@ -14,13 +14,16 @@ import {
   makePropTypes,
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
-import Label from 'gadgets/label/widget';
+import Label from 'goblin-gadgets/widgets/label/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 export default class TextInputNC extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
+    
     this.onChange = this.onChange.bind(this);
     this.onBlur = this.onBlur.bind(this);
     this.onFocus = this.onFocus.bind(this);
@@ -121,7 +124,7 @@ export default class TextInputNC extends Widget {
 
     return (
       <TranslatableDiv
-        msgid={this.props.tooltip}
+      title={this.props.tooltip}
         workitemId={this.context.desktopId || this.getNearestId()}
         className={this.styles.classNames.box}
       >

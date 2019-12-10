@@ -1,15 +1,17 @@
 //T:2019-02-27
 import T from 't';
 import React from 'react';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import * as Bool from 'gadgets/helpers/bool-helpers';
-import TableCell from 'gadgets/table-cell/widget';
+import TableCell from 'goblin-gadgets/widgets/table-cell/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 class TableRow extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.onSelectionChanged = this.onSelectionChanged.bind(this);
     this.onDoubleClick = this.onDoubleClick.bind(this);

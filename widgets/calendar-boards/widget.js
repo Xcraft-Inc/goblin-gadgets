@@ -1,10 +1,11 @@
 import React from 'react';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import T from 't';
-import Container from 'gadgets/container/widget';
-import Calendar from 'gadgets/calendar/widget';
-import RadioList from 'gadgets/radio-list/widget';
-import Label from 'gadgets/label/widget';
+import Container from 'goblin-gadgets/widgets/container/widget';
+import Calendar from 'goblin-gadgets/widgets/calendar/widget';
+import RadioList from 'goblin-gadgets/widgets/radio-list/widget';
+import Label from 'goblin-gadgets/widgets/label/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
@@ -107,6 +108,7 @@ function getDetail(boards, selectedBoardId) {
 class CalendarBoards extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.visibleDateChanged = this.visibleDateChanged.bind(this);
     this.dateClicked = this.dateClicked.bind(this);

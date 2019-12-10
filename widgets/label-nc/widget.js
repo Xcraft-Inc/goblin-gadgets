@@ -3,7 +3,7 @@
 import React from 'react';
 import Props from './props';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import T from 'nabu/t/widget';
 import {ColorHelpers} from 'electrum-theme';
 import * as Bool from 'gadgets/helpers/bool-helpers';
@@ -12,13 +12,15 @@ import {
   makePropTypes,
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
-import Markdown from 'gadgets/markdown/widget';
+import Markdown from 'goblin-gadgets/widgets/markdown/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 export default class LabelNC extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
   }
 
   static get wiring() {
@@ -263,7 +265,7 @@ export default class LabelNC extends Widget {
     if (Bool.isTrue(this.props.insideButton)) {
       return (
         <TranslatableDiv
-          msgid={this.props.tooltip}
+        title={this.props.tooltip}
           workitemId={this.context.desktopId || this.getNearestId()}
           className={this.props.className || boxClass}
           key={this.props.index}
@@ -275,7 +277,7 @@ export default class LabelNC extends Widget {
     } else {
       return (
         <TranslatableDiv
-          msgid={this.props.tooltip}
+        title={this.props.tooltip}
           workitemId={this.context.desktopId || this.getNearestId()}
           className={this.props.className || boxClass}
           key={this.props.index}

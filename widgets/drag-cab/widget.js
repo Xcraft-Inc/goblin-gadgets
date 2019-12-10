@@ -1,10 +1,11 @@
 //T:2019-02-27
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import {Unit} from 'electrum-theme';
 import * as Bool from 'gadgets/helpers/bool-helpers';
-import DragCarrier from 'gadgets/drag-carrier/widget';
+import DragCarrier from 'goblin-gadgets/widgets/drag-carrier/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
@@ -45,6 +46,7 @@ function findDragController(theme, x, y) {
 class DragCab extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.state = {
       dragInProcess: false,

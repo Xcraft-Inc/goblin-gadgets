@@ -1,14 +1,16 @@
 //T:2019-02-27
 import React from 'react';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 
 import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 export default class TicketHover extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
   }
 
   renderTicket() {

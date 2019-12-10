@@ -1,17 +1,19 @@
 //T:2019-02-27
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Widget from 'laboratory/widget';
-import MouseTrap from 'mousetrap';
+import Widget from 'goblin-laboratory/widgets/widget';
+import KeyTrap from 'goblin-gadgets/widgets/key-trap.js';
 import * as RectHelpers from '../helpers/rect-helpers.js';
 
-import Container from 'gadgets/container/widget';
+import Container from 'goblin-gadgets/widgets/container/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 class DialogModal extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onContentClick = this.onContentClick.bind(this);
@@ -19,14 +21,14 @@ class DialogModal extends Widget {
   }
 
   componentWillMount() {
-    MouseTrap.bind('esc', this.onCloseCombo);
-    MouseTrap.bind('enter', this.onCloseCombo);
+    KeyTrap.bind('Escape', this.onCloseCombo);
+    KeyTrap.bind('Enter', this.onCloseCombo);
   }
 
   componentWillUnmount() {
     super.componentWillUnmount();
-    MouseTrap.unbind('esc');
-    MouseTrap.unbind('enter');
+    KeyTrap.unbind('Escape', this.onCloseCombo);
+    KeyTrap.unbind('Enter', this.onCloseCombo);
   }
 
   onCloseCombo() {

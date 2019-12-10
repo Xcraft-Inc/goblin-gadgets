@@ -1,21 +1,23 @@
 //T:2019-02-27
 import T from 't';
 import React from 'react';
-import Widget from 'laboratory/widget';
-import ComboHelpers from 'gadgets/helpers/combo-helpers';
+import Widget from 'goblin-laboratory/widgets/widget';
+import ComboHelpers from 'goblin-gadgets/widgets/helpers/combo-helpers';
 import {Unit} from 'electrum-theme';
 
-import DialogModal from 'gadgets/dialog-modal/widget';
-import Container from 'gadgets/container/widget';
-import Button from 'gadgets/button/widget';
-import Label from 'gadgets/label/widget';
-import Table from 'gadgets/table/widget';
+import DialogModal from 'goblin-gadgets/widgets/dialog-modal/widget';
+import Container from 'goblin-gadgets/widgets/container/widget';
+import Button from 'goblin-gadgets/widgets/button/widget';
+import Label from 'goblin-gadgets/widgets/label/widget';
+import Table from 'goblin-gadgets/widgets/table/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 class WorkDialog extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.state = {
       hasSelection: false,

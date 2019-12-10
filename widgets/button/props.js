@@ -320,7 +320,7 @@ export default [
   {
     name: 'badgeColor',
     group: 'badge',
-    type: types.enum(['', 'red', 'green']),
+    type: types.enum(['', 'red', 'green', 'dark']),
   },
   {
     name: 'badgeSize',
@@ -338,5 +338,20 @@ export default [
     name: 'calendarDimmed',
     group: 'calendar',
     type: types.bool,
+  },
+  {
+    name: 'calendarColor',
+    group: 'calendar',
+    type: types.color,
+  },
+  {
+    name: 'calendarSelected',
+    group: 'calendar',
+    type: types.bool,
+  },
+  {
+    name: 'calendarItemShape',
+    group: 'calendar',
+    type: types.enum(['', 'square', 'round']),
   },
 ];

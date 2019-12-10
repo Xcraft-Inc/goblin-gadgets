@@ -1,11 +1,17 @@
 import React from 'react';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import WidgetDocPropertyControl from '../widget-doc-property-control/widget';
+import * as styles from './styles';
 
 /******************************************************************************/
 
 export default class WidgetDocProperty extends Widget {
+  constructor() {
+    super(...arguments);
+    this.styles = styles;
+  }
+  
   renderControl() {
     const name = this.props.prop.name;
     return (

@@ -2,17 +2,20 @@
 import React from 'react';
 import Props from './props';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import Widget from 'laboratory/widget';
+import Widget from 'goblin-laboratory/widgets/widget';
 import * as Bool from 'gadgets/helpers/bool-helpers';
 import {
   makePropTypes,
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
+import * as styles from './styles';
+
 /******************************************************************************/
 
 class Container extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.panelBottoms = [];
     // TODO: remove this code, it does nothing
@@ -28,7 +31,9 @@ class Container extends Widget {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    super.componentDidMount();
+
     const dragController = this.props.dragController;
     const dragOwnerId = this.props.dragOwnerId;
     let count = 0;
@@ -40,15 +45,6 @@ class Container extends Widget {
         `Container has invalid properties: dragController=${dragController} dragOwnerId=${dragOwnerId}`
       );
     }
-
-    // TODO: remove this code, it does nothing
-    //if (this.props.navigationFor) {
-    //  this.initNavigation();
-    //}
-  }
-
-  componentDidMount() {
-    super.componentDidMount();
 
     if (this.props.navigationFor) {
       const panelElem = document.querySelectorAll(

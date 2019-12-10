@@ -91,6 +91,11 @@ export default [
     type: types.date,
   },
   {
+    name: 'selectedDate',
+    group: 'dates',
+    type: types.date,
+  },
+  {
     name: 'dates',
     group: 'dates',
     type: types.dataDates,
@@ -126,6 +131,11 @@ export default [
     name: 'monthCount',
     group: 'aspect',
     type: types.number,
+  },
+  {
+    name: 'itemsShape',
+    group: 'aspect',
+    type: types.enum(['', 'square', 'round']),
   },
 
   // Events.
