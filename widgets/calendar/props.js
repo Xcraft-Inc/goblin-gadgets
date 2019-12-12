@@ -36,7 +36,7 @@ addType('dataDates', {
   restrictsToList: true,
   samples: samplesDates,
   samplesData: samplesDatesList,
-  propType: PropTypes.array,
+  propType: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 });
 
 /******************************************************************************/
@@ -136,6 +136,21 @@ export default [
     name: 'itemsShape',
     group: 'aspect',
     type: types.enum(['', 'square', 'round']),
+  },
+  {
+    name: 'ItemComponent',
+    group: 'aspect',
+    type: types.function,
+  },
+  {
+    name: 'itemWidth',
+    group: 'aspect',
+    type: types.size,
+  },
+  {
+    name: 'itemHeight',
+    group: 'aspect',
+    type: types.size,
   },
 
   // Events.

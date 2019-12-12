@@ -52,7 +52,7 @@ export const propNames = [
   'kind',
   'active',
   'subkind',
-  'calendarDimmed',
+  'dimmed',
   'empty',
   'activeColor',
   'vpos',
@@ -103,7 +103,7 @@ export default function styles(theme, props) {
     kind,
     active,
     subkind,
-    calendarDimmed,
+    dimmed,
     empty,
     activeColor,
     vpos,
@@ -821,7 +821,7 @@ export default function styles(theme, props) {
         }
       }
     }
-    if (Bool.isTrue(calendarDimmed)) {
+    if (Bool.isTrue(dimmed)) {
       textColorFromKind = theme.palette.calendarDimmedText;
     }
     if (kind === 'calendar-navigator') {

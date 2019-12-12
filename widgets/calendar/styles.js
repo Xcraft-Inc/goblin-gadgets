@@ -3,10 +3,16 @@ import * as Bool from 'gadgets/helpers/bool-helpers';
 
 /******************************************************************************/
 
-export const propNames = ['frame', 'navigator', 'shadow'];
+export const propNames = [
+  'frame',
+  'navigator',
+  'shadow',
+  'itemWidth',
+  'itemHeight',
+];
 
 export default function styles(theme, props) {
-  const {frame, navigator, shadow} = props;
+  const {frame, navigator, shadow, itemWidth, itemHeight} = props;
 
   const m = theme.shapes.containerMargin;
   const halfMargin = Unit.multiply(m, 0.5);
@@ -38,7 +44,6 @@ export default function styles(theme, props) {
   };
 
   const header = {
-    //? width: Unit.multiply(theme.shapes.calendarButtonWidth, 7),
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -50,7 +55,7 @@ export default function styles(theme, props) {
   };
 
   const dowText = {
-    width: theme.shapes.calendarButtonWidth,
+    width: itemWidth || theme.shapes.calendarButtonWidth,
     textAlign: 'center',
     lineHeight: theme.shapes.calendarButtonHeight,
     color: theme.palette.calendarHeaderText,
@@ -91,8 +96,8 @@ export default function styles(theme, props) {
   };
 
   const button = {
-    width: theme.shapes.calendarButtonWidth,
-    height: theme.shapes.calendarButtonHeight,
+    width: itemWidth || theme.shapes.calendarButtonWidth,
+    height: itemHeight || theme.shapes.calendarButtonHeight,
     backgroundColor: theme.palette.calendarBackground,
   };
 

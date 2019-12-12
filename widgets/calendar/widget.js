@@ -13,6 +13,7 @@ import {
 
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
+import CalendarButton from 'goblin-gadgets/widgets/calendar-button/widget';
 import Separator from 'goblin-gadgets/widgets/separator/widget';
 import ComboContainer from 'goblin-gadgets/widgets/combo-container/widget';
 import FlatList from 'goblin-gadgets/widgets/flat-list/widget';
@@ -180,13 +181,15 @@ export default class Calendar extends Widget {
       return null;
     } else if (typeof this.props.dates[0] === 'string') {
       return this.props.dates.indexOf(date) === -1 ? null : {type: 'base'};
-    } else {
+    } else if (Array.isArray(this.props.dates)) {
       for (const d of this.props.dates) {
         if (d.date === date) {
           return d;
         }
       }
       return null;
+    } else {
+      return this.props.dates[date];
     }
   }
 
@@ -361,55 +364,64 @@ export default class Calendar extends Widget {
     hidden,
     weekend,
     subkind,
-    color,
-    tooltip,
     badgeValue,
     badgeColor,
+    data,
     index
   ) {
     if (hidden) {
       return <div key={index} className={this.styles.classNames.button} />;
     }
 
-    if (!tooltip) {
-      tooltip = DateConverters.getDisplayed(date, 'Wdmy');
-    }
+    const tooltip = DateConverters.getDisplayed(date, 'Wdmy');
     let d = DateConverters.getDay(date); // 1..31
-    if (subkind === 'sub') {
-      d = '(' + d + ')';
-    }
-    if (hidden) {
-      d = '';
-      badgeValue = '';
-    }
 
     const style =
       weekend && !dimmed
         ? this.styles.classNames.buttonWeekend
         : this.styles.classNames.button;
 
-    return (
-      <div key={index} className={style}>
-        <Button
-          text={d}
-          tooltip={tooltip}
-          kind="calendar"
-          subkind={subkind}
-          active={active}
-          calendarDimmed={dimmed}
-          calendarWeekend={weekend}
-          calendarColor={color}
-          calendarSelected={selected}
-          calendarItemShape={this.props.itemsShape}
-          badgePosition="top-right"
-          badgeValue={badgeValue}
-          badgeColor={badgeColor}
-          badgeShape="circle"
-          badgeSize="0.8"
-          onClick={dimmed ? null : () => this.onDateClicked(date)}
-        />
-      </div>
-    );
+    if (this.props.itemComponent) {
+      const Component = this.props.itemComponent;
+      return (
+        <div key={index} className={style}>
+          <Component
+            width={this.props.itemWidth}
+            height={this.props.itemHeight}
+            text={d}
+            tooltip={tooltip}
+            dimmed={dimmed}
+            selected={selected}
+            date={date}
+            data={data}
+            onClick={dimmed ? null : () => this.onDateClicked(date)}
+          />
+        </div>
+      );
+    } else {
+      if (subkind === 'sub') {
+        d = '(' + d + ')';
+      }
+
+      return (
+        <div key={index} className={style}>
+          <CalendarButton
+            text={d}
+            tooltip={tooltip}
+            subkind={subkind}
+            active={active}
+            dimmed={dimmed}
+            selected={selected}
+            badgePosition="top-right"
+            badgeValue={badgeValue}
+            badgeColor={badgeColor}
+            badgeShape="circle"
+            badgeSize="0.8"
+            onClick={dimmed ? null : () => this.onDateClicked(date)}
+          />
+        </div>
+      );
+    }
   }
 
   // Return an array of 7 buttons, for a week.
@@ -424,26 +436,21 @@ export default class Calendar extends Widget {
       let hidden = false;
       let weekend = false;
       let subkind = null;
-      let color = null;
-      let tooltip = null;
 
       let badgeValue = this.getBadgeValue(firstDate);
       let badgeColor = this.getBadgeColor(firstDate);
 
       const data = this.getDateData(firstDate);
-      if (data) {
-        active = true;
-        subkind = data.type;
-        color = data.color;
-        tooltip = data.tooltip;
-        if (data.badgeValue) {
-          badgeValue = data.badgeValue;
-          badgeColor = data.badgeColor;
-        }
-      }
+
       if (firstDate === this.props.selectedDate) {
         selected = true;
       }
+
+      if (data) {
+        active = true;
+        subkind = data.type;
+      }
+
       if (
         DateConverters.getYear(firstDate) !==
           DateConverters.getYear(startOfMonth) ||
@@ -471,10 +478,9 @@ export default class Calendar extends Widget {
         hidden,
         weekend,
         subkind,
-        color,
-        tooltip,
         badgeValue,
         badgeColor,
+        data,
         i
       );
       line.push(button);
