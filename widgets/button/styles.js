@@ -40,11 +40,6 @@ export const propNames = [
   'heightStrategy',
   'place',
   'active',
-  'calendarWeekend',
-  'calendarDimmed',
-  'calendarColor',
-  'calendarSelected',
-  'calendarItemShape',
   'subkind',
   'badgePush',
   'shortcut',
@@ -87,11 +82,6 @@ export default function styles(theme, props) {
     heightStrategy,
     place: placeProp,
     active,
-    calendarWeekend,
-    calendarDimmed,
-    calendarColor,
-    calendarSelected,
-    calendarItemShape,
     subkind,
     badgePush,
     shortcut,
@@ -653,44 +643,16 @@ export default function styles(theme, props) {
     boxHeight = theme.shapes.calendarButtonHeight;
     transition = null;
     backgroundColor = 'transparent';
-    if (Bool.isTrue(calendarDimmed)) {
-      //? backgroundColor = theme.palette.calendarBackground;
-      backgroundHoverColor = theme.palette.calendarBackground; // no visible hover effect
-      activeColor = theme.palette.calendarBackground;
-      //? if (Bool.isTrue(calendarWeekend)) {
-      //?   backgroundHoverColor = theme.palette.calendarWeekendBackground; // no visible hover effect
-      //? } else {
-      //?   backgroundHoverColor = theme.palette.calendarBackground; // no visible hover effect
-      //? }
+    let coefficient = 0.3;
+    if (subkind === 'add') {
+      activeColor = theme.palette.calendarActiveAddBackground;
+    } else if (subkind === 'sub') {
+      activeColor = theme.palette.calendarActiveSubBackground;
     } else {
-      let coefficient = 0.3;
-      if (calendarColor) {
-        activeColor = calendarColor;
-      } else {
-        if (subkind === 'add') {
-          activeColor = theme.palette.calendarActiveAddBackground;
-        } else if (subkind === 'sub') {
-          activeColor = theme.palette.calendarActiveSubBackground;
-        } else {
-          activeColor = theme.palette.calendarActiveBackground;
-          coefficient = 0.8;
-        }
-      }
-      backgroundHoverColor = ColorManipulator.lighten(activeColor, coefficient);
-      if (calendarSelected) {
-        borderRadius = calendarItemShape === 'round' ? null : '20px';
-        borderWidth = '3px';
-        borderColorForced = theme.palette.calendarActiveBackground;
-        borderStyle = 'solid';
-        boxSizing = 'border-box';
-      } else {
-        borderRadius = calendarItemShape === 'round' ? '20px' : null;
-      }
+      activeColor = theme.palette.calendarActiveBackground;
+      coefficient = 0.8;
     }
-    //???? if (Bool.isTrue(calendarWeekend)) {
-    //????   backgroundColor = theme.palette.calendarWeekendBackground;
-    //????   borderRadius = null;
-    //???? }
+    backgroundHoverColor = ColorManipulator.lighten(activeColor, coefficient);
     if (kind === 'calendar-title') {
       boxPaddingLeft = '5px';
       boxPaddingRight = '5px';

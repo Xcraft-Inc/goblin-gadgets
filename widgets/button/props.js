@@ -60,7 +60,6 @@ export default [
       'button-notification',
       'button-footer',
       'box',
-      'calendar',
       'calendar-list',
       'calendar-navigator',
       'calendar-title',
@@ -326,32 +325,5 @@ export default [
     name: 'badgeSize',
     group: 'badge',
     type: types.percentage,
-  },
-
-  // Calendar.
-  {
-    name: 'calendarWeekend',
-    group: 'calendar',
-    type: types.bool,
-  },
-  {
-    name: 'calendarDimmed',
-    group: 'calendar',
-    type: types.bool,
-  },
-  {
-    name: 'calendarColor',
-    group: 'calendar',
-    type: types.color,
-  },
-  {
-    name: 'calendarSelected',
-    group: 'calendar',
-    type: types.bool,
-  },
-  {
-    name: 'calendarItemShape',
-    group: 'calendar',
-    type: types.enum(['', 'square', 'round']),
   },
 ];

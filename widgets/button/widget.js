@@ -172,7 +172,6 @@ export default class Button extends Widget {
           shape={this.props.badgeShape}
           color={this.props.badgeColor}
           size={this.props.badgeSize}
-          disabled={this.props.calendarDimmed}
         />
       );
     } else {

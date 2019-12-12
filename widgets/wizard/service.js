@@ -55,7 +55,6 @@ const properties = {
         'action',
         'button-notification',
         'button-footer',
-        'calendar',
         'calendar-navigator',
         'check-button',
         'chronos-navigator',
@@ -380,20 +379,6 @@ const properties = {
       type: 'combo',
       field: 'place',
       list: ['', '1/1', '1/3', '2/3', '3/3'],
-      value: '',
-    },
-    calendarWeekend: {
-      id: 'calendarWeekend',
-      group: 'Calendar',
-      type: 'bool',
-      field: 'calendarWeekend',
-      value: '',
-    },
-    calendarDimmed: {
-      id: 'calendarDimmed',
-      group: 'Calendar',
-      type: 'bool',
-      field: 'calendarDimmed',
       value: '',
     },
     cursor: {
