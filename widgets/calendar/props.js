@@ -96,6 +96,11 @@ export default [
     type: types.date,
   },
   {
+    name: 'hoverDates',
+    group: 'dates',
+    type: types.dataDates,
+  },
+  {
     name: 'dates',
     group: 'dates',
     type: types.dataDates,

@@ -52,6 +52,8 @@ export default class Calendar extends Widget {
     this.onVisibleDateAddMonths = this.onVisibleDateAddMonths.bind(this);
     this.onVisibleDatePrevYear = this.onVisibleDatePrevYear.bind(this);
     this.onVisibleDateNextYear = this.onVisibleDateNextYear.bind(this);
+    this.onMouseEnter = this.onMouseEnter.bind(this);
+    this.onMouseLeave = this.onMouseLeave.bind(this);
     this.onDateClicked = this.onDateClicked.bind(this);
     this.onEscKey = this.onEscKey.bind(this);
   }
@@ -328,6 +330,18 @@ export default class Calendar extends Widget {
     this.changeDate(date);
   }
 
+  onMouseEnter(date) {
+    if (this.props.dateEntered) {
+      this.props.dateEntered(date);
+    }
+  }
+
+  onMouseLeave(date) {
+    if (this.props.dateLeaved) {
+      this.props.dateLeaved(date);
+    }
+  }
+
   onDateClicked(date) {
     if (
       date >= this.startVisibleDate &&
@@ -392,8 +406,11 @@ export default class Calendar extends Widget {
             tooltip={tooltip}
             dimmed={dimmed}
             selected={selected}
+            hover={this.props.hoverDates ? this.props.hoverDates[date] : null}
             date={date}
             data={data}
+            onMouseEnter={dimmed ? null : () => this.onMouseEnter(date)}
+            onMouseLeave={dimmed ? null : () => this.onMouseLeave(date)}
             onClick={dimmed ? null : () => this.onDateClicked(date)}
           />
         </div>
@@ -417,6 +434,8 @@ export default class Calendar extends Widget {
             badgeColor={badgeColor}
             badgeShape="circle"
             badgeSize="0.8"
+            onMouseEnter={dimmed ? null : () => this.onMouseEnter(date)}
+            onMouseLeave={dimmed ? null : () => this.onMouseLeave(date)}
             onClick={dimmed ? null : () => this.onDateClicked(date)}
           />
         </div>
