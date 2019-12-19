@@ -667,9 +667,14 @@ export default class Calendar extends Widget {
     );
   }
 
+  renderSeparator(index) {
+    return <div className={this.styles.classNames.separator} key={index} />;
+  }
+
   renderMonths() {
     const result = [];
     const monthCount = this.monthCount;
+    let index = 0;
     for (var m = 0; m < monthCount; m++) {
       const year = DateConverters.getYear(this.visibleDate);
       const month = DateConverters.getMonth(this.visibleDate);
@@ -677,7 +682,12 @@ export default class Calendar extends Widget {
 
       const isFirstMonth = m === 0;
       const isLastMonth = m === monthCount - 1;
-      result.push(this.renderMonth(startOfMonth, isFirstMonth, isLastMonth, m));
+      result.push(
+        this.renderMonth(startOfMonth, isFirstMonth, isLastMonth, index++)
+      );
+      if (monthCount > 1 && !isLastMonth) {
+        result.push(this.renderSeparator(index++));
+      }
     }
     return result;
   }

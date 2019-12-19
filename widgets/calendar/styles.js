@@ -43,6 +43,12 @@ export default function styles(theme, props) {
     backgroundColor: theme.palette.calendarBackground,
   };
 
+  const separator = {
+    width: '1px',
+    marginRight: theme.shapes.lineSpacing,
+    borderLeft: border,
+  };
+
   const header = {
     display: 'flex',
     flexDirection: 'row',
@@ -110,6 +116,7 @@ export default function styles(theme, props) {
     box,
     month,
     singleMonth,
+    separator,
     header,
     headerTitleSajex,
     dowText,
