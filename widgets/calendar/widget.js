@@ -395,13 +395,13 @@ export default class Calendar extends Widget {
             hover={this.props.hoverDates ? this.props.hoverDates[date] : null}
             date={date}
             data={data}
-            onMouseEnter={
+            onMouseOver={
               dimmed || !this.props.dateEntered ? null : this.props.dateEntered
             }
             onMouseMove={
               dimmed || !this.props.dateMoved ? null : this.props.dateMoved
             }
-            onMouseLeave={
+            onMouseOut={
               dimmed || !this.props.dateLeaved ? null : this.props.dateLeaved
             }
             onClick={dimmed ? null : () => this.onDateClicked(date)}
