@@ -85,6 +85,8 @@ const quests = {
         serviceId,
       },
     });
+
+    return serviceId;
   },
 
   _initService: function*(quest, service, serviceId, serviceArgs) {
@@ -139,6 +141,8 @@ const quests = {
         serviceId,
       },
     });
+
+    return serviceId;
   },
 
   endAnimation: function*(quest) {
