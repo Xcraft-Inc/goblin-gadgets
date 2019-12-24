@@ -1,6 +1,7 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import * as styles from './styles';
+import {Unit} from 'electrum-theme';
 
 import CarouselButton from '../carousel-button/widget';
 import CarouselBullet from '../carousel-bullet/widget';
@@ -13,7 +14,7 @@ export default class Carousel extends Widget {
     this.styles = styles;
 
     this.state = {
-      innerWidth: this.props.maxWidth,
+      innerWidth: this.maxWidth,
       position: 0,
       mouseMove: 0,
     };
@@ -69,20 +70,29 @@ export default class Carousel extends Widget {
     window.removeEventListener('resize', this.handleResize);
   }
 
+  /******************************************************************************/
+
+  get maxWidth() {
+    return Unit.parse(this.props.maxWidth).value;
+  }
+
+  get itemWidth() {
+    return Unit.parse(this.props.itemWidth).value;
+  }
+
   get carouselWidth() {
-    const width = Math.min(this.innerWidth, this.props.maxWidth);
-    return Math.floor(width / this.props.itemWidth) * this.props.itemWidth;
+    const width = Math.min(this.innerWidth, this.maxWidth);
+    return Math.floor(width / this.itemWidth) * this.itemWidth;
   }
 
   get pagesCount() {
-    const visibleCount = Math.ceil(this.carouselWidth / this.props.itemWidth);
+    const visibleCount = Math.ceil(this.carouselWidth / this.itemWidth);
     return this.props.children.length - (visibleCount - 1);
   }
 
   get pageSelected() {
     const p = Math.floor(
-      (this.position + this.mouseMove + this.props.itemWidth / 2) /
-        this.props.itemWidth
+      (this.position + this.mouseMove + this.itemWidth / 2) / this.itemWidth
     );
 
     return Math.min(Math.max(p, 0), this.pagesCount - 1);
@@ -93,7 +103,7 @@ export default class Carousel extends Widget {
   }
 
   get maxPosition() {
-    return (this.pagesCount - 1) * this.props.itemWidth;
+    return (this.pagesCount - 1) * this.itemWidth;
   }
 
   get leftPosition() {
@@ -115,6 +125,8 @@ export default class Carousel extends Widget {
     return -position;
   }
 
+  /******************************************************************************/
+
   handleResize(e) {
     const elementH = document.getElementById('courses-header');
     const width = elementH.getBoundingClientRect().width;
@@ -123,15 +135,15 @@ export default class Carousel extends Widget {
   }
 
   handlePrev() {
-    this.position -= this.props.itemWidth;
+    this.position -= this.itemWidth;
   }
 
   handleNext() {
-    this.position += this.props.itemWidth;
+    this.position += this.itemWidth;
   }
 
   handleBulletClicked(index) {
-    this.position = this.props.itemWidth * index;
+    this.position = this.itemWidth * index;
   }
 
   handleMouseOver(e) {
@@ -157,9 +169,8 @@ export default class Carousel extends Widget {
   handleMouseUp(e) {
     console.log('handleMouseUp');
     const dx =
-      Math.floor(
-        (this.mouseMove + this.props.itemWidth / 2) / this.props.itemWidth
-      ) * this.props.itemWidth;
+      Math.floor((this.mouseMove + this.itemWidth / 2) / this.itemWidth) *
+      this.itemWidth;
     const position = this.position + dx;
 
     this.position = Math.min(
