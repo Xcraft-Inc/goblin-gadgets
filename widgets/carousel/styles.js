@@ -1,9 +1,9 @@
 /******************************************************************************/
 
-export const propNames = ['itemMargin'];
+export const propNames = ['itemMargin', 'buttonsTop'];
 
 export default function styles(theme, props) {
-  const {itemMargin} = props;
+  const {itemMargin, buttonsTop} = props;
 
   const carousel = {
     position: 'relative',
@@ -41,13 +41,13 @@ export default function styles(theme, props) {
 
   const buttonPrev = {
     position: 'absolute',
-    top: '180px',
+    top: buttonsTop,
     left: itemMargin,
   };
 
   const buttonNext = {
     position: 'absolute',
-    top: '180px',
+    top: buttonsTop,
     right: itemMargin,
   };
 
