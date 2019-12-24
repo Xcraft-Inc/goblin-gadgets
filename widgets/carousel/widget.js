@@ -102,14 +102,14 @@ export default class Carousel extends Widget {
     const min = this.minPosition;
     const max = this.maxPosition;
 
-    const strength = this.props.strength || 10; // 2..n
+    const force = this.props.forceRequiredToOverflow || 10; // 2..n
 
     if (position < min) {
-      position = min - (min - position) / strength;
+      position = min - (min - position) / force;
     }
 
     if (position > max) {
-      position = max + (position - max) / strength;
+      position = max + (position - max) / force;
     }
 
     return -position;
