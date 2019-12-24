@@ -63,11 +63,15 @@ export default class Carousel extends Widget {
   //#endregion
 
   componentDidMount() {
-    window.addEventListener('resize', this.handleResize);
+    if (this.props.responsiveElement) {
+      window.addEventListener('resize', this.handleResize);
+    }
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize);
+    if (this.props.responsiveElement) {
+      window.removeEventListener('resize', this.handleResize);
+    }
   }
 
   /******************************************************************************/
@@ -128,7 +132,13 @@ export default class Carousel extends Widget {
   /******************************************************************************/
 
   handleResize(e) {
-    const elementH = document.getElementById('courses-header');
+    const elementH = document.getElementById(this.props.responsiveElement);
+    if (!elementH) {
+      console.log(
+        `Carousel: element ${this.props.responsiveElement} not found in DOM`
+      );
+      return;
+    }
     const width = elementH.getBoundingClientRect().width;
     console.log(`onResize ${width}`);
     this.innerWidth = width;
