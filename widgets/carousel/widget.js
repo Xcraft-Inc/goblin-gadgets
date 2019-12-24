@@ -135,11 +135,19 @@ export default class Carousel extends Widget {
   }
 
   handlePrev() {
-    this.position -= this.itemWidth;
+    if (this.props.cycling === 'loop' && this.position === this.minPosition) {
+      this.position = this.maxPosition;
+    } else {
+      this.position -= this.itemWidth;
+    }
   }
 
   handleNext() {
-    this.position += this.itemWidth;
+    if (this.props.cycling === 'loop' && this.position === this.maxPosition) {
+      this.position = this.minPosition;
+    } else {
+      this.position += this.itemWidth;
+    }
   }
 
   handleBulletClicked(index) {
@@ -227,6 +235,10 @@ export default class Carousel extends Widget {
   }
 
   renderNavigator() {
+    if (this.props.navigator !== 'bullets') {
+      return null;
+    }
+
     const pagesCount = this.pagesCount;
     if (pagesCount <= 1) {
       return null;
@@ -240,7 +252,9 @@ export default class Carousel extends Widget {
   }
 
   renderButtonPrev() {
-    const enabled = this.pagesCount > 1 && this.pageSelected > 0;
+    const enabled =
+      this.props.cycling === 'loop' ||
+      (this.pagesCount > 1 && this.pageSelected > 0);
 
     return (
       <div className={this.styles.classNames.buttonPrev}>
@@ -255,7 +269,8 @@ export default class Carousel extends Widget {
 
   renderButtonNext() {
     const enabled =
-      this.pagesCount > 1 && this.pageSelected < this.pagesCount - 1;
+      this.props.cycling === 'loop' ||
+      (this.pagesCount > 1 && this.pageSelected < this.pagesCount - 1);
 
     return (
       <div className={this.styles.classNames.buttonNext}>
