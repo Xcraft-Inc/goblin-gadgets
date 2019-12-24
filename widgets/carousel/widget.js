@@ -80,13 +80,12 @@ export default class Carousel extends Widget {
   }
 
   get pageSelected() {
-    return Math.min(
-      Math.floor(
-        (this.position + this.mouseMove + this.props.itemWidth / 2) /
-          this.props.itemWidth
-      ),
-      this.pagesCount - 1
+    const p = Math.floor(
+      (this.position + this.mouseMove + this.props.itemWidth / 2) /
+        this.props.itemWidth
     );
+
+    return Math.min(Math.max(p, 0), this.pagesCount - 1);
   }
 
   get minPosition() {
