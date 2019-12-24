@@ -16,7 +16,7 @@ export default class CarouselButton extends Widget {
   render() {
     return (
       <div
-        className={this.styles.classNames.button}
+        className={this.styles.classNames.carouselButton}
         onClick={this.props.disabled ? null : this.props.onClick}
       >
         <FontAwesomeIcon

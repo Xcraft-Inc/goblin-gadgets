@@ -15,7 +15,7 @@ export default class CarouselBullet extends Widget {
   render() {
     return (
       <div
-        className={this.styles.classNames.bullet}
+        className={this.styles.classNames.carouselBullet}
         onClick={this.props.onClick}
       />
     );

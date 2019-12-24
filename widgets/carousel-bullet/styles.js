@@ -5,7 +5,7 @@ export const propNames = ['selected'];
 export default function styles(theme, props) {
   const {selected} = props;
 
-  const bullet = {
+  const carouselBullet = {
     'width': '10px',
     'height': '10px',
     'margin': '0px 7px',
@@ -22,7 +22,7 @@ export default function styles(theme, props) {
   };
 
   return {
-    bullet,
+    carouselBullet,
   };
 }
 
