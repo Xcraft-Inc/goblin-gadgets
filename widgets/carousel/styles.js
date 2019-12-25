@@ -42,13 +42,15 @@ export default function styles(theme, props) {
   const buttonPrev = {
     position: 'absolute',
     top: buttonsTop,
-    left: itemMargin,
+    left: '0px',
+    // left: itemMargin,
   };
 
   const buttonNext = {
     position: 'absolute',
     top: buttonsTop,
-    right: itemMargin,
+    right: '0px',
+    // right: itemMargin,
   };
 
   /******************************************************************************/

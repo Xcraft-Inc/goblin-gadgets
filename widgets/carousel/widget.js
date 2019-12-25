@@ -84,6 +84,10 @@ export default class Carousel extends Widget {
     return Unit.parse(this.props.itemWidth).value;
   }
 
+  get itemMargin() {
+    return Unit.parse(this.props.itemMargin).value;
+  }
+
   get carouselWidth() {
     const width = Math.min(this.innerWidth, this.maxWidth);
     return Math.floor(width / this.itemWidth) * this.itemWidth;
@@ -126,7 +130,7 @@ export default class Carousel extends Widget {
       position = max + (position - max) / force;
     }
 
-    return -position;
+    return -(position + this.itemMargin);
   }
 
   /******************************************************************************/
@@ -307,7 +311,7 @@ export default class Carousel extends Widget {
 
   render() {
     const carouselStyle = {
-      maxWidth: this.carouselWidth + 'px',
+      maxWidth: this.carouselWidth - this.itemMargin * 2 + 'px',
     };
 
     return (
