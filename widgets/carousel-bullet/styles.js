@@ -15,7 +15,7 @@ export default function styles(theme, props) {
       ? theme.palette.carouselBulletBorder
       : theme.palette.carouselBulletBackground,
     'cursor': 'pointer',
-    'transition': theme.transitions.hover,
+    'transition': '0.1s ease-out',
     ':hover': {
       transform: 'scale(1.2)',
     },

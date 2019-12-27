@@ -28,7 +28,7 @@ export default function styles(theme, props) {
       'fontSize': Unit.multiply(size, 1 / 4),
       'opacity': disabled ? 0.2 : 1,
       'cursor': disabled ? null : 'pointer',
-      'transition': theme.transitions.hover,
+      'transition': '0.1s ease-out',
       ':hover': {
         transform: disabled ? null : 'scale(1.1)',
         fontSize: disabled ? null : Unit.multiply(size, 1 / 3),
@@ -49,7 +49,7 @@ export default function styles(theme, props) {
       'fontSize': Unit.multiply(size, 1 / 2),
       'opacity': disabled ? 0.2 : 1,
       'cursor': disabled ? null : 'pointer',
-      'transition': theme.transitions.hover,
+      'transition': '0.1s ease-out',
       ':hover': {
         transform: disabled ? null : 'scale(1.1)',
         fontSize: disabled ? null : Unit.multiply(size, 1 / 1.5),
