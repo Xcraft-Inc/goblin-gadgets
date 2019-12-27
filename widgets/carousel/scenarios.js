@@ -3,40 +3,42 @@ import CarouselItem from '../carousel-item/widget';
 
 /******************************************************************************/
 
-const children = (
-  <React.Fragment>
-    <CarouselItem
-      width="200px"
-      height="300px"
-      itemMargin="10px"
-      backgroundColor="yellow"
-    />
-    <CarouselItem
-      width="200px"
-      height="300px"
-      itemMargin="10px"
-      backgroundColor="orange"
-    />
-    <CarouselItem
-      width="200px"
-      height="300px"
-      itemMargin="10px"
-      backgroundColor="red"
-    />
-    <CarouselItem
-      width="200px"
-      height="300px"
-      itemMargin="10px"
-      backgroundColor="purple"
-    />
-    <CarouselItem
-      width="200px"
-      height="300px"
-      itemMargin="10px"
-      backgroundColor="blue"
-    />
-  </React.Fragment>
-);
+function getChildren(width, height, itemMargin) {
+  return (
+    <React.Fragment>
+      <CarouselItem
+        width={width}
+        height={height}
+        itemMargin={itemMargin}
+        backgroundColor="yellow"
+      />
+      <CarouselItem
+        width={width}
+        height={height}
+        itemMargin={itemMargin}
+        backgroundColor="orange"
+      />
+      <CarouselItem
+        width={width}
+        height={height}
+        itemMargin={itemMargin}
+        backgroundColor="red"
+      />
+      <CarouselItem
+        width={width}
+        height={height}
+        itemMargin={itemMargin}
+        backgroundColor="purple"
+      />
+      <CarouselItem
+        width={width}
+        height={height}
+        itemMargin={itemMargin}
+        backgroundColor="blue"
+      />
+    </React.Fragment>
+  );
+}
 
 /******************************************************************************/
 
@@ -55,7 +57,24 @@ export default [
       navigator: 'bullets',
       responsive: true,
       touch: true,
-      children: children,
+      children: getChildren('200px', '300px', '10px'),
+    },
+  },
+  {
+    name: 'Compact',
+    props: {
+      maxWidth: '606px',
+      itemWidth: '202px',
+      itemMargin: '1px',
+      buttonsCenter: '0px',
+      buttonsShape: 'circle',
+      buttonsSize: '40px',
+      buttonsShift: '5px',
+      cycling: 'blocked',
+      navigator: 'bullets',
+      responsive: true,
+      touch: true,
+      children: getChildren('200px', '300px', '1px'),
     },
   },
   {
@@ -72,7 +91,7 @@ export default [
       navigator: 'bullets',
       responsive: true,
       touch: true,
-      children: children,
+      children: getChildren('200px', '300px', '10px'),
     },
   },
   {
@@ -89,7 +108,7 @@ export default [
       navigator: 'bullets',
       responsive: true,
       touch: true,
-      children: children,
+      children: getChildren('200px', '300px', '10px'),
     },
   },
   {
@@ -106,7 +125,7 @@ export default [
       navigator: 'bullets',
       responsive: true,
       touch: true,
-      children: children,
+      children: getChildren('200px', '300px', '10px'),
     },
   },
   {
