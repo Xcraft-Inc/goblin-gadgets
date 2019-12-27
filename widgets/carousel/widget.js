@@ -211,6 +211,10 @@ export default class Carousel extends Widget {
 
   // TODO: This layout capture the events, and hide it for buttons of modules!
   renderTouchLayer() {
+    if (!this.props.touch) {
+      return null;
+    }
+
     return (
       <div
         className={this.styles.classNames.touchLayer}
