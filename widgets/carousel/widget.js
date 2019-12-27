@@ -63,13 +63,13 @@ export default class Carousel extends Widget {
   //#endregion
 
   componentDidMount() {
-    if (this.props.responsiveElement) {
+    if (this.props.responsive) {
       window.addEventListener('resize', this.handleResize);
     }
   }
 
   componentWillUnmount() {
-    if (this.props.responsiveElement) {
+    if (this.props.responsive) {
       window.removeEventListener('resize', this.handleResize);
     }
   }
@@ -136,14 +136,10 @@ export default class Carousel extends Widget {
   /******************************************************************************/
 
   handleResize(e) {
-    const elementH = document.getElementById(this.props.responsiveElement);
-    if (!elementH) {
-      console.log(
-        `Carousel: element ${this.props.responsiveElement} not found in DOM`
-      );
+    if (!this.carouselNode) {
       return;
     }
-    const width = elementH.getBoundingClientRect().width;
+    const width = this.carouselNode.getBoundingClientRect().width;
     console.log(`onResize ${width}`);
     this.innerWidth = width;
   }
@@ -315,12 +311,20 @@ export default class Carousel extends Widget {
     };
 
     return (
-      <div className={this.styles.classNames.carousel} style={carouselStyle}>
-        {this.renderPages()}
-        {this.renderTouchLayer()}
-        {this.renderNavigator()}
-        {this.renderButtonPrev()}
-        {this.renderButtonNext()}
+      <div
+        className={this.styles.classNames.carousel}
+        ref={node => (this.carouselNode = node)}
+      >
+        <div
+          className={this.styles.classNames.carouselShrinked}
+          style={carouselStyle}
+        >
+          {this.renderPages()}
+          {this.renderTouchLayer()}
+          {this.renderNavigator()}
+          {this.renderButtonPrev()}
+          {this.renderButtonNext()}
+        </div>
       </div>
     );
   }

@@ -1,11 +1,18 @@
 /******************************************************************************/
 
-export const propNames = ['itemMargin', 'buttonsTop'];
+export const propNames = ['maxWidth', 'itemMargin', 'buttonsTop'];
 
 export default function styles(theme, props) {
-  const {itemMargin, buttonsTop} = props;
+  const {maxWidth, buttonsTop} = props;
 
   const carousel = {
+    width: maxWidth,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+  };
+
+  const carouselShrinked = {
     position: 'relative',
     alignSelf: 'center',
     overflowX: 'hidden',
@@ -57,6 +64,7 @@ export default function styles(theme, props) {
 
   return {
     carousel,
+    carouselShrinked,
     horizontalBand,
 
     touchLayer,
