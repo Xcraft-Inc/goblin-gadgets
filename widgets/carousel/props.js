@@ -24,12 +24,12 @@ export default [
   {
     name: 'navigator',
     group: 'ui',
-    type: types.enum(['none', 'bullets']),
+    type: types.enum(['', 'none', 'bullets']),
   },
   {
     name: 'cycling',
     group: 'ui',
-    type: types.enum(['blocked', 'loop']),
+    type: types.enum(['', 'blocked', 'loop']),
   },
   {
     name: 'forceRequiredToOverflow',
@@ -53,9 +53,36 @@ export default [
     group: 'aspect',
     type: types.size,
   },
+
+  // Buttons.
   {
     name: 'buttonsTop',
-    group: 'aspect',
+    group: 'buttons',
     type: types.size,
+  },
+  {
+    name: 'buttonsBottom',
+    group: 'buttons',
+    type: types.size,
+  },
+  {
+    name: 'buttonsCenter',
+    group: 'buttons',
+    type: types.size,
+  },
+  {
+    name: 'buttonsSize',
+    group: 'buttons',
+    type: types.size,
+  },
+  {
+    name: 'buttonsShift',
+    group: 'buttons',
+    type: types.size,
+  },
+  {
+    name: 'buttonsShape',
+    group: 'buttons',
+    type: types.enum(['', 'circle', 'semiCircle']),
   },
 ];

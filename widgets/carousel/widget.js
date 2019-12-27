@@ -292,6 +292,8 @@ export default class Carousel extends Widget {
       <div className={this.styles.classNames.buttonPrev}>
         <CarouselButton
           kind="left"
+          shape={this.props.buttonsShape}
+          size={this.props.buttonsSize}
           disabled={!enabled}
           onClick={this.handlePrev}
         />
@@ -308,6 +310,8 @@ export default class Carousel extends Widget {
       <div className={this.styles.classNames.buttonNext}>
         <CarouselButton
           kind="right"
+          shape={this.props.buttonsShape}
+          size={this.props.buttonsSize}
           disabled={!enabled}
           onClick={this.handleNext}
         />

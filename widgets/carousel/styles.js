@@ -1,9 +1,29 @@
+import {Unit} from 'electrum-theme';
+
 /******************************************************************************/
 
-export const propNames = ['maxWidth', 'buttonsTop', 'navigator'];
+export const propNames = [
+  'maxWidth',
+  'itemMargin',
+  'buttonsSize',
+  'buttonsTop',
+  'buttonsBottom',
+  'buttonsCenter',
+  'buttonsShift',
+  'navigator',
+];
 
 export default function styles(theme, props) {
-  const {maxWidth, buttonsTop, navigator} = props;
+  const {
+    maxWidth,
+    itemMargin = '0px',
+    buttonsSize = '40px',
+    buttonsTop,
+    buttonsBottom,
+    buttonsShift = '0px',
+    buttonsCenter,
+    navigator,
+  } = props;
 
   const bullets = navigator === 'bullets';
 
@@ -47,16 +67,26 @@ export default function styles(theme, props) {
 
   /******************************************************************************/
 
+  let top = buttonsTop;
+  if (buttonsCenter) {
+    top = `calc(50% - ${Unit.multiply(buttonsSize, 0.5)} - ${Unit.multiply(
+      itemMargin,
+      2
+    )} + ${buttonsCenter})`;
+  }
+
   const buttonPrev = {
     position: 'absolute',
-    top: buttonsTop,
-    left: '0px',
+    top: top,
+    bottom: buttonsBottom,
+    left: buttonsShift,
   };
 
   const buttonNext = {
     position: 'absolute',
-    top: buttonsTop,
-    right: '0px',
+    top: top,
+    bottom: buttonsBottom,
+    right: buttonsShift,
   };
 
   /******************************************************************************/
