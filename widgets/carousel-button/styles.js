@@ -46,13 +46,13 @@ export default function styles(theme, props) {
       'borderRadius': d,
       'backgroundColor': theme.palette.carouselButtonBackground,
       'color': theme.palette.carouselButtonGlyph,
-      'fontSize': Unit.multiply(size, 1 / 4),
+      'fontSize': Unit.multiply(size, 1 / 2),
       'opacity': disabled ? 0.2 : 1,
       'cursor': disabled ? null : 'pointer',
       'transition': theme.transitions.hover,
       ':hover': {
         transform: disabled ? null : 'scale(1.1)',
-        fontSize: disabled ? null : Unit.multiply(size, 1 / 3),
+        fontSize: disabled ? null : Unit.multiply(size, 1 / 1.5),
       },
     };
   }

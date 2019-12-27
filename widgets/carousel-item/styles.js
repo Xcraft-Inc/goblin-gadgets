@@ -9,7 +9,7 @@ export default function styles(theme, props) {
     minWidth: width,
     height: height,
     flexBasis: 0,
-    margin: itemMargin,
+    margin: `0px ${itemMargin}`,
     backgroundColor: backgroundColor,
   };
 

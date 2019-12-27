@@ -4,7 +4,6 @@ import {Unit} from 'electrum-theme';
 
 export const propNames = [
   'maxWidth',
-  'itemMargin',
   'buttonsSize',
   'buttonsTop',
   'buttonsBottom',
@@ -16,7 +15,6 @@ export const propNames = [
 export default function styles(theme, props) {
   const {
     maxWidth,
-    itemMargin = '0px',
     buttonsSize = '40px',
     buttonsTop,
     buttonsBottom,
@@ -53,25 +51,27 @@ export default function styles(theme, props) {
   const touchLayer = {
     position: 'absolute',
     top: '0px',
-    bottom: bullets ? '40px' : '0px', // keep space for navigator
+    bottom: bullets ? '30px' : '0px', // keep space for navigator
     left: '0px',
     right: '0px',
   };
 
   const navigatorStyle = {
-    margin: '0px 0px 20px 0px',
+    height: '20px',
+    margin: '10px 0px 0px 0px',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
+    alignItems: 'center',
   };
 
   /******************************************************************************/
 
   let top = buttonsTop;
   if (buttonsCenter) {
-    top = `calc(50% - ${Unit.multiply(buttonsSize, 0.5)} - ${Unit.multiply(
-      itemMargin,
-      2
+    top = `calc(50% - 15px - ${Unit.multiply(
+      buttonsSize,
+      0.5
     )} + ${buttonsCenter})`;
   }
 
