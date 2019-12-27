@@ -140,7 +140,7 @@ export default class Carousel extends Widget {
       return;
     }
     const width = this.carouselNode.getBoundingClientRect().width;
-    console.log(`onResize ${width}`);
+    //- console.log(`onResize ${width}`);
     this.innerWidth = width;
   }
 
@@ -165,18 +165,18 @@ export default class Carousel extends Widget {
   }
 
   handleMouseOver(e) {
-    console.log('handleMouseOver');
+    //- console.log('handleMouseOver');
   }
 
   handleMouseDown(e) {
-    console.log('handleMouseDown');
+    //- console.log('handleMouseDown');
     this.mouseX = e.clientX;
     this.mouseMove = 0;
     this.mouseDown = true;
   }
 
   handleMouseMove(e) {
-    console.log('handleMouseMove');
+    //- console.log('handleMouseMove');
     if (this.mouseDown) {
       this.mouseMove = this.mouseX - e.clientX;
     } else {
@@ -185,7 +185,7 @@ export default class Carousel extends Widget {
   }
 
   handleMouseUp(e) {
-    console.log('handleMouseUp');
+    //- console.log('handleMouseUp');
     const dx =
       Math.floor((this.mouseMove + this.itemWidth / 2) / this.itemWidth) *
       this.itemWidth;
@@ -201,7 +201,7 @@ export default class Carousel extends Widget {
   }
 
   handleMouseOut(e) {
-    console.log('handleMouseOut');
+    //- console.log('handleMouseOut');
     if (this.mouseDown) {
       this.handleMouseUp(e);
     }

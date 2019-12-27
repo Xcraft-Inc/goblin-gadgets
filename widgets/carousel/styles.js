@@ -1,9 +1,11 @@
 /******************************************************************************/
 
-export const propNames = ['maxWidth', 'itemMargin', 'buttonsTop'];
+export const propNames = ['maxWidth', 'buttonsTop', 'navigator'];
 
 export default function styles(theme, props) {
-  const {maxWidth, buttonsTop} = props;
+  const {maxWidth, buttonsTop, navigator} = props;
+
+  const bullets = navigator === 'bullets';
 
   const carousel = {
     width: maxWidth,
@@ -31,13 +33,12 @@ export default function styles(theme, props) {
   const touchLayer = {
     position: 'absolute',
     top: '0px',
-    bottom: '40px', // keep space for navigator
-    //? bottom: '0px',
+    bottom: bullets ? '40px' : '0px', // keep space for navigator
     left: '0px',
     right: '0px',
   };
 
-  const navigator = {
+  const navigatorStyle = {
     margin: '0px 0px 20px 0px',
     display: 'flex',
     flexDirection: 'row',
@@ -50,14 +51,12 @@ export default function styles(theme, props) {
     position: 'absolute',
     top: buttonsTop,
     left: '0px',
-    // left: itemMargin,
   };
 
   const buttonNext = {
     position: 'absolute',
     top: buttonsTop,
     right: '0px',
-    // right: itemMargin,
   };
 
   /******************************************************************************/
@@ -68,7 +67,7 @@ export default function styles(theme, props) {
     horizontalBand,
 
     touchLayer,
-    navigator,
+    navigator: navigatorStyle,
 
     buttonPrev,
     buttonNext,
