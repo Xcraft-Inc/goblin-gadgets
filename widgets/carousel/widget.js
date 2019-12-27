@@ -229,6 +229,10 @@ export default class Carousel extends Widget {
 
   // TODO: This layout capture the events, and hide it for buttons of modules!
   renderTouchLayer() {
+    if (this.pagesCount <= 1) {
+      return null;
+    }
+
     if (!this.props.touch) {
       return null;
     }
@@ -284,6 +288,10 @@ export default class Carousel extends Widget {
   }
 
   renderButtonPrev() {
+    if (this.pagesCount <= 1) {
+      return null;
+    }
+
     const enabled =
       this.props.cycling === 'loop' ||
       (this.pagesCount > 1 && this.pageSelected > 0);
@@ -302,6 +310,10 @@ export default class Carousel extends Widget {
   }
 
   renderButtonNext() {
+    if (this.pagesCount <= 1) {
+      return null;
+    }
+
     const enabled =
       this.props.cycling === 'loop' ||
       (this.pagesCount > 1 && this.pageSelected < this.pagesCount - 1);

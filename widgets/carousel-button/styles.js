@@ -23,6 +23,12 @@ export default function styles(theme, props) {
       'height': size,
       'padding': left ? `0px ${p} 0px 0px` : `0px 0px 0px ${p}`,
       'borderRadius': left ? `0px ${d} ${d} 0px` : `${d} 0px 0px ${d}`,
+      'borderLeft': !left
+        ? `1px solid ${theme.palette.carouselButtonGlyph}`
+        : null,
+      'borderRight': left
+        ? `1px solid ${theme.palette.carouselButtonGlyph}`
+        : null,
       'backgroundColor': theme.palette.carouselButtonBackground,
       'color': theme.palette.carouselButtonGlyph,
       'fontSize': Unit.multiply(size, 1 / 4),
