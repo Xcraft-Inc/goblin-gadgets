@@ -129,6 +129,7 @@ const types = {
       'text-field-multiline',
       'button',
       'button-10',
+      'carousel-panes',
     ],
   },
 

@@ -50,6 +50,10 @@ import Calendar from 'goblin-gadgets/widgets/calendar/widget';
 import calendarProps from 'goblin-gadgets/widgets/calendar/props';
 import calendarScenarios from 'goblin-gadgets/widgets/calendar/scenarios';
 
+import Carousel from 'goblin-gadgets/widgets/carousel/widget';
+import carouselProps from 'goblin-gadgets/widgets/carousel/props';
+import carouselScenarios from 'goblin-gadgets/widgets/carousel/scenarios';
+
 import Triangle from 'goblin-gadgets/widgets/triangle/widget';
 import triangleProps from 'goblin-gadgets/widgets/triangle/props';
 import triangleScenarios from 'goblin-gadgets/widgets/triangle/scenarios';
@@ -153,6 +157,13 @@ const widgetList = [
     widgetPath: 'goblin-gadgets/widgets/calendar/widget',
     props: calendarProps,
     scenarios: calendarScenarios,
+  },
+  {
+    name: 'Carousel',
+    widget: Carousel,
+    widgetPath: 'goblin-gadgets/widgets/carousel/widget',
+    props: carouselProps,
+    scenarios: carouselScenarios,
   },
   {
     name: 'Triangle',

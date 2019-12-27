@@ -93,9 +93,27 @@ export default class Carousel extends Widget {
     return Math.floor(width / this.itemWidth) * this.itemWidth;
   }
 
+  get childrenLength() {
+    if (this.props.children.length) {
+      return this.props.children.length;
+    }
+
+    if (
+      this.props.children.props &&
+      this.props.children.props.children &&
+      this.props.children.props.children.length
+    ) {
+      // If <React.Fragment>
+      return this.props.children.props.children.length;
+    }
+
+    console.log('Carousel: Invalid children');
+    return 1;
+  }
+
   get pagesCount() {
     const visibleCount = Math.ceil(this.carouselWidth / this.itemWidth);
-    return this.props.children.length - (visibleCount - 1);
+    return this.childrenLength - (visibleCount - 1);
   }
 
   get pageSelected() {

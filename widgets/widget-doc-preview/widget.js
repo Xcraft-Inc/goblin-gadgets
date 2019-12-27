@@ -9,6 +9,7 @@ import WidgetDocPreviewContainer from '../widget-doc-preview-container/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import TextFieldNC from '../text-field-nc/widget';
 import TextInputNC from '../text-input-nc/widget';
+import CarouselItem from '../carousel-item/widget';
 import parseCode from './parse-code';
 import * as styles from './styles';
 
@@ -18,7 +19,7 @@ class WidgetDocPreviewSettingsSwitch extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
-    
+
     this.onClick = this.onClick.bind(this);
   }
 
@@ -250,6 +251,41 @@ class WidgetDocPreview extends Widget {
             <Button text="777" />
             <Button text="888" />
             <Button text="999" />
+          </React.Fragment>
+        );
+      case 'carousel-panes':
+        return (
+          <React.Fragment>
+            <CarouselItem
+              width="200px"
+              height="300px"
+              itemMargin="10px"
+              backgroundColor="yellow"
+            />
+            <CarouselItem
+              width="200px"
+              height="300px"
+              itemMargin="10px"
+              backgroundColor="orange"
+            />
+            <CarouselItem
+              width="200px"
+              height="300px"
+              itemMargin="10px"
+              backgroundColor="red"
+            />
+            <CarouselItem
+              width="200px"
+              height="300px"
+              itemMargin="10px"
+              backgroundColor="purple"
+            />
+            <CarouselItem
+              width="200px"
+              height="300px"
+              itemMargin="10px"
+              backgroundColor="blue"
+            />
           </React.Fragment>
         );
     }
