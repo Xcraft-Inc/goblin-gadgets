@@ -69,7 +69,8 @@ export default function styles(theme, props) {
 
   let top = buttonsTop;
   if (buttonsCenter) {
-    top = `calc(50% - 15px - ${Unit.multiply(
+    const hn = bullets ? Unit.multiply('30px', 0.5) : '0px';
+    top = `calc(50% - ${hn} - ${Unit.multiply(
       buttonsSize,
       0.5
     )} + ${buttonsCenter})`;
