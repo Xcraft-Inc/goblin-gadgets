@@ -13,6 +13,8 @@ export default class Carousel extends Widget {
     super(...arguments);
     this.styles = styles;
 
+    this.carouselNode = null;
+
     this.state = {
       innerWidth: this.maxWidth,
       position: 0,
@@ -63,8 +65,10 @@ export default class Carousel extends Widget {
   //#endregion
 
   componentDidMount() {
+    //- console.log('componentDidMount');
     if (this.props.responsive) {
       window.addEventListener('resize', this.handleResize);
+      this.handleResize(); // initialise ui, don't work!!!
     }
   }
 
@@ -75,6 +79,14 @@ export default class Carousel extends Widget {
   }
 
   /******************************************************************************/
+
+  get effectiveWidth() {
+    if (this.carouselNode) {
+      return this.carouselNode.getBoundingClientRect().width;
+    } else {
+      return null;
+    }
+  }
 
   get maxWidth() {
     return Unit.parse(this.props.maxWidth).value;
@@ -153,13 +165,8 @@ export default class Carousel extends Widget {
 
   /******************************************************************************/
 
-  handleResize(e) {
-    if (!this.carouselNode) {
-      return;
-    }
-    const width = this.carouselNode.getBoundingClientRect().width;
-    //- console.log(`onResize ${width}`);
-    this.innerWidth = width;
+  handleResize() {
+    this.innerWidth = this.effectiveWidth;
   }
 
   handlePrev() {

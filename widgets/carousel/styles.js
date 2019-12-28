@@ -26,7 +26,8 @@ export default function styles(theme, props) {
   const bullets = navigator === 'bullets';
 
   const carousel = {
-    width: maxWidth,
+    //? width: 'calc(100vw - 80px)',
+    width: '100vw',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
