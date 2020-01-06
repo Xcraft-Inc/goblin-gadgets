@@ -208,6 +208,7 @@ export default class Carousel extends Widget {
   /******************************************************************************/
 
   handleResize() {
+    this.position = this.minPosition;
     this.innerWidth = this.effectiveWidth;
   }
 
