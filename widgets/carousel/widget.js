@@ -25,6 +25,7 @@ export default class Carousel extends Widget {
     this.handleNext = this.handleNext.bind(this);
     this.handleResize = this.handleResize.bind(this);
     this.handleBulletClicked = this.handleBulletClicked.bind(this);
+
     this.handleMouseEnter = this.handleMouseEnter.bind(this);
     this.handleMouseOver = this.handleMouseOver.bind(this);
     this.handleMouseDown = this.handleMouseDown.bind(this);
@@ -32,6 +33,10 @@ export default class Carousel extends Widget {
     this.handleMouseUp = this.handleMouseUp.bind(this);
     this.handleMouseOut = this.handleMouseOut.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
+
+    this.handleTouchEnter = this.handleTouchEnter.bind(this);
+    this.handleTouchMove = this.handleTouchMove.bind(this);
+    this.handleTouchLeave = this.handleTouchLeave.bind(this);
   }
 
   //#region get/set
@@ -152,7 +157,7 @@ export default class Carousel extends Widget {
     const min = this.minPosition;
     const max = this.maxPosition;
 
-    const force = this.props.forceRequiredToOverflow || 10; // 2..n
+    const force = this.props.forceRequiredToOverflow || 5; // 2..n
 
     if (position < min) {
       position = min - (min - position) / force;
@@ -163,6 +168,37 @@ export default class Carousel extends Widget {
     }
 
     return -(position + this.itemMargin);
+  }
+
+  /******************************************************************************/
+
+  startMove(x) {
+    this.mouseX = x;
+    this.mouseMove = 0;
+    this.mouseDown = true;
+  }
+
+  doMove(x) {
+    if (this.mouseDown) {
+      this.mouseMove = this.mouseX - x;
+    } else {
+      //
+    }
+  }
+
+  endMove() {
+    const dx =
+      Math.floor((this.mouseMove + this.itemWidth / 2) / this.itemWidth) *
+      this.itemWidth;
+    const position = this.position + dx;
+
+    this.position = Math.min(
+      Math.max(position, this.minPosition),
+      this.maxPosition
+    );
+
+    this.mouseMove = 0;
+    this.mouseDown = false;
   }
 
   /******************************************************************************/
@@ -192,54 +228,56 @@ export default class Carousel extends Widget {
   }
 
   handleMouseEnter(e) {
-    console.log('handleMouseEnter');
+    //- console.log('handleMouseEnter');
   }
 
   handleMouseOver(e) {
-    console.log('handleMouseOver');
+    //- console.log('handleMouseOver');
   }
 
   handleMouseDown(e) {
-    console.log('handleMouseDown');
-    this.mouseX = e.clientX;
-    this.mouseMove = 0;
-    this.mouseDown = true;
+    //- console.log('handleMouseDown');
+    this.startMove(e.clientX);
   }
 
   handleMouseMove(e) {
-    console.log('handleMouseMove');
-    if (this.mouseDown) {
-      this.mouseMove = this.mouseX - e.clientX;
-    } else {
-      //
-    }
+    //- console.log('handleMouseMove');
+    this.doMove(e.clientX);
   }
 
   handleMouseUp(e) {
-    console.log('handleMouseUp');
-    const dx =
-      Math.floor((this.mouseMove + this.itemWidth / 2) / this.itemWidth) *
-      this.itemWidth;
-    const position = this.position + dx;
-
-    this.position = Math.min(
-      Math.max(position, this.minPosition),
-      this.maxPosition
-    );
-
-    this.mouseMove = 0;
-    this.mouseDown = false;
+    //- console.log('handleMouseUp');
+    this.endMove();
   }
 
   handleMouseOut(e) {
-    console.log('handleMouseOut');
+    //- console.log('handleMouseOut');
   }
 
   handleMouseLeave(e) {
-    console.log('handleMouseLeave');
+    //- console.log('handleMouseLeave');
     if (this.mouseDown) {
       this.handleMouseUp(e);
     }
+  }
+
+  handleTouchEnter(e) {
+    //- console.log('handleTouchEnter');
+    if (e.touches.length === 1) {
+      this.startMove(e.touches[0].clientX);
+    }
+  }
+
+  handleTouchMove(e) {
+    //- console.log('handleTouchMove');
+    if (e.touches.length === 1) {
+      this.doMove(e.touches[0].clientX);
+    }
+  }
+
+  handleTouchLeave(e) {
+    //- console.log('handleTouchLeave');
+    this.endMove();
   }
 
   /******************************************************************************/
@@ -358,6 +396,10 @@ export default class Carousel extends Widget {
           onMouseUp={this.handleMouseUp}
           onMouseOut={this.handleMouseOut}
           onMouseLeave={this.handleMouseLeave}
+          onTouchStart={this.handleTouchEnter}
+          onTouchMove={this.handleTouchMove}
+          onTouchEnd={this.handleTouchLeave}
+          onTouchCancel={this.handleTouchLeave}
         >
           {this.renderPages()}
           {this.renderNavigator()}

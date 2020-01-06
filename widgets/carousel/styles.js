@@ -44,7 +44,7 @@ export default function styles(theme, props) {
     position: 'relative',
     display: 'flex',
     flexDirection: 'row',
-    transition: '0.3s ease-out',
+    transition: '0.2s ease-out',
   };
 
   /******************************************************************************/
