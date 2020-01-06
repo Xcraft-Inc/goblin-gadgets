@@ -40,6 +40,28 @@ export default function styles(theme, props) {
     overflowY: 'hidden',
   };
 
+  const carouselShrinked_SIMPLE = {
+    width: '100%',
+    position: 'relative',
+    alignSelf: 'center',
+    overflowX: 'hidden',
+    overflowY: 'hidden',
+  };
+
+  const carouselShrinked_MEDIA = {
+    'position': 'relative',
+    'alignSelf': 'center',
+    'overflowX': 'hidden',
+    'overflowY': 'hidden',
+    'maxWidth': '1240px',
+    '@media (min-width: 820px) and (max-width: 1240px)': {
+      maxWidth: '820px',
+    },
+    '@media (min-width: 410px) and (max-width: 820px)': {
+      maxWidth: '410px',
+    },
+  };
+
   const horizontalBand = {
     position: 'relative',
     display: 'flex',
@@ -96,6 +118,8 @@ export default function styles(theme, props) {
   return {
     carousel,
     carouselShrinked,
+    carouselShrinked_SIMPLE,
+    carouselShrinked_MEDIA,
     horizontalBand,
 
     touchLayer,

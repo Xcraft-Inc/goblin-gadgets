@@ -389,6 +389,64 @@ export default class Carousel extends Widget {
     );
   }
 
+  render_SIMPLE() {
+    return (
+      <div
+        className={this.styles.classNames.carousel}
+        ref={node => (this.carouselNode = node)}
+      >
+        <div
+          className={this.styles.classNames.carouselShrinked_SIMPLE}
+          onMouseEnter={this.handleMouseEnter}
+          onMouseOver={this.handleMouseOver}
+          onMouseDown={this.handleMouseDown}
+          onMouseMove={this.handleMouseMove}
+          onMouseUp={this.handleMouseUp}
+          onMouseOut={this.handleMouseOut}
+          onMouseLeave={this.handleMouseLeave}
+          onTouchStart={this.handleTouchEnter}
+          onTouchMove={this.handleTouchMove}
+          onTouchEnd={this.handleTouchLeave}
+          onTouchCancel={this.handleTouchLeave}
+        >
+          {this.renderPages()}
+          {this.renderNavigator()}
+          {this.renderButtonPrev()}
+          {this.renderButtonNext()}
+        </div>
+      </div>
+    );
+  }
+
+  render_MEDIA() {
+    return (
+      <div
+        className={this.styles.classNames.carousel}
+        ref={node => (this.carouselNode = node)}
+      >
+        <div
+          className={this.styles.classNames.carouselShrinked_MEDIA}
+          onMouseEnter={this.handleMouseEnter}
+          onMouseOver={this.handleMouseOver}
+          onMouseDown={this.handleMouseDown}
+          onMouseMove={this.handleMouseMove}
+          onMouseUp={this.handleMouseUp}
+          onMouseOut={this.handleMouseOut}
+          onMouseLeave={this.handleMouseLeave}
+          onTouchStart={this.handleTouchEnter}
+          onTouchMove={this.handleTouchMove}
+          onTouchEnd={this.handleTouchLeave}
+          onTouchCancel={this.handleTouchLeave}
+        >
+          {this.renderPages()}
+          {this.renderNavigator()}
+          {this.renderButtonPrev()}
+          {this.renderButtonNext()}
+        </div>
+      </div>
+    );
+  }
+
   render() {
     const carouselStyle = {
       maxWidth: this.carouselWidth - this.itemMargin * 2 + 'px',
