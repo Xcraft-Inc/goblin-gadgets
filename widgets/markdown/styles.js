@@ -1,8 +1,12 @@
 /******************************************************************************/
 
-export default function styles(theme) {
+export const propNames = ['userSelect'];
+
+export default function styles(theme, props) {
+  const {userSelect} = props;
+
   const markdown = {
-    'userSelect': 'text',
+    'userSelect': userSelect || 'text',
     '& pre': {
       display: 'block',
       margin: 0,
