@@ -170,6 +170,10 @@ export default class Carousel extends Widget {
     return -(position + this.itemMargin);
   }
 
+  get hasTouch() {
+    return this.props.touch && this.pagesCount > 1;
+  }
+
   /******************************************************************************/
 
   startMove(x) {
@@ -237,17 +241,23 @@ export default class Carousel extends Widget {
 
   handleMouseDown(e) {
     //- console.log('handleMouseDown');
-    this.startMove(e.clientX);
+    if (this.hasTouch) {
+      this.startMove(e.clientX);
+    }
   }
 
   handleMouseMove(e) {
     //- console.log('handleMouseMove');
-    this.doMove(e.clientX);
+    if (this.hasTouch) {
+      this.doMove(e.clientX);
+    }
   }
 
   handleMouseUp(e) {
     //- console.log('handleMouseUp');
-    this.endMove();
+    if (this.hasTouch) {
+      this.endMove();
+    }
   }
 
   handleMouseOut(e) {
@@ -263,21 +273,23 @@ export default class Carousel extends Widget {
 
   handleTouchEnter(e) {
     //- console.log('handleTouchEnter');
-    if (e.touches.length === 1) {
+    if (this.hasTouch && e.touches.length === 1) {
       this.startMove(e.touches[0].clientX);
     }
   }
 
   handleTouchMove(e) {
     //- console.log('handleTouchMove');
-    if (e.touches.length === 1) {
+    if (this.hasTouch && e.touches.length === 1) {
       this.doMove(e.touches[0].clientX);
     }
   }
 
   handleTouchLeave(e) {
     //- console.log('handleTouchLeave');
-    this.endMove();
+    if (this.hasTouch) {
+      this.endMove();
+    }
   }
 
   /******************************************************************************/
