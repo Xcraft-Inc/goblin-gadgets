@@ -25,11 +25,13 @@ export default class Carousel extends Widget {
     this.handleNext = this.handleNext.bind(this);
     this.handleResize = this.handleResize.bind(this);
     this.handleBulletClicked = this.handleBulletClicked.bind(this);
+    this.handleMouseEnter = this.handleMouseEnter.bind(this);
     this.handleMouseOver = this.handleMouseOver.bind(this);
     this.handleMouseDown = this.handleMouseDown.bind(this);
     this.handleMouseMove = this.handleMouseMove.bind(this);
     this.handleMouseUp = this.handleMouseUp.bind(this);
     this.handleMouseOut = this.handleMouseOut.bind(this);
+    this.handleMouseLeave = this.handleMouseLeave.bind(this);
   }
 
   //#region get/set
@@ -189,19 +191,23 @@ export default class Carousel extends Widget {
     this.position = this.itemWidth * index;
   }
 
+  handleMouseEnter(e) {
+    console.log('handleMouseEnter');
+  }
+
   handleMouseOver(e) {
-    //- console.log('handleMouseOver');
+    console.log('handleMouseOver');
   }
 
   handleMouseDown(e) {
-    //- console.log('handleMouseDown');
+    console.log('handleMouseDown');
     this.mouseX = e.clientX;
     this.mouseMove = 0;
     this.mouseDown = true;
   }
 
   handleMouseMove(e) {
-    //- console.log('handleMouseMove');
+    console.log('handleMouseMove');
     if (this.mouseDown) {
       this.mouseMove = this.mouseX - e.clientX;
     } else {
@@ -210,7 +216,7 @@ export default class Carousel extends Widget {
   }
 
   handleMouseUp(e) {
-    //- console.log('handleMouseUp');
+    console.log('handleMouseUp');
     const dx =
       Math.floor((this.mouseMove + this.itemWidth / 2) / this.itemWidth) *
       this.itemWidth;
@@ -226,35 +232,17 @@ export default class Carousel extends Widget {
   }
 
   handleMouseOut(e) {
-    //- console.log('handleMouseOut');
+    console.log('handleMouseOut');
+  }
+
+  handleMouseLeave(e) {
+    console.log('handleMouseLeave');
     if (this.mouseDown) {
       this.handleMouseUp(e);
     }
   }
 
   /******************************************************************************/
-
-  // TODO: This layout capture the events, and hide it for buttons of modules!
-  renderTouchLayer() {
-    if (this.pagesCount <= 1) {
-      return null;
-    }
-
-    if (!this.props.touch) {
-      return null;
-    }
-
-    return (
-      <div
-        className={this.styles.classNames.touchLayer}
-        onMouseOver={this.handleMouseOver}
-        onMouseDown={this.handleMouseDown}
-        onMouseMove={this.handleMouseMove}
-        onMouseUp={this.handleMouseUp}
-        onMouseOut={this.handleMouseOut}
-      />
-    );
-  }
 
   renderBullet(selected, index) {
     return (
@@ -363,9 +351,15 @@ export default class Carousel extends Widget {
         <div
           className={this.styles.classNames.carouselShrinked}
           style={carouselStyle}
+          onMouseEnter={this.handleMouseEnter}
+          onMouseOver={this.handleMouseOver}
+          onMouseDown={this.handleMouseDown}
+          onMouseMove={this.handleMouseMove}
+          onMouseUp={this.handleMouseUp}
+          onMouseOut={this.handleMouseOut}
+          onMouseLeave={this.handleMouseLeave}
         >
           {this.renderPages()}
-          {this.renderTouchLayer()}
           {this.renderNavigator()}
           {this.renderButtonPrev()}
           {this.renderButtonNext()}
