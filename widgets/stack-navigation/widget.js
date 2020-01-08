@@ -163,12 +163,12 @@ class StackNavigationWidget extends Widget {
       }
     }
 
+    const beforeLastAnimation = animations ? animations.beforeLast : null;
+
     return (
       <React.Fragment>
-        {beforeLastScreen ? (
-          <AnimatedContainer
-            animation={animations ? animations.beforeLast : 'none'}
-          >
+        {beforeLastScreen && beforeLastAnimation ? (
+          <AnimatedContainer animation={beforeLastAnimation || 'none'}>
             {this.renderComponent(beforeLastScreen, beforeLastComponent)}
           </AnimatedContainer>
         ) : null}
