@@ -207,19 +207,19 @@ class StackNavigationWidget extends Widget {
 
     const lastComponent = this.getComponent(lastScreen);
     if (operation) {
-      let componentForAnimation = lastComponent;
+      let screenForAnimation = lastScreen;
       if (operation === 'back') {
         const backCount = operationParams.get('backCount');
         if (backCount > 1) {
-          const screenForAnimation = stack.get(stack.length - backCount);
-          componentForAnimation = this.getComponent(screenForAnimation);
+          screenForAnimation = stack.get(stack.length - backCount);
         }
       }
       let animation = null;
-      if (componentForAnimation.animations) {
-        animation = componentForAnimation.animations[operation];
+      const animations = screenForAnimation.get('animations');
+      if (animations) {
+        animation = animations.get(operation);
         if (!animation && operation === 'replace') {
-          animation = componentForAnimation.animations.open;
+          animation = animations.get('open');
         }
       }
 

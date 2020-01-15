@@ -5,6 +5,17 @@ const goblinName = path.basename(module.parent.filename, '.js');
 const Goblin = require('xcraft-core-goblin');
 const {fromJS} = require('immutable');
 
+function deleteUndefinedValues(obj) {
+  if (!obj) {
+    return;
+  }
+  for (const [key, value] of Object.entries(obj)) {
+    if (value === undefined) {
+      delete obj[key];
+    }
+  }
+}
+
 const logicState = {
   id: null,
   stack: [],
@@ -16,30 +27,28 @@ const logicHandlers = {
   create: (state, action) => {
     return state.set('id', action.get('id'));
   },
-  open: (state, action) => {
+
+  _open: (state, action) => {
+    return state.push('stack', fromJS(action.get('screen')));
+  },
+  _startOpenAnimation: (state, action) => {
     return state
       .set('operation', 'open')
       .push('stack', fromJS(action.get('screen')));
   },
-  back: (state, action) => {
-    let backCount = action.get('backCount');
-    if (!backCount || backCount < 1) {
-      backCount = 1;
-    }
-    return state.set('operation', 'back').set('operationParams', {backCount});
-  },
-  replace: (state, action) => {
-    let replaceCount = action.get('replaceCount');
-    if (!replaceCount || replaceCount < 1) {
-      replaceCount = 1;
-    }
-    return state
-      .set('operation', 'replace')
-      .set('operationParams', {replaceCount})
-      .push('stack', fromJS(action.get('screen')));
-  },
-  endOpenAnimation: state => {
+  _endOpenAnimation: state => {
     return state.set('operation', null).set('operationParams', null);
+  },
+
+  _back: (state, action) => {
+    const backCount = action.get('backCount');
+    let stack = state.get('stack');
+    stack = stack.splice(stack.size - backCount, backCount);
+    return state.set('stack', stack);
+  },
+  _startBackAnimation: (state, action) => {
+    const backCount = action.get('backCount');
+    return state.set('operation', 'back').set('operationParams', {backCount});
   },
   _endBackAnimation: state => {
     let stack = state.get('stack');
@@ -49,6 +58,21 @@ const logicHandlers = {
       .set('operation', null)
       .set('operationParams', null)
       .set('stack', stack);
+  },
+
+  _replace: (state, action) => {
+    const replaceCount = action.get('replaceCount');
+    let stack = state.get('stack');
+    stack = stack.splice(stack.size - replaceCount, replaceCount);
+    stack = stack.push('', fromJS(action.get('screen')));
+    return state.set('stack', stack);
+  },
+  _startReplaceAnimation: (state, action) => {
+    const replaceCount = action.get('replaceCount');
+    return state
+      .set('operation', 'replace')
+      .set('operationParams', {replaceCount})
+      .push('stack', fromJS(action.get('screen')));
   },
   _endReplaceAnimation: state => {
     let stack = state.get('stack');
@@ -62,34 +86,30 @@ const logicHandlers = {
 };
 
 const quests = {
-  create: function(quest, desktopId) {
+  create: function(quest, desktopId, screens) {
     quest.goblin.setX('desktopId', desktopId);
+    quest.goblin.setX('screens', screens);
     quest.do();
   },
 
-  open: function*(quest, widget, widgetProps, service, serviceId, serviceArgs) {
-    const state = quest.goblin.getState();
+  //-----------------------------------------------------------------------------
 
-    const operation = state.get('operation');
-    if (operation) {
-      // If an operation is running, do not open the new screen.
-      return;
+  _getScreenDefinition: function(quest, screenName, args) {
+    const screens = quest.goblin.getX('screens');
+    let screen = screens[screenName];
+    if (!screen) {
+      throw new Error('Unknown screen');
     }
-
-    serviceId = yield quest.me._initService({service, serviceId, serviceArgs});
-
-    quest.do({
-      screen: {
-        widget,
-        widgetProps,
-        serviceId,
-      },
-    });
-
-    return serviceId;
+    if (typeof screen === 'function') {
+      screen = screen(args);
+      deleteUndefinedValues(screen.widgetProps);
+      deleteUndefinedValues(screen.serviceArgs);
+    }
+    return {...screen};
   },
 
-  _initService: function*(quest, service, serviceId, serviceArgs) {
+  _initService: function*(quest, screen) {
+    let {service, serviceId, serviceArgs} = screen;
     const desktopId = quest.goblin.getX('desktopId');
     if (!serviceId && service) {
       serviceId = `${service}@${quest.uuidV4()}`;
@@ -104,45 +124,16 @@ const quests = {
     return serviceId;
   },
 
-  back: function(quest) {
-    const state = quest.goblin.getState();
-
-    const operation = state.get('operation');
-    if (operation) {
-      // If an operation is running, do nothing.
-      return;
+  _killServices: function*(quest, stack, count, skipCount) {
+    for (let i = 0; i < count; i++) {
+      const screen = stack.get(stack.size - 1 - skipCount - i);
+      if (screen) {
+        const serviceId = screen.get('serviceId');
+        if (serviceId) {
+          yield quest.kill([serviceId]);
+        }
+      }
     }
-
-    quest.do();
-  },
-
-  replace: function*(
-    quest,
-    widget,
-    widgetProps,
-    service,
-    serviceId,
-    serviceArgs
-  ) {
-    const state = quest.goblin.getState();
-
-    const operation = state.get('operation');
-    if (operation) {
-      // If an operation is running, do nothing.
-      return;
-    }
-
-    serviceId = yield quest.me._initService({service, serviceId, serviceArgs});
-
-    quest.do({
-      screen: {
-        widget,
-        widgetProps,
-        serviceId,
-      },
-    });
-
-    return serviceId;
   },
 
   endAnimation: function*(quest) {
@@ -154,11 +145,77 @@ const quests = {
     } else if (operation === 'replace') {
       yield quest.me.endReplaceAnimation();
     } else {
-      yield quest.me.endOpenAnimation();
+      yield quest.me._endOpenAnimation();
     }
   },
 
-  endOpenAnimation: function(quest) {
+  // --- Open -------------------------------------------------------------------
+
+  open: function*(quest, screenName, args) {
+    const screen = yield quest.me._getScreenDefinition({screenName, args});
+
+    const state = quest.goblin.getState();
+
+    const operation = state.get('operation');
+    if (operation) {
+      // If an operation is running, do not open the new screen.
+      return;
+    }
+
+    screen.serviceId = yield quest.me._initService({screen});
+
+    if (screen.animations && screen.animations.open) {
+      yield quest.me._startOpenAnimation({screen});
+    } else {
+      yield quest.me._open({screen});
+    }
+
+    return screen.serviceId;
+  },
+
+  _open: function(quest) {
+    quest.do();
+  },
+
+  _startOpenAnimation: function(quest) {
+    quest.do();
+  },
+
+  _endOpenAnimation: function(quest) {
+    quest.do();
+  },
+
+  // --- Back -------------------------------------------------------------------
+
+  back: function*(quest, backCount) {
+    const state = quest.goblin.getState();
+
+    const operation = state.get('operation');
+    if (operation) {
+      // If an operation is running, do nothing.
+      return;
+    }
+
+    if (!backCount || backCount < 1) {
+      backCount = 1;
+    }
+
+    const stack = state.get('stack');
+    const screenForAnimation = stack.get(stack.length - backCount);
+    const animations = screenForAnimation.get('animations');
+    if (animations && animations.get('back')) {
+      yield quest.me._startBackAnimation({backCount});
+    } else {
+      yield quest.me._back();
+      yield quest.me._killServices({stack, count: backCount, skipCount: 0});
+    }
+  },
+
+  _back: function(quest) {
+    quest.do();
+  },
+
+  _startBackAnimation: function(quest) {
     quest.do();
   },
 
@@ -171,18 +228,51 @@ const quests = {
     // Using a quest.do here doesn't work: the kill is done before pop...
     yield quest.me._endBackAnimation();
 
-    for (let i = 0; i < backCount; i++) {
-      const screen = stack.get(stack.size - 1 - i);
-      if (screen) {
-        const serviceId = screen.get('serviceId');
-        if (serviceId) {
-          yield quest.kill([serviceId]);
-        }
-      }
-    }
+    yield quest.me._killServices({stack, count: backCount, skipCount: 0});
   },
 
   _endBackAnimation: function(quest) {
+    quest.do();
+  },
+
+  // --- Replace ----------------------------------------------------------------
+
+  replace: function*(quest, screenName, args, replaceCount) {
+    const screen = yield quest.me._getScreenDefinition({screenName, args});
+
+    const state = quest.goblin.getState();
+
+    const operation = state.get('operation');
+    if (operation) {
+      // If an operation is running, do nothing.
+      return;
+    }
+
+    screen.serviceId = yield quest.me._initService({screen});
+
+    if (!replaceCount || replaceCount < 1) {
+      replaceCount = 1;
+    }
+
+    if (
+      screen.animations &&
+      (screen.animations.replace || screen.animations.open)
+    ) {
+      yield quest.me._startReplaceAnimation({screen, replaceCount});
+    } else {
+      const stack = state.get('stack');
+      yield quest.me._replace({screen, replaceCount});
+      yield quest.me._killServices({stack, count: replaceCount, skipCount: 0});
+    }
+
+    return screen.serviceId;
+  },
+
+  _replace: function(quest) {
+    quest.do();
+  },
+
+  _startReplaceAnimation: function(quest) {
     quest.do();
   },
 
@@ -195,20 +285,14 @@ const quests = {
     // Using a quest.do here doesn't work: the kill is done before pop...
     yield quest.me._endReplaceAnimation();
 
-    for (let i = 0; i < replaceCount; i++) {
-      const screen = stack.get(stack.size - 2 - i);
-      if (screen) {
-        const serviceId = screen.get('serviceId');
-        if (serviceId) {
-          yield quest.kill([serviceId]);
-        }
-      }
-    }
+    yield quest.me._killServices({stack, count: replaceCount, skipCount: 1});
   },
 
   _endReplaceAnimation: function(quest) {
     quest.do();
   },
+
+  //-----------------------------------------------------------------------------
 
   delete: function(quest) {},
 };
