@@ -436,7 +436,12 @@ export default function styles(theme, props) {
 
   if (kind === 'pane-warning-button') {
     position = 'absolute';
-    (right = '0px'), (top = '-40px'), (flexDirection = 'row');
+    left = '0px';
+    right = '0px';
+    top = '-40px';
+    display = 'flex';
+    flexDirection = 'row';
+    justifyContent = 'flex-end';
     flexGrow = grow;
     padding = '0px';
     margin = Unit.multiply(m, -1) + ' 0px 0px 0px';
