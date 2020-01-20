@@ -73,6 +73,7 @@ class DialogModal extends Widget {
         tp = 'right';
       }
       const comboClass = this.styles.classNames.combo;
+
       return (
         <div
           className={fullScreenClass}
@@ -105,6 +106,8 @@ class DialogModal extends Widget {
             cursor="default"
             width={this.props.width}
             height={this.props.height}
+            minWidth={this.props.minWidth}
+            minHeight={this.props.minHeight}
             onClick={this.onContentClick}
           >
             {this.props.children}

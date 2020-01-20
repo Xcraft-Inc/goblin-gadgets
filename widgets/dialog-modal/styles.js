@@ -8,11 +8,24 @@ export const propNames = [
   'bottom',
   'width',
   'height',
+  'minWidth',
+  'minHeight',
   'center',
 ];
 
 export default function styles(theme, props) {
-  const {zIndex, left, right, top, bottom, width, height, center} = props;
+  const {
+    zIndex,
+    left,
+    right,
+    top,
+    bottom,
+    width,
+    height,
+    minWidth,
+    minHeight,
+    center,
+  } = props;
 
   const fullScreen = {
     display: 'flex',
@@ -46,6 +59,8 @@ export default function styles(theme, props) {
     position: 'absolute',
     width: width,
     height: height,
+    minWidth: minWidth,
+    minHeight: minHeight,
     transform: transform,
     zIndex: zIndex || 10,
     display: 'flex',
