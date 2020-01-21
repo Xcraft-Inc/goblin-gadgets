@@ -290,8 +290,8 @@ export default function styles(theme, props) {
   if (kind === 'pane-warning') {
     textWeight = 'bold';
     textTransform = 'uppercase';
-    glyphColorFromKind = theme.palette.paneHeaderText;
-    textColorFromKind = theme.palette.paneHeaderText;
+    glyphColorFromKind = theme.palette.statusText;
+    textColorFromKind = theme.palette.statusText;
   }
 
   if (kind === 'title') {
