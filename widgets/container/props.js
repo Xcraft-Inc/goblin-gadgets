@@ -102,8 +102,6 @@ export default [
       'pane-navigator',
       'pane-top',
       'pane-vnavigator',
-      'pane-warning',
-      'pane-warning-button',
       'pane-wizard',
       'push-to-edge',
       'right',

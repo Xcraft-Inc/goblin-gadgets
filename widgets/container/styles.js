@@ -415,39 +415,6 @@ export default function styles(theme, props) {
     backgroundColor = theme.palette.paneHeaderBackground;
   }
 
-  if (kind === 'pane-warning') {
-    height = '20px';
-    flexDirection = 'row';
-    flexGrow = grow;
-    padding = Unit.multiply(m, 0.5) + ' ' + m;
-    margin = Unit.multiply(m, -1) + ' 0px ' + m + ' 0px';
-    if (subkind === 'draft') {
-      backgroundColor = theme.palette.markSuccess;
-    } else if (subkind === 'archived') {
-      backgroundColor = theme.palette.markSecondary;
-    } else if (subkind === 'trashed') {
-      backgroundColor = theme.palette.markPrimary;
-    } else if (subkind === 'business') {
-      backgroundColor = theme.palette.markBase;
-    } else {
-      backgroundColor = theme.palette.paneHeaderBackground;
-    }
-  }
-
-  if (kind === 'pane-warning-button') {
-    position = 'absolute';
-    left = '0px';
-    right = '0px';
-    top = '-40px';
-    display = 'flex';
-    flexDirection = 'row';
-    justifyContent = 'flex-end';
-    flexGrow = grow;
-    padding = '0px';
-    margin = Unit.multiply(m, -1) + ' 0px 0px 0px';
-    backgroundColor = 'transparent';
-  }
-
   if (kind === 'pane-header-light') {
     minHeight = height;
     flexDirection = 'row';
