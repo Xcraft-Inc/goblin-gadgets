@@ -50,12 +50,14 @@ export default class HinterFieldNC extends Widget {
   }
 
   renderSearch() {
+    const required =
+      this.props.required !== undefined ? this.props.required : true;
     return (
       <React.Fragment>
         <TextFieldNC
           shape={this.enableAdd ? 'left-smooth' : 'smooth'}
           autoFocus={this.props.autoFocus}
-          required={this.props.required}
+          required={required}
           visibility={this.props.visibility}
           disabled={this.props.disabled}
           readonly={this.props.readonly}
