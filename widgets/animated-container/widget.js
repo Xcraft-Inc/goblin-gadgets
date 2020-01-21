@@ -11,11 +11,12 @@ export default class AnimatedContainer extends Widget {
   }
 
   render() {
+    let className = this.styles.classNames.animatedContainer;
+    if (!this.props.fitContent) {
+      className += ' ' + this.styles.classNames.fillParent;
+    }
     return (
-      <div
-        className={this.styles.classNames.stackNavigationContainer}
-        onAnimationEnd={this.props.onAnimationEnd}
-      >
+      <div className={className} onAnimationEnd={this.props.onAnimationEnd}>
         {this.props.children}
       </div>
     );

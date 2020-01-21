@@ -138,7 +138,7 @@ class StackNavigationWidget extends Widget {
 
   renderFix(screen, Component) {
     return (
-      <AnimatedContainer animation="none">
+      <AnimatedContainer animation="none" fitContent={this.props.fitContent}>
         {this.renderComponent(screen, Component)}
       </AnimatedContainer>
     );
@@ -168,13 +168,17 @@ class StackNavigationWidget extends Widget {
     return (
       <React.Fragment>
         {beforeLastScreen && beforeLastAnimation ? (
-          <AnimatedContainer animation={beforeLastAnimation || 'none'}>
+          <AnimatedContainer
+            animation={beforeLastAnimation || 'none'}
+            fitContent={this.props.fitContent}
+          >
             {this.renderComponent(beforeLastScreen, beforeLastComponent)}
           </AnimatedContainer>
         ) : null}
         <AnimatedContainer
           animation={animations ? animations.last : 'none'}
           onAnimationEnd={this.handleAnimationEnd}
+          fitContent={this.props.fitContent}
         >
           {this.renderComponent(lastScreen, lastComponent)}
         </AnimatedContainer>

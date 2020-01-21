@@ -9,12 +9,7 @@ export default function styles(theme, props) {
 
   const a = getAnimation(animation);
 
-  const stackNavigationContainer = {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
+  const animatedContainer = {
     animationName: a.name,
     animationDuration: a.duration,
     animationTimingFunction: a.timingFunction,
@@ -22,8 +17,17 @@ export default function styles(theme, props) {
     animationFillMode: 'forwards',
   };
 
+  const fillParent = {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+  };
+
   return {
-    stackNavigationContainer,
+    animatedContainer,
+    fillParent,
   };
 }
 
