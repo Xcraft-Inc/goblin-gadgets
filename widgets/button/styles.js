@@ -756,6 +756,7 @@ export default function styles(theme, props) {
   }
 
   if (kind === 'pane-warning') {
+    boxWidth = '40px';
     boxHeight = '40px';
     backgroundColor = 'transparent';
     borderStyle = 'none';
