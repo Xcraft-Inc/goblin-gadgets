@@ -89,6 +89,7 @@ export default function styles(theme, props) {
 
   const nabuTextFieldStyle = {
     width: '100%',
+    height: '34px',
   };
 
   return {

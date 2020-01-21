@@ -215,7 +215,7 @@ class TranslatableCombo extends Widget {
 
   renderButton() {
     const shape = this.props.shape;
-    let glyph = this.showCombo ? 'regular/flag' : 'solid/flag';
+    let glyph = 'solid/flag';
     if (this.props.comboGlyph) {
       glyph = this.props.comboGlyph;
     }
@@ -231,7 +231,7 @@ class TranslatableCombo extends Widget {
       <Button
         kind="combo"
         glyph={glyph}
-        glyphSize="120%"
+        glyphSize="100%"
         shape={buttonShape}
         disabled={this.props.disabled}
         onClick={this.onShowCombo}
