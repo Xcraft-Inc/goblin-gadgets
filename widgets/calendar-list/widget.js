@@ -131,10 +131,13 @@ class CalendarList extends Form {
   renderItem(type, date, index) {
     const dd = DateConverters.getDisplayed(date, 'dMy,W');
     let glyph = 'solid/circle';
+    let glyphColor = 'transparent';
     if (type === 'add') {
       glyph = 'solid/plus';
+      glyphColor = null;
     } else if (type === 'sub') {
       glyph = 'solid/minus';
+      glyphColor = null;
     }
     return (
       <Button
@@ -144,6 +147,7 @@ class CalendarList extends Form {
         justify="left"
         active="true"
         glyph={glyph}
+        glyphColor={glyphColor}
         text={dd}
         onClick={() => this.onDateClicked(date)}
       />
