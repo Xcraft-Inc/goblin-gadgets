@@ -130,7 +130,7 @@ class CalendarList extends Form {
 
   renderItem(type, date, index) {
     const dd = DateConverters.getDisplayed(date, 'dMy,W');
-    let glyph = 'solid/chevron-right';
+    let glyph = 'solid/circle';
     if (type === 'add') {
       glyph = 'solid/plus';
     } else if (type === 'sub') {
