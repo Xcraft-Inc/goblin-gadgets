@@ -86,6 +86,10 @@ class DialogModal extends Widget {
               trianglePosition={tp}
               triangleShift={this.props.triangleShift}
               cursor="default"
+              width={this.props.width}
+              height={this.props.height}
+              minWidth={this.props.minWidth}
+              minHeight={this.props.minHeight}
             >
               {this.props.children}
             </Container>
