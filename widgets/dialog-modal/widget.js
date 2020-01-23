@@ -1,6 +1,5 @@
 //T:2019-02-27
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Widget from 'goblin-laboratory/widgets/widget';
 import KeyTrap from 'goblin-gadgets/widgets/key-trap.js';
 import * as RectHelpers from '../helpers/rect-helpers.js';
@@ -39,8 +38,7 @@ class DialogModal extends Widget {
   }
 
   onMouseDown(e) {
-    const node = ReactDOM.findDOMNode(this);
-    const rect = node.children[0].getBoundingClientRect();
+    const rect = this.containerNode.getBoundingClientRect();
     if (!RectHelpers.isInside(rect, e.clientX, e.clientY)) {
       // If the mouse is outside the menu combo, close it.
       this.onCloseCombo();
@@ -54,8 +52,6 @@ class DialogModal extends Widget {
   }
 
   render() {
-    const fullScreenClass = this.styles.classNames.fullScreen;
-
     if (
       this.props.top ||
       this.props.bottom ||
@@ -72,24 +68,22 @@ class DialogModal extends Widget {
       } else if (this.props.right) {
         tp = 'right';
       }
-      const comboClass = this.styles.classNames.combo;
 
       return (
         <div
-          className={fullScreenClass}
+          className={this.styles.classNames.fullScreen}
           onMouseDown={this.onMouseDown}
           onTouchStart={this.onMouseDown}
         >
-          <div className={comboClass}>
+          <div
+            ref={node => (this.containerNode = node)}
+            className={this.styles.classNames.combo}
+          >
             <Container
               kind="flying-dialog"
               trianglePosition={tp}
               triangleShift={this.props.triangleShift}
               cursor="default"
-              width={this.props.width}
-              height={this.props.height}
-              minWidth={this.props.minWidth}
-              minHeight={this.props.minHeight}
             >
               {this.props.children}
             </Container>
@@ -98,20 +92,11 @@ class DialogModal extends Widget {
       );
     } else {
       return (
-        <div
-          className={fullScreenClass}
-          onMouseDown={this.onMouseDown}
-          onTouchStart={this.onMouseDown}
-          onClick={this.props.onBackgroundClick}
-        >
+        <div className={this.styles.classNames.fullScreen}>
           <Container
             kind="floating"
             subkind={this.props.subkind}
             cursor="default"
-            width={this.props.width}
-            height={this.props.height}
-            minWidth={this.props.minWidth}
-            minHeight={this.props.minHeight}
             onClick={this.onContentClick}
           >
             {this.props.children}
