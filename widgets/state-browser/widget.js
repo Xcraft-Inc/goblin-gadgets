@@ -1,13 +1,18 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
+import DialogModal from 'goblin-gadgets/widgets/dialog-modal/widget';
 import TextField from 'goblin-gadgets/widgets/text-field/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
-import DialogModal from 'goblin-gadgets/widgets/dialog-modal/widget';
+import Label from 'goblin-gadgets/widgets/label/widget';
 import * as styles from './styles';
 import Shredder from 'xcraft-core-shredder';
 import withC from 'goblin-laboratory/widgets/connect-helpers/with-c';
+import T from 't';
+import TT from 'nabu/t/widget';
 
-// Remove last part of a path
+/******************************************************************************/
+
+// Remove last part of a path.
 // ex: "test.hello.a" => "test.hello"
 function removeLastKey(path) {
   let position = path.lastIndexOf('.');
@@ -18,19 +23,27 @@ function removeLastKey(path) {
   return path;
 }
 
+/******************************************************************************/
+
 let StateBrowser = class StateBrowser extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
+
     this.onClickItem = this.onClickItem.bind(this);
+    this.onClickBack = this.onClickBack.bind(this);
     this.onClickValue = this.onClickValue.bind(this);
     this.handleOnShowDialog = this.handleOnShowDialog.bind(this);
     this.handleOnCloseDialog = this.handleOnCloseDialog.bind(this);
+
     this.containerRef = null;
+
     this.state = {
       showDialog: false,
       buildedPath: removeLastKey(this.props.value),
     };
+
+    // Initialize with props or default value.
     let {itemHeight, itemWidth} = this.props;
     if (itemWidth) {
       itemWidth = parseInt(itemWidth.split('px')[0]);
@@ -38,8 +51,7 @@ let StateBrowser = class StateBrowser extends Widget {
     if (itemHeight) {
       itemHeight = parseInt(itemHeight.split('px')[0]);
     }
-    // initialize with props or default value
-    this.item = {width: itemWidth || 300, height: itemHeight || 35};
+    this.item = {width: itemWidth || 300, height: itemHeight || 32};
   }
 
   onClickValue(value) {
@@ -48,22 +60,23 @@ let StateBrowser = class StateBrowser extends Widget {
     }
   }
 
-  // Handle browsing into entity
+  onClickBack() {
+    this.setState({buildedPath: removeLastKey(this.state.buildedPath)});
+  }
+
+  // Handle browsing into entity.
   onClickItem(value) {
-    if (value === '<=') {
-      this.setState({buildedPath: removeLastKey(this.state.buildedPath)});
+    if (this.state.buildedPath !== '') {
+      value = '.' + value;
+    }
+    const newPath = this.state.buildedPath + value;
+
+    // Add last part of path, move in if it's not a value (end of a branch).
+    if (Shredder.isShredder(this.props.state.get(newPath))) {
+      this.setState({buildedPath: newPath});
     } else {
-      if (this.state.buildedPath !== '') {
-        value = '.' + value;
-      }
-      const newPath = this.state.buildedPath + value;
-      // Add last part of path, move in if it's not a value (end of a branch)
-      if (Shredder.isShredder(this.props.state.get(newPath))) {
-        this.setState({buildedPath: newPath});
-      } else {
-        this.onClickValue(newPath);
-        this.handleOnCloseDialog();
-      }
+      this.onClickValue(newPath);
+      this.handleOnCloseDialog();
     }
   }
 
@@ -78,30 +91,70 @@ let StateBrowser = class StateBrowser extends Widget {
     this.setState({showDialog: false});
   }
 
-  renderTextField() {
+  /******************************************************************************/
+
+  renderGlyph(glyph, justify) {
+    const position = {start: 'left', end: 'right'}[justify];
+    return <Label glyph={glyph} justify={justify} glyphPosition={position} />;
+  }
+
+  renderBack() {
     return (
-      <TextField
-        selectAllOnFocus={false}
-        grow="1"
-        value={this.props.value}
-        tooltip={this.props.tooltip}
-        readonly={true}
-      />
+      <div
+        key="_back"
+        className={this.styles.classNames.back}
+        onClick={this.onClickBack}
+      >
+        {this.renderGlyph('solid/chevron-left', 'start')}
+        <TT msgid={T('Retour')} className={this.styles.classNames.itemName} />
+      </div>
     );
   }
 
-  renderButton() {
-    if (this.props.readonly) {
-      return null;
+  renderType(type) {
+    if (typeof type === 'string') {
+      return <TT msgid={type} className={this.styles.classNames.itemType} />;
+    } else {
+      return this.renderGlyph('solid/chevron-right', 'end');
     }
+  }
+
+  renderItem(key, value) {
+    if (typeof value === 'string') {
+      const p = value.split('@');
+      if (p.length > 1) {
+        value = p[1];
+      }
+    }
+
+    // TODO : Implement mode to edit values.
     return (
-      <Button
-        onClick={this.handleOnShowDialog}
-        height={'33px'}
-        width={'33px'}
-        glyph="solid/folder"
-      />
+      <div
+        key={key}
+        className={this.styles.classNames.item}
+        onClick={() => this.onClickItem(key)}
+      >
+        <TT msgid={key} className={this.styles.classNames.itemName} />
+        {this.renderType(value)}
+      </div>
     );
+  }
+
+  renderItems() {
+    // Loop foreach key of an element.
+    const items = [];
+
+    // Add back button if already browsing.
+    if (!this.empty) {
+      items.push(this.renderBack());
+    }
+
+    // TODO : Implement blacklist to hide keys we don't want to show.
+    for (const [key, value] of this.props.state.get(this.state.buildedPath)) {
+      items.push(this.renderItem(key, value));
+    }
+
+    return items;
   }
 
   renderDialog() {
@@ -109,27 +162,28 @@ let StateBrowser = class StateBrowser extends Widget {
     if (!this.state.showDialog || !this.containerRef) {
       return null;
     }
-    let size = this.props.state.get(this.state.buildedPath).size;
-    // Add one for return button
+
+    let size =
+      this.props.state.get(this.state.buildedPath).size * this.item.height;
+    // Increase for back button.
     if (!this.empty) {
-      size += 1;
+      size += 41 + 20;
     }
 
     const windowHeight = window.innerHeight;
-    const containerHeight = Math.min(
-      size * this.item.height + 80,
-      windowHeight - 20
-    );
+    const containerHeight = Math.min(size + 80, windowHeight - 20);
     const containerWidth = this.item.width;
-    //TODO : Show Dialog in other direction than right
+
+    //TODO : Show Dialog in other direction than right.
     let {left, top, width, height} = this.containerRef.getBoundingClientRect();
     const triangleSize = 33;
-    // Calculate position X of the element
+    // Calculate position X of the element.
     left = left + width + triangleSize + 'px';
-    // Calculate position Y of the element
+
+    // Calculate position Y of the element.
     let center = top + height / 2;
     let shiftY = 0;
-    // Handle case when container get out of the screen
+    // Handle case when container get out of the screen.
     if (center - containerHeight / 2 < 10) {
       const offset = containerHeight / 2 - center + 10;
       center += offset;
@@ -140,6 +194,7 @@ let StateBrowser = class StateBrowser extends Widget {
       center -= offset;
       shiftY = offset;
     }
+
     return (
       <DialogModal
         left={left}
@@ -156,47 +211,41 @@ let StateBrowser = class StateBrowser extends Widget {
     );
   }
 
-  renderItem(key, value) {
-    // TODO : Better display of values...
-    if (value) {
-      value = value.toString().substr(0, 10);
-    }
-    // TODO : Implement mode to edit values
+  renderTextField() {
     return (
-      <Button
-        key={key}
-        onClick={() => {
-          this.onClickItem(key);
-        }}
-        height={this.item.height - 2 + 'px'}
-        width={this.item.width + 'px'}
-        text={key + ' => ' + value}
+      <TextField
+        grow="1"
+        selectAllOnFocus={false}
+        readonly={true}
+        value={this.props.value}
+        tooltip={this.props.tooltip}
+        horizontalSpacing="overlap"
       />
     );
   }
 
-  renderItems() {
-    // Boucle foreach key of an element
-    const items = [];
-
-    // Add back button if already browsing
-    if (!this.empty) {
-      items.push(this.renderItem('<=', 'Retour'));
+  renderButton() {
+    if (this.props.readonly) {
+      return null;
     }
 
-    // TODO : Implement blacklist to hide keys we don't want to show
-    for (const [key, value] of this.props.state.get(this.state.buildedPath)) {
-      items.push(this.renderItem(key, value));
-    }
-
-    return items;
+    return (
+      <Button
+        kind="combo"
+        vpos="top"
+        shape="right-smooth"
+        glyph="solid/chevron-right"
+        onClick={this.handleOnShowDialog}
+      />
+    );
   }
 
   render() {
     if (!Shredder.isShredder(this.props.state)) {
-      console.error('StateBrowser require immutable in entry !');
+      console.error('StateBrowser: Require immutable in entry!');
       return null;
     }
+
     return (
       <React.Fragment>
         <div
@@ -211,6 +260,8 @@ let StateBrowser = class StateBrowser extends Widget {
     );
   }
 };
+
+/******************************************************************************/
 
 export default withC(StateBrowser, {value: 'onChange'});
 
