@@ -82,8 +82,8 @@ let EntityBrowser = class EntityBrowser extends Widget {
     return (
       <Button
         onClick={this.handleOnShowDialog}
-        height={'32px'}
-        width={'32px'}
+        height={'33px'}
+        width={'33px'}
       />
     );
   }
@@ -97,14 +97,13 @@ let EntityBrowser = class EntityBrowser extends Widget {
     if (!this.empty) {
       size += 1;
     }
-    let itemHeight = this.props.itemHeight || '32px';
+    let itemHeight = this.props.itemHeight || '35px';
     if (itemHeight.endsWith('px')) {
       itemHeight = parseInt(itemHeight.split('px')[0]);
     }
 
     const windowHeight = window.innerHeight;
-    const containerHeight =
-      Math.min(size * itemHeight + 80, windowHeight - 20) + 'px';
+    const containerHeight = Math.min(size * itemHeight + 80, windowHeight - 20);
     const containerWidth = this.props.itemWidth || '300px';
     //TODO : Show Dialog in other direction than right
     let {left, top, width, height} = this.containerRef.getBoundingClientRect();
@@ -131,7 +130,7 @@ let EntityBrowser = class EntityBrowser extends Widget {
         center={center + 'px'}
         triangleShift={shiftY + 'px'}
         width={containerWidth}
-        height={containerHeight}
+        height={containerHeight + 'px'}
         close={this.handleOnCloseDialog}
       >
         <div className={this.styles.classNames.overflow}>
