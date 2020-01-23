@@ -41,7 +41,7 @@ let StateBrowser = class StateBrowser extends Widget {
       }
       const newPath = this.buildedPath + value;
       // Add last part of path, move in if it's not a value (end of a branch)
-      if (Shredder.isShredder(this.props.entity.get(newPath))) {
+      if (Shredder.isShredder(this.props.state.get(newPath))) {
         this.buildedPath = newPath;
         this.TextFieldValue = newPath;
       } else {
@@ -92,7 +92,7 @@ let StateBrowser = class StateBrowser extends Widget {
     if (!this.state.showDialog || !this.containerRef) {
       return null;
     }
-    let size = this.props.entity.get(this.buildedPath).size;
+    let size = this.props.state.get(this.buildedPath).size;
     // Add one for return button
     if (!this.empty) {
       size += 1;
@@ -168,7 +168,7 @@ let StateBrowser = class StateBrowser extends Widget {
       items.push(this.renderItem('<=', 'Retour'));
     }
 
-    for (const [key, value] of this.props.entity.get(this.buildedPath)) {
+    for (const [key, value] of this.props.state.get(this.buildedPath)) {
       items.push(this.renderItem(key, value));
     }
 
@@ -177,13 +177,13 @@ let StateBrowser = class StateBrowser extends Widget {
 
   render() {
     this.empty = this.buildedPath === '';
-    if (!Shredder.isShredder(this.props.entity)) {
-      console.error('EntityBrowser require immutable in entry !');
+    if (!Shredder.isShredder(this.props.state)) {
+      console.error('StateBrowser require immutable in entry !');
       return null;
     }
 
-    if (!this.props.entityId) {
-      console.error('EntityBrowser require an entity Id !');
+    if (!this.props.path) {
+      console.error('StateBrowser require a path !');
       return null;
     }
     return (
@@ -203,6 +203,6 @@ let StateBrowser = class StateBrowser extends Widget {
 
 export default Widget.connect((state, props) => {
   return {
-    entity: state.get('backend').get(props.entityId),
+    state: state.get(props.path),
   };
 })(StateBrowser);
