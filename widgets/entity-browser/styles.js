@@ -2,33 +2,33 @@
 export const propNames = ['itemHeight', 'itemWidth'];
 
 export default function styles(theme, props) {
-  let {itemHeight, itemWidth} = props;
-
-  itemHeight = itemHeight
-    ? itemHeight.endsWith('px')
-      ? itemHeight
-      : itemHeight + 'px'
-    : '35px';
-  itemWidth = itemWidth
-    ? itemWidth.endsWith('px')
-      ? itemWidth
-      : itemWidth + 'px'
-    : '300px';
+  let {itemHeight = '35px', itemWidth = '300px'} = props;
+  if (!itemHeight.endsWith('px')) {
+    itemHeight += 'px';
+  }
+  if (!itemWidth.endsWith('px')) {
+    itemWidth += 'px';
+  }
 
   const container = {
     display: 'flex',
     flexGrow: 'none',
   };
 
+  const overflow = {
+    overflow: 'auto',
+  };
+
   const item = {
     display: 'flex',
-    height: itemHeight,
-    width: itemWidth,
+    minHeight: itemHeight,
+    minWidth: itemWidth,
     justifyContent: 'center',
   };
 
   return {
     container,
+    overflow,
     item,
   };
 }

@@ -11,12 +11,21 @@ let EntityBrowser = class EntityBrowser extends Widget {
     super(...arguments);
     this.styles = styles;
     this.onClickItem = this.onClickItem.bind(this);
+    this.onClickValue = this.onClickValue.bind(this);
     this.handleOnShowDialog = this.handleOnShowDialog.bind(this);
     this.handleOnCloseDialog = this.handleOnCloseDialog.bind(this);
     this.onChangeTextField = this.onChangeTextField.bind(this);
     this.containerRef = null;
     this.buildedPath = '';
+    this.TextFieldValue = '';
     this.state = {showDialog: false};
+  }
+
+  onClickValue(value) {
+    this.TextFieldValue = value;
+    if (this.props.onChangePath) {
+      this.props.onChangePath(value);
+    }
   }
 
   // Handle browsing into entity
@@ -30,10 +39,14 @@ let EntityBrowser = class EntityBrowser extends Widget {
       if (this.buildedPath !== '') {
         value = '.' + value;
       }
-      const newPath = this.props.entity.get(this.buildedPath + value);
+      const newPath = this.buildedPath + value;
       // Add last part of path, move in if it's not a value (end of a branch)
-      if (Shredder.isShredder(newPath)) {
-        this.buildedPath += value;
+      if (Shredder.isShredder(this.props.entity.get(newPath))) {
+        this.buildedPath = newPath;
+        this.TextFieldValue = newPath;
+      } else {
+        this.onClickValue(newPath);
+        this.handleOnCloseDialog();
       }
     }
     this.forceUpdate();
@@ -57,8 +70,9 @@ let EntityBrowser = class EntityBrowser extends Widget {
         selectAllOnFocus={false}
         width={'300px'}
         onChange={this.onChangeTextField}
-        value={this.buildedPath}
+        value={this.TextFieldValue}
         tooltip={this.props.tooltip}
+        readonly={true}
       />
     );
   }
@@ -78,27 +92,51 @@ let EntityBrowser = class EntityBrowser extends Widget {
     if (!this.state.showDialog || !this.containerRef) {
       return null;
     }
-    const size = this.props.entity.get(this.buildedPath).size;
-    let itemHeight = this.props.itemHeight || '35px';
+    let size = this.props.entity.get(this.buildedPath).size;
+    // Add one for return button
+    if (!this.empty) {
+      size += 1;
+    }
+    let itemHeight = this.props.itemHeight || '32px';
     if (itemHeight.endsWith('px')) {
       itemHeight = parseInt(itemHeight.split('px')[0]);
     }
-    const containerHeight = size * itemHeight + 80 + 'px';
+
+    const windowHeight = window.innerHeight;
+    const containerHeight =
+      Math.min(size * itemHeight + 80, windowHeight - 20) + 'px';
     const containerWidth = this.props.itemWidth || '300px';
     //TODO : Show Dialog in other direction than right
     let {left, top, width, height} = this.containerRef.getBoundingClientRect();
     const triangleSize = 33;
+    // Calculate position X of the element
     left = left + width + triangleSize + 'px';
-    const center = top + height / 2 + 'px';
+    // Calculate position Y of the element
+    let center = top + height / 2;
+    let shiftY = 0;
+    // Handle case when container get out of the screen
+    if (center - containerHeight / 2 < 10) {
+      const offset = containerHeight / 2 - center + 10;
+      center += offset;
+      shiftY = -offset;
+    }
+    if (center + containerHeight / 2 > windowHeight - 10) {
+      const offset = center + containerHeight / 2 - (windowHeight - 10);
+      center -= offset;
+      shiftY = offset;
+    }
     return (
       <DialogModal
         left={left}
-        center={center}
+        center={center + 'px'}
+        triangleShift={shiftY + 'px'}
         width={containerWidth}
         height={containerHeight}
         close={this.handleOnCloseDialog}
       >
-        {this.renderItems()}
+        <div className={this.styles.classNames.overflow}>
+          {this.renderItems()}
+        </div>
       </DialogModal>
     );
   }
@@ -109,36 +147,42 @@ let EntityBrowser = class EntityBrowser extends Widget {
       value = value.toString().substr(0, 10);
     }
     return (
-      <div
+      <Button
         key={key}
-        className={this.styles.classNames.item}
         onClick={() => {
           this.onClickItem(key);
         }}
-      >
-        {key + ' => ' + value}
-      </div>
+        height={this.props.itemHeight || '33px'}
+        width={this.props.itemWidth || '300px'}
+        glyph="solid/folder"
+        text={key + ' => ' + value}
+      />
     );
   }
 
   renderItems() {
     // Boucle foreach key of an element
     const items = [];
+
     // Add back button if already browsing
-    if (this.buildedPath !== '') {
+    if (!this.empty) {
       items.push(this.renderItem('<=', 'Retour'));
     }
+
     for (const [key, value] of this.props.entity.get(this.buildedPath)) {
       items.push(this.renderItem(key, value));
     }
+
     return items;
   }
 
   render() {
+    this.empty = this.buildedPath === '';
     if (!Shredder.isShredder(this.props.entity)) {
       console.error('EntityBrowser require immutable in entry !');
       return null;
     }
+
     if (!this.props.entityId) {
       console.error('EntityBrowser require an entity Id !');
       return null;
