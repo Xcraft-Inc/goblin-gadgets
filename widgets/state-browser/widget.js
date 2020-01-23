@@ -6,7 +6,7 @@ import DialogModal from 'goblin-gadgets/widgets/dialog-modal/widget';
 import * as styles from './styles';
 import Shredder from 'xcraft-core-shredder';
 
-let EntityBrowser = class EntityBrowser extends Widget {
+let StateBrowser = class StateBrowser extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
@@ -205,4 +205,4 @@ export default Widget.connect((state, props) => {
   return {
     entity: state.get('backend').get(props.entityId),
   };
-})(EntityBrowser);
+})(StateBrowser);
