@@ -1,8 +1,13 @@
 /******************************************************************************/
-export const propNames = ['itemHeight', 'itemWidth'];
+export const propNames = ['itemHeight', 'itemWidth', 'width', 'grow'];
 
 export default function styles(theme, props) {
-  let {itemHeight = '35px', itemWidth = '300px'} = props;
+  let {
+    itemHeight = '35px',
+    itemWidth = '300px',
+    width = '100%',
+    grow = '1',
+  } = props;
   if (!itemHeight.endsWith('px')) {
     itemHeight += 'px';
   }
@@ -12,24 +17,17 @@ export default function styles(theme, props) {
 
   const container = {
     display: 'flex',
-    flexGrow: 'none',
+    width,
+    grow,
   };
 
   const overflow = {
     overflow: 'auto',
   };
 
-  const item = {
-    display: 'flex',
-    minHeight: itemHeight,
-    minWidth: itemWidth,
-    justifyContent: 'center',
-  };
-
   return {
     container,
     overflow,
-    item,
   };
 }
 

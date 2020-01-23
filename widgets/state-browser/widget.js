@@ -5,6 +5,18 @@ import Button from 'goblin-gadgets/widgets/button/widget';
 import DialogModal from 'goblin-gadgets/widgets/dialog-modal/widget';
 import * as styles from './styles';
 import Shredder from 'xcraft-core-shredder';
+import withC from 'goblin-laboratory/widgets/connect-helpers/with-c';
+
+// Remove last part of a path
+// ex: "test.hello.a" => "test.hello"
+function removeLastKey(path) {
+  let position = path.lastIndexOf('.');
+  if (position === -1) {
+    return '';
+  }
+  path = path.substr(0, position);
+  return path;
+}
 
 let StateBrowser = class StateBrowser extends Widget {
   constructor() {
@@ -14,63 +26,64 @@ let StateBrowser = class StateBrowser extends Widget {
     this.onClickValue = this.onClickValue.bind(this);
     this.handleOnShowDialog = this.handleOnShowDialog.bind(this);
     this.handleOnCloseDialog = this.handleOnCloseDialog.bind(this);
-    this.onChangeTextField = this.onChangeTextField.bind(this);
     this.containerRef = null;
-    this.buildedPath = '';
-    this.TextFieldValue = '';
-    this.state = {showDialog: false};
+    this.state = {
+      showDialog: false,
+      buildedPath: removeLastKey(this.props.value),
+    };
+    let {itemHeight, itemWidth} = this.props;
+    if (itemWidth) {
+      itemWidth = parseInt(itemWidth.split('px')[0]);
+    }
+    if (itemHeight) {
+      itemHeight = parseInt(itemHeight.split('px')[0]);
+    }
+    // initialize with props or default value
+    this.item = {width: itemWidth || 300, height: itemHeight || 35};
   }
 
   onClickValue(value) {
-    this.TextFieldValue = value;
-    if (this.props.onChangePath) {
-      this.props.onChangePath(value);
+    if (this.props.onChange) {
+      this.props.onChange(value);
     }
   }
 
   // Handle browsing into entity
   onClickItem(value) {
     if (value === '<=') {
-      // Remove last part of a path
-      // ex: "test.hello.a" => "test.hello"
-      let position = this.buildedPath.lastIndexOf('.');
-      this.buildedPath = this.buildedPath.substr(0, position);
+      this.setState({buildedPath: removeLastKey(this.state.buildedPath)});
     } else {
-      if (this.buildedPath !== '') {
+      if (this.state.buildedPath !== '') {
         value = '.' + value;
       }
-      const newPath = this.buildedPath + value;
+      const newPath = this.state.buildedPath + value;
       // Add last part of path, move in if it's not a value (end of a branch)
       if (Shredder.isShredder(this.props.state.get(newPath))) {
-        this.buildedPath = newPath;
-        this.TextFieldValue = newPath;
+        this.setState({buildedPath: newPath});
       } else {
         this.onClickValue(newPath);
         this.handleOnCloseDialog();
       }
     }
-    this.forceUpdate();
   }
 
   handleOnShowDialog() {
-    this.setState({showDialog: true});
+    this.setState({
+      showDialog: true,
+      buildedPath: removeLastKey(this.props.value),
+    });
   }
 
   handleOnCloseDialog() {
     this.setState({showDialog: false});
   }
 
-  onChangeTextField(e) {
-    this.buildedPath = e;
-  }
-
   renderTextField() {
     return (
       <TextField
         selectAllOnFocus={false}
-        width={'300px'}
-        onChange={this.onChangeTextField}
-        value={this.TextFieldValue}
+        grow="1"
+        value={this.props.value}
         tooltip={this.props.tooltip}
         readonly={true}
       />
@@ -78,33 +91,36 @@ let StateBrowser = class StateBrowser extends Widget {
   }
 
   renderButton() {
-    // Put folder glyph
+    if (this.props.readonly) {
+      return null;
+    }
     return (
       <Button
         onClick={this.handleOnShowDialog}
         height={'33px'}
         width={'33px'}
+        glyph="solid/folder"
       />
     );
   }
 
   renderDialog() {
+    this.empty = this.state.buildedPath === '';
     if (!this.state.showDialog || !this.containerRef) {
       return null;
     }
-    let size = this.props.state.get(this.buildedPath).size;
+    let size = this.props.state.get(this.state.buildedPath).size;
     // Add one for return button
     if (!this.empty) {
       size += 1;
     }
-    let itemHeight = this.props.itemHeight || '35px';
-    if (itemHeight.endsWith('px')) {
-      itemHeight = parseInt(itemHeight.split('px')[0]);
-    }
 
     const windowHeight = window.innerHeight;
-    const containerHeight = Math.min(size * itemHeight + 80, windowHeight - 20);
-    const containerWidth = this.props.itemWidth || '300px';
+    const containerHeight = Math.min(
+      size * this.item.height + 80,
+      windowHeight - 20
+    );
+    const containerWidth = this.item.width;
     //TODO : Show Dialog in other direction than right
     let {left, top, width, height} = this.containerRef.getBoundingClientRect();
     const triangleSize = 33;
@@ -129,7 +145,7 @@ let StateBrowser = class StateBrowser extends Widget {
         left={left}
         center={center + 'px'}
         triangleShift={shiftY + 'px'}
-        width={containerWidth}
+        width={containerWidth + 'px'}
         height={containerHeight + 'px'}
         close={this.handleOnCloseDialog}
       >
@@ -145,15 +161,15 @@ let StateBrowser = class StateBrowser extends Widget {
     if (value) {
       value = value.toString().substr(0, 10);
     }
+    // TODO : Implement mode to edit values
     return (
       <Button
         key={key}
         onClick={() => {
           this.onClickItem(key);
         }}
-        height={this.props.itemHeight || '33px'}
-        width={this.props.itemWidth || '300px'}
-        glyph="solid/folder"
+        height={this.item.height - 2 + 'px'}
+        width={this.item.width + 'px'}
         text={key + ' => ' + value}
       />
     );
@@ -168,7 +184,8 @@ let StateBrowser = class StateBrowser extends Widget {
       items.push(this.renderItem('<=', 'Retour'));
     }
 
-    for (const [key, value] of this.props.state.get(this.buildedPath)) {
+    // TODO : Implement blacklist to hide keys we don't want to show
+    for (const [key, value] of this.props.state.get(this.state.buildedPath)) {
       items.push(this.renderItem(key, value));
     }
 
@@ -176,14 +193,8 @@ let StateBrowser = class StateBrowser extends Widget {
   }
 
   render() {
-    this.empty = this.buildedPath === '';
     if (!Shredder.isShredder(this.props.state)) {
       console.error('StateBrowser require immutable in entry !');
-      return null;
-    }
-
-    if (!this.props.path) {
-      console.error('StateBrowser require a path !');
       return null;
     }
     return (
@@ -201,8 +212,10 @@ let StateBrowser = class StateBrowser extends Widget {
   }
 };
 
-export default Widget.connect((state, props) => {
-  return {
-    state: state.get(props.path),
-  };
-})(StateBrowser);
+export default withC(StateBrowser, {value: 'onChange'});
+
+// export default Widget.connect((state, props) => {
+//   return {
+//     state: state.get(props.path),
+//   };
+// })(StateBrowser);

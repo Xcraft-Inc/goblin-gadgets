@@ -29,6 +29,7 @@ import Calendar from 'goblin-gadgets/widgets/calendar/widget';
 import CalendarBoards from 'goblin-gadgets/widgets/calendar-boards/widget';
 import FileInput from 'goblin-gadgets/widgets/file-input/widget';
 import DirectoryInput from 'goblin-gadgets/widgets/directory-input/widget';
+import StateBrowser from 'goblin-gadgets/widgets/state-browser/widget';
 
 import Plugin from 'goblin-desktop/widgets/plugin/widget';
 
@@ -1393,6 +1394,49 @@ class Field extends Form {
       </LabelRow>
     );
   }
+
+  renderEditStateBrowser() {
+    let {
+      show,
+      labelText,
+      labelWrap,
+      labelGlyph,
+      labelWidth = defaultLabelWidth,
+      horizontalSpacing,
+      verticalSpacing,
+      verticalJustify,
+      width,
+      grow,
+      value,
+      model,
+      state,
+      path,
+      ...otherProps
+    } = this.props;
+    if (model) {
+      value = C(model);
+    }
+    if (path) {
+      state = C(path);
+    }
+    return (
+      <LabelRow
+        show={show}
+        labelText={labelText}
+        labelWrap={labelWrap}
+        labelGlyph={labelGlyph}
+        labelWidth={labelWidth}
+        horizontalSpacing={horizontalSpacing}
+        verticalSpacing={verticalSpacing}
+        verticalJustify={verticalJustify}
+        width={width}
+        grow={grow}
+      >
+        <StateBrowser grow={grow} value={value} state={state} {...otherProps} />
+      </LabelRow>
+    );
+  }
+
   //#endregion
 
   renderReadonly() {
@@ -1444,6 +1488,8 @@ class Field extends Form {
         return this.renderComboIds();
       case 'translatable':
         return this.renderReadonlyTranslatable();
+      case 'state-browser':
+        return this.renderEditStateBrowser();
       case 'label':
         return (
           <ReadonlyLabel
@@ -1506,6 +1552,8 @@ class Field extends Form {
         return this.renderComboIds();
       case 'translatable':
         return this.renderEditTranslatable();
+      case 'state-browser':
+        return this.renderEditStateBrowser();
       case 'label':
         return (
           <ReadonlyLabel
