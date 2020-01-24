@@ -1,5 +1,6 @@
 //T:2019-02-27
 import React from 'react';
+import ReactDOM from 'react-dom';
 import Widget from 'goblin-laboratory/widgets/widget';
 import KeyTrap from 'goblin-gadgets/widgets/key-trap.js';
 import * as RectHelpers from '../helpers/rect-helpers.js';
@@ -14,8 +15,7 @@ class DialogModal extends Widget {
     super(...arguments);
     this.styles = styles;
 
-    this.onMouseDown = this.onMouseDown.bind(this);
-    this.onContentClick = this.onContentClick.bind(this);
+    this.onBackgroundClick = this.onBackgroundClick.bind(this);
     this.onCloseCombo = this.onCloseCombo.bind(this);
   }
 
@@ -37,17 +37,21 @@ class DialogModal extends Widget {
     }
   }
 
-  onMouseDown(e) {
-    const rect = this.containerNode.getBoundingClientRect();
+  onBackgroundClick(e) {
+    if (!this.props.backgroundClose) {
+      return;
+    }
+
+    let node = this.divNode;
+    if (this.containerNode) {
+      // This trick is necessary to obtain the node in DOM according to Container!
+      node = ReactDOM.findDOMNode(this.containerNode);
+    }
+
+    const rect = node.getBoundingClientRect();
     if (!RectHelpers.isInside(rect, e.clientX, e.clientY)) {
       // If the mouse is outside the menu combo, close it.
       this.onCloseCombo();
-    }
-  }
-
-  onContentClick(e) {
-    if (this.props.onBackgroundClick) {
-      e.stopPropagation();
     }
   }
 
@@ -72,11 +76,11 @@ class DialogModal extends Widget {
       return (
         <div
           className={this.styles.classNames.fullScreen}
-          onMouseDown={this.onMouseDown}
-          onTouchStart={this.onMouseDown}
+          onMouseDown={this.onBackgroundClick}
+          onTouchStart={this.onBackgroundClick}
         >
           <div
-            ref={node => (this.containerNode = node)}
+            ref={node => (this.divNode = node)}
             className={this.styles.classNames.combo}
           >
             <Container
@@ -92,12 +96,16 @@ class DialogModal extends Widget {
       );
     } else {
       return (
-        <div className={this.styles.classNames.fullScreen}>
+        <div
+          className={this.styles.classNames.fullScreen}
+          onMouseDown={this.onBackgroundClick}
+          onTouchStart={this.onBackgroundClick}
+        >
           <Container
+            ref={node => (this.containerNode = node)}
             kind="floating"
             subkind={this.props.subkind}
             cursor="default"
-            onClick={this.onContentClick}
           >
             {this.props.children}
           </Container>

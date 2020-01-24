@@ -202,6 +202,7 @@ let StateBrowser = class StateBrowser extends Widget {
         triangleShift={shiftY + 'px'}
         width={containerWidth + 'px'}
         height={containerHeight + 'px'}
+        backgroundClose={true}
         close={this.handleOnCloseDialog}
       >
         <div className={this.styles.classNames.overflow}>
