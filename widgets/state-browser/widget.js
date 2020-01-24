@@ -7,7 +7,6 @@ import Label from 'goblin-gadgets/widgets/label/widget';
 import * as styles from './styles';
 import Shredder from 'xcraft-core-shredder';
 import withC from 'goblin-laboratory/widgets/connect-helpers/with-c';
-import T from 't';
 import TT from 'nabu/t/widget';
 
 /******************************************************************************/
@@ -94,7 +93,7 @@ let StateBrowser = class StateBrowser extends Widget {
   /******************************************************************************/
 
   renderGlyph(glyph, justify) {
-    const position = {start: 'left', end: 'right'}[justify];
+    const position = {start: 'left', end: 'right', center: 'center'}[justify];
     return <Label glyph={glyph} justify={justify} glyphPosition={position} />;
   }
 
@@ -105,8 +104,7 @@ let StateBrowser = class StateBrowser extends Widget {
         className={this.styles.classNames.back}
         onClick={this.onClickBack}
       >
-        {this.renderGlyph('solid/chevron-left', 'start')}
-        <TT msgid={T('Retour')} className={this.styles.classNames.itemName} />
+        {this.renderGlyph('solid/chevron-left', 'center')}
       </div>
     );
   }
@@ -167,11 +165,11 @@ let StateBrowser = class StateBrowser extends Widget {
       this.props.state.get(this.state.buildedPath).size * this.item.height;
     // Increase for back button.
     if (!this.empty) {
-      size += 41 + 20;
+      size += 40 + 10;
     }
 
     const windowHeight = window.innerHeight;
-    const containerHeight = Math.min(size + 80, windowHeight - 20);
+    const containerHeight = Math.min(size + 20 * 2, windowHeight - 20);
     const containerWidth = this.item.width;
 
     //TODO : Show Dialog in other direction than right.
@@ -205,8 +203,10 @@ let StateBrowser = class StateBrowser extends Widget {
         backgroundClose={true}
         close={this.handleOnCloseDialog}
       >
-        <div className={this.styles.classNames.overflow}>
-          {this.renderItems()}
+        <div className={this.styles.classNames.content}>
+          <div className={this.styles.classNames.overflow}>
+            {this.renderItems()}
+          </div>
         </div>
       </DialogModal>
     );

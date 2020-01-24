@@ -22,20 +22,36 @@ export default function styles(theme, props) {
     grow,
   };
 
+  const content = {
+    position: 'absolute',
+    top: '0px',
+    bottom: '0px',
+    left: '0px',
+    right: '0px',
+    display: 'flex',
+    flexDirection: 'column',
+    margin: '20px',
+    overflow: 'hidden',
+  };
+
   const overflow = {
-    overflow: 'auto',
+    overflowY: 'auto',
   };
 
   const back = {
-    'marginBottom': '20px',
+    'marginBottom': '10px',
+    'width': '40px',
     'height': '40px',
-    'padding': '0px 10px',
     'display': 'flex',
     'flexDirection': 'row',
+    'justifyContent': 'center',
     'alignItems': 'center',
-    'borderBottom': `1px solid ${theme.palette.buttonDisableBorder}`,
+    'borderRadius': '3px',
+    'fontSize': '120%',
+    'color': theme.palette.stateBrowserBackText,
+    'background': theme.palette.stateBrowserBackBackground,
     ':hover': {
-      background: theme.palette.facetBackgroundHover,
+      background: theme.palette.stateBrowserBackBackgroundHover,
     },
   };
 
@@ -62,6 +78,7 @@ export default function styles(theme, props) {
 
   return {
     container,
+    content,
     overflow,
 
     back,
