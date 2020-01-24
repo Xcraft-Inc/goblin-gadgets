@@ -6,29 +6,24 @@ import Shredder from 'xcraft-core-shredder';
 import * as Bool from 'gadgets/helpers/bool-helpers';
 import * as styles from './styles';
 
-import {
-  date as DateConverters,
-  time as TimeConverters,
-  datetime as DateTimeConverters,
-  price as PriceConverters,
-} from 'xcraft-core-converters';
+import {converters as Converters} from 'xcraft-core-converters';
 
 import Label from 'goblin-gadgets/widgets/label/widget';
 
 /******************************************************************************/
 
 function getDisplayedText(text, type) {
-  switch (type) {
-    case 'date':
-      return DateConverters.getDisplayed(text);
-    case 'time':
-      return TimeConverters.getDisplayed(text);
-    case 'datetime':
-      return DateTimeConverters.getDisplayed(text);
-    case 'price':
-      return PriceConverters.getDisplayed(text);
-    default:
-      return typeof text === 'string' ? text.replace(/\n/g, ', ') : text;
+  const converter =
+    type && type !== 'string' && type !== 'enum'
+      ? Converters.getConverter(type)
+      : null;
+
+  if (converter) {
+    // Use xcraft-core-converters to convert.
+    return converter.getDisplayed(text);
+  } else {
+    // Return canonical value for unknown type (fallback).
+    return typeof text === 'string' ? text.replace(/\n/g, ', ') : text;
   }
 }
 
