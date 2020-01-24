@@ -1413,12 +1413,14 @@ class Field extends Form {
       path,
       ...otherProps
     } = this.props;
+
     if (model) {
       value = C(model);
     }
     if (path) {
       state = C(path);
     }
+
     return (
       <LabelRow
         show={show}
@@ -1432,7 +1434,13 @@ class Field extends Form {
         width={width}
         grow={grow}
       >
-        <StateBrowser grow={grow} value={value} state={state} {...otherProps} />
+        <StateBrowser
+          grow={grow}
+          value={value}
+          state={state}
+          path={path}
+          {...otherProps}
+        />
       </LabelRow>
     );
   }

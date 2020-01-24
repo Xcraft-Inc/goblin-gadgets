@@ -30,16 +30,23 @@ export default function styles(theme, props) {
     right: '0px',
     display: 'flex',
     flexDirection: 'column',
-    margin: '20px',
-    overflow: 'hidden',
   };
 
-  const overflow = {
-    overflowY: 'auto',
+  const header = {
+    position: 'relative',
+    height: '50px',
+    minHeight: '50px',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: '3px 3px 0px 0px',
+    backgroundColor: theme.palette.stateBrowserHeaderBackground,
   };
 
   const back = {
-    'marginBottom': '10px',
+    'position': 'absolute',
+    'top': '5px',
+    'left': '5px',
     'width': '40px',
     'height': '40px',
     'display': 'flex',
@@ -53,6 +60,22 @@ export default function styles(theme, props) {
     ':hover': {
       background: theme.palette.stateBrowserBackBackgroundHover,
     },
+  };
+
+  const headerPath = {
+    flexGrow: 1,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: '120%',
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+    color: theme.palette.stateBrowserBackText,
+  };
+
+  const scrollable = {
+    padding: '20px',
+    overflowY: 'auto',
   };
 
   const item = {
@@ -79,9 +102,10 @@ export default function styles(theme, props) {
   return {
     container,
     content,
-    overflow,
-
+    header,
     back,
+    headerPath,
+    scrollable,
 
     item,
     itemName,

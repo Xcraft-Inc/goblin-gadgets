@@ -109,6 +109,25 @@ let StateBrowser = class StateBrowser extends Widget {
     );
   }
 
+  renderPath() {
+    let text = this.props.path;
+    const p = text ? text.split('@') : null;
+    if (p && p.length > 0) {
+      text = p[1];
+    }
+
+    return <div className={this.styles.classNames.headerPath}>{text}</div>;
+  }
+
+  renderHeader() {
+    return (
+      <div className={this.styles.classNames.header}>
+        {this.empty ? null : this.renderBack()}
+        {this.renderPath()}
+      </div>
+    );
+  }
+
   renderType(type) {
     if (typeof type === 'string') {
       return <TT msgid={type} className={this.styles.classNames.itemType} />;
@@ -140,18 +159,11 @@ let StateBrowser = class StateBrowser extends Widget {
 
   renderItems() {
     // Loop foreach key of an element.
-    const items = [];
-
-    // Add back button if already browsing.
-    if (!this.empty) {
-      items.push(this.renderBack());
-    }
-
     // TODO : Implement blacklist to hide keys we don't want to show.
+    const items = [];
     for (const [key, value] of this.props.state.get(this.state.buildedPath)) {
       items.push(this.renderItem(key, value));
     }
-
     return items;
   }
 
@@ -161,18 +173,16 @@ let StateBrowser = class StateBrowser extends Widget {
       return null;
     }
 
-    let size =
+    const size =
       this.props.state.get(this.state.buildedPath).size * this.item.height;
-    // Increase for back button.
-    if (!this.empty) {
-      size += 40 + 10;
-    }
 
     const windowHeight = window.innerHeight;
-    const containerHeight = Math.min(size + 20 * 2, windowHeight - 20);
+    const containerHeight = Math.min(
+      Math.max(50 + size + 20 * 2, 200),
+      windowHeight - 20
+    );
     const containerWidth = this.item.width;
 
-    //TODO : Show Dialog in other direction than right.
     let {left, top, width, height} = this.containerRef.getBoundingClientRect();
     const triangleSize = 33;
     // Calculate position X of the element.
@@ -204,7 +214,8 @@ let StateBrowser = class StateBrowser extends Widget {
         close={this.handleOnCloseDialog}
       >
         <div className={this.styles.classNames.content}>
-          <div className={this.styles.classNames.overflow}>
+          {this.renderHeader()}
+          <div className={this.styles.classNames.scrollable}>
             {this.renderItems()}
           </div>
         </div>
@@ -265,9 +276,3 @@ let StateBrowser = class StateBrowser extends Widget {
 /******************************************************************************/
 
 export default withC(StateBrowser, {value: 'onChange'});
-
-// export default Widget.connect((state, props) => {
-//   return {
-//     state: state.get(props.path),
-//   };
-// })(StateBrowser);
