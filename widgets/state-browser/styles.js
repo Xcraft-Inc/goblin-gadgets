@@ -1,4 +1,5 @@
 /******************************************************************************/
+
 export const propNames = ['width', 'grow'];
 
 export default function styles(theme, props) {
