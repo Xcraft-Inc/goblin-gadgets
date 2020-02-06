@@ -73,6 +73,14 @@ class StateBrowserDialog extends Widget {
     this.value = array.join('.');
   }
 
+  isExclude(node) {
+    if (this.props.filter && isFinal(node)) {
+      const type = getType(node);
+      return this.props.filter.includes(type);
+    }
+    return false;
+  }
+
   /******************************************************************************/
 
   renderHeader() {
@@ -124,7 +132,7 @@ class StateBrowserDialog extends Widget {
   renderItems(level, node, selection) {
     const items = [];
     for (const [key, value] of node) {
-      if (key !== 'id') {
+      if (key !== 'id' && !this.isExclude(value)) {
         items.push(this.renderItem(level, key, value, selection));
       }
     }

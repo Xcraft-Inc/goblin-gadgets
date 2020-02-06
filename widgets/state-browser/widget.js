@@ -68,6 +68,7 @@ let StateBrowser = class StateBrowser extends Widget {
         parentButtonRect={rect}
         title={T('Choix du champ à afficher dans la colonne')}
         value={this.props.value}
+        filter={['markdown']}
         state={this.props.state}
         acceptGlyph="solid/check"
         acceptText={T('Choisir')}
