@@ -9,6 +9,25 @@ import withC from 'goblin-laboratory/widgets/connect-helpers/with-c';
 
 /******************************************************************************/
 
+function isFinal(node) {
+  if (typeof node !== 'object') {
+    return true;
+  }
+  const type = node.get('type');
+  const defaultValue = node.get('defaultValue');
+  return !!type && defaultValue !== undefined;
+}
+
+function getType(node) {
+  if (typeof node === 'object') {
+    return node.get('type');
+  } else {
+    return '?';
+  }
+}
+
+/******************************************************************************/
+
 class StateBrowserDialog extends Widget {
   constructor() {
     super(...arguments);
@@ -68,10 +87,10 @@ class StateBrowserDialog extends Widget {
     );
   }
 
-  renderType(fieldType) {
-    if (typeof fieldType === 'string') {
+  renderType(node) {
+    if (isFinal(node)) {
       return (
-        <TT msgid={fieldType} className={this.styles.classNames.itemType} />
+        <TT msgid={getType(node)} className={this.styles.classNames.itemType} />
       );
     } else {
       return (
@@ -84,14 +103,7 @@ class StateBrowserDialog extends Widget {
     }
   }
 
-  renderItem(level, fieldName, fieldType, selection) {
-    if (typeof fieldType === 'string') {
-      const p = fieldType.split('@');
-      if (p.length > 1) {
-        fieldType = p[1];
-      }
-    }
-
+  renderItem(level, fieldName, node, selection) {
     const style =
       fieldName === selection
         ? this.styles.classNames.itemSelected
@@ -104,20 +116,22 @@ class StateBrowserDialog extends Widget {
         onClick={() => this.onClickItem(level, fieldName)}
       >
         <TT msgid={fieldName} className={this.styles.classNames.itemName} />
-        {this.renderType(fieldType)}
+        {this.renderType(node)}
       </div>
     );
   }
 
   renderItems(level, subValue, selection) {
     const list = this.props.state.get(subValue);
-    if (!list || typeof list === 'string') {
+    if (!list || isFinal(list)) {
       return null;
     }
 
     const items = [];
     for (const [key, value] of list) {
-      items.push(this.renderItem(level, key, value, selection));
+      if (key !== 'id') {
+        items.push(this.renderItem(level, key, value, selection));
+      }
     }
     return items;
   }
@@ -163,7 +177,7 @@ class StateBrowserDialog extends Widget {
 
   renderFooter() {
     const list = this.props.state.get(this.value);
-    const disabled = list && typeof list !== 'string';
+    const disabled = list && !isFinal(list);
 
     return (
       <div className={this.styles.classNames.footer}>

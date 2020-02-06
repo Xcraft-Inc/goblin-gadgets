@@ -60,6 +60,8 @@ export default function styles(theme) {
 
   const itemName = {
     flexGrow: 1,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   };
 
   const itemType = {
