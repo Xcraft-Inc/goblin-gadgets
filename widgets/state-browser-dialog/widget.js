@@ -121,9 +121,9 @@ class StateBrowserDialog extends Widget {
     );
   }
 
-  renderItems(level, list, selection) {
+  renderItems(level, node, selection) {
     const items = [];
-    for (const [key, value] of list) {
+    for (const [key, value] of node) {
       if (key !== 'id') {
         items.push(this.renderItem(level, key, value, selection));
       }
@@ -131,10 +131,10 @@ class StateBrowserDialog extends Widget {
     return items;
   }
 
-  renderColumn(level, list, selection) {
+  renderColumn(level, node, selection) {
     return (
       <div key={level} className={this.styles.classNames.column}>
-        {this.renderItems(level, list, selection)}
+        {this.renderItems(level, node, selection)}
       </div>
     );
   }
@@ -144,12 +144,12 @@ class StateBrowserDialog extends Widget {
     const parts = this.value ? this.value.split('.') : ['_'];
     let subValue = '';
     for (let level = 0; level <= parts.length; level++) {
-      const list = this.props.state.get(subValue);
-      if (!list || isFinal(list)) {
+      const node = this.props.state.get(subValue);
+      if (isFinal(node)) {
         break;
       }
       const selection = parts[level];
-      result.push(this.renderColumn(level, list, selection));
+      result.push(this.renderColumn(level, node, selection));
       if (subValue) {
         subValue += '.';
       }
@@ -167,8 +167,8 @@ class StateBrowserDialog extends Widget {
   }
 
   renderFooter() {
-    const list = this.props.state.get(this.value);
-    const disabled = list && !isFinal(list);
+    const node = this.props.state.get(this.value);
+    const disabled = !isFinal(node);
 
     return (
       <div className={this.styles.classNames.footer}>
