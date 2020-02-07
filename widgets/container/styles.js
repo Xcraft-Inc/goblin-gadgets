@@ -482,7 +482,7 @@ export default function styles(theme, props) {
     alignItems = 'center';
     padding = m;
     borderStyle = 'none';
-    backgroundColor = theme.shapes.actionBackground;
+    backgroundColor = theme.palette.actionBackground;
     borderTopWidth = '1px';
     borderTopStyle = 'solid';
     borderTopColor = theme.palette.actionBorder;
@@ -503,7 +503,7 @@ export default function styles(theme, props) {
     alignItems = 'stretch';
     padding = m;
     borderStyle = 'none';
-    backgroundColor = theme.shapes.actionBackground;
+    backgroundColor = theme.palette.actionBackground;
     borderTopWidth = '1px';
     borderTopStyle = 'solid';
     borderTopColor = theme.palette.actionBorder;
