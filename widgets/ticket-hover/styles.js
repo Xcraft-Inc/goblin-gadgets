@@ -81,16 +81,17 @@ function getHoverPath(theme, shape, hoverShape, width, height) {
     path = lineTo(path, 0, -(h - t - s - r));
     path = close(path);
   } else if (hoverShape === 'continued') {
-    path = moveTo(path, 0, 0);
+    const s = shape === 'continued' ? 0 : r;
+    path = moveTo(path, 0, s);
     path = lineTo(path, t, 0);
-    path = lineTo(path, 0, h);
+    path = lineTo(path, 0, h - s - s);
     path = lineTo(path, -t, 0);
-    path = lineTo(path, 0, -h); // left border
-    path = moveTo(path, w, 0);
+    path = lineTo(path, 0, -(h - s - s)); // left border
+    path = moveTo(path, w, s);
     path = lineTo(path, -t, 0);
-    path = lineTo(path, 0, h);
+    path = lineTo(path, 0, h - s - s);
     path = lineTo(path, t, 0);
-    path = lineTo(path, 0, -h); // right border
+    path = lineTo(path, 0, -(h - s - s)); // right border
     path = close(path);
   } else if (hoverShape === 'middle') {
     // External CW.
