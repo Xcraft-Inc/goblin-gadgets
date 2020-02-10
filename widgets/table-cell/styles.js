@@ -9,6 +9,7 @@ import * as Bool from 'gadgets/helpers/bool-helpers';
 export const propNames = [
   'width',
   'grow',
+  'maxHeight',
   'isLast',
   'isHeader',
   'isSortable',
@@ -37,6 +38,7 @@ export default function styles(theme, props) {
     backgroundColor,
     width,
     grow,
+    maxHeight,
     isLast,
     isHeader,
     isSortable,
@@ -136,6 +138,7 @@ export default function styles(theme, props) {
   const cell = {
     'minWidth': minWidth,
     'maxWidth': maxWidth,
+    'maxHeight': maxHeight,
     'flexGrow': flexGrow,
     'flexShrink': flexShrink,
     'flexBasis': flexBasis,
