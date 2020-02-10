@@ -180,6 +180,19 @@ export default function styles(theme, props) {
       borderStyle: 'none solid solid solid',
       borderColor: hoverShape ? theme.palette.ticketHover : 'transparent',
     };
+  } else if (hoverShape === 'continued') {
+    // u.
+    rectHover = {
+      position: 'absolute',
+      width: 'calc(100% - ' + t2 + ')',
+      height: shape === 'continued' ? '100%' : 'calc(100% - ' + t1 + ')',
+      top: '-' + theme.shapes.ticketShadowShift,
+      left: '0px',
+      borderRadius: '0px',
+      borderWidth: t1,
+      borderStyle: 'none solid none solid',
+      borderColor: hoverShape ? theme.palette.ticketHover : 'transparent',
+    };
   } else {
     rectHover = {
       position: 'absolute',

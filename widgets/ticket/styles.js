@@ -18,6 +18,8 @@ export const propNames = [
   'hideContent',
 ];
 
+/******************************************************************************/
+
 export default function styles(theme, props) {
   const horizontalSpacing = props.horizontalSpacing
     ? props.horizontalSpacing
@@ -33,6 +35,8 @@ export default function styles(theme, props) {
     radius = r + ' ' + r + ' 0px 0px';
   } else if (props.shape === 'last') {
     radius = '0px 0px ' + r + ' ' + r;
+  } else if (props.shape === 'continued') {
+    radius = '0px';
   } else {
     radius = r;
   }
@@ -181,6 +185,8 @@ export default function styles(theme, props) {
     backgroundColor: theme.palette.ticketHudBackground,
   };
 
+  /******************************************************************************/
+
   const cover = {
     display: 'flex',
     flexGrow: 1,
@@ -285,6 +291,8 @@ export default function styles(theme, props) {
     right: '0px',
     bottom: '0px',
   };
+
+  /******************************************************************************/
 
   return {
     box,
