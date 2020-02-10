@@ -14,7 +14,7 @@ import Label from 'goblin-gadgets/widgets/label/widget';
 
 function getDisplayedText(text, type) {
   const converter =
-    type && type !== 'string' && type !== 'enum'
+    type && type !== 'string' && type !== 'markdown' && type !== 'enum'
       ? Converters.getConverter(type)
       : null;
 
