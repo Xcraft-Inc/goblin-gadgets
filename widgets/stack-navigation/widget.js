@@ -129,6 +129,7 @@ class StackNavigationWidget extends Widget {
 
     return (
       <Component
+        key={screen.get('serviceId') || undefined}
         serviceId={screen.get('serviceId')}
         {...widgetProps}
         settings={this.props.settings} // TODO: should be removed
