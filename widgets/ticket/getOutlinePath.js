@@ -75,7 +75,7 @@ export default function getOutlinePath(theme, shape, width, height) {
     path = lineTo(path, -w, 0);
     path = close(path);
   } else if (shape === 'continued') {
-    // Dash line only on top.
+    // No dash line.
     path = moveTo(path, 0, 0);
     path = lineTo(path, w, 0);
     path = lineTo(path, 0, h);
