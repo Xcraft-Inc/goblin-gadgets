@@ -28,7 +28,11 @@ function getDisplayedText(text, type) {
 }
 
 function isNabu(t) {
-  return t.get('nabuId') || t.get('_type') === 'translatableString';
+  return (
+    t.get('nabuId') ||
+    t.get('_type') === 'translatableString' ||
+    t.get('_type') === 'translatableMarkdown'
+  );
 }
 
 /******************************************************************************/
