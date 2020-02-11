@@ -12,7 +12,7 @@ import Label from 'goblin-gadgets/widgets/label/widget';
 
 /******************************************************************************/
 
-function getDisplayedText(text, type) {
+function getDisplayedText(text, type, cellFormat) {
   const converter =
     type && type !== 'string' && type !== 'markdown' && type !== 'enum'
       ? Converters.getConverter(type)
@@ -23,7 +23,9 @@ function getDisplayedText(text, type) {
     return converter.getDisplayed(text);
   } else {
     // Return canonical value for unknown type (fallback).
-    return typeof text === 'string' ? text.replace(/\n/g, ', ') : text;
+    return typeof text === 'string' && cellFormat !== 'original'
+      ? text.replace(/\n/g, ', ')
+      : text;
   }
 }
 
@@ -83,7 +85,7 @@ class TableCell extends Widget {
       glyph = this.props.glyph;
       text = this.props.text;
     }
-    text = getDisplayedText(text, this.props.type);
+    text = getDisplayedText(text, this.props.type, this.props.cellFormat);
 
     let cursor = null;
     if (Bool.isTrue(this.props.isSortable)) {

@@ -527,6 +527,11 @@ export default [
     type: types.enum(['', 'decrease']),
     description: 'Only for multi-level tables.',
   },
+  {
+    name: 'cellFormat',
+    group: 'aspect',
+    type: types.enum(['singleLine', 'original']),
+  },
 
   // Layout.
   {

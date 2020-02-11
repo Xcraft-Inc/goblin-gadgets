@@ -535,6 +535,7 @@ export default class TableNC extends Widget {
         isLast={item.isLast}
         fontSizeStrategy={this.props.fontSizeStrategy}
         compactMargins={this.props.compactMargins}
+        cellFormat={this.props.cellFormat}
         selectionMode={this.props.selectionMode}
         selected={Bool.toString(this.isSelected(item.row.get('id', null)))}
         selectionChanged={this.onSelectionChanged}
