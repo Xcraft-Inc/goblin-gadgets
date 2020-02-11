@@ -18,10 +18,11 @@ class TextFieldTimeInterval extends Widget {
     this.onNowClicked = this.onNowClicked.bind(this);
   }
 
+  // prettier-ignore
   onNowClicked() {
     const now = TimeConverters.getNowCanonical();
-    this.setBackendValue(this.props.entityId + this.props.startModel, now);
-    this.setBackendValue(this.props.entityId + this.props.endModel, now);
+    this.setBackendValue(this.props.entityFullPath + this.props.startModel, now);
+    this.setBackendValue(this.props.entityFullPath + this.props.endModel, now);
   }
 
   get hasError() {
@@ -114,7 +115,7 @@ class TextFieldTimeInterval extends Widget {
 /******************************************************************************/
 
 export default Widget.connect((state, props) => {
-  const minTime = state.get(props.entityId + props.startModel);
-  const maxTime = state.get(props.entityId + props.endModel);
+  const minTime = state.get(props.entityFullPath + props.startModel);
+  const maxTime = state.get(props.entityFullPath + props.endModel);
   return {minTime, maxTime};
 })(TextFieldTimeInterval);
