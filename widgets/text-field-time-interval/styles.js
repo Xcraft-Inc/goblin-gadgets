@@ -17,7 +17,7 @@ export default function styles(theme, props) {
     flexBasis = '0%';
   }
 
-  const boxStyle = {
+  const box = {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -32,7 +32,7 @@ export default function styles(theme, props) {
   };
 
   return {
-    box: boxStyle,
+    box,
   };
 }
 

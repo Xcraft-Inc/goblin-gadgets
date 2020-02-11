@@ -46,6 +46,10 @@ class TextFieldTimeInterval extends Widget {
     }
   }
 
+  get hasError() {
+    return this.props.minTime > this.props.maxTime;
+  }
+
   /******************************************************************************/
 
   renderStartTextField() {
@@ -60,7 +64,10 @@ class TextFieldTimeInterval extends Widget {
         readonly={this.props.readonly}
         disabled={this.props.disabled}
         required={this.props.required}
+        wrong={this.hasError}
         model={this.props.startModel}
+        maxTime={this.props.maxTime}
+        mode="soft"
         beforeChange={this.endBeforeChange}
       />
     );
@@ -82,7 +89,10 @@ class TextFieldTimeInterval extends Widget {
         readonly={this.props.readonly}
         disabled={this.props.disabled}
         required={this.props.required}
+        wrong={this.hasError}
         model={this.props.endModel}
+        minTime={this.props.minTime}
+        mode="soft"
         beforeChange={this.startBeforeChange}
       />
     );
@@ -126,4 +136,9 @@ class TextFieldTimeInterval extends Widget {
 }
 
 /******************************************************************************/
-export default TextFieldTimeInterval;
+
+export default Widget.connect((state, props) => {
+  const minTime = state.get(props.model + props.startModel);
+  const maxTime = state.get(props.model + props.endModel);
+  return {minTime, maxTime};
+})(TextFieldTimeInterval);

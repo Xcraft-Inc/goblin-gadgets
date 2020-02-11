@@ -765,6 +765,7 @@ class Field extends Form {
         <TextFieldTimeInterval
           selectAllOnFocus={true}
           {...otherProps}
+          model={this.context.model}
           tooltip={this.props.tooltip || this.props.hintText}
         />
       </LabelRow>

@@ -14,6 +14,7 @@ export const propNames = [
   'active',
   'readonly',
   'required',
+  'wrong',
   'justify',
   'border',
   'value',
@@ -37,6 +38,7 @@ export default function styles(theme, props) {
     active,
     readonly,
     required,
+    wrong,
     justify,
     border,
     value,
@@ -140,6 +142,11 @@ export default function styles(theme, props) {
   ) {
     // Change backgroundColor if required text-field is not empty.
     box.backgroundColor = theme.palette.textFieldRequiredBackground;
+  }
+
+  if (Bool.isTrue(wrong)) {
+    // Change backgroundColor if wrong content of text-field.
+    box.backgroundColor = theme.palette.textFieldWrongBackground;
   }
 
   // Use + for dispatch the style to next brother (only one).

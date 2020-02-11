@@ -18,6 +18,11 @@ export default [
     type: types.bool,
   },
   {
+    name: 'wrong',
+    group: 'aspect',
+    type: types.bool,
+  },
+  {
     name: 'disabled',
     group: 'aspect',
     type: types.bool,
