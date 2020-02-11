@@ -131,7 +131,8 @@ class StateBrowserDialog extends Widget {
 
   renderItems(level, node, selection) {
     const items = [];
-    for (const [key, value] of node) {
+    const sortedNode = new Map([...node].sort());
+    for (const [key, value] of sortedNode) {
       if (key !== 'id' && !this.isExclude(value)) {
         items.push(this.renderItem(level, key, value, selection));
       }
