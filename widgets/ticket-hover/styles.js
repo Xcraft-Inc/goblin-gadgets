@@ -1,4 +1,5 @@
 import {Unit} from 'electrum-theme';
+import * as TicketHelpers from '../ticket/ticket-helpers.js';
 
 /******************************************************************************/
 
@@ -49,7 +50,9 @@ function getHoverPath(theme, shape, hoverShape, width, height) {
 
   let path = '';
   if (hoverShape === 'first') {
-    // n.
+    // /\/\/\/\/\/\/\
+    // |            |
+    // +------------+
     const s = shape === 'first' ? 0 : r;
     path = moveTo(path, 0, h - s);
     path = lineTo(path, 0, -(h - s - r));
@@ -65,7 +68,9 @@ function getHoverPath(theme, shape, hoverShape, width, height) {
     path = lineTo(path, 0, h - t - s - r);
     path = close(path);
   } else if (hoverShape === 'last') {
-    // u.
+    // +------------+
+    // |            |
+    // \/\/\/\/\/\/\/
     const s = shape === 'last' ? 0 : r;
     path = moveTo(path, 0, s);
     path = lineTo(path, 0, h - s - r);
@@ -81,6 +86,9 @@ function getHoverPath(theme, shape, hoverShape, width, height) {
     path = lineTo(path, 0, -(h - t - s - r));
     path = close(path);
   } else if (hoverShape === 'continued') {
+    // +------------+
+    // |            |
+    // +------------+
     const st = shape === 'middle' || shape === 'first' ? r : 0;
     const sb = shape === 'middle' || shape === 'last' ? r : 0;
     path = moveTo(path, 0, st);
@@ -95,6 +103,9 @@ function getHoverPath(theme, shape, hoverShape, width, height) {
     path = lineTo(path, 0, -(h - st - sb)); // right border
     path = close(path);
   } else if (hoverShape === 'middle') {
+    // /\/\/\/\/\/\/\
+    // |           |
+    // \/\/\/\/\/\/\/
     // External CW.
     path = moveTo(path, 0, h - r);
     path = lineTo(path, 0, -(h - r - r));
@@ -151,11 +162,14 @@ export default function styles(theme, props) {
     //- ':hover': {fill: theme.palette.ticketHover},
   };
 
+  const hasTopSerration = TicketHelpers.hasTopSerration(hoverShape);
+  const hasBottomSerration = TicketHelpers.hasBottomSerration(hoverShape);
+
   let rectHover;
   const t1 = theme.shapes.ticketHoverThickness;
   const t2 = Unit.multiply(theme.shapes.ticketHoverThickness, 2);
-  if (hoverShape === 'first') {
-    // n.
+  if (hasTopSerration && !hasBottomSerration) {
+    // nnnn
     rectHover = {
       position: 'absolute',
       width: 'calc(100% - ' + t2 + ')',
@@ -167,8 +181,8 @@ export default function styles(theme, props) {
       borderStyle: 'solid solid none solid',
       borderColor: hoverShape ? theme.palette.ticketHover : 'transparent',
     };
-  } else if (hoverShape === 'last') {
-    // u.
+  } else if (!hasTopSerration && hasBottomSerration) {
+    // uuuu
     rectHover = {
       position: 'absolute',
       width: 'calc(100% - ' + t2 + ')',
@@ -180,8 +194,8 @@ export default function styles(theme, props) {
       borderStyle: 'none solid solid solid',
       borderColor: hoverShape ? theme.palette.ticketHover : 'transparent',
     };
-  } else if (hoverShape === 'continued') {
-    // u.
+  } else if (!hasTopSerration && !hasBottomSerration) {
+    // |   |
     rectHover = {
       position: 'absolute',
       width: 'calc(100% - ' + t2 + ')',
@@ -194,6 +208,8 @@ export default function styles(theme, props) {
       borderColor: hoverShape ? theme.palette.ticketHover : 'transparent',
     };
   } else {
+    // nnnn
+    // uuuu
     rectHover = {
       position: 'absolute',
       width: 'calc(100% - ' + t2 + ' + 1px)',

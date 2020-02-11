@@ -1,5 +1,6 @@
 import * as Bool from 'gadgets/helpers/bool-helpers';
 import {Unit} from 'electrum-theme';
+import * as TicketHelpers from '../ticket/ticket-helpers.js';
 
 /******************************************************************************/
 
@@ -30,16 +31,7 @@ export default function styles(theme, props) {
       ? theme.shapes.ticketRectRadius
       : theme.shapes.ticketCornerRadius;
 
-  let radius;
-  if (props.shape === 'first') {
-    radius = r + ' ' + r + ' 0px 0px';
-  } else if (props.shape === 'last') {
-    radius = '0px 0px ' + r + ' ' + r;
-  } else if (props.shape === 'continued') {
-    radius = '0px';
-  } else {
-    radius = r;
-  }
+  const radius = TicketHelpers.getRadius(props.shape, r);
 
   const boxOpacity = Bool.isFalse(props.visibility) ? 0 : props.opacity;
 

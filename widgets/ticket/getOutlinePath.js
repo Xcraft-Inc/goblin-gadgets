@@ -1,4 +1,5 @@
-//T:2019-02-27
+import * as TicketHelpers from '../ticket/ticket-helpers.js';
+
 // Convert string '123px' to int 123.
 function toInt(value) {
   if (typeof value === 'string') {
@@ -55,9 +56,12 @@ export default function getOutlinePath(theme, shape, width, height) {
   const w = toInt(width);
   const h = toInt(height);
 
+  const hasTopSerration = TicketHelpers.hasTopSerration(shape);
+  const hasBottomSerration = TicketHelpers.hasBottomSerration(shape);
+
   let path = '';
-  if (shape === 'last') {
-    // Dash line only on bottom.
+  if (!hasTopSerration && hasBottomSerration) {
+    // Serration only on bottom.
     path = moveTo(path, 0, 0);
     path = lineTo(path, w, 0);
     path = lineTo(path, 0, h - r);
@@ -65,8 +69,8 @@ export default function getOutlinePath(theme, shape, width, height) {
     path = horizontalDash(path, -s, -s * 3.5, -(w - r - r));
     path = arcTo(path, r, -r, -r, 0); // bottom-left corner
     path = close(path);
-  } else if (shape === 'first') {
-    // Dash line only on top.
+  } else if (hasTopSerration && !hasBottomSerration) {
+    // Serration only on top.
     path = moveTo(path, 0, r);
     path = arcTo(path, r, r, -r, 0); // top-left corner
     path = horizontalDash(path, s, s * 3.5, w - r - r);
@@ -74,15 +78,15 @@ export default function getOutlinePath(theme, shape, width, height) {
     path = lineTo(path, 0, h - r);
     path = lineTo(path, -w, 0);
     path = close(path);
-  } else if (shape === 'continued') {
-    // No dash line.
+  } else if (!hasTopSerration && !hasBottomSerration) {
+    // No Serration.
     path = moveTo(path, 0, 0);
     path = lineTo(path, w, 0);
     path = lineTo(path, 0, h);
     path = lineTo(path, -w, 0);
     path = close(path);
   } else {
-    // Dash line on top and bottom.
+    // Serration on top and bottom.
     path = moveTo(path, 0, r);
     path = arcTo(path, r, r, -r, 0); // top-left corner
     path = horizontalDash(path, s, s * 3.5, w - r - r);
