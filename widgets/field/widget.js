@@ -281,6 +281,7 @@ class Field extends Form {
           selectAllOnFocus={true}
           {...otherProps}
           readonly={true}
+          entityFullPath={this.context.model}
           tooltip={this.props.tooltip || this.props.hintText}
         />
       </LabelRow>
