@@ -104,7 +104,7 @@ function getHoverPath(theme, shape, hoverShape, width, height) {
     path = close(path);
   } else if (hoverShape === 'middle') {
     // /\/\/\/\/\/\/\
-    // |           |
+    // |            |
     // \/\/\/\/\/\/\/
     // External CW.
     path = moveTo(path, 0, h - r);
@@ -169,7 +169,9 @@ export default function styles(theme, props) {
   const t1 = theme.shapes.ticketHoverThickness;
   const t2 = Unit.multiply(theme.shapes.ticketHoverThickness, 2);
   if (hasTopSerration && !hasBottomSerration) {
-    // nnnn
+    // /\/\/\/\/\/\/\
+    // |            |
+    // +------------+
     rectHover = {
       position: 'absolute',
       width: 'calc(100% - ' + t2 + ')',
@@ -182,7 +184,9 @@ export default function styles(theme, props) {
       borderColor: hoverShape ? theme.palette.ticketHover : 'transparent',
     };
   } else if (!hasTopSerration && hasBottomSerration) {
-    // uuuu
+    // +------------+
+    // |            |
+    // \/\/\/\/\/\/\/
     rectHover = {
       position: 'absolute',
       width: 'calc(100% - ' + t2 + ')',
@@ -195,7 +199,9 @@ export default function styles(theme, props) {
       borderColor: hoverShape ? theme.palette.ticketHover : 'transparent',
     };
   } else if (!hasTopSerration && !hasBottomSerration) {
-    // |   |
+    // +------------+
+    // |            |
+    // +------------+
     rectHover = {
       position: 'absolute',
       width: 'calc(100% - ' + t2 + ')',
@@ -208,8 +214,9 @@ export default function styles(theme, props) {
       borderColor: hoverShape ? theme.palette.ticketHover : 'transparent',
     };
   } else {
-    // nnnn
-    // uuuu
+    // /\/\/\/\/\/\/\
+    // |            |
+    // \/\/\/\/\/\/\/
     rectHover = {
       position: 'absolute',
       width: 'calc(100% - ' + t2 + ' + 1px)',

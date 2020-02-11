@@ -13,7 +13,7 @@
 // \/\/\/\/\/\/\/
 //
 // /\/\/\/\/\/\/\
-// |           |   shape = "middle"
+// |            |   shape = "middle"
 // \/\/\/\/\/\/\/
 
 export function hasTopSerration(shape) {
