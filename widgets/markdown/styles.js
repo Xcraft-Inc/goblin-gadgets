@@ -38,22 +38,20 @@ export default function styles(theme, props) {
     '& h1': {
       fontSize: theme.shapes.markdownH1FontSize,
       fontWeight: 300,
-      margin: '0px',
-      marginTop: '8px',
+      margin: '8px 0px 0px 0px',
     },
 
-    '& h1:firstOfType': {
+    '& h1:first-of-type': {
       marginTop: '0px',
     },
 
     '& h2': {
       fontSize: theme.shapes.markdownH2FontSize,
       fontWeight: 300,
-      margin: '0px',
-      marginTop: '8px',
+      margin: '8px 0px 0px 0px',
     },
 
-    '& h2:firstOfType': {
+    '& h2:first-of-type': {
       marginTop: 0,
     },
 
