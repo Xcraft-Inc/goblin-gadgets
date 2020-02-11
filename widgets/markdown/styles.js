@@ -6,7 +6,7 @@ export default function styles(theme, props) {
   const {userSelect, markdownVerticalSpacing} = props;
 
   const markdown = {
-    'userSelect': userSelect || 'text',
+    'userSelect': userSelect || 'none',
 
     'margin': markdownVerticalSpacing ? `${markdownVerticalSpacing} 0px` : null,
 
