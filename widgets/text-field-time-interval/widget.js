@@ -20,8 +20,8 @@ class TextFieldTimeInterval extends Widget {
 
   onNowClicked() {
     const now = TimeConverters.getNowCanonical();
-    this.setModelValue(this.props.startModel, now, true);
-    this.setModelValue(this.props.endModel, now, true);
+    this.setBackendValue(this.props.entityId + this.props.startModel, now);
+    this.setBackendValue(this.props.entityId + this.props.endModel, now);
   }
 
   get hasError() {
@@ -114,7 +114,7 @@ class TextFieldTimeInterval extends Widget {
 /******************************************************************************/
 
 export default Widget.connect((state, props) => {
-  const minTime = state.get(props.model + props.startModel);
-  const maxTime = state.get(props.model + props.endModel);
+  const minTime = state.get(props.entityId + props.startModel);
+  const maxTime = state.get(props.entityId + props.endModel);
   return {minTime, maxTime};
 })(TextFieldTimeInterval);
