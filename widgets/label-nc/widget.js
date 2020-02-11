@@ -84,14 +84,7 @@ export default class LabelNC extends Widget {
     const className = fragment.em
       ? this.styles.classNames.hilitedFragment
       : this.styles.classNames.normalFragment;
-    return (
-      <T
-        msgid={fragment.text}
-        key={index}
-        className={className}
-        markdownVerticalSpacing={this.props.markdownVerticalSpacing}
-      />
-    );
+    return <T msgid={fragment.text} key={index} className={className} />;
   }
 
   // Render all fragments of a line.
@@ -150,7 +143,7 @@ export default class LabelNC extends Widget {
         msgid={text}
         key={index}
         className={className}
-        markdownVerticalSpacing={this.props.markdownVerticalSpacing}
+        markdownverticalspacing={this.props.markdownVerticalSpacing}
       />
     );
   }
