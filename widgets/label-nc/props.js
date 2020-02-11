@@ -181,6 +181,11 @@ export default [
     group: 'aspect',
     type: types.bool,
   },
+  {
+    name: 'markdownVerticalSpacing',
+    group: 'aspect',
+    type: types.size,
+  },
 
   // Glyph
   {

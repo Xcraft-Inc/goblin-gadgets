@@ -84,7 +84,14 @@ export default class LabelNC extends Widget {
     const className = fragment.em
       ? this.styles.classNames.hilitedFragment
       : this.styles.classNames.normalFragment;
-    return <T msgid={fragment.text} key={index} className={className} />;
+    return (
+      <T
+        msgid={fragment.text}
+        key={index}
+        className={className}
+        markdownVerticalSpacing={this.props.markdownVerticalSpacing}
+      />
+    );
   }
 
   // Render all fragments of a line.
@@ -138,15 +145,28 @@ export default class LabelNC extends Widget {
   // Render a very simple text, that is to say a single line and without highlighting.
   renderSimpleText(index, text) {
     const className = this.styles.classNames.text;
-    return <T msgid={text} key={index} className={className} />;
+    return (
+      <T
+        msgid={text}
+        key={index}
+        className={className}
+        markdownVerticalSpacing={this.props.markdownVerticalSpacing}
+      />
+    );
   }
 
   renderText(index, text) {
     if (text !== null) {
       if (typeof text === 'string') {
         if (text.startsWith('```') && text.endsWith('```')) {
-          const input = text.substring(3, text.length - 3);
-          return <Markdown key={index} source={input} />;
+          const source = text.substring(3, text.length - 3);
+          return (
+            <Markdown
+              key={index}
+              source={source}
+              markdownVerticalSpacing={this.props.markdownVerticalSpacing}
+            />
+          );
         } else {
           const hasEol1 = text.includes('\n');
           const hasEol2 = text.includes('\\n');

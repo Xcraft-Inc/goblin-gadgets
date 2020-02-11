@@ -115,6 +115,7 @@ class TableCell extends Widget {
           justify={this.props.textAlign}
           horizontalSpacing={this.props.horizontalSpacing}
           wrap={this.props.wrap}
+          markdownVerticalSpacing={this.context.theme.spacing.lineSpacing}
         >
           {this.props.children}
         </Label>
