@@ -15,7 +15,7 @@ const TableWired = Widget.connectWidget((state, props) => {
   return {
     filter: state.get('filter'),
     sortingColumns: state.get('sortingColumns'),
-    selectedIds: props.selectedIds ? props.selectedIds.toArray() : [],
+    selectedIds: props.selectedIds,
   };
 })(Table);
 
