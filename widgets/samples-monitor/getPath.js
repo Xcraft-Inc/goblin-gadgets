@@ -42,6 +42,39 @@ function getRange(samples) {
 
 /******************************************************************************/
 
+function degToRad(angle) {
+  return (angle * Math.PI) / 180.0;
+}
+
+function rotatePointDeg(center, angle, p) {
+  return rotatePointRad(center, degToRad(angle), p);
+}
+
+function rotatePointRad(center, angle, p) {
+  //	Fait tourner un point autour d'un centre.
+  //	L'angle est exprimé en radians.
+  //	Un angle positif est horaire (CW), puisque Y va de haut en bas.
+
+  const a = {x: 0, y: 0};
+  const b = {x: 0, y: 0};
+
+  a.x = p.x - center.x;
+  a.y = p.y - center.y;
+
+  const sin = Math.sin(angle);
+  const cos = Math.cos(angle);
+
+  b.x = a.x * cos - a.y * sin;
+  b.y = a.x * sin + a.y * cos;
+
+  b.x += center.x;
+  b.y += center.y;
+
+  return b;
+}
+
+/******************************************************************************/
+
 function getScreenPath(width, height, part) {
   const w = toInt(width);
   const h = toInt(height);
@@ -124,10 +157,30 @@ function getGridPath(width, height, nx, ny) {
   return path;
 }
 
+function getPowerOffPath(width, height) {
+  const w = toInt(width);
+  const h = toInt(height);
+
+  let path = '';
+
+  const center = {x: w / 2, y: h / 2};
+  const e1 = {x: w / 2 + w * 0.2, y: h / 2};
+  const e2 = {x: w / 2 - w * 0.2, y: h / 2};
+  for (let a = 0; a < 180; a += 45) {
+    const p1 = rotatePointDeg(center, a, e1);
+    const p2 = rotatePointDeg(center, a, e2);
+    path = moveTo(path, p1.x, p1.y);
+    path = lineTo(path, p2.x, p2.y);
+  }
+
+  return path;
+}
+
 /******************************************************************************/
 
 module.exports = {
   getScreenPath,
   getSamplesPath,
   getGridPath,
+  getPowerOffPath,
 };

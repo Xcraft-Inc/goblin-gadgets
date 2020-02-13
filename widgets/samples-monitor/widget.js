@@ -25,6 +25,8 @@ export default class SamplesMonitor extends Widget {
     }
   }
 
+  /******************************************************************************/
+
   renderScreen(w, h) {
     w = Unit.sub(w, '4px');
     h = Unit.sub(h, '4px');
@@ -93,6 +95,17 @@ export default class SamplesMonitor extends Widget {
     return <div className={`flare-hover ${this.styles.classNames.flare}`} />;
   }
 
+  renderPowerOff(w, h) {
+    w = Unit.sub(w, '80px');
+    h = Unit.sub(h, '80px');
+
+    return (
+      <svg width={w} height={h} className={this.styles.classNames.powerOff}>
+        <path d={getPath.getPowerOffPath(w, h)} />
+      </svg>
+    );
+  }
+
   render() {
     const w = this.props.width;
     const h = this.props.height;
@@ -106,6 +119,7 @@ export default class SamplesMonitor extends Widget {
         {this.renderGrid(w, h)}
         {this.renderSamples(w, h)}
         {this.renderFlare()}
+        {this.renderPowerOff(w, h)}
         <div className={this.styles.classNames.border} />
       </div>
     );

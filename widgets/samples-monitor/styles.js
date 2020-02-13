@@ -1,9 +1,9 @@
 /******************************************************************************/
 
-export const propNames = ['width', 'height'];
+export const propNames = ['width', 'height', 'showed'];
 
 export default function styles(theme, props) {
-  const {width, height} = props;
+  const {width, height, showed} = props;
 
   // Use + for dispatch the style to next brother (only one).
   // Use ~ for dispatch the style to all the following brothers.
@@ -92,6 +92,19 @@ export default function styles(theme, props) {
     transition: '10s ease-out',
   };
 
+  const powerOff = {
+    position: 'absolute',
+    margin: '40px',
+    left: '0px',
+    right: '0px',
+    top: '0px',
+    bottom: '0px',
+    stroke: 'white',
+    opacity: showed ? 0 : 0.3,
+    transform: showed ? 'scale(0)' : 'scale(1)',
+    transition: '0.3s ease-out',
+  };
+
   const border = {
     position: 'absolute',
     left: '0px',
@@ -118,6 +131,7 @@ export default function styles(theme, props) {
     grid,
     samples,
     flare,
+    powerOff,
     border,
   };
 }
