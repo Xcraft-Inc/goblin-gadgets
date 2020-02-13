@@ -10,19 +10,6 @@ export default class SamplesMonitor extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
-
-    this.timer = setInterval(() => this.update(), this.props.period || 1000);
-  }
-
-  componentWillUnmount() {
-    super.componentWillUnmount();
-    clearInterval(this.timer);
-  }
-
-  update() {
-    if (this.props.showed) {
-      this.forceUpdate();
-    }
   }
 
   /******************************************************************************/
@@ -58,9 +45,6 @@ export default class SamplesMonitor extends Widget {
   }
 
   renderGrid(w, h) {
-    w = Unit.sub(w, '80px');
-    h = Unit.sub(h, '80px');
-
     return (
       <svg
         width={w}
@@ -76,9 +60,6 @@ export default class SamplesMonitor extends Widget {
     if (!this.props.samples) {
       return null;
     }
-
-    w = Unit.sub(w, '80px');
-    h = Unit.sub(h, '80px');
 
     return (
       <svg

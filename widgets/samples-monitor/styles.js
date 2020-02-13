@@ -62,7 +62,6 @@ export default function styles(theme, props) {
 
   const grid = {
     position: 'absolute',
-    margin: '40px',
     stroke: 'rgba(0,255,0,0.2)',
     strokeWidth: '1px',
     fill: 'transparent',
@@ -71,7 +70,6 @@ export default function styles(theme, props) {
 
   const samples = {
     position: 'absolute',
-    margin: '40px',
     stroke: '#0f0',
     strokeWidth: '2px',
     strokeLinecap: 'round',

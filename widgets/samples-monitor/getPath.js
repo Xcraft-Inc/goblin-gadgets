@@ -117,8 +117,9 @@ function getScreenPath(width, height, part) {
 }
 
 function getSamplesPath(width, height, samples) {
-  const w = toInt(width);
-  const h = toInt(height);
+  const m = 40;
+  const w = toInt(width) - m * 2;
+  const h = toInt(height) - m * 2;
 
   const range = getRange(samples);
   let path = '';
@@ -129,9 +130,9 @@ function getSamplesPath(width, height, samples) {
     const y = h - ((samples[i] - range.min) / (range.max - range.min)) * h;
 
     if (i === 0) {
-      path = moveTo(path, x, y);
+      path = moveTo(path, m + x, m + y);
     } else {
-      path = lineTo(path, x, y);
+      path = lineTo(path, m + x, m + y);
     }
   }
 
@@ -139,19 +140,20 @@ function getSamplesPath(width, height, samples) {
 }
 
 function getGridPath(width, height, nx, ny) {
-  const w = toInt(width);
-  const h = toInt(height);
+  const m = 40;
+  const w = toInt(width) - m * 2;
+  const h = toInt(height) - m * 2;
 
   let path = '';
 
   for (let x = 0; x <= w; x += w / nx) {
-    path = moveTo(path, x, 0);
-    path = lineTo(path, x, h);
+    path = moveTo(path, m + x, m + 0);
+    path = lineTo(path, m + x, m + h);
   }
 
   for (let y = 0; y <= h; y += h / ny) {
-    path = moveTo(path, 0, y);
-    path = lineTo(path, w, y);
+    path = moveTo(path, m + 0, m + y);
+    path = lineTo(path, m + w, m + y);
   }
 
   return path;
