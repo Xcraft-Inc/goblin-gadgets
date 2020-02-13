@@ -12,8 +12,7 @@ export default function styles(theme, props) {
     'position': 'relative',
     'width': width,
     'height': height,
-    'padding': '30px',
-    'borderRadius': '20px',
+    'borderRadius': '30px',
     'borderTop': '10px solid #666',
     'borderBottom': '10px solid #ccc',
     'borderLeft': '10px solid #888',
@@ -40,7 +39,7 @@ export default function styles(theme, props) {
 
   const screenLeft = {
     position: 'absolute',
-    margin: '-25px',
+    margin: '2px',
     fill: '#444',
   };
 
@@ -63,6 +62,7 @@ export default function styles(theme, props) {
 
   const grid = {
     position: 'absolute',
+    margin: '40px',
     stroke: 'rgba(0,255,0,0.2)',
     strokeWidth: '1px',
     fill: 'transparent',
@@ -71,6 +71,7 @@ export default function styles(theme, props) {
 
   const samples = {
     position: 'absolute',
+    margin: '40px',
     stroke: '#0f0',
     strokeWidth: '2px',
     strokeLinecap: 'round',
@@ -81,6 +82,7 @@ export default function styles(theme, props) {
 
   const flare = {
     position: 'absolute',
+    margin: '20px',
     right: '0px',
     bottom: '0px',
     width: '100px',
@@ -89,6 +91,21 @@ export default function styles(theme, props) {
     opacity: 0.1,
     transition: '10s ease-out',
   };
+
+  const border = {
+    position: 'absolute',
+    left: '0px',
+    right: '0px',
+    top: '0px',
+    bottom: '0px',
+    borderRadius: '20px',
+    borderTop: '2px solid #ddd',
+    borderBottom: '2px solid #444',
+    borderLeft: '2px solid #ddd',
+    borderRight: '2px solid #444',
+  };
+
+  /******************************************************************************/
 
   return {
     monitor,
@@ -101,6 +118,7 @@ export default function styles(theme, props) {
     grid,
     samples,
     flare,
+    border,
   };
 }
 

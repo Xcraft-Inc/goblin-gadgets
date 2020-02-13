@@ -45,7 +45,7 @@ function getRange(samples) {
 function getScreenPath(width, height, part) {
   const w = toInt(width);
   const h = toInt(height);
-  const t = 25;
+  const t = 30;
 
   let path = '';
 
@@ -83,23 +83,22 @@ function getScreenPath(width, height, part) {
   return path;
 }
 
-function getSamplePath(width, height, samples) {
-  const m = 10;
-  const w = toInt(width) - m * 2;
-  const h = toInt(height) - m * 2;
+function getSamplesPath(width, height, samples) {
+  const w = toInt(width);
+  const h = toInt(height);
 
   const range = getRange(samples);
   let path = '';
   const count = samples.length;
 
   for (let i = 0; i < count; i++) {
-    const x = w - (w / count) * i;
+    const x = w - (w / (count - 1)) * i;
     const y = h - ((samples[i] - range.min) / (range.max - range.min)) * h;
 
     if (i === 0) {
-      path = moveTo(path, m + x, m + y);
+      path = moveTo(path, x, y);
     } else {
-      path = lineTo(path, m + x, m + y);
+      path = lineTo(path, x, y);
     }
   }
 
@@ -107,20 +106,19 @@ function getSamplePath(width, height, samples) {
 }
 
 function getGridPath(width, height, nx, ny) {
-  const m = 10;
-  const w = toInt(width) - m * 2;
-  const h = toInt(height) - m * 2;
+  const w = toInt(width);
+  const h = toInt(height);
 
   let path = '';
 
   for (let x = 0; x <= w; x += w / nx) {
-    path = moveTo(path, m + x, m + 0);
-    path = lineTo(path, m + x, m + h);
+    path = moveTo(path, x, 0);
+    path = lineTo(path, x, h);
   }
 
   for (let y = 0; y <= h; y += h / ny) {
-    path = moveTo(path, m + 0, m + y);
-    path = lineTo(path, m + w, m + y);
+    path = moveTo(path, 0, y);
+    path = lineTo(path, w, y);
   }
 
   return path;
@@ -130,6 +128,6 @@ function getGridPath(width, height, nx, ny) {
 
 module.exports = {
   getScreenPath,
-  getSamplePath,
+  getSamplesPath,
   getGridPath,
 };

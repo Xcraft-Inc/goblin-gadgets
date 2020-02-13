@@ -11,7 +11,7 @@ export default class SamplesMonitor extends Widget {
     super(...arguments);
     this.styles = styles;
 
-    this.timer = setInterval(() => this.update(), 1000);
+    this.timer = setInterval(() => this.update(), this.props.period || 1000);
   }
 
   componentWillUnmount() {
@@ -26,8 +26,8 @@ export default class SamplesMonitor extends Widget {
   }
 
   renderScreen(w, h) {
-    w = Unit.add(w, '50px');
-    h = Unit.add(h, '50px');
+    w = Unit.sub(w, '4px');
+    h = Unit.sub(h, '4px');
 
     return (
       <React.Fragment>
@@ -56,6 +56,9 @@ export default class SamplesMonitor extends Widget {
   }
 
   renderGrid(w, h) {
+    w = Unit.sub(w, '80px');
+    h = Unit.sub(h, '80px');
+
     return (
       <svg
         width={w}
@@ -72,13 +75,16 @@ export default class SamplesMonitor extends Widget {
       return null;
     }
 
+    w = Unit.sub(w, '80px');
+    h = Unit.sub(h, '80px');
+
     return (
       <svg
         width={w}
         height={h}
         className={`samples-hover ${this.styles.classNames.samples}`}
       >
-        <path d={getPath.getSamplePath(w, h, this.props.samples)} />
+        <path d={getPath.getSamplesPath(w, h, this.props.samples)} />
       </svg>
     );
   }
@@ -100,6 +106,7 @@ export default class SamplesMonitor extends Widget {
         {this.renderGrid(w, h)}
         {this.renderSamples(w, h)}
         {this.renderFlare()}
+        <div className={this.styles.classNames.border} />
       </div>
     );
   }
