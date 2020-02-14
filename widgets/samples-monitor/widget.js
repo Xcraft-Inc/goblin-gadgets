@@ -2,6 +2,7 @@ import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import * as styles from './styles';
 import getPath from './getPath';
+import Gauge from 'goblin-gadgets/widgets/gauge/widget';
 import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
@@ -79,21 +80,45 @@ export default class SamplesMonitor extends Widget {
     );
   }
 
+  renderGauge() {
+    const hasGauge = this.props.current && this.props.total;
+    const value = hasGauge ? (this.props.current / this.props.total) * 100 : 0;
+
+    return (
+      <div className={this.styles.classNames.panel}>
+        {hasGauge ? (
+          <Gauge
+            kind="rounded"
+            gradient="red-yellow-green"
+            direction="vertical"
+            height="100%"
+            width="15px"
+            value={value}
+          />
+        ) : null}
+      </div>
+    );
+  }
+
   render() {
-    const w = this.props.width;
+    const wt = this.props.width;
     const h = this.props.height;
-    if (!w || !h) {
+    if (!wt || !h) {
       throw new Error('Undefined Monitor width or height');
     }
+    const w = Unit.sub(wt, '50px');
 
     return (
       <div className={this.styles.classNames.monitor}>
-        {this.renderScreen(w, h)}
-        {this.renderGrid(w, h)}
-        {this.renderSamples(w, h)}
-        {this.renderFlare()}
-        {this.renderPowerOff(w, h)}
-        <div className={this.styles.classNames.border} />
+        <div className={this.styles.classNames.tube}>
+          {this.renderScreen(w, h)}
+          {this.renderGrid(w, h)}
+          {this.renderSamples(w, h)}
+          {this.renderFlare()}
+          {this.renderPowerOff(w, h)}
+          <div className={this.styles.classNames.border} />
+        </div>
+        {this.renderGauge()}
       </div>
     );
   }

@@ -9,9 +9,10 @@ export default function styles(theme, props) {
   // Use ~ for dispatch the style to all the following brothers.
   // Use nothing for dispatch the style to children.
   const monitor = {
-    'position': 'relative',
     'width': width,
     'height': height,
+    'display': 'flex',
+    'flexDirection': 'row',
     'borderRadius': '30px',
     'borderTop': '10px solid #666',
     'borderBottom': '10px solid #ccc',
@@ -33,6 +34,22 @@ export default function styles(theme, props) {
       height: '700px',
       opacity: 0.2,
     },
+  };
+
+  const tube = {
+    position: 'relative',
+    flexGrow: 1,
+  };
+
+  const panel = {
+    margin: '2px',
+    width: '47px',
+    padding: '20px 0px',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    background: 'linear-gradient(-180deg, black -100%, #555)',
   };
 
   /******************************************************************************/
@@ -106,7 +123,7 @@ export default function styles(theme, props) {
   const border = {
     position: 'absolute',
     left: '0px',
-    right: '0px',
+    right: '-50px',
     top: '0px',
     bottom: '0px',
     borderRadius: '20px',
@@ -120,6 +137,8 @@ export default function styles(theme, props) {
 
   return {
     monitor,
+    tube,
+    panel,
 
     screenLeft,
     screenRight,
