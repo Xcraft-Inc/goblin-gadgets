@@ -75,36 +75,36 @@ function rotatePointRad(center, angle, p) {
 
 /******************************************************************************/
 
-function getScreenPath(width, height, part) {
+function getScreenPath(width, height, styleName) {
   const w = toInt(width);
   const h = toInt(height);
   const t = 30;
 
   let path = '';
 
-  switch (part) {
-    case 'left':
+  switch (styleName) {
+    case 'screenLeft':
       path = moveTo(path, 0, 0);
       path = lineTo(path, 0, h);
       path = lineTo(path, t, h - t);
       path = bezierTo(path, 0, h - t * 2, 0, t * 2, t, t);
       path = close(path);
       break;
-    case 'right':
+    case 'screenRight':
       path = moveTo(path, w, 0);
       path = lineTo(path, w, h);
       path = lineTo(path, w - t, h - t);
       path = bezierTo(path, w, h - t * 2, w, t * 2, w - t, t);
       path = close(path);
       break;
-    case 'top':
+    case 'screenTop':
       path = moveTo(path, 0, 0);
       path = lineTo(path, w, 0);
       path = lineTo(path, w - t, t);
       path = bezierTo(path, w - t * 2, 0, t * 2, 0, t, t);
       path = close(path);
       break;
-    case 'bottom':
+    case 'screenBottom':
       path = moveTo(path, 0, h);
       path = lineTo(path, w, h);
       path = lineTo(path, w - t, h - t);

@@ -14,32 +14,24 @@ export default class SamplesMonitor extends Widget {
 
   /******************************************************************************/
 
+  renderScreenBorder(w, h, styleName) {
+    return (
+      <svg width={w} height={h} className={this.styles.classNames[styleName]}>
+        <path d={getPath.getScreenPath(w, h, styleName)} />
+      </svg>
+    );
+  }
+
   renderScreen(w, h) {
     w = Unit.sub(w, '4px');
     h = Unit.sub(h, '4px');
 
     return (
       <React.Fragment>
-        <svg width={w} height={h} className={this.styles.classNames.screenLeft}>
-          <path d={getPath.getScreenPath(w, h, 'left')} />
-        </svg>
-        <svg
-          width={w}
-          height={h}
-          className={this.styles.classNames.screenRight}
-        >
-          <path d={getPath.getScreenPath(w, h, 'right')} />
-        </svg>
-        <svg width={w} height={h} className={this.styles.classNames.screenTop}>
-          <path d={getPath.getScreenPath(w, h, 'top')} />
-        </svg>
-        <svg
-          width={w}
-          height={h}
-          className={this.styles.classNames.screenBottom}
-        >
-          <path d={getPath.getScreenPath(w, h, 'bottom')} />
-        </svg>
+        {this.renderScreenBorder(w, h, 'screenLeft')}
+        {this.renderScreenBorder(w, h, 'screenRight')}
+        {this.renderScreenBorder(w, h, 'screenTop')}
+        {this.renderScreenBorder(w, h, 'screenBottom')}
       </React.Fragment>
     );
   }
