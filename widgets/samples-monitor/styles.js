@@ -128,9 +128,9 @@ export default function styles(theme, props) {
     bottom: '0px',
     borderRadius: '20px',
     borderTop: '2px solid #ddd',
-    borderBottom: '2px solid #444',
+    borderBottom: '2px solid #333',
     borderLeft: '2px solid #ddd',
-    borderRight: '2px solid #444',
+    borderRight: '2px solid #222',
   };
 
   /******************************************************************************/
