@@ -24,6 +24,10 @@ export default class SamplesMonitor extends Widget {
   }
 
   renderScreen(w, h) {
+    if (this.props.look !== 'retro') {
+      return null;
+    }
+
     w = Unit.sub(w, '4px');
     h = Unit.sub(h, '4px');
 
@@ -38,6 +42,10 @@ export default class SamplesMonitor extends Widget {
   }
 
   renderGrid(w, h) {
+    if (this.props.look !== 'retro') {
+      return null;
+    }
+
     return (
       <svg
         width={w}
@@ -66,10 +74,18 @@ export default class SamplesMonitor extends Widget {
   }
 
   renderFlare() {
+    if (this.props.look !== 'retro') {
+      return null;
+    }
+
     return <div className={`flare-hover ${this.styles.classNames.flare}`} />;
   }
 
   renderPowerOff(w, h) {
+    if (this.props.look !== 'retro') {
+      return null;
+    }
+
     w = Unit.sub(w, '80px');
     h = Unit.sub(h, '80px');
 
@@ -88,7 +104,7 @@ export default class SamplesMonitor extends Widget {
       <div className={this.styles.classNames.panel}>
         {hasGauge ? (
           <Gauge
-            kind="rounded"
+            kind={this.props.look === 'retro' ? 'rounded' : ''}
             gradient="red-yellow-green"
             direction="vertical"
             height="100%"
