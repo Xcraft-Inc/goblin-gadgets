@@ -18,6 +18,66 @@ export default function styles(theme, props) {
   let powerOff;
   let border;
 
+  /******************************************************************************/
+
+  //---------\
+  //  MODERN  >
+  //---------/
+  if (look === 'modern') {
+    monitor = {
+      width: width,
+      height: height,
+      display: 'flex',
+      flexDirection: 'row',
+      borderTopLeftRadius: '5px',
+      backgroundColor: '#333',
+      overflow: 'hidden',
+    };
+
+    tube = {
+      position: 'relative',
+      flexGrow: 1,
+    };
+
+    panel = {
+      margin: '0px',
+      width: '47px',
+      padding: '20px 0px',
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#555',
+    };
+
+    screenLeft = {};
+    screenRight = {};
+    screenTop = {};
+    screenBottom = {};
+
+    grid = {
+      position: 'absolute',
+      stroke: 'rgba(0,255,0,0.2)',
+      strokeWidth: '1px',
+      fill: 'transparent',
+    };
+
+    samples = {
+      position: 'absolute',
+      stroke: '#0f0',
+      strokeWidth: '2px',
+      strokeLinecap: 'round',
+      strokeLinejoin: 'round',
+      fill: 'transparent',
+    };
+
+    flare = {};
+    powerOff = {};
+    border = {};
+  }
+
+  /******************************************************************************/
+
   //--------\
   //  RETRO  >
   //--------/
@@ -146,65 +206,6 @@ export default function styles(theme, props) {
       borderLeft: '2px solid #ddd',
       borderRight: '2px solid #222',
     };
-  }
-
-  //---------\
-  //  MODERN  >
-  //---------/
-  if (look === 'modern') {
-    monitor = {
-      width: width,
-      height: height,
-      display: 'flex',
-      flexDirection: 'row',
-      backgroundColor: '#333',
-      overflow: 'hidden',
-    };
-
-    tube = {
-      position: 'relative',
-      flexGrow: 1,
-    };
-
-    panel = {
-      margin: '0px',
-      width: '47px',
-      padding: '20px 0px',
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#555',
-    };
-
-    /******************************************************************************/
-
-    screenLeft = {};
-
-    screenRight = {};
-
-    screenTop = {};
-
-    screenBottom = {};
-
-    /******************************************************************************/
-
-    grid = {};
-
-    samples = {
-      position: 'absolute',
-      stroke: '#0f0',
-      strokeWidth: '2px',
-      strokeLinecap: 'round',
-      strokeLinejoin: 'round',
-      fill: 'transparent',
-    };
-
-    flare = {};
-
-    powerOff = {};
-
-    border = {};
   }
 
   /******************************************************************************/

@@ -42,8 +42,13 @@ export default class SamplesMonitor extends Widget {
   }
 
   renderGrid(w, h) {
-    if (this.props.look !== 'retro') {
-      return null;
+    let nx, ny;
+    if (this.props.look === 'retro') {
+      nx = 10;
+      ny = 8;
+    } else {
+      nx = 1;
+      ny = 1;
     }
 
     return (
@@ -52,7 +57,7 @@ export default class SamplesMonitor extends Widget {
         height={h}
         className={`grid-hover ${this.styles.classNames.grid}`}
       >
-        <path d={getPath.getGridPath(w, h, 10, 8)} />
+        <path d={getPath.getGridPath(w, h, nx, ny)} />
       </svg>
     );
   }
