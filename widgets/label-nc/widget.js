@@ -144,6 +144,7 @@ export default class LabelNC extends Widget {
         key={index}
         className={className}
         markdownverticalspacing={this.props.markdownVerticalSpacing}
+        textcolor={this.props.textColor}
       />
     );
   }
@@ -158,6 +159,7 @@ export default class LabelNC extends Widget {
               key={index}
               source={source}
               markdownVerticalSpacing={this.props.markdownVerticalSpacing}
+              textColor={this.props.textColor}
             />
           );
         } else {

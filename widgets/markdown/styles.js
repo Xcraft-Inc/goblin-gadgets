@@ -1,11 +1,12 @@
 /******************************************************************************/
 
-export const propNames = ['userSelect', 'markdownVerticalSpacing'];
+export const propNames = ['userSelect', 'markdownVerticalSpacing', 'textColor'];
 
 export default function styles(theme, props) {
-  const {userSelect, markdownVerticalSpacing} = props;
+  const {userSelect, markdownVerticalSpacing, textColor} = props;
 
   const markdown = {
+    'color': textColor,
     'userSelect': userSelect || 'none',
 
     'margin': markdownVerticalSpacing ? `${markdownVerticalSpacing} 0px` : null,
