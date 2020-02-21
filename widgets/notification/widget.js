@@ -95,6 +95,7 @@ export default class Notification extends Widget {
             vpos="top"
             onClick={this.props.onClickNotification}
           />
+          <div className={this.styles.classNames.glyphLens} />
         </div>
       );
     }

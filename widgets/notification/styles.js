@@ -18,6 +18,7 @@ export default function styles(theme, props) {
 
   let notification;
   let glyph;
+  let glyphLens;
 
   //---------\
   //  MODERN  >
@@ -61,17 +62,76 @@ export default function styles(theme, props) {
     };
 
     glyph = {};
+    glyphLens = {};
   }
 
   //--------\
   //  RETRO  >
   //--------/
   if (look === 'retro') {
-    let glyphShadow = null;
-    let glyphBorderTop = null;
-    let glyphBorderBottom = null;
-    let glyphBorderLeft = null;
-    let glyphBorderRight = null;
+    const glyphBorderTop = '5px solid #aaa';
+    const glyphBorderBottom = '5px solid #777';
+    const glyphBorderLeft = '5px solid #aaa';
+    const glyphBorderRight = '5px solid #777';
+    const glyphShadow = '2px 5px 17px 0px #222';
+
+    const glyphHilitedBorderTop = '5px solid #fff';
+    const glyphHilitedBorderBottom = '5px solid #ddd';
+    const glyphHilitedBorderLeft = '5px solid #fff';
+    const glyphHilitedBorderRight = '5px solid #ddd';
+    const glyphHilitedShadow = 'rgba(255,255,255,0.5) 0px 0px 20px 10px';
+
+    let glyphKeyframes;
+
+    if (status === 'not-read') {
+      glyphKeyframes = {
+        '0%': {
+          borderTop: glyphHilitedBorderTop,
+          borderBottom: glyphHilitedBorderBottom,
+          borderLeft: glyphHilitedBorderLeft,
+          borderRight: glyphHilitedBorderRight,
+          boxShadow: glyphHilitedShadow,
+        },
+        '50%': {
+          borderTop: glyphHilitedBorderTop,
+          borderBottom: glyphHilitedBorderBottom,
+          borderLeft: glyphHilitedBorderLeft,
+          borderRight: glyphHilitedBorderRight,
+          boxShadow: glyphHilitedShadow,
+        },
+        '51%': {
+          borderTop: glyphBorderTop,
+          borderBottom: glyphBorderBottom,
+          borderLeft: glyphBorderLeft,
+          borderRight: glyphBorderRight,
+          boxShadow: glyphShadow,
+        },
+        '100%': {
+          borderTop: glyphBorderTop,
+          borderBottom: glyphBorderBottom,
+          borderLeft: glyphBorderLeft,
+          borderRight: glyphBorderRight,
+          boxShadow: glyphShadow,
+        },
+      };
+    } else {
+      glyphKeyframes = {
+        '0%': {
+          borderTop: glyphBorderTop,
+          borderBottom: glyphBorderBottom,
+          borderLeft: glyphBorderLeft,
+          borderRight: glyphBorderRight,
+          boxShadow: glyphShadow,
+        },
+        '100%': {
+          borderTop: glyphBorderTop,
+          borderBottom: glyphBorderBottom,
+          borderLeft: glyphBorderLeft,
+          borderRight: glyphBorderRight,
+          boxShadow: glyphShadow,
+        },
+      };
+    }
 
     notification = {
       minHeight: '32px',
@@ -89,32 +149,24 @@ export default function styles(theme, props) {
       userSelect: 'none',
     };
 
-    if (status === 'not-read') {
-      glyphShadow = 'rgba(255,255,255,0.5) 0px 0px 30px 14px';
-      //? glyphShadow = `${glyphColor} 0px 0px 20px 10px`;
-      glyphBorderTop = '5px solid #fff';
-      glyphBorderBottom = '5px solid #ddd';
-      glyphBorderLeft = '5px solid #fff';
-      glyphBorderRight = '5px solid #ddd';
-    } else {
-      glyphShadow = '2px 5px 17px 0px #222';
-      glyphBorderTop = '5px solid #aaa';
-      glyphBorderBottom = '5px solid #777';
-      glyphBorderLeft = '5px solid #aaa';
-      glyphBorderRight = '5px solid #777';
-    }
-
     glyph = {
       width: '50px',
       height: '50px',
       margin: '0px 10px 0px 0px',
       padding: '2px',
       borderRadius: '30px',
-      borderTop: glyphBorderTop,
-      borderBottom: glyphBorderBottom,
-      borderLeft: glyphBorderLeft,
-      borderRight: glyphBorderRight,
-      boxShadow: glyphShadow,
+      animationName: glyphKeyframes,
+      animationDuration: '0.6s',
+      animationIterationCount: 'infinite',
+    };
+
+    glyphLens = {
+      position: 'relative',
+      left: '-2px',
+      top: '-52px',
+      width: '30px',
+      height: '30px',
+      background: 'radial-gradient(circle closest-side, white, transparent)',
     };
   }
 
@@ -123,6 +175,7 @@ export default function styles(theme, props) {
   return {
     notification,
     glyph,
+    glyphLens,
   };
 }
 
