@@ -10,11 +10,11 @@ import * as styles from './styles';
 
 /******************************************************************************/
 
-class Notification extends Widget {
+export default class Notification extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
-    
+
     this.state = {
       extended: false,
     };
@@ -62,19 +62,16 @@ class Notification extends Widget {
     }
   }
 
-  render() {
+  /******************************************************************************/
+
+  renderGlyph() {
     let glyphColor = this.props.data.color;
     if (glyphColor) {
       glyphColor = ColorHelpers.getMarkColor(this.context.theme, glyphColor);
     }
 
-    let cursor = null;
-    if (this.props.onClick) {
-      cursor = 'pointer';
-    }
-
-    return (
-      <div className={this.styles.classNames.box}>
+    if (this.props.look !== 'retro') {
+      return (
         <Button
           glyph={this.props.data.glyph}
           backgroundColor={glyphColor}
@@ -83,6 +80,34 @@ class Notification extends Widget {
           horizontalSpacing="large"
           onClick={this.props.onClickNotification}
         />
+      );
+    } else {
+      return (
+        <div className={this.styles.classNames.glyph}>
+          <Button
+            width="50px"
+            height="50px"
+            glyph={this.props.data.glyph}
+            glyphSize="150%"
+            glyphColor="white"
+            backgroundColor={glyphColor}
+            kind="round"
+            vpos="top"
+            onClick={this.props.onClickNotification}
+          />
+        </div>
+      );
+    }
+  }
+
+  renderMessage() {
+    let cursor = null;
+    if (this.props.onClick) {
+      cursor = 'pointer';
+    }
+
+    if (this.props.look !== 'retro') {
+      return (
         <Label
           cursor={cursor}
           text={this.props.data.message}
@@ -94,6 +119,30 @@ class Notification extends Widget {
           onClick={this.onClick}
           userSelect={'text'}
         />
+      );
+    } else {
+      return (
+        <Label
+          cursor={cursor}
+          text={this.props.data.message}
+          textColor={this.props.status === 'not-read' ? '#fff' : '#bbb'}
+          kind="notification"
+          grow="1"
+          wrap={this.extended ? null : 'no'}
+          maxLines={this.extended ? null : 2}
+          skipEmptyLines={this.extended ? false : true}
+          onClick={this.onClick}
+          userSelect={'text'}
+        />
+      );
+    }
+  }
+
+  render() {
+    return (
+      <div className={this.styles.classNames.notification}>
+        {this.renderGlyph()}
+        {this.renderMessage()}
         <Container kind="column">
           <Button
             glyph="solid/times"
@@ -116,4 +165,3 @@ class Notification extends Widget {
 }
 
 /******************************************************************************/
-export default Notification;
