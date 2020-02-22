@@ -176,14 +176,14 @@ export default function styles(theme, props) {
       display: 'flex',
       flexDirection: 'row',
       color: '#bbb',
-      margin: '20px 10px',
+      margin: '20px',
       borderRadius: '15px',
       paddingTop: m,
       paddingRight: '0px',
       paddingBottom: m,
       paddingLeft: m,
       background: 'linear-gradient(90deg, #222 -150%, #444)',
-      boxShadow: '2px 6px 13px 4px #222',
+      boxShadow: '4px 7px 23px 3px #222',
       userSelect: 'none',
     };
 
