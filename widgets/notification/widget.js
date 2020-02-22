@@ -1,4 +1,3 @@
-//T:2019-02-27
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import {ColorHelpers} from 'electrum-theme';
@@ -83,19 +82,21 @@ export default class Notification extends Widget {
       );
     } else {
       return (
-        <div className={this.styles.classNames.glyph}>
-          <Button
-            width="50px"
-            height="50px"
-            glyph={this.props.data.glyph}
-            glyphSize="150%"
-            glyphColor="white"
-            backgroundColor={glyphColor}
-            kind="round"
-            vpos="top"
-            onClick={this.props.onClickNotification}
-          />
-          <div className={this.styles.classNames.glyphLens} />
+        <div className={this.styles.classNames.glyphChrome}>
+          <div className={this.styles.classNames.glyph}>
+            <Button
+              width="50px"
+              height="50px"
+              glyph={this.props.data.glyph}
+              glyphSize="150%"
+              glyphColor="white"
+              backgroundColor="transparent"
+              kind="round"
+              vpos="top"
+              onClick={this.props.onClickNotification}
+            />
+            <div className={this.styles.classNames.glyphLens} />
+          </div>
         </div>
       );
     }
