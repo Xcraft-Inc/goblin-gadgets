@@ -83,7 +83,15 @@ export default [
   {
     name: 'kind',
     group: 'aspect',
-    type: types.enum(['', 'big', 'active', 'check-button', 'radio', 'switch']),
+    type: types.enum([
+      '',
+      'big',
+      'active',
+      'check-button',
+      'radio',
+      'switch',
+      'retro',
+    ]),
   },
   {
     name: 'readonly',

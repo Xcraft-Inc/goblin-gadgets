@@ -8,6 +8,7 @@ import {
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
 import Button from 'goblin-gadgets/widgets/button/widget';
+import Label from 'goblin-gadgets/widgets/label/widget';
 
 /******************************************************************************/
 
@@ -24,9 +25,38 @@ export default class CheckboxNC extends Widget {
     }
   }
 
+  /******************************************************************************/
+
+  renderRetro(checked) {
+    const styleMain = checked
+      ? `main-on-hover ${this.styles.classNames.checkButtonRetroMainOn}`
+      : `main-off-hover ${this.styles.classNames.checkButtonRetroMainOff}`;
+
+    const styleTip = checked
+      ? this.styles.classNames.checkButtonRetroTipOn
+      : this.styles.classNames.checkButtonRetroTipOff;
+
+    return (
+      <div
+        className={this.styles.classNames.checkButtonRetro}
+        onClick={this.onChange}
+      >
+        <div className={styleMain}>
+          <div className={this.styles.classNames.checkButtonRetroStem} />
+          <div className={styleTip} />
+        </div>
+        <Label kind="button-notification" text={this.props.text} />
+      </div>
+    );
+  }
+
   render() {
     let {checked, ...otherProps} = this.props;
     checked = Bool.isTrue(checked);
+
+    if (this.props.kind === 'retro') {
+      return this.renderRetro(checked);
+    }
 
     let kind, border, glyph, glyphColor, active;
     if (this.props.kind === 'switch') {
