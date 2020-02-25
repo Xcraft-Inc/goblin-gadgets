@@ -42,13 +42,7 @@ class DialogModal extends Widget {
       return;
     }
 
-    let node = this.divNode;
-    if (this.containerNode) {
-      // This trick is necessary to obtain the node in DOM according to Container!
-      node = ReactDOM.findDOMNode(this.containerNode);
-    }
-
-    const rect = node.getBoundingClientRect();
+    const rect = this.divNode.getBoundingClientRect();
     if (!RectHelpers.isInside(rect, e.clientX, e.clientY)) {
       // If the mouse is outside the menu combo, close it.
       this.onCloseCombo();
@@ -102,14 +96,12 @@ class DialogModal extends Widget {
           onMouseDown={this.onBackgroundClick}
           onTouchStart={this.onBackgroundClick}
         >
-          <Container
-            ref={node => (this.containerNode = node)}
-            kind="floating"
-            subkind={this.props.subkind}
-            cursor="default"
+          <div
+            ref={node => (this.divNode = node)}
+            className={this.styles.classNames.dialogModal}
           >
             {this.props.children}
-          </Container>
+          </div>
         </div>
       );
     }
@@ -117,4 +109,15 @@ class DialogModal extends Widget {
 }
 
 /******************************************************************************/
-export default DialogModal;
+const ConnectedDialogModal = Widget.connect((state, props) => {
+  const look = state.get(`backend.${props.labId}.look`);
+  return {
+    look,
+  };
+})(DialogModal);
+
+export default class extends Widget {
+  render() {
+    return <ConnectedDialogModal labId={this.context.labId} {...this.props} />;
+  }
+}

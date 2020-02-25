@@ -1,6 +1,8 @@
 /******************************************************************************/
 
 export const propNames = [
+  'subkind',
+  'look',
   'zIndex',
   'left',
   'right',
@@ -12,7 +14,18 @@ export const propNames = [
 ];
 
 export default function styles(theme, props) {
-  const {zIndex, left, right, top, bottom, width, height, center} = props;
+  const {
+    subkind,
+    look = 'modern',
+    zIndex,
+    left,
+    right,
+    top,
+    bottom,
+    width,
+    height,
+    center,
+  } = props;
 
   const fullScreen = {
     display: 'flex',
@@ -27,6 +40,29 @@ export default function styles(theme, props) {
     cursor: 'default',
     backgroundColor: theme.palette.flyingDialogFullScreenBackground,
   };
+
+  const dialogModal = {
+    maxHeight: '80%',
+    display: 'flex',
+    flexDirection: 'column',
+    margin: 'auto',
+    padding: subkind === 'full' ? null : theme.shapes.floatingPadding,
+    borderRadius: theme.shapes.floatingRadius,
+    justifyContent: 'center',
+    backgroundColor: theme.palette.flyingDialogBackground,
+    boxShadow: theme.shapes.floatingShadow,
+    zIndex: '10',
+    cursor: 'default',
+  };
+
+  if (look === 'retro') {
+    dialogModal.borderRadius = '20px';
+    dialogModal.borderTop = '10px solid #666';
+    dialogModal.borderBottom = '10px solid #ccc';
+    dialogModal.borderLeft = '10px solid #888';
+    dialogModal.borderRight = '10px solid #aaa';
+    dialogModal.boxShadow = 'black 0px 5px 60px 10px';
+  }
 
   let comboTop, comboRight, comboBottom, comboLeft, transform;
   if (left || right) {
@@ -59,8 +95,11 @@ export default function styles(theme, props) {
     userSelect: 'none',
   };
 
+  /******************************************************************************/
+
   return {
     fullScreen,
+    dialogModal,
     combo,
   };
 }
