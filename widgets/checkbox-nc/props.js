@@ -90,7 +90,7 @@ export default [
       'check-button',
       'radio',
       'switch',
-      'retro',
+      'switch-dark',
     ]),
   },
   {

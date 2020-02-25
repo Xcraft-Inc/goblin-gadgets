@@ -54,7 +54,13 @@ export default class CheckboxNC extends Widget {
     let {checked, ...otherProps} = this.props;
     checked = Bool.isTrue(checked);
 
-    if (this.props.kind === 'retro') {
+    if (
+      this.context.theme.look.name === 'retro' &&
+      (this.props.kind === 'switch' ||
+        this.props.kind === 'switch-dark' ||
+        this.props.kind === 'big' ||
+        !this.props.kind)
+    ) {
       return this.renderRetro(checked);
     }
 

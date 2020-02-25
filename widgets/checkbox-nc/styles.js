@@ -1,15 +1,24 @@
+import * as Bool from 'gadgets/helpers/bool-helpers';
+
 /******************************************************************************/
 
-export default function styles() {
+export const propNames = ['kind', 'disabled', 'readonly'];
+
+export default function styles(theme, props) {
+  const {kind, disabled, readonly} = props;
+
+  const inactive = Bool.isTrue(disabled) || Bool.isTrue(readonly);
+  const colorShadow = kind === 'switch-dark' ? '#111' : '#444';
+
   const checkButtonRetro = {
     'display': 'flex',
     'flexDirection': 'row',
     'alignItems': 'center',
     ':hover .main-off-hover': {
-      background: 'radial-gradient(at 75% 75%, #888, #555)',
+      background: inactive ? null : 'radial-gradient(at 75% 75%, #888, #555)',
     },
     ':hover .main-on-hover': {
-      background: 'radial-gradient(at 75% 75%, #aaa, #777)',
+      background: inactive ? null : 'radial-gradient(at 75% 75%, #aaa, #777)',
     },
   };
 
@@ -25,7 +34,8 @@ export default function styles() {
     borderBottom: '3px solid #444',
     borderRight: '3px solid #444',
     background: 'radial-gradient(at 75% 75%, #666, #333)',
-    boxShadow: '2px 5px 17px 0px #111',
+    boxShadow: `2px 5px 17px 0px ${colorShadow}`,
+    opacity: inactive ? 0.5 : 1,
     transition: '0.2s ease-out',
   };
 

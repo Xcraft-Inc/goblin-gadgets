@@ -367,7 +367,7 @@ export default function styles(theme, props) {
         }
       }
     }
-    const r = theme.shapes.actionRadius;
+    const r = theme.look.name === 'retro' ? '3px' : theme.shapes.actionRadius;
     boxHeight = theme.shapes.actionHeight;
     boxPaddingLeft = Unit.multiply(theme.shapes.actionHeight, 0.1);
     borderStyle = 'none';
