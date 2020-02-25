@@ -1,11 +1,11 @@
 //T:2019-02-27
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Widget from 'goblin-laboratory/widgets/widget';
 import KeyTrap from 'goblin-gadgets/widgets/key-trap.js';
-import * as RectHelpers from '../helpers/rect-helpers.js';
-
 import Container from 'goblin-gadgets/widgets/container/widget';
+import Screw from 'goblin-gadgets/widgets/screw/widget';
+import {ColorManipulator} from 'electrum-theme';
+import * as RectHelpers from '../helpers/rect-helpers.js';
 import * as styles from './styles';
 
 /******************************************************************************/
@@ -47,6 +47,54 @@ class DialogModal extends Widget {
       // If the mouse is outside the menu combo, close it.
       this.onCloseCombo();
     }
+  }
+
+  /******************************************************************************/
+
+  renderScrews() {
+    if (this.props.look !== 'retro') {
+      return null;
+    }
+
+    const lum = ColorManipulator.getLuminance(
+      this.context.theme.palette.textColor
+    );
+
+    const color = lum < 0.3 ? '#ccc' : '#555';
+    const colorShadow = lum < 0.3 ? '#ddd' : '#111';
+
+    return (
+      <React.Fragment>
+        <Screw
+          color={color}
+          colorShadow={colorShadow}
+          top="8px"
+          left="8px"
+          angle="45deg"
+        />
+        <Screw
+          color={color}
+          colorShadow={colorShadow}
+          top="8px"
+          right="8px"
+          angle="-20deg"
+        />
+        <Screw
+          color={color}
+          colorShadow={colorShadow}
+          bottom="8px"
+          left="8px"
+          angle="70deg"
+        />
+        <Screw
+          color={color}
+          colorShadow={colorShadow}
+          bottom="8px"
+          right="8px"
+          angle="0deg"
+        />
+      </React.Fragment>
+    );
   }
 
   render() {
@@ -100,6 +148,7 @@ class DialogModal extends Widget {
             ref={node => (this.divNode = node)}
             className={this.styles.classNames.dialogModal}
           >
+            {this.renderScrews()}
             {this.props.children}
           </div>
         </div>
@@ -109,6 +158,7 @@ class DialogModal extends Widget {
 }
 
 /******************************************************************************/
+
 const ConnectedDialogModal = Widget.connect((state, props) => {
   const look = state.get(`backend.${props.labId}.look`);
   return {

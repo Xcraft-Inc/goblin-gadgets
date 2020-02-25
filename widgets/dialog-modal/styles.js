@@ -42,6 +42,7 @@ export default function styles(theme, props) {
   };
 
   const dialogModal = {
+    position: 'relative',
     maxHeight: '80%',
     display: 'flex',
     flexDirection: 'column',
