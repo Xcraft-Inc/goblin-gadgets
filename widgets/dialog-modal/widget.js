@@ -10,7 +10,7 @@ import * as styles from './styles';
 
 /******************************************************************************/
 
-class DialogModal extends Widget {
+export default class DialogModal extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
@@ -52,7 +52,7 @@ class DialogModal extends Widget {
   /******************************************************************************/
 
   renderScrews() {
-    if (this.props.look !== 'retro') {
+    if (this.context.theme.look.name !== 'retro') {
       return null;
     }
 
@@ -158,16 +158,3 @@ class DialogModal extends Widget {
 }
 
 /******************************************************************************/
-
-const ConnectedDialogModal = Widget.connect((state, props) => {
-  const look = state.get(`backend.${props.labId}.look`);
-  return {
-    look,
-  };
-})(DialogModal);
-
-export default class extends Widget {
-  render() {
-    return <ConnectedDialogModal labId={this.context.labId} {...this.props} />;
-  }
-}

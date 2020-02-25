@@ -1,9 +1,11 @@
 /******************************************************************************/
 
-export const propNames = ['look', 'width', 'height', 'showed'];
+export const propNames = ['width', 'height', 'showed'];
 
 export default function styles(theme, props) {
-  const {look = 'modern', width, height, showed} = props;
+  const {width, height, showed} = props;
+
+  const look = theme.look.name;
 
   let monitor;
   let tube;

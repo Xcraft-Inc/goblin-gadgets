@@ -4,11 +4,12 @@ import {ColorManipulator} from 'electrum-theme';
 
 /******************************************************************************/
 
-export const propNames = ['status', 'look', 'data'];
+export const propNames = ['status', 'data'];
 
 export default function styles(theme, props) {
-  const {status, look = 'modern', data} = props;
+  const {status, data} = props;
 
+  const look = theme.look.name;
   const m = theme.shapes.containerMargin;
   const s = theme.shapes.lineSpacing;
 

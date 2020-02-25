@@ -179,11 +179,6 @@ export default [
     ]),
   },
   {
-    name: 'look',
-    group: 'aspect',
-    type: types.enum(['', 'modern', 'retro']),
-  },
-  {
     name: 'border',
     group: 'aspect',
     type: types.enum(['', 'top', 'right', 'bottom', 'left']),

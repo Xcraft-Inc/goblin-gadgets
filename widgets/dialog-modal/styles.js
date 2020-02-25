@@ -2,7 +2,6 @@
 
 export const propNames = [
   'subkind',
-  'look',
   'zIndex',
   'left',
   'right',
@@ -16,7 +15,6 @@ export const propNames = [
 export default function styles(theme, props) {
   const {
     subkind,
-    look = 'modern',
     zIndex,
     left,
     right,
@@ -26,6 +24,8 @@ export default function styles(theme, props) {
     height,
     center,
   } = props;
+
+  const look = theme.look.name;
 
   const fullScreen = {
     display: 'flex',

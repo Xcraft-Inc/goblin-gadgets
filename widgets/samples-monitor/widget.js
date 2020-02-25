@@ -24,7 +24,7 @@ export default class SamplesMonitor extends Widget {
   }
 
   renderScreen(w, h) {
-    if (this.props.look !== 'retro') {
+    if (this.context.theme.look.name !== 'retro') {
       return null;
     }
 
@@ -43,7 +43,7 @@ export default class SamplesMonitor extends Widget {
 
   renderGrid(w, h) {
     let nx, ny;
-    if (this.props.look === 'retro') {
+    if (this.context.theme.look.name === 'retro') {
       nx = 10;
       ny = 8;
     } else {
@@ -79,7 +79,7 @@ export default class SamplesMonitor extends Widget {
   }
 
   renderFlare() {
-    if (this.props.look !== 'retro') {
+    if (this.context.theme.look.name !== 'retro') {
       return null;
     }
 
@@ -87,7 +87,7 @@ export default class SamplesMonitor extends Widget {
   }
 
   renderPowerOff(w, h) {
-    if (this.props.look !== 'retro') {
+    if (this.context.theme.look.name !== 'retro') {
       return null;
     }
 
@@ -109,7 +109,7 @@ export default class SamplesMonitor extends Widget {
       <div className={this.styles.classNames.panel}>
         {hasGauge ? (
           <Gauge
-            kind={this.props.look === 'retro' ? 'rounded' : ''}
+            kind={this.context.theme.look.name === 'retro' ? 'rounded' : ''}
             gradient="red-yellow-green"
             direction="vertical"
             height="100%"

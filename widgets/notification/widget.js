@@ -69,7 +69,7 @@ export default class Notification extends Widget {
       glyphColor = ColorHelpers.getMarkColor(this.context.theme, glyphColor);
     }
 
-    if (this.props.look !== 'retro') {
+    if (this.context.theme.look.name !== 'retro') {
       return (
         <Button
           glyph={this.props.data.glyph}
@@ -108,7 +108,7 @@ export default class Notification extends Widget {
       cursor = 'pointer';
     }
 
-    if (this.props.look !== 'retro') {
+    if (this.context.theme.look.name !== 'retro') {
       return (
         <Label
           cursor={cursor}
