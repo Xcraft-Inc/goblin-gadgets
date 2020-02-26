@@ -1,5 +1,4 @@
 import {Unit} from 'electrum-theme';
-import {ColorManipulator} from 'electrum-theme';
 
 export const propNames = [
   'top',

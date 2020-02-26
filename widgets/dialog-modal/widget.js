@@ -122,8 +122,10 @@ export default class DialogModal extends Widget {
             ref={node => (this.divNode = node)}
             className={this.styles.classNames.dialogModal}
           >
-            {this.renderScrews()}
-            {this.props.children}
+            <div className={this.styles.classNames.dialogModalInside}>
+              {this.renderScrews()}
+              {this.props.children}
+            </div>
           </div>
         </div>
       );

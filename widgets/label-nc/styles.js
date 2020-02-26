@@ -563,7 +563,12 @@ export default function styles(theme, props) {
   }
 
   // view-tab button (usual parent is container with kind='view-tab').
-  if (kind === 'view-tab') {
+  if (
+    kind === 'view-tab' ||
+    kind === 'view-tab-first' ||
+    kind === 'view-tab-last' ||
+    kind === 'view-tab-single'
+  ) {
     textSize = theme.shapes.viewTabTextSize;
     glyphColorFromKind = theme.palette.viewTabGlyph;
   }

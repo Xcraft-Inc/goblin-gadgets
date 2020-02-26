@@ -1,3 +1,5 @@
+import {ColorManipulator} from 'electrum-theme';
+
 /******************************************************************************/
 
 export const propNames = ['width', 'height', 'showed'];
@@ -90,10 +92,22 @@ export default function styles(theme, props) {
       'display': 'flex',
       'flexDirection': 'row',
       'borderRadius': '30px',
-      'borderTop': '10px solid #666',
-      'borderBottom': '10px solid #ccc',
-      'borderLeft': '10px solid #888',
-      'borderRight': '10px solid #aaa',
+      'borderTop': `10px solid ${ColorManipulator.lighten(
+        theme.palette.actionButtonBackground,
+        0.4
+      )}`,
+      'borderBottom': `10px solid ${ColorManipulator.darken(
+        theme.palette.actionButtonBackground,
+        0.5
+      )}`,
+      'borderLeft': `10px solid ${ColorManipulator.lighten(
+        theme.palette.actionButtonBackground,
+        0.2
+      )}`,
+      'borderRight': `10px solid ${ColorManipulator.darken(
+        theme.palette.actionButtonBackground,
+        0.3
+      )}`,
       'background': 'radial-gradient(ellipse at top left, #000, #333)',
       'boxShadow': '0px 0px 50px black',
       'overflow': 'hidden',

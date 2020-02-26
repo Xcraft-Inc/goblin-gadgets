@@ -1,3 +1,5 @@
+import {ColorManipulator} from 'electrum-theme';
+
 /******************************************************************************/
 
 export const propNames = [
@@ -44,12 +46,8 @@ export default function styles(theme, props) {
   const dialogModal = {
     position: 'relative',
     maxHeight: '80%',
-    display: 'flex',
-    flexDirection: 'column',
     margin: 'auto',
-    padding: subkind === 'full' ? null : theme.shapes.floatingPadding,
     borderRadius: theme.shapes.floatingRadius,
-    justifyContent: 'center',
     backgroundColor: theme.palette.flyingDialogBackground,
     boxShadow: theme.shapes.floatingShadow,
     zIndex: '10',
@@ -58,12 +56,34 @@ export default function styles(theme, props) {
 
   if (look === 'retro') {
     dialogModal.borderRadius = '20px';
-    dialogModal.borderTop = '10px solid #666';
-    dialogModal.borderBottom = '10px solid #ccc';
-    dialogModal.borderLeft = '10px solid #888';
-    dialogModal.borderRight = '10px solid #aaa';
+    dialogModal.borderTop = `10px solid ${ColorManipulator.lighten(
+      theme.palette.actionButtonBackground,
+      0.4
+    )}`;
+    dialogModal.borderBottom = `10px solid ${ColorManipulator.darken(
+      theme.palette.actionButtonBackground,
+      0.5
+    )}`;
+    dialogModal.borderLeft = `10px solid ${ColorManipulator.lighten(
+      theme.palette.actionButtonBackground,
+      0.2
+    )}`;
+    dialogModal.borderRight = `10px solid ${ColorManipulator.darken(
+      theme.palette.actionButtonBackground,
+      0.3
+    )}`;
     dialogModal.boxShadow = 'black 0px 5px 60px 10px';
   }
+
+  const dialogModalInside = {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    padding: subkind === 'full' ? null : theme.shapes.floatingPadding,
+    borderRadius: '10px',
+    boxShadow:
+      look === 'retro' ? 'inset 4px 12px 100px 0px rgba(0,0,0,0.4)' : null,
+  };
 
   let comboTop, comboRight, comboBottom, comboLeft, transform;
   if (left || right) {
@@ -101,6 +121,7 @@ export default function styles(theme, props) {
   return {
     fullScreen,
     dialogModal,
+    dialogModalInside,
     combo,
   };
 }

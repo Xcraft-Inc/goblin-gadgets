@@ -129,6 +129,7 @@ export default function styles(theme, props) {
   let borderStyle = 'solid';
   let borderRadius = '0px';
   let boxSizing = null;
+  let boxShadow = null;
   let backgroundColor = theme.palette.buttonBackground;
   let activeColor = theme.palette.boxActiveBackground;
   let borderHoverColor = null;
@@ -172,6 +173,15 @@ export default function styles(theme, props) {
     borderStyle = 'none';
     backgroundColor = theme.palette.taskLogoBackground;
     activeColor = theme.palette.taskTabActiveBackground;
+
+    if (theme.look.name === 'retro') {
+      borderRadius = '50px';
+      boxMarginTop = '5px';
+      boxMarginRight = '5px';
+      boxMarginBottom = '0px';
+      boxMarginLeft = '5px';
+      boxShadow = '3px 5px 21px 2px rgba(0,0,0,0.7)';
+    }
   }
 
   // Task button (usual parent is container with kind='task-bar').
@@ -183,6 +193,15 @@ export default function styles(theme, props) {
     borderStyle = 'none none solid none';
     borderColor = theme.palette.taskButtonBorder;
     backgroundColor = theme.palette.taskButtonBackground;
+
+    if (theme.look.name === 'retro') {
+      borderRadius = '50px';
+      boxMarginTop = '5px';
+      boxMarginRight = '5px';
+      boxMarginBottom = '0px';
+      boxMarginLeft = '5px';
+      boxShadow = '3px 5px 21px 2px rgba(0,0,0,0.7)';
+    }
   }
 
   // main-tab button (usual parent is container with kind='main-tab').
@@ -197,6 +216,15 @@ export default function styles(theme, props) {
     borderStyle = 'none';
     backgroundColor = theme.palette.mainTabButtonInactiveBackground;
     activeColor = theme.palette.mainTabButtonActiveBackground;
+
+    if (theme.look.name === 'retro') {
+      borderRadius = '25px 25px 0px 0px';
+      boxMarginTop = '5px';
+      boxMarginRight = '0px';
+      boxMarginBottom = '0px';
+      boxMarginLeft = '5px';
+      boxShadow = '3px 5px 21px 2px rgba(0,0,0,0.7)';
+    }
   }
 
   if (kind === 'main-tab-right') {
@@ -208,7 +236,12 @@ export default function styles(theme, props) {
   }
 
   // view-tab button (usual parent is container with kind='view-tab').
-  if (kind === 'view-tab') {
+  if (
+    kind === 'view-tab' ||
+    kind === 'view-tab-first' ||
+    kind === 'view-tab-last' ||
+    kind === 'view-tab-single'
+  ) {
     boxMaxWidth = '250px';
     boxHeight = theme.shapes.viewTabHeight;
     if (text) {
@@ -224,6 +257,20 @@ export default function styles(theme, props) {
     borderStyle = 'none';
     backgroundColor = theme.palette.viewTabButtonInactiveBackground;
     activeColor = theme.palette.viewTabButtonActiveBackground;
+
+    if (theme.look.name === 'retro') {
+      if (kind === 'view-tab-first') {
+        boxMarginLeft = '5px';
+        borderRadius = '15px 0px 0px 0px';
+      }
+      if (kind === 'view-tab-last') {
+        borderRadius = '0px 15px 0px 0px';
+      }
+      if (kind === 'view-tab-single') {
+        boxMarginLeft = '5px';
+        borderRadius = '15px 15px 0px 0px';
+      }
+    }
   }
 
   if (kind === 'view-tab-right') {
@@ -367,7 +414,7 @@ export default function styles(theme, props) {
         }
       }
     }
-    const r = theme.look.name === 'retro' ? '3px' : theme.shapes.actionRadius;
+    const r = theme.shapes.actionRadius;
     boxHeight = theme.shapes.actionHeight;
     boxPaddingLeft = Unit.multiply(theme.shapes.actionHeight, 0.1);
     borderStyle = 'none';
@@ -382,6 +429,64 @@ export default function styles(theme, props) {
       borderRadius = r;
     } else {
       boxMarginRight = '1px';
+    }
+
+    if (theme.look.name === 'retro') {
+      let tlRadius = '3px';
+      let trRadius = '3px';
+      let brRadius = '3px';
+      let blRadius = '3px';
+
+      let tColor = ColorManipulator.lighten(
+        theme.palette.actionButtonBackground,
+        0.4
+      );
+      let rColor = ColorManipulator.darken(
+        theme.palette.actionButtonBackground,
+        0.3
+      );
+      let bColor = ColorManipulator.darken(
+        theme.palette.actionButtonBackground,
+        0.5
+      );
+      let lColor = ColorManipulator.lighten(
+        theme.palette.actionButtonBackground,
+        0.2
+      );
+
+      if (place === 'left' || place === 'single') {
+        tlRadius = '30px';
+        blRadius = '30px';
+      }
+
+      if (place === 'right' || place === 'single') {
+        trRadius = '30px';
+        brRadius = '30px';
+      }
+
+      if (disabled) {
+        const c1 = ColorManipulator.lighten(
+          theme.palette.buttonDisableBackground,
+          0.2
+        );
+        const c2 = ColorManipulator.darken(
+          theme.palette.buttonDisableBackground,
+          0.1
+        );
+        tColor = c1;
+        rColor = c2;
+        bColor = c2;
+        lColor = c1;
+        backgroundColor = theme.palette.buttonDisableBackground;
+        specialDisabled = true;
+      }
+
+      borderRadius = `${tlRadius} ${trRadius} ${brRadius} ${blRadius}`;
+      borderColor = `${tColor} ${rColor} ${bColor} ${lColor}`;
+      borderWidth = '6px';
+      borderStyle = 'solid';
+      boxMarginRight = '0px';
+      boxShadow = '3px 5px 21px 2px rgba(0,0,0,0.7)';
     }
   }
 
@@ -896,6 +1001,7 @@ export default function styles(theme, props) {
     borderStyle: borderStyle,
     borderRadius: borderRadius,
     boxSizing: boxSizing,
+    boxShadow: boxShadow,
     paddingTop: boxPaddingTop,
     paddingRight: boxPaddingRight,
     paddingBottom: boxPaddingBottom,

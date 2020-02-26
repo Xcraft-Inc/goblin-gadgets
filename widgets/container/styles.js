@@ -280,6 +280,11 @@ export default function styles(theme, props) {
     display = 'flex';
     flexDirection = 'column';
     flexGrow = 1;
+
+    if (theme.look.name === 'retro') {
+      minWidth = Unit.add(theme.shapes.taskButtonWidth, '10px');
+      maxWidth = Unit.add(theme.shapes.taskButtonWidth, '10px');
+    }
   }
 
   if (kind === 'right') {
@@ -541,10 +546,17 @@ export default function styles(theme, props) {
     flexDirection = 'column';
     justifyContent = 'flex-start';
     alignItems = 'stretch';
-    // boxShadow       = theme.shapes.paneShadow;
     margin = '0px 0px ' + m + ' 0px';
     padding = m + ' ' + m + ' ' + d + ' ' + m;
     backgroundColor = theme.palette.paneBackground;
+
+    if (theme.look.name === 'retro') {
+      borderRadius = '20px';
+      borderWidth = '1px';
+      borderStyle = 'solid';
+      borderColor = '#bbb';
+      boxShadow = 'rgba(0, 0, 0, 0.15) 2px 6px 50px 0px inset';
+    }
   }
 
   if (kind === 'pane-wizard') {

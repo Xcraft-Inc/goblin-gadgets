@@ -36,11 +36,18 @@ export default function styles(theme, props) {
   margin = topMargin + ' 0px ' + bottomMargin + ' 0px';
 
   if (kind === 'task') {
-    boxHeight = theme.shapes.taskSeparatorHeight;
-    margin = '0px';
-    borderWidth = '0px';
-    borderStyle = 'none';
-    backgroundColor = theme.palette.taskSeparatorBackground;
+    if (theme.look.name === 'retro') {
+      boxHeight = Unit.multiply(theme.shapes.taskSeparatorHeight, 2);
+      margin = '0px';
+      borderWidth = '0px';
+      borderStyle = 'none';
+    } else {
+      boxHeight = theme.shapes.taskSeparatorHeight;
+      margin = '0px';
+      borderWidth = '0px';
+      borderStyle = 'none';
+      backgroundColor = theme.palette.taskSeparatorBackground;
+    }
   }
 
   if (kind === 'space') {
