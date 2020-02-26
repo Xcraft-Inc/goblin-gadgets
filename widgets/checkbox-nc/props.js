@@ -83,15 +83,12 @@ export default [
   {
     name: 'kind',
     group: 'aspect',
-    type: types.enum([
-      '',
-      'big',
-      'active',
-      'check-button',
-      'radio',
-      'switch',
-      'switch-dark',
-    ]),
+    type: types.enum(['', 'big', 'active', 'check-button', 'radio', 'switch']),
+  },
+  {
+    name: 'background',
+    group: 'aspect',
+    type: types.enum(['', 'light', 'dark']),
   },
   {
     name: 'readonly',

@@ -27,23 +27,29 @@ export default class CheckboxNC extends Widget {
 
   /******************************************************************************/
 
-  renderRetro(checked) {
-    const styleMain = checked
-      ? `main-on-hover ${this.styles.classNames.checkButtonRetroMainOn}`
-      : `main-off-hover ${this.styles.classNames.checkButtonRetroMainOff}`;
-
-    const styleTip = checked
-      ? this.styles.classNames.checkButtonRetroTipOn
-      : this.styles.classNames.checkButtonRetroTipOff;
-
+  renderRadioRetro() {
     return (
       <div
-        className={this.styles.classNames.checkButtonRetro}
+        className={this.styles.classNames.buttonRetro}
         onClick={this.onChange}
       >
-        <div className={styleMain}>
+        <div className={`main-hover ${this.styles.classNames.buttonRetroMain}`}>
+          <div className={this.styles.classNames.radioButtonRetroBullet} />
+        </div>
+        <Label kind="button-notification" text={this.props.text} />
+      </div>
+    );
+  }
+
+  renderCheckRetro() {
+    return (
+      <div
+        className={this.styles.classNames.buttonRetro}
+        onClick={this.onChange}
+      >
+        <div className={`main-hover ${this.styles.classNames.buttonRetroMain}`}>
           <div className={this.styles.classNames.checkButtonRetroStem} />
-          <div className={styleTip} />
+          <div className={this.styles.classNames.checkButtonRetroTip} />
         </div>
         <Label kind="button-notification" text={this.props.text} />
       </div>
@@ -51,18 +57,19 @@ export default class CheckboxNC extends Widget {
   }
 
   render() {
-    let {checked, ...otherProps} = this.props;
-    checked = Bool.isTrue(checked);
-
     if (
       this.context.theme.look.name === 'retro' &&
-      (this.props.kind === 'switch' ||
-        this.props.kind === 'switch-dark' ||
-        this.props.kind === 'big' ||
-        !this.props.kind)
+      this.props.kind !== 'active'
     ) {
-      return this.renderRetro(checked);
+      if (this.props.kind === 'radio') {
+        return this.renderRadioRetro();
+      } else {
+        return this.renderCheckRetro();
+      }
     }
+
+    let {checked, ...otherProps} = this.props;
+    checked = Bool.isTrue(checked);
 
     let kind, border, glyph, glyphColor, active;
     if (this.props.kind === 'switch') {

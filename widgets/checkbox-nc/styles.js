@@ -1,47 +1,62 @@
+import {ColorManipulator} from 'electrum-theme';
 import * as Bool from 'gadgets/helpers/bool-helpers';
 
 /******************************************************************************/
 
-export const propNames = ['kind', 'disabled', 'readonly'];
+export const propNames = ['background', 'checked', 'disabled', 'readonly'];
 
 export default function styles(theme, props) {
-  const {kind, disabled, readonly} = props;
+  const {background, checked, disabled, readonly} = props;
 
-  const inactive = Bool.isTrue(disabled) || Bool.isTrue(readonly);
-  const colorShadow = kind === 'switch-dark' ? '#111' : '#444';
+  const isChecked = Bool.isTrue(checked);
+  const isInactive = Bool.isTrue(disabled) || Bool.isTrue(readonly);
+  const isDark = background === 'dark';
 
-  const checkButtonRetro = {
+  const f1 = isDark ? 0.0 : 0.1;
+  const f2 = isDark ? 0.0 : 0.2;
+
+  const colorBorderTop = ColorManipulator.lighten('#888', f1);
+  const colorBorderBottom = ColorManipulator.lighten('#444', f1);
+  const colorBackground1 = isChecked
+    ? ColorManipulator.lighten('#888', f2)
+    : ColorManipulator.lighten('#666', f2);
+  const colorBackground2 = isChecked
+    ? ColorManipulator.lighten('#555', f2)
+    : ColorManipulator.lighten('#333', f2);
+
+  const buttonRetro = {
     'display': 'flex',
     'flexDirection': 'row',
     'alignItems': 'center',
-    ':hover .main-off-hover': {
-      background: inactive ? null : 'radial-gradient(at 75% 75%, #888, #555)',
-    },
-    ':hover .main-on-hover': {
-      background: inactive ? null : 'radial-gradient(at 75% 75%, #aaa, #777)',
+    ':hover .main-hover': {
+      background: isInactive
+        ? null
+        : `radial-gradient(at 75% 75%, ${ColorManipulator.lighten(
+            colorBackground1,
+            0.2
+          )}, ${ColorManipulator.lighten(colorBackground2, 0.2)})`,
     },
   };
 
-  const checkButtonRetroMainOff = {
+  const buttonRetroMain = {
     position: 'relative',
-    width: '32px',
-    height: '32px',
+    minWidth: '32px',
+    minHeight: '32px',
+    maxWidth: '32px',
+    maxHeight: '32px',
     margin: '5px 15px 5px 0px',
     boxSizing: 'border-box',
     borderRadius: '16px',
-    borderTop: '3px solid #888',
-    borderLeft: '3px solid #888',
-    borderBottom: '3px solid #444',
-    borderRight: '3px solid #444',
-    background: 'radial-gradient(at 75% 75%, #666, #333)',
-    boxShadow: `2px 5px 17px 0px ${colorShadow}`,
-    opacity: inactive ? 0.5 : 1,
+    borderTop: `3px solid ${colorBorderTop}`,
+    borderLeft: `3px solid ${colorBorderTop}`,
+    borderBottom: `3px solid ${colorBorderBottom}`,
+    borderRight: `3px solid ${colorBorderBottom}`,
+    background: `radial-gradient(at 75% 75%, ${colorBackground1}, ${colorBackground2})`,
+    boxShadow: isDark
+      ? '2px 5px 12px 0px rgba(0,0,0,1)'
+      : '2px 5px 12px 0px rgba(0,0,0,0.4)',
+    opacity: isInactive ? 0.5 : 1,
     transition: '0.2s ease-out',
-  };
-
-  const checkButtonRetroMainOn = {
-    ...checkButtonRetroMainOff,
-    background: 'radial-gradient(at 75% 75%, #888, #555)',
   };
 
   const checkButtonRetroStem = {
@@ -56,9 +71,9 @@ export default function styles(theme, props) {
     backgroundColor: '#333',
   };
 
-  const checkButtonRetroTipOff = {
+  const checkButtonRetroTip = {
     position: 'absolute',
-    top: '16px',
+    top: isChecked ? '-6px' : '16px',
     left: '5px',
     width: '16px',
     height: '16px',
@@ -66,25 +81,37 @@ export default function styles(theme, props) {
     borderRadius: '8px',
     border: '1px solid #111',
     boxShadow: '2px 5px 17px 0px #111',
-    background: 'radial-gradient(at 30% 30%, #bbb, #333 40%)',
+    background: isChecked
+      ? 'radial-gradient(at 30% 30%, #fff, #bbb 40%)'
+      : 'radial-gradient(at 30% 30%, #bbb, #333 40%)',
     transition: '0.2s ease-out',
   };
 
-  const checkButtonRetroTipOn = {
-    ...checkButtonRetroTipOff,
-    top: '-6px',
-    background: 'radial-gradient(at 30% 30%, #fff, #bbb 40%)',
+  const radioButtonRetroBullet = {
+    position: 'absolute',
+    top: isChecked ? '5px' : '2px',
+    bottom: isChecked ? '5px' : '2px',
+    left: isChecked ? '5px' : '2px',
+    right: isChecked ? '5px' : '2px',
+    boxSizing: 'border-box',
+    borderRadius: '16px',
+    border: '1px solid #111',
+    background: isChecked
+      ? 'radial-gradient(at 30% 30%, #fff, #bbb 40%)'
+      : 'radial-gradient(at 30% 30%, #bbb, #333 40%)',
+    transition: '0.2s ease-out',
   };
 
   /******************************************************************************/
 
   return {
-    checkButtonRetro,
-    checkButtonRetroMainOff,
-    checkButtonRetroMainOn,
+    buttonRetro,
+    buttonRetroMain,
+
     checkButtonRetroStem,
-    checkButtonRetroTipOff,
-    checkButtonRetroTipOn,
+    checkButtonRetroTip,
+
+    radioButtonRetroBullet,
   };
 }
 
