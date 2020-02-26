@@ -6,7 +6,7 @@ export const propNames = [
   'left',
   'right',
   'angle',
-  'background',
+  'backgroundBrigtness',
 ];
 
 /******************************************************************************/
@@ -19,10 +19,10 @@ export default function styles(theme, props) {
     right,
     size = '12px',
     angle = '45deg',
-    background,
+    backgroundBrigtness,
   } = props;
 
-  const isDark = background === 'dark';
+  const isDark = backgroundBrigtness === 'dark';
 
   const colorBorder = isDark ? '#222' : '#555';
   const colorBackground = isDark ? '#777' : '#bbb';

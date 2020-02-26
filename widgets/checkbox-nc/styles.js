@@ -3,17 +3,22 @@ import * as Bool from 'gadgets/helpers/bool-helpers';
 
 /******************************************************************************/
 
-export const propNames = ['background', 'checked', 'disabled', 'readonly'];
+export const propNames = [
+  'backgroundBrigtness',
+  'checked',
+  'disabled',
+  'readonly',
+];
 
 export default function styles(theme, props) {
-  const {background, checked, disabled, readonly} = props;
+  const {backgroundBrigtness, checked, disabled, readonly} = props;
 
   const isChecked = Bool.isTrue(checked);
   const isInactive = Bool.isTrue(disabled) || Bool.isTrue(readonly);
-  const isDark = background === 'dark';
+  const isDark = backgroundBrigtness === 'dark';
 
-  const f1 = isDark ? 0.0 : 0.1;
-  const f2 = isDark ? 0.0 : 0.2;
+  const f1 = isDark ? 0.0 : 0.2;
+  const f2 = isDark ? 0.0 : 0.6;
 
   const colorBorderTop = ColorManipulator.lighten('#888', f1);
   const colorBorderBottom = ColorManipulator.lighten('#444', f1);
@@ -67,7 +72,7 @@ export default function styles(theme, props) {
     right: '10px',
     boxSizing: 'border-box',
     borderRadius: '8px',
-    border: '1px solid #aaa',
+    border: `1px solid ${isDark ? '#aaa' : '#eee'}`,
     backgroundColor: '#333',
   };
 
@@ -82,8 +87,8 @@ export default function styles(theme, props) {
     border: '1px solid #111',
     boxShadow: '2px 5px 17px 0px #111',
     background: isChecked
-      ? 'radial-gradient(at 30% 30%, #fff, #bbb 40%)'
-      : 'radial-gradient(at 30% 30%, #bbb, #333 40%)',
+      ? 'radial-gradient(at 30% 30%, #bbb, #333 40%)'
+      : 'radial-gradient(at 30% 30%, #fff, #bbb 40%)',
     transition: '0.2s ease-out',
   };
 
@@ -95,10 +100,10 @@ export default function styles(theme, props) {
     right: isChecked ? '5px' : '2px',
     boxSizing: 'border-box',
     borderRadius: '16px',
-    border: '1px solid #111',
+    border: `1px solid ${isChecked ? '#111' : '#888'}`,
     background: isChecked
-      ? 'radial-gradient(at 30% 30%, #fff, #bbb 40%)'
-      : 'radial-gradient(at 30% 30%, #bbb, #333 40%)',
+      ? 'radial-gradient(at 30% 30%, #bbb, #333 40%)'
+      : 'radial-gradient(at 30% 30%, #fff, #bbb 40%)',
     transition: '0.2s ease-out',
   };
 

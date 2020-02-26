@@ -872,6 +872,20 @@ export default function styles(theme, props) {
     activeColor = theme.palette.boxActiveBackground;
   }
 
+  if (theme.look.name === 'retro' && (!kind || kind === 'combo')) {
+    backgroundColor = '#ccc';
+    borderColor = '#ddd #666 #444 #bbb';
+    borderWidth = '1px';
+    borderStyle = 'solid';
+    boxShadow = 'rgba(0, 0, 0, 0.4) 2px 3px 10px 0px';
+    // boxSizing = 'border-box';
+
+    if (disabled) {
+      backgroundColor = theme.palette.buttonDisableBackground;
+      specialDisabled = true;
+    }
+  }
+
   if (Bool.isTrue(badgePush)) {
     boxPaddingRight = Unit.add(boxPaddingRight, theme.shapes.badgeHeight);
   }

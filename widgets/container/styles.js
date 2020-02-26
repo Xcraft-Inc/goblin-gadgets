@@ -555,7 +555,8 @@ export default function styles(theme, props) {
       borderWidth = '1px';
       borderStyle = 'solid';
       borderColor = '#bbb';
-      boxShadow = 'rgba(0, 0, 0, 0.15) 2px 6px 50px 0px inset';
+      (backgroundColor = '#eee'),
+        (boxShadow = 'rgba(0, 0, 0, 0.2) 2px 6px 50px 0px inset');
     }
   }
 
