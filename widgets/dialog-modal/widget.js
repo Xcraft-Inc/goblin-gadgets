@@ -59,40 +59,14 @@ export default class DialogModal extends Widget {
     const lum = ColorManipulator.getLuminance(
       this.context.theme.palette.textColor
     );
-
-    const color = lum < 0.3 ? '#ccc' : '#555';
-    const colorShadow = lum < 0.3 ? '#ddd' : '#111';
+    const background = lum < 0.3 ? 'light' : 'dark';
 
     return (
       <React.Fragment>
-        <Screw
-          color={color}
-          colorShadow={colorShadow}
-          top="8px"
-          left="8px"
-          angle="45deg"
-        />
-        <Screw
-          color={color}
-          colorShadow={colorShadow}
-          top="8px"
-          right="8px"
-          angle="-20deg"
-        />
-        <Screw
-          color={color}
-          colorShadow={colorShadow}
-          bottom="8px"
-          left="8px"
-          angle="70deg"
-        />
-        <Screw
-          color={color}
-          colorShadow={colorShadow}
-          bottom="8px"
-          right="8px"
-          angle="0deg"
-        />
+        <Screw background={background} top="8px" left="8px" angle="45deg" />
+        <Screw background={background} top="8px" right="8px" angle="-20deg" />
+        <Screw background={background} bottom="8px" left="8px" angle="70deg" />
+        <Screw background={background} bottom="8px" right="8px" angle="0deg" />
       </React.Fragment>
     );
   }

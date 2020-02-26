@@ -7,8 +7,7 @@ export const propNames = [
   'left',
   'right',
   'angle',
-  'color',
-  'colorShadow',
+  'background',
 ];
 
 /******************************************************************************/
@@ -21,12 +20,17 @@ export default function styles(theme, props) {
     right,
     size = '12px',
     angle = '45deg',
-    color = '#777',
-    colorShadow = '#111',
+    background,
   } = props;
 
-  const colorBorder = ColorManipulator.darken(color, 0.4); // #333
-  const colorSlot = ColorManipulator.lighten(color, 0.1); // #666
+  const isDark = background === 'dark';
+
+  const colorBorder = isDark ? '#222' : '#555';
+  const colorBackground = isDark ? '#777' : '#bbb';
+  const colorSlot = isDark ? '#666' : '#aaa';
+  const shadow = isDark
+    ? '1px 2px 5px 1px rgba(0,0,0,1)'
+    : '1px 2px 5px 1px rgba(0,0,0,0.4)';
 
   const screw = {
     position: 'absolute',
@@ -38,8 +42,8 @@ export default function styles(theme, props) {
     height: size,
     borderRadius: '6px',
     border: `1px solid ${colorBorder}`,
-    backgroundColor: color,
-    boxShadow: `1px 2px 5px 1px ${colorShadow}`,
+    backgroundColor: colorBackground,
+    boxShadow: shadow,
   };
 
   const slot = {
