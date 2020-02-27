@@ -129,6 +129,7 @@ class CheckList extends Widget {
       <Checkbox
         key={index}
         kind={this.props.kind}
+        look={this.props.look}
         heightStrategy={this.props.heightStrategy}
         text={row.description}
         focusable="true"

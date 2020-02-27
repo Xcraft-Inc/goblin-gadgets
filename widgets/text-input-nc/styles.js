@@ -152,10 +152,11 @@ export default function styles(theme, props) {
   // Use + for dispatch the style to next brother (only one).
   // Use ~ for dispatch the style to all the following brothers.
   const input = {
-    ':focus + .toto': {
-      borderRadius: borderRadius,
-      boxShadow: theme.shapes.focusedShadow + theme.palette.focused,
-      pointerEvents: 'none',
+    ':focus + .foreground-focus': {
+      boxShadow:
+        theme.look.name === 'retro'
+          ? '0px 0px 14px 5px ' + theme.palette.focused
+          : theme.shapes.focusedShadow + theme.palette.focused,
       zIndex: 1,
     },
     // Show the flying-balloon when text-input has the focus.
@@ -172,6 +173,10 @@ export default function styles(theme, props) {
     width: '100%',
     height: '100%',
     borderRadius: borderRadius,
+    boxShadow:
+      theme.look.name === 'retro'
+        ? '2px 3px 10px 0px rgba(0, 0, 0, 0.4)'
+        : null,
     pointerEvents: 'none',
   };
 

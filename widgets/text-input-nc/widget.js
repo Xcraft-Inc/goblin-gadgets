@@ -23,7 +23,7 @@ export default class TextInputNC extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
-    
+
     this.onChange = this.onChange.bind(this);
     this.onBlur = this.onBlur.bind(this);
     this.onFocus = this.onFocus.bind(this);
@@ -91,10 +91,15 @@ export default class TextInputNC extends Widget {
   }
 
   renderFocusForeground() {
-    if (Bool.isTrue(this.props.embeddedFocus)) {
+    if (
+      Bool.isTrue(this.props.embeddedFocus) &&
+      this.context.theme.look.name !== 'retro'
+    ) {
       return null;
     } else {
-      return <div className={`toto ${this.styles.classNames.focus}`} />;
+      return (
+        <div className={`foreground-focus ${this.styles.classNames.focus}`} />
+      );
     }
   }
 
@@ -124,7 +129,7 @@ export default class TextInputNC extends Widget {
 
     return (
       <TranslatableDiv
-      title={this.props.tooltip}
+        title={this.props.tooltip}
         workitemId={this.context.desktopId || this.getNearestId()}
         className={this.styles.classNames.box}
       >

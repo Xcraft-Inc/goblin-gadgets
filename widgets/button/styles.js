@@ -523,6 +523,64 @@ export default function styles(theme, props) {
     } else {
       boxMarginRight = '1px';
     }
+
+    if (theme.look.name === 'retro') {
+      let tlRadius = '2px';
+      let trRadius = '2px';
+      let brRadius = '2px';
+      let blRadius = '2px';
+
+      let tColor = ColorManipulator.lighten(
+        theme.palette.actionButtonBackground,
+        0.4
+      );
+      let rColor = ColorManipulator.darken(
+        theme.palette.actionButtonBackground,
+        0.3
+      );
+      let bColor = ColorManipulator.darken(
+        theme.palette.actionButtonBackground,
+        0.5
+      );
+      let lColor = ColorManipulator.lighten(
+        theme.palette.actionButtonBackground,
+        0.2
+      );
+
+      if (place === 'left' || place === 'single') {
+        tlRadius = '30px';
+        blRadius = '30px';
+      }
+
+      if (place === 'right' || place === 'single') {
+        trRadius = '30px';
+        brRadius = '30px';
+      }
+
+      if (disabled) {
+        const c1 = ColorManipulator.lighten(
+          theme.palette.buttonDisableBackground,
+          0.2
+        );
+        const c2 = ColorManipulator.darken(
+          theme.palette.buttonDisableBackground,
+          0.1
+        );
+        tColor = c1;
+        rColor = c2;
+        bColor = c2;
+        lColor = c1;
+        backgroundColor = theme.palette.buttonDisableBackground;
+        specialDisabled = true;
+      }
+
+      borderRadius = `${tlRadius} ${trRadius} ${brRadius} ${blRadius}`;
+      borderColor = `${tColor} ${rColor} ${bColor} ${lColor}`;
+      borderWidth = '2px';
+      borderStyle = 'solid';
+      boxMarginRight = '0px';
+      boxShadow = '2px 4px 14px 0px rgba(0,0,0,0.6)';
+    }
   }
 
   // Subaction button (usual parent is container with kind='row-pane' and subkind='box').
