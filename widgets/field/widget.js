@@ -601,7 +601,6 @@ class Field extends Form {
       >
         <TextField
           type={kind}
-          selectAllOnFocus={true}
           width={fieldWidth}
           grow={fieldWidth ? null : '1'}
           {...otherProps}
@@ -643,7 +642,6 @@ class Field extends Form {
       >
         <TranslatableTextField
           type={kind}
-          selectAllOnFocus={true}
           width={fieldWidth}
           grow={fieldWidth ? null : '1'}
           {...otherProps}
@@ -706,7 +704,6 @@ class Field extends Form {
       >
         <TextFieldTyped
           type={kind}
-          selectAllOnFocus={true}
           width={fieldWidth}
           {...otherProps}
           tooltip={this.props.tooltip || this.props.hintText}
@@ -764,7 +761,6 @@ class Field extends Form {
         verticalJustify={verticalJustify}
       >
         <TextFieldTimeInterval
-          selectAllOnFocus={true}
           {...otherProps}
           entityFullPath={this.context.model}
           tooltip={this.props.tooltip || this.props.hintText}
@@ -789,7 +785,6 @@ class Field extends Form {
         verticalJustify={this.props.verticalJustify}
       >
         <TextFieldCombo
-          selectAllOnFocus="true"
           shape={this.props.shape}
           getGlyph={this.props.getGlyph}
           hintText={this.props.hintText}
