@@ -36,7 +36,7 @@ export default class CheckboxNC extends Widget {
         <div className={`main-hover ${this.styles.classNames.buttonRetroMain}`}>
           <div className={this.styles.classNames.radioButtonRetroBullet} />
         </div>
-        <Label kind="check-button" text={this.props.text} />
+        <Label kind="check-button" wrap="no" text={this.props.text} />
       </div>
     );
   }
@@ -51,7 +51,7 @@ export default class CheckboxNC extends Widget {
           <div className={this.styles.classNames.checkButtonRetroStem} />
           <div className={this.styles.classNames.checkButtonRetroTip} />
         </div>
-        <Label kind="check-button" text={this.props.text} />
+        <Label kind="check-button" wrap="no" text={this.props.text} />
       </div>
     );
   }

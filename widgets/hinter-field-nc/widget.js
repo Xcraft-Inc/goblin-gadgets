@@ -129,7 +129,7 @@ export default class HinterFieldNC extends Widget {
     return (
       <React.Fragment>
         <Label
-          kind="markdown"
+          kind="combo-text-markdown"
           shape={
             this.hasButtonClear || this.hasButtonShow ? 'left-smooth' : 'smooth'
           }

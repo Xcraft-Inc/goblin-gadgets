@@ -248,12 +248,13 @@ class TextFieldComboNC extends Widget {
     if (this.props.renderTextField) {
       TextComponent = this.prop.renderTextField;
     }
+
     return (
       <TextComponent
         hintText={this.props.hintText}
         tooltip={this.props.tooltip}
         horizontalSpacing="overlap"
-        //shape={textFieldShape}
+        shape={textFieldShape}
         //flyingBalloonAnchor={this.props.flyingBalloonAnchor}
         value={value}
         glyph={glyph}

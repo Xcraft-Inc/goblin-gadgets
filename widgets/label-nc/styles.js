@@ -136,6 +136,7 @@ export default function styles(theme, props) {
   let boxPaddingRight = '0px';
   let boxPaddingBottom = '0px';
   let boxPaddingLeft = '0px';
+  let boxShadow = null;
   let boxZIndex = zIndex;
   let boxOpacity = Bool.isFalse(visibility) ? 0 : null;
   let border = null;
@@ -421,16 +422,14 @@ export default function styles(theme, props) {
     boxHeight = theme.shapes.lineHeight;
   }
 
-  if (kind === 'markdown') {
+  if (kind === 'combo-text-markdown') {
+    const s = theme.shapes.smoothRadius;
     boxPaddingTop = '6px';
     boxPaddingRight = '10px';
     boxPaddingBottom = '7px';
     boxPaddingLeft = '10px';
-    // borderTop = '1px solid ' + theme.palette.buttonBorder;
-    // borderBottom = '1px solid ' + theme.palette.buttonBorder;
-    // borderLeft = '4px double ' + theme.palette.buttonBorder;
-    // borderRight = '4px double ' + theme.palette.buttonBorder;
-    border = '1px solid ' + theme.palette.buttonBorder;
+    border = `1px solid ${theme.palette.buttonBorder}`;
+    borderRadius = `${s} 0px 0px ${s}`;
     backgroundColorFromKind = theme.palette.textFieldReadonlyBackground;
     boxSizing = 'border-box';
     boxHeight = Unit.add('32px', '2px');
@@ -438,6 +437,9 @@ export default function styles(theme, props) {
     glyphPaddingTop = '2px';
     glyphHeight = null;
     glyphJustify = 'center';
+    if (theme.look.name === 'retro') {
+      boxShadow = '2px 3px 10px 0px rgba(0, 0, 0, 0.4)';
+    }
   }
 
   if (kind === 'field-combo') {
@@ -1065,6 +1067,7 @@ export default function styles(theme, props) {
     borderRight: borderRight,
     boxSizing: boxSizing,
     borderRadius: borderRadius,
+    boxShadow: boxShadow,
     backgroundColor: backgroundColor,
     opacity: boxOpacity,
     zIndex: boxZIndex,

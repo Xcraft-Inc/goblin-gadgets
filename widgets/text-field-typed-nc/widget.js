@@ -165,6 +165,7 @@ export default class TextFieldTypedNC extends Widget {
       mode,
       defaultDate,
       defaultTime,
+      shape,
       justify,
       width,
       tooltip,
@@ -208,6 +209,12 @@ export default class TextFieldTypedNC extends Widget {
     }
 
     if (type === 'date') {
+      const textFieldShapes = {
+        smooth: 'left-smooth',
+        rounded: 'left-rounded',
+      };
+      const textFieldShape = textFieldShapes[shape || 'smooth'];
+
       return (
         <ButtonCombo
           width={this.props.width}
@@ -233,6 +240,7 @@ export default class TextFieldTypedNC extends Widget {
             tooltip={tooltip}
             justify={justify}
             format={this.format}
+            shape={textFieldShape}
             parse={this.parse}
             check={this.check}
             horizontalSpacing="overlap"

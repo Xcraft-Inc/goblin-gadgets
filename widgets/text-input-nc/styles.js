@@ -71,25 +71,27 @@ export default function styles(theme, props) {
   if (shape) {
     const r = Unit.multiply(theme.shapes.lineHeight, 0.5);
     const s = theme.shapes.smoothRadius;
-    borderRadius = r + ' 0px 0px ' + r;
     if (shape === 'rounded') {
       borderRadius = r;
-      padding = '0px ' + r;
+      padding = `0px ${r}`;
     } else if (shape === 'left-rounded') {
-      borderRadius = r + ' 0px 0px ' + r;
-      padding = '0px 0px 0px ' + r;
+      borderRadius = `${r} 0px 0px ${r}`;
+      padding = `0px 0px 0px ${r}`;
     } else if (shape === 'right-rounded') {
-      borderRadius = '0px ' + r + ' ' + r + ' 0px';
-      padding = '0px ' + r + ' 0px 0px';
+      borderRadius = `0px ${r} ${r} 0px`;
+      padding = `0px ${r} 0px 0px`;
     } else if (shape === 'smooth') {
       borderRadius = s;
-      padding = '0px ' + s;
+      padding = `0px ${s}`;
     } else if (shape === 'left-smooth') {
-      borderRadius = s + ' 0px 0px ' + s;
-      padding = '0px 0px 0px ' + s;
+      borderRadius = `${s} 0px 0px ${s}`;
+      padding = `0px 0px 0px ${s}`;
     } else if (shape === 'right-smooth') {
-      borderRadius = '0px ' + s + ' ' + s + ' 0px';
-      padding = '0px ' + s + ' 0px 0px';
+      borderRadius = `0px ${s} ${s} 0px`;
+      padding = `0px ${s} 0px 0px`;
+    } else {
+      borderRadius = `${r} 0px 0px ${r}`;
+      padding = `0px 0px 0px ${r}`;
     }
   }
 

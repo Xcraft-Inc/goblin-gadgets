@@ -932,11 +932,11 @@ export default function styles(theme, props) {
 
   if (theme.look.name === 'retro' && (!kind || kind === 'combo')) {
     backgroundColor = '#ccc';
-    borderColor = '#ddd #666 #444 #bbb';
+    borderColor =
+      kind === 'combo' ? '#aaa #888 #666 #999' : '#eee #666 #444 #ddd';
     borderWidth = '1px';
     borderStyle = 'solid';
     boxShadow = 'rgba(0, 0, 0, 0.4) 2px 3px 10px 0px';
-    // boxSizing = 'border-box';
 
     if (disabled) {
       backgroundColor = theme.palette.buttonDisableBackground;
