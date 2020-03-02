@@ -11,8 +11,6 @@ export default function styles(theme, props) {
 
   let monitor;
   let tube;
-  let channels;
-  let sampleName;
   let panel;
   let screenLeft;
   let screenRight;
@@ -45,30 +43,15 @@ export default function styles(theme, props) {
       flexGrow: 1,
     };
 
-    channels = {
-      position: 'absolute',
-      left: '0px',
-      right: '0px',
-      top: '0px',
-      bottom: '0px',
-    };
-
-    sampleName = {
-      position: 'absolute',
-      fontSize: '75%',
-      color: '#0f0',
-      textTransform: 'uppercase',
-    };
-
     panel = {
       margin: '0px',
       width: '47px',
-      padding: '33px 0px',
+      padding: '20px 0px',
       display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'flex-end',
+      flexDirection: 'row',
+      justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: '#888',
+      backgroundColor: '#555',
     };
 
     screenLeft = {};
@@ -148,28 +131,13 @@ export default function styles(theme, props) {
       flexGrow: 1,
     };
 
-    channels = {
-      position: 'absolute',
-      left: '0px',
-      right: '0px',
-      top: '0px',
-      bottom: '0px',
-    };
-
-    sampleName = {
-      position: 'absolute',
-      fontSize: '75%',
-      color: '#0f0',
-      textTransform: 'uppercase',
-    };
-
     panel = {
       margin: '2px',
       width: '47px',
-      padding: '33px 0px',
+      padding: '20px 0px',
       display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'flex-end',
+      flexDirection: 'row',
+      justifyContent: 'center',
       alignItems: 'center',
       background: 'linear-gradient(-180deg, black -100%, #555)',
     };
@@ -261,8 +229,6 @@ export default function styles(theme, props) {
   return {
     monitor,
     tube,
-    channels,
-    sampleName,
     panel,
 
     screenLeft,

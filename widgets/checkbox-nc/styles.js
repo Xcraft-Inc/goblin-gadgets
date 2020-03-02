@@ -8,10 +8,11 @@ export const propNames = [
   'checked',
   'disabled',
   'readonly',
+  'text',
 ];
 
 export default function styles(theme, props) {
-  const {backgroundBrigtness, checked, disabled, readonly} = props;
+  const {backgroundBrigtness, checked, disabled, readonly, text} = props;
 
   const isChecked = Bool.isTrue(checked);
   const isInactive = Bool.isTrue(disabled) || Bool.isTrue(readonly);
@@ -31,7 +32,7 @@ export default function styles(theme, props) {
 
   const buttonRetro = {
     'display': 'flex',
-    'flexDirection': 'row',
+    'flexDirection': text ? 'row' : 'column',
     'alignItems': 'center',
     ':hover .main-hover': {
       background: isInactive
@@ -49,7 +50,7 @@ export default function styles(theme, props) {
     minHeight: '32px',
     maxWidth: '32px',
     maxHeight: '32px',
-    margin: '5px 15px 5px 0px',
+    margin: `5px ${text ? '15px' : '0px'} 5px 0px`,
     boxSizing: 'border-box',
     borderRadius: '16px',
     borderTop: `3px solid ${colorBorderTop}`,

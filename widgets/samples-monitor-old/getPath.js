@@ -1,4 +1,12 @@
 // Convert string '123px' to int 123.
+function toInt(value) {
+  if (typeof value === 'string') {
+    return parseInt(value.replace(/px/g, ''));
+  } else {
+    return value;
+  }
+}
+
 // Move to absolute position.
 function moveTo(path, x, y) {
   path += 'M ' + x + ' ' + y + ' ';
@@ -20,6 +28,16 @@ function bezierTo(path, x1, y1, x2, y2, x, y) {
 function close(path) {
   path += 'z';
   return path;
+}
+
+function getRange(samples) {
+  let min = 0;
+  let max = 1;
+  for (let i = 0; i < samples.length; i++) {
+    min = Math.min(min, samples[i]);
+    max = Math.max(max, samples[i]);
+  }
+  return {min, max};
 }
 
 /******************************************************************************/
@@ -57,7 +75,9 @@ function rotatePointRad(center, angle, p) {
 
 /******************************************************************************/
 
-function getScreenPath(w, h, styleName) {
+function getScreenPath(width, height, styleName) {
+  const w = toInt(width);
+  const h = toInt(height);
   const t = 30;
 
   let path = '';
@@ -96,46 +116,58 @@ function getScreenPath(w, h, styleName) {
   return path;
 }
 
-function getSamplesPath(ox, oy, dx, dy, samples, max) {
+function getSamplesPath(width, height, samples) {
+  const m = 40;
+  const w = toInt(width) - m * 2;
+  const h = toInt(height) - m * 2;
+
+  const range = getRange(samples);
   let path = '';
-  const count = samples.size;
+  const count = samples.length;
 
   for (let i = 0; i < count; i++) {
-    const x = dx - (dx / (count - 1)) * i;
-    const y = dy - (samples.get(i) / max) * dy;
+    const x = w - (w / (count - 1)) * i;
+    const y = h - ((samples[i] - range.min) / (range.max - range.min)) * h;
 
     if (i === 0) {
-      path = moveTo(path, ox + x, oy + y);
+      path = moveTo(path, m + x, m + y);
     } else {
-      path = lineTo(path, ox + x, oy + y);
+      path = lineTo(path, m + x, m + y);
     }
   }
 
   return path;
 }
 
-function getGridPath(ox, oy, dx, dy, nx, ny) {
+function getGridPath(width, height, nx, ny) {
+  const m = 40;
+  const w = toInt(width) - m * 2;
+  const h = toInt(height) - m * 2;
+
   let path = '';
 
-  for (let x = 0; x <= dx; x += dx / nx) {
-    path = moveTo(path, ox + x, oy + 0);
-    path = lineTo(path, ox + x, oy + dy);
+  for (let x = 0; x <= w; x += w / nx) {
+    path = moveTo(path, m + x, m + 0);
+    path = lineTo(path, m + x, m + h);
   }
 
-  for (let y = 0; y <= dy; y += dy / ny) {
-    path = moveTo(path, ox + 0, oy + y);
-    path = lineTo(path, ox + dx, oy + y);
+  for (let y = 0; y <= h; y += h / ny) {
+    path = moveTo(path, m + 0, m + y);
+    path = lineTo(path, m + w, m + y);
   }
 
   return path;
 }
 
-function getPowerOffPath(dx, dy) {
+function getPowerOffPath(width, height) {
+  const w = toInt(width);
+  const h = toInt(height);
+
   let path = '';
 
-  const center = {x: dx / 2, y: dy / 2};
-  const e1 = {x: dx / 2 + dx * 0.2, y: dy / 2};
-  const e2 = {x: dx / 2 - dx * 0.2, y: dy / 2};
+  const center = {x: w / 2, y: h / 2};
+  const e1 = {x: w / 2 + w * 0.2, y: h / 2};
+  const e2 = {x: w / 2 - w * 0.2, y: h / 2};
   for (let a = 0; a < 180; a += 45) {
     const p1 = rotatePointDeg(center, a, e1);
     const p2 = rotatePointDeg(center, a, e2);
