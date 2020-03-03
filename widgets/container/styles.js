@@ -1,5 +1,6 @@
 import {Unit} from 'electrum-theme';
 import {ColorHelpers} from 'electrum-theme';
+import {ColorManipulator} from 'electrum-theme';
 import * as Bool from 'gadgets/helpers/bool-helpers';
 import * as SpacingHelpers from 'gadgets/helpers/spacing-helpers';
 
@@ -270,7 +271,13 @@ export default function styles(theme, props) {
     zIndex = 2;
     display = 'flex';
     flexDirection = 'column';
-    backgroundColor = theme.palette.taskBackground;
+    backgroundColor =
+      theme.look.name === 'retro'
+        ? `linear-gradient(90deg, ${ColorManipulator.darken(
+            theme.palette.taskBackground,
+            0.5
+          )}, ${theme.palette.taskBackground} 71%)`
+        : theme.palette.taskBackground;
     boxShadow = theme.shapes.taskShadow;
   }
 
@@ -282,8 +289,9 @@ export default function styles(theme, props) {
     flexGrow = 1;
 
     if (theme.look.name === 'retro') {
-      minWidth = Unit.add(theme.shapes.taskButtonWidth, '10px');
-      maxWidth = Unit.add(theme.shapes.taskButtonWidth, '10px');
+      minWidth = Unit.add(theme.shapes.taskButtonWidth, '50px');
+      maxWidth = Unit.add(theme.shapes.taskButtonWidth, '50px');
+      alignItems = 'center';
     }
   }
 
@@ -1310,7 +1318,7 @@ export default function styles(theme, props) {
     marginLeft: marginLeft,
     marginRight: marginRight,
     padding: padding,
-    backgroundColor: backgroundColor,
+    background: backgroundColor,
     color: color,
     fontWeight: fontWeight,
     zIndex: zIndex,

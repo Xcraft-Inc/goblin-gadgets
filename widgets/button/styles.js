@@ -19,6 +19,15 @@ function convertJustify(justify) {
   }
 }
 
+function isColorGradient(color) {
+  return (
+    color &&
+    (color.startsWith('linear-gradient(') ||
+      color.startsWith('radial-gradient(') ||
+      color.startsWith('repeating-linear-gradient('))
+  );
+}
+
 /******************************************************************************/
 
 export const propNames = [
@@ -131,6 +140,7 @@ export default function styles(theme, props) {
   let boxSizing = null;
   let boxShadow = null;
   let backgroundColor = theme.palette.buttonBackground;
+  let background = null;
   let activeColor = theme.palette.boxActiveBackground;
   let borderHoverColor = null;
   let borderHoverStyle = null;
@@ -173,15 +183,6 @@ export default function styles(theme, props) {
     borderStyle = 'none';
     backgroundColor = theme.palette.taskLogoBackground;
     activeColor = theme.palette.taskTabActiveBackground;
-
-    if (theme.look.name === 'retro') {
-      borderRadius = '50px';
-      boxMarginTop = '5px';
-      boxMarginRight = '5px';
-      boxMarginBottom = '0px';
-      boxMarginLeft = '5px';
-      boxShadow = '3px 5px 21px 2px rgba(0,0,0,0.7)';
-    }
   }
 
   // Task button (usual parent is container with kind='task-bar').
@@ -195,13 +196,33 @@ export default function styles(theme, props) {
     backgroundColor = theme.palette.taskButtonBackground;
 
     if (theme.look.name === 'retro') {
-      borderRadius = '50px';
-      boxMarginTop = '5px';
-      boxMarginRight = '5px';
-      boxMarginBottom = '0px';
-      boxMarginLeft = '5px';
-      boxShadow = '3px 5px 21px 2px rgba(0,0,0,0.7)';
+      backgroundColor = `radial-gradient(at 30% 30%, rgba(255,255,255,0.7), ${theme.palette.taskButtonBackground} 40%)`;
+      backgroundHoverColor = `radial-gradient(at 30% 30%, rgba(255,255,255,0.9), ${ColorManipulator.lighten(
+        theme.palette.taskButtonBackground,
+        0.2
+      )} 40%)`;
     }
+  }
+
+  if (
+    (kind === 'task-logo' || kind === 'task-bar') &&
+    theme.look.name === 'retro'
+  ) {
+    let c1 = '#ffda52';
+    let c2 = '#ffc800';
+
+    boxWidth = Unit.add(theme.shapes.taskButtonWidth, '20px');
+    boxMaxWidth = Unit.add(theme.shapes.taskButtonWidth, '10px');
+    boxHeight = Unit.add(theme.shapes.taskButtonHeight, '10px');
+    borderRadius = '50px';
+    boxMarginTop = '5px';
+    boxMarginRight = '5px';
+    boxMarginBottom = '0px';
+    boxMarginLeft = '5px';
+    borderWidth = '5px';
+    borderStyle = 'solid';
+    borderColor = `${c1} ${c2} ${c2} ${c1}`;
+    boxShadow = '3px 5px 21px 2px rgba(0,0,0,0.7)';
   }
 
   // main-tab button (usual parent is container with kind='main-tab').
@@ -1044,8 +1065,7 @@ export default function styles(theme, props) {
     boxJustifyContent = null;
   }
 
-  const isGradient =
-    backgroundColor && backgroundColor.startsWith('repeating-linear-gradient(');
+  const isGradient = isColorGradient(backgroundColor);
 
   const boxStyle = {
     opacity: boxOpacity,
@@ -1093,11 +1113,13 @@ export default function styles(theme, props) {
   };
 
   if (!disabled && !Bool.isTrue(busy) && boxOpacity !== 0) {
+    const isGradient = isColorGradient(backgroundHoverColor);
     boxStyle[':hover'] = {
       borderColor: borderHoverColor,
       borderStyle: borderHoverStyle,
       borderWidth: borderHoverWidth,
-      backgroundColor: backgroundHoverColor,
+      backgroundColor: isGradient ? null : backgroundHoverColor,
+      background: isGradient ? backgroundHoverColor : null,
       opacity: 1.0,
     };
     boxStyle[':active'] = {

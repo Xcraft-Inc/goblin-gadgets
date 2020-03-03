@@ -549,7 +549,9 @@ export default function styles(theme, props) {
     textMarginBottom = '0px';
     textMarginLeft = '0px';
     textSize = theme.shapes.taskTextSize;
+    textColorFromKind = theme.palette.taskButtonText;
     glyphSize = theme.shapes.taskGlyphSize;
+    glyphColorFromKind = theme.palette.taskButtonText;
   }
 
   // main-tab button (usual parent is container with kind='main-tab').

@@ -145,6 +145,12 @@ export default function styles(theme, props) {
 
     const keyframesPower = {
       '0%': {transform: 'scale(1)'},
+      '10.0%': {transform: 'scale(1)'},
+      '10.1%': {transform: 'scale(0.99)'},
+      '10.2%': {transform: 'scale(1)'},
+      '20.0%': {transform: 'skewX(0deg)'},
+      '20.1%': {transform: 'skewX(-5deg)'},
+      '20.2%': {transform: 'skewX(0deg)'},
       '50.0%': {transform: 'scale(1)'},
       '50.1%': {transform: 'scale(0.97)'},
       '50.2%': {transform: 'scale(1)'},
@@ -154,14 +160,26 @@ export default function styles(theme, props) {
       '60.0%': {transform: 'scale(1)'},
       '60.1%': {transform: 'scale(0.97)'},
       '60.2%': {transform: 'scale(1)'},
-      '90.0%': {transform: 'scale(1)'},
-      '90.2%': {transform: 'scale(0.93)'},
-      '90.4%': {transform: 'scale(1)'},
+      '70.0%': {transform: 'skewX(0deg)'},
+      '70.2%': {transform: 'skewX(-6deg)'},
+      '70.4%': {transform: 'skewX(0deg)'},
+      '80.5%': {transform: 'skewX(0deg)'},
+      '80.6%': {transform: 'skewX(-5deg)'},
+      '80.7%': {transform: 'skewX(0deg)'},
+      '80.8%': {transform: 'skewX(-5deg)'},
+      '80.9%': {transform: 'skewX(0deg)'},
+      '90.2%': {transform: 'scale(1)'},
+      '90.4%': {transform: 'scale(0.93)'},
+      '90.6%': {transform: 'scale(1)'},
       '100%': {transform: 'scale(1)'},
     };
 
     crt = {
-      position: 'relative',
+      position: 'absolute',
+      left: '0px',
+      right: '0px',
+      top: '0px',
+      bottom: '0px',
       flexGrow: 1,
       animationName: keyframesPower,
       animationDuration: '27s',
@@ -198,36 +216,7 @@ export default function styles(theme, props) {
 
     /******************************************************************************/
 
-    const keyframesFlicker = {
-      '0%': {opacity: 0.27861},
-      '5%': {opacity: 0.34769},
-      '10%': {opacity: 0.23604},
-      '15%': {opacity: 0.90626},
-      '20%': {opacity: 0.18128},
-      '25%': {opacity: 0.83891},
-      '30%': {opacity: 0.65583},
-      '35%': {opacity: 0.67807},
-      '40%': {opacity: 0.26559},
-      '45%': {opacity: 0.84693},
-      '50%': {opacity: 0.96019},
-      '55%': {opacity: 0.08594},
-      '60%': {opacity: 0.20313},
-      '65%': {opacity: 0.71988},
-      '70%': {opacity: 0.53455},
-      '75%': {opacity: 0.37288},
-      '80%': {opacity: 0.71428},
-      '85%': {opacity: 0.70419},
-      '90%': {opacity: 0.7003},
-      '95%': {opacity: 0.36108},
-      '100%': {opacity: 0.24387},
-    };
-
-    const keyframesTrace = {
-      '0%': {top: '-100px'},
-      '60%': {top: '-100px'},
-      '100%': {top: '100%'},
-    };
-
+    // Enforced shadow.
     backgroundCRT = {
       position: 'absolute',
       top: '0px',
@@ -255,7 +244,13 @@ export default function styles(theme, props) {
       borderRadius: '50px',
     };
 
-    // Horizontal trace.
+    // Horizontal spot trace, from top to bottom.
+    const keyframesTrace = {
+      '0%': {top: '-100px'},
+      '60%': {top: '-100px'},
+      '100%': {top: '100%'},
+    };
+
     foregroundCRT2 = {
       position: 'absolute',
       top: '0px',
@@ -269,13 +264,37 @@ export default function styles(theme, props) {
     };
 
     // Video flicker.
+    const keyframesFlicker = {
+      '0%': {opacity: 0.27861},
+      '5%': {opacity: 0.34769},
+      '10%': {opacity: 0.23604},
+      '15%': {opacity: 0.90626},
+      '20%': {opacity: 0.18128},
+      '25%': {opacity: 0.83891},
+      '30%': {opacity: 0.65583},
+      '35%': {opacity: 0.67807},
+      '40%': {opacity: 0.26559},
+      '45%': {opacity: 0.84693},
+      '50%': {opacity: 0.96019},
+      '55%': {opacity: 0.08594},
+      '60%': {opacity: 0.20313},
+      '65%': {opacity: 0.71988},
+      '70%': {opacity: 0.53455},
+      '75%': {opacity: 0.37288},
+      '80%': {opacity: 0.71428},
+      '85%': {opacity: 0.70419},
+      '90%': {opacity: 0.7003},
+      '95%': {opacity: 0.36108},
+      '100%': {opacity: 0.24387},
+    };
+
     foregroundCRT3 = {
       position: 'absolute',
       top: '0px',
       left: '0px',
       bottom: '0px',
       right: '0px',
-      background: 'rgba(18, 16, 16, 0.1)',
+      background: 'rgba(18, 16, 16, 0.15)',
       animationName: keyframesFlicker,
       animationDuration: '0.15s',
       animationIterationCount: 'infinite',

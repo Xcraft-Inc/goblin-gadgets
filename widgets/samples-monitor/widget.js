@@ -396,6 +396,21 @@ export default class SamplesMonitor extends Widget {
     );
   }
 
+  renderCRT(w, h) {
+    const channels = this.props.channels.filter(c => c.max > 0);
+
+    return (
+      <div className={this.styles.classNames.crt}>
+        {this.renderBackgroundCRT()}
+        {this.renderGrid(w, h, channels)}
+        <div className={this.styles.classNames.channels}>
+          {this.renderChannels(w, h, channels)}
+        </div>
+        {this.renderForegroundCRT()}
+      </div>
+    );
+  }
+
   render() {
     const ww = this.props.width;
     const hh = this.props.height;
@@ -406,19 +421,10 @@ export default class SamplesMonitor extends Widget {
     const w = Unit.parse(ww).value - 50;
     const h = Unit.parse(hh).value;
 
-    const channels = this.props.channels.filter(c => c.max > 0);
-
     return (
       <div className={this.styles.classNames.monitor}>
         <div className={this.styles.classNames.tube}>
-          {this.renderBackgroundCRT()}
-          <div className={this.styles.classNames.crt}>
-            {this.renderGrid(w, h, channels)}
-            <div className={this.styles.classNames.channels}>
-              {this.renderChannels(w, h, channels)}
-            </div>
-          </div>
-          {this.renderForegroundCRT()}
+          {this.renderCRT(w, h)}
           {this.renderScreen(w, h)}
         </div>
         {this.renderRightPanel()}
