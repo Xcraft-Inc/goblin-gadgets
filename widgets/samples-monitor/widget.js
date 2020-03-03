@@ -41,8 +41,20 @@ export default class SamplesMonitor extends Widget {
 
   /******************************************************************************/
 
-  get strokeColor() {
-    return this.context.theme.look.name === 'retro' ? '#15f2b6' : '#0f0';
+  get strokeColors() {
+    if (this.context.theme.look.name === 'retro') {
+      return [
+        '#15f2b6',
+        '#3ff215',
+        '#cbf215',
+        '#f2cb15',
+        '#f27d15',
+        '#fb45df',
+        '#ac45fb',
+      ];
+    } else {
+      return ['#0f0', '#fbdb45', '#fb8145', '#fb45ca', '#a745fb', '#45dbfb'];
+    }
   }
 
   /******************************************************************************/
@@ -124,19 +136,22 @@ export default class SamplesMonitor extends Widget {
     );
   }
 
-  renderGrid(w, h) {
+  renderGrid(w, h, channels) {
     let ox = 40;
     let oy = 40;
     const dx = w - 80;
     const dy = h - 80;
 
+    const channelCount =
+      this.mode === 'separate' ? Math.max(channels.length, 1) : 1;
+
     let nx, ny;
     if (this.context.theme.look.name === 'retro') {
       nx = 10;
-      ny = 8;
+      ny = {3: 9, 5: 5, 6: 6, 7: 7, 9: 9, 10: 5}[channelCount] || 8;
     } else {
       nx = 1;
-      ny = 1;
+      ny = channelCount;
     }
 
     return (
@@ -156,7 +171,7 @@ export default class SamplesMonitor extends Widget {
     }
 
     const style = {
-      stroke: color || this.strokeColor,
+      stroke: color || this.strokeColors[0],
     };
 
     return (
@@ -187,7 +202,7 @@ export default class SamplesMonitor extends Widget {
       width: dx + 'px',
       top: oy + 'px',
       height: dy + 'px',
-      color: color || this.strokeColor,
+      color: color || this.strokeColors[0],
     };
 
     return (
@@ -211,9 +226,7 @@ export default class SamplesMonitor extends Widget {
     );
   }
 
-  renderSeparateChannels(w, h) {
-    const channels = this.props.channels.filter(c => c.max > 0);
-
+  renderSeparateChannels(w, h, channels) {
     let ox = 40;
     let oy = 40;
     const my = 5;
@@ -247,9 +260,7 @@ export default class SamplesMonitor extends Widget {
     return result;
   }
 
-  renderStackedChannels(w, h) {
-    const channels = this.props.channels.filter(c => c.max > 0);
-
+  renderStackedChannels(w, h, channels) {
     let ox = 40;
     let oy = 40;
     const dx = w - 80;
@@ -274,15 +285,7 @@ export default class SamplesMonitor extends Widget {
       );
     } else {
       const hn = 16;
-      const colors = [
-        this.strokeColor,
-        '#3ff215',
-        '#cbf215',
-        '#f2cb15',
-        '#f27d15',
-        '#fb45df',
-        '#ac45fb',
-      ];
+      const colors = this.strokeColors;
       // Display samples on same rectangle.
       let colorIndex = 0;
       for (const channel of channels) {
@@ -322,7 +325,7 @@ export default class SamplesMonitor extends Widget {
     return result;
   }
 
-  renderGroupedChannels(w, h) {
+  renderGroupedChannels(w, h, channels) {
     let ox = 40;
     let oy = 40;
     const dx = w - 80;
@@ -333,7 +336,7 @@ export default class SamplesMonitor extends Widget {
     samples.fill(0);
 
     let max = 0.0001;
-    for (const channel of this.props.channels) {
+    for (const channel of channels) {
       for (let i = 0; i < channel.samples.size; i++) {
         const s = channel.samples.get(i);
         max = Math.max(max, s);
@@ -353,13 +356,13 @@ export default class SamplesMonitor extends Widget {
     );
   }
 
-  renderChannels(w, h) {
+  renderChannels(w, h, channels) {
     if (this.mode === 'grouped') {
-      return this.renderGroupedChannels(w, h);
+      return this.renderGroupedChannels(w, h, channels);
     } else if (this.mode === 'colored-stack') {
-      return this.renderStackedChannels(w, h);
+      return this.renderStackedChannels(w, h, channels);
     } else {
-      return this.renderSeparateChannels(w, h);
+      return this.renderSeparateChannels(w, h, channels);
     }
   }
 
@@ -386,7 +389,7 @@ export default class SamplesMonitor extends Widget {
         />
         <Separator kind="exact" height="30px" />
         <Checkbox
-          kind="check-button"
+          kind="switch"
           glyphSize="150%"
           checked={this.props.showed}
           onChange={this.onOff}
@@ -405,13 +408,15 @@ export default class SamplesMonitor extends Widget {
     const w = Unit.parse(ww).value - 50;
     const h = Unit.parse(hh).value;
 
+    const channels = this.props.channels.filter(c => c.max > 0);
+
     return (
       <div className={this.styles.classNames.monitor}>
         <div className={this.styles.classNames.tube}>
           {this.renderBackgroundScreen(w, h)}
-          {this.renderGrid(w, h)}
+          {this.renderGrid(w, h, channels)}
           <div className={this.styles.classNames.channels}>
-            {this.renderChannels(w, h)}
+            {this.renderChannels(w, h, channels)}
           </div>
           {this.renderForegroundScreen(w, h)}
           <div className={this.styles.classNames.border} />
