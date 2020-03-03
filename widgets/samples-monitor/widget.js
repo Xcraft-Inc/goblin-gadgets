@@ -3,6 +3,7 @@ import Widget from 'goblin-laboratory/widgets/widget';
 import * as styles from './styles';
 import getPath from './getPath';
 import Checkbox from 'goblin-gadgets/widgets/checkbox/widget';
+import Separator from 'goblin-gadgets/widgets/separator/widget';
 import {Unit} from 'electrum-theme';
 import Shredder from 'xcraft-core-shredder';
 
@@ -16,6 +17,8 @@ export default class SamplesMonitor extends Widget {
     this.state = {
       mode: 'grouped',
     };
+
+    this.onOff = this.onOff.bind(this);
   }
 
   //#region get/set
@@ -29,6 +32,12 @@ export default class SamplesMonitor extends Widget {
     });
   }
   //#endregion
+
+  onOff() {
+    if (this.props.onOff) {
+      this.props.onOff();
+    }
+  }
 
   /******************************************************************************/
 
@@ -374,6 +383,13 @@ export default class SamplesMonitor extends Widget {
           glyphSize="150%"
           checked={this.mode === 'separate'}
           onChange={() => (this.mode = 'separate')}
+        />
+        <Separator kind="exact" height="30px" />
+        <Checkbox
+          kind="check-button"
+          glyphSize="150%"
+          checked={this.props.showed}
+          onChange={this.onOff}
         />
       </div>
     );
