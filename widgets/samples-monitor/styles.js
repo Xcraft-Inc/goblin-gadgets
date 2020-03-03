@@ -17,6 +17,7 @@ export default function styles(theme, props) {
   let backgroundCRT = {};
   let foregroundCRT1 = {};
   let foregroundCRT2 = {};
+  let foregroundCRT3 = {};
   let screenLeft = {};
   let screenRight = {};
   let screenTop = {};
@@ -201,6 +202,12 @@ export default function styles(theme, props) {
       '100%': {opacity: 0.24387},
     };
 
+    const keyframesTrace = {
+      '0%': {top: '-100px'},
+      '60%': {top: '-100px'},
+      '100%': {top: '100%'},
+    };
+
     backgroundCRT = {
       position: 'absolute',
       top: '0px',
@@ -228,8 +235,21 @@ export default function styles(theme, props) {
       borderRadius: '50px',
     };
 
-    // Video flicker.
+    // Horizontal trace.
     foregroundCRT2 = {
+      position: 'absolute',
+      top: '0px',
+      height: '100px',
+      left: '40px',
+      right: '40px',
+      background: 'linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0.1))',
+      animationName: keyframesTrace,
+      animationDuration: '20s',
+      animationIterationCount: 'infinite',
+    };
+
+    // Video flicker.
+    foregroundCRT3 = {
       position: 'absolute',
       top: '0px',
       left: '0px',
@@ -332,6 +352,7 @@ export default function styles(theme, props) {
     backgroundCRT,
     foregroundCRT1,
     foregroundCRT2,
+    foregroundCRT3,
     screenLeft,
     screenRight,
     screenTop,

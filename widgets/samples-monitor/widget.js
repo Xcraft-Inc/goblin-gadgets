@@ -68,6 +68,7 @@ export default class SamplesMonitor extends Widget {
       <React.Fragment>
         <div className={this.styles.classNames.foregroundCRT1} />
         <div className={this.styles.classNames.foregroundCRT2} />
+        <div className={this.styles.classNames.foregroundCRT3} />
       </React.Fragment>
     );
   }
