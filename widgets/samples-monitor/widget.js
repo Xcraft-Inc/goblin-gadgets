@@ -62,11 +62,16 @@ export default class SamplesMonitor extends Widget {
     );
   }
 
-  renderGrid(w, h, ox, oy, dx, dy, total) {
+  renderGrid(w, h) {
+    let ox = 40;
+    let oy = 40;
+    const dx = w - 80;
+    const dy = h - 80;
+
     let nx, ny;
     if (this.context.theme.look.name === 'retro') {
       nx = 10;
-      ny = Math.max(9 - total * 2, 1);
+      ny = 8;
     } else {
       nx = 1;
       ny = 1;
@@ -83,16 +88,22 @@ export default class SamplesMonitor extends Widget {
     );
   }
 
-  renderSamples(w, h, ox, oy, dx, dy, channel) {
+  renderSamples(w, h, ox, oy, dx, dy, channel, color, index) {
     if (!channel.samples) {
       return null;
     }
 
+    const style = {
+      stroke: color || '#0f0',
+    };
+
     return (
       <svg
+        key={index}
         width={w + 'px'}
         height={h + 'px'}
         className={`samples-hover ${this.styles.classNames.samples}`}
+        style={style}
       >
         <path
           d={getPath.getSamplesPath(
@@ -108,26 +119,30 @@ export default class SamplesMonitor extends Widget {
     );
   }
 
-  renderSampleName(ox, oy, dx, dy, channel) {
+  renderSampleName(ox, oy, dx, dy, channel, color, index) {
     const style = {
       left: ox + 'px',
       width: dx + 'px',
       top: oy + 'px',
       height: dy + 'px',
+      color: color || '#0f0',
     };
 
     return (
-      <div className={this.styles.classNames.sampleName} style={style}>
+      <div
+        key={index}
+        className={this.styles.classNames.sampleName}
+        style={style}
+      >
         {channel.name}
       </div>
     );
   }
 
-  renderChannel(w, h, ox, oy, dx, dy, channel, total, index) {
+  renderChannel(w, h, ox, oy, dx, dy, channel, index) {
     const hn = 16;
     return (
       <React.Fragment key={index}>
-        {this.renderGrid(w, h, ox, oy, dx, dy - hn, total)}
         {this.renderSamples(w, h, ox, oy, dx, dy - hn, channel)}
         {this.renderSampleName(ox, oy + dy - hn, dx, hn, channel)}
       </React.Fragment>
@@ -157,26 +172,87 @@ export default class SamplesMonitor extends Widget {
           dx,
           dy,
           {samples: new Shredder([0, 0]), max: 1, name: 'IDLE'},
-          1,
           index++
         )
       );
     } else {
       for (const channel of channels) {
+        result.push(this.renderChannel(w, h, ox, oy, dx, dy, channel, index++));
+        oy += dy + my;
+      }
+    }
+
+    return result;
+  }
+
+  renderStackedChannels(w, h) {
+    const channels = this.props.channels.filter(c => c.max > 0);
+
+    let ox = 40;
+    let oy = 40;
+    const dx = w - 80;
+    const dy = h - 80;
+
+    const result = [];
+    let index = 0;
+
+    if (channels.length === 0) {
+      // Simple horizontal line.
+      result.push(
+        this.renderChannel(
+          w,
+          h,
+          ox,
+          oy,
+          dx,
+          dy,
+          {samples: new Shredder([0, 0]), max: 1, name: 'IDLE'},
+          index++
+        )
+      );
+    } else {
+      const hn = 16;
+      const colors = [
+        '#0f0',
+        '#ffd800',
+        '#ff5a00',
+        '#00ccff',
+        '#7c4eff',
+        '#ff6aec',
+      ];
+      // Display samples on same rectangle.
+      let colorIndex = 0;
+      for (const channel of channels) {
         result.push(
-          this.renderChannel(
+          this.renderSamples(
             w,
             h,
             ox,
             oy,
             dx,
-            dy,
+            dy - hn,
             channel,
-            channels.length,
+            colors[colorIndex++ % colors.length],
             index++
           )
         );
-        oy += dy + my;
+      }
+      // Display names, from left to right.
+      colorIndex = 0;
+      const tx = dx / channels.length;
+      for (const channel of channels) {
+        result.push(
+          this.renderSampleName(
+            ox,
+            oy + dy - hn,
+            tx,
+            hn,
+            channel,
+            colors[colorIndex++ % colors.length],
+            index++
+          )
+        );
+        ox += tx;
       }
     }
 
@@ -209,7 +285,6 @@ export default class SamplesMonitor extends Widget {
 
     return (
       <React.Fragment>
-        {this.renderGrid(w, h, ox, oy, dx, dy, 1)}
         {this.renderSamples(w, h, ox, oy, dx, dy, channel)}
       </React.Fragment>
     );
@@ -218,6 +293,8 @@ export default class SamplesMonitor extends Widget {
   renderChannels(w, h) {
     if (this.mode === 'grouped') {
       return this.renderGroupedChannels(w, h);
+    } else if (this.mode === 'colored-stack') {
+      return this.renderStackedChannels(w, h);
     } else {
       return this.renderSeparateChannels(w, h);
     }
@@ -255,6 +332,12 @@ export default class SamplesMonitor extends Widget {
         <Checkbox
           kind="radio"
           glyphSize="150%"
+          checked={this.mode === 'colored-stack'}
+          onChange={() => (this.mode = 'colored-stack')}
+        />
+        <Checkbox
+          kind="radio"
+          glyphSize="150%"
           checked={this.mode === 'separate'}
           onChange={() => (this.mode = 'separate')}
         />
@@ -276,6 +359,7 @@ export default class SamplesMonitor extends Widget {
       <div className={this.styles.classNames.monitor}>
         <div className={this.styles.classNames.tube}>
           {this.renderScreen(w, h)}
+          {this.renderGrid(w, h)}
           <div className={this.styles.classNames.channels}>
             {this.renderChannels(w, h)}
           </div>

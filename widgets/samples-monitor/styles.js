@@ -56,8 +56,10 @@ export default function styles(theme, props) {
     sampleName = {
       position: 'absolute',
       fontSize: '75%',
-      color: '#0f0',
       textTransform: 'uppercase',
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
     };
 
     panel = {
@@ -85,7 +87,6 @@ export default function styles(theme, props) {
 
     samples = {
       position: 'absolute',
-      stroke: '#0f0',
       strokeWidth: '2px',
       strokeLinecap: 'round',
       strokeLinejoin: 'round',
@@ -132,7 +133,7 @@ export default function styles(theme, props) {
         stroke: 'rgba(0,255,0,0.4)',
       },
       ':hover .samples-hover': {
-        strokeWidth: '5px',
+        strokeWidth: '3px',
       },
       ':hover .flare-hover': {
         right: '-300px',
@@ -159,8 +160,10 @@ export default function styles(theme, props) {
     sampleName = {
       position: 'absolute',
       fontSize: '75%',
-      color: '#0f0',
       textTransform: 'uppercase',
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
     };
 
     panel = {
@@ -209,7 +212,6 @@ export default function styles(theme, props) {
 
     samples = {
       position: 'absolute',
-      stroke: '#0f0',
       strokeWidth: '2px',
       strokeLinecap: 'round',
       strokeLinejoin: 'round',
