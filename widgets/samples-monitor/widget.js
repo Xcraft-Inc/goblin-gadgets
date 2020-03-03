@@ -60,10 +60,18 @@ export default class SamplesMonitor extends Widget {
   /******************************************************************************/
 
   renderBackgroundCRT() {
+    if (this.context.theme.look.name !== 'retro') {
+      return null;
+    }
+
     return <div className={this.styles.classNames.backgroundCRT} />;
   }
 
   renderForegroundCRT() {
+    if (this.context.theme.look.name !== 'retro') {
+      return null;
+    }
+
     return (
       <React.Fragment>
         <div className={this.styles.classNames.foregroundCRT1} />
@@ -105,18 +113,7 @@ export default class SamplesMonitor extends Widget {
     );
   }
 
-  renderBackgroundScreen(w, h) {
-    if (this.context.theme.look.name !== 'retro') {
-      return null;
-    }
-
-    w -= 4;
-    h -= 4;
-
-    return <React.Fragment>{this.renderBackgroundCRT()}</React.Fragment>;
-  }
-
-  renderForegroundScreen(w, h) {
+  renderScreen(w, h) {
     if (this.context.theme.look.name !== 'retro') {
       return null;
     }
@@ -126,7 +123,6 @@ export default class SamplesMonitor extends Widget {
 
     return (
       <React.Fragment>
-        {this.renderForegroundCRT()}
         {this.renderScreenBorder(w, h, 'screenLeft')}
         {this.renderScreenBorder(w, h, 'screenRight')}
         {this.renderScreenBorder(w, h, 'screenTop')}
@@ -159,7 +155,7 @@ export default class SamplesMonitor extends Widget {
       <svg
         width={w + 'px'}
         height={h + 'px'}
-        className={`grid-hover ${this.styles.classNames.grid}`}
+        className={this.styles.classNames.grid}
       >
         <path d={getPath.getGridPath(ox, oy, dx, dy, nx, ny)} />
       </svg>
@@ -180,7 +176,7 @@ export default class SamplesMonitor extends Widget {
         key={index}
         width={w + 'px'}
         height={h + 'px'}
-        className={`samples-hover ${this.styles.classNames.samples}`}
+        className={this.styles.classNames.samples}
         style={style}
       >
         <path
@@ -414,12 +410,13 @@ export default class SamplesMonitor extends Widget {
     return (
       <div className={this.styles.classNames.monitor}>
         <div className={this.styles.classNames.tube}>
-          {this.renderBackgroundScreen(w, h)}
+          {this.renderBackgroundCRT()}
           {this.renderGrid(w, h, channels)}
           <div className={this.styles.classNames.channels}>
             {this.renderChannels(w, h, channels)}
           </div>
-          {this.renderForegroundScreen(w, h)}
+          {this.renderForegroundCRT()}
+          {this.renderScreen(w, h)}
           <div className={this.styles.classNames.border} />
         </div>
         {this.renderRightPanel()}

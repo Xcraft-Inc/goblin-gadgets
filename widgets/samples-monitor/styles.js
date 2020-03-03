@@ -128,12 +128,6 @@ export default function styles(theme, props) {
       'background': 'radial-gradient(ellipse at top left, #000, #333)',
       'boxShadow': '0px 0px 50px black',
       'overflow': 'hidden',
-      ':hover .grid-hover': {
-        stroke: 'rgba(0,255,0,0.4)',
-      },
-      ':hover .samples-hover': {
-        strokeWidth: '3px',
-      },
       ':hover .flare-hover': {
         right: '-300px',
         bottom: '-300px',
@@ -206,6 +200,23 @@ export default function styles(theme, props) {
       '0%': {top: '-100px'},
       '60%': {top: '-100px'},
       '100%': {top: '100%'},
+    };
+
+    const keyframesPower = {
+      '0%': {transform: 'scale(1)'},
+      '50.0%': {transform: 'scale(1)'},
+      '50.1%': {transform: 'scale(0.97)'},
+      '50.2%': {transform: 'scale(1)'},
+      '50.5%': {transform: 'scale(1)'},
+      '50.6%': {transform: 'scale(0.97)'},
+      '50.7%': {transform: 'scale(1)'},
+      '60.0%': {transform: 'scale(1)'},
+      '60.1%': {transform: 'scale(0.97)'},
+      '60.2%': {transform: 'scale(1)'},
+      '90.0%': {transform: 'scale(1)'},
+      '90.2%': {transform: 'scale(0.93)'},
+      '90.4%': {transform: 'scale(1)'},
+      '100%': {transform: 'scale(1)'},
     };
 
     backgroundCRT = {
@@ -289,7 +300,10 @@ export default function styles(theme, props) {
       stroke: 'rgba(0,255,0,0.2)',
       strokeWidth: '1px',
       fill: 'transparent',
-      transition: '0.6s ease-out',
+      //? transition: '0.6s ease-out',
+      animationName: keyframesPower,
+      animationDuration: '27s',
+      animationIterationCount: 'infinite',
     };
 
     samples = {
@@ -298,7 +312,10 @@ export default function styles(theme, props) {
       strokeLinecap: 'round',
       strokeLinejoin: 'round',
       fill: 'transparent',
-      transition: '10s ease-out',
+      //? transition: '10s ease-out',
+      animationName: keyframesPower,
+      animationDuration: '27s',
+      animationIterationCount: 'infinite',
     };
 
     flare = {
