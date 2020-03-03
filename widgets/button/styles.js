@@ -209,7 +209,7 @@ export default function styles(theme, props) {
     theme.look.name === 'retro'
   ) {
     let c1 = '#ffda52';
-    let c2 = '#ffc800';
+    let c2 = '#ffc800'; // yellow chrome
 
     boxWidth = Unit.add(theme.shapes.taskButtonWidth, '20px');
     boxMaxWidth = Unit.add(theme.shapes.taskButtonWidth, '10px');
