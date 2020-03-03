@@ -9,20 +9,23 @@ export default function styles(theme, props) {
 
   const look = theme.look.name;
 
-  let monitor;
-  let tube;
-  let channels;
-  let sampleName;
-  let panel;
-  let screenLeft;
-  let screenRight;
-  let screenTop;
-  let screenBottom;
-  let grid;
-  let samples;
-  let flare;
-  let powerOff;
-  let border;
+  let monitor = {};
+  let tube = {};
+  let channels = {};
+  let sampleName = {};
+  let panel = {};
+  let backgroundCRT = {};
+  let foregroundCRT1 = {};
+  let foregroundCRT2 = {};
+  let screenLeft = {};
+  let screenRight = {};
+  let screenTop = {};
+  let screenBottom = {};
+  let grid = {};
+  let samples = {};
+  let flare = {};
+  let powerOff = {};
+  let border = {};
 
   /******************************************************************************/
 
@@ -72,11 +75,6 @@ export default function styles(theme, props) {
       alignItems: 'center',
       backgroundColor: '#888',
     };
-
-    screenLeft = {};
-    screenRight = {};
-    screenTop = {};
-    screenBottom = {};
 
     grid = {
       position: 'absolute',
@@ -179,6 +177,70 @@ export default function styles(theme, props) {
 
     /******************************************************************************/
 
+    const keyframesFlicker = {
+      '0%': {opacity: 0.27861},
+      '5%': {opacity: 0.34769},
+      '10%': {opacity: 0.23604},
+      '15%': {opacity: 0.90626},
+      '20%': {opacity: 0.18128},
+      '25%': {opacity: 0.83891},
+      '30%': {opacity: 0.65583},
+      '35%': {opacity: 0.67807},
+      '40%': {opacity: 0.26559},
+      '45%': {opacity: 0.84693},
+      '50%': {opacity: 0.96019},
+      '55%': {opacity: 0.08594},
+      '60%': {opacity: 0.20313},
+      '65%': {opacity: 0.71988},
+      '70%': {opacity: 0.53455},
+      '75%': {opacity: 0.37288},
+      '80%': {opacity: 0.71428},
+      '85%': {opacity: 0.70419},
+      '90%': {opacity: 0.7003},
+      '95%': {opacity: 0.36108},
+      '100%': {opacity: 0.24387},
+    };
+
+    backgroundCRT = {
+      position: 'absolute',
+      top: '0px',
+      left: '0px',
+      bottom: '0px',
+      right: '0px',
+      backgroundColor: '#07401f',
+      border: '40px solid',
+      borderBottomColor: '#121212',
+      borderLeftColor: '#080808',
+      borderRightColor: '#080808',
+      borderTopColor: '#020202',
+      boxShadow: 'inset 0 0 90px black, inset 0 0 15px black, 0 0 50px black',
+    };
+
+    // Scan lines.
+    foregroundCRT1 = {
+      position: 'absolute',
+      top: '0px',
+      left: '0px',
+      bottom: '0px',
+      right: '0px',
+      background:
+        'linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.2) 70%, rgba(0, 0, 0, 0.6)) 0% 0% / 100% 5px',
+      borderRadius: '50px',
+    };
+
+    // Video flicker.
+    foregroundCRT2 = {
+      position: 'absolute',
+      top: '0px',
+      left: '0px',
+      bottom: '0px',
+      right: '0px',
+      background: 'rgba(18, 16, 16, 0.1)',
+      animationName: keyframesFlicker,
+      animationDuration: '0.15s',
+      animationIterationCount: 'infinite',
+    };
+
     screenLeft = {
       position: 'absolute',
       margin: '2px',
@@ -267,6 +329,9 @@ export default function styles(theme, props) {
     sampleName,
     panel,
 
+    backgroundCRT,
+    foregroundCRT1,
+    foregroundCRT2,
     screenLeft,
     screenRight,
     screenTop,

@@ -32,6 +32,45 @@ export default class SamplesMonitor extends Widget {
 
   /******************************************************************************/
 
+  get strokeColor() {
+    return this.context.theme.look.name === 'retro' ? '#15f2b6' : '#0f0';
+  }
+
+  /******************************************************************************/
+
+  renderBackgroundCRT() {
+    return <div className={this.styles.classNames.backgroundCRT} />;
+  }
+
+  renderForegroundCRT() {
+    return (
+      <React.Fragment>
+        <div className={this.styles.classNames.foregroundCRT1} />
+        <div className={this.styles.classNames.foregroundCRT2} />
+      </React.Fragment>
+    );
+  }
+
+  renderFlare() {
+    if (this.context.theme.look.name !== 'retro') {
+      return null;
+    }
+
+    return <div className={`flare-hover ${this.styles.classNames.flare}`} />;
+  }
+
+  renderPowerOff(w, h) {
+    if (this.context.theme.look.name !== 'retro') {
+      return null;
+    }
+
+    return (
+      <svg width={w} height={h} className={this.styles.classNames.powerOff}>
+        <path d={getPath.getPowerOffPath(w - 80, h - 80)} />
+      </svg>
+    );
+  }
+
   renderScreenBorder(w, h, styleName) {
     return (
       <svg
@@ -44,7 +83,18 @@ export default class SamplesMonitor extends Widget {
     );
   }
 
-  renderScreen(w, h) {
+  renderBackgroundScreen(w, h) {
+    if (this.context.theme.look.name !== 'retro') {
+      return null;
+    }
+
+    w -= 4;
+    h -= 4;
+
+    return <React.Fragment>{this.renderBackgroundCRT()}</React.Fragment>;
+  }
+
+  renderForegroundScreen(w, h) {
     if (this.context.theme.look.name !== 'retro') {
       return null;
     }
@@ -54,10 +104,13 @@ export default class SamplesMonitor extends Widget {
 
     return (
       <React.Fragment>
+        {this.renderForegroundCRT()}
         {this.renderScreenBorder(w, h, 'screenLeft')}
         {this.renderScreenBorder(w, h, 'screenRight')}
         {this.renderScreenBorder(w, h, 'screenTop')}
         {this.renderScreenBorder(w, h, 'screenBottom')}
+        {this.renderFlare()}
+        {this.renderPowerOff(w, h)}
       </React.Fragment>
     );
   }
@@ -94,7 +147,7 @@ export default class SamplesMonitor extends Widget {
     }
 
     const style = {
-      stroke: color || '#0f0',
+      stroke: color || this.strokeColor,
     };
 
     return (
@@ -125,7 +178,7 @@ export default class SamplesMonitor extends Widget {
       width: dx + 'px',
       top: oy + 'px',
       height: dy + 'px',
-      color: color || '#0f0',
+      color: color || this.strokeColor,
     };
 
     return (
@@ -213,12 +266,13 @@ export default class SamplesMonitor extends Widget {
     } else {
       const hn = 16;
       const colors = [
-        '#0f0',
-        '#ffd800',
-        '#ff5a00',
-        '#00ccff',
-        '#7c4eff',
-        '#ff6aec',
+        this.strokeColor,
+        '#3ff215',
+        '#cbf215',
+        '#f2cb15',
+        '#f27d15',
+        '#fb45df',
+        '#ac45fb',
       ];
       // Display samples on same rectangle.
       let colorIndex = 0;
@@ -300,26 +354,6 @@ export default class SamplesMonitor extends Widget {
     }
   }
 
-  renderFlare() {
-    if (this.context.theme.look.name !== 'retro') {
-      return null;
-    }
-
-    return <div className={`flare-hover ${this.styles.classNames.flare}`} />;
-  }
-
-  renderPowerOff(w, h) {
-    if (this.context.theme.look.name !== 'retro') {
-      return null;
-    }
-
-    return (
-      <svg width={w} height={h} className={this.styles.classNames.powerOff}>
-        <path d={getPath.getPowerOffPath(w - 80, h - 80)} />
-      </svg>
-    );
-  }
-
   renderRightPanel() {
     return (
       <div className={this.styles.classNames.panel}>
@@ -358,13 +392,12 @@ export default class SamplesMonitor extends Widget {
     return (
       <div className={this.styles.classNames.monitor}>
         <div className={this.styles.classNames.tube}>
-          {this.renderScreen(w, h)}
+          {this.renderBackgroundScreen(w, h)}
           {this.renderGrid(w, h)}
           <div className={this.styles.classNames.channels}>
             {this.renderChannels(w, h)}
           </div>
-          {this.renderFlare()}
-          {this.renderPowerOff(w, h)}
+          {this.renderForegroundScreen(w, h)}
           <div className={this.styles.classNames.border} />
         </div>
         {this.renderRightPanel()}
