@@ -129,6 +129,7 @@ export default class SamplesMonitor extends Widget {
         {this.renderScreenBorder(w, h, 'screenBottom')}
         {this.renderFlare()}
         {this.renderPowerOff(w, h)}
+        <div className={this.styles.classNames.border} />
       </React.Fragment>
     );
   }
@@ -411,13 +412,14 @@ export default class SamplesMonitor extends Widget {
       <div className={this.styles.classNames.monitor}>
         <div className={this.styles.classNames.tube}>
           {this.renderBackgroundCRT()}
-          {this.renderGrid(w, h, channels)}
-          <div className={this.styles.classNames.channels}>
-            {this.renderChannels(w, h, channels)}
+          <div className={this.styles.classNames.crt}>
+            {this.renderGrid(w, h, channels)}
+            <div className={this.styles.classNames.channels}>
+              {this.renderChannels(w, h, channels)}
+            </div>
           </div>
           {this.renderForegroundCRT()}
           {this.renderScreen(w, h)}
-          <div className={this.styles.classNames.border} />
         </div>
         {this.renderRightPanel()}
       </div>

@@ -11,6 +11,7 @@ export default function styles(theme, props) {
 
   let monitor = {};
   let tube = {};
+  let crt = {};
   let channels = {};
   let sampleName = {};
   let panel = {};
@@ -142,6 +143,31 @@ export default function styles(theme, props) {
       flexGrow: 1,
     };
 
+    const keyframesPower = {
+      '0%': {transform: 'scale(1)'},
+      '50.0%': {transform: 'scale(1)'},
+      '50.1%': {transform: 'scale(0.97)'},
+      '50.2%': {transform: 'scale(1)'},
+      '50.5%': {transform: 'scale(1)'},
+      '50.6%': {transform: 'scale(0.96)'},
+      '50.7%': {transform: 'scale(1)'},
+      '60.0%': {transform: 'scale(1)'},
+      '60.1%': {transform: 'scale(0.97)'},
+      '60.2%': {transform: 'scale(1)'},
+      '90.0%': {transform: 'scale(1)'},
+      '90.2%': {transform: 'scale(0.93)'},
+      '90.4%': {transform: 'scale(1)'},
+      '100%': {transform: 'scale(1)'},
+    };
+
+    crt = {
+      position: 'relative',
+      flexGrow: 1,
+      animationName: keyframesPower,
+      animationDuration: '27s',
+      animationIterationCount: 'infinite',
+    };
+
     channels = {
       position: 'absolute',
       left: '0px',
@@ -200,23 +226,6 @@ export default function styles(theme, props) {
       '0%': {top: '-100px'},
       '60%': {top: '-100px'},
       '100%': {top: '100%'},
-    };
-
-    const keyframesPower = {
-      '0%': {transform: 'scale(1)'},
-      '50.0%': {transform: 'scale(1)'},
-      '50.1%': {transform: 'scale(0.97)'},
-      '50.2%': {transform: 'scale(1)'},
-      '50.5%': {transform: 'scale(1)'},
-      '50.6%': {transform: 'scale(0.97)'},
-      '50.7%': {transform: 'scale(1)'},
-      '60.0%': {transform: 'scale(1)'},
-      '60.1%': {transform: 'scale(0.97)'},
-      '60.2%': {transform: 'scale(1)'},
-      '90.0%': {transform: 'scale(1)'},
-      '90.2%': {transform: 'scale(0.93)'},
-      '90.4%': {transform: 'scale(1)'},
-      '100%': {transform: 'scale(1)'},
     };
 
     backgroundCRT = {
@@ -300,10 +309,6 @@ export default function styles(theme, props) {
       stroke: 'rgba(0,255,0,0.2)',
       strokeWidth: '1px',
       fill: 'transparent',
-      //? transition: '0.6s ease-out',
-      animationName: keyframesPower,
-      animationDuration: '27s',
-      animationIterationCount: 'infinite',
     };
 
     samples = {
@@ -312,10 +317,6 @@ export default function styles(theme, props) {
       strokeLinecap: 'round',
       strokeLinejoin: 'round',
       fill: 'transparent',
-      //? transition: '10s ease-out',
-      animationName: keyframesPower,
-      animationDuration: '27s',
-      animationIterationCount: 'infinite',
     };
 
     flare = {
@@ -362,6 +363,7 @@ export default function styles(theme, props) {
   return {
     monitor,
     tube,
+    crt,
     channels,
     sampleName,
     panel,
