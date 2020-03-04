@@ -14,7 +14,7 @@ import {
 
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Badge from 'goblin-gadgets/widgets/badge/widget';
-import IlluminatedButton from 'goblin-gadgets/widgets/illuminated-button/widget';
+import RetroIlluminatedButton from 'goblin-gadgets/widgets/retro-illuminated-button/widget';
 import RetroActionButton from 'goblin-gadgets/widgets/retro-action-button/widget';
 import * as styles from './styles';
 
@@ -249,7 +249,7 @@ export default class Button extends Widget {
   renderRetro() {
     if (this.props.kind === 'task-logo') {
       return (
-        <IlluminatedButton
+        <RetroIlluminatedButton
           width={this.context.theme.shapes.taskButtonWidth}
           height={this.context.theme.shapes.taskButtonHeight}
           margin="20px 0px 15px 0px"
@@ -268,7 +268,7 @@ export default class Button extends Widget {
       );
     } else if (this.props.kind === 'task-bar') {
       return (
-        <IlluminatedButton
+        <RetroIlluminatedButton
           width={this.context.theme.shapes.taskButtonWidth}
           height={this.context.theme.shapes.taskButtonHeight}
           margin="5px 0px"

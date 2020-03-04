@@ -3,7 +3,7 @@ import Widget from 'goblin-laboratory/widgets/widget';
 
 /******************************************************************************/
 
-export default class Screw extends Widget {
+export default class RetroScrew extends Widget {
   constructor() {
     super(...arguments);
   }

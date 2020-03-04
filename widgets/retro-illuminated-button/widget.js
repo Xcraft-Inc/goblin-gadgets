@@ -7,7 +7,7 @@ import * as styles from './styles';
 
 /******************************************************************************/
 
-export default class IlluminatedButton extends Widget {
+export default class RetroIlluminatedButton extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;

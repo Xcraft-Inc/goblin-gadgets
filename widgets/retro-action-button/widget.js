@@ -9,7 +9,7 @@ import {Unit} from 'electrum-theme';
 
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Badge from 'goblin-gadgets/widgets/badge/widget';
-import Screw from 'goblin-gadgets/widgets/screw/widget';
+import RetroScrew from 'goblin-gadgets/widgets/retro-screw/widget';
 import * as styles from './styles';
 import getPath from './getPath';
 
@@ -320,7 +320,7 @@ export default class RetroActionButton extends Widget {
 
     return (
       <div className={this.styles.classNames.screwLeft}>
-        <Screw
+        <RetroScrew
           size={size + 'px'}
           top={top + 'px'}
           left={x + 'px'}
@@ -345,7 +345,7 @@ export default class RetroActionButton extends Widget {
 
     return (
       <div className={this.styles.classNames.screwLeft}>
-        <Screw
+        <RetroScrew
           size={size + 'px'}
           top={top + 'px'}
           right={x + 'px'}

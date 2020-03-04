@@ -5,7 +5,7 @@ import {ColorHelpers} from 'electrum-theme';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import Container from 'goblin-gadgets/widgets/container/widget';
-import IlluminatedButton from 'goblin-gadgets/widgets/illuminated-button/widget';
+import RetroIlluminatedButton from 'goblin-gadgets/widgets/retro-illuminated-button/widget';
 import * as styles from './styles';
 
 /******************************************************************************/
@@ -83,7 +83,7 @@ export default class Notification extends Widget {
       );
     } else {
       return (
-        <IlluminatedButton
+        <RetroIlluminatedButton
           width="50px"
           height="50px"
           material="led"

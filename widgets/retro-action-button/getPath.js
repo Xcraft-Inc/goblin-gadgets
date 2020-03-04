@@ -32,12 +32,29 @@ function close(path) {
 
 /******************************************************************************/
 
+// By example, with place = 'left-screw':
+//                 20
+//            <----------->
+//    ^             +------
+//    |             |
+//    |             |
+//    |     ^   ----+
+//    |     |  /
+// dy |  20 | |     o  <-- half circle, place for a screw
+//    |     |  \
+//    |     v   ----+
+//    |             |
+//    |             |
+//    v             +------
+//            <----> <---->
+//              10    10
+
 function getFramePath(dy, place) {
   let path = '';
 
   dy = toInt(dy);
   const r = 10;
-  const b = 0.55;
+  const b = 0.552284749831; // (4/3)*tan(pi/8) = 4*(sqrt(2)-1)/3
 
   // prettier-ignore
   if (place === 'left-screw') {

@@ -3,7 +3,7 @@ import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import KeyTrap from 'goblin-gadgets/widgets/key-trap.js';
 import Container from 'goblin-gadgets/widgets/container/widget';
-import Screw from 'goblin-gadgets/widgets/screw/widget';
+import RetroScrew from 'goblin-gadgets/widgets/retro-screw/widget';
 import {ColorManipulator} from 'electrum-theme';
 import * as RectHelpers from '../helpers/rect-helpers.js';
 import * as styles from './styles';
@@ -63,25 +63,25 @@ export default class DialogModal extends Widget {
 
     return (
       <React.Fragment>
-        <Screw
+        <RetroScrew
           backgroundBrigtness={backgroundBrigtness}
           top="8px"
           left="8px"
           angle="45deg"
         />
-        <Screw
+        <RetroScrew
           backgroundBrigtness={backgroundBrigtness}
           top="8px"
           right="8px"
           angle="-20deg"
         />
-        <Screw
+        <RetroScrew
           backgroundBrigtness={backgroundBrigtness}
           bottom="8px"
           left="8px"
           angle="70deg"
         />
-        <Screw
+        <RetroScrew
           backgroundBrigtness={backgroundBrigtness}
           bottom="8px"
           right="8px"
