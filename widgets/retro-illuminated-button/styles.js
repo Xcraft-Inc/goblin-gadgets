@@ -227,7 +227,10 @@ export default function styles(theme, props) {
     top: 'calc(100% + 4px)',
     bottom: '-60px',
     borderRadius: '0px 0px 5px 5px',
-    background: ColorManipulator.darken(borderColor, 0.15),
+    background: `linear-gradient(0deg, ${borderColor} 70%, ${ColorManipulator.darken(
+      borderColor,
+      0.15
+    )})`,
   };
 
   const queueEnd = {
@@ -237,7 +240,7 @@ export default function styles(theme, props) {
     top: 'calc(100% + 37px)',
     bottom: '-73px',
     borderRadius: '100px',
-    background: ColorManipulator.darken(borderColor, 0.15),
+    background: borderColor,
     boxShadow: '7px 8px 21px 0px #222',
   };
 

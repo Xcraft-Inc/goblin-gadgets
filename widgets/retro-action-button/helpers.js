@@ -98,15 +98,13 @@ function getFramePath(dy, place) {
 function getPlace(place) {
   if (place === '1/1') {
     return 'single';
-  } else if (place.indexOf('/') !== -1) {
+  } else if (place && place.indexOf('/') !== -1) {
     const n = place.split('/');
     if (n.length === 2) {
       if (n[0] === '1') {
         return 'left';
       } else if (n[0] === n[1]) {
         return 'right';
-      } else {
-        return 'middle';
       }
     }
   }
