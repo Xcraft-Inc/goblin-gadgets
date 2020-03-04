@@ -53,7 +53,7 @@ export default function styles(theme, props) {
   }
   const colorHalo = ColorManipulator.lighten(glyphColor, 0.6);
 
-  const borderColor = border === 'gold' ? '#ecc802' : '#aaa';
+  const borderColor = border === 'gold' ? theme.palette.chrome : '#aaa';
 
   const glyphBackground = '#333';
   const glyphBorderTop = `5px solid ${ColorManipulator.darken(

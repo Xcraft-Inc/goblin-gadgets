@@ -276,7 +276,7 @@ export default function styles(theme, props) {
     theme.palette.actionButtonBackground,
     0.7
   );
-  const frameBackgroundColor = '#ecc802'; // gold
+  const frameBackgroundColor = theme.palette.chrome; // gold
 
   const _frame = {
     position: 'absolute',
