@@ -3,7 +3,7 @@ import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import {ColorHelpers} from 'electrum-theme';
 import * as RectHelpers from '../helpers/rect-helpers.js';
-import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import {Unit} from 'electrum-theme';
 import KeyTrap from 'goblin-gadgets/widgets/key-trap.js';
 

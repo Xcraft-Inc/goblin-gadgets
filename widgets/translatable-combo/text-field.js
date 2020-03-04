@@ -1,7 +1,7 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import Form from 'goblin-laboratory/widgets/form';
-import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 
 import TextField from 'goblin-gadgets/widgets/text-field/widget';
 

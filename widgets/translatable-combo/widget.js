@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 
 import MouseTrap from 'mousetrap';
 import ComboHelpers from 'goblin-gadgets/widgets/helpers/combo-helpers';
-import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import {Unit} from 'electrum-theme';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import Combo from 'goblin-gadgets/widgets/combo/widget';

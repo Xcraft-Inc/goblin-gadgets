@@ -1,5 +1,5 @@
 import {Unit} from 'electrum-theme';
-import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 const TableHelpers = require('gadgets/helpers/table-helpers');
 
 /******************************************************************************/

@@ -6,7 +6,7 @@ import Label from 'goblin-gadgets/widgets/label/widget';
 import Badge from 'goblin-gadgets/widgets/badge/widget';
 import TicketHover from 'goblin-gadgets/widgets/ticket-hover/widget';
 import {TranslatableDiv} from 'nabu/helpers/element-helpers';
-import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import {Unit} from 'electrum-theme';
 import getOutlinePath from './getOutlinePath';
 import * as styles from './styles';

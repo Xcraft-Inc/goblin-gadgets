@@ -1,4 +1,4 @@
-import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import {Unit} from 'electrum-theme';
 import * as TicketHelpers from '../ticket/ticket-helpers.js';
 

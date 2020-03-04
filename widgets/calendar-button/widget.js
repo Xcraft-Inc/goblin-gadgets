@@ -1,7 +1,7 @@
 //T:2019-02-27
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
-import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import {TranslatableDiv} from 'nabu/helpers/element-helpers';
 
 import Label from 'goblin-gadgets/widgets/label/widget';

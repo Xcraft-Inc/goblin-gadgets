@@ -2,7 +2,7 @@
 import T from 't';
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
-import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import Checkbox from 'goblin-gadgets/widgets/checkbox/widget';
 import * as styles from './styles';
 

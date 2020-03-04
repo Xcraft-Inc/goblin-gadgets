@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import Widget from 'goblin-laboratory/widgets/widget';
 import MouseTrap from 'mousetrap';
 import {Unit} from 'electrum-theme';
-import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import Container from 'goblin-gadgets/widgets/container/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import * as styles from './styles';
@@ -95,7 +95,7 @@ class DragCarrier extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
-    
+
     this.state = {
       x: 0,
       y: 0,

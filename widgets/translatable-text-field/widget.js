@@ -3,7 +3,7 @@ import Widget from 'goblin-laboratory/widgets/widget';
 
 import Label from 'goblin-gadgets/widgets/label/widget';
 import TranslatableCombo from 'goblin-gadgets/widgets/translatable-combo/widget';
-import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 
 import ToNabuObject from 'goblin-nabu/widgets/helpers/t.js';
 import * as styles from './styles';

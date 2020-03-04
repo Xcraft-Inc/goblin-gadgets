@@ -3,7 +3,7 @@ import T from 't';
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import ComboHelpers from 'goblin-gadgets/widgets/helpers/combo-helpers';
-import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import {ColorHelpers} from 'electrum-theme';
 import {Unit} from 'electrum-theme';
 
