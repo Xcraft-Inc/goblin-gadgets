@@ -225,9 +225,20 @@ export default function styles(theme, props) {
     left: 'calc(50% - 5px)',
     right: 'calc(50% - 5px)',
     top: 'calc(100% + 4px)',
-    bottom: '-40px',
-    background: ColorManipulator.darken(borderColor, 0.15),
+    bottom: '-60px',
     borderRadius: '0px 0px 5px 5px',
+    background: ColorManipulator.darken(borderColor, 0.15),
+  };
+
+  const queueEnd = {
+    position: 'absolute',
+    left: 'calc(50% - 20px)',
+    right: 'calc(50% - 20px)',
+    top: 'calc(100% + 35px)',
+    bottom: '-75px',
+    borderRadius: '20px',
+    background: ColorManipulator.darken(borderColor, 0.15),
+    boxShadow: glyphShadow,
   };
 
   const glyph = {
@@ -251,6 +262,7 @@ export default function styles(theme, props) {
     button,
     buttonLens,
     queue,
+    queueEnd,
     glyph,
     text,
   };

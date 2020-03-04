@@ -65,26 +65,30 @@ export default class DialogModal extends Widget {
       <React.Fragment>
         <RetroScrew
           backgroundBrigtness={backgroundBrigtness}
-          top="8px"
-          left="8px"
+          radius="8px"
+          top="15px"
+          left="15px"
           angle="45deg"
         />
         <RetroScrew
           backgroundBrigtness={backgroundBrigtness}
-          top="8px"
-          right="8px"
+          radius="8px"
+          top="15px"
+          right="15px"
           angle="-20deg"
         />
         <RetroScrew
           backgroundBrigtness={backgroundBrigtness}
-          bottom="8px"
-          left="8px"
+          radius="8px"
+          bottom="15px"
+          left="15px"
           angle="70deg"
         />
         <RetroScrew
           backgroundBrigtness={backgroundBrigtness}
-          bottom="8px"
-          right="8px"
+          radius="8px"
+          bottom="15px"
+          right="15px"
           angle="0deg"
         />
       </React.Fragment>

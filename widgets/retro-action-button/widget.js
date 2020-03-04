@@ -313,15 +313,14 @@ export default class RetroActionButton extends Widget {
 
     const h = Unit.parse(this.height).value;
     const r = 6;
-    const top = h / 2 - r;
-    const x = 10 - r;
-    const size = r * 2 - 2;
+    const top = h / 2;
+    const x = 10;
     const angle = this.props.kind === 'secondary-action' ? '15deg' : '-70deg';
 
     return (
       <div className={this.styles.classNames.screwLeft}>
         <RetroScrew
-          size={size + 'px'}
+          radius={r + 'px'}
           top={top + 'px'}
           left={x + 'px'}
           angle={angle}
@@ -338,15 +337,14 @@ export default class RetroActionButton extends Widget {
 
     const h = Unit.parse(this.height).value;
     const r = 6;
-    const top = h / 2 - r;
-    const x = 10 - r;
-    const size = r * 2 - 2;
+    const top = h / 2;
+    const x = 10;
     const angle = this.props.kind === 'secondary-action' ? '-40deg' : '60deg';
 
     return (
       <div className={this.styles.classNames.screwLeft}>
         <RetroScrew
-          size={size + 'px'}
+          radius={r + 'px'}
           top={top + 'px'}
           right={x + 'px'}
           angle={angle}

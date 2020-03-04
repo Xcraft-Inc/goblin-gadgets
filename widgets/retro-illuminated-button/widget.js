@@ -1,9 +1,11 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import {ColorHelpers} from 'electrum-theme';
+import {Unit} from 'electrum-theme';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import T from 'nabu/t/widget';
 import * as styles from './styles';
+import RetroScrew from 'goblin-gadgets/widgets/retro-screw/widget';
 
 /******************************************************************************/
 
@@ -83,7 +85,17 @@ export default class RetroIlluminatedButton extends Widget {
       return null;
     }
 
-    return <div className={this.styles.classNames.queue} />;
+    return (
+      <React.Fragment>
+        <div className={this.styles.classNames.queue} />
+        <div className={this.styles.classNames.queueEnd} />
+        <RetroScrew
+          left={Unit.add(Unit.multiply(this.props.width, 0.5), '2px')}
+          bottom="-55px"
+          radius="10px"
+        />
+      </React.Fragment>
+    );
   }
 
   render() {
