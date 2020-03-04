@@ -1,5 +1,5 @@
 //T:2019-02-27
-import {ColorManipulator} from 'electrum-theme';
+const {ColorManipulator} = require('electrum-theme');
 
 //-----------------------------------------------------------------------------
 
