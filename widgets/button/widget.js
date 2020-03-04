@@ -247,51 +247,50 @@ export default class Button extends Widget {
   }
 
   renderRetro() {
-    if (this.props.kind === 'task-logo') {
-      return (
-        <RetroIlluminatedButton
-          width={this.context.theme.shapes.taskButtonWidth}
-          height={this.context.theme.shapes.taskButtonHeight}
-          margin="20px 0px 40px 0px"
-          material="opal"
-          border="silver"
-          screws="four"
-          backgroundColor={this.context.theme.palette.taskLogoBackground}
-          color={this.context.theme.palette.taskLabelText}
-          glyph={this.props.glyph}
-          glyphSize={this.context.theme.shapes.taskLogoGlyphSize}
-          text={this.props.text}
-          textSize={this.context.theme.shapes.taskLogoTextSize}
-          textTransform="uppercase"
-          textWeight="bold"
-          onClick={this.onClick}
-        />
-      );
-    } else if (this.props.kind === 'task-bar') {
-      return (
-        <RetroIlluminatedButton
-          width={this.context.theme.shapes.taskButtonWidth}
-          height={this.context.theme.shapes.taskButtonHeight}
-          margin="5px 0px"
-          material="opal"
-          border="gold"
-          queue="bottom"
-          backgroundColor={this.context.theme.palette.taskButtonBackground}
-          color={this.context.theme.palette.taskButtonText}
-          glyph={this.props.glyph}
-          glyphSize={this.context.theme.shapes.taskGlyphSize}
-          text={this.props.text}
-          textSize={this.context.theme.shapes.taskTextSize}
-          onClick={this.onClick}
-        />
-      );
-    } else if (
-      this.props.kind === 'action' ||
-      this.props.kind === 'secondary-action'
-    ) {
-      return <RetroActionButton {...this.props} />;
-    } else {
-      return null;
+    switch (this.props.kind) {
+      case 'task-logo':
+        return (
+          <RetroIlluminatedButton
+            width={this.context.theme.shapes.taskButtonWidth}
+            height={this.context.theme.shapes.taskButtonHeight}
+            margin="20px 0px 40px 0px"
+            material="opal"
+            border="silver"
+            screws="four"
+            backgroundColor={this.context.theme.palette.taskLogoBackground}
+            color={this.context.theme.palette.taskLabelText}
+            glyph={this.props.glyph}
+            glyphSize={this.context.theme.shapes.taskLogoGlyphSize}
+            text={this.props.text}
+            textSize={this.context.theme.shapes.taskLogoTextSize}
+            textTransform="uppercase"
+            textWeight="bold"
+            onClick={this.onClick}
+          />
+        );
+      case 'task-bar':
+        return (
+          <RetroIlluminatedButton
+            width={this.context.theme.shapes.taskButtonWidth}
+            height={this.context.theme.shapes.taskButtonHeight}
+            margin="5px 0px"
+            material="opal"
+            border="gold"
+            queue="bottom"
+            backgroundColor={this.context.theme.palette.taskButtonBackground}
+            color={this.context.theme.palette.taskButtonText}
+            glyph={this.props.glyph}
+            glyphSize={this.context.theme.shapes.taskGlyphSize}
+            text={this.props.text}
+            textSize={this.context.theme.shapes.taskTextSize}
+            onClick={this.onClick}
+          />
+        );
+      case 'action':
+      case 'secondary-action':
+        return <RetroActionButton {...this.props} />;
+      default:
+        return null;
     }
   }
 

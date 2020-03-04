@@ -55,38 +55,39 @@ function getFramePath(dy, place) {
   dy = toInt(dy);
   const r = 10;
   const b = 0.552284749831; // (4/3)*tan(pi/8) = 4*(sqrt(2)-1)/3
+  const rb = r * b;
 
   // prettier-ignore
   if (place === 'left-screw') {
     const dx = 20
     path = moveTo(path, dx, 0.5);
-    path = lineTo(path, r, 0.5);
-    path = lineTo(path, r, dy/2-r);
-    path = bezierTo(path, r-r*b, dy/2-r, 0.5, dy/2-r*b, 0.5, dy/2);
-    path = bezierTo(path, 0.5, dy/2+r*b, r-r*b, dy/2+r, r, dy/2+r);
-    path = lineTo(path, r, dy-0.5);
+    path = lineTo(path, r,  0.5);
+    path = lineTo(path, r,  dy/2-r);
+    path = bezierTo(path, r-rb, dy/2-r,  0.5,  dy/2-rb, 0.5, dy/2);
+    path = bezierTo(path, 0.5,  dy/2+rb, r-rb, dy/2+r,  r,   dy/2+r);
+    path = lineTo(path, r,  dy-0.5);
     path = lineTo(path, dx, dy-0.5);
   } else if (place === 'right-screw') {
     const dx = 20
-    path = moveTo(path, 0, 0.5);
+    path = moveTo(path, 0,    0.5);
     path = lineTo(path, dx-r, 0.5);
     path = lineTo(path, dx-r, dy/2-r);
-    path = bezierTo(path, dx-r+r*b, dy/2-r, dx-0.5, dy/2-r*b, dx-0.5, dy/2);
-    path = bezierTo(path, dx-0.5, dy/2+r*b, dx-r+r*b, dy/2+r, dx-r, dy/2+r);
+    path = bezierTo(path, dx-r+rb, dy/2-r,  dx-0.5,  dy/2-rb, dx-0.5, dy/2);
+    path = bezierTo(path, dx-0.5,  dy/2+rb, dx-r+rb, dy/2+r,  dx-r,   dy/2+r);
     path = lineTo(path, dx-r, dy-0.5);
-    path = lineTo(path, 0, dy-0.5);
+    path = lineTo(path, 0,    dy-0.5);
   } else if (place === 'left') {
     const dx = 10
     path = moveTo(path, dx, 0.5);
-    path = lineTo(path, 0, 0.5);
-    path = lineTo(path, 0, dy-0.5);
+    path = lineTo(path, 0,  0.5);
+    path = lineTo(path, 0,  dy-0.5);
     path = lineTo(path, dx, dy-0.5);
   } else if (place === 'right') {
     const dx = 10
-    path = moveTo(path, 0, 0.5);
+    path = moveTo(path, 0,  0.5);
     path = lineTo(path, dx, 0.5);
     path = lineTo(path, dx, dy-0.5);
-    path = lineTo(path, 0, dy-0.5);
+    path = lineTo(path, 0,  dy-0.5);
   }
 
   return path;
@@ -94,6 +95,27 @@ function getFramePath(dy, place) {
 
 /******************************************************************************/
 
+function getPlace(place) {
+  if (place === '1/1') {
+    return 'single';
+  } else if (place.indexOf('/') !== -1) {
+    const n = place.split('/');
+    if (n.length === 2) {
+      if (n[0] === '1') {
+        return 'left';
+      } else if (n[0] === n[1]) {
+        return 'right';
+      } else {
+        return 'middle';
+      }
+    }
+  }
+  return 'middle';
+}
+
+/******************************************************************************/
+
 module.exports = {
   getFramePath,
+  getPlace,
 };

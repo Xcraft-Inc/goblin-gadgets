@@ -11,7 +11,7 @@ import Label from 'goblin-gadgets/widgets/label/widget';
 import Badge from 'goblin-gadgets/widgets/badge/widget';
 import RetroScrew from 'goblin-gadgets/widgets/retro-screw/widget';
 import * as styles from './styles';
-import getPath from './getPath';
+import helpers from './helpers';
 
 /******************************************************************************/
 
@@ -147,22 +147,7 @@ export default class RetroActionButton extends Widget {
   /******************************************************************************/
 
   get place() {
-    const place = this.props.place;
-    if (place === '1/1') {
-      return 'single';
-    } else if (place.indexOf('/') !== -1) {
-      const n = place.split('/');
-      if (n.length === 2) {
-        if (n[0] === '1') {
-          return 'left';
-        } else if (n[0] === n[1]) {
-          return 'right';
-        } else {
-          return 'middle';
-        }
-      }
-    }
-    return 'middle';
+    return helpers.getPlace(this.props.place);
   }
 
   get height() {
@@ -227,7 +212,7 @@ export default class RetroActionButton extends Widget {
   }
 
   renderLabel(boxStyle) {
-    const {tooltip, ...otherProps} = this.props;
+    const {tooltip, kind, ...otherProps} = this.props;
     return (
       <Label
         key="label"
@@ -262,10 +247,10 @@ export default class RetroActionButton extends Widget {
       return (
         <React.Fragment>
           <svg className={this.styles.classNames.frameLeftScrew}>
-            <path d={getPath.getFramePath(h, 'left-screw')} />
+            <path d={helpers.getFramePath(h, 'left-screw')} />
           </svg>
           <svg className={this.styles.classNames.frameRight}>
-            <path d={getPath.getFramePath(h, 'right')} />
+            <path d={helpers.getFramePath(h, 'right')} />
           </svg>
         </React.Fragment>
       );
@@ -273,10 +258,10 @@ export default class RetroActionButton extends Widget {
       return (
         <React.Fragment>
           <svg className={this.styles.classNames.frameLeft}>
-            <path d={getPath.getFramePath(h, 'left')} />
+            <path d={helpers.getFramePath(h, 'left')} />
           </svg>
           <svg className={this.styles.classNames.frameRightScrew}>
-            <path d={getPath.getFramePath(h, 'right-screw')} />
+            <path d={helpers.getFramePath(h, 'right-screw')} />
           </svg>
         </React.Fragment>
       );
@@ -284,10 +269,10 @@ export default class RetroActionButton extends Widget {
       return (
         <React.Fragment>
           <svg className={this.styles.classNames.frameLeftScrew}>
-            <path d={getPath.getFramePath(h, 'left-screw')} />
+            <path d={helpers.getFramePath(h, 'left-screw')} />
           </svg>
           <svg className={this.styles.classNames.frameRightScrew}>
-            <path d={getPath.getFramePath(h, 'right-screw')} />
+            <path d={helpers.getFramePath(h, 'right-screw')} />
           </svg>
         </React.Fragment>
       );
@@ -295,10 +280,10 @@ export default class RetroActionButton extends Widget {
       return (
         <React.Fragment>
           <svg className={this.styles.classNames.frameLeft}>
-            <path d={getPath.getFramePath(h, 'left')} />
+            <path d={helpers.getFramePath(h, 'left')} />
           </svg>
           <svg className={this.styles.classNames.frameRight}>
-            <path d={getPath.getFramePath(h, 'right')} />
+            <path d={helpers.getFramePath(h, 'right')} />
           </svg>
         </React.Fragment>
       );

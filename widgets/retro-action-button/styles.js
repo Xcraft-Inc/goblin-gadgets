@@ -1,22 +1,6 @@
-import {Unit} from 'electrum-theme';
-import {ColorHelpers} from 'electrum-theme';
 import {ColorManipulator} from 'electrum-theme';
 import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
-
-function convertJustify(justify) {
-  switch (justify) {
-    case 'start':
-      return 'flex-start';
-    case 'end':
-      return 'flex-end';
-    case 'around':
-      return 'space-around';
-    case 'between':
-      return 'space-between';
-    default:
-      return justify;
-  }
-}
+import helpers from './helpers';
 
 /******************************************************************************/
 
@@ -24,7 +8,6 @@ export const propNames = [
   'width',
   'grow',
   'justify',
-  'zIndex',
   'visibility',
   'cursor',
   'disabled',
@@ -34,8 +17,6 @@ export const propNames = [
   'kind',
   'place',
   'badgePush',
-  'backgroundColor',
-  'activeColor',
   'busy',
 ];
 
@@ -50,19 +31,13 @@ export default function styles(theme, props) {
   let {
     width,
     grow,
-    justify,
-    zIndex,
     visibility,
     disabled,
     readonly,
     kind,
     place: placeProp,
-    backgroundColor: backgroundColorProp,
-    activeColor: activeColorProp,
     busy,
   } = props;
-
-  const m = Unit.multiply(theme.shapes.containerMargin, 0.5);
 
   // Initialize all variables for a standard button.
   let boxWidth = width || '200px';
@@ -71,43 +46,21 @@ export default function styles(theme, props) {
   let boxFlexGrow = grow;
   let boxFlexShrink = null;
   let boxFlexBasis = null;
-  let boxJustifyContent = convertJustify(justify);
   let boxAlignItems = 'center';
-  let boxAlignSelf = null;
-  let boxZIndex = zIndex;
   let boxOpacity = Bool.isFalse(visibility) ? 0 : null;
   let borderWidth = theme.shapes.buttonBorderWidth;
   let borderColor = theme.palette.buttonBorderColor;
-  let borderColorForced = null;
   let borderStyle = 'solid';
   let borderRadius = kind === 'secondary-action' ? '5px' : '8px';
-  let boxSizing = null;
   let boxShadow = null;
   let backgroundColor = theme.palette.buttonBackground;
-  let borderHoverColor = null;
-  let borderHoverStyle = null;
-  let borderHoverWidth = null;
   let backgroundHoverColor = null;
   let transition = theme.transitions.easeOut();
   let specialDisabled = false;
 
   disabled = Bool.isTrue(disabled) || Bool.isTrue(readonly);
 
-  let place = placeProp || 'middle';
-  if (place === '1/1') {
-    place = 'single';
-  } else if (place.indexOf('/') !== -1) {
-    const n = place.split('/');
-    if (n.length === 2) {
-      if (n[0] === '1') {
-        place = 'left';
-      } else if (n[0] === n[1]) {
-        place = 'right';
-      } else {
-        place = 'middle';
-      }
-    }
-  }
+  const place = helpers.getPlace(placeProp);
 
   const c1 = theme.palette.actionButtonBackground;
   const c2 = ColorManipulator.darken(theme.palette.actionButtonBackground, 0.4);
@@ -159,7 +112,6 @@ export default function styles(theme, props) {
 
   borderColor = `${tColor} ${rColor} ${bColor} ${lColor}`;
   borderStyle = 'solid';
-  boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'none';
 
   // Action button (usual parent is container with kind='actions').
   if (kind === 'action') {
@@ -187,20 +139,9 @@ export default function styles(theme, props) {
     }
   }
 
-  if (borderColorForced) {
-    borderColor = borderColorForced;
-  }
-
   if (boxFlexGrow) {
     boxFlexShrink = '1';
     boxFlexBasis = '0%';
-  }
-
-  if (!boxJustifyContent) {
-    boxJustifyContent = 'center';
-  }
-  if (boxJustifyContent === 'none') {
-    boxJustifyContent = null;
   }
 
   const retroActionButton = {
@@ -222,17 +163,13 @@ export default function styles(theme, props) {
     opacity: boxOpacity,
     overflow: 'hidden',
     display: 'flex',
-    justifyContent: boxJustifyContent,
     alignItems: boxAlignItems,
-    alignSelf: boxAlignSelf,
     borderWidth: borderWidth,
     borderColor: borderColor,
     borderStyle: borderStyle,
     borderRadius: borderRadius,
-    boxSizing: boxSizing,
     background: backgroundColor,
     transition: transition,
-    zIndex: boxZIndex,
     textDecoration: 'none',
     userSelect: 'none',
     cursor: 'default',
@@ -240,9 +177,6 @@ export default function styles(theme, props) {
 
   if (!disabled && !Bool.isTrue(busy) && boxOpacity !== 0) {
     box[':hover'] = {
-      borderColor: borderHoverColor,
-      borderStyle: borderHoverStyle,
-      borderWidth: borderHoverWidth,
       background: backgroundHoverColor,
       opacity: 1.0,
     };
