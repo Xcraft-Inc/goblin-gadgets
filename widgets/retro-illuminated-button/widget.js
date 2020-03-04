@@ -98,6 +98,21 @@ export default class RetroIlluminatedButton extends Widget {
     );
   }
 
+  renderScrews() {
+    if (this.props.screws !== 'four') {
+      return null;
+    }
+
+    return (
+      <React.Fragment>
+        <RetroScrew top="-5px" left="-5px" angle="35deg" />
+        <RetroScrew top="-5px" right="-5px" angle="-70deg" />
+        <RetroScrew bottom="-5px" left="-5px" angle="10deg" />
+        <RetroScrew bottom="-5px" right="-5px" angle="-20deg" />
+      </React.Fragment>
+    );
+  }
+
   render() {
     let glyphColor = this.props.color;
     if (glyphColor) {
@@ -106,6 +121,7 @@ export default class RetroIlluminatedButton extends Widget {
 
     return (
       <div className={this.styles.classNames.illuminatedButton}>
+        {this.renderScrews()}
         {this.renderQueue(this.props.text)}
         <div
           className={this.styles.classNames.button}

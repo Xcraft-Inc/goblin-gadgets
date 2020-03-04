@@ -252,9 +252,10 @@ export default class Button extends Widget {
         <RetroIlluminatedButton
           width={this.context.theme.shapes.taskButtonWidth}
           height={this.context.theme.shapes.taskButtonHeight}
-          margin="20px 0px 15px 0px"
+          margin="20px 0px 40px 0px"
           material="opal"
           border="silver"
+          screws="four"
           backgroundColor={this.context.theme.palette.taskLogoBackground}
           color={this.context.theme.palette.taskLabelText}
           glyph={this.props.glyph}

@@ -232,13 +232,13 @@ export default function styles(theme, props) {
 
   const queueEnd = {
     position: 'absolute',
-    left: 'calc(50% - 20px)',
-    right: 'calc(50% - 20px)',
-    top: 'calc(100% + 35px)',
-    bottom: '-75px',
-    borderRadius: '20px',
+    left: 'calc(50% - 18px)',
+    right: 'calc(50% - 18px)',
+    top: 'calc(100% + 37px)',
+    bottom: '-73px',
+    borderRadius: '100px',
     background: ColorManipulator.darken(borderColor, 0.15),
-    boxShadow: glyphShadow,
+    boxShadow: '7px 8px 21px 0px #222',
   };
 
   const glyph = {
