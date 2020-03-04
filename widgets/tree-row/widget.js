@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
-import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 
 import TreeCell from 'goblin-gadgets/widgets/tree-cell/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';

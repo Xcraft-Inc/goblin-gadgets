@@ -1,4 +1,4 @@
-import {Unit} from 'electrum-theme';
+const {Unit} = require('electrum-theme');
 
 function getHorizontalSpacingRightMargin(theme, horizontalSpacing) {
   let rightMargin = null;

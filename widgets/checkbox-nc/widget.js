@@ -2,7 +2,7 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import Props from './props';
-import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import {
   makePropTypes,
   makeDefaultProps,

@@ -2,7 +2,7 @@
 import T from 't';
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
-import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import {time as TimeConverters} from 'xcraft-core-converters';
 import TextFieldTyped from 'goblin-gadgets/widgets/text-field-typed/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';

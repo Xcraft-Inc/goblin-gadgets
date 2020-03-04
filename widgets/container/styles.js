@@ -1,8 +1,8 @@
 import {Unit} from 'electrum-theme';
 import {ColorHelpers} from 'electrum-theme';
 import {ColorManipulator} from 'electrum-theme';
-import * as Bool from 'gadgets/helpers/bool-helpers';
-import * as SpacingHelpers from 'gadgets/helpers/spacing-helpers';
+import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
+import * as SpacingHelpers from 'goblin-gadgets/widgets/helpers/spacing-helpers';
 
 const isWebkit = 'WebkitAppearance' in document.documentElement.style;
 

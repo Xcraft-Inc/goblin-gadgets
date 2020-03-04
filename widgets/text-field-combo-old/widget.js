@@ -3,7 +3,7 @@ import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import MouseTrap from 'mousetrap';
 import ComboHelpers from 'goblin-gadgets/widgets/helpers/combo-helpers';
-import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import {Unit} from 'electrum-theme';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import TextField from 'goblin-gadgets/widgets/text-field/widget';

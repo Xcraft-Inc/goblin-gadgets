@@ -5,7 +5,7 @@ import {
   time as TimeConverters,
   date as DateConverters,
 } from 'xcraft-core-converters';
-import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 
 import Gauge from 'goblin-gadgets/widgets/gauge/widget';
 

@@ -1,5 +1,5 @@
-import * as Bool from 'gadgets/helpers/bool-helpers';
-import * as SpacingHelpers from 'gadgets/helpers/spacing-helpers';
+import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
+import * as SpacingHelpers from 'goblin-gadgets/widgets/helpers/spacing-helpers';
 import {Unit} from 'electrum-theme';
 
 /******************************************************************************/

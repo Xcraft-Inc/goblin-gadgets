@@ -6,7 +6,7 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import Widget from 'goblin-laboratory/widgets/widget';
 import T from 'nabu/t/widget';
 import {ColorHelpers} from 'electrum-theme';
-import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import {TranslatableDiv} from 'nabu/helpers/element-helpers';
 import {
   makePropTypes,

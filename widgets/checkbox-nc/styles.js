@@ -1,5 +1,5 @@
 import {ColorManipulator} from 'electrum-theme';
-import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 
 /******************************************************************************/
 

@@ -3,7 +3,7 @@ import T from 't';
 import React from 'react';
 import Form from 'goblin-laboratory/widgets/form';
 import {date as DateConverters} from 'xcraft-core-converters';
-import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 
 import Button from 'goblin-gadgets/widgets/button/widget';
 import * as styles from './styles';

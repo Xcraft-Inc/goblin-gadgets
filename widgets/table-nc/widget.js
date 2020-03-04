@@ -3,7 +3,7 @@ import React from 'react';
 import Props from './props';
 import Widget from 'goblin-laboratory/widgets/widget';
 import {Unit} from 'electrum-theme';
-import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 
 import {
   date as DateConverters,

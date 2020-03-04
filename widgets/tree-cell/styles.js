@@ -1,6 +1,6 @@
 import {Unit} from 'electrum-theme';
 import {isImmutable} from 'immutable';
-import * as Bool from 'gadgets/helpers/bool-helpers';
+import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 
 /******************************************************************************/
 
