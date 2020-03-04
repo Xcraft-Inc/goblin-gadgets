@@ -5,6 +5,7 @@ import {ColorHelpers} from 'electrum-theme';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import Container from 'goblin-gadgets/widgets/container/widget';
+import IlluminatedButton from 'goblin-gadgets/widgets/illuminated-button/widget';
 import * as styles from './styles';
 
 /******************************************************************************/
@@ -82,22 +83,18 @@ export default class Notification extends Widget {
       );
     } else {
       return (
-        <div className={this.styles.classNames.glyphChrome}>
-          <div className={this.styles.classNames.glyph}>
-            <Button
-              width="50px"
-              height="50px"
-              glyph={this.props.data.glyph}
-              glyphSize="150%"
-              glyphColor="white"
-              backgroundColor="transparent"
-              kind="round"
-              vpos="top"
-              onClick={this.props.onClickNotification}
-            />
-            <div className={this.styles.classNames.glyphLens} />
-          </div>
-        </div>
+        <IlluminatedButton
+          width="50px"
+          height="50px"
+          material="led"
+          backgroundColor={this.props.data.color}
+          color="white"
+          status={this.props.status === 'not-read' ? 'flash' : null}
+          glyph={this.props.data.glyph}
+          glyphSize="150%"
+          vpos="top"
+          onClick={this.props.onClickNotification}
+        />
       );
     }
   }

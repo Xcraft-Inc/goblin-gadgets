@@ -5,6 +5,7 @@ export const propNames = [
   'bottom',
   'left',
   'right',
+  'size',
   'angle',
   'backgroundBrigtness',
 ];

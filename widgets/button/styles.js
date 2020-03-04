@@ -140,7 +140,6 @@ export default function styles(theme, props) {
   let boxSizing = null;
   let boxShadow = null;
   let backgroundColor = theme.palette.buttonBackground;
-  let background = null;
   let activeColor = theme.palette.boxActiveBackground;
   let borderHoverColor = null;
   let borderHoverStyle = null;
@@ -194,35 +193,6 @@ export default function styles(theme, props) {
     borderStyle = 'none none solid none';
     borderColor = theme.palette.taskButtonBorder;
     backgroundColor = theme.palette.taskButtonBackground;
-
-    if (theme.look.name === 'retro') {
-      backgroundColor = `radial-gradient(at 30% 30%, rgba(255,255,255,0.7), ${theme.palette.taskButtonBackground} 40%)`;
-      backgroundHoverColor = `radial-gradient(at 30% 30%, rgba(255,255,255,0.9), ${ColorManipulator.lighten(
-        theme.palette.taskButtonBackground,
-        0.2
-      )} 40%)`;
-    }
-  }
-
-  if (
-    (kind === 'task-logo' || kind === 'task-bar') &&
-    theme.look.name === 'retro'
-  ) {
-    let c1 = '#ffda52';
-    let c2 = '#ffc800'; // yellow chrome
-
-    boxWidth = Unit.add(theme.shapes.taskButtonWidth, '20px');
-    boxMaxWidth = Unit.add(theme.shapes.taskButtonWidth, '10px');
-    boxHeight = Unit.add(theme.shapes.taskButtonHeight, '10px');
-    borderRadius = '50px';
-    boxMarginTop = '5px';
-    boxMarginRight = '5px';
-    boxMarginBottom = '0px';
-    boxMarginLeft = '5px';
-    borderWidth = '5px';
-    borderStyle = 'solid';
-    borderColor = `${c1} ${c2} ${c2} ${c1}`;
-    boxShadow = '3px 5px 21px 2px rgba(0,0,0,0.7)';
   }
 
   // main-tab button (usual parent is container with kind='main-tab').

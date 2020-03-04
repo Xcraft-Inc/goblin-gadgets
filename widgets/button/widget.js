@@ -14,6 +14,8 @@ import {
 
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Badge from 'goblin-gadgets/widgets/badge/widget';
+import IlluminatedButton from 'goblin-gadgets/widgets/illuminated-button/widget';
+import RetroActionButton from 'goblin-gadgets/widgets/retro-action-button/widget';
 import * as styles from './styles';
 
 /******************************************************************************/
@@ -244,9 +246,64 @@ export default class Button extends Widget {
     return result;
   }
 
+  renderRetro() {
+    if (this.props.kind === 'task-logo') {
+      return (
+        <IlluminatedButton
+          width={this.context.theme.shapes.taskButtonWidth}
+          height={this.context.theme.shapes.taskButtonHeight}
+          margin="20px 0px 15px 0px"
+          material="opal"
+          border="silver"
+          backgroundColor={this.context.theme.palette.taskLogoBackground}
+          color={this.context.theme.palette.taskLabelText}
+          glyph={this.props.glyph}
+          glyphSize={this.context.theme.shapes.taskLogoGlyphSize}
+          text={this.props.text}
+          textSize={this.context.theme.shapes.taskLogoTextSize}
+          textTransform="uppercase"
+          textWeight="bold"
+          onClick={this.onClick}
+        />
+      );
+    } else if (this.props.kind === 'task-bar') {
+      return (
+        <IlluminatedButton
+          width={this.context.theme.shapes.taskButtonWidth}
+          height={this.context.theme.shapes.taskButtonHeight}
+          margin="5px 0px"
+          material="opal"
+          border="gold"
+          queue="bottom"
+          backgroundColor={this.context.theme.palette.taskButtonBackground}
+          color={this.context.theme.palette.taskButtonText}
+          glyph={this.props.glyph}
+          glyphSize={this.context.theme.shapes.taskGlyphSize}
+          text={this.props.text}
+          textSize={this.context.theme.shapes.taskTextSize}
+          onClick={this.onClick}
+        />
+      );
+    } else if (
+      this.props.kind === 'action' ||
+      this.props.kind === 'secondary-action'
+    ) {
+      return <RetroActionButton {...this.props} />;
+    } else {
+      return null;
+    }
+  }
+
   render() {
     if (Bool.isFalse(this.props.show)) {
       return null;
+    }
+
+    if (this.context.theme.look.name === 'retro') {
+      const r = this.renderRetro();
+      if (r) {
+        return r;
+      }
     }
 
     let tooltip = this.props.tooltip;

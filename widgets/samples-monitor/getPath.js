@@ -1,4 +1,3 @@
-// Convert string '123px' to int 123.
 // Move to absolute position.
 function moveTo(path, x, y) {
   path += 'M ' + x + ' ' + y + ' ';
