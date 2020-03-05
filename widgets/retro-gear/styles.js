@@ -9,6 +9,7 @@ export const propNames = [
   'radius',
   'angle',
   'color',
+  'opacity',
   'rotationDuration',
   'rotationDirection',
 ];
@@ -24,6 +25,7 @@ export default function styles(theme, props) {
     radius = '100px',
     angle = '0deg',
     color = '#aaa',
+    opacity = 1,
     rotationDuration,
     rotationDirection,
   } = props;
@@ -65,6 +67,7 @@ export default function styles(theme, props) {
     stroke: ColorManipulator.darken(color, 0.8),
     strokeWidth: '1px',
     fill: color,
+    opacity: opacity,
   };
 
   const gearDark = {
@@ -72,6 +75,7 @@ export default function styles(theme, props) {
     stroke: ColorManipulator.darken(color, 0.8),
     strokeWidth: '1px',
     fill: ColorManipulator.darken(color, 0.1),
+    opacity: Math.min(opacity * 1.5, 1),
   };
 
   /******************************************************************************/

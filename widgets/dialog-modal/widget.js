@@ -58,8 +58,8 @@ export default class DialogModal extends Widget {
     }
 
     const color = ColorManipulator.darken(
-      this.context.theme.palette.actionButtonBackground,
-      0.5
+      this.context.theme.palette.actionBackground,
+      0.1
     );
 
     return (

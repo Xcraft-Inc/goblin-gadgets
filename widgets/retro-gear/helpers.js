@@ -98,7 +98,7 @@ function getGearLightPath(cx, cy, r, toothCount = 36) {
     const r2 = i % 2 !== 0 ? r5 : r4;
     const p1 = rotatePointDeg({x: cx, y: cy}, a - a2, {x: cx + r1, y: cy});
     const p2 = rotatePointDeg({x: cx, y: cy}, a + a2, {x: cx + r2, y: cy});
-    if (path.length === 0) {
+    if (i === 0) {
       moveTo(path, p1.x, p1.y);
     } else {
       lineTo(path, p1.x, p1.y);
