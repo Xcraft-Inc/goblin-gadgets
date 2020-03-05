@@ -161,7 +161,7 @@ export default class DialogModal extends Widget {
 
       return (
         <div
-          className={this.styles.classNames.fullScreen}
+          className={this.styles.classNames.fullScreen2}
           onMouseDown={this.onBackgroundClick}
           onTouchStart={this.onBackgroundClick}
         >

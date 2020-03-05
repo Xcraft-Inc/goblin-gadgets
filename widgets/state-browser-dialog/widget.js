@@ -228,7 +228,7 @@ class StateBrowserDialog extends Widget {
 
     return (
       <DialogModal
-        width="800px"
+        width="850px"
         height="600px"
         left={r.right + 40 + 'px'}
         center={centerY + 'px'}

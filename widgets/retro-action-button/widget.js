@@ -212,7 +212,7 @@ export default class RetroActionButton extends Widget {
   }
 
   renderLabel(boxStyle) {
-    const {tooltip, kind, ...otherProps} = this.props;
+    const {tooltip, kind, width, ...otherProps} = this.props;
     return (
       <Label
         key="label"
