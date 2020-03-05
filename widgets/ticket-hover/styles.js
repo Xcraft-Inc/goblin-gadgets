@@ -14,29 +14,24 @@ function toInt(value) {
 
 // Move to absolute position.
 function moveTo(path, x, y) {
-  path += 'M ' + x + ' ' + y + ' ';
-  return path;
+  path.push('M ' + x + ' ' + y);
 }
 
 // Line to relative position.
 function lineTo(path, dx, dy) {
-  path += 'l ' + dx + ' ' + dy + ' ';
-  return path;
+  path.push('l ' + dx + ' ' + dy);
 }
 
 // Arc to relative position.
 function arcTo(path, r, cx, cy, sweepFlag) {
   // rx ry x-axis-rotation large-arc-flag sweep-flag x y
   // see http://www.w3.org/TR/SVG/paths.html#PathDataEllipticalArcCommands
-  path += 'a ' + r + ' ' + r + ' 0 0 ' + sweepFlag + ' ' + cx + ' ' + cy + ' ';
-  // path += 'a ' + r + ' '  + r + ' 0 0 0 ' + cx + ' ' + cy + ' ';
-  return path;
+  path.push('a ' + r + ' ' + r + ' 0 0 ' + sweepFlag + ' ' + cx + ' ' + cy);
 }
 
 // Close path.
 function close(path) {
-  path += 'z';
-  return path;
+  path.push('z');
 }
 
 function getHoverPath(theme, shape, hoverShape, width, height) {
@@ -48,88 +43,88 @@ function getHoverPath(theme, shape, hoverShape, width, height) {
   const w = toInt(width);
   const h = toInt(height);
 
-  let path = '';
+  const path = [];
   if (hoverShape === 'first') {
     // /\/\/\/\/\/\/\
     // |            |
     // +------------+
     const s = shape === 'first' ? 0 : r;
-    path = moveTo(path, 0, h - s);
-    path = lineTo(path, 0, -(h - s - r));
-    path = arcTo(path, r, r, -r, 0); // top-left external corner
-    path = lineTo(path, w - r - r, 0);
-    path = arcTo(path, r, r, r, 0); // top-right external corner
-    path = lineTo(path, 0, h - s - r);
-    path = lineTo(path, -t, 0);
-    path = lineTo(path, 0, -(h - t - s - r));
-    path = arcTo(path, i, -r, -r, 1); // top-right internal corner
-    path = lineTo(path, -(w - r - r - t - t), 0);
-    path = arcTo(path, i, -r, r, 1); // top-left internal corner
-    path = lineTo(path, 0, h - t - s - r);
-    path = close(path);
+    moveTo(path, 0, h - s);
+    lineTo(path, 0, -(h - s - r));
+    arcTo(path, r, r, -r, 0); // top-left external corner
+    lineTo(path, w - r - r, 0);
+    arcTo(path, r, r, r, 0); // top-right external corner
+    lineTo(path, 0, h - s - r);
+    lineTo(path, -t, 0);
+    lineTo(path, 0, -(h - t - s - r));
+    arcTo(path, i, -r, -r, 1); // top-right internal corner
+    lineTo(path, -(w - r - r - t - t), 0);
+    arcTo(path, i, -r, r, 1); // top-left internal corner
+    lineTo(path, 0, h - t - s - r);
+    close(path);
   } else if (hoverShape === 'last') {
     // +------------+
     // |            |
     // \/\/\/\/\/\/\/
     const s = shape === 'last' ? 0 : r;
-    path = moveTo(path, 0, s);
-    path = lineTo(path, 0, h - s - r);
-    path = arcTo(path, r, r, r, 1); // bottom-left external corner
-    path = lineTo(path, w - r - r, 0);
-    path = arcTo(path, r, r, -r, 1); // bottom-right external corner
-    path = lineTo(path, 0, -(h - s - r));
-    path = lineTo(path, -t, 0);
-    path = lineTo(path, 0, h - t - s - r);
-    path = arcTo(path, i, -r, r, 0); // bottom-right internal corner
-    path = lineTo(path, -(w - r - r - t - t), 0);
-    path = arcTo(path, i, -r, -r, 0); // bottom-left internal corner
-    path = lineTo(path, 0, -(h - t - s - r));
-    path = close(path);
+    moveTo(path, 0, s);
+    lineTo(path, 0, h - s - r);
+    arcTo(path, r, r, r, 1); // bottom-left external corner
+    lineTo(path, w - r - r, 0);
+    arcTo(path, r, r, -r, 1); // bottom-right external corner
+    lineTo(path, 0, -(h - s - r));
+    lineTo(path, -t, 0);
+    lineTo(path, 0, h - t - s - r);
+    arcTo(path, i, -r, r, 0); // bottom-right internal corner
+    lineTo(path, -(w - r - r - t - t), 0);
+    arcTo(path, i, -r, -r, 0); // bottom-left internal corner
+    lineTo(path, 0, -(h - t - s - r));
+    close(path);
   } else if (hoverShape === 'continued') {
     // +------------+
     // |            |
     // +------------+
     const st = shape === 'middle' || shape === 'first' ? r : 0;
     const sb = shape === 'middle' || shape === 'last' ? r : 0;
-    path = moveTo(path, 0, st);
-    path = lineTo(path, t, 0);
-    path = lineTo(path, 0, h - st - sb);
-    path = lineTo(path, -t, 0);
-    path = lineTo(path, 0, -(h - st - sb)); // left border
-    path = moveTo(path, w, st);
-    path = lineTo(path, -t, 0);
-    path = lineTo(path, 0, h - st - sb);
-    path = lineTo(path, t, 0);
-    path = lineTo(path, 0, -(h - st - sb)); // right border
-    path = close(path);
+    moveTo(path, 0, st);
+    lineTo(path, t, 0);
+    lineTo(path, 0, h - st - sb);
+    lineTo(path, -t, 0);
+    lineTo(path, 0, -(h - st - sb)); // left border
+    moveTo(path, w, st);
+    lineTo(path, -t, 0);
+    lineTo(path, 0, h - st - sb);
+    lineTo(path, t, 0);
+    lineTo(path, 0, -(h - st - sb)); // right border
+    close(path);
   } else if (hoverShape === 'middle') {
     // /\/\/\/\/\/\/\
     // |            |
     // \/\/\/\/\/\/\/
     // External CW.
-    path = moveTo(path, 0, h - r);
-    path = lineTo(path, 0, -(h - r - r));
-    path = arcTo(path, r, r, -r, 0); // top-left external corner
-    path = lineTo(path, w - r - r, 0);
-    path = arcTo(path, r, r, r, 0); // top-right external corner
-    path = lineTo(path, 0, h - r - r);
-    path = arcTo(path, r, -r, r, 0); // bottom-right external corner
-    path = lineTo(path, -(w - r - r), 0);
-    path = arcTo(path, r, -r, -r, 0); // bottom-left internal corner
-    path = close(path);
+    moveTo(path, 0, h - r);
+    lineTo(path, 0, -(h - r - r));
+    arcTo(path, r, r, -r, 0); // top-left external corner
+    lineTo(path, w - r - r, 0);
+    arcTo(path, r, r, r, 0); // top-right external corner
+    lineTo(path, 0, h - r - r);
+    arcTo(path, r, -r, r, 0); // bottom-right external corner
+    lineTo(path, -(w - r - r), 0);
+    arcTo(path, r, -r, -r, 0); // bottom-left internal corner
+    close(path);
     // Internal CCW.
-    path = moveTo(path, t + r, h - t);
-    path = lineTo(path, w - r - r - t - t, 0);
-    path = arcTo(path, i, r, -r, 1); // bottom-right internal corner
-    path = lineTo(path, 0, -(h - r - r - t - t));
-    path = arcTo(path, i, -r, -r, 1); // top-right internal corner
-    path = lineTo(path, -(w - r - r - t - t), 0);
-    path = arcTo(path, i, -r, r, 1); // top-left internal corner
-    path = lineTo(path, 0, h - r - r - t - t);
-    path = arcTo(path, i, r, r, 1); // bottom-left internal corner
-    path = close(path);
+    moveTo(path, t + r, h - t);
+    lineTo(path, w - r - r - t - t, 0);
+    arcTo(path, i, r, -r, 1); // bottom-right internal corner
+    lineTo(path, 0, -(h - r - r - t - t));
+    arcTo(path, i, -r, -r, 1); // top-right internal corner
+    lineTo(path, -(w - r - r - t - t), 0);
+    arcTo(path, i, -r, r, 1); // top-left internal corner
+    lineTo(path, 0, h - r - r - t - t);
+    arcTo(path, i, r, r, 1); // bottom-left internal corner
+    close(path);
   }
-  return path;
+  return path.join(' ');
 }
 
 /******************************************************************************/

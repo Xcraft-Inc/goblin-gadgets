@@ -68,9 +68,9 @@ function getCirclePath(path, cx, cy, r) {
 
   moveTo(path, cx+r, cy);
   bezierTo(path, cx+r,  cy+rb, cx+rb, cy+r,  cx,   cy+r);
-  bezierTo(path, cx-rb, cy+r,  cx-r,  cy+rb, cx-r, cy);
+  bezierTo(path, cx-rb, cy+r,  cx-r,  cy+rb, cx-r, cy  );
   bezierTo(path, cx-r,  cy-rb, cx-rb, cy-r,  cx,   cy-r);
-  bezierTo(path, cx+rb, cy-r,  cx+r,  cy-rb, cx+r, cy);
+  bezierTo(path, cx+rb, cy-r,  cx+r,  cy-rb, cx+r, cy  );
   close(path);
 }
 

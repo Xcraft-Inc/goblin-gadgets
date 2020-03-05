@@ -56,8 +56,8 @@ function getFramePath(dy, place) {
   // prettier-ignore
   if (place === 'left-screw') {
     const dx = 20
-    moveTo(path, dx, 0.5);
-    lineTo(path, r,  0.5);
+    moveTo(path, dx,    0.5);
+    lineTo(path, r,     0.5);
     lineTo(path, r,  dy/2-r);
     bezierTo(path, r-rb, dy/2-r,  0.5,  dy/2-rb, 0.5, dy/2);
     bezierTo(path, 0.5,  dy/2+rb, r-rb, dy/2+r,  r,   dy/2+r);
@@ -65,8 +65,8 @@ function getFramePath(dy, place) {
     lineTo(path, dx, dy-0.5);
   } else if (place === 'right-screw') {
     const dx = 20
-    moveTo(path, 0,    0.5);
-    lineTo(path, dx-r, 0.5);
+    moveTo(path, 0,    0.5   );
+    lineTo(path, dx-r, 0.5   );
     lineTo(path, dx-r, dy/2-r);
     bezierTo(path, dx-r+rb, dy/2-r,  dx-0.5,  dy/2-rb, dx-0.5, dy/2);
     bezierTo(path, dx-0.5,  dy/2+rb, dx-r+rb, dy/2+r,  dx-r,   dy/2+r);
@@ -74,14 +74,14 @@ function getFramePath(dy, place) {
     lineTo(path, 0,    dy-0.5);
   } else if (place === 'left') {
     const dx = 10
-    moveTo(path, dx, 0.5);
-    lineTo(path, 0,  0.5);
+    moveTo(path, dx,    0.5);
+    lineTo(path, 0,     0.5);
     lineTo(path, 0,  dy-0.5);
     lineTo(path, dx, dy-0.5);
   } else if (place === 'right') {
     const dx = 10
-    moveTo(path, 0,  0.5);
-    lineTo(path, dx, 0.5);
+    moveTo(path, 0,     0.5);
+    lineTo(path, dx,    0.5);
     lineTo(path, dx, dy-0.5);
     lineTo(path, 0,  dy-0.5);
   }
