@@ -304,7 +304,7 @@ class Field extends Form {
         verticalJustify={this.props.verticalJustify}
       >
         <TextFieldCombo
-          selectAllOnFocus="true"
+          selectAllOnFocus={true}
           shape={this.props.shape}
           getGlyph={this.props.getGlyph}
           hintText={this.props.hintText}
@@ -704,6 +704,7 @@ class Field extends Form {
       >
         <TextFieldTyped
           type={kind}
+          selectAllOnFocus={true}
           width={fieldWidth}
           {...otherProps}
           tooltip={this.props.tooltip || this.props.hintText}
@@ -761,6 +762,7 @@ class Field extends Form {
         verticalJustify={verticalJustify}
       >
         <TextFieldTimeInterval
+          selectAllOnFocus={true}
           {...otherProps}
           entityFullPath={this.context.model}
           tooltip={this.props.tooltip || this.props.hintText}
