@@ -40,10 +40,23 @@ export default function styles(theme, props) {
     },
   };
 
-  const fullScreen = {
+  const fullScreen1 = {
+    position: 'fixed',
     display: 'flex',
     visibility: 'visible',
+    zIndex: zIndex || 10,
+    top: '0px',
+    left: '0px',
+    width: '100%',
+    height: '100%',
+    userSelect: 'none',
+    cursor: 'default',
+  };
+
+  const fullScreen2 = {
     position: 'fixed',
+    display: 'flex',
+    visibility: 'visible',
     zIndex: zIndex || 10,
     top: '0px',
     left: '0px',
@@ -55,12 +68,15 @@ export default function styles(theme, props) {
   };
 
   if (look === 'retro') {
-    fullScreen.animationName = shadowKeyframes;
-    fullScreen.animationDuration = '0.8s';
-    fullScreen.animationIterationCount = 1;
-    fullScreen.backgroundColor = theme.palette.flyingDialogFullScreenBackground;
-    fullScreen.boxShadow = 'inset 0px 0px 23vh 5vh black';
+    fullScreen2.animationName = shadowKeyframes;
+    fullScreen2.animationDuration = '0.8s';
+    fullScreen2.animationIterationCount = 1;
+    fullScreen2.backgroundColor =
+      theme.palette.flyingDialogFullScreenBackground;
+    fullScreen2.boxShadow = 'inset 0px 0px 23vh 5vh black';
   }
+
+  /******************************************************************************/
 
   const dialogModal = {
     position: 'relative',
@@ -137,11 +153,34 @@ export default function styles(theme, props) {
 
   /******************************************************************************/
 
+  const gear1 = {
+    position: 'absolute',
+    left: 'calc(50% - 150px)',
+    bottom: '0px',
+    width: '0px',
+    height: '0px',
+  };
+
+  const gear2 = {
+    position: 'absolute',
+    left: 'calc(50% + 520px)',
+    bottom: '85px',
+    width: '0px',
+    height: '0px',
+  };
+
+  /******************************************************************************/
+
   return {
-    fullScreen,
+    fullScreen1,
+    fullScreen2,
+
     dialogModal,
     dialogModalInside,
     combo,
+
+    gear1,
+    gear2,
   };
 }
 

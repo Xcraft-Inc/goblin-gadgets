@@ -4,6 +4,7 @@ import Widget from 'goblin-laboratory/widgets/widget';
 import KeyTrap from 'goblin-gadgets/widgets/key-trap.js';
 import Container from 'goblin-gadgets/widgets/container/widget';
 import RetroScrew from 'goblin-gadgets/widgets/retro-screw/widget';
+import RetroGear from 'goblin-gadgets/widgets/retro-gear/widget';
 import {ColorManipulator} from 'electrum-theme';
 import * as RectHelpers from '../helpers/rect-helpers.js';
 import * as styles from './styles';
@@ -50,6 +51,44 @@ export default class DialogModal extends Widget {
   }
 
   /******************************************************************************/
+
+  renderGears() {
+    if (this.context.theme.look.name !== 'retro') {
+      return null;
+    }
+
+    const color = ColorManipulator.darken(
+      this.context.theme.palette.actionButtonBackground,
+      0.5
+    );
+
+    return (
+      <React.Fragment>
+        <div className={this.styles.classNames.gear1}>
+          <RetroGear
+            color={color}
+            left="0px"
+            top="0px"
+            radius="500px"
+            toothCount="36"
+            rotationDuration="100s"
+            rotationDirection="cw"
+          />
+        </div>
+        <div className={this.styles.classNames.gear2}>
+          <RetroGear
+            color={color}
+            left="0px"
+            top="0px"
+            radius="200px"
+            toothCount="12"
+            rotationDuration="33.35s"
+            rotationDirection="ccw"
+          />
+        </div>
+      </React.Fragment>
+    );
+  }
 
   renderScrews() {
     if (this.context.theme.look.name !== 'retro') {
@@ -137,18 +176,21 @@ export default class DialogModal extends Widget {
       );
     } else {
       return (
-        <div
-          className={this.styles.classNames.fullScreen}
-          onMouseDown={this.onBackgroundClick}
-          onTouchStart={this.onBackgroundClick}
-        >
+        <div className={this.styles.classNames.fullScreen1}>
+          {this.renderGears()}
           <div
-            ref={node => (this.divNode = node)}
-            className={this.styles.classNames.dialogModal}
+            className={this.styles.classNames.fullScreen2}
+            onMouseDown={this.onBackgroundClick}
+            onTouchStart={this.onBackgroundClick}
           >
-            <div className={this.styles.classNames.dialogModalInside}>
-              {this.renderScrews()}
-              {this.props.children}
+            <div
+              ref={node => (this.divNode = node)}
+              className={this.styles.classNames.dialogModal}
+            >
+              <div className={this.styles.classNames.dialogModalInside}>
+                {this.renderScrews()}
+                {this.props.children}
+              </div>
             </div>
           </div>
         </div>
