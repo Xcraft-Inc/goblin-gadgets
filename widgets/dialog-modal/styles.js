@@ -73,7 +73,7 @@ export default function styles(theme, props) {
     fullScreen2.animationIterationCount = 1;
     fullScreen2.backgroundColor =
       theme.palette.flyingDialogFullScreenBackground;
-    fullScreen2.boxShadow = 'inset 0px 0px 23vh 5vh black';
+    fullScreen2.boxShadow = 'inset 0px 0px 20vh 6vh black';
   }
 
   /******************************************************************************/
@@ -163,7 +163,7 @@ export default function styles(theme, props) {
 
   const gear2 = {
     position: 'absolute',
-    left: 'calc(50% + 520px)',
+    left: 'calc(50% + 512px)',
     bottom: '85px',
     width: '0px',
     height: '0px',

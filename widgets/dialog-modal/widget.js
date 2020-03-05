@@ -62,6 +62,13 @@ export default class DialogModal extends Widget {
       0.1
     );
 
+    const r1 = 500; // radius (px)
+    const r2 = 200; // radius (px)
+    const t1 = 36; // tooth count
+    const t2 = 14; // tooth count
+    const d1 = 60; // duration (s)
+    const d2 = d1 / (t1 / t2); // duration (s)
+
     return (
       <React.Fragment>
         <div className={this.styles.classNames.gear1}>
@@ -69,9 +76,9 @@ export default class DialogModal extends Widget {
             color={color}
             left="0px"
             top="0px"
-            radius="500px"
-            toothCount="36"
-            rotationDuration="100s"
+            radius={r1 + 'px'}
+            toothCount={t1}
+            rotationDuration={d1 + 's'}
             rotationDirection="cw"
           />
         </div>
@@ -80,9 +87,9 @@ export default class DialogModal extends Widget {
             color={color}
             left="0px"
             top="0px"
-            radius="200px"
-            toothCount="12"
-            rotationDuration="33.35s"
+            radius={r2 + 'px'}
+            toothCount={t2}
+            rotationDuration={d2 + 's'}
             rotationDirection="ccw"
           />
         </div>
