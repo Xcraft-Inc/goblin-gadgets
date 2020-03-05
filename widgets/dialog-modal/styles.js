@@ -29,6 +29,17 @@ export default function styles(theme, props) {
 
   const look = theme.look.name;
 
+  const shadowKeyframes = {
+    '0%': {
+      backgroundColor: 'transparent',
+      boxShadow: 'inset 0px 0px 23vh 5vh transparent',
+    },
+    '100%': {
+      backgroundColor: theme.palette.flyingDialogFullScreenBackground,
+      boxShadow: 'inset 0px 0px 23vh 5vh black',
+    },
+  };
+
   const fullScreen = {
     display: 'flex',
     visibility: 'visible',
@@ -42,6 +53,14 @@ export default function styles(theme, props) {
     cursor: 'default',
     backgroundColor: theme.palette.flyingDialogFullScreenBackground,
   };
+
+  if (look === 'retro') {
+    fullScreen.animationName = shadowKeyframes;
+    fullScreen.animationDuration = '0.8s';
+    fullScreen.animationIterationCount = 1;
+    fullScreen.backgroundColor = theme.palette.flyingDialogFullScreenBackground;
+    fullScreen.boxShadow = 'inset 0px 0px 23vh 5vh black';
+  }
 
   const dialogModal = {
     position: 'relative',
