@@ -9,25 +9,21 @@ function toInt(value) {
 
 // Move to absolute position.
 function moveTo(path, x, y) {
-  path += 'M ' + x + ' ' + y + ' ';
-  return path;
+  path.push('M ' + x + ' ' + y);
 }
 
 // Line to absolute position.
 function lineTo(path, x, y) {
-  path += 'L ' + x + ' ' + y + ' ';
-  return path;
+  path.push('L ' + x + ' ' + y);
 }
 
 function bezierTo(path, x1, y1, x2, y2, x, y) {
-  path += 'C ' + x1 + ' ' + y1 + ' ' + x2 + ' ' + y2 + ' ' + x + ' ' + y + ' ';
-  return path;
+  path.push('C ' + x1 + ' ' + y1 + ' ' + x2 + ' ' + y2 + ' ' + x + ' ' + y);
 }
 
 // Close path.
 function close(path) {
-  path += 'z';
-  return path;
+  path.push('z');
 }
 
 /******************************************************************************/
@@ -50,7 +46,7 @@ function close(path) {
 //              10    10
 
 function getFramePath(dy, place) {
-  let path = '';
+  const path = [];
 
   dy = toInt(dy);
   const r = 10;
@@ -60,37 +56,37 @@ function getFramePath(dy, place) {
   // prettier-ignore
   if (place === 'left-screw') {
     const dx = 20
-    path = moveTo(path, dx, 0.5);
-    path = lineTo(path, r,  0.5);
-    path = lineTo(path, r,  dy/2-r);
-    path = bezierTo(path, r-rb, dy/2-r,  0.5,  dy/2-rb, 0.5, dy/2);
-    path = bezierTo(path, 0.5,  dy/2+rb, r-rb, dy/2+r,  r,   dy/2+r);
-    path = lineTo(path, r,  dy-0.5);
-    path = lineTo(path, dx, dy-0.5);
+    moveTo(path, dx, 0.5);
+    lineTo(path, r,  0.5);
+    lineTo(path, r,  dy/2-r);
+    bezierTo(path, r-rb, dy/2-r,  0.5,  dy/2-rb, 0.5, dy/2);
+    bezierTo(path, 0.5,  dy/2+rb, r-rb, dy/2+r,  r,   dy/2+r);
+    lineTo(path, r,  dy-0.5);
+    lineTo(path, dx, dy-0.5);
   } else if (place === 'right-screw') {
     const dx = 20
-    path = moveTo(path, 0,    0.5);
-    path = lineTo(path, dx-r, 0.5);
-    path = lineTo(path, dx-r, dy/2-r);
-    path = bezierTo(path, dx-r+rb, dy/2-r,  dx-0.5,  dy/2-rb, dx-0.5, dy/2);
-    path = bezierTo(path, dx-0.5,  dy/2+rb, dx-r+rb, dy/2+r,  dx-r,   dy/2+r);
-    path = lineTo(path, dx-r, dy-0.5);
-    path = lineTo(path, 0,    dy-0.5);
+    moveTo(path, 0,    0.5);
+    lineTo(path, dx-r, 0.5);
+    lineTo(path, dx-r, dy/2-r);
+    bezierTo(path, dx-r+rb, dy/2-r,  dx-0.5,  dy/2-rb, dx-0.5, dy/2);
+    bezierTo(path, dx-0.5,  dy/2+rb, dx-r+rb, dy/2+r,  dx-r,   dy/2+r);
+    lineTo(path, dx-r, dy-0.5);
+    lineTo(path, 0,    dy-0.5);
   } else if (place === 'left') {
     const dx = 10
-    path = moveTo(path, dx, 0.5);
-    path = lineTo(path, 0,  0.5);
-    path = lineTo(path, 0,  dy-0.5);
-    path = lineTo(path, dx, dy-0.5);
+    moveTo(path, dx, 0.5);
+    lineTo(path, 0,  0.5);
+    lineTo(path, 0,  dy-0.5);
+    lineTo(path, dx, dy-0.5);
   } else if (place === 'right') {
     const dx = 10
-    path = moveTo(path, 0,  0.5);
-    path = lineTo(path, dx, 0.5);
-    path = lineTo(path, dx, dy-0.5);
-    path = lineTo(path, 0,  dy-0.5);
+    moveTo(path, 0,  0.5);
+    lineTo(path, dx, 0.5);
+    lineTo(path, dx, dy-0.5);
+    lineTo(path, 0,  dy-0.5);
   }
 
-  return path;
+  return path.join(' ');
 }
 
 /******************************************************************************/

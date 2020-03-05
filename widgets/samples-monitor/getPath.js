@@ -1,24 +1,20 @@
 // Move to absolute position.
 function moveTo(path, x, y) {
-  path += 'M ' + x + ' ' + y + ' ';
-  return path;
+  path.push('M ' + x + ' ' + y);
 }
 
 // Line to absolute position.
 function lineTo(path, x, y) {
-  path += 'L ' + x + ' ' + y + ' ';
-  return path;
+  path.push('L ' + x + ' ' + y);
 }
 
 function bezierTo(path, x1, y1, x2, y2, x, y) {
-  path += 'C ' + x1 + ' ' + y1 + ' ' + x2 + ' ' + y2 + ' ' + x + ' ' + y + ' ';
-  return path;
+  path.push('C ' + x1 + ' ' + y1 + ' ' + x2 + ' ' + y2 + ' ' + x + ' ' + y);
 }
 
 // Close path.
 function close(path) {
-  path += 'z';
-  return path;
+  path.push('z');
 }
 
 /******************************************************************************/
@@ -59,44 +55,44 @@ function rotatePointRad(center, angle, p) {
 function getScreenPath(w, h, styleName) {
   const t = 30;
 
-  let path = '';
+  const path = [];
 
   switch (styleName) {
     case 'screenLeft':
-      path = moveTo(path, 0, 0);
-      path = lineTo(path, 0, h);
-      path = lineTo(path, t, h - t);
-      path = bezierTo(path, 0, h - t * 2, 0, t * 2, t, t);
-      path = close(path);
+      moveTo(path, 0, 0);
+      lineTo(path, 0, h);
+      lineTo(path, t, h - t);
+      bezierTo(path, 0, h - t * 2, 0, t * 2, t, t);
+      close(path);
       break;
     case 'screenRight':
-      path = moveTo(path, w, 0);
-      path = lineTo(path, w, h);
-      path = lineTo(path, w - t, h - t);
-      path = bezierTo(path, w, h - t * 2, w, t * 2, w - t, t);
-      path = close(path);
+      moveTo(path, w, 0);
+      lineTo(path, w, h);
+      lineTo(path, w - t, h - t);
+      bezierTo(path, w, h - t * 2, w, t * 2, w - t, t);
+      close(path);
       break;
     case 'screenTop':
-      path = moveTo(path, 0, 0);
-      path = lineTo(path, w, 0);
-      path = lineTo(path, w - t, t);
-      path = bezierTo(path, w - t * 2, 0, t * 2, 0, t, t);
-      path = close(path);
+      moveTo(path, 0, 0);
+      lineTo(path, w, 0);
+      lineTo(path, w - t, t);
+      bezierTo(path, w - t * 2, 0, t * 2, 0, t, t);
+      close(path);
       break;
     case 'screenBottom':
-      path = moveTo(path, 0, h);
-      path = lineTo(path, w, h);
-      path = lineTo(path, w - t, h - t);
-      path = bezierTo(path, w - t * 2, h, t * 2, h, t, h - t);
-      path = close(path);
+      moveTo(path, 0, h);
+      lineTo(path, w, h);
+      lineTo(path, w - t, h - t);
+      bezierTo(path, w - t * 2, h, t * 2, h, t, h - t);
+      close(path);
       break;
   }
 
-  return path;
+  return path.join(' ');
 }
 
 function getSamplesPath(ox, oy, dx, dy, samples, max) {
-  let path = '';
+  const path = [];
   const count = samples.size;
 
   for (let i = 0; i < count; i++) {
@@ -104,33 +100,33 @@ function getSamplesPath(ox, oy, dx, dy, samples, max) {
     const y = dy - (samples.get(i) / max) * dy;
 
     if (i === 0) {
-      path = moveTo(path, ox + x, oy + y);
+      moveTo(path, ox + x, oy + y);
     } else {
-      path = lineTo(path, ox + x, oy + y);
+      lineTo(path, ox + x, oy + y);
     }
   }
 
-  return path;
+  return path.join(' ');
 }
 
 function getGridPath(ox, oy, dx, dy, nx, ny) {
-  let path = '';
+  const path = [];
 
   for (let x = 0; x <= dx; x += dx / nx) {
-    path = moveTo(path, ox + x, oy + 0);
-    path = lineTo(path, ox + x, oy + dy);
+    moveTo(path, ox + x, oy + 0);
+    lineTo(path, ox + x, oy + dy);
   }
 
   for (let y = 0; y <= dy; y += dy / ny) {
-    path = moveTo(path, ox + 0, oy + y);
-    path = lineTo(path, ox + dx, oy + y);
+    moveTo(path, ox + 0, oy + y);
+    lineTo(path, ox + dx, oy + y);
   }
 
-  return path;
+  return path.join(' ');
 }
 
 function getPowerOffPath(dx, dy) {
-  let path = '';
+  const path = [];
 
   const center = {x: dx / 2, y: dy / 2};
   const e1 = {x: dx / 2 + dx * 0.2, y: dy / 2};
@@ -138,11 +134,11 @@ function getPowerOffPath(dx, dy) {
   for (let a = 0; a < 180; a += 45) {
     const p1 = rotatePointDeg(center, a, e1);
     const p2 = rotatePointDeg(center, a, e2);
-    path = moveTo(path, p1.x, p1.y);
-    path = lineTo(path, p2.x, p2.y);
+    moveTo(path, p1.x, p1.y);
+    lineTo(path, p2.x, p2.y);
   }
 
-  return path;
+  return path.join(' ');
 }
 
 /******************************************************************************/

@@ -61,16 +61,16 @@ function rotatePointRad(center, angle, p) {
 
 /******************************************************************************/
 
+// prettier-ignore
 function getCirclePath(path, cx, cy, r) {
   const b = 0.552284749831; // (4/3)*tan(pi/8) = 4*(sqrt(2)-1)/3
   const rb = r * b;
 
-  // prettier-ignore
   moveTo(path, cx+r, cy);
-  bezierTo(path, cx + r, cy + rb, cx + rb, cy + r, cx, cy + r);
-  bezierTo(path, cx - rb, cy + r, cx - r, cy + rb, cx - r, cy);
-  bezierTo(path, cx - r, cy - rb, cx - rb, cy - r, cx, cy - r);
-  bezierTo(path, cx + rb, cy - r, cx + r, cy - rb, cx + r, cy);
+  bezierTo(path, cx+r,  cy+rb, cx+rb, cy+r,  cx,   cy+r);
+  bezierTo(path, cx-rb, cy+r,  cx-r,  cy+rb, cx-r, cy);
+  bezierTo(path, cx-r,  cy-rb, cx-rb, cy-r,  cx,   cy-r);
+  bezierTo(path, cx+rb, cy-r,  cx+r,  cy-rb, cx+r, cy);
   close(path);
 }
 
