@@ -9,21 +9,20 @@ function toValue(value) {
 
 // Move to absolute position.
 function moveTo(path, x, y) {
-  path += 'M ' + x + ' ' + y + ' ';
-  return path;
+  path.push('M ' + x + ' ' + y);
 }
 
 // Line to relative position.
 function lineTo(path, dx, dy) {
-  path += 'l ' + dx + ' ' + dy + ' ';
-  return path;
+  path.push('l ' + dx + ' ' + dy);
 }
 
 // Close path.
 function close(path) {
-  path += 'z';
-  return path;
+  path.push('z');
 }
+
+/******************************************************************************/
 
 //    b +---------|\ c ----> x
 //      |         | \
@@ -44,19 +43,19 @@ export default function getPath(width, height, cornerSize, borderSize) {
   const h = toValue(height) - b*2;
   const c = toValue(cornerSize);
 
-  let path = '';
-  path = moveTo(path, b,     h+b);  // a
-  path = lineTo(path, 0,    -h  );  // b
-  path = lineTo(path, w-c,   0  );  // c
-  path = lineTo(path, 0,     c  );  // d
-  path = lineTo(path, c,     0  );  // e
-  path = lineTo(path, 0,     h-c);  // f
-  path = close(path);
+  const path = [];
+  moveTo(path, b,     h+b);  // a
+  lineTo(path, 0,    -h  );  // b
+  lineTo(path, w-c,   0  );  // c
+  lineTo(path, 0,     c  );  // d
+  lineTo(path, c,     0  );  // e
+  lineTo(path, 0,     h-c);  // f
+  close(path);
 
-  path = moveTo(path, w+b-c, b  );  // c
-  path = lineTo(path, 0,     c  );  // d
-  path = lineTo(path, c,     0  );  // e
-  path = close(path);
+  moveTo(path, w+b-c, b  );  // c
+  lineTo(path, 0,     c  );  // d
+  lineTo(path, c,     0  );  // e
+  close(path);
 
-  return path;
+  return path.join(" ");
 }
