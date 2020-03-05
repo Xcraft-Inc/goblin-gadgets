@@ -74,6 +74,16 @@ function getCirclePath(path, cx, cy, r) {
   close(path);
 }
 
+function getRadius(r) {
+  return {
+    r1: r * 0.1, // axe
+    r2: r * 0.15,
+    r3: r - 60,
+    r4: r - 40,
+    r5: r - 1, // outside
+  };
+}
+
 /******************************************************************************/
 
 // Outer teeth and axis.
@@ -81,12 +91,7 @@ function getGearLightPath(cx, cy, r, toothCount = 36) {
   cx = toInt(cx);
   cy = toInt(cy);
   r = toInt(r);
-
-  const r1 = r * 0.1;
-  const r2 = r * 0.15;
-  const r3 = r - 60;
-  const r4 = r - 40;
-  const r5 = r - 1;
+  r = getRadius(r);
 
   const path = [];
 
@@ -94,8 +99,8 @@ function getGearLightPath(cx, cy, r, toothCount = 36) {
   const a2 = a1 / 5;
   let i = 0;
   for (let a = 0; a < 360; a += a1) {
-    const r1 = i % 2 === 0 ? r5 : r4;
-    const r2 = i % 2 !== 0 ? r5 : r4;
+    const r1 = i % 2 === 0 ? r.r5 : r.r4;
+    const r2 = i % 2 !== 0 ? r.r5 : r.r4;
     const p1 = rotatePointDeg({x: cx, y: cy}, a - a2, {x: cx + r1, y: cy});
     const p2 = rotatePointDeg({x: cx, y: cy}, a + a2, {x: cx + r2, y: cy});
     if (i === 0) {
@@ -108,10 +113,10 @@ function getGearLightPath(cx, cy, r, toothCount = 36) {
   }
   close(path);
 
-  getCirclePath(path, cx, cy, r3);
+  getCirclePath(path, cx, cy, r.r3);
 
-  getCirclePath(path, cx, cy, r2);
-  getCirclePath(path, cx, cy, r1);
+  getCirclePath(path, cx, cy, r.r2);
+  getCirclePath(path, cx, cy, r.r1);
 
   return path.join(' ');
 }
@@ -121,20 +126,16 @@ function getGearDarkPath(cx, cy, r, toothCount = 36) {
   cx = toInt(cx);
   cy = toInt(cy);
   r = toInt(r);
-
-  const r1 = r * 0.1;
-  const r2 = r * 0.15;
-  const r3 = r - 60;
-  const r4 = r - 40;
-  const r5 = r - 1;
+  r = getRadius(r);
 
   const path = [];
 
-  getCirclePath(path, cx, cy, r3);
-  getCirclePath(path, cx, cy, r2);
+  getCirclePath(path, cx, cy, r.r3);
+  getCirclePath(path, cx, cy, r.r2);
+  getCirclePath(path, cx, cy, r.r1);
 
-  const x = (r2 + r3) / 2;
-  const rr = (r3 - r2) * 0.3;
+  const x = (r.r2 + r.r3) / 2;
+  const rr = (r.r3 - r.r2) * 0.3;
   for (let a = 0; a < 360; a += 60) {
     const c = rotatePointDeg({x: cx, y: cy}, a, {x: cx + x, y: cy});
     getCirclePath(path, c.x, c.y, rr);

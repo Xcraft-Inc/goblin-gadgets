@@ -173,8 +173,8 @@ export default function styles(theme, props) {
     };
 
     const keyframesPowerOff = {
-      '0%': {transform: 'scale(1)', opacity: 1},
-      '100%': {transform: 'scale(0)', opacity: 0},
+      '0%': {transform: 'scale(1)'},
+      '100%': {transform: 'scale(0.7, 0)'},
     };
 
     crt = {
@@ -185,7 +185,7 @@ export default function styles(theme, props) {
       bottom: '0px',
       flexGrow: 1,
       animationName: showed ? keyframesPowerOn : keyframesPowerOff,
-      animationDuration: showed ? '27s' : '1s',
+      animationDuration: showed ? '27s' : '0.6s',
       animationIterationCount: showed ? 'infinite' : 1,
     };
 
@@ -220,6 +220,11 @@ export default function styles(theme, props) {
     /******************************************************************************/
 
     // Enforced shadow.
+    const keyframesCRTOff = {
+      '0%': {backgroundColor: '#07401f', borderRadius: '0px'},
+      '100%': {backgroundColor: '#0cff72', borderRadius: width},
+    };
+
     backgroundCRT = {
       position: 'absolute',
       top: '0px',
@@ -233,6 +238,9 @@ export default function styles(theme, props) {
       borderRightColor: '#080808',
       borderTopColor: '#020202',
       boxShadow: 'inset 0 0 90px black, inset 0 0 15px black, 0 0 50px black',
+      animationName: showed ? null : keyframesCRTOff,
+      animationDuration: showed ? null : '0.6s',
+      animationIterationCount: showed ? null : 1,
     };
 
     // Scan lines.

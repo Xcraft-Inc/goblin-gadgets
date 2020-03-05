@@ -153,12 +153,33 @@ export default function styles(theme, props) {
 
   /******************************************************************************/
 
+  const gearKeyframes1 = {
+    from: {
+      bottom: '-500px',
+    },
+    to: {
+      bottom: '0px',
+    },
+  };
+
   const gear1 = {
     position: 'absolute',
     left: 'calc(50% - 150px)',
     bottom: '0px',
     width: '0px',
     height: '0px',
+    animationName: gearKeyframes1,
+    animationDuration: '8s',
+    animationIterationCount: 1,
+  };
+
+  const gearKeyframes2 = {
+    from: {
+      bottom: '-415px',
+    },
+    to: {
+      bottom: '85px',
+    },
   };
 
   const gear2 = {
@@ -167,6 +188,29 @@ export default function styles(theme, props) {
     bottom: '85px',
     width: '0px',
     height: '0px',
+    animationName: gearKeyframes2,
+    animationDuration: '8s',
+    animationIterationCount: 1,
+  };
+
+  const gearKeyframes3 = {
+    from: {
+      right: '-700px',
+    },
+    to: {
+      right: '0px',
+    },
+  };
+
+  const gear3 = {
+    position: 'absolute',
+    right: '0px',
+    top: '0px',
+    width: '0px',
+    height: '0px',
+    animationName: gearKeyframes3,
+    animationDuration: '12s',
+    animationIterationCount: 1,
   };
 
   /******************************************************************************/
@@ -181,6 +225,7 @@ export default function styles(theme, props) {
 
     gear1,
     gear2,
+    gear3,
   };
 }
 

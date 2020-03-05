@@ -52,6 +52,21 @@ export default class DialogModal extends Widget {
 
   /******************************************************************************/
 
+  renderGear(style, color, radius, tooths, duration, direction) {
+    return (
+      <div className={this.styles.classNames[style]}>
+        <RetroGear
+          color={color}
+          left="0px"
+          top="0px"
+          radius={radius + 'px'}
+          toothCount={tooths}
+          rotationDuration={duration + 's'}
+          rotationDirection={direction}
+        />
+      </div>
+    );
+  }
   renderGears() {
     if (this.context.theme.look.name !== 'retro') {
       return null;
@@ -71,28 +86,9 @@ export default class DialogModal extends Widget {
 
     return (
       <React.Fragment>
-        <div className={this.styles.classNames.gear1}>
-          <RetroGear
-            color={color}
-            left="0px"
-            top="0px"
-            radius={r1 + 'px'}
-            toothCount={t1}
-            rotationDuration={d1 + 's'}
-            rotationDirection="cw"
-          />
-        </div>
-        <div className={this.styles.classNames.gear2}>
-          <RetroGear
-            color={color}
-            left="0px"
-            top="0px"
-            radius={r2 + 'px'}
-            toothCount={t2}
-            rotationDuration={d2 + 's'}
-            rotationDirection="ccw"
-          />
-        </div>
+        {this.renderGear('gear1', color, r1, t1, d1, 'cw')}
+        {this.renderGear('gear2', color, r2, t2, d2, 'ccw')}
+        {this.renderGear('gear3', color, 700, 50, 250, 'ccw')}
       </React.Fragment>
     );
   }
