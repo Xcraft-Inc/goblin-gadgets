@@ -89,18 +89,6 @@ export default class SamplesMonitor extends Widget {
     return <div className={`flare-hover ${this.styles.classNames.flare}`} />;
   }
 
-  renderPowerOff(w, h) {
-    if (this.context.theme.look.name !== 'retro') {
-      return null;
-    }
-
-    return (
-      <svg width={w} height={h} className={this.styles.classNames.powerOff}>
-        <path d={getPath.getPowerOffPath(w - 80, h - 80)} />
-      </svg>
-    );
-  }
-
   renderScreenBorder(w, h, styleName) {
     return (
       <svg
@@ -128,7 +116,6 @@ export default class SamplesMonitor extends Widget {
         {this.renderScreenBorder(w, h, 'screenTop')}
         {this.renderScreenBorder(w, h, 'screenBottom')}
         {this.renderFlare()}
-        {this.renderPowerOff(w, h)}
         <div className={this.styles.classNames.border} />
       </React.Fragment>
     );

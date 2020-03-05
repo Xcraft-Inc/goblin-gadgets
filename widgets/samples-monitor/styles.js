@@ -26,7 +26,6 @@ export default function styles(theme, props) {
   let grid = {};
   let samples = {};
   let flare = {};
-  let powerOff = {};
   let border = {};
 
   /******************************************************************************/
@@ -94,7 +93,6 @@ export default function styles(theme, props) {
     };
 
     flare = {};
-    powerOff = {};
     border = {};
   }
 
@@ -143,7 +141,7 @@ export default function styles(theme, props) {
       flexGrow: 1,
     };
 
-    const keyframesPower = {
+    const keyframesPowerOn = {
       '0%': {transform: 'scale(1)'},
       '10.0%': {transform: 'scale(1)'},
       '10.1%': {transform: 'scale(0.99)'},
@@ -174,6 +172,11 @@ export default function styles(theme, props) {
       '100%': {transform: 'scale(1)'},
     };
 
+    const keyframesPowerOff = {
+      '0%': {transform: 'scale(1)', opacity: 1},
+      '100%': {transform: 'scale(0)', opacity: 0},
+    };
+
     crt = {
       position: 'absolute',
       left: '0px',
@@ -181,9 +184,9 @@ export default function styles(theme, props) {
       top: '0px',
       bottom: '0px',
       flexGrow: 1,
-      animationName: keyframesPower,
-      animationDuration: '27s',
-      animationIterationCount: 'infinite',
+      animationName: showed ? keyframesPowerOn : keyframesPowerOff,
+      animationDuration: showed ? '27s' : '1s',
+      animationIterationCount: showed ? 'infinite' : 1,
     };
 
     channels = {
@@ -350,22 +353,6 @@ export default function styles(theme, props) {
       transition: '10s ease-out',
     };
 
-    powerOff = {
-      position: 'absolute',
-      margin: '40px',
-      left: '0px',
-      right: '0px',
-      top: '0px',
-      bottom: '0px',
-      stroke: 'white',
-      strokeWidth: '20px',
-      strokeLinecap: 'round',
-      strokeLinejoin: 'round',
-      opacity: showed ? 0 : 0.3,
-      transform: showed ? 'scale(0)' : 'scale(1)',
-      transition: '0.3s ease-out',
-    };
-
     border = {
       position: 'absolute',
       left: '0px',
@@ -402,7 +389,6 @@ export default function styles(theme, props) {
     grid,
     samples,
     flare,
-    powerOff,
     border,
   };
 }
