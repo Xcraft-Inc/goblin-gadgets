@@ -47,7 +47,7 @@ export default function styles(theme, props) {
   let boxFlexShrink = null;
   let boxFlexBasis = null;
   let boxAlignItems = 'center';
-  let boxOpacity = Bool.isFalse(visibility) ? 0 : null;
+  let boxOpacity = Bool.isFalse(visibility) || Bool.isTrue(busy) ? 0 : null;
   let borderWidth = theme.shapes.buttonBorderWidth;
   let borderColor = theme.palette.buttonBorderColor;
   let borderStyle = 'solid';
@@ -182,17 +182,31 @@ export default function styles(theme, props) {
     };
   }
 
-  const busyBox = {
-    position: 'absolute',
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    backgroundColor: theme.palette.busyBackground,
+  /******************************************************************************/
+
+  const busyKeyframes = {
+    '0%': {
+      left: '20%',
+    },
+    '80%': {
+      left: '80%',
+    },
+    '100%': {
+      left: '20%',
+    },
   };
 
-  const busyGlyph = {
-    margin: 'auto',
-    color: theme.palette.busyForeground,
+  const busyBox = {
+    zIndex: 9,
+    position: 'absolute',
+    left: '50%',
+    top: '50%',
+    width: '0px',
+    height: '0px',
+    display: 'flex',
+    animationName: busyKeyframes,
+    animationDuration: '5s',
+    animationIterationCount: 'infinite',
   };
 
   /******************************************************************************/
@@ -265,7 +279,6 @@ export default function styles(theme, props) {
     retroActionButton,
     box,
     busyBox,
-    busyGlyph,
     shadow,
     frameLeftScrew,
     frameRightScrew,

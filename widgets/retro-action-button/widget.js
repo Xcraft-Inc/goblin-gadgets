@@ -10,6 +10,7 @@ import {Unit} from 'electrum-theme';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Badge from 'goblin-gadgets/widgets/badge/widget';
 import RetroScrew from 'goblin-gadgets/widgets/retro-screw/widget';
+import RetroGear from 'goblin-gadgets/widgets/retro-gear/widget';
 import * as styles from './styles';
 import helpers from './helpers';
 
@@ -157,19 +158,24 @@ export default class RetroActionButton extends Widget {
   /******************************************************************************/
 
   renderBusy() {
-    if (Bool.isTrue(this.props.busy)) {
-      const busyBoxClass = this.styles.classNames.busyBox;
-      const busyGlyphClass = this.styles.classNames.busyGlyph;
-      return (
-        <div className={busyBoxClass}>
-          <div className={busyGlyphClass}>
-            <FontAwesomeIcon icon={[`fas`, 'spinner']} size={'2x'} pulse />
-          </div>
-        </div>
-      );
-    } else {
+    if (!Bool.isTrue(this.props.busy)) {
       return null;
     }
+
+    return (
+      <div className={this.styles.classNames.busyBox}>
+        <RetroGear
+          color="#aaa"
+          left="0px"
+          top="0px"
+          radius="100px"
+          toothCount={20}
+          toothThickness={20}
+          rotationDuration="3s"
+          rotationDirection="cw"
+        />
+      </div>
+    );
   }
 
   renderBadge() {
@@ -367,10 +373,10 @@ export default class RetroActionButton extends Widget {
           >
             {this.renderLayout()}
             {this.renderBadge()}
-            {this.renderBusy()}
             {this.props.children}
           </TranslatableDiv>
         </div>
+        {this.renderBusy()}
       </div>
     );
   }

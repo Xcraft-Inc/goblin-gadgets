@@ -17,7 +17,8 @@ export default class RetroGear extends Widget {
             this.props.radius,
             this.props.radius,
             this.props.radius,
-            this.props.toothCount
+            this.props.toothCount,
+            this.props.toothThickness
           )}
         />
       </svg>

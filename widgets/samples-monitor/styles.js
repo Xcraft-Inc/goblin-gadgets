@@ -40,7 +40,7 @@ export default function styles(theme, props) {
       height: height,
       display: 'flex',
       flexDirection: 'row',
-      borderTopLeftRadius: '5px',
+      borderTopLeftRadius: '20px',
       backgroundColor: '#333',
       overflow: 'hidden',
     };
@@ -80,7 +80,7 @@ export default function styles(theme, props) {
 
     grid = {
       position: 'absolute',
-      stroke: 'rgba(255,255,255,0.2)',
+      stroke: 'rgba(255,255,255,0.1)',
       strokeWidth: '1px',
       fill: 'transparent',
     };
@@ -88,7 +88,7 @@ export default function styles(theme, props) {
     samplesStroke = {
       position: 'absolute',
       // stroke: <-- various colors
-      strokeWidth: '2px',
+      strokeWidth: '1px',
       strokeLinecap: 'round',
       strokeLinejoin: 'round',
       fill: 'transparent',

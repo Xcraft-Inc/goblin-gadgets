@@ -74,12 +74,12 @@ function getCirclePath(path, cx, cy, r) {
   close(path);
 }
 
-function getRadius(r) {
+function getRadius(r, toothThickness) {
   return {
     r1: r * 0.1, // axe
     r2: r * 0.15,
-    r3: r - 60,
-    r4: r - 40,
+    r3: r - toothThickness,
+    r4: r - toothThickness / 1.5,
     r5: r - 1, // outside
   };
 }
@@ -87,11 +87,11 @@ function getRadius(r) {
 /******************************************************************************/
 
 // Outer teeth and axis.
-function getGearLightPath(cx, cy, r, toothCount = 36) {
+function getGearLightPath(cx, cy, r, toothCount = 36, toothThickness = 60) {
   cx = toInt(cx);
   cy = toInt(cy);
   r = toInt(r);
-  r = getRadius(r);
+  r = getRadius(r, toothThickness);
 
   const path = [];
 
@@ -122,11 +122,11 @@ function getGearLightPath(cx, cy, r, toothCount = 36) {
 }
 
 // Openwork interior.
-function getGearDarkPath(cx, cy, r, toothCount = 36) {
+function getGearDarkPath(cx, cy, r, toothCount = 36, toothThickness = 60) {
   cx = toInt(cx);
   cy = toInt(cy);
   r = toInt(r);
-  r = getRadius(r);
+  r = getRadius(r, toothThickness);
 
   const path = [];
 
