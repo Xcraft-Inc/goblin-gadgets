@@ -58,7 +58,7 @@ function getScreenPath(w, h, styleName) {
   return path.join(' ');
 }
 
-function getSamplesPath(ox, oy, dx, dy, samples, max) {
+function getSamplesPath(ox, oy, dx, dy, samples, max, part) {
   const path = [];
   const count = samples.size;
 
@@ -71,6 +71,12 @@ function getSamplesPath(ox, oy, dx, dy, samples, max) {
     } else {
       lineTo(path, ox + x, oy + y);
     }
+  }
+
+  if (part === 'fill') {
+    lineTo(path, ox, oy + dy);
+    lineTo(path, ox + dx, oy + dy);
+    close(path);
   }
 
   return path.join(' ');

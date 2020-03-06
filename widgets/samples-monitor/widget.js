@@ -6,6 +6,7 @@ import Checkbox from 'goblin-gadgets/widgets/checkbox/widget';
 import Separator from 'goblin-gadgets/widgets/separator/widget';
 import {Unit} from 'electrum-theme';
 import Shredder from 'xcraft-core-shredder';
+import {ColorManipulator} from 'electrum-theme';
 
 /******************************************************************************/
 
@@ -41,8 +42,12 @@ export default class SamplesMonitor extends Widget {
 
   /******************************************************************************/
 
+  get isRetro() {
+    return this.context.theme.look.name === 'retro';
+  }
+
   get strokeColors() {
-    if (this.context.theme.look.name === 'retro') {
+    if (this.isRetro) {
       return [
         '#15f2b6',
         '#3ff215',
@@ -53,14 +58,22 @@ export default class SamplesMonitor extends Widget {
         '#ac45fb',
       ];
     } else {
-      return ['#0f0', '#fbdb45', '#fb8145', '#fb45ca', '#a745fb', '#45dbfb'];
+      return [
+        '#0f0',
+        '#fbdb45',
+        '#fb8145',
+        '#fb45ca',
+        '#a745fb',
+        '#3b48fd',
+        '#45dbfb',
+      ];
     }
   }
 
   /******************************************************************************/
 
   renderBackgroundCRT() {
-    if (this.context.theme.look.name !== 'retro') {
+    if (!this.isRetro) {
       return null;
     }
 
@@ -68,7 +81,7 @@ export default class SamplesMonitor extends Widget {
   }
 
   renderForegroundCRT() {
-    if (this.context.theme.look.name !== 'retro') {
+    if (!this.isRetro) {
       return null;
     }
 
@@ -82,7 +95,7 @@ export default class SamplesMonitor extends Widget {
   }
 
   renderFlare() {
-    if (this.context.theme.look.name !== 'retro') {
+    if (!this.isRetro) {
       return null;
     }
 
@@ -102,7 +115,7 @@ export default class SamplesMonitor extends Widget {
   }
 
   renderScreen(w, h) {
-    if (this.context.theme.look.name !== 'retro') {
+    if (!this.isRetro) {
       return null;
     }
 
@@ -133,7 +146,7 @@ export default class SamplesMonitor extends Widget {
         : 1;
 
     let nx, ny;
-    if (this.context.theme.look.name === 'retro') {
+    if (this.isRetro) {
       nx = 10;
       ny = {3: 9, 5: 5, 6: 6, 7: 7, 9: 9, 10: 5}[channelCount] || 8;
     } else {
@@ -152,21 +165,12 @@ export default class SamplesMonitor extends Widget {
     );
   }
 
-  renderSamples(w, h, ox, oy, dx, dy, channel, color, index) {
-    if (!channel.samples) {
-      return null;
-    }
-
-    const style = {
-      stroke: color || this.strokeColors[0],
-    };
-
+  renderSamplesSVG(w, h, ox, oy, dx, dy, channel, part, style) {
     return (
       <svg
-        key={index}
         width={w + 'px'}
         height={h + 'px'}
-        className={this.styles.classNames.samples}
+        className={this.styles.classNames.samplesStroke}
         style={style}
       >
         <path
@@ -176,10 +180,54 @@ export default class SamplesMonitor extends Widget {
             dx,
             dy,
             channel.samples,
-            channel.max || 0.0001
+            channel.max || 0.0001,
+            part
           )}
         />
       </svg>
+    );
+  }
+
+  renderSamples(w, h, ox, oy, dx, dy, channel, color, index) {
+    if (!channel.samples) {
+      return null;
+    }
+
+    const styleFill = {
+      fill: ColorManipulator.fade(color || this.strokeColors[0], 0.3),
+    };
+
+    const styleStroke = {
+      stroke: color || this.strokeColors[0],
+    };
+
+    return (
+      <React.Fragment key={index}>
+        {!this.isRetro
+          ? this.renderSamplesSVG(
+              w,
+              h,
+              ox,
+              oy,
+              dx,
+              dy,
+              channel,
+              'fill',
+              styleFill
+            )
+          : null}
+        {this.renderSamplesSVG(
+          w,
+          h,
+          ox,
+          oy,
+          dx,
+          dy,
+          channel,
+          'stroke',
+          styleStroke
+        )}
+      </React.Fragment>
     );
   }
 
@@ -203,12 +251,12 @@ export default class SamplesMonitor extends Widget {
     );
   }
 
-  renderChannel(w, h, ox, oy, dx, dy, channel, index) {
+  renderChannel(w, h, ox, oy, dx, dy, channel, color, index) {
     const hn = 16;
     return (
       <React.Fragment key={index}>
-        {this.renderSamples(w, h, ox, oy, dx, dy - hn, channel)}
-        {this.renderSampleName(ox, oy + dy - hn, dx, hn, channel)}
+        {this.renderSamples(w, h, ox, oy, dx, dy - hn, channel, color)}
+        {this.renderSampleName(ox, oy + dy - hn, dx, hn, channel, color)}
       </React.Fragment>
     );
   }
@@ -234,12 +282,18 @@ export default class SamplesMonitor extends Widget {
           dx,
           dy,
           {samples: new Shredder([0, 0]), max: 1, name: 'IDLE'},
+          null,
           index++
         )
       );
     } else {
+      const colors = this.strokeColors;
       for (const channel of channels) {
-        result.push(this.renderChannel(w, h, ox, oy, dx, dy, channel, index++));
+        const colorIndex = this.isRetro ? 0 : index;
+        const color = colors[colorIndex % colors.length];
+        result.push(
+          this.renderChannel(w, h, ox, oy, dx, dy, channel, color, index++)
+        );
         oy += dy + my;
       }
     }
@@ -267,6 +321,7 @@ export default class SamplesMonitor extends Widget {
           dx,
           dy,
           {samples: new Shredder([0, 0]), max: 1, name: 'IDLE'},
+          null,
           index++
         )
       );
@@ -380,13 +435,15 @@ export default class SamplesMonitor extends Widget {
           checked={this.mode === 'all'}
           onChange={() => (this.mode = 'all')}
         />
-        <Separator kind="exact" height="30px" />
-        <Checkbox
-          kind="switch"
-          glyphSize="150%"
-          checked={this.props.showed}
-          onChange={this.onOff}
-        />
+        {this.isRetro ? <Separator kind="exact" height="30px" /> : null}
+        {this.isRetro ? (
+          <Checkbox
+            kind="switch"
+            glyphSize="150%"
+            checked={this.props.showed}
+            onChange={this.onOff}
+          />
+        ) : null}
       </div>
     );
   }

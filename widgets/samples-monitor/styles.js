@@ -24,7 +24,8 @@ export default function styles(theme, props) {
   let screenTop = {};
   let screenBottom = {};
   let grid = {};
-  let samples = {};
+  let samplesStroke = {};
+  let samplesFill = {};
   let flare = {};
   let border = {};
 
@@ -79,17 +80,23 @@ export default function styles(theme, props) {
 
     grid = {
       position: 'absolute',
-      stroke: 'rgba(0,255,0,0.2)',
+      stroke: 'rgba(255,255,255,0.2)',
       strokeWidth: '1px',
       fill: 'transparent',
     };
 
-    samples = {
+    samplesStroke = {
       position: 'absolute',
+      // stroke: <-- various colors
       strokeWidth: '2px',
       strokeLinecap: 'round',
       strokeLinejoin: 'round',
       fill: 'transparent',
+    };
+
+    samplesFill = {
+      position: 'absolute',
+      // fill: <-- various colors
     };
 
     flare = {};
@@ -341,8 +348,9 @@ export default function styles(theme, props) {
       fill: 'transparent',
     };
 
-    samples = {
+    samplesStroke = {
       position: 'absolute',
+      // stroke: <-- various colors
       strokeWidth: '2px',
       strokeLinecap: 'round',
       strokeLinejoin: 'round',
@@ -395,7 +403,8 @@ export default function styles(theme, props) {
     screenBottom,
 
     grid,
-    samples,
+    samplesStroke,
+    samplesFill,
     flare,
     border,
   };
