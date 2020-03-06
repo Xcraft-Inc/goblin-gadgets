@@ -164,7 +164,7 @@ export default function styles(theme, props) {
 
   const gear1 = {
     position: 'absolute',
-    left: 'calc(50% - 150px)',
+    right: 'calc(50% - 150px)',
     bottom: '0px',
     width: '0px',
     height: '0px',
@@ -184,7 +184,7 @@ export default function styles(theme, props) {
 
   const gear2 = {
     position: 'absolute',
-    left: 'calc(50% + 512px)',
+    right: 'calc(50% + 512px)',
     bottom: '85px',
     width: '0px',
     height: '0px',
@@ -193,18 +193,19 @@ export default function styles(theme, props) {
     animationIterationCount: 1,
   };
 
+  // This big gear is on the left, so as not to hide the notifications.
   const gearKeyframes3 = {
     from: {
-      right: '-700px',
+      left: '-700px',
     },
     to: {
-      right: '0px',
+      left: '0px',
     },
   };
 
   const gear3 = {
     position: 'absolute',
-    right: '0px',
+    left: '0px',
     top: '0px',
     width: '0px',
     height: '0px',

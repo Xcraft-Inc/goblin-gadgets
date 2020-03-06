@@ -77,10 +77,20 @@ export default function styles(theme, props) {
     };
   }
 
+  const gauge = {
+    display: 'flex',
+    flexDirection: 'column',
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: '0px 10px',
+  };
+
   /******************************************************************************/
 
   return {
     notification,
+    gauge,
   };
 }
 

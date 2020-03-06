@@ -4,6 +4,7 @@ import {ColorHelpers} from 'electrum-theme';
 
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
+import Gauge from 'goblin-gadgets/widgets/gauge/widget';
 import Container from 'goblin-gadgets/widgets/container/widget';
 import RetroIlluminatedButton from 'goblin-gadgets/widgets/retro-illuminated-button/widget';
 import * as styles from './styles';
@@ -39,6 +40,9 @@ export default class Notification extends Widget {
   }
 
   get hasExtendButton() {
+    if (!this.props.data.message) {
+      return false;
+    }
     let message = this.props.data.message._string || this.props.data.message;
     if (!message) {
       return false;
@@ -99,7 +103,11 @@ export default class Notification extends Widget {
     }
   }
 
-  renderMessage() {
+  renderMessageExtended(extended) {
+    if (!this.props.data.message) {
+      return null;
+    }
+
     let cursor = null;
     if (this.props.onClick) {
       cursor = 'pointer';
@@ -112,9 +120,9 @@ export default class Notification extends Widget {
           text={this.props.data.message}
           kind="notification"
           grow="1"
-          wrap={this.extended ? null : 'no'}
-          maxLines={this.extended ? null : 2}
-          skipEmptyLines={this.extended ? false : true}
+          wrap={extended ? null : 'no'}
+          maxLines={extended ? null : 2}
+          skipEmptyLines={extended ? false : true}
           onClick={this.onClick}
           userSelect={'text'}
         />
@@ -127,9 +135,9 @@ export default class Notification extends Widget {
           textColor={this.props.status === 'not-read' ? '#fff' : '#bbb'}
           kind="notification"
           grow="1"
-          wrap={this.extended ? null : 'no'}
-          maxLines={this.extended ? null : 2}
-          skipEmptyLines={this.extended ? false : true}
+          wrap={extended ? null : 'no'}
+          maxLines={extended ? null : 2}
+          skipEmptyLines={extended ? false : true}
           onClick={this.onClick}
           userSelect={'text'}
         />
@@ -137,11 +145,44 @@ export default class Notification extends Widget {
     }
   }
 
+  renderMessage() {
+    if (this.props.data.total) {
+      // You cannot display both a message and a gauge!
+      return null;
+    }
+
+    return this.renderMessageExtended(this.extended);
+  }
+
+  renderGauge() {
+    if (!this.props.data.total) {
+      return null;
+    }
+
+    const value = (this.props.data.current / this.props.data.total) * 100;
+
+    // Display gauge and simple message (by example "37/100") under gauge.
+    return (
+      <div className={this.styles.classNames.gauge}>
+        <Gauge
+          kind="rounded"
+          gradient="red-yellow-green"
+          direction="horizontal"
+          height="16px"
+          grow="1"
+          value={value}
+        />
+        {this.renderMessageExtended(true)}
+      </div>
+    );
+  }
+
   render() {
     return (
       <div className={this.styles.classNames.notification}>
         {this.renderGlyph()}
         {this.renderMessage()}
+        {this.renderGauge()}
         <Container kind="column">
           <Button
             glyph="solid/times"
