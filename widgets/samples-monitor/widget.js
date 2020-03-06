@@ -128,7 +128,9 @@ export default class SamplesMonitor extends Widget {
     const dy = h - 80;
 
     const channelCount =
-      this.mode === 'separate' ? Math.max(channels.length, 1) : 1;
+      this.mode === 'separate' || this.mode === 'all'
+        ? Math.max(channels.length, 1)
+        : 1;
 
     let nx, ny;
     if (this.context.theme.look.name === 'retro') {
@@ -174,7 +176,7 @@ export default class SamplesMonitor extends Widget {
             dx,
             dy,
             channel.samples,
-            channel.max
+            channel.max || 0.0001
           )}
         />
       </svg>
@@ -372,6 +374,12 @@ export default class SamplesMonitor extends Widget {
           checked={this.mode === 'separate'}
           onChange={() => (this.mode = 'separate')}
         />
+        <Checkbox
+          kind="radio"
+          glyphSize="150%"
+          checked={this.mode === 'all'}
+          onChange={() => (this.mode = 'all')}
+        />
         <Separator kind="exact" height="30px" />
         <Checkbox
           kind="switch"
@@ -384,7 +392,10 @@ export default class SamplesMonitor extends Widget {
   }
 
   renderCRT(w, h) {
-    const channels = this.props.channels.filter(c => c.max > 0);
+    const channels =
+      this.mode === 'all'
+        ? this.props.channels
+        : this.props.channels.filter(c => c.max > 0);
 
     return (
       <div className={this.styles.classNames.crt}>
