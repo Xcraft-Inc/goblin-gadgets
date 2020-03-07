@@ -181,7 +181,8 @@ export default function styles(theme, props) {
 
     const keyframesPowerOff = {
       '0%': {transform: 'scale(1)'},
-      '100%': {transform: 'scale(0.7, 0)'},
+      '60%': {transform: 'scale(0.5, 0)'},
+      '100%': {transform: 'scale(0.5, 0)'},
     };
 
     crt = {
@@ -228,8 +229,21 @@ export default function styles(theme, props) {
 
     // Enforced shadow.
     const keyframesCRTOff = {
-      '0%': {backgroundColor: '#07401f', borderRadius: '0px'},
-      '100%': {backgroundColor: '#0cff72', borderRadius: width},
+      '20%': {
+        border: '0px solid',
+        borderBottomColor: 'transparent',
+        borderLeftColor: 'transparent',
+        borderRightColor: 'transparent',
+        borderTopColor: 'transparent',
+      },
+      '60%': {
+        backgroundColor: '#0cff72',
+        borderRadius: width,
+      },
+      '100%': {
+        backgroundColor: '#0cff72',
+        borderRadius: width,
+      },
     };
 
     backgroundCRT = {
