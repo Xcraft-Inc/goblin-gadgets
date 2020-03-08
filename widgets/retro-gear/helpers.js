@@ -92,24 +92,28 @@ function getGearLightPath(cx, cy, r, toothCount = 36, toothThickness = 60) {
   cy = toInt(cy);
   r = toInt(r);
   r = getRadius(r, toothThickness);
+  const rs = r.r4 + (r.r5 - r.r4) * 0.4;
 
   const path = [];
 
   const a1 = 180 / toothCount;
   const a2 = a1 / 5;
-  let i = 0;
-  for (let a = 0; a < 360; a += a1) {
+  const a3 = a1 / 10;
+  let a = 0;
+  for (let i = 0; i < toothCount * 2; i++) {
     const r1 = i % 2 === 0 ? r.r5 : r.r4;
     const r2 = i % 2 !== 0 ? r.r5 : r.r4;
+    const as = i % 2 === 0 ? a2 : -a2;
     const p1 = rotatePointDeg({x: cx, y: cy}, a - a2, {x: cx + r1, y: cy});
+    const s1 = rotatePointDeg({x: cx, y: cy}, a + as, {x: cx + rs, y: cy});
     const p2 = rotatePointDeg({x: cx, y: cy}, a + a2, {x: cx + r2, y: cy});
     if (i === 0) {
       moveTo(path, p1.x, p1.y);
     } else {
       lineTo(path, p1.x, p1.y);
     }
-    lineTo(path, p2.x, p2.y);
-    i++;
+    bezierTo(path, s1.x, s1.y, p2.x, p2.y, p2.x, p2.y);
+    a += a1 + (i % 2 === 0 ? a3 : -a3);
   }
   close(path);
 

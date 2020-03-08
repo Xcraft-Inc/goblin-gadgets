@@ -184,8 +184,8 @@ export default function styles(theme, props) {
 
   const gear2 = {
     position: 'absolute',
-    right: 'calc(50% + 512px)',
-    bottom: '85px',
+    right: 'calc(50% + 505px)',
+    bottom: '87px',
     width: '0px',
     height: '0px',
     animationName: gearKeyframes2,
