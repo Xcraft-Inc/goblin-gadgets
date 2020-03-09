@@ -9,7 +9,6 @@ export const propNames = [
   'radius',
   'angle',
   'color',
-  'opacity',
   'rotationDuration',
   'rotationDirection',
 ];
@@ -24,8 +23,6 @@ export default function styles(theme, props) {
     right,
     radius = '100px',
     angle = '0deg',
-    color = '#aaa',
-    opacity = 1,
     rotationDuration,
     rotationDirection,
   } = props;
@@ -44,7 +41,7 @@ export default function styles(theme, props) {
     },
   };
 
-  const _gear = {
+  const gear = {
     position: 'absolute',
     top: top ? Unit.sub(top, radius) : null,
     bottom: bottom ? Unit.sub(bottom, radius) : null,
@@ -54,35 +51,14 @@ export default function styles(theme, props) {
     height: size,
     transform: rotationDuration ? 'rotate(0deg)' : `rotate(${angle})`,
 
-    strokeLinecap: 'round',
-    strokeLinejoin: 'round',
-    fillRule: 'evenodd',
-
     animation: rotationDuration ? `${rotationDuration} infinite linear` : null,
     animationName: rotationDuration ? keyframes : null,
-  };
-
-  const gearLight = {
-    ..._gear,
-    stroke: ColorManipulator.darken(color, 0.8),
-    strokeWidth: '1px',
-    fill: color,
-    opacity: opacity,
-  };
-
-  const gearDark = {
-    ..._gear,
-    stroke: ColorManipulator.darken(color, 0.8),
-    strokeWidth: '1px',
-    fill: ColorManipulator.darken(color, 0.1),
-    opacity: Math.min(opacity * 1.5, 1),
   };
 
   /******************************************************************************/
 
   return {
-    gearLight,
-    gearDark,
+    gear,
   };
 }
 

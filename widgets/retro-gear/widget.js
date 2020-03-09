@@ -9,28 +9,27 @@ export default class RetroGear extends Widget {
     super(...arguments);
   }
 
-  renderPath(path, style) {
-    return (
-      <svg className={this.styles.classNames[style]}>
-        <path
-          d={path(
-            this.props.radius,
-            this.props.radius,
-            this.props.radius,
-            this.props.toothCount,
-            this.props.toothThickness
-          )}
-        />
-      </svg>
+  renderElements() {
+    const elements = helpers.getElements(
+      this.props.radius,
+      this.props.radius,
+      this.props.radius,
+      this.props.toothThickness,
+      this.props.toothCount,
+      this.props.color
     );
+
+    const result = [];
+    for (const item of elements) {
+      result.push(React.createElement(item.element, item.props));
+    }
+
+    return result;
   }
 
   render() {
     return (
-      <React.Fragment>
-        {this.renderPath(helpers.getGearDarkPath, 'gearDark')}
-        {this.renderPath(helpers.getGearLightPath, 'gearLight')}
-      </React.Fragment>
+      <svg className={this.styles.classNames.gear}>{this.renderElements()}</svg>
     );
   }
 }

@@ -1,3 +1,4 @@
+import {ColorManipulator} from 'electrum-theme';
 import svg from '../helpers/svg-helpers';
 
 /******************************************************************************/
@@ -15,7 +16,7 @@ function getRadius(r, toothThickness) {
 /******************************************************************************/
 
 // Outer teeth and axis.
-function getGearLightPath(cx, cy, r, toothCount = 36, toothThickness = 60) {
+function getGearLightPath(cx, cy, r, toothThickness, toothCount) {
   cx = svg.toInt(cx);
   cy = svg.toInt(cy);
   r = svg.toInt(r);
@@ -54,7 +55,7 @@ function getGearLightPath(cx, cy, r, toothCount = 36, toothThickness = 60) {
 }
 
 // Openwork interior.
-function getGearDarkPath(cx, cy, r, toothCount = 36, toothThickness = 60) {
+function getGearDarkPath(cx, cy, r, toothThickness) {
   cx = svg.toInt(cx);
   cy = svg.toInt(cy);
   r = svg.toInt(r);
@@ -76,9 +77,43 @@ function getGearDarkPath(cx, cy, r, toothCount = 36, toothThickness = 60) {
   return svg.getPath(path);
 }
 
+function getElements(cx, cy, r, toothThickness = 60, toothCount = 36, color) {
+  const elements = [];
+
+  const p1 = getGearDarkPath(cx, cy, r, toothThickness);
+  const p2 = getGearLightPath(cx, cy, r, toothThickness, toothCount);
+
+  elements.push({
+    element: 'path',
+    props: {
+      d: p1,
+      stroke: ColorManipulator.darken(color, 0.8),
+      strokeWidth: '1px',
+      strokeLinecap: 'round',
+      strokeLinejoin: 'round',
+      fill: color,
+      fillRule: 'evenodd',
+    },
+  });
+
+  elements.push({
+    element: 'path',
+    props: {
+      d: p2,
+      stroke: ColorManipulator.darken(color, 0.8),
+      strokeWidth: '1px',
+      strokeLinecap: 'round',
+      strokeLinejoin: 'round',
+      fill: ColorManipulator.darken(color, 0.1),
+      fillRule: 'evenodd',
+    },
+  });
+
+  return elements;
+}
+
 /******************************************************************************/
 
 module.exports = {
-  getGearLightPath,
-  getGearDarkPath,
+  getElements,
 };

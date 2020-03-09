@@ -108,6 +108,16 @@ function close(path) {
   path.push('z');
 }
 
+// <path d="M10 10 H 90 V 90 H 10 Z" fill="transparent" stroke="black"/>
+function fill(path, color) {
+  path.push(`fill="${color}"`);
+}
+
+function stroke(path, color, width) {
+  path.push(`stroke="${color}"`);
+  path.push(`strokeWidth="${width}"`);
+}
+
 /******************************************************************************/
 
 module.exports = {
