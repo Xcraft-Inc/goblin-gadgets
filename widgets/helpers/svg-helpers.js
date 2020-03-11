@@ -1,3 +1,5 @@
+import React from 'react';
+
 /******************************************************************************/
 
 function degToRad(angle) {
@@ -108,14 +110,25 @@ function close(path) {
   path.push('z');
 }
 
-// <path d="M10 10 H 90 V 90 H 10 Z" fill="transparent" stroke="black"/>
-function fill(path, color) {
-  path.push(`fill="${color}"`);
+/******************************************************************************/
+
+function createElements() {
+  return [];
 }
 
-function stroke(path, color, width) {
-  path.push(`stroke="${color}"`);
-  path.push(`strokeWidth="${width}"`);
+function pushPath(elements, path, props) {
+  elements.push({element: 'path', props: {d: path, ...props}});
+}
+
+function renderElements(style, elements) {
+  return (
+    <svg className={style}>
+      {elements.map((e, index) => {
+        e.props.key = index;
+        return React.createElement(e.element, e.props);
+      })}
+    </svg>
+  );
 }
 
 /******************************************************************************/
@@ -136,4 +149,8 @@ module.exports = {
   ar,
   circle,
   close,
+
+  createElements,
+  pushPath,
+  renderElements,
 };

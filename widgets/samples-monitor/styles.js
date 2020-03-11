@@ -19,13 +19,9 @@ export default function styles(theme, props) {
   let foregroundCRT1 = {};
   let foregroundCRT2 = {};
   let foregroundCRT3 = {};
-  let screenLeft = {};
-  let screenRight = {};
-  let screenTop = {};
-  let screenBottom = {};
+  let screen = {};
   let grid = {};
-  let samplesStroke = {};
-  let samplesFill = {};
+  let samples = {};
   let flare = {};
   let border = {};
 
@@ -80,23 +76,14 @@ export default function styles(theme, props) {
 
     grid = {
       position: 'absolute',
-      stroke: 'rgba(255,255,255,0.1)',
-      strokeWidth: '1px',
-      fill: 'transparent',
+      width: '100%',
+      height: '100%',
     };
 
-    samplesStroke = {
+    samples = {
       position: 'absolute',
-      // stroke: <-- various colors
-      strokeWidth: '1px',
-      strokeLinecap: 'round',
-      strokeLinejoin: 'round',
-      fill: 'transparent',
-    };
-
-    samplesFill = {
-      position: 'absolute',
-      // fill: <-- various colors
+      width: '100%',
+      height: '100%',
     };
 
     flare = {};
@@ -332,43 +319,26 @@ export default function styles(theme, props) {
       animationIterationCount: 'infinite',
     };
 
-    screenLeft = {
+    screen = {
       position: 'absolute',
-      margin: '2px',
-      fill: '#444',
-    };
-
-    screenRight = {
-      ...screenLeft,
-      fill: '#888',
-    };
-
-    screenTop = {
-      ...screenLeft,
-      fill: '#222',
-    };
-
-    screenBottom = {
-      ...screenLeft,
-      fill: '#aaa',
+      top: '2px',
+      left: '2px',
+      width: 'calc(100% - 4px)',
+      height: 'calc(100% - 4px)',
     };
 
     /******************************************************************************/
 
     grid = {
       position: 'absolute',
-      stroke: 'rgba(0,255,0,0.2)',
-      strokeWidth: '1px',
-      fill: 'transparent',
+      width: '100%',
+      height: '100%',
     };
 
-    samplesStroke = {
+    samples = {
       position: 'absolute',
-      // stroke: <-- various colors
-      strokeWidth: '2px',
-      strokeLinecap: 'round',
-      strokeLinejoin: 'round',
-      fill: 'transparent',
+      width: '100%',
+      height: '100%',
     };
 
     flare = {
@@ -411,14 +381,10 @@ export default function styles(theme, props) {
     foregroundCRT1,
     foregroundCRT2,
     foregroundCRT3,
-    screenLeft,
-    screenRight,
-    screenTop,
-    screenBottom,
+    screen,
 
     grid,
-    samplesStroke,
-    samplesFill,
+    samples,
     flare,
     border,
   };

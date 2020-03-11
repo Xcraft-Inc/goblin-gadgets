@@ -1,30 +1,4 @@
-// Convert string '123px' to int 123.
-function toInt(value) {
-  if (typeof value === 'string') {
-    return parseInt(value.replace(/px/g, ''));
-  } else {
-    return value;
-  }
-}
-
-// Move to absolute position.
-function moveTo(path, x, y) {
-  path.push('M ' + x + ' ' + y);
-}
-
-// Line to absolute position.
-function lineTo(path, x, y) {
-  path.push('L ' + x + ' ' + y);
-}
-
-function bezierTo(path, x1, y1, x2, y2, x, y) {
-  path.push('C ' + x1 + ' ' + y1 + ' ' + x2 + ' ' + y2 + ' ' + x + ' ' + y);
-}
-
-// Close path.
-function close(path) {
-  path.push('z');
-}
+import svg from '../helpers/svg-helpers';
 
 /******************************************************************************/
 
@@ -45,48 +19,64 @@ function close(path) {
 //            <----> <---->
 //              10    10
 
-function getFramePath(dy, place) {
-  const path = [];
+function _getFramePath(dy, place) {
+  const path = svg.createPath();
 
-  dy = toInt(dy);
+  dy = svg.toInt(dy);
   const r = 10;
   const b = 0.552284749831; // (4/3)*tan(pi/8) = 4*(sqrt(2)-1)/3
   const rb = r * b;
 
   // prettier-ignore
-  if (place === 'left-screw') {
+  if (place === 'frameLeftScrew') {
     const dx = 20
-    moveTo(path, dx,    0.5);
-    lineTo(path, r,     0.5);
-    lineTo(path, r,  dy/2-r);
-    bezierTo(path, r-rb, dy/2-r,  0.5,  dy/2-rb, 0.5, dy/2);
-    bezierTo(path, 0.5,  dy/2+rb, r-rb, dy/2+r,  r,   dy/2+r);
-    lineTo(path, r,  dy-0.5);
-    lineTo(path, dx, dy-0.5);
-  } else if (place === 'right-screw') {
+    svg.ma(path, dx,    0.5);
+    svg.la(path, r,     0.5);
+    svg.la(path, r,  dy/2-r);
+    svg.ba(path, r-rb, dy/2-r,  0.5,  dy/2-rb, 0.5, dy/2);
+    svg.ba(path, 0.5,  dy/2+rb, r-rb, dy/2+r,  r,   dy/2+r);
+    svg.la(path, r,  dy-0.5);
+    svg.la(path, dx, dy-0.5);
+  } else if (place === 'frameRightScrew') {
     const dx = 20
-    moveTo(path, 0,    0.5   );
-    lineTo(path, dx-r, 0.5   );
-    lineTo(path, dx-r, dy/2-r);
-    bezierTo(path, dx-r+rb, dy/2-r,  dx-0.5,  dy/2-rb, dx-0.5, dy/2);
-    bezierTo(path, dx-0.5,  dy/2+rb, dx-r+rb, dy/2+r,  dx-r,   dy/2+r);
-    lineTo(path, dx-r, dy-0.5);
-    lineTo(path, 0,    dy-0.5);
-  } else if (place === 'left') {
+    svg.ma(path, 0,    0.5   );
+    svg.la(path, dx-r, 0.5   );
+    svg.la(path, dx-r, dy/2-r);
+    svg.ba(path, dx-r+rb, dy/2-r,  dx-0.5,  dy/2-rb, dx-0.5, dy/2);
+    svg.ba(path, dx-0.5,  dy/2+rb, dx-r+rb, dy/2+r,  dx-r,   dy/2+r);
+    svg.la(path, dx-r, dy-0.5);
+    svg.la(path, 0,    dy-0.5);
+  } else if (place === 'frameLeft') {
     const dx = 10
-    moveTo(path, dx,    0.5);
-    lineTo(path, 0,     0.5);
-    lineTo(path, 0,  dy-0.5);
-    lineTo(path, dx, dy-0.5);
-  } else if (place === 'right') {
+    svg.ma(path, dx,    0.5);
+    svg.la(path, 0,     0.5);
+    svg.la(path, 0,  dy-0.5);
+    svg.la(path, dx, dy-0.5);
+  } else if (place === 'frameRight') {
     const dx = 10
-    moveTo(path, 0,     0.5);
-    lineTo(path, dx,    0.5);
-    lineTo(path, dx, dy-0.5);
-    lineTo(path, 0,  dy-0.5);
+    svg.ma(path, 0,     0.5);
+    svg.la(path, dx,    0.5);
+    svg.la(path, dx, dy-0.5);
+    svg.la(path, 0,  dy-0.5);
   }
 
-  return path.join(' ');
+  return svg.getPath(path);
+}
+
+function getFrameElements(dy, place, frameBorderColor, frameBackgroundColor) {
+  const elements = svg.createElements();
+
+  const props = {
+    stroke: frameBorderColor,
+    strokeWidth: '1px',
+    strokeLinecap: 'round',
+    strokeLinejoin: 'round',
+    fill: frameBackgroundColor,
+  };
+
+  svg.pushPath(elements, _getFramePath(dy, place), props);
+
+  return elements;
 }
 
 /******************************************************************************/
@@ -110,6 +100,6 @@ function getPlace(place) {
 /******************************************************************************/
 
 module.exports = {
-  getFramePath,
+  getFrameElements,
   getPlace,
 };

@@ -231,11 +231,6 @@ export default function styles(theme, props) {
     top: '0px',
     bottom: '0px',
     height: boxHeight,
-    stroke: frameBorderColor,
-    strokeWidth: '1px',
-    strokeLinecap: 'round',
-    strokeLinejoin: 'round',
-    fill: frameBackgroundColor,
   };
 
   const frameLeftScrew = {

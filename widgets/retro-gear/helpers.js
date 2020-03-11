@@ -16,7 +16,7 @@ function getRadius(r, toothThickness) {
 /******************************************************************************/
 
 // Outer teeth and axis.
-function getGearLightPath(cx, cy, r, toothThickness, toothCount) {
+function _getGearLightPath(cx, cy, r, toothThickness, toothCount) {
   cx = svg.toInt(cx);
   cy = svg.toInt(cy);
   r = svg.toInt(r);
@@ -55,7 +55,7 @@ function getGearLightPath(cx, cy, r, toothThickness, toothCount) {
 }
 
 // Openwork interior.
-function getGearDarkPath(cx, cy, r, toothThickness) {
+function _getGearDarkPath(cx, cy, r, toothThickness) {
   cx = svg.toInt(cx);
   cy = svg.toInt(cy);
   r = svg.toInt(r);
@@ -78,36 +78,27 @@ function getGearDarkPath(cx, cy, r, toothThickness) {
 }
 
 function getElements(cx, cy, r, toothThickness = 60, toothCount = 36, color) {
-  const elements = [];
+  const elements = svg.createElements();
 
-  const p1 = getGearDarkPath(cx, cy, r, toothThickness);
-  const p2 = getGearLightPath(cx, cy, r, toothThickness, toothCount);
+  const path1 = _getGearDarkPath(cx, cy, r, toothThickness);
+  const path2 = _getGearLightPath(cx, cy, r, toothThickness, toothCount);
 
-  elements.push({
-    element: 'path',
-    props: {
-      d: p1,
-      stroke: ColorManipulator.darken(color, 0.8),
-      strokeWidth: '1px',
-      strokeLinecap: 'round',
-      strokeLinejoin: 'round',
-      fill: color,
-      fillRule: 'evenodd',
-    },
-  });
+  const props1 = {
+    stroke: ColorManipulator.darken(color, 0.8),
+    strokeWidth: '1px',
+    strokeLinecap: 'round',
+    strokeLinejoin: 'round',
+    fill: color,
+    fillRule: 'evenodd',
+  };
 
-  elements.push({
-    element: 'path',
-    props: {
-      d: p2,
-      stroke: ColorManipulator.darken(color, 0.8),
-      strokeWidth: '1px',
-      strokeLinecap: 'round',
-      strokeLinejoin: 'round',
-      fill: ColorManipulator.darken(color, 0.1),
-      fillRule: 'evenodd',
-    },
-  });
+  const props2 = {
+    ...props1,
+    fill: ColorManipulator.darken(color, 0.1),
+  };
+
+  svg.pushPath(elements, path1, props1);
+  svg.pushPath(elements, path2, props2);
 
   return elements;
 }

@@ -1,12 +1,13 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import * as styles from './styles';
-import getPath from './getPath';
 import Checkbox from 'goblin-gadgets/widgets/checkbox/widget';
 import Separator from 'goblin-gadgets/widgets/separator/widget';
 import {Unit} from 'electrum-theme';
 import Shredder from 'xcraft-core-shredder';
 import {ColorManipulator} from 'electrum-theme';
+import helpers from './helpers';
+import svg from '../helpers/svg-helpers';
 
 /******************************************************************************/
 
@@ -102,18 +103,6 @@ export default class SamplesMonitor extends Widget {
     return <div className={`flare-hover ${this.styles.classNames.flare}`} />;
   }
 
-  renderScreenBorder(w, h, styleName) {
-    return (
-      <svg
-        width={w + 'px'}
-        height={h + 'px'}
-        className={this.styles.classNames[styleName]}
-      >
-        <path d={getPath.getScreenPath(w, h, styleName)} />
-      </svg>
-    );
-  }
-
   renderScreen(w, h) {
     if (!this.isRetro) {
       return null;
@@ -122,12 +111,11 @@ export default class SamplesMonitor extends Widget {
     w -= 4;
     h -= 4;
 
+    const screenElements = helpers.getScreenElements(w, h);
+
     return (
       <React.Fragment>
-        {this.renderScreenBorder(w, h, 'screenLeft')}
-        {this.renderScreenBorder(w, h, 'screenRight')}
-        {this.renderScreenBorder(w, h, 'screenTop')}
-        {this.renderScreenBorder(w, h, 'screenBottom')}
+        {svg.renderElements(this.styles.classNames.screen, screenElements)}
         {this.renderFlare()}
         <div className={this.styles.classNames.border} />
       </React.Fragment>
@@ -154,79 +142,61 @@ export default class SamplesMonitor extends Widget {
       ny = channelCount;
     }
 
-    return (
-      <svg
-        width={w + 'px'}
-        height={h + 'px'}
-        className={this.styles.classNames.grid}
-      >
-        <path d={getPath.getGridPath(ox, oy, dx, dy, nx, ny)} />
-      </svg>
+    const strokeColor = this.isRetro
+      ? 'rgba(0,255,0,0.2)'
+      : 'rgba(255,255,255,0.1)';
+
+    const elements = helpers.getGridElements(
+      ox,
+      oy,
+      dx,
+      dy,
+      nx,
+      ny,
+      strokeColor
     );
+
+    return svg.renderElements(this.styles.classNames.grid, elements);
   }
 
-  renderSamplesSVG(w, h, ox, oy, dx, dy, channel, part, style) {
-    return (
-      <svg
-        width={w + 'px'}
-        height={h + 'px'}
-        className={this.styles.classNames.samplesStroke}
-        style={style}
-      >
-        <path
-          d={getPath.getSamplesPath(
-            ox,
-            oy,
-            dx,
-            dy,
-            channel.samples,
-            channel.max || 0.0001,
-            part
-          )}
-        />
-      </svg>
+  renderSamplesSVG(ox, oy, dx, dy, channel, part, color) {
+    if (this.isRetro && part === 'fill') {
+      return null;
+    }
+
+    const strokeWidth = this.isRetro ? '2px' : '1px';
+    const strokeColor =
+      part === 'fill' ? 'transparent' : color || this.strokeColors[0];
+    const fillColor =
+      part === 'stroke'
+        ? 'transparent'
+        : ColorManipulator.fade(color || this.strokeColors[0], 0.3);
+
+    const elements = helpers.getSampleElements(
+      ox,
+      oy,
+      dx,
+      dy,
+      channel.samples,
+      channel.max || 0.0001,
+      part,
+      strokeWidth,
+      strokeColor,
+      fillColor
     );
+
+    return svg.renderElements(this.styles.classNames.samples, elements);
   }
 
-  renderSamples(w, h, ox, oy, dx, dy, channel, color, index) {
+  renderSamples(ox, oy, dx, dy, channel, color, index) {
     if (!channel.samples) {
       return null;
     }
 
-    const styleFill = {
-      fill: ColorManipulator.fade(color || this.strokeColors[0], 0.3),
-    };
-
-    const styleStroke = {
-      stroke: color || this.strokeColors[0],
-    };
-
     return (
       <React.Fragment key={index}>
-        {!this.isRetro
-          ? this.renderSamplesSVG(
-              w,
-              h,
-              ox,
-              oy,
-              dx,
-              dy,
-              channel,
-              'fill',
-              styleFill
-            )
-          : null}
-        {this.renderSamplesSVG(
-          w,
-          h,
-          ox,
-          oy,
-          dx,
-          dy,
-          channel,
-          'stroke',
-          styleStroke
-        )}
+        {this.renderSamplesSVG(ox, oy, dx, dy, channel, 'fill', color)}
+        {this.renderSamplesSVG(ox, oy, dx, dy, channel, 'stroke', color)}
       </React.Fragment>
     );
   }
@@ -251,11 +221,11 @@ export default class SamplesMonitor extends Widget {
     );
   }
 
-  renderChannel(w, h, ox, oy, dx, dy, channel, color, index) {
+  renderChannel(ox, oy, dx, dy, channel, color, index) {
     const hn = 16;
     return (
       <React.Fragment key={index}>
-        {this.renderSamples(w, h, ox, oy, dx, dy - hn, channel, color)}
+        {this.renderSamples(ox, oy, dx, dy - hn, channel, color)}
         {this.renderSampleName(ox, oy + dy - hn, dx, hn, channel, color)}
       </React.Fragment>
     );
@@ -273,26 +243,15 @@ export default class SamplesMonitor extends Widget {
 
     if (channels.length === 0) {
       // Simple horizontal line.
-      result.push(
-        this.renderChannel(
-          w,
-          h,
-          ox,
-          oy,
-          dx,
-          dy,
-          {samples: new Shredder([0, 0]), max: 1, name: 'IDLE'},
-          null,
-          index++
-        )
-      );
+      const flat = {samples: new Shredder([0, 0]), max: 1, name: 'IDLE'};
+      result.push(this.renderChannel(ox, oy, dx, dy, flat, null, index++));
     } else {
       const colors = this.strokeColors;
       for (const channel of channels) {
         const colorIndex = this.isRetro ? 0 : index;
         const color = colors[colorIndex % colors.length];
         result.push(
-          this.renderChannel(w, h, ox, oy, dx, dy, channel, color, index++)
+          this.renderChannel(ox, oy, dx, dy, channel, color, index++)
         );
         oy += dy + my;
       }
@@ -312,43 +271,24 @@ export default class SamplesMonitor extends Widget {
 
     if (channels.length === 0) {
       // Simple horizontal line.
-      result.push(
-        this.renderChannel(
-          w,
-          h,
-          ox,
-          oy,
-          dx,
-          dy,
-          {samples: new Shredder([0, 0]), max: 1, name: 'IDLE'},
-          null,
-          index++
-        )
-      );
+      const flat = {samples: new Shredder([0, 0]), max: 1, name: 'IDLE'};
+      result.push(this.renderChannel(ox, oy, dx, dy, flat, null, index++));
     } else {
       const hn = 16;
       const colors = this.strokeColors;
       // Display samples on same rectangle.
       let colorIndex = 0;
       for (const channel of channels) {
+        const color = colors[colorIndex++ % colors.length];
         result.push(
-          this.renderSamples(
-            w,
-            h,
-            ox,
-            oy,
-            dx,
-            dy - hn,
-            channel,
-            colors[colorIndex++ % colors.length],
-            index++
-          )
+          this.renderSamples(ox, oy, dx, dy - hn, channel, color, index++)
         );
       }
       // Display names, from left to right.
       colorIndex = 0;
       const tx = dx / channels.length;
       for (const channel of channels) {
+        const color = colors[colorIndex++ % colors.length];
         result.push(
           this.renderSampleName(
             ox,
@@ -356,7 +296,7 @@ export default class SamplesMonitor extends Widget {
             tx,
             hn,
             channel,
-            colors[colorIndex++ % colors.length],
+            color,
             index++
           )
         );
@@ -393,7 +333,7 @@ export default class SamplesMonitor extends Widget {
 
     return (
       <React.Fragment>
-        {this.renderSamples(w, h, ox, oy, dx, dy, channel)}
+        {this.renderSamples(ox, oy, dx, dy, channel)}
       </React.Fragment>
     );
   }

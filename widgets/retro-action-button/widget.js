@@ -1,5 +1,4 @@
 import React from 'react';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import Widget from 'goblin-laboratory/widgets/widget';
 import MouseTrap from 'mousetrap';
 import * as ShortcutHelpers from '../helpers/shortcut-helpers.js';
@@ -13,6 +12,8 @@ import RetroScrew from 'goblin-gadgets/widgets/retro-screw/widget';
 import RetroGear from 'goblin-gadgets/widgets/retro-gear/widget';
 import * as styles from './styles';
 import helpers from './helpers';
+import svg from '../helpers/svg-helpers';
+import {ColorManipulator} from 'electrum-theme';
 
 /******************************************************************************/
 
@@ -165,7 +166,7 @@ export default class RetroActionButton extends Widget {
     return (
       <div className={this.styles.classNames.busyBox}>
         <RetroGear
-          color="#aaa"
+          color={ColorManipulator.darken(this.context.theme.palette.light, 0.2)}
           left="0px"
           top="0px"
           radius="100px"
@@ -245,54 +246,46 @@ export default class RetroActionButton extends Widget {
     return <div className={this.styles.classNames.shadow} />;
   }
 
+  renderFrames(h, styleLeft, styleRight) {
+    const frameBorderColor = ColorManipulator.darken(
+      this.context.theme.palette.actionButtonBackground,
+      0.7
+    );
+    const frameBackgroundColor = this.context.theme.palette.chrome; // gold
+
+    const elementLeft = helpers.getFrameElements(
+      h,
+      styleLeft,
+      frameBorderColor,
+      frameBackgroundColor
+    );
+    const elementRight = helpers.getFrameElements(
+      h,
+      styleRight,
+      frameBorderColor,
+      frameBackgroundColor
+    );
+
+    return (
+      <React.Fragment>
+        {svg.renderElements(this.styles.classNames[styleLeft], elementLeft)}
+        {svg.renderElements(this.styles.classNames[styleRight], elementRight)}
+      </React.Fragment>
+    );
+  }
+
   renderFrame() {
-    const place = this.place;
     const h = this.height;
 
-    if (place === 'left') {
-      return (
-        <React.Fragment>
-          <svg className={this.styles.classNames.frameLeftScrew}>
-            <path d={helpers.getFramePath(h, 'left-screw')} />
-          </svg>
-          <svg className={this.styles.classNames.frameRight}>
-            <path d={helpers.getFramePath(h, 'right')} />
-          </svg>
-        </React.Fragment>
-      );
-    } else if (place === 'right') {
-      return (
-        <React.Fragment>
-          <svg className={this.styles.classNames.frameLeft}>
-            <path d={helpers.getFramePath(h, 'left')} />
-          </svg>
-          <svg className={this.styles.classNames.frameRightScrew}>
-            <path d={helpers.getFramePath(h, 'right-screw')} />
-          </svg>
-        </React.Fragment>
-      );
-    } else if (place === 'single') {
-      return (
-        <React.Fragment>
-          <svg className={this.styles.classNames.frameLeftScrew}>
-            <path d={helpers.getFramePath(h, 'left-screw')} />
-          </svg>
-          <svg className={this.styles.classNames.frameRightScrew}>
-            <path d={helpers.getFramePath(h, 'right-screw')} />
-          </svg>
-        </React.Fragment>
-      );
-    } else {
-      return (
-        <React.Fragment>
-          <svg className={this.styles.classNames.frameLeft}>
-            <path d={helpers.getFramePath(h, 'left')} />
-          </svg>
-          <svg className={this.styles.classNames.frameRight}>
-            <path d={helpers.getFramePath(h, 'right')} />
-          </svg>
-        </React.Fragment>
-      );
+    switch (this.place) {
+      case 'left':
+        return this.renderFrames(h, 'frameLeftScrew', 'frameRight');
+      case 'right':
+        return this.renderFrames(h, 'frameLeft', 'frameRightScrew');
+      case 'single':
+        return this.renderFrames(h, 'frameLeftScrew', 'frameRightScrew');
+      default:
+        return this.renderFrames(h, 'frameLeft', 'frameRight');
     }
   }
 
