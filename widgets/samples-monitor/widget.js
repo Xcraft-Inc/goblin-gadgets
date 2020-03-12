@@ -108,10 +108,7 @@ export default class SamplesMonitor extends Widget {
       return null;
     }
 
-    w -= 4;
-    h -= 4;
-
-    const screenElements = helpers.getScreenElements(w, h);
+    const screenElements = helpers.getScreenElements(w - 4, h - 4);
 
     return (
       <React.Fragment>
