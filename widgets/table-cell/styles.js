@@ -1,8 +1,7 @@
-//T:2019-02-27
-
 import {Unit} from 'electrum-theme';
 import {isImmutable} from 'immutable';
 import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
+import {ColorManipulator} from 'electrum-theme';
 
 /******************************************************************************/
 
@@ -135,7 +134,8 @@ export default function styles(theme, props) {
     hoverColor = theme.palette.actionButtonBackground;
   }
 
-  const cell = {
+  const tableCell = {
+    'position': 'relative',
     'minWidth': minWidth,
     'maxWidth': maxWidth,
     'maxHeight': maxHeight,
@@ -162,8 +162,62 @@ export default function styles(theme, props) {
     },
   };
 
+  const widthButton = {
+    'zIndex': '1',
+    'position': 'absolute',
+    'right': Unit.multiply(Unit.add(marginRight, '5px'), -1),
+    'width': '10px',
+    'top': '0px',
+    'bottom': '0px',
+    'opacity': 0,
+    'borderLeft': '3px solid white',
+    'borderRight': '3px solid white',
+    'boxSizing': 'border-box',
+    'cursor': 'ew-resize',
+    'transition': '0.2s ease-out',
+    ':hover': {
+      //? opacity: 0.7,
+      //? bottom: '-1000px',
+      //? background: `linear-gradient(${theme.palette.base}, transparent)`,
+      opacity: 1,
+      bottom: '-100vh',
+      backgroundColor: ColorManipulator.fade(theme.palette.base, 0.8),
+    },
+  };
+
+  const changingWidthFullscreen = {
+    zIndex: '99',
+    position: 'fixed',
+    top: '0px',
+    bottom: '0px',
+    left: '0px',
+    right: '0px',
+    cursor: 'ew-resize',
+  };
+
+  const changingWidthMarkColumn = {
+    position: 'absolute',
+    top: '0px',
+    bottom: '0px',
+    backgroundColor: ColorManipulator.fade(theme.palette.base, 0.1),
+  };
+
+  const changingWidthMark = {
+    position: 'absolute',
+    top: '0px',
+    bottom: '0px',
+    width: '4px',
+    backgroundColor: ColorManipulator.fade(theme.palette.base, 0.8),
+  };
+
+  /******************************************************************************/
+
   return {
-    cell,
+    tableCell,
+    widthButton,
+    changingWidthFullscreen,
+    changingWidthMarkColumn,
+    changingWidthMark,
   };
 }
 

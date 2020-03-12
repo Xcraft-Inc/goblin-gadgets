@@ -5,9 +5,8 @@ import Widget from 'goblin-laboratory/widgets/widget';
 import Shredder from 'xcraft-core-shredder';
 import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import * as styles from './styles';
-
 import {converters as Converters} from 'xcraft-core-converters';
-
+import {Unit} from 'electrum-theme';
 import Label from 'goblin-gadgets/widgets/label/widget';
 
 /******************************************************************************/
@@ -44,11 +43,37 @@ class TableCell extends Widget {
     super(...arguments);
     this.styles = styles;
 
+    this.state = {
+      changingWidthX: null,
+    };
+
+    this.startPosX = null;
+    this.newWidth = null;
+
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onDoubleClick = this.onDoubleClick.bind(this);
+    this.onStartChangeWidth = this.onStartChangeWidth.bind(this);
+    this.onChangeWidth = this.onChangeWidth.bind(this);
+    this.onEndChangeWidth = this.onEndChangeWidth.bind(this);
   }
 
+  //#region get/set
+  get changingWidthX() {
+    return this.state.changingWidthX;
+  }
+
+  set changingWidthX(value) {
+    this.setState({
+      changingWidthX: value,
+    });
+  }
+  //#endregion
+
   onMouseDown() {
+    if (this.startPosX) {
+      return;
+    }
+
     const x = this.props.selectionChanged;
     if (x) {
       x(this.props.rowId);
@@ -56,13 +81,97 @@ class TableCell extends Widget {
   }
 
   onDoubleClick() {
+    if (this.startPosX) {
+      return;
+    }
+
     const x = this.props.onDoubleClick;
     if (x) {
       x(this.props.rowId);
     }
   }
 
+  onStartChangeWidth(e) {
+    this.changingWidthX = e.clientX;
+    this.startPosX = e.clientX;
+  }
+
+  onChangeWidth(e) {
+    if (!this.changingWidthX) {
+      return;
+    }
+
+    this.changingWidthX = e.clientX;
+
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
+  onEndChangeWidth() {
+    this.changingWidthX = null;
+    this.startPosX = null;
+
+    const x = this.props.widthChanged;
+    if (x) {
+      x(this.props.rowId, this.newWidth);
+    }
+  }
+
   /******************************************************************************/
+
+  renderWidthButton() {
+    if (
+      !Bool.isTrue(this.props.isHeader) ||
+      !this.props.widthChanged ||
+      this.changingWidthX
+    ) {
+      return null;
+    }
+
+    return (
+      <div
+        className={this.styles.classNames.widthButton}
+        onMouseDown={this.onStartChangeWidth}
+      />
+    );
+  }
+
+  renderChangingWidth() {
+    if (!this.changingWidthX) {
+      return null;
+    }
+
+    const w = Unit.parse(this.props.width).value;
+    const l = this.startPosX - w - 10;
+    this.newWidth = this.changingWidthX - l - 10 + 'px';
+
+    const styleColumn = {
+      left: l - 5 + 'px',
+      width: this.changingWidthX - l + 5 + 'px',
+      display: this.changingWidthX >= l ? null : 'none',
+    };
+
+    const style = {
+      left: Math.max(this.changingWidthX, l) - 2 + 'px',
+    };
+
+    return (
+      <div
+        className={this.styles.classNames.changingWidthFullscreen}
+        onMouseMove={this.onChangeWidth}
+        onMouseUp={this.onEndChangeWidth}
+      >
+        <div
+          className={this.styles.classNames.changingWidthMarkColumn}
+          style={styleColumn}
+        />
+        <div
+          className={this.styles.classNames.changingWidthMark}
+          style={style}
+        />
+      </div>
+    );
+  }
 
   renderLabel() {
     let glyph = null;
@@ -95,7 +204,7 @@ class TableCell extends Widget {
     return (
       <div
         key={this.props.index}
-        className={this.styles.classNames.cell}
+        className={this.styles.classNames.tableCell}
         onMouseDown={this.onMouseDown}
         onDoubleClick={this.props.onDoubleClick}
       >
@@ -119,6 +228,8 @@ class TableCell extends Widget {
         >
           {this.props.children}
         </Label>
+        {this.renderWidthButton()}
+        {this.renderChangingWidth()}
       </div>
     );
   }
@@ -128,7 +239,7 @@ class TableCell extends Widget {
     return (
       <div
         key={this.props.index}
-        className={this.styles.classNames.cell}
+        className={this.styles.classNames.tableCell}
         onMouseDown={this.onMouseDown}
         onDoubleClick={this.props.onDoubleClick}
       >
