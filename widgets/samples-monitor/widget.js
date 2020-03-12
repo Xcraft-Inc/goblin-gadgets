@@ -318,9 +318,9 @@ export default class SamplesMonitor extends Widget {
     for (const channel of channels) {
       for (let i = 0; i < channel.samples.size; i++) {
         const s = channel.samples.get(i);
-        max = Math.max(max, s);
         samples[i] = Math.max(samples[i], s);
       }
+      max = Math.max(max, channel.max);
     }
 
     const channel = {

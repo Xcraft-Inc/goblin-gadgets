@@ -61,7 +61,7 @@ function _getSamplesPath(ox, oy, dx, dy, samples, max, part) {
 
   for (let i = 0; i < count; i++) {
     const x = (dx / (count - 1)) * i; // from right to left <--|
-    const y = dy - (samples.get(i) / max) * dy;
+    const y = dy - Math.min(samples.get(i) / max, 1) * dy;
 
     if (i === 0) {
       svg.ma(path, ox + x, oy + y);
