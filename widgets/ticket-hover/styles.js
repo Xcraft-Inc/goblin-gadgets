@@ -1,130 +1,100 @@
 import {Unit} from 'electrum-theme';
 import * as TicketHelpers from '../ticket/ticket-helpers.js';
+import svg from '../helpers/svg-helpers';
 
 /******************************************************************************/
 
-// Convert string '123px' to int 123.
-function toInt(value) {
-  if (typeof value === 'string') {
-    return parseInt(value.replace(/px/g, ''));
-  } else {
-    return value;
-  }
-}
-
-// Move to absolute position.
-function moveTo(path, x, y) {
-  path.push('M ' + x + ' ' + y);
-}
-
-// Line to relative position.
-function lineTo(path, dx, dy) {
-  path.push('l ' + dx + ' ' + dy);
-}
-
-// Arc to relative position.
-function arcTo(path, r, cx, cy, sweepFlag) {
-  // rx ry x-axis-rotation large-arc-flag sweep-flag x y
-  // see http://www.w3.org/TR/SVG/paths.html#PathDataEllipticalArcCommands
-  path.push('a ' + r + ' ' + r + ' 0 0 ' + sweepFlag + ' ' + cx + ' ' + cy);
-}
-
-// Close path.
-function close(path) {
-  path.push('z');
-}
-
 function getHoverPath(theme, shape, hoverShape, width, height) {
-  const r = toInt(theme.shapes.ticketCornerRadius);
-  const t = toInt(theme.shapes.ticketHoverThickness);
-  const i = toInt(
+  const r = svg.toInt(theme.shapes.ticketCornerRadius);
+  const t = svg.toInt(theme.shapes.ticketHoverThickness);
+  const i = svg.toInt(
     Unit.multiply(Unit.multiply(theme.shapes.ticketCornerRadius, r), 1 / t)
   );
-  const w = toInt(width);
-  const h = toInt(height);
+  const w = svg.toInt(width);
+  const h = svg.toInt(height);
 
-  const path = [];
+  const path = svg.createPath();
   if (hoverShape === 'first') {
     // /\/\/\/\/\/\/\
     // |            |
     // +------------+
     const s = shape === 'first' ? 0 : r;
-    moveTo(path, 0, h - s);
-    lineTo(path, 0, -(h - s - r));
-    arcTo(path, r, r, -r, 0); // top-left external corner
-    lineTo(path, w - r - r, 0);
-    arcTo(path, r, r, r, 0); // top-right external corner
-    lineTo(path, 0, h - s - r);
-    lineTo(path, -t, 0);
-    lineTo(path, 0, -(h - t - s - r));
-    arcTo(path, i, -r, -r, 1); // top-right internal corner
-    lineTo(path, -(w - r - r - t - t), 0);
-    arcTo(path, i, -r, r, 1); // top-left internal corner
-    lineTo(path, 0, h - t - s - r);
-    close(path);
+    svg.ma(path, 0, h - s);
+    svg.lr(path, 0, -(h - s - r));
+    svg.ar(path, r, r, -r, 0); // top-left external corner
+    svg.lr(path, w - r - r, 0);
+    svg.ar(path, r, r, r, 0); // top-right external corner
+    svg.lr(path, 0, h - s - r);
+    svg.lr(path, -t, 0);
+    svg.lr(path, 0, -(h - t - s - r));
+    svg.ar(path, i, -r, -r, 1); // top-right internal corner
+    svg.lr(path, -(w - r - r - t - t), 0);
+    svg.ar(path, i, -r, r, 1); // top-left internal corner
+    svg.lr(path, 0, h - t - s - r);
+    svg.close(path);
   } else if (hoverShape === 'last') {
     // +------------+
     // |            |
     // \/\/\/\/\/\/\/
     const s = shape === 'last' ? 0 : r;
-    moveTo(path, 0, s);
-    lineTo(path, 0, h - s - r);
-    arcTo(path, r, r, r, 1); // bottom-left external corner
-    lineTo(path, w - r - r, 0);
-    arcTo(path, r, r, -r, 1); // bottom-right external corner
-    lineTo(path, 0, -(h - s - r));
-    lineTo(path, -t, 0);
-    lineTo(path, 0, h - t - s - r);
-    arcTo(path, i, -r, r, 0); // bottom-right internal corner
-    lineTo(path, -(w - r - r - t - t), 0);
-    arcTo(path, i, -r, -r, 0); // bottom-left internal corner
-    lineTo(path, 0, -(h - t - s - r));
-    close(path);
+    svg.ma(path, 0, s);
+    svg.lr(path, 0, h - s - r);
+    svg.ar(path, r, r, r, 1); // bottom-left external corner
+    svg.lr(path, w - r - r, 0);
+    svg.ar(path, r, r, -r, 1); // bottom-right external corner
+    svg.lr(path, 0, -(h - s - r));
+    svg.lr(path, -t, 0);
+    svg.lr(path, 0, h - t - s - r);
+    svg.ar(path, i, -r, r, 0); // bottom-right internal corner
+    svg.lr(path, -(w - r - r - t - t), 0);
+    svg.ar(path, i, -r, -r, 0); // bottom-left internal corner
+    svg.lr(path, 0, -(h - t - s - r));
+    svg.close(path);
   } else if (hoverShape === 'continued') {
     // +------------+
     // |            |
     // +------------+
     const st = shape === 'middle' || shape === 'first' ? r : 0;
     const sb = shape === 'middle' || shape === 'last' ? r : 0;
-    moveTo(path, 0, st);
-    lineTo(path, t, 0);
-    lineTo(path, 0, h - st - sb);
-    lineTo(path, -t, 0);
-    lineTo(path, 0, -(h - st - sb)); // left border
-    moveTo(path, w, st);
-    lineTo(path, -t, 0);
-    lineTo(path, 0, h - st - sb);
-    lineTo(path, t, 0);
-    lineTo(path, 0, -(h - st - sb)); // right border
-    close(path);
+    svg.ma(path, 0, st);
+    svg.lr(path, t, 0);
+    svg.lr(path, 0, h - st - sb);
+    svg.lr(path, -t, 0);
+    svg.lr(path, 0, -(h - st - sb)); // left border
+    svg.ma(path, w, st);
+    svg.lr(path, -t, 0);
+    svg.lr(path, 0, h - st - sb);
+    svg.lr(path, t, 0);
+    svg.lr(path, 0, -(h - st - sb)); // right border
+    svg.close(path);
   } else if (hoverShape === 'middle') {
     // /\/\/\/\/\/\/\
     // |            |
     // \/\/\/\/\/\/\/
     // External CW.
-    moveTo(path, 0, h - r);
-    lineTo(path, 0, -(h - r - r));
-    arcTo(path, r, r, -r, 0); // top-left external corner
-    lineTo(path, w - r - r, 0);
-    arcTo(path, r, r, r, 0); // top-right external corner
-    lineTo(path, 0, h - r - r);
-    arcTo(path, r, -r, r, 0); // bottom-right external corner
-    lineTo(path, -(w - r - r), 0);
-    arcTo(path, r, -r, -r, 0); // bottom-left internal corner
-    close(path);
+    svg.ma(path, 0, h - r);
+    svg.lr(path, 0, -(h - r - r));
+    svg.ar(path, r, r, -r, 0); // top-left external corner
+    svg.lr(path, w - r - r, 0);
+    svg.ar(path, r, r, r, 0); // top-right external corner
+    svg.lr(path, 0, h - r - r);
+    svg.ar(path, r, -r, r, 0); // bottom-right external corner
+    svg.lr(path, -(w - r - r), 0);
+    svg.ar(path, r, -r, -r, 0); // bottom-left internal corner
+    svg.close(path);
     // Internal CCW.
-    moveTo(path, t + r, h - t);
-    lineTo(path, w - r - r - t - t, 0);
-    arcTo(path, i, r, -r, 1); // bottom-right internal corner
-    lineTo(path, 0, -(h - r - r - t - t));
-    arcTo(path, i, -r, -r, 1); // top-right internal corner
-    lineTo(path, -(w - r - r - t - t), 0);
-    arcTo(path, i, -r, r, 1); // top-left internal corner
-    lineTo(path, 0, h - r - r - t - t);
-    arcTo(path, i, r, r, 1); // bottom-left internal corner
-    close(path);
+    svg.ma(path, t + r, h - t);
+    svg.lr(path, w - r - r - t - t, 0);
+    svg.ar(path, i, r, -r, 1); // bottom-right internal corner
+    svg.lr(path, 0, -(h - r - r - t - t));
+    svg.ar(path, i, -r, -r, 1); // top-right internal corner
+    svg.lr(path, -(w - r - r - t - t), 0);
+    svg.ar(path, i, -r, r, 1); // top-left internal corner
+    svg.lr(path, 0, h - r - r - t - t);
+    svg.ar(path, i, r, r, 1); // bottom-left internal corner
+    svg.close(path);
   }
-  return path.join(' ');
+  return svg.getPath(path);
 }
 
 /******************************************************************************/
