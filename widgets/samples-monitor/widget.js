@@ -407,7 +407,7 @@ export default class SamplesMonitor extends Widget {
     const ww = this.props.width;
     const hh = this.props.height;
     if (!ww || !hh) {
-      throw new Error('Undefined Monitor width or height');
+      throw new Error('SamplesMonitor: Undefined width or height');
     }
 
     const w = Unit.parse(ww).value - 50;
