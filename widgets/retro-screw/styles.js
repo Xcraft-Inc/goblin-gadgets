@@ -29,9 +29,14 @@ export default function styles(theme, props) {
   const colorBorder = isDark ? '#222' : '#555';
   const colorBackground = isDark ? '#777' : '#bbb';
   const colorSlot = isDark ? '#666' : '#aaa';
+
+  const ox = Unit.multiply(radius, 1 / 7); // 1px
+  const oy = Unit.multiply(radius, 2 / 7); // 2px
+  const br = Unit.multiply(radius, 5 / 7); // 5px
+  const sr = Unit.multiply(radius, 1 / 7); // 1px
   const shadow = isDark
-    ? '1px 2px 5px 1px rgba(0,0,0,1)'
-    : '1px 2px 5px 1px rgba(0,0,0,0.4)';
+    ? `${ox} ${oy} ${br} ${sr} rgba(0,0,0,1)`
+    : `${ox} ${oy} ${br} ${sr} rgba(0,0,0,0.4)`;
 
   const screw = {
     position: 'absolute',
