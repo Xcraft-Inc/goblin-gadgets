@@ -3,7 +3,7 @@ import svg from '../helpers/svg-helpers';
 
 /******************************************************************************/
 
-function getRadius(r, toothThickness) {
+function _getRadius(r, toothThickness) {
   return {
     r1: r * 0.1, // axe
     r2: r * 0.15,
@@ -20,7 +20,7 @@ function _getGearLightPath(cx, cy, r, toothThickness, toothCount) {
   cx = svg.toInt(cx);
   cy = svg.toInt(cy);
   r = svg.toInt(r);
-  r = getRadius(r, toothThickness);
+  r = _getRadius(r, toothThickness);
   const rs = r.r4 + (r.r5 - r.r4) * 0.4;
 
   const path = svg.createPath();
@@ -59,7 +59,7 @@ function _getGearDarkPath(cx, cy, r, toothThickness) {
   cx = svg.toInt(cx);
   cy = svg.toInt(cy);
   r = svg.toInt(r);
-  r = getRadius(r, toothThickness);
+  r = _getRadius(r, toothThickness);
 
   const path = svg.createPath();
 
@@ -76,6 +76,8 @@ function _getGearDarkPath(cx, cy, r, toothThickness) {
 
   return svg.getPath(path);
 }
+
+/******************************************************************************/
 
 function getElements(cx, cy, r, toothThickness = 60, toothCount = 36, color) {
   const elements = svg.createElements();

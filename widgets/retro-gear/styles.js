@@ -6,6 +6,7 @@ export const propNames = [
   'left',
   'right',
   'radius',
+  'toothThickness',
   'angle',
   'color',
   'rotationDuration',
@@ -21,6 +22,7 @@ export default function styles(theme, props) {
     left,
     right,
     radius = '100px',
+    toothThickness = 60,
     angle = '0deg',
     rotationDuration,
     rotationDirection,
@@ -54,10 +56,44 @@ export default function styles(theme, props) {
     animationName: rotationDuration ? keyframes : null,
   };
 
+  const shadowRadius = Unit.sub(radius, toothThickness + 'px');
+  const shadowSize = Unit.multiply(shadowRadius, 2);
+
+  const shadow1 = {
+    position: 'absolute',
+    top: top ? Unit.sub(top, shadowRadius) : null,
+    bottom: bottom ? Unit.sub(bottom, shadowRadius) : null,
+    left: left ? Unit.sub(left, shadowRadius) : null,
+    right: right ? Unit.sub(right, shadowRadius) : null,
+    width: shadowSize,
+    height: shadowSize,
+    borderRadius: shadowSize,
+    boxShadow: `black 0px 0px 150px ${Unit.multiply(radius, 0.08)}`,
+  };
+
+  const shadow2 = {
+    ...shadow1,
+    boxShadow: `inset black 0px 0px ${Unit.multiply(
+      radius,
+      0.4
+    )} ${Unit.multiply(radius, 0.24)}`,
+  };
+
+  const shadow3 = {
+    ...shadow1,
+    boxShadow: `inset black ${Unit.multiply(radius, 0.01)} ${Unit.multiply(
+      radius,
+      0.01
+    )} ${Unit.multiply(radius, 0.2)} 0px`,
+  };
+
   /******************************************************************************/
 
   return {
     gear,
+    shadow1,
+    shadow2,
+    shadow3,
   };
 }
 

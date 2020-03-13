@@ -120,9 +120,31 @@ function pushPath(elements, path, props) {
   elements.push({element: 'path', props: {d: path, ...props}});
 }
 
-function renderElements(style, elements) {
+function renderShadow(shadow) {
+  if (!shadow) {
+    return null;
+  }
+
+  return (
+    <defs>
+      <filter id={shadow.name} x="0" y="0" width="200%" height="200%">
+        <feOffset
+          result="offOut"
+          in="SourceAlpha"
+          dx={shadow.dx || '20'}
+          dy={shadow.dy || '20'}
+        />
+        <feGaussianBlur result="blurOut" in="offOut" stdDeviation="10" />
+        <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+      </filter>
+    </defs>
+  );
+}
+
+function renderElements(style, elements, shadow) {
   return (
     <svg className={style}>
+      {renderShadow(shadow)}
       {elements.map((e, index) => {
         e.props.key = index;
         return React.createElement(e.element, e.props);
