@@ -1,7 +1,6 @@
 import {Unit} from 'electrum-theme';
 import {isImmutable} from 'immutable';
 import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
-import {ColorManipulator} from 'electrum-theme';
 
 /******************************************************************************/
 
@@ -17,7 +16,6 @@ export const propNames = [
   'fontSizeStrategy',
   'indent',
   'textAlign',
-  'hasBorderRight',
   'simpleHeader',
 ];
 
@@ -45,7 +43,6 @@ export default function styles(theme, props) {
     fontSizeStrategy,
     indent,
     textAlign,
-    hasBorderRight,
     simpleHeader,
   } = props;
 
@@ -68,8 +65,6 @@ export default function styles(theme, props) {
   let textTransform = null;
   let fontSize = theme.shapes.tableTextSize;
   let hoverColor = null;
-
-  const v1 = Unit.multiply(theme.shapes.tablePadding, 0.5);
 
   if (width) {
     minWidth = width;
@@ -119,17 +114,6 @@ export default function styles(theme, props) {
     }
   }
 
-  if (Bool.isTrue(hasBorderRight) && Bool.isFalse(isLast)) {
-    const mv1 = Unit.multiply(v1, -1);
-    marginTop = mv1;
-    marginBottom = mv1;
-    marginRight = Unit.sub(marginRight, v1);
-    paddingTop = v1;
-    paddingBottom = v1;
-    paddingRight = Unit.add(marginRight, v1);
-    borderRight = '1px solid ' + theme.palette.tableBorder;
-  }
-
   if (Bool.isTrue(isSortable)) {
     hoverColor = theme.palette.actionButtonBackground;
   }
@@ -162,62 +146,10 @@ export default function styles(theme, props) {
     },
   };
 
-  const widthButton = {
-    'zIndex': '1',
-    'position': 'absolute',
-    'right': Unit.multiply(Unit.add(marginRight, '5px'), -1),
-    'width': '10px',
-    'top': '0px',
-    'bottom': '0px',
-    'opacity': 0,
-    'borderLeft': '3px solid white',
-    'borderRight': '3px solid white',
-    'boxSizing': 'border-box',
-    'cursor': 'ew-resize',
-    'transition': '0.2s ease-out',
-    ':hover': {
-      //? opacity: 0.7,
-      //? bottom: '-1000px',
-      //? background: `linear-gradient(${theme.palette.base}, transparent)`,
-      opacity: 1,
-      bottom: '-100vh',
-      backgroundColor: ColorManipulator.fade(theme.palette.base, 0.8),
-    },
-  };
-
-  const changingWidthFullscreen = {
-    zIndex: '99',
-    position: 'fixed',
-    top: '0px',
-    bottom: '0px',
-    left: '0px',
-    right: '0px',
-    cursor: 'ew-resize',
-  };
-
-  const changingWidthMarkColumn = {
-    position: 'absolute',
-    top: '0px',
-    bottom: '0px',
-    backgroundColor: ColorManipulator.fade(theme.palette.base, 0.1),
-  };
-
-  const changingWidthMark = {
-    position: 'absolute',
-    top: '0px',
-    bottom: '0px',
-    width: '4px',
-    backgroundColor: ColorManipulator.fade(theme.palette.base, 0.8),
-  };
-
   /******************************************************************************/
 
   return {
     tableCell,
-    widthButton,
-    changingWidthFullscreen,
-    changingWidthMarkColumn,
-    changingWidthMark,
   };
 }
 
