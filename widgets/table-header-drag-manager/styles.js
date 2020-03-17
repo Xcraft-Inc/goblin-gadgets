@@ -25,21 +25,15 @@ export default function styles(theme, props) {
   const columnButton = {
     zIndex: '8',
     height: '100%',
-    //? 'opacity': 0.5,
-    //? 'backgroundColor': 'yellow',
-    //? ':hover': {
-    //?   backgroundColor: ColorManipulator.fade(theme.palette.base, 0.1),
-    //? },
   };
 
   const widthButton = {
     'position': 'relative',
     'zIndex': '8',
     'width': Unit.multiply(halfButtonWidthPx, 2),
+    'minWidth': Unit.multiply(halfButtonWidthPx, 2),
     'height': '100%',
     'cursor': 'ew-resize',
-    //? 'opacity': 0.5,
-    //? 'backgroundColor': 'red',
     'transition': '0.2s ease-out',
     // Use + for dispatch the style to next brother (only one).
     // Use ~ for dispatch the style to all the following brothers.

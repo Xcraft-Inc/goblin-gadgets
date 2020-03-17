@@ -119,9 +119,11 @@ export default class TableHeaderDragManager extends Widget {
       return null;
     }
 
+    const width = Math.max(this.newWidth, 0) + halfMarkWidth + 'px';
     const styleColumn = {
       left: this.startX,
-      width: Math.max(this.newWidth, 0) + halfMarkWidth + 'px',
+      width: width,
+      minWidth: width,
     };
 
     return (
@@ -146,7 +148,10 @@ export default class TableHeaderDragManager extends Widget {
     }
     width = Unit.sub(width, halfButtonWidthPx);
 
-    const style = {width};
+    const style = {
+      width: width,
+      minWidth: width,
+    };
 
     return (
       <React.Fragment key={index}>
