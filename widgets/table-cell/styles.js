@@ -17,6 +17,7 @@ export const propNames = [
   'indent',
   'textAlign',
   'simpleHeader',
+  'verticalAlign',
 ];
 
 export function mapProps(props) {
@@ -44,6 +45,7 @@ export default function styles(theme, props) {
     indent,
     textAlign,
     simpleHeader,
+    verticalAlign,
   } = props;
 
   let minWidth = null;
@@ -65,6 +67,7 @@ export default function styles(theme, props) {
   let textTransform = null;
   let fontSize = theme.shapes.tableTextSize;
   let hoverColor = null;
+  let alignSelf = verticalAlign;
 
   if (width) {
     minWidth = width;
@@ -126,6 +129,7 @@ export default function styles(theme, props) {
     'flexGrow': flexGrow,
     'flexShrink': flexShrink,
     'flexBasis': flexBasis,
+    'alignSelf': alignSelf,
     'overflow': overflow,
     'marginLeft': marginLeft,
     'marginRight': marginRight,

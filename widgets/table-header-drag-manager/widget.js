@@ -24,13 +24,24 @@ export default class TableHeaderDragManager extends Widget {
 
     this.state = {
       newWidth: null,
+      dragColumnIndexDst: -1,
     };
 
     this.dragWidthInProcess = false;
+    this.offsetX = null;
 
-    this.onChangeWidthStart = this.onChangeWidthStart.bind(this);
-    this.onChangeWidthMove = this.onChangeWidthMove.bind(this);
-    this.onChangeWidthEnd = this.onChangeWidthEnd.bind(this);
+    this.dragColumnClicked = false;
+    this.dragColumnInProcess = false;
+    this.dragColumnStartX = null;
+    this.dragColumnIndexSrc = null;
+
+    this.onDragWidthStart = this.onDragWidthStart.bind(this);
+    this.onDragWidthMove = this.onDragWidthMove.bind(this);
+    this.onDragWidthEnd = this.onDragWidthEnd.bind(this);
+
+    this.onDragColumnStart = this.onDragColumnStart.bind(this);
+    this.onDragColumnMove = this.onDragColumnMove.bind(this);
+    this.onDragColumnEnd = this.onDragColumnEnd.bind(this);
   }
 
   //#region get/set
@@ -41,6 +52,16 @@ export default class TableHeaderDragManager extends Widget {
   set newWidth(value) {
     this.setState({
       newWidth: value,
+    });
+  }
+
+  get dragColumnIndexDst() {
+    return this.state.dragColumnIndexDst;
+  }
+
+  set dragColumnIndexDst(value) {
+    this.setState({
+      dragColumnIndexDst: value,
     });
   }
   //#endregion
@@ -68,7 +89,39 @@ export default class TableHeaderDragManager extends Widget {
     return {left, width};
   }
 
-  onChangeWidthStart(e, index) {
+  detectColumn(x) {
+    let left = getValue(this.props.marginLeft);
+    let width = 0;
+    let index = 0;
+    for (const column of this.props.columns) {
+      width = getValue(column.width) + this.marginRight;
+      if (x < left + width / 2) {
+        return index;
+      }
+      index++;
+      left += width;
+    }
+    return index;
+  }
+
+  isFixedColumn(index) {
+    return this.props.fixedColumns && this.props.fixedColumns.includes(index);
+  }
+
+  get isValidDragColumn() {
+    if (this.isFixedColumn(this.dragColumnIndexDst)) {
+      return false;
+    }
+
+    return (
+      this.dragColumnIndexDst < this.dragColumnIndexSrc ||
+      this.dragColumnIndexDst > this.dragColumnIndexSrc + 1
+    );
+  }
+
+  /******************************************************************************/
+
+  onDragWidthStart(e, index) {
     const r = this.getColumn(index);
     this.startX = r.left;
     this.newWidth = r.width;
@@ -78,11 +131,11 @@ export default class TableHeaderDragManager extends Widget {
     this.dragWidthInProcess = true;
 
     //? console.log(
-    //?   `onChangeWidthStart e.clientX=${e.clientX} index=${index} left=${r.left} width=${r.width} offsetX=${this.offsetX} newWidth=${this.newWidth}`
+    //?   `onDragWidthStart e.clientX=${e.clientX} index=${index} left=${r.left} width=${r.width} offsetX=${this.offsetX} newWidth=${this.newWidth}`
     //? );
   }
 
-  onChangeWidthMove(e) {
+  onDragWidthMove(e) {
     if (!this.dragWidthInProcess) {
       return;
     }
@@ -93,14 +146,14 @@ export default class TableHeaderDragManager extends Widget {
       width = 0;
     }
     this.newWidth = width;
-    //? console.log(`onChangeWidthMove e.clientX=${e.clientX} newWidth=${width}`);
+    //? console.log(`onDragWidthMove e.clientX=${e.clientX} newWidth=${width}`);
 
     e.preventDefault();
     e.stopPropagation();
   }
 
-  onChangeWidthEnd() {
-    //? console.log(`onChangeWidthEnd`);
+  onDragWidthEnd() {
+    //? console.log(`onDragWidthEnd`);
 
     const x = this.props.widthChanged;
     if (x) {
@@ -114,7 +167,65 @@ export default class TableHeaderDragManager extends Widget {
 
   /******************************************************************************/
 
-  renderChangingWidth() {
+  onDragColumnStart(e, index) {
+    console.log(`onDragColumnStart`);
+    this.dragColumnClicked = true;
+    this.dragColumnStartX = e.clientX;
+    this.dragColumnIndexSrc = index;
+    this.dragColumnIndexDst = -1;
+  }
+
+  onDragColumnMove(e) {
+    if (!this.dragColumnClicked && !this.dragColumnInProcess) {
+      return;
+    }
+
+    console.log(
+      `onDragColumnMove dragColumnIndexDst=${this.dragColumnIndexDst}`
+    );
+    if (this.dragColumnClicked) {
+      const delta = Math.abs(this.dragColumnStartX, e.clientX);
+      if (delta >= 3) {
+        this.dragColumnInProcess = true;
+      }
+    }
+
+    if (this.dragColumnInProcess) {
+      const r = this.componentNode.getBoundingClientRect();
+      this.dragColumnIndexDst = this.detectColumn(e.clientX - r.left);
+    }
+
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
+  onDragColumnEnd() {
+    console.log(`onDragColumnEnd`);
+    const indexSrc = this.dragColumnIndexSrc;
+    const indexDst = this.dragColumnIndexDst;
+
+    if (this.dragColumnInProcess) {
+      if (this.isValidDragColumn) {
+        const x = this.props.columnMoved;
+        if (x) {
+          x(indexSrc, indexDst);
+        }
+      }
+    } else if (this.dragColumnClicked) {
+      const x = this.props.columnClicked;
+      if (x) {
+        x(indexSrc);
+      }
+    }
+
+    this.dragColumnClicked = false;
+    this.dragColumnInProcess = false;
+    this.dragColumnIndexDst = -1;
+  }
+
+  /******************************************************************************/
+
+  renderDraggingWidth() {
     if (!this.dragWidthInProcess) {
       return null;
     }
@@ -130,8 +241,8 @@ export default class TableHeaderDragManager extends Widget {
       <React.Fragment>
         <div
           className={this.styles.classNames.fullscreen}
-          onMouseMove={this.onChangeWidthMove}
-          onMouseUp={this.onChangeWidthEnd}
+          onMouseMove={this.onDragWidthMove}
+          onMouseUp={this.onDragWidthEnd}
         />
         <div
           className={this.styles.classNames.columnDragged}
@@ -141,24 +252,88 @@ export default class TableHeaderDragManager extends Widget {
     );
   }
 
+  renderDraggingColumn() {
+    if (!this.dragColumnClicked) {
+      return null;
+    }
+
+    let r = this.getColumn(this.dragColumnIndexSrc);
+    const styleTraveling = {
+      left: r.left,
+      width: r.width - this.marginRight,
+      minWidth: r.width - this.marginRight,
+    };
+
+    r = this.getColumn(this.dragColumnIndexDst);
+    const styleInserting = {
+      left: r.left - 10,
+      opacity: this.isValidDragColumn ? 1 : 0,
+    };
+
+    return (
+      <React.Fragment>
+        <div
+          className={this.styles.classNames.fullscreen}
+          onMouseMove={this.onDragColumnMove}
+          onMouseUp={this.onDragColumnEnd}
+        />
+        {this.dragColumnInProcess ? (
+          <div
+            className={this.styles.classNames.travelingColumn}
+            style={styleTraveling}
+          />
+        ) : null}
+        {this.dragColumnInProcess ? (
+          <div
+            className={this.styles.classNames.insertingColumn}
+            style={styleInserting}
+          />
+        ) : null}
+      </React.Fragment>
+    );
+  }
+
   renderColumn(column, index) {
+    let r = this.getColumn(index);
+    const columnMarkHoverStyle = {
+      left: index === 0 ? 0 : -halfButtonWidth,
+      width: r.width - this.marginRight,
+      minWidth: r.width - this.marginRight,
+    };
+
     let width = Unit.add(column.width, this.marginRightPx);
     if (index > 0) {
       width = Unit.sub(width, halfButtonWidthPx);
     }
     width = Unit.sub(width, halfButtonWidthPx);
-
-    const style = {
+    const columnButtonStyle = {
       width: width,
       minWidth: width,
     };
 
     return (
       <React.Fragment key={index}>
-        <div className={this.styles.classNames.columnButton} style={style} />
+        <div
+          className={
+            this.isFixedColumn(index)
+              ? this.styles.classNames.columnButtonFixed
+              : this.styles.classNames.columnButton
+          }
+          style={columnButtonStyle}
+          onMouseDown={e => this.onDragColumnStart(e, index)}
+          onMouseMove={this.onDragColumnMove}
+          onMouseUp={this.onDragColumnEnd}
+        >
+          {this.isFixedColumn(index) ? null : (
+            <div
+              className={`column-mark-hover ${this.styles.classNames.columnMarkHover}`}
+              style={columnMarkHoverStyle}
+            />
+          )}
+        </div>
         <div
           className={this.styles.classNames.widthButton}
-          onMouseDown={e => this.onChangeWidthStart(e, index)}
+          onMouseDown={e => this.onDragWidthStart(e, index)}
         >
           <div
             className={`width-mark-hover ${this.styles.classNames.widthMarkHover}`}
@@ -171,10 +346,14 @@ export default class TableHeaderDragManager extends Widget {
   render() {
     return (
       <React.Fragment>
-        <div className={this.styles.classNames.tableHeaderDragManager}>
+        <div
+          ref={node => (this.componentNode = node)}
+          className={this.styles.classNames.tableHeaderDragManager}
+        >
           {this.props.columns.map((c, i) => this.renderColumn(c, i))}
         </div>
-        {this.renderChangingWidth()}
+        {this.renderDraggingWidth()}
+        {this.renderDraggingColumn()}
       </React.Fragment>
     );
   }
