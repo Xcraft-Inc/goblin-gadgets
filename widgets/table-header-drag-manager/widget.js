@@ -8,6 +8,9 @@ import {Unit} from 'electrum-theme';
 /******************************************************************************/
 
 function getValue(px) {
+  if (!px) {
+    return 0;
+  }
   return Unit.parse(px).value;
 }
 
