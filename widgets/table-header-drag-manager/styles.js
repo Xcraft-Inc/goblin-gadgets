@@ -1,16 +1,14 @@
-import {Unit} from 'electrum-theme';
 import {ColorManipulator} from 'electrum-theme';
 
 /******************************************************************************/
 
-export const propNames = ['marginLeft', 'height'];
+export const propNames = ['height'];
 
 export default function styles(theme, props) {
-  const {marginLeft, height} = props;
+  const {height} = props;
 
-  const halfButtonWidthPx = '10px';
-  const halfMarkWidthPx = '4px';
-  const markWidthPx = Unit.multiply(halfMarkWidthPx, 2);
+  const buttonWidth = 40;
+  const markWidth = 8;
 
   const c1 = ColorManipulator.fade(theme.palette.base, 0.1);
   const c2 = ColorManipulator.fade(theme.palette.base, 0.3);
@@ -19,23 +17,39 @@ export default function styles(theme, props) {
     position: 'absolute',
     top: '0px',
     bottom: '0px',
-    left: marginLeft,
+    left: '0px',
     right: '0px',
     display: 'flex',
     flexDirection: 'row',
   };
 
+  const sortButton = {
+    zIndex: '8',
+    position: 'absolute',
+    top: '0px',
+    height: height + 'px',
+  };
+
   /******************************************************************************/
 
   const columnButton = {
-    'position': 'relative',
     'zIndex': '8',
-    'height': '100%',
+    'position': 'absolute',
+    'top': '5px',
+    'height': `calc(${height} - 5px)`,
+    'width': buttonWidth + 'px',
+    'minWidth': buttonWidth + 'px',
+    'borderRadius': '100px 100px 0px 0px',
     'cursor': 'ew-resize',
+    //- 'backgroundColor': 'rgba(255,0,0,0.5)',
+    'transition': '0.2s ease-out',
+    ':hover': {
+      background: ColorManipulator.fade(theme.palette.base, 0.3),
+    },
     // Use + for dispatch the style to next brother (only one).
     // Use ~ for dispatch the style to all the following brothers.
     // Use nothing for dispatch the style to children.
-    ':hover .column-mark-hover': {
+    ':hover + .column-mark-hover': {
       opacity: 1,
       bottom: '-100vh',
     },
@@ -62,17 +76,23 @@ export default function styles(theme, props) {
   /******************************************************************************/
 
   const widthButton = {
-    'position': 'relative',
     'zIndex': '8',
-    'width': Unit.multiply(halfButtonWidthPx, 2),
-    'minWidth': Unit.multiply(halfButtonWidthPx, 2),
-    'height': '100%',
+    'position': 'absolute',
+    'top': '5px',
+    'height': `calc(${height} - 5px)`,
+    'width': buttonWidth + 'px',
+    'minWidth': buttonWidth + 'px',
+    'borderRadius': `0px ${buttonWidth - 12}px 0px 0px`,
     'cursor': 'col-resize',
+    //- 'backgroundColor': 'rgba(0,255,0,0.5)',
     'transition': '0.2s ease-out',
+    ':hover': {
+      background: ColorManipulator.fade(theme.palette.base, 0.3),
+    },
     // Use + for dispatch the style to next brother (only one).
     // Use ~ for dispatch the style to all the following brothers.
     // Use nothing for dispatch the style to children.
-    ':hover .width-mark-hover': {
+    ':hover + .width-mark-hover': {
       opacity: 1,
       bottom: '-100vh',
     },
@@ -85,7 +105,7 @@ export default function styles(theme, props) {
     opacity: 0,
     bottom: '0px',
     boxSizing: 'border-box',
-    borderRight: `${markWidthPx} solid ${theme.palette.base}`,
+    borderRight: `${markWidth}px solid ${theme.palette.base}`,
     //? background: ColorManipulator.fade(theme.palette.base, 0.1),
     background: `linear-gradient(90deg, ${c1}, ${c2})`,
     transition: 'opacity 1s ease-out',
@@ -110,10 +130,9 @@ export default function styles(theme, props) {
     position: 'absolute',
     top: `calc(${height} + 1px)`,
     bottom: '-100vh',
-    //? backgroundColor: ColorManipulator.fade(theme.palette.base, 0.1),
     background: `linear-gradient(90deg, ${c1}, ${c2})`,
     boxSizing: 'border-box',
-    borderRight: `${markWidthPx} solid ${ColorManipulator.fade(
+    borderRight: `${markWidth}px solid ${ColorManipulator.fade(
       theme.palette.base,
       0.8
     )}`,
@@ -146,6 +165,7 @@ export default function styles(theme, props) {
 
   return {
     tableHeaderDragManager,
+    sortButton,
     columnButton,
     columnButtonFixed,
     columnMarkHover,
