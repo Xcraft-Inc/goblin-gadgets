@@ -13,7 +13,7 @@ function getValue(px) {
 
 const halfButtonWidth = 10;
 const halfButtonWidthPx = halfButtonWidth + 'px';
-const halfMarkWidth = 2;
+const halfMarkWidth = 4;
 
 /******************************************************************************/
 
@@ -294,13 +294,6 @@ export default class TableHeaderDragManager extends Widget {
   }
 
   renderColumn(column, index) {
-    let r = this.getColumn(index);
-    const columnMarkHoverStyle = {
-      left: index === 0 ? 0 : -halfButtonWidth,
-      width: r.width - this.marginRight,
-      minWidth: r.width - this.marginRight,
-    };
-
     let width = Unit.add(column.width, this.marginRightPx);
     if (index > 0) {
       width = Unit.sub(width, halfButtonWidthPx);
@@ -309,6 +302,20 @@ export default class TableHeaderDragManager extends Widget {
     const columnButtonStyle = {
       width: width,
       minWidth: width,
+    };
+
+    let r = this.getColumn(index);
+
+    const columnMarkHoverStyle = {
+      left: index === 0 ? 0 : -halfButtonWidth,
+      width: r.width - this.marginRight,
+      minWidth: r.width - this.marginRight,
+    };
+
+    const widthMarkHoverStyle = {
+      left: -(r.width - this.marginRight),
+      width: r.width + halfMarkWidth,
+      minWidth: r.width + halfMarkWidth,
     };
 
     return (
@@ -337,6 +344,7 @@ export default class TableHeaderDragManager extends Widget {
         >
           <div
             className={`width-mark-hover ${this.styles.classNames.widthMarkHover}`}
+            style={widthMarkHoverStyle}
           />
         </div>
       </React.Fragment>

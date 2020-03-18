@@ -9,8 +9,11 @@ export default function styles(theme, props) {
   const {marginLeft, height} = props;
 
   const halfButtonWidthPx = '10px';
-  const halfMarkWidthPx = '2px';
+  const halfMarkWidthPx = '4px';
   const markWidthPx = Unit.multiply(halfMarkWidthPx, 2);
+
+  const c1 = ColorManipulator.fade(theme.palette.base, 0.1);
+  const c2 = ColorManipulator.fade(theme.palette.base, 0.3);
 
   const tableHeaderDragManager = {
     position: 'absolute',
@@ -64,7 +67,7 @@ export default function styles(theme, props) {
     'width': Unit.multiply(halfButtonWidthPx, 2),
     'minWidth': Unit.multiply(halfButtonWidthPx, 2),
     'height': '100%',
-    'cursor': 'ew-resize',
+    'cursor': 'col-resize',
     'transition': '0.2s ease-out',
     // Use + for dispatch the style to next brother (only one).
     // Use ~ for dispatch the style to all the following brothers.
@@ -79,11 +82,12 @@ export default function styles(theme, props) {
     zIndex: '7',
     position: 'absolute',
     top: `calc(${height} + 1px)`,
-    right: Unit.sub(halfButtonWidthPx, halfMarkWidthPx),
-    width: markWidthPx,
     opacity: 0,
     bottom: '0px',
-    background: ColorManipulator.fade(theme.palette.base, 0.8),
+    boxSizing: 'border-box',
+    borderRight: `${markWidthPx} solid ${theme.palette.base}`,
+    //? background: ColorManipulator.fade(theme.palette.base, 0.1),
+    background: `linear-gradient(90deg, ${c1}, ${c2})`,
     transition: 'opacity 1s ease-out',
   };
 
@@ -106,7 +110,8 @@ export default function styles(theme, props) {
     position: 'absolute',
     top: `calc(${height} + 1px)`,
     bottom: '-100vh',
-    backgroundColor: ColorManipulator.fade(theme.palette.base, 0.1),
+    //? backgroundColor: ColorManipulator.fade(theme.palette.base, 0.1),
+    background: `linear-gradient(90deg, ${c1}, ${c2})`,
     boxSizing: 'border-box',
     borderRight: `${markWidthPx} solid ${ColorManipulator.fade(
       theme.palette.base,
