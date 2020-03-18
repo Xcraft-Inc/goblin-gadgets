@@ -297,7 +297,7 @@ export default class TableHeaderDragManager extends Widget {
   }
 
   renderColumn(column, index) {
-    let width = Unit.add(column.width, this.marginRightPx);
+    let width = Unit.add(column.width || '0px', this.marginRightPx);
     if (index > 0) {
       width = Unit.sub(width, halfButtonWidthPx);
     }
