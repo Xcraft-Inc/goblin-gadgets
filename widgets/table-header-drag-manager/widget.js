@@ -11,9 +11,8 @@ function getValue(px) {
   return Unit.parse(px).value;
 }
 
-const halfButtonWidth = 10;
-const halfButtonWidthPx = halfButtonWidth + 'px';
-const halfMarkWidth = 4;
+const buttonWidth = 40;
+const markWidth = 8;
 
 /******************************************************************************/
 
@@ -42,6 +41,8 @@ export default class TableHeaderDragManager extends Widget {
     this.onDragColumnStart = this.onDragColumnStart.bind(this);
     this.onDragColumnMove = this.onDragColumnMove.bind(this);
     this.onDragColumnEnd = this.onDragColumnEnd.bind(this);
+
+    this.onColumnClicked = this.onColumnClicked.bind(this);
   }
 
   //#region get/set
@@ -142,7 +143,7 @@ export default class TableHeaderDragManager extends Widget {
 
     const mx = e.clientX + this.offsetX;
     let width = mx - this.startX;
-    if (width <= halfButtonWidth * 2) {
+    if (width <= buttonWidth) {
       width = 0;
     }
     this.newWidth = width;
@@ -223,18 +224,25 @@ export default class TableHeaderDragManager extends Widget {
     this.dragColumnIndexDst = -1;
   }
 
+  onColumnClicked(index) {
+    const x = this.props.columnClicked;
+    if (x) {
+      x(index);
+    }
+  }
+
   /******************************************************************************/
 
+  // Display adding elements while dragging a column width.
   renderDraggingWidth() {
     if (!this.dragWidthInProcess) {
       return null;
     }
 
-    const width = Math.max(this.newWidth, 0) + halfMarkWidth + 'px';
     const styleColumn = {
-      left: this.startX,
-      width: width,
-      minWidth: width,
+      left: this.startX - this.marginRight / 2,
+      width: this.newWidth + markWidth / 2,
+      minWidth: this.newWidth + markWidth / 2,
     };
 
     return (
@@ -252,6 +260,7 @@ export default class TableHeaderDragManager extends Widget {
     );
   }
 
+  // Display adding elements while dragging a column (re-order).
   renderDraggingColumn() {
     if (!this.dragColumnClicked) {
       return null;
@@ -259,14 +268,15 @@ export default class TableHeaderDragManager extends Widget {
 
     let r = this.getColumn(this.dragColumnIndexSrc);
     const styleTraveling = {
-      left: r.left,
-      width: r.width - this.marginRight,
-      minWidth: r.width - this.marginRight,
+      left: r.left - this.marginRight / 2,
+      width: r.width,
+      minWidth: r.width,
     };
 
     r = this.getColumn(this.dragColumnIndexDst);
+
     const styleInserting = {
-      left: r.left - 10,
+      left: r.left - 15,
       opacity: this.isValidDragColumn ? 1 : 0,
     };
 
@@ -293,60 +303,79 @@ export default class TableHeaderDragManager extends Widget {
     );
   }
 
+  // Draw a column with:
+  // 1) Button for sorting.
+  // 2) Button for moving the column (change order).
+  // 3) Button for resizing the column (change width).
   renderColumn(column, index) {
-    let width = Unit.add(column.width, this.marginRightPx);
-    if (index > 0) {
-      width = Unit.sub(width, halfButtonWidthPx);
-    }
-    width = Unit.sub(width, halfButtonWidthPx);
-    const columnButtonStyle = {
-      width: width,
-      minWidth: width,
-    };
-
     let r = this.getColumn(index);
 
+    const sortStyle = {
+      zIndex: '8',
+      position: 'absolute',
+      top: '0px',
+      height: this.props.height,
+      left: r.left,
+      width: r.width,
+      minWidth: r.width,
+    };
+
+    const columnButtonStyle = {
+      left:
+        r.left + r.width - this.marginRight / 2 - r.width / 2 - buttonWidth / 2,
+    };
+
+    const widthButtonStyle = {
+      left: r.left + r.width - this.marginRight / 2 - buttonWidth / 2,
+    };
+
     const columnMarkHoverStyle = {
-      left: index === 0 ? 0 : -halfButtonWidth,
-      width: r.width - this.marginRight,
-      minWidth: r.width - this.marginRight,
+      left: r.left - this.marginRight / 2,
+      width: r.width,
+      minWidth: r.width,
     };
 
     const widthMarkHoverStyle = {
-      left: -(r.width - this.marginRight),
-      width: r.width + halfMarkWidth,
-      minWidth: r.width + halfMarkWidth,
+      left: r.left - this.marginRight / 2,
+      width: r.width + markWidth / 2,
+      minWidth: r.width + markWidth / 2,
     };
 
     return (
       <React.Fragment key={index}>
         <div
-          className={
-            this.isFixedColumn(index)
-              ? this.styles.classNames.columnButtonFixed
-              : this.styles.classNames.columnButton
-          }
-          style={columnButtonStyle}
-          onMouseDown={e => this.onDragColumnStart(e, index)}
-          onMouseMove={this.onDragColumnMove}
-          onMouseUp={this.onDragColumnEnd}
-        >
-          {this.isFixedColumn(index) ? null : (
-            <div
-              className={`column-mark-hover ${this.styles.classNames.columnMarkHover}`}
-              style={columnMarkHoverStyle}
-            />
-          )}
-        </div>
+          className={this.styles.classNames.sortButton}
+          style={sortStyle}
+          onClick={() => this.onColumnClicked(index)}
+        />
+        {this.isFixedColumn(index) ? null : (
+          <div
+            className={
+              this.isFixedColumn(index)
+                ? this.styles.classNames.columnButtonFixed
+                : this.styles.classNames.columnButton
+            }
+            style={columnButtonStyle}
+            onMouseDown={e => this.onDragColumnStart(e, index)}
+            onMouseMove={this.onDragColumnMove}
+            onMouseUp={this.onDragColumnEnd}
+          />
+        )}
+        {this.isFixedColumn(index) ? null : (
+          <div
+            className={`column-mark-hover ${this.styles.classNames.columnMarkHover}`}
+            style={columnMarkHoverStyle}
+          />
+        )}
         <div
           className={this.styles.classNames.widthButton}
+          style={widthButtonStyle}
           onMouseDown={e => this.onDragWidthStart(e, index)}
-        >
-          <div
-            className={`width-mark-hover ${this.styles.classNames.widthMarkHover}`}
-            style={widthMarkHoverStyle}
-          />
-        </div>
+        />
+        <div
+          className={`width-mark-hover ${this.styles.classNames.widthMarkHover}`}
+          style={widthMarkHoverStyle}
+        />
       </React.Fragment>
     );
   }
