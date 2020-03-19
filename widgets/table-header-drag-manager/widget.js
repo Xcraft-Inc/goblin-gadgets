@@ -241,7 +241,7 @@ export default class TableHeaderDragManager extends Widget {
           onMouseUp={this.onDragWidthEnd}
         />
         <div
-          className={this.styles.classNames.columnDragged}
+          className={this.styles.classNames.widthDragged}
           style={styleColumn}
         />
       </React.Fragment>
@@ -345,11 +345,7 @@ export default class TableHeaderDragManager extends Widget {
         />
         {this.isFixedColumn(index) ? null : (
           <div
-            className={
-              this.isFixedColumn(index)
-                ? this.styles.classNames.columnButtonFixed
-                : this.styles.classNames.columnButton
-            }
+            className={this.styles.classNames.columnButton}
             style={columnButtonStyle}
             onMouseDown={e => this.onDragColumnStart(e, index)}
             onMouseMove={this.onDragColumnMove}

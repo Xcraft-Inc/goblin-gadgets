@@ -10,8 +10,8 @@ export default function styles(theme, props) {
   const buttonWidth = 40;
   const markWidth = 8;
 
-  const c1 = ColorManipulator.fade(theme.palette.base, 0.1);
-  const c2 = ColorManipulator.fade(theme.palette.base, 0.3);
+  const cw1 = ColorManipulator.fade(theme.palette.base, 0.1);
+  const cw2 = ColorManipulator.fade(theme.palette.base, 0.3);
 
   const tableHeaderDragManager = {
     position: 'absolute',
@@ -41,7 +41,6 @@ export default function styles(theme, props) {
     'minWidth': buttonWidth + 'px',
     'borderRadius': '100px 100px 0px 0px',
     'cursor': 'ew-resize',
-    //- 'backgroundColor': 'rgba(255,0,0,0.5)',
     'transition': '0.2s ease-out',
     ':hover': {
       background: ColorManipulator.fade(theme.palette.base, 0.3),
@@ -53,11 +52,6 @@ export default function styles(theme, props) {
       opacity: 1,
       bottom: '-100vh',
     },
-  };
-
-  const columnButtonFixed = {
-    ...columnButton,
-    cursor: 'default',
   };
 
   const columnMarkHover = {
@@ -84,7 +78,6 @@ export default function styles(theme, props) {
     'minWidth': buttonWidth + 'px',
     'borderRadius': `0px ${buttonWidth - 12}px 0px 0px`,
     'cursor': 'col-resize',
-    //- 'backgroundColor': 'rgba(0,255,0,0.5)',
     'transition': '0.2s ease-out',
     ':hover': {
       background: ColorManipulator.fade(theme.palette.base, 0.3),
@@ -106,8 +99,7 @@ export default function styles(theme, props) {
     bottom: '0px',
     boxSizing: 'border-box',
     borderRight: `${markWidth}px solid ${theme.palette.base}`,
-    //? background: ColorManipulator.fade(theme.palette.base, 0.1),
-    background: `linear-gradient(90deg, ${c1}, ${c2})`,
+    background: `linear-gradient(90deg, ${cw1}, ${cw2})`,
     transition: 'opacity 1s ease-out',
   };
 
@@ -125,12 +117,12 @@ export default function styles(theme, props) {
 
   /******************************************************************************/
 
-  const columnDragged = {
+  const widthDragged = {
     zIndex: '7',
     position: 'absolute',
     top: `calc(${height} + 1px)`,
     bottom: '-100vh',
-    background: `linear-gradient(90deg, ${c1}, ${c2})`,
+    background: `linear-gradient(90deg, ${cw1}, ${cw2})`,
     boxSizing: 'border-box',
     borderRight: `${markWidth}px solid ${ColorManipulator.fade(
       theme.palette.base,
@@ -165,14 +157,15 @@ export default function styles(theme, props) {
 
   return {
     tableHeaderDragManager,
+
     sortButton,
     columnButton,
-    columnButtonFixed,
     columnMarkHover,
     widthButton,
     widthMarkHover,
+
     fullscreen,
-    columnDragged,
+    widthDragged,
     travelingColumn,
     insertingColumn,
   };
