@@ -16,6 +16,7 @@ function getValue(px) {
 
 const buttonWidth = 40;
 const markWidth = 8;
+const minWidth = 30;
 
 /******************************************************************************/
 
@@ -133,10 +134,6 @@ export default class TableHeaderDragManager extends Widget {
 
     this.offsetX = r.left + r.width - e.clientX;
     this.dragWidthInProcess = true;
-
-    //? console.log(
-    //?   `onDragWidthStart e.clientX=${e.clientX} index=${index} left=${r.left} width=${r.width} offsetX=${this.offsetX} newWidth=${this.newWidth}`
-    //? );
   }
 
   onDragWidthMove(e) {
@@ -145,23 +142,16 @@ export default class TableHeaderDragManager extends Widget {
     }
 
     const mx = e.clientX + this.offsetX;
-    let width = mx - this.startX;
-    if (width <= buttonWidth) {
-      width = 0;
-    }
-    this.newWidth = width;
-    //? console.log(`onDragWidthMove e.clientX=${e.clientX} newWidth=${width}`);
+    this.newWidth = Math.max(mx - this.startX, minWidth);
 
     e.preventDefault();
     e.stopPropagation();
   }
 
   onDragWidthEnd() {
-    //? console.log(`onDragWidthEnd`);
-
     const x = this.props.widthChanged;
     if (x) {
-      const width = Math.max(this.newWidth - this.marginRight, 0) + 'px';
+      const width = this.newWidth - this.marginRight + 'px';
       x(this.index, width);
     }
 
@@ -172,7 +162,6 @@ export default class TableHeaderDragManager extends Widget {
   /******************************************************************************/
 
   onDragColumnStart(e, index) {
-    console.log(`onDragColumnStart`);
     this.dragColumnClicked = true;
     this.dragColumnStartX = e.clientX;
     this.dragColumnIndexSrc = index;
@@ -184,9 +173,6 @@ export default class TableHeaderDragManager extends Widget {
       return;
     }
 
-    console.log(
-      `onDragColumnMove dragColumnIndexDst=${this.dragColumnIndexDst}`
-    );
     if (this.dragColumnClicked) {
       const delta = Math.abs(this.dragColumnStartX, e.clientX);
       if (delta >= 3) {
@@ -204,7 +190,6 @@ export default class TableHeaderDragManager extends Widget {
   }
 
   onDragColumnEnd() {
-    console.log(`onDragColumnEnd`);
     const indexSrc = this.dragColumnIndexSrc;
     const indexDst = this.dragColumnIndexDst;
 
@@ -307,9 +292,16 @@ export default class TableHeaderDragManager extends Widget {
   }
 
   // Draw a column with:
+  //
+  //         width=100     marginRight=10
+  //    |<------------------->|<->|
+  //     <------------1----------->
+  // <--3-->     <--2-->     <--3-->
+  //
   // 1) Button for sorting.
   // 2) Button for moving the column (change order).
   // 3) Button for resizing the column (change width).
+
   renderColumn(column, index) {
     let r = this.getColumn(index);
 
