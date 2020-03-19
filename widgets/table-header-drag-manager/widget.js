@@ -293,10 +293,10 @@ export default class TableHeaderDragManager extends Widget {
 
   // Draw a column with:
   //
-  //         width=100     marginRight=10
-  //    |<------------------->|<->|
-  //     <------------1----------->
-  // <--3-->     <--2-->     <--3-->
+  //          width=100     marginRight=10
+  //     |<------------------->|<->|
+  //      <------------1----------->
+  // <--3-->      <--2-->    <--3-->
   //
   // 1) Button for sorting.
   // 2) Button for moving the column (change order).
@@ -321,7 +321,8 @@ export default class TableHeaderDragManager extends Widget {
     };
 
     const widthButtonStyle = {
-      left: r.left + r.width - this.marginRight / 2 - buttonWidth / 2,
+      left:
+        r.left + r.width - this.marginRight / 2 - buttonWidth + markWidth / 2,
     };
 
     const columnMarkHoverStyle = {

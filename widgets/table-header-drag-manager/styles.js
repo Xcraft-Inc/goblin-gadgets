@@ -40,9 +40,16 @@ export default function styles(theme, props) {
     'width': buttonWidth + 'px',
     'minWidth': buttonWidth + 'px',
     'borderRadius': '100px 100px 0px 0px',
+    'boxSizing': 'border-box',
+    'borderLeft': '3px dashed transparent',
+    'borderTop': '3px dashed transparent',
+    'borderRight': '3px dashed transparent',
     'cursor': 'ew-resize',
     'transition': '0.2s ease-out',
     ':hover': {
+      borderLeft: `3px dashed ${theme.palette.base}`,
+      borderTop: `3px dashed ${theme.palette.base}`,
+      borderRight: `3px dashed ${theme.palette.base}`,
       background: ColorManipulator.fade(theme.palette.base, 0.3),
     },
     // Use + for dispatch the style to next brother (only one).
@@ -62,9 +69,10 @@ export default function styles(theme, props) {
     bottom: '0px',
     boxSizing: 'border-box',
     borderLeft: `3px dashed ${theme.palette.base}`,
+    borderTop: `3px dashed ${theme.palette.base}`,
     borderRight: `3px dashed ${theme.palette.base}`,
     background: ColorManipulator.fade(theme.palette.base, 0.1),
-    transition: 'opacity 1s ease-out',
+    transition: 'opacity 0.5s ease-out',
   };
 
   /******************************************************************************/
@@ -73,13 +81,16 @@ export default function styles(theme, props) {
     'zIndex': '8',
     'position': 'absolute',
     'top': '5px',
-    'height': `calc(${height} - 5px)`,
+    'height': `calc(${height} - 4px)`,
     'width': buttonWidth + 'px',
     'minWidth': buttonWidth + 'px',
-    'borderRadius': `0px ${buttonWidth - 12}px 0px 0px`,
+    'borderRadius': `${buttonWidth - 12}px 0px 0px 0px`,
+    'boxSizing': 'border-box',
+    'borderRight': `${markWidth}px solid transparent`,
     'cursor': 'col-resize',
     'transition': '0.2s ease-out',
     ':hover': {
+      borderRight: `${markWidth}px solid ${theme.palette.base}`,
       background: ColorManipulator.fade(theme.palette.base, 0.3),
     },
     // Use + for dispatch the style to next brother (only one).
@@ -100,7 +111,7 @@ export default function styles(theme, props) {
     boxSizing: 'border-box',
     borderRight: `${markWidth}px solid ${theme.palette.base}`,
     background: `linear-gradient(90deg, ${cw1}, ${cw2})`,
-    transition: 'opacity 1s ease-out',
+    transition: 'opacity 0.5s ease-out',
   };
 
   /******************************************************************************/
@@ -140,6 +151,7 @@ export default function styles(theme, props) {
     backgroundColor: ColorManipulator.darken(theme.palette.light, 0.05),
     boxSizing: 'border-box',
     borderLeft: `3px dashed ${theme.palette.dark}`,
+    borderTop: `3px dashed ${theme.palette.dark}`,
     borderRight: `3px dashed ${theme.palette.dark}`,
   };
 
