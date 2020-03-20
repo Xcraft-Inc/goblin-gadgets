@@ -1,5 +1,3 @@
-import {ColorManipulator} from 'electrum-theme';
-
 /******************************************************************************/
 
 export const propNames = ['height'];
@@ -10,8 +8,8 @@ export default function styles(theme, props) {
   const buttonWidth = 40;
   const markWidth = 8;
 
-  const cw1 = ColorManipulator.fade(theme.palette.base, 0.1);
-  const cw2 = ColorManipulator.fade(theme.palette.base, 0.3);
+  const cw1 = theme.palette.tableDragHoverBackground1;
+  const cw2 = theme.palette.tableDragHoverBackground2;
 
   const tableHeaderDragManager = {
     position: 'absolute',
@@ -47,10 +45,10 @@ export default function styles(theme, props) {
     'cursor': 'ew-resize',
     'transition': '0.2s ease-out',
     ':hover': {
-      borderLeft: `3px dashed ${theme.palette.base}`,
-      borderTop: `3px dashed ${theme.palette.base}`,
-      borderRight: `3px dashed ${theme.palette.base}`,
-      background: ColorManipulator.fade(theme.palette.base, 0.3),
+      borderLeft: `3px dashed ${theme.palette.tableDragBorder}`,
+      borderTop: `3px dashed ${theme.palette.tableDragBorder}`,
+      borderRight: `3px dashed ${theme.palette.tableDragBorder}`,
+      background: theme.palette.tableDragButtonBackground,
     },
     // Use + for dispatch the style to next brother (only one).
     // Use ~ for dispatch the style to all the following brothers.
@@ -68,10 +66,10 @@ export default function styles(theme, props) {
     opacity: 0,
     bottom: '0px',
     boxSizing: 'border-box',
-    borderLeft: `3px dashed ${theme.palette.base}`,
-    borderTop: `3px dashed ${theme.palette.base}`,
-    borderRight: `3px dashed ${theme.palette.base}`,
-    background: ColorManipulator.fade(theme.palette.base, 0.1),
+    borderLeft: `3px dashed ${theme.palette.tableDragBorder}`,
+    borderTop: `3px dashed ${theme.palette.tableDragBorder}`,
+    borderRight: `3px dashed ${theme.palette.tableDragBorder}`,
+    background: theme.palette.tableDragHoverBackground1,
     transition: 'opacity 0.5s ease-out',
   };
 
@@ -90,8 +88,8 @@ export default function styles(theme, props) {
     'cursor': 'col-resize',
     'transition': '0.2s ease-out',
     ':hover': {
-      borderRight: `${markWidth}px solid ${theme.palette.base}`,
-      background: ColorManipulator.fade(theme.palette.base, 0.3),
+      borderRight: `${markWidth}px solid ${theme.palette.tableDragBorder}`,
+      background: theme.palette.tableDragButtonBackground,
     },
     // Use + for dispatch the style to next brother (only one).
     // Use ~ for dispatch the style to all the following brothers.
@@ -109,7 +107,7 @@ export default function styles(theme, props) {
     opacity: 0,
     bottom: '0px',
     boxSizing: 'border-box',
-    borderRight: `${markWidth}px solid ${theme.palette.base}`,
+    borderRight: `${markWidth}px solid ${theme.palette.tableDragBorder}`,
     background: `linear-gradient(90deg, ${cw1}, ${cw2})`,
     transition: 'opacity 0.5s ease-out',
   };
@@ -135,10 +133,7 @@ export default function styles(theme, props) {
     bottom: '-100vh',
     background: `linear-gradient(90deg, ${cw1}, ${cw2})`,
     boxSizing: 'border-box',
-    borderRight: `${markWidth}px solid ${ColorManipulator.fade(
-      theme.palette.base,
-      0.8
-    )}`,
+    borderRight: `${markWidth}px solid ${theme.palette.tableDragBorder}`,
   };
 
   /******************************************************************************/
@@ -148,11 +143,11 @@ export default function styles(theme, props) {
     position: 'absolute',
     top: `calc(${height} + 1px)`,
     bottom: '-100vh',
-    backgroundColor: ColorManipulator.darken(theme.palette.light, 0.05),
+    backgroundColor: theme.palette.tableDragTravelingBackground,
     boxSizing: 'border-box',
-    borderLeft: `3px dashed ${theme.palette.dark}`,
-    borderTop: `3px dashed ${theme.palette.dark}`,
-    borderRight: `3px dashed ${theme.palette.dark}`,
+    borderLeft: `3px dashed ${theme.palette.tableDragTravelingBorder}`,
+    borderTop: `3px dashed ${theme.palette.tableDragTravelingBorder}`,
+    borderRight: `3px dashed ${theme.palette.tableDragTravelingBorder}`,
   };
 
   const insertingColumn = {
@@ -161,7 +156,7 @@ export default function styles(theme, props) {
     top: `calc(${height} + 1px)`,
     bottom: '-100vh',
     width: '20px',
-    backgroundColor: ColorManipulator.fade(theme.palette.base, 0.8),
+    backgroundColor: theme.palette.tableDragBorder,
     transition: 'all 0.5s ease-out',
   };
 
