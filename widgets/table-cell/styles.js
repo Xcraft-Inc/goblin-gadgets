@@ -1,6 +1,7 @@
 import {Unit} from 'electrum-theme';
 import {isImmutable} from 'immutable';
 import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
+import Shredder from 'xcraft-core-shredder';
 
 /******************************************************************************/
 
@@ -22,7 +23,7 @@ export const propNames = [
 
 export function mapProps(props) {
   const {text, ...otherProps} = props;
-  if (isImmutable(text)) {
+  if (isImmutable(text) || text instanceof Shredder) {
     return {
       ...otherProps,
       backgroundColor: text.get('backgroundColor'),
