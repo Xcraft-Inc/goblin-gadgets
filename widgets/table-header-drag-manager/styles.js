@@ -34,7 +34,7 @@ export default function styles(theme, props) {
     'zIndex': '8',
     'position': 'absolute',
     'top': '5px',
-    'height': `calc(${height} - 5px)`,
+    'height': `calc(${height} - 1px)`,
     'width': buttonWidth + 'px',
     'minWidth': buttonWidth + 'px',
     'borderRadius': '100px 100px 0px 0px',
