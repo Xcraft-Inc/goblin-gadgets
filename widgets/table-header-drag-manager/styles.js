@@ -34,7 +34,7 @@ export default function styles(theme, props) {
     'zIndex': '8',
     'position': 'absolute',
     'top': '5px',
-    'height': `calc(${height} - 1px)`,
+    'height': `calc(${height} - 4px)`,
     'width': buttonWidth + 'px',
     'minWidth': buttonWidth + 'px',
     'borderRadius': '100px 100px 0px 0px',
@@ -62,7 +62,7 @@ export default function styles(theme, props) {
   const columnMarkHover = {
     zIndex: '7',
     position: 'absolute',
-    top: `calc(${height} + 1px)`,
+    top: `calc(${height} - 2px)`,
     opacity: 0,
     bottom: '0px',
     boxSizing: 'border-box',
@@ -141,7 +141,7 @@ export default function styles(theme, props) {
   const travelingColumn = {
     zIndex: '7',
     position: 'absolute',
-    top: `calc(${height} + 1px)`,
+    top: `calc(${height} - 2px)`,
     bottom: '-100vh',
     backgroundColor: theme.palette.tableDragTravelingBackground,
     boxSizing: 'border-box',
