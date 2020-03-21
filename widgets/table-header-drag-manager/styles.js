@@ -48,7 +48,7 @@ export default function styles(theme, props) {
       borderLeft: `3px dashed ${theme.palette.tableDragBorder}`,
       borderTop: `3px dashed ${theme.palette.tableDragBorder}`,
       borderRight: `3px dashed ${theme.palette.tableDragBorder}`,
-      background: theme.palette.tableDragButtonBackground,
+      background: theme.palette.tableDragButtonColumnBackground,
     },
     // Use + for dispatch the style to next brother (only one).
     // Use ~ for dispatch the style to all the following brothers.
@@ -89,7 +89,7 @@ export default function styles(theme, props) {
     'transition': '0.2s ease-out',
     ':hover': {
       borderRight: `${markWidth}px solid ${theme.palette.tableDragBorder}`,
-      background: theme.palette.tableDragButtonBackground,
+      background: theme.palette.tableDragButtonWidthBackground,
     },
     // Use + for dispatch the style to next brother (only one).
     // Use ~ for dispatch the style to all the following brothers.
