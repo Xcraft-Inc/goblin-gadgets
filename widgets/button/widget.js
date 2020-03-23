@@ -15,6 +15,7 @@ import {
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Badge from 'goblin-gadgets/widgets/badge/widget';
 import RetroIlluminatedButton from 'goblin-gadgets/widgets/retro-illuminated-button/widget';
+import RetroBadgeButton from 'goblin-gadgets/widgets/retro-badge-button/widget';
 import RetroActionButton from 'goblin-gadgets/widgets/retro-action-button/widget';
 import * as styles from './styles';
 
@@ -289,6 +290,8 @@ export default class Button extends Widget {
       case 'action':
       case 'secondary-action':
         return <RetroActionButton {...this.props} />;
+      case 'view-tab-right':
+        return <RetroBadgeButton height="42px" {...this.props} />;
       default:
         return null;
     }
