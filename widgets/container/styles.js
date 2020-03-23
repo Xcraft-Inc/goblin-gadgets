@@ -403,7 +403,10 @@ export default function styles(theme, props) {
     position = 'relative';
     display = 'flex';
     flexDirection = 'column';
-    margin = '0px 0px 0px ' + theme.shapes.viewSpacing;
+    margin = '0px';
+    borderLeftWidth = theme.shapes.viewSpacing;
+    borderLeftStyle = 'solid';
+    borderLeftColor = theme.palette.rootBackground;
     backgroundColor = theme.palette.viewBackground;
   }
 
