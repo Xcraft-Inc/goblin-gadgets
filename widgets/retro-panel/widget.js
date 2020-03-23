@@ -111,6 +111,7 @@ export default class RetroPanel extends Widget {
             <div className={this.styles.classNames.retroPanelMetalPlate} />
             {this.renderScrews()}
             {this.renderGears()}
+            {this.props.children}
           </React.Fragment>
         );
       default:

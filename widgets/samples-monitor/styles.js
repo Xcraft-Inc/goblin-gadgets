@@ -119,8 +119,7 @@ export default function styles(theme, props) {
         0.3
       )}`,
       'background': 'radial-gradient(ellipse at top left, #000, #333)',
-      //? 'boxShadow': '0px 0px 50px black',
-      'boxShadow': '0px 0px 100px 40px black',
+      'boxShadow': '0px 0px 29px 22px black',
       'overflow': 'hidden',
       ':hover .flare-hover': {
         right: '-300px',
