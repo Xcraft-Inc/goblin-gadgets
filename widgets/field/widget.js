@@ -936,7 +936,7 @@ class Field extends Form {
           tooltip={this.props.tooltip || this.props.hintText}
           onChange={() => {
             const checked = Bool.isTrue(this.getBackendValue(this.fullPath));
-            this.setBackendValue(this.fullPath, Bool.toString(!checked));
+            this.setBackendValue(this.fullPath, !checked);
             if (this.props.onClick) {
               this.props.onClick();
             }
