@@ -2,7 +2,6 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import Props from './props';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import {
   makePropTypes,
   makeDefaultProps,
@@ -19,7 +18,7 @@ export default class CheckboxNC extends Widget {
   }
 
   onChange() {
-    const checked = !Bool.isTrue(this.props.checked);
+    const checked = !this.props.checked;
     if (this.props.onChange) {
       this.props.onChange(checked);
     }
@@ -69,8 +68,7 @@ export default class CheckboxNC extends Widget {
       }
     }
 
-    let {checked, ...otherProps} = this.props;
-    checked = Bool.isTrue(checked);
+    const {checked, ...otherProps} = this.props;
 
     let kind, border, glyph, glyphColor, active;
     if (this.props.kind === 'switch') {
@@ -86,7 +84,7 @@ export default class CheckboxNC extends Widget {
     } else if (this.props.kind === 'active') {
       border = 'none';
       glyph = this.props.glyph;
-      active = Bool.toString(checked);
+      active = checked;
     } else {
       kind = 'check-button';
       glyph = checked ? 'solid/check-square' : 'regular/square'; // [v] [ ]
