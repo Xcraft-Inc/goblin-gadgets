@@ -67,7 +67,10 @@ export default class RetroPanel extends Widget {
     const backgroundBrigtness = lum < 0.3 ? 'light' : 'dark';
 
     const r = Unit.multiply(this.props.radius, 0.5);
-    const d = Unit.add(this.props.margin, this.props.radius);
+    const d =
+      this.props.position === 'absolute'
+        ? Unit.add(this.props.margin, this.props.radius)
+        : this.props.radius;
 
     return (
       <React.Fragment>
@@ -103,12 +106,14 @@ export default class RetroPanel extends Widget {
     );
   }
 
-  render() {
+  renderAbsolute() {
     switch (this.props.kind) {
       case 'metal-plate':
         return (
           <React.Fragment>
-            <div className={this.styles.classNames.retroPanelMetalPlate} />
+            <div
+              className={this.styles.classNames.retroPanelMetalPlateAbsolute}
+            />
             {this.renderScrews()}
             {this.renderGears()}
             {this.props.children}
@@ -116,6 +121,28 @@ export default class RetroPanel extends Widget {
         );
       default:
         return null;
+    }
+  }
+
+  renderRelative() {
+    switch (this.props.kind) {
+      case 'metal-plate':
+        return (
+          <div className={this.styles.classNames.retroPanelMetalPlateRelative}>
+            {this.renderScrews()}
+            {this.props.children}
+          </div>
+        );
+      default:
+        return null;
+    }
+  }
+
+  render() {
+    if (this.props.position === 'absolute') {
+      return this.renderAbsolute();
+    } else {
+      return this.renderRelative();
     }
   }
 }
