@@ -921,6 +921,7 @@ export default function styles(theme, props) {
   }
 
   if (kind === 'roadbook-tickets') {
+    height = '100%';
     const mm = Unit.multiply(m, 0.5);
     padding = '0px ' + mm + ' 0px ' + mm;
     display = 'flex';
@@ -1034,6 +1035,7 @@ export default function styles(theme, props) {
   }
 
   if (kind === 'row-draggable') {
+    height = '100%';
     display = 'flex';
     flexDirection = 'row';
     flexGrow = grow;
