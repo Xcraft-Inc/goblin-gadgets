@@ -199,7 +199,7 @@ class Wizard extends Form {
           <TextFieldCombo
             model={model}
             menuType="wrap"
-            readonly={Bool.toString(type === 'combo')}
+            readonly={type === 'combo'}
             grow="1"
             list={list}
             defaultValue={property.get('value')}

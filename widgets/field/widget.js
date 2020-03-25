@@ -199,7 +199,7 @@ class Field extends Form {
         const Gadget = widgetImporter(type);
         const WiredGadget = Widget.Wired(Gadget)(gadgetInfo.get('id'));
         return (
-          <WiredGadget readonly="true" {...this.props} parentId={parentId} />
+          <WiredGadget readonly={true} {...this.props} parentId={parentId} />
         );
       } else {
         return null;
@@ -355,7 +355,7 @@ class Field extends Form {
           glyph={this.props.glyph}
           text={this.props.labelText}
           tooltip={this.props.tooltip || this.props.hintText}
-          readonly="true"
+          readonly={true}
         />
       </LabelRow>
     );
@@ -519,7 +519,7 @@ class Field extends Form {
           <FinalPlugin
             {...pluginProps}
             id={`${this.props.plugin}-plugin@readonly@${this.context.id}`}
-            readonly="true"
+            readonly={true}
             embeddedLevel={
               this.props.embeddedLevel ? this.props.embeddedLevel + 1 : 1
             }
@@ -899,7 +899,7 @@ class Field extends Form {
           direction={this.props.direction || 'column'}
           showHeader={this.props.showHeader}
           list={this.props.list}
-          readonly={Bool.toString(this.readonly)}
+          readonly={this.readonly}
           selectionChanged={value => {
             this.setBackendValue(this.fullPath, value);
           }}
@@ -1013,7 +1013,7 @@ class Field extends Form {
 
     return (
       <WiredCalendarRecurrence
-        readonly={Bool.toString(this.readonly)}
+        readonly={this.readonly}
         dateClicked={date => {
           const service = this.context.id.split('@')[0];
           this.doAs(service, 'date-clicked', {
