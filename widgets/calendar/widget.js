@@ -533,7 +533,7 @@ export default class Calendar extends Widget {
           <Button
             kind="calendar-title"
             text={headerMonth}
-            active={Bool.toString(this.showComboMonths)}
+            active={this.showComboMonths}
             onClick={this.onOpenComboMonths}
           />
         </div>
@@ -541,7 +541,7 @@ export default class Calendar extends Widget {
           <Button
             kind="calendar-title"
             text={headerYear}
-            active={Bool.toString(this.showComboYears)}
+            active={this.showComboYears}
             onClick={this.onOpenComboYears}
           />
         </div>
@@ -703,7 +703,7 @@ export default class Calendar extends Widget {
         kind="calendar-navigator"
         grow="1"
         onClick={() => this.onVisibleDateMonth(month)}
-        active={Bool.toString(active)}
+        active={active}
         horizontalSpacing="tiny"
       />
     );

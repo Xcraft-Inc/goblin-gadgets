@@ -145,7 +145,7 @@ class CalendarList extends Form {
         kind="calendar-list"
         subkind={type}
         justify="left"
-        active="true"
+        active={true}
         glyph={glyph}
         glyphColor={glyphColor}
         text={dd}
@@ -170,7 +170,7 @@ class CalendarList extends Form {
         <Button
           kind="calendar-list"
           subkind="base"
-          active={this.showBase ? 'true' : 'false'}
+          active={this.showBase}
           text={T('Régul.')}
           tooltip={T('Montre ou cache les dates régulières')}
           grow="1"
@@ -180,7 +180,7 @@ class CalendarList extends Form {
         <Button
           kind="calendar-list"
           subkind="add"
-          active={this.showAdd ? 'true' : 'false'}
+          active={this.showAdd}
           text={T('Ajouts')}
           tooltip={T('Montre ou cache les dates ajoutées')}
           grow="1"
@@ -190,7 +190,7 @@ class CalendarList extends Form {
         <Button
           kind="calendar-list"
           subkind="sub"
-          active={this.showSub ? 'true' : 'false'}
+          active={this.showSub}
           text={T('Supp.')}
           tooltip={T('Montre ou cache les dates supprimées')}
           grow="1"

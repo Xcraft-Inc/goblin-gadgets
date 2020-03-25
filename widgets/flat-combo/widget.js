@@ -37,7 +37,7 @@ export default class FlatCombo extends Widget {
         tooltip={item.tooltip}
         horizontalSpacing="overlap"
         focusable="true"
-        active={Bool.toString(this.isChecked(item.name))}
+        active={this.isChecked(item.name)}
         onClick={() => this.onButtonClicked(item.name)}
       />
     );

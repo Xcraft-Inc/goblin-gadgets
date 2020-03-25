@@ -79,7 +79,7 @@ class GlyphsDialog extends Widget {
         glyph={glyph.get('glyph')}
         glyphColor={color}
         text={glyph.get('name')}
-        active={Bool.toString(selected)}
+        active={selected}
         onClick={() => this.onToggleGlyph(glyph.get('id'))}
       />
     );
