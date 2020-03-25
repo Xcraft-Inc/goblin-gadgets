@@ -132,6 +132,11 @@ export default [
     type: types.bool,
   },
   {
+    name: 'focused',
+    group: 'aspect',
+    type: types.bool,
+  },
+  {
     name: 'readonly',
     group: 'aspect',
     type: types.bool,

@@ -51,6 +51,7 @@ export const propNames = [
   'shortcut',
   'kind',
   'active',
+  'focused',
   'subkind',
   'dimmed',
   'empty',
@@ -102,6 +103,7 @@ export default function styles(theme, props) {
     shortcut,
     kind,
     active,
+    focused,
     subkind,
     dimmed,
     empty,
@@ -745,7 +747,7 @@ export default function styles(theme, props) {
     if (Bool.isTrue(active)) {
       glyphColorFromKind = theme.palette.menuText;
       textColorFromKind = theme.palette.menuText;
-    } else if (active === 'focused') {
+    } else if (Bool.isTrue(focused)) {
       glyphColorFromKind = theme.palette.menuFocusText;
       textColorFromKind = theme.palette.menuFocusText;
     } else {

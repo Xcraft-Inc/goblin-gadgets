@@ -32,6 +32,7 @@ export const propNames = [
   'disabled',
   'readonly',
   'active',
+  'focused',
   'dimmed',
   'color',
   'selected',
@@ -60,6 +61,7 @@ export default function styles(theme, props) {
     disabled,
     readonly,
     active,
+    focused,
     dimmed,
     color,
     selected,
@@ -154,7 +156,7 @@ export default function styles(theme, props) {
     activeColor = ColorHelpers.getMarkColor(theme, activeColorProp);
   }
 
-  if (Bool.isTrue(active) || active === 'focused') {
+  if (Bool.isTrue(active) || Bool.isTrue(focused)) {
     backgroundColor = activeColor;
     borderColor = borderActiveColor;
   }

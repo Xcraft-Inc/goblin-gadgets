@@ -49,6 +49,7 @@ export const propNames = [
   'heightStrategy',
   'place',
   'active',
+  'focused',
   'subkind',
   'badgePush',
   'shortcut',
@@ -91,6 +92,7 @@ export default function styles(theme, props) {
     heightStrategy,
     place: placeProp,
     active,
+    focused,
     subkind,
     badgePush,
     shortcut,
@@ -572,7 +574,7 @@ export default function styles(theme, props) {
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     borderStyle = 'none';
     backgroundColor = theme.palette.menuItemInactiveBackground;
-    if (active === 'focused') {
+    if (Bool.isTrue(focused)) {
       activeColor = theme.palette.menuItemFocusBackground;
     } else {
       activeColor = theme.palette.menuItemActiveBackground;
@@ -586,7 +588,7 @@ export default function styles(theme, props) {
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     borderStyle = 'none';
     backgroundColor = theme.palette.comboItemBackground;
-    if (active === 'focused') {
+    if (Bool.isTrue(focused)) {
       activeColor = theme.palette.comboItemFocused;
     } else {
       activeColor = theme.palette.comboItemActive;
@@ -597,7 +599,7 @@ export default function styles(theme, props) {
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     borderStyle = 'none';
     backgroundColor = theme.palette.comboItemBackground;
-    if (active === 'focused') {
+    if (Bool.isTrue(focused)) {
       activeColor = theme.palette.comboItemFocused;
     } else {
       activeColor = theme.palette.comboItemActive;
@@ -614,7 +616,7 @@ export default function styles(theme, props) {
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     borderStyle = 'none';
     backgroundColor = theme.palette.comboItemBackground;
-    if (active === 'focused') {
+    if (Bool.isTrue(focused)) {
       activeColor = theme.palette.comboItemFocused;
     } else {
       activeColor = theme.palette.comboItemActive;
@@ -858,7 +860,7 @@ export default function styles(theme, props) {
     activeColor = ColorHelpers.getMarkColor(theme, activeColorProp);
   }
 
-  if (Bool.isTrue(active) || active === 'focused') {
+  if (Bool.isTrue(active) || Bool.isTrue(focused)) {
     backgroundColor = activeColor;
     borderColor = borderActiveColor;
   }
