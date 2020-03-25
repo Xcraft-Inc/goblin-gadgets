@@ -62,7 +62,7 @@ class RadioList extends Widget {
         kind="check"
         heightStrategy={this.props.heightStrategy}
         text={this.props.list[1]}
-        focusable="true"
+        focusable={true}
         checked={Bool.toString(this.props.selectedIndex === 1)}
         onChange={this.onCheckClicked}
       />
@@ -79,7 +79,7 @@ class RadioList extends Widget {
         heightStrategy={this.props.heightStrategy}
         justify="left"
         text={this.getItem(text)}
-        focusable="true"
+        focusable={true}
         checked={Bool.toString(index === this.props.selectedIndex)}
         onChange={() => this.onRadioClicked(index)}
       />

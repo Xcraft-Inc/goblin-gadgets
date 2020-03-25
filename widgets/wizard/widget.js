@@ -224,7 +224,7 @@ class Wizard extends Form {
           <Label text={field} width="180px" />
           <Checkbox
             width="32px"
-            focusable="true"
+            focusable={true}
             onChange={() => {
               this.setModelValue(
                 model,
