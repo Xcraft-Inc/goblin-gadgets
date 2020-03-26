@@ -221,7 +221,7 @@ export default class Button extends Widget {
         disabled={this.disabled}
         grow="1"
         buttonBackgroundColor={boxStyle.backgroundColor}
-        insideButton={this.props.insideButton || 'true'}
+        insideButton={this.props.insideButton || true}
       />
     );
   }
