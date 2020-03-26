@@ -226,10 +226,7 @@ class Wizard extends Form {
             width="32px"
             focusable={true}
             onChange={() => {
-              this.setModelValue(
-                model,
-                this.getModelValue(model) === 'false' ? 'true' : 'false'
-              );
+              this.setModelValue(model, !this.getModelValue(model));
             }}
           />
         </Container>
