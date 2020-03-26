@@ -88,7 +88,7 @@ class LabelTextField extends Widget {
     const displayValue = autoReadonly ? this.props.selectedValue : null;
     const visibleReadonly = this.props.readonly
       ? this.props.readonly
-      : Bool.toString(autoReadonly);
+      : autoReadonly;
     const textFieldShape = this.props.shape || 'smooth';
     const fieldGrow = this.props.fieldWidth ? null : '1';
 

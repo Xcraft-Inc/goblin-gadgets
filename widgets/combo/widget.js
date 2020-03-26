@@ -132,7 +132,7 @@ class Combo extends Widget {
     if (item.separator) {
       return <Separator key={index} kind="menu-separator" />;
     } else {
-      const active = Bool.toString(this.activeIndex === index);
+      const active = this.activeIndex === index;
       const color = ColorHelpers.getMarkColor(this.context.theme, item.color);
       if (this.props.menuType === 'wrap') {
         const width = this.props.menuItemWidth
