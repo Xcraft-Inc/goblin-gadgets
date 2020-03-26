@@ -931,6 +931,9 @@ class Field extends Form {
       >
         <WiredCheckbox
           kind={this.props.subkind}
+          heightStrategy={
+            this.props.verticalSpacing === 'compact' ? 'compact' : null
+          }
           glyph={this.props.glyph}
           text={this.props.labelText}
           tooltip={this.props.tooltip || this.props.hintText}
