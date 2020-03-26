@@ -265,7 +265,7 @@ class TextFieldComboNC extends Widget {
         changeMode={'passthrough'}
         disabled={this.props.disabled}
         required={this.props.required}
-        embeddedFocus="true"
+        embeddedFocus={true}
         visibility={this.props.visibility}
         onChange={this.doChangeTextField}
         onFocus={this.onFocus}

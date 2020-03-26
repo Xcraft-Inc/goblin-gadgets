@@ -94,7 +94,7 @@ class GlyphDetail extends Widget {
                 height="300px"
                 grow="1"
                 justify="center"
-                insideButton="true"
+                insideButton={true}
               />
             </Container>
           </Container>

@@ -203,7 +203,7 @@ class TranslatableCombo extends Widget {
         nabuId={nabuId}
         localeName={this.state.selectedValue || defaultValue}
         shape={textFieldShape}
-        embeddedFocus="true"
+        embeddedFocus={true}
         onFocus={this.onFocus}
         onBlur={this.onBlur}
         onMouseUp={this.onMouseUp}

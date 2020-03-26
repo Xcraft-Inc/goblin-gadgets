@@ -173,7 +173,7 @@ class Tree extends Widget {
         grow={column.get('grow')}
         textAlign={column.get('textAlign')}
         isLast={Bool.toString(isLast)}
-        isHeader="true"
+        isHeader={true}
         text={column.get('description')}
         wrap="no"
       />

@@ -67,7 +67,7 @@ export default class CalendarButton extends Widget {
         kind="calendar"
         disabled={this.disabled}
         grow="1"
-        insideButton="true"
+        insideButton={true}
       />
     );
   }

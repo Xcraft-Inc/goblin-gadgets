@@ -78,7 +78,7 @@ class TreeRow extends Widget {
         textAlign={textAlign}
         indent={indent}
         verticalSpacing={this.props.verticalSpacing}
-        isHeader="false"
+        isHeader={false}
         text={text}
         selectionChanged={() => this.onSelectionChanged(rowId)}
         onDoubleClick={() => this.onDoubleClick(rowId)}

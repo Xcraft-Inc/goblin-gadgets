@@ -200,7 +200,7 @@ export default class RetroActionButton extends Widget {
       return (
         <Label
           key="shortcut"
-          shortcut="true"
+          shortcut={true}
           kind={this.props.kind}
           subkind={this.props.subkind}
           disabled={this.disabled}
@@ -210,7 +210,7 @@ export default class RetroActionButton extends Widget {
           buttonBackgroundColor={boxStyle.backgroundColor}
           text={ShortcutHelpers.getShortcut(this.props.shortcut)}
           wrap="no"
-          insideButton="true"
+          insideButton={true}
         />
       );
     } else {

@@ -586,7 +586,7 @@ export default class Calendar extends Widget {
     const textClass = this.styles.classNames.dowText;
     return (
       <div className={textClass} key={index}>
-        <Label insideButton="true" kind="compact" text={text} />
+        <Label insideButton={true} kind="compact" text={text} />
       </div>
     );
   }

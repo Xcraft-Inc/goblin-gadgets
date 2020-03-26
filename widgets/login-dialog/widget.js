@@ -71,7 +71,7 @@ class LoginDialog extends Form {
           <Container kind="row-pane">
             <LabelTextField
               model=".user"
-              defaultFocus="true"
+              defaultFocus={true}
               labelGlyph="solid/user"
               hintText={T("Nom d'utilisateur")}
               grow="1"

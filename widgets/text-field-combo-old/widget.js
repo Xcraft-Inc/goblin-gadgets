@@ -242,7 +242,7 @@ class TextFieldComboOld extends Widget {
     return (
       <TextField
         {...props}
-        embeddedFocus="true"
+        embeddedFocus={true}
         onFocus={this.onFocus}
         onBlur={this.onBlur}
         onMouseUp={this.onMouseUp}

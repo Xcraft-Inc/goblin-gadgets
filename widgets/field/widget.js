@@ -402,7 +402,7 @@ class Field extends Form {
         return (
           <Label
             grow="1"
-            empty="true"
+            empty={true}
             horizontalSpacing={this.props.horizontalSpacing}
           />
         );
@@ -535,7 +535,7 @@ class Field extends Form {
           return (
             <Label
               grow="1"
-              empty="true"
+              empty={true}
               horizontalSpacing={this.props.horizontalSpacing}
             />
           );
@@ -1032,7 +1032,7 @@ class Field extends Form {
     const summary = this.props.summary || 'info';
     const Viewer = props => {
       if (!props.entityId) {
-        return <Label grow="1" empty="true" />;
+        return <Label grow="1" empty={true} />;
       }
       const Info = this.mapWidget(
         Label,
@@ -1102,7 +1102,6 @@ class Field extends Form {
           verticalJustify="top"
         >
           <FinalPlugin
-            extendOnAdd="true"
             {...pluginProps}
             id={pluginId}
             dragServiceId={
@@ -1117,7 +1116,7 @@ class Field extends Form {
     } else if (this.props.item) {
       const Items = props => {
         if (!props.entityIds) {
-          return <Label grow="1" empty="true" />;
+          return <Label grow="1" empty={true} />;
         }
         return (
           <Container
@@ -1308,7 +1307,7 @@ class Field extends Form {
                     comboType={this.props.hinter}
                     width={this.props.fieldWidth}
                     grow="1"
-                    requiredHinter="true"
+                    requiredHinter={true}
                     autocomplete={this.fullPath}
                   />
                 ))

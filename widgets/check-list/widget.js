@@ -100,7 +100,7 @@ class CheckList extends Widget {
             <Checkbox
               kind={this.props.kind}
               text={T('Enlève tout')}
-              checked="false"
+              checked={false}
               readonly={this.props.readonly}
               onChange={this.onClearAll}
             />
@@ -112,7 +112,7 @@ class CheckList extends Widget {
             <Checkbox
               kind={this.props.kind}
               text={T('Met tout')}
-              checked="true"
+              checked={true}
               readonly={this.props.readonly}
               onChange={this.onSetAll}
             />
