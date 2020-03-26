@@ -122,6 +122,11 @@ export default [
     description: "Only with kind='calendar' and active='true'.",
   },
   {
+    name: 'heightStrategy',
+    group: 'aspect',
+    type: types.enum(['', 'compact', 'space']),
+  },
+  {
     name: 'textColor',
     group: 'aspect',
     type: types.color,

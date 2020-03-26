@@ -894,7 +894,7 @@ class Field extends Form {
         <WiredCheckList
           width={this.props.width}
           height={this.props.height}
-          heightStrategy="compact"
+          heightStrategy={this.props.heightStrategy || 'compact'}
           look={this.props.look || 'modern'}
           direction={this.props.direction || 'column'}
           showHeader={this.props.showHeader}
