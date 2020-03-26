@@ -171,7 +171,7 @@ class TranslatableCombo extends Widget {
         value: item.value,
         glyph: item.glyph,
         color: item.color,
-        active: Bool.toString(active),
+        active: active,
         action: () => this.setValue(item.value),
       };
     } else {
@@ -179,7 +179,7 @@ class TranslatableCombo extends Widget {
         text: item.text,
         value: item.value,
         glyph: active ? 'check' : 'none',
-        active: Bool.toString(active),
+        active: active,
         action: () => this.setValue(item.value),
       };
     }

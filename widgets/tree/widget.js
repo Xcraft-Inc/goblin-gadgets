@@ -172,7 +172,7 @@ class Tree extends Widget {
         width={column.get('width')}
         grow={column.get('grow')}
         textAlign={column.get('textAlign')}
-        isLast={Bool.toString(isLast)}
+        isLast={isLast}
         isHeader={true}
         text={column.get('description')}
         wrap="no"
@@ -210,7 +210,7 @@ class Tree extends Widget {
         key={index}
         index={index}
         level={level}
-        selected={Bool.toString(this.isSelected(id))}
+        selected={this.isSelected(id)}
         isExpanded={this.getExpand(id)}
         hasChildren={rows && rows.size > 0}
         selection={this.props.selection}

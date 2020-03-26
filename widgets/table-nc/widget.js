@@ -390,7 +390,7 @@ export default class TableNC extends Widget {
         grow={grow}
         textAlign={column.get('textAlign')}
         isSortable={isSortable}
-        isLast={Bool.toString(isLast)}
+        isLast={isLast}
         isHeader={true}
         simpleHeader={this.props.simpleHeader}
         text={column.get('description')}
@@ -537,7 +537,7 @@ export default class TableNC extends Widget {
         compactMargins={this.props.compactMargins}
         cellFormat={this.props.cellFormat}
         selectionMode={this.props.selectionMode}
-        selected={Bool.toString(this.isSelected(item.row.get('id', null)))}
+        selected={this.isSelected(item.row.get('id', null))}
         selectionChanged={this.onSelectionChanged}
         onDoubleClick={this.onDoubleClick}
       />

@@ -516,7 +516,7 @@ export default class Calendar extends Widget {
           glyph="solid/chevron-left"
           kind="calendar-navigator"
           key="prevMonth"
-          disabled={Bool.toString(this.visibleDate < this.startDate)}
+          disabled={this.visibleDate < this.startDate}
           onClick={this.onPrevMonth}
         />
       );
@@ -557,9 +557,9 @@ export default class Calendar extends Widget {
           glyph="solid/chevron-right"
           kind="calendar-navigator"
           key="nextMonth"
-          disabled={Bool.toString(
+          disabled={
             DateConverters.moveAtEndingOfMonth(this.visibleDate) >= this.endDate
-          )}
+          }
           onClick={this.onNextMonth}
         />
       );

@@ -155,14 +155,14 @@ class TextFieldComboOld extends Widget {
       if (this.props.menuType === 'wrap') {
         return {
           text: item,
-          active: Bool.toString(active),
+          active: active,
           action: x => this.setText(x),
         };
       } else {
         return {
           text: item,
           glyph: active ? 'solid/check' : 'solid/none',
-          active: Bool.toString(active),
+          active: active,
           action: x => this.setText(x),
         };
       }
@@ -174,7 +174,7 @@ class TextFieldComboOld extends Widget {
           value: item.value,
           glyph: item.glyph,
           color: item.color,
-          active: Bool.toString(active),
+          active: active,
           action: x => this.setText(x),
         };
       } else {
@@ -182,7 +182,7 @@ class TextFieldComboOld extends Widget {
           text: item.text,
           value: item.value,
           glyph: active ? 'check' : 'none',
-          active: Bool.toString(active),
+          active: active,
           action: x => this.setText(x),
         };
       }
@@ -226,7 +226,7 @@ class TextFieldComboOld extends Widget {
       width: this.props.width,
       grow: this.props.width ? null : '1',
       rows: this.props.rows,
-      readonly: Bool.toString(visibleReadonly),
+      readonly: visibleReadonly,
       disabled: this.props.disabled,
       selectAllOnFocus: this.props.selectAllOnFocus,
       defaultFocus: this.props.defaultFocus,

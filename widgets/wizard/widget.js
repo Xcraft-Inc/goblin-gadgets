@@ -760,7 +760,7 @@ class Wizard extends Form {
 
   renderPreviewSettingSwitch(value, getter, setter, index) {
     const SettingSwitch = this.WithModel(Checkbox, _ => {
-      return {checked: Bool.toString(getter() === value)};
+      return {checked: getter() === value};
     })('.previewSettings');
     return (
       <SettingSwitch
@@ -795,7 +795,7 @@ class Wizard extends Form {
       <Checkbox
         key={index * 100}
         kind="switch"
-        checked={Bool.toString(preview.get('value'))}
+        checked={preview.get('value')}
         onChange={() => {
           this.setPreviewSettingValue(preview.get('id'), !preview.get('value'));
         }}

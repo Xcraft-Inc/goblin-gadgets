@@ -57,13 +57,7 @@ class TimeGauge extends Widget {
     const flash = value > 100;
     const limit = Math.min(Math.max(value, 0), 100);
 
-    return (
-      <Gauge
-        kind={this.props.kind}
-        value={limit}
-        flash={Bool.toString(flash)}
-      />
-    );
+    return <Gauge kind={this.props.kind} value={limit} flash={flash} />;
   }
 }
 

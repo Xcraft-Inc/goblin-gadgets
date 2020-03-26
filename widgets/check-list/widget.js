@@ -133,7 +133,7 @@ class CheckList extends Widget {
         heightStrategy={this.props.heightStrategy}
         text={row.description}
         focusable={true}
-        checked={Bool.toString(this.isChecked(row.name))}
+        checked={this.isChecked(row.name)}
         readonly={this.props.readonly}
         onChange={() => this.onButtonClicked(row.name)}
       />

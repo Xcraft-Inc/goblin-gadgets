@@ -500,7 +500,7 @@ class Field extends Form {
         value => {
           const length = value ? value.length : 0;
           const embedded = Bool.isTrue(this.props.embedded);
-          const show = Bool.toString(length > 0 || !embedded);
+          const show = length > 0 || !embedded;
           return {show};
         },
         this.fullPath

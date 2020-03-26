@@ -55,7 +55,7 @@ class TableRow extends Widget {
         indent={indent}
         fontSizeStrategy={this.props.fontSizeStrategy}
         cellFormat={this.props.cellFormat}
-        isLast={Bool.toString(isLast)}
+        isLast={isLast}
         isHeader={false}
         text={text}
         selectionChanged={() => this.onSelectionChanged(rowId)}
