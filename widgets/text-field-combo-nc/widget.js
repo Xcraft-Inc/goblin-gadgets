@@ -282,6 +282,10 @@ class TextFieldComboNC extends Widget {
       return null;
     }
 
+    if (!this.props.list) {
+      return null;
+    }
+
     if (this.props.list !== this.previousList) {
       this.convertList();
       this.previousList = this.props.list;
