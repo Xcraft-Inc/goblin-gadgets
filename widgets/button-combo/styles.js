@@ -27,7 +27,7 @@ export default function styles(theme, props) {
   let flexShrink = null;
   let flexBasis = null;
   let marginRight = '0px';
-  let borderRadius = '0px';
+  let borderRadius = theme.shapes.smoothRadius;
   let opacity = Bool.isFalse(visibility) ? 0 : null;
 
   if (flexGrow) {

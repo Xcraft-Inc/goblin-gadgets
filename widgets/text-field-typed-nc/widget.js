@@ -24,6 +24,7 @@ import {
 import TextFieldNC from 'goblin-gadgets/widgets/text-field-nc/widget';
 import ButtonCombo from 'goblin-gadgets/widgets/button-combo/widget';
 import Props from './props';
+import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 
 /******************************************************************************/
 
@@ -209,10 +210,17 @@ export default class TextFieldTypedNC extends Widget {
     }
 
     if (type === 'date') {
-      const textFieldShapes = {
-        smooth: 'left-smooth',
-        rounded: 'left-rounded',
-      };
+      const hideButton =
+        Bool.isTrue(this.props.readonly) || this.props.hideButtonCombo;
+      const textFieldShapes = hideButton
+        ? {
+            smooth: 'smooth',
+            rounded: 'rounded',
+          }
+        : {
+            smooth: 'left-smooth',
+            rounded: 'left-rounded',
+          };
       const textFieldShape = textFieldShapes[shape || 'smooth'];
 
       return (

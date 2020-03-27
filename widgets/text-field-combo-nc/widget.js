@@ -208,10 +208,17 @@ class TextFieldComboNC extends Widget {
 
   renderTextField() {
     const shape = this.props.shape || 'smooth';
-    const textFieldShapes = {
-      smooth: 'left-smooth',
-      rounded: 'left-rounded',
-    };
+    const hideButton =
+      Bool.isTrue(this.props.readonly) || this.props.hideButtonCombo;
+    const textFieldShapes = hideButton
+      ? {
+          smooth: 'smooth',
+          rounded: 'rounded',
+        }
+      : {
+          smooth: 'left-smooth',
+          rounded: 'left-rounded',
+        };
     const textFieldShape = textFieldShapes[shape];
 
     let selectedItem = this.list.find(

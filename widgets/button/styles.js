@@ -604,6 +604,7 @@ export default function styles(theme, props) {
     } else {
       activeColor = theme.palette.comboItemActive;
     }
+    borderRadius = Unit.multiply(theme.shapes.smoothRadius, 0.5);
     backgroundHoverColor = theme.palette.comboItemHover;
   }
 

@@ -11,7 +11,7 @@ export default function styles(theme) {
     overflowX: 'overlay',
     cursor: 'default',
     userSelect: 'none',
-    borderRadius: '1px',
+    borderRadius: theme.shapes.smoothRadius,
     padding: theme.shapes.menuPadding,
   };
 
