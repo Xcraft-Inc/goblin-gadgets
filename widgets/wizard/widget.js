@@ -212,7 +212,7 @@ class Wizard extends Form {
       );
     } else if (type === 'bool') {
       const Checkbox = this.WithModel(Button, val => {
-        if (val === 'true') {
+        if (val) {
           return {glyph: 'solid/check'};
         } else {
           return {glyph: null};

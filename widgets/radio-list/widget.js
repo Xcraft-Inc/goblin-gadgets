@@ -38,7 +38,7 @@ class RadioList extends Widget {
     return (
       this.props.list.length === 2 &&
       ((this.props.list[0] === 'no' && this.props.list[1] === 'yes') ||
-        (this.props.list[0] === 'false' && this.props.list[1] === 'true'))
+        (this.props.list[0] === false && this.props.list[1] === true))
     );
   }
 
