@@ -19,11 +19,13 @@ exports.xcraftCommands = function() {
       selectAll: state => {
         return {
           selectedIds: state.get('selectedIds', []).toArray(),
+          rows: state.get('data.rows'),
         };
       },
       deselectAll: () => {
         return {
           selectedIds: [],
+          rows: [],
         };
       },
       doubleClick: (state, action) => {
