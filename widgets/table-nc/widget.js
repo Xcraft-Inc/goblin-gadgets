@@ -262,7 +262,7 @@ export default class TableNC extends Widget {
     if (this.props.onSelectionChanged) {
       this.props.onSelectionChanged(id);
     } else {
-      this.doAs('table-gadget', 'select', {
+      this.doAs(this.props.gadgetName || 'table-gadget', 'select', {
         mode: this.props.selectionMode,
         rowId: id,
       });
@@ -273,7 +273,7 @@ export default class TableNC extends Widget {
     if (!this.props.id && !this.context.id) {
       return;
     }
-    this.doAs('table-gadget', 'doubleClick', {
+    this.doAs(this.props.gadgetName || 'table-gadget', 'doubleClick', {
       rowId: id,
     });
   }
@@ -282,14 +282,14 @@ export default class TableNC extends Widget {
     if (!this.props.id && !this.context.id) {
       return;
     }
-    this.doAs('table-gadget', 'selectAll');
+    this.doAs(this.props.gadgetName || 'table-gadget', 'selectAll');
   }
 
   deselectAll() {
     if (!this.props.id && !this.context.id) {
       return;
     }
-    this.doAs('table-gadget', 'deselectAll');
+    this.doAs(this.props.gadgetName || 'table-gadget', 'deselectAll');
   }
 
   isAllSelected(data) {
