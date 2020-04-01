@@ -113,15 +113,13 @@ export default class RetroPanel extends Widget {
     }
 
     return (
-      <div className={this.styles.classNames.title}>
-        <Label text={this.props.title} fontSize="800%" textColor="#eee" />
-        <Label
-          text={this.props.subtitle}
-          fontSize="150%"
-          textColor="#222"
-          fontWeight="bold"
-          textTransform="uppercase"
-        />
+      <div className={this.styles.classNames.titleBox}>
+        <div className={`title-hover ${this.styles.classNames.title}`}>
+          {this.props.title}
+        </div>
+        <div className={`subtitle-hover ${this.styles.classNames.subtitle}`}>
+          {this.props.subtitle}
+        </div>
       </div>
     );
   }
