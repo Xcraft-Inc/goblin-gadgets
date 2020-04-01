@@ -2,6 +2,7 @@ import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import RetroScrew from 'goblin-gadgets/widgets/retro-screw/widget';
 import RetroGear from 'goblin-gadgets/widgets/retro-gear/widget';
+import Label from 'goblin-gadgets/widgets/label/widget';
 import {ColorManipulator} from 'electrum-theme';
 import {Unit} from 'electrum-theme';
 
@@ -106,6 +107,25 @@ export default class RetroPanel extends Widget {
     );
   }
 
+  renderTitle() {
+    if (!this.props.title) {
+      return null;
+    }
+
+    return (
+      <div className={this.styles.classNames.title}>
+        <Label text={this.props.title} fontSize="800%" textColor="#eee" />
+        <Label
+          text={this.props.subtitle}
+          fontSize="150%"
+          textColor="#222"
+          fontWeight="bold"
+          textTransform="uppercase"
+        />
+      </div>
+    );
+  }
+
   renderAbsolute() {
     switch (this.props.kind) {
       case 'metal-plate':
@@ -115,6 +135,7 @@ export default class RetroPanel extends Widget {
               className={this.styles.classNames.retroPanelMetalPlateAbsolute}
             />
             {this.renderScrews()}
+            {this.renderTitle()}
             {this.renderGears()}
             {this.props.children}
           </React.Fragment>

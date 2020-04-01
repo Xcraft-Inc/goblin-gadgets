@@ -110,6 +110,14 @@ export default function styles(theme, props) {
 
   /******************************************************************************/
 
+  const title = {
+    position: 'absolute',
+    left: Unit.multiply(margin, 2.5),
+    top: Unit.multiply(margin, 1.8),
+  };
+
+  /******************************************************************************/
+
   return {
     retroPanelMetalPlateAbsolute,
     retroPanelMetalPlateRelative,
@@ -118,6 +126,8 @@ export default function styles(theme, props) {
     gear2,
     gear3,
     gear4,
+
+    title,
   };
 }
 
