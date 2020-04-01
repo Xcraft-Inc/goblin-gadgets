@@ -80,8 +80,9 @@ export default function styles(theme, props) {
 
   const dialogModal = {
     position: 'relative',
-    maxHeight: '80%',
+    maxHeight: '90%',
     margin: 'auto',
+    overflowY: 'auto',
     borderRadius: theme.shapes.floatingRadius,
     backgroundColor: theme.palette.flyingDialogBackground,
     boxShadow: theme.shapes.floatingShadow,
