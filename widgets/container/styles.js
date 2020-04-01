@@ -269,6 +269,7 @@ export default function styles(theme, props) {
 
   if (kind === 'left-bar') {
     zIndex = 2;
+    minWidth = theme.shapes.taskButtonWidth;
     display = 'flex';
     flexDirection = 'column';
     overflowY = 'auto';
@@ -280,6 +281,10 @@ export default function styles(theme, props) {
           )}, ${theme.palette.taskBackground} 71%)`
         : theme.palette.taskBackground;
     boxShadow = theme.shapes.taskShadow;
+
+    if (theme.look.name === 'retro') {
+      minWidth = Unit.add(theme.shapes.taskButtonWidth, '50px');
+    }
   }
 
   if (kind === 'task-bar') {
