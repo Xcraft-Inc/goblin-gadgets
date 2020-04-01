@@ -271,6 +271,7 @@ export default function styles(theme, props) {
     zIndex = 2;
     display = 'flex';
     flexDirection = 'column';
+    overflowY = 'auto';
     backgroundColor =
       theme.look.name === 'retro'
         ? `linear-gradient(90deg, ${ColorManipulator.darken(
