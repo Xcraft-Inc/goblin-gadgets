@@ -169,9 +169,9 @@ export default class RetroActionButton extends Widget {
           color={ColorManipulator.darken(this.context.theme.palette.light, 0.2)}
           left="0px"
           top="0px"
-          radius="100px"
-          toothCount={20}
-          toothThickness={20}
+          radius="50px"
+          toothCount={10}
+          toothThickness={16}
           rotationDuration="3s"
           rotationDirection="cw"
         />
