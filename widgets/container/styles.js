@@ -933,7 +933,10 @@ export default function styles(theme, props) {
     display = 'flex';
     flexDirection = 'column';
     flexGrow = 1;
-    margin = '0px ' + theme.shapes.viewSpacing + ' 0px 0px';
+    //?? margin = '0px ' + theme.shapes.viewSpacing + ' 0px 0px';
+    borderRightWidth = theme.shapes.viewSpacing;
+    borderRightStyle = 'solid';
+    borderRightColor = theme.palette.rootBackground;
     backgroundColor = theme.palette.ticketsBackground;
   }
 

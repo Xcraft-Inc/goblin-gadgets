@@ -4,7 +4,7 @@ function getHorizontalSpacingRightMargin(theme, horizontalSpacing) {
   let rightMargin = null;
 
   if (horizontalSpacing) {
-    let spacingType = {
+    const spacingType = {
       overlap: '-1px',
       zero: '0px',
       tiny: '1px',
