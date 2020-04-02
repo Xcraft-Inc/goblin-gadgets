@@ -1,6 +1,5 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 
 import Button from 'goblin-gadgets/widgets/button/widget';
 import FlatList from 'goblin-gadgets/widgets/flat-list/widget';
@@ -69,7 +68,7 @@ export default class ButtonCombo extends Widget {
   /******************************************************************************/
 
   renderButton() {
-    if (Bool.isTrue(this.props.readonly) || this.props.hideButtonCombo) {
+    if (this.props.readonly || this.props.hideButtonCombo) {
       return;
     }
     let glyph = this.state.showCombo ? 'solid/caret-up' : 'solid/caret-down';
@@ -93,9 +92,7 @@ export default class ButtonCombo extends Widget {
         glyph={glyph}
         glyphSize="120%"
         shape={buttonShape}
-        disabled={
-          Bool.isTrue(this.props.disabled) || Bool.isTrue(this.props.readonly)
-        }
+        disabled={this.props.disabled || this.props.readonly}
         onClick={this.showCombo}
       />
     );
@@ -158,7 +155,7 @@ export default class ButtonCombo extends Widget {
   }
 
   render() {
-    if (Bool.isFalse(this.props.show)) {
+    if (this.props.show === false) {
       return null;
     }
 
@@ -172,15 +169,13 @@ export default class ButtonCombo extends Widget {
       <span
         ref={this.setRef}
         onClick={
-          Bool.isTrue(this.props.restrictsToList) &&
-          !Bool.isTrue(this.props.readonly) &&
+          this.props.restrictsToList &&
+          !this.props.readonly &&
           !this.state.showCombo
             ? this.showCombo
             : undefined
         }
-        disabled={
-          Bool.isTrue(this.props.disabled) || Bool.isTrue(this.props.readonly)
-        }
+        disabled={this.props.disabled || this.props.readonly}
         className={boxClass}
       >
         {this.props.children}

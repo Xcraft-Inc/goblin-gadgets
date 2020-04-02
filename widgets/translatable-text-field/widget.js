@@ -3,7 +3,6 @@ import Widget from 'goblin-laboratory/widgets/widget';
 
 import Label from 'goblin-gadgets/widgets/label/widget';
 import TranslatableCombo from 'goblin-gadgets/widgets/translatable-combo/widget';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 
 import ToNabuObject from 'goblin-nabu/widgets/helpers/t.js';
 import * as styles from './styles';
@@ -59,7 +58,7 @@ class TranslatableTextField extends Widget {
   }
 
   render() {
-    if (Bool.isFalse(this.props.show)) {
+    if (this.props.show === false) {
       return null;
     }
 

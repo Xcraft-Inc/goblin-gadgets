@@ -1,7 +1,6 @@
 import {Unit} from 'electrum-theme';
 import {ColorHelpers} from 'electrum-theme';
 import {ColorManipulator} from 'electrum-theme';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import * as SpacingHelpers from 'goblin-gadgets/widgets/helpers/spacing-helpers';
 
 function convertJustify(justify) {
@@ -132,7 +131,7 @@ export default function styles(theme, props) {
   let boxPaddingBottom = theme.shapes.boxPaddingBottom;
   let boxPaddingLeft = theme.shapes.boxPaddingLeft;
   let boxZIndex = zIndex;
-  let boxOpacity = Bool.isFalse(visibility) ? 0 : null;
+  let boxOpacity = visibility === false ? 0 : null;
   let borderWidth = theme.shapes.buttonBorderWidth;
   let borderColor = theme.palette.buttonBorderColor;
   let borderColorForced = null;
@@ -153,7 +152,7 @@ export default function styles(theme, props) {
   let specialDisabled = false;
   let focusedShadow = theme.shapes.focusedShadow + theme.palette.focused;
 
-  disabled = Bool.isTrue(disabled) || Bool.isTrue(readonly);
+  disabled = disabled || readonly;
 
   // Initialize variables for button without border.
   if (border === 'none') {
@@ -574,7 +573,7 @@ export default function styles(theme, props) {
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     borderStyle = 'none';
     backgroundColor = theme.palette.menuItemInactiveBackground;
-    if (Bool.isTrue(focused)) {
+    if (focused) {
       activeColor = theme.palette.menuItemFocusBackground;
     } else {
       activeColor = theme.palette.menuItemActiveBackground;
@@ -588,7 +587,7 @@ export default function styles(theme, props) {
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     borderStyle = 'none';
     backgroundColor = theme.palette.comboItemBackground;
-    if (Bool.isTrue(focused)) {
+    if (focused) {
       activeColor = theme.palette.comboItemFocused;
     } else {
       activeColor = theme.palette.comboItemActive;
@@ -599,7 +598,7 @@ export default function styles(theme, props) {
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     borderStyle = 'none';
     backgroundColor = theme.palette.comboItemBackground;
-    if (Bool.isTrue(focused)) {
+    if (focused) {
       activeColor = theme.palette.comboItemFocused;
     } else {
       activeColor = theme.palette.comboItemActive;
@@ -617,7 +616,7 @@ export default function styles(theme, props) {
     boxJustifyContent = boxJustifyContent ? boxJustifyContent : 'flex-start';
     borderStyle = 'none';
     backgroundColor = theme.palette.comboItemBackground;
-    if (Bool.isTrue(focused)) {
+    if (focused) {
       activeColor = theme.palette.comboItemFocused;
     } else {
       activeColor = theme.palette.comboItemActive;
@@ -748,7 +747,7 @@ export default function styles(theme, props) {
   }
 
   if (kind === 'hover') {
-    boxOpacity = Bool.isTrue(active) ? 1 : 0.00001;
+    boxOpacity = active ? 1 : 0.00001;
     borderWidth = '4px';
     borderColor = theme.palette.taskBackground;
     backgroundHoverColor = theme.palette.buttonBackground;
@@ -822,7 +821,7 @@ export default function styles(theme, props) {
     }
   }
 
-  if (Bool.isTrue(badgePush)) {
+  if (badgePush) {
     boxPaddingRight = Unit.add(boxPaddingRight, theme.shapes.badgeHeight);
   }
   if (
@@ -861,7 +860,7 @@ export default function styles(theme, props) {
     activeColor = ColorHelpers.getMarkColor(theme, activeColorProp);
   }
 
-  if (Bool.isTrue(active) || Bool.isTrue(focused)) {
+  if (active || focused) {
     backgroundColor = activeColor;
     borderColor = borderActiveColor;
   }
@@ -969,7 +968,7 @@ export default function styles(theme, props) {
     cursor: cursor,
   };
 
-  if (!disabled && !Bool.isTrue(busy) && boxOpacity !== 0) {
+  if (!disabled && !busy && boxOpacity !== 0) {
     const isGradient = isColorGradient(backgroundHoverColor);
     boxStyle[':hover'] = {
       borderColor: borderHoverColor,
@@ -984,7 +983,7 @@ export default function styles(theme, props) {
     };
   }
 
-  if (Bool.isTrue(focusable)) {
+  if (focusable) {
     boxStyle[':focus'] = {
       outline: 'none',
       boxShadow: focusedShadow,

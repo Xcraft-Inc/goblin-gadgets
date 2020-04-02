@@ -2,7 +2,6 @@
 import React from 'react';
 import Form from 'goblin-laboratory/widgets/form';
 import {ColorManipulator} from 'electrum-theme';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 
 import Button from 'goblin-gadgets/widgets/button/widget';
 import Container from 'goblin-gadgets/widgets/container/widget';
@@ -11,7 +10,6 @@ import TextField from 'goblin-gadgets/widgets/text-field/widget';
 import TextFieldCombo from 'goblin-gadgets/widgets/text-field-combo/widget';
 import LabelTextField from 'goblin-gadgets/widgets/label-text-field/widget';
 import TextFieldTyped from 'goblin-gadgets/widgets/text-field-typed/widget';
-import Splitter from 'goblin-gadgets/widgets/splitter/widget';
 import Checkbox from 'goblin-gadgets/widgets/checkbox/widget';
 import Gauge from 'goblin-gadgets/widgets/gauge/widget';
 import Ticket from 'goblin-gadgets/widgets/ticket/widget';

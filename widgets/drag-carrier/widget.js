@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom';
 import Widget from 'goblin-laboratory/widgets/widget';
 import MouseTrap from 'mousetrap';
 import {Unit} from 'electrum-theme';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import Container from 'goblin-gadgets/widgets/container/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import * as styles from './styles';
@@ -513,10 +512,7 @@ class DragCarrier extends Widget {
         selectedIds && selectedIds.includes(item.props.children.props.ticketId)
       );
     } else {
-      return (
-        item.props.children.props &&
-        Bool.isTrue(item.props.children.props.selected)
-      );
+      return item.props.children.props && item.props.children.props.selected;
     }
   }
 
@@ -585,7 +581,7 @@ class DragCarrier extends Widget {
       this.toDelete = false;
     } else {
       this.dest = dest;
-      this.toDelete = Bool.isTrue(this.props.dragToDelete) && !dest;
+      this.toDelete = this.props.dragToDelete && !dest;
     }
 
     if (!this.lastDragStarted && this.isDragStarted) {

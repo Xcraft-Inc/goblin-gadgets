@@ -3,7 +3,6 @@ import T from 't';
 import React from 'react';
 import Form from 'goblin-laboratory/widgets/form';
 import {date as DateConverters} from 'xcraft-core-converters';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 
 import Button from 'goblin-gadgets/widgets/button/widget';
 import * as styles from './styles';
@@ -201,7 +200,7 @@ class CalendarList extends Form {
           kind="calendar-navigator"
           glyph="solid/trash"
           tooltip={T('Supprime toutes les exceptions')}
-          disabled={!this.hasAdd || Bool.isTrue(this.props.readonly)}
+          disabled={!this.hasAdd || this.props.readonly}
           onClick={this.onFlushAdd}
         />
       </div>

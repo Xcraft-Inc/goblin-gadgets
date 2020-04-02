@@ -6,7 +6,6 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import Widget from 'goblin-laboratory/widgets/widget';
 import T from 'nabu/t/widget';
 import {ColorHelpers} from 'electrum-theme';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import {TranslatableDiv} from 'nabu/helpers/element-helpers';
 import {
   makePropTypes,
@@ -118,7 +117,7 @@ export default class LabelNC extends Widget {
       if (this.props.maxLines && index >= this.props.maxLines) {
         break;
       }
-      if (Bool.isTrue(this.props.skipEmptyLines) && line === '') {
+      if (this.props.skipEmptyLines && line === '') {
         continue;
       }
       array.push(this.renderLine(index++, line));
@@ -171,7 +170,7 @@ export default class LabelNC extends Widget {
           if (hasEol1 || hasEol2 || hasBr || hasEm || hasBt) {
             // complex text ?
             const lines = text.split(hasBr ? '<br/>' : hasEol1 ? '\n' : '\\n');
-            if (Bool.isTrue(this.props.singleLine)) {
+            if (this.props.singleLine) {
               const line = lines.join(', ');
               return this.renderSimpleText(index, line);
             } else {
@@ -271,13 +270,13 @@ export default class LabelNC extends Widget {
   }
 
   render() {
-    if (Bool.isFalse(this.props.show)) {
+    if (this.props.show === false) {
       return null;
     }
 
     const boxClass = this.styles.classNames.box;
 
-    if (Bool.isTrue(this.props.insideButton)) {
+    if (this.props.insideButton) {
       return (
         <TranslatableDiv
           title={this.props.tooltip}

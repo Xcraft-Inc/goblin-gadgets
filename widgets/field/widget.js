@@ -3,7 +3,6 @@
 import React from 'react';
 import Form from 'goblin-laboratory/widgets/form';
 import Widget from 'goblin-laboratory/widgets/widget';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import T from 't';
 import C from 'goblin-laboratory/widgets/connect-helpers/c';
 
@@ -74,9 +73,7 @@ class Field extends Form {
   }
 
   get readonly() {
-    return (
-      Bool.isTrue(this.props.readonly) || Bool.isTrue(this.context.readonly)
-    );
+    return this.props.readonly || this.context.readonly;
   }
 
   getFullPathFromModel(model) {
@@ -435,7 +432,7 @@ class Field extends Form {
     };
 
     const Action = props => {
-      return !!props.entityId && !Bool.isTrue(this.props.disableAdd) ? (
+      return !!props.entityId && !this.props.disableAdd ? (
         <Button
           kind="combo"
           shape="right-smooth"
@@ -499,7 +496,7 @@ class Field extends Form {
         Container,
         value => {
           const length = value ? value.length : 0;
-          const embedded = Bool.isTrue(this.props.embedded);
+          const embedded = this.props.embedded;
           const show = length > 0 || !embedded;
           return {show};
         },

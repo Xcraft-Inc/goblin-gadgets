@@ -1,5 +1,4 @@
 import {ColorManipulator} from 'electrum-theme';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import helpers from './helpers';
 
 /******************************************************************************/
@@ -47,7 +46,7 @@ export default function styles(theme, props) {
   let boxFlexShrink = null;
   let boxFlexBasis = null;
   let boxAlignItems = 'center';
-  let boxOpacity = Bool.isFalse(visibility) || Bool.isTrue(busy) ? 0 : null;
+  let boxOpacity = visibility === false ? 0 : null;
   let borderWidth = theme.shapes.buttonBorderWidth;
   let borderColor = theme.palette.buttonBorderColor;
   let borderStyle = 'solid';
@@ -58,7 +57,7 @@ export default function styles(theme, props) {
   let transition = theme.transitions.easeOut();
   let specialDisabled = false;
 
-  disabled = Bool.isTrue(disabled) || Bool.isTrue(readonly);
+  disabled = disabled || readonly;
 
   const place = helpers.getPlace(placeProp);
 
@@ -175,7 +174,7 @@ export default function styles(theme, props) {
     cursor: 'default',
   };
 
-  if (!disabled && !Bool.isTrue(busy) && boxOpacity !== 0) {
+  if (!disabled && !busy && boxOpacity !== 0) {
     box[':hover'] = {
       background: backgroundHoverColor,
       opacity: 1.0,

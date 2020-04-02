@@ -3,7 +3,6 @@ import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import {ColorHelpers} from 'electrum-theme';
 import * as RectHelpers from '../helpers/rect-helpers.js';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import {Unit} from 'electrum-theme';
 import KeyTrap from 'goblin-gadgets/widgets/key-trap.js';
 
@@ -51,7 +50,7 @@ class Combo extends Widget {
 
     let index = 0;
     for (let item of this.props.list) {
-      if (Bool.isTrue(item.active)) {
+      if (item.active) {
         this.setState({
           activeIndex: index,
         });
@@ -149,9 +148,7 @@ class Combo extends Widget {
             glyph={item.glyph}
             glyphColor={color}
             text={item.text}
-            tooltip={
-              Bool.isTrue(this.props.menuItemTooltips) ? item.text : null
-            }
+            tooltip={this.props.menuItemTooltips ? item.text : null}
             shortcut={item.shortcut}
             textTransform="none"
             active={active}

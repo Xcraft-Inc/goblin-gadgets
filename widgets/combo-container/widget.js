@@ -9,7 +9,7 @@ export default class ComboContainer extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
-    
+
     this.reset();
     if (this.props.triangleSize) {
       const triangle = this.props.triangleSize.split('px');
@@ -147,7 +147,7 @@ export default class ComboContainer extends Widget {
   }
 
   render() {
-    if (!this.props.show) {
+    if (this.props.show === false) {
       this.reset();
     } else if (this.comboState === 'close') {
       this.comboState = 'waiting-position';

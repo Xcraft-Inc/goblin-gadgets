@@ -1,4 +1,3 @@
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import * as SpacingHelpers from 'goblin-gadgets/widgets/helpers/spacing-helpers';
 import {Unit} from 'electrum-theme';
 
@@ -56,7 +55,7 @@ export default function styles(theme, props) {
   let borderStyle = 'solid';
   let fieldPaddingLeft = '10px';
   let fieldPaddingRight = '10px';
-  let opacity = Bool.isFalse(visibility) ? 0 : null;
+  let opacity = visibility === false ? 0 : null;
 
   // Initialize variables for field without border.
   if (border === 'none') {
@@ -97,14 +96,14 @@ export default function styles(theme, props) {
 
   let color = theme.palette.textColor;
   let backgroundColor = theme.palette.textFieldBackground;
-  if (Bool.isTrue(disabled)) {
+  if (disabled) {
     color = theme.palette.textFieldDisableText;
     backgroundColor = theme.palette.textFieldDisableBackground;
-  } else if (Bool.isTrue(active)) {
+  } else if (active) {
     color = theme.palette.comboActiveGlyph;
     backgroundColor = theme.palette.comboActiveBackground;
     borderColor = theme.palette.comboActiveBackground;
-  } else if (Bool.isTrue(readonly)) {
+  } else if (readonly) {
     backgroundColor = theme.palette.textFieldReadonlyBackground;
   }
 
@@ -135,18 +134,12 @@ export default function styles(theme, props) {
     opacity: opacity,
   };
 
-  if (
-    Bool.isTrue(required) &&
-    !Bool.isTrue(value) &&
-    !Bool.isTrue(disabled) &&
-    !Bool.isTrue(active) &&
-    !Bool.isTrue(readonly)
-  ) {
+  if (required && !value && !disabled && !active && !readonly) {
     // Change backgroundColor if required text-field is not empty.
     box.backgroundColor = theme.palette.textFieldRequiredBackground;
   }
 
-  if (Bool.isTrue(wrong)) {
+  if (wrong) {
     // Change backgroundColor if wrong content of text-field.
     box.backgroundColor = theme.palette.textFieldWrongBackground;
   }

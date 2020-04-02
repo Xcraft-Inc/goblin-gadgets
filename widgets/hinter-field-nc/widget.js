@@ -3,7 +3,6 @@ import React from 'react';
 import Props from './props';
 import Widget from 'goblin-laboratory/widgets/widget';
 import T from 't';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import {
   makePropTypes,
   makeDefaultProps,
@@ -23,7 +22,7 @@ export default class HinterFieldNC extends Widget {
   }
 
   get hasButtonAdd() {
-    return !Bool.isTrue(this.props.readonly) && this.props.enableAdd;
+    return !this.props.readonly && this.props.enableAdd;
   }
 
   add() {
@@ -80,11 +79,11 @@ export default class HinterFieldNC extends Widget {
   /******************************************************************************/
 
   get hasButtonClear() {
-    return !Bool.isTrue(this.props.readonly) && this.props.onClear;
+    return !this.props.readonly && this.props.onClear;
   }
 
   get hasButtonShow() {
-    return !Bool.isTrue(this.props.readonly) && this.props.onShow;
+    return !this.props.readonly && this.props.onShow;
   }
 
   renderSelectionButtonClear() {
@@ -158,7 +157,7 @@ export default class HinterFieldNC extends Widget {
   }
 
   render() {
-    if (Bool.isFalse(this.props.show)) {
+    if (this.props.show === false) {
       return null;
     }
 

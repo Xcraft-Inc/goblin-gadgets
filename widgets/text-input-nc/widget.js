@@ -3,7 +3,6 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import MouseTrap from 'mousetrap';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import Props from './props';
 import {
   TranslatableDiv,
@@ -35,9 +34,9 @@ export default class TextInputNC extends Widget {
 
   componentDidMount() {
     super.componentDidMount();
-    if (Bool.isTrue(this.props.autoFocus) && this.input) {
+    if (this.props.autoFocus && this.input) {
       this.input.focus();
-      if (Bool.isTrue(this.props.selectAllOnFocus)) {
+      if (this.props.selectAllOnFocus) {
         this.input.select();
       }
     }
@@ -65,7 +64,7 @@ export default class TextInputNC extends Widget {
     if (this.props.onFocus) {
       this.props.onFocus(e.target.value);
     }
-    if (Bool.isTrue(this.props.selectAllOnFocus)) {
+    if (this.props.selectAllOnFocus) {
       if (this.input) {
         this.input.select();
       }
@@ -91,10 +90,7 @@ export default class TextInputNC extends Widget {
   }
 
   renderFocusForeground() {
-    if (
-      Bool.isTrue(this.props.embeddedFocus) &&
-      this.context.theme.look.name !== 'retro'
-    ) {
+    if (this.props.embeddedFocus && this.context.theme.look.name !== 'retro') {
       return null;
     } else {
       return (
@@ -148,10 +144,7 @@ export default class TextInputNC extends Widget {
             value={value}
             defaultValue={this.props.defaultValue}
             rows={this.props.rows}
-            disabled={
-              Bool.isTrue(this.props.disabled) ||
-              Bool.isTrue(this.props.readonly)
-            }
+            disabled={this.props.disabled || this.props.readonly}
             onRef={this.setInput}
             onChange={this.onChange}
             onFocus={this.onFocus}
@@ -165,10 +158,7 @@ export default class TextInputNC extends Widget {
             type={type || 'text'}
             value={value}
             defaultValue={this.props.defaultValue}
-            disabled={
-              Bool.isTrue(this.props.disabled) ||
-              Bool.isTrue(this.props.readonly)
-            }
+            disabled={this.props.disabled || this.props.readonly}
             inputRef={this.setInput}
             onChange={this.onChange}
             onFocus={this.onFocus}
@@ -182,7 +172,7 @@ export default class TextInputNC extends Widget {
   }
 
   render() {
-    if (Bool.isFalse(this.props.show)) {
+    if (this.props.show === false) {
       return null;
     }
     return this.renderInput();

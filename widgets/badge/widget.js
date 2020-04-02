@@ -1,7 +1,6 @@
 //T:2019-02-27
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
-import Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import * as styles from './styles';
 
 /******************************************************************************/
@@ -22,7 +21,7 @@ class Badge extends Widget {
       <div
         className={this.styles.classNames.box}
         key="badge"
-        disabled={Bool.isTrue(this.props.disabled)}
+        disabled={this.props.disabled}
       >
         <label className={this.styles.classNames.label}>{truncatedValue}</label>
       </div>

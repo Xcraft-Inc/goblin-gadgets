@@ -1,6 +1,5 @@
 import {Unit} from 'electrum-theme';
 import {isImmutable} from 'immutable';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 
 /******************************************************************************/
 
@@ -66,11 +65,11 @@ export default function styles(theme, props) {
     minWidth = '0px';
     overflow = 'hidden';
   }
-  if (Bool.isFalse(isLast)) {
+  if (isLast === false) {
     // All cells have a right margin, except the last.
     marginRight = theme.shapes.tablePadding;
   }
-  if (Bool.isTrue(isHeader)) {
+  if (isHeader) {
     fontWeight = 'bold';
     textTransform = 'uppercase';
   }

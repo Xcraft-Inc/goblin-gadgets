@@ -3,7 +3,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Widget from 'goblin-laboratory/widgets/widget';
 import {Unit} from 'electrum-theme';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import DragCarrier from 'goblin-gadgets/widgets/drag-carrier/widget';
 import * as styles from './styles';
 
@@ -141,7 +140,7 @@ class DragCab extends Widget {
     }
     // 2) Then test if d&d is disabled.
     // So, during the event onMouseUp, we will know whether to skip.
-    if (Bool.isTrue(this.props.noDrag)) {
+    if (this.props.noDrag) {
       return; // if drag prohibited, don't initiate drag & drop ?
     }
 
@@ -161,7 +160,7 @@ class DragCab extends Widget {
     }
 
     // If d&d is disabled and skip = false, do a click.
-    if (Bool.isTrue(this.props.noDrag) && !this.skip) {
+    if (this.props.noDrag && !this.skip) {
       // Simple click when drag prohibited ?
       this.doClickAction(e);
     }

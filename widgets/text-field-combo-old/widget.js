@@ -3,7 +3,6 @@ import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import MouseTrap from 'mousetrap';
 import ComboHelpers from 'goblin-gadgets/widgets/helpers/combo-helpers';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import {Unit} from 'electrum-theme';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import TextField from 'goblin-gadgets/widgets/text-field/widget';
@@ -128,7 +127,7 @@ class TextFieldComboOld extends Widget {
   }
 
   onMouseUp() {
-    if (Bool.isTrue(this.props.readonly)) {
+    if (this.props.readonly) {
       this.onShowCombo();
     }
   }
@@ -197,8 +196,8 @@ class TextFieldComboOld extends Widget {
       this.props.selectedValue &&
       this.props.selectedValue !== '';
     const displayValue = autoReadonly ? this.props.selectedValue : null;
-    const visibleReadonly = Bool.isTrue(this.props.readonly)
-      ? Bool.isTrue(this.props.readonly)
+    const visibleReadonly = this.props.readonly
+      ? this.props.readonly
       : autoReadonly;
 
     const s = this.props.shape ? this.props.shape : 'smooth';
@@ -284,7 +283,7 @@ class TextFieldComboOld extends Widget {
   }
 
   renderTextField() {
-    if (Bool.isTrue(this.props.readonly) && this.props.glyph) {
+    if (this.props.readonly && this.props.glyph) {
       return this.renderTextFieldReadonly();
     } else {
       return this.renderTextFieldEdit();
@@ -405,7 +404,7 @@ class TextFieldComboOld extends Widget {
   }
 
   render() {
-    if (Bool.isFalse(this.props.show)) {
+    if (this.props.show === false) {
       return null;
     }
 

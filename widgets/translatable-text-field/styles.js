@@ -1,6 +1,4 @@
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import * as SpacingHelpers from 'goblin-gadgets/widgets/helpers/spacing-helpers';
-import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
 
@@ -13,7 +11,7 @@ export default function styles(theme, props) {
   let flexShrink = null;
   let flexBasis = null;
   let marginRight = null;
-  let opacity = Bool.isFalse(visibility) ? 0 : null;
+  let opacity = visibility === false ? 0 : null;
 
   if (flexGrow) {
     flexShrink = '1';

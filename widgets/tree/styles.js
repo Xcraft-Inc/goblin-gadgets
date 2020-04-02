@@ -1,5 +1,4 @@
 import {Unit} from 'electrum-theme';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 const TableHelpers = require('gadgets/helpers/table-helpers');
 
 /******************************************************************************/
@@ -36,9 +35,7 @@ export default function styles(theme, props) {
 
   const m = theme.shapes.containerMargin;
 
-  const border = Bool.isTrue(frame)
-    ? '1px solid ' + theme.palette.tableBorder
-    : null;
+  const border = frame ? '1px solid ' + theme.palette.tableBorder : null;
 
   const boxStyle = {
     flexGrow: grow,
@@ -49,7 +46,7 @@ export default function styles(theme, props) {
     cursor: 'default',
     overflowY: 'hidden',
     border: border,
-    borderRadius: Bool.isTrue(hasButtons)
+    borderRadius: hasButtons
       ? theme.shapes.tableActionRadius +
         ' ' +
         theme.shapes.tableActionRadius +
@@ -63,7 +60,7 @@ export default function styles(theme, props) {
   const paddingRight = height ? Unit.add(theme.shapes.scrollerThickness, m) : m;
 
   const headerStyle = {
-    borderBottom: Bool.isTrue(headerWithoutHorizontalSeparator)
+    borderBottom: headerWithoutHorizontalSeparator
       ? null
       : '1px solid ' + theme.palette.tableBorder,
     display: 'flex',
@@ -71,9 +68,7 @@ export default function styles(theme, props) {
     padding: '0px ' + paddingRight + ' 0px ' + m,
     cursor: 'default',
     backgroundColor:
-      Bool.isTrue(hasButtons) && Bool.isTrue(frame)
-        ? theme.palette.tableActionBackground
-        : null,
+      hasButtons && frame ? theme.palette.tableActionBackground : null,
   };
 
   const bodyStyle = {
@@ -112,7 +107,7 @@ export default function styles(theme, props) {
   };
 
   const verticalSeparatorStyle = {
-    visibility: Bool.isTrue(frame) && height ? 'visible' : 'hidden',
+    visibility: frame && height ? 'visible' : 'hidden',
     position: 'absolute',
     height: '100%',
     top: '0px',

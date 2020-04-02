@@ -1,5 +1,3 @@
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
-
 /******************************************************************************/
 
 export const propNames = ['grow', 'visibility', 'width'];
@@ -10,7 +8,7 @@ export default function styles(theme, props) {
   let flexGrow = grow;
   let flexShrink = null;
   let flexBasis = null;
-  let opacity = Bool.isFalse(visibility) ? 0 : null;
+  let opacity = visibility === false ? 0 : null;
 
   if (flexGrow) {
     flexShrink = '1';

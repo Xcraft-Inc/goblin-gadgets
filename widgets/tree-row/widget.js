@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 
 import TreeCell from 'goblin-gadgets/widgets/tree-cell/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
@@ -21,7 +20,7 @@ class TreeRow extends Widget {
   }
 
   onSelectionChanged(id) {
-    if (Bool.isTrue(this.props.selection)) {
+    if (this.props.selection) {
       const x = this.props.selectionChanged;
       if (x) {
         x(id);
@@ -107,7 +106,7 @@ class TreeRow extends Widget {
   }
 
   render() {
-    var styleName = Bool.isTrue(this.props.selected) ? 'rowSelected' : 'row';
+    var styleName = this.props.selected ? 'rowSelected' : 'row';
     const rowClass = this.styles.classNames[styleName];
 
     return (

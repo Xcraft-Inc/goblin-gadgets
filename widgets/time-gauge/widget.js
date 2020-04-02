@@ -5,7 +5,6 @@ import {
   time as TimeConverters,
   date as DateConverters,
 } from 'xcraft-core-converters';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 
 import Gauge from 'goblin-gadgets/widgets/gauge/widget';
 
@@ -32,7 +31,7 @@ class TimeGauge extends Widget {
     }
 
     if (
-      Bool.isTrue(this.props.disabled) ||
+      this.props.disabled ||
       this.props.date !== DateConverters.getNowCanonical()
     ) {
       return <Gauge kind={this.props.kind} disabled={true} />;

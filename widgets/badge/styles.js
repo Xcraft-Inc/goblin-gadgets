@@ -1,4 +1,3 @@
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
@@ -62,7 +61,7 @@ export default function styles(theme, props) {
     labelRadius = Unit.multiply(theme.shapes.lineHeight, 0.5);
   }
 
-  if (Bool.isTrue(disabled)) {
+  if (disabled) {
     backgroundColor = theme.palette.buttonDisableBackground;
   }
 

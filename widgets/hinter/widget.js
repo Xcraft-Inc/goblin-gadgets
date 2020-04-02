@@ -2,7 +2,6 @@
 import T from 't';
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 
 import Container from 'goblin-gadgets/widgets/container/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
@@ -68,7 +67,7 @@ class Hinter extends Widget {
     const clickTooltip = T('Voir les détails\n(clic)');
     let doubleclickGlyph = 'solid/check';
     let doubleclickTooltip = T('Choisir\n(double-clic)');
-    if (Bool.isTrue(this.props.editOnClick)) {
+    if (this.props.editOnClick) {
       doubleclickGlyph = 'solid/pencil';
       doubleclickTooltip = T('Editer\n(double-clic)');
     }

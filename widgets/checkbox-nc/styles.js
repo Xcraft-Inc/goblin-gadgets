@@ -1,5 +1,4 @@
 import {ColorManipulator} from 'electrum-theme';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 
 /******************************************************************************/
 
@@ -14,7 +13,7 @@ export const propNames = [
 export default function styles(theme, props) {
   const {backgroundBrigtness, checked, disabled, readonly, text} = props;
 
-  const isInactive = Bool.isTrue(disabled) || Bool.isTrue(readonly);
+  const isInactive = disabled || readonly;
   const isDark = backgroundBrigtness === 'dark';
 
   const f1 = isDark ? 0.0 : 0.2;

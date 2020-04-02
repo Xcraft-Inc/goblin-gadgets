@@ -2,7 +2,6 @@ import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import KeyTrap from 'goblin-gadgets/widgets/key-trap.js';
 import {isShredder} from 'xcraft-core-shredder';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 
 import ButtonCombo from 'goblin-gadgets/widgets/button-combo/widget';
 import TextFieldNC from 'goblin-gadgets/widgets/text-field-nc/widget';
@@ -208,8 +207,7 @@ class TextFieldComboNC extends Widget {
 
   renderTextField() {
     const shape = this.props.shape || 'smooth';
-    const hideButton =
-      Bool.isTrue(this.props.readonly) || this.props.hideButtonCombo;
+    const hideButton = this.props.readonly || this.props.hideButtonCombo;
     const textFieldShapes = hideButton
       ? {
           smooth: 'smooth',
@@ -285,7 +283,7 @@ class TextFieldComboNC extends Widget {
   }
 
   render() {
-    if (Bool.isFalse(this.props.show)) {
+    if (this.props.show === false) {
       return null;
     }
 

@@ -2,7 +2,6 @@ import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import MouseTrap from 'mousetrap';
 import * as ShortcutHelpers from '../helpers/shortcut-helpers.js';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import {TranslatableDiv} from 'nabu/helpers/element-helpers';
 import {Unit} from 'electrum-theme';
 
@@ -61,22 +60,18 @@ export default class RetroBadgeButton extends Widget {
   }
 
   get disabled() {
-    return (
-      Bool.isTrue(this.props.disabled) ||
-      Bool.isTrue(this.props.readonly) ||
-      Bool.isTrue(this.props.busy)
-    );
+    return this.props.disabled || this.props.readonly || this.props.busy;
   }
 
   onFocus() {
-    if (Bool.isTrue(this.props.focusable) && !this.disabled) {
+    if (this.props.focusable && !this.disabled) {
       this.focus = true;
       MouseTrap.bind('space', this.onKeySpace, 'keydown');
     }
   }
 
   onBlur() {
-    if (Bool.isTrue(this.props.focusable) && !this.disabled) {
+    if (this.props.focusable && !this.disabled) {
       this.focus = false;
       MouseTrap.unbind('space');
     }
@@ -85,7 +80,7 @@ export default class RetroBadgeButton extends Widget {
   onKeySpace(e) {
     e.preventDefault();
 
-    if (this.disabled && !Bool.isTrue(this.props.focusable)) {
+    if (this.disabled && !this.props.focusable) {
       return;
     }
     if (this.props.onClick) {
@@ -221,7 +216,7 @@ export default class RetroBadgeButton extends Widget {
   }
 
   render() {
-    if (Bool.isFalse(this.props.show)) {
+    if (this.props.show === false) {
       return null;
     }
 

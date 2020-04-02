@@ -3,7 +3,6 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import Shredder from 'xcraft-core-shredder';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import * as styles from './styles';
 import {converters as Converters} from 'xcraft-core-converters';
 import Label from 'goblin-gadgets/widgets/label/widget';
@@ -86,7 +85,7 @@ export default class TableCell extends Widget {
     text = getDisplayedText(text, this.props.type, this.props.cellFormat);
 
     let cursor = null;
-    if (Bool.isTrue(this.props.isSortable)) {
+    if (this.props.isSortable) {
       cursor = 'pointer';
     }
 
@@ -100,7 +99,7 @@ export default class TableCell extends Widget {
       >
         <Label
           kind={
-            Bool.isTrue(this.props.isHeader) && glyph
+            this.props.isHeader && glyph
               ? 'table-cell-sorting-header'
               : 'table-cell'
           }

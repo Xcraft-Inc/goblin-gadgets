@@ -6,7 +6,6 @@ import Label from 'goblin-gadgets/widgets/label/widget';
 import Badge from 'goblin-gadgets/widgets/badge/widget';
 import TicketHover from 'goblin-gadgets/widgets/ticket-hover/widget';
 import {TranslatableDiv} from 'nabu/helpers/element-helpers';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import {Unit} from 'electrum-theme';
 import getOutlinePath from './getOutlinePath';
 import * as styles from './styles';
@@ -143,10 +142,10 @@ export default class Ticket extends Widget {
     if (!w || !h) {
       throw new Error('Undefined ticket width or height');
     }
-    const htmlFarShadow = Bool.isTrue(this.props.shadow) ? (
+    const htmlFarShadow = this.props.shadow ? (
       <div className={farShadowClass} />
     ) : null;
-    const htmlShadow = Bool.isTrue(this.props.shadow) ? null : (
+    const htmlShadow = this.props.shadow ? null : (
       <svg width={w} height={h} className={shadowClass}>
         <path d={this.getPath()} />
       </svg>
@@ -159,7 +158,7 @@ export default class Ticket extends Widget {
 
     let htmlHatch = null;
     let htmlHatchDef = null;
-    if (Bool.isTrue(this.props.hatch)) {
+    if (this.props.hatch) {
       const hs = this.context.theme.shapes.ticketHatchSize;
       const ht = Unit.multiply(hs, 2);
       htmlHatchDef = (
@@ -221,7 +220,7 @@ export default class Ticket extends Widget {
           {this.renderIdenticalCount()}
           {this.renderHud()}
         </div>
-        {Bool.isTrue(this.props.flash) ? <div className={flashClass} /> : null}
+        {this.props.flash ? <div className={flashClass} /> : null}
         <TicketHover
           kind={this.props.kind}
           shape={this.props.shape}
@@ -234,7 +233,7 @@ export default class Ticket extends Widget {
   }
 
   renderRect() {
-    const rectShadowClass = Bool.isTrue(this.props.shadow)
+    const rectShadowClass = this.props.shadow
       ? this.styles.classNames.rectFarShadow
       : this.styles.classNames.rectShadow;
     const rectClass = this.styles.classNames.rect;
@@ -256,11 +255,7 @@ export default class Ticket extends Widget {
       >
         <div className={rectClass}>
           <div
-            className={
-              Bool.isTrue(this.props.hatch)
-                ? rectContentHatchClass
-                : contentClass
-            }
+            className={this.props.hatch ? rectContentHatchClass : contentClass}
           >
             {this.renderBackgroundText()}
             {this.props.children}
@@ -268,7 +263,7 @@ export default class Ticket extends Widget {
             {this.renderHud()}
           </div>
         </div>
-        {Bool.isTrue(this.props.flash) ? <div className={flashClass} /> : null}
+        {this.props.flash ? <div className={flashClass} /> : null}
         <TicketHover
           kind={this.props.kind}
           shape={this.props.shape}
@@ -323,7 +318,7 @@ export default class Ticket extends Widget {
   }
 
   render() {
-    if (Bool.isFalse(this.props.show)) {
+    if (this.props.show === false) {
       return null;
     }
 

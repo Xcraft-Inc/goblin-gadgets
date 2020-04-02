@@ -1,7 +1,6 @@
 //T:2019-02-27
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import {TranslatableDiv} from 'nabu/helpers/element-helpers';
 
 import Label from 'goblin-gadgets/widgets/label/widget';
@@ -27,7 +26,7 @@ export default class CalendarButton extends Widget {
   }
 
   get disabled() {
-    return Bool.isTrue(this.props.disabled) || Bool.isTrue(this.props.readonly);
+    return this.props.disabled || this.props.readonly;
   }
 
   onClick(e) {
@@ -73,7 +72,7 @@ export default class CalendarButton extends Widget {
   }
 
   render() {
-    if (Bool.isFalse(this.props.show)) {
+    if (this.props.show === false) {
       return null;
     }
 

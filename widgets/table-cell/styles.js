@@ -1,6 +1,5 @@
 import {Unit} from 'electrum-theme';
 import {isImmutable} from 'immutable';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import Shredder from 'xcraft-core-shredder';
 
 /******************************************************************************/
@@ -81,11 +80,11 @@ export default function styles(theme, props) {
     minWidth = '0px';
     overflow = 'hidden';
   }
-  if (Bool.isFalse(isLast)) {
+  if (isLast === false) {
     // All cells have a right margin, except the last.
     marginRight = theme.shapes.tablePadding;
   }
-  if (Bool.isTrue(isHeader) && !Bool.isTrue(simpleHeader)) {
+  if (isHeader && !simpleHeader) {
     fontWeight = 'bold';
     textTransform = 'uppercase';
   }
@@ -118,7 +117,7 @@ export default function styles(theme, props) {
     }
   }
 
-  if (Bool.isTrue(isSortable)) {
+  if (isSortable) {
     hoverColor = theme.palette.actionButtonBackground;
   }
 

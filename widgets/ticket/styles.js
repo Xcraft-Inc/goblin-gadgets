@@ -1,4 +1,3 @@
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import {Unit} from 'electrum-theme';
 import * as TicketHelpers from '../ticket/ticket-helpers.js';
 
@@ -33,7 +32,7 @@ export default function styles(theme, props) {
 
   const radius = TicketHelpers.getRadius(props.shape, r);
 
-  const boxOpacity = Bool.isFalse(props.visibility) ? 0 : props.opacity;
+  const boxOpacity = props.visibility === false ? 0 : props.opacity;
 
   const box = {
     flexGrow: props.grow,
@@ -86,7 +85,7 @@ export default function styles(theme, props) {
     flexDirection: 'row',
     transition: theme.transitions.easeOut(),
     userSelect: 'none',
-    visibility: Bool.isTrue(props.hideContent) ? 'hidden' : 'visible',
+    visibility: props.hideContent ? 'hidden' : 'visible',
   };
 
   const rectShadow = {
@@ -244,7 +243,7 @@ export default function styles(theme, props) {
     opacity: boxOpacity,
   };
   const subpaneContent = {
-    visibility: Bool.isTrue(props.hideContent) ? 'hidden' : 'visible',
+    visibility: props.hideContent ? 'hidden' : 'visible',
   };
 
   const ts = '20px';

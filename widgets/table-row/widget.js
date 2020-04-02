@@ -1,8 +1,5 @@
-//T:2019-02-27
-import T from 't';
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import TableCell from 'goblin-gadgets/widgets/table-cell/widget';
 import * as styles from './styles';
 
@@ -88,7 +85,7 @@ class TableRow extends Widget {
   }
 
   render() {
-    var styleName = Bool.isTrue(this.props.selected) ? 'rowSelected' : 'row';
+    var styleName = this.props.selected ? 'rowSelected' : 'row';
     const rowStyleClass = this.styles.classNames[styleName];
 
     return (

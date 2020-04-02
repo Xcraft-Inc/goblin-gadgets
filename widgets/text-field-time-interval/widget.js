@@ -2,7 +2,6 @@
 import T from 't';
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import {time as TimeConverters} from 'xcraft-core-converters';
 import TextFieldTyped from 'goblin-gadgets/widgets/text-field-typed/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
@@ -56,9 +55,7 @@ class TextFieldTimeInterval extends Widget {
       <TextFieldTyped
         width="70px"
         horizontalSpacing={
-          Bool.isTrue(this.props.hasNowButton)
-            ? 'overlap'
-            : this.props.horizontalSpacing
+          this.props.hasNowButton ? 'overlap' : this.props.horizontalSpacing
         }
         type="time"
         hintText={this.props.endHintText || T('Fin', 'heure de fin')}
@@ -76,15 +73,12 @@ class TextFieldTimeInterval extends Widget {
   }
 
   renderNowButton() {
-    if (
-      Bool.isTrue(this.props.hasNowButton) &&
-      !Bool.isTrue(this.props.readonly)
-    ) {
+    if (this.props.hasNowButton && !this.props.readonly) {
       return (
         <Button
           shape="right-rounded"
           glyph="solid/arrow-alt-circle-left"
-          disabled={Bool.isTrue(this.props.disabled || this.props.readonly)}
+          disabled={this.props.disabled || this.props.readonly}
           horizontalSpacing={this.props.horizontalSpacing}
           tooltip={T('Maintenant')}
           onClick={this.onNowClicked}
@@ -96,7 +90,7 @@ class TextFieldTimeInterval extends Widget {
   }
 
   render() {
-    if (Bool.isFalse(this.props.show)) {
+    if (this.props.show === false) {
       return null;
     }
 

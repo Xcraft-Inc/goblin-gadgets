@@ -1,5 +1,4 @@
 import {Unit} from 'electrum-theme';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 
 /******************************************************************************/
 
@@ -25,9 +24,7 @@ export default function styles(theme, props) {
   const m = compactMargins ? '0px' : theme.shapes.containerMargin;
   const v1 = Unit.multiply(theme.shapes.tablePadding, 0.5);
 
-  const border = Bool.isTrue(frame)
-    ? '1px solid ' + theme.palette.tableBorder
-    : null;
+  const border = frame ? '1px solid ' + theme.palette.tableBorder : null;
 
   const box = {
     display: 'flex',
@@ -50,7 +47,7 @@ export default function styles(theme, props) {
     cursor: 'default',
     overflowY: 'hidden',
     border: border,
-    borderRadius: Bool.isTrue(hasButtons)
+    borderRadius: hasButtons
       ? theme.shapes.tableActionRadius +
         ' ' +
         theme.shapes.tableActionRadius +
@@ -64,23 +61,19 @@ export default function styles(theme, props) {
   const paddingRight = height ? Unit.add(theme.shapes.scrollerThickness, m) : m;
 
   const header = {
-    borderBottom: Bool.isTrue(headerWithoutHorizontalSeparator)
+    borderBottom: headerWithoutHorizontalSeparator
       ? null
       : '1px solid ' + theme.palette.tableBorder,
     display: 'flex',
     flexDirection: 'row',
     padding: v1 + ' ' + paddingRight + ' ' + v1 + ' ' + m,
     cursor: 'default',
-    backgroundColor: Bool.isTrue(hasButtons)
-      ? theme.palette.tableActionBackground
-      : null,
+    backgroundColor: hasButtons ? theme.palette.tableActionBackground : null,
   };
 
   const postHeader = {
     ...header,
-    borderTop: Bool.isTrue(frame)
-      ? null
-      : '1px solid ' + theme.palette.tableBorder,
+    borderTop: frame ? null : '1px solid ' + theme.palette.tableBorder,
   };
 
   const body = {

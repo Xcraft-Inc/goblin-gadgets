@@ -1,7 +1,6 @@
 import {Unit} from 'electrum-theme';
 import {ColorHelpers} from 'electrum-theme';
 import {ColorManipulator} from 'electrum-theme';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 
 function convertJustify(justify) {
   switch (justify) {
@@ -92,7 +91,7 @@ export default function styles(theme, props) {
   let boxPaddingBottom = theme.shapes.boxPaddingBottom;
   let boxPaddingLeft = theme.shapes.boxPaddingLeft;
   let boxZIndex = zIndex;
-  let boxOpacity = Bool.isFalse(visibility) ? 0 : null;
+  let boxOpacity = visibility === false ? 0 : null;
   let borderWidth = theme.shapes.buttonBorderWidth;
   let borderColor = theme.palette.buttonBorderColor;
   let borderColorForced = null;
@@ -111,7 +110,7 @@ export default function styles(theme, props) {
   let transition = theme.transitions.easeOut();
   let specialDisabled = false;
 
-  disabled = Bool.isTrue(disabled) || Bool.isTrue(readonly);
+  disabled = disabled || readonly;
 
   // Button with a day in Calendar component.
   borderStyle = 'none';
@@ -119,7 +118,7 @@ export default function styles(theme, props) {
   boxHeight = theme.shapes.calendarButtonHeight;
   transition = null;
   backgroundColor = 'transparent';
-  if (Bool.isTrue(dimmed)) {
+  if (dimmed) {
     backgroundHoverColor = theme.palette.calendarBackground; // no visible hover effect
     activeColor = theme.palette.calendarBackground;
   } else {
@@ -156,7 +155,7 @@ export default function styles(theme, props) {
     activeColor = ColorHelpers.getMarkColor(theme, activeColorProp);
   }
 
-  if (Bool.isTrue(active) || Bool.isTrue(focused)) {
+  if (active || focused) {
     backgroundColor = activeColor;
     borderColor = borderActiveColor;
   }

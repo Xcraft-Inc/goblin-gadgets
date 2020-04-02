@@ -1,7 +1,6 @@
 import {Unit} from 'electrum-theme';
 import {ColorHelpers} from 'electrum-theme';
 import {ColorManipulator} from 'electrum-theme';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import * as SpacingHelpers from 'goblin-gadgets/widgets/helpers/spacing-helpers';
 
 const isWebkit = 'WebkitAppearance' in document.documentElement.style;
@@ -674,7 +673,7 @@ export default function styles(theme, props) {
       borderBottomStyle = 'solid';
       topMargin = halfMargin;
       bottomMargin = Unit.sub(Unit.multiply(halfMargin, -1), '1px');
-      if (Bool.isTrue(selected)) {
+      if (selected) {
         borderLeftWidth = theme.shapes.markWidth;
         borderLeftStyle = 'solid';
         borderLeftColor = ColorHelpers.getMarkColor(theme, 'base');
@@ -713,7 +712,7 @@ export default function styles(theme, props) {
     } else if (subkind === 'left') {
       justifyContent = 'flex-start';
     }
-    if (Bool.isTrue(selected) && subkind !== 'large-box') {
+    if (selected && subkind !== 'large-box') {
       backgroundColor = theme.palette.paneSelectedBackground;
       color = theme.palette.paneSelectedText;
     }
@@ -1047,19 +1046,19 @@ export default function styles(theme, props) {
     display = 'flex';
     flexDirection = 'row';
     flexGrow = grow;
-    if (Bool.isTrue(isDragged)) {
+    if (isDragged) {
       // borderWidth = '1px';
       // borderStyle = 'solid';
       // boxSizing = 'border-box';
       // borderColor = theme.palette.buttonBorder;
-      backgroundColor = Bool.isTrue(isTransparentWhenDrag)
+      backgroundColor = isTransparentWhenDrag
         ? null
         : theme.palette.dragAndDropBackground;
-      boxShadow = Bool.isTrue(isTransparentWhenDrag)
+      boxShadow = isTransparentWhenDrag
         ? null
         : theme.palette.dragAndDropShadow;
       opacity = 0.9;
-    } else if (Bool.isTrue(hasHeLeft)) {
+    } else if (hasHeLeft) {
       visibility = 'hidden';
       opacity = 0;
     }
@@ -1146,7 +1145,7 @@ export default function styles(theme, props) {
     borderStyle = 'solid';
     borderColor = theme.palette.buttonBorder;
     borderRadius = theme.shapes.thinRadius;
-    if (Bool.isTrue(selected)) {
+    if (selected) {
       backgroundColor = theme.palette.paneSelectedBackground;
       color = theme.palette.paneSelectedText;
     } else {
@@ -1281,7 +1280,7 @@ export default function styles(theme, props) {
     }
   }
 
-  if (Bool.isTrue(hidden)) {
+  if (hidden) {
     display = 'none';
   }
 

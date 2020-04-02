@@ -1,5 +1,3 @@
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
-
 /******************************************************************************/
 
 //  Compute the color of gauge.
@@ -103,7 +101,7 @@ export default function styles(theme, props) {
     height: direction === 'horizontal' ? '100%' : gaugeValue + '%',
     width: direction === 'horizontal' ? gaugeValue + '%' : '100%',
     backgroundColor: getColor(gradient, gaugeValue),
-    animationName: Bool.isTrue(flash) ? keyframes : null,
+    animationName: flash ? keyframes : null,
     animationDuration: '1s',
     animationIterationCount: 'infinite',
   };
@@ -117,7 +115,7 @@ export default function styles(theme, props) {
     width: direction === 'horizontal' ? `calc(${gaugeValue}% - 8px)` : '1px',
     margin: direction === 'horizontal' ? '0px 2px' : '2px 0px',
     backgroundColor: theme.palette.ticketGaugeContentGlossy,
-    animationName: Bool.isTrue(flash) ? keyframes : null,
+    animationName: flash ? keyframes : null,
     animationDuration: '1s',
     animationIterationCount: 'infinite',
   };
@@ -158,7 +156,7 @@ export default function styles(theme, props) {
     }
   }
 
-  if (Bool.isTrue(disabled)) {
+  if (disabled) {
     box.backgroundColor = theme.palette.buttonDisableBackground;
     box.boxShadow = null;
     content.visibility = 'hidden';

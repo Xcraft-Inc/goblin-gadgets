@@ -3,7 +3,6 @@
 import {Unit} from 'electrum-theme';
 import {ColorHelpers} from 'electrum-theme';
 import {ColorManipulator} from 'electrum-theme';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import * as SpacingHelpers from 'goblin-gadgets/widgets/helpers/spacing-helpers';
 
 function convertJustify(justify) {
@@ -140,7 +139,7 @@ export default function styles(theme, props) {
   let boxPaddingLeft = '0px';
   let boxShadow = null;
   let boxZIndex = zIndex;
-  let boxOpacity = Bool.isFalse(visibility) ? 0 : null;
+  let boxOpacity = visibility === false ? 0 : null;
   let border = null;
   let borderTop = null;
   let borderBottom = null;
@@ -185,9 +184,9 @@ export default function styles(theme, props) {
   let specialDisabled = false;
   let specialHover = false;
 
-  disabled = Bool.isTrue(disabled) || Bool.isTrue(readonly);
+  disabled = disabled || readonly;
 
-  if (Bool.isTrue(insideButton)) {
+  if (insideButton) {
     boxHeight = height ? height : theme.shapes.lineHeight;
     horizontalSpacing = null;
     textWrap = textWrap ? textWrap : 'no';
@@ -221,7 +220,7 @@ export default function styles(theme, props) {
     }
   }
 
-  if (!Bool.isTrue(insideButton) && !glyph) {
+  if (!insideButton && !glyph) {
     // Label without glyph ?
     if (boxJustifyContent === 'flex-end') {
       textMarginRight = '0px'; // push to right frame border
@@ -230,12 +229,12 @@ export default function styles(theme, props) {
     }
   }
 
-  if (Bool.isTrue(shortcut)) {
+  if (shortcut) {
     textMarginRight = '0px'; // push shortcut to right frame border
   }
 
   // Choice glyph position into his square.
-  if (Bool.isTrue(insideButton)) {
+  if (insideButton) {
     glyphJustify = 'center';
   } else {
     if (glyphPosition === 'right') {
@@ -528,7 +527,7 @@ export default function styles(theme, props) {
     boxFlexDirection = 'column';
     textWidth = theme.shapes.taskButtonWidth;
     textAlign = 'center';
-    if (Bool.isTrue(active)) {
+    if (active) {
       textColorFromKind = theme.palette.taskTabActiveText;
     }
     textMarginTop = '0px';
@@ -588,7 +587,7 @@ export default function styles(theme, props) {
   // task-tab button (usual parent is container with kind='task-bar').
   if (kind === 'task-tab') {
     boxJustifyContent = boxJustifyContent || 'flex-start';
-    if (Bool.isTrue(active)) {
+    if (active) {
       textColorFromKind = theme.palette.taskTabActiveText;
       textWeight = 'bold';
     } else {
@@ -608,7 +607,7 @@ export default function styles(theme, props) {
     textTransform = textTransform || 'uppercase';
     textWeight = 'bold';
     textSize = theme.shapes.paneNavigatorTextSize;
-    if (Bool.isFalse(active)) {
+    if (active === false) {
       textColorFromKind = theme.palette.paneNavigatorInactiveText;
     }
   }
@@ -616,7 +615,7 @@ export default function styles(theme, props) {
   // pane-hnavigator button (usual parent is container with kind='pane-hnavigator').
   if (kind === 'pane-hnavigator') {
     textSize = theme.shapes.paneNavigatorTextSize;
-    if (Bool.isFalse(active)) {
+    if (active === false) {
       textColorFromKind = theme.palette.paneNavigatorInactiveText;
     }
   }
@@ -718,7 +717,7 @@ export default function styles(theme, props) {
       glyphColorFromKind = theme.palette.textFieldDisableText;
       textColorFromKind = theme.palette.textFieldDisableText;
       specialDisabled = true;
-    } else if (Bool.isTrue(active)) {
+    } else if (active) {
       glyphColorFromKind = theme.palette.comboActiveGlyph;
     }
   }
@@ -744,10 +743,10 @@ export default function styles(theme, props) {
     textSize = theme.shapes.menuTextSize;
     textTransform = textTransform || 'uppercase';
     textWeight = 'bold';
-    if (Bool.isTrue(active)) {
+    if (active) {
       glyphColorFromKind = theme.palette.menuText;
       textColorFromKind = theme.palette.menuText;
-    } else if (Bool.isTrue(focused)) {
+    } else if (focused) {
       glyphColorFromKind = theme.palette.menuFocusText;
       textColorFromKind = theme.palette.menuFocusText;
     } else {
@@ -817,7 +816,7 @@ export default function styles(theme, props) {
     textMarginLeft = '0px';
     textSize = theme.shapes.calendarTextSize;
     textColorFromKind = kind === 'calendar' ? theme.palette.calendarText : null;
-    if (Bool.isTrue(active)) {
+    if (active) {
       if (subkind === 'add') {
         textColorFromKind = theme.palette.calendarActiveAddText;
         if (kind === 'calendar') {
@@ -832,7 +831,7 @@ export default function styles(theme, props) {
         }
       }
     }
-    if (Bool.isTrue(dimmed)) {
+    if (dimmed) {
       textColorFromKind = theme.palette.calendarDimmedText;
     }
     if (kind === 'calendar-navigator') {
@@ -863,14 +862,14 @@ export default function styles(theme, props) {
   }
 
   if (kind === 'chronos-navigator') {
-    if (Bool.isFalse(active)) {
+    if (active === false) {
       glyphColorFromKind = theme.palette.chronoNavigatorText;
       textColorFromKind = theme.palette.chronoNavigatorText;
     }
   }
 
   if (kind === 'recurrence') {
-    if (Bool.isTrue(active)) {
+    if (active) {
       glyphColorFromKind = theme.palette.calendarActiveText;
       textColorFromKind = theme.palette.calendarActiveText;
     }
@@ -879,14 +878,14 @@ export default function styles(theme, props) {
   if (kind === 'dynamic-toolbar') {
     glyphColorFromKind = theme.palette.dynamicToolbarButtonGlyph;
     textColorFromKind = theme.palette.dynamicToolbarButtonGlyph;
-    if (Bool.isTrue(active)) {
+    if (active) {
       glyphColorFromKind = theme.palette.dynamicToolbarButtonActiveGlyph;
       textColorFromKind = theme.palette.dynamicToolbarButtonActiveGlyph;
     }
   }
 
   if (kind === 'toolbar') {
-    if (Bool.isTrue(active)) {
+    if (active) {
       glyphColorFromKind = theme.palette.toolbarActiveText;
       textColorFromKind = theme.palette.toolbarActiveText;
     } else {
@@ -896,7 +895,7 @@ export default function styles(theme, props) {
   }
 
   if (kind === 'flat-combo') {
-    if (Bool.isTrue(active)) {
+    if (active) {
       textColorFromKind = disabled
         ? theme.palette.flatComboDisableActiveText
         : theme.palette.flatComboActiveText;
@@ -909,7 +908,7 @@ export default function styles(theme, props) {
     specialDisabled = true;
   }
 
-  if (Bool.isTrue(empty)) {
+  if (empty) {
     border = '2px dotted #ccc';
     boxHeight = Unit.sub(theme.shapes.lineHeight, '2px');
     boxSizing = 'border-box';
@@ -918,7 +917,7 @@ export default function styles(theme, props) {
 
   if (!kind) {
     borderRadius = theme.shapes.smoothRadius;
-    if (Bool.isTrue(active)) {
+    if (active) {
       backgroundColorFromKind = activeColor
         ? activeColor
         : theme.palette.boxActiveBackground;
@@ -1015,7 +1014,7 @@ export default function styles(theme, props) {
 
   // If the Label is in a Button, it never has a backgroundColor.
   // Indeed, the background color is drawn by the Button.
-  if (Bool.isTrue(insideButton)) {
+  if (insideButton) {
     backgroundColor = null;
   }
 
@@ -1029,7 +1028,7 @@ export default function styles(theme, props) {
   }
 
   if (!boxJustifyContent) {
-    if (Bool.isTrue(insideButton)) {
+    if (insideButton) {
       boxJustifyContent = 'center';
     } else {
       boxJustifyContent = 'flex-start';
@@ -1153,7 +1152,7 @@ export default function styles(theme, props) {
     padding: '1px',
   };
 
-  if (!disabled && Bool.isTrue(insideButton) && boxOpacity !== 0) {
+  if (!disabled && insideButton && boxOpacity !== 0) {
     if (specialHover) {
       glyphStyle[':hover'] = {
         color: textHoverColor,

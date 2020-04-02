@@ -2,7 +2,6 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import * as styles from './styles';
 
 /******************************************************************************/
@@ -36,7 +35,7 @@ export default class TicketHover extends Widget {
   }
 
   render() {
-    if (Bool.isFalse(this.props.show)) {
+    if (this.props.show === false) {
       return null;
     }
 

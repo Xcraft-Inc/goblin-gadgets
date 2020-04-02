@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 
 import MouseTrap from 'mousetrap';
 import ComboHelpers from 'goblin-gadgets/widgets/helpers/combo-helpers';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import {Unit} from 'electrum-theme';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import Combo from 'goblin-gadgets/widgets/combo/widget';
@@ -144,7 +143,7 @@ class TranslatableCombo extends Widget {
   }
 
   onMouseUp() {
-    if (Bool.isTrue(this.props.readonly)) {
+    if (this.props.readonly) {
       this.onShowCombo();
     }
   }
@@ -322,7 +321,7 @@ class TranslatableCombo extends Widget {
   }
 
   render() {
-    if (Bool.isFalse(this.props.show)) {
+    if (this.props.show === false) {
       return null;
     }
 

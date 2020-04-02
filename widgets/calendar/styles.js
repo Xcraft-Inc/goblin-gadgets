@@ -1,5 +1,4 @@
 import {Unit} from 'electrum-theme';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 
 /******************************************************************************/
 
@@ -16,9 +15,7 @@ export default function styles(theme, props) {
 
   const m = theme.shapes.containerMargin;
   const halfMargin = Unit.multiply(m, 0.5);
-  const border = Bool.isTrue(frame)
-    ? '1px solid ' + theme.palette.tableBorder
-    : null;
+  const border = frame ? '1px solid ' + theme.palette.tableBorder : null;
 
   const boxGrow = navigator ? '1' : null;
 

@@ -2,7 +2,6 @@
 import T from 't';
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 import Checkbox from 'goblin-gadgets/widgets/checkbox/widget';
 import * as styles from './styles';
 
@@ -92,7 +91,7 @@ class CheckList extends Widget {
   }
 
   renderButtons() {
-    if (Bool.isTrue(this.props.showHeader)) {
+    if (this.props.showHeader) {
       const headerClass = this.styles.classNames.header;
       if (this.props.value === this.allValue) {
         return (

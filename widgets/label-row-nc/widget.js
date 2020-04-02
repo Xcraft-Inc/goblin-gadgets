@@ -1,7 +1,6 @@
 import React from 'react';
 import Props from './props';
 import Widget from 'goblin-laboratory/widgets/widget';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 
 import {
   makePropTypes,
@@ -58,7 +57,7 @@ export default class LabelRowNC extends Widget {
   }
 
   render() {
-    if (Bool.isFalse(this.props.show)) {
+    if (this.props.show === false) {
       return null;
     }
 

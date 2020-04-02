@@ -4,8 +4,6 @@ import Props from './props';
 import Widget from 'goblin-laboratory/widgets/widget';
 import KeyTrap from 'goblin-gadgets/widgets/key-trap.js';
 
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
-
 import {
   makePropTypes,
   makeDefaultProps,
@@ -334,7 +332,7 @@ export default class Calendar extends Widget {
       date <= this.endVisibleDate &&
       date >= this.startDate &&
       date <= this.endDate &&
-      !Bool.isTrue(this.props.readonly)
+      !this.props.readonly
     ) {
       this.dateClicked(date);
     }
@@ -468,7 +466,7 @@ export default class Calendar extends Widget {
           DateConverters.getMonth(startOfMonth)
       ) {
         dimmed = true;
-        if (Bool.isTrue(this.props.hideDaysOutOfMonth)) {
+        if (this.props.hideDaysOutOfMonth) {
           hidden = true;
         }
       }

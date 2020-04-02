@@ -3,7 +3,6 @@ import React from 'react';
 import Props from './props';
 import Widget from 'goblin-laboratory/widgets/widget';
 import {Unit} from 'electrum-theme';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 
 import {
   date as DateConverters,
@@ -568,18 +567,14 @@ export default class TableNC extends Widget {
 
   renderButtons(data) {
     const size = data.get('rows').size;
-    if (Bool.isTrue(this.props.hasButtons) && size > 0) {
+    if (this.props.hasButtons && size > 0) {
       const buttonsClass = this.styles.classNames.buttons;
       const isAllSelected = this.isAllSelected(data);
       const isAllDeselected = this.isAllDeselected();
       return (
         <div className={buttonsClass}>
           <Button
-            kind={
-              Bool.isTrue(this.props.frame)
-                ? 'table-action-frame'
-                : 'table-action'
-            }
+            kind={this.props.frame ? 'table-action-frame' : 'table-action'}
             place={isAllDeselected ? '1/1' : '1/2'}
             glyph="solid/check"
             text={T('Tout sélectionner')}
@@ -588,11 +583,7 @@ export default class TableNC extends Widget {
             onClick={this.selectAll}
           />
           <Button
-            kind={
-              Bool.isTrue(this.props.frame)
-                ? 'table-action-frame'
-                : 'table-action'
-            }
+            kind={this.props.frame ? 'table-action-frame' : 'table-action'}
             place={isAllSelected ? '1/1' : '2/2'}
             glyph="solid/ban"
             text={T('Tout désélectionner')}

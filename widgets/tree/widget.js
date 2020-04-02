@@ -2,7 +2,6 @@
 import T from 't';
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
-import * as Bool from 'goblin-gadgets/widgets/helpers/bool-helpers';
 
 import TreeRow from 'goblin-gadgets/widgets/tree-row/widget';
 import TreeCell from 'goblin-gadgets/widgets/tree-cell/widget';
@@ -287,14 +286,12 @@ class Tree extends Widget {
 
     return (
       <Button
-        kind={
-          Bool.isTrue(this.props.frame) ? 'table-action-frame' : 'table-action'
-        }
+        kind={this.props.frame ? 'table-action-frame' : 'table-action'}
         place={`${existingIndex + 1}/${existingCount}`}
         grow={existingButton ? '1' : '0'}
         horizontalSpacing={
           existingButton && existingIndex < existingCount - 1
-            ? Bool.isTrue(this.props.frame)
+            ? this.props.frame
               ? 'overlap'
               : 'tiny'
             : null
@@ -308,15 +305,11 @@ class Tree extends Widget {
 
   renderButtons(data) {
     const size = data.get('rows').size;
-    if (Bool.isTrue(this.props.hasButtons) && size > 0) {
+    if (this.props.hasButtons && size > 0) {
       // Search existing buttons (array of true/false).
       const existingButtons = [];
-      existingButtons.push(
-        Bool.isTrue(this.props.selection) && !this.isAllSelected(data)
-      );
-      existingButtons.push(
-        Bool.isTrue(this.props.selection) && !this.isAllDeselected()
-      );
+      existingButtons.push(this.props.selection && !this.isAllSelected(data));
+      existingButtons.push(this.props.selection && !this.isAllDeselected());
       existingButtons.push(!this.isAllExpanded(data));
       existingButtons.push(!this.isAllCompacted());
 
