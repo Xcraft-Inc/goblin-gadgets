@@ -24,6 +24,7 @@ export default function styles(theme) {
   };
 
   const content = {
+    height: '400px',
     flexGrow: 1,
     display: 'flex',
     flexDirection: 'row',

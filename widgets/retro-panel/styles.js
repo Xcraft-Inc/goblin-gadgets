@@ -110,139 +110,44 @@ export default function styles(theme, props) {
 
   /******************************************************************************/
 
-  const titleKeyframes = {
-    '0%': {
-      transform: 'scale(1) rotate(0deg)',
-    },
-    '8%': {
-      transform: 'scale(1.05, 1.2) rotate(0deg)',
-    },
-    '10%': {
-      transform: 'scale(1) rotate(0deg)',
-    },
-    '18%': {
-      transform: 'scale(1.05, 1.2) rotate(0deg)',
-    },
-    '20%': {
-      transform: 'scale(1) rotate(0deg)',
-    },
-    '28%': {
-      transform: 'scale(1.05, 1.2) rotate(0deg)',
-    },
-    '30%': {
-      transform: 'scale(1) rotate(0deg)',
-    },
-    '38%': {
-      transform: 'scale(1.05, 1.2) rotate(0deg)',
-    },
-    '40%': {
-      transform: 'scale(1) rotate(0deg)',
-    },
-    '48%': {
-      transform: 'scale(1.05, 1.2) rotate(0deg)',
-    },
-    '50%': {
-      transform: 'scale(1) rotate(0deg)',
-    },
-    '58%': {
-      transform: 'scale(1.05, 1.2) rotate(0deg)',
-    },
-    '60%': {
-      transform: 'scale(1) rotate(0deg)',
-    },
-    '68%': {
-      transform: 'scale(1.05, 1.2) rotate(0deg)',
-    },
-    '70%': {
-      transform: 'scale(1) rotate(0deg)',
-    },
-    '78%': {
-      transform: 'scale(1.05, 1.2) rotate(0deg)',
-    },
-    '80%': {
-      transform: 'scale(1) rotate(0deg)',
-    },
-    '99.9999%': {
-      transform: 'scale(1) rotate(360deg)',
-    },
-    '100%': {
-      transform: 'scale(1) rotate(0deg)',
-    },
-  };
-
-  const subtitleKeyframes = {
-    '0%': {
-      transform: 'scaleX(1)',
-    },
-    '9%': {
-      transform: 'scaleX(1.7)',
-    },
-    '10%': {
-      transform: 'scaleX(1)',
-    },
-    '19%': {
-      transform: 'scaleX(1.7)',
-    },
-    '20%': {
-      transform: 'scaleX(1)',
-    },
-    '29%': {
-      transform: 'scaleX(1.7)',
-    },
-    '30%': {
-      transform: 'scaleX(1)',
-    },
-    '39%': {
-      transform: 'scaleX(1.7)',
-    },
-    '40%': {
-      transform: 'scaleX(1)',
-    },
-    '49%': {
-      transform: 'scaleX(1.7)',
-    },
-    '50%': {
-      transform: 'scaleX(1)',
-    },
-    '59%': {
-      transform: 'scaleX(1.7)',
-    },
-    '60%': {
-      transform: 'scaleX(1)',
-    },
-    '69%': {
-      transform: 'scaleX(1.7)',
-    },
-    '70%': {
-      transform: 'scaleX(1)',
-    },
-    '79%': {
-      transform: 'scaleX(1.7)',
-    },
-    '80%': {
-      transform: 'scaleX(1)',
-      opacity: 1,
-    },
-    '90%': {
-      transform: 'scaleX(0)',
-      opacity: 0,
-    },
-    '100%': {
-      transform: 'scaleX(1)',
-      opacity: 1,
-    },
+  const keyframesFlicker = {
+    '0%': {opacity: 0.87861},
+    '5%': {opacity: 0.94769},
+    '10%': {opacity: 0.83604},
+    '15%': {opacity: 0.90626},
+    '20%': {opacity: 0.98128},
+    '25%': {opacity: 0.83891},
+    '30%': {opacity: 0.95583},
+    '35%': {opacity: 0.97807},
+    '40%': {opacity: 0.86559},
+    '45%': {opacity: 0.84693},
+    '50%': {opacity: 0.96019},
+    '55%': {opacity: 0.88594},
+    '60%': {opacity: 0.90313},
+    '65%': {opacity: 0.81988},
+    '70%': {opacity: 0.93455},
+    '75%': {opacity: 0.87288},
+    '80%': {opacity: 0.91428},
+    '85%': {opacity: 0.90419},
+    '90%': {opacity: 0.9003},
+    '95%': {opacity: 0.96108},
+    '100%': {opacity: 0.94387},
   };
 
   const titleBox = {
     ':hover .title-hover': {
-      animationName: titleKeyframes,
-      animationDuration: '10s',
+      animationName: keyframesFlicker,
+      animationDuration: '0.25s',
       animationIterationCount: 'infinite',
+      transform: 'scale(1.05, 1.2) translate(0px, -2px)',
+      transition: '4s ease',
     },
     ':hover .subtitle-hover': {
-      animationName: subtitleKeyframes,
-      animationDuration: '10s',
+      animationName: keyframesFlicker,
+      animationDuration: '0.27s',
       animationIterationCount: 'infinite',
+      transform: 'translate(166px, 0px)',
+      transition: '3s ease',
     },
   };
 
@@ -252,7 +157,8 @@ export default function styles(theme, props) {
     top: Unit.multiply(margin, 1.8),
     fontSize: '800%',
     color: '#eee',
-    transform: 'scale(1) rotate(0deg)',
+    transformOrigin: 'left',
+    transition: 'cubic-bezier(0.9, -0.9, 0.3, 2) 0.8s',
   };
 
   const subtitle = {
@@ -264,7 +170,7 @@ export default function styles(theme, props) {
     fontWeight: 'bold',
     textTransform: 'uppercase',
     transformOrigin: 'left',
-    transform: 'scaleX(1)',
+    transition: 'cubic-bezier(0.9, -0.9, 0.3, 2) 0.6s',
   };
 
   /******************************************************************************/
