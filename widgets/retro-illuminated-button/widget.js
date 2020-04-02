@@ -2,7 +2,7 @@ import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import {ColorHelpers} from 'electrum-theme';
 import {Unit} from 'electrum-theme';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import T from 'nabu/t/widget';
 import * as styles from './styles';
 import RetroScrew from 'goblin-gadgets/widgets/retro-screw/widget';

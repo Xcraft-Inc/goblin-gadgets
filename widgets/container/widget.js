@@ -1,7 +1,7 @@
 //T:2019-02-27
 import React from 'react';
 import Props from './props';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import Widget from 'goblin-laboratory/widgets/widget';
 import {
   makePropTypes,
