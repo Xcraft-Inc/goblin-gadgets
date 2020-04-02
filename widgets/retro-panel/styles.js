@@ -110,44 +110,75 @@ export default function styles(theme, props) {
 
   /******************************************************************************/
 
+  // prettier-ignore
+  const keyframesVibe = {
+    '0%':   {transform: 'scale(1.0000)'},
+    '5%':   {transform: 'scale(0.9990)'},
+    '10%':  {transform: 'scale(0.9985)'},
+    '15%':  {transform: 'scale(0.9992)'},
+    '20%':  {transform: 'scale(1.0000)'},
+    '25%':  {transform: 'scale(0.9990)'},
+    '30%':  {transform: 'scale(0.9980)'},
+    '35%':  {transform: 'scale(1.0000)'},
+    '40%':  {transform: 'scale(0.9990)'},
+    '45%':  {transform: 'scale(0.9995)'},
+    '50%':  {transform: 'scale(1.0000)'},
+    '55%':  {transform: 'scale(0.9992)'},
+    '60%':  {transform: 'scale(1.0000)'},
+    '65%':  {transform: 'scale(0.9990)'},
+    '70%':  {transform: 'scale(0.9988)'},
+    '75%':  {transform: 'scale(1.0000)'},
+    '80%':  {transform: 'scale(0.9990)'},
+    '85%':  {transform: 'scale(0.9985)'},
+    '90%':  {transform: 'scale(0.9990)'},
+    '95%':  {transform: 'scale(0.9992)'},
+    '100%': {transform: 'scale(1.0000)'},
+  };
+
+  // prettier-ignore
   const keyframesFlicker = {
-    '0%': {opacity: 0.87861},
-    '5%': {opacity: 0.94769},
-    '10%': {opacity: 0.83604},
-    '15%': {opacity: 0.90626},
-    '20%': {opacity: 0.98128},
-    '25%': {opacity: 0.83891},
-    '30%': {opacity: 0.95583},
-    '35%': {opacity: 0.97807},
-    '40%': {opacity: 0.86559},
-    '45%': {opacity: 0.84693},
-    '50%': {opacity: 0.96019},
-    '55%': {opacity: 0.88594},
-    '60%': {opacity: 0.90313},
-    '65%': {opacity: 0.81988},
-    '70%': {opacity: 0.93455},
-    '75%': {opacity: 0.87288},
-    '80%': {opacity: 0.91428},
-    '85%': {opacity: 0.90419},
-    '90%': {opacity: 0.9003},
-    '95%': {opacity: 0.96108},
+    '0%':   {opacity: 0.87861},
+    '5%':   {opacity: 0.94769},
+    '10%':  {opacity: 0.83604},
+    '15%':  {opacity: 0.90626},
+    '20%':  {opacity: 0.98128},
+    '25%':  {opacity: 0.83891},
+    '30%':  {opacity: 0.95583},
+    '35%':  {opacity: 0.97807},
+    '40%':  {opacity: 0.86559},
+    '45%':  {opacity: 0.84693},
+    '50%':  {opacity: 0.96019},
+    '55%':  {opacity: 0.88594},
+    '60%':  {opacity: 0.90313},
+    '65%':  {opacity: 0.81988},
+    '70%':  {opacity: 0.93455},
+    '75%':  {opacity: 0.87288},
+    '80%':  {opacity: 0.91428},
+    '85%':  {opacity: 0.90419},
+    '90%':  {opacity: 0.90030},
+    '95%':  {opacity: 0.96108},
     '100%': {opacity: 0.94387},
   };
 
   const titleBox = {
+    ':hover': {
+      animationName: keyframesVibe,
+      animationDuration: '0.31s',
+      animationIterationCount: 'infinite',
+    },
     ':hover .title-hover': {
       animationName: keyframesFlicker,
       animationDuration: '0.25s',
       animationIterationCount: 'infinite',
       transform: 'scale(1.05, 1.2) translate(0px, -2px)',
-      transition: '4s ease',
+      transition: 'cubic-bezier(0.9, -0.9, 0.3, 8) 1.6s',
     },
     ':hover .subtitle-hover': {
       animationName: keyframesFlicker,
       animationDuration: '0.27s',
       animationIterationCount: 'infinite',
       transform: 'translate(166px, 0px)',
-      transition: '3s ease',
+      transition: 'cubic-bezier(0.9, -0.9, 0.3, 2) 1.5s',
     },
   };
 
@@ -155,22 +186,24 @@ export default function styles(theme, props) {
     position: 'absolute',
     left: Unit.multiply(margin, 2.5),
     top: Unit.multiply(margin, 1.8),
+    whiteSpace: 'nowrap',
     fontSize: '800%',
     color: '#eee',
     transformOrigin: 'left',
-    transition: 'cubic-bezier(0.9, -0.9, 0.3, 2) 0.8s',
+    transition: 'cubic-bezier(0.9, -10, 0.3, 4) 0.6s',
   };
 
   const subtitle = {
     position: 'absolute',
     left: Unit.multiply(margin, 2.5),
     top: `calc(${Unit.multiply(margin, 1.8)} + 120px)`,
+    whiteSpace: 'nowrap',
     fontSize: '150%',
     color: '#222',
     fontWeight: 'bold',
     textTransform: 'uppercase',
     transformOrigin: 'left',
-    transition: 'cubic-bezier(0.9, -0.9, 0.3, 2) 0.6s',
+    transition: 'cubic-bezier(0.9, -3, 0.3, 4) 0.4s',
   };
 
   /******************************************************************************/
