@@ -29,6 +29,10 @@ export default class RetroPanel extends Widget {
     );
   }
   renderGears() {
+    if (!this.context.theme.look.accessories.includes('gears')) {
+      return null;
+    }
+
     if (this.props.gears !== 'four') {
       return null;
     }
@@ -62,6 +66,10 @@ export default class RetroPanel extends Widget {
   }
 
   renderScrews() {
+    if (!this.context.theme.look.accessories.includes('screws')) {
+      return null;
+    }
+
     const lum = ColorManipulator.getLuminance(
       this.context.theme.palette.textColor
     );

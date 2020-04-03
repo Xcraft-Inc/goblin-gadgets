@@ -81,6 +81,10 @@ export default class RetroIlluminatedButton extends Widget {
   }
 
   renderQueue() {
+    if (!this.context.theme.look.accessories.includes('screws')) {
+      return null;
+    }
+
     if (this.props.queue !== 'bottom') {
       return null;
     }

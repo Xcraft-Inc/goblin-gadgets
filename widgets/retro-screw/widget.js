@@ -9,6 +9,10 @@ export default class RetroScrew extends Widget {
   }
 
   render() {
+    if (!this.context.theme.look.accessories.includes('screws')) {
+      return null;
+    }
+
     return (
       <React.Fragment>
         <div className={this.styles.classNames.screw} />
