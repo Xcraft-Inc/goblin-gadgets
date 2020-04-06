@@ -149,10 +149,10 @@ export default class HinterFieldNC extends Widget {
   /******************************************************************************/
 
   renderContent() {
-    if (this.props.selectedValue !== undefined) {
-      return this.renderSelection();
-    } else {
+    if (this.props.selectedValue === undefined || this.props.selectedValue === null) {
       return this.renderSearch();
+    } else {
+      return this.renderSelection();
     }
   }
 
