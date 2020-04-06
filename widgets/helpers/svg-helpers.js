@@ -84,6 +84,13 @@ function ba(path, x1, y1, x2, y2, x, y) {
   path.push('C ' + x1 + ' ' + y1 + ' ' + x2 + ' ' + y2 + ' ' + x + ' ' + y);
 }
 
+// Arc to absolute position.
+function aa(path, r, x, y, sweepFlag) {
+  // rx ry x-axis-rotation large-arc-flag sweep-flag x y
+  // see http://www.w3.org/TR/SVG/paths.html#PathDataEllipticalArcCommands
+  path.push('A ' + r + ' ' + r + ' 0 0 ' + sweepFlag + ' ' + x + ' ' + y);
+}
+
 // Arc to relative position.
 function ar(path, r, cx, cy, sweepFlag) {
   // rx ry x-axis-rotation large-arc-flag sweep-flag x y
@@ -168,6 +175,7 @@ module.exports = {
   la,
   lr,
   ba,
+  aa,
   ar,
   circle,
   close,

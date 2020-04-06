@@ -8,7 +8,6 @@ export const propNames = [
   'radius',
   'toothThickness',
   'angle',
-  'color',
   'rotationDuration',
   'rotationDirection',
 ];

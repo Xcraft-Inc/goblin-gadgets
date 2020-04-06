@@ -2,7 +2,6 @@ import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import RetroScrew from 'goblin-gadgets/widgets/retro-screw/widget';
 import RetroGear from 'goblin-gadgets/widgets/retro-gear/widget';
-import Label from 'goblin-gadgets/widgets/label/widget';
 import {ColorManipulator} from 'electrum-theme';
 import {Unit} from 'electrum-theme';
 
@@ -13,7 +12,16 @@ export default class RetroPanel extends Widget {
     super(...arguments);
   }
 
-  renderGear(style, color, radius, tooths, duration, direction) {
+  renderGear(
+    style,
+    color,
+    radius,
+    type,
+    tooths,
+    thickness,
+    duration,
+    direction
+  ) {
     return (
       <div className={this.styles.classNames[style]}>
         <RetroGear
@@ -21,19 +29,18 @@ export default class RetroPanel extends Widget {
           left="0px"
           top="0px"
           radius={radius + 'px'}
+          type={type}
           toothCount={tooths}
+          toothThickness={thickness}
           rotationDuration={duration + 's'}
           rotationDirection={direction}
         />
       </div>
     );
   }
-  renderGears() {
-    if (!this.context.theme.look.accessories.includes('gears')) {
-      return null;
-    }
 
-    if (this.props.gears !== 'four') {
+  renderFourGears() {
+    if (!this.context.theme.look.accessories.includes('gears')) {
       return null;
     }
 
@@ -57,12 +64,143 @@ export default class RetroPanel extends Widget {
 
     return (
       <React.Fragment>
-        {this.renderGear('gear1', color, r1, t1, d1, 'cw')}
-        {this.renderGear('gear2', color, r2, t2, d2, 'ccw')}
-        {this.renderGear('gear3', color, r3, t3, d3, 'cw')}
-        {this.renderGear('gear4', color, r4, t4, d4, 'ccw')}
+        {this.renderGear('fourGear1', color, r1, 'meca', t1, 60, d1, 'cw')}
+        {this.renderGear('fourGear2', color, r2, 'meca', t2, 60, d2, 'ccw')}
+        {this.renderGear('fourGear3', color, r3, 'meca', t3, 60, d3, 'cw')}
+        {this.renderGear('fourGear4', color, r4, 'meca', t4, 60, d4, 'ccw')}
       </React.Fragment>
     );
+  }
+
+  renderWatchPointer(styleName, initialAngle) {
+    const style = {
+      transform: `rotate(${initialAngle}deg)`,
+    };
+
+    return (
+      <div className={this.styles.classNames.watchPointers} style={style}>
+        <div className={this.styles.classNames[styleName]} />
+      </div>
+    );
+  }
+
+  renderWatchFix(i) {
+    const className =
+      i % 5 === 0
+        ? this.styles.classNames.watchFix1
+        : this.styles.classNames.watchFix2;
+
+    const style = {
+      transform: `rotate(${i * 6}deg)`,
+    };
+
+    return <div className={className} key={i} style={style} />;
+  }
+
+  renderWatchFixes() {
+    const result = [];
+
+    for (let i = 0; i < 60; i++) {
+      result.push(this.renderWatchFix(i));
+    }
+
+    return result;
+  }
+
+  renderClockGears() {
+    if (!this.context.theme.look.accessories.includes('gears')) {
+      return null;
+    }
+
+    const color = ColorManipulator.darken(
+      this.context.theme.palette.light,
+      0.2
+    );
+
+    const r1 = 200; // radius (px)
+    const r2 = 500; // radius (px)
+    const r3 = 100; // radius (px)
+    const r4 = 300; // radius (px)
+    const t1 = 60; // tooth count
+    const t2 = 150; // tooth count
+    const t3 = 30; // tooth count
+    const t4 = 90; // tooth count
+    const d1 = 400; // duration (s)
+    const d2 = d1 / (t1 / t2); // duration (s)
+    const d3 = d2 / (t2 / t3); // duration (s)
+    const d4 = d3; // duration (s)
+
+    const now = new Date(Date.now());
+    const h = now.getHours() % 12;
+    const m = now.getMinutes();
+    const s = now.getSeconds();
+
+    const ah = 180 + ((h + m / 60 + s / 3600) / 12) * 360;
+    const am = 180 + ((m + s / 60) / 60) * 360;
+    const as = 180 + (s / 60) * 360;
+
+    return (
+      <React.Fragment>
+        {this.renderGear(
+          'clockGear1',
+          color,
+          r1,
+          'watch-gear',
+          t1,
+          30,
+          d1,
+          'cw'
+        )}
+        {this.renderGear(
+          'clockGear2',
+          color,
+          r2,
+          'watch-gear',
+          t2,
+          30,
+          d2,
+          'ccw'
+        )}
+        {this.renderGear(
+          'clockGear3',
+          color,
+          r3,
+          'watch-gear',
+          t3,
+          30,
+          d3,
+          'cw'
+        )}
+        {this.renderGear(
+          'clockGear4',
+          color,
+          r4,
+          'watch-gear',
+          t4,
+          30,
+          d4,
+          'cw'
+        )}
+        <div className={this.styles.classNames.watchCadran}>
+          {this.renderWatchFixes()}
+        </div>
+        {this.renderWatchPointer('watchPointerHour', ah)}
+        {this.renderWatchPointer('watchPointerMinute', am)}
+        {this.renderWatchPointer('watchPointerSecond', as)}
+        <div className={this.styles.classNames.watchPointerCenter} />
+      </React.Fragment>
+    );
+  }
+
+  renderHomeGadget() {
+    switch (this.props.homeGadget) {
+      case 'four-gears':
+        return this.renderFourGears();
+      case 'clock-gears':
+        return this.renderClockGears();
+      default:
+        return null;
+    }
   }
 
   renderScrews() {
@@ -142,7 +280,7 @@ export default class RetroPanel extends Widget {
             />
             {this.renderScrews()}
             {this.renderTitle()}
-            {this.renderGears()}
+            {this.renderHomeGadget()}
             {this.props.children}
           </React.Fragment>
         );

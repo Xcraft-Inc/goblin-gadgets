@@ -54,8 +54,41 @@ function _getGearLightPath(cx, cy, r, toothThickness, toothCount) {
   return svg.getPath(path);
 }
 
+function _getGearDarkHolePath(path, cx, cy, r, type) {
+  if (type === 'watch-gear') {
+    const x1 = r.r2 + (r.r3 - r.r2) * 0.05;
+    const x2 = r.r2 + (r.r3 - r.r2) * 0.9;
+    const m = 13;
+    for (let a = 0; a < 360; a += 72) {
+      const p1 = svg.rotatePointDeg({x: cx, y: cy}, a + m, {x: cx + x1, y: cy});
+      const p2 = svg.rotatePointDeg({x: cx, y: cy}, a, {x: cx + x2, y: cy});
+      const p3 = svg.rotatePointDeg({x: cx, y: cy}, a + 65 - m, {
+        x: cx + x1,
+        y: cy,
+      });
+      const p4 = svg.rotatePointDeg({x: cx, y: cy}, a + 65, {
+        x: cx + x2,
+        y: cy,
+      });
+      svg.ma(path, p1.x, p1.y);
+      svg.la(path, p2.x, p2.y);
+      svg.aa(path, x2, p4.x, p4.y, 1);
+      svg.la(path, p3.x, p3.y);
+      svg.aa(path, x1, p1.x, p1.y, 0);
+      svg.close(path);
+    }
+  } else {
+    const x = (r.r2 + r.r3) / 2;
+    const rr = (r.r3 - r.r2) * 0.3;
+    for (let a = 0; a < 360; a += 60) {
+      const c = svg.rotatePointDeg({x: cx, y: cy}, a, {x: cx + x, y: cy});
+      svg.circle(path, c.x, c.y, rr);
+    }
+  }
+}
+
 // Openwork interior.
-function _getGearDarkPath(cx, cy, r, toothThickness) {
+function _getGearDarkPath(cx, cy, r, type, toothThickness) {
   cx = svg.toInt(cx);
   cy = svg.toInt(cy);
   r = svg.toInt(r);
@@ -67,22 +100,25 @@ function _getGearDarkPath(cx, cy, r, toothThickness) {
   svg.circle(path, cx, cy, r.r2);
   svg.circle(path, cx, cy, r.r1);
 
-  const x = (r.r2 + r.r3) / 2;
-  const rr = (r.r3 - r.r2) * 0.3;
-  for (let a = 0; a < 360; a += 60) {
-    const c = svg.rotatePointDeg({x: cx, y: cy}, a, {x: cx + x, y: cy});
-    svg.circle(path, c.x, c.y, rr);
-  }
+  _getGearDarkHolePath(path, cx, cy, r, type);
 
   return svg.getPath(path);
 }
 
 /******************************************************************************/
 
-function getElements(cx, cy, r, toothThickness = 60, toothCount = 36, color) {
+function getElements(
+  cx,
+  cy,
+  r,
+  type,
+  toothThickness = 60,
+  toothCount = 36,
+  color
+) {
   const elements = svg.createElements();
 
-  const path1 = _getGearDarkPath(cx, cy, r, toothThickness);
+  const path1 = _getGearDarkPath(cx, cy, r, type, toothThickness);
   const path2 = _getGearLightPath(cx, cy, r, toothThickness, toothCount);
 
   const props1 = {
