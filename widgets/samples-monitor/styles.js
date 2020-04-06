@@ -2,10 +2,10 @@ import {ColorManipulator} from 'electrum-theme';
 
 /******************************************************************************/
 
-export const propNames = ['width', 'height', 'showed'];
+export const propNames = ['width', 'height', 'showed', 'aging'];
 
 export default function styles(theme, props) {
-  const {width, height, showed} = props;
+  const {width, height, showed, aging = 'old'} = props;
 
   const look = theme.look.name;
 
@@ -136,34 +136,126 @@ export default function styles(theme, props) {
     };
 
     const keyframesPowerOn = {
-      '0%': {transform: 'scale(1)'},
-      '10.0%': {transform: 'scale(1)'},
-      '10.1%': {transform: 'scale(0.99)'},
-      '10.2%': {transform: 'scale(1)'},
-      '20.0%': {transform: 'skewX(0deg)'},
-      '20.1%': {transform: 'skewX(-5deg)'},
-      '20.2%': {transform: 'skewX(0deg)'},
-      '50.0%': {transform: 'scale(1)'},
-      '50.1%': {transform: 'scale(0.97)'},
-      '50.2%': {transform: 'scale(1)'},
-      '50.5%': {transform: 'scale(1)'},
-      '50.6%': {transform: 'scale(0.96)'},
-      '50.7%': {transform: 'scale(1)'},
-      '60.0%': {transform: 'scale(1)'},
-      '60.1%': {transform: 'scale(0.97)'},
-      '60.2%': {transform: 'scale(1)'},
-      '70.0%': {transform: 'skewX(0deg)'},
-      '70.2%': {transform: 'skewX(-6deg)'},
-      '70.4%': {transform: 'skewX(0deg)'},
-      '80.5%': {transform: 'skewX(0deg)'},
-      '80.6%': {transform: 'skewX(-5deg)'},
-      '80.7%': {transform: 'skewX(0deg)'},
-      '80.8%': {transform: 'skewX(-5deg)'},
-      '80.9%': {transform: 'skewX(0deg)'},
-      '90.2%': {transform: 'scale(1)'},
-      '90.4%': {transform: 'scale(0.93)'},
-      '90.6%': {transform: 'scale(1)'},
-      '100%': {transform: 'scale(1)'},
+      'new': null,
+      'old': {
+        '0%': {transform: 'scale(1)'},
+        '10.0%': {transform: 'scale(1)'},
+        '10.1%': {transform: 'scale(0.99)'},
+        '10.2%': {transform: 'scale(1)'},
+        '20.0%': {transform: 'skewX(0deg)'},
+        '20.1%': {transform: 'skewX(-5deg)'},
+        '20.2%': {transform: 'skewX(0deg)'},
+        '50.0%': {transform: 'scale(1)'},
+        '50.1%': {transform: 'scale(0.97)'},
+        '50.2%': {transform: 'scale(1)'},
+        '50.5%': {transform: 'scale(1)'},
+        '50.6%': {transform: 'scale(0.96)'},
+        '50.7%': {transform: 'scale(1)'},
+        '60.0%': {transform: 'scale(1)'},
+        '60.1%': {transform: 'scale(0.97)'},
+        '60.2%': {transform: 'scale(1)'},
+        '70.0%': {transform: 'skewX(0deg)'},
+        '70.2%': {transform: 'skewX(-6deg)'},
+        '70.4%': {transform: 'skewX(0deg)'},
+        '80.5%': {transform: 'skewX(0deg)'},
+        '80.6%': {transform: 'skewX(-5deg)'},
+        '80.7%': {transform: 'skewX(0deg)'},
+        '80.8%': {transform: 'skewX(-5deg)'},
+        '80.9%': {transform: 'skewX(0deg)'},
+        '90.2%': {transform: 'scale(1)'},
+        '90.4%': {transform: 'scale(0.93)'},
+        '90.6%': {transform: 'scale(1)'},
+        '100%': {transform: 'scale(1)'},
+      },
+      'very-old': {
+        '0%': {transform: 'scale(1)'},
+        '10.0%': {transform: 'scale(1)'},
+        '10.1%': {transform: 'scale(0.98)'},
+        '10.2%': {transform: 'scale(1)'},
+        '10.6%': {transform: 'scale(0.97)'},
+        '10.7%': {transform: 'scale(1)'},
+        '12.6%': {transform: 'scale(0.96)'},
+        '12.7%': {transform: 'scale(1)'},
+        '15.1%': {transform: 'scale(0.97)'},
+        '15.3%': {transform: 'scale(1)'},
+        '20.0%': {transform: 'skewX(0deg)'},
+        '20.1%': {transform: 'skewX(-8deg)'},
+        '20.2%': {transform: 'skewX(0deg)'},
+        '30.0%': {transform: 'scale(1)'},
+        '30.1%': {transform: 'scale(0.97)'},
+        '30.2%': {transform: 'scale(1)'},
+        '30.4%': {transform: 'scale(0.99)'},
+        '30.6%': {transform: 'scale(1)'},
+        '33.0%': {transform: 'skewX(0deg)'},
+        '33.2%': {transform: 'skewX(-8deg)'},
+        '33.4%': {transform: 'skewX(0deg)'},
+        '40.3%': {transform: 'scale(0.98)'},
+        '40.4%': {transform: 'scale(1)'},
+        '40.7%': {transform: 'scale(0.98)'},
+        '40.8%': {transform: 'scale(1)'},
+        '40.9%': {transform: 'scale(0.97)'},
+        '41.0%': {transform: 'scale(1)'},
+        '44.3%': {transform: 'skewX(0deg)'},
+        '44.4%': {transform: 'skewX(-6deg)'},
+        '44.6%': {transform: 'skewX(0deg)'},
+        '44.7%': {transform: 'skewX(-8deg)'},
+        '44.9%': {transform: 'skewX(0deg)'},
+        '46.1%': {transform: 'skewX(-5deg)'},
+        '46.2%': {transform: 'skewX(0deg)'},
+        '50.0%': {transform: 'scale(1)'},
+        '50.1%': {transform: 'scale(0.94)'},
+        '50.2%': {transform: 'scale(1)'},
+        '50.3%': {transform: 'skewX(0deg)'},
+        '50.4%': {transform: 'skewX(-6deg)'},
+        '50.6%': {transform: 'skewX(0deg)'},
+        '50.8%': {transform: 'scale(1)'},
+        '50.9%': {transform: 'scale(0.92)'},
+        '51.0%': {transform: 'scale(1)'},
+        '56.0%': {transform: 'skewX(0deg)'},
+        '56.2%': {transform: 'skewX(-8deg)'},
+        '56.4%': {transform: 'skewX(0deg)'},
+        '60.0%': {transform: 'scale(1)'},
+        '60.1%': {transform: 'scale(0.97)'},
+        '60.2%': {transform: 'scale(1)'},
+        '60.3%': {transform: 'scale(0.94)'},
+        '60.4%': {transform: 'scale(1)'},
+        '60.6%': {transform: 'scale(0.97)'},
+        '60.7%': {transform: 'scale(1)'},
+        '70.0%': {transform: 'skewX(0deg)'},
+        '70.2%': {transform: 'skewX(-8deg)'},
+        '70.4%': {transform: 'skewX(0deg)'},
+        '75.3%': {transform: 'scale(1)'},
+        '75.4%': {transform: 'scale(0.95)'},
+        '75.5%': {transform: 'scale(1)'},
+        '77.0%': {transform: 'scale(1)'},
+        '77.1%': {transform: 'scale(0.97)'},
+        '77.3%': {transform: 'scale(1)'},
+        '80.0%': {transform: 'scale(1)'},
+        '80.1%': {transform: 'scale(0.97)'},
+        '80.2%': {transform: 'scale(1)'},
+        '80.3%': {transform: 'scale(0.94)'},
+        '80.4%': {transform: 'scale(1)'},
+        '80.5%': {transform: 'skewX(0deg)'},
+        '80.6%': {transform: 'skewX(-7deg)'},
+        '80.7%': {transform: 'skewX(0deg)'},
+        '80.8%': {transform: 'skewX(-7deg)'},
+        '80.9%': {transform: 'skewX(0deg)'},
+        '82.0%': {transform: 'scale(1)'},
+        '82.1%': {transform: 'scale(0.98)'},
+        '82.2%': {transform: 'scale(1)'},
+        '82.5%': {transform: 'scale(0.93)'},
+        '82.7%': {transform: 'scale(1)'},
+        '90.2%': {transform: 'scale(1)'},
+        '90.4%': {transform: 'scale(0.95)'},
+        '90.6%': {transform: 'scale(1)'},
+        '90.8%': {transform: 'scale(0.94)'},
+        '90.9%': {transform: 'scale(1)'},
+        '93.1%': {transform: 'scale(0.97)'},
+        '93.2%': {transform: 'scale(1)'},
+        '98.1%': {transform: 'scale(0.96)'},
+        '98.2%': {transform: 'scale(1)'},
+        '100%': {transform: 'scale(1)'},
+      },
     };
 
     const keyframesPowerOff = {
@@ -179,7 +271,7 @@ export default function styles(theme, props) {
       top: '0px',
       bottom: '0px',
       flexGrow: 1,
-      animationName: showed ? keyframesPowerOn : keyframesPowerOff,
+      animationName: showed ? keyframesPowerOn[aging] : keyframesPowerOff,
       animationDuration: showed ? '27s' : '0.6s',
       animationIterationCount: showed ? 'infinite' : 1,
     };
@@ -265,9 +357,22 @@ export default function styles(theme, props) {
 
     // Horizontal spot trace, from top to bottom.
     const keyframesTrace = {
-      '0%': {top: '-100px'},
-      '60%': {top: '-100px'},
-      '100%': {top: '100%'},
+      'new': null,
+      'old': {
+        '0%': {top: '-100px'},
+        '75%': {top: '-100px'},
+        '100%': {top: '100%'},
+      },
+      'very-old': {
+        '0%': {top: '-100px'},
+        '100%': {top: '100%'},
+      },
+    };
+
+    const durationTrace = {
+      'new': null,
+      'old': '20s',
+      'very-old': '5s',
     };
 
     foregroundCRT2 = {
@@ -277,9 +382,11 @@ export default function styles(theme, props) {
       left: '40px',
       right: '40px',
       background: 'linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0.1))',
-      animationName: keyframesTrace,
-      animationDuration: '20s',
+      animationName: keyframesTrace[aging],
+      animationDuration: durationTrace[aging],
       animationIterationCount: 'infinite',
+      animationTimingFunction: 'linear',
+      opacity: aging === 'new' ? 0 : 1,
     };
 
     // Video flicker.
@@ -307,6 +414,12 @@ export default function styles(theme, props) {
       '100%': {opacity: 0.24387},
     };
 
+    const durationFlicker = {
+      'new': null,
+      'old': '0.15s',
+      'very-old': '0.6s',
+    };
+
     foregroundCRT3 = {
       position: 'absolute',
       top: '0px',
@@ -315,7 +428,7 @@ export default function styles(theme, props) {
       right: '0px',
       background: 'rgba(18, 16, 16, 0.15)',
       animationName: keyframesFlicker,
-      animationDuration: '0.15s',
+      animationDuration: durationFlicker[aging],
       animationIterationCount: 'infinite',
     };
 

@@ -2,12 +2,15 @@ import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import * as styles from './styles';
 import Checkbox from 'goblin-gadgets/widgets/checkbox/widget';
+import Button from 'goblin-gadgets/widgets/button/widget';
+import Combo from 'goblin-gadgets/widgets/combo/widget';
 import Separator from 'goblin-gadgets/widgets/separator/widget';
 import {Unit} from 'electrum-theme';
 import Shredder from 'xcraft-core-shredder';
 import {ColorManipulator} from 'electrum-theme';
 import helpers from './helpers';
 import svg from '../helpers/svg-helpers';
+import T from 't';
 
 /******************************************************************************/
 
@@ -18,9 +21,12 @@ export default class SamplesMonitor extends Widget {
 
     this.state = {
       mode: 'grouped',
+      agingMenuShowed: false,
     };
 
     this.onOff = this.onOff.bind(this);
+    this.onAgingMenuToggle = this.onAgingMenuToggle.bind(this);
+    this.onChangeAging = this.onChangeAging.bind(this);
   }
 
   //#region get/set
@@ -33,11 +39,31 @@ export default class SamplesMonitor extends Widget {
       mode: value,
     });
   }
+
+  get agingMenuShowed() {
+    return this.state.agingMenuShowed;
+  }
+
+  set agingMenuShowed(value) {
+    this.setState({
+      agingMenuShowed: value,
+    });
+  }
   //#endregion
 
   onOff() {
     if (this.props.onOff) {
       this.props.onOff();
+    }
+  }
+
+  onAgingMenuToggle() {
+    this.agingMenuShowed = !this.agingMenuShowed;
+  }
+
+  onChangeAging(aging) {
+    if (this.props.onChangeAging) {
+      this.props.onChangeAging(aging);
     }
   }
 
@@ -345,9 +371,25 @@ export default class SamplesMonitor extends Widget {
     }
   }
 
+  renderAgingButton() {
+    if (!this.isRetro || !this.props.onChangeAging) {
+      return null;
+    }
+
+    return (
+      <React.Fragment>
+        <div ref={x => (this.agingButton = x)}>
+          <Button glyph="solid/chevron-left" onClick={this.onAgingMenuToggle} />
+        </div>
+        <Separator kind="exact" height="30px" />
+      </React.Fragment>
+    );
+  }
+
   renderRightPanel() {
     return (
       <div className={this.styles.classNames.panel}>
+        {this.renderAgingButton()}
         <Checkbox
           kind="radio"
           glyphSize="150%"
@@ -382,6 +424,48 @@ export default class SamplesMonitor extends Widget {
           />
         ) : null}
       </div>
+    );
+  }
+
+  renderAgingMenu() {
+    if (!this.agingMenuShowed) {
+      return null;
+    }
+
+    const list = [
+      {
+        text: T('Neuf'),
+        active: this.props.aging === 'new',
+        action: () => this.onChangeAging('new'),
+      },
+      {
+        text: T('Vieux'),
+        active: this.props.aging === 'old',
+        action: () => this.onChangeAging('old'),
+      },
+      {
+        text: T('Très vieux'),
+        active: this.props.aging === 'very-old',
+        action: () => this.onChangeAging('very-old'),
+      },
+    ];
+
+    const rect = this.agingButton.getBoundingClientRect();
+    const left = Unit.sub(
+      rect.left - 120 - 26 + 'px',
+      this.context.theme.shapes.flyingBalloonTriangleSize
+    );
+
+    return (
+      <Combo
+        menuType="wrap"
+        width="120px"
+        trianglePosition="right"
+        left={left}
+        top={(rect.top + rect.bottom) / 2 - 82}
+        list={list}
+        close={this.onAgingMenuToggle}
+      />
     );
   }
 
@@ -420,6 +504,7 @@ export default class SamplesMonitor extends Widget {
           {this.renderScreen(w, h)}
         </div>
         {this.renderRightPanel()}
+        {this.renderAgingMenu()}
       </div>
     );
   }
