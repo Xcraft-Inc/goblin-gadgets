@@ -15,11 +15,16 @@ export default class RetroGear extends Widget {
       return null;
     }
 
+    let type = this.props.type;
+    if (!type && this.context.theme.look.homeGadget === 'clock-gears') {
+      type = 'watch-gear';
+    }
+
     const elements = helpers.getElements(
       this.props.radius,
       this.props.radius,
       this.props.radius,
-      this.props.type,
+      type,
       this.props.toothThickness,
       this.props.toothCount,
       this.props.color

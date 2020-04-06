@@ -61,13 +61,14 @@ export default class RetroPanel extends Widget {
     const d2 = d1 / (t1 / t2); // duration (s)
     const d3 = d2 / (t2 / t3); // duration (s)
     const d4 = d3 / (t3 / t4); // duration (s)
+    const t = 'meca';
 
     return (
       <React.Fragment>
-        {this.renderGear('fourGear1', color, r1, 'meca', t1, 60, d1, 'cw')}
-        {this.renderGear('fourGear2', color, r2, 'meca', t2, 60, d2, 'ccw')}
-        {this.renderGear('fourGear3', color, r3, 'meca', t3, 60, d3, 'cw')}
-        {this.renderGear('fourGear4', color, r4, 'meca', t4, 60, d4, 'ccw')}
+        {this.renderGear('fourGear1', color, r1, t, t1, 60, d1, 'cw')}
+        {this.renderGear('fourGear2', color, r2, t, t2, 60, d2, 'ccw')}
+        {this.renderGear('fourGear3', color, r3, t, t3, 60, d3, 'cw')}
+        {this.renderGear('fourGear4', color, r4, t, t4, 60, d4, 'ccw')}
       </React.Fragment>
     );
   }
@@ -129,6 +130,7 @@ export default class RetroPanel extends Widget {
     const d2 = d1 / (t1 / t2); // duration (s)
     const d3 = d2 / (t2 / t3); // duration (s)
     const d4 = d3; // duration (s)
+    const t = 'watch-gear';
 
     const now = new Date(Date.now());
     const h = now.getHours() % 12;
@@ -141,46 +143,10 @@ export default class RetroPanel extends Widget {
 
     return (
       <React.Fragment>
-        {this.renderGear(
-          'clockGear1',
-          color,
-          r1,
-          'watch-gear',
-          t1,
-          30,
-          d1,
-          'cw'
-        )}
-        {this.renderGear(
-          'clockGear2',
-          color,
-          r2,
-          'watch-gear',
-          t2,
-          30,
-          d2,
-          'ccw'
-        )}
-        {this.renderGear(
-          'clockGear3',
-          color,
-          r3,
-          'watch-gear',
-          t3,
-          30,
-          d3,
-          'cw'
-        )}
-        {this.renderGear(
-          'clockGear4',
-          color,
-          r4,
-          'watch-gear',
-          t4,
-          30,
-          d4,
-          'cw'
-        )}
+        {this.renderGear('clockGear1', color, r1, t, t1, 30, d1, 'cw')}
+        {this.renderGear('clockGear2', color, r2, t, t2, 30, d2, 'ccw')}
+        {this.renderGear('clockGear3', color, r3, t, t3, 30, d3, 'cw')}
+        {this.renderGear('clockGear4', color, r4, t, t4, 30, d4, 'cw')}
         <div className={this.styles.classNames.watchCadran}>
           {this.renderWatchFixes()}
         </div>
