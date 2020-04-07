@@ -27,15 +27,15 @@ function getSecondKeyFrames() {
 export default function styles(theme, props) {
   const {size = '180px'} = props;
 
-  const s = Unit.parse(size).value;
-  const f = s / 180;
+  const s = Unit.parse(size).value; // width and height (square)
+  const f = s / 180; // magic factor
 
-  const tx = 5 * f; // thickness watch pointer hours and minutes
+  const tx = 6 * f; // thickness watch pointer hours and minutes
   const ts = Math.max(0.7 * f, 1); // thickness watch pointer seconds
-  const add = 15 * f; // additional length from center for watch pointers
+  const add = 15 * f; // additional reverse length from center for watch pointers
 
   const b = 8 * f; // thickness of border
-  const m = 6 * f; // margin between border and cadran
+  const m = 4 * f; // margin between border and cadran
 
   /******************************************************************************/
 
@@ -45,6 +45,7 @@ export default function styles(theme, props) {
     height: px(s),
   };
 
+  // White cadran, with outside shadow.
   const cadran1 = {
     position: 'absolute',
     width: px(s),
@@ -58,6 +59,7 @@ export default function styles(theme, props) {
     )} rgba(0,0,0,0.9)`,
   };
 
+  // Silver border, with inside shadow.
   const cadran2 = {
     position: 'absolute',
     width: px(s),
@@ -77,8 +79,9 @@ export default function styles(theme, props) {
 
   /******************************************************************************/
 
-  const fl1 = 20 * f;
-  const fw1 = tx;
+  // Main fix mark (each 5 minutes).
+  const fl1 = 20 * f; // length
+  const fw1 = tx; // width
   const fix1 = {
     position: 'absolute',
     right: px(s * 0.5 - fw1 * 0.5),
@@ -89,8 +92,9 @@ export default function styles(theme, props) {
     backgroundColor: '#333',
   };
 
-  const fl2 = 5 * f;
-  const fw2 = 2 * f;
+  // Secondary fix mark (each minute).
+  const fl2 = 5 * f; // length
+  const fw2 = 2 * f; // width
   const fix2 = {
     position: 'absolute',
     right: px(s * 0.5 - fw2 * 0.5),
@@ -103,6 +107,15 @@ export default function styles(theme, props) {
 
   /******************************************************************************/
 
+  // Parent for watch pointer, with initial rotate according to Date.now().
+  const watchPointers = {
+    position: 'absolute',
+    right: px(s * 0.5),
+    bottom: px(s * 0.5),
+    width: '0px',
+    height: '0px',
+  };
+
   const watchPointerKeyframes = {
     from: {
       transform: 'rotate(0deg)',
@@ -110,14 +123,6 @@ export default function styles(theme, props) {
     to: {
       transform: 'rotate(359.999deg)',
     },
-  };
-
-  const watchPointers = {
-    position: 'absolute',
-    right: px(s * 0.5),
-    bottom: px(s * 0.5),
-    width: '0px',
-    height: '0px',
   };
 
   const _watchPointer = {
@@ -149,16 +154,18 @@ export default function styles(theme, props) {
 
   const watchPointerSecond = {
     ..._watchPointer,
+    bottom: px(add * 1.5),
     right: px(ts * 0.5),
     width: px(ts),
-    height: px(s * 0.5 - b - m - fl1 + add),
-    transformOrigin: `${px(ts * 0.5)} ${px(add)}`,
+    height: px(s * 0.5 - b - m - fl1 + add * 1.5),
+    transformOrigin: `${px(ts * 0.5)} ${px(add * 1.5)}`,
     animation: '60s infinite linear',
     animationName: getSecondKeyFrames(),
     animationTimingFunction: 'cubic-bezier(1, 0, 1, 0.1)',
     backgroundColor: 'red',
   };
 
+  // Little centered red dot.
   const watchPointerCenter = {
     position: 'absolute',
     right: px(s * 0.5 - ts * 2),
