@@ -28,14 +28,14 @@ export default function styles(theme, props) {
   const {size = '180px'} = props;
 
   const s = Unit.parse(size).value; // width and height (square)
-  const f = s / 180; // magic factor
+  const f = s / 180; // magic factor for scaling constant dimensions
 
-  const tx = 6 * f; // thickness watch pointer hours and minutes
-  const ts = Math.max(0.7 * f, 1); // thickness watch pointer seconds
-  const add = 15 * f; // additional reverse length from center for watch pointers
+  const tx = 6 * f; // watch pointer (hours and minutes) thickness
+  const ts = Math.max(0.7 * f, 1); // watch pointer (seconds) thickness
+  const add = 15 * f; // additional length for watch pointers, starting opposite
 
   const b = 8 * f; // thickness of border
-  const m = 4 * f; // margin between border and cadran
+  const m = 4 * f; // margin between border and dial
 
   /******************************************************************************/
 
@@ -45,8 +45,8 @@ export default function styles(theme, props) {
     height: px(s),
   };
 
-  // White cadran, with outside shadow.
-  const cadran1 = {
+  // White dial, with an outer shadow.
+  const dial1 = {
     position: 'absolute',
     width: px(s),
     height: px(s),
@@ -59,8 +59,8 @@ export default function styles(theme, props) {
     )} rgba(0,0,0,0.9)`,
   };
 
-  // Silver border, with inside shadow.
-  const cadran2 = {
+  // Silver dial, with an inner shadow.
+  const dial2 = {
     position: 'absolute',
     width: px(s),
     height: px(s),
@@ -79,10 +79,10 @@ export default function styles(theme, props) {
 
   /******************************************************************************/
 
-  // Main fix mark (each 5 minutes).
+  // Main fixed mark (every 5 minutes).
   const fl1 = 20 * f; // length
   const fw1 = tx; // width
-  const fix1 = {
+  const fixedMark1 = {
     position: 'absolute',
     right: px(s * 0.5 - fw1 * 0.5),
     top: px(b + m),
@@ -92,10 +92,10 @@ export default function styles(theme, props) {
     backgroundColor: '#333',
   };
 
-  // Secondary fix mark (each minute).
+  // Secondary fixed mark (every minute).
   const fl2 = 5 * f; // length
   const fw2 = 2 * f; // width
-  const fix2 = {
+  const fixedMark2 = {
     position: 'absolute',
     right: px(s * 0.5 - fw2 * 0.5),
     top: px(b + m),
@@ -107,7 +107,7 @@ export default function styles(theme, props) {
 
   /******************************************************************************/
 
-  // Parent for watch pointer, with initial rotate according to Date.now().
+  // Parent of watch pointer, with an initial rotation according to Date.now().
   const watchPointers = {
     position: 'absolute',
     right: px(s * 0.5),
@@ -125,13 +125,9 @@ export default function styles(theme, props) {
     },
   };
 
-  const _watchPointer = {
+  const watchPointerHour = {
     position: 'relative',
     bottom: px(add),
-  };
-
-  const watchPointerHour = {
-    ..._watchPointer,
     right: px(tx * 0.5),
     width: px(tx),
     height: px(s * 0.45 - b - m - fl1 + add),
@@ -142,7 +138,8 @@ export default function styles(theme, props) {
   };
 
   const watchPointerMinute = {
-    ..._watchPointer,
+    position: 'relative',
+    bottom: px(add),
     right: px(tx * 0.5),
     width: px(tx),
     height: px(s * 0.49 - b - m + add),
@@ -153,7 +150,7 @@ export default function styles(theme, props) {
   };
 
   const watchPointerSecond = {
-    ..._watchPointer,
+    position: 'relative',
     bottom: px(add * 1.5),
     right: px(ts * 0.5),
     width: px(ts),
@@ -165,7 +162,7 @@ export default function styles(theme, props) {
     backgroundColor: 'red',
   };
 
-  // Little centered red dot.
+  // Small red dot centered.
   const watchPointerCenter = {
     position: 'absolute',
     right: px(s * 0.5 - ts * 2),
@@ -181,11 +178,11 @@ export default function styles(theme, props) {
   return {
     analogClock,
 
-    cadran1,
-    cadran2,
+    dial1,
+    dial2,
 
-    fix1,
-    fix2,
+    fixedMark1,
+    fixedMark2,
 
     watchPointers,
     watchPointerHour,

@@ -16,9 +16,11 @@ export default class AnalogClock extends Widget {
     this.styles = styles;
   }
 
-  renderFix(i) {
+  renderFixedMark(i) {
     const className =
-      i % 5 === 0 ? this.styles.classNames.fix1 : this.styles.classNames.fix2;
+      i % 5 === 0
+        ? this.styles.classNames.fixedMark1
+        : this.styles.classNames.fixedMark2;
 
     const style = {
       transform: `rotate(${i * 6}deg)`,
@@ -27,11 +29,11 @@ export default class AnalogClock extends Widget {
     return <div className={className} key={i} style={style} />;
   }
 
-  renderFixes() {
+  renderFixedMarks() {
     const result = [];
 
     for (let i = 0; i < 60; i++) {
-      result.push(this.renderFix(i));
+      result.push(this.renderFixedMark(i));
     }
 
     return result;
@@ -61,9 +63,9 @@ export default class AnalogClock extends Widget {
 
     return (
       <div className={this.styles.classNames.analogClock}>
-        <div className={this.styles.classNames.cadran1} />
-        <div className={this.styles.classNames.cadran2} />
-        {this.renderFixes()}
+        <div className={this.styles.classNames.dial1} />
+        <div className={this.styles.classNames.dial2} />
+        {this.renderFixedMarks()}
         {this.renderWatchPointer('watchPointerHour', ah)}
         {this.renderWatchPointer('watchPointerMinute', am)}
         {this.renderWatchPointer('watchPointerSecond', as)}
