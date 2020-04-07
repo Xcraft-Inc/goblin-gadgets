@@ -2,19 +2,19 @@ export default [
   {
     name: 'Standard',
     props: {
-      size: '150px',
+      size: '180px',
     },
   },
   {
     name: 'Little',
     props: {
-      size: '75px',
+      size: '90px',
     },
   },
   {
     name: 'Big',
     props: {
-      size: '300px',
+      size: '360px',
     },
   },
   {

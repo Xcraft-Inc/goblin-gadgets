@@ -25,74 +25,79 @@ function getSecondKeyFrames() {
 /******************************************************************************/
 
 export default function styles(theme, props) {
-  const {size = '150px'} = props;
+  const {size = '180px'} = props;
 
-  const analogClock = {
-    position: 'relative',
-    width: size,
-    height: size,
-  };
+  const s = Unit.parse(size).value;
+  const f = s / 180;
+
+  const tx = 5 * f; // thickness watch pointer hours and minutes
+  const ts = Math.max(0.7 * f, 1); // thickness watch pointer seconds
+  const add = 15 * f; // additional length from center for watch pointers
+
+  const b = 8 * f; // thickness of border
+  const m = 6 * f; // margin between border and cadran
 
   /******************************************************************************/
 
-  const s = Unit.parse(size).value;
-  const f = s / 150;
-
-  const tx = f * 5; // thickness watch pointer hours and minutes
-  const ts = Math.max(f * 0.7, 1); // thickness watch pointer seconds
-  const add = s * 0.1; // additional length from center for watch pointers
-
-  const b = f * 8; // thickness of border
-  const m = s * 0.05; // margin between border and cadran
+  const analogClock = {
+    position: 'relative',
+    width: px(s),
+    height: px(s),
+  };
 
   const cadran1 = {
     position: 'absolute',
-    width: px(s * 1 + m + b),
-    height: px(s * 1 + m + b),
-    left: px(-m),
-    top: px(-m),
+    width: px(s),
+    height: px(s),
+    left: '0px',
+    top: '0px',
     borderRadius: px(s),
     backgroundColor: '#fff',
-    boxShadow: '6px 6px 20px 4px rgba(0,0,0,0.9)',
+    boxShadow: `${px(6 * f)} ${px(6 * f)} ${px(20 * f)} ${px(
+      5 * f
+    )} rgba(0,0,0,0.9)`,
   };
 
   const cadran2 = {
     position: 'absolute',
-    width: px(s * 1 + m),
-    height: px(s * 1 + m),
-    left: px(-(b + m / 2)),
-    top: px(-(b + m / 2)),
+    width: px(s),
+    height: px(s),
+    left: '0px',
+    top: '0px',
+    boxSizing: 'border-box',
     borderRadius: px(s),
-    borderTop: `${px(m)} solid #ccc`,
-    borderRight: `${px(m)} solid #aaa`,
-    borderBottom: `${px(m)} solid #aaa`,
-    borderLeft: `${px(m)} solid #ccc`,
-    boxShadow: 'inset 6px 6px 24px 0px rgba(0,0,0,0.9)',
+    borderTop: `${px(b)} solid #ccc`,
+    borderRight: `${px(b)} solid #aaa`,
+    borderBottom: `${px(b)} solid #aaa`,
+    borderLeft: `${px(b)} solid #ccc`,
+    boxShadow: `inset ${px(6 * f)} ${px(6 * f)} ${px(
+      24 * f
+    )} 0px rgba(0,0,0,0.9)`,
   };
 
   /******************************************************************************/
 
-  const fl1 = f * 20;
+  const fl1 = 20 * f;
   const fw1 = tx;
   const fix1 = {
     position: 'absolute',
     right: px(s * 0.5 - fw1 * 0.5),
-    top: '0px',
+    top: px(b + m),
     width: px(fw1),
     height: px(fl1),
-    transformOrigin: `${px(fw1 * 0.5)} ${px(s * 0.5)}`,
+    transformOrigin: `${px(fw1 * 0.5)} ${px(s * 0.5 - b - m)}`,
     backgroundColor: '#333',
   };
 
-  const fl2 = f * 5;
-  const fw2 = f * 2;
+  const fl2 = 5 * f;
+  const fw2 = 2 * f;
   const fix2 = {
     position: 'absolute',
     right: px(s * 0.5 - fw2 * 0.5),
-    top: '0px',
+    top: px(b + m),
     width: px(fw2),
     height: px(fl2),
-    transformOrigin: `${px(fw2 * 0.5)} ${px(s * 0.5)}`,
+    transformOrigin: `${px(fw2 * 0.5)} ${px(s * 0.5 - b - m)}`,
     backgroundColor: '#333',
   };
 
@@ -124,7 +129,7 @@ export default function styles(theme, props) {
     ..._watchPointer,
     right: px(tx * 0.5),
     width: px(tx),
-    height: px(s * 0.45 - fl1 + add),
+    height: px(s * 0.45 - b - m - fl1 + add),
     transformOrigin: `${px(tx * 0.5)} ${px(add)}`,
     animation: '86400s infinite linear',
     animationName: watchPointerKeyframes,
@@ -135,7 +140,7 @@ export default function styles(theme, props) {
     ..._watchPointer,
     right: px(tx * 0.5),
     width: px(tx),
-    height: px(s * 0.49 + add),
+    height: px(s * 0.49 - b - m + add),
     transformOrigin: `${px(tx * 0.5)} ${px(add)}`,
     animation: '3600s infinite linear',
     animationName: watchPointerKeyframes,
@@ -146,11 +151,11 @@ export default function styles(theme, props) {
     ..._watchPointer,
     right: px(ts * 0.5),
     width: px(ts),
-    height: px(s * 0.5 - fl1 + add),
+    height: px(s * 0.5 - b - m - fl1 + add),
     transformOrigin: `${px(ts * 0.5)} ${px(add)}`,
     animation: '60s infinite linear',
     animationName: getSecondKeyFrames(),
-    animationTimingFunction: 'cubic-bezier(0, 1, 0, 1)',
+    animationTimingFunction: 'cubic-bezier(1, 0, 1, 0.1)',
     backgroundColor: 'red',
   };
 
