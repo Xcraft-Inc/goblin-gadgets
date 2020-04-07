@@ -25,7 +25,7 @@ function getSecondKeyFrames() {
 /******************************************************************************/
 
 export default function styles(theme, props) {
-  const {size} = props;
+  const {size = '150px'} = props;
 
   const analogClock = {
     position: 'relative',

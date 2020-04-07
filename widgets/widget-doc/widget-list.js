@@ -66,6 +66,10 @@ import DocumentContainer from 'goblin-gadgets/widgets/document-container/widget'
 import documentContainerProps from 'goblin-gadgets/widgets/document-container/props';
 import documentContainerScenarios from 'goblin-gadgets/widgets/document-container/scenarios';
 
+import AnalogClock from 'goblin-gadgets/widgets/analog-clock/widget';
+import analogClockProps from 'goblin-gadgets/widgets/analog-clock/props';
+import analogClockScenarios from 'goblin-gadgets/widgets/analog-clock/scenarios';
+
 const widgetList = [
   {
     name: 'Button',
@@ -185,6 +189,13 @@ const widgetList = [
     widgetPath: 'goblin-gadgets/widgets/document-container/widget',
     props: documentContainerProps,
     scenarios: documentContainerScenarios,
+  },
+  {
+    name: 'AnalogClock',
+    widget: AnalogClock,
+    widgetPath: 'goblin-gadgets/widgets/analog-clock/widget',
+    props: analogClockProps,
+    scenarios: analogClockScenarios,
   },
 ];
 

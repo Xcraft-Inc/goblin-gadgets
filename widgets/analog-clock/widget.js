@@ -1,11 +1,19 @@
 import React from 'react';
+import Props from './props';
 import Widget from 'goblin-laboratory/widgets/widget';
+import * as styles from './styles';
+
+import {
+  makePropTypes,
+  makeDefaultProps,
+} from 'xcraft-core-utils/lib/prop-types';
 
 /******************************************************************************/
 
 export default class AnalogClock extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
   }
 
   renderFix(i) {
@@ -66,3 +74,6 @@ export default class AnalogClock extends Widget {
 }
 
 /******************************************************************************/
+
+AnalogClock.propTypes = makePropTypes(Props);
+AnalogClock.defaultProps = makeDefaultProps(Props);
