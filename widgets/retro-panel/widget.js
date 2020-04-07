@@ -2,6 +2,7 @@ import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import RetroScrew from 'goblin-gadgets/widgets/retro-screw/widget';
 import RetroGear from 'goblin-gadgets/widgets/retro-gear/widget';
+import AnalogClock from 'goblin-gadgets/widgets/analog-clock/widget';
 import {ColorManipulator} from 'electrum-theme';
 import {Unit} from 'electrum-theme';
 
@@ -73,41 +74,6 @@ export default class RetroPanel extends Widget {
     );
   }
 
-  renderWatchPointer(styleName, initialAngle) {
-    const style = {
-      transform: `rotate(${initialAngle}deg)`,
-    };
-
-    return (
-      <div className={this.styles.classNames.watchPointers} style={style}>
-        <div className={this.styles.classNames[styleName]} />
-      </div>
-    );
-  }
-
-  renderWatchFix(i) {
-    const className =
-      i % 5 === 0
-        ? this.styles.classNames.watchFix1
-        : this.styles.classNames.watchFix2;
-
-    const style = {
-      transform: `rotate(${i * 6}deg)`,
-    };
-
-    return <div className={className} key={i} style={style} />;
-  }
-
-  renderWatchFixes() {
-    const result = [];
-
-    for (let i = 0; i < 60; i++) {
-      result.push(this.renderWatchFix(i));
-    }
-
-    return result;
-  }
-
   renderClockGears() {
     if (!this.context.theme.look.accessories.includes('gears')) {
       return null;
@@ -132,28 +98,15 @@ export default class RetroPanel extends Widget {
     const d4 = d3; // duration (s)
     const t = 'watch-gear';
 
-    const now = new Date(Date.now());
-    const h = now.getHours() % 12;
-    const m = now.getMinutes();
-    const s = now.getSeconds();
-
-    const ah = 180 + ((h + m / 60 + s / 3600) / 12) * 360;
-    const am = 180 + ((m + s / 60) / 60) * 360;
-    const as = 180 + (s / 60) * 360;
-
     return (
       <React.Fragment>
         {this.renderGear('clockGear1', color, r1, t, t1, 30, d1, 'cw')}
         {this.renderGear('clockGear2', color, r2, t, t2, 30, d2, 'ccw')}
         {this.renderGear('clockGear3', color, r3, t, t3, 30, d3, 'cw')}
         {this.renderGear('clockGear4', color, r4, t, t4, 30, d4, 'cw')}
-        <div className={this.styles.classNames.watchCadran}>
-          {this.renderWatchFixes()}
+        <div className={this.styles.classNames.clock}>
+          <AnalogClock look="royal" size="400px" />
         </div>
-        {this.renderWatchPointer('watchPointerHour', ah)}
-        {this.renderWatchPointer('watchPointerMinute', am)}
-        {this.renderWatchPointer('watchPointerSecond', as)}
-        <div className={this.styles.classNames.watchPointerCenter} />
       </React.Fragment>
     );
   }

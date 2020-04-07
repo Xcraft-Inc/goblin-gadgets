@@ -9,4 +9,9 @@ export default [
     group: 'aspect',
     type: types.size,
   },
+  {
+    name: 'look',
+    group: 'aspect',
+    type: types.enum(['', 'cff', 'classic', 'royal', 'tiny']),
+  },
 ];

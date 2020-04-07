@@ -18,9 +18,11 @@ export default class AnalogClock extends Widget {
 
   renderFixedMark(i) {
     const className =
-      i % 5 === 0
-        ? this.styles.classNames.fixedMark1
-        : this.styles.classNames.fixedMark2;
+      i % 15 === 0
+        ? this.styles.classNames.fixedMark15
+        : i % 5 === 0
+        ? this.styles.classNames.fixedMark5
+        : this.styles.classNames.fixedMark1;
 
     const style = {
       transform: `rotate(${i * 6}deg)`,

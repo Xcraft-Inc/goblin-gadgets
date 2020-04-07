@@ -154,140 +154,17 @@ export default function styles(theme, props) {
     ...clockGear3,
   };
 
-  const s = 600;
-  const watchCadran = {
+  const s = 400;
+  const clock = {
     'position': 'absolute',
     'right': ccx - s / 2 + 'px',
     'bottom': ccy - s / 2 + 'px',
     'width': s + 'px',
     'height': s + 'px',
     'borderRadius': s / 2 + 'px',
-    'background':
-      'radial-gradient(at 50% 50%, rgba(200, 75, 255, 0.7), rgb(50, 52, 78) 45%)',
-    'boxShadow': 'rgba(255,255,255,0.5) 0px 0px 0px 15px inset',
-    'opacity': 0,
-    'transition': '2s cubic-bezier(1, 0, 0.8, 0.8)', // out
+    'transition': '0.5s cubic-bezier(0.6, 5, 0.5, 0.2)', // fun bounce
     ':hover': {
-      opacity: 1,
-      transition: '2s cubic-bezier(0, 1, 0.3, 1)', // in
-    },
-  };
-
-  const fl1 = 50;
-  const fw1 = 15;
-  const watchFix1 = {
-    position: 'absolute',
-    right: s * 0.5 - fw1 * 0.5 + 'px',
-    top: '40px',
-    width: fw1 + 'px',
-    height: fl1 + 'px',
-    border: '1px solid black',
-    borderRadius: '3px',
-    boxSizing: 'border-box',
-    transformOrigin: `${fw1 * 0.5}px ${s * 0.5 - 40}px`,
-    backgroundColor: '#eee',
-  };
-
-  const fl2 = 10;
-  const fw2 = 10;
-  const watchFix2 = {
-    position: 'absolute',
-    right: s * 0.5 - fw2 * 0.5 + 'px',
-    top: '40px',
-    width: fw2 + 'px',
-    height: fl2 + 'px',
-    border: '1px solid black',
-    borderRadius: fl2 / 2 + 'px',
-    boxSizing: 'border-box',
-    transformOrigin: `${fw2 * 0.5}px ${s * 0.5 - 40}px`,
-    backgroundColor: '#eee',
-  };
-
-  const watchPointerKeyframes = {
-    from: {
-      transform: 'rotate(0deg)',
-    },
-    to: {
-      transform: 'rotate(359.999deg)',
-    },
-  };
-
-  const watchPointers = {
-    position: 'absolute',
-    right: ccx + 'px',
-    bottom: ccy + 'px',
-    width: '0px',
-    height: '0px',
-  };
-
-  const _watchPointer = {
-    position: 'relative',
-    bottom: '50px',
-    border: '1px solid black',
-    borderRadius: '3px',
-    boxSizing: 'border-box',
-    boxShadow: '0px 0px 16px 6px black',
-  };
-
-  const watchPointerHour = {
-    ..._watchPointer,
-    right: '10px',
-    width: '20px',
-    transformOrigin: '10px 50px',
-    animation: '86400s infinite linear',
-    animationName: watchPointerKeyframes,
-    height: '200px',
-    backgroundColor: '#eee',
-  };
-
-  const watchPointerMinute = {
-    ..._watchPointer,
-    right: '10px',
-    width: '20px',
-    transformOrigin: '10px 50px',
-    animation: '3600s infinite linear',
-    animationName: watchPointerKeyframes,
-    height: '280px',
-    backgroundColor: '#eee',
-  };
-
-  const watchPointerSecond = {
-    ..._watchPointer,
-    right: '3px',
-    width: '6px',
-    transformOrigin: '3px 50px',
-    animation: '60s infinite linear',
-    animationName: getSecondKeyFrames(),
-    animationTimingFunction: 'cubic-bezier(0, 1, 0, 1)',
-    height: '310px',
-    backgroundColor: theme.palette.chrome,
-  };
-
-  const watchPointerCenter = {
-    position: 'absolute',
-    right: ccx - 20 + 'px',
-    bottom: ccy - 20 + 'px',
-    width: '40px',
-    height: '40px',
-    backgroundColor: ColorManipulator.darken(theme.palette.light, 0.3),
-    border: '1px solid black',
-    borderRadius: '20px',
-    boxSizing: 'border-box',
-    boxShadow: '0px 0px 16px 6px black',
-  };
-
-  // Use + for dispatch the style to next brother (only one).
-  // Use ~ for dispatch the style to all the following brothers.
-  // Use nothing for dispatch the style to children.
-  const watchHover = {
-    'position': 'absolute',
-    'right': ccx - 265 + 'px',
-    'bottom': ccy - 265 + 'px',
-    'width': '530px',
-    'height': '530px',
-    'borderRadius': '265px',
-    ':hover ~ .cadran-hover': {
-      transform: 'scale(1)',
+      transform: 'scale(1.1)',
     },
   };
 
@@ -404,15 +281,7 @@ export default function styles(theme, props) {
     clockGear2,
     clockGear3,
     clockGear4,
-    watchCadran,
-    watchFix1,
-    watchFix2,
-    watchPointers,
-    watchPointerHour,
-    watchPointerMinute,
-    watchPointerSecond,
-    watchPointerCenter,
-    watchHover,
+    clock,
 
     titleBox,
     title,
