@@ -82,7 +82,7 @@ export default function styles(theme, props) {
         ? getStepsKeyFrames(toothCount, rotationDirection)
         : keyframes
       : null,
-    animationTimingFunction: steps ? 'cubic-bezier(1, 0, 1, 0.1)' : null,
+    animationTimingFunction: steps ? 'cubic-bezier(0.5, 0.5, 0, 1)' : null,
   };
 
   const shadowRadius = Unit.sub(radius, toothThickness + 'px');
