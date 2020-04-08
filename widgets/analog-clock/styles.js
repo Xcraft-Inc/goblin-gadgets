@@ -140,53 +140,6 @@ export default function styles(theme, props) {
     watchPointerCenterColor = 'red';
     watchPointerCenterBorder = null;
     //
-  } else if (look === 'royal') {
-    //-----------//
-    //   ROYAL   //
-    //-----------//
-
-    b = 5 * f; // thickness of border
-    m = 10 * f; // margin between border and dial
-
-    tx = Math.max(6 * f, 3); // watch pointer (hours and minutes) thickness
-    ts = Math.max(2 * f, 3); // watch pointer (seconds) thickness
-    ax = 15 * f; // additional length for watch pointers (hours and minutes), starting opposite
-    as = 22 * f; // additional length for watch pointers (seconds), starting opposite
-
-    fl15 = 15 * f; // length of fixed mark every 15 minutes
-    fw15 = 6 * f; // width of fixed mark every 15 minutes
-    fl5 = 15 * f; // length of fixed mark every 5 minutes
-    fw5 = 2 * f; // width of fixed mark every 5 minutes
-    fl1 = 2 * f; // length of fixed mark every minutes
-    fw1 = 2 * f; // width of fixed mark every minutes
-
-    const rc = ColorManipulator.darken(theme.palette.light, 0.1);
-    dialBorderTopColor = rc;
-    dialBorderRightColor = rc;
-    dialBorderBottomColor = rc;
-    dialBorderLeftColor = rc;
-    dialBackground1 = `radial-gradient(at 50% 50%, ${ColorManipulator.fade(
-      theme.palette.chrome,
-      0.7
-    )}, ${ColorManipulator.darken(theme.palette.base, 0.2)} 65%)`;
-    dialBackground2 =
-      'radial-gradient(at 30% 30%, rgba(255, 255, 255, 0.5), rgb(255, 255, 255, 0.0) 24%)';
-    dialShadow1 = `0px 0px ${px(12 * f)} 0px rgba(0,0,0,0.9)`;
-    dialShadow2 = `inset ${px(6 * f)} ${px(6 * f)} ${px(
-      24 * f
-    )} 0px rgba(0,0,0,0.9)`;
-    fixedMarkRadius15 = 1 * f;
-    fixedMarkRadius5 = 1 * f;
-    fixedMarkRadius1 = 2 * f;
-    watchPointerColorX = rc;
-    watchPointerColorS = theme.palette.chrome;
-    watchPointerBorder = `${px(0.3 * f)} solid black`;
-    watchPointerRadius = 1 * f;
-    watchPointerShadow = `0px 0px ${px(5 * f)} ${px(2 * f)} rgba(0,0,0,0.5)`;
-    watchPointerCenterRadius = 6 * f;
-    watchPointerCenterColor = rc;
-    watchPointerCenterBorder = `${px(0.3 * f)} solid black`;
-    //
   } else if (look === 'tiny') {
     //-----------//
     //   TINY    //
@@ -227,6 +180,102 @@ export default function styles(theme, props) {
     watchPointerCenterColor = 'red';
     watchPointerCenterBorder = null;
     //
+  } else if (look === 'smoothy') {
+    //-----------//
+    //  SMOOTHY  //
+    //-----------//
+
+    b = 5 * f; // thickness of border
+    m = 10 * f; // margin between border and dial
+
+    tx = Math.max(8 * f, 4); // watch pointer (hours and minutes) thickness
+    ts = Math.max(2 * f, 4); // watch pointer (seconds) thickness
+    ax = 15 * f; // additional length for watch pointers (hours and minutes), starting opposite
+    as = 22 * f; // additional length for watch pointers (seconds), starting opposite
+
+    fl15 = 20 * f; // length of fixed mark every 15 minutes
+    fw15 = 20 * f; // width of fixed mark every 15 minutes
+    fl5 = 10 * f; // length of fixed mark every 5 minutes
+    fw5 = 10 * f; // width of fixed mark every 5 minutes
+    fl1 = 0; // length of fixed mark every minutes
+    fw1 = 0; // width of fixed mark every minutes
+
+    const rc = '#eee';
+    dialBorderTopColor = rc;
+    dialBorderRightColor = rc;
+    dialBorderBottomColor = rc;
+    dialBorderLeftColor = rc;
+    dialBackground1 = `radial-gradient(at 50% 50%, ${ColorManipulator.fade(
+      theme.palette.chrome,
+      0.7
+    )}, ${ColorManipulator.darken(theme.palette.base, 0.2)} 65%)`;
+    dialBackground2 =
+      'radial-gradient(at 30% 30%, rgba(255, 255, 255, 0.5), rgb(255, 255, 255, 0.0) 24%)';
+    dialShadow1 = `${px(6 * f)} ${px(6 * f)} ${px(20 * f)} ${px(
+      5 * f
+    )} rgba(0,0,0,0.9)`;
+    dialShadow2 = `inset ${px(6 * f)} ${px(6 * f)} ${px(
+      24 * f
+    )} 0px rgba(0,0,0,0.9)`;
+    fixedMarkRadius15 = 10 * f;
+    fixedMarkRadius5 = 5 * f;
+    fixedMarkRadius1 = 0;
+    watchPointerColorX = rc;
+    watchPointerColorS = theme.palette.chrome;
+    watchPointerBorder = '1px solid black';
+    watchPointerRadius = 4 * f;
+    watchPointerShadow = `0px 0px ${px(5 * f)} ${px(2 * f)} rgba(0,0,0,0.5)`;
+    watchPointerCenterRadius = 6 * f;
+    watchPointerCenterColor = rc;
+    watchPointerCenterBorder = `${px(0.3 * f)} solid black`;
+    //
+  } else if (look === 'royal') {
+    //-----------//
+    //   ROYAL   //
+    //-----------//
+
+    b = 5 * f; // thickness of border
+    m = 10 * f; // margin between border and dial
+
+    tx = Math.max(6 * f, 4); // watch pointer (hours and minutes) thickness
+    ts = Math.max(2 * f, 4); // watch pointer (seconds) thickness
+    ax = 15 * f; // additional length for watch pointers (hours and minutes), starting opposite
+    as = 22 * f; // additional length for watch pointers (seconds), starting opposite
+
+    fl15 = 15 * f; // length of fixed mark every 15 minutes
+    fw15 = 6 * f; // width of fixed mark every 15 minutes
+    fl5 = 15 * f; // length of fixed mark every 5 minutes
+    fw5 = Math.max(2 * f, 4); // width of fixed mark every 5 minutes
+    fl1 = Math.max(2 * f, 4); // length of fixed mark every minutes
+    fw1 = Math.max(2 * f, 4); // width of fixed mark every minutes
+
+    const rc = ColorManipulator.darken(theme.palette.light, 0.1);
+    dialBorderTopColor = rc;
+    dialBorderRightColor = rc;
+    dialBorderBottomColor = rc;
+    dialBorderLeftColor = rc;
+    dialBackground1 = `radial-gradient(at 50% 50%, ${ColorManipulator.fade(
+      theme.palette.chrome,
+      0.7
+    )}, ${ColorManipulator.darken(theme.palette.base, 0.2)} 65%)`;
+    dialBackground2 =
+      'radial-gradient(at 30% 30%, rgba(255, 255, 255, 0.5), rgb(255, 255, 255, 0.0) 24%)';
+    dialShadow1 = `0px 0px ${px(12 * f)} 0px rgba(0,0,0,0.9)`;
+    dialShadow2 = `inset ${px(6 * f)} ${px(6 * f)} ${px(
+      24 * f
+    )} 0px rgba(0,0,0,0.9)`;
+    fixedMarkRadius15 = 1 * f;
+    fixedMarkRadius5 = 1 * f;
+    fixedMarkRadius1 = 2 * f;
+    watchPointerColorX = rc;
+    watchPointerColorS = theme.palette.chrome;
+    watchPointerBorder = '1px solid black';
+    watchPointerRadius = 1 * f;
+    watchPointerShadow = `0px 0px ${px(5 * f)} ${px(2 * f)} rgba(0,0,0,0.5)`;
+    watchPointerCenterRadius = 6 * f;
+    watchPointerCenterColor = rc;
+    watchPointerCenterBorder = `${px(0.3 * f)} solid black`;
+    //
   }
 
   b = Math.max(b, 1);
@@ -260,6 +309,7 @@ export default function styles(theme, props) {
     borderRadius: px(s),
     background: dialBackground1,
     boxShadow: dialShadow1,
+    transition: '0.5s ease-out',
   };
 
   // Silver dial, with an inner shadow.
@@ -277,6 +327,7 @@ export default function styles(theme, props) {
     borderLeft: `${px(b)} solid ${dialBorderLeftColor}`,
     background: dialBackground2,
     boxShadow: dialShadow2,
+    transition: '0.5s ease-out',
   };
 
   /******************************************************************************/
@@ -293,6 +344,7 @@ export default function styles(theme, props) {
     boxSizing: 'border-box',
     border: watchPointerBorder,
     borderRadius: px(fixedMarkRadius15),
+    transition: '0.5s ease-out',
   };
 
   // Secondary fixed mark (every 5 minutes).
@@ -307,6 +359,7 @@ export default function styles(theme, props) {
     boxSizing: 'border-box',
     border: watchPointerBorder,
     borderRadius: px(fixedMarkRadius5),
+    transition: '0.5s ease-out',
   };
 
   // Secondary fixed mark (every minute).
@@ -319,8 +372,9 @@ export default function styles(theme, props) {
     transformOrigin: `${px(fw1 * 0.5)} ${px(s * 0.5 - b - m)}`,
     backgroundColor: watchPointerColorX,
     boxSizing: 'border-box',
-    border: watchPointerBorder,
+    border: fw1 ? watchPointerBorder : null,
     borderRadius: px(fixedMarkRadius1),
+    transition: '0.5s ease-out',
   };
 
   /******************************************************************************/
@@ -357,6 +411,7 @@ export default function styles(theme, props) {
     border: watchPointerBorder,
     borderRadius: px(watchPointerRadius),
     boxShadow: watchPointerShadow,
+    transition: '0.5s ease-out',
   };
 
   const watchPointerMinute = {
@@ -373,6 +428,7 @@ export default function styles(theme, props) {
     border: watchPointerBorder,
     borderRadius: px(watchPointerRadius),
     boxShadow: watchPointerShadow,
+    transition: '0.5s ease-out',
   };
 
   const watchPointerSecond = {
@@ -390,6 +446,7 @@ export default function styles(theme, props) {
     border: watchPointerBorder,
     borderRadius: px(watchPointerRadius),
     boxShadow: watchPointerShadow,
+    transition: '0.5s ease-out',
   };
 
   // Small red dot centered.
@@ -404,6 +461,7 @@ export default function styles(theme, props) {
     border: watchPointerCenterBorder,
     borderRadius: px(watchPointerCenterRadius),
     boxShadow: watchPointerShadow,
+    transition: '0.5s ease-out',
   };
 
   /******************************************************************************/

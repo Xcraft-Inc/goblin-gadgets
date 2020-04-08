@@ -12,6 +12,6 @@ export default [
   {
     name: 'look',
     group: 'aspect',
-    type: types.enum(['', 'cff', 'classic', 'royal', 'tiny']),
+    type: types.enum(['', 'cff', 'classic', 'tiny', 'smoothy', 'royal']),
   },
 ];
