@@ -5,28 +5,28 @@ const {buildGadget} = require('goblin-gadgets');
  *
  * @returns {Object} The list and definitions of commands.
  */
-exports.xcraftCommands = function() {
+exports.xcraftCommands = function () {
   return buildGadget({
     name: 'calendar-boards',
     events: {
-      setData: state => {
+      setData: (state) => {
         return {
           visibleDate: state.get('visibleDate'),
           selectedDate: state.get('selectedDate'),
           selectedBoardId: state.get('selectedBoardId'),
         };
       },
-      showDate: state => {
+      showDate: (state) => {
         return {
           visibleDate: state.get('visibleDate'),
         };
       },
-      selectDate: state => {
+      selectDate: (state) => {
         return {
           selectedDate: state.get('selectedDate'),
         };
       },
-      selectBoardId: state => {
+      selectBoardId: (state) => {
         return {
           selectedBoardId: state.get('selectedBoardId'),
         };

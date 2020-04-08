@@ -5,16 +5,16 @@ const {buildGadget} = require('goblin-gadgets');
  *
  * @returns {Object} The list and definitions of commands.
  */
-exports.xcraftCommands = function() {
+exports.xcraftCommands = function () {
   return buildGadget({
     name: 'tree',
     events: {
-      select: state => {
+      select: (state) => {
         return {
           selectedIds: state.get('selectedIds', []).toArray(),
         };
       },
-      selectAll: state => {
+      selectAll: (state) => {
         return {
           selectedIds: state.get('selectedIds', []).toArray(),
         };
@@ -29,15 +29,15 @@ exports.xcraftCommands = function() {
       setData: (state, action) => {
         return state.set('data', action.get('data'));
       },
-      selectAll: state => {
+      selectAll: (state) => {
         let rows = state
           .get('data.rows')
-          .map(row => row.get('id'))
+          .map((row) => row.get('id'))
           .toArray();
         rows = [...new Set(rows)];
         return state.set('selectedIds', rows);
       },
-      deselectAll: state => {
+      deselectAll: (state) => {
         return state.set('selectedIds', []);
       },
       select: (state, action) => {
