@@ -21,6 +21,7 @@ export default class RetroPanel extends Widget {
     tooths,
     thickness,
     duration,
+    movement,
     direction
   ) {
     return (
@@ -35,6 +36,7 @@ export default class RetroPanel extends Widget {
           toothThickness={thickness}
           rotationDuration={duration + 's'}
           rotationDirection={direction}
+          rotationMovement={movement}
         />
       </div>
     );
@@ -63,13 +65,14 @@ export default class RetroPanel extends Widget {
     const d3 = d2 / (t2 / t3); // duration (s)
     const d4 = d3 / (t3 / t4); // duration (s)
     const t = 'meca';
+    const m = 'coutinuous';
 
     return (
       <React.Fragment>
-        {this.renderGear('fourGear1', color, r1, t, t1, 60, d1, 'cw')}
-        {this.renderGear('fourGear2', color, r2, t, t2, 60, d2, 'ccw')}
-        {this.renderGear('fourGear3', color, r3, t, t3, 60, d3, 'cw')}
-        {this.renderGear('fourGear4', color, r4, t, t4, 60, d4, 'ccw')}
+        {this.renderGear('fourGear1', color, r1, t, t1, 60, d1, m, 'cw')}
+        {this.renderGear('fourGear2', color, r2, t, t2, 60, d2, m, 'ccw')}
+        {this.renderGear('fourGear3', color, r3, t, t3, 60, d3, m, 'cw')}
+        {this.renderGear('fourGear4', color, r4, t, t4, 60, d4, m, 'ccw')}
       </React.Fragment>
     );
   }
@@ -92,18 +95,19 @@ export default class RetroPanel extends Widget {
     const t2 = 150; // tooth count
     const t3 = 30; // tooth count
     const t4 = 90; // tooth count
-    const d1 = 400; // duration (s)
+    const d1 = 60; // duration (s)
     const d2 = d1 / (t1 / t2); // duration (s)
     const d3 = d2 / (t2 / t3); // duration (s)
-    const d4 = d3; // duration (s)
+    const d4 = d3 / (t3 / t4); // duration (s)
     const t = 'watch-gear';
+    const m = 'steps';
 
     return (
       <React.Fragment>
-        {this.renderGear('clockGear1', color, r1, t, t1, 30, d1, 'cw')}
-        {this.renderGear('clockGear2', color, r2, t, t2, 30, d2, 'ccw')}
-        {this.renderGear('clockGear3', color, r3, t, t3, 30, d3, 'cw')}
-        {this.renderGear('clockGear4', color, r4, t, t4, 30, d4, 'cw')}
+        {this.renderGear('clockGear1', color, r1, t, t1, 30, d1, m, 'cw')}
+        {this.renderGear('clockGear2', color, r2, t, t2, 30, d2, m, 'ccw')}
+        {this.renderGear('clockGear3', color, r3, t, t3, 30, d3, m, 'cw')}
+        {this.renderGear('clockGear4', color, r4, t, t4, 30, d4, m, 'cw')}
         <div className={this.styles.classNames.clock}>
           <AnalogClock look="royal" size="400px" />
         </div>

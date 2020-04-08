@@ -19,6 +19,7 @@ export default [
       'tiny',
       'smoothy',
       'transparent',
+      'light',
       'royal',
     ]),
   },

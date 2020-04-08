@@ -7,10 +7,32 @@ export const propNames = [
   'right',
   'radius',
   'toothThickness',
+  'toothCount',
   'angle',
   'rotationDuration',
   'rotationDirection',
+  'rotationMovement',
 ];
+
+/******************************************************************************/
+
+function getStepsKeyFrames(toothCount, rotationDirection) {
+  const keyFrames = {};
+  const cw = rotationDirection === 'cw';
+
+  for (let i = 0; i < toothCount; i++) {
+    const progress = (i * 100) / toothCount;
+    const angle = (360 / toothCount) * i;
+    keyFrames[progress + '%'] = {
+      transform: `rotate(${cw ? angle : -angle}deg)`,
+    };
+  }
+
+  const last = cw ? 'rotate(359.999deg)' : 'rotate(-359.999deg)';
+  keyFrames['100%'] = {transform: last};
+
+  return keyFrames;
+}
 
 /******************************************************************************/
 
@@ -22,12 +44,15 @@ export default function styles(theme, props) {
     right,
     radius = '100px',
     toothThickness = 60,
+    toothCount,
     angle = '0deg',
     rotationDuration,
-    rotationDirection,
+    rotationDirection = 'cw',
+    rotationMovement = 'continuous',
   } = props;
 
   const size = Unit.multiply(radius, 2);
+  const steps = rotationMovement === 'steps';
 
   const keyframes = {
     from: {
@@ -52,7 +77,12 @@ export default function styles(theme, props) {
     transform: rotationDuration ? 'rotate(0deg)' : `rotate(${angle})`,
 
     animation: rotationDuration ? `${rotationDuration} infinite linear` : null,
-    animationName: rotationDuration ? keyframes : null,
+    animationName: rotationDuration
+      ? steps
+        ? getStepsKeyFrames(toothCount, rotationDirection)
+        : keyframes
+      : null,
+    animationTimingFunction: steps ? 'cubic-bezier(1, 0, 1, 0.1)' : null,
   };
 
   const shadowRadius = Unit.sub(radius, toothThickness + 'px');

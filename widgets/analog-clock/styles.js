@@ -9,6 +9,10 @@ function px(value) {
   return value + 'px';
 }
 
+function d(value, min = 1) {
+  return value ? Math.max(value, min) : 0;
+}
+
 function getSecondKeyFrames() {
   const keyFrames = {};
 
@@ -76,30 +80,30 @@ export default function styles(theme, props) {
     borderThickness = 8 * f;
     marginThickness = 4 * f;
 
-    watchPointerWidthHM = 6 * f;
-    watchPointerWidthS = 0.7 * f;
-    watchPointerAdditionalHM = 15 * f;
-    watchPointerAdditionalS = 22 * f;
+    watchPointerWidthHM      =  6.0 * f;
+    watchPointerWidthS       =  0.7 * f;
+    watchPointerAdditionalHM = 15.0 * f;
+    watchPointerAdditionalS  = 22.0 * f;
 
     fixedMarkLength15 = 20 * f;
-    fixedMarkWidth15 = watchPointerWidthHM;
-    fixedMarkLength5 = 20 * f;
-    fixedMarkWidth5 = watchPointerWidthHM;
-    fixedMarkLength1 = 5 * f;
-    fixedMarkWidth1 = 2 * f;
+    fixedMarkWidth15  =  6 * f;
+    fixedMarkLength5  = 20 * f;
+    fixedMarkWidth5   =  6 * f;
+    fixedMarkLength1  =  5 * f;
+    fixedMarkWidth1   =  2 * f;
 
-    dialBorderTopColor = '#ccc';
-    dialBorderRightColor = '#aaa';
+    dialBorderTopColor    = '#ccc';
+    dialBorderRightColor  = '#aaa';
     dialBorderBottomColor = '#aaa';
-    dialBorderLeftColor = '#ccc';
-    dialBackground1 = '#fff';
-    dialShadow1 = `${px(6 * f)} ${px(6 * f)} ${px(20 * f)} ${px(5 * f)} rgba(0,0,0,0.9)`;
-    dialShadow2 = `inset ${px(6 * f)} ${px(6 * f)} ${px(24 * f)} 0px rgba(0,0,0,0.9)`;
+    dialBorderLeftColor   = '#ccc';
+    dialBackground1       = '#fff';
+    dialShadow1           = `${px(6 * f)} ${px(6 * f)} ${px(20 * f)} ${px(5 * f)} rgba(0,0,0,0.9)`;
+    dialShadow2           = `inset ${px(6 * f)} ${px(6 * f)} ${px(24 * f)} 0px rgba(0,0,0,0.9)`;
 
-    watchPointerColorHM = '#333';
-    watchPointerColorS = 'red';
+    watchPointerColorHM      = '#333';
+    watchPointerColorS       = 'red';
     watchPointerCenterRadius = watchPointerWidthS * 2;
-    watchPointerCenterColor = 'red';
+    watchPointerCenterColor  = 'red';
     //
   } else if (look === 'classic') {
     //-----------//
@@ -109,30 +113,30 @@ export default function styles(theme, props) {
     borderThickness = 4 * f;
     marginThickness = 8 * f;
 
-    watchPointerWidthHM = 4 * f;
-    watchPointerWidthS = 0.7 * f;
-    watchPointerAdditionalHM = 15 * f;
-    watchPointerAdditionalS = 22 * f;
+    watchPointerWidthHM      =  4.0 * f;
+    watchPointerWidthS       =  0.7 * f;
+    watchPointerAdditionalHM = 15.0 * f;
+    watchPointerAdditionalS  = 22.0 * f;
 
     fixedMarkLength15 = 10 * f;
-    fixedMarkWidth15 = 1 * f;
-    fixedMarkLength5 = 10 * f;
-    fixedMarkWidth5 = 1 * f;
-    fixedMarkLength1 = 1 * f;
-    fixedMarkWidth1 = 1 * f;
+    fixedMarkWidth15  =  1 * f;
+    fixedMarkLength5  = 10 * f;
+    fixedMarkWidth5   =  1 * f;
+    fixedMarkLength1  =  1 * f;
+    fixedMarkWidth1   =  1 * f;
 
-    dialBorderTopColor = '#ccc';
-    dialBorderRightColor = '#aaa';
+    dialBorderTopColor    = '#ccc';
+    dialBorderRightColor  = '#aaa';
     dialBorderBottomColor = '#aaa';
-    dialBorderLeftColor = '#ccc';
-    dialBackground1 = '#fff';
-    dialShadow1 = `${px(6 * f)} ${px(6 * f)} ${px(20 * f)} ${px(5 * f)} rgba(0,0,0,0.9)`;
-    dialShadow2 = `inset ${px(6 * f)} ${px(6 * f)} ${px(24 * f)} 0px rgba(0,0,0,0.9)`;
+    dialBorderLeftColor   = '#ccc';
+    dialBackground1       = '#fff';
+    dialShadow1           = `${px(6 * f)} ${px(6 * f)} ${px(20 * f)} ${px(5 * f)} rgba(0,0,0,0.9)`;
+    dialShadow2           = `inset ${px(6 * f)} ${px(6 * f)} ${px(24 * f)} 0px rgba(0,0,0,0.9)`;
 
-    watchPointerColorHM = '#333';
-    watchPointerColorS = 'red';
+    watchPointerColorHM      = '#333';
+    watchPointerColorS       = 'red';
     watchPointerCenterRadius = watchPointerWidthS * 2;
-    watchPointerCenterColor = 'red';
+    watchPointerCenterColor  = 'red';
     //
   } else if (look === 'tiny') {
     //-----------//
@@ -142,26 +146,26 @@ export default function styles(theme, props) {
     borderThickness = 1 * f;
     marginThickness = 8 * f;
 
-    watchPointerWidthHM = 4 * f;
-    watchPointerWidthS = 0.7 * f;
-    watchPointerAdditionalHM = 15 * f;
-    watchPointerAdditionalS = 22 * f;
+    watchPointerWidthHM      =  4.0 * f;
+    watchPointerWidthS       =  0.7 * f;
+    watchPointerAdditionalHM = 15.0 * f;
+    watchPointerAdditionalS  = 22.0 * f;
 
     fixedMarkLength15 = 10 * f;
-    fixedMarkWidth15 = 1 * f;
-    fixedMarkLength5 = 10 * f;
-    fixedMarkWidth5 = 1 * f;
+    fixedMarkWidth15  =  1 * f;
+    fixedMarkLength5  = 10 * f;
+    fixedMarkWidth5   =  1 * f;
 
-    dialBorderTopColor = '#333';
-    dialBorderRightColor = '#333';
+    dialBorderTopColor    = '#333';
+    dialBorderRightColor  = '#333';
     dialBorderBottomColor = '#333';
-    dialBorderLeftColor = '#333';
-    dialBackground1 = '#fff';
+    dialBorderLeftColor   = '#333';
+    dialBackground1       = '#fff';
 
-    watchPointerColorHM = '#333';
-    watchPointerColorS = 'red';
+    watchPointerColorHM      = '#333';
+    watchPointerColorS       = 'red';
     watchPointerCenterRadius = watchPointerWidthS * 2;
-    watchPointerCenterColor = 'red';
+    watchPointerCenterColor  = 'red';
     //
   } else if (look === 'smoothy') {
     //-----------//
@@ -171,35 +175,35 @@ export default function styles(theme, props) {
     borderThickness = 5 * f;
     marginThickness = 10 * f;
 
-    watchPointerWidthHM = Math.max(8 * f, 4);
-    watchPointerWidthS = Math.max(2 * f, 4);
-    watchPointerAdditionalHM = 15 * f;
-    watchPointerAdditionalS = 22 * f;
+    watchPointerWidthHM      = d( 8 * f, 4);
+    watchPointerWidthS       = d( 2 * f, 4);
+    watchPointerAdditionalHM =   15 * f;
+    watchPointerAdditionalS  =   22 * f;
 
     fixedMarkLength15 = 20 * f;
-    fixedMarkWidth15 = 20 * f;
+    fixedMarkWidth15  = 20 * f;
     fixedMarkRadius15 = 10 * f;
-    fixedMarkLength5 = 10 * f;
-    fixedMarkWidth5 = 10 * f;
-    fixedMarkRadius5 = 5 * f;
+    fixedMarkLength5  = 10 * f;
+    fixedMarkWidth5   = 10 * f;
+    fixedMarkRadius5  =  5 * f;
 
     const rc = '#eee';
-    dialBorderTopColor = rc;
-    dialBorderRightColor = rc;
+    dialBorderTopColor    = rc;
+    dialBorderRightColor  = rc;
     dialBorderBottomColor = rc;
-    dialBorderLeftColor = rc;
+    dialBorderLeftColor   = rc;
     dialBackground1 = `radial-gradient(at 50% 50%, ${ColorManipulator.fade(theme.palette.chrome, 0.7)}, ${ColorManipulator.darken(theme.palette.base, 0.2)} 65%)`;
     dialBackground2 = 'radial-gradient(at 30% 30%, rgba(255, 255, 255, 0.5), rgb(255, 255, 255, 0.0) 24%)';
-    dialShadow1 = `${px(6 * f)} ${px(6 * f)} ${px(20 * f)} ${px(5 * f)} rgba(0,0,0,0.9)`;
-    dialShadow2 = `inset ${px(6 * f)} ${px(6 * f)} ${px(24 * f)} 0px rgba(0,0,0,0.9)`;
+    dialShadow1     = `${px(6 * f)} ${px(6 * f)} ${px(20 * f)} ${px(5 * f)} rgba(0,0,0,0.9)`;
+    dialShadow2     = `inset ${px(6 * f)} ${px(6 * f)} ${px(24 * f)} 0px rgba(0,0,0,0.9)`;
 
-    watchPointerColorHM = rc;
-    watchPointerColorS = theme.palette.chrome;
-    watchPointerBorder = '1px solid black';
-    watchPointerRadius = 4 * f;
-    watchPointerShadow = `0px 0px ${px(5 * f)} ${px(2 * f)} rgba(0,0,0,0.5)`;
+    watchPointerColorHM      = rc;
+    watchPointerColorS       = theme.palette.chrome;
+    watchPointerBorder       = '1px solid black';
+    watchPointerRadius       = 4 * f;
+    watchPointerShadow       = `0px 0px ${px(5 * f)} ${px(2 * f)} rgba(0,0,0,0.5)`;
     watchPointerCenterRadius = 6 * f;
-    watchPointerCenterColor = rc;
+    watchPointerCenterColor  = rc;
     watchPointerCenterBorder = `${px(0.3 * f)} solid black`;
     //
   } else if (look === 'transparent') {
@@ -207,79 +211,95 @@ export default function styles(theme, props) {
     // TRANSPARENT //
     //-------------//
 
-    watchPointerWidthHM = 3 * f;
-    watchPointerWidthS = 1 * f;
+    watchPointerWidthHM      =  3 * f;
+    watchPointerWidthS       =  1 * f;
     watchPointerAdditionalHM = 15 * f;
-    watchPointerAdditionalS = 22 * f;
+    watchPointerAdditionalS  = 22 * f;
 
     fixedMarkLength15 = 15 * f;
-    fixedMarkWidth15 = 3 * f;
-    fixedMarkLength5 = 6 * f;
-    fixedMarkWidth5 = 3 * f;
-    fixedMarkLength1 = 1 * f;
-    fixedMarkWidth1 = 1 * f;
+    fixedMarkWidth15  =  3 * f;
+    fixedMarkLength5  =  6 * f;
+    fixedMarkWidth5   =  3 * f;
+    fixedMarkLength1  =  1 * f;
+    fixedMarkWidth1   =  1 * f;
 
-    watchPointerColorHM = '#eee';
-    watchPointerColorS = 'red';
+    watchPointerColorHM      = '#eee';
+    watchPointerColorS       = 'red';
     watchPointerCenterRadius = watchPointerWidthS * 2;
-    watchPointerCenterColor = 'red';
+    watchPointerCenterColor  = 'red';
+    //
+  } else if (look === 'light') {
+    //-----------//
+    //   LIGHT   //
+    //-----------//
+
+    marginThickness          = 10 * f;
+    watchPointerWidthHM      =  8 * f;
+    fixedMarkLength15        = 15 * f;
+    dialBackground1          = "rgba(255,255,255,0.1)";
+    watchPointerColorHM      = '#eee';
+    watchPointerCenterRadius = 10 * f;
+    watchPointerCenterColor  = '#eee';
     //
   } else if (look === 'royal') {
     //-----------//
     //   ROYAL   //
     //-----------//
 
-    borderThickness = 5 * f;
+    borderThickness =  5 * f;
     marginThickness = 10 * f;
 
-    watchPointerWidthHM = Math.max(6 * f, 4);
-    watchPointerWidthS = Math.max(2 * f, 4);
-    watchPointerAdditionalHM = 15 * f;
-    watchPointerAdditionalS = 22 * f;
+    watchPointerWidthHM      = d( 6 * f, 4);
+    watchPointerWidthS       = d( 2 * f, 4);
+    watchPointerAdditionalHM =   15 * f;
+    watchPointerAdditionalS  =   22 * f;
 
-    fixedMarkLength15 = 15 * f;
-    fixedMarkWidth15 = 6 * f;
-    fixedMarkLength5 = 15 * f;
-    fixedMarkRadius15 = 1 * f;
-    fixedMarkWidth5 = Math.max(2 * f, 4);
-    fixedMarkRadius5 = 1 * f;
-    fixedMarkLength1 = Math.max(2 * f, 4);
-    fixedMarkWidth1 = Math.max(2 * f, 4);
-    fixedMarkRadius1 = 2 * f;
+    fixedMarkLength15 =   15 * f;
+    fixedMarkWidth15  =    6 * f;
+    fixedMarkLength5  =   15 * f;
+    fixedMarkRadius15 =    1 * f;
+    fixedMarkWidth5   = d( 2 * f, 4);
+    fixedMarkRadius5  =    1 * f;
+    fixedMarkLength1  = d( 2 * f, 4);
+    fixedMarkWidth1   = d( 2 * f, 4);
+    fixedMarkRadius1  =    2 * f;
 
     const rc = ColorManipulator.darken(theme.palette.light, 0.1);
-    dialBorderTopColor = rc;
-    dialBorderRightColor = rc;
+    dialBorderTopColor    = rc;
+    dialBorderRightColor  = rc;
     dialBorderBottomColor = rc;
-    dialBorderLeftColor = rc;
+    dialBorderLeftColor   = rc;
     dialBackground1 = `radial-gradient(at 50% 50%, ${ColorManipulator.fade(theme.palette.chrome, 0.7)}, ${ColorManipulator.darken(theme.palette.base, 0.2)} 65%)`;
     dialBackground2 = 'radial-gradient(at 30% 30%, rgba(255, 255, 255, 0.5), rgb(255, 255, 255, 0.0) 24%)';
-    dialShadow1 = `0px 0px ${px(12 * f)} 0px rgba(0,0,0,0.9)`;
-    dialShadow2 = `inset ${px(6 * f)} ${px(6 * f)} ${px(24 * f)} 0px rgba(0,0,0,0.9)`;
+    dialShadow1     = `0px 0px ${px(12 * f)} 0px rgba(0,0,0,0.9)`;
+    dialShadow2     = `inset ${px(6 * f)} ${px(6 * f)} ${px(24 * f)} 0px rgba(0,0,0,0.9)`;
 
-    watchPointerColorHM = rc;
-    watchPointerColorS = theme.palette.chrome;
-    watchPointerBorder = '1px solid black';
-    watchPointerRadius = 1 * f;
-    watchPointerShadow = `0px 0px ${px(5 * f)} ${px(2 * f)} rgba(0,0,0,0.5)`;
+    watchPointerColorHM      = rc;
+    watchPointerColorS       = theme.palette.chrome;
+    watchPointerBorder       = '1px solid black';
+    watchPointerRadius       = 1 * f;
+    watchPointerShadow       = `0px 0px ${px(5 * f)} ${px(2 * f)} rgba(0,0,0,0.5)`;
     watchPointerCenterRadius = 6 * f;
-    watchPointerCenterColor = rc;
+    watchPointerCenterColor  = rc;
     watchPointerCenterBorder = `${px(0.3 * f)} solid black`;
     //
   }
 
-  borderThickness = Math.max(borderThickness, 1);
-  marginThickness = Math.max(marginThickness, 1);
-  watchPointerWidthHM = Math.max(watchPointerWidthHM, 1);
-  watchPointerWidthS = Math.max(watchPointerWidthS, 1);
-  watchPointerAdditionalHM = Math.max(watchPointerAdditionalHM, 1);
-  watchPointerAdditionalS = Math.max(watchPointerAdditionalS, 1);
-  fixedMarkLength15 = Math.max(fixedMarkLength15, 1);
-  fixedMarkWidth15 = Math.max(fixedMarkWidth15, 1);
-  fixedMarkLength5 = fixedMarkLength5 ? Math.max(fixedMarkLength5, 1) : 0;
-  fixedMarkWidth5 = fixedMarkWidth5 ? Math.max(fixedMarkWidth5, 1) : 0;
-  fixedMarkLength1 = fixedMarkLength1 ? Math.max(fixedMarkLength1, 1) : 0;
-  fixedMarkWidth1 = fixedMarkWidth1 ? Math.max(fixedMarkWidth1, 1) : 0;
+  // prettier-ignore
+  {
+    borderThickness          = d(borderThickness);
+    marginThickness          = d(marginThickness);
+    watchPointerWidthHM      = d(watchPointerWidthHM);
+    watchPointerWidthS       = d(watchPointerWidthS);
+    watchPointerAdditionalHM = d(watchPointerAdditionalHM);
+    watchPointerAdditionalS  = d(watchPointerAdditionalS);
+    fixedMarkLength15        = d(fixedMarkLength15);
+    fixedMarkWidth15         = d(fixedMarkWidth15);
+    fixedMarkLength5         = d(fixedMarkLength5);
+    fixedMarkWidth5          = d(fixedMarkWidth5);
+    fixedMarkLength1         = d(fixedMarkLength1);
+    fixedMarkWidth1          = d(fixedMarkWidth1);
+  }
 
   /******************************************************************************/
 
