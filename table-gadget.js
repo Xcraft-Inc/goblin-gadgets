@@ -5,18 +5,18 @@ const {buildGadget} = require('goblin-gadgets');
  *
  * @returns {Object} The list and definitions of commands.
  */
-exports.xcraftCommands = function() {
+exports.xcraftCommands = function () {
   return buildGadget({
     name: 'table',
     events: {
-      select: state => {
+      select: (state) => {
         const ids = state.get('selectedIds', []).toArray();
         return {
           selectedIds: ids,
-          rows: state.get('data.rows').filter(r => ids.includes(r.get('id'))),
+          rows: state.get('data.rows').filter((r) => ids.includes(r.get('id'))),
         };
       },
-      selectAll: state => {
+      selectAll: (state) => {
         return {
           selectedIds: state.get('selectedIds', []).toArray(),
           rows: state.get('data.rows'),
@@ -38,15 +38,15 @@ exports.xcraftCommands = function() {
       setData: (state, action) => {
         return state.set('data', action.get('data'));
       },
-      selectAll: state => {
+      selectAll: (state) => {
         let rows = state
           .get('data.rows')
-          .map(row => row.get('id'))
+          .map((row) => row.get('id'))
           .toArray();
         rows = [...new Set(rows)];
         return state.set('selectedIds', rows);
       },
-      deselectAll: state => {
+      deselectAll: (state) => {
         return state.set('selectedIds', []);
       },
       select: (state, action) => {
@@ -69,7 +69,7 @@ exports.xcraftCommands = function() {
             }
         }
       },
-      doubleClick: state => {
+      doubleClick: (state) => {
         //NOP
         // see doubleClick in events ---^
         return state;
