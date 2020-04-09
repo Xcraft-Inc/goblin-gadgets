@@ -155,14 +155,14 @@ class TextFieldComboOld extends Widget {
         return {
           text: item,
           active: active,
-          action: x => this.setText(x),
+          action: (x) => this.setText(x),
         };
       } else {
         return {
           text: item,
           glyph: active ? 'solid/check' : 'solid/none',
           active: active,
-          action: x => this.setText(x),
+          action: (x) => this.setText(x),
         };
       }
     } else {
@@ -174,7 +174,7 @@ class TextFieldComboOld extends Widget {
           glyph: item.glyph,
           color: item.color,
           active: active,
-          action: x => this.setText(x),
+          action: (x) => this.setText(x),
         };
       } else {
         return {
@@ -182,7 +182,7 @@ class TextFieldComboOld extends Widget {
           value: item.value,
           glyph: active ? 'check' : 'none',
           active: active,
-          action: x => this.setText(x),
+          action: (x) => this.setText(x),
         };
       }
     }
@@ -354,7 +354,7 @@ class TextFieldComboOld extends Widget {
         }
         x.push({
           text: item,
-          action: x => this.setText(x),
+          action: (x) => this.setText(x),
         });
         index++;
       }
@@ -365,7 +365,7 @@ class TextFieldComboOld extends Widget {
         }
         x.push({
           text: item.text,
-          action: x => this.setText(x),
+          action: (x) => this.setText(x),
         });
         index++;
       }
@@ -416,7 +416,7 @@ class TextFieldComboOld extends Widget {
 
     return (
       <span
-        ref={node => (this.node = node)}
+        ref={(node) => (this.node = node)}
         disabled={this.props.disabled}
         className={boxClass}
       >

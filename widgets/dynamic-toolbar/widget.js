@@ -82,7 +82,7 @@ class DynamicToolbar extends Widget {
           kind="dynamic-toolbar-top-left"
           glyph={this.props.glyph || 'solid/ellipsis-h'}
           mouseOver={this.onShowToolbar}
-          ref={node => (this.toolbarButton = node)}
+          ref={(node) => (this.toolbarButton = node)}
         />
       </div>
     );
@@ -106,7 +106,7 @@ class DynamicToolbar extends Widget {
       : this.styles.classNames.boxHidden; // toolbar hidden to left
 
     return (
-      <div className={boxClass} ref={x => (this.toolbar = x)}>
+      <div className={boxClass} ref={(x) => (this.toolbar = x)}>
         {this.props.children}
       </div>
     );

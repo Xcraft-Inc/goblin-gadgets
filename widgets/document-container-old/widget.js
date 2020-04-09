@@ -14,7 +14,7 @@ export default class DocumentContainerOld extends Widget {
     super(...arguments);
     this.styles = styles;
   }
-  
+
   render() {
     return (
       <div className={this.styles.classNames.documentContainer}>

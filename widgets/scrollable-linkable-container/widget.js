@@ -11,7 +11,7 @@ class ScrollableLinkableContainer extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
-    
+
     this.handleScroll = _.debounce(this.handleScroll.bind(this), 500);
   }
 
@@ -34,7 +34,7 @@ class ScrollableLinkableContainer extends Widget {
     const id = this.props.id || this.context.id;
 
     const LoadWidget = this.mapWidget(
-      props => {
+      (props) => {
         if (!props.widgetId) {
           this.dispatch({
             type: 'INIT_SCROLLABLE',
@@ -47,7 +47,7 @@ class ScrollableLinkableContainer extends Widget {
         return (
           <div
             key={index}
-            ref={el => {
+            ref={(el) => {
               if (el) {
                 el.addEventListener('scroll', this.handleScroll);
                 const scrollTop = this.getState()

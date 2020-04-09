@@ -117,7 +117,7 @@ let StateBrowser = class StateBrowser extends Widget {
       <React.Fragment>
         <div
           className={this.styles.classNames.container}
-          ref={node => (this.containerRef = node)}
+          ref={(node) => (this.containerRef = node)}
         >
           {this.renderTextField()}
           {this.renderButton()}

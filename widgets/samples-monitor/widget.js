@@ -378,7 +378,7 @@ export default class SamplesMonitor extends Widget {
 
     return (
       <React.Fragment>
-        <div ref={x => (this.agingButton = x)}>
+        <div ref={(x) => (this.agingButton = x)}>
           <Button glyph="solid/chevron-left" onClick={this.onAgingMenuToggle} />
         </div>
         <Separator kind="exact" height="30px" />
@@ -473,7 +473,7 @@ export default class SamplesMonitor extends Widget {
     const channels =
       this.mode === 'all'
         ? this.props.channels
-        : this.props.channels.filter(c => c.max > 0);
+        : this.props.channels.filter((c) => c.max > 0);
 
     return (
       <div className={this.styles.classNames.crt}>

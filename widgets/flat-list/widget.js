@@ -11,7 +11,7 @@ export default class FlatList extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
-    
+
     this.onClickedItem = this.onClickedItem.bind(this);
     this.renderItem = this.renderItem.bind(this);
 
@@ -21,7 +21,7 @@ export default class FlatList extends Widget {
     this.onEnterKey = this.onEnterKey.bind(this);
 
     const activeIndex = this.props.list.findIndex(
-      item => item.id === this.props.selectedId
+      (item) => item.id === this.props.selectedId
     );
 
     this.state = {

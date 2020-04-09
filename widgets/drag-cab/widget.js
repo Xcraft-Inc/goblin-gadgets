@@ -207,7 +207,7 @@ class DragCab extends Widget {
   }
 
   renderChildren(isDragged, dragStarting) {
-    return React.Children.map(this.props.children, c => {
+    return React.Children.map(this.props.children, (c) => {
       if (c !== null) {
         return React.cloneElement(c, {
           isDragged: isDragged,

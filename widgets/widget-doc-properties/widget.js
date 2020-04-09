@@ -86,12 +86,12 @@ class WidgetDocProperties extends Widget {
         return true;
       } else if (
         prop.type.type === 'enum' &&
-        prop.type.values.find(e => e.includes(f))
+        prop.type.values.find((e) => e.includes(f))
       ) {
         return true;
       }
       const samples = prop.type.samples;
-      return samples && samples.find(sample => includes(sample, f));
+      return samples && samples.find((sample) => includes(sample, f));
     } else {
       return true;
     }
@@ -99,14 +99,14 @@ class WidgetDocProperties extends Widget {
 
   get properties() {
     const widgetInfo = widgetList.find(
-      widget => widget.name === this.props.selectedWidget
+      (widget) => widget.name === this.props.selectedWidget
     );
     return widgetInfo ? widgetInfo.props : null;
   }
 
   get scenarios() {
     const widgetInfo = widgetList.find(
-      widget => widget.name === this.props.selectedWidget
+      (widget) => widget.name === this.props.selectedWidget
     );
     return widgetInfo ? widgetInfo.scenarios : null;
   }
@@ -219,7 +219,7 @@ class WidgetDocProperties extends Widget {
   }
 
   renderProperties(properties) {
-    properties.sort(function(a, b) {
+    properties.sort(function (a, b) {
       const ka = a.name;
       const kb = b.name;
       if (ka < kb) {
@@ -235,7 +235,7 @@ class WidgetDocProperties extends Widget {
   }
 
   renderGroup(groupName, properties) {
-    properties = properties.filter(p => this.shouldWeShow(p));
+    properties = properties.filter((p) => this.shouldWeShow(p));
     if (properties.length > 0) {
       return (
         <Container kind="pane" key={groupName}>
@@ -269,7 +269,7 @@ class WidgetDocProperties extends Widget {
 
     const result = [...sortedGroups]
       .map(([key, value]) => this.renderGroup(key, value))
-      .filter(r => !!r);
+      .filter((r) => !!r);
 
     if (result.length > 0) {
       return result;
@@ -298,7 +298,7 @@ class WidgetDocProperties extends Widget {
   }
 }
 
-export default Widget.connectWidget(state => {
+export default Widget.connectWidget((state) => {
   return {
     selectedWidget: state.get('selectedWidget'),
   };

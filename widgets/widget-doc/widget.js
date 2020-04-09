@@ -79,7 +79,7 @@ class WidgetDoc extends Widget {
   }
 }
 
-export default Widget.connectWidget(state => {
+export default Widget.connectWidget((state) => {
   return {
     ready: state !== undefined,
   };

@@ -23,9 +23,7 @@ class Splitter extends Widget {
 
     if (this.props.firstSize && this.props.lastSize) {
       throw new Error(
-        `Splitter must have both firstSize (${
-          this.props.firstSize
-        }) and lastSize (${this.props.lastSize})`
+        `Splitter must have both firstSize (${this.props.firstSize}) and lastSize (${this.props.lastSize})`
       );
     }
     if (this.props.firstSize) {
@@ -242,7 +240,7 @@ class Splitter extends Widget {
     return (
       <div
         className={containerClass}
-        ref={node => (this.container = node)}
+        ref={(node) => (this.container = node)}
         onMouseDown={this.onMouseDown}
         onMouseMove={this.onMouseMove}
         onMouseUp={this.onMouseUp}
@@ -250,15 +248,15 @@ class Splitter extends Widget {
         <div
           className={firstPaneClass}
           style={firstPaneStyle}
-          ref={node => (this.firstPane = node)}
+          ref={(node) => (this.firstPane = node)}
         >
           {children[0]}
         </div>
-        <div className={resizerClass} ref={node => (this.resizer = node)} />
+        <div className={resizerClass} ref={(node) => (this.resizer = node)} />
         <div
           className={lastPaneClass}
           style={lastPaneStyle}
-          ref={node => (this.lastPane = node)}
+          ref={(node) => (this.lastPane = node)}
         >
           {children[1]}
         </div>

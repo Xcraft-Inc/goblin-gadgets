@@ -103,7 +103,7 @@ class WorkDialog extends Widget {
             data={this.tableData}
             frame={true}
             selectionMode="multi"
-            onSelectionChanged={ids => this.onSelectionChanged(ids)}
+            onSelectionChanged={(ids) => this.onSelectionChanged(ids)}
           />
         </div>
       </div>

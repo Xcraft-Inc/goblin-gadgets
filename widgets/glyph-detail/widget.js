@@ -65,7 +65,7 @@ class GlyphDetail extends Widget {
     const Title = labelOf('.name');
     const Name = labelOf('.name');
     const Description = labelOf('.description');
-    const Glyph = this.getWidgetToEntityMapper(Label, glyph => {
+    const Glyph = this.getWidgetToEntityMapper(Label, (glyph) => {
       return {
         glyph: glyph.get('glyph'),
         glyphColor: glyph.get('color'),

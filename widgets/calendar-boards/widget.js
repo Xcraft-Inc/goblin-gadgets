@@ -29,7 +29,9 @@ function getBadges(boards) {
   }, {});
 
   const colorByDate = Object.keys(boardsByDate).reduce((colors, date) => {
-    colors[date] = boardsByDate[date].some(b => b.get('status') === 'published')
+    colors[date] = boardsByDate[date].some(
+      (b) => b.get('status') === 'published'
+    )
       ? 'red'
       : 'green';
     return colors;

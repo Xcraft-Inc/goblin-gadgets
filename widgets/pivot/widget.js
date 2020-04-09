@@ -29,7 +29,7 @@ class Pivot extends Widget {
     return (
       <PivotTableUI
         data={data}
-        onChange={s => {
+        onChange={(s) => {
           this.setState({pivotState: s});
         }}
         {...this.state.pivotState}

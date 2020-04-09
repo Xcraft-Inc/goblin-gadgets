@@ -1,7 +1,7 @@
 import {types} from 'goblin-gadgets/types/types.js';
 import textInputInfoNCProps from '../text-input-info-nc/props';
 
-const props = textInputInfoNCProps.map(prop => {
+const props = textInputInfoNCProps.map((prop) => {
   if (prop.name === 'value') {
     return {
       ...prop,

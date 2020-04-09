@@ -20,7 +20,7 @@ export default class TextFieldTypedComboNC extends Widget {
     return (
       <TextFieldComboNC
         {...this.props}
-        renderTextField={p => this.renderTextField(p)}
+        renderTextField={(p) => this.renderTextField(p)}
       />
     );
   }

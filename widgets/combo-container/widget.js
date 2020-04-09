@@ -112,7 +112,7 @@ export default class ComboContainer extends Widget {
   }
 
   renderCombo() {
-    const childrenWithProps = React.Children.map(this.props.children, child =>
+    const childrenWithProps = React.Children.map(this.props.children, (child) =>
       React.cloneElement(child, {...this.childrenProps})
     );
     return (

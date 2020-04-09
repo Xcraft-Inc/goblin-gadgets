@@ -15,7 +15,7 @@ class WidgetDocPropertyControl extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
-    
+
     this.onChange = this.onChange.bind(this);
     this.onChangeNumber = this.onChangeNumber.bind(this);
     this.onChangeType = this.onChangeType.bind(this);
@@ -121,7 +121,7 @@ class WidgetDocPropertyControl extends Widget {
     switch (widget) {
       case 'oneOfType':
         // eslint-disable-next-line no-case-declarations
-        const list = this.props.type.types.map(item => {
+        const list = this.props.type.types.map((item) => {
           return {
             id: item.type,
             text: item.type,

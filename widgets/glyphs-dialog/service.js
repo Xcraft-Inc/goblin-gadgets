@@ -64,30 +64,30 @@ const logicHandlers = {
     glyph.order = getGlyphOrder(state.get('selectedGlyphs'), toId);
     return state.set(`selectedGlyphs.${fromId}`, glyph);
   },
-  clearGlyphs: state => {
+  clearGlyphs: (state) => {
     return state.set('selectedGlyphs', {});
   },
 };
 
 // Register quest's according rc.json
-Goblin.registerQuest(goblinName, 'create', function(quest, allGlyphs) {
+Goblin.registerQuest(goblinName, 'create', function (quest, allGlyphs) {
   quest.do({id: quest.goblin.id, allGlyphs});
   return quest.goblin.id;
 });
 
-Goblin.registerQuest(goblinName, 'toggleGlyphs', function(quest, glyphId) {
+Goblin.registerQuest(goblinName, 'toggleGlyphs', function (quest, glyphId) {
   quest.do({glyphId});
 });
 
-Goblin.registerQuest(goblinName, 'dragGlyphs', function(quest, fromId, toId) {
+Goblin.registerQuest(goblinName, 'dragGlyphs', function (quest, fromId, toId) {
   quest.do({fromId, toId});
 });
 
-Goblin.registerQuest(goblinName, 'clearGlyphs', function(quest) {
+Goblin.registerQuest(goblinName, 'clearGlyphs', function (quest) {
   quest.do();
 });
 
-Goblin.registerQuest(goblinName, 'delete', function() {});
+Goblin.registerQuest(goblinName, 'delete', function () {});
 
 // Create a Goblin with initial state and handlers
 module.exports = Goblin.configure(goblinName, logicState, logicHandlers);

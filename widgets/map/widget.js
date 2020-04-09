@@ -32,7 +32,7 @@ class Map extends Widget {
   }
 
   addItems() {
-    this.props.items.forEach(item => {
+    this.props.items.forEach((item) => {
       var icon = Leaflet.MakiMarkers.icon({
         icon: item.icon,
         color: item.color,
@@ -54,7 +54,7 @@ class Map extends Widget {
       <Container kind="panes">
         <Label text={T('Carte')} grow="1" kind="title" />
         <div
-          ref={node => this.initMap(node)}
+          ref={(node) => this.initMap(node)}
           style={{width: '700px', height: '600px', position: 'relative'}}
           className="leaflet-container leaflet-touch leaflet-retina leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom"
         />

@@ -36,7 +36,7 @@ const logicHandlers = {
       .set('operation', 'open')
       .push('stack', fromJS(action.get('screen')));
   },
-  _endOpenAnimation: state => {
+  _endOpenAnimation: (state) => {
     return state.set('operation', null).set('operationParams', null);
   },
 
@@ -50,7 +50,7 @@ const logicHandlers = {
     const backCount = action.get('backCount');
     return state.set('operation', 'back').set('operationParams', {backCount});
   },
-  _endBackAnimation: state => {
+  _endBackAnimation: (state) => {
     let stack = state.get('stack');
     const backCount = state.get('operationParams.backCount');
     stack = stack.splice(stack.size - backCount, backCount);
@@ -74,7 +74,7 @@ const logicHandlers = {
       .set('operationParams', {replaceCount})
       .push('stack', fromJS(action.get('screen')));
   },
-  _endReplaceAnimation: state => {
+  _endReplaceAnimation: (state) => {
     let stack = state.get('stack');
     const replaceCount = state.get('operationParams.replaceCount');
     stack = stack.splice(stack.size - 1 - replaceCount, replaceCount);
@@ -86,7 +86,7 @@ const logicHandlers = {
 };
 
 const quests = {
-  create: function(quest, desktopId, screens) {
+  create: function (quest, desktopId, screens) {
     quest.goblin.setX('desktopId', desktopId);
     quest.goblin.setX('screens', screens);
     quest.do();
@@ -94,7 +94,7 @@ const quests = {
 
   //-----------------------------------------------------------------------------
 
-  _getScreenDefinition: function(quest, screenName, args) {
+  _getScreenDefinition: function (quest, screenName, args) {
     const screens = quest.goblin.getX('screens');
     let screen = screens[screenName];
     if (!screen) {
@@ -108,7 +108,7 @@ const quests = {
     return {...screen};
   },
 
-  _initService: function*(quest, screen) {
+  _initService: function* (quest, screen) {
     let {service, serviceId, serviceArgs} = screen;
     const desktopId = quest.goblin.getX('desktopId');
     if (!serviceId && service) {
@@ -124,7 +124,7 @@ const quests = {
     return serviceId;
   },
 
-  _killServices: function*(quest, stack, count, skipCount) {
+  _killServices: function* (quest, stack, count, skipCount) {
     for (let i = 0; i < count; i++) {
       const screen = stack.get(stack.size - 1 - skipCount - i);
       if (screen) {
@@ -136,7 +136,7 @@ const quests = {
     }
   },
 
-  endAnimation: function*(quest) {
+  endAnimation: function* (quest) {
     const state = quest.goblin.getState();
     const operation = state.get('operation');
 
@@ -151,7 +151,7 @@ const quests = {
 
   // --- Open -------------------------------------------------------------------
 
-  open: function*(quest, screenName, args) {
+  open: function* (quest, screenName, args) {
     const screen = yield quest.me._getScreenDefinition({screenName, args});
 
     const state = quest.goblin.getState();
@@ -173,21 +173,21 @@ const quests = {
     return screen.serviceId;
   },
 
-  _open: function(quest) {
+  _open: function (quest) {
     quest.do();
   },
 
-  _startOpenAnimation: function(quest) {
+  _startOpenAnimation: function (quest) {
     quest.do();
   },
 
-  _endOpenAnimation: function(quest) {
+  _endOpenAnimation: function (quest) {
     quest.do();
   },
 
   // --- Back -------------------------------------------------------------------
 
-  back: function*(quest, backCount) {
+  back: function* (quest, backCount) {
     const state = quest.goblin.getState();
 
     const operation = state.get('operation');
@@ -211,15 +211,15 @@ const quests = {
     }
   },
 
-  _back: function(quest) {
+  _back: function (quest) {
     quest.do();
   },
 
-  _startBackAnimation: function(quest) {
+  _startBackAnimation: function (quest) {
     quest.do();
   },
 
-  endBackAnimation: function*(quest) {
+  endBackAnimation: function* (quest) {
     const state = quest.goblin.getState();
     const stack = state.get('stack');
     const backCount = state.get('operationParams.backCount');
@@ -231,13 +231,13 @@ const quests = {
     yield quest.me._killServices({stack, count: backCount, skipCount: 0});
   },
 
-  _endBackAnimation: function(quest) {
+  _endBackAnimation: function (quest) {
     quest.do();
   },
 
   // --- Replace ----------------------------------------------------------------
 
-  replace: function*(quest, screenName, args, replaceCount) {
+  replace: function* (quest, screenName, args, replaceCount) {
     const screen = yield quest.me._getScreenDefinition({screenName, args});
 
     const state = quest.goblin.getState();
@@ -268,15 +268,15 @@ const quests = {
     return screen.serviceId;
   },
 
-  _replace: function(quest) {
+  _replace: function (quest) {
     quest.do();
   },
 
-  _startReplaceAnimation: function(quest) {
+  _startReplaceAnimation: function (quest) {
     quest.do();
   },
 
-  endReplaceAnimation: function*(quest) {
+  endReplaceAnimation: function* (quest) {
     const state = quest.goblin.getState();
     const stack = state.get('stack');
     const replaceCount = state.get('operationParams.replaceCount');
@@ -288,13 +288,13 @@ const quests = {
     yield quest.me._killServices({stack, count: replaceCount, skipCount: 1});
   },
 
-  _endReplaceAnimation: function(quest) {
+  _endReplaceAnimation: function (quest) {
     quest.do();
   },
 
   //-----------------------------------------------------------------------------
 
-  delete: function(quest) {},
+  delete: function (quest) {},
 };
 
 // Register all quests

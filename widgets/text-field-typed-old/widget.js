@@ -169,7 +169,7 @@ export default class TextFieldTypedOld extends Widget {
     return (
       <LabelTextField
         updateOn="blur"
-        beforeChange={value => {
+        beforeChange={(value) => {
           const cv = this.parseEditedValue(value).canonicalValue;
           if (this.props.beforeChange) {
             this.props.beforeChange(cv);

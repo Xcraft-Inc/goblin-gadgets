@@ -14,7 +14,7 @@ addType('checkFunction', {
     {id: 'T3', text: 'Test password'},
   ],
   samplesData: {
-    T1: function(value) {
+    T1: function (value) {
       if (value && value.length >= 15) {
         return {info: 'Attention', warning: 'Vraiment trop long !'};
       } else if (value && value.length >= 10) {
@@ -23,12 +23,12 @@ addType('checkFunction', {
         return {info: 'Bientôt trop long'};
       }
     },
-    T2: function(value) {
+    T2: function (value) {
       if (!value) {
         return {warning: 'Donnez une valeur'};
       }
     },
-    T3: function(value) {
+    T3: function (value) {
       if (!value) {
         return {info: 'Donnez votre mot de passe'};
       } else if (value && value.length < 8) {

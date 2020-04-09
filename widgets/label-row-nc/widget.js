@@ -48,7 +48,7 @@ export default class LabelRowNC extends Widget {
         disabled: this.props.disabled,
         visibility: this.props.visibility,
       };
-      return React.Children.map(this.props.children, child =>
+      return React.Children.map(this.props.children, (child) =>
         React.cloneElement(child, newProps)
       );
     } else {

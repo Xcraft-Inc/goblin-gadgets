@@ -189,7 +189,7 @@ class Field extends Form {
 
     const parentId = this.context.id || this.context.model;
 
-    const GadgetLoader = props => {
+    const GadgetLoader = (props) => {
       if (props.available) {
         const gadgetInfo = this.getBackendValue(target, true);
         const type = gadgetInfo.get('type');
@@ -329,7 +329,7 @@ class Field extends Form {
   renderReadonlyBool() {
     const WiredCheckbox = this.mapWidget(
       Checkbox,
-      value => {
+      (value) => {
         return {checked: value};
       },
       this.fullPath
@@ -394,7 +394,7 @@ class Field extends Form {
 
   renderReadonlyEntity() {
     const summary = this.props.summary || 'info';
-    const Viewer = props => {
+    const Viewer = (props) => {
       if (!props.entityId) {
         return (
           <Label
@@ -406,7 +406,7 @@ class Field extends Form {
       }
       const Info = this.mapWidget(
         Label,
-        entity => {
+        (entity) => {
           let glyph = 'solid/spinner';
           let glyphColor = null;
           let text = T('Chargement...');
@@ -431,7 +431,7 @@ class Field extends Form {
       return <Info />;
     };
 
-    const Action = props => {
+    const Action = (props) => {
       return !!props.entityId && !this.props.disableAdd ? (
         <Button
           kind="combo"
@@ -494,7 +494,7 @@ class Field extends Form {
 
       const FinalContainer = this.mapWidget(
         Container,
-        value => {
+        (value) => {
           const length = value ? value.length : 0;
           const embedded = this.props.embedded;
           const show = length > 0 || !embedded;
@@ -527,7 +527,7 @@ class Field extends Form {
         </FinalContainer>
       );
     } else if (this.props.item) {
-      const Items = props => {
+      const Items = (props) => {
         if (!props.entityIds) {
           return (
             <Label
@@ -549,7 +549,7 @@ class Field extends Form {
             {props.entityIds.map((entityId, index) => {
               const Item = this.mapWidget(
                 this.props.item,
-                state => (state ? state : null),
+                (state) => (state ? state : null),
                 `backend.${entityId}`
               );
               return <Item key={index} />;
@@ -655,7 +655,7 @@ class Field extends Form {
 
     const parentId = this.context.id || this.context.model;
 
-    const GadgetLoader = props => {
+    const GadgetLoader = (props) => {
       if (props.available) {
         const gadgetInfo = this.getBackendValue(target, true);
         const type = gadgetInfo.get('type');
@@ -820,10 +820,10 @@ class Field extends Form {
   renderEditRadio() {
     const WiredRadioList = this.mapWidget(
       RadioList,
-      value => {
+      (value) => {
         if (value && value !== '') {
           return {
-            selectedIndex: this.props.list.findIndex(item => {
+            selectedIndex: this.props.list.findIndex((item) => {
               if (typeof item === 'string') {
                 return item === value;
               } else {
@@ -864,7 +864,7 @@ class Field extends Form {
   renderCheckList() {
     const WiredCheckList = this.mapWidget(
       CheckList,
-      value => {
+      (value) => {
         if (value && value !== '') {
           return {value};
         } else {
@@ -897,7 +897,7 @@ class Field extends Form {
           showHeader={this.props.showHeader}
           list={this.props.list}
           readonly={this.readonly}
-          selectionChanged={value => {
+          selectionChanged={(value) => {
             this.setBackendValue(this.fullPath, value);
           }}
         />
@@ -908,7 +908,7 @@ class Field extends Form {
   renderEditBool() {
     const WiredCheckbox = this.mapWidget(
       Checkbox,
-      value => {
+      (value) => {
         return {checked: value};
       },
       this.fullPath
@@ -949,7 +949,7 @@ class Field extends Form {
   renderCalendar() {
     const Dynamic = this.mapWidget(
       Calendar,
-      calendar => {
+      (calendar) => {
         // FIXME: calendar is undefined!
         return {
           visibleDate: calendar.get('visibleDate', null),
@@ -977,7 +977,7 @@ class Field extends Form {
   renderCalendarBoards() {
     const Dynamic = this.mapWidget(
       CalendarBoards,
-      calendarBoards => {
+      (calendarBoards) => {
         return {
           boards: calendarBoards.get('boards', []).toArray(),
           selectedDate: calendarBoards.get('selectedDate'),
@@ -999,7 +999,7 @@ class Field extends Form {
   renderCalendarRecurrence() {
     const WiredCalendarRecurrence = this.mapWidget(
       CalendarRecurrence,
-      r => {
+      (r) => {
         return {
           startDate: r.get('startDate'),
           endDate: r.get('endDate'),
@@ -1014,7 +1014,7 @@ class Field extends Form {
     return (
       <WiredCalendarRecurrence
         readonly={this.readonly}
-        dateClicked={date => {
+        dateClicked={(date) => {
           const service = this.context.id.split('@')[0];
           this.doAs(service, 'date-clicked', {
             date,
@@ -1030,13 +1030,13 @@ class Field extends Form {
 
   renderEditEntity() {
     const summary = this.props.summary || 'info';
-    const Viewer = props => {
+    const Viewer = (props) => {
       if (!props.entityId) {
         return <Label grow="1" empty={true} />;
       }
       const Info = this.mapWidget(
         Label,
-        entity => {
+        (entity) => {
           let glyph = 'solid/spinner';
           let glyphColor = null;
           let text = T('chargement...');
@@ -1114,7 +1114,7 @@ class Field extends Form {
         </Container>
       );
     } else if (this.props.item) {
-      const Items = props => {
+      const Items = (props) => {
         if (!props.entityIds) {
           return <Label grow="1" empty={true} />;
         }
@@ -1131,7 +1131,7 @@ class Field extends Form {
             {props.entityIds.map((entityId, index) => {
               const Item = this.mapWidget(
                 this.props.item,
-                state => (state ? state : null),
+                (state) => (state ? state : null),
                 `backend.${entityId}`
               );
               return <Item key={index} />;
@@ -1147,7 +1147,7 @@ class Field extends Form {
   }
 
   renderComboIds() {
-    const Option = props => {
+    const Option = (props) => {
       if (!props.id) {
         return null;
       }
@@ -1158,7 +1158,7 @@ class Field extends Form {
       targetPath = this.getFullPathFromModel(this.props.targetModel);
     }
     const modelTextKey = this.props.modelTextKey || 'meta.summaries.info';
-    const ComboIds = props => {
+    const ComboIds = (props) => {
       const disabled = this.readonly ? {disabled: true} : null;
       let currentValue = '';
       if (props.currentValue != null) {
@@ -1177,7 +1177,7 @@ class Field extends Form {
             height: '35px',
             ...props.style,
           }}
-          onChange={event => {
+          onChange={(event) => {
             if (this.props.onChange) {
               this.props.onChange(event.target.value);
             }
@@ -1190,7 +1190,7 @@ class Field extends Form {
           {props.entityIds.map((entityId, index) => {
             const WiredOption = this.mapWidget(
               Option,
-              state => {
+              (state) => {
                 const id = state.get('id');
                 if (id) {
                   return {id, text: state.get(modelTextKey)};
@@ -1273,7 +1273,7 @@ class Field extends Form {
   renderCompleteHinter() {
     const Form = this.Form;
 
-    const CompleteHinter = props => {
+    const CompleteHinter = (props) => {
       if (props.content === '') {
         return (
           <LabelRow

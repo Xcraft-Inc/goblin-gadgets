@@ -21,11 +21,11 @@ export default function styles(theme, props) {
   };
 
   const resizerStyle = {
-    zIndex: 1,
-    width: kind === 'vertical' ? theme.shapes.splitterSize : null,
-    height: kind === 'horizontal' ? theme.shapes.splitterSize : null,
-    cursor: kind === 'vertical' ? 'col-resize' : 'row-resize',
-    backgroundColor: theme.palette.splitterBackground,
+    'zIndex': 1,
+    'width': kind === 'vertical' ? theme.shapes.splitterSize : null,
+    'height': kind === 'horizontal' ? theme.shapes.splitterSize : null,
+    'cursor': kind === 'vertical' ? 'col-resize' : 'row-resize',
+    'backgroundColor': theme.palette.splitterBackground,
     ':hover': {backgroundColor: theme.palette.splitterBackgroundHover},
   };
 

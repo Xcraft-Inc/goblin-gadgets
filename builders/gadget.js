@@ -4,7 +4,7 @@
 const Goblin = require('xcraft-core-goblin');
 const {jsify} = require('xcraft-core-utils').string;
 
-module.exports = config => {
+module.exports = (config) => {
   const {name, initialState, actions, events, gadgets} = config;
   const goblinName = `${name}-gadget`;
 
@@ -23,7 +23,7 @@ module.exports = config => {
     },
   };
 
-  Goblin.registerQuest(goblinName, 'create', function*(
+  Goblin.registerQuest(goblinName, 'create', function* (
     quest,
     desktopId,
     options
@@ -39,7 +39,7 @@ module.exports = config => {
         if (gadgets[key].onActions) {
           for (const handler of Object.keys(gadgets[key].onActions)) {
             quest.goblin.defer(
-              quest.sub(`${newGadgetId}.${handler}`, function*(err, {msg}) {
+              quest.sub(`${newGadgetId}.${handler}`, function* (err, {msg}) {
                 yield quest.me[jsify(`${key}-${handler}`)](msg.data);
               })
             );
@@ -70,8 +70,8 @@ module.exports = config => {
 
   if (actions) {
     Object.assign(logicHandlers, actions);
-    Object.keys(actions).forEach(a => {
-      Goblin.registerQuest(goblinName, a, function(quest, $msg) {
+    Object.keys(actions).forEach((a) => {
+      Goblin.registerQuest(goblinName, a, function (quest, $msg) {
         quest.do();
         if (events && events[a]) {
           const state = quest.goblin.getState();
@@ -89,7 +89,7 @@ module.exports = config => {
         for (const handler of Object.keys(gadgets[key].onActions)) {
           logicHandlers[`${key}-${handler}`] = gadgets[key].onActions[handler];
 
-          Goblin.registerQuest(goblinName, `${key}-${handler}`, function(
+          Goblin.registerQuest(goblinName, `${key}-${handler}`, function (
             quest
           ) {
             quest.do();
@@ -100,7 +100,7 @@ module.exports = config => {
     }
   }
 
-  Goblin.registerQuest(goblinName, 'delete', function(quest) {});
+  Goblin.registerQuest(goblinName, 'delete', function (quest) {});
 
   return Goblin.configure(goblinName, {}, logicHandlers);
 };

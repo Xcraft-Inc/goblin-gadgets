@@ -12,7 +12,7 @@ export default class ChatBalloon extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
-    
+
     this.handleClick = this.handleClick.bind(this);
   }
 

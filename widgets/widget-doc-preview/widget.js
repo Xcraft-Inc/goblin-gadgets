@@ -84,7 +84,7 @@ class WidgetDocPreviewSettingsList extends Widget {
           width={this.props.labelWidth || '80px'}
           justify={this.props.labelJustify}
         />
-        {this.props.list.map(value => this.renderItem(value))}
+        {this.props.list.map((value) => this.renderItem(value))}
       </Container>
     );
   }
@@ -124,7 +124,7 @@ class WidgetDocPreview extends Widget {
     code2 += this.props.props
       .map((value, propName) => {
         const propDef = this.widgetInfo.props.find(
-          prop => prop.name === propName
+          (prop) => prop.name === propName
         );
         if (propDef.type.samplesData) {
           value = JSON.stringify(propDef.type.samplesData[value]);
@@ -306,7 +306,7 @@ class WidgetDocPreview extends Widget {
     const props = this.props.props.toJS();
     for (const propName in props) {
       const propDef = this.widgetInfo.props.find(
-        prop => prop.name === propName
+        (prop) => prop.name === propName
       );
       if (!propDef) {
         continue;
@@ -332,7 +332,7 @@ class WidgetDocPreview extends Widget {
 
   renderPreview() {
     this.widgetInfo = widgetList.find(
-      widget => widget.name === this.props.selectedWidget
+      (widget) => widget.name === this.props.selectedWidget
     );
     if (!this.widgetInfo) {
       return null;
@@ -372,7 +372,7 @@ class WidgetDocPreview extends Widget {
   }
 }
 
-export default Widget.connectWidget(state => {
+export default Widget.connectWidget((state) => {
   const settings = state.get('settings');
   const selectedWidget = state.get('selectedWidget');
   return {
