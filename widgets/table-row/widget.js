@@ -1,11 +1,16 @@
 import React from 'react';
+import Props from './props';
 import Widget from 'goblin-laboratory/widgets/widget';
 import TableCell from 'goblin-gadgets/widgets/table-cell/widget';
 import * as styles from './styles';
+import {
+  makePropTypes,
+  makeDefaultProps,
+} from 'xcraft-core-utils/lib/prop-types';
 
 /******************************************************************************/
 
-class TableRow extends Widget {
+export default class TableRow extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
@@ -65,7 +70,7 @@ class TableRow extends Widget {
     let index = 0;
     const h = Widget.shred(header);
     return h
-      .map(column => {
+      .map((column) => {
         const text = row.get(column.get('name'));
         const isLast = index === h.size - 1;
 
@@ -97,4 +102,6 @@ class TableRow extends Widget {
 }
 
 /******************************************************************************/
-export default TableRow;
+
+TableRow.propTypes = makePropTypes(Props);
+TableRow.defaultProps = makeDefaultProps(Props);
