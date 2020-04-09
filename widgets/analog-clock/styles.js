@@ -211,6 +211,8 @@ export default function styles(theme, props) {
     // TRANSPARENT //
     //-------------//
 
+    marginThickness          = 10 * f;
+
     watchPointerWidthHM      =  3 * f;
     watchPointerWidthS       =  1 * f;
     watchPointerAdditionalHM = 15 * f;
@@ -223,6 +225,8 @@ export default function styles(theme, props) {
     fixedMarkLength1  =  1 * f;
     fixedMarkWidth1   =  1 * f;
 
+    dialBackground1 = "rgba(0,0,0,0.2)"
+    
     watchPointerColorHM      = '#eee';
     watchPointerColorS       = 'red';
     watchPointerCenterRadius = watchPointerWidthS * 2;
@@ -236,7 +240,7 @@ export default function styles(theme, props) {
     marginThickness          = 10 * f;
     watchPointerWidthHM      =  8 * f;
     fixedMarkLength15        = 15 * f;
-    dialBackground1          = "rgba(255,255,255,0.1)";
+    dialBackground1          = "rgba(0,0,0,0.2)"
     watchPointerColorHM      = '#eee';
     watchPointerCenterRadius = 10 * f;
     watchPointerCenterColor  = '#eee';
@@ -307,6 +311,7 @@ export default function styles(theme, props) {
     position: 'relative',
     width: px(s),
     height: px(s),
+    borderRadius: px(s / 2),
   };
 
   // White dial, with an outer shadow.
