@@ -129,7 +129,9 @@ class Combo extends Widget {
 
   renderItem(item, index) {
     if (item.separator) {
-      return <Separator key={index} kind="menu-separator" />;
+      return (
+        <Separator key={index} kind={item.separatorKind || 'menu-separator'} />
+      );
     } else {
       const active = this.activeIndex === index;
       const color = ColorHelpers.getMarkColor(this.context.theme, item.color);
@@ -193,7 +195,7 @@ class Combo extends Widget {
 
     return (
       <div
-        ref={node => (this.node = node)}
+        ref={(node) => (this.node = node)}
         className={fullScreenClass}
         onMouseUp={this.onMouseUp}
         onTouchEnd={this.onMouseUp}

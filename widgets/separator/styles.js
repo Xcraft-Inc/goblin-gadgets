@@ -69,6 +69,10 @@ export default function styles(theme, props) {
     borderStyle = 'none';
   }
 
+  if (kind === 'menu-line') {
+    margin = '5px 0px';
+  }
+
   if (kind === 'floating-footer') {
     borderColor = theme.palette.floatingSecondary;
   }
