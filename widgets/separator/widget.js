@@ -1,23 +1,31 @@
-//T:2019-02-27
-
 import React from 'react';
+import Props from './props';
 import Widget from 'goblin-laboratory/widgets/widget';
 import * as styles from './styles';
+import {
+  makePropTypes,
+  makeDefaultProps,
+} from 'xcraft-core-utils/lib/prop-types';
 
 /******************************************************************************/
 
-class Separator extends Widget {
+export default class Separator extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
   }
 
   render() {
-    const boxClass = this.styles.classNames.box;
-
-    return <div disabled={this.props.disabled} className={boxClass} />;
+    return (
+      <div
+        className={this.styles.classNames.box}
+        disabled={this.props.disabled}
+      />
+    );
   }
 }
 
 /******************************************************************************/
-export default Separator;
+
+Separator.propTypes = makePropTypes(Props);
+Separator.defaultProps = makeDefaultProps(Props);

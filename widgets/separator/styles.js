@@ -96,7 +96,7 @@ export default function styles(theme, props) {
     borderStyle = 'none';
   }
 
-  const boxStyle = {
+  const box = {
     width: boxWidth,
     height: boxHeight,
     flexGrow: grow,
@@ -109,7 +109,7 @@ export default function styles(theme, props) {
   };
 
   return {
-    box: boxStyle,
+    box,
   };
 }
 
