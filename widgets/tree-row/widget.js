@@ -89,7 +89,7 @@ class TreeRow extends Widget {
     let index = 0;
     const h = Widget.shred(header);
     return h
-      .map(column => {
+      .map((column) => {
         const text = row.get(column.get('name'));
 
         return this.renderRowCell(

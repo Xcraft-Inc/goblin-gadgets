@@ -3,7 +3,7 @@ import textFieldNCProps from '../text-field-nc/props';
 
 const removedProps = ['format', 'parse', 'check'];
 const props = textFieldNCProps.filter(
-  prop => !removedProps.includes(prop.name)
+  (prop) => !removedProps.includes(prop.name)
 );
 
 export default [

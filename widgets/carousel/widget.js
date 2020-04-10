@@ -393,7 +393,7 @@ export default class Carousel extends Widget {
     return (
       <div
         className={this.styles.classNames.carousel}
-        ref={node => (this.carouselNode = node)}
+        ref={(node) => (this.carouselNode = node)}
       >
         <div
           className={this.styles.classNames.carouselShrinked_SIMPLE}
@@ -422,7 +422,7 @@ export default class Carousel extends Widget {
     return (
       <div
         className={this.styles.classNames.carousel}
-        ref={node => (this.carouselNode = node)}
+        ref={(node) => (this.carouselNode = node)}
       >
         <div
           className={this.styles.classNames.carouselShrinked_MEDIA}
@@ -455,7 +455,7 @@ export default class Carousel extends Widget {
     return (
       <div
         className={this.styles.classNames.carousel}
-        ref={node => (this.carouselNode = node)}
+        ref={(node) => (this.carouselNode = node)}
       >
         <div
           className={this.styles.classNames.carouselShrinked}

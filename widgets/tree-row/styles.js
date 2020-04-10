@@ -23,13 +23,13 @@ export default function styles(theme, props) {
   const m = theme.shapes.containerMargin;
 
   const rowStyle = {
-    display: 'flex',
-    flexDirection: 'row',
-    padding: '0px ' + m + ' 0px 0px',
-    backgroundColor:
+    'display': 'flex',
+    'flexDirection': 'row',
+    'padding': '0px ' + m + ' 0px 0px',
+    'backgroundColor':
       TableHelpers.getBackgroundColor(theme, backgroundColor, 'none') +
       ' !important',
-    cursor: 'default',
+    'cursor': 'default',
     ':hover': {
       backgroundColor:
         TableHelpers.getBackgroundColor(theme, backgroundColor, 'main') +
@@ -38,13 +38,13 @@ export default function styles(theme, props) {
   };
 
   const rowSelectedStyle = {
-    display: 'flex',
-    flexDirection: 'row',
-    padding: '0px ' + m + ' 0px 0px',
-    backgroundColor:
+    'display': 'flex',
+    'flexDirection': 'row',
+    'padding': '0px ' + m + ' 0px 0px',
+    'backgroundColor':
       TableHelpers.getSelectedBackgroundColor(theme, 'none') + ' !important',
-    color: theme.palette.tableSelectedText,
-    cursor: 'default',
+    'color': theme.palette.tableSelectedText,
+    'cursor': 'default',
     ':hover': {
       backgroundColor:
         TableHelpers.getSelectedBackgroundColor(theme, 'main') + ' !important',

@@ -129,7 +129,7 @@ class Tree extends Widget {
     const rows = data
       .get('rows')
       .toArray()
-      .map(row => row.get('id'));
+      .map((row) => row.get('id'));
     const uniques = rows.filter(onlyUnique);
 
     return (
@@ -156,7 +156,7 @@ class Tree extends Widget {
   }
 
   hasHeader(header) {
-    return header.map(column => column.get('description')).length > 0
+    return header.map((column) => column.get('description')).length > 0
       ? true
       : false;
   }
@@ -182,7 +182,7 @@ class Tree extends Widget {
   renderHeaderCells(header) {
     let index = 0;
     return header
-      .map(column => {
+      .map((column) => {
         const isLast = index === header.size - 1;
         return this.renderHeaderCell(column, isLast, index++);
       })

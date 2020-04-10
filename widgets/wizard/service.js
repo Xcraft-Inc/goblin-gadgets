@@ -2062,7 +2062,7 @@ const logicHandlers = {
 };
 
 // Register quest's according rc.json
-Goblin.registerQuest(goblinName, 'create', function(quest, desktopId) {
+Goblin.registerQuest(goblinName, 'create', function (quest, desktopId) {
   const desk = quest.getAPI(desktopId);
   desk.addTab({
     name: 'Wizard',
@@ -2074,7 +2074,7 @@ Goblin.registerQuest(goblinName, 'create', function(quest, desktopId) {
   return quest.goblin.id;
 });
 
-Goblin.registerQuest(goblinName, 'delete', function() {});
+Goblin.registerQuest(goblinName, 'delete', function () {});
 
 // Manage global settings.
 /*Object.keys (globalSettings).forEach (p => {

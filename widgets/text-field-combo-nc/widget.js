@@ -147,7 +147,7 @@ class TextFieldComboNC extends Widget {
     }
 
     if (this.list.length > 0 || this.list.size > 0) {
-      this.list = this.list.map(item => {
+      this.list = this.list.map((item) => {
         switch (typeof item) {
           case 'string':
             item = {
@@ -220,7 +220,7 @@ class TextFieldComboNC extends Widget {
     const textFieldShape = textFieldShapes[shape];
 
     let selectedItem = this.list.find(
-      item => item.id === this.props.selectedId
+      (item) => item.id === this.props.selectedId
     );
 
     if (!selectedItem) {

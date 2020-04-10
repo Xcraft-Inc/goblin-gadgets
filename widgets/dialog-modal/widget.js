@@ -162,7 +162,7 @@ export default class DialogModal extends Widget {
           onTouchStart={this.onBackgroundClick}
         >
           <div
-            ref={node => (this.divNode = node)}
+            ref={(node) => (this.divNode = node)}
             className={this.styles.classNames.combo}
           >
             <Container
@@ -187,7 +187,7 @@ export default class DialogModal extends Widget {
             onTouchStart={this.onBackgroundClick}
           >
             <div
-              ref={node => (this.divNode = node)}
+              ref={(node) => (this.divNode = node)}
               className={this.styles.classNames.dialogModal}
             >
               <div className={this.styles.classNames.dialogModalInside}>

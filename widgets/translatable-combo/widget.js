@@ -306,7 +306,7 @@ class TranslatableCombo extends Widget {
     if (isShredder(list)) {
       list = list.toJS();
     }
-    list = list.map(locale => ({
+    list = list.map((locale) => ({
       value: locale.name,
       text: locale.text || locale.name,
     }));
@@ -352,7 +352,7 @@ export default Widget.connect((state, props) => {
 
   const selectedLocaleId = Widget.getUserSession(state).get('locale');
   const defaultLocale =
-    locales.find(locale => locale.get('id') === selectedLocaleId) ||
+    locales.find((locale) => locale.get('id') === selectedLocaleId) ||
     locales.first();
 
   return {

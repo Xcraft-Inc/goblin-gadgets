@@ -24,7 +24,7 @@ export default class WidgetDocMenu extends Widget {
     super(...arguments);
     this.styles = styles;
   }
-  
+
   setSelectedWidget(name) {
     this.dispatch({type: 'SET_SELECTED_WIDGET', name});
   }
@@ -55,7 +55,7 @@ export default class WidgetDocMenu extends Widget {
           <Label text="Widgets" kind="pane-header" />
         </Container>
         <Container kind="panes">
-          {widgetList.map(widget => this.renderWidgetListItem(widget))}
+          {widgetList.map((widget) => this.renderWidgetListItem(widget))}
         </Container>
       </Container>
     );

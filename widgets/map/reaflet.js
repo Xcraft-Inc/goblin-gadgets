@@ -164,7 +164,7 @@ L.MakiMarkers.Icon = L.Icon.extend({
     className: 'maki-marker',
   },
 
-  initialize: function(options) {
+  initialize: function (options) {
     var pin;
 
     options = L.setOptions(this, options);
@@ -201,7 +201,7 @@ L.MakiMarkers.Icon = L.Icon.extend({
   },
 });
 
-L.MakiMarkers.icon = function(options) {
+L.MakiMarkers.icon = function (options) {
   return new L.MakiMarkers.Icon(options);
 };
 

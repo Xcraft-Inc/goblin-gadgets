@@ -5,8 +5,8 @@ const parseCode = require('../widgets/widget-doc-preview/parse-code.js');
 
 //-----------------------------------------------------------------------------
 
-describe('Test parseCode function', function() {
-  it('#Test parseCode string', function() {
+describe('Test parseCode function', function () {
+  it('#Test parseCode string', function () {
     const code = `<Button onClick="alert" textColor="task" 
     shortcut="_ctrl_+A" visibility={true} show="true"/>`;
     const res = parseCode(code);
@@ -19,7 +19,7 @@ describe('Test parseCode function', function() {
     });
   });
 
-  it('#Test parseCode boolean string', function() {
+  it('#Test parseCode boolean string', function () {
     const code = `<Button visibility={"true"}/>`;
     const res = parseCode(code);
     assert.deepStrictEqual(res, {
@@ -27,7 +27,7 @@ describe('Test parseCode function', function() {
     });
   });
 
-  it('#Test parseCode boolean', function() {
+  it('#Test parseCode boolean', function () {
     const code = `<Button visibility={true} show={true}/>`;
     const res = parseCode(code);
     assert.deepStrictEqual(res, {
@@ -36,7 +36,7 @@ describe('Test parseCode function', function() {
     });
   });
 
-  it('#Test parseCode number', function() {
+  it('#Test parseCode number', function () {
     const code = `<Button width={100} height={100}/>`;
     const res = parseCode(code);
     assert.deepStrictEqual(res, {
@@ -45,7 +45,7 @@ describe('Test parseCode function', function() {
     });
   });
 
-  it('#Test parseCode string, boolean, number and EOF', function() {
+  it('#Test parseCode string, boolean, number and EOF', function () {
     const code = `<Button onClick="alert" textColor="task" 
     shortcut="_ctrl_+A" visibility={true} size={100} show="true"/>`;
     const res = parseCode(code);

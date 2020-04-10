@@ -103,7 +103,7 @@ const types = {
     ],
   },
 
-  enum: values => ({
+  enum: (values) => ({
     type: 'enum',
     defaultValue: values[0],
     widget: 'combo',
@@ -111,7 +111,7 @@ const types = {
     values: values,
   }),
 
-  oneOfType: types => ({
+  oneOfType: (types) => ({
     type: 'oneOfType',
     defaultValue: types[0].defaultValue,
     widget: 'oneOfType',

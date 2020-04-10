@@ -117,7 +117,7 @@ class ScrollableContainer extends Widget {
     return (
       <div
         key={index}
-        ref={node => this.mount(node)}
+        ref={(node) => this.mount(node)}
         className={this.styles.classNames.box}
         disabled={disabled}
         onClick={this.props.onClick}

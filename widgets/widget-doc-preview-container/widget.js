@@ -54,7 +54,7 @@ class WidgetDocPreviewContainer extends Widget {
   }
 }
 
-export default Widget.connectWidget(state => {
+export default Widget.connectWidget((state) => {
   const settings = state.get('settings');
   return {
     theme: settings.get('theme'),

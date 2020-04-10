@@ -348,7 +348,7 @@ export default class TableHeaderDragManager extends Widget {
           <div
             className={this.styles.classNames.columnButton}
             style={columnButtonStyle}
-            onMouseDown={e => this.onDragColumnStart(e, index)}
+            onMouseDown={(e) => this.onDragColumnStart(e, index)}
             onMouseMove={this.onDragColumnMove}
             onMouseUp={this.onDragColumnEnd}
           />
@@ -362,7 +362,7 @@ export default class TableHeaderDragManager extends Widget {
         <div
           className={this.styles.classNames.widthButton}
           style={widthButtonStyle}
-          onMouseDown={e => this.onDragWidthStart(e, index)}
+          onMouseDown={(e) => this.onDragWidthStart(e, index)}
         />
         <div
           className={`width-mark-hover ${this.styles.classNames.widthMarkHover}`}
@@ -376,7 +376,7 @@ export default class TableHeaderDragManager extends Widget {
     return (
       <React.Fragment>
         <div
-          ref={node => (this.componentNode = node)}
+          ref={(node) => (this.componentNode = node)}
           className={this.styles.classNames.tableHeaderDragManager}
         >
           {this.props.columns.map((c, i) => this.renderColumn(c, i))}

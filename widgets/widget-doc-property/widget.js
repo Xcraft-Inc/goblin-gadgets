@@ -11,7 +11,7 @@ export default class WidgetDocProperty extends Widget {
     super(...arguments);
     this.styles = styles;
   }
-  
+
   renderControl() {
     const name = this.props.prop.name;
     return (

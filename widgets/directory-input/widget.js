@@ -9,7 +9,7 @@ DirectoryInput.displayName = 'DirectoryInput';
 // export default DirectoryInput;
 
 // Convert model to value for backward compatibility, should be removed
-export default props => {
+export default (props) => {
   let {value, model, ...otherProps} = props;
   if (model) {
     value = C(model);

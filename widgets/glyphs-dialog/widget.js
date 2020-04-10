@@ -90,10 +90,10 @@ class GlyphsDialog extends Widget {
     let index = 0;
     return allGlyphs
       .sort((a, b) => a.get('order') - b.get('order'))
-      .map(glyph => {
+      .map((glyph) => {
         const id = glyph.get('id');
         const selected =
-          selectedGlyphs.map(x => {
+          selectedGlyphs.map((x) => {
             if (x.get('id') === id) {
               return x;
             }
@@ -171,7 +171,7 @@ class GlyphsDialog extends Widget {
     let index = 0;
     return selectedGlyphs
       .sort((a, b) => a.get('order') - b.get('order'))
-      .map(glyph => {
+      .map((glyph) => {
         return this.renderGlyphSample(glyph, dndEnable, index++);
       })
       .toArray();

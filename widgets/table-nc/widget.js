@@ -57,7 +57,7 @@ function filter(rows, header, filter) {
   if (!filter || filter === '') {
     return rows;
   } else {
-    return rows.filter(row => filterRow(row, header, filter.toUpperCase()));
+    return rows.filter((row) => filterRow(row, header, filter.toUpperCase()));
   }
 }
 
@@ -89,7 +89,7 @@ function getColumnType(header, columnName) {
 
 function sort(rows, header, sortingColumns) {
   if (sortingColumns) {
-    return rows.sort(function(a, b) {
+    return rows.sort(function (a, b) {
       for (let columnName of sortingColumns) {
         let e = 1;
         if (columnName.startsWith('!')) {
@@ -170,7 +170,7 @@ function diffuseSeparators(list) {
 function getUniqueId(data) {
   const header = data.get('header');
   const names = header
-    .map(column => {
+    .map((column) => {
       return column.get('name');
     })
     .toArray();
@@ -295,7 +295,7 @@ export default class TableNC extends Widget {
     const rows = data
       .get('rows')
       .toArray()
-      .map(row => row.get('id'));
+      .map((row) => row.get('id'));
     const uniques = rows.filter(onlyUnique);
 
     return (
@@ -312,7 +312,7 @@ export default class TableNC extends Widget {
   }
 
   hasHeader(header) {
-    return header.map(column => column.get('description')).length > 0
+    return header.map((column) => column.get('description')).length > 0
       ? true
       : false;
   }
@@ -407,7 +407,7 @@ export default class TableNC extends Widget {
     let grow = 0;
     for (const name of column.get('names')) {
       const c =
-        header.map(x => {
+        header.map((x) => {
           if (name === x.get('name')) {
             return x;
           }
@@ -448,7 +448,7 @@ export default class TableNC extends Widget {
   renderPostHeaderCells(postHeader, header, isSortable) {
     let index = 0;
     return postHeader
-      .map(column => {
+      .map((column) => {
         const isLast = index === postHeader.size - 1;
         return this.renderPostHeaderCell(
           column,
@@ -483,7 +483,7 @@ export default class TableNC extends Widget {
   renderHeaderCells(header, isSortable) {
     let index = 0;
     return header
-      .map(column => {
+      .map((column) => {
         const isLast = index === header.size - 1;
         return this.renderHeaderCell(column, isSortable, isLast, index++);
       })

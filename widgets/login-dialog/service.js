@@ -94,24 +94,24 @@ const logicHandlers = {
 };
 
 // Register quest's according rc.json
-Goblin.registerQuest(goblinName, 'create', function(quest, desktopId, login) {
+Goblin.registerQuest(goblinName, 'create', function (quest, desktopId, login) {
   quest.do({id: quest.goblin.id, login});
   return quest.goblin.id;
 });
 
-Goblin.registerQuest(goblinName, 'submit', function(quest, value) {
+Goblin.registerQuest(goblinName, 'submit', function (quest, value) {
   quest.do();
 });
 
-Goblin.registerQuest(goblinName, 'reset', function(quest) {
+Goblin.registerQuest(goblinName, 'reset', function (quest) {
   quest.do();
 });
 
-Goblin.registerQuest(goblinName, 'logout', function(quest) {
+Goblin.registerQuest(goblinName, 'logout', function (quest) {
   quest.do();
 });
 
-Goblin.registerQuest(goblinName, 'delete', function() {});
+Goblin.registerQuest(goblinName, 'delete', function () {});
 
 // Create a Goblin with initial state and handlers
 module.exports = Goblin.configure(goblinName, logicState, logicHandlers);

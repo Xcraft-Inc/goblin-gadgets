@@ -126,7 +126,7 @@ class Container extends Widget {
     this.panelBottoms = [];
     const children = [].slice.call(panelElem.children);
     var first = -1;
-    children.forEach(c => {
+    children.forEach((c) => {
       if (first === -1) {
         first = c.offsetTop;
       } else {
