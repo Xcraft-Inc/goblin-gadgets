@@ -14,7 +14,25 @@ export default class AnalogClock extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
+    this.onMouseOver = this.onMouseOver.bind(this);
+    this.onMouseOut = this.onMouseOut.bind(this);
   }
+
+  onMouseOver() {
+    const x = this.props.mouseOver;
+    if (x) {
+      x();
+    }
+  }
+
+  onMouseOut() {
+    const x = this.props.mouseOut;
+    if (x) {
+      x();
+    }
+  }
+
+  /******************************************************************************/
 
   renderFixedMark(i) {
     const className =
@@ -64,7 +82,11 @@ export default class AnalogClock extends Widget {
     const as = 180 + (s / 60) * 360;
 
     return (
-      <div className={this.styles.classNames.analogClock}>
+      <div
+        className={this.styles.classNames.analogClock}
+        onMouseOver={this.onMouseOver}
+        onMouseOut={this.onMouseOut}
+      >
         <div className={this.styles.classNames.dial1} />
         <div className={this.styles.classNames.dial2} />
         {this.renderFixedMarks()}

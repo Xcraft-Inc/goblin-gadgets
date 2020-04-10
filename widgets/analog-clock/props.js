@@ -22,8 +22,8 @@ export default [
       'transparent',
       'light',
       'royal',
+      'ring',
       'dots',
-      'whell',
     ]),
   },
 ];
