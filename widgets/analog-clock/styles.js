@@ -83,6 +83,8 @@ export default function styles(theme, props) {
   let watchPointerCenterColor = null;
   let watchPointerCenterBorder = null;
 
+  const transition = '1.0s ease-out';
+
   // prettier-ignore
   if (look === 'cff') {
     //-----------//
@@ -174,7 +176,7 @@ export default function styles(theme, props) {
     dialBorderLeftColor   = '#555';
     dialBackground1       = 'radial-gradient(at 50% 50%, rgba(0,0,0,0.7), rgba(0,0,0,1) 65%)';
     dialBackground2       = 'radial-gradient(at 30% 30%, rgba(255,255,255,0.5), rgba(255,255,255,0) 24%)';
-    dialShadow1           = `0px 0px ${px(12 * f)} 0px rgba(0,0,0,0.9)`;
+    dialShadow1           = `${px(6 * f)} ${px(6 * f)} ${px(20 * f)} ${px(5 * f)} rgba(0,0,0,0.9)`;
 
     fixedMarkLength15 = 20 * f;
     fixedMarkWidth15  =  6 * f;
@@ -338,7 +340,7 @@ export default function styles(theme, props) {
     dialBorderLeftColor   = rc;
     dialBackground1 = `radial-gradient(at 50% 50%, ${ColorManipulator.fade(theme.palette.chrome, 0.7)}, ${ColorManipulator.darken(theme.palette.base, 0.2)} 65%)`;
     dialBackground2 = 'radial-gradient(at 30% 30%, rgba(255,255,255,0.5), rgba(255,255,255,0.0) 24%)';
-    dialShadow1     = `0px 0px ${px(12 * f)} 0px rgba(0,0,0,0.9)`;
+    dialShadow1     = `${px(6 * f)} ${px(6 * f)} ${px(20 * f)} ${px(5 * f)} rgba(0,0,0,0.9)`;
     dialShadow2     = `inset ${px(6 * f)} ${px(6 * f)} ${px(24 * f)} 0px rgba(0,0,0,0.9)`;
 
     fixedMarkLength15 =   15 * f;
@@ -487,7 +489,7 @@ export default function styles(theme, props) {
     borderRadius: px(s),
     background: dialBackground1,
     boxShadow: dialShadow1,
-    transition: '0.5s ease-out',
+    transition,
   };
 
   // Silver dial, with an inner shadow.
@@ -505,7 +507,7 @@ export default function styles(theme, props) {
     borderLeft: `${px(borderThickness)} solid ${dialBorderLeftColor}`,
     background: dialBackground2,
     boxShadow: dialShadow2,
-    transition: '0.5s ease-out',
+    transition,
   };
 
   /******************************************************************************/
@@ -524,7 +526,7 @@ export default function styles(theme, props) {
     boxSizing: 'border-box',
     border: fixedMarkBorder,
     borderRadius: px(fixedMarkRadius15),
-    transition: '0.5s ease-out',
+    transition,
   };
 
   // Secondary fixed mark (every 5 minutes).
@@ -541,7 +543,7 @@ export default function styles(theme, props) {
     boxSizing: 'border-box',
     border: fixedMarkBorder,
     borderRadius: px(fixedMarkRadius5),
-    transition: '0.5s ease-out',
+    transition,
   };
 
   // Secondary fixed mark (every minute).
@@ -558,7 +560,7 @@ export default function styles(theme, props) {
     boxSizing: 'border-box',
     border: fixedMarkWidth1 ? fixedMarkBorder : null,
     borderRadius: px(fixedMarkRadius1),
-    transition: '0.5s ease-out',
+    transition,
   };
 
   /******************************************************************************/
@@ -597,7 +599,7 @@ export default function styles(theme, props) {
     border: watchPointerBorder,
     borderRadius: px(watchPointerRadius),
     boxShadow: watchPointerShadow,
-    transition: '0.5s ease-out',
+    transition,
   };
 
   const watchPointerMinute = {
@@ -616,7 +618,7 @@ export default function styles(theme, props) {
     border: watchPointerBorder,
     borderRadius: px(watchPointerRadius),
     boxShadow: watchPointerShadow,
-    transition: '0.5s ease-out',
+    transition,
   };
 
   const watchPointerSecond = {
@@ -636,7 +638,7 @@ export default function styles(theme, props) {
     border: watchPointerBorder,
     borderRadius: px(watchPointerRadius),
     boxShadow: watchPointerShadow,
-    transition: '0.5s ease-out',
+    transition,
   };
 
   // Small red dot centered.
@@ -651,7 +653,7 @@ export default function styles(theme, props) {
     border: watchPointerCenterBorder,
     borderRadius: px(watchPointerCenterRadius),
     boxShadow: watchPointerCenterRadius ? watchPointerShadow : null,
-    transition: '0.5s ease-out',
+    transition,
   };
 
   /******************************************************************************/
