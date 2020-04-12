@@ -1,7 +1,7 @@
 import {Unit} from 'electrum-theme';
 import {ColorManipulator} from 'electrum-theme';
 
-export const propNames = ['size', 'look'];
+export const propNames = ['look', 'size', 'limit'];
 
 /******************************************************************************/
 
@@ -9,7 +9,8 @@ function px(value) {
   return value + 'px';
 }
 
-function d(value, min = 1) {
+function d(value, limit, min = 1) {
+  min = Math.max(limit, min);
   if (value > 0) {
     return Math.max(value, min);
   } else if (value < 0) {
@@ -22,7 +23,7 @@ function d(value, min = 1) {
 /******************************************************************************/
 
 export default function styles(theme, props) {
-  const {size = '180px', look = 'cff'} = props;
+  const {look = 'cff', size = '180px', limit = 1} = props;
 
   const s = Unit.parse(size).value; // width and height (square)
   const f = s / 180; // magic factor for scaling constant dimensions
@@ -101,7 +102,7 @@ export default function styles(theme, props) {
     watchPointerLengthS      = s * 0.50 - borderThickness - marginThickness - fixedMarkLength15;
     watchPointerWidthH       =  6.0 * f;
     watchPointerWidthM       =  6.0 * f;
-    watchPointerWidthS       =  0.7 * f;
+    watchPointerWidthS       =  1.4 * f;
     watchPointerAdditionalH  = 15.0 * f;
     watchPointerAdditionalM  = 15.0 * f;
     watchPointerAdditionalS  = 22.0 * f;
@@ -139,7 +140,7 @@ export default function styles(theme, props) {
     watchPointerLengthS      = s * 0.50 - borderThickness - marginThickness - fixedMarkLength15;
     watchPointerWidthH       =  4.0 * f;
     watchPointerWidthM       =  4.0 * f;
-    watchPointerWidthS       =  0.7 * f;
+    watchPointerWidthS       =  1.4 * f;
     watchPointerAdditionalH  = 15.0 * f;
     watchPointerAdditionalM  = 15.0 * f;
     watchPointerAdditionalS  = 22.0 * f;
@@ -177,7 +178,7 @@ export default function styles(theme, props) {
     watchPointerLengthS      = s * 0.50 - borderThickness - marginThickness - fixedMarkLength15;
     watchPointerWidthH       =  6.0 * f;
     watchPointerWidthM       =  6.0 * f;
-    watchPointerWidthS       =  0.7 * f;
+    watchPointerWidthS       =  1.4 * f;
     watchPointerAdditionalH  = 15.0 * f;
     watchPointerAdditionalM  = 15.0 * f;
     watchPointerAdditionalS  = 22.0 * f;
@@ -211,7 +212,7 @@ export default function styles(theme, props) {
     watchPointerLengthS      = s * 0.50 - borderThickness - marginThickness;
     watchPointerWidthH       =  4.0 * f;
     watchPointerWidthM       =  4.0 * f;
-    watchPointerWidthS       =  0.7 * f;
+    watchPointerWidthS       =  1.4 * f;
     watchPointerAdditionalH  = 15.0 * f;
     watchPointerAdditionalM  = 15.0 * f;
     watchPointerAdditionalS  = 22.0 * f;
@@ -250,9 +251,9 @@ export default function styles(theme, props) {
     watchPointerLengthH      = s * 0.45 - borderThickness - marginThickness - fixedMarkLength15;
     watchPointerLengthM      = s * 0.49 - borderThickness - marginThickness;
     watchPointerLengthS      = s * 0.50 - borderThickness - marginThickness;
-    watchPointerWidthH       = d( 8 * f, 4);
-    watchPointerWidthM       = d( 8 * f, 4);
-    watchPointerWidthS       = d( 2 * f, 4);
+    watchPointerWidthH       = d( 8 * f, limit, 4);
+    watchPointerWidthM       = d( 8 * f, limit, 4);
+    watchPointerWidthS       = d( 2 * f, limit, 4);
     watchPointerAdditionalH  =   15 * f;
     watchPointerAdditionalM  =   15 * f;
     watchPointerAdditionalS  =   22 * f;
@@ -333,10 +334,10 @@ export default function styles(theme, props) {
     fixedMarkWidth15  =    6 * f;
     fixedMarkLength5  =   15 * f;
     fixedMarkRadius15 =    1 * f;
-    fixedMarkWidth5   = d( 2 * f, 4);
+    fixedMarkWidth5   = d( 2 * f, limit, 4);
     fixedMarkRadius5  =    1 * f;
-    fixedMarkLength1  = d( 2 * f, 4);
-    fixedMarkWidth1   = d( 2 * f, 4);
+    fixedMarkLength1  = d( 2 * f, limit, 4);
+    fixedMarkWidth1   = d( 2 * f, limit, 4);
     fixedMarkRadius1  =    2 * f;
     fixedMarkColor    = rc;
     fixedMarkBorder   = '1px solid black';
@@ -344,9 +345,9 @@ export default function styles(theme, props) {
     watchPointerLengthH      = s * 0.45 - borderThickness - marginThickness - fixedMarkLength15;
     watchPointerLengthM      = s * 0.49 - borderThickness - marginThickness;
     watchPointerLengthS      = s * 0.50 - borderThickness - marginThickness - fixedMarkLength15;
-    watchPointerWidthH       = d( 6 * f, 4);
-    watchPointerWidthM       = d( 6 * f, 4);
-    watchPointerWidthS       = d( 2 * f, 4);
+    watchPointerWidthH       = d( 6 * f, limit, 4);
+    watchPointerWidthM       = d( 6 * f, limit, 4);
+    watchPointerWidthS       = d( 2 * f, limit, 4);
     watchPointerAdditionalH  =   15 * f;
     watchPointerAdditionalM  =   15 * f;
     watchPointerAdditionalS  =   22 * f;
@@ -384,9 +385,9 @@ export default function styles(theme, props) {
     watchPointerLengthH      = s * 0.50 - borderThickness - marginThickness - fixedMarkLength15 * 2;
     watchPointerLengthM      = s * 0.50 - borderThickness - marginThickness - fixedMarkLength15;
     watchPointerLengthS      = s * 0.50 - borderThickness - marginThickness - fixedMarkLength15;
-    watchPointerWidthH       = d( 8 * f, 4);
-    watchPointerWidthM       = d( 8 * f, 4);
-    watchPointerWidthS       = d( 2 * f, 4);
+    watchPointerWidthH       = d( 8 * f, limit, 4);
+    watchPointerWidthM       = d( 8 * f, limit, 4);
+    watchPointerWidthS       = d( 2 * f, limit, 4);
     watchPointerAdditionalH  =   15 * f;
     watchPointerAdditionalM  =   15 * f;
     watchPointerAdditionalS  =   22 * f;
@@ -440,20 +441,20 @@ export default function styles(theme, props) {
 
   // prettier-ignore
   {
-    borderThickness         = d(borderThickness);
-    marginThickness         = d(marginThickness);
-    watchPointerWidthH      = d(watchPointerWidthH);
-    watchPointerWidthM      = d(watchPointerWidthM);
-    watchPointerWidthS      = d(watchPointerWidthS);
-    watchPointerAdditionalH = d(watchPointerAdditionalH);
-    watchPointerAdditionalM = d(watchPointerAdditionalM);
-    watchPointerAdditionalS = d(watchPointerAdditionalS);
-    fixedMarkLength15       = d(fixedMarkLength15);
-    fixedMarkWidth15        = d(fixedMarkWidth15);
-    fixedMarkLength5        = d(fixedMarkLength5);
-    fixedMarkWidth5         = d(fixedMarkWidth5);
-    fixedMarkLength1        = d(fixedMarkLength1);
-    fixedMarkWidth1         = d(fixedMarkWidth1);
+    borderThickness         = d(borderThickness, limit);
+    marginThickness         = d(marginThickness, limit);
+    watchPointerWidthH      = d(watchPointerWidthH, limit);
+    watchPointerWidthM      = d(watchPointerWidthM, limit);
+    watchPointerWidthS      = d(watchPointerWidthS, limit);
+    watchPointerAdditionalH = d(watchPointerAdditionalH, limit);
+    watchPointerAdditionalM = d(watchPointerAdditionalM, limit);
+    watchPointerAdditionalS = d(watchPointerAdditionalS, limit);
+    fixedMarkLength15       = d(fixedMarkLength15, limit);
+    fixedMarkWidth15        = d(fixedMarkWidth15, limit);
+    fixedMarkLength5        = d(fixedMarkLength5, limit);
+    fixedMarkWidth5         = d(fixedMarkWidth5, limit);
+    fixedMarkLength1        = d(fixedMarkLength1, limit);
+    fixedMarkWidth1         = d(fixedMarkWidth1, limit);
   }
 
   /******************************************************************************/
