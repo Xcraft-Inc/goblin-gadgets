@@ -19,20 +19,6 @@ function d(value, min = 1) {
   }
 }
 
-function getSecondKeyFrames() {
-  const keyFrames = {};
-
-  for (let a = 0; a < 60; a++) {
-    const progress = (a * 100) / 60;
-    const angle = 6 * a;
-    keyFrames[progress + '%'] = {transform: `rotate(${angle}deg)`};
-  }
-
-  keyFrames['100%'] = {transform: 'rotate(359.999deg)'};
-
-  return keyFrames;
-}
-
 /******************************************************************************/
 
 export default function styles(theme, props) {
@@ -574,26 +560,12 @@ export default function styles(theme, props) {
     height: px(0),
   };
 
-  const watchPointerKeyframes = {
-    from: {
-      transform: 'rotate(0deg)',
-    },
-    to: {
-      transform: 'rotate(359.999deg)',
-    },
-  };
-
   const watchPointerHour = {
     position: 'relative',
     bottom: px(watchPointerAdditionalH),
     right: px(watchPointerWidthH * 0.5),
     width: px(watchPointerWidthH),
     height: px(watchPointerLengthH + watchPointerAdditionalH),
-    transformOrigin: `${px(watchPointerWidthH * 0.5)} ${px(
-      watchPointerAdditionalH
-    )}`,
-    animation: `${60 * 60 * 12}s infinite linear`,
-    animationName: watchPointerKeyframes,
     backgroundColor: watchPointerColorHM,
     boxSizing: 'border-box',
     border: watchPointerBorder,
@@ -608,11 +580,6 @@ export default function styles(theme, props) {
     right: px(watchPointerWidthM * 0.5),
     width: px(watchPointerWidthM),
     height: px(watchPointerLengthM + watchPointerAdditionalM),
-    transformOrigin: `${px(watchPointerWidthM * 0.5)} ${px(
-      watchPointerAdditionalM
-    )}`,
-    animation: `${60 * 60}s infinite linear`,
-    animationName: watchPointerKeyframes,
     backgroundColor: watchPointerColorHM,
     boxSizing: 'border-box',
     border: watchPointerBorder,
@@ -627,12 +594,6 @@ export default function styles(theme, props) {
     right: px(watchPointerWidthS * 0.5),
     width: px(watchPointerWidthS),
     height: px(watchPointerLengthS + watchPointerAdditionalS),
-    transformOrigin: `${px(watchPointerWidthS * 0.5)} ${px(
-      watchPointerAdditionalS
-    )}`,
-    animation: `${60}s infinite linear`,
-    animationName: getSecondKeyFrames(),
-    animationTimingFunction: 'cubic-bezier(1, 0, 1, 0.1)',
     backgroundColor: watchPointerColorS,
     boxSizing: 'border-box',
     border: watchPointerBorder,
