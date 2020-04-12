@@ -20,7 +20,7 @@ export default class AnalogClock extends Widget {
     };
 
     this.start = this.start.bind(this);
-    this.tick = this.tick.bind(this);
+    this.updateAngles = this.updateAngles.bind(this);
     this.onMouseOver = this.onMouseOver.bind(this);
     this.onMouseOut = this.onMouseOut.bind(this);
   }
@@ -46,7 +46,7 @@ export default class AnalogClock extends Widget {
     const initialDelay = 1000 - (ms % 1000);
     this.timer1 = setTimeout(() => this.start(), initialDelay);
 
-    this.tick(); // initialise for first render
+    this.updateAngles(); // initialise for first render
   }
 
   componentWillUnmount() {
@@ -65,11 +65,11 @@ export default class AnalogClock extends Widget {
   // Starts a timer synchronized with system seconds.
   // So, precisely at each change of second, the watch pointer jumps.
   start() {
-    this.timer2 = setInterval(() => this.tick(), 1000); // one tick each second
-    this.tick();
+    this.timer2 = setInterval(() => this.updateAngles(), 1000); // one tick each second
+    this.updateAngles();
   }
 
-  tick() {
+  updateAngles() {
     const now = new Date(Date.now());
     const h = now.getHours() % 12;
     const m = now.getMinutes();
