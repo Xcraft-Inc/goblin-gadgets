@@ -76,7 +76,7 @@ export default class AnalogClock extends Widget {
     const s = now.getSeconds();
 
     const ah = 180 + ((h + m / 60 + s / 3600) / 12) * 360;
-    const am = 180 + ((m + s / 60) / 60) * 360;
+    const am = 180 + (m / 60) * 360;
     const as = 180 + (s / 60) * 360;
 
     this.angles = {ah, am, as};
