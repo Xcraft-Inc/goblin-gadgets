@@ -161,6 +161,7 @@ export default [
       'business',
       'draft',
       'footer',
+      'full',
       'info',
       'large-box',
       'left',

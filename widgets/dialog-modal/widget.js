@@ -1,11 +1,16 @@
 //T:2019-02-27
 import React from 'react';
+import Props from './props';
 import Widget from 'goblin-laboratory/widgets/widget';
 import KeyTrap from 'goblin-gadgets/widgets/key-trap.js';
 import Container from 'goblin-gadgets/widgets/container/widget';
 import RetroScrew from 'goblin-gadgets/widgets/retro-screw/widget';
 import RetroGear from 'goblin-gadgets/widgets/retro-gear/widget';
 import {ColorManipulator} from 'electrum-theme';
+import {
+  makePropTypes,
+  makeDefaultProps,
+} from 'xcraft-core-utils/lib/prop-types';
 import * as RectHelpers from '../helpers/rect-helpers.js';
 import * as styles from './styles';
 
@@ -203,3 +208,6 @@ export default class DialogModal extends Widget {
 }
 
 /******************************************************************************/
+
+DialogModal.propTypes = makePropTypes(Props);
+DialogModal.defaultProps = makeDefaultProps(Props);
