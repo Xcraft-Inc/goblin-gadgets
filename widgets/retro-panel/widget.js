@@ -109,7 +109,7 @@ export default class RetroPanel extends Widget {
         {this.renderGear('clockGear3', color, r3, t, t3, 30, d3, m, 'cw')}
         {this.renderGear('clockGear4', color, r4, t, t4, 30, d4, m, 'cw')}
         <div className={this.styles.classNames.clock}>
-          <AnalogClock look="royal" size="400px" />
+          <AnalogClock look="royal" size="400px" transition="none" />
         </div>
       </React.Fragment>
     );

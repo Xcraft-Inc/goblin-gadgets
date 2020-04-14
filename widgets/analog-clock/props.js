@@ -26,4 +26,24 @@ export default [
       'dots',
     ]),
   },
+  {
+    name: 'transition',
+    group: 'aspect',
+    type: types.transition,
+  },
+  {
+    name: 'limit',
+    group: 'aspect',
+    type: types.number,
+  },
+  {
+    name: 'mouseOver',
+    group: 'aspect',
+    type: types.function,
+  },
+  {
+    name: 'mouseOut',
+    group: 'aspect',
+    type: types.function,
+  },
 ];

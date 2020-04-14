@@ -1,7 +1,7 @@
 import {Unit} from 'electrum-theme';
 import {ColorManipulator} from 'electrum-theme';
 
-export const propNames = ['look', 'size', 'limit'];
+export const propNames = ['look', 'size', 'limit', 'transition'];
 
 /******************************************************************************/
 
@@ -20,10 +20,39 @@ function d(value, limit, min = 1) {
   }
 }
 
+// Returns the properties for a segment that can be rotated, used for fixed marks
+// and watch pointers.
+//          width       s = segment
+//          <--->
+//        --|---|-----------^---------^-
+//      /   | s |   \       | length  |
+//    /     |---|-----\-----v-        | radius
+//   |        |        |              |
+//   |--------o--------|--------------v-
+//   |        |        |
+//    \       |       /                      o = center of circle
+//      \     |     / <-- this is a circle!
+//        ---------
+
+function getRotatableSegment(radius, width, length) {
+  return {
+    right: px(-width / 2),
+    top: px(-radius),
+    width: px(width),
+    height: px(length),
+    transformOrigin: `${px(width / 2)} ${px(radius)}`,
+  };
+}
+
 /******************************************************************************/
 
 export default function styles(theme, props) {
-  const {look = 'cff', size = '180px', limit = 1} = props;
+  const {
+    look = 'cff',
+    size = '180px',
+    limit = 1,
+    transition = '1.0s ease-out',
+  } = props;
 
   const s = Unit.parse(size).value; // width and height (square)
   const f = s / 180; // magic factor for scaling constant dimensions
@@ -69,8 +98,6 @@ export default function styles(theme, props) {
   let watchPointerCenterRadius = null;
   let watchPointerCenterColor = null;
   let watchPointerCenterBorder = null;
-
-  const transition = '1.0s ease-out';
 
   // prettier-ignore
   if (look === 'cff') {
@@ -466,13 +493,25 @@ export default function styles(theme, props) {
     borderRadius: px(s / 2),
   };
 
+  // Center of clock, used for all dials, fixed marks and watch pointers.
+  const center = {
+    position: 'absolute',
+    width: '0px',
+    height: '0px',
+    left: px(s / 2),
+    right: px(s / 2),
+    top: px(s / 2),
+    bottom: px(s / 2),
+    transition,
+  };
+
   // White dial, with an outer shadow.
   const dial1 = {
     position: 'absolute',
     width: px(s),
     height: px(s),
-    left: px(0),
-    top: px(0),
+    left: px(-s / 2),
+    top: px(-s / 2),
     borderRadius: px(s),
     background: dialBackground1,
     boxShadow: dialShadow1,
@@ -484,8 +523,8 @@ export default function styles(theme, props) {
     position: 'absolute',
     width: px(s),
     height: px(s),
-    left: px(0),
-    top: px(0),
+    left: px(-s / 2),
+    top: px(-s / 2),
     boxSizing: 'border-box',
     borderRadius: px(s),
     borderTop: `${px(borderThickness)} solid ${dialBorderTopColor}`,
@@ -502,13 +541,11 @@ export default function styles(theme, props) {
   // Main fixed mark (every 15 minutes).
   const fixedMark15 = {
     position: 'absolute',
-    right: px(s * 0.5 - fixedMarkWidth15 * 0.5),
-    top: px(borderThickness + marginThickness),
-    width: px(fixedMarkWidth15),
-    height: px(fixedMarkLength15),
-    transformOrigin: `${px(fixedMarkWidth15 * 0.5)} ${px(
-      s * 0.5 - borderThickness - marginThickness
-    )}`,
+    ...getRotatableSegment(
+      s * 0.5 - borderThickness - marginThickness,
+      fixedMarkWidth15,
+      fixedMarkLength15
+    ),
     backgroundColor: fixedMarkColor,
     boxSizing: 'border-box',
     border: fixedMarkBorder,
@@ -519,13 +556,11 @@ export default function styles(theme, props) {
   // Secondary fixed mark (every 5 minutes).
   const fixedMark5 = {
     position: 'absolute',
-    right: px(s * 0.5 - fixedMarkWidth5 * 0.5),
-    top: px(borderThickness + marginThickness),
-    width: px(fixedMarkWidth5),
-    height: px(fixedMarkLength5),
-    transformOrigin: `${px(fixedMarkWidth5 * 0.5)} ${px(
-      s * 0.5 - borderThickness - marginThickness
-    )}`,
+    ...getRotatableSegment(
+      s * 0.5 - borderThickness - marginThickness,
+      fixedMarkWidth5,
+      fixedMarkLength5
+    ),
     backgroundColor: fixedMarkColor,
     boxSizing: 'border-box',
     border: fixedMarkBorder,
@@ -536,13 +571,11 @@ export default function styles(theme, props) {
   // Secondary fixed mark (every minute).
   const fixedMark1 = {
     position: 'absolute',
-    right: px(s * 0.5 - fixedMarkWidth1 * 0.5),
-    top: px(borderThickness + marginThickness),
-    width: px(fixedMarkWidth1),
-    height: px(fixedMarkLength1),
-    transformOrigin: `${px(fixedMarkWidth1 * 0.5)} ${px(
-      s * 0.5 - borderThickness - marginThickness
-    )}`,
+    ...getRotatableSegment(
+      s * 0.5 - borderThickness - marginThickness,
+      fixedMarkWidth1,
+      fixedMarkLength1
+    ),
     backgroundColor: fixedMarkColor,
     boxSizing: 'border-box',
     border: fixedMarkWidth1 ? fixedMarkBorder : null,
@@ -552,62 +585,70 @@ export default function styles(theme, props) {
 
   /******************************************************************************/
 
-  // Parent of watch pointer, with an initial rotation according to Date.now().
-  const watchPointers = {
-    position: 'absolute',
-    right: px(s * 0.5),
-    bottom: px(s * 0.5),
-    width: px(0),
-    height: px(0),
-  };
+  // Transition for all properties, except "transform: rotate(angle)".
+  const transitionWatchPointer = [
+    'right',
+    'top',
+    'width',
+    'height',
+    'transform-origin',
+    'border',
+    'border-radius',
+    'box-shadow',
+  ]
+    .map((p) => `${p} ${transition}`)
+    .join(',');
 
   const watchPointerHour = {
-    position: 'relative',
-    bottom: px(watchPointerAdditionalH),
-    right: px(watchPointerWidthH * 0.5),
-    width: px(watchPointerWidthH),
-    height: px(watchPointerLengthH + watchPointerAdditionalH),
+    position: 'absolute',
+    ...getRotatableSegment(
+      watchPointerLengthH,
+      watchPointerWidthH,
+      watchPointerLengthH + watchPointerAdditionalH
+    ),
     backgroundColor: watchPointerColorHM,
     boxSizing: 'border-box',
     border: watchPointerBorder,
     borderRadius: px(watchPointerRadius),
     boxShadow: watchPointerShadow,
-    transition,
+    transition: transitionWatchPointer,
   };
 
   const watchPointerMinute = {
-    position: 'relative',
-    bottom: px(watchPointerAdditionalM),
-    right: px(watchPointerWidthM * 0.5),
-    width: px(watchPointerWidthM),
-    height: px(watchPointerLengthM + watchPointerAdditionalM),
+    position: 'absolute',
+    ...getRotatableSegment(
+      watchPointerLengthM,
+      watchPointerWidthM,
+      watchPointerLengthM + watchPointerAdditionalM
+    ),
     backgroundColor: watchPointerColorHM,
     boxSizing: 'border-box',
     border: watchPointerBorder,
     borderRadius: px(watchPointerRadius),
     boxShadow: watchPointerShadow,
-    transition,
+    transition: transitionWatchPointer,
   };
 
   const watchPointerSecond = {
-    position: 'relative',
-    bottom: px(watchPointerAdditionalS),
-    right: px(watchPointerWidthS * 0.5),
-    width: px(watchPointerWidthS),
-    height: px(watchPointerLengthS + watchPointerAdditionalS),
+    position: 'absolute',
+    ...getRotatableSegment(
+      watchPointerLengthS,
+      watchPointerWidthS,
+      watchPointerLengthS + watchPointerAdditionalS
+    ),
     backgroundColor: watchPointerColorS,
     boxSizing: 'border-box',
     border: watchPointerBorder,
     borderRadius: px(watchPointerRadius),
     boxShadow: watchPointerShadow,
-    transition,
+    transition: transitionWatchPointer,
   };
 
   // Small red dot centered.
   const watchPointerCenter = {
     position: 'absolute',
-    right: px(s * 0.5 - watchPointerCenterRadius),
-    bottom: px(s * 0.5 - watchPointerCenterRadius),
+    left: px(-watchPointerCenterRadius),
+    top: px(-watchPointerCenterRadius),
     width: px(watchPointerCenterRadius * 2),
     height: px(watchPointerCenterRadius * 2),
     backgroundColor: watchPointerCenterColor,
@@ -622,6 +663,7 @@ export default function styles(theme, props) {
 
   return {
     analogClock,
+    center,
 
     dial1,
     dial2,
@@ -630,7 +672,6 @@ export default function styles(theme, props) {
     fixedMark5,
     fixedMark1,
 
-    watchPointers,
     watchPointerHour,
     watchPointerMinute,
     watchPointerSecond,

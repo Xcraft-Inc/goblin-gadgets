@@ -75,9 +75,9 @@ export default class AnalogClock extends Widget {
     const m = now.getMinutes();
     const s = now.getSeconds();
 
-    const ah = 180 + ((h + m / 60 + s / 3600) / 12) * 360;
-    const am = 180 + (m / 60) * 360;
-    const as = 180 + (s / 60) * 360;
+    const ah = ((h + m / 60 + s / 3600) / 12) * 360; // continuous rotation
+    const am = (m / 60) * 360; // jump every minute
+    const as = (s / 60) * 360; // jump every second
 
     this.angles = {ah, am, as};
   }
@@ -128,11 +128,7 @@ export default class AnalogClock extends Widget {
       transform: `rotate(${initialAngle}deg)`,
     };
 
-    return (
-      <div className={this.styles.classNames.watchPointers} style={style}>
-        <div className={this.styles.classNames[styleName]} />
-      </div>
-    );
+    return <div className={this.styles.classNames[styleName]} style={style} />;
   }
 
   render() {
@@ -144,13 +140,15 @@ export default class AnalogClock extends Widget {
         onMouseOver={this.onMouseOver}
         onMouseOut={this.onMouseOut}
       >
-        <div className={this.styles.classNames.dial1} />
-        <div className={this.styles.classNames.dial2} />
-        {this.renderFixedMarks()}
-        {this.renderWatchPointer('watchPointerHour', angles.ah)}
-        {this.renderWatchPointer('watchPointerMinute', angles.am)}
-        {this.renderWatchPointer('watchPointerSecond', angles.as)}
-        <div className={this.styles.classNames.watchPointerCenter} />
+        <div className={this.styles.classNames.center}>
+          <div className={this.styles.classNames.dial1} />
+          <div className={this.styles.classNames.dial2} />
+          {this.renderFixedMarks()}
+          {this.renderWatchPointer('watchPointerHour', angles.ah)}
+          {this.renderWatchPointer('watchPointerMinute', angles.am)}
+          {this.renderWatchPointer('watchPointerSecond', angles.as)}
+          <div className={this.styles.classNames.watchPointerCenter} />
+        </div>
       </div>
     );
   }
