@@ -129,9 +129,7 @@ class Combo extends Widget {
 
   renderItem(item, index) {
     if (item.separator) {
-      return (
-        <Separator key={index} kind={item.separatorKind || 'menu-separator'} />
-      );
+      return <Separator key={index} kind={item.kind || 'menu-separator'} />;
     } else {
       const active = this.activeIndex === index;
       const color = ColorHelpers.getMarkColor(this.context.theme, item.color);

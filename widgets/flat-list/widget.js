@@ -156,7 +156,7 @@ export default class FlatList extends Widget {
 
   renderItem(item, index, isActive) {
     if (item.separator) {
-      return <Separator key={index} kind="menu-separator" />;
+      return <Separator key={index} kind={item.kind || 'menu-separator'} />;
     }
 
     const additionnalProps = {};
