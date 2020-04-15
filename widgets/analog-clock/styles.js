@@ -24,15 +24,15 @@ function d(value, limit, min = 1) {
 // and watch pointers.
 //          width       s = segment
 //          <--->
-//        --|---|-----------^---------^-
-//      /   | s |   \       | length  |
-//    /     |---|-----\-----v-        | radius
-//   |        |        |              |
-//   |--------o--------|--------------v-
+//        --+-+-+---------^---------^-
+//      /   | s |   \     | length  |
+//    /     +---+-----\---v-        | radius
+//   |        |        |            |
+//   +--------o--------+------------v-
 //   |        |        |
 //    \       |       /                      o = center of circle
 //      \     |     / <-- this is a circle!
-//        ---------
+//        ----+----
 
 function getRotatableSegment(radius, width, length) {
   return {
