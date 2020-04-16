@@ -126,10 +126,12 @@ export default class TextFieldTypedNC extends Widget {
     }
   }
 
+  // Called by InputWrapper.
   format(value) {
     return this.getDisplayed(value);
   }
 
+  // Called by InputWrapper.
   parse(value) {
     return this.parseEdited(value).value;
   }
@@ -247,8 +249,8 @@ export default class TextFieldTypedNC extends Widget {
             width={width}
             tooltip={tooltip}
             justify={justify}
-            format={this.format}
             shape={textFieldShape}
+            format={this.format}
             parse={this.parse}
             check={this.check}
             horizontalSpacing="overlap"

@@ -11,6 +11,9 @@ import * as styles from './styles';
 
 /******************************************************************************/
 
+// Fixes a nasty bug with OneOfType that does not appear, according to the order of
+// choice of components. It is necessary to extract this code in a separate component,
+// to avoid a strange bug with this.state === null!
 class OneOfTypeControl extends Widget {
   constructor() {
     super(...arguments);
