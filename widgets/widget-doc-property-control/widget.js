@@ -11,15 +11,64 @@ import * as styles from './styles';
 
 /******************************************************************************/
 
+class OneOfTypeControl extends Widget {
+  constructor() {
+    super(...arguments);
+    this.styles = styles;
+
+    this.onChangeType = this.onChangeType.bind(this);
+
+    this.state = {
+      type: this.props.type.types[0],
+    };
+  }
+
+  onChangeType(item) {
+    this.dispatch({type: 'DEL_PROP', path: this.props.path});
+    this.setState({type: item.value});
+  }
+
+  render() {
+    const list = this.props.type.types.map((item) => {
+      return {
+        id: item.type,
+        text: item.type,
+        value: item,
+        action: this.onChangeType,
+        active: this.state.type.type === item.type,
+      };
+    });
+    return (
+      <React.Fragment>
+        <ButtonCombo
+          horizontalSpacing="tiny"
+          comboGlyph="solid/ellipsis-v"
+          list={list}
+          selectedId={this.state.type.type}
+          menuType="wrap"
+          menuItemWidth="200px"
+        />
+        <WidgetDocPropertyControl
+          widgetId={this.props.widgetId}
+          path={this.props.path}
+          type={this.state.type}
+          value={this.props.value}
+        />
+      </React.Fragment>
+    );
+  }
+}
+
+/******************************************************************************/
+
 class WidgetDocPropertyControl extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
 
     this.onChange = this.onChange.bind(this);
-    this.onChangeNumber = this.onChangeNumber.bind(this);
-    this.onChangeType = this.onChangeType.bind(this);
     this.clear = this.clear.bind(this);
+
     if (this.props.type.type === 'oneOfType') {
       this.state = {
         type: this.props.type.types[0],
@@ -29,15 +78,6 @@ class WidgetDocPropertyControl extends Widget {
 
   onChange(value) {
     this.dispatch({type: 'SET_PROP', path: this.props.path, value});
-  }
-
-  onChangeType(item) {
-    this.clear();
-    this.setState({type: item.value});
-  }
-
-  onChangeNumber(value) {
-    this.onChange(Number(value));
   }
 
   clear() {
@@ -122,33 +162,13 @@ class WidgetDocPropertyControl extends Widget {
 
     switch (widget) {
       case 'oneOfType':
-        // eslint-disable-next-line no-case-declarations
-        const list = this.props.type.types.map((item) => {
-          return {
-            id: item.type,
-            text: item.type,
-            value: item,
-            action: this.onChangeType,
-            active: this.state.type.type === item.type,
-          };
-        });
         return (
-          <React.Fragment>
-            <ButtonCombo
-              horizontalSpacing="tiny"
-              comboGlyph="solid/ellipsis-v"
-              list={list}
-              selectedId={this.state.type.type}
-              menuType="wrap"
-              menuItemWidth="200px"
-            />
-            <WidgetDocPropertyControl
-              widgetId={this.props.widgetId}
-              path={this.props.path}
-              type={this.state.type}
-              value={this.props.value}
-            />
-          </React.Fragment>
+          <OneOfTypeControl
+            widgetId={this.props.widgetId}
+            path={this.props.path}
+            type={this.props.type}
+            value={this.props.value}
+          />
         );
       case 'text-field':
       default:
