@@ -1,12 +1,13 @@
 export default function styles() {
-  const control = {
+  const widgetDocPropertyControl = {
     display: 'flex',
     flexDirection: 'row',
+    flexGrow: 1,
     alignItems: 'flex-start',
   };
 
   return {
-    control,
+    widgetDocPropertyControl,
   };
 }
 

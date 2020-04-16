@@ -181,7 +181,7 @@ class WidgetDocPropertyControl extends Widget {
 
   render() {
     return (
-      <div className={this.styles.classNames.control}>
+      <div className={this.styles.classNames.widgetDocPropertyControl}>
         {this.renderControl()}
         {this.props.type.type !== 'oneOfType' && (
           <Button
