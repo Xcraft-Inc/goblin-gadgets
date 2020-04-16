@@ -61,12 +61,12 @@ export default [
     group: 'aspect',
     type: types.enum([
       '',
+      'ticket',
+      'rect',
+      'corner',
       'thin',
       'event',
-      'ticket',
-      'corner',
       'subpane',
-      'rect',
     ]),
   },
   {
@@ -97,12 +97,12 @@ export default [
   {
     name: 'shape',
     group: 'aspect',
-    type: types.enum(['', 'first', 'middle', 'last', 'continued']),
+    type: types.enum(['', 'middle', 'first', 'continued', 'last']),
   },
   {
     name: 'hoverShape',
     group: 'aspect',
-    type: types.enum(['', 'first', 'middle', 'last', 'continued']),
+    type: types.enum(['', 'middle', 'first', 'continued', 'last']),
   },
 
   // Layout.
