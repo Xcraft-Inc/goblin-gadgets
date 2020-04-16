@@ -146,7 +146,18 @@ export default class Ticket extends Widget {
     const w = styles.props.box.width;
     const h = styles.props.box.height;
     if (!w || !h) {
-      throw new Error('Undefined ticket width or height');
+      if (this.props.widgetDocPreview) {
+        return (
+          <Label
+            glyph="solid/exclamation-triangle"
+            text="Ticket: Undefined ticket width or height"
+            glyphColor="red"
+            textColor="red"
+          />
+        );
+      } else {
+        throw new Error('Undefined ticket width or height');
+      }
     }
     const htmlFarShadow = this.props.shadow ? (
       <div className={farShadowClass} />

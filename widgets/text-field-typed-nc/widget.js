@@ -178,6 +178,8 @@ export default class TextFieldTypedNC extends Widget {
         type === 'weight' ||
         type === 'length' ||
         type === 'number' ||
+        type === 'integer' ||
+        type === 'double' ||
         type === 'percent'
           ? 'right'
           : 'left';

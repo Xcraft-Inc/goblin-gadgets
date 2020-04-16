@@ -18,6 +18,7 @@ import {
 import TableRow from 'goblin-gadgets/widgets/table-row/widget';
 import TableCell from 'goblin-gadgets/widgets/table-cell/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
+import Label from 'goblin-gadgets/widgets/label/widget';
 import TextInputNC from 'goblin-gadgets/widgets/text-input-nc/widget';
 import ScrollableContainer from 'goblin-gadgets/widgets/scrollable-container/widget';
 import T from 't';
@@ -506,7 +507,18 @@ export default class TableNC extends Widget {
     const postHeader = data.get('post-header');
     const header = data.get('header');
     if (!header) {
-      throw new Error('Table without header');
+      if (this.props.widgetDocPreview) {
+        return (
+          <Label
+            glyph="solid/exclamation-triangle"
+            text="Table: Without header"
+            glyphColor="red"
+            textColor="red"
+          />
+        );
+      } else {
+        throw new Error('Table without header');
+      }
     }
 
     if (postHeader) {

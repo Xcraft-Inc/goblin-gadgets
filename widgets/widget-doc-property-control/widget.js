@@ -56,6 +56,8 @@ class WidgetDocPropertyControl extends Widget {
       this.props.type.type === 'length' ||
       this.props.type.type === 'volume' ||
       this.props.type.type === 'number' ||
+      this.props.type.type === 'integer' ||
+      this.props.type.type === 'double' ||
       this.props.type.type === 'percent' ||
       this.props.type.type === 'delay'
     ) {
