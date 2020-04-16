@@ -1,5 +1,6 @@
 //T:2019-02-27
 import React from 'react';
+import Props from './props';
 import Widget from 'goblin-laboratory/widgets/widget';
 
 import Label from 'goblin-gadgets/widgets/label/widget';
@@ -9,6 +10,11 @@ import {TranslatableDiv} from 'nabu/helpers/element-helpers';
 import {Unit} from 'electrum-theme';
 import getOutlinePath from './getOutlinePath';
 import * as styles from './styles';
+
+import {
+  makePropTypes,
+  makeDefaultProps,
+} from 'xcraft-core-utils/lib/prop-types';
 
 /******************************************************************************/
 
@@ -334,3 +340,7 @@ export default class Ticket extends Widget {
     }
   }
 }
+/******************************************************************************/
+
+Ticket.propTypes = makePropTypes(Props);
+Ticket.defaultProps = makeDefaultProps(Props);

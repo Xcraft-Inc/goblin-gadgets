@@ -70,6 +70,10 @@ import AnalogClock from 'goblin-gadgets/widgets/analog-clock/widget';
 import analogClockProps from 'goblin-gadgets/widgets/analog-clock/props';
 import analogClockScenarios from 'goblin-gadgets/widgets/analog-clock/scenarios';
 
+import Ticket from 'goblin-gadgets/widgets/ticket/widget';
+import ticketProps from 'goblin-gadgets/widgets/ticket/props';
+import ticketScenarios from 'goblin-gadgets/widgets/ticket/scenarios';
+
 const widgetList = [
   {
     name: 'Button',
@@ -196,6 +200,13 @@ const widgetList = [
     widgetPath: 'goblin-gadgets/widgets/analog-clock/widget',
     props: analogClockProps,
     scenarios: analogClockScenarios,
+  },
+  {
+    name: 'Ticket',
+    widget: Ticket,
+    widgetPath: 'goblin-gadgets/widgets/analog-clock/widget',
+    props: ticketProps,
+    scenarios: ticketScenarios,
   },
 ];
 
