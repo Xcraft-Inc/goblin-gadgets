@@ -592,6 +592,7 @@ export default function styles(theme, props) {
     'width',
     'height',
     'transform-origin',
+    'background-color',
     'border',
     'border-radius',
     'box-shadow',
