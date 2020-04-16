@@ -251,7 +251,7 @@ class TextFieldComboNC extends Widget {
 
     let TextComponent = TextFieldNC;
     if (this.props.renderTextField) {
-      TextComponent = this.prop.renderTextField;
+      TextComponent = this.props.renderTextField;
     }
 
     return (
