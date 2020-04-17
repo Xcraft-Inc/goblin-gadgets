@@ -324,12 +324,8 @@ class WidgetDocPreview extends Widget {
 
     if (this.props.selectedWidget === 'Splitter') {
       return (
-        <div className={this.styles.classNames.splitterContainer}>
-          <this.widgetInfo.widget
-            key={key}
-            widgetDocPreview={true}
-            {...props}
-          />
+        <div key={key} className={this.styles.classNames.splitterContainer}>
+          <this.widgetInfo.widget widgetDocPreview={true} {...props} />
         </div>
       );
     } else {

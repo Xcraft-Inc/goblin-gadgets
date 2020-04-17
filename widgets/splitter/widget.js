@@ -38,10 +38,37 @@ export default class Splitter extends Widget {
     }
   }
 
+  saveProps() {
+    this.initialKind = this.props.kind;
+    this.initialFirstSize = this.props.firstSize;
+    this.initialLastSize = this.props.lastSize;
+    this.initialFirstMinSize = this.props.firstMinSize;
+    this.initialFirstMaxSize = this.props.firstMaxSize;
+    this.initialLastMinSize = this.props.lastMinSize;
+    this.initialLastMaxSize = this.props.lastMaxSize;
+  }
+
+  get havePropsChanged() {
+    return (
+      this.initialKind !== this.props.kind ||
+      this.initialFirstSize !== this.props.firstSize ||
+      this.initialLastSize !== this.props.lastSize ||
+      this.initialFirstMinSize !== this.props.firstMinSize ||
+      this.initialFirstMaxSize !== this.props.firstMaxSize ||
+      this.initialLastMinSize !== this.props.lastMinSize ||
+      this.initialLastMaxSize !== this.props.lastMaxSize
+    );
+  }
+
   update() {
+    if (!this.havePropsChanged) {
+      return null; // ok
+    }
+    this.saveProps();
+
     this.kind = this.props.kind;
     if (this.kind !== 'vertical' && this.kind !== 'horizontal') {
-      return this.error(`Splitter: Wrong kind ${this.kind}`);
+      return this.error(`Splitter: Wrong kind '${this.kind}'`);
     }
 
     if (this.props.firstSize && this.props.lastSize) {
@@ -57,22 +84,18 @@ export default class Splitter extends Widget {
 
     if (this.props.firstSize) {
       const x = Unit.parse(this.props.firstSize);
-      if (this.unit !== x.unit) {
-        this.firstSize = x.value;
-        this.unit = x.unit;
-        this.master = 'first';
-      }
+      this.firstSize = x.value;
+      this.unit = x.unit;
+      this.master = 'first';
     } else {
       const x = Unit.parse(this.props.lastSize);
-      if (this.unit !== x.unit) {
-        this.lastSize = x.value;
-        this.unit = x.unit;
-        this.master = 'last';
-      }
+      this.lastSize = x.value;
+      this.unit = x.unit;
+      this.master = 'last';
     }
     if (this.unit !== '%' && this.unit !== 'px') {
       return this.error(
-        `Splitter: Wrong firstSize or lastSize unit ${this.unit}`
+        `Splitter: Wrong firstSize or lastSize unit '${this.unit}'`
       );
     }
 
@@ -108,7 +131,7 @@ export default class Splitter extends Widget {
     if (value) {
       const x = Unit.parse(value);
       if (x.unit !== this.unit) {
-        return this.error(`Splitter: Wrong unit in ${name} (${value})`);
+        return this.error(`Splitter: Wrong unit in '${name}' (${value})`);
       }
     }
     return null; // ok
@@ -129,7 +152,7 @@ export default class Splitter extends Widget {
   }
 
   getOffset(x, y) {
-    const node = ReactDOM.findDOMNode(this.resizer);
+    const node = ReactDOM.findDOMNode(this.resizerNode);
     const rect = node.getBoundingClientRect();
     if (this.kind === 'vertical') {
       if (x >= rect.left && x <= rect.right) {
@@ -148,16 +171,16 @@ export default class Splitter extends Widget {
     if (offset !== -1) {
       this.offset = offset;
 
-      const containerNode = ReactDOM.findDOMNode(this.container);
+      const containerNode = ReactDOM.findDOMNode(this.containerNode);
       this.containerRect = containerNode.getBoundingClientRect();
 
-      const firstPaneNode = ReactDOM.findDOMNode(this.firstPane);
+      const firstPaneNode = ReactDOM.findDOMNode(this.firstPaneNode);
       this.firstPaneRect = firstPaneNode.getBoundingClientRect();
 
-      const resizerNode = ReactDOM.findDOMNode(this.resizer);
+      const resizerNode = ReactDOM.findDOMNode(this.resizerNode);
       this.resizerRect = resizerNode.getBoundingClientRect();
 
-      const lastPaneNode = ReactDOM.findDOMNode(this.lastPane);
+      const lastPaneNode = ReactDOM.findDOMNode(this.lastPaneNode);
       this.lastPaneRect = lastPaneNode.getBoundingClientRect();
 
       this.isDragging = true;
@@ -245,6 +268,8 @@ export default class Splitter extends Widget {
     this.isMouseDown = false;
   }
 
+  /******************************************************************************/
+
   render() {
     const err = this.update();
     if (err) {
@@ -253,22 +278,22 @@ export default class Splitter extends Widget {
 
     let children = this.props.children;
     if (children && children.props) {
+      // This mic-mac is used to resolve <React.Fragment>!
       children = children.props.children;
     }
     if (!children || children.length !== 2) {
       return this.error('Splitter: Must have 2 children');
     }
 
-    const containerClass = this.styles.classNames.container;
-    const firstPaneClass = this.styles.classNames.firstPane;
-    const resizerClass = this.isDragging
-      ? this.styles.classNames.resizerDragging
-      : this.styles.classNames.resizer;
-    const lastPaneClass = this.styles.classNames.lastPane;
+    const firstPaneStyle = {
+      display: 'flex',
+      overflow: 'hidden',
+    };
 
-    // FIXME: it's a bad idea to mutate the styles in the render, see styles.js
-    const firstPaneStyle = Object.assign({}, this.styles.props.firstPane);
-    const lastPaneStyle = Object.assign({}, this.styles.props.lastPane);
+    const lastPaneStyle = {
+      display: 'flex',
+      overflow: 'hidden',
+    };
 
     if (this.unit === '%') {
       if (this.master === 'first') {
@@ -308,27 +333,26 @@ export default class Splitter extends Widget {
       }
     }
 
+    const resizerClass = this.isDragging
+      ? this.styles.classNames.resizerDragging
+      : this.styles.classNames.resizer;
+
     return (
       <div
-        className={containerClass}
-        ref={(node) => (this.container = node)}
+        ref={(node) => (this.containerNode = node)}
+        className={this.styles.classNames.container}
         onMouseDown={this.onMouseDown}
         onMouseMove={this.onMouseMove}
         onMouseUp={this.onMouseUp}
       >
-        <div
-          className={firstPaneClass}
-          style={firstPaneStyle}
-          ref={(node) => (this.firstPane = node)}
-        >
+        <div ref={(node) => (this.firstPaneNode = node)} style={firstPaneStyle}>
           {children[0]}
         </div>
-        <div className={resizerClass} ref={(node) => (this.resizer = node)} />
         <div
-          className={lastPaneClass}
-          style={lastPaneStyle}
-          ref={(node) => (this.lastPane = node)}
-        >
+          ref={(node) => (this.resizerNode = node)}
+          className={resizerClass}
+        />
+        <div ref={(node) => (this.lastPaneNode = node)} style={lastPaneStyle}>
           {children[1]}
         </div>
       </div>

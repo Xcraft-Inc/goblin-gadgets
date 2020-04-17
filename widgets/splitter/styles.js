@@ -13,11 +13,6 @@ export default function styles(theme, props) {
     height: '100%',
   };
 
-  const firstPane = {
-    display: 'flex',
-    overflow: 'hidden',
-  };
-
   const resizer = {
     'zIndex': 1,
     'width': kind === 'vertical' ? theme.shapes.splitterSize : null,
@@ -35,17 +30,10 @@ export default function styles(theme, props) {
     backgroundColor: theme.palette.splitterBackgroundHover,
   };
 
-  const lastPane = {
-    display: 'flex',
-    overflow: 'hidden',
-  };
-
   return {
     container,
-    firstPane,
     resizer,
     resizerDragging,
-    lastPane,
   };
 }
 
