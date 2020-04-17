@@ -21,30 +21,75 @@ export default class Splitter extends Widget {
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
+  }
 
+  error(message) {
+    if (this.props.widgetDocPreview) {
+      return (
+        <Label
+          glyph="solid/exclamation-triangle"
+          text={message}
+          glyphColor="red"
+          textColor="red"
+        />
+      );
+    } else {
+      throw new Error(message);
+    }
+  }
+
+  update() {
     this.kind = this.props.kind;
     if (this.kind !== 'vertical' && this.kind !== 'horizontal') {
-      throw new Error(`Wrong Splitter kind ${this.kind}`);
+      return this.error(`Splitter: Wrong kind ${this.kind}`);
     }
 
     if (this.props.firstSize && this.props.lastSize) {
-      throw new Error(
-        `Splitter must have both firstSize (${this.props.firstSize}) and lastSize (${this.props.lastSize})`
+      return this.error(
+        `Splitter: Must have both firstSize (${this.props.firstSize}) and lastSize (${this.props.lastSize})`
       );
     }
+    if (!this.props.firstSize && !this.props.lastSize) {
+      return this.error(
+        'Splitter: One of the two values firstSize or lastSize must be defined'
+      );
+    }
+
     if (this.props.firstSize) {
       const x = Unit.parse(this.props.firstSize);
-      this.firstSize = x.value;
-      this.unit = x.unit;
-      this.master = 'first';
+      if (this.unit !== x.unit) {
+        this.firstSize = x.value;
+        this.unit = x.unit;
+        this.master = 'first';
+      }
     } else {
       const x = Unit.parse(this.props.lastSize);
-      this.lastSize = x.value;
-      this.unit = x.unit;
-      this.master = 'last';
+      if (this.unit !== x.unit) {
+        this.lastSize = x.value;
+        this.unit = x.unit;
+        this.master = 'last';
+      }
     }
     if (this.unit !== '%' && this.unit !== 'px') {
-      throw new Error(`Wrong Splitter firstSize unit ${this.unit}`);
+      return this.error(`Splitter: Wrong firstSize unit ${this.unit}`);
+    }
+
+    let err;
+    err = this.checkValue('firstMinSize');
+    if (err) {
+      return err;
+    }
+    err = this.checkValue('firstMaxSize');
+    if (err) {
+      return err;
+    }
+    err = this.checkValue('lastMinSize');
+    if (err) {
+      return err;
+    }
+    err = this.checkValue('lastMaxSize');
+    if (err) {
+      return err;
     }
 
     this.firstMinSize = this.getValue('firstMinSize', 'min');
@@ -52,15 +97,25 @@ export default class Splitter extends Widget {
 
     this.lastMinSize = this.getValue('lastMinSize', 'min');
     this.lastMaxSize = this.getValue('lastMaxSize', 'max');
+
+    return null; // ok
+  }
+
+  checkValue(name) {
+    const value = this.props[name];
+    if (value) {
+      const x = Unit.parse(value);
+      if (x.unit !== this.unit) {
+        return this.error(`Splitter: Wrong unit in ${name} (${value})`);
+      }
+    }
+    return null; // ok
   }
 
   getValue(name, type) {
     const value = this.props[name];
     if (value) {
       const x = Unit.parse(value);
-      if (x.unit !== this.unit) {
-        throw new Error(`Wrong Splitter unit in ${name} (${value})`);
-      }
       return x.value;
     } else {
       if (type === 'min') {
@@ -189,20 +244,17 @@ export default class Splitter extends Widget {
   }
 
   render() {
-    const children = this.props.children;
-    if (children.length !== 2) {
-      if (this.props.widgetDocPreview) {
-        return (
-          <Label
-            glyph="solid/exclamation-triangle"
-            text="Splitter: Must have 2 children"
-            glyphColor="red"
-            textColor="red"
-          />
-        );
-      } else {
-        throw new Error('Splitter must have 2 children');
-      }
+    const err = this.update();
+    if (err) {
+      return err;
+    }
+
+    let children = this.props.children;
+    if (children && children.props) {
+      children = children.props.children;
+    }
+    if (!children || children.length !== 2) {
+      return this.error('Splitter: Must have 2 children');
     }
 
     const containerClass = this.styles.classNames.container;

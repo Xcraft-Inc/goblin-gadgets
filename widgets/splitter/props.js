@@ -6,8 +6,8 @@ export default [
   // Main.
   {
     name: 'kind',
-    group: 'aspect',
-    type: types.enum(['', 'vertical', 'horizontal']),
+    group: 'main',
+    type: types.enum(['vertical', 'horizontal']),
   },
   {
     name: 'children',
@@ -15,35 +15,35 @@ export default [
     type: types.component,
   },
 
-  // Aspect.
+  // Size.
   {
     name: 'firstSize',
-    group: 'aspect',
-    type: types.size,
+    group: 'size',
+    type: types.oneOfType([types.size, types.percentage]),
   },
   {
     name: 'lastSize',
-    group: 'aspect',
-    type: types.size,
+    group: 'size',
+    type: types.oneOfType([types.size, types.percentage]),
   },
   {
     name: 'firstMinSize',
-    group: 'aspect',
-    type: types.size,
+    group: 'size',
+    type: types.oneOfType([types.size, types.percentage]),
   },
   {
     name: 'firstMaxSize',
-    group: 'aspect',
-    type: types.size,
+    group: 'size',
+    type: types.oneOfType([types.size, types.percentage]),
   },
   {
     name: 'lastMinSize',
-    group: 'aspect',
-    type: types.size,
+    group: 'size',
+    type: types.oneOfType([types.size, types.percentage]),
   },
   {
     name: 'lastMaxSize',
-    group: 'aspect',
-    type: types.size,
+    group: 'size',
+    type: types.oneOfType([types.size, types.percentage]),
   },
 ];

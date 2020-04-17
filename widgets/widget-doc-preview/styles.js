@@ -25,11 +25,11 @@ export default function styles(theme) {
     padding: '0px ' + m + ' 0px ' + m,
     display: 'flex',
     flexDirection: 'column',
-    flexGrow: '1',
+    flexGrow: 1,
   };
 
   const samples = {
-    flexGrow: '1',
+    flexGrow: 1,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
@@ -39,12 +39,21 @@ export default function styles(theme) {
     backgroundColor: theme.palette.paneBackground,
   };
 
+  const splitterContainer = {
+    width: '500px',
+    height: '500px',
+    border: '2px dashed #888',
+  };
+
+  /******************************************************************************/
+
   return {
     container,
     code,
     settings,
     panes,
     samples,
+    splitterContainer,
   };
 }
 

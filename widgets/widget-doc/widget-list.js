@@ -74,6 +74,10 @@ import Ticket from 'goblin-gadgets/widgets/ticket/widget';
 import ticketProps from 'goblin-gadgets/widgets/ticket/props';
 import ticketScenarios from 'goblin-gadgets/widgets/ticket/scenarios';
 
+import Splitter from 'goblin-gadgets/widgets/splitter/widget';
+import splitterProps from 'goblin-gadgets/widgets/splitter/props';
+import splitterScenarios from 'goblin-gadgets/widgets/splitter/scenarios';
+
 const widgetList = [
   {
     name: 'Button',
@@ -204,9 +208,16 @@ const widgetList = [
   {
     name: 'Ticket',
     widget: Ticket,
-    widgetPath: 'goblin-gadgets/widgets/analog-clock/widget',
+    widgetPath: 'goblin-gadgets/widgets/ticket/widget',
     props: ticketProps,
     scenarios: ticketScenarios,
+  },
+  {
+    name: 'Splitter',
+    widget: Splitter,
+    widgetPath: 'goblin-gadgets/widgets/splitter/widget',
+    props: splitterProps,
+    scenarios: splitterScenarios,
   },
 ];
 

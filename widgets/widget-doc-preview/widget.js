@@ -321,9 +321,22 @@ class WidgetDocPreview extends Widget {
       }
     }
     key = this.props.theme ? this.props.theme + key : key;
-    return (
-      <this.widgetInfo.widget key={key} widgetDocPreview={true} {...props} />
-    );
+
+    if (this.props.selectedWidget === 'Splitter') {
+      return (
+        <div className={this.styles.classNames.splitterContainer}>
+          <this.widgetInfo.widget
+            key={key}
+            widgetDocPreview={true}
+            {...props}
+          />
+        </div>
+      );
+    } else {
+      return (
+        <this.widgetInfo.widget key={key} widgetDocPreview={true} {...props} />
+      );
+    }
   }
 
   renderWidgets() {
