@@ -20,11 +20,13 @@ export default [
     name: 'firstSize',
     group: 'size',
     type: types.oneOfType([types.size, types.percentage]),
+    description: "Initial size of first panel. Do not use with 'lastSize'",
   },
   {
     name: 'lastSize',
     group: 'size',
     type: types.oneOfType([types.size, types.percentage]),
+    description: "Initial size of last panel. Do not use with 'firstSize'",
   },
   {
     name: 'firstMinSize',

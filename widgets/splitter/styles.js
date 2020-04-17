@@ -13,21 +13,18 @@ export default function styles(theme, props) {
     height: '100%',
   };
 
-  const resizer = {
-    'zIndex': 1,
-    'width': kind === 'vertical' ? theme.shapes.splitterSize : null,
-    'height': kind === 'horizontal' ? theme.shapes.splitterSize : null,
-    'cursor': kind === 'vertical' ? 'col-resize' : 'row-resize',
-    'backgroundColor': theme.palette.splitterBackground,
-    ':hover': {backgroundColor: theme.palette.splitterBackgroundHover},
-  };
-
   const resizerDragging = {
     zIndex: 1,
     width: kind === 'vertical' ? theme.shapes.splitterSize : null,
     height: kind === 'horizontal' ? theme.shapes.splitterSize : null,
     cursor: kind === 'vertical' ? 'col-resize' : 'row-resize',
     backgroundColor: theme.palette.splitterBackgroundHover,
+  };
+
+  const resizer = {
+    ...resizerDragging,
+    'backgroundColor': theme.palette.splitterBackground,
+    ':hover': {backgroundColor: theme.palette.splitterBackgroundHover},
   };
 
   return {

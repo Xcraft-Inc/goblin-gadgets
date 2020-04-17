@@ -18,10 +18,26 @@ export default class Splitter extends Widget {
     super(...arguments);
     this.styles = styles;
 
+    this.state = {
+      localState: {},
+    };
+
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
   }
+
+  //#region get/set
+  get localState() {
+    return this.state.localState;
+  }
+
+  set localState(value) {
+    this.setState({
+      localState: value,
+    });
+  }
+  //#endregion
 
   error(message) {
     if (this.props.widgetDocPreview) {
@@ -62,6 +78,7 @@ export default class Splitter extends Widget {
 
   update() {
     if (!this.havePropsChanged) {
+      this.recentUpdate = false;
       return null; // ok
     }
     this.saveProps();
@@ -123,6 +140,7 @@ export default class Splitter extends Widget {
     this.lastMinSize = this.getValue('lastMinSize', 'min');
     this.lastMaxSize = this.getValue('lastMaxSize', 'max');
 
+    this.recentUpdate = true;
     return null; // ok
   }
 
@@ -148,6 +166,19 @@ export default class Splitter extends Widget {
       } else {
         return this.unit === '%' ? 100 : 1000000;
       }
+    }
+  }
+
+  getLocalState() {
+    if (this.recentUpdate) {
+      // If recent update, synthesizes a local state.
+      return {
+        firstSize: this.firstSize,
+        lastSize: this.lastSize,
+        isDragging: false,
+      };
+    } else {
+      return this.localState;
     }
   }
 
@@ -182,58 +213,66 @@ export default class Splitter extends Widget {
 
       const lastPaneNode = ReactDOM.findDOMNode(this.lastPaneNode);
       this.lastPaneRect = lastPaneNode.getBoundingClientRect();
-
-      this.isDragging = true;
     }
+
+    this.localState = {...this.getLocalState(), isDragging: true};
   }
 
   mouseMovePercents(x, y) {
+    let firstSize, lastSize;
+
     if (this.kind === 'vertical') {
       const rx = x - this.offset - this.firstPaneRect.left;
-      this.firstSize =
+      firstSize =
         (100 * rx) / (this.containerRect.width - this.resizerRect.width);
     } else {
       const ry = y - this.offset - this.firstPaneRect.top;
-      this.firstSize =
+      firstSize =
         (100 * ry) / (this.containerRect.height - this.resizerRect.height);
     }
-    this.lastSize = 100 - this.firstSize;
+    lastSize = 100 - firstSize;
 
     if (this.master === 'first') {
       const min = Math.max(this.firstMinSize, 100 - this.lastMaxSize);
       const max = Math.min(this.firstMaxSize, 100 - this.lastMinSize);
-      this.firstSize = Math.max(this.firstSize, min);
-      this.firstSize = Math.min(this.firstSize, max);
+      firstSize = Math.max(firstSize, min);
+      firstSize = Math.min(firstSize, max);
     } else {
       const min = Math.max(this.lastMinSize, 100 - this.firstMaxSize);
       const max = Math.min(this.lastMaxSize, 100 - this.firstMinSize);
-      this.lastSize = Math.max(this.lastSize, min);
-      this.lastSize = Math.min(this.lastSize, max);
+      lastSize = Math.max(lastSize, min);
+      lastSize = Math.min(lastSize, max);
     }
+
+    this.localState = {firstSize, lastSize, isDragging: true};
   }
 
   mouseMovePixels(x, y) {
+    let firstSize, lastSize;
     let total;
+
     if (this.kind === 'vertical') {
-      this.firstSize = x - this.offset - this.firstPaneRect.left;
+      firstSize = x - this.offset - this.firstPaneRect.left;
       total = this.firstPaneRect.width + this.lastPaneRect.width;
     } else {
-      this.firstSize = y - this.offset - this.firstPaneRect.top;
+      firstSize = y - this.offset - this.firstPaneRect.top;
       total = this.firstPaneRect.height + this.lastPaneRect.height;
     }
-    this.lastSize = total - this.firstSize;
+    lastSize = total - firstSize;
 
     if (this.master === 'first') {
       const min = Math.max(this.firstMinSize, total - this.lastMaxSize);
       const max = Math.min(this.firstMaxSize, total - this.lastMinSize);
-      this.firstSize = Math.max(this.firstSize, min);
-      this.firstSize = Math.min(this.firstSize, max);
+      firstSize = Math.max(firstSize, min);
+      firstSize = Math.min(firstSize, max);
     } else {
       const min = Math.max(this.lastMinSize, total - this.firstMaxSize);
       const max = Math.min(this.lastMaxSize, total - this.firstMinSize);
-      this.lastSize = Math.max(this.lastSize, min);
-      this.lastSize = Math.min(this.lastSize, max);
+      lastSize = Math.max(lastSize, min);
+      lastSize = Math.min(lastSize, max);
     }
+
+    this.localState = {firstSize, lastSize, isDragging: true};
   }
 
   mouseMove(x, y) {
@@ -242,12 +281,9 @@ export default class Splitter extends Widget {
     } else {
       this.mouseMovePixels(x, y);
     }
-
-    this.forceUpdate();
   }
 
   onMouseDown(e) {
-    this.isMouseDown = true;
     if (e.buttons === 1) {
       // Mouse left button pressed ?
       this.mouseDown(e.clientX, e.clientY);
@@ -255,17 +291,15 @@ export default class Splitter extends Widget {
   }
 
   onMouseMove(e) {
-    if (this.isDragging) {
+    if (this.localState.isDragging) {
       this.mouseMove(e.clientX, e.clientY);
     }
   }
 
   onMouseUp() {
-    if (this.isDragging) {
-      this.isDragging = false;
-      this.forceUpdate();
+    if (this.localState.isDragging) {
+      this.localState = {...this.localState, isDragging: false};
     }
-    this.isMouseDown = false;
   }
 
   /******************************************************************************/
@@ -295,13 +329,15 @@ export default class Splitter extends Widget {
       overflow: 'hidden',
     };
 
+    const localState = this.getLocalState();
+
     if (this.unit === '%') {
       if (this.master === 'first') {
-        firstPaneStyle.flexGrow = this.firstSize;
-        lastPaneStyle.flexGrow = 100 - this.firstSize;
+        firstPaneStyle.flexGrow = localState.firstSize;
+        lastPaneStyle.flexGrow = 100 - localState.firstSize;
       } else {
-        lastPaneStyle.flexGrow = this.lastSize;
-        firstPaneStyle.flexGrow = 100 - this.lastSize;
+        lastPaneStyle.flexGrow = localState.lastSize;
+        firstPaneStyle.flexGrow = 100 - localState.lastSize;
       }
 
       firstPaneStyle.flexShrink = '1';
@@ -312,9 +348,9 @@ export default class Splitter extends Widget {
     } else {
       if (this.master === 'first') {
         if (this.kind === 'vertical') {
-          firstPaneStyle.width = this.firstSize + this.unit;
+          firstPaneStyle.width = localState.firstSize + this.unit;
         } else {
-          firstPaneStyle.height = this.firstSize + this.unit;
+          firstPaneStyle.height = localState.firstSize + this.unit;
         }
 
         lastPaneStyle.flexGrow = '1';
@@ -322,9 +358,9 @@ export default class Splitter extends Widget {
         lastPaneStyle.flexBasis = '0%';
       } else {
         if (this.kind === 'vertical') {
-          lastPaneStyle.width = this.lastSize + this.unit;
+          lastPaneStyle.width = localState.lastSize + this.unit;
         } else {
-          lastPaneStyle.height = this.lastSize + this.unit;
+          lastPaneStyle.height = localState.lastSize + this.unit;
         }
 
         firstPaneStyle.flexGrow = '1';
@@ -333,7 +369,7 @@ export default class Splitter extends Widget {
       }
     }
 
-    const resizerClass = this.isDragging
+    const resizerClass = this.localState.isDragging
       ? this.styles.classNames.resizerDragging
       : this.styles.classNames.resizer;
 
