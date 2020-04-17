@@ -71,7 +71,9 @@ export default class Splitter extends Widget {
       }
     }
     if (this.unit !== '%' && this.unit !== 'px') {
-      return this.error(`Splitter: Wrong firstSize unit ${this.unit}`);
+      return this.error(
+        `Splitter: Wrong firstSize or lastSize unit ${this.unit}`
+      );
     }
 
     let err;
