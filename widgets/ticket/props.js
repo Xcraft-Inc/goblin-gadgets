@@ -63,7 +63,7 @@ export default [
       '',
       'ticket',
       'rect',
-      'corner',
+      'cover',
       'thin',
       'event',
       'subpane',
