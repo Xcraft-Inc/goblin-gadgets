@@ -5,22 +5,20 @@ export const propNames = ['kind'];
 export default function styles(theme, props) {
   const {kind} = props;
 
-  const containerStyle = {
+  const container = {
     display: 'flex',
     flexDirection: kind === 'vertical' ? 'row' : 'column',
-    flexGrow: '1',
-    //???? width: kind === 'vertical' ? '100%' : null,
-    //???? height: kind === 'vertical' ? null : '100%',
+    flexGrow: 1,
     width: '100%',
     height: '100%',
   };
 
-  const firstPaneStyle = {
+  const firstPane = {
     display: 'flex',
     overflow: 'hidden',
   };
 
-  const resizerStyle = {
+  const resizer = {
     'zIndex': 1,
     'width': kind === 'vertical' ? theme.shapes.splitterSize : null,
     'height': kind === 'horizontal' ? theme.shapes.splitterSize : null,
@@ -29,7 +27,7 @@ export default function styles(theme, props) {
     ':hover': {backgroundColor: theme.palette.splitterBackgroundHover},
   };
 
-  const resizerDraggingStyle = {
+  const resizerDragging = {
     zIndex: 1,
     width: kind === 'vertical' ? theme.shapes.splitterSize : null,
     height: kind === 'horizontal' ? theme.shapes.splitterSize : null,
@@ -37,17 +35,17 @@ export default function styles(theme, props) {
     backgroundColor: theme.palette.splitterBackgroundHover,
   };
 
-  const lastPaneStyle = {
+  const lastPane = {
     display: 'flex',
     overflow: 'hidden',
   };
 
   return {
-    container: containerStyle,
-    firstPane: firstPaneStyle,
-    resizer: resizerStyle,
-    resizerDragging: resizerDraggingStyle,
-    lastPane: lastPaneStyle,
+    container,
+    firstPane,
+    resizer,
+    resizerDragging,
+    lastPane,
   };
 }
 

@@ -1,13 +1,19 @@
-//T:2019-02-27:Nothing to translate !
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Props from './props';
 import Widget from 'goblin-laboratory/widgets/widget';
+import Label from 'goblin-gadgets/widgets/label/widget';
 import {Unit} from 'electrum-theme';
 import * as styles from './styles';
 
+import {
+  makePropTypes,
+  makeDefaultProps,
+} from 'xcraft-core-utils/lib/prop-types';
+
 /******************************************************************************/
 
-class Splitter extends Widget {
+export default class Splitter extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
@@ -185,7 +191,18 @@ class Splitter extends Widget {
   render() {
     const children = this.props.children;
     if (children.length !== 2) {
-      throw new Error('Splitter must have 2 children');
+      if (this.props.widgetDocPreview) {
+        return (
+          <Label
+            glyph="solid/exclamation-triangle"
+            text="Splitter: Must have 2 children"
+            glyphColor="red"
+            textColor="red"
+          />
+        );
+      } else {
+        throw new Error('Splitter must have 2 children');
+      }
     }
 
     const containerClass = this.styles.classNames.container;
@@ -266,4 +283,6 @@ class Splitter extends Widget {
 }
 
 /******************************************************************************/
-export default Splitter;
+
+Splitter.propTypes = makePropTypes(Props);
+Splitter.defaultProps = makeDefaultProps(Props);
