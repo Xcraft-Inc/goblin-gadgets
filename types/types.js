@@ -231,7 +231,7 @@ const types = {
     type: 'percentage',
     widget: 'combo',
     restrictsToList: false,
-    samples: ['', '50%', '75%', '100%', '150%', '200%'],
+    samples: ['', '10%', '25%', '50%', '75%', '90%', '100%', '150%', '200%'],
   },
 
   horizontalSpacing: {

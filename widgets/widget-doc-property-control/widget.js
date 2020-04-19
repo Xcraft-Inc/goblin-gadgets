@@ -22,7 +22,7 @@ class OneOfTypeControl extends Widget {
     this.onChangeType = this.onChangeType.bind(this);
 
     this.state = {
-      type: this.props.type.types[0],
+      type: this.props.oneOfType,
     };
   }
 
@@ -170,6 +170,7 @@ class WidgetDocPropertyControl extends Widget {
             widgetId={this.props.widgetId}
             path={this.props.path}
             type={this.props.type}
+            oneOfType={this.props.oneOfType}
             value={this.props.value}
           />
         );
