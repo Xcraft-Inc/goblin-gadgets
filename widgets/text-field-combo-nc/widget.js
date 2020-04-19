@@ -268,6 +268,7 @@ class TextFieldComboNC extends Widget {
         rows={this.props.rows}
         readonly={this.props.restrictsToList}
         //changeMode="passthrough" // WIP: semble inutile, mais j'attends une réponse de @Nocturnight @Yannick !
+        changeMode="immediate"
         disabled={this.props.disabled}
         required={this.props.required}
         embeddedFocus={true}
