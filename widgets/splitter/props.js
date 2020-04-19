@@ -15,37 +15,38 @@ export default [
     type: types.component,
   },
 
-  // Size.
+  // Initial size.
   {
     name: 'firstSize',
-    group: 'size',
+    group: 'initial size',
     type: types.oneOfType([types.size, types.percentage]),
-    description: "Initial size of first panel. Do not use with 'lastSize'",
   },
   {
     name: 'lastSize',
-    group: 'size',
+    group: 'initial size',
     type: types.oneOfType([types.size, types.percentage]),
-    description: "Initial size of last panel. Do not use with 'firstSize'",
+    description: 'Use one of the two properties, but not both.',
   },
+
+  // Limit size.
   {
     name: 'firstMinSize',
-    group: 'size',
+    group: 'limit size',
     type: types.oneOfType([types.size, types.percentage]),
   },
   {
     name: 'firstMaxSize',
-    group: 'size',
+    group: 'limit size',
     type: types.oneOfType([types.size, types.percentage]),
   },
   {
     name: 'lastMinSize',
-    group: 'size',
+    group: 'limit size',
     type: types.oneOfType([types.size, types.percentage]),
   },
   {
     name: 'lastMaxSize',
-    group: 'size',
+    group: 'limit size',
     type: types.oneOfType([types.size, types.percentage]),
   },
 ];
