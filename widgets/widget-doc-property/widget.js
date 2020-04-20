@@ -6,41 +6,6 @@ import * as styles from './styles';
 
 /******************************************************************************/
 
-function getType(value) {
-  if (typeof value !== 'string') {
-    return null;
-  }
-
-  const regexNumber____ = /^[-]?[0-9]*\.?[0-9]*$/g;
-  const regexSize______ = /^[-]?[0-9]*\.?[0-9]*px/g;
-  const regexPercentage = /^[-]?[0-9]*\.?[0-9]*%$/g;
-
-  if (regexNumber____.test(value)) {
-    return 'number';
-  } else if (regexSize______.test(value)) {
-    return 'size';
-  } else if (regexPercentage.test(value)) {
-    return 'percentage';
-  } else {
-    return null;
-  }
-}
-
-function getInitialType(value, types) {
-  const valueType = getType(value);
-  if (valueType) {
-    for (let i = 0; i < types.length; i++) {
-      if (types[i].type === valueType) {
-        return types[i];
-      }
-    }
-  }
-
-  return types[0];
-}
-
-/******************************************************************************/
-
 class WidgetDocProperty extends Widget {
   constructor() {
     super(...arguments);
@@ -54,7 +19,6 @@ class WidgetDocProperty extends Widget {
           widgetId={this.props.widgetId}
           path={this.props.path}
           type={this.props.prop.type}
-          oneOfType={this.props.oneOfType}
         />
       </div>
     );
@@ -62,8 +26,10 @@ class WidgetDocProperty extends Widget {
 
   renderType() {
     let t = this.props.prop.type.type;
-    if (this.props.oneOfType) {
-      t = this.props.oneOfType.type;
+    if (typeof this.props.value === 'object') {
+      t = this.props.value.get('type');
+    } else if (t === 'oneOfType') {
+      t = this.props.prop.type.types[0].type;
     }
     return <Label className={this.styles.classNames.type} wrap="no" text={t} />;
   }
@@ -131,10 +97,5 @@ class WidgetDocProperty extends Widget {
 export default Widget.connectWidget((state, props) => {
   const path = `${props.path}.${props.prop.name}`;
   const value = state.get(path);
-  let oneOfType = null;
-  if (props.prop.type.type === 'oneOfType' && props.prop.type.types) {
-    oneOfType = getInitialType(value, props.prop.type.types);
-  }
-
-  return {path, value, oneOfType};
+  return {path, value};
 })(WidgetDocProperty);

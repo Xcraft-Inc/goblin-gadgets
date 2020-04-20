@@ -315,6 +315,9 @@ class WidgetDocPreview extends Widget {
         props[propName] = this.getComponent(props[propName]);
       } else if (propDef.type.type === 'function') {
         props[propName] = this.getFunction(props[propName]);
+      } else if (propDef.type.type === 'oneOfType') {
+        // If oneOfType, replace {type: 'percentage', value: '10%'} by '10%'.
+        props[propName] = props[propName].value;
       }
       if (propDef.type.samplesData) {
         props[propName] = propDef.type.samplesData[props[propName]];

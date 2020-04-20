@@ -20,15 +20,41 @@ class OneOfTypeControl extends Widget {
     this.styles = styles;
 
     this.onChangeType = this.onChangeType.bind(this);
-
-    this.state = {
-      type: this.props.oneOfType,
-    };
   }
 
   onChangeType(item) {
-    this.dispatch({type: 'DEL_PROP', path: this.props.path});
-    this.setState({type: item.value});
+    const value = {
+      value: undefined,
+      type: item.id,
+    };
+    this.dispatch({type: 'SET_PROP', path: this.props.path, value});
+  }
+
+  get currentValue() {
+    if (typeof this.props.value === 'object') {
+      return this.props.value.get('value');
+    } else {
+      return this.props.value;
+    }
+  }
+
+  get currentType() {
+    if (typeof this.props.value === 'object') {
+      return this.props.value.get('type');
+    } else if (this.props.type.type === 'oneOfType') {
+      return this.props.type.types[0].type;
+    } else {
+      return this.props.type.type;
+    }
+  }
+
+  getType() {
+    for (let i = 0; i < this.props.type.types.length; i++) {
+      if (this.props.type.types[i].type === this.currentType) {
+        return this.props.type.types[i];
+      }
+    }
+    return this.props.type.types[0];
   }
 
   render() {
@@ -38,24 +64,26 @@ class OneOfTypeControl extends Widget {
         text: item.type,
         value: item,
         action: this.onChangeType,
-        active: this.state.type.type === item.type,
+        active: this.currentType === item.type,
       };
     });
+
     return (
       <React.Fragment>
         <ButtonCombo
           horizontalSpacing="tiny"
           comboGlyph="solid/ellipsis-v"
           list={list}
-          selectedId={this.state.type.type}
+          selectedId={this.currentType}
           menuType="wrap"
           menuItemWidth="200px"
         />
         <WidgetDocPropertyControl
           widgetId={this.props.widgetId}
           path={this.props.path}
-          type={this.state.type}
-          value={this.props.value}
+          type={this.getType()}
+          value={this.currentValue}
+          isOneOfType={true}
         />
       </React.Fragment>
     );
@@ -71,20 +99,44 @@ class WidgetDocPropertyControl extends Widget {
 
     this.onChange = this.onChange.bind(this);
     this.clear = this.clear.bind(this);
-
-    if (this.props.type.type === 'oneOfType') {
-      this.state = {
-        type: this.props.type.types[0],
-      };
-    }
   }
 
   onChange(value) {
+    if (this.props.isOneOfType) {
+      value = {
+        value,
+        type: this.props.type.type,
+      };
+    }
     this.dispatch({type: 'SET_PROP', path: this.props.path, value});
   }
 
   clear() {
-    this.dispatch({type: 'DEL_PROP', path: this.props.path});
+    if (this.props.isOneOfType) {
+      const value = {
+        value: undefined,
+        type: this.props.type.type,
+      };
+      this.dispatch({type: 'SET_PROP', path: this.props.path, value});
+    } else {
+      this.dispatch({type: 'DEL_PROP', path: this.props.path});
+    }
+  }
+
+  get currentValue() {
+    if (typeof this.props.value === 'object') {
+      return this.props.value.get('value');
+    } else {
+      return this.props.value;
+    }
+  }
+
+  get currentType() {
+    if (typeof this.props.value === 'object') {
+      return this.props.value.get('type');
+    } else {
+      return this.props.type.type;
+    }
   }
 
   /******************************************************************************/
@@ -104,7 +156,7 @@ class WidgetDocPropertyControl extends Widget {
       this.props.type.type === 'percent' ||
       this.props.type.type === 'delay'
     ) {
-      let selectedId = this.props.value;
+      let selectedId = this.currentValue;
       if (selectedId === undefined) {
         selectedId = null;
       }
@@ -125,7 +177,7 @@ class WidgetDocPropertyControl extends Widget {
         />
       );
     } else {
-      let selectedId = this.props.value;
+      let selectedId = this.currentValue;
       if (selectedId === undefined) {
         selectedId = '';
       } else if (typeof selectedId === 'object') {
@@ -170,7 +222,6 @@ class WidgetDocPropertyControl extends Widget {
             widgetId={this.props.widgetId}
             path={this.props.path}
             type={this.props.type}
-            oneOfType={this.props.oneOfType}
             value={this.props.value}
           />
         );
@@ -180,7 +231,7 @@ class WidgetDocPropertyControl extends Widget {
           <TextFieldNC
             horizontalSpacing="tiny"
             shape="smooth"
-            value={this.props.value || ''}
+            value={this.currentValue || ''}
             onChange={this.onChange}
             grow="1"
           />
@@ -190,7 +241,7 @@ class WidgetDocPropertyControl extends Widget {
           <React.Fragment>
             <CheckboxNC
               kind="big"
-              checked={this.props.value}
+              checked={this.currentValue}
               onChange={this.onChange}
             />
             <Label grow="1" />
@@ -214,7 +265,7 @@ class WidgetDocPropertyControl extends Widget {
             kind="combo"
             glyph="solid/eraser"
             onClick={this.clear}
-            visibility={this.props.value !== undefined}
+            visibility={this.currentValue !== undefined}
           />
         )}
       </div>

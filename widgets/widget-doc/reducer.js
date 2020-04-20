@@ -20,18 +20,22 @@ export default (state = initialState, action = {}) => {
     state = state.set('props', action.defaultProps);
     return state;
   }
+
   if (action.type === 'SET') {
     return state.set(action.path, action.value);
   }
+
   if (action.type === 'DEL') {
     return state.del(action.path);
   }
+
   if (action.type === 'SET_PROP') {
     if (!action.path.startsWith('props.')) {
       throw new Error(`WidgetDoc.SET_PROP: invalid path '${action.path}'`);
     }
     return state.set(action.path, action.value);
   }
+
   if (action.type === 'DEL_PROP') {
     if (!action.path.startsWith('props.')) {
       throw new Error(`WidgetDoc.DEL_PROP: invalid path '${action.path}'`);
@@ -44,6 +48,7 @@ export default (state = initialState, action = {}) => {
       return state.del(action.path);
     }
   }
+
   if (action.type === 'SET_SELECTED_WIDGET') {
     const selectedWidget = action.name;
     const propsPath = `props.${selectedWidget}`;

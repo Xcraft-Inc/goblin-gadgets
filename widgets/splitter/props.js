@@ -15,38 +15,38 @@ export default [
     type: types.component,
   },
 
-  // Initial size.
+  // Size (initial).
   {
     name: 'firstSize',
-    group: 'initial size',
+    group: 'size (initial)',
     type: types.oneOfType([types.size, types.percentage]),
   },
   {
     name: 'lastSize',
-    group: 'initial size',
+    group: 'size (initial)',
     type: types.oneOfType([types.size, types.percentage]),
     description: 'Use one of the two properties, but not both.',
   },
 
-  // Limit size.
+  // Size (limit).
   {
     name: 'firstMinSize',
-    group: 'limit size',
+    group: 'size (limit)',
     type: types.oneOfType([types.size, types.percentage]),
   },
   {
     name: 'firstMaxSize',
-    group: 'limit size',
+    group: 'size (limit)',
     type: types.oneOfType([types.size, types.percentage]),
   },
   {
     name: 'lastMinSize',
-    group: 'limit size',
+    group: 'size (limit)',
     type: types.oneOfType([types.size, types.percentage]),
   },
   {
     name: 'lastMaxSize',
-    group: 'limit size',
+    group: 'size (limit)',
     type: types.oneOfType([types.size, types.percentage]),
   },
 ];

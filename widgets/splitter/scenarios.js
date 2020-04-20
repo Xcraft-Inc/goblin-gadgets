@@ -6,9 +6,12 @@ export default [
     name: 'V%',
     props: {
       kind: 'vertical',
-      firstSize: '40%',
-      firstMinSize: '10%',
-      lastMinSize: '10%',
+      firstSize: {type: 'percentage', value: '40%'},
+      lastSize: {type: 'percentage'},
+      firstMinSize: {type: 'percentage', value: '10%'},
+      lastMinSize: {type: 'percentage', value: '10%'},
+      firstMaxSize: {type: 'percentage'},
+      lastMaxSize: {type: 'percentage'},
       children: (
         <React.Fragment>
           <Button width="100px" height="100px" text="40%" />
@@ -21,9 +24,12 @@ export default [
     name: 'V%',
     props: {
       kind: 'vertical',
-      lastSize: '40%',
-      firstMinSize: '10%',
-      lastMinSize: '10%',
+      firstSize: {type: 'percentage'},
+      lastSize: {type: 'percentage', value: '40%'},
+      firstMinSize: {type: 'percentage', value: '10%'},
+      lastMinSize: {type: 'percentage', value: '10%'},
+      firstMaxSize: {type: 'percentage'},
+      lastMaxSize: {type: 'percentage'},
       children: (
         <React.Fragment>
           <Button width="100px" height="100px" text="" />
@@ -36,9 +42,12 @@ export default [
     name: 'Vpx',
     props: {
       kind: 'vertical',
-      firstSize: '120px',
-      firstMinSize: '10px',
-      lastMinSize: '10px',
+      firstSize: {type: 'size', value: '120px'},
+      lastSize: {type: 'size'},
+      firstMinSize: {type: 'size', value: '10px'},
+      lastMinSize: {type: 'size', value: '10px'},
+      firstMaxSize: {type: 'size'},
+      lastMaxSize: {type: 'size'},
       children: (
         <React.Fragment>
           <Button width="100px" height="100px" text="120px" />
@@ -51,9 +60,12 @@ export default [
     name: 'Vpx',
     props: {
       kind: 'vertical',
-      lastSize: '120px',
-      firstMinSize: '10px',
-      lastMinSize: '10px',
+      firstSize: {type: 'size'},
+      lastSize: {type: 'size', value: '120px'},
+      firstMinSize: {type: 'size', value: '10px'},
+      lastMinSize: {type: 'size', value: '10px'},
+      firstMaxSize: {type: 'size'},
+      lastMaxSize: {type: 'size'},
       children: (
         <React.Fragment>
           <Button width="100px" height="100px" text="" />
@@ -66,9 +78,12 @@ export default [
     name: 'H%',
     props: {
       kind: 'horizontal',
-      firstSize: '40%',
-      firstMinSize: '10%',
-      lastMinSize: '10%',
+      firstSize: {type: 'percentage', value: '40%'},
+      lastSize: {type: 'percentage'},
+      firstMinSize: {type: 'percentage', value: '10%'},
+      lastMinSize: {type: 'percentage', value: '10%'},
+      firstMaxSize: {type: 'percentage'},
+      lastMaxSize: {type: 'percentage'},
       children: (
         <React.Fragment>
           <Button width="100px" height="100px" text="40%" />
@@ -81,9 +96,12 @@ export default [
     name: 'H%',
     props: {
       kind: 'horizontal',
-      lastSize: '40%',
-      firstMinSize: '10%',
-      lastMinSize: '10%',
+      firstSize: {type: 'percentage'},
+      lastSize: {type: 'percentage', value: '40%'},
+      firstMinSize: {type: 'percentage', value: '10%'},
+      lastMinSize: {type: 'percentage', value: '10%'},
+      firstMaxSize: {type: 'percentage'},
+      lastMaxSize: {type: 'percentage'},
       children: (
         <React.Fragment>
           <Button width="100px" height="100px" text="" />
@@ -96,9 +114,12 @@ export default [
     name: 'Hpx',
     props: {
       kind: 'horizontal',
-      firstSize: '120px',
-      firstMinSize: '10px',
-      lastMinSize: '10px',
+      firstSize: {type: 'size', value: '120px'},
+      lastSize: {type: 'size'},
+      firstMinSize: {type: 'size', value: '10px'},
+      lastMinSize: {type: 'size', value: '10px'},
+      firstMaxSize: {type: 'size'},
+      lastMaxSize: {type: 'size'},
       children: (
         <React.Fragment>
           <Button width="100px" height="100px" text="120px" />
@@ -111,9 +132,12 @@ export default [
     name: 'Hpx',
     props: {
       kind: 'horizontal',
-      lastSize: '120px',
-      firstMinSize: '10px',
-      lastMinSize: '10px',
+      firstSize: {type: 'size'},
+      lastSize: {type: 'size', value: '120px'},
+      firstMinSize: {type: 'size', value: '10px'},
+      lastMinSize: {type: 'size', value: '10px'},
+      firstMaxSize: {type: 'size'},
+      lastMaxSize: {type: 'size'},
       children: (
         <React.Fragment>
           <Button width="100px" height="100px" text="" />
