@@ -1449,6 +1449,7 @@ class Field extends Form {
   renderReadonly() {
     switch (this.props.kind) {
       case 'field':
+      case 'string':
         return this.renderReadonlyField();
       case 'gadget':
         return this.renderReadonlyGadget();
@@ -1513,6 +1514,7 @@ class Field extends Form {
   renderEdit() {
     switch (this.props.kind) {
       case 'field':
+      case 'string':
         return this.renderEditField();
       case 'gadget':
         return this.renderEditGadget();
