@@ -19,7 +19,7 @@ export default class Splitter extends Widget {
     this.styles = styles;
 
     this.state = {
-      localState: {},
+      positions: this.getPositions(this.props),
     };
 
     this.onMouseDown = this.onMouseDown.bind(this);
@@ -28,16 +28,44 @@ export default class Splitter extends Widget {
   }
 
   //#region get/set
-  get localState() {
-    return this.state.localState;
+  get positions() {
+    return this.state.positions;
   }
 
-  set localState(value) {
+  set positions(value) {
     this.setState({
-      localState: value,
+      positions: value,
     });
   }
   //#endregion
+
+  getPositions(props) {
+    const positions = {isDragging: false};
+
+    if (props.firstSize !== undefined) {
+      const x = Unit.parse(props.firstSize);
+      positions.first = x.value;
+      this.unit = x.unit;
+      this.master = 'first';
+    }
+
+    if (props.lastSize !== undefined) {
+      const x = Unit.parse(props.lastSize);
+      positions.last = x.value;
+      this.unit = x.unit;
+      this.master = 'last';
+    }
+
+    return positions;
+  }
+
+  componentDidMount() {
+    this.positions = this.getPositions(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.positions = this.getPositions(nextProps);
+  }
 
   error(message) {
     if (this.props.widgetDocPreview) {
@@ -54,38 +82,9 @@ export default class Splitter extends Widget {
     }
   }
 
-  saveProps() {
-    this.initialKind = this.props.kind;
-    this.initialFirstSize = this.props.firstSize;
-    this.initialLastSize = this.props.lastSize;
-    this.initialFirstMinSize = this.props.firstMinSize;
-    this.initialFirstMaxSize = this.props.firstMaxSize;
-    this.initialLastMinSize = this.props.lastMinSize;
-    this.initialLastMaxSize = this.props.lastMaxSize;
-  }
-
-  get havePropsChanged() {
-    return (
-      this.initialKind !== this.props.kind ||
-      this.initialFirstSize !== this.props.firstSize ||
-      this.initialLastSize !== this.props.lastSize ||
-      this.initialFirstMinSize !== this.props.firstMinSize ||
-      this.initialFirstMaxSize !== this.props.firstMaxSize ||
-      this.initialLastMinSize !== this.props.lastMinSize ||
-      this.initialLastMaxSize !== this.props.lastMaxSize
-    );
-  }
-
   update() {
-    if (!this.havePropsChanged) {
-      this.recentUpdate = false;
-      return null; // ok
-    }
-    this.saveProps();
-
-    this.kind = this.props.kind;
-    if (this.kind !== 'vertical' && this.kind !== 'horizontal') {
-      return this.error(`Splitter: Wrong kind '${this.kind}'`);
+    if (this.props.kind !== 'vertical' && this.props.kind !== 'horizontal') {
+      return this.error(`Splitter: Wrong kind '${this.props.kind}'`);
     }
 
     if (this.props.firstSize && this.props.lastSize) {
@@ -99,17 +98,6 @@ export default class Splitter extends Widget {
       );
     }
 
-    if (this.props.firstSize) {
-      const x = Unit.parse(this.props.firstSize);
-      this.firstSize = x.value;
-      this.unit = x.unit;
-      this.master = 'first';
-    } else {
-      const x = Unit.parse(this.props.lastSize);
-      this.lastSize = x.value;
-      this.unit = x.unit;
-      this.master = 'last';
-    }
     if (this.unit !== '%' && this.unit !== 'px') {
       return this.error(
         `Splitter: Wrong firstSize or lastSize unit '${this.unit}'`
@@ -169,23 +157,10 @@ export default class Splitter extends Widget {
     }
   }
 
-  getLocalState() {
-    if (this.recentUpdate) {
-      // If recent update, synthesizes a local state.
-      return {
-        firstSize: this.firstSize,
-        lastSize: this.lastSize,
-        isDragging: false,
-      };
-    } else {
-      return this.localState;
-    }
-  }
-
   getOffset(x, y) {
     const node = ReactDOM.findDOMNode(this.resizerNode);
     const rect = node.getBoundingClientRect();
-    if (this.kind === 'vertical') {
+    if (this.props.kind === 'vertical') {
       if (x >= rect.left && x <= rect.right) {
         return x - rect.left;
       }
@@ -215,64 +190,63 @@ export default class Splitter extends Widget {
       this.lastPaneRect = lastPaneNode.getBoundingClientRect();
     }
 
-    this.localState = {...this.getLocalState(), isDragging: true};
+    this.positions = {...this.positions, isDragging: true};
   }
 
   mouseMovePercents(x, y) {
-    let firstSize, lastSize;
+    let first, last;
 
-    if (this.kind === 'vertical') {
+    if (this.props.kind === 'vertical') {
       const rx = x - this.offset - this.firstPaneRect.left;
-      firstSize =
-        (100 * rx) / (this.containerRect.width - this.resizerRect.width);
+      first = (100 * rx) / (this.containerRect.width - this.resizerRect.width);
     } else {
       const ry = y - this.offset - this.firstPaneRect.top;
-      firstSize =
+      first =
         (100 * ry) / (this.containerRect.height - this.resizerRect.height);
     }
-    lastSize = 100 - firstSize;
+    last = 100 - first;
 
     if (this.master === 'first') {
       const min = Math.max(this.firstMinSize, 100 - this.lastMaxSize);
       const max = Math.min(this.firstMaxSize, 100 - this.lastMinSize);
-      firstSize = Math.max(firstSize, min);
-      firstSize = Math.min(firstSize, max);
+      first = Math.max(first, min);
+      first = Math.min(first, max);
     } else {
       const min = Math.max(this.lastMinSize, 100 - this.firstMaxSize);
       const max = Math.min(this.lastMaxSize, 100 - this.firstMinSize);
-      lastSize = Math.max(lastSize, min);
-      lastSize = Math.min(lastSize, max);
+      last = Math.max(last, min);
+      last = Math.min(last, max);
     }
 
-    this.localState = {firstSize, lastSize, isDragging: true};
+    this.positions = {first, last, isDragging: true};
   }
 
   mouseMovePixels(x, y) {
-    let firstSize, lastSize;
+    let first, last;
     let total;
 
-    if (this.kind === 'vertical') {
-      firstSize = x - this.offset - this.firstPaneRect.left;
+    if (this.props.kind === 'vertical') {
+      first = x - this.offset - this.firstPaneRect.left;
       total = this.firstPaneRect.width + this.lastPaneRect.width;
     } else {
-      firstSize = y - this.offset - this.firstPaneRect.top;
+      first = y - this.offset - this.firstPaneRect.top;
       total = this.firstPaneRect.height + this.lastPaneRect.height;
     }
-    lastSize = total - firstSize;
+    last = total - first;
 
     if (this.master === 'first') {
       const min = Math.max(this.firstMinSize, total - this.lastMaxSize);
       const max = Math.min(this.firstMaxSize, total - this.lastMinSize);
-      firstSize = Math.max(firstSize, min);
-      firstSize = Math.min(firstSize, max);
+      first = Math.max(first, min);
+      first = Math.min(first, max);
     } else {
       const min = Math.max(this.lastMinSize, total - this.firstMaxSize);
       const max = Math.min(this.lastMaxSize, total - this.firstMinSize);
-      lastSize = Math.max(lastSize, min);
-      lastSize = Math.min(lastSize, max);
+      last = Math.max(last, min);
+      last = Math.min(last, max);
     }
 
-    this.localState = {firstSize, lastSize, isDragging: true};
+    this.positions = {first, last, isDragging: true};
   }
 
   mouseMove(x, y) {
@@ -291,14 +265,14 @@ export default class Splitter extends Widget {
   }
 
   onMouseMove(e) {
-    if (this.localState.isDragging) {
+    if (this.positions.isDragging) {
       this.mouseMove(e.clientX, e.clientY);
     }
   }
 
   onMouseUp() {
-    if (this.localState.isDragging) {
-      this.localState = {...this.localState, isDragging: false};
+    if (this.positions.isDragging) {
+      this.positions = {...this.positions, isDragging: false};
     }
   }
 
@@ -329,47 +303,45 @@ export default class Splitter extends Widget {
       overflow: 'hidden',
     };
 
-    const localState = this.getLocalState();
-
     if (this.unit === '%') {
       if (this.master === 'first') {
-        firstPaneStyle.flexGrow = localState.firstSize;
-        lastPaneStyle.flexGrow = 100 - localState.firstSize;
+        firstPaneStyle.flexGrow = this.positions.first;
+        lastPaneStyle.flexGrow = 100 - this.positions.first;
       } else {
-        lastPaneStyle.flexGrow = localState.lastSize;
-        firstPaneStyle.flexGrow = 100 - localState.lastSize;
+        lastPaneStyle.flexGrow = this.positions.last;
+        firstPaneStyle.flexGrow = 100 - this.positions.last;
       }
 
-      firstPaneStyle.flexShrink = '1';
+      firstPaneStyle.flexShrink = 1;
       firstPaneStyle.flexBasis = '0%';
 
-      lastPaneStyle.flexShrink = '1';
+      lastPaneStyle.flexShrink = 1;
       lastPaneStyle.flexBasis = '0%';
     } else {
       if (this.master === 'first') {
-        if (this.kind === 'vertical') {
-          firstPaneStyle.width = localState.firstSize + this.unit;
+        if (this.props.kind === 'vertical') {
+          firstPaneStyle.width = this.positions.first + this.unit;
         } else {
-          firstPaneStyle.height = localState.firstSize + this.unit;
+          firstPaneStyle.height = this.positions.first + this.unit;
         }
 
-        lastPaneStyle.flexGrow = '1';
-        lastPaneStyle.flexShrink = '1';
+        lastPaneStyle.flexGrow = 1;
+        lastPaneStyle.flexShrink = 1;
         lastPaneStyle.flexBasis = '0%';
       } else {
-        if (this.kind === 'vertical') {
-          lastPaneStyle.width = localState.lastSize + this.unit;
+        if (this.props.kind === 'vertical') {
+          lastPaneStyle.width = this.positions.last + this.unit;
         } else {
-          lastPaneStyle.height = localState.lastSize + this.unit;
+          lastPaneStyle.height = this.positions.last + this.unit;
         }
 
-        firstPaneStyle.flexGrow = '1';
-        firstPaneStyle.flexShrink = '1';
+        firstPaneStyle.flexGrow = 1;
+        firstPaneStyle.flexShrink = 1;
         firstPaneStyle.flexBasis = '0%';
       }
     }
 
-    const resizerClass = this.localState.isDragging
+    const resizerClass = this.positions.isDragging
       ? this.styles.classNames.resizerDragging
       : this.styles.classNames.resizer;
 
