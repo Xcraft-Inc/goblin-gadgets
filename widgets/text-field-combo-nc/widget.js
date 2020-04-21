@@ -5,7 +5,7 @@ import {isShredder} from 'xcraft-core-shredder';
 
 import ButtonCombo from 'goblin-gadgets/widgets/button-combo/widget';
 import TextFieldNC from 'goblin-gadgets/widgets/text-field-nc/widget';
-import wrapRawInput from 'goblin-laboratory/widgets/input-wrapper/widget.js';
+import wrapRawInput from 'goblin-gadgets/widgets/input-wrapper/widget.js';
 
 /******************************************************************************/
 

@@ -1,6 +1,6 @@
 import Props from './props';
 import TextInputInfoNC from '../text-input-info-nc/widget';
-import wrapRawInput from 'goblin-laboratory/widgets/input-wrapper/widget.js';
+import wrapRawInput from 'goblin-gadgets/widgets/input-wrapper/widget.js';
 import {
   makePropTypes,
   makeDefaultProps,
