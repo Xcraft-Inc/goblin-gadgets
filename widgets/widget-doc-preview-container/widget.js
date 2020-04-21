@@ -12,21 +12,20 @@ class WidgetDocPreviewContainer extends Widget {
     this.styles = styles;
   }
 
-  renderThemeContext(theme) {
-    if (theme && theme !== 'none') {
-      return (
-        <ThemeContext labId={this.context.labId} frameThemeContext={theme}>
-          {this.renderContainer()}
-        </ThemeContext>
-      );
-    }
-    return this.renderContainer();
-  }
-
   renderContainer() {
-    const layout = this.props.layout.split('-');
+    if (this.props.layout === 'fix') {
+      const style = {
+        display: 'content',
+        width: '100%',
+        height: '100%',
+      };
+      return <div style={style}>{this.props.children}</div>;
+    }
+
+    const layout = this.props.layout.split('-'); // split 'column-grow' by example
     let ContainerComponent = 'div';
-    let containerProps = {};
+    const containerProps = {};
+
     if (layout[0] !== 'div') {
       ContainerComponent = Container;
       containerProps.kind = layout[0];
@@ -38,6 +37,7 @@ class WidgetDocPreviewContainer extends Widget {
         containerProps.className = this.styles.classNames.grow;
       }
     }
+
     return (
       <ContainerComponent {...containerProps}>
         {this.props.children}
@@ -45,14 +45,27 @@ class WidgetDocPreviewContainer extends Widget {
     );
   }
 
+  renderThemeContext(theme) {
+    if (theme && theme !== 'none') {
+      return (
+        <ThemeContext labId={this.context.labId} frameThemeContext={theme}>
+          {this.renderContainer()}
+        </ThemeContext>
+      );
+    }
+    return this.renderContainer();
+  }
+
   render() {
     return (
-      <div className={this.styles.classNames.previewContainer}>
+      <div className={this.styles.classNames.widgetDocPreviewContainer}>
         {this.renderThemeContext(this.props.theme)}
       </div>
     );
   }
 }
+
+/******************************************************************************/
 
 export default Widget.connectWidget((state) => {
   const settings = state.get('settings');

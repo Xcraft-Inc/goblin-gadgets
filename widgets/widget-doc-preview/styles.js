@@ -39,12 +39,6 @@ export default function styles(theme) {
     backgroundColor: theme.palette.paneBackground,
   };
 
-  const splitterContainer = {
-    width: '500px',
-    height: '500px',
-    border: '2px dashed #888',
-  };
-
   /******************************************************************************/
 
   return {
@@ -53,7 +47,6 @@ export default function styles(theme) {
     settings,
     panes,
     samples,
-    splitterContainer,
   };
 }
 

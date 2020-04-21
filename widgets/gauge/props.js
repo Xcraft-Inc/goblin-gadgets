@@ -27,7 +27,6 @@ export default [
     name: 'direction',
     group: 'aspect',
     type: types.enum(['vertical', 'horizontal']),
-    description: 'Use layout row-grow or column-grow to see the gauge.',
   },
   {
     name: 'disabled',

@@ -15,6 +15,115 @@ import * as styles from './styles';
 
 /******************************************************************************/
 
+function getComponent(name) {
+  switch (name) {
+    case 'short-text':
+      return 'Hello world';
+    case 'long-text':
+      return (
+        <Label
+          text={`
+            Ticket
+            Deuxième ligne
+            Troisième ligne
+            Quatrième ligne
+            Cinquième ligne
+            Sixième ligne
+            Septième ligne
+            Huitième ligne
+            Neuvième ligne
+            Dixième ligne plus longue que les autres
+          `}
+        />
+      );
+    case 'button':
+      return <Button text="Hello world" />;
+    case 'text-field':
+      return <TextInputNC value="Jean Dupond" />;
+    case 'text-field-multiline':
+      return (
+        <TextInputNC
+          value={'Lundi\nMardi\nMercredi\nJeudi\nVendredi\nSamedi\nDimanche'}
+          rows="7"
+        />
+      );
+    case 'button-10':
+      return (
+        <React.Fragment>
+          <Button text="000" />
+          <Button text="111" />
+          <Button text="222" />
+          <Button text="333" />
+          <Button text="444" />
+          <Button text="555" />
+          <Button text="666" />
+          <Button text="777" />
+          <Button text="888" />
+          <Button text="999" />
+        </React.Fragment>
+      );
+    case 'carousel-panes':
+      return (
+        <React.Fragment>
+          <CarouselItem
+            width="200px"
+            height="300px"
+            itemMargin="10px"
+            backgroundColor="yellow"
+          />
+          <CarouselItem
+            width="200px"
+            height="300px"
+            itemMargin="10px"
+            backgroundColor="orange"
+          />
+          <CarouselItem
+            width="200px"
+            height="300px"
+            itemMargin="10px"
+            backgroundColor="red"
+          />
+          <CarouselItem
+            width="200px"
+            height="300px"
+            itemMargin="10px"
+            backgroundColor="purple"
+          />
+          <CarouselItem
+            width="200px"
+            height="300px"
+            itemMargin="10px"
+            backgroundColor="blue"
+          />
+        </React.Fragment>
+      );
+    case 'two-boxes':
+      return (
+        <React.Fragment>
+          <Container width="100%" height="100%" backgroundColor="aliceblue" />
+          <Container
+            width="100%"
+            height="100%"
+            backgroundColor="lemonchiffon"
+          />
+        </React.Fragment>
+      );
+  }
+  return name;
+}
+
+function getFunction(name) {
+  switch (name) {
+    case 'alert':
+      return () => alert(new Date().toLocaleDateString());
+    case 'log':
+      return (...args) => console.log(...args);
+  }
+  return () => {};
+}
+
+/******************************************************************************/
+
 class WidgetDocPreviewSettingsSwitch extends Widget {
   constructor() {
     super(...arguments);
@@ -186,6 +295,7 @@ class WidgetDocPreview extends Widget {
             'column',
             'column-grow',
             'wrap',
+            'fix',
           ]}
         />
         <Container kind="row">
@@ -206,113 +316,6 @@ class WidgetDocPreview extends Widget {
     );
   }
 
-  getComponent(name) {
-    switch (name) {
-      case 'short-text':
-        return 'Hello world';
-      case 'long-text':
-        return (
-          <Label
-            text={`
-              Ticket
-              Deuxième ligne
-              Troisième ligne
-              Quatrième ligne
-              Cinquième ligne
-              Sixième ligne
-              Septième ligne
-              Huitième ligne
-              Neuvième ligne
-              Dixième ligne plus longue que les autres
-            `}
-          />
-        );
-      case 'button':
-        return <Button text="Hello world" />;
-      case 'text-field':
-        return <TextInputNC value="Jean Dupond" />;
-      case 'text-field-multiline':
-        return (
-          <TextInputNC
-            value={'Lundi\nMardi\nMercredi\nJeudi\nVendredi\nSamedi\nDimanche'}
-            rows="7"
-          />
-        );
-      case 'button-10':
-        return (
-          <React.Fragment>
-            <Button text="000" />
-            <Button text="111" />
-            <Button text="222" />
-            <Button text="333" />
-            <Button text="444" />
-            <Button text="555" />
-            <Button text="666" />
-            <Button text="777" />
-            <Button text="888" />
-            <Button text="999" />
-          </React.Fragment>
-        );
-      case 'carousel-panes':
-        return (
-          <React.Fragment>
-            <CarouselItem
-              width="200px"
-              height="300px"
-              itemMargin="10px"
-              backgroundColor="yellow"
-            />
-            <CarouselItem
-              width="200px"
-              height="300px"
-              itemMargin="10px"
-              backgroundColor="orange"
-            />
-            <CarouselItem
-              width="200px"
-              height="300px"
-              itemMargin="10px"
-              backgroundColor="red"
-            />
-            <CarouselItem
-              width="200px"
-              height="300px"
-              itemMargin="10px"
-              backgroundColor="purple"
-            />
-            <CarouselItem
-              width="200px"
-              height="300px"
-              itemMargin="10px"
-              backgroundColor="blue"
-            />
-          </React.Fragment>
-        );
-      case 'two-boxes':
-        return (
-          <React.Fragment>
-            <Container width="100%" height="100%" backgroundColor="aliceblue" />
-            <Container
-              width="100%"
-              height="100%"
-              backgroundColor="lemonchiffon"
-            />
-          </React.Fragment>
-        );
-    }
-    return name;
-  }
-
-  getFunction(name) {
-    switch (name) {
-      case 'alert':
-        return () => alert(new Date().toLocaleDateString());
-      case 'log':
-        return (...args) => console.log(...args);
-    }
-    return () => {};
-  }
-
   renderWidget(key) {
     const props = this.props.props.toJS();
     for (const propName in props) {
@@ -323,9 +326,9 @@ class WidgetDocPreview extends Widget {
         continue;
       }
       if (propDef.type.type === 'component') {
-        props[propName] = this.getComponent(props[propName]);
+        props[propName] = getComponent(props[propName]);
       } else if (propDef.type.type === 'function') {
-        props[propName] = this.getFunction(props[propName]);
+        props[propName] = getFunction(props[propName]);
       } else if (propDef.type.type === 'oneOfType') {
         // If oneOfType, replace {type: 'percentage', value: '10%'} by '10%'.
         props[propName] = props[propName].value;
@@ -336,17 +339,9 @@ class WidgetDocPreview extends Widget {
     }
     key = this.props.theme ? this.props.theme + key : key;
 
-    if (this.props.selectedWidget === 'Splitter') {
-      return (
-        <div key={key} className={this.styles.classNames.splitterContainer}>
-          <this.widgetInfo.widget widgetDocPreview={true} {...props} />
-        </div>
-      );
-    } else {
-      return (
-        <this.widgetInfo.widget key={key} widgetDocPreview={true} {...props} />
-      );
-    }
+    return (
+      <this.widgetInfo.widget key={key} widgetDocPreview={true} {...props} />
+    );
   }
 
   renderWidgets() {
@@ -377,7 +372,10 @@ class WidgetDocPreview extends Widget {
 
         <div className={this.styles.classNames.samples}>
           <Label text={_.kebabCase(this.widgetInfo.name)} kind="title" />
-          <WidgetDocPreviewContainer widgetId={this.props.widgetId}>
+          <WidgetDocPreviewContainer
+            widgetId={this.props.widgetId}
+            widget={this.props.selectedWidget}
+          >
             {this.renderWidgets()}
           </WidgetDocPreviewContainer>
         </div>
@@ -396,6 +394,8 @@ class WidgetDocPreview extends Widget {
     );
   }
 }
+
+/******************************************************************************/
 
 export default Widget.connectWidget((state) => {
   const settings = state.get('settings');
