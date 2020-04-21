@@ -2,17 +2,10 @@ import {ColorManipulator} from 'electrum-theme';
 
 /******************************************************************************/
 
-export const propNames = [
-  'layout',
-  'frame',
-  'layoutFrame',
-  'color',
-  'scale',
-  'widget',
-];
+export const propNames = ['layout', 'frame', 'layoutFrame', 'color', 'scale'];
 
 export default function styles(theme, props) {
-  const {layout, frame, layoutFrame, color, scale, widget} = props;
+  const {layout, frame, layoutFrame, color, scale} = props;
 
   const frameStyle = frame
     ? {
