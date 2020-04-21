@@ -28,6 +28,9 @@ class WidgetDocProperty extends Widget {
     let t = this.props.prop.type.type;
     if (typeof this.props.value === 'object') {
       t = this.props.value.get('type');
+      if (typeof t === 'symbol') {
+        t = 'component'; // <React.Fragment>
+      }
     } else if (t === 'oneOfType') {
       t = this.props.prop.type.types[0].type;
     }

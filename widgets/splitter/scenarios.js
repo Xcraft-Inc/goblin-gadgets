@@ -1,5 +1,6 @@
 import React from 'react';
-import Button from '../button/widget';
+import Container from '../container/widget';
+import Label from '../label/widget';
 
 export default [
   {
@@ -14,8 +15,12 @@ export default [
       lastMaxSize: {type: 'percentage'},
       children: (
         <React.Fragment>
-          <Button width="100px" height="100px" text="40%" />
-          <Button width="100px" height="100px" text="" />
+          <Container width="100%" height="100%" backgroundColor="aliceblue">
+            <Label text="40%" />
+          </Container>
+          <Container width="100%" height="100%" backgroundColor="lemonchiffon">
+            <Label text="" />
+          </Container>
         </React.Fragment>
       ),
     },
@@ -32,8 +37,12 @@ export default [
       lastMaxSize: {type: 'percentage'},
       children: (
         <React.Fragment>
-          <Button width="100px" height="100px" text="" />
-          <Button width="100px" height="100px" text="40%" />
+          <Container width="100%" height="100%" backgroundColor="aliceblue">
+            <Label text="" />
+          </Container>
+          <Container width="100%" height="100%" backgroundColor="lemonchiffon">
+            <Label text="40%" />
+          </Container>
         </React.Fragment>
       ),
     },
@@ -50,8 +59,12 @@ export default [
       lastMaxSize: {type: 'size'},
       children: (
         <React.Fragment>
-          <Button width="100px" height="100px" text="120px" />
-          <Button width="100px" height="100px" text="" />
+          <Container width="100%" height="100%" backgroundColor="aliceblue">
+            <Label text="120px" />
+          </Container>
+          <Container width="100%" height="100%" backgroundColor="lemonchiffon">
+            <Label text="" />
+          </Container>
         </React.Fragment>
       ),
     },
@@ -68,8 +81,12 @@ export default [
       lastMaxSize: {type: 'size'},
       children: (
         <React.Fragment>
-          <Button width="100px" height="100px" text="" />
-          <Button width="100px" height="100px" text="120px" />
+          <Container width="100%" height="100%" backgroundColor="aliceblue">
+            <Label text="" />
+          </Container>
+          <Container width="100%" height="100%" backgroundColor="lemonchiffon">
+            <Label text="120px" />
+          </Container>
         </React.Fragment>
       ),
     },
@@ -86,8 +103,12 @@ export default [
       lastMaxSize: {type: 'percentage'},
       children: (
         <React.Fragment>
-          <Button width="100px" height="100px" text="40%" />
-          <Button width="100px" height="100px" text="" />
+          <Container width="100%" height="100%" backgroundColor="aliceblue">
+            <Label text="40%" />
+          </Container>
+          <Container width="100%" height="100%" backgroundColor="lemonchiffon">
+            <Label text="" />
+          </Container>
         </React.Fragment>
       ),
     },
@@ -104,8 +125,12 @@ export default [
       lastMaxSize: {type: 'percentage'},
       children: (
         <React.Fragment>
-          <Button width="100px" height="100px" text="" />
-          <Button width="100px" height="100px" text="40%" />
+          <Container width="100%" height="100%" backgroundColor="aliceblue">
+            <Label text="" />
+          </Container>
+          <Container width="100%" height="100%" backgroundColor="lemonchiffon">
+            <Label text="40%" />
+          </Container>
         </React.Fragment>
       ),
     },
@@ -122,8 +147,12 @@ export default [
       lastMaxSize: {type: 'size'},
       children: (
         <React.Fragment>
-          <Button width="100px" height="100px" text="120px" />
-          <Button width="100px" height="100px" text="" />
+          <Container width="100%" height="100%" backgroundColor="aliceblue">
+            <Label text="120px" />
+          </Container>
+          <Container width="100%" height="100%" backgroundColor="lemonchiffon">
+            <Label text="" />
+          </Container>
         </React.Fragment>
       ),
     },
@@ -140,8 +169,12 @@ export default [
       lastMaxSize: {type: 'size'},
       children: (
         <React.Fragment>
-          <Button width="100px" height="100px" text="" />
-          <Button width="100px" height="100px" text="120px" />
+          <Container width="100%" height="100%" backgroundColor="aliceblue">
+            <Label text="" />
+          </Container>
+          <Container width="100%" height="100%" backgroundColor="lemonchiffon">
+            <Label text="120px" />
+          </Container>
         </React.Fragment>
       ),
     },

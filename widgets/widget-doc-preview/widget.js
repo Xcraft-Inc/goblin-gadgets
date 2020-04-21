@@ -288,6 +288,17 @@ class WidgetDocPreview extends Widget {
             />
           </React.Fragment>
         );
+      case 'two-boxes':
+        return (
+          <React.Fragment>
+            <Container width="100%" height="100%" backgroundColor="aliceblue" />
+            <Container
+              width="100%"
+              height="100%"
+              backgroundColor="lemonchiffon"
+            />
+          </React.Fragment>
+        );
     }
     return name;
   }

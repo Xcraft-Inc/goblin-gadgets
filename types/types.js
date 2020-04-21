@@ -130,6 +130,7 @@ const types = {
       'button',
       'button-10',
       'carousel-panes',
+      'two-boxes',
     ],
   },
 
