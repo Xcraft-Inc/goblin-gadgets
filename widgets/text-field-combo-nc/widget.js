@@ -4,8 +4,8 @@ import KeyTrap from 'goblin-gadgets/widgets/key-trap.js';
 import {isShredder} from 'xcraft-core-shredder';
 
 import ButtonCombo from 'goblin-gadgets/widgets/button-combo/widget';
-import TextFieldNC from 'goblin-gadgets/widgets/text-field-nc/widget';
 import wrapRawInput from 'goblin-gadgets/widgets/input-wrapper/widget.js';
+import TextInputNC from '../text-input-nc/widget';
 
 /******************************************************************************/
 
@@ -249,7 +249,7 @@ class TextFieldComboNC extends Widget {
       value = selectedItem.text;
     }
 
-    let TextComponent = TextFieldNC;
+    let TextComponent = TextInputNC;
     if (this.props.renderTextField) {
       TextComponent = this.props.renderTextField;
     }
@@ -267,8 +267,6 @@ class TextFieldComboNC extends Widget {
         grow={this.props.fieldWidth ? null : '1'}
         rows={this.props.rows}
         readonly={this.props.restrictsToList}
-        //changeMode="passthrough" // WIP: semble inutile, mais j'attends une réponse de @Nocturnight @Yannick !
-        changeMode="immediate"
         disabled={this.props.disabled}
         required={this.props.required}
         embeddedFocus={true}

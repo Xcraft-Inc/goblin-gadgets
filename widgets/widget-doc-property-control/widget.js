@@ -3,11 +3,11 @@ import Widget from 'goblin-laboratory/widgets/widget';
 import TextFieldNC from 'goblin-gadgets/widgets/text-field-nc/widget';
 import ButtonCombo from 'goblin-gadgets/widgets/button-combo/widget';
 import TextFieldComboNC from 'goblin-gadgets/widgets/text-field-combo-nc/widget';
-import TextFieldTypedComboNC from 'goblin-gadgets/widgets/text-field-typed-combo-nc/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import CheckboxNC from 'goblin-gadgets/widgets/checkbox-nc/widget';
 import * as styles from './styles';
+import TextFieldTypedNC from '../text-field-typed-nc/widget';
 
 /******************************************************************************/
 
@@ -98,7 +98,12 @@ class WidgetDocPropertyControl extends Widget {
     this.styles = styles;
 
     this.onChange = this.onChange.bind(this);
+    this.onChangeCombo = this.onChangeCombo.bind(this);
     this.clear = this.clear.bind(this);
+  }
+
+  onChangeCombo(item) {
+    this.onChange(item.id);
   }
 
   onChange(value) {
@@ -162,19 +167,28 @@ class WidgetDocPropertyControl extends Widget {
       }
 
       return (
-        <TextFieldTypedComboNC
-          type={this.props.type.type}
-          shape="smooth"
-          horizontalSpacing="tiny"
-          restrictsToList={restrictsToList}
-          rows={multiline ? '2' : null}
-          grow="1"
-          list={list}
-          selectedId={selectedId}
-          onChange={this.onChange}
-          menuType="wrap"
-          menuItemWidth="200px"
-        />
+        <React.Fragment>
+          <TextFieldTypedNC
+            type={this.props.type.type}
+            shape="smooth"
+            horizontalSpacing="overlap"
+            restrictsToList={restrictsToList}
+            rows={multiline ? '2' : null}
+            grow="1"
+            value={selectedId}
+            onChange={this.onChange}
+            menuType="wrap"
+            menuItemWidth="200px"
+          />
+          <ButtonCombo
+            horizontalSpacing="tiny"
+            list={list}
+            selectedId={selectedId}
+            onChange={this.onChangeCombo}
+            menuType="wrap"
+            menuItemWidth="200px"
+          />
+        </React.Fragment>
       );
     } else {
       let selectedId = this.currentValue;
