@@ -215,10 +215,10 @@ export default class Splitter extends Widget {
 
       const lastPaneNode = ReactDOM.findDOMNode(this.lastPaneNode);
       this.lastPaneRect = lastPaneNode.getBoundingClientRect();
-    }
 
-    this.positions = {...this.positions, isDragging: true};
-    this.hasChanging = true;
+      this.positions = {...this.positions, isDragging: true};
+      this.hasChanging = true;
+    }
   }
 
   mouseMovePercents(x, y) {
