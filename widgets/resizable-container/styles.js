@@ -24,10 +24,12 @@ export default function styles(theme) {
     'borderRadius': '10px',
     'cursor': 'pointer',
     'background': theme.palette.buttonBackground,
+    'transform': 'rotate(45deg) scale(1)',
     'transition': 'all 0.2s ease-out',
     ':hover': {
+      borderRadius: '0px',
       border: `2px solid ${theme.palette.buttonBorder}`,
-      transform: 'scale(1.5)',
+      transform: 'rotate(45deg) scale(1.5)',
     },
   };
 
