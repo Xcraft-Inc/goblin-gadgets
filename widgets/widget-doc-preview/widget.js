@@ -295,7 +295,7 @@ class WidgetDocPreview extends Widget {
             'column',
             'column-grow',
             'wrap',
-            'fix',
+            'resizable',
           ]}
         />
         <Container kind="row">
@@ -372,10 +372,7 @@ class WidgetDocPreview extends Widget {
 
         <div className={this.styles.classNames.samples}>
           <Label text={_.kebabCase(this.widgetInfo.name)} kind="title" />
-          <WidgetDocPreviewContainer
-            widgetId={this.props.widgetId}
-            widget={this.props.selectedWidget}
-          >
+          <WidgetDocPreviewContainer widgetId={this.props.widgetId}>
             {this.renderWidgets()}
           </WidgetDocPreviewContainer>
         </div>

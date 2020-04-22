@@ -2,10 +2,10 @@ import {ColorManipulator} from 'electrum-theme';
 
 /******************************************************************************/
 
-export const propNames = ['layout', 'frame', 'layoutFrame', 'color', 'scale'];
+export const propNames = ['frame', 'layoutFrame', 'color', 'scale'];
 
 export default function styles(theme, props) {
-  const {layout, frame, layoutFrame, color, scale} = props;
+  const {frame, layoutFrame, color, scale} = props;
 
   const frameStyle = frame
     ? {
@@ -45,14 +45,6 @@ export default function styles(theme, props) {
     ...frameStyle,
     ...layoutFrameStyle,
   };
-
-  if (layout === 'fix') {
-    widgetDocPreviewContainer.minWidth = '500px';
-    widgetDocPreviewContainer.maxWidth = '500px';
-    widgetDocPreviewContainer.minHeight = '500px';
-    widgetDocPreviewContainer.maxHeight = '500px';
-    widgetDocPreviewContainer.border = '2px dashed #888';
-  }
 
   const grow = {
     flexGrow: 1,

@@ -8,7 +8,7 @@ export default [
     name: 'kind',
     group: 'main',
     type: types.enum(['vertical', 'horizontal']),
-    description: "Use layout 'fix' to see the splitter.",
+    description: "Use layout 'resizable' to see the splitter.",
   },
   {
     name: 'children',
