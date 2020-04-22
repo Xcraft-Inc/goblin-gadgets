@@ -25,7 +25,7 @@ export default class ResizableContainer extends Widget {
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
-    this.onMouseOut = this.onMouseOut.bind(this);
+    this.onMouseLeave = this.onMouseLeave.bind(this);
   }
 
   //#region get/set
@@ -93,7 +93,7 @@ export default class ResizableContainer extends Widget {
     }
   }
 
-  onMouseOut() {
+  onMouseLeave() {
     if (this.dragging) {
       this.dragging = null;
     }
@@ -144,7 +144,7 @@ export default class ResizableContainer extends Widget {
         onMouseDown={this.onMouseDown}
         onMouseMove={this.onMouseMove}
         onMouseUp={this.onMouseUp}
-        onMouseLeave={this.onMouseOut}
+        onMouseLeave={this.onMouseLeave}
       >
         <div className={this.styles.classNames.box} style={boxStyle}>
           {this.props.children}
