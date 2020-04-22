@@ -190,7 +190,7 @@ class WidgetDocPreviewSettingsList extends Widget {
       <Container kind="row-pane" subkind="left">
         <Label
           text={this.props.text}
-          width={this.props.labelWidth || '80px'}
+          width={this.props.labelWidth || '100px'}
           justify={this.props.labelJustify}
         />
         {this.props.list.map((value) => this.renderItem(value))}
@@ -284,19 +284,22 @@ class WidgetDocPreview extends Widget {
           list={[1, 2, 3, 4, 5, 10, 20]}
         />
         <SettingsList
-          text="Layout"
+          text="Container"
           widgetId={this.props.widgetId}
-          path="settings.layout"
-          list={[
-            'div',
-            'div-grow',
-            'row',
-            'row-grow',
-            'column',
-            'column-grow',
-            'wrap',
-            'resizable',
-          ]}
+          path="settings.container"
+          list={['div', 'container', 'resizable']}
+        />
+        <SettingsList
+          text="Grow"
+          widgetId={this.props.widgetId}
+          path="settings.grow"
+          list={['false', 'true']}
+        />
+        <SettingsList
+          text="Direction"
+          widgetId={this.props.widgetId}
+          path="settings.direction"
+          list={['column', 'row', 'row-wrap']}
         />
         <Container kind="row">
           <SettingsSwitch

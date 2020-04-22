@@ -1,6 +1,10 @@
 /******************************************************************************/
 
-export default function styles(theme) {
+export const propNames = ['flexGrow', 'flexDirection', 'flexWrap'];
+
+export default function styles(theme, props) {
+  const {flexGrow, flexDirection, flexWrap} = props;
+
   const resizableContainer = {
     position: 'relative',
     display: 'content',
@@ -13,6 +17,10 @@ export default function styles(theme) {
     top: '0px',
     left: '0px',
     border: '2px dashed #888',
+    display: 'flex',
+    flexGrow,
+    flexDirection,
+    flexWrap,
   };
 
   const _button = {
@@ -22,7 +30,6 @@ export default function styles(theme) {
     'boxSizing': 'border-box',
     'border': `1px solid ${theme.palette.buttonBorder}`,
     'borderRadius': '10px',
-    'cursor': 'pointer',
     'background': theme.palette.buttonBackground,
     'transform': 'rotate(45deg) scale(1)',
     'transition': 'all 0.2s ease-out',
@@ -38,6 +45,7 @@ export default function styles(theme) {
     ..._button,
     bottom: '-10px',
     right: '-10px',
+    cursor: 'move',
   };
 
   // Button at bottom left, for resizing height.
@@ -45,6 +53,7 @@ export default function styles(theme) {
     ..._button,
     bottom: '-10px',
     left: '-10px',
+    cursor: 'ns-resize',
   };
 
   // Button at top right, for resizing width.
@@ -52,6 +61,7 @@ export default function styles(theme) {
     ..._button,
     top: '-10px',
     right: '-10px',
+    cursor: 'ew-resize',
   };
 
   /******************************************************************************/
