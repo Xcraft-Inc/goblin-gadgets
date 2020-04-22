@@ -18,9 +18,16 @@ export default class Splitter extends Widget {
     super(...arguments);
     this.styles = styles;
 
+    const initial = this.getInitial(this.props);
+    this.kind = initial.kind;
+    this.unit = initial.unit;
+    this.master = initial.master;
+
     this.state = {
       positions: this.getPositions(this.props),
     };
+
+    this.hasChanging = false;
 
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
@@ -39,32 +46,52 @@ export default class Splitter extends Widget {
   }
   //#endregion
 
+  getInitial(props) {
+    if (props.firstSize !== undefined) {
+      const x = Unit.parse(props.firstSize);
+      return {kind: props.kind, unit: x.unit, master: 'first'};
+    }
+
+    if (props.lastSize !== undefined) {
+      const x = Unit.parse(props.lastSize);
+      return {kind: props.kind, unit: x.unit, master: 'last'};
+    }
+
+    return null;
+  }
+
   getPositions(props) {
     const positions = {isDragging: false};
 
     if (props.firstSize !== undefined) {
       const x = Unit.parse(props.firstSize);
       positions.first = x.value;
-      this.unit = x.unit;
-      this.master = 'first';
     }
 
     if (props.lastSize !== undefined) {
       const x = Unit.parse(props.lastSize);
       positions.last = x.value;
-      this.unit = x.unit;
-      this.master = 'last';
     }
 
     return positions;
   }
 
-  componentDidMount() {
-    this.positions = this.getPositions(this.props);
-  }
-
   componentWillReceiveProps(nextProps) {
-    this.positions = this.getPositions(nextProps);
+    // If the splitter has been moved, nothing is changed anymore to keep the choice of the user.
+    // If the properties have changed radically (kind, unit or master), we still make the change.
+    const nextInitial = this.getInitial(nextProps);
+    if (
+      !this.hasChanging ||
+      nextInitial.kind !== this.kind ||
+      nextInitial.unit !== this.unit ||
+      nextInitial.master !== this.master
+    ) {
+      this.kind = nextInitial.kind;
+      this.unit = nextInitial.unit;
+      this.master = nextInitial.master;
+
+      this.positions = this.getPositions(nextProps);
+    }
   }
 
   error(message) {
@@ -191,6 +218,7 @@ export default class Splitter extends Widget {
     }
 
     this.positions = {...this.positions, isDragging: true};
+    this.hasChanging = true;
   }
 
   mouseMovePercents(x, y) {
@@ -219,6 +247,7 @@ export default class Splitter extends Widget {
     }
 
     this.positions = {first, last, isDragging: true};
+    this.hasChanging = true;
   }
 
   mouseMovePixels(x, y) {

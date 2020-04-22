@@ -25,6 +25,7 @@ export default class ResizableContainer extends Widget {
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
+    this.onMouseOut = this.onMouseOut.bind(this);
   }
 
   //#region get/set
@@ -92,6 +93,12 @@ export default class ResizableContainer extends Widget {
     }
   }
 
+  onMouseOut() {
+    if (this.dragging) {
+      this.dragging = null;
+    }
+  }
+
   /******************************************************************************/
 
   renderButtonCorner() {
@@ -137,6 +144,7 @@ export default class ResizableContainer extends Widget {
         onMouseDown={this.onMouseDown}
         onMouseMove={this.onMouseMove}
         onMouseUp={this.onMouseUp}
+        onMouseLeave={this.onMouseOut}
       >
         <div className={this.styles.classNames.box} style={boxStyle}>
           {this.props.children}
