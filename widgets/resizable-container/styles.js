@@ -1,9 +1,11 @@
+import {ColorManipulator} from 'electrum-theme';
+
 /******************************************************************************/
 
-export const propNames = ['flexGrow', 'flexDirection', 'flexWrap'];
+export const propNames = ['style'];
 
 export default function styles(theme, props) {
-  const {flexGrow, flexDirection, flexWrap} = props;
+  const {style} = props;
 
   const resizableContainer = {
     position: 'relative',
@@ -12,15 +14,25 @@ export default function styles(theme, props) {
     height: '100%',
   };
 
+  const borderColor = ColorManipulator.lighten(theme.palette.buttonBorder, 0.4);
   const box = {
     position: 'absolute',
     top: '0px',
     left: '0px',
-    border: '2px dashed #888',
+    borderLeft: `1px solid ${borderColor}`,
+    borderTop: `1px solid ${borderColor}`,
+    borderRight: `2px dashed ${borderColor}`,
+    borderBottom: `2px dashed ${borderColor}`,
+    padding: '10px',
     display: 'flex',
-    flexGrow,
-    flexDirection,
-    flexWrap,
+    ...style,
+  };
+
+  const borderColorDragging = 'red';
+  const boxDragging = {
+    ...box,
+    borderRight: `2px dashed ${borderColorDragging}`,
+    borderBottom: `2px dashed ${borderColorDragging}`,
   };
 
   const _button = {
@@ -28,11 +40,12 @@ export default function styles(theme, props) {
     'width': '20px',
     'height': '20px',
     'boxSizing': 'border-box',
-    'border': `1px solid ${theme.palette.buttonBorder}`,
+    'border': `1px solid ${borderColor}`,
     'borderRadius': '10px',
     'background': theme.palette.buttonBackground,
     'transform': 'rotate(45deg) scale(1)',
-    'transition': 'all 0.2s ease-out',
+    'transition':
+      'border-radius 0.2s ease-out, border 0.2s ease-out, transform 0.2s ease-out',
     ':hover': {
       borderRadius: '0px',
       border: `2px solid ${theme.palette.buttonBorder}`,
@@ -43,25 +56,30 @@ export default function styles(theme, props) {
   // Button at bottom right, for resizing width and height.
   const buttonCorner = {
     ..._button,
-    bottom: '-10px',
-    right: '-10px',
     cursor: 'move',
   };
 
   // Button at bottom left, for resizing height.
   const buttonHeight = {
     ..._button,
-    bottom: '-10px',
-    left: '-10px',
     cursor: 'ns-resize',
   };
 
   // Button at top right, for resizing width.
   const buttonWidth = {
     ..._button,
-    top: '-10px',
-    right: '-10px',
     cursor: 'ew-resize',
+  };
+
+  const size = {
+    position: 'absolute',
+    left: '0px',
+    top: '0px',
+    padding: '5px 10px',
+    border: '1px solid black',
+    backgroundColor: 'red',
+    color: 'white',
+    fontSize: '80%',
   };
 
   /******************************************************************************/
@@ -69,9 +87,11 @@ export default function styles(theme, props) {
   return {
     resizableContainer,
     box,
+    boxDragging,
     buttonCorner,
     buttonHeight,
     buttonWidth,
+    size,
   };
 }
 

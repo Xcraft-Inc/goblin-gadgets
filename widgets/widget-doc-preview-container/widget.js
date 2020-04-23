@@ -1,6 +1,5 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
-import Container from 'goblin-gadgets/widgets/container/widget';
 import ResizableContainer from 'goblin-gadgets/widgets/resizable-container/widget';
 import ThemeContext from 'goblin-laboratory/widgets/theme-context/widget';
 import * as styles from './styles';
@@ -11,68 +10,71 @@ class WidgetDocPreviewContainer extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
+    this.onChange = this.onChange.bind(this);
   }
 
+  onChange(dx, dy) {
+    this.dispatch({
+      type: 'SET',
+      path: 'settings.containerWidth',
+      value: dx,
+    });
+    this.dispatch({
+      type: 'SET',
+      path: 'settings.containerHeight',
+      value: dy,
+    });
+  }
+
+  /******************************************************************************/
+
   renderContainer() {
-    if (this.props.container === 'container') {
-      const containerProps = {
-        kind:
-          this.props.direction === 'row-wrap' ? 'wrap' : this.props.direction,
-      };
-      return <Container {...containerProps}>{this.props.children}</Container>;
+    const style = {
+      display: 'flex',
+      flexGrow: this.props.flexGrow,
+      flexDirection: this.props.flexDirection,
+      flexWrap: this.props.flexWrap,
+      overflow: this.props.overflow,
+    };
+
+    const width =
+      this.props.containerWidth === 'unset' ||
+      this.props.containerWidth === 'other'
+        ? null
+        : this.props.containerWidth;
+
+    const height =
+      this.props.containerHeight === 'unset' ||
+      this.props.containerHeight === 'other'
+        ? null
+        : this.props.containerHeight;
+
+    if (this.props.container === 'div') {
+      if (width) {
+        style.minWidth = width + 'px';
+        style.maxWidth = width + 'px';
+      }
+      if (height) {
+        style.minHeight = height + 'px';
+        style.maxHeight = height + 'px';
+      }
+      return <div style={style}>{this.props.children}</div>;
     }
 
     if (this.props.container === 'resizable') {
-      const containerProps = {
-        flexGrow: this.props.grow === 'true' ? 1 : null,
-        flexDirection: this.props.direction === 'column' ? 'column' : 'row',
-        flexWrap: this.props.direction === 'row-wrap' ? 'wrap' : null,
-      };
       return (
-        <ResizableContainer {...containerProps}>
+        <ResizableContainer
+          style={style}
+          dx={width}
+          dy={height}
+          onChange={this.onChange}
+        >
           {this.props.children}
         </ResizableContainer>
       );
     }
 
-    if (this.props.container === 'div') {
-      const style = {
-        display: 'flex',
-        flexGrow: this.props.grow === 'true' ? 1 : null,
-        flexDirection: this.props.direction === 'column' ? 'column' : 'row',
-        flexWrap: this.props.direction === 'row-wrap' ? 'wrap' : null,
-      };
-      return <div style={style}>{this.props.children}</div>;
-    }
-
     return null;
-  }
-
-  renderContainer_OLD() {
-    const layout = this.props.layout.split('-'); // split 'column-grow' by example
-    let ContainerComponent = 'div';
-    const containerProps = {};
-
-    if (layout[0] === 'resizable') {
-      ContainerComponent = ResizableContainer;
-      containerProps.flexDirection = layout[1];
-    } else if (layout[0] !== 'div') {
-      ContainerComponent = Container;
-      containerProps.kind = layout[0];
-      if (layout[1] === 'grow') {
-        containerProps.grow = '1';
-      }
-    } else {
-      if (layout[1] === 'grow') {
-        containerProps.className = this.styles.classNames.grow;
-      }
-    }
-
-    return (
-      <ContainerComponent {...containerProps}>
-        {this.props.children}
-      </ContainerComponent>
-    );
   }
 
   renderThemeContext(theme) {
@@ -106,8 +108,12 @@ export default Widget.connectWidget((state) => {
     scale: settings.get('scale'),
     color: settings.get('color'),
     container: settings.get('container'),
-    grow: settings.get('grow'),
-    direction: settings.get('direction'),
+    containerWidth: settings.get('containerWidth'),
+    containerHeight: settings.get('containerHeight'),
+    flexGrow: settings.get('flexGrow'),
+    flexDirection: settings.get('flexDirection'),
+    flexWrap: settings.get('flexWrap'),
+    overflow: settings.get('overflow'),
   };
 })(WidgetDocPreviewContainer);
 

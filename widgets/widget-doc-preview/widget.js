@@ -173,12 +173,12 @@ class WidgetDocPreviewSettingsList extends Widget {
     this.dispatch({type: 'SET', path: this.props.path, value});
   }
 
-  renderItem(value) {
+  renderItem(value, includes) {
     return (
       <Checkbox
         key={value}
         text={value}
-        checked={this.props.value === value}
+        checked={value === this.props.value || (value === 'other' && !includes)}
         kind="active"
         onChange={() => this.onClick(value)}
       />
@@ -186,14 +186,15 @@ class WidgetDocPreviewSettingsList extends Widget {
   }
 
   render() {
+    const includes = this.props.list.includes(this.props.value);
     return (
       <Container kind="row-pane" subkind="left">
         <Label
           text={this.props.text}
-          width={this.props.labelWidth || '100px'}
+          width={this.props.labelWidth || '120px'}
           justify={this.props.labelJustify}
         />
-        {this.props.list.map((value) => this.renderItem(value))}
+        {this.props.list.map((value) => this.renderItem(value, includes))}
       </Container>
     );
   }
@@ -287,19 +288,43 @@ class WidgetDocPreview extends Widget {
           text="Container"
           widgetId={this.props.widgetId}
           path="settings.container"
-          list={['div', 'container', 'resizable']}
+          list={['div', 'resizable']}
         />
         <SettingsList
-          text="Grow"
+          text="Width"
           widgetId={this.props.widgetId}
-          path="settings.grow"
-          list={['false', 'true']}
+          path="settings.containerWidth"
+          list={['unset', '50', '100', '200', '500', 'other']}
         />
         <SettingsList
-          text="Direction"
+          text="Height"
           widgetId={this.props.widgetId}
-          path="settings.direction"
-          list={['column', 'row', 'row-wrap']}
+          path="settings.containerHeight"
+          list={['unset', '50', '100', '200', '500', 'other']}
+        />
+        <SettingsList
+          text="FlexGrow"
+          widgetId={this.props.widgetId}
+          path="settings.flexGrow"
+          list={['unset', '1']}
+        />
+        <SettingsList
+          text="FlexDirection"
+          widgetId={this.props.widgetId}
+          path="settings.flexDirection"
+          list={['row', 'column']}
+        />
+        <SettingsList
+          text="FlexWrap"
+          widgetId={this.props.widgetId}
+          path="settings.flexWrap"
+          list={['no-wrap', 'wrap']}
+        />
+        <SettingsList
+          text="Overflow"
+          widgetId={this.props.widgetId}
+          path="settings.overflow"
+          list={['unset', 'hidden', 'auto']}
         />
         <Container kind="row">
           <SettingsSwitch
@@ -308,7 +333,7 @@ class WidgetDocPreview extends Widget {
             path="settings.frame"
           />
           <SettingsSwitch
-            text="Layout frame"
+            text="Container frame"
             labelJustify="end"
             labelWidth="160px"
             widgetId={this.props.widgetId}
