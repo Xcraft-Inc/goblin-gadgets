@@ -15,42 +15,25 @@ export default function styles(theme, props) {
 
   const frameStyle = {};
   if (frame) {
-    if (container === 'resizable') {
-      // Skip on move <div>, according to ResizableContainer.
-      frameStyle['& > div > div > div > *'] = {
-        outline: '1px dashed red',
-      };
-    } else {
-      frameStyle['& > div > *'] = {
-        outline: '1px dashed red',
-      };
-    }
+    frameStyle.outline = '1px dashed red';
+  }
+  if (scale && scale !== 1) {
+    frameStyle.transform = `scale(${scale})`;
+    frameStyle.transformOrigin = 'top left';
+    // frameStyle.width = `${100 / scale}%`;
+    // frameStyle.height = `${100 / scale}%`;
   }
 
   const layoutFrameStyle = {};
   if (layoutFrame) {
-    if (container === 'resizable') {
-      // Skip on move <div>, according to ResizableContainer.
-      layoutFrameStyle['& > div > div > div'] = {
-        outline: '1px dashed green',
-      };
-    } else {
-      layoutFrameStyle['& > div'] = {
-        outline: '1px dashed green',
-      };
-    }
+    layoutFrameStyle.outline = '1px dashed green';
   }
 
-  const backgroundColor = theme.palette[color + 'Background'];
+  const r = container === 'resizable';
+  const frameKey = r ? '& > div > div > div > *' : '& > div > *';
+  const layoutFramekey = r ? '& > div > div > div' : '& > div';
 
-  const scaleStyle =
-    scale !== 1
-      ? {
-          transform: `scale(${scale})`,
-          transformOrigin: 'top left',
-          width: `${100 / scale}%`,
-        }
-      : null;
+  const backgroundColor = theme.palette[color + 'Background'];
 
   const widgetDocPreviewContainer = {
     margin: '10px 0px',
@@ -59,9 +42,8 @@ export default function styles(theme, props) {
     flexDirection: 'column',
     backgroundColor,
     color: ColorManipulator.emphasize(backgroundColor, 1),
-    ...scaleStyle,
-    ...frameStyle,
-    ...layoutFrameStyle,
+    [frameKey]: {...frameStyle},
+    [layoutFramekey]: {...layoutFrameStyle},
   };
 
   const grow = {

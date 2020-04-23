@@ -52,7 +52,7 @@ export default function styles(theme, props) {
     'border': `1px solid ${borderColor}`,
     'borderRadius': '10px',
     'background': theme.palette.buttonBackground,
-    'transform': 'rotate(45deg) scale(1)',
+    'transform': 'rotate(0deg) scale(1)',
     'transition':
       'border-radius 0.2s ease-out, border 0.2s ease-out, transform 0.2s ease-out',
     ':hover': {
