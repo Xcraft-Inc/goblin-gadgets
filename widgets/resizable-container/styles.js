@@ -25,6 +25,15 @@ export default function styles(theme, props) {
     borderBottom: `2px dashed ${borderColor}`,
     padding: '10px',
     display: 'flex',
+  };
+
+  const children = {
+    position: 'absolute',
+    top: '10px',
+    bottom: '10px',
+    left: '10px',
+    right: '10px',
+    display: 'flex',
     ...style,
   };
 
@@ -87,6 +96,7 @@ export default function styles(theme, props) {
   return {
     resizableContainer,
     box,
+    children,
     boxDragging,
     buttonCorner,
     buttonHeight,

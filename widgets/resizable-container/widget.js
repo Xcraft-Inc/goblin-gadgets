@@ -204,7 +204,9 @@ export default class ResizableContainer extends Widget {
           }
           style={boxStyle}
         >
-          {this.props.children}
+          <div className={this.styles.classNames.children}>
+            {this.props.children}
+          </div>
         </div>
         {this.renderButtonCorner()}
         {this.renderButtonHeight()}
