@@ -35,6 +35,6 @@ export default [
     group: 'simulation',
     type: types.size,
     description:
-      'Height and width of the parent, only for simulation. Normally, these values are not specified. You can then specify "SETTINGS > Layout > row" to test.',
+      'Height and width of the parent, only for simulation. Normally, these values are not specified.',
   },
 ];
