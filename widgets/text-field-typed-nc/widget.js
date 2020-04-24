@@ -203,6 +203,7 @@ export default class TextFieldTypedNC extends Widget {
     if (!width) {
       switch (type) {
         case 'number':
+        case 'integer':
           width = '90px';
           break;
         case 'datetime':
@@ -273,7 +274,7 @@ export default class TextFieldTypedNC extends Widget {
           />
         </ButtonCombo>
       );
-    } else if (type === 'number') {
+    } else if (type === 'number' || type === 'integer') {
       return (
         <React.Fragment>
           <TextFieldNC
