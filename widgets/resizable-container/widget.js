@@ -109,7 +109,7 @@ export default class ResizableContainer extends Widget {
       style.backgroundColor = '#ffb9b9';
       style.borderRadius = '0px';
       style.border = '2px solid #f00';
-      style.transform = 'rotate(45deg) scale(1)';
+      style.transform = 'rotate(0deg) scale(1)';
     }
   }
 

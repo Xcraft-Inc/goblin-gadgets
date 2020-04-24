@@ -18,10 +18,7 @@ export default class Splitter extends Widget {
     super(...arguments);
     this.styles = styles;
 
-    const initial = this.getInitial(this.props);
-    this.kind = initial.kind;
-    this.unit = initial.unit;
-    this.master = initial.master;
+    this.saveInitials(this.getInitials(this.props));
 
     this.state = {
       positions: this.getPositions(this.props),
@@ -46,18 +43,34 @@ export default class Splitter extends Widget {
   }
   //#endregion
 
-  getInitial(props) {
+  getInitials(props) {
     if (props.firstSize !== undefined) {
       const x = Unit.parse(props.firstSize);
-      return {kind: props.kind, unit: x.unit, master: 'first'};
+      return {kind: props.kind, value: x.value, unit: x.unit, master: 'first'};
     }
 
     if (props.lastSize !== undefined) {
       const x = Unit.parse(props.lastSize);
-      return {kind: props.kind, unit: x.unit, master: 'last'};
+      return {kind: props.kind, value: x.value, unit: x.unit, master: 'last'};
     }
 
     return null;
+  }
+
+  saveInitials(initials) {
+    this.kind = initials.kind;
+    this.value = initials.value;
+    this.unit = initials.unit;
+    this.master = initials.master;
+  }
+
+  haveInitialsChanged(nextInitials) {
+    return (
+      nextInitials.kind !== this.kind ||
+      nextInitials.value !== this.value ||
+      nextInitials.unit !== this.unit ||
+      nextInitials.master !== this.master
+    );
   }
 
   getPositions(props) {
@@ -79,17 +92,9 @@ export default class Splitter extends Widget {
   componentWillReceiveProps(nextProps) {
     // If the splitter has been moved, nothing is changed anymore to keep the choice of the user.
     // If the properties have changed radically (kind, unit or master), we still make the change.
-    const nextInitial = this.getInitial(nextProps);
-    if (
-      !this.hasChanging ||
-      nextInitial.kind !== this.kind ||
-      nextInitial.unit !== this.unit ||
-      nextInitial.master !== this.master
-    ) {
-      this.kind = nextInitial.kind;
-      this.unit = nextInitial.unit;
-      this.master = nextInitial.master;
-
+    const nextInitials = this.getInitials(nextProps);
+    if (!this.hasChanging || this.haveInitialsChanged(nextInitials)) {
+      this.saveInitials(nextInitials);
       this.positions = this.getPositions(nextProps);
     }
   }

@@ -52,13 +52,13 @@ export default function styles(theme, props) {
     'border': `1px solid ${borderColor}`,
     'borderRadius': '10px',
     'background': theme.palette.buttonBackground,
-    'transform': 'rotate(0deg) scale(1)',
+    'transform': 'rotate(90deg) scale(1)',
     'transition':
       'border-radius 0.2s ease-out, border 0.2s ease-out, transform 0.2s ease-out',
     ':hover': {
       borderRadius: '0px',
       border: `2px solid ${theme.palette.buttonBorder}`,
-      transform: 'rotate(45deg) scale(1.5)',
+      transform: 'rotate(0deg) scale(1.5)',
     },
   };
 
