@@ -42,8 +42,8 @@ export default function styles(theme, props) {
     flexDirection: 'column',
     backgroundColor,
     color: ColorManipulator.emphasize(backgroundColor, 1),
-    [frameKey]: {...frameStyle},
-    [layoutFramekey]: {...layoutFrameStyle},
+    [frameKey]: frameStyle,
+    [layoutFramekey]: layoutFrameStyle,
   };
 
   const grow = {

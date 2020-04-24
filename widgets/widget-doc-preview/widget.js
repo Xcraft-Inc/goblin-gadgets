@@ -288,13 +288,13 @@ class WidgetDocPreview extends Widget {
           text="Width"
           widgetId={this.props.widgetId}
           path="settings.containerWidth"
-          list={['unset', '50', '100', '200', '500', 'other']}
+          list={['unset', 50, 100, 200, 500, 'other']}
         />
         <SettingsList
           text="Height"
           widgetId={this.props.widgetId}
           path="settings.containerHeight"
-          list={['unset', '50', '100', '200', '500', 'other']}
+          list={['unset', 50, 100, 200, 500, 'other']}
         />
         <SettingsList
           text="FlexGrow"

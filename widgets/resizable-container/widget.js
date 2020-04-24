@@ -49,8 +49,8 @@ export default class ResizableContainer extends Widget {
 
   getSize(props) {
     return {
-      dx: props.dx ? parseInt(props.dx) : 500,
-      dy: props.dy ? parseInt(props.dy) : 500,
+      dx: props.dx || 500,
+      dy: props.dy || 500,
     };
   }
 
@@ -99,7 +99,7 @@ export default class ResizableContainer extends Widget {
       this.dragging = null;
 
       if (this.props.onChange) {
-        this.props.onChange(this.size.dx + '', this.size.dy + '');
+        this.props.onChange(this.size.dx, this.size.dy);
       }
     }
   }
