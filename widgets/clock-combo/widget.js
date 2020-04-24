@@ -31,7 +31,7 @@ export default class ClockCombo extends Widget {
 
   /******************************************************************************/
 
-  renderPart(value, action) {
+  renderPart(value, action, bigInc) {
     value = value + '';
     if (value.length === 1) {
       value = '0' + value;
@@ -39,7 +39,20 @@ export default class ClockCombo extends Widget {
 
     return (
       <div className={this.styles.classNames.part}>
-        <Button width="52px" glyph="solid/plus" onClick={() => action(1)} />
+        <Button
+          border="none"
+          width="52px"
+          height="28px"
+          glyph="solid/chevron-double-up"
+          onClick={() => action(bigInc)}
+        />
+        <Button
+          border="none"
+          width="52px"
+          height="28px"
+          glyph="solid/chevron-up"
+          onClick={() => action(1)}
+        />
         <div className={this.styles.classNames.vsep} />
         <TextInputNC
           width="50px"
@@ -48,27 +61,90 @@ export default class ClockCombo extends Widget {
           value={value}
         />
         <div className={this.styles.classNames.vsep} />
-        <Button width="52px" glyph="solid/minus" onClick={() => action(-1)} />
+        <Button
+          border="none"
+          width="52px"
+          height="28px"
+          glyph="solid/chevron-down"
+          onClick={() => action(-1)}
+        />
+        <Button
+          border="none"
+          width="52px"
+          height="28px"
+          glyph="solid/chevron-double-down"
+          onClick={() => action(-bigInc)}
+        />
+      </div>
+    );
+  }
+
+  renderPart_TEXT(value, action, bigInc) {
+    value = value + '';
+    if (value.length === 1) {
+      value = '0' + value;
+    }
+
+    const littleInc = 1;
+
+    return (
+      <div className={this.styles.classNames.part}>
+        <Button
+          width="52px"
+          height="28px"
+          text={`+${bigInc}`}
+          fontSize="80%"
+          onClick={() => action(bigInc)}
+        />
+        <Button
+          width="52px"
+          height="28px"
+          text={`+${littleInc}`}
+          fontSize="80%"
+          onClick={() => action(1)}
+        />
+        <div className={this.styles.classNames.vsep} />
+        <TextInputNC
+          width="50px"
+          justify="center"
+          readonly={true}
+          value={value}
+        />
+        <div className={this.styles.classNames.vsep} />
+        <Button
+          width="52px"
+          height="28px"
+          text={`−${littleInc}`} // U+2212
+          fontSize="80%"
+          onClick={() => action(-1)}
+        />
+        <Button
+          width="52px"
+          height="28px"
+          text={`−${bigInc}`} // U+2212
+          fontSize="80%"
+          onClick={() => action(-bigInc)}
+        />
       </div>
     );
   }
 
   renderHour() {
     const h = TimeConverters.getHours(this.props.time);
-    return this.renderPart(h, this.incHour);
+    return this.renderPart(h, this.incHour, 2);
   }
 
   renderMinute() {
     const m = TimeConverters.getMinutes(this.props.time);
-    return this.renderPart(m, this.incMinute);
+    return this.renderPart(m, this.incMinute, 10);
   }
 
   renderClock() {
     return (
       <div className={this.styles.classNames.clock}>
         <AnalogClock
-          size="110px"
-          look={this.context.theme.look.clockParams.initialLook}
+          size="160px"
+          look="simple"
           transition="none"
           fixedTime={this.props.time}
         />

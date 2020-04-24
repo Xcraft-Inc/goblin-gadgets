@@ -2,8 +2,8 @@
 
 export default function styles(theme) {
   const clockCombo = {
-    height: '170px',
-    width: '330px',
+    height: '220px',
+    width: '400px',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -14,6 +14,8 @@ export default function styles(theme) {
 
   const part = {
     marginRight: '10px',
+    padding: '2px',
+    border: `1px solid ${theme.palette.buttonBorder}`,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
