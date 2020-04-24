@@ -23,6 +23,7 @@ import {
 } from 'xcraft-core-utils/lib/prop-types';
 import TextFieldNC from 'goblin-gadgets/widgets/text-field-nc/widget';
 import ButtonCombo from 'goblin-gadgets/widgets/button-combo/widget';
+import Button from 'goblin-gadgets/widgets/button/widget';
 import Props from './props';
 
 /******************************************************************************/
@@ -34,6 +35,7 @@ export default class TextFieldTypedNC extends Widget {
     this.format = this.format.bind(this);
     this.parse = this.parse.bind(this);
     this.check = this.check.bind(this);
+    this.incNumber = this.incNumber.bind(this);
     this.handleDateClicked = this.handleDateClicked.bind(this);
   }
 
@@ -153,6 +155,17 @@ export default class TextFieldTypedNC extends Widget {
     this.props.onChange(date);
   }
 
+  incNumber(inc) {
+    let n = this.props.value || 0;
+    if (typeof n === 'string') {
+      n = parseInt(n);
+      if (isNaN(n)) {
+        n = 0;
+      }
+    }
+    this.props.onChange(n + inc);
+  }
+
   /******************************************************************************/
 
   render() {
@@ -189,6 +202,9 @@ export default class TextFieldTypedNC extends Widget {
 
     if (!width) {
       switch (type) {
+        case 'number':
+          width = '90px';
+          break;
         case 'datetime':
           width = '160px';
           break;
@@ -256,6 +272,33 @@ export default class TextFieldTypedNC extends Widget {
             horizontalSpacing="overlap"
           />
         </ButtonCombo>
+      );
+    } else if (type === 'number') {
+      return (
+        <React.Fragment>
+          <TextFieldNC
+            {...otherProps}
+            width={width}
+            tooltip={tooltip}
+            justify={justify}
+            format={this.format}
+            parse={this.parse}
+            check={this.check}
+            horizontalSpacing="overlap"
+          />
+          <Button
+            kind="combo"
+            glyph="solid/plus"
+            horizontalSpacing="overlap"
+            onClick={() => this.incNumber(1)}
+          />
+          <Button
+            kind="combo"
+            glyph="solid/minus"
+            horizontalSpacing={this.props.horizontalSpacing}
+            onClick={() => this.incNumber(-1)}
+          />
+        </React.Fragment>
       );
     } else {
       return (
