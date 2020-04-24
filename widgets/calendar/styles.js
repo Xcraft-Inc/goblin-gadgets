@@ -2,14 +2,15 @@ import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
 
-function add(result, n) {
-  if (n) {
-    result.value = Unit.add(result.value, n);
-  }
+// result += n*f
+function cum(result, n, f = 1) {
+  n = Unit.multiply(n, f);
+  result.value = Unit.add(result.value, n);
 }
 
-function mul(result, n) {
-  result.value = Unit.multiply(result.value, n);
+// result *= f
+function mul(result, f) {
+  result.value = Unit.multiply(result.value, f);
 }
 
 /******************************************************************************/
@@ -43,15 +44,15 @@ export default function styles(theme, props) {
 
   // Compute total width.
   const w = {value: '0px'};
-  add(w, Unit.multiply(itemWidth, 7));
+  cum(w, itemWidth, 7);
   mul(w, monthCount);
-  add(w, Unit.multiply(theme.shapes.calendarMargin, (monthCount - 1) * 2));
-  add(w, frame ? Unit.multiply('1px', monthCount - 1) : null);
+  cum(w, theme.shapes.calendarMargin, (monthCount - 1) * 2);
+  cum(w, frame ? '1px' : '0px', monthCount - 1);
 
   // Compute total height.
   const h = {value: '0px'};
-  add(h, Unit.multiply(theme.shapes.calendarButtonHeight, 2));
-  add(h, Unit.multiply(itemHeight, 6));
+  cum(h, theme.shapes.calendarButtonHeight, 2); // rows for navigation and dow
+  cum(h, itemHeight, 6); // rows for days
 
   /******************************************************************************/
 
