@@ -232,7 +232,7 @@ export default class Calendar extends Widget {
 
   get monthCount() {
     const monthCount = this.props.monthCount;
-    return monthCount ? parseInt(monthCount) : 1;
+    return monthCount ? Math.min(parseInt(monthCount), 12) : 1;
   }
 
   getDOW3Letters(dow) {
@@ -821,7 +821,7 @@ export default class Calendar extends Widget {
     }
 
     return (
-      <div className={this.styles.classNames.box}>
+      <div className={this.styles.classNames.calendar}>
         {this.renderMonths()}
         {this.renderNavigator()}
         {this.renderComboMonths()}

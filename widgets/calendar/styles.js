@@ -2,16 +2,36 @@ import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
 
+function add(result, n) {
+  if (n) {
+    result.value = Unit.add(result.value, n);
+  }
+}
+
+function mul(result, n) {
+  result.value = Unit.multiply(result.value, n);
+}
+
+/******************************************************************************/
+
 export const propNames = [
   'frame',
   'navigator',
   'shadow',
   'itemWidth',
   'itemHeight',
+  'monthCount',
 ];
 
 export default function styles(theme, props) {
-  const {frame, navigator, shadow, itemWidth, itemHeight} = props;
+  const {
+    frame,
+    navigator,
+    shadow,
+    itemWidth = theme.shapes.calendarButtonWidth,
+    itemHeight = theme.shapes.calendarButtonHeight,
+    monthCount = 1,
+  } = props;
 
   const m = theme.shapes.containerMargin;
   const halfMargin = Unit.multiply(m, 0.5);
@@ -19,19 +39,28 @@ export default function styles(theme, props) {
 
   const boxGrow = navigator ? '1' : null;
 
-  const box = {
+  // Compute total width.
+  const w = {value: '0px'};
+  add(w, Unit.multiply(itemWidth, 7));
+  mul(w, monthCount);
+  add(w, Unit.multiply(theme.shapes.calendarMargin, (monthCount - 1) * 2));
+  add(w, frame ? Unit.multiply('1px', monthCount - 1) : null);
+
+  // Compute total height.
+  const h = {value: '0px'};
+  add(h, Unit.multiply(theme.shapes.calendarButtonHeight, 2));
+  add(h, Unit.multiply(itemHeight, 6));
+
+  /******************************************************************************/
+
+  const calendar = {
+    width: w.value,
+    height: h.value,
     display: 'flex',
     flexDirection: 'row',
     flexGrow: boxGrow,
     border: border,
     boxShadow: shadow ? theme.shapes.calendarShadow : null,
-  };
-
-  const month = {
-    display: 'flex',
-    flexDirection: 'column',
-    backgroundColor: theme.palette.calendarBackground,
-    marginRight: theme.shapes.lineSpacing,
   };
 
   const singleMonth = {
@@ -40,10 +69,15 @@ export default function styles(theme, props) {
     backgroundColor: theme.palette.calendarBackground,
   };
 
+  const month = {
+    ...singleMonth,
+    paddingRight: theme.shapes.calendarMargin,
+  };
+
   const separator = {
-    width: '1px',
-    marginRight: theme.shapes.lineSpacing,
+    paddingRight: theme.shapes.calendarMargin,
     borderLeft: border,
+    backgroundColor: theme.palette.calendarBackground,
   };
 
   const header = {
@@ -58,7 +92,7 @@ export default function styles(theme, props) {
   };
 
   const dowText = {
-    width: itemWidth || theme.shapes.calendarButtonWidth,
+    width: itemWidth,
     textAlign: 'center',
     lineHeight: theme.shapes.calendarButtonHeight,
     color: theme.palette.calendarHeaderText,
@@ -71,7 +105,6 @@ export default function styles(theme, props) {
   const dowLine = {
     display: 'flex',
     flexDirection: 'row',
-    margin: '0px 0px 2px 0px',
   };
 
   const line = {
@@ -99,8 +132,8 @@ export default function styles(theme, props) {
   };
 
   const button = {
-    width: itemWidth || theme.shapes.calendarButtonWidth,
-    height: itemHeight || theme.shapes.calendarButtonHeight,
+    width: itemWidth,
+    height: itemHeight,
     backgroundColor: theme.palette.calendarBackground,
   };
 
@@ -109,8 +142,10 @@ export default function styles(theme, props) {
     backgroundColor: theme.palette.calendarWeekendBackground,
   };
 
+  /******************************************************************************/
+
   return {
-    box,
+    calendar,
     month,
     singleMonth,
     separator,
