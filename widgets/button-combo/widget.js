@@ -129,10 +129,10 @@ export default class ButtonCombo extends Widget {
       <ComboContainer
         show={this.state.showCombo}
         positionRef={this.node}
-        horizontalMargin="16px"
         onClose={this.hideCombo}
       >
         <Calendar
+          margin={this.context.theme.spacing.lineSpacing}
           frame={true}
           shadow={true}
           visibleDate={date}

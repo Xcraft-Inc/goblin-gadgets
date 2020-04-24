@@ -157,6 +157,11 @@ export default [
     group: 'aspect',
     type: types.size,
   },
+  {
+    name: 'margin',
+    group: 'aspect',
+    type: types.size,
+  },
 
   // Events.
   {

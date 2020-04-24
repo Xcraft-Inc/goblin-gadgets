@@ -20,6 +20,7 @@ export const propNames = [
   'shadow',
   'itemWidth',
   'itemHeight',
+  'margin',
   'monthCount',
 ];
 
@@ -30,6 +31,7 @@ export default function styles(theme, props) {
     shadow,
     itemWidth = theme.shapes.calendarButtonWidth,
     itemHeight = theme.shapes.calendarButtonHeight,
+    margin = '0px',
     monthCount = 1,
   } = props;
 
@@ -56,9 +58,11 @@ export default function styles(theme, props) {
   const calendar = {
     width: w.value,
     height: h.value,
+    padding: margin,
     display: 'flex',
     flexDirection: 'row',
     flexGrow: boxGrow,
+    backgroundColor: theme.palette.calendarBackground,
     border: border,
     boxShadow: shadow ? theme.shapes.calendarShadow : null,
   };
@@ -66,7 +70,6 @@ export default function styles(theme, props) {
   const singleMonth = {
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: theme.palette.calendarBackground,
   };
 
   const month = {
@@ -77,7 +80,6 @@ export default function styles(theme, props) {
   const separator = {
     paddingRight: theme.shapes.calendarMargin,
     borderLeft: border,
-    backgroundColor: theme.palette.calendarBackground,
   };
 
   const header = {
@@ -134,7 +136,6 @@ export default function styles(theme, props) {
   const button = {
     width: itemWidth,
     height: itemHeight,
-    backgroundColor: theme.palette.calendarBackground,
   };
 
   const buttonWeekend = {
