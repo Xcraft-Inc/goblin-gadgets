@@ -381,17 +381,17 @@ class WidgetDocPreview extends Widget {
 
     return (
       <div className={this.styles.classNames.panes}>
-        <Container kind="pane">
+        <div className={this.styles.classNames.paneCode}>
           <Label text="Code" kind="title" />
           {this.renderCode()}
-        </Container>
+        </div>
 
-        <Container kind="pane">
+        <div className={this.styles.classNames.paneSettings}>
           <Label text="Settings" kind="title" />
           {this.renderSettings()}
-        </Container>
+        </div>
 
-        <div className={this.styles.classNames.samples}>
+        <div className={this.styles.classNames.paneSamples}>
           <Label text={_.kebabCase(this.widgetInfo.name)} kind="title" />
           <WidgetDocPreviewContainer widgetId={this.props.widgetId}>
             {this.renderWidgets()}

@@ -22,20 +22,42 @@ export default function styles(theme) {
 
   const panes = {
     overflow: 'hidden',
-    padding: '0px ' + m + ' 0px ' + m,
+    padding: `0px ${m}`,
     display: 'flex',
     flexDirection: 'column',
     flexGrow: 1,
   };
 
-  const samples = {
+  const paneCode = {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
+    marginBottom: m,
+    padding: m,
+    backgroundColor: theme.palette.paneBackground,
+  };
+
+  const paneSettings = {
+    overflowY: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
+    marginBottom: m,
+    padding: `${m} ${m} ${d} ${m}`,
+    backgroundColor: theme.palette.paneBackground,
+  };
+
+  const paneSamples = {
+    minHeight: '555px',
     flexGrow: 1,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'stretch',
-    margin: '0px 0px ' + m + ' 0px',
-    padding: m + ' ' + m + ' ' + d + ' ' + m,
+    marginBottom: m,
+    padding: m,
     backgroundColor: theme.palette.paneBackground,
   };
 
@@ -46,7 +68,9 @@ export default function styles(theme) {
     code,
     settings,
     panes,
-    samples,
+    paneCode,
+    paneSettings,
+    paneSamples,
   };
 }
 
