@@ -28,24 +28,12 @@ export default [
     },
   },
   {
-    name: 'Classic',
+    name: 'Fix',
     props: {
       size: '180px',
       look: 'classic',
-    },
-  },
-  {
-    name: 'Royal',
-    props: {
-      size: '400px',
-      look: 'royal',
-    },
-  },
-  {
-    name: 'Tiny',
-    props: {
-      size: '40px',
-      look: 'tiny',
+      fixedTime: '10:10:00',
+      transition: '0.0s ease-out',
     },
   },
   {

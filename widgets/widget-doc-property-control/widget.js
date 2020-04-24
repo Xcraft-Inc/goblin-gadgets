@@ -31,7 +31,7 @@ class OneOfTypeControl extends Widget {
   }
 
   get currentValue() {
-    if (typeof this.props.value === 'object') {
+    if (this.props.value !== null && typeof this.props.value === 'object') {
       return this.props.value.get('value');
     } else {
       return this.props.value;
@@ -39,7 +39,7 @@ class OneOfTypeControl extends Widget {
   }
 
   get currentType() {
-    if (typeof this.props.value === 'object') {
+    if (this.props.value !== null && typeof this.props.value === 'object') {
       return this.props.value.get('type');
     } else if (this.props.type.type === 'oneOfType') {
       return this.props.type.types[0].type;
@@ -129,7 +129,7 @@ class WidgetDocPropertyControl extends Widget {
   }
 
   get currentValue() {
-    if (typeof this.props.value === 'object') {
+    if (this.props.value !== null && typeof this.props.value === 'object') {
       return this.props.value.get('value');
     } else {
       return this.props.value;
@@ -137,7 +137,7 @@ class WidgetDocPropertyControl extends Widget {
   }
 
   get currentType() {
-    if (typeof this.props.value === 'object') {
+    if (this.props.value !== null && typeof this.props.value === 'object') {
       return this.props.value.get('type');
     } else {
       return this.props.type.type;

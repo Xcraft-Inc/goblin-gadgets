@@ -5,6 +5,7 @@ import Button from 'goblin-gadgets/widgets/button/widget';
 import FlatList from 'goblin-gadgets/widgets/flat-list/widget';
 import ComboContainer from 'goblin-gadgets/widgets/combo-container/widget';
 import Calendar from 'goblin-gadgets/widgets/calendar/widget';
+import ClockCombo from 'goblin-gadgets/widgets/clock-combo/widget';
 import {date as DateConverters} from 'xcraft-core-converters';
 import * as styles from './styles';
 
@@ -25,6 +26,7 @@ export default class ButtonCombo extends Widget {
     this.setRef = this.setRef.bind(this);
     this.onChange = this.onChange.bind(this);
     this.handleDateClicked = this.handleDateClicked.bind(this);
+    this.handleTimeChanged = this.handleTimeChanged.bind(this);
   }
 
   setRef(node) {
@@ -63,6 +65,12 @@ export default class ButtonCombo extends Widget {
       this.props.onDateClicked(date);
     }
     this.hideCombo();
+  }
+
+  handleTimeChanged(time) {
+    if (this.props.onTimeChanged) {
+      this.props.onTimeChanged(time);
+    }
   }
 
   /******************************************************************************/
@@ -146,11 +154,26 @@ export default class ButtonCombo extends Widget {
     );
   }
 
+  renderComboClock() {
+    return (
+      <ComboContainer
+        show={this.state.showCombo}
+        positionRef={this.node}
+        onClose={this.hideCombo}
+      >
+        <ClockCombo time={this.props.value} onChange={this.handleTimeChanged} />
+      </ComboContainer>
+    );
+  }
+
   renderCombo() {
-    if (this.props.comboType === 'calendar') {
-      return this.renderComboCalendar();
-    } else {
-      return this.renderComboList();
+    switch (this.props.comboType) {
+      case 'calendar':
+        return this.renderComboCalendar();
+      case 'clock':
+        return this.renderComboClock();
+      default:
+        return this.renderComboList();
     }
   }
 

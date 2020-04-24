@@ -37,14 +37,25 @@ export default [
     group: 'aspect',
     type: types.number,
   },
+
+  // Time.
+  {
+    name: 'fixedTime',
+    group: 'time',
+    type: types.time,
+    description:
+      'If this property is omitted, the clock displays the current time in real time.',
+  },
+
+  // Function.
   {
     name: 'mouseOver',
-    group: 'aspect',
+    group: 'function',
     type: types.function,
   },
   {
     name: 'mouseOut',
-    group: 'aspect',
+    group: 'function',
     type: types.function,
   },
 ];

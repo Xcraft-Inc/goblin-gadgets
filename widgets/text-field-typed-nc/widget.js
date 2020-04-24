@@ -28,6 +28,21 @@ import Props from './props';
 
 /******************************************************************************/
 
+function getTextFieldShape(shape, hideButton) {
+  const textFieldShapes = hideButton
+    ? {
+        smooth: 'smooth',
+        rounded: 'rounded',
+      }
+    : {
+        smooth: 'left-smooth',
+        rounded: 'left-rounded',
+      };
+  return textFieldShapes[shape || 'smooth'];
+}
+
+/******************************************************************************/
+
 export default class TextFieldTypedNC extends Widget {
   constructor() {
     super(...arguments);
@@ -37,6 +52,7 @@ export default class TextFieldTypedNC extends Widget {
     this.check = this.check.bind(this);
     this.incNumber = this.incNumber.bind(this);
     this.handleDateClicked = this.handleDateClicked.bind(this);
+    this.handleTimeChanged = this.handleTimeChanged.bind(this);
   }
 
   getDisplayed(canonicalValue) {
@@ -155,6 +171,10 @@ export default class TextFieldTypedNC extends Widget {
     this.props.onChange(date);
   }
 
+  handleTimeChanged(time) {
+    this.props.onChange(time);
+  }
+
   incNumber(inc) {
     let n = this.props.value || 0;
     if (typeof n === 'string') {
@@ -167,6 +187,123 @@ export default class TextFieldTypedNC extends Widget {
   }
 
   /******************************************************************************/
+
+  renderDate(otherProps, width, tooltip, justify, shape) {
+    const hideButton = this.props.readonly || this.props.hideButtonCombo;
+
+    return (
+      <ButtonCombo
+        width={this.props.width}
+        grow={this.props.grow}
+        comboType="calendar"
+        value={this.props.value}
+        minDate={this.props.minDate}
+        maxDate={this.props.maxDate}
+        readonly={this.props.readonly}
+        disabled={this.props.disabled}
+        node={this.node}
+        horizontalSpacing={this.props.horizontalSpacing}
+        shape={this.props.shape}
+        comboGlyph="regular/calendar-alt"
+        comboGlyphHide="regular/calendar"
+        hideButtonCombo={this.props.hideButtonCombo}
+        ref={this.setButtonComboRef}
+        onDateClicked={this.handleDateClicked}
+      >
+        <TextFieldNC
+          {...otherProps}
+          width={width}
+          tooltip={tooltip}
+          justify={justify}
+          shape={getTextFieldShape(shape, hideButton)}
+          format={this.format}
+          parse={this.parse}
+          check={this.check}
+          horizontalSpacing="overlap"
+        />
+      </ButtonCombo>
+    );
+  }
+
+  renderTime(otherProps, width, tooltip, justify, shape) {
+    const hideButton = this.props.readonly || this.props.hideButtonCombo;
+
+    return (
+      <ButtonCombo
+        width={this.props.width}
+        grow={this.props.grow}
+        comboType="clock"
+        value={this.props.value}
+        minDate={this.props.minDate}
+        maxDate={this.props.maxDate}
+        readonly={this.props.readonly}
+        disabled={this.props.disabled}
+        node={this.node}
+        horizontalSpacing={this.props.horizontalSpacing}
+        shape={this.props.shape}
+        comboGlyph="regular/clock"
+        comboGlyphHide="regular/circle"
+        hideButtonCombo={this.props.hideButtonCombo}
+        ref={this.setButtonComboRef}
+        onTimeChanged={this.handleTimeChanged}
+      >
+        <TextFieldNC
+          {...otherProps}
+          width={width}
+          tooltip={tooltip}
+          justify={justify}
+          shape={getTextFieldShape(shape, hideButton)}
+          format={this.format}
+          parse={this.parse}
+          check={this.check}
+          horizontalSpacing="overlap"
+        />
+      </ButtonCombo>
+    );
+  }
+
+  renderNumber(otherProps, width, tooltip, justify) {
+    return (
+      <React.Fragment>
+        <TextFieldNC
+          {...otherProps}
+          width={width}
+          tooltip={tooltip}
+          justify={justify}
+          format={this.format}
+          parse={this.parse}
+          check={this.check}
+          horizontalSpacing="overlap"
+        />
+        <Button
+          kind="combo"
+          glyph="solid/plus"
+          horizontalSpacing="overlap"
+          onClick={() => this.incNumber(1)}
+        />
+        <Button
+          kind="combo"
+          glyph="solid/minus"
+          horizontalSpacing={this.props.horizontalSpacing}
+          onClick={() => this.incNumber(-1)}
+        />
+      </React.Fragment>
+    );
+  }
+
+  renderDefault(otherProps, width, tooltip, justify) {
+    return (
+      <TextFieldNC
+        {...otherProps}
+        width={width}
+        tooltip={tooltip}
+        justify={justify}
+        format={this.format}
+        parse={this.parse}
+        check={this.check}
+      />
+    );
+  }
 
   render() {
     let {
@@ -229,90 +366,16 @@ export default class TextFieldTypedNC extends Widget {
       }
     }
 
-    if (type === 'date') {
-      const hideButton = this.props.readonly || this.props.hideButtonCombo;
-      const textFieldShapes = hideButton
-        ? {
-            smooth: 'smooth',
-            rounded: 'rounded',
-          }
-        : {
-            smooth: 'left-smooth',
-            rounded: 'left-rounded',
-          };
-      const textFieldShape = textFieldShapes[shape || 'smooth'];
-
-      return (
-        <ButtonCombo
-          width={this.props.width}
-          grow={this.props.grow}
-          comboType="calendar"
-          value={this.props.value}
-          minDate={this.props.minDate}
-          maxDate={this.props.maxDate}
-          readonly={this.props.readonly}
-          disabled={this.props.disabled}
-          node={this.node}
-          horizontalSpacing={this.props.horizontalSpacing}
-          shape={this.props.shape}
-          comboGlyph="regular/calendar-alt"
-          comboGlyphHide="regular/calendar"
-          hideButtonCombo={this.props.hideButtonCombo}
-          ref={this.setButtonComboRef}
-          onDateClicked={this.handleDateClicked}
-        >
-          <TextFieldNC
-            {...otherProps}
-            width={width}
-            tooltip={tooltip}
-            justify={justify}
-            shape={textFieldShape}
-            format={this.format}
-            parse={this.parse}
-            check={this.check}
-            horizontalSpacing="overlap"
-          />
-        </ButtonCombo>
-      );
-    } else if (type === 'number' || type === 'integer') {
-      return (
-        <React.Fragment>
-          <TextFieldNC
-            {...otherProps}
-            width={width}
-            tooltip={tooltip}
-            justify={justify}
-            format={this.format}
-            parse={this.parse}
-            check={this.check}
-            horizontalSpacing="overlap"
-          />
-          <Button
-            kind="combo"
-            glyph="solid/plus"
-            horizontalSpacing="overlap"
-            onClick={() => this.incNumber(1)}
-          />
-          <Button
-            kind="combo"
-            glyph="solid/minus"
-            horizontalSpacing={this.props.horizontalSpacing}
-            onClick={() => this.incNumber(-1)}
-          />
-        </React.Fragment>
-      );
-    } else {
-      return (
-        <TextFieldNC
-          {...otherProps}
-          width={width}
-          tooltip={tooltip}
-          justify={justify}
-          format={this.format}
-          parse={this.parse}
-          check={this.check}
-        />
-      );
+    switch (type) {
+      case 'date':
+        return this.renderDate(otherProps, width, tooltip, justify, shape);
+      case 'time':
+        return this.renderTime(otherProps, width, tooltip, justify, shape);
+      case 'number':
+      case 'integer':
+        return this.renderNumber(otherProps, width, tooltip, justify);
+      default:
+        return this.renderDefault(otherProps, width, tooltip, justify);
     }
   }
 }

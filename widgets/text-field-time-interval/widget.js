@@ -33,7 +33,7 @@ class TextFieldTimeInterval extends Widget {
   renderStartTextField() {
     return (
       <TextFieldTyped
-        width="70px"
+        width="100px"
         horizontalSpacing="overlap"
         type="time"
         hintText={this.props.startHintText || T('Début', 'heure de début')}
@@ -53,7 +53,7 @@ class TextFieldTimeInterval extends Widget {
   renderEndTextField() {
     return (
       <TextFieldTyped
-        width="70px"
+        width="100px"
         horizontalSpacing={
           this.props.hasNowButton ? 'overlap' : this.props.horizontalSpacing
         }

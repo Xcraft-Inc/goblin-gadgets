@@ -2,6 +2,7 @@ import React from 'react';
 import Props from './props';
 import Widget from 'goblin-laboratory/widgets/widget';
 import * as styles from './styles';
+import {time as TimeConverters} from 'xcraft-core-converters';
 
 import {
   makePropTypes,
@@ -40,11 +41,13 @@ export default class AnalogClock extends Widget {
   componentDidMount() {
     super.componentDidMount();
 
-    // Calculates the initial delay corresponding to the rest of the time to wait
-    // until the first synchronous second.
-    const ms = Date.now();
-    const initialDelay = 1000 - (ms % 1000);
-    this.timer1 = setTimeout(() => this.start(), initialDelay);
+    if (!this.props.fixedTime) {
+      // Calculates the initial delay corresponding to the rest of the time to wait
+      // until the first synchronous second.
+      const ms = Date.now();
+      const initialDelay = 1000 - (ms % 1000);
+      this.timer1 = setTimeout(() => this.start(), initialDelay);
+    }
 
     this.updateAngles(); // initialise for first render
   }
@@ -69,17 +72,21 @@ export default class AnalogClock extends Widget {
     this.updateAngles();
   }
 
-  updateAngles() {
-    const now = new Date(Date.now());
-    const h = now.getHours() % 12;
-    const m = now.getMinutes();
-    const s = now.getSeconds();
+  computeAngles(now) {
+    const h = TimeConverters.getHours(now) % 12;
+    const m = TimeConverters.getMinutes(now);
+    const s = TimeConverters.getSeconds(now);
 
     const ah = ((h + m / 60 + s / 3600) / 12) * 360; // continuous rotation
     const am = (m / 60) * 360; // jump every minute
     const as = (s / 60) * 360; // jump every second
 
-    this.angles = {ah, am, as};
+    return {ah, am, as};
+  }
+
+  updateAngles() {
+    const now = TimeConverters.getNowCanonical('exact');
+    this.angles = this.computeAngles(now);
   }
 
   onMouseOver() {
@@ -124,6 +131,10 @@ export default class AnalogClock extends Widget {
   }
 
   renderWatchPointer(styleName, initialAngle) {
+    if (this.props.fixedTime && styleName === 'watchPointerSecond') {
+      return null;
+    }
+
     const style = {
       transform: `rotate(${initialAngle}deg)`,
     };
@@ -132,7 +143,13 @@ export default class AnalogClock extends Widget {
   }
 
   render() {
-    const angles = this.angles;
+    let angles;
+    if (this.props.fixedTime) {
+      const now = this.props.fixedTime;
+      angles = this.computeAngles(now);
+    } else {
+      angles = this.angles;
+    }
 
     return (
       <div
