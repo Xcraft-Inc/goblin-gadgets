@@ -20,6 +20,7 @@ export default function styles(theme) {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
+    alignItems: 'center',
     boxShadow: '3px 3px 10px 1px rgba(0,0,0,0.9)',
   };
 

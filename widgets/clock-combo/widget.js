@@ -42,14 +42,14 @@ export default class ClockCombo extends Widget {
         <div className={this.styles.classNames.vsep} />
         <Button
           border="none"
-          width="52px"
+          width="40px"
           height="28px"
           glyph="solid/chevron-double-up"
           onClick={() => action(bigInc)}
         />
         <Button
           border="none"
-          width="52px"
+          width="40px"
           height="28px"
           glyph="solid/chevron-up"
           onClick={() => action(1)}
@@ -64,14 +64,14 @@ export default class ClockCombo extends Widget {
         <div className={this.styles.classNames.vsep} />
         <Button
           border="none"
-          width="52px"
+          width="40px"
           height="28px"
           glyph="solid/chevron-down"
           onClick={() => action(-1)}
         />
         <Button
           border="none"
-          width="52px"
+          width="40px"
           height="28px"
           glyph="solid/chevron-double-down"
           onClick={() => action(-bigInc)}
@@ -145,7 +145,7 @@ export default class ClockCombo extends Widget {
     return (
       <div className={this.styles.classNames.clock}>
         <AnalogClock
-          size="180px"
+          size="160px"
           look="classic"
           transition="none"
           fixedTime={this.props.time}
