@@ -39,6 +39,7 @@ export default class ClockCombo extends Widget {
 
     return (
       <div className={this.styles.classNames.part}>
+        <div className={this.styles.classNames.vsep} />
         <Button
           border="none"
           width="52px"
@@ -75,6 +76,7 @@ export default class ClockCombo extends Widget {
           glyph="solid/chevron-double-down"
           onClick={() => action(-bigInc)}
         />
+        <div className={this.styles.classNames.vsep} />
       </div>
     );
   }
@@ -143,8 +145,8 @@ export default class ClockCombo extends Widget {
     return (
       <div className={this.styles.classNames.clock}>
         <AnalogClock
-          size="160px"
-          look="simple"
+          size="180px"
+          look="classic"
           transition="none"
           fixedTime={this.props.time}
         />

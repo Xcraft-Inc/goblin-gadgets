@@ -2,7 +2,7 @@
 
 export default function styles(theme) {
   const clockCombo = {
-    height: '220px',
+    height: '240px',
     width: '400px',
     display: 'flex',
     flexDirection: 'row',
@@ -16,13 +16,15 @@ export default function styles(theme) {
     marginRight: '10px',
     padding: '2px',
     border: `1px solid ${theme.palette.buttonBorder}`,
+    borderRadius: '10px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
+    boxShadow: '3px 3px 10px 1px rgba(0,0,0,0.9)',
   };
 
   const vsep = {
-    height: '2px',
+    height: '5px',
   };
 
   const clock = {

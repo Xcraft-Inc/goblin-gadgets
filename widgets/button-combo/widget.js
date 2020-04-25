@@ -6,8 +6,10 @@ import FlatList from 'goblin-gadgets/widgets/flat-list/widget';
 import ComboContainer from 'goblin-gadgets/widgets/combo-container/widget';
 import Calendar from 'goblin-gadgets/widgets/calendar/widget';
 import ClockCombo from 'goblin-gadgets/widgets/clock-combo/widget';
-import {date as DateConverters} from 'xcraft-core-converters';
-import {time as TimeConverters} from 'xcraft-core-converters';
+import {
+  date as DateConverters,
+  time as TimeConverters,
+} from 'xcraft-core-converters';
 import * as styles from './styles';
 
 /******************************************************************************/
