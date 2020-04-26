@@ -63,6 +63,7 @@ function _radToDeg(angle) {
 }
 
 function _getMagicAdjust(r1, r2, a) {
+  // Thank you Anne for this magic formula!
   a = _degToRad(a);
   return _radToDeg(Math.asin((r2 * Math.sin(a)) / r1) - a);
 }
@@ -74,7 +75,6 @@ function _getGearDarkHolePath(path, cx, cy, r, type) {
     const c = b / 1.1;
     const r1 = r.r2 + (r.r3 - r.r2) * 0.05;
     const r2 = r.r2 + (r.r3 - r.r2) * 0.9;
-    //? const m = 13;
     const m = _getMagicAdjust(r1, r2, (b - c) / 2);
     // prettier-ignore
     for (let a = 0; a < 360; a += b) {
