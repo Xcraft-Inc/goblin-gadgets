@@ -54,33 +54,47 @@ function _getGearLightPath(cx, cy, r, toothThickness, toothCount) {
   return svg.getPath(path);
 }
 
+function _degToRad(angle) {
+  return (angle * Math.PI) / 180;
+}
+
+function _radToDeg(angle) {
+  return (angle * 180) / Math.PI;
+}
+
+function _getMagicAdjust(r1, r2, a) {
+  a = _degToRad(a);
+  return _radToDeg(Math.asin((r2 * Math.sin(a)) / r1) - a);
+}
+
 function _getGearDarkHolePath(path, cx, cy, r, type) {
   if (type === 'watch-gear') {
-    const x1 = r.r2 + (r.r3 - r.r2) * 0.05;
-    const x2 = r.r2 + (r.r3 - r.r2) * 0.9;
-    const m = 13;
-    for (let a = 0; a < 360; a += 72) {
-      const p1 = svg.rotatePointDeg({x: cx, y: cy}, a + m, {x: cx + x1, y: cy});
-      const p2 = svg.rotatePointDeg({x: cx, y: cy}, a, {x: cx + x2, y: cy});
-      const p3 = svg.rotatePointDeg({x: cx, y: cy}, a + 65 - m, {
-        x: cx + x1,
-        y: cy,
-      });
-      const p4 = svg.rotatePointDeg({x: cx, y: cy}, a + 65, {
-        x: cx + x2,
-        y: cy,
-      });
+    const branchCount = 5;
+    const b = 360 / branchCount;
+    const c = b / 1.1;
+    const r1 = r.r2 + (r.r3 - r.r2) * 0.05;
+    const r2 = r.r2 + (r.r3 - r.r2) * 0.9;
+    //? const m = 13;
+    const m = _getMagicAdjust(r1, r2, (b - c) / 2);
+    // prettier-ignore
+    for (let a = 0; a < 360; a += b) {
+      const p1 = svg.rotatePointDeg({x: cx, y: cy}, a + m, {x: cx + r1, y: cy});
+      const p2 = svg.rotatePointDeg({x: cx, y: cy}, a, {x: cx + r2, y: cy});
+      const p3 = svg.rotatePointDeg({x: cx, y: cy}, a + c - m, {x: cx + r1, y: cy});
+      const p4 = svg.rotatePointDeg({x: cx, y: cy}, a + c, {x: cx + r2, y: cy});
       svg.ma(path, p1.x, p1.y);
       svg.la(path, p2.x, p2.y);
-      svg.aa(path, x2, p4.x, p4.y, 1);
+      svg.aa(path, r2, p4.x, p4.y, 1);
       svg.la(path, p3.x, p3.y);
-      svg.aa(path, x1, p1.x, p1.y, 0);
+      svg.aa(path, r1, p1.x, p1.y, 0);
       svg.close(path);
     }
   } else {
+    const holeCount = 6;
+    const b = 360 / holeCount;
     const x = (r.r2 + r.r3) / 2;
     const rr = (r.r3 - r.r2) * 0.3;
-    for (let a = 0; a < 360; a += 60) {
+    for (let a = 0; a < 360; a += b) {
       const c = svg.rotatePointDeg({x: cx, y: cy}, a, {x: cx + x, y: cy});
       svg.circle(path, c.x, c.y, rr);
     }
