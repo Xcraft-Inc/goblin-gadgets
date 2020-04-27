@@ -1,9 +1,11 @@
+import {ColorManipulator} from 'electrum-theme';
+
 /******************************************************************************/
 
 export default function styles(theme) {
   const clockCombo = {
-    height: '240px',
-    width: '400px',
+    height: '200px',
+    width: '360px',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -16,7 +18,7 @@ export default function styles(theme) {
     marginRight: '10px',
     padding: '2px',
     border: `1px solid ${theme.palette.buttonBorder}`,
-    borderRadius: '10px',
+    borderRadius: '50px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -24,8 +26,24 @@ export default function styles(theme) {
     boxShadow: '3px 3px 10px 1px rgba(0,0,0,0.9)',
   };
 
-  const vsep = {
-    height: '5px',
+  const button = {
+    'width': '48px',
+    'height': '48px',
+    'display': 'flex',
+    'flexDirection': 'column',
+    'justifyContent': 'center',
+    'alignItems': 'center',
+    'borderRadius': '24px',
+    'corsor': 'pointer',
+    'color': theme.palette.text,
+    'backgroundColor': theme.palette.buttonBackground,
+    'transition': '0.2s ease-out',
+    ':hover': {
+      backgroundColor: ColorManipulator.emphasize(
+        theme.palette.buttonBackground,
+        0.1
+      ),
+    },
   };
 
   const clock = {
@@ -38,7 +56,7 @@ export default function styles(theme) {
   return {
     clockCombo,
     part,
-    vsep,
+    button,
     clock,
   };
 }
