@@ -160,13 +160,22 @@ export default class ButtonCombo extends Widget {
   renderComboClock() {
     const time = this.props.value || TimeConverters.getNowCanonical();
 
+    // TODO: Improve this hack!
+    const d = window.document.clockComboDraggingCounter || 0;
+    const w = window.document.clockComboWheelCounter || 0;
+    const showTips = d < 2 || w < 2;
+
     return (
       <ComboContainer
         show={this.state.showCombo}
         positionRef={this.node}
         onClose={this.hideCombo}
       >
-        <ClockCombo time={time} onChange={this.handleTimeChanged} />
+        <ClockCombo
+          time={time}
+          showTips={showTips}
+          onChange={this.handleTimeChanged}
+        />
       </ComboContainer>
     );
   }
