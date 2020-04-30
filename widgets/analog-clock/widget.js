@@ -164,10 +164,10 @@ export default class AnalogClock extends Widget {
     return ((angle * 60) / 360) % 60; // 0..59.9999
   }
 
-  get draggingTime() {
+  getDraggingTime(additionalMinutes) {
     return TimeConverters.addMinutes(
       this.props.fixedTime,
-      Math.round(this.draggingAdditionalMinutes)
+      Math.round(additionalMinutes)
     );
   }
 
@@ -178,12 +178,13 @@ export default class AnalogClock extends Widget {
 
     const initialMinutes = TimeConverters.getMinutes(this.props.fixedTime);
     const mouseMinutes = this.getMouseMinutes(e);
-    this.draggingAdditionalMinutes = trunc30(mouseMinutes - initialMinutes);
+    const additionalMinutes = trunc30(mouseMinutes - initialMinutes);
+    this.draggingAdditionalMinutes = additionalMinutes;
     this.draggingLastMinutes = mouseMinutes;
     this.hoverMinutes = null;
 
     if (this.props.onDragStarted) {
-      this.props.onDragStarted(this.draggingTime);
+      this.props.onDragStarted(this.getDraggingTime(additionalMinutes));
     }
   }
 
@@ -194,17 +195,20 @@ export default class AnalogClock extends Widget {
       const mouseMinutes = this.getMouseMinutes(e);
       const deltaMinutes = trunc30(mouseMinutes - this.draggingLastMinutes);
       this.draggingLastMinutes = mouseMinutes;
-      this.draggingAdditionalMinutes += deltaMinutes;
+      const additionalMinutes = this.draggingAdditionalMinutes + deltaMinutes;
+      this.draggingAdditionalMinutes = additionalMinutes;
 
       if (this.props.onDragMoved) {
-        this.props.onDragMoved(this.draggingTime);
+        this.props.onDragMoved(this.getDraggingTime(additionalMinutes));
       }
     }
   }
 
   onDragUp(e) {
     if (this.draggingAdditionalMinutes !== null) {
-      this.props.onTimeChanged(this.draggingTime);
+      this.props.onTimeChanged(
+        this.getDraggingTime(this.draggingAdditionalMinutes)
+      );
       this.draggingAdditionalMinutes = null;
 
       if (this.props.onDragEnded) {
