@@ -12,6 +12,37 @@ import {
 
 /******************************************************************************/
 
+// Compute 3 angles (for hours, minutes and seconds) according to time.
+function computeAngles(time) {
+  const h = TimeConverters.getHours(time) % 12;
+  const m = TimeConverters.getMinutes(time);
+  const s = TimeConverters.getSeconds(time);
+
+  const ah = ((h + m / 60 + s / 3600) / 12) * 360; // continuous rotation
+  const am = (m / 60) * 360; // jump every minute
+  const as = (s / 60) * 360; // jump every second
+
+  return {ah, am, as};
+}
+
+// If abs(minutes) are lower than 30, return same value:
+//   m =  25 ->  25
+//   m = -25 -> -25
+// If abs(minutes) are greater then 30, return opposite value:
+//   m =  35 -> -25 (Replaces a 35 minute advance with a 25 minute return)
+//   m = -35 ->  25 (Replaces a 35 minute return with a 25 minute advance)
+function trunc30(minutes) {
+  if (minutes > 30) {
+    return minutes - 60; // replace a advance with a return
+  } else if (minutes < -30) {
+    return minutes + 60; // replace a return with an advance
+  } else {
+    return minutes;
+  }
+}
+
+/******************************************************************************/
+
 export default class AnalogClock extends Widget {
   constructor() {
     super(...arguments);
@@ -19,7 +50,8 @@ export default class AnalogClock extends Widget {
 
     this.state = {
       angles: {},
-      draggingInProcess: false,
+      hoverMinutes: null,
+      draggingAdditionalMinutes: null,
     };
 
     this.start = this.start.bind(this);
@@ -29,6 +61,7 @@ export default class AnalogClock extends Widget {
     this.onDragDown = this.onDragDown.bind(this);
     this.onDragMove = this.onDragMove.bind(this);
     this.onDragUp = this.onDragUp.bind(this);
+    this.onDragOut = this.onDragOut.bind(this);
   }
 
   //#region get/set
@@ -42,13 +75,23 @@ export default class AnalogClock extends Widget {
     });
   }
 
-  get draggingInProcess() {
-    return this.state.draggingInProcess;
+  get hoverMinutes() {
+    return this.state.hoverMinutes;
   }
 
-  set draggingInProcess(value) {
+  set hoverMinutes(value) {
     this.setState({
-      draggingInProcess: value,
+      hoverMinutes: value,
+    });
+  }
+
+  get draggingAdditionalMinutes() {
+    return this.state.draggingAdditionalMinutes;
+  }
+
+  set draggingAdditionalMinutes(value) {
+    this.setState({
+      draggingAdditionalMinutes: value,
     });
   }
   //#endregion
@@ -87,21 +130,9 @@ export default class AnalogClock extends Widget {
     this.updateAngles();
   }
 
-  computeAngles(now) {
-    const h = TimeConverters.getHours(now) % 12;
-    const m = TimeConverters.getMinutes(now);
-    const s = TimeConverters.getSeconds(now);
-
-    const ah = ((h + m / 60 + s / 3600) / 12) * 360; // continuous rotation
-    const am = (m / 60) * 360; // jump every minute
-    const as = (s / 60) * 360; // jump every second
-
-    return {ah, am, as};
-  }
-
   updateAngles() {
     const now = TimeConverters.getNowCanonical('exact');
-    this.angles = this.computeAngles(now);
+    this.angles = computeAngles(now);
   }
 
   onMouseOver() {
@@ -118,32 +149,55 @@ export default class AnalogClock extends Widget {
     }
   }
 
-  onDragDown(e) {
+  // Returns the minutes with decimals (0..59.9999) according to the position of the mouse.
+  getMouseMinutes(e) {
     const rect = this.draggingLayerNode.getBoundingClientRect();
-    this.draggingCenter = {
+    const center = {
       x: rect.left + rect.width / 2,
       y: rect.top + rect.height / 2,
     };
-    this.draggingMinutes = TimeConverters.getMinutes(this.props.fixedTime);
+    const mouse = {x: e.clientX, y: e.clientY};
+    let angle = svg.computeAngleDegFromPoints(center, mouse) + 90;
+    if (angle < 0) {
+      angle += 360;
+    }
+    return ((angle * 60) / 360) % 60; // 0..59.9999
+  }
 
-    this.draggingInProcess = true;
+  onDragDown(e) {
+    const initialMinutes = TimeConverters.getMinutes(this.props.fixedTime);
+    const mouseMinutes = this.getMouseMinutes(e);
+    this.draggingAdditionalMinutes = trunc30(mouseMinutes - initialMinutes);
+    this.draggingLastMinutes = mouseMinutes;
+    this.hoverMinutes = null;
   }
 
   onDragMove(e) {
-    if (this.draggingInProcess) {
-      const p = {x: e.clientX, y: e.clientY};
-      const a = svg.computeAngleDegFromPoints(this.draggingCenter, p);
-      const m = a / 6; // 0..59
-      const time = TimeConverters.addMinutes(
-        this.props.fixedTime,
-        m - this.draggingMinutes
-      );
-      this.props.onTimeChanged(time);
+    if (this.draggingAdditionalMinutes === null) {
+      this.hoverMinutes = this.getMouseMinutes(e);
+    } else {
+      const mouseMinutes = this.getMouseMinutes(e);
+      const deltaMinutes = trunc30(mouseMinutes - this.draggingLastMinutes);
+      this.draggingLastMinutes = mouseMinutes;
+      this.draggingAdditionalMinutes += deltaMinutes;
     }
   }
 
   onDragUp(e) {
-    this.draggingInProcess = false;
+    if (this.draggingAdditionalMinutes !== null) {
+      const time = TimeConverters.addMinutes(
+        this.props.fixedTime,
+        Math.round(this.draggingAdditionalMinutes)
+      );
+      this.props.onTimeChanged(time);
+
+      this.draggingAdditionalMinutes = null;
+    }
+  }
+
+  onDragOut() {
+    this.hoverMinutes = null;
+    this.draggingAdditionalMinutes = null;
   }
 
   /******************************************************************************/
@@ -185,6 +239,21 @@ export default class AnalogClock extends Widget {
     return <div className={this.styles.classNames[styleName]} style={style} />;
   }
 
+  renderDraggingHover() {
+    if (this.hoverMinutes === null) {
+      return null;
+    }
+
+    const am = (Math.round(this.hoverMinutes) / 60) * 360;
+    const style = {
+      transform: `rotate(${am}deg)`,
+    };
+
+    return (
+      <div className={this.styles.classNames.hoverMinutes} style={style} />
+    );
+  }
+
   renderDraggingLayer() {
     if (!this.props.draggingEnabled) {
       return null;
@@ -197,6 +266,7 @@ export default class AnalogClock extends Widget {
         onMouseDown={this.onDragDown}
         onMouseMove={this.onDragMove}
         onMouseUp={this.onDragUp}
+        onMouseOut={this.onDragOut}
       />
     );
   }
@@ -204,8 +274,16 @@ export default class AnalogClock extends Widget {
   render() {
     let angles;
     if (this.props.fixedTime) {
-      const now = this.props.fixedTime;
-      angles = this.computeAngles(now);
+      let time = this.props.fixedTime;
+
+      if (this.draggingAdditionalMinutes !== null) {
+        time = TimeConverters.addMinutes(
+          time,
+          Math.round(this.draggingAdditionalMinutes)
+        );
+      }
+
+      angles = computeAngles(time);
     } else {
       angles = this.angles;
     }
@@ -224,6 +302,7 @@ export default class AnalogClock extends Widget {
           {this.renderWatchPointer('watchPointerMinute', angles.am)}
           {this.renderWatchPointer('watchPointerSecond', angles.as)}
           <div className={this.styles.classNames.watchPointerCenter} />
+          {this.renderDraggingHover()}
           {this.renderDraggingLayer()}
         </div>
       </div>
