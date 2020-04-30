@@ -136,16 +136,16 @@ export default class AnalogClock extends Widget {
   }
 
   onMouseOver() {
-    const x = this.props.mouseOver;
-    if (x) {
-      x();
+    const f = this.props.mouseOver;
+    if (f) {
+      f();
     }
   }
 
   onMouseOut() {
-    const x = this.props.mouseOut;
-    if (x) {
-      x();
+    const f = this.props.mouseOut;
+    if (f) {
+      f();
     }
   }
 
@@ -164,6 +164,13 @@ export default class AnalogClock extends Widget {
     return ((angle * 60) / 360) % 60; // 0..59.9999
   }
 
+  get draggingTime() {
+    return TimeConverters.addMinutes(
+      this.props.fixedTime,
+      Math.round(this.draggingAdditionalMinutes)
+    );
+  }
+
   onDragDown(e) {
     if (!this.props.fixedTime || !this.props.onTimeChanged) {
       return;
@@ -174,6 +181,10 @@ export default class AnalogClock extends Widget {
     this.draggingAdditionalMinutes = trunc30(mouseMinutes - initialMinutes);
     this.draggingLastMinutes = mouseMinutes;
     this.hoverMinutes = null;
+
+    if (this.props.onDragStarted) {
+      this.props.onDragStarted(this.draggingTime);
+    }
   }
 
   onDragMove(e) {
@@ -184,24 +195,31 @@ export default class AnalogClock extends Widget {
       const deltaMinutes = trunc30(mouseMinutes - this.draggingLastMinutes);
       this.draggingLastMinutes = mouseMinutes;
       this.draggingAdditionalMinutes += deltaMinutes;
+
+      if (this.props.onDragMoved) {
+        this.props.onDragMoved(this.draggingTime);
+      }
     }
   }
 
   onDragUp(e) {
     if (this.draggingAdditionalMinutes !== null) {
-      const time = TimeConverters.addMinutes(
-        this.props.fixedTime,
-        Math.round(this.draggingAdditionalMinutes)
-      );
-      this.props.onTimeChanged(time);
-
+      this.props.onTimeChanged(this.draggingTime);
       this.draggingAdditionalMinutes = null;
+
+      if (this.props.onDragEnded) {
+        this.props.onDragEnded();
+      }
     }
   }
 
   onDragOut() {
     this.hoverMinutes = null;
     this.draggingAdditionalMinutes = null;
+
+    if (this.props.onDragEnded) {
+      this.props.onDragEnded();
+    }
   }
 
   /******************************************************************************/

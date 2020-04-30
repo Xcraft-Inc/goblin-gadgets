@@ -68,4 +68,19 @@ export default [
     group: 'function',
     type: types.function,
   },
+  {
+    name: 'onDragStarted',
+    group: 'function',
+    type: types.function,
+  },
+  {
+    name: 'onDragMoved',
+    group: 'function',
+    type: types.function,
+  },
+  {
+    name: 'onTimeEnded',
+    group: 'function',
+    type: types.function,
+  },
 ];

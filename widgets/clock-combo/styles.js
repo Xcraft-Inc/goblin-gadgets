@@ -19,6 +19,7 @@ export default function styles(theme, props) {
   };
 
   const content = {
+    position: 'relative',
     flexGrow: 1,
     display: 'flex',
     flexDirection: 'row',
@@ -113,9 +114,36 @@ export default function styles(theme, props) {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
-    transformOrigin: 'left center',
     transition: '0.4s ease-out',
   };
+
+  const draggedTimeVisible = {
+    position: 'absolute',
+    width: '96px',
+    height: '48px',
+    left: '-15px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: '24px 0px 0px 24px',
+    cursor: 'pointer',
+    backgroundColor: theme.palette.base,
+    color: ColorManipulator.emphasize(theme.palette.text, 1),
+    transform: 'scale(1.5)',
+    fontSize: '150%',
+    boxShadow: '3px 3px 10px 1px rgba(0,0,0,0.9)',
+    transition: '0.5s ease-out',
+  };
+
+  const draggedTimeHidden = {
+    ...draggedTimeVisible,
+    left: '150px',
+    transform: 'scale(1)',
+    opacity: 0,
+  };
+
+  /******************************************************************************/
 
   return {
     clockCombo,
@@ -128,6 +156,8 @@ export default function styles(theme, props) {
     guideHidden,
     guideShowed,
     clock,
+    draggedTimeVisible,
+    draggedTimeHidden,
   };
 }
 

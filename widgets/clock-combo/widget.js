@@ -44,6 +44,7 @@ export default class ClockCombo extends Widget {
 
     this.state = {
       localTime: null,
+      draggedTime: null,
       cursorY: null,
       wheelInUse: false,
     };
@@ -56,6 +57,10 @@ export default class ClockCombo extends Widget {
     this.handleCursorUp = this.handleCursorUp.bind(this);
     this.handleWheel = this.handleWheel.bind(this);
     this.handleWheelTimeout = this.handleWheelTimeout.bind(this);
+
+    this.handleClockDragStarted = this.handleClockDragStarted.bind(this);
+    this.handleClockDragMoved = this.handleClockDragMoved.bind(this);
+    this.handleClockDragEnded = this.handleClockDragEnded.bind(this);
     this.handleClockDragged = this.handleClockDragged.bind(this);
   }
 
@@ -67,6 +72,16 @@ export default class ClockCombo extends Widget {
   set localTime(value) {
     this.setState({
       localTime: value,
+    });
+  }
+
+  get draggedTime() {
+    return this.state.draggedTime;
+  }
+
+  set draggedTime(value) {
+    this.setState({
+      draggedTime: value,
     });
   }
 
@@ -160,6 +175,18 @@ export default class ClockCombo extends Widget {
     this.wheelType = null;
     this.wheelInUse = false;
     wheelUsed();
+  }
+
+  handleClockDragStarted(time) {
+    this.draggedTime = time;
+  }
+
+  handleClockDragMoved(time) {
+    this.draggedTime = time;
+  }
+
+  handleClockDragEnded() {
+    this.draggedTime = null;
   }
 
   handleClockDragged(time) {
@@ -293,9 +320,13 @@ export default class ClockCombo extends Widget {
   }
 
   renderClock() {
-    const scale = !!this.cursorType || this.wheelInUse ? 1.8 : 1;
+    const scale =
+      !!this.cursorType || this.wheelInUse || this.draggedTime ? 1.8 : 1;
+
+    const tx = !!this.cursorType || this.wheelInUse ? '36px' : '0px';
+
     const style = {
-      transform: `scale(${scale}`,
+      transform: `scale(${scale}) translate(${tx})`,
     };
 
     return (
@@ -306,8 +337,29 @@ export default class ClockCombo extends Widget {
           transition="none"
           fixedTime={this.time}
           draggingEnabled={true}
+          onDragStarted={this.handleClockDragStarted}
+          onDragMoved={this.handleClockDragMoved}
+          onDragEnded={this.handleClockDragEnded}
           onTimeChanged={this.handleClockDragged}
         />
+      </div>
+    );
+  }
+
+  renderDraggedTime() {
+    const time = this.draggedTime
+      ? TimeConverters.getDisplayed(this.draggedTime)
+      : '';
+
+    return (
+      <div
+        className={
+          this.draggedTime
+            ? this.styles.classNames.draggedTimeVisible
+            : this.styles.classNames.draggedTimeHidden
+        }
+      >
+        {time}
       </div>
     );
   }
@@ -336,6 +388,7 @@ export default class ClockCombo extends Widget {
         <div className={this.styles.classNames.content}>
           {this.renderHour()}
           {this.renderMinute()}
+          {this.renderDraggedTime()}
           {this.renderClock()}
         </div>
         {this.renderTips()}
