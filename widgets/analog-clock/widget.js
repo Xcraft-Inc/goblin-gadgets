@@ -3,6 +3,7 @@ import Props from './props';
 import Widget from 'goblin-laboratory/widgets/widget';
 import * as styles from './styles';
 import {time as TimeConverters} from 'xcraft-core-converters';
+import svg from '../helpers/svg-helpers';
 
 import {
   makePropTypes,
@@ -18,12 +19,16 @@ export default class AnalogClock extends Widget {
 
     this.state = {
       angles: {},
+      draggingInProcess: false,
     };
 
     this.start = this.start.bind(this);
     this.updateAngles = this.updateAngles.bind(this);
     this.onMouseOver = this.onMouseOver.bind(this);
     this.onMouseOut = this.onMouseOut.bind(this);
+    this.onDragDown = this.onDragDown.bind(this);
+    this.onDragMove = this.onDragMove.bind(this);
+    this.onDragUp = this.onDragUp.bind(this);
   }
 
   //#region get/set
@@ -34,6 +39,16 @@ export default class AnalogClock extends Widget {
   set angles(value) {
     this.setState({
       angles: value,
+    });
+  }
+
+  get draggingInProcess() {
+    return this.state.draggingInProcess;
+  }
+
+  set draggingInProcess(value) {
+    this.setState({
+      draggingInProcess: value,
     });
   }
   //#endregion
@@ -103,6 +118,34 @@ export default class AnalogClock extends Widget {
     }
   }
 
+  onDragDown(e) {
+    const rect = this.draggingLayerNode.getBoundingClientRect();
+    this.draggingCenter = {
+      x: rect.left + rect.width / 2,
+      y: rect.top + rect.height / 2,
+    };
+    this.draggingMinutes = TimeConverters.getMinutes(this.props.fixedTime);
+
+    this.draggingInProcess = true;
+  }
+
+  onDragMove(e) {
+    if (this.draggingInProcess) {
+      const p = {x: e.clientX, y: e.clientY};
+      const a = svg.computeAngleDegFromPoints(this.draggingCenter, p);
+      const m = a / 6; // 0..59
+      const time = TimeConverters.addMinutes(
+        this.props.fixedTime,
+        m - this.draggingMinutes
+      );
+      this.props.onTimeChanged(time);
+    }
+  }
+
+  onDragUp(e) {
+    this.draggingInProcess = false;
+  }
+
   /******************************************************************************/
 
   renderFixedMark(i) {
@@ -142,6 +185,22 @@ export default class AnalogClock extends Widget {
     return <div className={this.styles.classNames[styleName]} style={style} />;
   }
 
+  renderDraggingLayer() {
+    if (!this.props.draggingEnabled) {
+      return null;
+    }
+
+    return (
+      <div
+        ref={(node) => (this.draggingLayerNode = node)}
+        className={this.styles.classNames.draggingLayer}
+        onMouseDown={this.onDragDown}
+        onMouseMove={this.onDragMove}
+        onMouseUp={this.onDragUp}
+      />
+    );
+  }
+
   render() {
     let angles;
     if (this.props.fixedTime) {
@@ -165,6 +224,7 @@ export default class AnalogClock extends Widget {
           {this.renderWatchPointer('watchPointerMinute', angles.am)}
           {this.renderWatchPointer('watchPointerSecond', angles.as)}
           <div className={this.styles.classNames.watchPointerCenter} />
+          {this.renderDraggingLayer()}
         </div>
       </div>
     );

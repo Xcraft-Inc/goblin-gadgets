@@ -49,12 +49,22 @@ export default [
 
   // Function.
   {
+    name: 'draggingEnabled',
+    group: 'function',
+    type: types.bool,
+  },
+  {
     name: 'mouseOver',
     group: 'function',
     type: types.function,
   },
   {
     name: 'mouseOut',
+    group: 'function',
+    type: types.function,
+  },
+  {
+    name: 'onTimeChanged',
     group: 'function',
     type: types.function,
   },

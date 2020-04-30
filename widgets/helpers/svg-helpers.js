@@ -6,6 +6,10 @@ function degToRad(angle) {
   return (angle * Math.PI) / 180.0;
 }
 
+function radToDeg(angle) {
+  return (angle * 180.0) / Math.PI;
+}
+
 function rotatePointDeg(center, angle, p) {
   return rotatePointRad(center, degToRad(angle), p);
 }
@@ -31,6 +35,34 @@ function rotatePointRad(center, angle, p) {
   b.y += center.y;
 
   return b;
+}
+
+function computeAngleDegFromPoints(c, a) {
+  return radToDeg(computeAngleRadFromXY(a.x - c.x, a.y - c.y));
+}
+
+function computeAngleRadFromPoints(c, a) {
+  return computeAngleRadFromXY(a.x - c.x, a.y - c.y);
+}
+
+//	Calcule l'angle d'un triangle rectangle.
+//	L'angle est anti-horaire (CCW), compris entre 0 et 2*PI.
+//	Pour obtenir un angle horaire (CW), il suffit de passer -y.
+//
+//	    ^
+//	    |
+//	  y o----o
+//	    |  / |
+//	    |/)a |
+//	----o----o-->
+//	    |    x
+//	    |
+function computeAngleRadFromXY(x, y) {
+  if (x === 0.0 && y === 0.0) {
+    return 0.0;
+  }
+
+  return Math.atan2(y, x);
 }
 
 /******************************************************************************/
@@ -164,6 +196,7 @@ function renderElements(style, elements, shadow) {
 
 module.exports = {
   rotatePointDeg,
+  computeAngleDegFromPoints,
 
   createPath,
   getPath,

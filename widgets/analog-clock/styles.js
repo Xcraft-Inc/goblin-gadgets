@@ -692,6 +692,17 @@ export default function styles(theme, props) {
 
   /******************************************************************************/
 
+  const draggingLayer = {
+    position: 'absolute',
+    width: px(s),
+    height: px(s),
+    left: px(-s / 2),
+    top: px(-s / 2),
+    borderRadius: px(s),
+  };
+
+  /******************************************************************************/
+
   return {
     analogClock,
     center,
@@ -707,6 +718,8 @@ export default function styles(theme, props) {
     watchPointerMinute,
     watchPointerSecond,
     watchPointerCenter,
+
+    draggingLayer,
   };
 }
 

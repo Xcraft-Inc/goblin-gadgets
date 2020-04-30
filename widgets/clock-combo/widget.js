@@ -56,6 +56,7 @@ export default class ClockCombo extends Widget {
     this.handleCursorUp = this.handleCursorUp.bind(this);
     this.handleWheel = this.handleWheel.bind(this);
     this.handleWheelTimeout = this.handleWheelTimeout.bind(this);
+    this.handleClockDragged = this.handleClockDragged.bind(this);
   }
 
   //#region get/set
@@ -159,6 +160,10 @@ export default class ClockCombo extends Widget {
     this.wheelType = null;
     this.wheelInUse = false;
     wheelUsed();
+  }
+
+  handleClockDragged(time) {
+    this.props.onChange(time);
   }
 
   /******************************************************************************/
@@ -300,6 +305,8 @@ export default class ClockCombo extends Widget {
           look="classic"
           transition="none"
           fixedTime={this.time}
+          draggingEnabled={true}
+          onTimeChanged={this.handleClockDragged}
         />
       </div>
     );
