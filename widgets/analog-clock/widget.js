@@ -165,6 +165,10 @@ export default class AnalogClock extends Widget {
   }
 
   onDragDown(e) {
+    if (!this.props.fixedTime || !this.props.onTimeChanged) {
+      return;
+    }
+
     const initialMinutes = TimeConverters.getMinutes(this.props.fixedTime);
     const mouseMinutes = this.getMouseMinutes(e);
     this.draggingAdditionalMinutes = trunc30(mouseMinutes - initialMinutes);
@@ -227,19 +231,19 @@ export default class AnalogClock extends Widget {
     return result;
   }
 
-  renderWatchPointer(styleName, initialAngle) {
+  renderWatchPointer(styleName, angle) {
     if (this.props.fixedTime && styleName === 'watchPointerSecond') {
       return null;
     }
 
     const style = {
-      transform: `rotate(${initialAngle}deg)`,
+      transform: `rotate(${angle}deg)`,
     };
 
     return <div className={this.styles.classNames[styleName]} style={style} />;
   }
 
-  renderDraggingHover() {
+  renderWatchPointerHover() {
     if (this.hoverMinutes === null) {
       return null;
     }
@@ -298,11 +302,11 @@ export default class AnalogClock extends Widget {
           <div className={this.styles.classNames.dial1} />
           <div className={this.styles.classNames.dial2} />
           {this.renderFixedMarks()}
+          {this.renderWatchPointerHover()}
           {this.renderWatchPointer('watchPointerHour', angles.ah)}
           {this.renderWatchPointer('watchPointerMinute', angles.am)}
           {this.renderWatchPointer('watchPointerSecond', angles.as)}
           <div className={this.styles.classNames.watchPointerCenter} />
-          {this.renderDraggingHover()}
           {this.renderDraggingLayer()}
         </div>
       </div>

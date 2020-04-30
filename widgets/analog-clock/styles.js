@@ -702,13 +702,9 @@ export default function styles(theme, props) {
     cursor: 'pointer',
   };
 
-  const hml = s * 0.5 - borderThickness;
   const hoverMinutes = {
-    position: 'absolute',
-    ...getRotatableSegment(hml, 8 * f, hml),
-    boxSizing: 'border-box',
-    border: `1px solid red`,
-    borderRadius: px(4 * f),
+    ...watchPointerMinute,
+    opacity: 0.3,
   };
 
   /******************************************************************************/
