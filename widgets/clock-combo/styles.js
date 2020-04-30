@@ -8,7 +8,7 @@ export default function styles(theme, props) {
   const {showTips} = props;
 
   const clockCombo = {
-    height: showTips ? '240px' : '200px',
+    height: showTips ? '260px' : '200px',
     width: '360px',
     display: 'flex',
     flexDirection: 'column',
@@ -28,7 +28,7 @@ export default function styles(theme, props) {
   };
 
   const tips = {
-    height: '32px',
+    height: '48px',
     margin: '0px 20px 15px 20px',
     display: 'flex',
     flexDirection: 'row',

@@ -35,6 +35,12 @@ function wheelUsed() {
   window.document.clockComboWheelCounter = count + 1;
 }
 
+// TODO: Improve this hack!
+function rotateUsed() {
+  const count = window.document.clockComboRotateCounter || 0;
+  window.document.clockComboRotateCounter = count + 1;
+}
+
 /******************************************************************************/
 
 export default class ClockCombo extends Widget {
@@ -191,6 +197,7 @@ export default class ClockCombo extends Widget {
 
   handleClockDragged(time) {
     this.props.onChange(time);
+    rotateUsed();
   }
 
   /******************************************************************************/
@@ -373,7 +380,7 @@ export default class ClockCombo extends Widget {
       <div className={this.styles.classNames.tips}>
         <Label
           text={T(
-            'ASTUCE: Tirez vers le haut ou vers le bas le chiffre des heures ou des minutes, ou utilisez la molette de la souris.'
+            "ASTUCE: Tirez vers le haut ou vers le bas le chiffre des heures ou des minutes, ou utilisez la molette de la souris. Vous pouvez également tourner directement l'aiguille des minutes."
           )}
           fontSize="75%"
           disabled={true}
