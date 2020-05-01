@@ -660,6 +660,11 @@ export default function styles(theme, props) {
     transition: transitionWatchPointer,
   };
 
+  const watchPointerMinuteHover = {
+    ...watchPointerMinute,
+    opacity: 0.2,
+  };
+
   const watchPointerSecond = {
     position: 'absolute',
     ...getRotatableSegment(
@@ -702,11 +707,6 @@ export default function styles(theme, props) {
     cursor: 'pointer',
   };
 
-  const hoverMinutes = {
-    ...watchPointerMinute,
-    opacity: 0.3,
-  };
-
   /******************************************************************************/
 
   return {
@@ -722,11 +722,11 @@ export default function styles(theme, props) {
 
     watchPointerHour,
     watchPointerMinute,
+    watchPointerMinuteHover,
     watchPointerSecond,
     watchPointerCenter,
 
     draggingLayer,
-    hoverMinutes,
   };
 }
 

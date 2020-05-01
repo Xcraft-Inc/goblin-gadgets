@@ -265,18 +265,21 @@ export default class AnalogClock extends Widget {
     return <div className={this.styles.classNames[styleName]} style={style} />;
   }
 
-  renderWatchPointerHover() {
+  renderWatchPointerMinuteHover() {
     if (this.hoverMinutes === null) {
       return null;
     }
 
-    const am = (Math.round(this.hoverMinutes) / 60) * 360;
+    const angle = (Math.round(this.hoverMinutes) / 60) * 360;
     const style = {
-      transform: `rotate(${am}deg)`,
+      transform: `rotate(${angle}deg)`,
     };
 
     return (
-      <div className={this.styles.classNames.hoverMinutes} style={style} />
+      <div
+        className={this.styles.classNames.watchPointerMinuteHover}
+        style={style}
+      />
     );
   }
 
@@ -324,7 +327,7 @@ export default class AnalogClock extends Widget {
           <div className={this.styles.classNames.dial1} />
           <div className={this.styles.classNames.dial2} />
           {this.renderFixedMarks()}
-          {this.renderWatchPointerHover()}
+          {this.renderWatchPointerMinuteHover()}
           {this.renderWatchPointer('watchPointerHour', angles.ah)}
           {this.renderWatchPointer('watchPointerMinute', angles.am)}
           {this.renderWatchPointer('watchPointerSecond', angles.as)}
