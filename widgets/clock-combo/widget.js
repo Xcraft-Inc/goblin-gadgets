@@ -380,7 +380,7 @@ export default class ClockCombo extends Widget {
       <div className={this.styles.classNames.tips}>
         <Label
           text={T(
-            "ASTUCE: Tirez vers le haut ou vers le bas le chiffre des heures ou des minutes, ou utilisez la molette de la souris. Vous pouvez également tourner directement l'aiguille des minutes."
+            "ASTUCE: Tirez vers le haut ou vers le bas le chiffre des heures ou des minutes, ou utilisez la molette de la souris (sur le chiffre). Vous pouvez également tourner directement l'aiguille des minutes."
           )}
           fontSize="75%"
           disabled={true}

@@ -164,7 +164,7 @@ export default class ButtonCombo extends Widget {
     const d = window.document.clockComboDraggingCounter || 0;
     const w = window.document.clockComboWheelCounter || 0;
     const r = window.document.clockComboRotateCounter || 0;
-    const showTips = d < 2 || w < 2 || r < 2;
+    const showTips = d < 1 || w < 1 || r < 1;
 
     return (
       <ComboContainer
