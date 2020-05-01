@@ -52,7 +52,7 @@ export default class ClockCombo extends Widget {
       localTime: null,
       draggedTime: null,
       cursorY: null,
-      wheelInUse: false,
+      whellType: null,
     };
 
     this.handleButtonDown = this.handleButtonDown.bind(this);
@@ -101,13 +101,13 @@ export default class ClockCombo extends Widget {
     });
   }
 
-  get wheelInUse() {
-    return this.state.wheelInUse;
+  get whellType() {
+    return this.state.whellType;
   }
 
-  set wheelInUse(value) {
+  set whellType(value) {
     this.setState({
-      wheelInUse: value,
+      whellType: value,
     });
   }
   //#endregion
@@ -157,17 +157,15 @@ export default class ClockCombo extends Widget {
       this.localTime = null;
       draggingUsed();
     }
-    if (this.wheelInUse) {
-      this.wheelType = null;
-      this.wheelInUse = false;
+    if (this.whellType) {
+      this.whellType = null;
       wheelUsed();
     }
   }
 
   handleWheel(e, type) {
     const inc = e.deltaY < 0 ? 1 : -1;
-    this.wheelType = type;
-    this.wheelInUse = true;
+    this.whellType = type;
     this.localTime = changeTime(this.time, type, inc);
     if (this.timer) {
       clearTimeout(this.timer);
@@ -178,8 +176,7 @@ export default class ClockCombo extends Widget {
   handleWheelTimeout() {
     this.props.onChange(this.localTime);
     this.localTime = null;
-    this.wheelType = null;
-    this.wheelInUse = false;
+    this.whellType = null;
     wheelUsed();
   }
 
@@ -203,7 +200,7 @@ export default class ClockCombo extends Widget {
   /******************************************************************************/
 
   renderGlyph(glyph) {
-    if (!!this.cursorType || this.wheelInUse) {
+    if (!!this.cursorType || !!this.whellType) {
       return null;
     }
 
@@ -245,12 +242,12 @@ export default class ClockCombo extends Widget {
   }
 
   renderCursor(time, type) {
-    const process = type === this.cursorType || type === this.wheelType;
+    const process = type === this.cursorType || type === this.whellType;
 
     if (process) {
       time = TimeConverters.getDisplayed(time);
     } else {
-      if (!!this.cursorType || !!this.wheelType) {
+      if (!!this.cursorType || !!this.whellType) {
         time = null;
       } else {
         if (type === 'hours') {
@@ -328,9 +325,12 @@ export default class ClockCombo extends Widget {
 
   renderClock() {
     const scale =
-      !!this.cursorType || this.wheelInUse || this.draggedTime ? 1.8 : 1;
+      !!this.cursorType || !!this.whellType || this.draggedTime ? 1.8 : 1;
 
-    const tx = !!this.cursorType || this.wheelInUse ? '36px' : '0px';
+    const tx =
+      this.cursorType === 'minutes' || this.whellType === 'minutes'
+        ? '36px'
+        : '0px';
 
     const style = {
       transform: `scale(${scale}) translate(${tx})`,
