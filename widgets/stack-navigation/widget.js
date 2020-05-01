@@ -145,6 +145,25 @@ class StackNavigationWidget extends Widget {
     );
   }
 
+  renderFixStack(screen, Component, stack) {
+    let below = [];
+
+    for (let i = 0; i <= stack.length - 2; i++) {
+      const currentScreen = stack.get(stack.length - i - 1);
+      if (currentScreen.get('transparent')) {
+        const belowScreen = stack.get(stack.length - i - 2);
+        const belowComponent = this.getComponent(belowScreen);
+        below.push(this.renderFix(belowScreen, belowComponent));
+      }
+    }
+    return (
+      <React.Fragment>
+        {below}
+        {this.renderFix(screen, Component)}
+      </React.Fragment>
+    );
+  }
+
   renderAnimation(
     lastScreen,
     lastComponent,
@@ -236,7 +255,7 @@ class StackNavigationWidget extends Widget {
         animation
       );
     } else {
-      return this.renderFix(lastScreen, lastComponent);
+      return this.renderFixStack(lastScreen, lastComponent, stack);
     }
   }
 }
