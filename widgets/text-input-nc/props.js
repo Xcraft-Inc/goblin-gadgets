@@ -50,6 +50,11 @@ export default [
 
   // Event.
   {
+    name: 'onUpDown',
+    group: 'event',
+    type: types.function,
+  },
+  {
     name: 'onChange',
     group: 'event',
     type: types.function,

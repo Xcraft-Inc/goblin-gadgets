@@ -1,5 +1,3 @@
-//T:2019-02-27
-
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import T from 't';
@@ -53,6 +51,8 @@ export default class TextFieldTypedNC extends Widget {
     this.incNumber = this.incNumber.bind(this);
     this.handleDateClicked = this.handleDateClicked.bind(this);
     this.handleTimeChanged = this.handleTimeChanged.bind(this);
+    this.handleDateUpDown = this.handleDateUpDown.bind(this);
+    this.handleTimeUpDown = this.handleTimeUpDown.bind(this);
   }
 
   getDisplayed(canonicalValue) {
@@ -175,6 +175,36 @@ export default class TextFieldTypedNC extends Widget {
     this.props.onChange(time);
   }
 
+  handleDateUpDown(e, onChangeAndSelect) {
+    console.log(`onKeyDown ${e.target.value} ${e.key}`);
+    if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+      const {value, error} = this.parseEdited(e.target.value);
+      if (!error) {
+        const date = DateConverters.addDays(
+          value,
+          e.key === 'ArrowUp' ? 1 : -1
+        );
+        onChangeAndSelect(this.getDisplayed(date), 0, 2);
+      }
+      e.preventDefault();
+    }
+  }
+
+  handleTimeUpDown(e, onChangeAndSelect) {
+    console.log(`onKeyDown ${e.target.value} ${e.key}`);
+    if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+      const {value, error} = this.parseEdited(e.target.value);
+      if (!error) {
+        const time = TimeConverters.addMinutes(
+          value,
+          e.key === 'ArrowUp' ? 1 : -1
+        );
+        onChangeAndSelect(this.getDisplayed(time), 3, 5);
+      }
+      e.preventDefault();
+    }
+  }
+
   incNumber(inc) {
     let n = this.props.value || 0;
     if (typeof n === 'string') {
@@ -220,6 +250,7 @@ export default class TextFieldTypedNC extends Widget {
           parse={this.parse}
           check={this.check}
           horizontalSpacing="overlap"
+          onKeyDown={this.handleDateUpDown}
         />
       </ButtonCombo>
     );
@@ -257,6 +288,7 @@ export default class TextFieldTypedNC extends Widget {
           parse={this.parse}
           check={this.check}
           horizontalSpacing="overlap"
+          onKeyDown={this.handleTimeUpDown}
         />
       </ButtonCombo>
     );

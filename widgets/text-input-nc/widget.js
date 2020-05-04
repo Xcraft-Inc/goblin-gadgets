@@ -24,8 +24,10 @@ export default class TextInputNC extends Widget {
     this.styles = styles;
 
     this.onChange = this.onChange.bind(this);
+    this.onChangeAndSelect = this.onChangeAndSelect.bind(this);
     this.onBlur = this.onBlur.bind(this);
     this.onFocus = this.onFocus.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
     this.setInput = this.setInput.bind(this);
     this.validate = this.validate.bind(this);
   }
@@ -60,6 +62,13 @@ export default class TextInputNC extends Widget {
     }
   }
 
+  onChangeAndSelect(value, selectionStart, selectionEnd) {
+    this.props.onChange(value, () => {
+      // After state changed.
+      this.input.setSelectionRange(selectionStart, selectionEnd);
+    });
+  }
+
   onFocus(e) {
     if (this.props.onFocus) {
       this.props.onFocus(e.target.value);
@@ -74,6 +83,13 @@ export default class TextInputNC extends Widget {
   onBlur(e) {
     if (this.props.onBlur) {
       this.props.onBlur(e.target.value);
+    }
+  }
+
+  onKeyDown(e) {
+    const f = this.props.onKeyDown;
+    if (f) {
+      f(e, this.onChangeAndSelect);
     }
   }
 
@@ -161,6 +177,7 @@ export default class TextInputNC extends Widget {
             disabled={this.props.disabled || this.props.readonly}
             inputRef={this.setInput}
             onChange={this.onChange}
+            onKeyDown={this.onKeyDown}
             onFocus={this.onFocus}
             onBlur={this.onBlur}
           />

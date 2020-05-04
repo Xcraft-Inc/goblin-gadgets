@@ -83,10 +83,13 @@ export default function wrapRawInput(Component, valueName = 'value') {
       });
     }
 
-    handleChange(value) {
-      this.setState({
-        raw: value,
-      });
+    handleChange(value, callbackAfterStateChange) {
+      this.setState(
+        {
+          raw: value,
+        },
+        callbackAfterStateChange
+      );
       if (this.props.changeMode === 'throttled') {
         this.changeValueThrottled(value);
       } else if (this.props.changeMode === 'immediate') {
