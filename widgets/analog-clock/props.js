@@ -46,6 +46,11 @@ export default [
     description:
       'If this property is omitted, the clock displays the current time in real time.',
   },
+  {
+    name: 'digitalTime',
+    group: 'time',
+    type: types.bool,
+  },
 
   // Function.
   {

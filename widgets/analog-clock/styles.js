@@ -707,6 +707,27 @@ export default function styles(theme, props) {
     cursor: 'pointer',
   };
 
+  const digitalTimeShowed = {
+    position: 'absolute',
+    bottom: px(-s * 0.25),
+    left: px(-s * 0.25),
+    width: px(s * 0.5),
+    height: px(30 * f),
+    color: watchPointerColorHM,
+    fontSize: `${s * 0.5}%`,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    pointerEvents: 'none',
+    transition: '0.6s ease-out',
+  };
+
+  const digitalTimeHidden = {
+    ...digitalTimeShowed,
+    transform: 'scale(0.8)',
+    opacity: 0,
+  };
+
   /******************************************************************************/
 
   return {
@@ -727,6 +748,8 @@ export default function styles(theme, props) {
     watchPointerCenter,
 
     draggingLayer,
+    digitalTimeShowed,
+    digitalTimeHidden,
   };
 }
 

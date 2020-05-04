@@ -343,30 +343,13 @@ export default class ClockCombo extends Widget {
           look="classic"
           transition="none"
           fixedTime={this.time}
+          digitalTime={!!this.draggedTime}
           draggingEnabled={true}
           onDragStarted={this.handleClockDragStarted}
           onDragMoved={this.handleClockDragMoved}
           onDragEnded={this.handleClockDragEnded}
           onTimeChanged={this.handleClockDragged}
         />
-      </div>
-    );
-  }
-
-  renderDraggedTime() {
-    const time = this.draggedTime
-      ? TimeConverters.getDisplayed(this.draggedTime)
-      : '';
-
-    return (
-      <div
-        className={
-          this.draggedTime
-            ? this.styles.classNames.draggedTimeVisible
-            : this.styles.classNames.draggedTimeHidden
-        }
-      >
-        {time}
       </div>
     );
   }
@@ -395,7 +378,6 @@ export default class ClockCombo extends Widget {
         <div className={this.styles.classNames.content}>
           {this.renderHour()}
           {this.renderMinute()}
-          {this.renderDraggedTime()}
           {this.renderClock()}
         </div>
         {this.renderTips()}

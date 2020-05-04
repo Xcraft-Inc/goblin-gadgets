@@ -253,6 +253,35 @@ export default class AnalogClock extends Widget {
     return result;
   }
 
+  renderDigitalTime() {
+    let time;
+    if (this.props.fixedTime) {
+      time = this.props.fixedTime;
+
+      if (this.draggingAdditionalMinutes !== null) {
+        time = TimeConverters.addMinutes(
+          time,
+          Math.round(this.draggingAdditionalMinutes)
+        );
+      }
+    } else {
+      time = TimeConverters.getNowCanonical('exact');
+    }
+    time = TimeConverters.getDisplayed(time);
+
+    return (
+      <div
+        className={
+          this.props.digitalTime
+            ? this.styles.classNames.digitalTimeShowed
+            : this.styles.classNames.digitalTimeHidden
+        }
+      >
+        {time}
+      </div>
+    );
+  }
+
   renderWatchPointer(styleName, angle) {
     if (this.props.fixedTime && styleName === 'watchPointerSecond') {
       return null;
@@ -327,6 +356,7 @@ export default class AnalogClock extends Widget {
           <div className={this.styles.classNames.dial1} />
           <div className={this.styles.classNames.dial2} />
           {this.renderFixedMarks()}
+          {this.renderDigitalTime()}
           {this.renderWatchPointerMinuteHover()}
           {this.renderWatchPointer('watchPointerHour', angles.ah)}
           {this.renderWatchPointer('watchPointerMinute', angles.am)}
