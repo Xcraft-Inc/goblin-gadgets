@@ -52,7 +52,7 @@ export default class ClockCombo extends Widget {
       localTime: null,
       draggedTime: null,
       cursorY: null,
-      whellType: null,
+      whellInUse: false,
     };
 
     this.handleButtonDown = this.handleButtonDown.bind(this);
@@ -101,13 +101,13 @@ export default class ClockCombo extends Widget {
     });
   }
 
-  get whellType() {
-    return this.state.whellType;
+  get whellInUse() {
+    return this.state.whellInUse;
   }
 
-  set whellType(value) {
+  set whellInUse(value) {
     this.setState({
-      whellType: value,
+      whellInUse: value,
     });
   }
   //#endregion
@@ -157,26 +157,26 @@ export default class ClockCombo extends Widget {
       this.localTime = null;
       draggingUsed();
     }
-    if (this.whellType) {
-      this.whellType = null;
+    if (this.whellInUse) {
+      this.whellInUse = false;
       wheelUsed();
     }
   }
 
-  handleWheel(e, type) {
+  handleWheel(e) {
     const inc = e.deltaY < 0 ? 1 : -1;
-    this.whellType = type;
-    this.localTime = changeTime(this.time, type, inc);
+    this.whellInUse = true;
+    this.localTime = changeTime(this.time, 'minutes', inc);
     if (this.timer) {
       clearTimeout(this.timer);
     }
-    this.timer = setTimeout(() => this.handleWheelTimeout(type, inc), 1000);
+    this.timer = setTimeout(() => this.handleWheelTimeout(), 1000);
   }
 
   handleWheelTimeout() {
     this.props.onChange(this.localTime);
     this.localTime = null;
-    this.whellType = null;
+    this.whellInUse = false;
     wheelUsed();
   }
 
@@ -200,7 +200,7 @@ export default class ClockCombo extends Widget {
   /******************************************************************************/
 
   renderGlyph(glyph) {
-    if (!!this.cursorType || !!this.whellType) {
+    if (this.cursorType) {
       return null;
     }
 
@@ -242,12 +242,12 @@ export default class ClockCombo extends Widget {
   }
 
   renderCursor(time, type) {
-    const process = type === this.cursorType || type === this.whellType;
+    const process = type === this.cursorType;
 
     if (process) {
       time = TimeConverters.getDisplayed(time);
     } else {
-      if (!!this.cursorType || !!this.whellType) {
+      if (this.cursorType) {
         time = null;
       } else {
         if (type === 'hours') {
@@ -304,7 +304,6 @@ export default class ClockCombo extends Widget {
         onMouseMove={this.handleCursorMove}
         onMouseUp={this.handleCursorUp}
         onMouseLeave={this.handleCursorUp}
-        onWheel={(e) => this.handleWheel(e, type)}
       >
         {this.renderGuide(type)}
         {this.renderButton('solid/plus', type, 1)}
@@ -325,12 +324,9 @@ export default class ClockCombo extends Widget {
 
   renderClock() {
     const scale =
-      !!this.cursorType || !!this.whellType || this.draggedTime ? 1.8 : 1;
+      !!this.cursorType || this.whellInUse || this.draggedTime ? 1.8 : 1;
 
-    const tx =
-      this.cursorType === 'minutes' || this.whellType === 'minutes'
-        ? '36px'
-        : '0px';
+    const tx = this.cursorType === 'minutes' ? '36px' : '0px';
 
     const style = {
       transform: `scale(${scale}) translate(${tx})`,
@@ -343,8 +339,8 @@ export default class ClockCombo extends Widget {
           look="classic"
           transition="none"
           fixedTime={this.time}
-          digitalTime={!!this.draggedTime}
-          draggingEnabled={true}
+          digitalTime={!!this.draggedTime || this.whellInUse}
+          draggingEnabled={!this.whellInUse}
           onDragStarted={this.handleClockDragStarted}
           onDragMoved={this.handleClockDragMoved}
           onDragEnded={this.handleClockDragEnded}
@@ -363,7 +359,7 @@ export default class ClockCombo extends Widget {
       <div className={this.styles.classNames.tips}>
         <Label
           text={T(
-            "ASTUCE: Tirez vers le haut ou vers le bas le chiffre des heures ou des minutes, ou utilisez la molette de la souris (sur le chiffre). Vous pouvez également tourner directement l'aiguille des minutes."
+            "ASTUCE: Tirez vers le haut ou vers le bas le chiffre des heures ou des minutes. Ou utilisez la molette de la souris. Ou encore tournez directement l'aiguille des minutes."
           )}
           fontSize="75%"
           disabled={true}
@@ -374,7 +370,10 @@ export default class ClockCombo extends Widget {
 
   render() {
     return (
-      <div className={this.styles.classNames.clockCombo}>
+      <div
+        className={this.styles.classNames.clockCombo}
+        onWheel={(e) => this.handleWheel(e)}
+      >
         <div className={this.styles.classNames.content}>
           {this.renderHour()}
           {this.renderMinute()}

@@ -151,6 +151,10 @@ export default class AnalogClock extends Widget {
 
   // Returns the minutes with decimals (0..59.9999) according to the position of the mouse.
   getMouseMinutes(e) {
+    if (!this.props.draggingEnabled) {
+      return null;
+    }
+
     const rect = this.draggingLayerNode.getBoundingClientRect();
     const center = {
       x: rect.left + rect.width / 2,
@@ -204,7 +208,7 @@ export default class AnalogClock extends Widget {
     }
   }
 
-  onDragUp(e) {
+  onDragUp() {
     if (this.draggingAdditionalMinutes !== null) {
       this.props.onTimeChanged(
         this.getDraggingTime(this.draggingAdditionalMinutes)
@@ -295,7 +299,7 @@ export default class AnalogClock extends Widget {
   }
 
   renderWatchPointerMinuteHover() {
-    if (this.hoverMinutes === null) {
+    if (this.hoverMinutes === null || !this.props.draggingEnabled) {
       return null;
     }
 
