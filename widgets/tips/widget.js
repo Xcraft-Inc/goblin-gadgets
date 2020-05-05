@@ -16,6 +16,7 @@ export default class Tips extends Widget {
     this.onClose = this.onClose.bind(this);
     this.onPrev = this.onPrev.bind(this);
     this.onNext = this.onNext.bind(this);
+    this.onShow = this.onShow.bind(this);
   }
 
   onClose() {
@@ -38,9 +39,17 @@ export default class Tips extends Widget {
     this.props.onChange(rank);
   }
 
+  onShow() {
+    this.props.onChange(0); // show first tip
+  }
+
   /******************************************************************************/
 
   renderTip() {
+    if (this.props.tipsRank === -1) {
+      return null;
+    }
+
     const tip = this.props.tips[this.props.tipsRank];
 
     return (
@@ -51,7 +60,20 @@ export default class Tips extends Widget {
   }
 
   renderButtons() {
-    if (this.props.layout === 'horizontal') {
+    if (this.props.tipsRank === -1) {
+      return (
+        <div className={this.styles.classNames.buttons}>
+          <Button
+            border="none"
+            width="20px"
+            height="20px"
+            glyph="solid/ellipsis-h"
+            tooltip={T('Montrer les astuces')}
+            onClick={this.onShow}
+          />
+        </div>
+      );
+    } else if (this.props.layout === 'horizontal') {
       return (
         <div className={this.styles.classNames.buttons}>
           <Button

@@ -6,9 +6,10 @@ export const propNames = ['tipsRank'];
 
 export default function styles(theme, props) {
   const {tipsRank} = props;
+  const showTips = tipsRank !== -1;
 
   const clockCombo = {
-    height: tipsRank === -1 ? '200px' : '232px',
+    height: showTips ? '232px' : '200px',
     width: '360px',
     display: 'flex',
     flexDirection: 'column',
@@ -28,13 +29,20 @@ export default function styles(theme, props) {
   };
 
   const tips = {
+    position: 'relative',
     width: '320px',
-    height: '48px',
+    height: showTips ? '48px' : '0px',
     padding: '0px 20px',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    transition: 'opacity 0.4s ease-out',
+  };
+
+  const tipsHidden = {
+    ...tips,
+    opacity: 0,
   };
 
   const part = {
@@ -105,7 +113,7 @@ export default function styles(theme, props) {
   // Use a big size, for accept quick dragging.
   // This allows the mouse not to leave the <div>.
   const cursorDragged = {
-    zIndex: 1,
+    zIndex: 2,
     position: 'absolute',
     width: '1048px',
     height: '1048px',
@@ -147,6 +155,7 @@ export default function styles(theme, props) {
   };
 
   const clock = {
+    zIndex: 1,
     marginLeft: '20px',
     display: 'flex',
     flexDirection: 'row',
@@ -160,6 +169,7 @@ export default function styles(theme, props) {
     clockCombo,
     content,
     tips,
+    tipsHidden,
     part,
     partHidden,
     button,

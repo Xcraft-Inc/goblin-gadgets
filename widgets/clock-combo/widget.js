@@ -333,10 +333,6 @@ export default class ClockCombo extends Widget {
   }
 
   renderTips() {
-    if (this.props.tipsRank === -1) {
-      return null;
-    }
-
     // prettier-ignore
     const tips = [
       T('Maintenez le bouton de la souris appuyé sur les boutons + ou \u2212.'),
@@ -346,10 +342,16 @@ export default class ClockCombo extends Widget {
     ];
 
     return (
-      <div className={this.styles.classNames.tips}>
+      <div
+        className={
+          this.whellInUse || !!this.draggedTime
+            ? this.styles.classNames.tipsHidden
+            : this.styles.classNames.tips
+        }
+      >
         <Tips
           grow={1}
-          height="32px"
+          height={this.props.tipsRank === -1 ? '0px' : '32px'}
           layout="horizontal"
           tips={tips}
           tipsRank={this.props.tipsRank}
