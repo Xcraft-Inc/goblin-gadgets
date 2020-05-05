@@ -176,7 +176,6 @@ export default class TextFieldTypedNC extends Widget {
   }
 
   handleDateUpDown(e, onChangeAndSelect) {
-    console.log(`onKeyDown ${e.target.value} ${e.key}`);
     if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
       const cursorPosition =
         (e.target.selectionStart + e.target.selectionEnd) / 2;
@@ -198,7 +197,6 @@ export default class TextFieldTypedNC extends Widget {
   }
 
   handleTimeUpDown(e, onChangeAndSelect) {
-    console.log(`onKeyDown ${e.target.value} ${e.key}`);
     if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
       const cursorPosition =
         (e.target.selectionStart + e.target.selectionEnd) / 2;
