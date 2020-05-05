@@ -2,13 +2,13 @@ import {ColorManipulator} from 'electrum-theme';
 
 /******************************************************************************/
 
-export const propNames = ['showTips'];
+export const propNames = ['tipsRank'];
 
 export default function styles(theme, props) {
-  const {showTips} = props;
+  const {tipsRank} = props;
 
   const clockCombo = {
-    height: showTips ? '260px' : '200px',
+    height: tipsRank === -1 ? '200px' : '232px',
     width: '360px',
     display: 'flex',
     flexDirection: 'column',
@@ -28,8 +28,9 @@ export default function styles(theme, props) {
   };
 
   const tips = {
+    width: '320px',
     height: '48px',
-    margin: '0px 20px 15px 20px',
+    padding: '0px 20px',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -48,13 +49,13 @@ export default function styles(theme, props) {
     alignItems: 'center',
     backgroundColor: theme.palette.buttonBackground,
     boxShadow: '3px 3px 10px 1px rgba(0,0,0,0.9)',
-    transition: '0.6s ease-out',
+    transition: '0.4s ease-out',
   };
 
   const partHidden = {
     ...part,
-    opacity: 0,
-    transform: 'translate(200px)',
+    transform: 'translate(120px)', // hide the panel under the clock
+    opacity: 0.5,
   };
 
   const button = {

@@ -2,8 +2,8 @@ import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import T from 't';
 
-import Label from 'goblin-gadgets/widgets/label/widget';
 import AnalogClock from 'goblin-gadgets/widgets/analog-clock/widget';
+import Tips from 'goblin-gadgets/widgets/tips/widget';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {time as TimeConverters} from 'xcraft-core-converters';
 import * as styles from './styles';
@@ -20,24 +20,6 @@ function changeTime(time, type, inc) {
 
 function getDelay(type, count) {
   return type === 'hours' ? 500 : Math.max(500 - count * 100, 50);
-}
-
-// TODO: Improve this hack!
-function draggingUsed() {
-  const count = window.document.clockComboDraggingCounter || 0;
-  window.document.clockComboDraggingCounter = count + 1;
-}
-
-// TODO: Improve this hack!
-function wheelUsed() {
-  const count = window.document.clockComboWheelCounter || 0;
-  window.document.clockComboWheelCounter = count + 1;
-}
-
-// TODO: Improve this hack!
-function rotateUsed() {
-  const count = window.document.clockComboRotateCounter || 0;
-  window.document.clockComboRotateCounter = count + 1;
 }
 
 /******************************************************************************/
@@ -67,13 +49,14 @@ export default class ClockCombo extends Widget {
     this.handleClockDragMoved = this.handleClockDragMoved.bind(this);
     this.handleClockDragEnded = this.handleClockDragEnded.bind(this);
     this.handleClockDragged = this.handleClockDragged.bind(this);
+
+    this.handleChangeTips = this.handleChangeTips.bind(this);
   }
 
   //#region get/set
   get localTime() {
     return this.state.localTime;
   }
-
   set localTime(value) {
     this.setState({
       localTime: value,
@@ -83,7 +66,6 @@ export default class ClockCombo extends Widget {
   get draggedTime() {
     return this.state.draggedTime;
   }
-
   set draggedTime(value) {
     this.setState({
       draggedTime: value,
@@ -93,7 +75,6 @@ export default class ClockCombo extends Widget {
   get cursorY() {
     return this.state.cursorY;
   }
-
   set cursorY(value) {
     this.setState({
       cursorY: value,
@@ -103,7 +84,6 @@ export default class ClockCombo extends Widget {
   get whellInUse() {
     return this.state.whellInUse;
   }
-
   set whellInUse(value) {
     this.setState({
       whellInUse: value,
@@ -154,11 +134,9 @@ export default class ClockCombo extends Widget {
       this.cursorY = null;
       this.props.onChange(this.localTime);
       this.localTime = null;
-      draggingUsed();
     }
     if (this.whellInUse) {
       this.whellInUse = false;
-      wheelUsed();
     }
   }
 
@@ -176,7 +154,6 @@ export default class ClockCombo extends Widget {
     this.props.onChange(this.localTime);
     this.localTime = null;
     this.whellInUse = false;
-    wheelUsed();
   }
 
   handleClockDragStarted(time) {
@@ -193,7 +170,12 @@ export default class ClockCombo extends Widget {
 
   handleClockDragged(time) {
     this.props.onChange(time);
-    rotateUsed();
+  }
+
+  handleChangeTips(rank) {
+    if (this.props.onChangeTips) {
+      this.props.onChangeTips(rank);
+    }
   }
 
   /******************************************************************************/
@@ -351,18 +333,27 @@ export default class ClockCombo extends Widget {
   }
 
   renderTips() {
-    if (!this.props.showTips) {
+    if (this.props.tipsRank === -1) {
       return null;
     }
 
+    // prettier-ignore
+    const tips = [
+      T('Maintenez le bouton de la souris appuyé sur les boutons + ou \u2212.'),
+      T('Tirez vers le haut ou vers le bas le chiffre des heures ou des minutes.'),
+      T("Tournez directement l'aiguille des minutes."),
+      T('Utilisez la molette de la souris.'),
+    ];
+
     return (
       <div className={this.styles.classNames.tips}>
-        <Label
-          text={T(
-            "ASTUCE: Tirez vers le haut ou vers le bas le chiffre des heures ou des minutes. Ou utilisez la molette de la souris. Ou encore tournez directement l'aiguille des minutes."
-          )}
-          fontSize="75%"
-          disabled={true}
+        <Tips
+          grow={1}
+          height="32px"
+          layout="horizontal"
+          tips={tips}
+          tipsRank={this.props.tipsRank}
+          onChange={this.handleChangeTips}
         />
       </div>
     );
