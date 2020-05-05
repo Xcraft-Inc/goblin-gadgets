@@ -110,6 +110,12 @@ export default class AnalogClock extends Widget {
     this.updateAngles(); // initialise for first render
   }
 
+  componentDidUpdate() {
+    if (!this.props.draggingEnabled) {
+      this.hoverMinutes = null;
+    }
+  }
+
   componentWillUnmount() {
     super.componentWillUnmount();
 
