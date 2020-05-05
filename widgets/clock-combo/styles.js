@@ -54,6 +54,7 @@ export default function styles(theme, props) {
   const partHidden = {
     ...part,
     opacity: 0,
+    transform: 'translate(200px)',
   };
 
   const button = {
