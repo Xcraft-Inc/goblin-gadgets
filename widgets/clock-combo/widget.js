@@ -4,7 +4,6 @@ import T from 't';
 
 import Label from 'goblin-gadgets/widgets/label/widget';
 import AnalogClock from 'goblin-gadgets/widgets/analog-clock/widget';
-import {ColorManipulator} from 'electrum-theme';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {time as TimeConverters} from 'xcraft-core-converters';
 import * as styles from './styles';
@@ -128,7 +127,7 @@ export default class ClockCombo extends Widget {
     this.timer = setTimeout(() => this.handleLocal(type, inc), delay);
   }
 
-  handleButtonUp(type, inc) {
+  handleButtonUp() {
     clearTimeout(this.timer);
     this.props.onChange(this.localTime);
     this.localTime = null;
@@ -149,7 +148,7 @@ export default class ClockCombo extends Widget {
     }
   }
 
-  handleCursorUp(e) {
+  handleCursorUp() {
     if (this.cursorY !== null) {
       this.cursorType = null;
       this.cursorY = null;
@@ -234,7 +233,7 @@ export default class ClockCombo extends Widget {
       <div
         className={this.styles.classNames.button}
         onMouseDown={() => this.handleButtonDown(type, inc)}
-        onMouseUp={() => this.handleButtonUp(type, inc)}
+        onMouseUp={() => this.handleButtonUp()}
       >
         {this.renderGlyph(glyph)}
       </div>
@@ -242,47 +241,47 @@ export default class ClockCombo extends Widget {
   }
 
   renderCursor(time, type) {
-    const process = type === this.cursorType;
-
-    if (process) {
-      time = TimeConverters.getDisplayed(time);
+    if (type === 'hours') {
+      time = TimeConverters.getHours(time);
     } else {
-      if (this.cursorType) {
-        time = null;
-      } else {
-        if (type === 'hours') {
-          time = TimeConverters.getHours(time);
-        } else {
-          time = TimeConverters.getMinutes(time);
-        }
-        time = time + '';
-        if (time.length === 1) {
-          time = '0' + time;
-        }
-      }
+      time = TimeConverters.getMinutes(time);
+    }
+    time = time + '';
+    if (time.length === 1) {
+      time = '0' + time; // force 2 digits
     }
 
-    const y = 24 - this.cursorY;
-    const style = {
-      zIndex: 1,
-      top: `calc(50% - ${y}px)`,
-      width: '96px',
-      backgroundColor: this.context.theme.palette.base,
-      color: ColorManipulator.emphasize(this.context.theme.palette.text, 1),
-      transform: 'scale(1.5)',
-      fontSize: '150%',
-      boxShadow: '3px 3px 10px 1px rgba(0,0,0,0.9)',
-    };
+    if (type === this.cursorType) {
+      // Cursor is moving.
+      const y = 500 + 24 - this.cursorY;
+      const style = {
+        top: `calc(50% - ${y}px)`,
+      };
 
-    return (
-      <div
-        className={this.styles.classNames.cursor}
-        style={process ? style : null}
-        onMouseDown={(e) => this.handleCursorDown(e, type)}
-      >
-        {time}
-      </div>
-    );
+      return (
+        <div
+          className={this.styles.classNames.cursorDragged}
+          style={process ? style : null}
+          onMouseMove={this.handleCursorMove}
+          onMouseUp={this.handleCursorUp}
+          onMouseLeave={this.handleCursorUp}
+        >
+          <div className={this.styles.classNames.cursorDraggedInside}>
+            {time}
+          </div>
+        </div>
+      );
+    } else {
+      // Cursor is fix.
+      return (
+        <div
+          className={this.styles.classNames.cursor}
+          onMouseDown={(e) => this.handleCursorDown(e, type)}
+        >
+          {time}
+        </div>
+      );
+    }
   }
 
   renderGuide(type) {
@@ -300,10 +299,11 @@ export default class ClockCombo extends Widget {
   renderPart(time, type) {
     return (
       <div
-        className={this.styles.classNames.part}
-        onMouseMove={this.handleCursorMove}
-        onMouseUp={this.handleCursorUp}
-        onMouseLeave={this.handleCursorUp}
+        className={
+          this.whellInUse || !!this.draggedTime
+            ? this.styles.classNames.partHidden
+            : this.styles.classNames.part
+        }
       >
         {this.renderGuide(type)}
         {this.renderButton('solid/plus', type, 1)}
@@ -324,9 +324,9 @@ export default class ClockCombo extends Widget {
 
   renderClock() {
     const scale =
-      !!this.cursorType || this.whellInUse || this.draggedTime ? 1.8 : 1;
+      !!this.cursorType || this.whellInUse || !!this.draggedTime ? 1.8 : 1;
 
-    const tx = this.cursorType === 'minutes' ? '36px' : '0px';
+    const tx = this.cursorType === 'minutes' ? '8px' : '0px';
 
     const style = {
       transform: `scale(${scale}) translate(${tx})`,
@@ -339,7 +339,7 @@ export default class ClockCombo extends Widget {
           look="classic"
           transition="none"
           fixedTime={this.time}
-          digitalTime={!!this.draggedTime || this.whellInUse}
+          digitalTime={scale > 1}
           draggingEnabled={!this.whellInUse}
           onDragStarted={this.handleClockDragStarted}
           onDragMoved={this.handleClockDragMoved}

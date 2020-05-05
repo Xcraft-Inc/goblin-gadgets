@@ -1383,6 +1383,7 @@ export default function styles(theme, props) {
         borderTop: t + ' solid transparent',
         borderBottom: t + ' solid transparent',
         borderRight: t + ' solid ' + triangleColor,
+        pointerEvents: 'none',
       };
     } else if (trianglePosition === 'right') {
       triangleStyle = {
@@ -1393,6 +1394,7 @@ export default function styles(theme, props) {
         borderTop: t + ' solid transparent',
         borderBottom: t + ' solid transparent',
         borderLeft: t + ' solid ' + triangleColor,
+        pointerEvents: 'none',
       };
     } else if (trianglePosition === 'bottom') {
       triangleStyle = {
@@ -1403,6 +1405,7 @@ export default function styles(theme, props) {
         borderLeft: t + ' solid transparent',
         borderRight: t + ' solid transparent',
         borderTop: t + ' solid ' + triangleColor,
+        pointerEvents: 'none',
       };
     } else if (trianglePosition === 'top') {
       triangleStyle = {
@@ -1413,6 +1416,7 @@ export default function styles(theme, props) {
         borderLeft: t + ' solid transparent',
         borderRight: t + ' solid transparent',
         borderBottom: t + ' solid ' + triangleColor,
+        pointerEvents: 'none',
       };
     } else {
       triangleStyle = {};

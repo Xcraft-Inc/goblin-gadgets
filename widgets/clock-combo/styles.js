@@ -48,6 +48,12 @@ export default function styles(theme, props) {
     alignItems: 'center',
     backgroundColor: theme.palette.buttonBackground,
     boxShadow: '3px 3px 10px 1px rgba(0,0,0,0.9)',
+    transition: '0.6s ease-out',
+  };
+
+  const partHidden = {
+    ...part,
+    opacity: 0,
   };
 
   const button = {
@@ -94,6 +100,35 @@ export default function styles(theme, props) {
     },
   };
 
+  // Use a big size, for accept quick dragging.
+  // This allows the mouse not to leave the <div>.
+  const cursorDragged = {
+    zIndex: 1,
+    position: 'absolute',
+    width: '1048px',
+    height: '1048px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    cursor: 'ns-resize',
+    // backgroundColor: 'rgba(255,0,0,0.2)', // for debugging
+  };
+
+  const cursorDraggedInside = {
+    width: '48px',
+    height: '48px',
+    backgroundColor: theme.palette.base,
+    color: ColorManipulator.emphasize(theme.palette.text, 1),
+    boxShadow: '3px 3px 10px 1px rgba(0,0,0,0.9)',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: '24px',
+    transform: 'scale(1.2)',
+  };
+
   const guideHidden = {
     position: 'absolute',
     width: '6px',
@@ -124,9 +159,12 @@ export default function styles(theme, props) {
     content,
     tips,
     part,
+    partHidden,
     button,
     vsep,
     cursor,
+    cursorDragged,
+    cursorDraggedInside,
     guideHidden,
     guideShowed,
     clock,

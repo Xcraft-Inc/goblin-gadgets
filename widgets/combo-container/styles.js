@@ -41,6 +41,7 @@ export default function styles(theme, props) {
     width: '0px',
     height: '0px',
     zIndex: 3,
+    pointerEvents: 'none',
   };
 
   return {
