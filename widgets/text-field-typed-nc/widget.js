@@ -178,13 +178,20 @@ export default class TextFieldTypedNC extends Widget {
   handleDateUpDown(e, onChangeAndSelect) {
     console.log(`onKeyDown ${e.target.value} ${e.key}`);
     if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
-      const {value, error} = this.parseEdited(e.target.value);
-      if (!error) {
-        const date = DateConverters.addDays(
-          value,
-          e.key === 'ArrowUp' ? 1 : -1
+      const cursorPosition =
+        (e.target.selectionStart + e.target.selectionEnd) / 2;
+      const inc = e.key === 'ArrowUp' ? 1 : -1;
+      const result = DateConverters.incEdited(
+        e.target.value,
+        cursorPosition,
+        inc
+      );
+      if (result.edited) {
+        onChangeAndSelect(
+          result.edited,
+          result.selectionStart,
+          result.selectionEnd
         );
-        onChangeAndSelect(this.getDisplayed(date), 0, 2);
       }
       e.preventDefault();
     }
@@ -193,13 +200,20 @@ export default class TextFieldTypedNC extends Widget {
   handleTimeUpDown(e, onChangeAndSelect) {
     console.log(`onKeyDown ${e.target.value} ${e.key}`);
     if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
-      const {value, error} = this.parseEdited(e.target.value);
-      if (!error) {
-        const time = TimeConverters.addMinutes(
-          value,
-          e.key === 'ArrowUp' ? 1 : -1
+      const cursorPosition =
+        (e.target.selectionStart + e.target.selectionEnd) / 2;
+      const inc = e.key === 'ArrowUp' ? 1 : -1;
+      const result = TimeConverters.incEdited(
+        e.target.value,
+        cursorPosition,
+        inc
+      );
+      if (result.edited) {
+        onChangeAndSelect(
+          result.edited,
+          result.selectionStart,
+          result.selectionEnd
         );
-        onChangeAndSelect(this.getDisplayed(time), 3, 5);
       }
       e.preventDefault();
     }
