@@ -24,7 +24,7 @@ function getDelay(type, count) {
 
 /******************************************************************************/
 
-export default class ClockCombo extends Widget {
+class ClockCombo extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
@@ -49,8 +49,6 @@ export default class ClockCombo extends Widget {
     this.handleClockDragMoved = this.handleClockDragMoved.bind(this);
     this.handleClockDragEnded = this.handleClockDragEnded.bind(this);
     this.handleClockDragged = this.handleClockDragged.bind(this);
-
-    this.handleChangeTips = this.handleChangeTips.bind(this);
   }
 
   //#region get/set
@@ -170,12 +168,6 @@ export default class ClockCombo extends Widget {
 
   handleClockDragged(time) {
     this.props.onChange(time);
-  }
-
-  handleChangeTips(rank) {
-    if (this.props.onChangeTips) {
-      this.props.onChangeTips(rank);
-    }
   }
 
   /******************************************************************************/
@@ -341,6 +333,10 @@ export default class ClockCombo extends Widget {
       T('Utilisez la molette de la souris.'),
     ];
 
+    const style = {
+      height: this.props.tipsRank === -1 ? '0px' : '48px',
+    };
+
     return (
       <div
         className={
@@ -348,14 +344,14 @@ export default class ClockCombo extends Widget {
             ? this.styles.classNames.tipsHidden
             : this.styles.classNames.tips
         }
+        style={style}
       >
         <Tips
           grow={1}
           height={this.props.tipsRank === -1 ? '0px' : '32px'}
           layout="horizontal"
+          id="goblin-gadgets/clock-combo"
           tips={tips}
-          tipsRank={this.props.tipsRank}
-          onChange={this.handleChangeTips}
         />
       </div>
     );
@@ -364,7 +360,11 @@ export default class ClockCombo extends Widget {
   render() {
     return (
       <div
-        className={this.styles.classNames.clockCombo}
+        className={
+          this.props.tipsRank === -1
+            ? this.styles.classNames.clockCombo
+            : this.styles.classNames.clockComboTips
+        }
         onWheel={(e) => this.handleWheel(e)}
       >
         <div className={this.styles.classNames.content}>
@@ -379,3 +379,11 @@ export default class ClockCombo extends Widget {
 }
 
 /******************************************************************************/
+
+export default Widget.connect((state) => {
+  const userSession = Widget.getUserSession(state);
+  const data = userSession.get('tips.goblin-gadgets/clock-combo');
+  const tipsRank = data ? data.get('rank') : 0;
+
+  return {tipsRank};
+})(ClockCombo);

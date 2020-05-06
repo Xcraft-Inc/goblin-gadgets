@@ -23,8 +23,6 @@ export const propNames = [
   'itemHeight',
   'margin',
   'monthCount',
-  'useTips',
-  'tipsRank',
 ];
 
 export default function styles(theme, props) {
@@ -36,11 +34,8 @@ export default function styles(theme, props) {
     itemHeight = theme.shapes.calendarButtonHeight,
     margin = '0px',
     monthCount = 1,
-    useTips,
-    tipsRank,
   } = props;
 
-  const showTips = useTips && tipsRank !== -1;
   const tipsHeight = '55px';
 
   const m = theme.shapes.containerMargin;
@@ -60,7 +55,6 @@ export default function styles(theme, props) {
   const h = {value: '0px'};
   cum(h, theme.shapes.calendarButtonHeight, 2); // rows for navigation and dow
   cum(h, itemHeight, 6); // rows for days
-  cum(h, showTips ? tipsHeight : '0px');
 
   /******************************************************************************/
 
@@ -75,6 +69,11 @@ export default function styles(theme, props) {
     backgroundColor: theme.palette.calendarBackground,
     border: border,
     boxShadow: shadow ? theme.shapes.calendarShadow : null,
+  };
+
+  const calendarTips = {
+    ...calendar,
+    height: Unit.add(h.value, tipsHeight),
   };
 
   const singleMonth = {
@@ -153,12 +152,12 @@ export default function styles(theme, props) {
     backgroundColor: theme.palette.calendarWeekendBackground,
   };
 
-  const tips = {
+  const tipsShowed = {
     position: 'absolute',
     left: '0px',
     right: '0px',
     bottom: '0px',
-    height: showTips ? tipsHeight : '0px',
+    height: tipsHeight,
     padding: `0px ${margin}`,
     display: 'flex',
     flexDirection: 'row',
@@ -166,10 +165,16 @@ export default function styles(theme, props) {
     alignItems: 'center',
   };
 
+  const tipsHidden = {
+    ...tipsShowed,
+    height: '0px',
+  };
+
   /******************************************************************************/
 
   return {
     calendar,
+    calendarTips,
     month,
     singleMonth,
     separator,
@@ -183,7 +188,8 @@ export default function styles(theme, props) {
     double,
     button,
     buttonWeekend,
-    tips,
+    tipsShowed,
+    tipsHidden,
   };
 }
 

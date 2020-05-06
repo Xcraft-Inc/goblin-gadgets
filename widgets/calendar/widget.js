@@ -26,7 +26,7 @@ import * as styles from './styles';
 
 /******************************************************************************/
 
-export default class Calendar extends Widget {
+class Calendar extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
@@ -54,7 +54,6 @@ export default class Calendar extends Widget {
     this.onDateClicked = this.onDateClicked.bind(this);
     this.onEscKey = this.onEscKey.bind(this);
     this.handleWheel = this.handleWheel.bind(this);
-    this.handleChangeTips = this.handleChangeTips.bind(this);
   }
 
   //#region get/set
@@ -358,12 +357,6 @@ export default class Calendar extends Widget {
     const inc = e.deltaY < 0 ? -1 : 1;
     const newDate = DateConverters.addMonths(this.visibleDate, inc);
     this.changeDate(newDate);
-  }
-
-  handleChangeTips(rank) {
-    if (this.props.onChangeTips) {
-      this.props.onChangeTips(rank);
-    }
   }
 
   /******************************************************************************/
@@ -806,14 +799,19 @@ export default class Calendar extends Widget {
     ];
 
     return (
-      <div className={this.styles.classNames.tips}>
+      <div
+        className={
+          this.props.tipsRank === -1
+            ? this.styles.classNames.tipsHidden
+            : this.styles.classNames.tipsShowed
+        }
+      >
         <Tips
           grow={1}
           height={this.props.tipsRank === -1 ? '0px' : '55px'}
           layout="horizontal"
+          id="goblin-gadgets/calendar"
           tips={tips}
-          tipsRank={this.props.tipsRank}
-          onChange={this.handleChangeTips}
         />
       </div>
     );
@@ -862,7 +860,11 @@ export default class Calendar extends Widget {
 
     return (
       <div
-        className={this.styles.classNames.calendar}
+        className={
+          this.props.tipsRank === -1
+            ? this.styles.classNames.calendar
+            : this.styles.classNames.calendarTips
+        }
         onWheel={(e) => this.handleWheel(e)}
       >
         {this.renderMonths()}
@@ -876,6 +878,14 @@ export default class Calendar extends Widget {
 }
 
 /******************************************************************************/
+
+export default Widget.connect((state, props) => {
+  const userSession = Widget.getUserSession(state);
+  const data = userSession.get('tips.goblin-gadgets/calendar');
+  const tipsRank = data ? data.get('rank') : 0;
+
+  return {tipsRank: props.useTips ? tipsRank : -1};
+})(Calendar);
 
 Calendar.propTypes = makePropTypes(Props);
 Calendar.defaultProps = makeDefaultProps(Props);

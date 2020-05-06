@@ -2,14 +2,9 @@ import {ColorManipulator} from 'electrum-theme';
 
 /******************************************************************************/
 
-export const propNames = ['tipsRank'];
-
-export default function styles(theme, props) {
-  const {tipsRank} = props;
-  const showTips = tipsRank !== -1;
-
+export default function styles(theme) {
   const clockCombo = {
-    height: showTips ? '232px' : '200px',
+    height: '200px',
     width: '360px',
     display: 'flex',
     flexDirection: 'column',
@@ -17,6 +12,11 @@ export default function styles(theme, props) {
     alignItems: 'center',
     backgroundColor: theme.palette.calendarBackground,
     boxShadow: theme.shapes.flyingShadow,
+  };
+
+  const clockComboTips = {
+    ...clockCombo,
+    height: '232px',
   };
 
   const content = {
@@ -31,7 +31,6 @@ export default function styles(theme, props) {
   const tips = {
     position: 'relative',
     width: '320px',
-    height: showTips ? '48px' : '0px',
     padding: '0px 20px',
     display: 'flex',
     flexDirection: 'row',
@@ -167,6 +166,7 @@ export default function styles(theme, props) {
 
   return {
     clockCombo,
+    clockComboTips,
     content,
     tips,
     tipsHidden,

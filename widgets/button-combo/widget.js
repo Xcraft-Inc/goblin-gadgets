@@ -21,7 +21,6 @@ export default class ButtonCombo extends Widget {
 
     this.state = {
       showCombo: false,
-      tipsRank: 0, // TODO: move this to global settings!
     };
 
     this.comboLocation = null;
@@ -137,8 +136,6 @@ export default class ButtonCombo extends Widget {
       date = DateConverters.getNowCanonical();
     }
 
-    const tipsRank = this.state.tipsRank;
-
     return (
       <ComboContainer
         show={this.state.showCombo}
@@ -154,12 +151,6 @@ export default class ButtonCombo extends Widget {
           endDate={this.props.maxDate}
           dates={this.props.value ? [this.props.value] : null}
           useTips={true}
-          tipsRank={tipsRank}
-          onChangeTips={(rank) =>
-            this.setState({
-              tipsRank: rank,
-            })
-          }
           dateClicked={this.handleDateClicked}
           onEscKey={this.hideCombo}
         />
@@ -170,24 +161,13 @@ export default class ButtonCombo extends Widget {
   renderComboClock() {
     const time = this.props.value || TimeConverters.getNowCanonical();
 
-    const tipsRank = this.state.tipsRank;
-
     return (
       <ComboContainer
         show={this.state.showCombo}
         positionRef={this.node}
         onClose={this.hideCombo}
       >
-        <ClockCombo
-          time={time}
-          tipsRank={tipsRank}
-          onChangeTips={(rank) =>
-            this.setState({
-              tipsRank: rank,
-            })
-          }
-          onChange={this.handleTimeChanged}
-        />
+        <ClockCombo time={time} onChange={this.handleTimeChanged} />
       </ComboContainer>
     );
   }
