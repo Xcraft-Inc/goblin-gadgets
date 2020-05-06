@@ -137,6 +137,8 @@ export default class ButtonCombo extends Widget {
       date = DateConverters.getNowCanonical();
     }
 
+    const tipsRank = this.state.tipsRank;
+
     return (
       <ComboContainer
         show={this.state.showCombo}
@@ -145,12 +147,19 @@ export default class ButtonCombo extends Widget {
       >
         <Calendar
           margin={this.context.theme.spacing.lineSpacing}
-          frame={true}
+          frame={false}
           shadow={true}
           visibleDate={date}
           startDate={this.props.minDate}
           endDate={this.props.maxDate}
           dates={this.props.value ? [this.props.value] : null}
+          useTips={true}
+          tipsRank={tipsRank}
+          onChangeTips={(rank) =>
+            this.setState({
+              tipsRank: rank,
+            })
+          }
           dateClicked={this.handleDateClicked}
           onEscKey={this.hideCombo}
         />

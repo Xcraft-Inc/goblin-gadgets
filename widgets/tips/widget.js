@@ -13,13 +13,13 @@ export default class Tips extends Widget {
     super(...arguments);
     this.styles = styles;
 
-    this.onClose = this.onClose.bind(this);
+    this.onHide = this.onHide.bind(this);
     this.onPrev = this.onPrev.bind(this);
     this.onNext = this.onNext.bind(this);
     this.onShow = this.onShow.bind(this);
   }
 
-  onClose() {
+  onHide() {
     this.props.onChange(-1); // hide tips
   }
 
@@ -28,7 +28,7 @@ export default class Tips extends Widget {
     if (rank < 0) {
       rank = this.props.tips.length - 1;
     }
-    this.props.onChange(rank);
+    this.props.onChange(rank); // show previous tip
   }
 
   onNext() {
@@ -36,7 +36,7 @@ export default class Tips extends Widget {
     if (rank > this.props.tips.length - 1) {
       rank = 0;
     }
-    this.props.onChange(rank);
+    this.props.onChange(rank); // show next tip
   }
 
   onShow() {
@@ -98,7 +98,7 @@ export default class Tips extends Widget {
             height="20px"
             glyph="solid/times"
             tooltip={T('Fermer les astuces')}
-            onClick={this.onClose}
+            onClick={this.onHide}
           />
         </div>
       );
@@ -111,7 +111,7 @@ export default class Tips extends Widget {
             height="20px"
             glyph="solid/times"
             tooltip={T('Fermer les astuces')}
-            onClick={this.onClose}
+            onClick={this.onHide}
           />
           <Button
             border="none"

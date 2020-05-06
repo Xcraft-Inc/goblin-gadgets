@@ -125,7 +125,7 @@ export default [
   {
     name: 'navigator',
     group: 'aspect',
-    type: types.bool,
+    type: types.enum(['', 'standard']),
   },
   {
     name: 'hideDaysOutOfMonth',
@@ -173,5 +173,22 @@ export default [
     name: 'dateClicked',
     group: 'events',
     type: types.function,
+  },
+  {
+    name: 'onChangeTips',
+    group: 'events',
+    type: types.function,
+  },
+
+  // Tips.
+  {
+    name: 'useTips',
+    group: 'tips',
+    type: types.bool,
+  },
+  {
+    name: 'tipsRank',
+    group: 'tips',
+    type: types.number,
   },
 ];

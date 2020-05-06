@@ -23,6 +23,8 @@ export const propNames = [
   'itemHeight',
   'margin',
   'monthCount',
+  'useTips',
+  'tipsRank',
 ];
 
 export default function styles(theme, props) {
@@ -34,7 +36,12 @@ export default function styles(theme, props) {
     itemHeight = theme.shapes.calendarButtonHeight,
     margin = '0px',
     monthCount = 1,
+    useTips,
+    tipsRank,
   } = props;
+
+  const showTips = useTips && tipsRank !== -1;
+  const tipsHeight = '55px';
 
   const m = theme.shapes.containerMargin;
   const halfMargin = Unit.multiply(m, 0.5);
@@ -53,10 +60,12 @@ export default function styles(theme, props) {
   const h = {value: '0px'};
   cum(h, theme.shapes.calendarButtonHeight, 2); // rows for navigation and dow
   cum(h, itemHeight, 6); // rows for days
+  cum(h, showTips ? tipsHeight : '0px');
 
   /******************************************************************************/
 
   const calendar = {
+    position: 'relative',
     width: w.value,
     height: h.value,
     padding: margin,
@@ -144,6 +153,19 @@ export default function styles(theme, props) {
     backgroundColor: theme.palette.calendarWeekendBackground,
   };
 
+  const tips = {
+    position: 'absolute',
+    left: '0px',
+    right: '0px',
+    bottom: '0px',
+    height: showTips ? tipsHeight : '0px',
+    padding: `0px ${margin}`,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  };
+
   /******************************************************************************/
 
   return {
@@ -161,6 +183,7 @@ export default function styles(theme, props) {
     double,
     button,
     buttonWeekend,
+    tips,
   };
 }
 

@@ -15,6 +15,7 @@ import CalendarButton from 'goblin-gadgets/widgets/calendar-button/widget';
 import Separator from 'goblin-gadgets/widgets/separator/widget';
 import ComboContainer from 'goblin-gadgets/widgets/combo-container/widget';
 import FlatList from 'goblin-gadgets/widgets/flat-list/widget';
+import Tips from 'goblin-gadgets/widgets/tips/widget';
 
 import {
   date as DateConverters,
@@ -52,6 +53,8 @@ export default class Calendar extends Widget {
     this.onVisibleDateNextYear = this.onVisibleDateNextYear.bind(this);
     this.onDateClicked = this.onDateClicked.bind(this);
     this.onEscKey = this.onEscKey.bind(this);
+    this.handleWheel = this.handleWheel.bind(this);
+    this.handleChangeTips = this.handleChangeTips.bind(this);
   }
 
   //#region get/set
@@ -120,14 +123,14 @@ export default class Calendar extends Widget {
 
   onComboMonthsClicked(item) {
     this.onCloseComboMonths();
-    //? this.changeDate(item.id);
-    this.dateClicked(item.id);
+    this.changeDate(item.id);
+    //? this.dateClicked(item.id);
   }
 
   onComboYearsClicked(item) {
     this.onCloseComboYears();
-    //? this.changeDate(item.id);
-    this.dateClicked(item.id);
+    this.changeDate(item.id);
+    //? this.dateClicked(item.id);
   }
 
   get comboMonthsList() {
@@ -348,6 +351,18 @@ export default class Calendar extends Widget {
   onEscKey() {
     if (this.props.onEscKey) {
       this.props.onEscKey();
+    }
+  }
+
+  handleWheel(e) {
+    const inc = e.deltaY < 0 ? -1 : 1;
+    const newDate = DateConverters.addMonths(this.visibleDate, inc);
+    this.changeDate(newDate);
+  }
+
+  handleChangeTips(rank) {
+    if (this.props.onChangeTips) {
+      this.props.onChangeTips(rank);
     }
   }
 
@@ -779,6 +794,31 @@ export default class Calendar extends Widget {
     }
   }
 
+  renderTips() {
+    if (!this.props.useTips) {
+      return null;
+    }
+
+    // prettier-ignore
+    const tips = [
+      T("Cliquez en haut sur le nom du mois ou sur l'année pour changer rapidement le mois visible."),
+      T('Utilisez la molette de la souris pour avancer ou reculer dans les mois.'),
+    ];
+
+    return (
+      <div className={this.styles.classNames.tips}>
+        <Tips
+          grow={1}
+          height={this.props.tipsRank === -1 ? '0px' : '55px'}
+          layout="horizontal"
+          tips={tips}
+          tipsRank={this.props.tipsRank}
+          onChange={this.handleChangeTips}
+        />
+      </div>
+    );
+  }
+
   renderComboMonths() {
     return (
       <ComboContainer
@@ -821,8 +861,12 @@ export default class Calendar extends Widget {
     }
 
     return (
-      <div className={this.styles.classNames.calendar}>
+      <div
+        className={this.styles.classNames.calendar}
+        onWheel={(e) => this.handleWheel(e)}
+      >
         {this.renderMonths()}
+        {this.renderTips()}
         {this.renderNavigator()}
         {this.renderComboMonths()}
         {this.renderComboYears()}
