@@ -75,6 +75,7 @@ export default [
       'large-single',
       'main-tab',
       'main-tab-right',
+      'markdown',
       'menu-item',
       'mission-top',
       'notification',
