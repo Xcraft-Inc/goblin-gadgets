@@ -334,7 +334,7 @@ class ClockCombo extends Widget {
     ];
 
     const style = {
-      height: this.props.tipsRank === -1 ? '0px' : '48px',
+      height: this.props.showTips ? '48px' : '0px',
     };
 
     return (
@@ -348,7 +348,7 @@ class ClockCombo extends Widget {
       >
         <Tips
           grow={1}
-          height={this.props.tipsRank === -1 ? '0px' : '32px'}
+          height={this.props.showTips ? '32px' : '0px'}
           layout="horizontal"
           id="goblin-gadgets/clock-combo"
           tips={tips}
@@ -361,9 +361,9 @@ class ClockCombo extends Widget {
     return (
       <div
         className={
-          this.props.tipsRank === -1
-            ? this.styles.classNames.clockCombo
-            : this.styles.classNames.clockComboTips
+          this.props.showTips
+            ? this.styles.classNames.clockComboTips
+            : this.styles.classNames.clockCombo
         }
         onWheel={(e) => this.handleWheel(e)}
       >
@@ -383,7 +383,7 @@ class ClockCombo extends Widget {
 export default Widget.connect((state) => {
   const userSession = Widget.getUserSession(state);
   const data = userSession.get('tips.goblin-gadgets/clock-combo');
-  const tipsRank = data ? data.get('rank') : 0;
+  const tipsRank = data ? data.get('rank') : 0; // show first tip if state never defined
 
-  return {tipsRank};
+  return {showTips: tipsRank !== -1};
 })(ClockCombo);

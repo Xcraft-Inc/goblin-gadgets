@@ -19,12 +19,7 @@ class Tips extends Widget {
     this.onShow = this.onShow.bind(this);
   }
 
-  //#region rank
-  get rank() {
-    return this.props.data ? this.props.data.get('rank') : 0;
-  }
-
-  set rank(rank) {
+  changeTipsRank(rank) {
     const state = {rank};
 
     this.doFor(this.props.clientSessionId, 'set-tips', {
@@ -32,42 +27,39 @@ class Tips extends Widget {
       state,
     });
   }
-  //#endregion
 
   onHide() {
-    this.rank = -1; // hide tips
+    this.changeTipsRank(-1); // hide tips
   }
 
   onPrev() {
-    let rank = this.rank - 1;
+    let rank = this.props.tipsRank - 1;
     if (rank < 0) {
       rank = this.props.tips.length - 1;
     }
-    this.rank = rank; // show previous tip
+    this.changeTipsRank(rank); // show previous tip
   }
 
   onNext() {
-    let rank = this.rank + 1;
+    let rank = this.props.tipsRank + 1;
     if (rank > this.props.tips.length - 1) {
       rank = 0;
     }
-    this.rank = rank; // show next tip
+    this.changeTipsRank(rank); // show next tip
   }
 
   onShow() {
-    this.rank = 0; // show first tip
+    this.changeTipsRank(0); // show first tip
   }
 
   /******************************************************************************/
 
   renderTip() {
-    const rank = this.rank;
-
-    if (rank === -1) {
+    if (this.props.tipsRank === -1) {
       return null;
     }
 
-    const tip = this.props.tips[rank];
+    const tip = this.props.tips[this.props.tipsRank];
 
     return (
       <div className={this.styles.classNames.tip}>
@@ -77,7 +69,7 @@ class Tips extends Widget {
   }
 
   renderButtons() {
-    if (this.rank === -1) {
+    if (this.props.tipsRank === -1) {
       return (
         <div className={this.styles.classNames.buttons}>
           <Button
@@ -155,7 +147,7 @@ class Tips extends Widget {
     return (
       <div
         className={
-          this.rank === -1
+          this.props.tipsRank === -1
             ? this.styles.classNames.tipsHidden
             : this.styles.classNames.tipsShowed
         }
@@ -171,8 +163,9 @@ class Tips extends Widget {
 
 export default Widget.connect((state, props) => {
   const userSession = Widget.getUserSession(state);
-  const data = userSession.get(`tips.${props.id}`);
   const clientSessionId = userSession.get('id');
+  const data = userSession.get(`tips.${props.id}`);
+  const tipsRank = data ? data.get('rank') : 0; // show first tip if state never defined
 
-  return {clientSessionId, data};
+  return {clientSessionId, tipsRank};
 })(Tips);

@@ -801,14 +801,14 @@ class Calendar extends Widget {
     return (
       <div
         className={
-          this.props.tipsRank === -1
-            ? this.styles.classNames.tipsHidden
-            : this.styles.classNames.tipsShowed
+          this.props.showTips
+            ? this.styles.classNames.tipsShowed
+            : this.styles.classNames.tipsHidden
         }
       >
         <Tips
           grow={1}
-          height={this.props.tipsRank === -1 ? '0px' : '55px'}
+          height={this.props.showTips ? '55px' : '0px'}
           layout="horizontal"
           id="goblin-gadgets/calendar"
           tips={tips}
@@ -861,9 +861,9 @@ class Calendar extends Widget {
     return (
       <div
         className={
-          this.props.tipsRank === -1
-            ? this.styles.classNames.calendar
-            : this.styles.classNames.calendarTips
+          this.props.showTips
+            ? this.styles.classNames.calendarTips
+            : this.styles.classNames.calendar
         }
         onWheel={(e) => this.handleWheel(e)}
       >
@@ -882,9 +882,9 @@ class Calendar extends Widget {
 export default Widget.connect((state, props) => {
   const userSession = Widget.getUserSession(state);
   const data = userSession.get('tips.goblin-gadgets/calendar');
-  const tipsRank = data ? data.get('rank') : 0;
+  const tipsRank = data ? data.get('rank') : 0; // show first tip if state never defined
 
-  return {tipsRank: props.useTips ? tipsRank : -1};
+  return {showTips: props.useTips && tipsRank !== -1};
 })(Calendar);
 
 Calendar.propTypes = makePropTypes(Props);
