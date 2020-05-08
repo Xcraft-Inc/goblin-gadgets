@@ -8,7 +8,7 @@ import Badge from 'goblin-gadgets/widgets/badge/widget';
 import TicketHover from 'goblin-gadgets/widgets/ticket-hover/widget';
 import {TranslatableDiv} from 'nabu/helpers/element-helpers';
 import {Unit} from 'electrum-theme';
-import getOutlinePath from './getOutlinePath';
+import getPath from './getPath';
 import * as styles from './styles';
 
 import {
@@ -70,7 +70,7 @@ export default class Ticket extends Widget {
       this.lastWidth !== this.props.width ||
       this.lastHeight !== this.props.height
     ) {
-      this.path = getOutlinePath(
+      this.path = getPath.getOutlinePath(
         this.context.theme,
         this.props.shape,
         this.props.width,
@@ -130,6 +130,30 @@ export default class Ticket extends Widget {
     } else {
       return null;
     }
+  }
+
+  renderCorner(w, h) {
+    if (!this.props.cornerPosition) {
+      return null;
+    }
+
+    return (
+      <svg
+        width={w}
+        height={h}
+        className={this.styles.classNames.hatch}
+        style={{fill: this.props.cornerColor || 'red'}}
+      >
+        <path
+          d={getPath.getCornerPath(
+            this.props.width,
+            this.props.height,
+            this.props.cornerPosition,
+            this.props.cornerSize || '20px'
+          )}
+        />
+      </svg>
+    );
   }
 
   renderTicket() {
@@ -231,6 +255,7 @@ export default class Ticket extends Widget {
         {htmlShape}
         {htmlHatchDef}
         {htmlHatch}
+        {this.renderCorner(w, h)}
         <div className={contentClass}>
           {this.renderBackgroundText()}
           {this.props.children}
@@ -271,6 +296,7 @@ export default class Ticket extends Widget {
         onTouchEnd={this.onMouseUp}
       >
         <div className={rectClass}>
+          {this.renderCorner(this.props.width, this.props.height)}
           <div
             className={this.props.hatch ? rectContentHatchClass : contentClass}
           >

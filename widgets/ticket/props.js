@@ -105,6 +105,23 @@ export default [
     type: types.enum(['', 'middle', 'first', 'continued', 'last']),
   },
 
+  // Corner.
+  {
+    name: 'cornerPosition',
+    group: 'corner',
+    type: types.enum(['', 'topRight', 'topLeft', 'bottomRight', 'bottomLeft']),
+  },
+  {
+    name: 'cornerColor',
+    group: 'corner',
+    type: types.color,
+  },
+  {
+    name: 'cornerSize',
+    group: 'corner',
+    type: types.size,
+  },
+
   // Layout.
   {
     name: 'width',

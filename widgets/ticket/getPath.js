@@ -1,4 +1,4 @@
-import * as TicketHelpers from '../ticket/ticket-helpers.js';
+import * as TicketHelpers from './ticket-helpers.js';
 import svg from '../helpers/svg-helpers';
 
 // Draw _n_n_n_n_n_n_n_n_n_n_n_n_n_
@@ -16,7 +16,7 @@ function horizontalDash(path, r, len, dx) {
 
 /******************************************************************************/
 
-export default function getOutlinePath(theme, shape, width, height) {
+function getOutlinePath(theme, shape, width, height) {
   const r = svg.toInt(theme.shapes.ticketCornerRadius);
   const s = svg.toInt(theme.shapes.ticketLineRadius);
   const w = svg.toInt(width);
@@ -65,3 +65,60 @@ export default function getOutlinePath(theme, shape, width, height) {
   }
   return svg.getPath(path);
 }
+
+/******************************************************************************/
+
+function getCornerPath(width, height, position, size) {
+  const w = svg.toInt(width);
+  const h = svg.toInt(height);
+  const s = svg.toInt(size);
+
+  const path = svg.createPath();
+
+  if (position === 'topRight') {
+    if (!width) {
+      console.log("Ticket: It's impossible to draw the corner without 'width'");
+    } else {
+      svg.ma(path, w, 0);
+      svg.lr(path, -s, 0);
+      svg.lr(path, s, s);
+      svg.close(path);
+    }
+  } else if (position === 'topLeft') {
+    svg.ma(path, 0, 0);
+    svg.lr(path, 0, s);
+    svg.lr(path, s, -s);
+    svg.close(path);
+  } else if (position === 'bottomRight') {
+    if (!width || !height) {
+      console.log(
+        "Ticket: It's impossible to draw the corner without 'width' and 'height'"
+      );
+    } else {
+      svg.ma(path, w, h);
+      svg.lr(path, 0, -s);
+      svg.lr(path, -s, s);
+      svg.close(path);
+    }
+  } else if (position === 'bottomLeft') {
+    if (!height) {
+      console.log(
+        "Ticket: It's impossible to draw the corner without 'height'"
+      );
+    } else {
+      svg.ma(path, 0, h);
+      svg.lr(path, s, 0);
+      svg.lr(path, -s, -s);
+      svg.close(path);
+    }
+  }
+
+  return svg.getPath(path);
+}
+
+/******************************************************************************/
+
+module.exports = {
+  getOutlinePath,
+  getCornerPath,
+};
