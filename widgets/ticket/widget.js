@@ -9,6 +9,7 @@ import TicketHover from 'goblin-gadgets/widgets/ticket-hover/widget';
 import {TranslatableDiv} from 'nabu/helpers/element-helpers';
 import {Unit} from 'electrum-theme';
 import getPath from './getPath';
+import {ColorHelpers} from 'electrum-theme';
 import * as styles from './styles';
 
 import {
@@ -137,12 +138,17 @@ export default class Ticket extends Widget {
       return null;
     }
 
+    const color = ColorHelpers.getMarkColor(
+      this.context.theme,
+      this.props.cornerColor
+    );
+
     return (
       <svg
         width={w}
         height={h}
         className={this.styles.classNames.hatch}
-        style={{fill: this.props.cornerColor || 'red'}}
+        style={{fill: color}}
       >
         <path
           d={getPath.getCornerPath(

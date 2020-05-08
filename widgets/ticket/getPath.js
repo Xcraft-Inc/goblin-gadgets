@@ -77,7 +77,9 @@ function getCornerPath(width, height, position, size) {
 
   if (position === 'topRight') {
     if (!width) {
-      console.log("Ticket: It's impossible to draw the corner without 'width'");
+      console.log(
+        "Ticket: It's impossible to draw the corner 'topRight' without 'width'"
+      );
     } else {
       svg.ma(path, w, 0);
       svg.lr(path, -s, 0);
@@ -92,7 +94,7 @@ function getCornerPath(width, height, position, size) {
   } else if (position === 'bottomRight') {
     if (!width || !height) {
       console.log(
-        "Ticket: It's impossible to draw the corner without 'width' and 'height'"
+        "Ticket: It's impossible to draw the corner 'bottomRight' without 'width' and 'height'"
       );
     } else {
       svg.ma(path, w, h);
@@ -103,7 +105,7 @@ function getCornerPath(width, height, position, size) {
   } else if (position === 'bottomLeft') {
     if (!height) {
       console.log(
-        "Ticket: It's impossible to draw the corner without 'height'"
+        "Ticket: It's impossible to draw the corner 'bottomLeft' without 'height'"
       );
     } else {
       svg.ma(path, 0, h);
