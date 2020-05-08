@@ -8,7 +8,7 @@ import Hinter from 'goblin-gadgets/widgets/hinter/widget';
 
 /******************************************************************************/
 
-class HinterColumn extends Widget {
+export default class HinterColumn extends Widget {
   constructor() {
     super(...arguments);
   }
@@ -47,4 +47,3 @@ class HinterColumn extends Widget {
 }
 
 /******************************************************************************/
-export default HinterColumn;

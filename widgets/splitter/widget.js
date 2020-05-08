@@ -13,7 +13,7 @@ import {
 
 /******************************************************************************/
 
-export default class Splitter extends Widget {
+class Splitter extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
@@ -42,6 +42,15 @@ export default class Splitter extends Widget {
     });
   }
   //#endregion
+
+  changePosition(position) {
+    const state = {position};
+
+    this.doFor(this.props.clientSessionId, 'set-splitters', {
+      splitterId: this.props.id,
+      state,
+    });
+  }
 
   getInitials(props) {
     if (props.firstSize !== undefined) {
@@ -76,14 +85,22 @@ export default class Splitter extends Widget {
   getPositions(props) {
     const positions = {isDragging: false};
 
-    if (props.firstSize !== undefined) {
-      const x = Unit.parse(props.firstSize);
-      positions.first = x.value;
-    }
+    if (props.position === -1) {
+      if (props.firstSize !== undefined) {
+        const x = Unit.parse(props.firstSize);
+        positions.first = x.value;
+      }
 
-    if (props.lastSize !== undefined) {
-      const x = Unit.parse(props.lastSize);
-      positions.last = x.value;
+      if (props.lastSize !== undefined) {
+        const x = Unit.parse(props.lastSize);
+        positions.last = x.value;
+      }
+    } else {
+      if (this.master === 'first') {
+        positions.first = props.position;
+      } else {
+        positions.last = props.position;
+      }
     }
 
     return positions;
@@ -307,6 +324,9 @@ export default class Splitter extends Widget {
   onMouseUp() {
     if (this.positions.isDragging) {
       this.positions = {...this.positions, isDragging: false};
+      this.changePosition(
+        this.master === 'first' ? this.positions.first : this.positions.last
+      );
     }
   }
 
@@ -401,6 +421,17 @@ export default class Splitter extends Widget {
     );
   }
 }
+
+/******************************************************************************/
+
+export default Widget.connect((state, props) => {
+  const userSession = Widget.getUserSession(state);
+  const clientSessionId = userSession.get('id');
+  const data = userSession.get(`splitters.${props.id}`);
+  const position = data ? data.get('position') : -1;
+
+  return {clientSessionId, position};
+})(Splitter);
 
 /******************************************************************************/
 
