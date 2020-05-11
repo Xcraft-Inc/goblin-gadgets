@@ -1241,14 +1241,7 @@ export default function styles(theme, props) {
       flexDirection = 'column';
     }
     flexGrow = 1;
-    margin =
-      Unit.multiply(m, 0.5) +
-      ' ' +
-      Unit.multiply(m, -1) +
-      ' ' +
-      Unit.multiply(m, -1) +
-      ' ' +
-      Unit.multiply(m, -1);
+    margin = Unit.multiply(m, 0.5) + ' ' + Unit.multiply(m, -1);
   }
 
   if (kind === 'absolute-top-right') {
