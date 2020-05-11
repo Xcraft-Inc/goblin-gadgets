@@ -15,7 +15,7 @@ export default function styles(theme, props) {
     flexBasis = '0%';
   }
 
-  const textFieldTimeInterval = {
+  const textFieldDateInterval = {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -30,7 +30,7 @@ export default function styles(theme, props) {
   };
 
   return {
-    textFieldTimeInterval,
+    textFieldDateInterval,
   };
 }
 

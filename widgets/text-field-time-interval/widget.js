@@ -94,10 +94,11 @@ class TextFieldTimeInterval extends Widget {
       return null;
     }
 
-    const boxClass = this.styles.classNames.box;
-
     return (
-      <span disabled={this.props.disabled} className={boxClass}>
+      <span
+        disabled={this.props.disabled}
+        className={this.styles.classNames.textFieldTimeInterval}
+      >
         {this.renderStartTextField()}
         {this.renderEndTextField()}
         {this.renderNowButton()}

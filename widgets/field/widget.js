@@ -21,6 +21,7 @@ import LabelRow from 'goblin-gadgets/widgets/label-row/widget';
 import TextFieldTyped from 'goblin-gadgets/widgets/text-field-typed/widget';
 import TextFieldCombo from 'goblin-gadgets/widgets/text-field-combo/widget';
 import TextFieldTimeInterval from 'goblin-gadgets/widgets/text-field-time-interval/widget';
+import TextFieldDateInterval from 'goblin-gadgets/widgets/text-field-date-interval/widget';
 import RadioList from 'goblin-gadgets/widgets/radio-list/widget';
 import CheckList from 'goblin-gadgets/widgets/check-list/widget';
 import CalendarRecurrence from 'goblin-gadgets/widgets/calendar-recurrence/widget';
@@ -275,6 +276,44 @@ class Field extends Form {
         verticalJustify={verticalJustify}
       >
         <TextFieldTimeInterval
+          selectAllOnFocus={true}
+          {...otherProps}
+          readonly={true}
+          entityFullPath={this.context.model}
+          tooltip={this.props.tooltip || this.props.hintText}
+        />
+      </LabelRow>
+    );
+  }
+
+  renderReadonlyDateInterval() {
+    const {
+      show,
+      labelText,
+      labelWrap,
+      labelGlyph,
+      labelWidth = defaultLabelWidth,
+      horizontalSpacing,
+      verticalSpacing,
+      verticalJustify,
+      width,
+      kind,
+      ...otherProps
+    } = this.props;
+
+    return (
+      <LabelRow
+        show={show}
+        width={width}
+        labelText={labelText}
+        labelWrap={labelWrap}
+        labelGlyph={labelGlyph}
+        labelWidth={labelWidth}
+        horizontalSpacing={horizontalSpacing}
+        verticalSpacing={verticalSpacing}
+        verticalJustify={verticalJustify}
+      >
+        <TextFieldDateInterval
           selectAllOnFocus={true}
           {...otherProps}
           readonly={true}
@@ -759,6 +798,43 @@ class Field extends Form {
         verticalJustify={verticalJustify}
       >
         <TextFieldTimeInterval
+          selectAllOnFocus={true}
+          {...otherProps}
+          entityFullPath={this.context.model}
+          tooltip={this.props.tooltip || this.props.hintText}
+        />
+      </LabelRow>
+    );
+  }
+
+  renderEditDateInterval() {
+    const {
+      show,
+      labelText,
+      labelWrap,
+      labelGlyph,
+      labelWidth = defaultLabelWidth,
+      horizontalSpacing,
+      verticalSpacing,
+      verticalJustify,
+      width,
+      kind,
+      ...otherProps
+    } = this.props;
+
+    return (
+      <LabelRow
+        show={show}
+        width={width}
+        labelText={labelText}
+        labelWrap={labelWrap}
+        labelGlyph={labelGlyph}
+        labelWidth={labelWidth}
+        horizontalSpacing={horizontalSpacing}
+        verticalSpacing={verticalSpacing}
+        verticalJustify={verticalJustify}
+      >
+        <TextFieldDateInterval
           selectAllOnFocus={true}
           {...otherProps}
           entityFullPath={this.context.model}
@@ -1466,6 +1542,8 @@ class Field extends Form {
         return this.renderReadonlyTyped();
       case 'time-interval':
         return this.renderReadonlyTimeInterval();
+      case 'date-interval':
+        return this.renderReadonlyDateInterval();
       case 'combo':
         return this.renderReadonlyCombo();
       case 'radio':
@@ -1531,6 +1609,8 @@ class Field extends Form {
         return this.renderEditTyped();
       case 'time-interval':
         return this.renderEditTimeInterval();
+      case 'date-interval':
+        return this.renderEditDateInterval();
       case 'combo':
         return this.renderEditCombo();
       case 'radio':
