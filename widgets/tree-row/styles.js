@@ -4,7 +4,13 @@ const TableHelpers = require('gadgets/helpers/table-helpers');
 
 /******************************************************************************/
 
-export const propNames = ['row', 'isExpanded'];
+export const propNames = [
+  'row',
+  'isExpanded',
+  'darkTheme',
+  'hoverBackgroundColor',
+  'selectedBackgroundColor',
+];
 
 export function mapProps(props) {
   const {row, ...otherProps} = props;
@@ -18,7 +24,13 @@ export function mapProps(props) {
 }
 
 export default function styles(theme, props) {
-  const {backgroundColor, isExpanded} = props;
+  const {
+    backgroundColor,
+    isExpanded,
+    darkTheme,
+    hoverBackgroundColor,
+    selectedBackgroundColor,
+  } = props;
 
   const m = theme.shapes.containerMargin;
 
@@ -27,12 +39,12 @@ export default function styles(theme, props) {
     'flexDirection': 'row',
     'padding': '0px ' + m + ' 0px 0px',
     'backgroundColor':
-      TableHelpers.getBackgroundColor(theme, backgroundColor, 'none') +
+      TableHelpers.getBackgroundColor(theme, backgroundColor, 'none', props) +
       ' !important',
     'cursor': 'default',
     ':hover': {
       backgroundColor:
-        TableHelpers.getBackgroundColor(theme, backgroundColor, 'main') +
+        TableHelpers.getBackgroundColor(theme, backgroundColor, 'main', props) +
         ' !important',
     },
   };
@@ -42,12 +54,14 @@ export default function styles(theme, props) {
     'flexDirection': 'row',
     'padding': '0px ' + m + ' 0px 0px',
     'backgroundColor':
-      TableHelpers.getSelectedBackgroundColor(theme, 'none') + ' !important',
+      TableHelpers.getSelectedBackgroundColor(theme, 'none', props) +
+      ' !important',
     'color': theme.palette.tableSelectedText,
     'cursor': 'default',
     ':hover': {
       backgroundColor:
-        TableHelpers.getSelectedBackgroundColor(theme, 'main') + ' !important',
+        TableHelpers.getSelectedBackgroundColor(theme, 'main', props) +
+        ' !important',
     },
   };
 

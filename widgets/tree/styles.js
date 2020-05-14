@@ -10,6 +10,9 @@ export const propNames = [
   'height',
   'headerWithoutHorizontalSeparator',
   'row',
+  'darkTheme',
+  'hoverBackgroundColor',
+  'selectedBackgroundColor',
 ];
 
 export function mapProps(props) {
@@ -31,6 +34,9 @@ export default function styles(theme, props) {
     hasButtons,
     height,
     headerWithoutHorizontalSeparator,
+    darkTheme,
+    hoverBackgroundColor,
+    selectedBackgroundColor,
   } = props;
 
   const m = theme.shapes.containerMargin;
@@ -126,7 +132,8 @@ export default function styles(theme, props) {
       backgroundColor: TableHelpers.getBackgroundColor(
         theme,
         backgroundColor,
-        'children'
+        'children',
+        props
       ),
     },
   };

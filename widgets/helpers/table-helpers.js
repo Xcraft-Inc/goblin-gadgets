@@ -3,16 +3,16 @@ const {ColorManipulator} = require('electrum-theme');
 
 //-----------------------------------------------------------------------------
 
-function lighten(theme, color, coefficient) {
-  if (theme.palette.isDarkTheme) {
+function lighten(theme, color, coefficient, props) {
+  if ((props && props.darkTheme) || theme.palette.isDarkTheme) {
     return ColorManipulator.darken(color, coefficient);
   } else {
     return ColorManipulator.lighten(color, coefficient);
   }
 }
 
-function darken(theme, color, coefficient) {
-  if (theme.isDarkTheme) {
+function darken(theme, color, coefficient, props) {
+  if ((props && props.darkTheme) || theme.isDarkTheme) {
     return ColorManipulator.lighten(color, coefficient);
   } else {
     return ColorManipulator.darken(color, coefficient);
@@ -21,7 +21,7 @@ function darken(theme, color, coefficient) {
 
 //-----------------------------------------------------------------------------
 
-function getBackgroundColor(theme, backgroundColor, hover) {
+function getBackgroundColor(theme, backgroundColor, hover, props) {
   switch (backgroundColor) {
     case 'warning':
       backgroundColor = theme.palette.tableWarningBackground;
@@ -34,26 +34,34 @@ function getBackgroundColor(theme, backgroundColor, hover) {
       break;
   }
 
+  const hoverBackgroundColor =
+    props && props.hoverBackgroundColor
+      ? props.hoverBackgroundColor
+      : theme.palette.tableHoverBackground;
+
   if (hover === 'main') {
-    backgroundColor = theme.palette.tableHoverBackground;
+    backgroundColor = hoverBackgroundColor;
   } else if (hover === 'children') {
     if (backgroundColor) {
-      backgroundColor = lighten(theme, backgroundColor, 0.5);
+      backgroundColor = lighten(theme, backgroundColor, 0.5, props);
     } else {
-      backgroundColor = lighten(theme, theme.palette.tableHoverBackground, 0.6);
+      backgroundColor = lighten(theme, hoverBackgroundColor, 0.6, props);
     }
   }
 
   return backgroundColor;
 }
 
-function getSelectedBackgroundColor(theme, hover) {
-  let backgroundColor = theme.palette.tableSelectedBackground;
+function getSelectedBackgroundColor(theme, hover, props) {
+  let backgroundColor =
+    props && props.selectedBackgroundColor
+      ? props.selectedBackgroundColor
+      : theme.palette.tableSelectedBackground;
 
   if (hover === 'main') {
-    backgroundColor = darken(theme, backgroundColor, 0.3);
+    backgroundColor = darken(theme, backgroundColor, 0.3, props);
   } else if (hover === 'children') {
-    backgroundColor = darken(theme, backgroundColor, 0.6);
+    backgroundColor = darken(theme, backgroundColor, 0.6, props);
   }
 
   return backgroundColor;
