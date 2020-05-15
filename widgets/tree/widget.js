@@ -228,6 +228,7 @@ export default class Tree extends Widget {
     for (let i = 0; i < rows.size; i++) {
       const row = rows.get(i);
       const subRows = row.get('rows');
+      const id = row.get('id');
 
       result.push(this.renderRow(header, level, row, i));
       if (subRows) {
@@ -235,8 +236,9 @@ export default class Tree extends Widget {
           this.renderIndent(
             header,
             subRows,
-            this.getExpand(row.get('id')),
-            level + 1
+            this.getExpand(id),
+            level + 1,
+            id + i
           )
         );
       }
@@ -244,13 +246,13 @@ export default class Tree extends Widget {
     return result;
   }
 
-  renderIndent(header, rows, expanded, level) {
+  renderIndent(header, rows, expanded, level, uniqueKey) {
     const indentClass = expanded
       ? this.styles.classNames.indentExpanded
       : this.styles.classNames.indentHidden;
 
     return (
-      <div className={`tree-hover ${indentClass}`}>
+      <div key={uniqueKey} className={`tree-hover ${indentClass}`}>
         {this.renderIndentRows(header, rows, level)}
       </div>
     );
@@ -259,7 +261,7 @@ export default class Tree extends Widget {
   renderRows(data) {
     const rows = data.get('rows');
     const header = data.get('header');
-    return this.renderIndent(header, rows, true, 0);
+    return this.renderIndent(header, rows, true, 0, 0);
   }
 
   renderButton(data, existingButton, index, existingIndex, existingCount) {
@@ -289,6 +291,7 @@ export default class Tree extends Widget {
 
     return (
       <Button
+        key={index}
         kind={this.props.frame ? 'table-action-frame' : 'table-action'}
         place={`${existingIndex + 1}/${existingCount}`}
         grow={existingButton ? '1' : '0'}

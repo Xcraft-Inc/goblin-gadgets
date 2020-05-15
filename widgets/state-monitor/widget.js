@@ -33,6 +33,10 @@ function getRows(state, parentKey) {
   return rows;
 }
 
+function debugLogHistory(oper, history, historyIndex) {
+  // console.log(`${oper}: history=${history.join(', ')} index=${historyIndex}`);
+}
+
 /******************************************************************************/
 
 export default class StateMonitor extends Widget {
@@ -42,11 +46,16 @@ export default class StateMonitor extends Widget {
 
     this.state = {
       activeFilter: '',
+      history: [],
+      historyIndex: -1,
     };
 
     this.onChangeFilter = this.onChangeFilter.bind(this);
     this.onClearFilter = this.onClearFilter.bind(this);
     this.onTreeClick = this.onTreeClick.bind(this);
+    this.onPaste = this.onPaste.bind(this);
+    this.onBack = this.onBack.bind(this);
+    this.onForward = this.onForward.bind(this);
   }
 
   //#region get/set
@@ -58,21 +67,126 @@ export default class StateMonitor extends Widget {
       activeFilter: value,
     });
   }
+
+  get history() {
+    return this.state.history;
+  }
+  set history(value) {
+    this.setState({
+      history: value,
+    });
+  }
+
+  get historyIndex() {
+    return this.state.historyIndex;
+  }
+  set historyIndex(value) {
+    this.setState({
+      historyIndex: value,
+    });
+  }
   //#endregion
 
+  changeActiveFilter(filter, doPush = true) {
+    this.activeFilter = filter;
+    if (doPush) {
+      this.pushActiveFilter(filter);
+    }
+  }
+
+  pushActiveFilter(filter) {
+    if (!filter) {
+      // Never push empty key.
+      return;
+    }
+
+    const item = this.props.state.get(filter);
+    if (!item) {
+      // If key to push don't match to a existing key in the state, don't push.
+      return;
+    }
+
+    const history = this.history;
+    let historyIndex = this.historyIndex;
+
+    // Truncate keys after the current index in the history.
+    history.splice(historyIndex + 1);
+    historyIndex = history.length - 1;
+
+    // If key already exist in the history, remove it.
+    const i = history.indexOf(filter);
+    if (i !== -1) {
+      history.splice(i, 1);
+      historyIndex = history.length - 1;
+    }
+
+    // Insert the new key to the end of the history.
+    history.push(filter);
+
+    debugLogHistory('PUSH', history, history.length - 1);
+    this.history = history;
+    this.historyIndex = history.length - 1;
+  }
+
+  get historyBackEnabled() {
+    return this.historyIndex > 0;
+  }
+
+  get historyForwardEnabled() {
+    return this.historyIndex < this.history.length - 1;
+  }
+
+  getBackFilter() {
+    if (!this.historyBackEnabled) {
+      return null;
+    }
+    debugLogHistory('BACK', this.history, this.historyIndex - 1);
+    const filter = this.history[this.historyIndex - 1];
+    this.historyIndex = this.historyIndex - 1;
+    return filter;
+  }
+
+  getForwardFilter() {
+    if (!this.historyForwardEnabled) {
+      return null;
+    }
+    debugLogHistory('FORWARD', this.history, this.historyIndex + 1);
+    const filter = this.history[this.historyIndex + 1];
+    this.historyIndex = this.historyIndex + 1;
+    return filter;
+  }
+
   onChangeFilter(e) {
-    this.activeFilter = e.target.value;
+    this.changeActiveFilter(e.target.value);
   }
 
   onClearFilter() {
-    this.activeFilter = '';
+    this.changeActiveFilter('');
   }
 
   onTreeClick(key) {
     const item = this.props.state.get(key);
     const link = this.props.state.get(item);
     if (link) {
-      this.activeFilter = link.get('id');
+      this.changeActiveFilter(link.get('id'));
+    }
+  }
+
+  onPaste() {
+    //
+  }
+
+  onBack() {
+    const filter = this.getBackFilter();
+    if (filter) {
+      this.changeActiveFilter(filter, false);
+    }
+  }
+
+  onForward() {
+    const filter = this.getForwardFilter();
+    if (filter) {
+      this.changeActiveFilter(filter, false);
     }
   }
 
@@ -113,6 +227,7 @@ export default class StateMonitor extends Widget {
         <Button
           border="none"
           glyph="solid/times"
+          tooltip={T('Close')}
           onClick={this.props.onClose}
         />
       </div>
@@ -174,7 +289,28 @@ export default class StateMonitor extends Widget {
         <Button
           border="none"
           glyph="solid/eraser"
+          tooltip={T('Erase field')}
           onClick={this.onClearFilter}
+        />
+        <Button
+          border="none"
+          glyph="solid/paste"
+          onClick={this.onPaste}
+          tooltip={T('Paste')}
+        />
+        <Button
+          border="none"
+          glyph="solid/arrow-left"
+          disabled={!this.historyBackEnabled}
+          onClick={this.onBack}
+          tooltip={T('Back')}
+        />
+        <Button
+          border="none"
+          glyph="solid/arrow-right"
+          disabled={!this.historyForwardEnabled}
+          onClick={this.onForward}
+          tooltip={T('Forward')}
         />
       </div>
     );

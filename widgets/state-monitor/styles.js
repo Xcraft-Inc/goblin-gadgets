@@ -12,18 +12,17 @@ export default function styles(theme, props) {
     height: height,
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: '#222',
+    background: 'linear-gradient(180deg, black 3%, #222 18%)',
     color: '#0a0',
-    border: '5px solid #aaa',
+    border: '5px solid #ddd',
     borderRadius: look === 'retro' ? '20px' : '3px',
-    boxShadow:
-      look === 'retro' ? '0px 0px 50px 0px black' : '0px 0px 25px 0px black',
+    boxShadow: '0px 0px 35px 10px rgba(0,0,0,0.8)',
     overflow: 'hidden',
   };
 
   const title = {
     height: '36px',
-    backgroundColor: '#ccc',
+    backgroundColor: '#ddd',
     color: '#333',
     textTransform: 'uppercase',
     display: 'flex',
