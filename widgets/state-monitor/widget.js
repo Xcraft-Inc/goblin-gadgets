@@ -33,21 +33,15 @@ function getRows(state, parentKey) {
   return rows;
 }
 
-function debugLogHistory(oper, history, historyIndex) {
-  // console.log(`${oper}: history=${history.join(', ')} index=${historyIndex}`);
-}
-
 /******************************************************************************/
 
-export default class StateMonitor extends Widget {
+class StateMonitor extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
 
     this.state = {
       activeFilter: '',
-      history: [],
-      historyIndex: -1,
     };
 
     this.onChangeFilter = this.onChangeFilter.bind(this);
@@ -65,24 +59,6 @@ export default class StateMonitor extends Widget {
   set activeFilter(value) {
     this.setState({
       activeFilter: value,
-    });
-  }
-
-  get history() {
-    return this.state.history;
-  }
-  set history(value) {
-    this.setState({
-      history: value,
-    });
-  }
-
-  get historyIndex() {
-    return this.state.historyIndex;
-  }
-  set historyIndex(value) {
-    this.setState({
-      historyIndex: value,
     });
   }
   //#endregion
@@ -106,43 +82,25 @@ export default class StateMonitor extends Widget {
       return;
     }
 
-    const history = this.history;
-    let historyIndex = this.historyIndex;
-
-    // Truncate keys after the current index in the history.
-    history.splice(historyIndex + 1);
-    historyIndex = history.length - 1;
-
-    // If key already exist in the history, remove it.
-    const i = history.indexOf(filter);
-    if (i !== -1) {
-      history.splice(i, 1);
-      historyIndex = history.length - 1;
-    }
-
-    // Insert the new key to the end of the history.
-    history.push(filter);
-
-    debugLogHistory('PUSH', history, history.length - 1);
-    this.history = history;
-    this.historyIndex = history.length - 1;
+    this.doAs('desktop', 'add-state-monitor', {key: filter});
   }
 
   get historyBackEnabled() {
-    return this.historyIndex > 0;
+    return this.props.history.get('index') > 0;
   }
 
   get historyForwardEnabled() {
-    return this.historyIndex < this.history.length - 1;
+    const stack = this.props.history.get('stack');
+    return this.props.history.get('index') < stack.length - 1;
   }
 
   getBackFilter() {
     if (!this.historyBackEnabled) {
       return null;
     }
-    debugLogHistory('BACK', this.history, this.historyIndex - 1);
-    const filter = this.history[this.historyIndex - 1];
-    this.historyIndex = this.historyIndex - 1;
+    const index = this.props.history.get('index');
+    const filter = this.props.history.get('stack').get(index - 1);
+    this.doAs('desktop', 'back-state-monitor');
     return filter;
   }
 
@@ -150,9 +108,9 @@ export default class StateMonitor extends Widget {
     if (!this.historyForwardEnabled) {
       return null;
     }
-    debugLogHistory('FORWARD', this.history, this.historyIndex + 1);
-    const filter = this.history[this.historyIndex + 1];
-    this.historyIndex = this.historyIndex + 1;
+    const index = this.props.history.get('index');
+    const filter = this.props.history.get('stack').get(index + 1);
+    this.doAs('desktop', 'forward-state-monitor');
     return filter;
   }
 
@@ -367,3 +325,13 @@ export default class StateMonitor extends Widget {
 }
 
 /******************************************************************************/
+
+export default Widget.connect((state, props) => {
+  const desktopState = state.get(`backend.${props.id}`);
+  const backendState = state.get('backend');
+  return {
+    showed: desktopState.get('showStateMonitor'),
+    history: desktopState.get('stateMonitorHistory'),
+    state: backendState,
+  };
+})(StateMonitor);
