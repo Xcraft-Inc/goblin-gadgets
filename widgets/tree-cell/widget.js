@@ -8,7 +8,7 @@ import * as styles from './styles';
 
 /******************************************************************************/
 
-class TreeCell extends Widget {
+export default class TreeCell extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
@@ -69,4 +69,3 @@ class TreeCell extends Widget {
 }
 
 /******************************************************************************/
-export default TreeCell;

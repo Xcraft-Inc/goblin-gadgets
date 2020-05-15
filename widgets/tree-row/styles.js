@@ -24,13 +24,7 @@ export function mapProps(props) {
 }
 
 export default function styles(theme, props) {
-  const {
-    backgroundColor,
-    isExpanded,
-    darkTheme,
-    hoverBackgroundColor,
-    selectedBackgroundColor,
-  } = props;
+  const {backgroundColor, isExpanded} = props;
 
   const m = theme.shapes.containerMargin;
 

@@ -34,20 +34,17 @@ export default function styles(theme, props) {
     hasButtons,
     height,
     headerWithoutHorizontalSeparator,
-    darkTheme,
-    hoverBackgroundColor,
-    selectedBackgroundColor,
   } = props;
 
   const m = theme.shapes.containerMargin;
 
   const border = frame ? '1px solid ' + theme.palette.tableBorder : null;
 
-  const boxStyle = {
+  const box = {
     flexGrow: grow,
   };
 
-  const treeStyle = {
+  const tree = {
     flexGrow: grow,
     cursor: 'default',
     overflowY: 'hidden',
@@ -65,7 +62,7 @@ export default function styles(theme, props) {
   // padding with include the scroller width.
   const paddingRight = height ? Unit.add(theme.shapes.scrollerThickness, m) : m;
 
-  const headerStyle = {
+  const header = {
     borderBottom: headerWithoutHorizontalSeparator
       ? null
       : '1px solid ' + theme.palette.tableBorder,
@@ -77,7 +74,7 @@ export default function styles(theme, props) {
       hasButtons && frame ? theme.palette.tableActionBackground : null,
   };
 
-  const bodyStyle = {
+  const body = {
     height: height,
     overflowY: height ? 'scroll' : 'hidden',
     marginLeft: Unit.multiply(theme.shapes.treeLevelSpacing, -1),
@@ -88,7 +85,7 @@ export default function styles(theme, props) {
   // Transition from hidden to expanded:
   //  - height has not transition (immediate expansion)
   //  - scaleY has transition
-  const indentExpandedStyle = {
+  const indentExpanded = {
     marginLeft: theme.shapes.treeLevelSpacing,
     maxHeight: '10000px',
     transformOrigin: 'top',
@@ -103,7 +100,7 @@ export default function styles(theme, props) {
   // Transition from expanded to hidden:
   //  - scaleY has transition
   //  - height has transition after scaleY, when its value reaches zero
-  const indentHiddenStyle = {
+  const indentHidden = {
     marginLeft: theme.shapes.treeLevelSpacing,
     maxHeight: '0px',
     overflow: 'hidden',
@@ -112,7 +109,7 @@ export default function styles(theme, props) {
     transition: theme.transitions.easeOut(),
   };
 
-  const verticalSeparatorStyle = {
+  const verticalSeparator = {
     visibility: frame && height ? 'visible' : 'hidden',
     position: 'absolute',
     height: '100%',
@@ -121,13 +118,13 @@ export default function styles(theme, props) {
     borderRight: '1px solid ' + theme.palette.tableBorder,
   };
 
-  const buttonsStyle = {
+  const buttons = {
     display: 'flex',
     flexDirection: 'row',
     flexGrow: '1',
   };
 
-  const hoverStyle = {
+  const hover = {
     ':hover + .tree-hover': {
       backgroundColor: TableHelpers.getBackgroundColor(
         theme,
@@ -139,15 +136,15 @@ export default function styles(theme, props) {
   };
 
   return {
-    box: boxStyle,
-    tree: treeStyle,
-    header: headerStyle,
-    body: bodyStyle,
-    indentExpanded: indentExpandedStyle,
-    indentHidden: indentHiddenStyle,
-    verticalSeparator: verticalSeparatorStyle,
-    buttons: buttonsStyle,
-    hover: hoverStyle,
+    box,
+    tree,
+    header,
+    body,
+    indentExpanded,
+    indentHidden,
+    verticalSeparator,
+    buttons,
+    hover,
   };
 }
 

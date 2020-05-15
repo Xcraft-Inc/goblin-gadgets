@@ -2,34 +2,26 @@ import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import * as styles from './styles';
 import Tree from 'goblin-gadgets/widgets/tree/widget';
-import Checkbox from 'goblin-gadgets/widgets/checkbox/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
-import Combo from 'goblin-gadgets/widgets/combo/widget';
-import Separator from 'goblin-gadgets/widgets/separator/widget';
-import {Unit} from 'electrum-theme';
-import Shredder from 'xcraft-core-shredder';
-import {ColorManipulator} from 'electrum-theme';
 import T from 't';
 
 /******************************************************************************/
 
-function getRows(state) {
+function getRows(state, parentKey) {
   const rows = [];
 
   const orderedKeys = Array.from(state.keys()).sort();
 
   for (const key of orderedKeys) {
     const value = state.get(key);
+    const id = `${parentKey}.${key}`;
 
-    const row = {
-      id: key,
-      key: key,
-    };
+    const row = {id, key};
 
     if (value !== null) {
       if (typeof value === 'object') {
-        row.rows = getRows(value);
+        row.rows = getRows(value, id);
       } else {
         row.value = value.toString();
       }
@@ -54,6 +46,7 @@ export default class StateMonitor extends Widget {
 
     this.onChangeFilter = this.onChangeFilter.bind(this);
     this.onClearFilter = this.onClearFilter.bind(this);
+    this.onTreeClick = this.onTreeClick.bind(this);
   }
 
   //#region get/set
@@ -75,18 +68,24 @@ export default class StateMonitor extends Widget {
     this.activeFilter = '';
   }
 
+  onTreeClick(key) {
+    const item = this.props.state.get(key);
+    const link = this.props.state.get(item);
+    if (link) {
+      this.activeFilter = link.get('id');
+    }
+  }
+
   getTreeData(state) {
     const data = {
       header: [
         {
           name: 'key',
-          //? description: 'Key',
           width: '400px',
           textAlign: 'left',
         },
         {
           name: 'value',
-          //? description: 'Value',
           grow: '1',
           textAlign: 'left',
           indent: 'space',
@@ -98,7 +97,7 @@ export default class StateMonitor extends Widget {
     if (this.activeFilter) {
       const s = state.get(this.activeFilter);
       if (s) {
-        data.rows = getRows(s);
+        data.rows = getRows(s, this.activeFilter);
       }
     }
 
@@ -106,6 +105,19 @@ export default class StateMonitor extends Widget {
   }
 
   /******************************************************************************/
+
+  renderTitle() {
+    return (
+      <div className={this.styles.classNames.title}>
+        <Label text="Radar ― Backend State Monitor" grow="1" justify="center" />
+        <Button
+          border="none"
+          glyph="solid/times"
+          onClick={this.props.onClose}
+        />
+      </div>
+    );
+  }
 
   renderListOption(key) {
     return (
@@ -134,7 +146,7 @@ export default class StateMonitor extends Widget {
     const inputStyle = {
       width: '600px',
       border: 'none',
-      padding: '5px',
+      padding: '5px 10px',
       color: '#0f0',
       backgroundColor: '#333',
       fontSize: '1em',
@@ -161,32 +173,48 @@ export default class StateMonitor extends Widget {
         </datalist>
         <Button
           border="none"
-          glyph="solid/times"
+          glyph="solid/eraser"
           onClick={this.onClearFilter}
         />
       </div>
     );
   }
 
-  renderState(state) {
+  renderTree(state) {
     if (!this.props.showed) {
       return null;
     }
 
-    return (
-      <div className={this.styles.classNames.tree}>
-        <Tree
-          data={this.getTreeData(state)}
-          width="960px"
-          height="410px"
-          headerWithoutHorizontalSeparator={true}
-          darkTheme={true}
-          hoverBackgroundColor="#444"
-          selectedBackgroundColor="#666"
-          hasButtons={true}
-        />
-      </div>
-    );
+    const data = this.getTreeData(state);
+
+    if (data.rows.length === 0) {
+      return (
+        <div className={this.styles.classNames.emptyTree}>
+          <Label
+            glyph="light/radar"
+            glyphSize="1200%"
+            glyphPosition="center"
+            justify="center"
+          />
+        </div>
+      );
+    } else {
+      return (
+        <div className={this.styles.classNames.tree}>
+          <Tree
+            data={data}
+            width="960px"
+            height="364px"
+            headerWithoutHorizontalSeparator={true}
+            darkTheme={true}
+            hoverBackgroundColor="#444"
+            selectedBackgroundColor="#666"
+            hasButtons={true}
+            onClick={this.onTreeClick}
+          />
+        </div>
+      );
+    }
   }
 
   render() {
@@ -194,8 +222,9 @@ export default class StateMonitor extends Widget {
 
     return (
       <div className={this.styles.classNames.stateMonitor}>
+        {this.renderTitle(state)}
         {this.renderFilter(state)}
-        {this.renderState(state)}
+        {this.renderTree(state)}
       </div>
     );
   }

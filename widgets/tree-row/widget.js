@@ -9,7 +9,7 @@ import * as styles from './styles';
 
 /******************************************************************************/
 
-class TreeRow extends Widget {
+export default class TreeRow extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
@@ -26,7 +26,14 @@ class TreeRow extends Widget {
         x(id);
       }
     } else {
-      this.onExpand();
+      if (this.props.hasChildren) {
+        this.onExpand();
+      } else {
+        const x = this.props.onClick;
+        if (x) {
+          x(id);
+        }
+      }
     }
   }
 
@@ -122,4 +129,3 @@ class TreeRow extends Widget {
 }
 
 /******************************************************************************/
-export default TreeRow;

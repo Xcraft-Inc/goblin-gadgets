@@ -27,7 +27,7 @@ function pushIds(ids, row) {
 }
 
 /******************************************************************************/
-class Tree extends Widget {
+export default class Tree extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
@@ -57,7 +57,6 @@ class Tree extends Widget {
   get expand() {
     return this.state.expand;
   }
-
   set expand(value) {
     this.setState({
       expand: value,
@@ -217,6 +216,7 @@ class Tree extends Widget {
         hasChildren={rows && rows.size > 0}
         selection={this.props.selection}
         selectionChanged={this.onSelectionChanged}
+        onClick={this.props.onClick}
         onDoubleClick={this.onDoubleClick}
         onExpand={() => this.onExpand(id)}
       />
@@ -374,4 +374,3 @@ class Tree extends Widget {
 }
 
 /******************************************************************************/
-export default Tree;
