@@ -298,7 +298,7 @@ class StateMonitor extends Widget {
           <Tree
             data={data}
             width="960px"
-            height="364px"
+            height="464px"
             headerWithoutHorizontalSeparator={true}
             darkTheme={true}
             hoverBackgroundColor="#444"
