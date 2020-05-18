@@ -40,49 +40,21 @@ class StateMonitor extends Widget {
     super(...arguments);
     this.styles = styles;
 
-    this.state = {
-      activeFilter: '',
-    };
-
     this.onChangeFilter = this.onChangeFilter.bind(this);
     this.onClearFilter = this.onClearFilter.bind(this);
     this.onTreeClick = this.onTreeClick.bind(this);
-    this.onPaste = this.onPaste.bind(this);
     this.onBack = this.onBack.bind(this);
     this.onForward = this.onForward.bind(this);
   }
 
-  //#region get/set
-  get activeFilter() {
-    return this.state.activeFilter;
-  }
-  set activeFilter(value) {
-    this.setState({
-      activeFilter: value,
-    });
-  }
-  //#endregion
-
-  changeActiveFilter(filter, doPush = true) {
-    this.activeFilter = filter;
-    if (doPush) {
-      this.pushActiveFilter(filter);
-    }
-  }
-
-  pushActiveFilter(filter) {
-    if (!filter) {
-      // Never push empty key.
-      return;
-    }
-
-    const item = this.props.state.get(filter);
+  addStateMonitor(filter, doPush = true) {
+    const item = filter ? this.props.state.get(filter) : null;
     if (!item) {
       // If key to push don't match to a existing key in the state, don't push.
-      return;
+      doPush = false;
     }
 
-    this.doAs('desktop', 'add-state-monitor', {key: filter});
+    this.doAs('desktop', 'add-state-monitor', {key: filter, doPush});
   }
 
   get historyBackEnabled() {
@@ -115,36 +87,32 @@ class StateMonitor extends Widget {
   }
 
   onChangeFilter(e) {
-    this.changeActiveFilter(e.target.value);
+    this.addStateMonitor(e.target.value);
   }
 
   onClearFilter() {
-    this.changeActiveFilter('');
+    this.addStateMonitor('');
   }
 
   onTreeClick(key) {
     const item = this.props.state.get(key);
     const link = this.props.state.get(item);
     if (link) {
-      this.changeActiveFilter(link.get('id'));
+      this.addStateMonitor(link.get('id'));
     }
-  }
-
-  onPaste() {
-    //
   }
 
   onBack() {
     const filter = this.getBackFilter();
     if (filter) {
-      this.changeActiveFilter(filter, false);
+      this.addStateMonitor(filter, false);
     }
   }
 
   onForward() {
     const filter = this.getForwardFilter();
     if (filter) {
-      this.changeActiveFilter(filter, false);
+      this.addStateMonitor(filter, false);
     }
   }
 
@@ -166,14 +134,15 @@ class StateMonitor extends Widget {
       rows: [],
     };
 
-    if (this.activeFilter) {
-      const s = state.get(this.activeFilter);
+    const current = this.props.history.get('current');
+    if (current) {
+      const s = state.get(current);
       if (s) {
-        data.rows = getRows(s, this.activeFilter);
+        data.rows = getRows(s, current);
       }
     }
 
-    return data;
+    return {data, current};
   }
 
   /******************************************************************************/
@@ -216,6 +185,8 @@ class StateMonitor extends Widget {
       return null;
     }
 
+    const current = this.props.history.get('current');
+
     const inputStyle = {
       width: '600px',
       border: 'none',
@@ -235,7 +206,7 @@ class StateMonitor extends Widget {
         <Label text={T('Key in the backend state')} />
         <input
           style={inputStyle}
-          value={this.activeFilter}
+          value={current}
           type="text"
           list="keysOfState"
           autoFocus={true}
@@ -249,12 +220,6 @@ class StateMonitor extends Widget {
           glyph="solid/eraser"
           tooltip={T('Erase field')}
           onClick={this.onClearFilter}
-        />
-        <Button
-          border="none"
-          glyph="solid/paste"
-          onClick={this.onPaste}
-          tooltip={T('Paste')}
         />
         <Button
           border="none"
@@ -279,24 +244,33 @@ class StateMonitor extends Widget {
       return null;
     }
 
-    const data = this.getTreeData(state);
+    const result = this.getTreeData(state);
 
-    if (data.rows.length === 0) {
+    if (result.data.rows.length === 0) {
       return (
         <div className={this.styles.classNames.emptyTree}>
           <Label
+            height="230px"
             glyph="light/radar"
             glyphSize="1200%"
+            glyphColor="rgba(0,255,0,0.2)"
             glyphPosition="center"
             justify="center"
           />
+          {result.current ? (
+            <Label
+              text={T('Does not exist in the backend state')}
+              textColor="#0f0"
+              fontSize="150%"
+            />
+          ) : null}
         </div>
       );
     } else {
       return (
         <div className={this.styles.classNames.tree}>
           <Tree
-            data={data}
+            data={result.data}
             width="960px"
             height="464px"
             headerWithoutHorizontalSeparator={true}

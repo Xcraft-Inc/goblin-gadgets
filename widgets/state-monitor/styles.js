@@ -40,10 +40,9 @@ export default function styles(theme, props) {
   const emptyTree = {
     flexGrow: 1,
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    opacity: 0.2,
   };
 
   const tree = {
