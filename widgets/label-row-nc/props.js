@@ -78,7 +78,7 @@ export default [
   {
     name: 'verticalJustify',
     group: 'layout',
-    type: types.enum(['', 'top']),
+    type: types.enum(['', 'center', 'top']),
   },
   {
     name: 'grow',
