@@ -4,7 +4,7 @@ const {ColorManipulator} = require('electrum-theme');
 //-----------------------------------------------------------------------------
 
 function lighten(theme, color, coefficient, props) {
-  if ((props && props.darkTheme) || theme.palette.isDarkTheme) {
+  if ((props && !props.darkTheme) || theme.palette.isDarkTheme) {
     return ColorManipulator.darken(color, coefficient);
   } else {
     return ColorManipulator.lighten(color, coefficient);
@@ -12,7 +12,7 @@ function lighten(theme, color, coefficient, props) {
 }
 
 function darken(theme, color, coefficient, props) {
-  if ((props && props.darkTheme) || theme.isDarkTheme) {
+  if ((props && !props.darkTheme) || theme.isDarkTheme) {
     return ColorManipulator.lighten(color, coefficient);
   } else {
     return ColorManipulator.darken(color, coefficient);

@@ -275,8 +275,8 @@ class StateMonitor extends Widget {
             height="464px"
             headerWithoutHorizontalSeparator={true}
             darkTheme={true}
-            hoverBackgroundColor="#444"
-            selectedBackgroundColor="#666"
+            hoverBackgroundColor="#333"
+            selectedBackgroundColor="#555"
             hasButtons={true}
             onClick={this.onTreeClick}
           />
