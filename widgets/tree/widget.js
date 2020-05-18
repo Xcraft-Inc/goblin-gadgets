@@ -190,8 +190,11 @@ export default class Tree extends Widget {
 
   renderHeader(header) {
     if (this.hasHeader(header)) {
-      const styleClass = this.styles.classNames.header;
-      return <div className={styleClass}>{this.renderHeaderCells(header)}</div>;
+      return (
+        <div className={this.styles.classNames.header}>
+          {this.renderHeaderCells(header)}
+        </div>
+      );
     } else {
       return null;
     }
@@ -357,20 +360,18 @@ export default class Tree extends Widget {
     }
 
     const data = Widget.shred(this.props.data);
-    const boxClass = this.styles.classNames.box;
-    const treeClass = this.styles.classNames.tree;
-    const bodyClass = this.styles.classNames.body;
-    const verticalSeparatorClass = this.styles.classNames.verticalSeparator;
-    const buttonsClass = this.styles.classNames.buttons;
 
     return (
-      <div className={boxClass}>
-        <div className={treeClass}>
+      <div className={this.styles.classNames.box}>
+        <div className={this.styles.classNames.tree}>
           {this.renderHeader(data.get('header'))}
-          <div className={bodyClass}>{this.renderRows(data)}</div>
-          <div className={verticalSeparatorClass} />
+          <div className={this.styles.classNames.body}>
+            {this.renderRows(data)}
+          </div>
         </div>
-        <div className={buttonsClass}>{this.renderButtons(data)}</div>
+        <div className={this.styles.classNames.buttons}>
+          {this.renderButtons(data)}
+        </div>
       </div>
     );
   }

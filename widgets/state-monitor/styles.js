@@ -47,7 +47,10 @@ export default function styles(theme, props) {
 
   const tree = {
     padding: '0px',
+    height: 0,
     flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',
   };
 
   /******************************************************************************/

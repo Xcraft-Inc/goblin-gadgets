@@ -41,10 +41,15 @@ export default function styles(theme, props) {
   const border = frame ? '1px solid ' + theme.palette.tableBorder : null;
 
   const box = {
+    display: 'flex',
+    flexDirection: 'column',
     flexGrow: grow,
+    overflowY: 'hidden',
   };
 
   const tree = {
+    display: 'flex',
+    flexDirection: 'column',
     flexGrow: grow,
     cursor: 'default',
     overflowY: 'hidden',
@@ -76,7 +81,7 @@ export default function styles(theme, props) {
 
   const body = {
     height: height,
-    overflowY: height ? 'scroll' : 'hidden',
+    overflowY: 'auto',
     marginLeft: Unit.multiply(theme.shapes.treeLevelSpacing, -1),
     cursor: 'default',
   };
@@ -109,19 +114,9 @@ export default function styles(theme, props) {
     transition: theme.transitions.easeOut(),
   };
 
-  const verticalSeparator = {
-    visibility: frame && height ? 'visible' : 'hidden',
-    position: 'absolute',
-    height: '100%',
-    top: '0px',
-    right: Unit.add(theme.shapes.scrollerThickness, '1px'),
-    borderRight: '1px solid ' + theme.palette.tableBorder,
-  };
-
   const buttons = {
     display: 'flex',
     flexDirection: 'row',
-    flexGrow: '1',
   };
 
   const hover = {
@@ -142,7 +137,6 @@ export default function styles(theme, props) {
     body,
     indentExpanded,
     indentHidden,
-    verticalSeparator,
     buttons,
     hover,
   };

@@ -42,6 +42,10 @@ import Table from 'goblin-gadgets/widgets/table/widget';
 import tableProps from 'goblin-gadgets/widgets/table/props';
 import tableScenarios from 'goblin-gadgets/widgets/table/scenarios';
 
+import Tree from 'goblin-gadgets/widgets/tree/widget';
+import treeProps from 'goblin-gadgets/widgets/tree/props';
+import treeScenarios from 'goblin-gadgets/widgets/tree/scenarios';
+
 import Gauge from 'goblin-gadgets/widgets/gauge/widget';
 import gaugeProps from 'goblin-gadgets/widgets/gauge/props';
 import gaugeScenarios from 'goblin-gadgets/widgets/gauge/scenarios';
@@ -148,6 +152,13 @@ const widgetList = [
     widgetPath: 'goblin-gadgets/widgets/table/widget',
     props: tableProps,
     scenarios: tableScenarios,
+  },
+  {
+    name: 'Tree',
+    widget: Tree,
+    widgetPath: 'goblin-gadgets/widgets/tree/widget',
+    props: treeProps,
+    scenarios: treeScenarios,
   },
   {
     name: 'CheckboxNC',
