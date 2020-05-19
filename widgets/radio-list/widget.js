@@ -62,6 +62,7 @@ class RadioList extends Widget {
         heightStrategy={this.props.heightStrategy}
         text={this.props.list[1]}
         focusable={true}
+        disabled={this.props.disabled}
         checked={this.props.selectedIndex === 1}
         onChange={this.onCheckClicked}
       />
@@ -79,6 +80,7 @@ class RadioList extends Widget {
         justify="left"
         text={this.getItem(text)}
         focusable={true}
+        disabled={this.props.disabled}
         checked={index === this.props.selectedIndex}
         onChange={() => this.onRadioClicked(index)}
       />

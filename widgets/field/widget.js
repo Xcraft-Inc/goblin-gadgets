@@ -930,6 +930,7 @@ class Field extends Form {
           buttonWidth={this.props.buttonWidth}
           height={this.props.height}
           direction={this.props.direction || 'row'}
+          disabled={this.props.disabled}
           list={this.props.list}
           selectionChanged={this.radioListSelectionChanged}
         />
