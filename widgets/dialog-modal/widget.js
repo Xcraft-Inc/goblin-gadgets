@@ -4,6 +4,7 @@ import Props from './props';
 import Widget from 'goblin-laboratory/widgets/widget';
 import KeyTrap from 'goblin-gadgets/widgets/key-trap.js';
 import Container from 'goblin-gadgets/widgets/container/widget';
+import DialogResizable from 'goblin-gadgets/widgets/dialog-resizable/widget';
 import RetroScrew from 'goblin-gadgets/widgets/retro-screw/widget';
 import RetroGear from 'goblin-gadgets/widgets/retro-gear/widget';
 import {ColorManipulator} from 'electrum-theme';
@@ -11,6 +12,7 @@ import {
   makePropTypes,
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
+import {Unit} from 'electrum-theme';
 import * as RectHelpers from '../helpers/rect-helpers.js';
 import * as styles from './styles';
 
@@ -142,25 +144,46 @@ export default class DialogModal extends Widget {
     );
   }
 
-  render() {
-    if (
-      this.props.top ||
-      this.props.bottom ||
-      this.props.left ||
-      this.props.right
-    ) {
-      let tp = null;
-      if (this.props.top) {
-        tp = 'top';
-      } else if (this.props.bottom) {
-        tp = 'bottom';
-      } else if (this.props.left) {
-        tp = 'left';
-      } else if (this.props.right) {
-        tp = 'right';
-      }
+  renderWithTriangle() {
+    let tp = null;
+    if (this.props.top) {
+      tp = 'top';
+    } else if (this.props.bottom) {
+      tp = 'bottom';
+    } else if (this.props.left) {
+      tp = 'left';
+    } else if (this.props.right) {
+      tp = 'right';
+    }
 
-      return (
+    return (
+      <div
+        className={this.styles.classNames.fullScreen2}
+        onMouseDown={this.onBackgroundClick}
+        onTouchStart={this.onBackgroundClick}
+      >
+        <div
+          ref={(node) => (this.divNode = node)}
+          className={this.styles.classNames.combo}
+        >
+          <Container
+            kind="flying-dialog"
+            subkind={this.props.subkind}
+            trianglePosition={tp}
+            triangleShift={this.props.triangleShift}
+            cursor="default"
+          >
+            {this.props.children}
+          </Container>
+        </div>
+      </div>
+    );
+  }
+
+  renderWithoutTriangle() {
+    return (
+      <div className={this.styles.classNames.fullScreen1}>
+        {this.renderGears()}
         <div
           className={this.styles.classNames.fullScreen2}
           onMouseDown={this.onBackgroundClick}
@@ -168,41 +191,76 @@ export default class DialogModal extends Widget {
         >
           <div
             ref={(node) => (this.divNode = node)}
-            className={this.styles.classNames.combo}
+            className={this.styles.classNames.dialogModal}
           >
-            <Container
-              kind="flying-dialog"
-              subkind={this.props.subkind}
-              trianglePosition={tp}
-              triangleShift={this.props.triangleShift}
-              cursor="default"
-            >
+            <div className={this.styles.classNames.dialogModalInside}>
+              {this.renderScrews()}
               {this.props.children}
-            </Container>
-          </div>
-        </div>
-      );
-    } else {
-      return (
-        <div className={this.styles.classNames.fullScreen1}>
-          {this.renderGears()}
-          <div
-            className={this.styles.classNames.fullScreen2}
-            onMouseDown={this.onBackgroundClick}
-            onTouchStart={this.onBackgroundClick}
-          >
-            <div
-              ref={(node) => (this.divNode = node)}
-              className={this.styles.classNames.dialogModal}
-            >
-              <div className={this.styles.classNames.dialogModalInside}>
-                {this.renderScrews()}
-                {this.props.children}
-              </div>
             </div>
           </div>
         </div>
-      );
+      </div>
+    );
+  }
+
+  renderResizable() {
+    const title = this.props.title;
+
+    const width = this.props.width || '600px';
+    const height = this.props.height || '400px';
+
+    const minWidth = this.props.minWidth || Unit.multiply(width, 0.5);
+    const minHeight = this.props.minHeight || Unit.multiply(width, 0.5);
+
+    const retro = this.context.theme.look.name === 'retro';
+
+    return (
+      <div className={this.styles.classNames.fullScreen1}>
+        {this.renderGears()}
+        <div
+          className={this.styles.classNames.fullScreen2}
+          onMouseDown={this.onBackgroundClick}
+          onTouchStart={this.onBackgroundClick}
+        >
+          <div
+            ref={(node) => (this.divNode = node)}
+            className={this.styles.classNames.dialogModal}
+          >
+            <DialogResizable
+              id={this.props.id}
+              zIndex={this.props.zIndex}
+              titleBarHeight={title ? (retro ? '40px' : '32px') : null}
+              titleBarText={title}
+              margin="30px"
+              minWidth={minWidth}
+              minHeight={minHeight}
+              width={width}
+              height={height}
+              horizontal="0px"
+              vertical="0px"
+              drawChildrenWhileResizing={true}
+            >
+              {this.renderScrews()}
+              {this.props.children}
+            </DialogResizable>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  render() {
+    if (
+      this.props.top ||
+      this.props.bottom ||
+      this.props.left ||
+      this.props.right
+    ) {
+      return this.renderWithTriangle();
+    } else if (this.props.resizable) {
+      return this.renderResizable();
+    } else {
+      return this.renderWithoutTriangle();
     }
   }
 }

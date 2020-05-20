@@ -82,6 +82,10 @@ import Splitter from 'goblin-gadgets/widgets/splitter/widget';
 import splitterProps from 'goblin-gadgets/widgets/splitter/props';
 import splitterScenarios from 'goblin-gadgets/widgets/splitter/scenarios';
 
+import DialogResizable from 'goblin-gadgets/widgets/dialog-resizable-nc/widget';
+import dialogResizableProps from 'goblin-gadgets/widgets/dialog-resizable-nc/props';
+import dialogResizableScenarios from 'goblin-gadgets/widgets/dialog-resizable-nc/scenarios';
+
 const widgetList = [
   {
     name: 'Button',
@@ -229,6 +233,13 @@ const widgetList = [
     widgetPath: 'goblin-gadgets/widgets/splitter/widget',
     props: splitterProps,
     scenarios: splitterScenarios,
+  },
+  {
+    name: 'DialogResizable',
+    widget: DialogResizable,
+    widgetPath: 'goblin-gadgets/widgets/dialog-resizable-nc/widget',
+    props: dialogResizableProps,
+    scenarios: dialogResizableScenarios,
   },
 ];
 

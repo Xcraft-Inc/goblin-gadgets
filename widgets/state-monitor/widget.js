@@ -121,7 +121,7 @@ class StateMonitor extends Widget {
       header: [
         {
           name: 'key',
-          width: '400px',
+          grow: '1',
           textAlign: 'left',
         },
         {
@@ -146,20 +146,6 @@ class StateMonitor extends Widget {
   }
 
   /******************************************************************************/
-
-  renderTitle() {
-    return (
-      <div className={this.styles.classNames.title}>
-        <Label text="Radar ― Backend State Monitor" grow="1" justify="center" />
-        <Button
-          border="none"
-          glyph="solid/times"
-          tooltip={T('Close')}
-          onClick={this.props.onClose}
-        />
-      </div>
-    );
-  }
 
   renderListOption(key) {
     return (
@@ -188,7 +174,7 @@ class StateMonitor extends Widget {
     const current = this.props.history.get('current');
 
     const inputStyle = {
-      width: '600px',
+      flexGrow: 1,
       border: 'none',
       padding: '5px 10px',
       color: '#0f0',
@@ -203,7 +189,7 @@ class StateMonitor extends Widget {
 
     return (
       <div className={this.styles.classNames.filter}>
-        <Label text={T('Key in the backend state')} />
+        <Label text={T('Key')} />
         <input
           style={inputStyle}
           value={current}
@@ -290,7 +276,6 @@ class StateMonitor extends Widget {
 
     return (
       <div className={this.styles.classNames.stateMonitor}>
-        {this.renderTitle(state)}
         {this.renderFilter(state)}
         {this.renderTree(state)}
       </div>

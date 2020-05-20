@@ -78,7 +78,7 @@ export default function styles(theme, props) {
 
   const body = {
     height: height,
-    overflowY: height ? 'scroll' : 'hidden',
+    overflowY: 'auto',
     cursor: 'default',
   };
 

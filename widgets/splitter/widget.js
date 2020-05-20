@@ -35,7 +35,6 @@ class Splitter extends Widget {
   get positions() {
     return this.state.positions;
   }
-
   set positions(value) {
     this.setState({
       positions: value,

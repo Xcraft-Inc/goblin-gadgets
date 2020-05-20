@@ -617,6 +617,29 @@ export default class TableNC extends Widget {
     const data = Widget.shred(this.props.data);
     const isFilterable = data.get('filtering') === 'enable';
     const isSortable = data.get('sorting') === 'enable';
+
+    return (
+      <div className={this.styles.classNames.box}>
+        <div className={this.styles.classNames.table}>
+          {this.renderFilter(isFilterable)}
+          {this.renderHeaders(data, isSortable)}
+          <div className={this.styles.classNames.body}>
+            {this.renderRows(data, isFilterable, isSortable)}
+          </div>
+        </div>
+        {this.renderButtons(data)}
+      </div>
+    );
+  }
+
+  render_OLD() {
+    if (!this.props.data) {
+      return null;
+    }
+
+    const data = Widget.shred(this.props.data);
+    const isFilterable = data.get('filtering') === 'enable';
+    const isSortable = data.get('sorting') === 'enable';
     const scrollableId = getUniqueId(data);
 
     return (

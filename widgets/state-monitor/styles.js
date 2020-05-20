@@ -5,30 +5,15 @@ export const propNames = ['width', 'height'];
 export default function styles(theme, props) {
   const {width, height} = props;
 
-  const look = theme.look.name;
-
   let stateMonitor = {
     width: width,
     height: height,
+    flexGrow: 1,
     display: 'flex',
     flexDirection: 'column',
-    background: 'linear-gradient(180deg, black 3%, #222 18%)',
+    background: 'linear-gradient(180deg, black 0px, #222 15px)',
     color: '#0a0',
-    border: '5px solid #ddd',
-    borderRadius: look === 'retro' ? '20px' : '3px',
-    boxShadow: '0px 0px 35px 10px rgba(0,0,0,0.8)',
     overflow: 'hidden',
-  };
-
-  const title = {
-    height: '36px',
-    backgroundColor: '#ddd',
-    color: '#333',
-    textTransform: 'uppercase',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
   };
 
   const filter = {
@@ -57,7 +42,6 @@ export default function styles(theme, props) {
 
   return {
     stateMonitor,
-    title,
     filter,
     emptyTree,
     tree,
