@@ -17,7 +17,7 @@ export default [
   {
     name: 'zIndex',
     group: 'main',
-    type: types.number,
+    type: types.oneOfType([types.number, types.string]),
   },
   {
     name: 'drawChildrenWhileResizing',
