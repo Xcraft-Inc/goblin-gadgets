@@ -71,7 +71,7 @@ export default class DialogResizableNC extends Widget {
   /******************************************************************************/
 
   renderTitleBar() {
-    if (!this.props.titleBarHeight) {
+    if (!this.props.titleBarText) {
       return null;
     }
 
@@ -167,8 +167,8 @@ export default class DialogResizableNC extends Widget {
   renderDialog() {
     return (
       <div className={this.styles.classNames.dialogResizable}>
-        {this.renderBorders()}
         {this.renderTitleBar()}
+        {this.renderBorders()}
         <div className={this.styles.classNames.inside}>
           {this.props.children}
         </div>

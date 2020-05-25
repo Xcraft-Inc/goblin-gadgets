@@ -14,11 +14,15 @@ export const propNames = [
   'borderSize',
   'borderRadius',
   'borderColor',
+  'titleBarText',
   'titleBarHeight',
   'opacity',
 ];
 
 export default function styles(theme, props) {
+  const retro = theme.look.name === 'retro';
+  const hasTitleBar = !!props.titleBarText;
+
   const {
     position = 'fixed',
     zIndex,
@@ -27,20 +31,20 @@ export default function styles(theme, props) {
     width = '100px',
     height = '100px',
     margin,
-    borderSize = '8px',
-    borderRadius = '3px',
+    borderSize = retro ? '15px' : '8px',
+    borderRadius = retro ? '15px' : '3px',
     borderColor = ColorManipulator.emphasize(
       theme.palette.flyingDialogBackground,
       0.1
     ),
-    titleBarHeight,
+    titleBarHeight = hasTitleBar ? (retro ? '60px' : '40px') : '0px',
     opacity = 1,
   } = props;
 
   const look = theme.look.name;
 
+  const b1 = borderSize;
   const b2 = Unit.multiply(borderSize, 2);
-  const b4 = Unit.multiply(borderSize, 4);
   const r = borderRadius;
   const hbc = ColorManipulator.lighten(theme.palette.base, 0.5);
 
@@ -53,6 +57,7 @@ export default function styles(theme, props) {
     top: `calc(50% - ${Unit.multiply(height, 0.5)} + ${vertical})`,
     width: width,
     height: height,
+    backgroundColor: borderColor,
     borderRadius: r,
     boxShadow:
       look === 'retro'
@@ -90,36 +95,36 @@ export default function styles(theme, props) {
   /******************************************************************************/
 
   const titleBar = {
-    'position': 'absolute',
-    'left': '0px',
-    'right': '0px',
-    'top': '0px',
-    'height': titleBarHeight,
-    'borderRadius': `${r} ${r} 0px 0px`,
-    'backgroundColor': borderColor,
-    'display': 'flex',
-    'flexDirection': 'row',
-    'cursor': 'move',
-    'transition': '0.2s ease-out',
-    ':hover': {
-      backgroundColor: hbc,
-    },
+    position: 'absolute',
+    left: '0px',
+    right: '0px',
+    top: '0px',
+    height: titleBarHeight,
+    margin: `0px ${b1}`,
+    backgroundColor: borderColor,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    cursor: 'move',
+    transition: '0.2s ease-out',
   };
 
   const titleBarLabel = {
-    height: titleBarHeight,
-    flexGrow: 1,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    'height': titleBarHeight,
+    'flexGrow': 1,
+    'display': 'flex',
+    'flexDirection': 'row',
+    'justifyContent': 'center',
+    'alignItems': 'center',
+    ':hover': {
+      backgroundColor: hbc,
+    },
   };
 
   /******************************************************************************/
 
   const _border = {
     'position': 'absolute',
-    'backgroundColor': borderColor,
     'transition': 'background-color 0.2s ease-out',
     ':hover': {
       backgroundColor: hbc,
@@ -130,8 +135,8 @@ export default function styles(theme, props) {
     ..._border,
     'top': '0px',
     'left': '0px',
-    'width': b2,
-    'height': b2,
+    'width': b1,
+    'height': b1,
     'borderRadius': `${r} 0px 0px 0px`,
     'cursor': 'nwse-resize',
     ':hover ~ .left-hover': {
@@ -146,8 +151,8 @@ export default function styles(theme, props) {
     ..._border,
     'top': '0px',
     'right': '0px',
-    'width': b2,
-    'height': b2,
+    'width': b1,
+    'height': b1,
     'borderRadius': `0px ${r} 0px 0px`,
     'cursor': 'nesw-resize',
     ':hover ~ .right-hover': {
@@ -162,8 +167,8 @@ export default function styles(theme, props) {
     ..._border,
     'bottom': '0px',
     'left': '0px',
-    'width': b2,
-    'height': b2,
+    'width': b1,
+    'height': b1,
     'borderRadius': `0px 0px 0px ${r}`,
     'cursor': 'nesw-resize',
     ':hover ~ .left-hover': {
@@ -178,8 +183,8 @@ export default function styles(theme, props) {
     ..._border,
     'bottom': '0px',
     'right': '0px',
-    'width': b2,
-    'height': b2,
+    'width': b1,
+    'height': b1,
     'borderRadius': `0px 0px ${r} 0px`,
     'cursor': 'nwse-resize',
     ':hover ~ .right-hover': {
@@ -194,58 +199,38 @@ export default function styles(theme, props) {
 
   const borderLeft = {
     ..._border,
-    'left': '0px',
-    'top': b2,
-    'width': borderSize,
-    'height': Unit.sub(height, b4),
-    'cursor': 'ew-resize',
-    ':hover': {
-      top: '0px',
-      height: height,
-      backgroundColor: hbc,
-    },
+    left: '0px',
+    top: b1,
+    width: borderSize,
+    height: Unit.sub(height, b2),
+    cursor: 'ew-resize',
   };
 
   const borderRight = {
     ..._border,
-    'right': '0px',
-    'top': b2,
-    'width': borderSize,
-    'height': Unit.sub(height, b4),
-    'cursor': 'ew-resize',
-    ':hover': {
-      top: '0px',
-      height: height,
-      backgroundColor: hbc,
-    },
+    right: '0px',
+    top: b1,
+    width: borderSize,
+    height: Unit.sub(height, b2),
+    cursor: 'ew-resize',
   };
 
   const borderTop = {
     ..._border,
-    'left': b2,
-    'top': '0px',
-    'width': Unit.sub(width, b4),
-    'height': borderSize,
-    'cursor': 'ns-resize',
-    ':hover': {
-      left: '0px',
-      width: width,
-      backgroundColor: hbc,
-    },
+    left: b1,
+    top: '0px',
+    width: Unit.sub(width, b2),
+    height: borderSize,
+    cursor: 'ns-resize',
   };
 
   const borderBottom = {
     ..._border,
-    'left': b2,
-    'bottom': '0px',
-    'width': Unit.sub(width, b4),
-    'height': borderSize,
-    'cursor': 'ns-resize',
-    ':hover': {
-      left: '0px',
-      width: width,
-      backgroundColor: hbc,
-    },
+    left: b1,
+    bottom: '0px',
+    width: Unit.sub(width, b2),
+    height: borderSize,
+    cursor: 'ns-resize',
   };
 
   /******************************************************************************/

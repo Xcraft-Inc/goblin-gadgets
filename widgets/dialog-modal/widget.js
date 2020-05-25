@@ -229,9 +229,8 @@ export default class DialogModal extends Widget {
             <DialogResizable
               id={this.props.id}
               zIndex={this.props.zIndex}
-              titleBarHeight={title ? (retro ? '40px' : '32px') : null}
               titleBarText={title}
-              margin="30px"
+              margin={retro ? '50px' : '30px'}
               minWidth={minWidth}
               minHeight={minHeight}
               width={width}
