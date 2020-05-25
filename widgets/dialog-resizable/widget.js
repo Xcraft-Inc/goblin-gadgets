@@ -3,6 +3,7 @@ import Props from './props';
 import Widget from 'goblin-laboratory/widgets/widget';
 import DialogResizableNC from 'goblin-gadgets/widgets/dialog-resizable-nc/widget';
 import KeyTrap from 'goblin-gadgets/widgets/key-trap.js';
+import _ from 'lodash';
 import {
   makePropTypes,
   makeDefaultProps,
@@ -65,6 +66,8 @@ class DialogResizable extends Widget {
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onMouseMove = this.onMouseMove.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
+
+    this.doMove = _.throttle(this.doMove.bind(this), 50);
   }
 
   //#region get/set
@@ -164,7 +167,8 @@ class DialogResizable extends Widget {
       let dy = e.clientY - this.originY;
 
       // TODO: Use debouncer ?
-      setTimeout(() => this.doMove(dx, dy), 50);
+      //? setTimeout(() => this.doMove(dx, dy), 50);
+      this.doMove(dx, dy);
     }
   }
 
