@@ -194,38 +194,58 @@ export default function styles(theme, props) {
 
   const borderLeft = {
     ..._border,
-    left: '0px',
-    top: b2,
-    width: borderSize,
-    height: Unit.sub(height, b4),
-    cursor: 'ew-resize',
+    'left': '0px',
+    'top': b2,
+    'width': borderSize,
+    'height': Unit.sub(height, b4),
+    'cursor': 'ew-resize',
+    ':hover': {
+      top: '0px',
+      height: height,
+      backgroundColor: hbc,
+    },
   };
 
   const borderRight = {
     ..._border,
-    right: '0px',
-    top: b2,
-    width: borderSize,
-    height: Unit.sub(height, b4),
-    cursor: 'ew-resize',
+    'right': '0px',
+    'top': b2,
+    'width': borderSize,
+    'height': Unit.sub(height, b4),
+    'cursor': 'ew-resize',
+    ':hover': {
+      top: '0px',
+      height: height,
+      backgroundColor: hbc,
+    },
   };
 
   const borderTop = {
     ..._border,
-    left: b2,
-    top: '0px',
-    width: Unit.sub(width, b4),
-    height: borderSize,
-    cursor: 'ns-resize',
+    'left': b2,
+    'top': '0px',
+    'width': Unit.sub(width, b4),
+    'height': borderSize,
+    'cursor': 'ns-resize',
+    ':hover': {
+      left: '0px',
+      width: width,
+      backgroundColor: hbc,
+    },
   };
 
   const borderBottom = {
     ..._border,
-    left: b2,
-    bottom: '0px',
-    width: Unit.sub(width, b4),
-    height: borderSize,
-    cursor: 'ns-resize',
+    'left': b2,
+    'bottom': '0px',
+    'width': Unit.sub(width, b4),
+    'height': borderSize,
+    'cursor': 'ns-resize',
+    ':hover': {
+      left: '0px',
+      width: width,
+      backgroundColor: hbc,
+    },
   };
 
   /******************************************************************************/
