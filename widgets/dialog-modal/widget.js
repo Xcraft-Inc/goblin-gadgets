@@ -230,7 +230,7 @@ export default class DialogModal extends Widget {
               id={this.props.id}
               zIndex={this.props.zIndex}
               titleBarText={title}
-              margin={retro ? '50px' : '30px'}
+              margin={retro ? '40px' : '30px'}
               minWidth={minWidth}
               minHeight={minHeight}
               width={width}
@@ -238,6 +238,7 @@ export default class DialogModal extends Widget {
               horizontal="0px"
               vertical="0px"
               drawChildrenWhileResizing={true}
+              onCloseDialog={this.onCloseCombo}
             >
               {this.renderScrews()}
               {this.props.children}
