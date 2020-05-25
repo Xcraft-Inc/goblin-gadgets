@@ -163,11 +163,8 @@ class DialogResizable extends Widget {
 
   onMouseMove(e) {
     if (this.resizingElement) {
-      let dx = e.clientX - this.originX;
-      let dy = e.clientY - this.originY;
-
-      // TODO: Use debouncer ?
-      //? setTimeout(() => this.doMove(dx, dy), 50);
+      const dx = e.clientX - this.originX;
+      const dy = e.clientY - this.originY;
       this.doMove(dx, dy);
     }
   }
