@@ -37,7 +37,7 @@ export default function styles(theme, props) {
       theme.palette.flyingDialogBackground,
       0.1
     ),
-    titleBarHeight = hasTitleBar ? (retro ? '60px' : '40px') : '0px',
+    titleBarHeight = hasTitleBar ? (retro ? '60px' : '40px') : null,
     opacity = 1,
   } = props;
 

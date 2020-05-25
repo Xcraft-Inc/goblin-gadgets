@@ -8,7 +8,6 @@ export default [
       horizontal: '0px',
       vertical: '0px',
       margin: '20px',
-      titleBarHeight: '32px',
       titleBarText: 'Title Bar',
     },
   },
