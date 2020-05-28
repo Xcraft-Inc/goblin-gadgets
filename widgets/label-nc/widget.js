@@ -189,7 +189,10 @@ export default class LabelNC extends Widget {
   }
 
   renderGlyph(index, glyph) {
-    const glyphClass = this.styles.classNames.glyph;
+    if (glyph === 'no-glyph') {
+      return null;
+    }
+
     let glyphStyle = null;
 
     if (typeof glyph === 'object' && glyph.glyph) {
@@ -206,7 +209,7 @@ export default class LabelNC extends Widget {
     }
 
     if (glyph === 'solid/none') {
-      return <div key={index} className={glyphClass} />;
+      return <div key={index} className={this.styles.classNames.glyph} />;
     }
 
     const parts = glyph.split('/');
@@ -232,7 +235,11 @@ export default class LabelNC extends Widget {
     }
 
     return (
-      <div key={index} className={glyphClass} style={glyphStyle}>
+      <div
+        key={index}
+        className={this.styles.classNames.glyph}
+        style={glyphStyle}
+      >
         <FontAwesomeIcon
           icon={[`fa${prefix}`, glyph]}
           rotate={this.props.glyphRotate}
