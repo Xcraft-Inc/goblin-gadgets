@@ -96,9 +96,14 @@ class StateMonitor extends Widget {
 
   onTreeClick(key) {
     const item = this.props.state.get(key);
-    const link = this.props.state.get(item);
-    if (link) {
-      this.addStateMonitor(link.get('id'));
+    if (item) {
+      const link = this.props.state.get(item);
+      if (link) {
+        const id = link.get('id');
+        if (id) {
+          this.addStateMonitor(id);
+        }
+      }
     }
   }
 
