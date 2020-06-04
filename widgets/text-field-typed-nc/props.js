@@ -26,5 +26,15 @@ export default [
     ]),
     required: true,
   },
+  {
+    name: 'required',
+    group: 'type',
+    type: types.bool,
+  },
+  {
+    name: 'defaultValue',
+    group: 'type',
+    type: types.any,
+  },
   ...props,
 ];

@@ -93,6 +93,15 @@ export default class TextFieldTypedNC extends Widget {
   }
 
   parseEdited(displayedValue) {
+    if (
+      this.props.required &&
+      (displayedValue === null ||
+        displayedValue === undefined ||
+        displayedValue === '')
+    ) {
+      return {value: this.props.defaultValue, error: T('Champ requis')};
+    }
+
     switch (this.props.type) {
       case 'date':
         return DateConverters.parseEdited(
@@ -122,7 +131,11 @@ export default class TextFieldTypedNC extends Widget {
           this.props.mode
         );
       case 'price':
-        return PriceConverters.parseEdited(displayedValue);
+        return PriceConverters.parseEdited(
+          displayedValue,
+          this.props.min,
+          this.props.max
+        );
       case 'weight':
         return WeightConverters.parseEdited(displayedValue, this.props.unit);
       case 'length':
@@ -130,13 +143,29 @@ export default class TextFieldTypedNC extends Widget {
       case 'volume':
         return VolumeConverters.parseEdited(displayedValue, this.props.unit);
       case 'number':
-        return NumberConverters.parseEdited(displayedValue);
+        return NumberConverters.parseEdited(
+          displayedValue,
+          this.props.min,
+          this.props.max
+        );
       case 'integer':
-        return IntegerConverters.parseEdited(displayedValue);
+        return IntegerConverters.parseEdited(
+          displayedValue,
+          this.props.min,
+          this.props.max
+        );
       case 'double':
-        return DoubleConverters.parseEdited(displayedValue);
+        return DoubleConverters.parseEdited(
+          displayedValue,
+          this.props.min,
+          this.props.max
+        );
       case 'percent':
-        return PercentConverters.parseEdited(displayedValue);
+        return PercentConverters.parseEdited(
+          displayedValue,
+          this.props.min,
+          this.props.max
+        );
       case 'delay':
         return DelayConverters.parseEdited(displayedValue, this.props.unit);
       default:
