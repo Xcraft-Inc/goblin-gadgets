@@ -189,6 +189,7 @@ class StackNavigationWidget extends Widget {
       <React.Fragment>
         {beforeLastScreen && beforeLastAnimation ? (
           <AnimatedContainer
+            key={0}
             animation={beforeLastAnimation || 'none'}
             fitContent={this.props.fitContent}
           >
@@ -196,6 +197,7 @@ class StackNavigationWidget extends Widget {
           </AnimatedContainer>
         ) : null}
         <AnimatedContainer
+          key={1}
           animation={animations ? animations.last : 'none'}
           onAnimationEnd={this.handleAnimationEnd}
           fitContent={this.props.fitContent}
