@@ -129,7 +129,6 @@ class StackNavigationWidget extends Widget {
 
     return (
       <Component
-        key={screen.get('serviceId') || undefined}
         serviceId={screen.get('serviceId')}
         {...widgetProps}
         settings={this.props.settings} // TODO: should be removed
@@ -137,9 +136,13 @@ class StackNavigationWidget extends Widget {
     );
   }
 
-  renderFix(screen, Component) {
+  renderFix(screen, Component, index) {
     return (
-      <AnimatedContainer animation="none" fitContent={this.props.fitContent}>
+      <AnimatedContainer
+        key={index}
+        animation="none"
+        fitContent={this.props.fitContent}
+      >
         {this.renderComponent(screen, Component)}
       </AnimatedContainer>
     );
@@ -147,19 +150,20 @@ class StackNavigationWidget extends Widget {
 
   renderFixStack(screen, Component, stack) {
     let below = [];
-
-    for (let i = 0; i <= stack.length - 2; i++) {
-      const currentScreen = stack.get(stack.length - i - 1);
+    const stackSize = stack.length;
+    // Render screen below if at least 2 screen and currentScreen is transparent
+    for (let i = 0; i <= stackSize - 2; i++) {
+      const currentScreen = stack.get(stackSize - i - 1);
       if (currentScreen.get('transparent')) {
-        const belowScreen = stack.get(stack.length - i - 2);
+        const belowScreen = stack.get(stackSize - i - 2);
         const belowComponent = this.getComponent(belowScreen);
-        below.push(this.renderFix(belowScreen, belowComponent));
+        below.push(this.renderFix(belowScreen, belowComponent, i));
       }
     }
     return (
       <React.Fragment>
         {below}
-        {this.renderFix(screen, Component)}
+        {this.renderFix(screen, Component, stackSize)}
       </React.Fragment>
     );
   }
