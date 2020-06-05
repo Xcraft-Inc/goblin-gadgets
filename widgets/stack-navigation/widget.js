@@ -136,10 +136,10 @@ class StackNavigationWidget extends Widget {
     );
   }
 
-  renderFix(screen, Component, index) {
+  renderFix(screen, Component) {
     return (
       <AnimatedContainer
-        key={index}
+        key={screen.get('key')}
         animation="none"
         fitContent={this.props.fitContent}
       >
@@ -157,13 +157,13 @@ class StackNavigationWidget extends Widget {
       if (currentScreen.get('transparent')) {
         const belowScreen = stack.get(stackSize - i - 2);
         const belowComponent = this.getComponent(belowScreen);
-        below.push(this.renderFix(belowScreen, belowComponent, i));
+        below.push(this.renderFix(belowScreen, belowComponent));
       }
     }
     return (
       <React.Fragment>
         {below}
-        {this.renderFix(screen, Component, stackSize)}
+        {this.renderFix(screen, Component)}
       </React.Fragment>
     );
   }
@@ -193,7 +193,7 @@ class StackNavigationWidget extends Widget {
       <React.Fragment>
         {beforeLastScreen && beforeLastAnimation ? (
           <AnimatedContainer
-            key={0}
+            key={beforeLastScreen.get('key')}
             animation={beforeLastAnimation || 'none'}
             fitContent={this.props.fitContent}
           >
@@ -201,7 +201,7 @@ class StackNavigationWidget extends Widget {
           </AnimatedContainer>
         ) : null}
         <AnimatedContainer
-          key={1}
+          key={lastScreen.get('key')}
           animation={animations ? animations.last : 'none'}
           onAnimationEnd={this.handleAnimationEnd}
           fitContent={this.props.fitContent}

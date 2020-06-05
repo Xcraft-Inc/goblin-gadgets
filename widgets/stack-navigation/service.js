@@ -105,7 +105,21 @@ const quests = {
       deleteUndefinedValues(screen.widgetProps);
       deleteUndefinedValues(screen.serviceArgs);
     }
-    return {...screen};
+    const state = quest.goblin.getState();
+    const stack = state.get('stack');
+    let count = 0;
+    for (const stackScreen of stack) {
+      if (stackScreen.get('widget') === screen.widget) {
+        if (stackScreen.get('count') >= count) {
+          count = stackScreen.get('count') + 1;
+        }
+      }
+    }
+    return {
+      ...screen,
+      count,
+      key: `${screen.widget}-${count}`,
+    };
   },
 
   _initService: function* (quest, screen) {
