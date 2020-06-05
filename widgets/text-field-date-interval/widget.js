@@ -9,6 +9,15 @@ import * as styles from './styles';
 
 /******************************************************************************/
 
+function calcDate(date, exps, direction) {
+  if (date && exps) {
+    return DateConverters.getCalcDate(date, exps, direction);
+  }
+  return null;
+}
+
+/******************************************************************************/
+
 class TextFieldDateInterval extends Widget {
   constructor() {
     super(...arguments);
@@ -58,6 +67,8 @@ class TextFieldDateInterval extends Widget {
   }
 
   renderStartTextField() {
+    const min = calcDate(this.props.maxDate, this.props.maxTotal, -1); // max -> in the past
+
     return (
       <TextFieldTyped
         width="140px"
@@ -69,15 +80,19 @@ class TextFieldDateInterval extends Widget {
         readonly={this.props.readonly}
         disabled={this.props.disabled}
         required={this.props.required}
+        defaultValue={min}
         wrong={this.hasError}
         model={this.props.startModel}
+        minDate={min}
         maxDate={this.props.maxDate}
-        mode="soft"
+        mode="hard"
       />
     );
   }
 
   renderEndTextField() {
+    const max = calcDate(this.props.minDate, this.props.maxTotal, 1); // min -> in the future
+
     return (
       <TextFieldTyped
         width="140px"
@@ -91,10 +106,12 @@ class TextFieldDateInterval extends Widget {
         readonly={this.props.readonly}
         disabled={this.props.disabled}
         required={this.props.required}
+        defaultValue={max}
         wrong={this.hasError}
         model={this.props.endModel}
         minDate={this.props.minDate}
-        mode="soft"
+        maxDate={max}
+        mode="hard"
       />
     );
   }

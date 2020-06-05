@@ -18,10 +18,10 @@ const Component = (props) => {
 
 // If property 'entity' is present, use description in schema to edit field.
 export default Widget.connect((state, props) => {
-  let required = null;
-  let defaultValue = null;
-  let min = null;
-  let max = null;
+  let required = props.required;
+  let defaultValue = props.defaultValue;
+  let min = props.min;
+  let max = props.max;
 
   const entityName = props.entity;
   if (entityName) {
