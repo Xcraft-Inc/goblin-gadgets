@@ -36,5 +36,15 @@ export default [
     group: 'type',
     type: types.any,
   },
+  {
+    name: 'min',
+    group: 'type',
+    type: types.any,
+  },
+  {
+    name: 'max',
+    group: 'type',
+    type: types.any,
+  },
   ...props,
 ];
