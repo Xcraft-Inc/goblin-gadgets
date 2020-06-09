@@ -46,5 +46,10 @@ export default [
     group: 'type',
     type: types.any,
   },
+  {
+    name: 'useTips',
+    group: 'tips',
+    type: types.bool,
+  },
   ...props,
 ];

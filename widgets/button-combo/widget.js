@@ -150,7 +150,7 @@ export default class ButtonCombo extends Widget {
           startDate={this.props.minDate}
           endDate={this.props.maxDate}
           dates={this.props.value ? [this.props.value] : null}
-          useTips={true}
+          useTips={this.props.useTips !== undefined ? this.props.useTips : true}
           dateClicked={this.handleDateClicked}
           onEscKey={this.hideCombo}
         />

@@ -278,6 +278,7 @@ export default class TextFieldTypedNC extends Widget {
         comboGlyph="regular/calendar-alt"
         comboGlyphHide="regular/calendar"
         hideButtonCombo={this.props.hideButtonCombo}
+        useTips={this.props.useTips}
         ref={this.setButtonComboRef}
         onDateClicked={this.handleDateClicked}
       >
