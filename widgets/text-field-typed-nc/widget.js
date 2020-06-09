@@ -257,6 +257,14 @@ export default class TextFieldTypedNC extends Widget {
     this.props.onChange(n + inc);
   }
 
+  get isPlusEnabled() {
+    return !this.props.max || this.props.value < this.props.max;
+  }
+
+  get isMinusEnabled() {
+    return !this.props.min || this.props.value > this.props.min;
+  }
+
   /******************************************************************************/
 
   renderDate(otherProps, width, tooltip, justify, shape) {
@@ -353,12 +361,14 @@ export default class TextFieldTypedNC extends Widget {
           kind="combo"
           glyph="solid/plus"
           horizontalSpacing="overlap"
+          disabled={!this.isPlusEnabled}
           onClick={() => this.incNumber(1)}
         />
         <Button
           kind="combo"
           glyph="solid/minus"
           horizontalSpacing={this.props.horizontalSpacing}
+          disabled={!this.isMinusEnabled}
           onClick={() => this.incNumber(-1)}
         />
       </React.Fragment>
