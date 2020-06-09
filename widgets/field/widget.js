@@ -1538,6 +1538,7 @@ class Field extends Form {
       case 'length':
       case 'volume':
       case 'number':
+      case 'integer':
       case 'percent':
       case 'delay':
         return this.renderReadonlyTyped();
@@ -1605,6 +1606,7 @@ class Field extends Form {
       case 'length':
       case 'volume':
       case 'number':
+      case 'integer':
       case 'percent':
       case 'delay':
         return this.renderEditTyped();
