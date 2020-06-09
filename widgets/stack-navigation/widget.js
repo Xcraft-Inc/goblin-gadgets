@@ -148,21 +148,25 @@ class StackNavigationWidget extends Widget {
     );
   }
 
-  renderFixStack(screen, Component, stack) {
+  renderBelow(index, stack) {
     let below = [];
     const stackSize = stack.length;
     // Render screen below if at least 2 screen and currentScreen is transparent
-    for (let i = 0; i <= stackSize - 2; i++) {
+    for (let i = index; i <= stackSize - 2; i++) {
       const currentScreen = stack.get(stackSize - i - 1);
       if (currentScreen.get('transparent')) {
         const belowScreen = stack.get(stackSize - i - 2);
         const belowComponent = this.getComponent(belowScreen);
-        below.push(this.renderFix(belowScreen, belowComponent));
+        below.unshift(this.renderFix(belowScreen, belowComponent));
       }
     }
+    return below;
+  }
+
+  renderFixStack(screen, Component, stack) {
     return (
       <React.Fragment>
-        {below}
+        {this.renderBelow(0, stack)}
         {this.renderFix(screen, Component)}
       </React.Fragment>
     );
@@ -173,7 +177,8 @@ class StackNavigationWidget extends Widget {
     lastComponent,
     beforeLastScreen,
     operation,
-    animation
+    animation,
+    stack
   ) {
     const beforeLastComponent = this.getComponent(beforeLastScreen);
 
@@ -191,6 +196,7 @@ class StackNavigationWidget extends Widget {
 
     return (
       <React.Fragment>
+        {this.renderBelow(1, stack)}
         {beforeLastScreen && beforeLastAnimation ? (
           <AnimatedContainer
             key={beforeLastScreen.get('key')}
@@ -258,7 +264,8 @@ class StackNavigationWidget extends Widget {
         lastComponent,
         beforeLastScreen,
         operation,
-        animation
+        animation,
+        stack
       );
     } else {
       return this.renderFixStack(lastScreen, lastComponent, stack);
