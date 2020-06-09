@@ -23,6 +23,7 @@ import TextInputNC from 'goblin-gadgets/widgets/text-input-nc/widget';
 import ScrollableContainer from 'goblin-gadgets/widgets/scrollable-container/widget';
 import T from 't';
 import * as styles from './styles';
+import MouseTrap from 'mousetrap';
 
 /******************************************************************************/
 
@@ -193,6 +194,31 @@ export default class TableNC extends Widget {
     this.onDoubleClick = this.onDoubleClick.bind(this);
     this.selectAll = this.selectAll.bind(this);
     this.deselectAll = this.deselectAll.bind(this);
+    this.onKeyUp = this.onKeyUp.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
+  }
+
+  componentWillMount() {
+    if (this.props.data) {
+      const data = Widget.shred(this.props.data);
+      const defaultSortingColumns = data.get('defaultSortingColumns');
+      if (defaultSortingColumns) {
+        this.setSortingColumns(defaultSortingColumns.toArray());
+      }
+    }
+
+    if (this.props.useKeyUpDown) {
+      MouseTrap.bind('up', this.onKeyUp, 'keydown');
+      MouseTrap.bind('down', this.onKeyDown, 'keydown');
+    }
+  }
+
+  componentWillUnmount() {
+    super.componentWillUnmount();
+    if (this.props.useKeyUpDown) {
+      MouseTrap.unbind('up');
+      MouseTrap.unbind('down');
+    }
   }
 
   setFilter(value) {
@@ -211,14 +237,29 @@ export default class TableNC extends Widget {
     });
   }
 
-  componentWillMount() {
-    if (this.props.data) {
-      const data = Widget.shred(this.props.data);
-      const defaultSortingColumns = data.get('defaultSortingColumns');
-      if (defaultSortingColumns) {
-        this.setSortingColumns(defaultSortingColumns.toArray());
-      }
+  changeSelection(direction) {
+    if (!this.sortedList) {
+      return;
     }
+    const rowIds = this.sortedList.map((item) => item.row.get('id'));
+    const selectedId = this.props.selectedIds.get(0);
+    let i = rowIds.indexOf(selectedId);
+    if (i === -1) {
+      i = 0;
+    }
+    const id = rowIds[i + direction];
+    if (!id) {
+      return;
+    }
+    this.onSelectionChanged(id);
+  }
+
+  onKeyUp() {
+    this.changeSelection(-1);
+  }
+
+  onKeyDown() {
+    this.changeSelection(1);
   }
 
   onChangeFilter(value) {
@@ -293,11 +334,11 @@ export default class TableNC extends Widget {
   }
 
   isAllSelected(data) {
-    const rows = data
+    const rowIds = data
       .get('rows')
       .toArray()
       .map((row) => row.get('id'));
-    const uniques = rows.filter(onlyUnique);
+    const uniques = rowIds.filter(onlyUnique);
 
     return (
       this.props.selectedIds && this.props.selectedIds.size === uniques.length
@@ -548,6 +589,7 @@ export default class TableNC extends Widget {
         compactMargins={this.props.compactMargins}
         cellFormat={this.props.cellFormat}
         selectionMode={this.props.selectionMode}
+        useKeyUpDown={this.props.useKeyUpDown}
         selected={this.isSelected(item.row.get('id', null))}
         selectionChanged={this.onSelectionChanged}
         onDoubleClick={this.onDoubleClick}
@@ -568,6 +610,7 @@ export default class TableNC extends Widget {
     }
     flatten(list, rows, 0);
     diffuseSeparators(list);
+    this.sortedList = list;
 
     const result = [];
     const header = data.get('header');

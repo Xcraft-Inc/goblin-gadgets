@@ -494,6 +494,12 @@ export default [
     type: types.sortingColumns,
     description: "Only for data with sorting: 'enable'.",
   },
+  {
+    name: 'useKeyUpDown',
+    group: 'main',
+    type: types.bool,
+    description: "Work only widh connected widget (don't work with WidgetDoc).",
+  },
 
   // Aspect.
   {

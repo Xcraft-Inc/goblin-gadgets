@@ -7,6 +7,7 @@ import {
   makePropTypes,
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
+import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
 
 /******************************************************************************/
 
@@ -17,6 +18,14 @@ export default class TableRow extends Widget {
 
     this.onSelectionChanged = this.onSelectionChanged.bind(this);
     this.onDoubleClick = this.onDoubleClick.bind(this);
+  }
+
+  componentDidUpdate() {
+    if (this.props.useKeyUpDown && this._ref && this.props.selected) {
+      scrollIntoViewIfNeeded(this._ref, {
+        duration: 100,
+      });
+    }
   }
 
   onSelectionChanged(id) {
@@ -94,7 +103,13 @@ export default class TableRow extends Widget {
     const rowStyleClass = this.styles.classNames[styleName];
 
     return (
-      <div key={this.props.index} className={rowStyleClass}>
+      <div
+        ref={(node) => {
+          this._ref = node;
+        }}
+        key={this.props.index}
+        className={rowStyleClass}
+      >
         {this.renderRowCells(this.props.header.toArray(), this.props.row)}
       </div>
     );
