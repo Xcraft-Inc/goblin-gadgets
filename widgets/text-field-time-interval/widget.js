@@ -36,7 +36,6 @@ class TextFieldTimeInterval extends Widget {
   }
 
   onChangeStart(time) {
-    console.log(`onChangeStart ${time}`);
     const path = this.getFullPathFromModel(this.props.startModel);
     this.setBackendValue(path, time);
 
@@ -48,7 +47,6 @@ class TextFieldTimeInterval extends Widget {
   }
 
   onChangeEnd(time) {
-    console.log(`onChangeStart ${time}`);
     const path = this.getFullPathFromModel(this.props.endModel);
     this.setBackendValue(path, time);
 
