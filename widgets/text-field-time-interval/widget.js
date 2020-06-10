@@ -15,6 +15,17 @@ class TextFieldTimeInterval extends Widget {
     this.styles = styles;
 
     this.onNowClicked = this.onNowClicked.bind(this);
+    this.onChangeStart = this.onChangeStart.bind(this);
+    this.onChangeEnd = this.onChangeEnd.bind(this);
+  }
+
+  getFullPathFromModel(model) {
+    if (!this.context.model) {
+      throw new Error(
+        'Cannot resolve context model, your Field is not in a Form ?'
+      );
+    }
+    return `${this.context.model}${model}`;
   }
 
   // prettier-ignore
@@ -22,6 +33,33 @@ class TextFieldTimeInterval extends Widget {
     const now = TimeConverters.getNowCanonical();
     this.setBackendValue(this.props.entityFullPath + this.props.startModel, now);
     this.setBackendValue(this.props.entityFullPath + this.props.endModel, now);
+  }
+
+  onChangeStart(time) {
+    console.log(`onChangeStart ${time}`);
+    const path = this.getFullPathFromModel(this.props.startModel);
+    this.setBackendValue(path, time);
+
+    if (this.props.defaultDurationToEnd && !this.props.maxTime) {
+      time = TimeConverters.getCalcTime(time, this.props.defaultDurationToEnd);
+      const path = this.getFullPathFromModel(this.props.endModel);
+      this.setBackendValue(path, time);
+    }
+  }
+
+  onChangeEnd(time) {
+    console.log(`onChangeStart ${time}`);
+    const path = this.getFullPathFromModel(this.props.endModel);
+    this.setBackendValue(path, time);
+
+    if (this.props.defaultDurationFromStart && !this.props.minTime) {
+      time = TimeConverters.getCalcTime(
+        time,
+        this.props.defaultDurationFromStart
+      );
+      const path = this.getFullPathFromModel(this.props.startModel);
+      this.setBackendValue(path, time);
+    }
   }
 
   get hasError() {
@@ -46,6 +84,7 @@ class TextFieldTimeInterval extends Widget {
         model={this.props.startModel}
         maxTime={this.props.maxTime}
         mode="soft"
+        onChange={this.onChangeStart}
       />
     );
   }
@@ -68,6 +107,7 @@ class TextFieldTimeInterval extends Widget {
         model={this.props.endModel}
         minTime={this.props.minTime}
         mode="soft"
+        onChange={this.onChangeEnd}
       />
     );
   }
