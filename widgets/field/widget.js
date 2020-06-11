@@ -197,7 +197,12 @@ class Field extends Form {
         const Gadget = widgetImporter(type);
         const WiredGadget = Widget.Wired(Gadget)(gadgetInfo.get('id'));
         return (
-          <WiredGadget readonly={true} {...this.props} parentId={parentId} />
+          <WiredGadget
+            readonly={true}
+            {...this.props}
+            widgetId={gadgetInfo.get('id')}
+            parentId={parentId}
+          />
         );
       } else {
         return null;
