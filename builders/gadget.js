@@ -71,12 +71,16 @@ module.exports = (config) => {
   if (actions) {
     Object.assign(logicHandlers, actions);
     Object.keys(actions).forEach((a) => {
-      Goblin.registerQuest(goblinName, a, function (quest, $msg) {
+      Goblin.registerQuest(goblinName, a, function (
+        quest,
+        currentLocation,
+        $msg
+      ) {
         quest.do();
         if (events && events[a]) {
           const state = quest.goblin.getState();
           const eventPayload = events[a](state, $msg);
-          quest.evt(a, eventPayload);
+          quest.evt(a, {currentLocation, ...eventPayload});
         }
       });
     });
