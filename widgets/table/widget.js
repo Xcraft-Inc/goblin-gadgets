@@ -6,6 +6,14 @@ import MouseTrap from 'mousetrap';
 /******************************************************************************/
 
 class SelectionUpdaterNC extends Widget {
+  componentWillMount() {
+    if (this.props.selectedIds) {
+      this.doAs('table-gadget', 'syncSelect', {
+        selectedIds: this.props.selectedIds,
+      });
+    }
+  }
+
   componentDidUpdate(prevProps) {
     if (
       this.props.selectedIds &&
