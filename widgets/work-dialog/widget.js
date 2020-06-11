@@ -100,6 +100,7 @@ class WorkDialog extends Widget {
         </Container>
         <div className={tableClass}>
           <Table
+            widgetId={this.props.id}
             data={this.tableData}
             frame={true}
             selectionMode="multi"

@@ -5,12 +5,6 @@ import Widget from 'goblin-laboratory/widgets/widget';
 import {Unit} from 'electrum-theme';
 
 import {
-  date as DateConverters,
-  time as TimeConverters,
-  price as PriceConverters,
-} from 'xcraft-core-converters';
-
-import {
   makePropTypes,
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
@@ -20,333 +14,73 @@ import TableCell from 'goblin-gadgets/widgets/table-cell/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import TextInputNC from 'goblin-gadgets/widgets/text-input-nc/widget';
-import ScrollableContainer from 'goblin-gadgets/widgets/scrollable-container/widget';
 import T from 't';
 import * as styles from './styles';
-import MouseTrap from 'mousetrap';
+import throttle from 'lodash/throttle';
 
 /******************************************************************************/
 
-function getFilterContent(row, columnName, type) {
-  let content = row.get(columnName);
-  switch (type) {
-    case 'date':
-      content = DateConverters.getDisplayed(content);
-      break;
-    case 'time':
-      content = TimeConverters.getDisplayed(content);
-      break;
-    case 'price':
-      content = PriceConverters.getDisplayed(content);
-      break;
-  }
-  return typeof content === 'string' ? content.toUpperCase() : '';
-}
-
-function filterRow(row, header, filter) {
-  for (const column of header) {
-    const columnName = column.get('name');
-    const type = column.get('type');
-    const content = getFilterContent(row, columnName, type);
-    if (content.includes(filter)) {
-      return true;
-    }
-  }
-  return false;
-}
-
-function filter(rows, header, filter) {
-  if (!filter || filter === '') {
-    return rows;
-  } else {
-    return rows.filter((row) => filterRow(row, header, filter.toUpperCase()));
-  }
-}
-
-/******************************************************************************/
-
-function getSortingColumn(row, columnName, type) {
-  let content = row.get(columnName);
-  if (type === 'price') {
-    const i = parseInt(content);
-    if (isNaN(i) || !content) {
-      content = Number.MIN_SAFE_INTEGER;
-    } else {
-      content = i;
-    }
-  } else {
-    content = typeof content === 'string' ? content.toUpperCase() : '';
-  }
-  return content;
-}
-
-function getColumnType(header, columnName) {
-  for (const column of header) {
-    if (column.get('name') === columnName) {
-      return column.get('type');
-    }
-  }
-  return null;
-}
-
-function sort(rows, header, sortingColumns) {
-  if (sortingColumns) {
-    return rows.sort(function (a, b) {
-      for (let columnName of sortingColumns) {
-        let e = 1;
-        if (columnName.startsWith('!')) {
-          columnName = columnName.substring(1);
-          e = -1;
-        }
-        const type = getColumnType(header, columnName);
-        const ka = getSortingColumn(a, columnName, type);
-        const kb = getSortingColumn(b, columnName, type);
-        if (ka < kb) {
-          return -e;
-        } else if (ka > kb) {
-          return e;
-        }
-      }
-      return 0;
-    });
-  } else {
-    return rows;
-  }
-}
-
-/******************************************************************************/
-
-function onlyUnique(value, index, self) {
-  return self.indexOf(value) === index;
-}
-
-// Recursively traverses rows to generate a flat list containing levels.
-function flatten(list, rows, level) {
-  for (let i = 0; i < rows.size; i++) {
-    const row = rows.get(i);
-    const horizontalSeparator = row.get('horizontalSeparator');
-    list.push({
-      row: row,
-      level: level,
-      topSeparator:
-        horizontalSeparator === 'up' ||
-        horizontalSeparator === 'top' ||
-        horizontalSeparator === 'both',
-      bottomSeparator:
-        horizontalSeparator === 'down' ||
-        horizontalSeparator === 'bottom' ||
-        horizontalSeparator === 'both',
-    });
-
-    const subRows = row.get('rows');
-    if (subRows) {
-      flatten(list, subRows, level + 1);
-    }
-  }
-}
-
-// Distributes the adjacent line separators.
-// An upper horizontal separator must be mentioned as a lower separator in the previous line.
-// A lower horizontal separator must be mentioned as upper separator in the following line.
-// When a row is drawn, it is always only its top separator that is drawn.
-function diffuseSeparators(list) {
-  for (let i = 0; i < list.length; i++) {
-    const prev = i > 0 ? list[i - 1] : null;
-    const current = list[i];
-    const next = i < list.length - 1 ? list[i + 1] : null;
-
-    if (prev && current.topSeparator) {
-      prev.bottomSeparator = true;
-    }
-
-    if (next && current.bottomSeparator) {
-      next.topSeparator = true;
-    }
-
-    current.isLast = i === list.length - 1; // Is this the last line of the table?
-    current.index = i;
-  }
-}
-
-// Return a unique id for memorize scroller position.
-function getUniqueId(data) {
-  const header = data.get('header');
-  const names = header
-    .map((column) => {
-      return column.get('name');
-    })
-    .toArray();
-  const rowsCount = data.get('rows').size;
-  return `Table:${names.join('/')}:${rowsCount}`;
-}
-
-/******************************************************************************/
 export default class TableNC extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
 
-    this.onChangeFilter = this.onChangeFilter.bind(this);
-    this.onUpdateFilter = this.onUpdateFilter.bind(this);
+    this.onFilterChanged = this.onFilterChanged.bind(this);
     this.onClearFilter = this.onClearFilter.bind(this);
     this.onSortingChanged = this.onSortingChanged.bind(this);
     this.onSelectionChanged = this.onSelectionChanged.bind(this);
     this.onDoubleClick = this.onDoubleClick.bind(this);
-    this.selectAll = this.selectAll.bind(this);
-    this.deselectAll = this.deselectAll.bind(this);
-    this.onKeyUp = this.onKeyUp.bind(this);
-    this.onKeyDown = this.onKeyDown.bind(this);
+    this.onSelectAll = this.onSelectAll.bind(this);
+    this.onDeselectAll = this.onDeselectAll.bind(this);
   }
 
-  componentWillMount() {
-    if (this.props.data) {
-      const data = Widget.shred(this.props.data);
-      const defaultSortingColumns = data.get('defaultSortingColumns');
-      if (defaultSortingColumns) {
-        this.setSortingColumns(defaultSortingColumns.toArray());
-      }
+  onFilterChanged(value) {
+    const f = this.props.onFilterChanged;
+    if (f) {
+      f(value);
     }
-
-    if (this.props.useKeyUpDown) {
-      MouseTrap.bind('up', this.onKeyUp, 'keydown');
-      MouseTrap.bind('down', this.onKeyDown, 'keydown');
-    }
-  }
-
-  componentWillUnmount() {
-    super.componentWillUnmount();
-    if (this.props.useKeyUpDown) {
-      MouseTrap.unbind('up');
-      MouseTrap.unbind('down');
-    }
-  }
-
-  setFilter(value) {
-    this.dispatch({
-      type: 'SET_VALUE',
-      field: 'filter',
-      value: value,
-    });
-  }
-
-  setSortingColumns(value) {
-    this.dispatch({
-      type: 'SET_VALUE',
-      field: 'sortingColumns',
-      value: value,
-    });
-  }
-
-  changeSelection(direction) {
-    if (!this.sortedList) {
-      return;
-    }
-    const rowIds = this.sortedList.map((item) => item.row.get('id'));
-    const selectedId = this.props.selectedIds.get(0);
-    let i = rowIds.indexOf(selectedId);
-    if (i === -1) {
-      i = 0;
-    }
-    const id = rowIds[i + direction];
-    if (!id) {
-      return;
-    }
-    this.onSelectionChanged(id);
-  }
-
-  onKeyUp() {
-    this.changeSelection(-1);
-  }
-
-  onKeyDown() {
-    this.changeSelection(1);
-  }
-
-  onChangeFilter(value) {
-    this.setFilter(value);
   }
 
   onClearFilter() {
-    this.setFilter('');
+    const f = this.props.onFilterChanged;
+    if (f) {
+      f('');
+    }
   }
 
-  onUpdateFilter() {}
-
   onSortingChanged(columnName) {
-    let sortingColumns = this.props.sortingColumns.toArray();
-    if (sortingColumns.length > 0 && sortingColumns[0] === columnName) {
-      sortingColumns[0] = '!' + columnName;
-      sortingColumns = sortingColumns.concat();
-    } else if (
-      sortingColumns.length > 0 &&
-      sortingColumns[0] === '!' + columnName
-    ) {
-      sortingColumns[0] = columnName;
-      sortingColumns = sortingColumns.concat();
-    } else {
-      let i = sortingColumns.indexOf(columnName);
-      if (i === -1) {
-        i = sortingColumns.indexOf('!' + columnName);
-      }
-      if (i !== -1) {
-        sortingColumns.splice(i, 1);
-      }
-      sortingColumns = [columnName].concat(sortingColumns);
+    const f = this.props.onSortingChanged;
+    if (f) {
+      f(columnName);
     }
-    this.setSortingColumns(sortingColumns);
   }
 
   onSelectionChanged(id) {
-    if (!this.props.id && !this.context.id) {
-      return;
-    }
-    if (this.props.onSelectionChanged) {
-      this.props.onSelectionChanged(id);
-    } else {
-      this.doAs('table-gadget', 'select', {
-        mode: this.props.selectionMode,
-        rowId: id,
-      });
+    const f = this.props.onSelectionChanged;
+    if (f) {
+      f(id);
     }
   }
 
   onDoubleClick(id) {
-    if (!this.props.id && !this.context.id) {
-      return;
+    const f = this.props.onDoubleClick;
+    if (f) {
+      f(id);
     }
-    this.doAs('table-gadget', 'doubleClick', {
-      rowId: id,
-    });
   }
 
-  selectAll() {
-    if (!this.props.id && !this.context.id) {
-      return;
+  onSelectAll() {
+    const f = this.props.onSelectAll;
+    if (f) {
+      f();
     }
-    this.doAs('table-gadget', 'selectAll');
   }
 
-  deselectAll() {
-    if (!this.props.id && !this.context.id) {
-      return;
+  onDeselectAll() {
+    const f = this.props.onDeselectAll;
+    if (f) {
+      f();
     }
-    this.doAs('table-gadget', 'deselectAll');
-  }
-
-  isAllSelected(data) {
-    const rowIds = data
-      .get('rows')
-      .toArray()
-      .map((row) => row.get('id'));
-    const uniques = rowIds.filter(onlyUnique);
-
-    return (
-      this.props.selectedIds && this.props.selectedIds.size === uniques.length
-    );
-  }
-
-  isAllDeselected() {
-    return !this.props.selectedIds || this.props.selectedIds.size === 0;
   }
 
   isSelected(id) {
@@ -377,7 +111,7 @@ export default class TableNC extends Widget {
               glyph={glyph}
               hintText={T('Filtre')}
               value={this.props.filter}
-              onChange={this.onChangeFilter}
+              onChange={this.onFilterChanged}
               horizontalSpacing="overlap"
             />
             <Button
@@ -403,7 +137,7 @@ export default class TableNC extends Widget {
               glyph={glyph}
               hintText={T('Filtre')}
               value={this.props.filter}
-              onChange={this.onChangeFilter}
+              onChange={this.onFilterChanged}
             />
           </div>
         );
@@ -438,7 +172,7 @@ export default class TableNC extends Widget {
         glyph={glyph}
         horizontalSpacing="compact"
         wrap="no"
-        selectionChanged={() => this.onSortingChanged(column.get('name'))}
+        onClick={() => this.onSortingChanged(column.get('name'))}
       />
     );
   }
@@ -574,48 +308,33 @@ export default class TableNC extends Widget {
     }
   }
 
-  renderRow(header, item) {
+  renderRow(header, rowIndex) {
     return (
       <TableRow
+        key={rowIndex}
+        widgetId={this.props.widgetId}
+        rowIndex={rowIndex}
         header={header.state}
-        row={item.row}
-        key={item.index}
-        index={item.index}
-        level={item.level}
-        topSeparator={item.topSeparator}
-        bottomSeparator={item.bottomSeparator}
-        isLast={item.isLast}
         fontSizeStrategy={this.props.fontSizeStrategy}
         compactMargins={this.props.compactMargins}
         cellFormat={this.props.cellFormat}
         selectionMode={this.props.selectionMode}
         useKeyUpDown={this.props.useKeyUpDown}
-        selected={this.isSelected(item.row.get('id', null))}
         selectionChanged={this.onSelectionChanged}
         onDoubleClick={this.onDoubleClick}
       />
     );
   }
 
-  renderRows(data, isFilterable, isSortable) {
-    const list = [];
-    let rows = data.get('rows');
-    if (isFilterable) {
-      const header = data.get('header');
-      rows = filter(rows, header, this.props.filter);
+  renderRows(data) {
+    if (!this.props.sortedRows) {
+      return null;
     }
-    if (isSortable) {
-      const header = data.get('header');
-      rows = sort(rows, header, this.props.sortingColumns);
-    }
-    flatten(list, rows, 0);
-    diffuseSeparators(list);
-    this.sortedList = list;
 
     const result = [];
     const header = data.get('header');
-    for (const item of list) {
-      result.push(this.renderRow(header, item));
+    for (var index = 0; index < this.props.sortedRows.length; index++) {
+      result.push(this.renderRow(header, index));
     }
     return result;
   }
@@ -624,8 +343,8 @@ export default class TableNC extends Widget {
     const size = data.get('rows').size;
     if (this.props.hasButtons && size > 0) {
       const buttonsClass = this.styles.classNames.buttons;
-      const isAllSelected = this.isAllSelected(data);
-      const isAllDeselected = this.isAllDeselected();
+      const isAllSelected = this.props.isAllSelected;
+      const isAllDeselected = this.props.isAllDeselected;
       return (
         <div className={buttonsClass}>
           <Button
@@ -635,7 +354,7 @@ export default class TableNC extends Widget {
             text={T('Tout sélectionner')}
             grow={isAllSelected ? '0' : '1'}
             horizontalSpacing={isAllDeselected ? null : 'overlap'}
-            onClick={this.selectAll}
+            onClick={this.onSelectAll}
           />
           <Button
             kind={this.props.frame ? 'table-action-frame' : 'table-action'}
@@ -643,7 +362,7 @@ export default class TableNC extends Widget {
             glyph="solid/ban"
             text={T('Tout désélectionner')}
             grow={isAllDeselected ? '0' : '1'}
-            onClick={this.deselectAll}
+            onClick={this.onDeselectAll}
           />
         </div>
       );
@@ -662,42 +381,13 @@ export default class TableNC extends Widget {
     const isSortable = data.get('sorting') === 'enable';
 
     return (
-      <div className={this.styles.classNames.box}>
-        <div className={this.styles.classNames.table}>
+      <div className={this.styles.classNames.table}>
+        <div className={this.styles.classNames.tableContent}>
           {this.renderFilter(isFilterable)}
           {this.renderHeaders(data, isSortable)}
           <div className={this.styles.classNames.body}>
             {this.renderRows(data, isFilterable, isSortable)}
           </div>
-        </div>
-        {this.renderButtons(data)}
-      </div>
-    );
-  }
-
-  render_OLD() {
-    if (!this.props.data) {
-      return null;
-    }
-
-    const data = Widget.shred(this.props.data);
-    const isFilterable = data.get('filtering') === 'enable';
-    const isSortable = data.get('sorting') === 'enable';
-    const scrollableId = getUniqueId(data);
-
-    return (
-      <div className={this.styles.classNames.box}>
-        <div className={this.styles.classNames.table}>
-          {this.renderFilter(isFilterable)}
-          {this.renderHeaders(data, isSortable)}
-          <ScrollableContainer
-            kind="table-body"
-            id={scrollableId}
-            height={this.props.height}
-            restoreScroll={false}
-          >
-            {this.renderRows(data, isFilterable, isSortable)}
-          </ScrollableContainer>
         </div>
         {this.renderButtons(data)}
       </div>

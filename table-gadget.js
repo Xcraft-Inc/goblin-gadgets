@@ -5,27 +5,23 @@ const {buildGadget} = require('goblin-gadgets');
  *
  * @returns {Object} The list and definitions of commands.
  */
+
 exports.xcraftCommands = function () {
   return buildGadget({
     name: 'table',
     events: {
+      syncSelect: (state) => {
+        const rowIds = state.get('selectedIds', []).toArray();
+        return {
+          selectedIds: rowIds,
+          //? rows: state.get('data.rows').filter((r) => rowIds.includes(r.get('id'))),
+        };
+      },
       select: (state) => {
-        const ids = state.get('selectedIds', []).toArray();
+        const rowIds = state.get('selectedIds', []).toArray();
         return {
-          selectedIds: ids,
-          rows: state.get('data.rows').filter((r) => ids.includes(r.get('id'))),
-        };
-      },
-      selectAll: (state) => {
-        return {
-          selectedIds: state.get('selectedIds', []).toArray(),
-          rows: state.get('data.rows'),
-        };
-      },
-      deselectAll: () => {
-        return {
-          selectedIds: [],
-          rows: [],
+          selectedIds: rowIds,
+          //? rows: state.get('data.rows').filter((r) => rowIds.includes(r.get('id'))),
         };
       },
       doubleClick: (state, action) => {
@@ -38,16 +34,24 @@ exports.xcraftCommands = function () {
       setData: (state, action) => {
         return state.set('data', action.get('data'));
       },
-      selectAll: (state) => {
-        let rows = state
-          .get('data.rows')
-          .map((row) => row.get('id'))
-          .toArray();
-        rows = [...new Set(rows)];
-        return state.set('selectedIds', rows);
-      },
-      deselectAll: (state) => {
-        return state.set('selectedIds', []);
+      syncSelect: (state, action) => {
+        const selectedIds = action.get('selectedIds');
+        return state.set('selectedIds', selectedIds);
+
+        //? const selectedIds = state.get('selectedIds', []);
+        //? if (
+        //?   action.get('selected') &&
+        //?   !selectedIds.includes(action.get('rowId'))
+        //? ) {
+        //?   return state.push('selectedIds', action.get('rowId'));
+        //? }
+        //? if (
+        //?   !action.get('selected') &&
+        //?   selectedIds.includes(action.get('rowId'))
+        //? ) {
+        //?   return state.unpush('selectedIds', action.get('rowId'));
+        //? }
+        //? return state;
       },
       select: (state, action) => {
         const mode = action.get('mode');
@@ -70,8 +74,7 @@ exports.xcraftCommands = function () {
         }
       },
       doubleClick: (state) => {
-        //NOP
-        // see doubleClick in events ---^
+        // NOP, see doubleClick in events ---^
         return state;
       },
     },

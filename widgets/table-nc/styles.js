@@ -26,7 +26,8 @@ export default function styles(theme, props) {
 
   const border = frame ? '1px solid ' + theme.palette.tableBorder : null;
 
-  const box = {
+  const table = {
+    height: height,
     display: 'flex',
     flexDirection: 'column',
     flexGrow: grow,
@@ -37,10 +38,9 @@ export default function styles(theme, props) {
     margin: '0px 1px',
     display: 'flex',
     flexDirection: 'row',
-    flexGrow: '1',
   };
 
-  const table = {
+  const tableContent = {
     display: 'flex',
     flexDirection: 'column',
     flexGrow: grow,
@@ -77,7 +77,6 @@ export default function styles(theme, props) {
   };
 
   const body = {
-    height: height,
     overflowY: 'auto',
     cursor: 'default',
   };
@@ -85,13 +84,12 @@ export default function styles(theme, props) {
   const buttons = {
     display: 'flex',
     flexDirection: 'row',
-    flexGrow: '1',
   };
 
   return {
-    box,
-    filter,
     table,
+    filter,
+    tableContent,
     postHeader,
     header,
     body,

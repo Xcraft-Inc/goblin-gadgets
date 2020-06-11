@@ -700,7 +700,13 @@ class Field extends Form {
         const type = gadgetInfo.get('type');
         const Gadget = widgetImporter(type);
         const WiredGadget = Widget.Wired(Gadget)(gadgetInfo.get('id'));
-        return <WiredGadget {...this.props} parentId={parentId} />;
+        return (
+          <WiredGadget
+            {...this.props}
+            parentId={parentId}
+            widgetId={gadgetInfo.get('id')}
+          />
+        );
       } else {
         return null;
       }

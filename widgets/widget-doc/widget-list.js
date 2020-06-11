@@ -38,9 +38,9 @@ import CheckboxNC from 'goblin-gadgets/widgets/checkbox-nc/widget';
 import checkboxNCProps from 'goblin-gadgets/widgets/checkbox-nc/props';
 import checkboxNCScenarios from 'goblin-gadgets/widgets/checkbox-nc/scenarios';
 
-import Table from 'goblin-gadgets/widgets/table/widget';
-import tableProps from 'goblin-gadgets/widgets/table/props';
-import tableScenarios from 'goblin-gadgets/widgets/table/scenarios';
+import TableNC from 'goblin-gadgets/widgets/table-nc/widget';
+import tableNCProps from 'goblin-gadgets/widgets/table-nc/props';
+import tableNCScenarios from 'goblin-gadgets/widgets/table-nc/scenarios';
 
 import Tree from 'goblin-gadgets/widgets/tree/widget';
 import treeProps from 'goblin-gadgets/widgets/tree/props';
@@ -151,11 +151,11 @@ const widgetList = [
     scenarios: textInputNCScenarios,
   },
   {
-    name: 'Table',
-    widget: Table,
-    widgetPath: 'goblin-gadgets/widgets/table/widget',
-    props: tableProps,
-    scenarios: tableScenarios,
+    name: 'TableNC',
+    widget: TableNC,
+    widgetPath: 'goblin-gadgets/widgets/table-nc/widget',
+    props: tableNCProps,
+    scenarios: tableNCScenarios,
   },
   {
     name: 'Tree',

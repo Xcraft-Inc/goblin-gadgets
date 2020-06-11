@@ -44,19 +44,11 @@ export default class TableCell extends Widget {
     super(...arguments);
     this.styles = styles;
 
-    this.onMouseDown = this.onMouseDown.bind(this);
-    this.onDoubleClick = this.onDoubleClick.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
-  onMouseDown() {
-    const x = this.props.selectionChanged;
-    if (x) {
-      x(this.props.rowId);
-    }
-  }
-
-  onDoubleClick() {
-    const x = this.props.onDoubleClick;
+  onClick() {
+    const x = this.props.onClick;
     if (x) {
       x(this.props.rowId);
     }
@@ -97,8 +89,7 @@ export default class TableCell extends Widget {
         key={this.props.index}
         ref={(node) => (this.cellNode = node)}
         className={this.styles.classNames.tableCell}
-        onMouseDown={this.onMouseDown}
-        onDoubleClick={this.props.onDoubleClick}
+        onClick={this.onClick}
       >
         <Label
           kind={
@@ -130,8 +121,7 @@ export default class TableCell extends Widget {
       <div
         key={this.props.index}
         className={this.styles.classNames.tableCell}
-        onMouseDown={this.onMouseDown}
-        onDoubleClick={this.props.onDoubleClick}
+        onClick={this.onClick}
       >
         {this.props.text()}
       </div>

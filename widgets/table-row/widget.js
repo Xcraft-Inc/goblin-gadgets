@@ -11,7 +11,7 @@ import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
 
 /******************************************************************************/
 
-export default class TableRow extends Widget {
+class TableRow extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
@@ -69,8 +69,6 @@ export default class TableRow extends Widget {
         isLast={isLast}
         isHeader={false}
         text={text}
-        selectionChanged={() => this.onSelectionChanged(rowId)}
-        onDoubleClick={() => this.onDoubleClick(rowId)}
       />
     );
   }
@@ -102,6 +100,8 @@ export default class TableRow extends Widget {
     var styleName = this.props.selected ? 'rowSelected' : 'row';
     const rowStyleClass = this.styles.classNames[styleName];
 
+    const rowId = this.props.row.get('id');
+
     return (
       <div
         ref={(node) => {
@@ -109,12 +109,37 @@ export default class TableRow extends Widget {
         }}
         key={this.props.index}
         className={rowStyleClass}
+        onClick={() => this.onSelectionChanged(rowId)}
+        onDoubleClick={() => this.onDoubleClick(rowId)}
       >
         {this.renderRowCells(this.props.header.toArray(), this.props.row)}
       </div>
     );
   }
 }
+
+/******************************************************************************/
+
+export default Widget.connectWidget((state, props) => {
+  if (!state) {
+    return {};
+  }
+
+  const row = state.get(`sortedRows.${props.rowIndex}`);
+  const id = row.get('row').get('id');
+  const selectedIds = state.get('selectedIds');
+  const selected = selectedIds ? selectedIds.includes(id) : false;
+
+  return {
+    row: row.get('row'),
+    index: props.rowIndex,
+    level: row.get('level'),
+    topSeparator: row.get('topSeparator'),
+    bottomSeparator: row.get('bottomSeparator'),
+    isLast: row.get('isLast'),
+    selected,
+  };
+})(TableRow);
 
 /******************************************************************************/
 

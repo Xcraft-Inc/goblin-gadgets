@@ -131,12 +131,7 @@ export default [
 
   // Function.
   {
-    name: 'selectionChanged',
-    group: 'function',
-    type: types.function,
-  },
-  {
-    name: 'onDoubleClick',
+    name: 'onClick',
     group: 'function',
     type: types.function,
   },

@@ -1,6 +1,491 @@
 import {types, addType} from 'goblin-gadgets/types/types.js';
 import PropTypes from 'prop-types';
 import Shredder from 'xcraft-core-shredder';
+import helpers from '../table/helpers';
+
+/******************************************************************************/
+
+const t1 = {
+  header: [
+    {
+      name: 'content',
+      description: 'Type',
+      width: '100px',
+      textAlign: 'left',
+    },
+    {
+      name: 'dimensions',
+      description: 'Dimensions',
+      width: '200px',
+      textAlign: 'left',
+    },
+    {
+      name: 'weight',
+      description: 'Poids',
+      width: '100px',
+      textAlign: 'right',
+    },
+  ],
+  rows: [
+    {
+      id: '1',
+      content: 'C6',
+      dimensions: {glyph: 'solid/check', text: '11.4x16.2x1'},
+      weight: '150g',
+    },
+    {
+      id: '2',
+      content: 'A4',
+      dimensions: {glyph: 'solid/times', text: '21x29.7x1'},
+      weight: '100g',
+    },
+    {
+      id: '3',
+      content: 'XT9',
+      dimensions: {glyph: 'solid/calendar', text: '50x50x100'},
+      weight: '1kg',
+    },
+    {
+      id: '4',
+      content: 'N1',
+      dimensions: {glyph: 'solid/rocket', text: '1x2x3'},
+      weight: '10g',
+    },
+  ],
+};
+
+const t2 = {
+  'post-header': [
+    {
+      names: ['lu', 'ma', 'me', 'je', 've'],
+      description: 'Ouvrable',
+      textAlign: 'center',
+    },
+    {
+      names: ['sa', 'di'],
+      description: 'Week-end',
+      textAlign: 'center',
+    },
+  ],
+  'header': [
+    {
+      name: 'lu',
+      description: 'Lundi',
+      grow: '1',
+      textAlign: 'right',
+    },
+    {
+      name: 'ma',
+      description: 'Mardi',
+      grow: '1',
+      textAlign: 'right',
+    },
+    {
+      name: 'me',
+      description: 'Mercredi',
+      grow: '1',
+      textAlign: 'right',
+    },
+    {
+      name: 'je',
+      description: 'Jeudi',
+      grow: '1',
+      textAlign: 'right',
+    },
+    {
+      name: 've',
+      description: 'Vendredi',
+      grow: '1',
+      textAlign: 'right',
+    },
+    {
+      name: 'sa',
+      description: 'Samedi',
+      grow: '1',
+      textAlign: 'right',
+    },
+    {
+      name: 'di',
+      description: 'Dimanche',
+      grow: '1',
+      textAlign: 'right',
+    },
+  ],
+  'rows': [
+    {
+      id: '1',
+      lu: '10.00',
+      ma: '12.00',
+      me: '10.00',
+      je: '10.00',
+      ve: '19.00',
+      sa: '5.00',
+      di: '100.00',
+    },
+    {
+      id: '2',
+      lu: '120.00',
+      ma: '150.00',
+      je: '100.00',
+      ve: '20.00',
+      di: '2.00',
+    },
+    {
+      id: '3',
+      lu: '5.00',
+      ma: '50.00',
+      me: '51.00',
+      je: '34.00',
+      ve: '7.00',
+      sa: '65.00',
+    },
+  ],
+};
+
+const t3 = {
+  header: [
+    {
+      name: 'description',
+      description: 'Description',
+      grow: '5',
+      textAlign: 'left',
+    },
+    {
+      name: 'quantity',
+      description: 'Quantité',
+      grow: '1',
+      textAlign: 'right',
+    },
+    {
+      name: 'unit',
+      description: 'Unité',
+      grow: '1',
+      textAlign: 'left',
+    },
+    {
+      name: 'pricePerUnit',
+      description: 'Prix',
+      grow: '1',
+      textAlign: 'right',
+    },
+    {
+      name: 'discount',
+      description: 'Rabais',
+      grow: '1',
+      textAlign: 'right',
+    },
+    {
+      name: 'finalPrice',
+      description: 'Total',
+      grow: '1',
+      textAlign: 'right',
+    },
+  ],
+  rows: [
+    {
+      id: '1',
+      description: 'Crésus Comptabilité PRO',
+      quantity: '1',
+      unit: 'pce',
+      pricePerUnit: '480.00',
+      finalPrice: '480.00',
+    },
+    {
+      id: '2',
+      description: 'Crésus Facturation PRO',
+      quantity: '200',
+      unit: 'pce',
+      pricePerUnit: '480.00',
+      discount: '100.00',
+      finalPrice: '95900.00',
+    },
+    {
+      id: '3',
+      description: 'Formation compabilité mardi 10.02.2017',
+      quantity: '4.5',
+      unit: 'h',
+      pricePerUnit: '150.00',
+      finalPrice: '675.00',
+    },
+    {
+      id: '4',
+      description: 'Dépannage ticket #30.205',
+      quantity: '1',
+      pricePerUnit: '100.00',
+      discount: '10%',
+      finalPrice: '90.00',
+    },
+    {
+      id: '5',
+      description: 'Vis M12',
+      quantity: '200',
+      unit: 'pce',
+      pricePerUnit: '0.30',
+      finalPrice: '60.00',
+    },
+    {
+      id: '6',
+      description:
+        'Description débile super longue pour tester la mise en page lorsque le texte est très long, voilà voilà...',
+      quantity: '1',
+      pricePerUnit: '5.00',
+      finalPrice: '5.00',
+    },
+    {
+      id: '7',
+      description: 'Huile de coude extra-forte',
+      quantity: '2.5',
+      unit: 'dl',
+      pricePerUnit: '10.00',
+      finalPrice: '250.00',
+    },
+  ],
+};
+
+const t4 = {
+  header: [
+    {
+      name: 'column1',
+      description: 'Nom',
+      width: '200px',
+      textAlign: 'left',
+    },
+    {
+      name: 'column2',
+      description: 'Largeur',
+      width: '100px',
+      textAlign: 'right',
+      type: 'price',
+    },
+    {
+      name: 'column3',
+      description: 'Longueur',
+      width: '100px',
+      textAlign: 'right',
+      type: 'price',
+    },
+    {
+      name: 'column4',
+      description: 'Hauteur',
+      width: '100px',
+      textAlign: 'right',
+      type: 'price',
+    },
+  ],
+  filtering: 'enable',
+  sorting: 'enable',
+  defaultSortingColumns: ['column1'],
+  rows: [
+    {
+      id: '1',
+      column1: 'Table basse',
+      column2: '100',
+      column3: '120',
+      column4: '30',
+    },
+    {
+      id: '2',
+      column1: 'Table à manger',
+      column2: '200',
+      column3: '330',
+      column4: '70',
+    },
+    {
+      id: '3',
+      column1: 'Lit simple',
+      column2: '90',
+      column3: '210',
+      column4: '50',
+    },
+    {
+      id: '4',
+      column1: 'Lit double',
+      column2: '180',
+      column3: '210',
+      column4: '50',
+    },
+    {
+      id: '5',
+      column1: 'Armoire simple',
+      column2: '100',
+      column3: '80',
+      column4: '200',
+    },
+    {
+      id: '6',
+      column1: 'Armoire double',
+      column2: '200',
+      column3: '80',
+      column4: '200',
+    },
+    {
+      id: '7',
+      column1: 'Armoire triple',
+      column2: '280',
+      column3: '80',
+      column4: '200',
+    },
+    {
+      id: '8',
+      column1: 'Chaise',
+      column2: '60',
+      column3: '60',
+      column4: '110',
+    },
+  ],
+};
+
+const t5 = {
+  header: [
+    {
+      name: 'column1',
+      description: 'Groupe',
+      width: '200px',
+      textAlign: 'left',
+      indent: 'space',
+    },
+    {
+      name: 'column2',
+      description: 'Description',
+      grow: '1',
+      textAlign: 'left',
+      indent: 'space',
+    },
+  ],
+  rows: [
+    {
+      column1: 'Jours',
+      column2: '',
+      horizontalSeparator: 'both',
+      rows: [
+        {
+          id: '1',
+          column1: 'Lundi',
+          column2: '8h00 – 18h30',
+        },
+        {
+          id: '2',
+          column1: 'Mardi',
+          column2: '8h00 – 18h30',
+        },
+        {
+          id: '3',
+          column1: 'Mercredi',
+          column2: '8h00 – 18h30',
+        },
+        {
+          id: '4',
+          column1: 'Jeudi',
+          column2: '8h00 – 18h30',
+        },
+        {
+          id: '5',
+          column1: 'Vendredi',
+          column2: '8h00 – 18h30',
+        },
+        {
+          id: '6',
+          column1: 'Samedi',
+          column2: '',
+          rows: [
+            {
+              id: '6.1',
+              column1: 'Matin',
+              column2: '8h00 – 12h00',
+            },
+            {
+              id: '6.2',
+              column1: 'Après-midi',
+              column2: '13h30 – 17h00',
+            },
+          ],
+        },
+        {
+          id: '7',
+          column1: 'Dimanche',
+          column2: 'Fermé',
+        },
+      ],
+    },
+    {
+      column1: 'Mois',
+      column2: '',
+      horizontalSeparator: 'both',
+      rows: [
+        {
+          id: '1',
+          column1: 'Janvier',
+          column2: '',
+        },
+        {
+          id: '2',
+          column1: 'Février',
+          column2: 'Fermeture annuelle',
+        },
+        {
+          id: '3',
+          column1: 'Mars',
+          column2: '',
+        },
+        {
+          id: '4',
+          column1: 'Avril',
+          column2: '',
+        },
+        {
+          id: '5',
+          column1: 'Mai',
+          column2: '',
+        },
+        {
+          id: '6',
+          column1: 'Juin',
+          column2: '',
+        },
+        {
+          id: '7',
+          column1: 'Juillet',
+          column2: '',
+        },
+        {
+          id: '8',
+          column1: 'Août',
+          column2: '',
+        },
+        {
+          id: '9',
+          column1: 'Septembre',
+          column2: '',
+        },
+        {
+          id: '10',
+          column1: 'Octobre',
+          column2: '',
+        },
+        {
+          id: '11',
+          column1: 'Novembre',
+          column2: '',
+        },
+        {
+          id: '12',
+          column1: 'Décembre',
+          column2: '',
+        },
+      ],
+    },
+  ],
+};
+
+function getRows(data) {
+  const list = [];
+  const rows = new Shredder(data.rows);
+  helpers.flatten(list, rows, 0);
+  helpers.diffuseSeparators(list);
+  return new Shredder(list);
+}
+
+/******************************************************************************/
 
 const samples = [
   {id: 'T1', text: 'Petite table'},
@@ -11,430 +496,43 @@ const samples = [
 ];
 
 const samplesData = {
-  T1: {
-    header: [
-      {
-        name: 'content',
-        description: 'Type',
-        width: '100px',
-        textAlign: 'left',
-      },
-      {
-        name: 'dimensions',
-        description: 'Dimensions',
-        width: '200px',
-        textAlign: 'left',
-      },
-      {
-        name: 'weight',
-        description: 'Poids',
-        width: '100px',
-        textAlign: 'right',
-      },
-    ],
-    rows: [
-      {
-        content: 'C6',
-        dimensions: {glyph: 'solid/check', text: '11.4x16.2x1'},
-        weight: '150g',
-      },
-      {
-        content: 'A4',
-        dimensions: {glyph: 'solid/times', text: '21x29.7x1'},
-        weight: '100g',
-      },
-      {
-        content: 'XT9',
-        dimensions: {glyph: 'solid/calendar', text: '50x50x100'},
-        weight: '1kg',
-      },
-      {
-        content: 'N1',
-        dimensions: {glyph: 'solid/rocket', text: '1x2x3'},
-        weight: '10g',
-      },
-    ],
-  },
-  T2: {
-    'post-header': [
-      {
-        names: ['lu', 'ma', 'me', 'je', 've'],
-        description: 'Ouvrable',
-        textAlign: 'center',
-      },
-      {
-        names: ['sa', 'di'],
-        description: 'Week-end',
-        textAlign: 'center',
-      },
-    ],
-    'header': [
-      {
-        name: 'lu',
-        description: 'Lundi',
-        grow: '1',
-        textAlign: 'right',
-      },
-      {
-        name: 'ma',
-        description: 'Mardi',
-        grow: '1',
-        textAlign: 'right',
-      },
-      {
-        name: 'me',
-        description: 'Mercredi',
-        grow: '1',
-        textAlign: 'right',
-      },
-      {
-        name: 'je',
-        description: 'Jeudi',
-        grow: '1',
-        textAlign: 'right',
-      },
-      {
-        name: 've',
-        description: 'Vendredi',
-        grow: '1',
-        textAlign: 'right',
-      },
-      {
-        name: 'sa',
-        description: 'Samedi',
-        grow: '1',
-        textAlign: 'right',
-      },
-      {
-        name: 'di',
-        description: 'Dimanche',
-        grow: '1',
-        textAlign: 'right',
-      },
-    ],
-    'rows': [
-      {
-        lu: '10.00',
-        ma: '12.00',
-        me: '10.00',
-        je: '10.00',
-        ve: '19.00',
-        sa: '5.00',
-        di: '100.00',
-      },
-      {
-        lu: '120.00',
-        ma: '150.00',
-        je: '100.00',
-        ve: '20.00',
-        di: '2.00',
-      },
-      {
-        lu: '5.00',
-        ma: '50.00',
-        me: '51.00',
-        je: '34.00',
-        ve: '7.00',
-        sa: '65.00',
-      },
-    ],
-  },
-  T3: {
-    header: [
-      {
-        name: 'description',
-        description: 'Description',
-        grow: '5',
-        textAlign: 'left',
-      },
-      {
-        name: 'quantity',
-        description: 'Quantité',
-        grow: '1',
-        textAlign: 'right',
-      },
-      {
-        name: 'unit',
-        description: 'Unité',
-        grow: '1',
-        textAlign: 'left',
-      },
-      {
-        name: 'pricePerUnit',
-        description: 'Prix',
-        grow: '1',
-        textAlign: 'right',
-      },
-      {
-        name: 'discount',
-        description: 'Rabais',
-        grow: '1',
-        textAlign: 'right',
-      },
-      {
-        name: 'finalPrice',
-        description: 'Total',
-        grow: '1',
-        textAlign: 'right',
-      },
-    ],
-    rows: [
-      {
-        description: 'Crésus Comptabilité PRO',
-        quantity: '1',
-        unit: 'pce',
-        pricePerUnit: '480.00',
-        finalPrice: '480.00',
-      },
-      {
-        description: 'Crésus Facturation PRO',
-        quantity: '200',
-        unit: 'pce',
-        pricePerUnit: '480.00',
-        discount: '100.00',
-        finalPrice: '95900.00',
-      },
-      {
-        description: 'Formation compabilité mardi 10.02.2017',
-        quantity: '4.5',
-        unit: 'h',
-        pricePerUnit: '150.00',
-        finalPrice: '675.00',
-      },
-      {
-        description: 'Dépannage ticket #30.205',
-        quantity: '1',
-        pricePerUnit: '100.00',
-        discount: '10%',
-        finalPrice: '90.00',
-      },
-      {
-        description: 'Vis M12',
-        quantity: '200',
-        unit: 'pce',
-        pricePerUnit: '0.30',
-        finalPrice: '60.00',
-      },
-      {
-        description:
-          'Description débile super longue pour tester la mise en page lorsque le texte est très long, voilà voilà...',
-        quantity: '1',
-        pricePerUnit: '5.00',
-        finalPrice: '5.00',
-      },
-      {
-        description: 'Huile de coude extra-forte',
-        quantity: '2.5',
-        unit: 'dl',
-        pricePerUnit: '10.00',
-        finalPrice: '250.00',
-      },
-    ],
-  },
-  T4: {
-    header: [
-      {
-        name: 'column1',
-        description: 'Nom',
-        width: '200px',
-        textAlign: 'left',
-      },
-      {
-        name: 'column2',
-        description: 'Largeur',
-        width: '100px',
-        textAlign: 'right',
-        type: 'price',
-      },
-      {
-        name: 'column3',
-        description: 'Longueur',
-        width: '100px',
-        textAlign: 'right',
-        type: 'price',
-      },
-      {
-        name: 'column4',
-        description: 'Hauteur',
-        width: '100px',
-        textAlign: 'right',
-        type: 'price',
-      },
-    ],
-    filtering: 'enable',
-    sorting: 'enable',
-    defaultSortingColumns: ['column1'],
-    rows: [
-      {
-        column1: 'Table basse',
-        column2: '100',
-        column3: '120',
-        column4: '30',
-      },
-      {
-        column1: 'Table à manger',
-        column2: '200',
-        column3: '330',
-        column4: '70',
-      },
-      {
-        column1: 'Lit simple',
-        column2: '90',
-        column3: '210',
-        column4: '50',
-      },
-      {
-        column1: 'Lit double',
-        column2: '180',
-        column3: '210',
-        column4: '50',
-      },
-      {
-        column1: 'Armoire simple',
-        column2: '100',
-        column3: '80',
-        column4: '200',
-      },
-      {
-        column1: 'Armoire double',
-        column2: '200',
-        column3: '80',
-        column4: '200',
-      },
-      {
-        column1: 'Armoire triple',
-        column2: '280',
-        column3: '80',
-        column4: '200',
-      },
-      {
-        column1: 'Chaise',
-        column2: '60',
-        column3: '60',
-        column4: '110',
-      },
-    ],
-  },
-  T5: {
-    header: [
-      {
-        name: 'column1',
-        description: 'Groupe',
-        width: '200px',
-        textAlign: 'left',
-        indent: 'space',
-      },
-      {
-        name: 'column2',
-        description: 'Description',
-        grow: '1',
-        textAlign: 'left',
-        indent: 'space',
-      },
-    ],
-    rows: [
-      {
-        column1: 'Jours',
-        column2: '',
-        horizontalSeparator: 'both',
-        rows: [
-          {
-            column1: 'Lundi',
-            column2: '8h00 – 18h30',
-          },
-          {
-            column1: 'Mardi',
-            column2: '8h00 – 18h30',
-          },
-          {
-            column1: 'Mercredi',
-            column2: '8h00 – 18h30',
-          },
-          {
-            column1: 'Jeudi',
-            column2: '8h00 – 18h30',
-          },
-          {
-            column1: 'Vendredi',
-            column2: '8h00 – 18h30',
-          },
-          {
-            column1: 'Samedi',
-            column2: '',
-            rows: [
-              {
-                column1: 'Matin',
-                column2: '8h00 – 12h00',
-              },
-              {
-                column1: 'Après-midi',
-                column2: '13h30 – 17h00',
-              },
-            ],
-          },
-          {
-            column1: 'Dimanche',
-            column2: 'Fermé',
-          },
-        ],
-      },
-      {
-        column1: 'Mois',
-        column2: '',
-        horizontalSeparator: 'both',
-        rows: [
-          {
-            column1: 'Janvier',
-            column2: '',
-          },
-          {
-            column1: 'Février',
-            column2: 'Fermeture annuelle',
-          },
-          {
-            column1: 'Mars',
-            column2: '',
-          },
-          {
-            column1: 'Avril',
-            column2: '',
-          },
-          {
-            column1: 'Mai',
-            column2: '',
-          },
-          {
-            column1: 'Juin',
-            column2: '',
-          },
-          {
-            column1: 'Juillet',
-            column2: '',
-          },
-          {
-            column1: 'Août',
-            column2: '',
-          },
-          {
-            column1: 'Septembre',
-            column2: '',
-          },
-          {
-            column1: 'Octobre',
-            column2: '',
-          },
-          {
-            column1: 'Novembre',
-            column2: '',
-          },
-          {
-            column1: 'Décembre',
-            column2: '',
-          },
-        ],
-      },
-    ],
-  },
+  T1: new Shredder(t1),
+  T2: new Shredder(t2),
+  T3: new Shredder(t3),
+  T4: new Shredder(t4),
+  T5: new Shredder(t5),
+};
+
+/******************************************************************************/
+
+const sortedRows = [
+  {id: 'R1', text: 'Petite table'},
+  {id: 'R2', text: 'Moyenne table'},
+  {id: 'R3', text: 'Grande table'},
+  {id: 'R4', text: 'Table avec filtre et tri'},
+  {id: 'R5', text: 'Table à plusieurs niveaux'},
+];
+
+const sortedRowsData = {
+  R1: getRows(t1),
+  R2: getRows(t2),
+  R3: getRows(t3),
+  R4: getRows(t4),
+  R5: getRows(t5),
+};
+
+/******************************************************************************/
+
+const selectedIds = [
+  {id: 'S1', text: 'Premier sélectionné'},
+  {id: 'S2', text: 'Deuxième sélectionné'},
+  {id: 'S12', text: 'Premier et deuxième sélectionnés'},
+];
+
+const selectedIdsData = {
+  S1: ['1'],
+  S2: ['2'],
+  S12: ['1', '2'],
 };
 
 /******************************************************************************/
@@ -446,6 +544,26 @@ addType('dataTable', {
   restrictsToList: true,
   samples: samples,
   samplesData: samplesData,
+  propType: PropTypes.object,
+});
+
+addType('sortedRows', {
+  type: 'sortedRows',
+  defaultValue: 'R1',
+  widget: 'combo',
+  restrictsToList: true,
+  samples: sortedRows,
+  samplesData: sortedRowsData,
+  propType: PropTypes.object,
+});
+
+addType('selectedIds', {
+  type: 'selectedIds',
+  defaultValue: 'S1',
+  widget: 'combo',
+  restrictsToList: true,
+  samples: selectedIds,
+  samplesData: selectedIdsData,
   propType: PropTypes.object,
 });
 
@@ -479,6 +597,16 @@ export default [
     description: 'The data of table.',
   },
   {
+    name: 'sortedRows',
+    group: 'main',
+    type: types.sortedRows,
+  },
+  {
+    name: 'selectedIds',
+    group: 'main',
+    type: types.selectedIds,
+  },
+  {
     name: 'selectionMode',
     group: 'main',
     type: types.enum(['none', 'single', 'multi']),
@@ -500,6 +628,11 @@ export default [
     type: types.bool,
     description: "Work only widh connected widget (don't work with WidgetDoc).",
   },
+  {
+    name: 'widgetId',
+    group: 'main',
+    type: types.string,
+  },
 
   // Aspect.
   {
@@ -514,6 +647,11 @@ export default [
   },
   {
     name: 'headerWithoutHorizontalSeparator',
+    group: 'aspect',
+    type: types.bool,
+  },
+  {
+    name: 'widgetDocPreview',
     group: 'aspect',
     type: types.bool,
   },
@@ -549,5 +687,42 @@ export default [
     name: 'height',
     group: 'layout',
     type: types.size,
+  },
+
+  // Function.
+  {
+    name: 'onFilterChanged',
+    group: 'function',
+    type: types.function,
+  },
+  {
+    name: 'onSortingChanged',
+    group: 'function',
+    type: types.function,
+  },
+  {
+    name: 'onSelectionChanged',
+    group: 'function',
+    type: types.function,
+  },
+  {
+    name: 'onRenderRow',
+    group: 'function',
+    type: types.function,
+  },
+  {
+    name: 'onDoubleClick',
+    group: 'function',
+    type: types.function,
+  },
+  {
+    name: 'onSelectAll',
+    group: 'function',
+    type: types.function,
+  },
+  {
+    name: 'onDeselectAll',
+    group: 'function',
+    type: types.function,
   },
 ];
