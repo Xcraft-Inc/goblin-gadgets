@@ -39,7 +39,10 @@ class TextFieldTimeInterval extends Widget {
     const path = this.getFullPathFromModel(this.props.startModel);
     this.setBackendValue(path, time);
 
-    if (this.props.defaultDurationToEnd && !this.props.maxTime) {
+    if (
+      this.props.defaultDurationToEnd &&
+      (!this.props.maxTime || time > this.props.maxTime)
+    ) {
       time = TimeConverters.getCalcTime(time, this.props.defaultDurationToEnd);
       const path = this.getFullPathFromModel(this.props.endModel);
       this.setBackendValue(path, time);
@@ -50,7 +53,10 @@ class TextFieldTimeInterval extends Widget {
     const path = this.getFullPathFromModel(this.props.endModel);
     this.setBackendValue(path, time);
 
-    if (this.props.defaultDurationFromStart && !this.props.minTime) {
+    if (
+      this.props.defaultDurationFromStart &&
+      (!this.props.minTime || time < this.props.minTime)
+    ) {
       time = TimeConverters.getCalcTime(
         time,
         this.props.defaultDurationFromStart
