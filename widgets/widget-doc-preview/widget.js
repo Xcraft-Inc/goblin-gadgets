@@ -361,7 +361,12 @@ class WidgetDocPreview extends Widget {
     key = this.props.theme ? this.props.theme + key : key;
 
     return (
-      <this.widgetInfo.widget key={key} widgetDocPreview={true} {...props} />
+      <this.widgetInfo.widget
+        key={key}
+        widgetDocPreview={true}
+        {...props}
+        widgetId={`${this.props.widgetId}@preview-widget`}
+      />
     );
   }
 

@@ -1,14 +1,7 @@
 //T:2019-02-27
 import React from 'react';
-import Props from './props';
 import Widget from 'goblin-laboratory/widgets/widget';
 import {Unit} from 'electrum-theme';
-
-import {
-  makePropTypes,
-  makeDefaultProps,
-} from 'xcraft-core-utils/lib/prop-types';
-
 import TableRow from 'goblin-gadgets/widgets/table-row/widget';
 import TableCell from 'goblin-gadgets/widgets/table-cell/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
@@ -16,7 +9,6 @@ import Label from 'goblin-gadgets/widgets/label/widget';
 import TextInputNC from 'goblin-gadgets/widgets/text-input-nc/widget';
 import T from 't';
 import * as styles from './styles';
-import throttle from 'lodash/throttle';
 
 /******************************************************************************/
 
@@ -182,12 +174,8 @@ export default class TableNC extends Widget {
     let width = '0px';
     let grow = 0;
     for (const name of column.get('names')) {
-      const c =
-        header.map((x) => {
-          if (name === x.get('name')) {
-            return x;
-          }
-        })[0] || null;
+      const cc = header.filter((x) => name === x.get('name'));
+      const c = cc ? cc.get(0) : null;
       if (c) {
         const w = c.get('width');
         if (w) {
@@ -394,8 +382,3 @@ export default class TableNC extends Widget {
     );
   }
 }
-
-/******************************************************************************/
-
-TableNC.propTypes = makePropTypes(Props);
-TableNC.defaultProps = makeDefaultProps(Props);

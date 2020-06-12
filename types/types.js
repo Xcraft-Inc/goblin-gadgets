@@ -268,7 +268,7 @@ const types = {
   grow: {
     type: 'grow',
     widget: 'combo',
-    restrictsToList: true,
+    restrictsToList: false,
     samples: ['', '0.5', '1'],
   },
 

@@ -1,7 +1,13 @@
 import React from 'react';
+import Props from './props';
 import Widget from 'goblin-laboratory/widgets/widget';
 import TableNC from '../table-nc/widget';
 import MouseTrap from 'mousetrap';
+
+import {
+  makePropTypes,
+  makeDefaultProps,
+} from 'xcraft-core-utils/lib/prop-types';
 
 /******************************************************************************/
 
@@ -221,6 +227,11 @@ class Table extends Widget {
     }
   }
 }
+
+/******************************************************************************/
+
+Table.propTypes = makePropTypes(Props);
+Table.defaultProps = makeDefaultProps(Props);
 
 /******************************************************************************/
 

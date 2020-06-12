@@ -138,6 +138,7 @@ export default Widget.connectWidget((state, props) => {
     bottomSeparator: row.get('bottomSeparator'),
     isLast: row.get('isLast'),
     selected,
+    x: id, //?
   };
 })(TableRow);
 
