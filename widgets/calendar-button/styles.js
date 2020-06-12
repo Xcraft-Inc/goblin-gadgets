@@ -122,7 +122,7 @@ export default function styles(theme, props) {
     backgroundHoverColor = theme.palette.calendarBackground; // no visible hover effect
     activeColor = theme.palette.calendarBackground;
   } else {
-    let coefficient = 0.3;
+    backgroundHoverColor = ColorManipulator.lighten(activeColor, 0.3);
     if (color) {
       activeColor = color;
     } else {
@@ -132,10 +132,9 @@ export default function styles(theme, props) {
         activeColor = theme.palette.calendarActiveSubBackground;
       } else {
         activeColor = theme.palette.calendarActiveBackground;
-        coefficient = 0.8;
+        backgroundHoverColor = theme.palette.calendarHoverBackground;
       }
     }
-    backgroundHoverColor = ColorManipulator.lighten(activeColor, coefficient);
     if (selected) {
       borderRadius = '20px';
       borderWidth = '3px';
