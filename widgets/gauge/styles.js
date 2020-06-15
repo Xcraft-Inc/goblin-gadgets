@@ -1,3 +1,6 @@
+import {ColorManipulator} from 'electrum-theme';
+import {Unit} from 'electrum-theme';
+
 /******************************************************************************/
 
 //  Compute the color of gauge.
@@ -132,6 +135,8 @@ export default function styles(theme, props) {
     if (kind === 'rounded') {
       box.borderRadius = '50px';
       content.borderRadius = '50px';
+    } else if (kind === 'simple') {
+      gloss.visibility = 'hidden';
     }
     box.backgroundColor = theme.palette.ticketGaugeBackground;
     box.boxShadow = theme.palette.ticketGaugeBackgroundShadow;

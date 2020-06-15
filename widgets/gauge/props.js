@@ -21,7 +21,7 @@ export default [
   {
     name: 'kind',
     group: 'aspect',
-    type: types.enum(['', 'mission', 'rounded']),
+    type: types.enum(['', 'mission', 'rounded', 'simple']),
   },
   {
     name: 'direction',

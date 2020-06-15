@@ -10,21 +10,17 @@ import * as styles from './styles';
 
 /******************************************************************************/
 
-class Gauge extends Widget {
+export default class Gauge extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
   }
 
   render() {
-    const boxClass = this.styles.classNames.box;
-    const contentClass = this.styles.classNames.content;
-    const glossClass = this.styles.classNames.gloss;
-
     return (
-      <div className={boxClass}>
-        <div className={contentClass} />
-        <div className={glossClass} />
+      <div className={this.styles.classNames.box}>
+        <div className={this.styles.classNames.content} />
+        <div className={this.styles.classNames.gloss} />
       </div>
     );
   }
@@ -34,6 +30,3 @@ class Gauge extends Widget {
 
 Gauge.propTypes = makePropTypes(Props);
 Gauge.defaultProps = makeDefaultProps(Props);
-
-/******************************************************************************/
-export default Gauge;
