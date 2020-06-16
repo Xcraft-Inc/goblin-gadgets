@@ -1,4 +1,3 @@
-//T:2019-02-27:Nothing to translate !
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import Props from './props';
@@ -10,7 +9,7 @@ import * as styles from './styles';
 
 /******************************************************************************/
 
-export default class Gauge extends Widget {
+export default class ColorerContainer extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
@@ -18,9 +17,8 @@ export default class Gauge extends Widget {
 
   render() {
     return (
-      <div className={this.styles.classNames.gauge}>
-        <div className={this.styles.classNames.content} />
-        <div className={this.styles.classNames.gloss} />
+      <div className={this.styles.classNames.colorerContainer}>
+        {this.props.children}
       </div>
     );
   }
@@ -28,5 +26,5 @@ export default class Gauge extends Widget {
 
 /******************************************************************************/
 
-Gauge.propTypes = makePropTypes(Props);
-Gauge.defaultProps = makeDefaultProps(Props);
+ColorerContainer.propTypes = makePropTypes(Props);
+ColorerContainer.defaultProps = makeDefaultProps(Props);

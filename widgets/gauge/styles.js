@@ -1,6 +1,3 @@
-import {ColorManipulator} from 'electrum-theme';
-import {Unit} from 'electrum-theme';
-
 /******************************************************************************/
 
 //  Compute the color of gauge.
@@ -79,7 +76,7 @@ export default function styles(theme, props) {
 
   const gaugeValue = Math.max(Math.min(value, 100), 0); // 0..100
 
-  const box = {
+  const gauge = {
     position: 'relative',
     display: 'flex',
     height: height || (direction === 'horizontal' ? null : '100%'),
@@ -133,13 +130,13 @@ export default function styles(theme, props) {
     gloss.visibility = 'hidden';
   } else {
     if (kind === 'rounded') {
-      box.borderRadius = '50px';
+      gauge.borderRadius = '50px';
       content.borderRadius = '50px';
     } else if (kind === 'simple') {
       gloss.visibility = 'hidden';
     }
-    box.backgroundColor = theme.palette.ticketGaugeBackground;
-    box.boxShadow = theme.palette.ticketGaugeBackgroundShadow;
+    gauge.backgroundColor = theme.palette.ticketGaugeBackground;
+    gauge.boxShadow = theme.palette.ticketGaugeBackgroundShadow;
     content.position = 'absolute';
     content.bottom = '1px';
     content.left = '1px';
@@ -153,23 +150,23 @@ export default function styles(theme, props) {
         : `calc(${gaugeValue}% - 2px)`;
     content.boxShadow = theme.palette.ticketGaugeContentShadow;
     if (gaugeValue === 0) {
-      box.border = '1px solid ' + theme.palette.ticketGaugeEmptyBorder;
-      box.backgroundColor = null;
-      box.boxShadow = null;
+      gauge.border = '1px solid ' + theme.palette.ticketGaugeEmptyBorder;
+      gauge.backgroundColor = null;
+      gauge.boxShadow = null;
       content.visibility = 'hidden';
       gloss.visibility = 'hidden';
     }
   }
 
   if (disabled) {
-    box.backgroundColor = theme.palette.buttonDisableBackground;
-    box.boxShadow = null;
+    gauge.backgroundColor = theme.palette.buttonDisableBackground;
+    gauge.boxShadow = null;
     content.visibility = 'hidden';
     gloss.visibility = 'hidden';
   }
 
   return {
-    box,
+    gauge,
     content,
     gloss,
   };
