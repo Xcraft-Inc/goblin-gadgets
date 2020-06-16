@@ -25,6 +25,11 @@ export default [
     type: types.function,
   },
   {
+    name: 'onRightClick',
+    group: 'main',
+    type: types.function,
+  },
+  {
     name: 'onMouseDown',
     group: 'main',
     type: types.function,

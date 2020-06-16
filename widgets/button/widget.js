@@ -114,6 +114,9 @@ export default class Button extends Widget {
     if (x) {
       x(e);
     }
+    if (e.button === 2 && this.props.onRightClick) {
+      this.props.onRightClick(e);
+    }
   }
 
   onMouseOver(e) {
