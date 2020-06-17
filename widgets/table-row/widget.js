@@ -97,9 +97,6 @@ class TableRow extends Widget {
   }
 
   render() {
-    var styleName = this.props.selected ? 'rowSelected' : 'row';
-    const rowStyleClass = this.styles.classNames[styleName];
-
     const rowId = this.props.row.get('id');
 
     return (
@@ -108,7 +105,7 @@ class TableRow extends Widget {
           this._ref = node;
         }}
         key={this.props.index}
-        className={rowStyleClass}
+        className={this.styles.classNames.row}
         onClick={() => this.onSelectionChanged(rowId)}
         onDoubleClick={() => this.onDoubleClick(rowId)}
       >

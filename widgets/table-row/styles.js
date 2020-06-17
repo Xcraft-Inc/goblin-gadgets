@@ -1,5 +1,5 @@
 import {Unit} from 'electrum-theme';
-const TableHelpers = require('gadgets/helpers/table-helpers');
+import TableHelpers from 'gadgets/helpers/table-helpers';
 
 /******************************************************************************/
 
@@ -10,6 +10,7 @@ export const propNames = [
   'row',
   'compactMargins',
   'selectionMode',
+  'selected',
 ];
 
 export function mapProps(props) {
@@ -23,6 +24,8 @@ export function mapProps(props) {
   return otherProps;
 }
 
+/******************************************************************************/
+
 export default function styles(theme, props) {
   const {
     backgroundColor,
@@ -31,6 +34,7 @@ export default function styles(theme, props) {
     isLast,
     compactMargins,
     selectionMode,
+    selected,
   } = props;
 
   const m = compactMargins ? '0px' : theme.shapes.containerMargin;
@@ -46,44 +50,30 @@ export default function styles(theme, props) {
   const paddingTop = topSeparator ? v1 : v2;
   const paddingBottom = bottomSeparator || isLast ? v1 : v2;
 
-  const rowStyle = {
+  const row = {
     'borderTop': borderTop,
     'display': 'flex',
     'flexDirection': 'row',
     'padding': paddingTop + ' ' + m + ' ' + paddingBottom + ' ' + m,
-    'backgroundColor': TableHelpers.getBackgroundColor(
-      theme,
-      backgroundColor,
-      'none'
-    ),
+    'color': selected ? theme.palette.tableSelectedText : null,
+    'backgroundColor': selected
+      ? TableHelpers.getSelectedBackgroundColor(theme, 'none')
+      : TableHelpers.getBackgroundColor(theme, backgroundColor, 'none'),
     'cursor': 'default',
     ':hover': {
       backgroundColor:
         selectionMode === 'none'
           ? null
+          : selected
+          ? TableHelpers.getSelectedBackgroundColor(theme, 'main')
           : TableHelpers.getBackgroundColor(theme, backgroundColor, 'main'),
     },
   };
 
-  const rowSelectedStyle = {
-    'borderTop': borderTop,
-    'display': 'flex',
-    'flexDirection': 'row',
-    'padding': paddingTop + ' ' + m + ' ' + paddingBottom + ' ' + m,
-    'backgroundColor': TableHelpers.getSelectedBackgroundColor(theme, 'none'),
-    'color': theme.palette.tableSelectedText,
-    'cursor': 'default',
-    ':hover': {
-      backgroundColor:
-        selectionMode === 'none'
-          ? null
-          : TableHelpers.getSelectedBackgroundColor(theme, 'main'),
-    },
-  };
+  /******************************************************************************/
 
   return {
-    row: rowStyle,
-    rowSelected: rowSelectedStyle,
+    row,
   };
 }
 
