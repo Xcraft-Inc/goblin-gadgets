@@ -21,6 +21,7 @@ class List extends Widget {
     this._fetchInternal = this._fetchInternal.bind(this);
     this._fetch = throttle(this._fetchInternal, 200).bind(this);
     this._range = {};
+    this._count = {};
     this._mount = this._mount.bind(this);
 
     this._listRef = null;
@@ -83,8 +84,12 @@ class List extends Widget {
     if (!this._range[this.props.id]) {
       this._range[this.props.id] = [];
     }
+    if (!this._count[this.props.id]) {
+      this._count[this.props.id] = 0;
+    }
 
     if (
+      count === this._count[this.props.id] &&
       range[0] >= this._range[this.props.id][0] - this._threshold / 2 &&
       range[1] <= this._range[this.props.id][1] + this._threshold / 2
     ) {
@@ -92,6 +97,7 @@ class List extends Widget {
     }
 
     this._range[this.props.id] = range.slice();
+    this._count[this.props.id] = count;
 
     /* Add a margin of this._threshold entries (if possible) for the range */
     range[0] =
