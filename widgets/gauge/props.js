@@ -16,7 +16,14 @@ export default [
       'red-yellow-green',
       'yellow-green',
       'blue-petrol-green',
+      'fix',
     ]),
+  },
+  {
+    name: 'color',
+    group: 'aspect',
+    type: types.color,
+    description: "Color for gradient='fix'.",
   },
   {
     name: 'kind',

@@ -1,7 +1,9 @@
+import {ColorHelpers} from 'electrum-theme';
+
 /******************************************************************************/
 
 //  Compute the color of gauge.
-function getColor(gradient, value) {
+function getColor(theme, gradient, color, value) {
   if (value) {
     value /= 100; // 0..1
     let red, green, blue;
@@ -37,6 +39,8 @@ function getColor(gradient, value) {
         green = 255;
       }
       red = 0;
+    } else if (gradient === 'fix') {
+      return ColorHelpers.getMarkColor(theme, color);
     } else {
       // From orange to red.
       red = 255;
@@ -60,6 +64,7 @@ export const propNames = [
   'gradient',
   'width',
   'height',
+  'color',
 ];
 
 export default function styles(theme, props) {
@@ -72,6 +77,7 @@ export default function styles(theme, props) {
     gradient,
     width,
     height,
+    color,
   } = props;
 
   const gaugeValue = Math.max(Math.min(value, 100), 0); // 0..100
@@ -100,7 +106,7 @@ export default function styles(theme, props) {
     position: 'absolute',
     height: direction === 'horizontal' ? '100%' : gaugeValue + '%',
     width: direction === 'horizontal' ? gaugeValue + '%' : '100%',
-    backgroundColor: getColor(gradient, gaugeValue),
+    backgroundColor: getColor(theme, gradient, color, gaugeValue),
     animationName: flash ? keyframes : null,
     animationDuration: '1s',
     animationIterationCount: 'infinite',
