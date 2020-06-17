@@ -1,7 +1,7 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import ResizableContainer from 'goblin-gadgets/widgets/resizable-container/widget';
-import ThemeContext from 'goblin-laboratory/widgets/theme-context/widget';
+import Frame from 'goblin-laboratory/widgets/frame/widget';
 import * as styles from './styles';
 
 /******************************************************************************/
@@ -77,12 +77,18 @@ class WidgetDocPreviewContainer extends Widget {
     return null;
   }
 
-  renderThemeContext(theme) {
+  renderThemeContext(theme, themeContext) {
     if (theme && theme !== 'none') {
       return (
-        <ThemeContext labId={this.context.labId} frameThemeContext={theme}>
+        <Frame
+          labId={this.context.labId}
+          store={this.context.store}
+          desktopId={this.context.desktopId}
+          themeContext={themeContext}
+          currentTheme={theme}
+        >
           {this.renderContainer()}
-        </ThemeContext>
+        </Frame>
       );
     }
     return this.renderContainer();
@@ -91,7 +97,7 @@ class WidgetDocPreviewContainer extends Widget {
   render() {
     return (
       <div className={this.styles.classNames.widgetDocPreviewContainer}>
-        {this.renderThemeContext(this.props.theme)}
+        {this.renderThemeContext(this.props.theme, this.props.themeContext)}
       </div>
     );
   }
@@ -103,6 +109,7 @@ export default Widget.connectWidget((state) => {
   const settings = state.get('settings');
   return {
     theme: settings.get('theme'),
+    themeContext: settings.get('themeContext'),
     frame: settings.get('frame'),
     layoutFrame: settings.get('layoutFrame'),
     scale: settings.get('scale'),

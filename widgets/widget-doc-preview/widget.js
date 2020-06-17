@@ -255,10 +255,16 @@ class WidgetDocPreview extends Widget {
     return (
       <div className={this.styles.classNames.settings}>
         <SettingsList
+          text="Theme context"
+          widgetId={this.props.widgetId}
+          path="settings.themeContext"
+          list={['theme', 'polypheme', 'horizon', 'shop', 'senecio']}
+        />
+        <SettingsList
           text="Theme"
           widgetId={this.props.widgetId}
           path="settings.theme"
-          list={['theme', 'horizon', 'shop', 'none']}
+          list={['none', 'default', 'shop', 'default-compact']}
         />
         <SettingsList
           text="Scale"
