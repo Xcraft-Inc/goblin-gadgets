@@ -14,22 +14,33 @@ export default class Slider extends Widget {
     super(...arguments);
     this.styles = styles;
 
-    this.isDragging = false;
+    this.state = {
+      isDragging: false,
+    };
 
     this.onDragDown = this.onDragDown.bind(this);
     this.onDragMove = this.onDragMove.bind(this);
     this.onDragUp = this.onDragUp.bind(this);
-    this.onDragOut = this.onDragOut.bind(this);
   }
+
+  //#region get/set
+  get isDragging() {
+    return this.state.isDragging;
+  }
+  set isDragging(value) {
+    this.setState({
+      isDragging: value,
+    });
+  }
+  //#endregion
 
   get isHorizontal() {
     return this.props.direction === 'horizontal';
   }
 
   changeValue(e) {
-    console.log('Slider.changeValue');
     const rect = this.sliderNode.getBoundingClientRect();
-    const sliderThickness = 24; // same as style!
+    const sliderThickness = 24; // as defined in style!
 
     let value;
     if (this.props.direction === 'horizontal') {
@@ -48,7 +59,6 @@ export default class Slider extends Widget {
   }
 
   onDragDown(e) {
-    console.log('Slider.onDragDown');
     if (this.props.onChange && this.sliderNode) {
       this.changeValue(e);
       this.isDragging = true;
@@ -56,33 +66,58 @@ export default class Slider extends Widget {
   }
 
   onDragMove(e) {
-    console.log('Slider.onDragMove');
     if (this.props.onChange && this.sliderNode && this.isDragging) {
       this.changeValue(e);
     }
   }
 
   onDragUp() {
-    console.log('Slider.onDragUp');
     this.isDragging = false;
-  }
-
-  onDragOut() {
-    console.log('Slider.onDragOut');
-    //?this.isDragging = false;
   }
 
   /******************************************************************************/
 
+  renderWhileDragging() {
+    const rect = this.sliderNode.getBoundingClientRect();
+    const style = {
+      position: 'absolute',
+      left: rect.left,
+      width: rect.width,
+      top: rect.top,
+      height: rect.height,
+    };
+
+    return (
+      <div
+        className={this.styles.classNames.fullscreen}
+        onMouseMove={this.onDragMove}
+        onMouseUp={this.onDragUp}
+      >
+        <div
+          ref={(node) => (this.sliderNode = node)}
+          className={this.styles.classNames.slider}
+          style={style}
+        >
+          <div className={this.styles.classNames.inside}>
+            <div className={this.styles.classNames.glider} />
+            <div className={this.styles.classNames.bar} />
+            <div className={this.styles.classNames.cab} />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   render() {
+    if (this.isDragging && this.sliderNode) {
+      return this.renderWhileDragging();
+    }
+
     return (
       <div
         ref={(node) => (this.sliderNode = node)}
         className={this.styles.classNames.slider}
         onMouseDown={this.onDragDown}
-        onMouseMove={this.onDragMove}
-        onMouseUp={this.onDragUp}
-        onMouseOut={this.onDragOut}
       >
         <div className={this.styles.classNames.inside}>
           <div className={this.styles.classNames.glider} />
