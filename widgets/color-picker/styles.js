@@ -8,7 +8,7 @@ export default function styles(theme, props) {
   const colorPicker = {
     flexGrow: grow,
     width: width,
-    minWidth: '250px',
+    minWidth: '300px',
     height: '165px',
     display: 'flex',
     flexDirection: 'column',

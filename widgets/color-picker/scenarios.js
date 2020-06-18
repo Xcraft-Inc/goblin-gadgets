@@ -2,50 +2,57 @@ export default [
   {
     name: 'red',
     props: {
-      width: '400px',
-      color: '#f00',
+      width: '450px',
+      color: '#FF0000',
     },
   },
   {
     name: 'green',
     props: {
-      width: '400px',
-      color: '#0f0',
+      width: '450px',
+      color: '#00FF00',
     },
   },
   {
     name: 'blue',
     props: {
-      width: '400px',
-      color: '#00f',
+      width: '450px',
+      color: '#0000FF',
+    },
+  },
+  {
+    name: 'cyan',
+    props: {
+      width: '450px',
+      color: 'CMY(255,0,0)',
     },
   },
   {
     name: 'black',
     props: {
-      width: '400px',
-      color: '#000',
+      width: '450px',
+      color: 'G(255)',
     },
   },
   {
     name: 'grey',
     props: {
-      width: '400px',
-      color: '#888',
+      width: '450px',
+      color: 'G(128)',
     },
   },
   {
     name: 'white',
     props: {
-      width: '400px',
-      color: '#fff',
+      width: '450px',
+      color: 'G(0)',
     },
   },
   {
     name: 'mini',
     props: {
-      width: '200px',
-      color: '#ffae00',
+      width: '300px',
+      color: '#FFAE00',
     },
   },
   {
