@@ -34,7 +34,10 @@ export default function styles(theme, props) {
     color = '#888',
   } = props;
 
+  const hasCab = value !== null && value !== undefined;
   const cabValue = Math.max(Math.min(value, 100), 0); // 0..100
+  const barColor = ColorHelpers.getMarkColor(theme, color);
+
   const sliderThickness = 24;
   const gliderThickness = 8;
   const cabThickness = 14;
@@ -45,7 +48,7 @@ export default function styles(theme, props) {
     backgroundColor: '#eee',
     borderRadius: px(sliderThickness / 2),
     opacity: disabled ? 0.4 : 1,
-    cursor: 'pointer',
+    cursor: disabled ? null : 'pointer',
   };
 
   const inside = {
@@ -68,7 +71,8 @@ export default function styles(theme, props) {
 
   const bar = {
     ...glider,
-    backgroundColor: color,
+    backgroundColor: barColor,
+    display: hasCab ? null : 'none',
   };
 
   const cab = {
@@ -77,18 +81,21 @@ export default function styles(theme, props) {
     height: px(cabThickness),
     borderRadius: px(cabThickness / 2),
     background: 'white',
+    display: hasCab ? null : 'none',
   };
 
   if (direction === 'horizontal') {
     slider.width = width;
     slider.minWidth = '50px';
-    slider.height = px(sliderThickness);
+    slider.minHeight = px(sliderThickness);
+    slider.maxHeight = px(sliderThickness);
     slider.boxShadow = '#bbb 0px 2px 5px inset';
 
     glider.boxShadow = '#aaa 0px 2px 2px inset';
 
     const r = px(gliderThickness / 2);
     bar.borderRadius = `${r} 0px 0px ${r}`;
+    bar.right = null;
     bar.width = `calc(${pc(cabValue)} + ${px(gliderThickness / 2)})`;
     bar.boxShadow = `${ColorManipulator.darken(color, 0.6)} 0px -3px 6px inset`;
 
@@ -98,18 +105,20 @@ export default function styles(theme, props) {
   } else {
     slider.height = height;
     slider.minHeight = '50px';
-    slider.width = px(sliderThickness);
+    slider.minWidth = px(sliderThickness);
+    slider.maxWidth = px(sliderThickness);
     slider.boxShadow = '#bbb 2px 0px 5px inset';
 
     glider.boxShadow = '#aaa 2px 0px 2px inset';
 
     const r = px(gliderThickness / 2);
-    bar.borderRadius = `${r} ${r} 0px 0px`;
+    bar.borderRadius = `0px 0px ${r} ${r}`;
+    bar.top = null;
     bar.height = `calc(${pc(cabValue)} + ${px(gliderThickness / 2)})`;
     bar.boxShadow = `${ColorManipulator.darken(color, 0.6)} -3px 0px 6px inset`;
 
     cab.bottom = `calc(${pc(cabValue)} - ${px(cabThickness / 2)})`;
-    cab.left = px(-cabThickness / 2 + 1);
+    cab.left = px(-cabThickness / 2 - 1);
     cab.boxShadow = '3px 0px 4px 0px rgba(0,0,0,0.6)';
   }
 

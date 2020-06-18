@@ -40,4 +40,11 @@ export default [
     group: 'layout',
     type: types.size,
   },
+
+  // Function.
+  {
+    name: 'onChange',
+    group: 'function',
+    type: types.function,
+  },
 ];

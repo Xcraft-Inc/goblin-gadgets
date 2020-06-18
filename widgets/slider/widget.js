@@ -50,7 +50,7 @@ export default class Slider extends Widget {
     } else {
       const bottom = rect.bottom - sliderThickness / 2;
       const height = rect.height - sliderThickness;
-      value = ((e.clientY - bottom) * 100) / height;
+      value = ((bottom - e.clientY) * 100) / height;
     }
 
     value = Math.max(value, 0);
@@ -59,7 +59,7 @@ export default class Slider extends Widget {
   }
 
   onDragDown(e) {
-    if (this.props.onChange && this.sliderNode) {
+    if (this.props.onChange && this.sliderNode && !this.props.disabled) {
       this.changeValue(e);
       this.isDragging = true;
     }

@@ -86,6 +86,10 @@ import DialogResizable from 'goblin-gadgets/widgets/dialog-resizable-nc/widget';
 import dialogResizableProps from 'goblin-gadgets/widgets/dialog-resizable-nc/props';
 import dialogResizableScenarios from 'goblin-gadgets/widgets/dialog-resizable-nc/scenarios';
 
+import Slider from 'goblin-gadgets/widgets/slider/widget';
+import sliderProps from 'goblin-gadgets/widgets/slider/props';
+import sliderScenarios from 'goblin-gadgets/widgets/slider/scenarios';
+
 import ColorPicker from 'goblin-gadgets/widgets/color-picker/widget';
 import colorPickerProps from 'goblin-gadgets/widgets/color-picker/props';
 import colorPickerScenarios from 'goblin-gadgets/widgets/color-picker/scenarios';
@@ -244,6 +248,13 @@ const widgetList = [
     widgetPath: 'goblin-gadgets/widgets/dialog-resizable-nc/widget',
     props: dialogResizableProps,
     scenarios: dialogResizableScenarios,
+  },
+  {
+    name: 'Slider',
+    widget: Slider,
+    widgetPath: 'goblin-gadgets/widgets/slider/widget',
+    props: sliderProps,
+    scenarios: sliderScenarios,
   },
   {
     name: 'ColorPicker',
