@@ -26,6 +26,11 @@ export default [
 
   // Layout.
   {
+    name: 'grow',
+    group: 'layout',
+    type: types.grow,
+  },
+  {
     name: 'width',
     group: 'layout',
     type: types.size,

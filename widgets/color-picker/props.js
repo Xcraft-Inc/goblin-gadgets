@@ -12,4 +12,11 @@ export default [
     group: 'aspect',
     type: types.function,
   },
+
+  // Layout.
+  {
+    name: 'width',
+    group: 'layout',
+    type: types.size,
+  },
 ];

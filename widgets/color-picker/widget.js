@@ -1,6 +1,7 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import * as styles from './styles';
+import throttle from 'lodash/throttle';
 import TextFieldTypedNC from 'goblin-gadgets/widgets/text-field-typed-nc/widget';
 import Slider from 'goblin-gadgets/widgets/slider/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
@@ -36,7 +37,7 @@ function exploseColor(color) {
 }
 
 function dec2hex(i) {
-  return (i + 0x100).toString(16).substr(-2).toUpperCase();
+  return (Math.trunc(i) + 0x100).toString(16).substr(-2).toUpperCase();
 }
 
 function mergeColor(r, g, b) {
@@ -54,7 +55,7 @@ export default class ColorPicked extends Widget {
       color: null,
     };
 
-    this.onColorChanged = this.onColorChanged.bind(this);
+    this.onColorChanged = throttle(this.onColorChanged, 100).bind(this);
   }
 
   //#region get/set
@@ -113,15 +114,17 @@ export default class ColorPicked extends Widget {
           min={0}
           max={255}
           value={value}
-          horizontalSpacing="large"
           onChange={(value) => this.onColorChanged(baseColor, value)}
         />
         <Label width="10px" />
         <Slider
           direction="horizontal"
-          width="100px"
-          value={(value * 100) / 255 || 1}
+          grow="1"
+          value={(value * 100) / 255}
           color={baseColor}
+          onChange={(value) =>
+            this.onColorChanged(baseColor, (value * 255) / 100)
+          }
         />
         <Label width="10px" />
       </div>

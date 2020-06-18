@@ -17,32 +17,43 @@ export const propNames = [
   'value',
   'direction',
   'disabled',
+  'grow',
   'width',
   'height',
   'color',
 ];
 
 export default function styles(theme, props) {
-  const {value, direction, disabled, width, height, color = '#888'} = props;
+  const {
+    value,
+    direction,
+    disabled,
+    grow,
+    width,
+    height,
+    color = '#888',
+  } = props;
 
   const cabValue = Math.max(Math.min(value, 100), 0); // 0..100
-  const thickness = 20;
+  const sliderThickness = 24;
   const gliderThickness = 8;
-  const cabThickness = 12;
+  const cabThickness = 14;
 
   const slider = {
     position: 'relative',
+    flexGrow: grow,
     backgroundColor: '#eee',
-    borderRadius: px(thickness / 2),
+    borderRadius: px(sliderThickness / 2),
     opacity: disabled ? 0.4 : 1,
+    cursor: 'pointer',
   };
 
   const inside = {
     position: 'absolute',
-    left: px(thickness / 2),
-    right: px(thickness / 2),
-    bottom: px(thickness / 2),
-    top: px(thickness / 2),
+    left: px(sliderThickness / 2),
+    right: px(sliderThickness / 2),
+    bottom: px(sliderThickness / 2),
+    top: px(sliderThickness / 2),
   };
 
   const glider = {
@@ -66,12 +77,12 @@ export default function styles(theme, props) {
     height: px(cabThickness),
     borderRadius: px(cabThickness / 2),
     background: 'white',
-    cursor: 'pointer',
   };
 
   if (direction === 'horizontal') {
     slider.width = width;
-    slider.height = px(thickness);
+    slider.minWidth = '50px';
+    slider.height = px(sliderThickness);
     slider.boxShadow = '#bbb 0px 2px 5px inset';
 
     glider.boxShadow = '#aaa 0px 2px 2px inset';
@@ -82,11 +93,12 @@ export default function styles(theme, props) {
     bar.boxShadow = `${ColorManipulator.darken(color, 0.6)} 0px -3px 6px inset`;
 
     cab.left = `calc(${pc(cabValue)} - ${px(cabThickness / 2)})`;
-    cab.bottom = px(-cabThickness / 2);
+    cab.bottom = px(-cabThickness / 2 + 1);
     cab.boxShadow = '0px 3px 4px 0px rgba(0,0,0,0.6)';
   } else {
     slider.height = height;
-    slider.width = px(thickness);
+    slider.minHeight = '50px';
+    slider.width = px(sliderThickness);
     slider.boxShadow = '#bbb 2px 0px 5px inset';
 
     glider.boxShadow = '#aaa 2px 0px 2px inset';
@@ -97,7 +109,7 @@ export default function styles(theme, props) {
     bar.boxShadow = `${ColorManipulator.darken(color, 0.6)} -3px 0px 6px inset`;
 
     cab.bottom = `calc(${pc(cabValue)} - ${px(cabThickness / 2)})`;
-    cab.left = px(-cabThickness / 2);
+    cab.left = px(-cabThickness / 2 + 1);
     cab.boxShadow = '3px 0px 4px 0px rgba(0,0,0,0.6)';
   }
 

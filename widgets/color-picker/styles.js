@@ -1,18 +1,25 @@
 /******************************************************************************/
 
-export default function styles() {
+export const propNames = ['width'];
+
+export default function styles(theme, props) {
+  const {width = '360px'} = props;
+
   const colorPicker = {
-    width: '360px',
+    width: width,
+    minWidth: '210px',
     height: '112px',
     padding: '5px',
     display: 'flex',
     flexDirection: 'row',
-    border: '1px solid black',
+    border: `1px solid ${theme.palette.buttonBorder}`,
+    borderRadius: '3px',
   };
 
   const composants = {
     display: 'flex',
     flexDirection: 'column',
+    flexGrow: 1,
   };
 
   const composant = {
@@ -23,9 +30,10 @@ export default function styles() {
   };
 
   const sample = {
-    margin: '0px 0px 0px 10px',
-    flexGrow: 1,
-    border: '1px solid black',
+    width: '112px',
+    minWidth: '20px',
+    border: `1px solid ${theme.palette.buttonBorder}`,
+    borderRadius: '5px',
   };
 
   /******************************************************************************/
