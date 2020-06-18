@@ -258,11 +258,19 @@ export default class TextFieldTypedNC extends Widget {
   }
 
   get isPlusEnabled() {
-    return !this.props.max || this.props.value < this.props.max;
+    return (
+      this.props.max === null ||
+      this.props.max === undefined ||
+      this.props.value < this.props.max
+    );
   }
 
   get isMinusEnabled() {
-    return !this.props.min || this.props.value > this.props.min;
+    return (
+      this.props.min === null ||
+      this.props.min === undefined ||
+      this.props.value > this.props.min
+    );
   }
 
   /******************************************************************************/

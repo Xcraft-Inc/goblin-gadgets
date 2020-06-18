@@ -7,16 +7,23 @@ export default [
     group: 'aspect',
     type: types.color,
   },
-  {
-    name: 'onChange',
-    group: 'aspect',
-    type: types.function,
-  },
 
   // Layout.
+  {
+    name: 'grow',
+    group: 'layout',
+    type: types.grow,
+  },
   {
     name: 'width',
     group: 'layout',
     type: types.size,
+  },
+
+  // Function.
+  {
+    name: 'onChange',
+    group: 'function',
+    type: types.function,
   },
 ];
