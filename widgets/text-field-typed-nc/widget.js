@@ -359,17 +359,17 @@ export default class TextFieldTypedNC extends Widget {
         />
         <Button
           kind="combo"
-          glyph="solid/plus"
+          glyph="solid/minus"
           horizontalSpacing="overlap"
-          disabled={!this.isPlusEnabled}
-          onClick={() => this.incNumber(1)}
+          disabled={!this.isMinusEnabled}
+          onClick={() => this.incNumber(-1)}
         />
         <Button
           kind="combo"
-          glyph="solid/minus"
+          glyph="solid/plus"
           horizontalSpacing={this.props.horizontalSpacing}
-          disabled={!this.isMinusEnabled}
-          onClick={() => this.incNumber(-1)}
+          disabled={!this.isPlusEnabled}
+          onClick={() => this.incNumber(1)}
         />
       </React.Fragment>
     );
