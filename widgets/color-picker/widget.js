@@ -4,6 +4,7 @@ import * as styles from './styles';
 import throttle from 'lodash/throttle';
 import TextFieldTypedNC from 'goblin-gadgets/widgets/text-field-typed-nc/widget';
 import Slider from 'goblin-gadgets/widgets/slider/widget';
+import SliderXY from 'goblin-gadgets/widgets/slider-xy/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import {ColorHelpers} from 'electrum-theme';
@@ -20,9 +21,12 @@ export default class ColorPicked extends Widget {
 
     this.state = {
       analysis: {},
+      modeHsl: 'xy',
     };
 
-    this.onColorChanged = throttle(this.onColorChanged, 100).bind(this);
+    this.initialColor = this.props.color;
+
+    this.onColorChanged = throttle(this.onColorChanged, 50).bind(this);
   }
 
   //#region get/set
@@ -32,6 +36,15 @@ export default class ColorPicked extends Widget {
   set analysis(value) {
     this.setState({
       analysis: value,
+    });
+  }
+
+  get modeHsl() {
+    return this.state.modeHsl;
+  }
+  set modeHsl(value) {
+    this.setState({
+      modeHsl: value,
     });
   }
   //#endregion
@@ -69,16 +82,23 @@ export default class ColorPicked extends Widget {
 
   /******************************************************************************/
 
-  renderMode(name, tooltip, mode) {
+  renderMode(name, tooltip, mode, modeHsl) {
     return (
       <Button
         border="none"
-        width="65px"
+        width="60px"
         horizontalSpacing="overlap"
         text={name}
         tooltip={tooltip}
-        active={this.mode === mode}
-        onClick={() => this.onColorChanged('mode', mode, true)}
+        active={
+          this.mode === mode && (modeHsl === null || this.modeHsl === modeHsl)
+        }
+        onClick={() => {
+          this.onColorChanged('mode', mode, true);
+          if (modeHsl !== null) {
+            this.modeHsl = modeHsl;
+          }
+        }}
       />
     );
   }
@@ -86,12 +106,14 @@ export default class ColorPicked extends Widget {
   renderModes() {
     const canonical = ColorConverters.analysisToCanonical(this.analysis);
 
+    // prettier-ignore
     return (
       <div className={this.styles.classNames.modes}>
-        {this.renderMode(T('Teinte'), T('Teinte Saturation Luminosité'), 'HSL')}
-        {this.renderMode(T('Gris'), T('Niveau de gris'), 'G')}
-        {this.renderMode(T('RVB'), T('Rouge Vert Bleu'), 'RGB')}
-        {this.renderMode(T('CMJ'), T('Cyan Magenta Jaune'), 'CMY')}
+        {this.renderMode(T('TSL1'), T('Teinte Saturation Luminosité'), 'HSL', 'xy')}
+        {this.renderMode(T('TSL2'), T('Teinte Saturation Luminosité'), 'HSL', 'x')}
+        {this.renderMode(T('Gris'), T('Niveau de gris'), 'G', null)}
+        {this.renderMode(T('RVB'), T('Rouge Vert Bleu'), 'RGB', null)}
+        {this.renderMode(T('CMJ'), T('Cyan Magenta Jaune'), 'CMY', null)}
         <Label grow="1" />
         <Label text={canonical} wrap="no" fontSize="75%" />
       </div>
@@ -169,7 +191,45 @@ export default class ColorPicked extends Widget {
     );
   }
 
-  renderComposantsHSL() {
+  renderComposantsHSLxy() {
+    const analysis = this.analysis;
+    const t = ColorConverters.toRGB(`HSL(${analysis.h},100,100)`);
+
+    return (
+      <div className={this.styles.classNames.composantHsl}>
+        <SliderXY
+          width="170px"
+          height="170px"
+          gradientColorUL="#ffffff"
+          gradientColorUR={t}
+          gradientColorDL="#000000"
+          gradientColorDR="#000000"
+          valueX={analysis.s}
+          valueY={analysis.l}
+          onChange={(x, y, send) => {
+            this.onColorChanged('s', Math.round(x), send);
+            this.onColorChanged('l', Math.round(y), send);
+          }}
+        />
+        <Label width="20px" />
+        <Slider
+          direction="vertical"
+          height="170px"
+          value={(analysis.h * 100) / 360}
+          gliderSize="large"
+          cabSize="large"
+          cabType="thin"
+          gradient="rainbow"
+          onChange={(value, send) =>
+            this.onColorChanged('h', Math.round((value * 360) / 100), send)
+          }
+        />
+        <Label width="20px" />
+      </div>
+    );
+  }
+
+  renderComposantsHSLx() {
     return (
       <div className={this.styles.classNames.composants}>
         {this.renderComposant(T('T°'), '#888', '#888', 'h', 360)}
@@ -177,6 +237,17 @@ export default class ColorPicked extends Widget {
         {this.renderComposant(T('L%'), '#000', '#f00', 'l', 100)}
       </div>
     );
+  }
+
+  renderComposantsHSL() {
+    switch (this.modeHsl) {
+      case 'xy':
+        return this.renderComposantsHSLxy();
+      case 'x':
+        return this.renderComposantsHSLx();
+      default:
+        return null;
+    }
   }
 
   renderComposantsGrey() {
@@ -202,19 +273,30 @@ export default class ColorPicked extends Widget {
     }
   }
 
-  renderSample() {
+  renderSamples() {
     if (!this.analysis) {
       return null;
     }
 
-    const canonical = ColorConverters.analysisToCanonical(this.analysis);
-    const color = ColorConverters.toRGB(canonical);
+    const colorUp = ColorConverters.toRGB(this.initialColor);
 
-    const style = {
-      backgroundColor: color,
+    const canonical = ColorConverters.analysisToCanonical(this.analysis);
+    const colorDown = ColorConverters.toRGB(canonical);
+
+    const styleUp = {
+      backgroundColor: colorUp,
     };
 
-    return <div className={this.styles.classNames.sample} style={style}></div>;
+    const styleDown = {
+      backgroundColor: colorDown,
+    };
+
+    return (
+      <div className={this.styles.classNames.samples}>
+        <div className={this.styles.classNames.sampleUp} style={styleUp} />
+        <div className={this.styles.classNames.sampleDown} style={styleDown} />
+      </div>
+    );
   }
 
   render() {
@@ -223,7 +305,7 @@ export default class ColorPicked extends Widget {
         {this.renderModes()}
         <div className={this.styles.classNames.content}>
           {this.renderComposants()}
-          {this.renderSample()}
+          {this.renderSamples()}
         </div>
       </div>
     );

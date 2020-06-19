@@ -1,37 +1,9 @@
 export default [
   {
-    name: 'red',
+    name: 'blupi',
     props: {
       width: '500px',
-      color: '#FF0000',
-    },
-  },
-  {
-    name: 'green',
-    props: {
-      width: '500px',
-      color: '#00FF00',
-    },
-  },
-  {
-    name: 'blue',
-    props: {
-      width: '500px',
-      color: '#0000FF',
-    },
-  },
-  {
-    name: 'cyan',
-    props: {
-      width: '500px',
-      color: 'CMY(255,0,0)',
-    },
-  },
-  {
-    name: 'black',
-    props: {
-      width: '500px',
-      color: 'G(255)',
+      color: 'HSL(40,100,100)',
     },
   },
   {
@@ -42,10 +14,17 @@ export default [
     },
   },
   {
-    name: 'white',
+    name: 'red',
     props: {
       width: '500px',
-      color: 'G(0)',
+      color: '#FF0000',
+    },
+  },
+  {
+    name: 'cyan',
+    props: {
+      width: '500px',
+      color: 'CMY(255,0,0)',
     },
   },
   {

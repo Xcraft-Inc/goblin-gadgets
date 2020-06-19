@@ -14,7 +14,7 @@ export default function styles(theme, props) {
     flexGrow: grow,
     width: width,
     minWidth: '340px',
-    height: '225px',
+    height: '282px',
     display: 'flex',
     flexDirection: 'column',
     borderRadius: r,
@@ -23,18 +23,19 @@ export default function styles(theme, props) {
   };
 
   const modes = {
+    padding: '20px',
     display: 'flex',
     flexDirection: 'row',
-    padding: '20px',
     alignItems: 'center',
     borderRadius: `${r} ${r} 0px 0px`,
   };
 
   const content = {
+    padding: '20px',
     display: 'flex',
     flexDirection: 'row',
     flexGrow: 1,
-    padding: '20px',
+    alignItems: 'flex-end',
     background: isDark
       ? 'linear-gradient(180deg, rgba(0,0,0,0.7), transparent 12%)'
       : 'linear-gradient(180deg, rgba(0,0,0,0.2), transparent 12%)',
@@ -50,15 +51,34 @@ export default function styles(theme, props) {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    margin: '0px 0px 5px 0px',
+    margin: '10px 0px 0px 0px',
   };
 
-  const sample = {
-    height: '110px',
+  const composantHsl = {
+    display: 'flex',
+    flexDirection: 'row',
+    flexGrow: 1,
+  };
+
+  const rs = Unit.multiply(r, 3);
+  const samples = {
+    height: '100%',
     width: '110px',
     minWidth: '20px',
     border: `1px solid ${theme.palette.buttonBorder}`,
-    borderRadius: Unit.multiply(r, 3),
+    borderRadius: rs,
+    display: 'flex',
+    flexDirection: 'column',
+  };
+
+  const sampleUp = {
+    flexGrow: 1,
+    borderRadius: `${rs} ${rs} 0px 0px`,
+  };
+
+  const sampleDown = {
+    flexGrow: 1,
+    borderRadius: `0px 0px ${rs} ${rs}`,
   };
 
   /******************************************************************************/
@@ -69,7 +89,10 @@ export default function styles(theme, props) {
     content,
     composants,
     composant,
-    sample,
+    composantHsl,
+    samples,
+    sampleUp,
+    sampleDown,
   };
 }
 
