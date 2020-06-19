@@ -1,4 +1,4 @@
-import {ColorManipulator} from 'electrum-theme';
+import {ColorManipulator, Unit} from 'electrum-theme';
 
 /******************************************************************************/
 
@@ -7,6 +7,8 @@ export const propNames = ['grow', 'width'];
 export default function styles(theme, props) {
   const {grow, width = '400px'} = props;
 
+  const r = theme.shapes.smoothRadius;
+
   const colorPicker = {
     flexGrow: grow,
     width: width,
@@ -14,7 +16,7 @@ export default function styles(theme, props) {
     height: '225px',
     display: 'flex',
     flexDirection: 'column',
-    borderRadius: '3px',
+    borderRadius: r,
     backgroundColor: theme.palette.calendarBackground,
     boxShadow: theme.shapes.flyingShadow,
   };
@@ -28,7 +30,7 @@ export default function styles(theme, props) {
       0.1
     ),
     alignItems: 'center',
-    borderRadius: '3px 3px 0px 0px',
+    borderRadius: `${r} ${r} 0px 0px`,
   };
 
   const content = {
@@ -57,7 +59,7 @@ export default function styles(theme, props) {
     width: '110px',
     minWidth: '20px',
     border: `1px solid ${theme.palette.buttonBorder}`,
-    borderRadius: '5px',
+    borderRadius: Unit.multiply(r, 3),
   };
 
   /******************************************************************************/
