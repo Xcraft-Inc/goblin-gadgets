@@ -78,15 +78,20 @@ export default class Slider extends Widget {
   /******************************************************************************/
 
   renderRainbowFragment(color1, color2) {
-    const a = this.props.direction === 'horizontal' ? '90deg' : '0deg';
+    const horizontal = this.props.direction === 'horizontal';
+    const a = horizontal ? '90deg' : '0deg';
 
     const style = {
-      flexGrow: 1,
-      height: '100%',
       background: `linear-gradient(${a}, ${color1}, ${color2})`,
     };
 
-    return <div key={color1} style={style} />;
+    return (
+      <div
+        key={color1}
+        className={this.styles.classNames.rainbowFragment}
+        style={style}
+      />
+    );
   }
 
   renderRainbow() {

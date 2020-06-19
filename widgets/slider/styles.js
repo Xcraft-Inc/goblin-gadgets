@@ -47,6 +47,7 @@ export default function styles(theme, props) {
   } = props;
 
   const isDark = theme.colors.isDarkTheme;
+  const isHorizontal = direction === 'horizontal';
   const hasCab = value !== null && value !== undefined;
   const cabValue = Math.max(Math.min(value, 100), 0); // 0..100
   const barColor = colorBar ? ColorHelpers.getMarkColor(theme, colorBar) : null;
@@ -115,11 +116,11 @@ export default function styles(theme, props) {
   };
 
   if (gradient === '1to2') {
-    const a = direction === 'horizontal' ? '90deg' : '0deg';
+    const a = isHorizontal ? '90deg' : '0deg';
     glider.background = `linear-gradient(${a}, ${gradientColor1}, ${gradientColor2})`;
   }
 
-  if (direction === 'horizontal') {
+  if (isHorizontal) {
     slider.width = width;
     slider.minWidth = '50px';
     slider.minHeight = px(sliderThickness);
@@ -154,7 +155,7 @@ export default function styles(theme, props) {
       : '#bbb 2px 0px 5px inset';
 
     glider.boxShadow = 'rgba(0,0,0,0.5) 2px 0px 2px inset';
-    glider.flexDirection = 'column';
+    glider.flexDirection = 'column-reverse';
 
     const r = px(gliderThickness / 2);
     bar.borderRadius = `0px 0px ${r} ${r}`;
@@ -173,9 +174,17 @@ export default function styles(theme, props) {
 
   const rainbow = {
     ...glider,
-    padding: `0px ${px(gliderThickness / 2)}`,
+    padding: isHorizontal
+      ? `0px ${px(gliderThickness / 2)}`
+      : `${px(gliderThickness / 2)} 0px`,
     background: '#f00',
     boxShadow: 'unset',
+  };
+
+  const rainbowFragment = {
+    flexGrow: 1,
+    height: isHorizontal ? px(gliderThickness) : null,
+    width: !isHorizontal ? px(gliderThickness) : null,
   };
 
   const rainbowShadow = {
@@ -207,6 +216,7 @@ export default function styles(theme, props) {
     inside,
     glider,
     rainbow,
+    rainbowFragment,
     rainbowShadow,
     bar,
     cab,
