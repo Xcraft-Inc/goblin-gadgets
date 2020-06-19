@@ -37,7 +37,8 @@ export default [
       value: 25,
       gradient: 'rainbow',
       gliderSize: 'large',
-      cabSize: 'small',
+      cabSize: 'large',
+      cabType: 'thin',
     },
   },
   {

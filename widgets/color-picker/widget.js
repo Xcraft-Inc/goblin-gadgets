@@ -104,10 +104,12 @@ export default class ColorPicked extends Widget {
 
     let gliderSize = 'default';
     let cabSize = 'default';
+    let cabType = 'round';
     let gradient = '1to2';
     if (key === 'h') {
       gliderSize = 'large';
       cabSize = 'large';
+      cabType = 'thin';
       gradient = 'rainbow';
     } else if (key === 's' || key === 'l') {
       gliderSize = 'large';
@@ -134,6 +136,7 @@ export default class ColorPicked extends Widget {
           value={(value * 100) / range}
           gliderSize={gliderSize}
           cabSize={cabSize}
+          cabType={cabType}
           gradient={gradient}
           gradientColor1={sliderColor1}
           gradientColor2={sliderColor2}

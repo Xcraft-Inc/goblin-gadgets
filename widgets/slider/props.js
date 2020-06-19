@@ -29,6 +29,11 @@ export default [
     type: types.enum(['', 'small', 'default', 'large']),
   },
   {
+    name: 'cabType',
+    group: 'aspect',
+    type: types.enum(['', 'round', 'thin']),
+  },
+  {
     name: 'gradient',
     group: 'aspect',
     type: types.enum(['', '1to2', 'rainbow']),

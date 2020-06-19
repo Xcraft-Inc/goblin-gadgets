@@ -26,6 +26,7 @@ export const propNames = [
   'gradientColor2',
   'gliderSize',
   'cabSize',
+  'cabType',
 ];
 
 export default function styles(theme, props) {
@@ -42,6 +43,7 @@ export default function styles(theme, props) {
     gradientColor2,
     gliderSize = 'default',
     cabSize = 'default',
+    cabType = 'round',
   } = props;
 
   const hasCab = value !== null && value !== undefined;
@@ -56,11 +58,17 @@ export default function styles(theme, props) {
     large: 14,
   }[gliderSize];
 
-  const cabThickness = {
+  let cabThickness = {
     small: 8,
     default: 14,
     large: 18,
   }[cabSize];
+
+  let cabWidth = cabThickness;
+  if (cabType === 'thin') {
+    cabWidth = 4;
+    cabThickness *= 1.5;
+  }
 
   const slider = {
     position: 'relative',
@@ -129,7 +137,8 @@ export default function styles(theme, props) {
       0.6
     )} 0px -3px 6px inset`;
 
-    cab.left = `calc(${pc(cabValue)} - ${px(cabThickness / 2)})`;
+    cab.width = px(cabWidth);
+    cab.left = `calc(${pc(cabValue)} - ${px(cabWidth / 2)})`;
     cab.bottom = px(-cabThickness / 2 + 1);
     cab.boxShadow = '0px 3px 4px 0px rgba(0,0,0,0.6)';
   } else {
@@ -151,7 +160,8 @@ export default function styles(theme, props) {
       0.6
     )} -3px 0px 6px inset`;
 
-    cab.bottom = `calc(${pc(cabValue)} - ${px(cabThickness / 2)})`;
+    cab.height = px(cabWidth);
+    cab.bottom = `calc(${pc(cabValue)} - ${px(cabWidth / 2)})`;
     cab.left = px(-cabThickness / 2 - 1);
     cab.boxShadow = '3px 0px 4px 0px rgba(0,0,0,0.6)';
   }
