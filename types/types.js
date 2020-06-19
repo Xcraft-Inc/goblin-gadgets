@@ -171,6 +171,31 @@ const types = {
     ],
   },
 
+  richColor: {
+    type: 'richColor',
+    widget: 'combo',
+    restrictsToList: false,
+    samples: [
+      '',
+      '#000000',
+      '#FF0000',
+      '#00FF00',
+      '#0000FF',
+      '#FF8000',
+      '#FFFFFF',
+      'CMY(0,0,0)',
+      'CMY(100,0,200)',
+      'CMY(170,100,50)',
+      'CMY(255,255,255)',
+      'HSL(0,100,100)',
+      'HSL(40,50,100)',
+      'HSL(300,100,50)',
+      'G(0)',
+      'G(128)',
+      'G(255)',
+    ],
+  },
+
   size: {
     type: 'size',
     widget: 'combo',

@@ -5,13 +5,7 @@ export default [
   {
     name: 'color',
     group: 'aspect',
-    type: types.enum([
-      '',
-      '#FF0000',
-      'CMY(100,0,200)',
-      'HSL(50,100,100)',
-      'G(128)',
-    ]),
+    type: types.richColor,
   },
 
   // Layout.

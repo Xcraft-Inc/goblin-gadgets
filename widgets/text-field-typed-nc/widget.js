@@ -14,6 +14,7 @@ import {
   double as DoubleConverters,
   percent as PercentConverters,
   delay as DelayConverters,
+  color as ColorConverters,
 } from 'xcraft-core-converters';
 import {
   makePropTypes,
@@ -87,6 +88,8 @@ export default class TextFieldTypedNC extends Widget {
         );
       case 'delay':
         return DelayConverters.getDisplayed(canonicalValue, this.props.unit);
+      case 'color':
+        return ColorConverters.getDisplayed(canonicalValue);
       default:
         throw new Error(`Invalid type ${this.props.type}`);
     }
@@ -168,6 +171,8 @@ export default class TextFieldTypedNC extends Widget {
         );
       case 'delay':
         return DelayConverters.parseEdited(displayedValue, this.props.unit);
+      case 'color':
+        return ColorConverters.parseEdited(displayedValue);
       default:
         throw new Error(`Invalid type ${this.type}`);
     }
@@ -442,6 +447,9 @@ export default class TextFieldTypedNC extends Widget {
         case 'delay':
           width = '200px';
           break;
+        case 'color':
+          width = '200px';
+          break;
         default:
           width = '120px';
           break;
@@ -453,6 +461,11 @@ export default class TextFieldTypedNC extends Widget {
         case 'delay':
           tooltip = T(
             '1a = 1 année\n2mo = 2 mois\n3j = 3 jours\n4h = 4 heures\n5m = 5 minutes'
+          );
+          break;
+        case 'color':
+          tooltip = T(
+            '#RRVVBB ou #RVB pour rouge/vert/bleu\nCMY(cyan,magenta,jaune)\nHSL(teinte,saturation,luminosité)\nG(gris)'
           );
           break;
       }
