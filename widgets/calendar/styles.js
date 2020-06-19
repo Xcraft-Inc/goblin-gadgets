@@ -69,6 +69,7 @@ export default function styles(theme, props) {
     backgroundColor: theme.palette.calendarBackground,
     border: border,
     boxShadow: shadow ? theme.shapes.calendarShadow : null,
+    borderRadius: theme.shapes.smoothRadius,
   };
 
   const calendarTips = {

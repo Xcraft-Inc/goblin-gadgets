@@ -1,4 +1,4 @@
-import {ColorManipulator, Unit} from 'electrum-theme';
+import {Unit} from 'electrum-theme';
 
 /******************************************************************************/
 
@@ -7,6 +7,7 @@ export const propNames = ['grow', 'width'];
 export default function styles(theme, props) {
   const {grow, width = '400px'} = props;
 
+  const isDark = theme.colors.isDarkTheme;
   const r = theme.shapes.smoothRadius;
 
   const colorPicker = {
@@ -25,10 +26,6 @@ export default function styles(theme, props) {
     display: 'flex',
     flexDirection: 'row',
     padding: '20px',
-    backgroundColor: ColorManipulator.emphasize(
-      theme.palette.calendarBackground,
-      0.1
-    ),
     alignItems: 'center',
     borderRadius: `${r} ${r} 0px 0px`,
   };
@@ -38,7 +35,9 @@ export default function styles(theme, props) {
     flexDirection: 'row',
     flexGrow: 1,
     padding: '20px',
-    background: 'linear-gradient(180deg, rgba(0,0,0,0.2), transparent 12%)',
+    background: isDark
+      ? 'linear-gradient(180deg, rgba(0,0,0,0.7), transparent 12%)'
+      : 'linear-gradient(180deg, rgba(0,0,0,0.2), transparent 12%)',
   };
 
   const composants = {

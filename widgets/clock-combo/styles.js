@@ -12,6 +12,7 @@ export default function styles(theme) {
     alignItems: 'center',
     backgroundColor: theme.palette.calendarBackground,
     boxShadow: theme.shapes.flyingShadow,
+    borderRadius: theme.shapes.smoothRadius,
   };
 
   const clockComboTips = {
