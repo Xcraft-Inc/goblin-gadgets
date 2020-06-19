@@ -38,7 +38,7 @@ export default class Slider extends Widget {
     return this.props.direction === 'horizontal';
   }
 
-  changeValue(e) {
+  changeValue(e, send) {
     const rect = this.sliderNode.getBoundingClientRect();
     const sliderThickness = 24; // as defined in style!
 
@@ -55,23 +55,26 @@ export default class Slider extends Widget {
 
     value = Math.max(value, 0);
     value = Math.min(value, 100);
-    this.props.onChange(value);
+    this.props.onChange(value, send);
   }
 
   onDragDown(e) {
     if (this.props.onChange && this.sliderNode && !this.props.disabled) {
-      this.changeValue(e);
+      this.changeValue(e, false);
       this.isDragging = true;
     }
   }
 
   onDragMove(e) {
     if (this.props.onChange && this.sliderNode && this.isDragging) {
-      this.changeValue(e);
+      this.changeValue(e, false);
     }
   }
 
-  onDragUp() {
+  onDragUp(e) {
+    if (this.props.onChange && this.sliderNode && this.isDragging) {
+      this.changeValue(e, true);
+    }
     this.isDragging = false;
   }
 

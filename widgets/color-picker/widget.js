@@ -50,13 +50,13 @@ export default class ColorPicked extends Widget {
     }
   }
 
-  onColorChanged(key, value) {
+  onColorChanged(key, value, send) {
     const analysis = {...this.analysis};
     analysis[key] = value;
     this.analysis = analysis;
 
     const canonical = ColorConverters.analysisToCanonical(analysis);
-    if (this.props.onChange) {
+    if (this.props.onChange && send) {
       this.props.onChange(canonical);
     } else {
       this.updateColor(canonical);
@@ -78,7 +78,7 @@ export default class ColorPicked extends Widget {
         text={name}
         tooltip={tooltip}
         active={this.mode === mode}
-        onClick={() => this.onColorChanged('mode', mode)}
+        onClick={() => this.onColorChanged('mode', mode, true)}
       />
     );
   }
@@ -127,7 +127,7 @@ export default class ColorPicked extends Widget {
           min={0}
           max={range}
           value={value}
-          onChange={(value) => this.onColorChanged(key, value)}
+          onChange={(value) => this.onColorChanged(key, value, true)}
         />
         <Label width="10px" />
         <Slider
@@ -140,8 +140,8 @@ export default class ColorPicked extends Widget {
           gradient={gradient}
           gradientColor1={sliderColor1}
           gradientColor2={sliderColor2}
-          onChange={(value) =>
-            this.onColorChanged(key, Math.round((value * range) / 100))
+          onChange={(value, send) =>
+            this.onColorChanged(key, Math.round((value * range) / 100), send)
           }
         />
         <Label width="10px" />
