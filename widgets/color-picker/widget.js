@@ -89,7 +89,7 @@ export default class ColorPicked extends Widget {
     return (
       <div className={this.styles.classNames.modes}>
         {this.renderMode(T('Teinte'), T('Teinte Saturation Luminosité'), 'HSL')}
-        {this.renderMode(T('Gris'), T('Niveaux de gris'), 'G')}
+        {this.renderMode(T('Gris'), T('Niveau de gris'), 'G')}
         {this.renderMode(T('RVB'), T('Rouge Vert Bleu'), 'RGB')}
         {this.renderMode(T('CMJ'), T('Cyan Magenta Jaune'), 'CMY')}
         <Label grow="1" />

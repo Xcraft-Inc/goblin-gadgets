@@ -6,9 +6,11 @@ import FlatList from 'goblin-gadgets/widgets/flat-list/widget';
 import ComboContainer from 'goblin-gadgets/widgets/combo-container/widget';
 import Calendar from 'goblin-gadgets/widgets/calendar/widget';
 import ClockCombo from 'goblin-gadgets/widgets/clock-combo/widget';
+import ColorPicker from 'goblin-gadgets/widgets/color-picker/widget';
 import {
   date as DateConverters,
   time as TimeConverters,
+  color as ColorConverters,
 } from 'xcraft-core-converters';
 import * as styles from './styles';
 
@@ -30,6 +32,7 @@ export default class ButtonCombo extends Widget {
     this.onChange = this.onChange.bind(this);
     this.handleDateClicked = this.handleDateClicked.bind(this);
     this.handleTimeChanged = this.handleTimeChanged.bind(this);
+    this.handleColorChanged = this.handleColorChanged.bind(this);
   }
 
   setRef(node) {
@@ -76,12 +79,37 @@ export default class ButtonCombo extends Widget {
     }
   }
 
+  handleColorChanged(color) {
+    if (this.props.onColorChanged) {
+      this.props.onColorChanged(color);
+    }
+  }
+
   /******************************************************************************/
 
+  renderButtonColor() {
+    const color = ColorConverters.toRGB(this.props.value);
+
+    return (
+      <Button
+        width={this.props.width}
+        active={true}
+        activeColor={color}
+        tooltip={this.props.tooltip}
+        onClick={() => (this.props.readonly ? null : this.showCombo())}
+      />
+    );
+  }
+
   renderButton() {
+    if (this.props.comboType === 'color') {
+      return this.renderButtonColor();
+    }
+
     if (this.props.readonly || this.props.hideButtonCombo) {
       return;
     }
+
     let glyph = this.state.showCombo ? 'solid/caret-up' : 'solid/caret-down';
     if (this.props.comboGlyph) {
       glyph = this.state.showCombo
@@ -172,12 +200,32 @@ export default class ButtonCombo extends Widget {
     );
   }
 
+  renderComboColor() {
+    const color = this.props.value;
+
+    return (
+      <ComboContainer
+        show={this.state.showCombo}
+        positionRef={this.node}
+        onClose={this.hideCombo}
+      >
+        <ColorPicker
+          color={color}
+          width="500px"
+          onChange={this.handleColorChanged}
+        />
+      </ComboContainer>
+    );
+  }
+
   renderCombo() {
     switch (this.props.comboType) {
       case 'calendar':
         return this.renderComboCalendar();
       case 'clock':
         return this.renderComboClock();
+      case 'color':
+        return this.renderComboColor();
       default:
         return this.renderComboList();
     }

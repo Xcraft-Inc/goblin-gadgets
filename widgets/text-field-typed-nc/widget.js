@@ -54,6 +54,7 @@ export default class TextFieldTypedNC extends Widget {
     this.handleTimeChanged = this.handleTimeChanged.bind(this);
     this.handleDateUpDown = this.handleDateUpDown.bind(this);
     this.handleTimeUpDown = this.handleTimeUpDown.bind(this);
+    this.handleColorChanged = this.handleColorChanged.bind(this);
   }
 
   getDisplayed(canonicalValue) {
@@ -202,11 +203,15 @@ export default class TextFieldTypedNC extends Widget {
   }
 
   handleDateClicked(date) {
-    this.props.onChange(date);
+    if (this.props.onChange) {
+      this.props.onChange(date);
+    }
   }
 
   handleTimeChanged(time) {
-    this.props.onChange(time);
+    if (this.props.onChange) {
+      this.props.onChange(time);
+    }
   }
 
   handleDateUpDown(e, onChangeAndSelect) {
@@ -276,6 +281,12 @@ export default class TextFieldTypedNC extends Widget {
       this.props.min === undefined ||
       this.props.value > this.props.min
     );
+  }
+
+  handleColorChanged(color) {
+    if (this.props.onChange) {
+      this.props.onChange(color);
+    }
   }
 
   /******************************************************************************/
@@ -388,6 +399,30 @@ export default class TextFieldTypedNC extends Widget {
     );
   }
 
+  renderColor(otherProps, width, tooltip) {
+    return (
+      <ButtonCombo
+        width={width}
+        tooltip={tooltip}
+        grow={this.props.grow}
+        comboType="color"
+        value={this.props.value}
+        minDate={this.props.minDate}
+        maxDate={this.props.maxDate}
+        readonly={this.props.readonly}
+        disabled={this.props.disabled}
+        node={this.node}
+        horizontalSpacing={this.props.horizontalSpacing}
+        shape={this.props.shape}
+        comboGlyph="solid/square"
+        comboGlyphHide="regular/square"
+        hideButtonCombo={this.props.hideButtonCombo}
+        ref={this.setButtonComboRef}
+        onColorChanged={this.handleColorChanged}
+      ></ButtonCombo>
+    );
+  }
+
   renderDefault(otherProps, width, tooltip, justify) {
     return (
       <TextFieldNC
@@ -448,7 +483,7 @@ export default class TextFieldTypedNC extends Widget {
           width = '200px';
           break;
         case 'color':
-          width = '200px';
+          width = '50px';
           break;
         default:
           width = '120px';
@@ -463,11 +498,6 @@ export default class TextFieldTypedNC extends Widget {
             '1a = 1 année\n2mo = 2 mois\n3j = 3 jours\n4h = 4 heures\n5m = 5 minutes'
           );
           break;
-        case 'color':
-          tooltip = T(
-            '#RRVVBB ou #RVB pour rouge/vert/bleu\nCMY(cyan,magenta,jaune)\nHSL(teinte,saturation,luminosité)\nG(gris)'
-          );
-          break;
       }
     }
 
@@ -479,6 +509,8 @@ export default class TextFieldTypedNC extends Widget {
       case 'number':
       case 'integer':
         return this.renderNumber(otherProps, width, tooltip, justify);
+      case 'color':
+        return this.renderColor(otherProps, width, tooltip);
       default:
         return this.renderDefault(otherProps, width, tooltip, justify);
     }

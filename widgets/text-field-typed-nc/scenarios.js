@@ -40,8 +40,7 @@ export default [
     props: {
       type: 'color',
       value: 'HSL(50,100,100)',
-      width: '200px',
-      tooltip: 'Couleur',
+      tooltip: 'Couleur de Blupi',
     },
   },
   {

@@ -46,6 +46,7 @@ export default function styles(theme, props) {
     cabType = 'round',
   } = props;
 
+  const isDark = theme.colors.isDarkTheme;
   const hasCab = value !== null && value !== undefined;
   const cabValue = Math.max(Math.min(value, 100), 0); // 0..100
   const barColor = colorBar ? ColorHelpers.getMarkColor(theme, colorBar) : null;
@@ -73,7 +74,7 @@ export default function styles(theme, props) {
   const slider = {
     position: 'relative',
     flexGrow: grow,
-    backgroundColor: '#eee',
+    backgroundColor: isDark ? '#000' : '#eee',
     borderRadius: px(sliderThickness / 2),
     opacity: disabled ? 0.4 : 1,
     cursor: disabled ? null : 'pointer',
@@ -123,7 +124,9 @@ export default function styles(theme, props) {
     slider.minWidth = '50px';
     slider.minHeight = px(sliderThickness);
     slider.maxHeight = px(sliderThickness);
-    slider.boxShadow = '#bbb 0px 2px 5px inset';
+    slider.boxShadow = isDark
+      ? '#444 0px -2px 2px inset'
+      : '#bbb 0px 2px 5px inset';
 
     glider.boxShadow = 'rgba(0,0,0,0.5) 0px 2px 2px inset';
     glider.flexDirection = 'row';
@@ -146,7 +149,9 @@ export default function styles(theme, props) {
     slider.minHeight = '50px';
     slider.minWidth = px(sliderThickness);
     slider.maxWidth = px(sliderThickness);
-    slider.boxShadow = '#bbb 2px 0px 5px inset';
+    slider.boxShadow = isDark
+      ? '#444 -2px 0px 2px inset'
+      : '#bbb 2px 0px 5px inset';
 
     glider.boxShadow = 'rgba(0,0,0,0.5) 2px 0px 2px inset';
     glider.flexDirection = 'column';
