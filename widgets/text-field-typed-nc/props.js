@@ -23,6 +23,7 @@ export default [
       'double',
       'percent',
       'delay',
+      'color',
     ]),
     required: true,
   },

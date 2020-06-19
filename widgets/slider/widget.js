@@ -77,6 +77,66 @@ export default class Slider extends Widget {
 
   /******************************************************************************/
 
+  renderRainbowFragment(color1, color2) {
+    const a = this.props.direction === 'horizontal' ? '90deg' : '0deg';
+
+    const style = {
+      flexGrow: 1,
+      height: '100%',
+      background: `linear-gradient(${a}, ${color1}, ${color2})`,
+    };
+
+    return <div key={color1} style={style} />;
+  }
+
+  renderRainbow() {
+    const fragments = [
+      {
+        color1: '#f00',
+        color2: '#ff0',
+      },
+      {
+        color1: '#ff0',
+        color2: '#0f0',
+      },
+      {
+        color1: '#0f0',
+        color2: '#0ff',
+      },
+      {
+        color1: '#0ff',
+        color2: '#00f',
+      },
+      {
+        color1: '#00f',
+        color2: '#f0f',
+      },
+      {
+        color1: '#f0f',
+        color2: '#f00',
+      },
+    ];
+
+    const f = fragments.map((f) => {
+      return this.renderRainbowFragment(f.color1, f.color2);
+    });
+
+    return (
+      <div className={this.styles.classNames.rainbow}>
+        {f}
+        <div className={this.styles.classNames.rainbowShadow} />
+      </div>
+    );
+  }
+
+  renderGlider() {
+    if (this.props.gradient === 'rainbow') {
+      return this.renderRainbow();
+    } else {
+      return <div className={this.styles.classNames.glider} />;
+    }
+  }
+
   renderWhileDragging() {
     const rect = this.sliderNode.getBoundingClientRect();
     const style = {
@@ -99,7 +159,7 @@ export default class Slider extends Widget {
           style={style}
         >
           <div className={this.styles.classNames.inside}>
-            <div className={this.styles.classNames.glider} />
+            {this.renderGlider()}
             <div className={this.styles.classNames.bar} />
             <div className={this.styles.classNames.cab} />
           </div>
@@ -120,7 +180,7 @@ export default class Slider extends Widget {
         onMouseDown={this.onDragDown}
       >
         <div className={this.styles.classNames.inside}>
-          <div className={this.styles.classNames.glider} />
+          {this.renderGlider()}
           <div className={this.styles.classNames.bar} />
           <div className={this.styles.classNames.cab} />
         </div>

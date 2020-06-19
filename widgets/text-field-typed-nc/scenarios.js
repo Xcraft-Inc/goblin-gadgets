@@ -36,6 +36,15 @@ export default [
     },
   },
   {
+    name: 'color',
+    props: {
+      type: 'color',
+      value: 'HSL(50,100,100)',
+      width: '200px',
+      tooltip: 'Couleur',
+    },
+  },
+  {
     name: 'empty',
     props: {},
   },

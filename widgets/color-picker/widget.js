@@ -63,6 +63,10 @@ export default class ColorPicked extends Widget {
     }
   }
 
+  get mode() {
+    return this.analysis ? this.analysis.mode : null;
+  }
+
   /******************************************************************************/
 
   renderMode(name, tooltip, mode) {
@@ -73,7 +77,7 @@ export default class ColorPicked extends Widget {
         horizontalSpacing="overlap"
         text={name}
         tooltip={tooltip}
-        active={this.analysis.mode === mode}
+        active={this.mode === mode}
         onClick={() => this.onColorChanged('mode', mode)}
       />
     );
@@ -94,14 +98,27 @@ export default class ColorPicked extends Widget {
     );
   }
 
-  renderComposant(label, sliderColor, key, range) {
+  renderComposant(label, sliderColor1, sliderColor2, key, range) {
     const analysis = this.analysis;
     const value = analysis ? analysis[key] : null;
 
+    let gliderSize = 'default';
+    let cabSize = 'default';
+    let gradient = '1to2';
+    if (key === 'h') {
+      gliderSize = 'large';
+      cabSize = 'large';
+      gradient = 'rainbow';
+    } else if (key === 's' || key === 'l') {
+      gliderSize = 'large';
+      cabSize = 'large';
+      sliderColor2 = ColorConverters.toRGB(`HSL(${analysis.h},100,100)`);
+    } else if (key === 'n') {
+      gliderSize = 'large';
+    }
+
     return (
       <div className={this.styles.classNames.composant}>
-        <Label width="35px" justify="end" wrap="no" text={label} />
-        <Label width="5px" />
         <TextFieldTypedNC
           width="50px"
           type="integer"
@@ -115,7 +132,11 @@ export default class ColorPicked extends Widget {
           direction="horizontal"
           grow="1"
           value={(value * 100) / range}
-          color={sliderColor}
+          gliderSize={gliderSize}
+          cabSize={cabSize}
+          gradient={gradient}
+          gradientColor1={sliderColor1}
+          gradientColor2={sliderColor2}
           onChange={(value) =>
             this.onColorChanged(key, Math.round((value * range) / 100))
           }
@@ -128,9 +149,9 @@ export default class ColorPicked extends Widget {
   renderComposantsRGB() {
     return (
       <div className={this.styles.classNames.composants}>
-        {this.renderComposant(T('R'), '#f00', 'r', 255)}
-        {this.renderComposant(T('V'), '#0f0', 'g', 255)}
-        {this.renderComposant(T('B'), '#00f', 'b', 255)}
+        {this.renderComposant(T('R'), '#f00', '#f00', 'r', 255)}
+        {this.renderComposant(T('V'), '#0f0', '#0f0', 'g', 255)}
+        {this.renderComposant(T('B'), '#00f', '#00f', 'b', 255)}
       </div>
     );
   }
@@ -138,9 +159,9 @@ export default class ColorPicked extends Widget {
   renderComposantsCMY() {
     return (
       <div className={this.styles.classNames.composants}>
-        {this.renderComposant(T('C'), '#0ff', 'c', 255)}
-        {this.renderComposant(T('M'), '#f0f', 'm', 255)}
-        {this.renderComposant(T('J'), '#ff0', 'y', 255)}
+        {this.renderComposant(T('C'), '#0ff', '#0ff', 'c', 255)}
+        {this.renderComposant(T('M'), '#f0f', '#f0f', 'm', 255)}
+        {this.renderComposant(T('J'), '#ff0', '#ff0', 'y', 255)}
       </div>
     );
   }
@@ -148,9 +169,9 @@ export default class ColorPicked extends Widget {
   renderComposantsHSL() {
     return (
       <div className={this.styles.classNames.composants}>
-        {this.renderComposant(T('T°'), '#888', 'h', 360)}
-        {this.renderComposant(T('S%'), '#fff', 's', 100)}
-        {this.renderComposant(T('L%'), '#000', 'l', 100)}
+        {this.renderComposant(T('T°'), '#888', '#888', 'h', 360)}
+        {this.renderComposant(T('S%'), '#fff', '#f00', 's', 100)}
+        {this.renderComposant(T('L%'), '#000', '#f00', 'l', 100)}
       </div>
     );
   }
@@ -158,13 +179,13 @@ export default class ColorPicked extends Widget {
   renderComposantsGrey() {
     return (
       <div className={this.styles.classNames.composants}>
-        {this.renderComposant(T('N'), '#888', 'n', 255)}
+        {this.renderComposant(T('N'), '#fff', '#000', 'n', 255)}
       </div>
     );
   }
 
   renderComposants() {
-    switch (this.analysis.mode) {
+    switch (this.mode) {
       case 'RGB':
         return this.renderComposantsRGB();
       case 'CMY':
@@ -179,6 +200,10 @@ export default class ColorPicked extends Widget {
   }
 
   renderSample() {
+    if (!this.analysis) {
+      return null;
+    }
+
     const canonical = ColorConverters.analysisToCanonical(this.analysis);
     const color = ColorConverters.toRGB(canonical);
 

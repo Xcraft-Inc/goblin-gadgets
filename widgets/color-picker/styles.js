@@ -8,7 +8,7 @@ export default function styles(theme, props) {
   const colorPicker = {
     flexGrow: grow,
     width: width,
-    minWidth: '300px',
+    minWidth: '280px',
     height: '165px',
     display: 'flex',
     flexDirection: 'column',
@@ -29,7 +29,7 @@ export default function styles(theme, props) {
     display: 'flex',
     flexDirection: 'row',
     flexGrow: 1,
-    padding: '5px 5px 5px 0px',
+    padding: '5px',
   };
 
   const composants = {

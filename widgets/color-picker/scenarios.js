@@ -51,7 +51,7 @@ export default [
   {
     name: 'mini',
     props: {
-      width: '300px',
+      width: '280px',
       color: '#FFAE00',
     },
   },

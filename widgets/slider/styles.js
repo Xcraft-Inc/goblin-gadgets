@@ -20,7 +20,12 @@ export const propNames = [
   'grow',
   'width',
   'height',
-  'color',
+  'colorBar',
+  'gradient',
+  'gradientColor1',
+  'gradientColor2',
+  'gliderSize',
+  'cabSize',
 ];
 
 export default function styles(theme, props) {
@@ -31,16 +36,31 @@ export default function styles(theme, props) {
     grow,
     width,
     height,
-    color = '#888',
+    colorBar,
+    gradient,
+    gradientColor1,
+    gradientColor2,
+    gliderSize = 'default',
+    cabSize = 'default',
   } = props;
 
   const hasCab = value !== null && value !== undefined;
   const cabValue = Math.max(Math.min(value, 100), 0); // 0..100
-  const barColor = ColorHelpers.getMarkColor(theme, color);
+  const barColor = colorBar ? ColorHelpers.getMarkColor(theme, colorBar) : null;
 
   const sliderThickness = 24;
-  const gliderThickness = 8;
-  const cabThickness = 14;
+
+  const gliderThickness = {
+    small: 4,
+    default: 8,
+    large: 14,
+  }[gliderSize];
+
+  const cabThickness = {
+    small: 8,
+    default: 14,
+    large: 18,
+  }[cabSize];
 
   const slider = {
     position: 'relative',
@@ -66,13 +86,14 @@ export default function styles(theme, props) {
     bottom: px(-gliderThickness / 2),
     top: px(-gliderThickness / 2),
     borderRadius: px(gliderThickness / 2),
-    backgroundColor: '#ddd',
+    background: '#ddd',
+    display: 'flex',
   };
 
   const bar = {
     ...glider,
     backgroundColor: barColor,
-    display: hasCab ? null : 'none',
+    display: hasCab && barColor ? null : 'none',
   };
 
   const cab = {
@@ -84,6 +105,11 @@ export default function styles(theme, props) {
     display: hasCab ? null : 'none',
   };
 
+  if (gradient === '1to2') {
+    const a = direction === 'horizontal' ? '90deg' : '0deg';
+    glider.background = `linear-gradient(${a}, ${gradientColor1}, ${gradientColor2})`;
+  }
+
   if (direction === 'horizontal') {
     slider.width = width;
     slider.minWidth = '50px';
@@ -91,13 +117,17 @@ export default function styles(theme, props) {
     slider.maxHeight = px(sliderThickness);
     slider.boxShadow = '#bbb 0px 2px 5px inset';
 
-    glider.boxShadow = '#aaa 0px 2px 2px inset';
+    glider.boxShadow = 'rgba(0,0,0,0.5) 0px 2px 2px inset';
+    glider.flexDirection = 'row';
 
     const r = px(gliderThickness / 2);
     bar.borderRadius = `${r} 0px 0px ${r}`;
     bar.right = null;
     bar.width = `calc(${pc(cabValue)} + ${px(gliderThickness / 2)})`;
-    bar.boxShadow = `${ColorManipulator.darken(color, 0.6)} 0px -3px 6px inset`;
+    bar.boxShadow = `${ColorManipulator.darken(
+      colorBar,
+      0.6
+    )} 0px -3px 6px inset`;
 
     cab.left = `calc(${pc(cabValue)} - ${px(cabThickness / 2)})`;
     cab.bottom = px(-cabThickness / 2 + 1);
@@ -109,18 +139,39 @@ export default function styles(theme, props) {
     slider.maxWidth = px(sliderThickness);
     slider.boxShadow = '#bbb 2px 0px 5px inset';
 
-    glider.boxShadow = '#aaa 2px 0px 2px inset';
+    glider.boxShadow = 'rgba(0,0,0,0.5) 2px 0px 2px inset';
+    glider.flexDirection = 'column';
 
     const r = px(gliderThickness / 2);
     bar.borderRadius = `0px 0px ${r} ${r}`;
     bar.top = null;
     bar.height = `calc(${pc(cabValue)} + ${px(gliderThickness / 2)})`;
-    bar.boxShadow = `${ColorManipulator.darken(color, 0.6)} -3px 0px 6px inset`;
+    bar.boxShadow = `${ColorManipulator.darken(
+      colorBar,
+      0.6
+    )} -3px 0px 6px inset`;
 
     cab.bottom = `calc(${pc(cabValue)} - ${px(cabThickness / 2)})`;
     cab.left = px(-cabThickness / 2 - 1);
     cab.boxShadow = '3px 0px 4px 0px rgba(0,0,0,0.6)';
   }
+
+  const rainbow = {
+    ...glider,
+    padding: `0px ${px(gliderThickness / 2)}`,
+    background: '#f00',
+    boxShadow: 'unset',
+  };
+
+  const rainbowShadow = {
+    position: 'absolute',
+    left: px(0),
+    right: px(0),
+    bottom: px(0),
+    top: px(0),
+    borderRadius: px(gliderThickness / 2),
+    boxShadow: glider.boxShadow,
+  };
 
   const fullscreen = {
     zIndex: 999,
@@ -140,6 +191,8 @@ export default function styles(theme, props) {
     slider,
     inside,
     glider,
+    rainbow,
+    rainbowShadow,
     bar,
     cab,
     fullscreen,

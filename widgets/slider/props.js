@@ -9,7 +9,7 @@ export default [
     description: 'Value between 0 and 100.',
   },
   {
-    name: 'color',
+    name: 'colorBar',
     group: 'aspect',
     type: types.color,
   },
@@ -17,6 +17,31 @@ export default [
     name: 'direction',
     group: 'aspect',
     type: types.enum(['vertical', 'horizontal']),
+  },
+  {
+    name: 'gliderSize',
+    group: 'aspect',
+    type: types.enum(['', 'small', 'default', 'large']),
+  },
+  {
+    name: 'cabSize',
+    group: 'aspect',
+    type: types.enum(['', 'small', 'default', 'large']),
+  },
+  {
+    name: 'gradient',
+    group: 'aspect',
+    type: types.enum(['', '1to2', 'rainbow']),
+  },
+  {
+    name: 'gradientColor1',
+    group: 'aspect',
+    type: types.color,
+  },
+  {
+    name: 'gradientColor2',
+    group: 'aspect',
+    type: types.color,
   },
   {
     name: 'disabled',
