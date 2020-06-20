@@ -108,38 +108,20 @@ export default class SliderXY extends Widget {
   }
 
   renderWhileDragging() {
-    const rect = this.sliderNode.getBoundingClientRect();
-    const style = {
-      position: 'absolute',
-      left: rect.left,
-      width: rect.width,
-      top: rect.top,
-      height: rect.height,
-    };
+    if (!this.isDragging || !this.sliderNode) {
+      return null;
+    }
 
     return (
       <div
         className={this.styles.classNames.fullscreen}
         onMouseMove={this.onDragMove}
         onMouseUp={this.onDragUp}
-      >
-        <div
-          ref={(node) => (this.sliderNode = node)}
-          className={this.styles.classNames.sliderXY}
-          style={style}
-        >
-          {this.renderArea()}
-          <div className={this.styles.classNames.cab} />
-        </div>
-      </div>
+      />
     );
   }
 
   render() {
-    if (this.isDragging && this.sliderNode) {
-      return this.renderWhileDragging();
-    }
-
     return (
       <div
         ref={(node) => (this.sliderNode = node)}
@@ -148,6 +130,7 @@ export default class SliderXY extends Widget {
       >
         {this.renderArea()}
         <div className={this.styles.classNames.cab} />
+        {this.renderWhileDragging()}
       </div>
     );
   }

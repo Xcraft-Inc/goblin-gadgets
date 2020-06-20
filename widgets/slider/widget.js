@@ -146,41 +146,20 @@ export default class Slider extends Widget {
   }
 
   renderWhileDragging() {
-    const rect = this.sliderNode.getBoundingClientRect();
-    const style = {
-      position: 'absolute',
-      left: rect.left,
-      width: rect.width,
-      top: rect.top,
-      height: rect.height,
-    };
+    if (!this.isDragging || !this.sliderNode) {
+      return null;
+    }
 
     return (
       <div
         className={this.styles.classNames.fullscreen}
         onMouseMove={this.onDragMove}
         onMouseUp={this.onDragUp}
-      >
-        <div
-          ref={(node) => (this.sliderNode = node)}
-          className={this.styles.classNames.slider}
-          style={style}
-        >
-          <div className={this.styles.classNames.inside}>
-            {this.renderGlider()}
-            <div className={this.styles.classNames.bar} />
-            <div className={this.styles.classNames.cab} />
-          </div>
-        </div>
-      </div>
+      />
     );
   }
 
   render() {
-    if (this.isDragging && this.sliderNode) {
-      return this.renderWhileDragging();
-    }
-
     return (
       <div
         ref={(node) => (this.sliderNode = node)}
@@ -192,6 +171,7 @@ export default class Slider extends Widget {
           <div className={this.styles.classNames.bar} />
           <div className={this.styles.classNames.cab} />
         </div>
+        {this.renderWhileDragging()}
       </div>
     );
   }
