@@ -8,6 +8,18 @@ import * as styles from './styles';
 
 /******************************************************************************/
 
+function compareStrings(s1, s2) {
+  if (s1 < s2) {
+    return -1;
+  }
+  if (s1 > s2) {
+    return 1;
+  }
+  return 0;
+}
+
+/******************************************************************************/
+
 const WidgetListItem = Widget.connectWidget((state, props) => {
   return {
     glyph:
@@ -55,7 +67,9 @@ export default class WidgetDocMenu extends Widget {
           <Label text="Widgets" kind="pane-header" />
         </Container>
         <Container kind="panes">
-          {widgetList.map((widget) => this.renderWidgetListItem(widget))}
+          {widgetList
+            .sort((w1, w2) => compareStrings(w1.name, w2.name))
+            .map((widget) => this.renderWidgetListItem(widget))}
         </Container>
       </Container>
     );
