@@ -14,7 +14,7 @@ export default function styles(theme, props) {
     flexGrow: grow,
     width: width,
     minWidth: '340px',
-    height: '282px',
+    height: '328px',
     display: 'flex',
     flexDirection: 'column',
     borderRadius: r,
@@ -23,7 +23,7 @@ export default function styles(theme, props) {
   };
 
   const modes = {
-    padding: '20px 5px 20px 20px',
+    padding: '20px',
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
@@ -47,18 +47,27 @@ export default function styles(theme, props) {
     flexGrow: 1,
   };
 
-  const composantFirst = {
+  const composant = {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-  };
-
-  const composantNext = {
-    ...composantFirst,
     margin: '10px 0px 0px 0px',
   };
 
   const composantHsl = {
+    display: 'flex',
+    flexDirection: 'column',
+    flexGrow: 1,
+  };
+
+  const composantHsl1 = {
+    display: 'flex',
+    flexDirection: 'row',
+    flexGrow: 1,
+    marginBottom: '20px',
+  };
+
+  const composantHsl2 = {
     display: 'flex',
     flexDirection: 'row',
     flexGrow: 1,
@@ -92,9 +101,10 @@ export default function styles(theme, props) {
     modes,
     content,
     composants,
-    composantFirst,
-    composantNext,
+    composant,
     composantHsl,
+    composantHsl1,
+    composantHsl2,
     samples,
     sampleUp,
     sampleDown,

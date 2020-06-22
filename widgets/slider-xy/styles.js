@@ -34,6 +34,7 @@ export default function styles(theme, props) {
     cabSize = 'default',
   } = props;
 
+  const isDark = theme.colors.isDarkTheme;
   const hasCab =
     valueX !== null &&
     valueX !== undefined &&
@@ -41,6 +42,7 @@ export default function styles(theme, props) {
     valueY !== undefined;
   const cabValueX = Math.max(Math.min(valueX, 100), 0); // 0..100
   const cabValueY = Math.max(Math.min(valueY, 100), 0); // 0..100
+  const insideMargin = 12;
 
   let cabThickness = {
     small: 8,
@@ -53,10 +55,20 @@ export default function styles(theme, props) {
     flexGrow: grow,
     width: width,
     height: height,
-    display: 'flex',
-    flexDirection: 'row',
+    borderRadius: px(insideMargin),
+    boxShadow: isDark ? '#444 0px -2px 2px inset' : '#bbb 0px 2px 5px inset',
     opacity: disabled ? 0.4 : 1,
     cursor: disabled ? null : 'pointer',
+  };
+
+  const inside = {
+    position: 'absolute',
+    left: px(insideMargin),
+    right: px(insideMargin),
+    bottom: px(insideMargin),
+    top: px(insideMargin),
+    display: 'flex',
+    flexDirection: 'row',
   };
 
   const areaFragment = {
@@ -92,6 +104,7 @@ export default function styles(theme, props) {
 
   return {
     sliderXY,
+    inside,
     areaFragment,
     cab,
     fullscreen,

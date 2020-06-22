@@ -124,12 +124,16 @@ export default class SliderXY extends Widget {
   render() {
     return (
       <div
-        ref={(node) => (this.sliderNode = node)}
         className={this.styles.classNames.sliderXY}
         onMouseDown={this.onDragDown}
       >
-        {this.renderArea()}
-        <div className={this.styles.classNames.cab} />
+        <div
+          ref={(node) => (this.sliderNode = node)}
+          className={this.styles.classNames.inside}
+        >
+          {this.renderArea()}
+          <div className={this.styles.classNames.cab} />
+        </div>
         {this.renderWhileDragging()}
       </div>
     );

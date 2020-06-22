@@ -3,6 +3,7 @@ import Widget from 'goblin-laboratory/widgets/widget';
 import * as styles from './styles';
 import throttle from 'lodash/throttle';
 import TextFieldTypedNC from 'goblin-gadgets/widgets/text-field-typed-nc/widget';
+import TextInputNC from 'goblin-gadgets/widgets/text-input-nc/widget';
 import Slider from 'goblin-gadgets/widgets/slider/widget';
 import SliderXY from 'goblin-gadgets/widgets/slider-xy/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
@@ -14,19 +15,22 @@ import T from 't';
 
 /******************************************************************************/
 
-class ColorPicked extends Widget {
+export default class ColorPicker extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
 
     this.state = {
       analysis: {},
-      modeHsl: 'xy',
+      editedColor: null,
     };
 
     this.initialColor = this.props.color;
 
     this.onColorChanged = throttle(this.onColorChanged, 50).bind(this);
+    this.onTextEdited = this.onTextEdited.bind(this);
+    this.onTextChanged = this.onTextChanged.bind(this);
+    this.onPaste = this.onPaste.bind(this);
   }
 
   //#region get/set
@@ -39,18 +43,19 @@ class ColorPicked extends Widget {
     });
   }
 
-  get modeHsl() {
-    return this.state.modeHsl;
+  get editedColor() {
+    return this.state.editedColor;
   }
-  set modeHsl(value) {
+  set editedColor(value) {
     this.setState({
-      modeHsl: value,
+      editedColor: value,
     });
   }
   //#endregion
 
   updateColor(color) {
     this.analysis = ColorConverters.analysisFromCanonical(color);
+    this.editedColor = color;
   }
 
   componentWillMount() {
@@ -63,17 +68,36 @@ class ColorPicked extends Widget {
     }
   }
 
+  changeColor(canonical, send) {
+    this.updateColor(canonical);
+
+    if (this.props.onChange && send) {
+      this.props.onChange(canonical);
+    }
+  }
+
   onColorChanged(key, value, send) {
     const analysis = {...this.analysis};
     analysis[key] = value;
     this.analysis = analysis;
 
     const canonical = ColorConverters.analysisToCanonical(analysis);
-    if (this.props.onChange && send) {
-      this.props.onChange(canonical);
-    } else {
-      this.updateColor(canonical);
+    this.changeColor(canonical, send);
+  }
+
+  onTextEdited(text) {
+    this.editedColor = text;
+  }
+
+  onTextChanged(text) {
+    const result = ColorConverters.parseEdited(text);
+    if (result.error === null) {
+      this.changeColor(result.value, true);
     }
+  }
+
+  onPaste() {
+    // TODO
   }
 
   get mode() {
@@ -82,53 +106,37 @@ class ColorPicked extends Widget {
 
   /******************************************************************************/
 
-  renderMode(name, tooltip, mode, modeHsl) {
+  renderMode(glyph, tooltip, mode) {
     return (
       <Button
         border="none"
-        width="65px"
         horizontalSpacing="overlap"
-        text={name}
+        glyph={glyph}
         tooltip={tooltip}
-        active={
-          this.mode === mode && (modeHsl === null || this.modeHsl === modeHsl)
-        }
-        onClick={() => {
-          this.onColorChanged('mode', mode, true);
-          if (modeHsl !== null) {
-            this.modeHsl = modeHsl;
-          }
-        }}
+        active={this.mode === mode}
+        onClick={() => this.onColorChanged('mode', mode, true)}
       />
     );
   }
 
   renderModes() {
-    const canonical = ColorConverters.analysisToCanonical(this.analysis);
+    //? const canonical = ColorConverters.analysisToCanonical(this.analysis);
 
     // prettier-ignore
     return (
       <div className={this.styles.classNames.modes}>
-        {this.renderMode(T('TSL1'), T('Teinte Saturation Luminosité'), 'HSL', 'xy')}
-        {this.renderMode(T('TSL2'), T('Teinte Saturation Luminosité'), 'HSL', 'x')}
-        {this.renderMode(T('Gris'), T('Niveau de gris'), 'G', null)}
-        {this.renderMode(T('RVB'), T('Rouge Vert Bleu'), 'RGB', null)}
-        {this.renderMode(T('CMJN'), T('Cyan Magenta Jaune Noir'), 'CMYK', null)}
-        <Label grow="1" />
-        <Label text={canonical} wrap="no" fontSize="75%" />
+        {this.renderMode("solid/palette",   T('Teinte Saturation Luminosité'), 'HSL' )}
+        {this.renderMode("solid/sliders-h", T('Rouge Vert Bleu'),              'RGB' )}
+        {this.renderMode("solid/print",     T('Cyan Magenta Jaune Noir'),      'CMYK')}
+        {this.renderMode("solid/pen",       T('Niveau de gris'),               'G'   )}
+        <Label width="20px" />
+        <TextInputNC value={this.editedColor} grow="1" horizontalSpacing="overlap" onChange={this.onTextEdited} onBlur={this.onTextChanged} />
+        <Button glyph="solid/eye-dropper" tooltip={T("Colle la couleur contenue dans le bloc-notes")} onPaste={this.onPaste}/>
       </div>
     );
   }
 
-  renderComposant(
-    label,
-    tooltip,
-    sliderColor1,
-    sliderColor2,
-    key,
-    range,
-    isFirst
-  ) {
+  renderComposant(label, tooltip, sliderColor1, sliderColor2, key, range) {
     const analysis = this.analysis;
     const value = analysis ? analysis[key] : null;
 
@@ -150,13 +158,7 @@ class ColorPicked extends Widget {
     }
 
     return (
-      <div
-        className={
-          isFirst
-            ? this.styles.classNames.composantFirst
-            : this.styles.classNames.composantNext
-        }
-      >
+      <div className={this.styles.classNames.composant}>
         <TextFieldTypedNC
           width="50px"
           tooltip={tooltip}
@@ -195,8 +197,7 @@ class ColorPicked extends Widget {
           '#f00',
           '#f00',
           'r',
-          255,
-          true
+          255
         )}
         {this.renderComposant(
           T('V'),
@@ -204,8 +205,7 @@ class ColorPicked extends Widget {
           '#0f0',
           '#0f0',
           'g',
-          255,
-          false
+          255
         )}
         {this.renderComposant(
           T('B'),
@@ -213,8 +213,7 @@ class ColorPicked extends Widget {
           '#00f',
           '#00f',
           'b',
-          255,
-          false
+          255
         )}
       </div>
     );
@@ -229,8 +228,7 @@ class ColorPicked extends Widget {
           '#0ff',
           '#0ff',
           'c',
-          100,
-          true
+          100
         )}
         {this.renderComposant(
           T('M'),
@@ -238,8 +236,7 @@ class ColorPicked extends Widget {
           '#f0f',
           '#f0f',
           'm',
-          100,
-          false
+          100
         )}
         {this.renderComposant(
           T('J'),
@@ -247,8 +244,7 @@ class ColorPicked extends Widget {
           '#ff0',
           '#ff0',
           'y',
-          100,
-          false
+          100
         )}
         {this.renderComposant(
           T('N'),
@@ -263,87 +259,76 @@ class ColorPicked extends Widget {
     );
   }
 
-  renderComposantsHSLxy() {
+  renderComposantsHSL() {
     const analysis = this.analysis;
     const t = ColorConverters.toRGB(`HSL(${analysis.h},100,100)`);
 
     return (
       <div className={this.styles.classNames.composantHsl}>
-        <SliderXY
-          width="170px"
-          height="170px"
-          gradientColorUL="#ffffff"
-          gradientColorUR={t}
-          gradientColorDL="#000000"
-          gradientColorDR="#000000"
-          valueX={analysis.s}
-          valueY={analysis.l}
-          onChange={(x, y, send) => {
-            this.onColorChanged('s', Math.round(x), send);
-            this.onColorChanged('l', Math.round(y), send);
-          }}
-        />
-        <Label width="20px" />
-        <Slider
-          direction="vertical"
-          height="170px"
-          value={(analysis.h * 100) / 360}
-          gliderSize="large"
-          cabSize="large"
-          cabType="thin"
-          gradient="rainbow"
-          onChange={(value, send) =>
-            this.onColorChanged('h', Math.round((value * 360) / 100), send)
-          }
-        />
-        <Label width="20px" />
+        <div className={this.styles.classNames.composantHsl1}>
+          <Label width="64px" />
+          <Slider
+            direction="horizontal"
+            width="170px"
+            value={analysis.s}
+            gliderSize="large"
+            cabSize="large"
+            cabType="thin"
+            gradient="1to2"
+            gradientColor1="#fff"
+            gradientColor2={t}
+            onChange={(value, send) =>
+              this.onColorChanged('s', Math.round(value), send)
+            }
+          />
+        </div>
+        <div className={this.styles.classNames.composantHsl2}>
+          <Slider
+            direction="vertical"
+            height="170px"
+            value={(analysis.h * 100) / 360}
+            gliderSize="large"
+            cabSize="large"
+            cabType="thin"
+            gradient="rainbow"
+            onChange={(value, send) =>
+              this.onColorChanged('h', Math.round((value * 360) / 100), send)
+            }
+          />
+          <Label width="40px" />
+          <SliderXY
+            width="170px"
+            height="170px"
+            gradientColorUL="#ffffff"
+            gradientColorUR={t}
+            gradientColorDL="#000000"
+            gradientColorDR="#000000"
+            valueX={analysis.s}
+            valueY={analysis.l}
+            onChange={(x, y, send) => {
+              this.onColorChanged('s', Math.round(x), send);
+              this.onColorChanged('l', Math.round(y), send);
+            }}
+          />
+          <Label width="20px" />
+          <Slider
+            direction="vertical"
+            height="170px"
+            value={analysis.l}
+            gliderSize="large"
+            cabSize="large"
+            cabType="thin"
+            gradient="1to2"
+            gradientColor1="#000"
+            gradientColor2={t}
+            onChange={(value, send) =>
+              this.onColorChanged('l', Math.round(value), send)
+            }
+          />
+          <Label width="20px" />
+        </div>
       </div>
     );
-  }
-
-  renderComposantsHSLx() {
-    return (
-      <div className={this.styles.classNames.composants}>
-        {this.renderComposant(
-          T('T°'),
-          T('Teinte (de 0 à 360)'),
-          '#888',
-          '#888',
-          'h',
-          360,
-          true
-        )}
-        {this.renderComposant(
-          T('S%'),
-          T('Saturation (de 0 à 100)'),
-          '#fff',
-          '#f00',
-          's',
-          100,
-          false
-        )}
-        {this.renderComposant(
-          T('L%'),
-          T('Luminosité (de 0 à 100)'),
-          '#000',
-          '#f00',
-          'l',
-          100,
-          false
-        )}
-      </div>
-    );
-  }
-
-  renderComposantsHSL() {
-    switch (this.modeHsl) {
-      case 'xy':
-        return this.renderComposantsHSLxy();
-      case 'x':
-        return this.renderComposantsHSLx();
-      default:
-        return null;
-    }
   }
 
   renderComposantsGrey() {
@@ -355,8 +340,7 @@ class ColorPicked extends Widget {
           '#fff',
           '#000',
           'n',
-          100,
-          true
+          100
         )}
       </div>
     );
@@ -415,20 +399,3 @@ class ColorPicked extends Widget {
     );
   }
 }
-
-/******************************************************************************/
-
-const ColorPickedWithState = Widget.connectWidget((state) => {
-  return {
-    mode: state.get('mode'),
-    lastColors: state.get('lastColors'),
-  };
-})(ColorPicked);
-class ColorPicker extends Widget {
-  render() {
-    const desktopId = this.context.desktopId;
-    return <ColorPickedWithState widgetId={`${desktopId}$color-pickers`} />;
-  }
-}
-
-export default ColorPicker;
