@@ -97,7 +97,20 @@ export default class ColorPicker extends Widget {
   }
 
   onPaste() {
-    // TODO
+    navigator.clipboard
+      .readText()
+      .then((text) => {
+        if (text && !text.startsWith('#')) {
+          text = '#' + text;
+        }
+        const result = ColorConverters.parseEdited(text);
+        if (result.error === null) {
+          this.changeColor(result.value, true);
+        }
+      })
+      .catch((err) => {
+        console.error('Failed to read clipboard contents: ', err);
+      });
   }
 
   get mode() {
@@ -131,7 +144,7 @@ export default class ColorPicker extends Widget {
         {this.renderMode("solid/sun",       T('Niveau de gris'),               'G'   )}
         <Label width="20px" />
         <TextInputNC value={this.editedColor} grow="1" horizontalSpacing="overlap" onChange={this.onTextEdited} onBlur={this.onTextChanged} />
-        <Button glyph="solid/eye-dropper" tooltip={T("Colle la couleur contenue dans le bloc-notes")} onPaste={this.onPaste}/>
+        <Button glyph="solid/eye-dropper" tooltip={T("Colle la couleur contenue dans le bloc-notes")} onClick={this.onPaste}/>
       </div>
     );
   }
