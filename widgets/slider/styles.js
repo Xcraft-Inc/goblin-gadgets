@@ -181,10 +181,11 @@ export default function styles(theme, props) {
     boxShadow: 'unset',
   };
 
-  const rainbowFragment = {
+  const rainbowInside = {
     flexGrow: 1,
-    height: isHorizontal ? px(gliderThickness) : null,
-    width: !isHorizontal ? px(gliderThickness) : null,
+    background: `linear-gradient(${
+      isHorizontal ? '90deg' : '0deg'
+    }, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00)`,
   };
 
   const rainbowShadow = {
@@ -216,7 +217,7 @@ export default function styles(theme, props) {
     inside,
     glider,
     rainbow,
-    rainbowFragment,
+    rainbowInside,
     rainbowShadow,
     bar,
     cab,

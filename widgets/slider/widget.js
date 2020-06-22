@@ -97,49 +97,14 @@ export default class Slider extends Widget {
     );
   }
 
-  renderRainbow() {
-    const fragments = [
-      {
-        color1: '#f00',
-        color2: '#ff0',
-      },
-      {
-        color1: '#ff0',
-        color2: '#0f0',
-      },
-      {
-        color1: '#0f0',
-        color2: '#0ff',
-      },
-      {
-        color1: '#0ff',
-        color2: '#00f',
-      },
-      {
-        color1: '#00f',
-        color2: '#f0f',
-      },
-      {
-        color1: '#f0f',
-        color2: '#f00',
-      },
-    ];
-
-    const f = fragments.map((f) => {
-      return this.renderRainbowFragment(f.color1, f.color2);
-    });
-
-    return (
-      <div className={this.styles.classNames.rainbow}>
-        {f}
-        <div className={this.styles.classNames.rainbowShadow} />
-      </div>
-    );
-  }
-
   renderGlider() {
     if (this.props.gradient === 'rainbow') {
-      return this.renderRainbow();
+      return (
+        <div className={this.styles.classNames.rainbow}>
+          <div className={this.styles.classNames.rainbowInside} />
+          <div className={this.styles.classNames.rainbowShadow} />
+        </div>
+      );
     } else {
       return <div className={this.styles.classNames.glider} />;
     }
