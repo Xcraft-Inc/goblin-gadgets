@@ -14,7 +14,7 @@ import T from 't';
 
 /******************************************************************************/
 
-export default class ColorPicked extends Widget {
+class ColorPicked extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
@@ -417,3 +417,18 @@ export default class ColorPicked extends Widget {
 }
 
 /******************************************************************************/
+
+const ColorPickedWithState = Widget.connectWidget((state) => {
+  return {
+    mode: state.get('mode'),
+    lastColors: state.get('lastColors'),
+  };
+})(ColorPicked);
+class ColorPicker extends Widget {
+  render() {
+    const desktopId = this.context.desktopId;
+    return <ColorPickedWithState widgetId={`${desktopId}$color-pickers`} />;
+  }
+}
+
+export default ColorPicker;
