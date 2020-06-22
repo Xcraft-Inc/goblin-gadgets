@@ -133,8 +133,6 @@ export default class ColorPicker extends Widget {
   }
 
   renderModes() {
-    //? const canonical = ColorConverters.analysisToCanonical(this.analysis);
-
     // prettier-ignore
     return (
       <div className={this.styles.classNames.modes}>
@@ -279,7 +277,7 @@ export default class ColorPicker extends Widget {
     return (
       <div className={this.styles.classNames.composantHsl}>
         <div className={this.styles.classNames.composantHsl1}>
-          <Label width="64px" />
+          <Label width="44px" />
           <Slider
             direction="horizontal"
             width="170px"
@@ -308,7 +306,7 @@ export default class ColorPicker extends Widget {
               this.onColorChanged('h', Math.round((value * 360) / 100), send)
             }
           />
-          <Label width="40px" />
+          <Label width="20px" />
           <SliderXY
             width="170px"
             height="170px"
@@ -394,8 +392,49 @@ export default class ColorPicker extends Widget {
 
     return (
       <div className={this.styles.classNames.samples}>
-        <div className={this.styles.classNames.sampleUp} style={styleUp} />
+        <div
+          className={this.styles.classNames.sampleUp}
+          style={styleUp}
+          onClick={() => this.changeColor(this.initialColor, true)}
+        />
         <div className={this.styles.classNames.sampleDown} style={styleDown} />
+      </div>
+    );
+  }
+
+  renderLastColor(color, index) {
+    const style = {
+      backgroundColor: color,
+    };
+
+    return (
+      <div
+        key={index}
+        className={this.styles.classNames.lastColor}
+        style={style}
+        onClick={() => this.changeColor(color, true)}
+      />
+    );
+  }
+
+  renderLastColors() {
+    if (!this.analysis) {
+      return null;
+    }
+
+    const lastColors = [
+      '#ff0000',
+      '#00ff00',
+      '#ffff00',
+      '#0000ff',
+      '#ddeeff',
+      '#aabbcc',
+      '#ffcc11',
+      '#aa44ee',
+    ];
+    return (
+      <div className={this.styles.classNames.lastColors}>
+        {lastColors.map((color, index) => this.renderLastColor(color, index))}
       </div>
     );
   }
@@ -407,6 +446,7 @@ export default class ColorPicker extends Widget {
         <div className={this.styles.classNames.content}>
           {this.renderComposants()}
           {this.renderSamples()}
+          {this.renderLastColors()}
         </div>
       </div>
     );
