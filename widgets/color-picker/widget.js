@@ -86,7 +86,7 @@ export default class ColorPicked extends Widget {
     return (
       <Button
         border="none"
-        width="60px"
+        width="65px"
         horizontalSpacing="overlap"
         text={name}
         tooltip={tooltip}
@@ -113,14 +113,22 @@ export default class ColorPicked extends Widget {
         {this.renderMode(T('TSL2'), T('Teinte Saturation Luminosité'), 'HSL', 'x')}
         {this.renderMode(T('Gris'), T('Niveau de gris'), 'G', null)}
         {this.renderMode(T('RVB'), T('Rouge Vert Bleu'), 'RGB', null)}
-        {this.renderMode(T('CMJ'), T('Cyan Magenta Jaune'), 'CMY', null)}
+        {this.renderMode(T('CMJN'), T('Cyan Magenta Jaune Noir'), 'CMYK', null)}
         <Label grow="1" />
         <Label text={canonical} wrap="no" fontSize="75%" />
       </div>
     );
   }
 
-  renderComposant(label, sliderColor1, sliderColor2, key, range) {
+  renderComposant(
+    label,
+    tooltip,
+    sliderColor1,
+    sliderColor2,
+    key,
+    range,
+    isFirst
+  ) {
     const analysis = this.analysis;
     const value = analysis ? analysis[key] : null;
 
@@ -142,9 +150,16 @@ export default class ColorPicked extends Widget {
     }
 
     return (
-      <div className={this.styles.classNames.composant}>
+      <div
+        className={
+          isFirst
+            ? this.styles.classNames.composantFirst
+            : this.styles.classNames.composantNext
+        }
+      >
         <TextFieldTypedNC
           width="50px"
+          tooltip={tooltip}
           type="integer"
           min={0}
           max={range}
@@ -174,19 +189,76 @@ export default class ColorPicked extends Widget {
   renderComposantsRGB() {
     return (
       <div className={this.styles.classNames.composants}>
-        {this.renderComposant(T('R'), '#f00', '#f00', 'r', 255)}
-        {this.renderComposant(T('V'), '#0f0', '#0f0', 'g', 255)}
-        {this.renderComposant(T('B'), '#00f', '#00f', 'b', 255)}
+        {this.renderComposant(
+          T('R'),
+          T('Rouge (de 0 à 255)'),
+          '#f00',
+          '#f00',
+          'r',
+          255,
+          true
+        )}
+        {this.renderComposant(
+          T('V'),
+          T('Vert (de 0 à 255)'),
+          '#0f0',
+          '#0f0',
+          'g',
+          255,
+          false
+        )}
+        {this.renderComposant(
+          T('B'),
+          T('Bleu (de 0 à 255)'),
+          '#00f',
+          '#00f',
+          'b',
+          255,
+          false
+        )}
       </div>
     );
   }
 
-  renderComposantsCMY() {
+  renderComposantsCMYK() {
     return (
       <div className={this.styles.classNames.composants}>
-        {this.renderComposant(T('C'), '#0ff', '#0ff', 'c', 255)}
-        {this.renderComposant(T('M'), '#f0f', '#f0f', 'm', 255)}
-        {this.renderComposant(T('J'), '#ff0', '#ff0', 'y', 255)}
+        {this.renderComposant(
+          T('C'),
+          T('Cyan (de 0 à 100)'),
+          '#0ff',
+          '#0ff',
+          'c',
+          100,
+          true
+        )}
+        {this.renderComposant(
+          T('M'),
+          T('Magenta (de 0 à 100)'),
+          '#f0f',
+          '#f0f',
+          'm',
+          100,
+          false
+        )}
+        {this.renderComposant(
+          T('J'),
+          T('Jaune (de 0 à 100)'),
+          '#ff0',
+          '#ff0',
+          'y',
+          100,
+          false
+        )}
+        {this.renderComposant(
+          T('N'),
+          T('Noir (de 0 à 100)'),
+          '#000',
+          '#000',
+          'k',
+          100,
+          false
+        )}
       </div>
     );
   }
@@ -232,9 +304,33 @@ export default class ColorPicked extends Widget {
   renderComposantsHSLx() {
     return (
       <div className={this.styles.classNames.composants}>
-        {this.renderComposant(T('T°'), '#888', '#888', 'h', 360)}
-        {this.renderComposant(T('S%'), '#fff', '#f00', 's', 100)}
-        {this.renderComposant(T('L%'), '#000', '#f00', 'l', 100)}
+        {this.renderComposant(
+          T('T°'),
+          T('Teinte (de 0 à 360)'),
+          '#888',
+          '#888',
+          'h',
+          360,
+          true
+        )}
+        {this.renderComposant(
+          T('S%'),
+          T('Saturation (de 0 à 100)'),
+          '#fff',
+          '#f00',
+          's',
+          100,
+          false
+        )}
+        {this.renderComposant(
+          T('L%'),
+          T('Luminosité (de 0 à 100)'),
+          '#000',
+          '#f00',
+          'l',
+          100,
+          false
+        )}
       </div>
     );
   }
@@ -253,7 +349,15 @@ export default class ColorPicked extends Widget {
   renderComposantsGrey() {
     return (
       <div className={this.styles.classNames.composants}>
-        {this.renderComposant(T('N'), '#fff', '#000', 'n', 255)}
+        {this.renderComposant(
+          T('N'),
+          T('Niveau de gris (de 0 à 100)'),
+          '#fff',
+          '#000',
+          'n',
+          100,
+          true
+        )}
       </div>
     );
   }
@@ -262,8 +366,8 @@ export default class ColorPicked extends Widget {
     switch (this.mode) {
       case 'RGB':
         return this.renderComposantsRGB();
-      case 'CMY':
-        return this.renderComposantsCMY();
+      case 'CMYK':
+        return this.renderComposantsCMYK();
       case 'HSL':
         return this.renderComposantsHSL();
       case 'G':

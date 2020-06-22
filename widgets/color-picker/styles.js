@@ -23,7 +23,7 @@ export default function styles(theme, props) {
   };
 
   const modes = {
-    padding: '20px',
+    padding: '20px 5px 20px 20px',
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
@@ -47,10 +47,14 @@ export default function styles(theme, props) {
     flexGrow: 1,
   };
 
-  const composant = {
+  const composantFirst = {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+  };
+
+  const composantNext = {
+    ...composantFirst,
     margin: '10px 0px 0px 0px',
   };
 
@@ -88,7 +92,8 @@ export default function styles(theme, props) {
     modes,
     content,
     composants,
-    composant,
+    composantFirst,
+    composantNext,
     composantHsl,
     samples,
     sampleUp,
