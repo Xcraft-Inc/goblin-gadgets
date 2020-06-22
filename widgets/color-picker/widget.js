@@ -128,7 +128,7 @@ export default class ColorPicker extends Widget {
         {this.renderMode("solid/palette",   T('Teinte Saturation Luminosité'), 'HSL' )}
         {this.renderMode("solid/sliders-h", T('Rouge Vert Bleu'),              'RGB' )}
         {this.renderMode("solid/print",     T('Cyan Magenta Jaune Noir'),      'CMYK')}
-        {this.renderMode("solid/pen",       T('Niveau de gris'),               'G'   )}
+        {this.renderMode("solid/sun",       T('Niveau de gris'),               'G'   )}
         <Label width="20px" />
         <TextInputNC value={this.editedColor} grow="1" horizontalSpacing="overlap" onChange={this.onTextEdited} onBlur={this.onTextChanged} />
         <Button glyph="solid/eye-dropper" tooltip={T("Colle la couleur contenue dans le bloc-notes")} onPaste={this.onPaste}/>
