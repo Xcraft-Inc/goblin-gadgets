@@ -12,6 +12,7 @@ import {ColorHelpers} from 'electrum-theme';
 import colorManipulator from 'electrum-theme/lib/themes/color-manipulator';
 import {color as ColorConverters} from 'xcraft-core-converters';
 import T from 't';
+import MouseTrap from 'mousetrap';
 
 /******************************************************************************/
 
@@ -30,6 +31,7 @@ export default class ColorPicker extends Widget {
     this.onColorChanged = throttle(this.onColorChanged, 50).bind(this);
     this.onTextEdited = this.onTextEdited.bind(this);
     this.onTextChanged = this.onTextChanged.bind(this);
+    this.onTextValidate = this.onTextValidate.bind(this);
     this.onPaste = this.onPaste.bind(this);
   }
 
@@ -60,12 +62,18 @@ export default class ColorPicker extends Widget {
 
   componentWillMount() {
     this.updateColor(this.props.color);
+    MouseTrap.bind('return', this.onTextValidate);
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.color !== this.props.color) {
       this.updateColor(this.props.color);
     }
+  }
+
+  componentWillUnmount() {
+    super.componentWillUnmount();
+    MouseTrap.unbind('return', this.onTextValidate);
   }
 
   changeColor(canonical, send) {
@@ -94,6 +102,10 @@ export default class ColorPicker extends Widget {
     if (result.error === null) {
       this.changeColor(result.value, true);
     }
+  }
+
+  onTextValidate() {
+    this.changeColor(this.editedColor, true);
   }
 
   onPaste() {
