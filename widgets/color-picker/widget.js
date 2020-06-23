@@ -511,6 +511,7 @@ class ColorPicker extends Widget {
         key={index}
         className={this.styles.classNames.lastColor}
         style={style}
+        title={color}
         onClick={() => this.changeColor(color, true)}
       />
     );
