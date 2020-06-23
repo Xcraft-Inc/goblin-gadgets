@@ -15,7 +15,7 @@ import T from 't';
 
 /******************************************************************************/
 
-export default class ColorPicker extends Widget {
+class ColorPicker extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
@@ -23,6 +23,7 @@ export default class ColorPicker extends Widget {
     this.state = {
       analysis: {},
       editedColor: null,
+      lastColors: this.props.lastColors,
     };
 
     this.initialColor = this.props.color;
@@ -51,6 +52,15 @@ export default class ColorPicker extends Widget {
       editedColor: value,
     });
   }
+
+  get lastColors() {
+    return this.state.lastColors;
+  }
+  set lastColors(value) {
+    this.setState({
+      lastColors: value,
+    });
+  }
   //#endregion
 
   updateColor(color) {
@@ -68,11 +78,33 @@ export default class ColorPicker extends Widget {
     }
   }
 
+  pushColor(color) {
+    const lastColors = [...this.lastColors];
+    const i = lastColors.indexOf(color);
+    if (i !== -1) {
+      lastColors.splice(i, 1);
+    }
+    lastColors.push(color);
+    if (lastColors.length > 8) {
+      lastColors.splice(0, 1);
+    }
+    this.lastColors = lastColors;
+
+    this.doFor(this.props.clientSessionId, 'set-last-colors-picker', {
+      splitterId: this.props.id,
+      state: lastColors,
+    });
+  }
+
   changeColor(canonical, send) {
     this.updateColor(canonical);
 
     if (this.props.onChange && send) {
       this.props.onChange(canonical);
+    }
+
+    if (send) {
+      this.pushColor(canonical);
     }
   }
 
@@ -404,7 +436,7 @@ export default class ColorPicker extends Widget {
 
   renderLastColor(color, index) {
     const style = {
-      backgroundColor: color,
+      backgroundColor: ColorConverters.toRGB(color),
     };
 
     return (
@@ -422,19 +454,13 @@ export default class ColorPicker extends Widget {
       return null;
     }
 
-    const lastColors = [
-      '#ff0000',
-      '#00ff00',
-      '#ffff00',
-      '#0000ff',
-      '#ddeeff',
-      '#aabbcc',
-      '#ffcc11',
-      '#aa44ee',
-    ];
     return (
       <div className={this.styles.classNames.lastColors}>
-        {lastColors.map((color, index) => this.renderLastColor(color, index))}
+        {this.lastColors
+          ? this.lastColors.map((color, index) =>
+              this.renderLastColor(color, index)
+            )
+          : null}
       </div>
     );
   }
@@ -452,3 +478,12 @@ export default class ColorPicker extends Widget {
     );
   }
 }
+/******************************************************************************/
+
+export default Widget.connect((state) => {
+  const userSession = Widget.getUserSession(state);
+  const clientSessionId = userSession.get('id');
+  const lastColors = userSession.get('lastColorsPicker') || [];
+
+  return {clientSessionId, lastColors};
+})(ColorPicker);

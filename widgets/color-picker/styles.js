@@ -96,6 +96,7 @@ export default function styles(theme, props) {
   };
 
   const lastColors = {
+    width: '20px',
     margin: '0px 0px -5px 10px',
     display: 'flex',
     flexDirection: 'column',
