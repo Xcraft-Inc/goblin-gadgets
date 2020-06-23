@@ -10,6 +10,7 @@ import Label from 'goblin-gadgets/widgets/label/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import {color as ColorConverters} from 'xcraft-core-converters';
 import T from 't';
+import {TranslatableDiv} from 'nabu/helpers/element-helpers';
 
 /******************************************************************************/
 
@@ -387,6 +388,7 @@ class ColorPicker extends Widget {
             gradient="1to2"
             gradientColor1="#fff"
             gradientColor2={t}
+            tooltip={T('Saturation')}
             onChange={(value, send) =>
               this.onColorChanged('s', Math.round(value), send)
             }
@@ -401,6 +403,7 @@ class ColorPicker extends Widget {
             cabSize="large"
             cabType="thin"
             gradient="rainbow"
+            tooltip={T('Teinte')}
             onChange={(value, send) =>
               this.onColorChanged('h', Math.round((value * 360) / 100), send)
             }
@@ -431,6 +434,7 @@ class ColorPicker extends Widget {
             gradient="1to2"
             gradientColor1="#000"
             gradientColor2={t}
+            tooltip={T('Luminosité')}
             onChange={(value, send) =>
               this.onColorChanged('l', Math.round(value), send)
             }
@@ -491,12 +495,17 @@ class ColorPicker extends Widget {
 
     return (
       <div className={this.styles.classNames.samples}>
-        <div
+        <TranslatableDiv
           className={this.styles.classNames.sampleUp}
           style={styleUp}
+          title={T('Remet la couleur initiale')}
           onClick={() => this.changeColor(this.initialColor, true)}
         />
-        <div className={this.styles.classNames.sampleDown} style={styleDown} />
+        <TranslatableDiv
+          className={this.styles.classNames.sampleDown}
+          style={styleDown}
+          title={T('Couleur choisie')}
+        />
       </div>
     );
   }

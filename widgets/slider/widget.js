@@ -6,6 +6,7 @@ import {
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
 import * as styles from './styles';
+import {TranslatableDiv} from 'nabu/helpers/element-helpers';
 
 /******************************************************************************/
 
@@ -126,9 +127,10 @@ export default class Slider extends Widget {
 
   render() {
     return (
-      <div
+      <TranslatableDiv
         ref={(node) => (this.sliderNode = node)}
         className={this.styles.classNames.slider}
+        title={this.props.tooltip}
         onMouseDown={this.onDragDown}
       >
         <div className={this.styles.classNames.inside}>
@@ -137,7 +139,7 @@ export default class Slider extends Widget {
           <div className={this.styles.classNames.cab} />
         </div>
         {this.renderWhileDragging()}
-      </div>
+      </TranslatableDiv>
     );
   }
 }
