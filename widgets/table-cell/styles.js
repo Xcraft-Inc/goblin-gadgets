@@ -1,4 +1,4 @@
-import {Unit} from 'electrum-theme';
+import {Unit} from 'goblin-theme';
 import {isImmutable} from 'immutable';
 import Shredder from 'xcraft-core-shredder';
 

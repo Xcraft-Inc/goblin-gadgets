@@ -1,5 +1,5 @@
-import {Unit, ColorManipulator} from 'electrum-theme';
-import {ColorHelpers} from 'electrum-theme';
+import {ColorManipulator} from 'goblin-theme';
+import {ColorHelpers} from 'goblin-theme';
 
 /******************************************************************************/
 

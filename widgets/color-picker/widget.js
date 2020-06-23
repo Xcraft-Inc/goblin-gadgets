@@ -8,8 +8,6 @@ import Slider from 'goblin-gadgets/widgets/slider/widget';
 import SliderXY from 'goblin-gadgets/widgets/slider-xy/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
-import {ColorHelpers} from 'electrum-theme';
-import colorManipulator from 'electrum-theme/lib/themes/color-manipulator';
 import {color as ColorConverters} from 'xcraft-core-converters';
 import T from 't';
 

@@ -1,7 +1,7 @@
 //T:2019-02-27
 import React from 'react';
 import Form from 'goblin-laboratory/widgets/form';
-import {ColorManipulator} from 'electrum-theme';
+import {ColorManipulator} from 'goblin-theme';
 
 import Button from 'goblin-gadgets/widgets/button/widget';
 import Container from 'goblin-gadgets/widgets/container/widget';

@@ -7,9 +7,9 @@ import Label from 'goblin-gadgets/widgets/label/widget';
 import Badge from 'goblin-gadgets/widgets/badge/widget';
 import TicketHover from 'goblin-gadgets/widgets/ticket-hover/widget';
 import {TranslatableDiv} from 'nabu/helpers/element-helpers';
-import {Unit} from 'electrum-theme';
+import {Unit} from 'goblin-theme';
 import getPath from './getPath';
-import {ColorHelpers} from 'electrum-theme';
+import {ColorHelpers} from 'goblin-theme';
 import * as styles from './styles';
 
 import {

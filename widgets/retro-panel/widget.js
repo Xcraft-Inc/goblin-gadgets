@@ -3,8 +3,8 @@ import Widget from 'goblin-laboratory/widgets/widget';
 import RetroScrew from 'goblin-gadgets/widgets/retro-screw/widget';
 import RetroGear from 'goblin-gadgets/widgets/retro-gear/widget';
 import AnalogClock from 'goblin-gadgets/widgets/analog-clock/widget';
-import {ColorManipulator} from 'electrum-theme';
-import {Unit} from 'electrum-theme';
+import {ColorManipulator} from 'goblin-theme';
+import {Unit} from 'goblin-theme';
 
 /******************************************************************************/
 

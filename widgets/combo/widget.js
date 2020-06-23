@@ -1,9 +1,9 @@
 //T:2019-02-27
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
-import {ColorHelpers} from 'electrum-theme';
+import {ColorHelpers} from 'goblin-theme';
 import * as RectHelpers from '../helpers/rect-helpers.js';
-import {Unit} from 'electrum-theme';
+import {Unit} from 'goblin-theme';
 import KeyTrap from 'goblin-gadgets/widgets/key-trap.js';
 
 import Container from 'goblin-gadgets/widgets/container/widget';

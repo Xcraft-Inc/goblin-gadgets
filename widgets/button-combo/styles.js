@@ -1,5 +1,5 @@
 import * as SpacingHelpers from 'goblin-gadgets/widgets/helpers/spacing-helpers';
-import {Unit} from 'electrum-theme';
+import {Unit} from 'goblin-theme';
 
 /******************************************************************************/
 

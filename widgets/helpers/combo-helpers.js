@@ -1,6 +1,6 @@
 //T:2019-02-27
 const ReactDOM = require('react-dom');
-const {Unit} = require('electrum-theme');
+const {Unit} = require('goblin-theme');
 
 function getFlyingOffset() {
   if (

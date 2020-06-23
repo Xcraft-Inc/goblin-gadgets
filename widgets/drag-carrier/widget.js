@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Widget from 'goblin-laboratory/widgets/widget';
 import MouseTrap from 'mousetrap';
-import {Unit} from 'electrum-theme';
+import {Unit} from 'goblin-theme';
 import Container from 'goblin-gadgets/widgets/container/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import * as styles from './styles';

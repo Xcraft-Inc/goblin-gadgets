@@ -1,6 +1,6 @@
 //T:2019-02-27
 
-import {Unit} from 'electrum-theme';
+import {Unit} from 'goblin-theme';
 
 /******************************************************************************/
 

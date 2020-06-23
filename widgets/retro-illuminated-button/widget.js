@@ -1,7 +1,7 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
-import {ColorHelpers} from 'electrum-theme';
-import {Unit} from 'electrum-theme';
+import {ColorHelpers} from 'goblin-theme';
+import {Unit} from 'goblin-theme';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import T from 'nabu/t/widget';
 import * as styles from './styles';

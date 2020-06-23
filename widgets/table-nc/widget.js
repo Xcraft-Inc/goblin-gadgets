@@ -1,7 +1,7 @@
 //T:2019-02-27
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
-import {Unit} from 'electrum-theme';
+import {Unit} from 'goblin-theme';
 import TableRow from 'goblin-gadgets/widgets/table-row/widget';
 import TableCell from 'goblin-gadgets/widgets/table-cell/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
