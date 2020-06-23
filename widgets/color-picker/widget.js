@@ -20,13 +20,15 @@ class ColorPicker extends Widget {
     super(...arguments);
     this.styles = styles;
 
+    this.initialColor = this.props.color;
+    this.lastColorsDisplayed = [...this.props.lastColors];
+    this.alreadyPushed = false;
+
     this.state = {
       analysis: {},
       editedColor: null,
       lastColors: this.props.lastColors,
     };
-
-    this.initialColor = this.props.color;
 
     this.onColorChanged = throttle(this.onColorChanged, 50).bind(this);
     this.onTextEdited = this.onTextEdited.bind(this);
@@ -80,13 +82,19 @@ class ColorPicker extends Widget {
 
   pushColor(color) {
     const lastColors = [...this.lastColors];
-    const i = lastColors.indexOf(color);
-    if (i !== -1) {
-      lastColors.splice(i, 1);
-    }
-    lastColors.push(color);
-    if (lastColors.length > 8) {
-      lastColors.splice(0, 1);
+    if (this.alreadyPushed) {
+      // A color has already been pushed. Update it.
+      lastColors[lastColors.length - 1] = color;
+    } else {
+      // Add color at the end.
+      lastColors.push(color);
+      // Remove excess colors if there are any.
+      // Keeps much more than 8 colors, because of the duplicates
+      // that are ignored when displayed.
+      if (lastColors.length > 100) {
+        lastColors.splice(0, 1);
+      }
+      this.alreadyPushed = true;
     }
     this.lastColors = lastColors;
 
@@ -449,18 +457,33 @@ class ColorPicker extends Widget {
     );
   }
 
+  renderColorsSet(colorsSet) {
+    const result = [];
+    let index = 0;
+    colorsSet.forEach((color) =>
+      result.push(this.renderLastColor(color, index++))
+    );
+    return result;
+  }
+
   renderLastColors() {
     if (!this.analysis) {
       return null;
     }
 
+    // Build the table set of the 8 most recent colors, removing duplicates.
+    const colorsSet = new Set();
+    for (let i = this.lastColorsDisplayed.length - 1; i >= 0; i--) {
+      const color = this.lastColorsDisplayed[i];
+      colorsSet.add(color);
+      if (colorsSet.size >= 8) {
+        break;
+      }
+    }
+
     return (
       <div className={this.styles.classNames.lastColors}>
-        {this.lastColors
-          ? this.lastColors.map((color, index) =>
-              this.renderLastColor(color, index)
-            )
-          : null}
+        {this.renderColorsSet(colorsSet)}
       </div>
     );
   }

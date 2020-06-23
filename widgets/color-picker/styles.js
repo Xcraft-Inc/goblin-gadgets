@@ -85,9 +85,13 @@ export default function styles(theme, props) {
   };
 
   const sampleUp = {
-    flexGrow: 1,
-    borderRadius: `${rs} ${rs} 0px 0px`,
-    cursor: 'pointer',
+    'flexGrow': 1,
+    'borderRadius': `${rs} ${rs} 0px 0px`,
+    'border': `1px solid transparent`,
+    'cursor': 'pointer',
+    ':hover': {
+      border: `1px solid ${isDark ? 'white' : 'black'}`,
+    },
   };
 
   const sampleDown = {
@@ -99,7 +103,7 @@ export default function styles(theme, props) {
     width: '20px',
     margin: '0px 0px -5px 10px',
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'column-reverse',
   };
 
   const lastColor = {
