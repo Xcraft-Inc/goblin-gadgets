@@ -3,7 +3,7 @@ import Widget from 'goblin-laboratory/widgets/widget';
 import * as styles from './styles';
 import throttle from 'lodash/throttle';
 import TextFieldTypedNC from 'goblin-gadgets/widgets/text-field-typed-nc/widget';
-import TextInputNC from 'goblin-gadgets/widgets/text-input-nc/widget';
+import TextInputInfoNC from 'goblin-gadgets/widgets/text-input-info-nc/widget';
 import Slider from 'goblin-gadgets/widgets/slider/widget';
 import SliderXY from 'goblin-gadgets/widgets/slider-xy/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
@@ -29,6 +29,8 @@ class ColorPicker extends Widget {
     this.state = {
       analysis: {},
       editedColor: null,
+      info: null,
+      warning: null,
       lastColors: this.props.lastColors,
     };
 
@@ -54,6 +56,24 @@ class ColorPicker extends Widget {
   set editedColor(value) {
     this.setState({
       editedColor: value,
+    });
+  }
+
+  get info() {
+    return this.state.info;
+  }
+  set info(value) {
+    this.setState({
+      info: value,
+    });
+  }
+
+  get warning() {
+    return this.state.warning;
+  }
+  set warning(value) {
+    this.setState({
+      warning: value,
     });
   }
 
@@ -116,6 +136,9 @@ class ColorPicker extends Widget {
     if (send) {
       this.pushColor(canonical);
     }
+
+    this.info = null;
+    this.warning = null;
   }
 
   onColorChanged(key, value, send) {
@@ -127,14 +150,34 @@ class ColorPicker extends Widget {
     this.changeColor(canonical, send);
   }
 
-  onTextEdited(text) {
-    this.editedColor = text;
+  parseEditedValue(value) {
+    const {value: parsedValue, error} = ColorConverters.parseEdited(value);
+    const finalValue = ColorConverters.getDisplayed(parsedValue);
+    let info = null;
+    if (finalValue !== value) {
+      info = finalValue;
+    }
+    return {
+      info,
+      warning: error,
+      canonical: parsedValue,
+    };
   }
 
-  onTextChanged(text) {
-    const result = ColorConverters.parseEdited(text);
-    if (result.error === null) {
-      this.changeColor(result.value, true);
+  onTextEdited(value) {
+    const p = this.parseEditedValue(value);
+    this.info = p.info;
+    this.warning = p.warning;
+    this.editedColor = value;
+  }
+
+  onTextChanged(value) {
+    const p = this.parseEditedValue(value);
+    this.info = p.info;
+    this.warning = p.warning;
+
+    if (p.warning === null) {
+      this.changeColor(p.canonical, true);
     }
   }
 
@@ -175,16 +218,32 @@ class ColorPicker extends Widget {
   }
 
   renderModes() {
-    // prettier-ignore
     return (
       <div className={this.styles.classNames.modes}>
-        {this.renderMode("solid/palette",   T('Teinte Saturation Luminosité'), 'HSL' )}
-        {this.renderMode("solid/sliders-h", T('Rouge Vert Bleu'),              'RGB' )}
-        {this.renderMode("solid/print",     T('Cyan Magenta Jaune Noir'),      'CMYK')}
-        {this.renderMode("solid/sun",       T('Niveau de gris'),               'G'   )}
+        {this.renderMode(
+          'solid/palette',
+          T('Teinte Saturation Luminosité'),
+          'HSL'
+        )}
+        {this.renderMode('solid/sliders-h', T('Rouge Vert Bleu'), 'RGB')}
+        {this.renderMode('solid/print', T('Cyan Magenta Jaune Noir'), 'CMYK')}
+        {this.renderMode('solid/sun', T('Niveau de gris'), 'G')}
         <Label width="20px" />
-        <TextInputNC value={this.editedColor} grow="1" horizontalSpacing="overlap" onChange={this.onTextEdited} onBlur={this.onTextChanged} />
-        <Button glyph="solid/eye-dropper" tooltip={T("Colle la couleur contenue dans le bloc-notes")} onClick={this.onPaste}/>
+        <TextInputInfoNC
+          value={this.editedColor}
+          info={this.info}
+          warning={this.warning}
+          wrong={!!this.warning}
+          grow="1"
+          horizontalSpacing="overlap"
+          onChange={this.onTextEdited}
+          onBlur={this.onTextChanged}
+        />
+        <Button
+          glyph="solid/eye-dropper"
+          tooltip={T('Colle la couleur contenue dans le bloc-notes')}
+          onClick={this.onPaste}
+        />
       </div>
     );
   }
