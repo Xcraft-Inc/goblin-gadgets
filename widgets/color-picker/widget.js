@@ -20,6 +20,8 @@ class ColorPicker extends Widget {
     super(...arguments);
     this.styles = styles;
 
+    // Warning: initialColor and lastColorsDisplayed are never changed for
+    // this instance of ColorPicker.
     this.initialColor = this.props.color;
     this.lastColorsDisplayed = [...this.props.lastColors];
     this.alreadyPushed = false;
