@@ -68,6 +68,7 @@ class WidgetDoc extends Widget {
     if (!this.props.ready) {
       return null;
     }
+
     return (
       <Container kind="views">
         <WidgetDocMenu widgetId={this.props.widgetId} />
@@ -79,10 +80,10 @@ class WidgetDoc extends Widget {
   }
 }
 
+/******************************************************************************/
+
 export default Widget.connectWidget((state) => {
   return {
     ready: state !== undefined,
   };
 })(WidgetDoc);
-
-/******************************************************************************/
