@@ -497,17 +497,17 @@ class ColorPicker extends Widget {
     const canonical = ColorConverters.analysisToCanonical(this.analysis);
     const colorDown = ColorConverters.toRGB(canonical);
 
+    const fc = (color) =>
+      ColorConverters.getLuminance(color) < 0.5 ? 'white' : 'black';
+
     const styleUp = {
       backgroundColor: colorUp,
-      color:
-        ColorConverters.getLuminance(this.initialColor) < 0.5
-          ? 'white'
-          : 'black',
+      color: fc(this.initialColor),
     };
 
     const styleDown = {
       backgroundColor: colorDown,
-      color: ColorConverters.getLuminance(canonical) < 0.5 ? 'white' : 'black',
+      color: fc(canonical),
     };
 
     return (
