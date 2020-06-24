@@ -127,19 +127,20 @@ export default class Slider extends Widget {
 
   render() {
     return (
-      <TranslatableDiv
+      <div
         ref={(node) => (this.sliderNode = node)}
         className={this.styles.classNames.slider}
-        title={this.props.tooltip}
         onMouseDown={this.onDragDown}
       >
-        <div className={this.styles.classNames.inside}>
-          {this.renderGlider()}
-          <div className={this.styles.classNames.bar} />
-          <div className={this.styles.classNames.cab} />
-        </div>
-        {this.renderWhileDragging()}
-      </TranslatableDiv>
+        <TranslatableDiv title={this.props.tooltip}>
+          <div className={this.styles.classNames.inside}>
+            {this.renderGlider()}
+            <div className={this.styles.classNames.bar} />
+            <div className={this.styles.classNames.cab} />
+          </div>
+          {this.renderWhileDragging()}
+        </TranslatableDiv>
+      </div>
     );
   }
 }
