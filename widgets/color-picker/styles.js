@@ -86,6 +86,10 @@ export default function styles(theme, props) {
 
   const sampleUp = {
     'flexGrow': 1,
+    'display': 'flex',
+    'justifyContent': 'center',
+    'alignItems': 'center',
+    'fontSize': '60%',
     'borderRadius': `${rs} ${rs} 0px 0px`,
     'border': `1px solid transparent`,
     'cursor': 'pointer',
@@ -96,6 +100,10 @@ export default function styles(theme, props) {
 
   const sampleDown = {
     flexGrow: 1,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: '60%',
     borderRadius: `0px 0px ${rs} ${rs}`,
   };
 

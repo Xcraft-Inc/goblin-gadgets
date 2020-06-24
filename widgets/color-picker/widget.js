@@ -499,10 +499,15 @@ class ColorPicker extends Widget {
 
     const styleUp = {
       backgroundColor: colorUp,
+      color:
+        ColorConverters.getLuminance(this.initialColor) < 0.5
+          ? 'white'
+          : 'black',
     };
 
     const styleDown = {
       backgroundColor: colorDown,
+      color: ColorConverters.getLuminance(canonical) < 0.5 ? 'white' : 'black',
     };
 
     return (
@@ -512,12 +517,16 @@ class ColorPicker extends Widget {
           style={styleUp}
           title={T('Remet la couleur initiale')}
           onClick={() => this.changeColor(this.initialColor, true)}
-        />
+        >
+          {this.initialColor === canonical ? null : this.initialColor}
+        </TranslatableDiv>
         <TranslatableDiv
           className={this.styles.classNames.sampleDown}
           style={styleDown}
           title={T('Couleur choisie')}
-        />
+        >
+          {this.initialColor === canonical ? null : canonical}
+        </TranslatableDiv>
       </div>
     );
   }
