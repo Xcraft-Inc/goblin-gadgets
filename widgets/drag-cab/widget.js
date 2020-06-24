@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Widget from 'goblin-laboratory/widgets/widget';
-import {Unit} from 'electrum-theme';
+import {Unit} from 'goblin-theme';
 import DragCarrier from 'goblin-gadgets/widgets/drag-carrier/widget';
 import * as styles from './styles';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
-import {ColorHelpers} from 'electrum-theme';
+import {ColorHelpers} from 'goblin-theme';
 
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';

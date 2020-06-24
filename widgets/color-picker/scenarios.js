@@ -30,7 +30,7 @@ export default [
   {
     name: 'mini',
     props: {
-      width: '340px',
+      width: '400px',
       color: '#FFAE00',
     },
   },

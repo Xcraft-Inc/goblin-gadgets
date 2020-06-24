@@ -8,7 +8,7 @@ import {
   makePropTypes,
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
-import {Unit} from 'electrum-theme';
+import {Unit} from 'goblin-theme';
 
 /******************************************************************************/
 

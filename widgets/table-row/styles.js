@@ -1,4 +1,4 @@
-import {Unit} from 'electrum-theme';
+import {Unit} from 'goblin-theme';
 import TableHelpers from 'gadgets/helpers/table-helpers';
 
 /******************************************************************************/

@@ -3,7 +3,7 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import * as styles from './styles';
-import {Unit} from 'electrum-theme';
+import {Unit} from 'goblin-theme';
 
 /******************************************************************************/
 

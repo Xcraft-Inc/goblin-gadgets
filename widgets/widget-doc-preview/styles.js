@@ -1,4 +1,4 @@
-import {Unit} from 'electrum-theme';
+import {Unit} from 'goblin-theme';
 
 export default function styles(theme) {
   const m = theme.shapes.containerMargin;

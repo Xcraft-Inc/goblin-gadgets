@@ -1,4 +1,4 @@
-import {ColorHelpers} from 'electrum-theme';
+import {ColorHelpers} from 'goblin-theme';
 
 /******************************************************************************/
 

@@ -7,12 +7,12 @@ import Container from 'goblin-gadgets/widgets/container/widget';
 import DialogResizable from 'goblin-gadgets/widgets/dialog-resizable/widget';
 import RetroScrew from 'goblin-gadgets/widgets/retro-screw/widget';
 import RetroGear from 'goblin-gadgets/widgets/retro-gear/widget';
-import {ColorManipulator} from 'electrum-theme';
+import {ColorManipulator} from 'goblin-theme';
 import {
   makePropTypes,
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
-import {Unit} from 'electrum-theme';
+import {Unit} from 'goblin-theme';
 import * as RectHelpers from '../helpers/rect-helpers.js';
 import * as styles from './styles';
 

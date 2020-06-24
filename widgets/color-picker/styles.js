@@ -1,4 +1,4 @@
-import {Unit} from 'electrum-theme';
+import {Unit} from 'goblin-theme';
 
 /******************************************************************************/
 
@@ -13,8 +13,8 @@ export default function styles(theme, props) {
   const colorPicker = {
     flexGrow: grow,
     width: width,
-    minWidth: '340px',
-    height: '328px',
+    minWidth: '400px',
+    height: '318px',
     display: 'flex',
     flexDirection: 'column',
     borderRadius: r,
@@ -23,7 +23,7 @@ export default function styles(theme, props) {
   };
 
   const modes = {
-    padding: '20px',
+    padding: '15px 20px',
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
@@ -37,8 +37,8 @@ export default function styles(theme, props) {
     flexGrow: 1,
     alignItems: 'flex-end',
     background: isDark
-      ? 'linear-gradient(180deg, rgba(0,0,0,0.7), transparent 12%)'
-      : 'linear-gradient(180deg, rgba(0,0,0,0.2), transparent 12%)',
+      ? 'linear-gradient(180deg, rgba(0,0,0,0.70), transparent 20px)'
+      : 'linear-gradient(180deg, rgba(0,0,0,0.15), transparent 20px)',
   };
 
   const composants = {
@@ -85,13 +85,39 @@ export default function styles(theme, props) {
   };
 
   const sampleUp = {
-    flexGrow: 1,
-    borderRadius: `${rs} ${rs} 0px 0px`,
+    'flexGrow': 1,
+    'borderRadius': `${rs} ${rs} 0px 0px`,
+    'border': `1px solid transparent`,
+    'cursor': 'pointer',
+    ':hover': {
+      border: `1px solid ${isDark ? 'white' : 'black'}`,
+    },
   };
 
   const sampleDown = {
     flexGrow: 1,
     borderRadius: `0px 0px ${rs} ${rs}`,
+  };
+
+  const lastColors = {
+    width: '20px',
+    margin: '0px 0px -5px 10px',
+    display: 'flex',
+    flexDirection: 'column-reverse',
+  };
+
+  const lastColor = {
+    'width': '20px',
+    'height': '20px',
+    'marginBottom': '5px',
+    'borderRadius': '12px',
+    'border': `1px solid ${theme.palette.buttonBorder}`,
+    'cursor': 'pointer',
+    'transition': '0.2s ease-out',
+    ':hover': {
+      border: `1px solid ${isDark ? 'white' : 'black'}`,
+      transform: 'scale(1.2)',
+    },
   };
 
   /******************************************************************************/
@@ -108,6 +134,8 @@ export default function styles(theme, props) {
     samples,
     sampleUp,
     sampleDown,
+    lastColors,
+    lastColor,
   };
 }
 

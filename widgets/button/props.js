@@ -65,6 +65,7 @@ export default [
       'button-notification',
       'button-footer',
       'box',
+      'calendar',
       'calendar-list',
       'calendar-navigator',
       'calendar-title',

@@ -1,4 +1,4 @@
-import {Unit} from 'electrum-theme';
+import {Unit} from 'goblin-theme';
 const TableHelpers = require('gadgets/helpers/table-helpers');
 
 /******************************************************************************/

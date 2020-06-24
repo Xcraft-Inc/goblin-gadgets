@@ -3,8 +3,8 @@ import T from 't';
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import ComboHelpers from 'goblin-gadgets/widgets/helpers/combo-helpers';
-import {ColorHelpers} from 'electrum-theme';
-import {Unit} from 'electrum-theme';
+import {ColorHelpers} from 'goblin-theme';
+import {Unit} from 'goblin-theme';
 
 import DialogModal from 'goblin-gadgets/widgets/dialog-modal/widget';
 import Container from 'goblin-gadgets/widgets/container/widget';

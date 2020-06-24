@@ -1,8 +1,8 @@
 //T:2019-02-27
 
-import {Unit} from 'electrum-theme';
-import {ColorHelpers} from 'electrum-theme';
-import {ColorManipulator} from 'electrum-theme';
+import {Unit} from 'goblin-theme';
+import {ColorHelpers} from 'goblin-theme';
+import {ColorManipulator} from 'goblin-theme';
 import * as SpacingHelpers from 'goblin-gadgets/widgets/helpers/spacing-helpers';
 
 function convertJustify(justify) {

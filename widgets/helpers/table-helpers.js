@@ -1,4 +1,4 @@
-const {ColorManipulator} = require('electrum-theme');
+const {ColorManipulator} = require('goblin-theme');
 
 //-----------------------------------------------------------------------------
 

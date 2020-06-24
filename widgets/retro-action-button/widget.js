@@ -3,7 +3,7 @@ import Widget from 'goblin-laboratory/widgets/widget';
 import MouseTrap from 'mousetrap';
 import * as ShortcutHelpers from '../helpers/shortcut-helpers.js';
 import {TranslatableDiv} from 'nabu/helpers/element-helpers';
-import {Unit} from 'electrum-theme';
+import {Unit} from 'goblin-theme';
 
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Badge from 'goblin-gadgets/widgets/badge/widget';
@@ -12,7 +12,7 @@ import RetroGear from 'goblin-gadgets/widgets/retro-gear/widget';
 import * as styles from './styles';
 import helpers from './helpers';
 import svg from '../helpers/svg-helpers';
-import {ColorManipulator} from 'electrum-theme';
+import {ColorManipulator} from 'goblin-theme';
 
 /******************************************************************************/
 

@@ -1,4 +1,4 @@
-const {Unit} = require('electrum-theme');
+const {Unit} = require('goblin-theme');
 
 function getHorizontalSpacingRightMargin(theme, horizontalSpacing) {
   let rightMargin = null;
