@@ -55,6 +55,7 @@ export default function styles(theme, props) {
   };
 
   const composantHsl = {
+    position: 'relative',
     display: 'flex',
     flexDirection: 'column',
     flexGrow: 1,
@@ -71,6 +72,28 @@ export default function styles(theme, props) {
     display: 'flex',
     flexDirection: 'row',
     flexGrow: 1,
+  };
+
+  const composantHslNew = {
+    position: 'relative',
+    height: '214px',
+    flexGrow: 1,
+  };
+
+  const composantHslCircle = {
+    position: 'absolute',
+    left: '0px',
+    top: '0px',
+    width: '214px',
+    height: '214px',
+  };
+
+  const composantHslSquare = {
+    position: 'absolute',
+    left: '40px',
+    top: '40px',
+    width: '134px',
+    height: '134px',
   };
 
   const rs = Unit.multiply(r, 3);
@@ -139,6 +162,9 @@ export default function styles(theme, props) {
     composantHsl,
     composantHsl1,
     composantHsl2,
+    composantHslNew,
+    composantHslCircle,
+    composantHslSquare,
     samples,
     sampleUp,
     sampleDown,

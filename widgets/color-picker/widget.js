@@ -6,6 +6,7 @@ import TextFieldTypedNC from 'goblin-gadgets/widgets/text-field-typed-nc/widget'
 import TextInputInfoNC from 'goblin-gadgets/widgets/text-input-info-nc/widget';
 import Slider from 'goblin-gadgets/widgets/slider/widget';
 import SliderXY from 'goblin-gadgets/widgets/slider-xy/widget';
+import SliderCircle from 'goblin-gadgets/widgets/slider-circle/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import {color as ColorConverters} from 'xcraft-core-converters';
@@ -378,6 +379,42 @@ class ColorPicker extends Widget {
           100,
           false
         )}
+      </div>
+    );
+  }
+
+  renderComposantsHSL_NEW() {
+    const analysis = this.analysis;
+    const t = ColorConverters.toRGB(`HSL(${analysis.h},100,100)`);
+
+    return (
+      <div className={this.styles.classNames.composantHslNew}>
+        <div className={this.styles.classNames.composantHslCircle}>
+          <SliderCircle
+            width="214px"
+            height="214px"
+            value={analysis.h}
+            onChange={(a, send) =>
+              this.onColorChanged('t', Math.round(a), send)
+            }
+          />
+        </div>
+        <div className={this.styles.classNames.composantHslSquare}>
+          <SliderXY
+            width="134px"
+            height="134px"
+            gradientColorUL="#ffffff"
+            gradientColorUR={t}
+            gradientColorDL="#000000"
+            gradientColorDR="#000000"
+            valueX={analysis.s}
+            valueY={analysis.l}
+            onChange={(x, y, send) => {
+              this.onColorChanged('s', Math.round(x), send);
+              this.onColorChanged('l', Math.round(y), send);
+            }}
+          />
+        </div>
       </div>
     );
   }
