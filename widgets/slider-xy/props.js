@@ -15,27 +15,22 @@ export default [
     description: 'Value between 0 and 100.',
   },
   {
+    name: 'marginSize',
+    group: 'aspect',
+    type: types.enum(['', 'zero', 'small', 'default', 'large']),
+  },
+  {
+    name: 'marginStyle',
+    group: 'aspect',
+    type: types.enum(['', 'none', 'shadow']),
+  },
+  {
     name: 'cabSize',
     group: 'aspect',
     type: types.enum(['', 'small', 'default', 'large']),
   },
   {
-    name: 'gradientColorUL',
-    group: 'aspect',
-    type: types.color,
-  },
-  {
-    name: 'gradientColorUR',
-    group: 'aspect',
-    type: types.color,
-  },
-  {
-    name: 'gradientColorDL',
-    group: 'aspect',
-    type: types.color,
-  },
-  {
-    name: 'gradientColorDR',
+    name: 'hue',
     group: 'aspect',
     type: types.color,
   },
@@ -43,6 +38,11 @@ export default [
     name: 'disabled',
     group: 'aspect',
     type: types.bool,
+  },
+  {
+    name: 'draggingScale',
+    group: 'aspect',
+    type: types.number,
   },
 
   // Layout.

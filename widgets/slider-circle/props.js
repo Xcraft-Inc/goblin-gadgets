@@ -9,6 +9,11 @@ export default [
     description: 'Value between 0 and 360.',
   },
   {
+    name: 'gliderSize',
+    group: 'aspect',
+    type: types.enum(['', 'small', 'default', 'large']),
+  },
+  {
     name: 'cabSize',
     group: 'aspect',
     type: types.enum(['', 'small', 'default', 'large']),

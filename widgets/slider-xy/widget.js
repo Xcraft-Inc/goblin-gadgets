@@ -72,7 +72,7 @@ export default class SliderXY extends Widget {
 
   /******************************************************************************/
 
-  renderAreaFragment(colorUp, colorDown, index) {
+  renderHSLFragment(colorUp, colorDown, index) {
     const style = {
       background: `linear-gradient(0deg, ${colorDown}, ${colorUp})`,
     };
@@ -80,31 +80,38 @@ export default class SliderXY extends Widget {
     return (
       <div
         key={index}
-        className={this.styles.classNames.areaFragment}
+        className={this.styles.classNames.hslFragment}
         style={style}
       />
     );
   }
 
-  renderArea() {
+  renderHSL_OLD() {
     const result = [];
+
+    const colorUL = '#fff';
+    const colorUR = this.props.hue;
+    const colorDL = '#000';
+    const colorDR = '#000';
 
     const n = 50;
     for (let i = 0; i < n; i++) {
-      const colorUp = ColorConverters.slide(
-        this.props.gradientColorUL,
-        this.props.gradientColorUR,
-        i / (n - 1)
-      );
-      const colorDown = ColorConverters.slide(
-        this.props.gradientColorDL,
-        this.props.gradientColorDR,
-        i / (n - 1)
-      );
-      result.push(this.renderAreaFragment(colorUp, colorDown, i));
+      const colorUp = ColorConverters.slide(colorUL, colorUR, i / (n - 1));
+      const colorDown = ColorConverters.slide(colorDL, colorDR, i / (n - 1));
+      result.push(this.renderHSLFragment(colorUp, colorDown, i));
     }
 
     return result;
+  }
+
+  renderHSL() {
+    return (
+      <React.Fragment>
+        <div className={this.styles.classNames.hslUL} />
+        <div className={this.styles.classNames.hslUR} />
+        <div className={this.styles.classNames.hslD} />
+      </React.Fragment>
+    );
   }
 
   renderWhileDragging() {
@@ -124,15 +131,25 @@ export default class SliderXY extends Widget {
   render() {
     return (
       <div
-        className={this.styles.classNames.sliderXY}
+        className={
+          this.isDragging
+            ? this.styles.classNames.sliderXYdragging
+            : this.styles.classNames.sliderXY
+        }
         onMouseDown={this.onDragDown}
       >
         <div
           ref={(node) => (this.sliderNode = node)}
           className={this.styles.classNames.inside}
         >
-          {this.renderArea()}
-          <div className={this.styles.classNames.cab} />
+          {this.renderHSL()}
+          <div
+            className={
+              this.isDragging
+                ? this.styles.classNames.cabDragging
+                : this.styles.classNames.cab
+            }
+          />
         </div>
         {this.renderWhileDragging()}
       </div>

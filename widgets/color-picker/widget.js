@@ -263,6 +263,7 @@ class ColorPicker extends Widget {
   renderComposant(label, tooltip, sliderColor1, sliderColor2, key, range) {
     const analysis = this.analysis;
     const value = analysis ? analysis[key] : null;
+    const hasSlider = sliderColor1 && sliderColor2;
 
     let gliderSize = 'default';
     let cabSize = 'default';
@@ -293,21 +294,23 @@ class ColorPicker extends Widget {
           onChange={(value) => this.onColorChanged(key, value, true)}
         />
         <Label width="10px" />
-        <Slider
-          direction="horizontal"
-          grow="1"
-          value={(value * 100) / range}
-          gliderSize={gliderSize}
-          cabSize={cabSize}
-          cabType={cabType}
-          gradient={gradient}
-          gradientColor1={sliderColor1}
-          gradientColor2={sliderColor2}
-          onChange={(value, send) =>
-            this.onColorChanged(key, Math.round((value * range) / 100), send)
-          }
-        />
-        <Label width="10px" />
+        {hasSlider ? (
+          <Slider
+            direction="horizontal"
+            grow="1"
+            value={(value * 100) / range}
+            gliderSize={gliderSize}
+            cabSize={cabSize}
+            cabType={cabType}
+            gradient={gradient}
+            gradientColor1={sliderColor1}
+            gradientColor2={sliderColor2}
+            onChange={(value, send) =>
+              this.onColorChanged(key, Math.round((value * range) / 100), send)
+            }
+          />
+        ) : null}
+        {hasSlider ? <Label width="10px" /> : null}
       </div>
     );
   }
@@ -383,43 +386,74 @@ class ColorPicker extends Widget {
     );
   }
 
-  renderComposantsHSL_NEW() {
+  renderComposantsHSL() {
     const analysis = this.analysis;
     const t = ColorConverters.toRGB(`HSL(${analysis.h},100,100)`);
 
     return (
       <div className={this.styles.classNames.composantHslNew}>
-        <div className={this.styles.classNames.composantHslCircle}>
-          <SliderCircle
-            width="214px"
-            height="214px"
-            value={analysis.h}
-            onChange={(a, send) =>
-              this.onColorChanged('t', Math.round(a), send)
-            }
-          />
+        <div className={this.styles.classNames.composantHslFields}>
+          {this.renderComposant(
+            T('T'),
+            T('Teinte (de 0 à 360)'),
+            null,
+            null,
+            'h',
+            360
+          )}
+          {this.renderComposant(
+            T('S'),
+            T('Saturation (de 0 à 100)'),
+            null,
+            null,
+            's',
+            100
+          )}
+          {this.renderComposant(
+            T('L'),
+            T('Luminosité (de 0 à 100)'),
+            null,
+            null,
+            'l',
+            100
+          )}
         </div>
-        <div className={this.styles.classNames.composantHslSquare}>
-          <SliderXY
-            width="134px"
-            height="134px"
-            gradientColorUL="#ffffff"
-            gradientColorUR={t}
-            gradientColorDL="#000000"
-            gradientColorDR="#000000"
-            valueX={analysis.s}
-            valueY={analysis.l}
-            onChange={(x, y, send) => {
-              this.onColorChanged('s', Math.round(x), send);
-              this.onColorChanged('l', Math.round(y), send);
-            }}
-          />
+        <div className={this.styles.classNames.composantHslSliders}>
+          <div className={this.styles.classNames.composantHslCircle}>
+            <SliderCircle
+              width="214px"
+              height="214px"
+              gliderSize="default"
+              cabSize="default"
+              value={analysis.h}
+              onChange={(a, send) =>
+                this.onColorChanged('h', Math.round(a), send)
+              }
+            />
+          </div>
+          <div className={this.styles.classNames.composantHslSquare}>
+            <SliderXY
+              width="126px"
+              height="126px"
+              cabSize="default"
+              marginSize="small"
+              marginStyle="none"
+              draggingScale={2}
+              hue={t}
+              valueX={analysis.s}
+              valueY={analysis.l}
+              onChange={(x, y, send) => {
+                this.onColorChanged('s', Math.round(x), send);
+                this.onColorChanged('l', Math.round(y), send);
+              }}
+            />
+          </div>
         </div>
       </div>
     );
   }
 
-  renderComposantsHSL() {
+  renderComposantsHSL_OLD() {
     const analysis = this.analysis;
     const t = ColorConverters.toRGB(`HSL(${analysis.h},100,100)`);
 
@@ -461,10 +495,7 @@ class ColorPicker extends Widget {
           <SliderXY
             width="170px"
             height="170px"
-            gradientColorUL="#ffffff"
-            gradientColorUR={t}
-            gradientColorDL="#000000"
-            gradientColorDR="#000000"
+            hue={t}
             valueX={analysis.s}
             valueY={analysis.l}
             onChange={(x, y, send) => {

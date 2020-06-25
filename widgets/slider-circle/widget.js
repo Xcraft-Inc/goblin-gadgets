@@ -10,16 +10,18 @@ import {color as ColorConverters} from 'xcraft-core-converters';
 
 /******************************************************************************/
 
+function clipAngleDeg(angle) {
+  // Retourne un angle normalisé, c'est-à-dire compris entre 0 et 360°.
+  angle = angle % 360.0;
+  return angle < 0.0 ? 360.0 + angle : angle;
+}
+
 function radToDeg(angle) {
   return (angle * 180.0) / Math.PI;
 }
 
 function computeAngleDegFromPoints(c, a) {
   return radToDeg(computeAngleRadFromXY(a.x - c.x, a.y - c.y));
-}
-
-function computeAngleRadFromPoints(c, a) {
-  return computeAngleRadFromXY(a.x - c.x, a.y - c.y);
 }
 
 //	Calcule l'angle d'un triangle rectangle.
@@ -79,15 +81,16 @@ export default class SliderCircle extends Widget {
   changeValue(e, send) {
     const rect = this.sliderNode.getBoundingClientRect();
 
-    let x = ((e.clientX - rect.left) * 100) / rect.width;
-    let y = ((e.clientY - rect.bottom) * 100) / rect.height;
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
 
     const w = n(this.props.width);
     const h = n(this.props.height);
 
     const a = computeAngleDegFromPoints({x: w / 2, y: h / 2}, {x, y});
+    const b = clipAngleDeg(a + 90);
 
-    this.props.onChange(a, send);
+    this.props.onChange(b, send);
   }
 
   onDragDown(e) {
@@ -133,9 +136,8 @@ export default class SliderCircle extends Widget {
         className={this.styles.classNames.sliderCircle}
         onMouseDown={this.onDragDown}
       >
-        <div className={this.styles.classNames.inside}>
-          <div className={this.styles.classNames.cab} />
-        </div>
+        <div className={this.styles.classNames.inside} />
+        <div className={this.styles.classNames.cab} />
         {this.renderWhileDragging()}
       </div>
     );

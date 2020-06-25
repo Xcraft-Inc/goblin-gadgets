@@ -59,29 +59,42 @@ export const propNames = [
   'grow',
   'width',
   'height',
+  'gliderSize',
   'cabSize',
 ];
 
 export default function styles(theme, props) {
-  const {value, disabled, grow, width, height, cabSize = 'default'} = props;
+  const {
+    value,
+    disabled,
+    grow,
+    width,
+    height,
+    gliderSize = 'default',
+    cabSize = 'default',
+  } = props;
 
   const w = n(width);
   const h = n(height);
-  const isDark = theme.colors.isDarkTheme;
   const hasCab = value !== null && value !== undefined;
-  const thickness = 20;
 
-  const cabValue = Math.max(Math.min(value, 360), 0); // 0..360
-  const p = rotatePointDeg({x: w / 2, y: h / 2}, 360 - cabValue, {
-    x: 0,
-    y: -h / 2 + thickness / 2,
-  });
+  const gliderThickness = {
+    small: 10,
+    default: 20,
+    large: 30,
+  }[gliderSize];
 
-  let cabThickness = {
+  const cabThickness = {
     small: 8,
     default: 14,
     large: 18,
   }[cabSize];
+
+  const cabValue = Math.max(Math.min(value, 360), 0); // 0..360
+  const p = rotatePointDeg({x: w / 2, y: h / 2}, cabValue, {
+    x: w / 2,
+    y: h / 2 - h / 2 + gliderThickness / 2,
+  });
 
   const sliderCircle = {
     position: 'relative',
@@ -96,10 +109,10 @@ export default function styles(theme, props) {
 
   const inside = {
     position: 'absolute',
-    left: px(thickness),
-    right: px(thickness),
-    bottom: px(thickness),
-    top: px(thickness),
+    left: px(gliderThickness),
+    right: px(gliderThickness),
+    bottom: px(gliderThickness),
+    top: px(gliderThickness),
     borderRadius: '100%',
     backgroundColor: theme.palette.calendarBackground,
     display: 'flex',
@@ -108,8 +121,8 @@ export default function styles(theme, props) {
 
   const cab = {
     position: 'absolute',
-    left: `calc(${pc(p.x)} - ${px(cabThickness / 2)})`,
-    bottom: `calc(${pc(p.y)} - ${px(cabThickness / 2)})`,
+    left: px(p.x - cabThickness / 2),
+    top: px(p.y - cabThickness / 2),
     width: px(cabThickness),
     height: px(cabThickness),
     borderRadius: px(cabThickness / 2),

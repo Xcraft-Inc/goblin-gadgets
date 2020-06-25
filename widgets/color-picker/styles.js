@@ -13,7 +13,7 @@ export default function styles(theme, props) {
   const colorPicker = {
     flexGrow: grow,
     width: width,
-    minWidth: '400px',
+    minWidth: '520px',
     height: '318px',
     display: 'flex',
     flexDirection: 'column',
@@ -35,7 +35,7 @@ export default function styles(theme, props) {
     display: 'flex',
     flexDirection: 'row',
     flexGrow: 1,
-    alignItems: 'flex-end',
+    alignItems: 'center',
     background: isDark
       ? 'linear-gradient(180deg, rgba(0,0,0,0.70), transparent 20px)'
       : 'linear-gradient(180deg, rgba(0,0,0,0.15), transparent 20px)',
@@ -51,7 +51,7 @@ export default function styles(theme, props) {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    margin: '10px 0px 0px 0px',
+    margin: '5px 0px',
   };
 
   const composantHsl = {
@@ -75,6 +75,18 @@ export default function styles(theme, props) {
   };
 
   const composantHslNew = {
+    display: 'flex',
+    flexDirection: 'row',
+    flexGrow: 1,
+  };
+
+  const composantHslFields = {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+  };
+
+  const composantHslSliders = {
     position: 'relative',
     height: '214px',
     flexGrow: 1,
@@ -90,10 +102,10 @@ export default function styles(theme, props) {
 
   const composantHslSquare = {
     position: 'absolute',
-    left: '40px',
-    top: '40px',
-    width: '134px',
-    height: '134px',
+    left: '44px',
+    top: '44px',
+    width: '126px',
+    height: '126px',
   };
 
   const rs = Unit.multiply(r, 3);
@@ -163,6 +175,8 @@ export default function styles(theme, props) {
     composantHsl1,
     composantHsl2,
     composantHslNew,
+    composantHslFields,
+    composantHslSliders,
     composantHslCircle,
     composantHslSquare,
     samples,
