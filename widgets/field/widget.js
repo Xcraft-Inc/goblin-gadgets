@@ -460,8 +460,7 @@ class Field extends Form {
             text = entity.get(`meta.summaries.${summary}`);
           }
           return {
-            kind: 'markdown',
-            shape: 'left-smooth',
+            kind: 'combo-text-markdown',
             glyph,
             glyphColor,
             text,
