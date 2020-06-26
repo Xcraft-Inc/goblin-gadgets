@@ -370,7 +370,7 @@ export default class TextFieldTypedNC extends Widget {
 
   renderNumber(otherProps, width, tooltip, justify) {
     return (
-      <React.Fragment>
+      <div className={this.styles.classNames.textFieldNCNumber}>
         <TextFieldNC
           {...otherProps}
           width={width}
@@ -395,7 +395,7 @@ export default class TextFieldTypedNC extends Widget {
           disabled={!this.isPlusEnabled}
           onClick={() => this.incNumber(1)}
         />
-      </React.Fragment>
+      </div>
     );
   }
 

@@ -9,6 +9,7 @@ import SliderXY from 'goblin-gadgets/widgets/slider-xy/widget';
 import SliderCircle from 'goblin-gadgets/widgets/slider-circle/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
+import Separator from 'goblin-gadgets/widgets/separator/widget';
 import {color as ColorConverters} from 'xcraft-core-converters';
 import T from 't';
 import {TranslatableDiv} from 'nabu/helpers/element-helpers';
@@ -260,10 +261,18 @@ class ColorPicker extends Widget {
     );
   }
 
-  renderComposant(label, tooltip, sliderColor1, sliderColor2, key, range) {
-    const analysis = this.analysis;
-    const value = analysis ? analysis[key] : null;
+  renderComposantSlider(
+    value,
+    sliderColor1,
+    sliderColor2,
+    key,
+    range,
+    isVertical
+  ) {
     const hasSlider = sliderColor1 && sliderColor2;
+    if (!hasSlider) {
+      return null;
+    }
 
     let gliderSize = 'default';
     let cabSize = 'default';
@@ -277,42 +286,88 @@ class ColorPicker extends Widget {
     } else if (key === 's' || key === 'l') {
       gliderSize = 'large';
       cabSize = 'large';
-      sliderColor2 = ColorConverters.toRGB(`HSL(${analysis.h},100,100)`);
     } else if (key === 'n') {
       gliderSize = 'large';
     }
 
     return (
-      <div className={this.styles.classNames.composant}>
-        <TextFieldTypedNC
-          width="50px"
-          tooltip={tooltip}
-          type="integer"
-          min={0}
-          max={range}
-          value={value}
-          onChange={(value) => this.onColorChanged(key, value, true)}
-        />
-        <Label width="10px" />
-        {hasSlider ? (
-          <Slider
-            direction="horizontal"
-            grow="1"
-            value={(value * 100) / range}
-            gliderSize={gliderSize}
-            cabSize={cabSize}
-            cabType={cabType}
-            gradient={gradient}
-            gradientColor1={sliderColor1}
-            gradientColor2={sliderColor2}
-            onChange={(value, send) =>
-              this.onColorChanged(key, Math.round((value * range) / 100), send)
-            }
-          />
-        ) : null}
-        {hasSlider ? <Label width="10px" /> : null}
-      </div>
+      <Slider
+        direction="horizontal"
+        grow={isVertical ? null : '1'}
+        width={isVertical ? '105px' : null}
+        value={(value * 100) / range}
+        gliderSize={gliderSize}
+        cabSize={cabSize}
+        cabType={cabType}
+        gradient={gradient}
+        gradientColor1={sliderColor1}
+        gradientColor2={sliderColor2}
+        onChange={(value, send) =>
+          this.onColorChanged(key, Math.round((value * range) / 100), send)
+        }
+      />
     );
+  }
+
+  renderComposant(
+    label,
+    tooltip,
+    sliderColor1,
+    sliderColor2,
+    key,
+    range,
+    isVertical
+  ) {
+    const analysis = this.analysis;
+    const value = analysis ? analysis[key] : null;
+
+    if (isVertical) {
+      return (
+        <div className={this.styles.classNames.composantVertical}>
+          <TextFieldTypedNC
+            width="50px"
+            tooltip={tooltip}
+            type="integer"
+            min={0}
+            max={range}
+            value={value}
+            onChange={(value) => this.onColorChanged(key, value, true)}
+          />
+          <Separator kind="exact" height="5px" />
+          {this.renderComposantSlider(
+            value,
+            sliderColor1,
+            sliderColor2,
+            key,
+            range,
+            isVertical
+          )}
+        </div>
+      );
+    } else {
+      return (
+        <div className={this.styles.classNames.composantHorizontal}>
+          <TextFieldTypedNC
+            width="50px"
+            tooltip={tooltip}
+            type="integer"
+            min={0}
+            max={range}
+            value={value}
+            onChange={(value) => this.onColorChanged(key, value, true)}
+          />
+          <Label width="10px" />
+          {this.renderComposantSlider(
+            value,
+            sliderColor1,
+            sliderColor2,
+            key,
+            range,
+            isVertical
+          )}
+        </div>
+      );
+    }
   }
 
   renderComposantsRGB() {
@@ -396,26 +451,29 @@ class ColorPicker extends Widget {
           {this.renderComposant(
             T('T'),
             T('Teinte (de 0 à 360)'),
-            null,
-            null,
+            t,
+            t,
             'h',
-            360
+            360,
+            true
           )}
           {this.renderComposant(
             T('S'),
             T('Saturation (de 0 à 100)'),
-            null,
-            null,
+            '#fff',
+            t,
             's',
-            100
+            100,
+            true
           )}
           {this.renderComposant(
             T('L'),
             T('Luminosité (de 0 à 100)'),
-            null,
-            null,
+            '#000',
+            t,
             'l',
-            100
+            100,
+            true
           )}
         </div>
         <div className={this.styles.classNames.composantHslSliders}>

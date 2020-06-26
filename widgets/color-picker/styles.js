@@ -14,7 +14,7 @@ export default function styles(theme, props) {
     flexGrow: grow,
     width: width,
     minWidth: '520px',
-    height: '318px',
+    height: '330px',
     display: 'flex',
     flexDirection: 'column',
     borderRadius: r,
@@ -47,11 +47,18 @@ export default function styles(theme, props) {
     flexGrow: 1,
   };
 
-  const composant = {
+  const composantHorizontal = {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     margin: '5px 0px',
+  };
+
+  const composantVertical = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    margin: '5px 10px 5px 0px',
   };
 
   const composantHsl = {
@@ -113,6 +120,7 @@ export default function styles(theme, props) {
     height: '100%',
     width: '110px',
     minWidth: '20px',
+    marginLeft: '10px',
     border: `1px solid ${theme.palette.buttonBorder}`,
     borderRadius: rs,
     display: 'flex',
@@ -170,7 +178,8 @@ export default function styles(theme, props) {
     modes,
     content,
     composants,
-    composant,
+    composantHorizontal,
+    composantVertical,
     composantHsl,
     composantHsl1,
     composantHsl2,
