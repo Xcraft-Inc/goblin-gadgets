@@ -44,7 +44,7 @@ function getComponent(name) {
       return (
         <TextInputNC
           value={'Lundi\nMardi\nMercredi\nJeudi\nVendredi\nSamedi\nDimanche'}
-          rows="7"
+          rows={7}
         />
       );
     case 'button-10':

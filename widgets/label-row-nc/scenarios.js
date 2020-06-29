@@ -33,7 +33,7 @@ export default [
       children: (
         <TextInputNC
           grow="1"
-          rows="8"
+          rows={8}
           value="Un jeune vieillard, assis debout sur un mur de pierre en bois, lisait un journal plié en quatre dans sa poche, à la lueur d'une bougie éteinte."
         />
       ),

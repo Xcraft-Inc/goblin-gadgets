@@ -60,7 +60,7 @@ export default [
     props: {
       list: 'multiline',
       width: '300px',
-      rows: '3',
+      rows: 3,
       restrictsToList: true,
       menuType: 'wrap',
     },
