@@ -246,7 +246,7 @@ class WidgetDocPreview extends Widget {
     return (
       <div className={this.styles.classNames.container}>
         <pre className={this.styles.classNames.code}>{code1}</pre>
-        <TextFieldNC rows={'3'} onChange={this.onChange} value={code2} />
+        <TextFieldNC rows={3} onChange={this.onChange} value={code2} />
       </div>
     );
   }

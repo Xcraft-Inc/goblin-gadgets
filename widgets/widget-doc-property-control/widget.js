@@ -173,7 +173,7 @@ class WidgetDocPropertyControl extends Widget {
             shape="smooth"
             horizontalSpacing="overlap"
             restrictsToList={restrictsToList}
-            rows={multiline ? '2' : null}
+            rows={multiline ? 2 : null}
             grow="1"
             value={selectedId}
             onChange={this.onChange}
@@ -209,7 +209,7 @@ class WidgetDocPropertyControl extends Widget {
           shape="smooth"
           horizontalSpacing="tiny"
           restrictsToList={restrictsToList}
-          rows={multiline ? '2' : null}
+          rows={multiline ? 2 : null}
           grow="1"
           list={list}
           selectedId={selectedId}
