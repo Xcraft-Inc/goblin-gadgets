@@ -32,7 +32,7 @@ export default [
   {
     name: 'hue',
     group: 'aspect',
-    type: types.color,
+    type: types.number,
   },
   {
     name: 'disabled',

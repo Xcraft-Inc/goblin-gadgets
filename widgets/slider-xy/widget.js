@@ -35,6 +35,64 @@ export default class SliderXY extends Widget {
   }
   //#endregion
 
+  componentDidMount() {
+    this.updateCanvas();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.hue !== prevProps.hue) {
+      this.updateCanvas();
+    }
+  }
+
+  get insideWidth() {
+    if (
+      typeof this.props.width === 'string' &&
+      this.props.width.endsWith('px')
+    ) {
+      const width = parseInt(
+        this.props.width.substring(0, this.props.width.length - 2)
+      );
+
+      // Compute insideMargin, according to style.
+      const insideMargin = {
+        zero: 0,
+        small: 8,
+        default: 12,
+        large: 20,
+      }[this.props.marginSize || 'default'];
+
+      return width - insideMargin * 2;
+    }
+
+    console.error(`SliderXY: Invalid width '${this.props.width}'`);
+    return 10;
+  }
+
+  updateCanvas() {
+    // Use GPU to generate the complex gradient.
+    // See https://stackoverflow.com/questions/41524641/draw-saturation-brightness-gradient
+    const width = this.insideWidth;
+
+    const ctx = this.canvasNode.getContext('2d');
+
+    var gradB = ctx.createLinearGradient(0, 0, 0, width);
+    gradB.addColorStop(0, 'white');
+    gradB.addColorStop(1, 'black');
+
+    const hueValue = this.props.hue;
+    var gradC = ctx.createLinearGradient(0, 0, width, 0);
+    gradC.addColorStop(0, `hsla(${hueValue},100%,50%,0)`);
+    gradC.addColorStop(1, `hsla(${hueValue},100%,50%,1)`);
+
+    ctx.fillStyle = gradB;
+    ctx.fillRect(0, 0, width, width);
+    ctx.fillStyle = gradC;
+    ctx.globalCompositeOperation = 'multiply';
+    ctx.fillRect(0, 0, width, width);
+    ctx.globalCompositeOperation = 'source-over';
+  }
+
   changeValue(e, send) {
     const rect = this.sliderNode.getBoundingClientRect();
 
@@ -72,45 +130,15 @@ export default class SliderXY extends Widget {
 
   /******************************************************************************/
 
-  renderHSLFragment(colorUp, colorDown, index) {
-    const style = {
-      background: `linear-gradient(0deg, ${colorDown}, ${colorUp})`,
-    };
-
-    return (
-      <div
-        key={index}
-        className={this.styles.classNames.hslFragment}
-        style={style}
-      />
-    );
-  }
-
-  renderHSL_OLD() {
-    const result = [];
-
-    const colorUL = '#fff';
-    const colorUR = this.props.hue;
-    const colorDL = '#000';
-    const colorDR = '#000';
-
-    const n = 50;
-    for (let i = 0; i < n; i++) {
-      const colorUp = ColorConverters.slide(colorUL, colorUR, i / (n - 1));
-      const colorDown = ColorConverters.slide(colorDL, colorDR, i / (n - 1));
-      result.push(this.renderHSLFragment(colorUp, colorDown, i));
-    }
-
-    return result;
-  }
-
   renderHSL() {
+    const width = this.insideWidth;
+
     return (
-      <React.Fragment>
-        <div className={this.styles.classNames.hslUL} />
-        <div className={this.styles.classNames.hslUR} />
-        <div className={this.styles.classNames.hslD} />
-      </React.Fragment>
+      <canvas
+        ref={(node) => (this.canvasNode = node)}
+        width={width}
+        height={width}
+      />
     );
   }
 

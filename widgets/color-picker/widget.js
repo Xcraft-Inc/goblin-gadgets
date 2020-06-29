@@ -446,7 +446,7 @@ class ColorPicker extends Widget {
     const t = ColorConverters.toRGB(`HSL(${analysis.h},100,100)`);
 
     return (
-      <div className={this.styles.classNames.composantHslNew}>
+      <div className={this.styles.classNames.composantHsl}>
         <div className={this.styles.classNames.composantHslFields}>
           {this.renderComposant(
             T('T'),
@@ -497,7 +497,7 @@ class ColorPicker extends Widget {
               marginSize="small"
               marginStyle="none"
               draggingScale={2}
-              hue={t}
+              hue={analysis.h}
               valueX={analysis.s}
               valueY={analysis.l}
               onChange={(x, y, send) => {
@@ -506,78 +506,6 @@ class ColorPicker extends Widget {
               }}
             />
           </div>
-        </div>
-      </div>
-    );
-  }
-
-  renderComposantsHSL_OLD() {
-    const analysis = this.analysis;
-    const t = ColorConverters.toRGB(`HSL(${analysis.h},100,100)`);
-
-    return (
-      <div className={this.styles.classNames.composantHsl}>
-        <div className={this.styles.classNames.composantHsl1}>
-          <Label width="44px" />
-          <Slider
-            direction="horizontal"
-            width="170px"
-            value={analysis.s}
-            gliderSize="large"
-            cabSize="large"
-            cabType="thin"
-            gradient="1to2"
-            gradientColor1="#fff"
-            gradientColor2={t}
-            tooltip={T('Saturation')}
-            onChange={(value, send) =>
-              this.onColorChanged('s', Math.round(value), send)
-            }
-          />
-        </div>
-        <div className={this.styles.classNames.composantHsl2}>
-          <Slider
-            direction="vertical"
-            height="170px"
-            value={(analysis.h * 100) / 360}
-            gliderSize="large"
-            cabSize="large"
-            cabType="thin"
-            gradient="rainbow"
-            tooltip={T('Teinte')}
-            onChange={(value, send) =>
-              this.onColorChanged('h', Math.round((value * 360) / 100), send)
-            }
-          />
-          <Label width="20px" />
-          <SliderXY
-            width="170px"
-            height="170px"
-            hue={t}
-            valueX={analysis.s}
-            valueY={analysis.l}
-            onChange={(x, y, send) => {
-              this.onColorChanged('s', Math.round(x), send);
-              this.onColorChanged('l', Math.round(y), send);
-            }}
-          />
-          <Label width="20px" />
-          <Slider
-            direction="vertical"
-            height="170px"
-            value={analysis.l}
-            gliderSize="large"
-            cabSize="large"
-            cabType="thin"
-            gradient="1to2"
-            gradientColor1="#000"
-            gradientColor2={t}
-            tooltip={T('Luminosité')}
-            onChange={(value, send) =>
-              this.onColorChanged('l', Math.round(value), send)
-            }
-          />
-          <Label width="20px" />
         </div>
       </div>
     );

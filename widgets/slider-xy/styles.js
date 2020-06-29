@@ -23,7 +23,6 @@ export const propNames = [
   'cabSize',
   'marginSize',
   'marginStyle',
-  'hue',
   'draggingScale',
 ];
 
@@ -38,7 +37,6 @@ export default function styles(theme, props) {
     cabSize = 'default',
     marginSize = 'default',
     marginStyle = 'shadow',
-    hue,
     draggingScale = 1,
   } = props;
 
@@ -96,35 +94,6 @@ export default function styles(theme, props) {
     flexDirection: 'row',
   };
 
-  const hslFragment = {
-    flexGrow: 1,
-    height: '100%',
-  };
-
-  const _hsl = {
-    position: 'absolute',
-    left: '0px',
-    right: '0px',
-    top: '0px',
-    bottom: '0px',
-  };
-
-  const hslUL = {
-    ..._hsl,
-    // background: `radial-gradient(farthest-corner at 0% 0%, white, transparent 71%)`,
-    background: 'white',
-  };
-
-  const hslUR = {
-    ..._hsl,
-    background: `radial-gradient(farthest-corner at 100% 0%, ${hue}, transparent 71%)`,
-  };
-
-  const hslD = {
-    ..._hsl,
-    background: `linear-gradient(0deg, black, transparent)`,
-  };
-
   const cab = {
     position: 'absolute',
     left: `calc(${pc(cabValueX)} - ${px(cabThickness / 2)})`,
@@ -163,10 +132,6 @@ export default function styles(theme, props) {
     sliderXY,
     sliderXYdragging,
     inside,
-    hslFragment,
-    hslUL,
-    hslUR,
-    hslD,
     cab,
     cabDragging,
     fullscreen,

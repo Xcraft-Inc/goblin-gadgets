@@ -62,26 +62,6 @@ export default function styles(theme, props) {
   };
 
   const composantHsl = {
-    position: 'relative',
-    display: 'flex',
-    flexDirection: 'column',
-    flexGrow: 1,
-  };
-
-  const composantHsl1 = {
-    display: 'flex',
-    flexDirection: 'row',
-    flexGrow: 1,
-    marginBottom: '20px',
-  };
-
-  const composantHsl2 = {
-    display: 'flex',
-    flexDirection: 'row',
-    flexGrow: 1,
-  };
-
-  const composantHslNew = {
     display: 'flex',
     flexDirection: 'row',
     flexGrow: 1,
@@ -181,9 +161,6 @@ export default function styles(theme, props) {
     composantHorizontal,
     composantVertical,
     composantHsl,
-    composantHsl1,
-    composantHsl2,
-    composantHslNew,
     composantHslFields,
     composantHslSliders,
     composantHslCircle,
