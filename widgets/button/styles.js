@@ -198,10 +198,10 @@ export default function styles(theme, props) {
 
   // main-tab button (usual parent is container with kind='main-tab').
   if (kind === 'main-tab') {
-    boxMinWidth = 'fit-content';
+    boxWidth = '200px';
     boxHeight = theme.shapes.mainTabHeight;
-    boxPaddingLeft = Unit.multiply(m, 5.0);
-    boxPaddingRight = Unit.multiply(m, 5.0);
+    boxPaddingLeft = Unit.multiply(m, 1.0);
+    boxPaddingRight = Unit.multiply(m, 1.0);
     boxPaddingTop = Unit.multiply(m, 0.5);
     boxPaddingBottom = Unit.multiply(m, 0.5);
     boxMarginRight = '1px';
