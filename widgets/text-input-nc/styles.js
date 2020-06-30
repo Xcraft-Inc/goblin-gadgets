@@ -26,6 +26,8 @@ export function mapProps(props) {
   };
 }
 
+/******************************************************************************/
+
 export default function styles(theme, props) {
   const {
     grow,
@@ -112,7 +114,7 @@ export default function styles(theme, props) {
     flexBasis = '0%';
   }
 
-  const box = {
+  const textInputNC = {
     width: width,
     display: 'flex',
     flexDirection: 'row',
@@ -136,12 +138,12 @@ export default function styles(theme, props) {
 
   if (required && !value && !disabled && !active && !readonly) {
     // Change backgroundColor if required text-field is not empty.
-    box.backgroundColor = theme.palette.textFieldRequiredBackground;
+    textInputNC.backgroundColor = theme.palette.textFieldRequiredBackground;
   }
 
   if (wrong) {
     // Change backgroundColor if wrong content of text-field.
-    box.backgroundColor = theme.palette.textFieldWrongBackground;
+    textInputNC.backgroundColor = theme.palette.textFieldWrongBackground;
   }
 
   // Use + for dispatch the style to next brother (only one).
@@ -215,12 +217,22 @@ export default function styles(theme, props) {
     color: theme.palette.hintTextColor,
   };
 
+  const readonlyStyle = {
+    ...field,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  };
+
+  /******************************************************************************/
+
   return {
-    box,
+    textInputNC,
     focus,
     field,
     textarea,
     input,
+    readonly: readonlyStyle,
   };
 }
 

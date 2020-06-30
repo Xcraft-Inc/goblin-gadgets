@@ -153,6 +153,11 @@ export default [
 
   // Text.
   {
+    name: 'value',
+    group: 'text',
+    type: types.nabu,
+  },
+  {
     name: 'readonly',
     group: 'text',
     type: types.bool,

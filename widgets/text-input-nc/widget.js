@@ -14,6 +14,7 @@ import {
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
 import Label from 'goblin-gadgets/widgets/label/widget';
+import T from 'nabu/t/widget';
 import * as styles from './styles';
 
 /******************************************************************************/
@@ -115,6 +116,57 @@ export default class TextInputNC extends Widget {
     }
   }
 
+  renderInputReadonly(value) {
+    return <T msgid={value} className={this.styles.classNames.readonly} />;
+  }
+
+  renderInputMultiline(value) {
+    return (
+      <TranslatableTextarea
+        msgid={this.props.hintText}
+        workitemId={this.context.desktopId || this.getNearestId()}
+        className={`${this.styles.classNames.textarea} mousetrap ${this.styles.classNames.input}`}
+        value={value}
+        defaultValue={this.props.defaultValue}
+        rows={this.props.rows}
+        disabled={this.props.disabled || this.props.readonly}
+        onRef={this.setInput}
+        onChange={this.onChange}
+        onFocus={this.onFocus}
+        onBlur={this.onBlur}
+      />
+    );
+  }
+
+  renderInputSingleline(value, type) {
+    return (
+      <TranslatableInput
+        placeholder={this.props.hintText}
+        workitemId={this.context.desktopId || this.getNearestId()}
+        className={`${this.styles.classNames.field} mousetrap ${this.styles.classNames.input}`}
+        type={type || 'text'}
+        value={value}
+        defaultValue={this.props.defaultValue}
+        disabled={this.props.disabled || this.props.readonly}
+        inputRef={this.setInput}
+        onChange={this.onChange}
+        onKeyDown={this.onKeyDown}
+        onFocus={this.onFocus}
+        onBlur={this.onBlur}
+      />
+    );
+  }
+
+  renderInputEditable(value, type) {
+    if (this.props.readonly) {
+      return this.renderInputReadonly(value);
+    } else if (type === 'textarea') {
+      return this.renderInputMultiline(value);
+    } else {
+      return this.renderInputSingleline(value, type);
+    }
+  }
+
   renderInput() {
     let type = this.props.inputType;
     if (!type && this.props.rows) {
@@ -131,7 +183,9 @@ export default class TextInputNC extends Widget {
         value = value + ''; // convert to string
         break;
       case 'object':
-        console.warn('TextInputNC: Invalid value (object or Shredder)!');
+        if (!this.props.readonly) {
+          console.warn('TextInputNC: Invalid value (object or Shredder)!');
+        }
         break;
       case 'function':
         console.warn('TextInputNC: Invalid value (function)!');
@@ -143,7 +197,7 @@ export default class TextInputNC extends Widget {
       <TranslatableDiv
         title={this.props.tooltip}
         workitemId={this.context.desktopId || this.getNearestId()}
-        className={this.styles.classNames.box}
+        className={this.styles.classNames.textInputNC}
       >
         {this.props.glyph ? (
           <Label
@@ -152,36 +206,7 @@ export default class TextInputNC extends Widget {
             glyphColor={this.props.glyph.color}
           />
         ) : null}
-        {type === 'textarea' ? (
-          <TranslatableTextarea
-            msgid={this.props.hintText}
-            workitemId={this.context.desktopId || this.getNearestId()}
-            className={`${this.styles.classNames.textarea} mousetrap ${this.styles.classNames.input}`}
-            value={value}
-            defaultValue={this.props.defaultValue}
-            rows={this.props.rows}
-            disabled={this.props.disabled || this.props.readonly}
-            onRef={this.setInput}
-            onChange={this.onChange}
-            onFocus={this.onFocus}
-            onBlur={this.onBlur}
-          />
-        ) : (
-          <TranslatableInput
-            placeholder={this.props.hintText}
-            workitemId={this.context.desktopId || this.getNearestId()}
-            className={`${this.styles.classNames.field} mousetrap ${this.styles.classNames.input}`}
-            type={type || 'text'}
-            value={value}
-            defaultValue={this.props.defaultValue}
-            disabled={this.props.disabled || this.props.readonly}
-            inputRef={this.setInput}
-            onChange={this.onChange}
-            onKeyDown={this.onKeyDown}
-            onFocus={this.onFocus}
-            onBlur={this.onBlur}
-          />
-        )}
+        {this.renderInputEditable(value, type)}
         {this.renderFocusForeground()}
         {this.props.children}
       </TranslatableDiv>
