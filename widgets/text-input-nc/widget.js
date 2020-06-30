@@ -158,7 +158,7 @@ export default class TextInputNC extends Widget {
   }
 
   renderInputEditable(value, type) {
-    if (this.props.readonly) {
+    if (this.props.readonly && typeof value === 'object') {
       return this.renderInputReadonly(value);
     } else if (type === 'textarea') {
       return this.renderInputMultiline(value);
