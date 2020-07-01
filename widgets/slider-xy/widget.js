@@ -11,6 +11,16 @@ import wrapRawInput from 'goblin-gadgets/widgets/input-wrapper/widget.js';
 
 /******************************************************************************/
 
+function px(n) {
+  return n + 'px';
+}
+
+function pc(n) {
+  return n + '%';
+}
+
+/******************************************************************************/
+
 class SliderXY extends Widget {
   constructor() {
     super(...arguments);
@@ -172,6 +182,31 @@ class SliderXY extends Widget {
   }
 
   render() {
+    const hasCab = this.props.value !== null && this.props.value !== undefined;
+
+    const cabThickness = {
+      default: 14,
+      large: 18,
+    }[this.props.cabSize || 'default'];
+
+    let cabValueX, cabValueY;
+    if (hasCab) {
+      const p = this.props.value.split(';');
+      cabValueX = Math.max(Math.min(p[0], 100), 0); // 0..100
+      cabValueY = Math.max(Math.min(p[1], 100), 0); // 0..100
+    }
+
+    const cabStyle = {
+      left: `calc(${pc(cabValueX)} - ${px(cabThickness / 2)})`,
+      bottom: `calc(${pc(cabValueY)} - ${px(cabThickness / 2)})`,
+      display: hasCab ? null : 'none',
+    };
+
+    const cabDraggingStyle = {
+      left: `calc(${pc(cabValueX)} - ${px(cabThickness / 4)})`,
+      bottom: `calc(${pc(cabValueY)} - ${px(cabThickness / 4)})`,
+    };
+
     return (
       <div
         className={
@@ -192,6 +227,7 @@ class SliderXY extends Widget {
                 ? this.styles.classNames.cabDragging
                 : this.styles.classNames.cab
             }
+            style={this.isDragging ? cabDraggingStyle : cabStyle}
           />
         </div>
         {this.renderWhileDragging()}

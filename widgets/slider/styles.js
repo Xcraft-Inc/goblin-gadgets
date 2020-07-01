@@ -14,7 +14,6 @@ function pc(n) {
 /******************************************************************************/
 
 export const propNames = [
-  'value',
   'direction',
   'disabled',
   'grow',
@@ -31,7 +30,6 @@ export const propNames = [
 
 export default function styles(theme, props) {
   const {
-    value,
     direction,
     disabled,
     grow,
@@ -48,8 +46,6 @@ export default function styles(theme, props) {
 
   const isDark = theme.colors.isDarkTheme;
   const isHorizontal = direction === 'horizontal';
-  const hasCab = value !== null && value !== undefined;
-  const cabValue = Math.max(Math.min(value, 100), 0); // 0..100
   const barColor = colorBar ? ColorHelpers.getMarkColor(theme, colorBar) : null;
 
   const sliderThickness = 24;
@@ -103,7 +99,7 @@ export default function styles(theme, props) {
   const bar = {
     ...glider,
     backgroundColor: barColor,
-    display: hasCab && barColor ? null : 'none',
+    opacity: barColor ? 1 : 0,
   };
 
   const cab = {
@@ -112,7 +108,6 @@ export default function styles(theme, props) {
     height: px(cabThickness),
     borderRadius: px(cabThickness / 2),
     background: 'white',
-    display: hasCab ? null : 'none',
   };
 
   if (gradient === '1to2') {
@@ -135,14 +130,12 @@ export default function styles(theme, props) {
     const r = px(gliderThickness / 2);
     bar.borderRadius = `${r} 0px 0px ${r}`;
     bar.right = null;
-    bar.width = `calc(${pc(cabValue)} + ${px(gliderThickness / 2)})`;
     bar.boxShadow = `${ColorManipulator.darken(
       colorBar,
       0.6
     )} 0px -3px 6px inset`;
 
     cab.width = px(cabWidth);
-    cab.left = `calc(${pc(cabValue)} - ${px(cabWidth / 2)})`;
     cab.bottom = px(-cabThickness / 2 + 1);
     cab.boxShadow = '0px 3px 4px 0px rgba(0,0,0,0.6)';
   } else {
@@ -160,14 +153,12 @@ export default function styles(theme, props) {
     const r = px(gliderThickness / 2);
     bar.borderRadius = `0px 0px ${r} ${r}`;
     bar.top = null;
-    bar.height = `calc(${pc(cabValue)} + ${px(gliderThickness / 2)})`;
     bar.boxShadow = `${ColorManipulator.darken(
       colorBar,
       0.6
     )} -3px 0px 6px inset`;
 
     cab.height = px(cabWidth);
-    cab.bottom = `calc(${pc(cabValue)} - ${px(cabWidth / 2)})`;
     cab.left = px(-cabThickness / 2 - 1);
     cab.boxShadow = '3px 0px 4px 0px rgba(0,0,0,0.6)';
   }

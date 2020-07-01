@@ -300,8 +300,7 @@ class ColorPicker extends Widget {
         gradient={gradient}
         gradientColor1={sliderColor1}
         gradientColor2={sliderColor2}
-        changeMode="throttled"
-        throttleDelay={50}
+        changeMode="immediate"
         onChange={(value) =>
           this.onColorChanged(key, Math.round((value * range) / 100))
         }
@@ -484,8 +483,7 @@ class ColorPicker extends Widget {
               gliderSize="default"
               cabSize="default"
               value={analysis.h}
-              changeMode="throttled"
-              throttleDelay={50}
+              changeMode="immediate"
               onChange={(a) => this.onColorChanged('h', Math.round(a))}
             />
           </div>
@@ -498,10 +496,8 @@ class ColorPicker extends Widget {
               marginStyle="none"
               draggingScale={2}
               hue={analysis.h}
-              valueX={analysis.s}
-              valueY={analysis.l}
-              changeMode="throttled"
-              throttleDelay={50}
+              value={`${analysis.s};${analysis.l}`}
+              changeMode="immediate"
               onChange={(xy) => {
                 const p = xy.split(';');
                 this.onColorChanged('s', Math.round(p[0]));

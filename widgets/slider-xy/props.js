@@ -3,16 +3,10 @@ import {types} from 'goblin-gadgets/types/types.js';
 export default [
   // Aspect.
   {
-    name: 'valueX',
+    name: 'value',
     group: 'aspect',
     type: types.number,
-    description: 'Value between 0 and 100.',
-  },
-  {
-    name: 'valueY',
-    group: 'aspect',
-    type: types.number,
-    description: 'Value between 0 and 100.',
+    description: 'Values XY between 0 and 100 (by example "50;0").',
   },
   {
     name: 'marginSize',

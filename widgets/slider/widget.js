@@ -11,6 +11,16 @@ import wrapRawInput from 'goblin-gadgets/widgets/input-wrapper/widget.js';
 
 /******************************************************************************/
 
+function px(n) {
+  return n + 'px';
+}
+
+function pc(n) {
+  return n + '%';
+}
+
+/******************************************************************************/
+
 class Slider extends Widget {
   constructor() {
     super(...arguments);
@@ -140,6 +150,45 @@ class Slider extends Widget {
   }
 
   render() {
+    const hasCab = this.props.value !== null && this.props.value !== undefined;
+    const cabValue = hasCab
+      ? Math.max(Math.min(this.props.value, 100), 0)
+      : null; // 0..100
+
+    const gliderThickness = {
+      small: 4,
+      default: 8,
+      large: 14,
+    }[this.props.gliderSize || 'default'];
+
+    let cabThickness = {
+      small: 8,
+      default: 14,
+      large: 18,
+    }[this.props.cabSize || 'default'];
+
+    let cabWidth = cabThickness;
+    if (this.props.cabType === 'thin') {
+      cabWidth = 4;
+      cabThickness *= 1.5;
+    }
+
+    const barStyle = {};
+    const cabStyle = {};
+
+    if (hasCab) {
+      if (this.props.direction === 'horizontal') {
+        barStyle.width = `calc(${pc(cabValue)} + ${px(gliderThickness / 2)})`;
+        cabStyle.left = `calc(${pc(cabValue)} - ${px(cabWidth / 2)})`;
+      } else {
+        barStyle.height = `calc(${pc(cabValue)} + ${px(gliderThickness / 2)})`;
+        cabStyle.bottom = `calc(${pc(cabValue)} - ${px(cabWidth / 2)})`;
+      }
+    } else {
+      barStyle.display = 'none';
+      cabStyle.display = 'none';
+    }
+
     return (
       <div
         ref={(node) => (this.sliderNode = node)}
@@ -149,8 +198,8 @@ class Slider extends Widget {
         <TranslatableDiv title={this.props.tooltip}>
           <div className={this.styles.classNames.inside}>
             {this.renderGlider()}
-            <div className={this.styles.classNames.bar} />
-            <div className={this.styles.classNames.cab} />
+            <div className={this.styles.classNames.bar} style={barStyle} />
+            <div className={this.styles.classNames.cab} style={cabStyle} />
           </div>
           {this.renderWhileDragging()}
         </TranslatableDiv>

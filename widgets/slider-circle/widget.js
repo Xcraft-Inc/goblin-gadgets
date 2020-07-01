@@ -17,8 +17,39 @@ function clipAngleDeg(angle) {
   return angle < 0.0 ? 360.0 + angle : angle;
 }
 
+function degToRad(angle) {
+  return (angle * Math.PI) / 180.0;
+}
+
 function radToDeg(angle) {
   return (angle * 180.0) / Math.PI;
+}
+
+function rotatePointDeg(center, angle, p) {
+  return rotatePointRad(center, degToRad(angle), p);
+}
+
+function rotatePointRad(center, angle, p) {
+  //	Fait tourner un point autour d'un centre.
+  //	L'angle est exprimé en radians.
+  //	Un angle positif est horaire (CW), puisque Y va de haut en bas.
+
+  const a = {x: 0, y: 0};
+  const b = {x: 0, y: 0};
+
+  a.x = p.x - center.x;
+  a.y = p.y - center.y;
+
+  const sin = Math.sin(angle);
+  const cos = Math.cos(angle);
+
+  b.x = a.x * cos - a.y * sin;
+  b.y = a.x * sin + a.y * cos;
+
+  b.x += center.x;
+  b.y += center.y;
+
+  return b;
 }
 
 function computeAngleDegFromPoints(c, a) {
@@ -43,6 +74,12 @@ function computeAngleRadFromXY(x, y) {
   }
 
   return Math.atan2(y, x);
+}
+
+/******************************************************************************/
+
+function px(n) {
+  return n + 'px';
 }
 
 function n(n) {
@@ -143,6 +180,36 @@ class SliderCircle extends Widget {
   }
 
   render() {
+    const w = n(this.props.width);
+    const h = n(this.props.height);
+    const hasCab = this.props.value !== null && this.props.value !== undefined;
+    const cabValue = hasCab
+      ? Math.max(Math.min(this.props.value, 360), 0)
+      : null; // 0..360
+
+    const gliderThickness = {
+      small: 10,
+      default: 20,
+      large: 30,
+    }[this.props.gliderSize || 'default'];
+
+    const cabThickness = {
+      small: 8,
+      default: 14,
+      large: 18,
+    }[this.props.cabSize || 'default'];
+
+    const p = rotatePointDeg({x: w / 2, y: h / 2}, cabValue, {
+      x: w / 2,
+      y: h / 2 - h / 2 + gliderThickness / 2,
+    });
+
+    const cabStyle = {
+      left: px(p.x - cabThickness / 2),
+      top: px(p.y - cabThickness / 2),
+      display: hasCab ? null : 'none',
+    };
+
     return (
       <div
         ref={(node) => (this.sliderNode = node)}
@@ -150,7 +217,7 @@ class SliderCircle extends Widget {
         onMouseDown={this.onDragDown}
       >
         <div className={this.styles.classNames.inside} />
-        <div className={this.styles.classNames.cab} />
+        <div className={this.styles.classNames.cab} style={cabStyle} />
         {this.renderWhileDragging()}
       </div>
     );

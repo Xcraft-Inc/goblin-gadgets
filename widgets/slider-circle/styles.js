@@ -3,39 +3,6 @@ import {ColorHelpers} from 'goblin-theme';
 
 /******************************************************************************/
 
-function degToRad(angle) {
-  return (angle * Math.PI) / 180.0;
-}
-
-function rotatePointDeg(center, angle, p) {
-  return rotatePointRad(center, degToRad(angle), p);
-}
-
-function rotatePointRad(center, angle, p) {
-  //	Fait tourner un point autour d'un centre.
-  //	L'angle est exprimé en radians.
-  //	Un angle positif est horaire (CW), puisque Y va de haut en bas.
-
-  const a = {x: 0, y: 0};
-  const b = {x: 0, y: 0};
-
-  a.x = p.x - center.x;
-  a.y = p.y - center.y;
-
-  const sin = Math.sin(angle);
-  const cos = Math.cos(angle);
-
-  b.x = a.x * cos - a.y * sin;
-  b.y = a.x * sin + a.y * cos;
-
-  b.x += center.x;
-  b.y += center.y;
-
-  return b;
-}
-
-/******************************************************************************/
-
 function px(n) {
   return n + 'px';
 }
@@ -54,7 +21,6 @@ function n(n) {
 /******************************************************************************/
 
 export const propNames = [
-  'value',
   'disabled',
   'grow',
   'width',
@@ -65,7 +31,6 @@ export const propNames = [
 
 export default function styles(theme, props) {
   const {
-    value,
     disabled,
     grow,
     width,
@@ -73,10 +38,6 @@ export default function styles(theme, props) {
     gliderSize = 'default',
     cabSize = 'default',
   } = props;
-
-  const w = n(width);
-  const h = n(height);
-  const hasCab = value !== null && value !== undefined;
 
   const gliderThickness = {
     small: 10,
@@ -89,12 +50,6 @@ export default function styles(theme, props) {
     default: 14,
     large: 18,
   }[cabSize];
-
-  const cabValue = Math.max(Math.min(value, 360), 0); // 0..360
-  const p = rotatePointDeg({x: w / 2, y: h / 2}, cabValue, {
-    x: w / 2,
-    y: h / 2 - h / 2 + gliderThickness / 2,
-  });
 
   const sliderCircle = {
     position: 'relative',
@@ -121,14 +76,11 @@ export default function styles(theme, props) {
 
   const cab = {
     position: 'absolute',
-    left: px(p.x - cabThickness / 2),
-    top: px(p.y - cabThickness / 2),
     width: px(cabThickness),
     height: px(cabThickness),
     borderRadius: px(cabThickness / 2),
     background: 'white',
     boxShadow: '0px 3px 4px 0px rgba(0,0,0,0.6)',
-    display: hasCab ? null : 'none',
   };
 
   const fullscreen = {
