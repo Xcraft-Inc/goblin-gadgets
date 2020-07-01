@@ -1551,7 +1551,6 @@ class Field extends Form {
       case 'integer':
       case 'percent':
       case 'delay':
-        return this.renderReadonlyTyped();
       case 'color':
         return this.renderReadonlyTyped();
       case 'time-interval':
@@ -1621,7 +1620,6 @@ class Field extends Form {
       case 'integer':
       case 'percent':
       case 'delay':
-        return this.renderEditTyped();
       case 'color':
         return this.renderEditTyped();
       case 'time-interval':

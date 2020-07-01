@@ -48,6 +48,13 @@ export default [
     type: types.any,
   },
   {
+    name: 'changeComboMode',
+    group: 'functionality',
+    type: types.enum(['', 'whenClosed']),
+    description:
+      "'whenClosed': onChange is called only when combo is closed (only works with type = 'color').",
+  },
+  {
     name: 'useTips',
     group: 'tips',
     type: types.bool,

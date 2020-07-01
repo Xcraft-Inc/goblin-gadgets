@@ -418,6 +418,7 @@ export default class TextFieldTypedNC extends Widget {
         comboGlyphHide="regular/square"
         hideButtonCombo={this.props.hideButtonCombo}
         ref={this.setButtonComboRef}
+        changeComboMode={this.props.changeComboMode}
         onColorChanged={this.handleColorChanged}
       ></ButtonCombo>
     );

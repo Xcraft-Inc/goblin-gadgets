@@ -27,7 +27,7 @@ export default [
     group: 'functionality',
     type: types.enum(['blur', 'throttled', 'immediate', 'passthrough']),
     description:
-      "'blur': onChange is called only on blur. 'throttled': onChange is called on blur and every X ms (see 'throttleDelay'). 'immediate': onChange is called on each key press. 'passthrough': value and onChange are directly given to the underlying input.",
+      "'blur': onChange is called only on blur.\n'throttled': onChange is called on blur and every X ms (see 'throttleDelay').\n'immediate': onChange is called on each key press.\n'passthrough': value and onChange are directly given to the underlying input.",
   },
   {
     name: 'throttleDelay',

@@ -135,28 +135,26 @@ class ColorPicker extends Widget {
     });
   }
 
-  changeColor(canonical, send) {
+  changeColor(canonical) {
     this.updateColor(canonical);
 
-    if (this.props.onChange && send) {
+    if (this.props.onChange) {
       this.props.onChange(canonical);
     }
 
-    if (send) {
-      this.pushColor(canonical);
-    }
+    this.pushColor(canonical);
 
     this.info = null;
     this.warning = null;
   }
 
-  onColorChanged(key, value, send) {
+  onColorChanged(key, value) {
     const analysis = {...this.analysis};
     analysis[key] = value;
     this.analysis = analysis;
 
     const canonical = ColorConverters.analysisToCanonical(analysis);
-    this.changeColor(canonical, send);
+    this.changeColor(canonical);
   }
 
   parseEditedValue(value) {
@@ -225,7 +223,7 @@ class ColorPicker extends Widget {
         glyph={glyph}
         tooltip={tooltip}
         active={this.mode === mode}
-        onClick={() => this.onColorChanged('mode', mode, true)}
+        onClick={() => this.onColorChanged('mode', mode)}
       />
     );
   }
@@ -302,8 +300,10 @@ class ColorPicker extends Widget {
         gradient={gradient}
         gradientColor1={sliderColor1}
         gradientColor2={sliderColor2}
-        onChange={(value, send) =>
-          this.onColorChanged(key, Math.round((value * range) / 100), send)
+        changeMode="throttled"
+        throttleDelay={50}
+        onChange={(value) =>
+          this.onColorChanged(key, Math.round((value * range) / 100))
         }
       />
     );
@@ -331,7 +331,7 @@ class ColorPicker extends Widget {
             min={0}
             max={range}
             value={value}
-            onChange={(value) => this.onColorChanged(key, value, true)}
+            onChange={(value) => this.onColorChanged(key, value)}
           />
           <Separator kind="exact" height="5px" />
           {this.renderComposantSlider(
@@ -354,7 +354,7 @@ class ColorPicker extends Widget {
             min={0}
             max={range}
             value={value}
-            onChange={(value) => this.onColorChanged(key, value, true)}
+            onChange={(value) => this.onColorChanged(key, value)}
           />
           <Label width="10px" />
           {this.renderComposantSlider(
@@ -484,9 +484,9 @@ class ColorPicker extends Widget {
               gliderSize="default"
               cabSize="default"
               value={analysis.h}
-              onChange={(a, send) =>
-                this.onColorChanged('h', Math.round(a), send)
-              }
+              changeMode="throttled"
+              throttleDelay={50}
+              onChange={(a) => this.onColorChanged('h', Math.round(a))}
             />
           </div>
           <div className={this.styles.classNames.composantHslSquare}>
@@ -500,9 +500,12 @@ class ColorPicker extends Widget {
               hue={analysis.h}
               valueX={analysis.s}
               valueY={analysis.l}
-              onChange={(x, y, send) => {
-                this.onColorChanged('s', Math.round(x), send);
-                this.onColorChanged('l', Math.round(y), send);
+              changeMode="throttled"
+              throttleDelay={50}
+              onChange={(xy) => {
+                const p = xy.split(';');
+                this.onColorChanged('s', Math.round(p[0]));
+                this.onColorChanged('l', Math.round(p[1]));
               }}
             />
           </div>

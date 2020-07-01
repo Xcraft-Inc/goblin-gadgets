@@ -7,10 +7,11 @@ import {
 } from 'xcraft-core-utils/lib/prop-types';
 import * as styles from './styles';
 import {TranslatableDiv} from 'nabu/helpers/element-helpers';
+import wrapRawInput from 'goblin-gadgets/widgets/input-wrapper/widget.js';
 
 /******************************************************************************/
 
-export default class Slider extends Widget {
+class Slider extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
@@ -39,7 +40,7 @@ export default class Slider extends Widget {
     return this.props.direction === 'horizontal';
   }
 
-  changeValue(e, send) {
+  changeValue(e, mouse) {
     const rect = this.sliderNode.getBoundingClientRect();
     const sliderThickness = 24; // as defined in style!
 
@@ -56,25 +57,38 @@ export default class Slider extends Widget {
 
     value = Math.max(value, 0);
     value = Math.min(value, 100);
-    this.props.onChange(value, send);
+
+    // Call input-wrapper:
+    switch (mouse) {
+      case 'down':
+        this.props.onFocus();
+        this.props.onChange(value);
+        break;
+      case 'move':
+        this.props.onChange(value);
+        break;
+      case 'up':
+        this.props.onBlur(value);
+        break;
+    }
   }
 
   onDragDown(e) {
     if (this.props.onChange && this.sliderNode && !this.props.disabled) {
-      this.changeValue(e, false);
       this.isDragging = true;
+      this.changeValue(e, 'down');
     }
   }
 
   onDragMove(e) {
     if (this.props.onChange && this.sliderNode && this.isDragging) {
-      this.changeValue(e, false);
+      this.changeValue(e, 'move');
     }
   }
 
   onDragUp(e) {
     if (this.props.onChange && this.sliderNode && this.isDragging) {
-      this.changeValue(e, true);
+      this.changeValue(e, 'up');
     }
     this.isDragging = false;
   }
@@ -149,3 +163,10 @@ export default class Slider extends Widget {
 
 Slider.propTypes = makePropTypes(Props);
 Slider.defaultProps = makeDefaultProps(Props);
+
+/******************************************************************************/
+
+const wrappedSlider = wrapRawInput(Slider);
+wrappedSlider.displayName = 'WrappedSlider';
+
+export default wrappedSlider;

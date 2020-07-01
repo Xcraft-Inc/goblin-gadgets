@@ -57,6 +57,15 @@ export default class ButtonCombo extends Widget {
     if (this.props.onHideCombo) {
       this.props.onHideCombo();
     }
+
+    if (
+      this.props.comboType === 'color' &&
+      this.props.changeComboMode === 'whenClosed'
+    ) {
+      if (this.props.onColorChanged) {
+        this.props.onColorChanged(this.color);
+      }
+    }
   }
 
   onChange(item) {
@@ -80,8 +89,12 @@ export default class ButtonCombo extends Widget {
   }
 
   handleColorChanged(color) {
-    if (this.props.onColorChanged) {
-      this.props.onColorChanged(color);
+    if (this.props.changeComboMode === 'whenClosed') {
+      this.color = color;
+    } else {
+      if (this.props.onColorChanged) {
+        this.props.onColorChanged(color);
+      }
     }
   }
 

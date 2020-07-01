@@ -77,4 +77,18 @@ export default [
     group: 'function',
     type: types.function,
   },
+
+  // Functionality.
+  {
+    name: 'changeMode',
+    group: 'functionality',
+    type: types.enum(['blur', 'throttled', 'immediate', 'passthrough']),
+    description:
+      "'blur': onChange is called only on blur.\n'throttled': onChange is called on blur and every X ms (see 'throttleDelay').\n'immediate': onChange is called on each key press.\n'passthrough': value and onChange are directly given to the underlying input.",
+  },
+  {
+    name: 'throttleDelay',
+    group: 'functionality',
+    type: types.number,
+  },
 ];

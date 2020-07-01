@@ -7,6 +7,7 @@ import {
 } from 'xcraft-core-utils/lib/prop-types';
 import * as styles from './styles';
 import {color as ColorConverters} from 'xcraft-core-converters';
+import wrapRawInput from 'goblin-gadgets/widgets/input-wrapper/widget.js';
 
 /******************************************************************************/
 
@@ -53,7 +54,7 @@ function n(n) {
 
 /******************************************************************************/
 
-export default class SliderCircle extends Widget {
+class SliderCircle extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
@@ -78,7 +79,7 @@ export default class SliderCircle extends Widget {
   }
   //#endregion
 
-  changeValue(e, send) {
+  changeValue(e, mouse) {
     const rect = this.sliderNode.getBoundingClientRect();
 
     const x = e.clientX - rect.left;
@@ -88,27 +89,39 @@ export default class SliderCircle extends Widget {
     const h = n(this.props.height);
 
     const a = computeAngleDegFromPoints({x: w / 2, y: h / 2}, {x, y});
-    const b = clipAngleDeg(a + 90);
+    const value = clipAngleDeg(a + 90);
 
-    this.props.onChange(b, send);
+    // Call input-wrapper:
+    switch (mouse) {
+      case 'down':
+        this.props.onFocus();
+        this.props.onChange(value);
+        break;
+      case 'move':
+        this.props.onChange(value);
+        break;
+      case 'up':
+        this.props.onBlur(value);
+        break;
+    }
   }
 
   onDragDown(e) {
     if (this.props.onChange && this.sliderNode && !this.props.disabled) {
-      this.changeValue(e, false);
       this.isDragging = true;
+      this.changeValue(e, 'down');
     }
   }
 
   onDragMove(e) {
     if (this.props.onChange && this.sliderNode && this.isDragging) {
-      this.changeValue(e, false);
+      this.changeValue(e, 'move');
     }
   }
 
   onDragUp(e) {
     if (this.props.onChange && this.sliderNode && this.isDragging) {
-      this.changeValue(e, true);
+      this.changeValue(e, 'up');
     }
     this.isDragging = false;
   }
@@ -148,3 +161,10 @@ export default class SliderCircle extends Widget {
 
 SliderCircle.propTypes = makePropTypes(Props);
 SliderCircle.defaultProps = makeDefaultProps(Props);
+
+/******************************************************************************/
+
+const wrappedSliderCircle = wrapRawInput(SliderCircle);
+wrappedSliderCircle.displayName = 'WrappedSliderCircle';
+
+export default wrappedSliderCircle;
