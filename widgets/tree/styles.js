@@ -10,9 +10,6 @@ export const propNames = [
   'height',
   'headerWithoutHorizontalSeparator',
   'row',
-  'darkTheme',
-  'hoverBackgroundColor',
-  'selectedBackgroundColor',
 ];
 
 export function mapProps(props) {

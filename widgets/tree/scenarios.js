@@ -8,15 +8,6 @@ export default [
     },
   },
   {
-    name: 'dark',
-    props: {
-      data: 'T1',
-      darkTheme: true,
-      hoverBackgroundColor: '#333',
-      selectedBackgroundColor: '#555',
-    },
-  },
-  {
     name: 'empty',
     props: {},
   },

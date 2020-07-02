@@ -4,13 +4,7 @@ const TableHelpers = require('gadgets/helpers/table-helpers');
 
 /******************************************************************************/
 
-export const propNames = [
-  'row',
-  'isExpanded',
-  'darkTheme',
-  'hoverBackgroundColor',
-  'selectedBackgroundColor',
-];
+export const propNames = ['row', 'isExpanded'];
 
 export function mapProps(props) {
   const {row, ...otherProps} = props;

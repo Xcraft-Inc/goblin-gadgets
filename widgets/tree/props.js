@@ -217,21 +217,6 @@ export default [
     group: 'aspect',
     type: types.bool,
   },
-  {
-    name: 'darkTheme',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'hoverBackgroundColor',
-    group: 'aspect',
-    type: types.color,
-  },
-  {
-    name: 'selectedBackgroundColor',
-    group: 'aspect',
-    type: types.color,
-  },
 
   // Layout.
   {

@@ -33,10 +33,7 @@ function getBackgroundColor(theme, backgroundColor, hover, props) {
       break;
   }
 
-  const hoverBackgroundColor =
-    props && props.hoverBackgroundColor
-      ? props.hoverBackgroundColor
-      : theme.palette.tableHoverBackground;
+  const hoverBackgroundColor = theme.palette.tableHoverBackground;
 
   if (hover === 'main') {
     backgroundColor = hoverBackgroundColor;
@@ -52,10 +49,7 @@ function getBackgroundColor(theme, backgroundColor, hover, props) {
 }
 
 function getSelectedBackgroundColor(theme, hover, props) {
-  let backgroundColor =
-    props && props.selectedBackgroundColor
-      ? props.selectedBackgroundColor
-      : theme.palette.tableSelectedBackground;
+  let backgroundColor = theme.palette.tableSelectedBackground;
 
   if (hover === 'main') {
     backgroundColor = darken(theme, backgroundColor, 0.3, props);

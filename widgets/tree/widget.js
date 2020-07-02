@@ -216,9 +216,6 @@ export default class Tree extends Widget {
         key={index}
         index={index}
         level={level}
-        darkTheme={this.props.darkTheme}
-        hoverBackgroundColor={this.props.hoverBackgroundColor}
-        selectedBackgroundColor={this.props.selectedBackgroundColor}
         selected={this.isSelected(id)}
         isExpanded={this.getExpand(id)}
         hasChildren={rows && rows.size > 0}
