@@ -11,8 +11,6 @@ export default function styles(theme, props) {
     flexGrow: 1,
     display: 'flex',
     flexDirection: 'column',
-    background: 'linear-gradient(180deg, black 0px, #222 15px)',
-    color: '#0a0',
     overflow: 'hidden',
   };
 

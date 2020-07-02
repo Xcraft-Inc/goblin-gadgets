@@ -180,10 +180,10 @@ class StateMonitor extends Widget {
 
     const inputStyle = {
       flexGrow: 1,
-      border: 'none',
       padding: '5px 10px',
-      color: '#0f0',
-      backgroundColor: '#333',
+      border: `1px solid ${this.context.theme.palette.textFieldBorderColor}`,
+      color: this.context.theme.palette.textColor,
+      backgroundColor: this.context.theme.palette.textFieldBackground,
       fontSize: '1em',
       fontWeight: 900,
     };
@@ -244,15 +244,15 @@ class StateMonitor extends Widget {
             height="230px"
             glyph="light/radar"
             glyphSize="1200%"
-            glyphColor="rgba(0,255,0,0.2)"
             glyphPosition="center"
             justify="center"
+            disabled={true}
           />
           {result.current ? (
             <Label
               text={T('Does not exist in the backend state')}
-              textColor="#0f0"
               fontSize="150%"
+              disabled={true}
             />
           ) : null}
         </div>
