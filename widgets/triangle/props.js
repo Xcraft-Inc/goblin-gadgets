@@ -11,12 +11,12 @@ export default [
   {
     name: 'size',
     group: 'main',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'shift',
     group: 'main',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'color',
@@ -28,12 +28,12 @@ export default [
   {
     name: 'parentSimulatorHeight',
     group: 'simulation',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'parentSimulatorWidth',
     group: 'simulation',
-    type: types.size,
+    type: types.pixel,
     description:
       'Height and width of the parent, only for simulation. Normally, these values are not specified.',
   },

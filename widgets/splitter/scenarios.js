@@ -51,12 +51,12 @@ export default [
     name: 'Vpx',
     props: {
       kind: 'vertical',
-      firstSize: {type: 'size', value: '120px'},
-      lastSize: {type: 'size'},
-      firstMinSize: {type: 'size', value: '10px'},
-      lastMinSize: {type: 'size', value: '10px'},
-      firstMaxSize: {type: 'size'},
-      lastMaxSize: {type: 'size'},
+      firstSize: {type: 'pixel', value: '120px'},
+      lastSize: {type: 'pixel'},
+      firstMinSize: {type: 'pixel', value: '10px'},
+      lastMinSize: {type: 'pixel', value: '10px'},
+      firstMaxSize: {type: 'pixel'},
+      lastMaxSize: {type: 'pixel'},
       children: (
         <React.Fragment>
           <Container width="100%" height="100%" backgroundColor="aliceblue">
@@ -73,12 +73,12 @@ export default [
     name: 'Vpx',
     props: {
       kind: 'vertical',
-      firstSize: {type: 'size'},
-      lastSize: {type: 'size', value: '120px'},
-      firstMinSize: {type: 'size', value: '10px'},
-      lastMinSize: {type: 'size', value: '10px'},
-      firstMaxSize: {type: 'size'},
-      lastMaxSize: {type: 'size'},
+      firstSize: {type: 'pixel'},
+      lastSize: {type: 'pixel', value: '120px'},
+      firstMinSize: {type: 'pixel', value: '10px'},
+      lastMinSize: {type: 'pixel', value: '10px'},
+      firstMaxSize: {type: 'pixel'},
+      lastMaxSize: {type: 'pixel'},
       children: (
         <React.Fragment>
           <Container width="100%" height="100%" backgroundColor="aliceblue">
@@ -139,12 +139,12 @@ export default [
     name: 'Hpx',
     props: {
       kind: 'horizontal',
-      firstSize: {type: 'size', value: '120px'},
-      lastSize: {type: 'size'},
-      firstMinSize: {type: 'size', value: '10px'},
-      lastMinSize: {type: 'size', value: '10px'},
-      firstMaxSize: {type: 'size'},
-      lastMaxSize: {type: 'size'},
+      firstSize: {type: 'pixel', value: '120px'},
+      lastSize: {type: 'pixel'},
+      firstMinSize: {type: 'pixel', value: '10px'},
+      lastMinSize: {type: 'pixel', value: '10px'},
+      firstMaxSize: {type: 'pixel'},
+      lastMaxSize: {type: 'pixel'},
       children: (
         <React.Fragment>
           <Container width="100%" height="100%" backgroundColor="aliceblue">
@@ -161,12 +161,12 @@ export default [
     name: 'Hpx',
     props: {
       kind: 'horizontal',
-      firstSize: {type: 'size'},
-      lastSize: {type: 'size', value: '120px'},
-      firstMinSize: {type: 'size', value: '10px'},
-      lastMinSize: {type: 'size', value: '10px'},
-      firstMaxSize: {type: 'size'},
-      lastMaxSize: {type: 'size'},
+      firstSize: {type: 'pixel'},
+      lastSize: {type: 'pixel', value: '120px'},
+      firstMinSize: {type: 'pixel', value: '10px'},
+      lastMinSize: {type: 'pixel', value: '10px'},
+      firstMaxSize: {type: 'pixel'},
+      lastMaxSize: {type: 'pixel'},
       children: (
         <React.Fragment>
           <Container width="100%" height="100%" backgroundColor="aliceblue">

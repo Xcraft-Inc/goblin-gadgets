@@ -29,17 +29,17 @@ export default [
   {
     name: 'borderSize',
     group: 'aspect',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'borderRadius',
     group: 'aspect',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'margin',
     group: 'aspect',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'borderColor',
@@ -51,7 +51,7 @@ export default [
   {
     name: 'titleBarHeight',
     group: 'title',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'titleBarText',
@@ -68,32 +68,32 @@ export default [
   {
     name: 'minWidth',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'minHeight',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'width',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'height',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'horizontal',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'vertical',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
 
   // Function.

@@ -264,12 +264,12 @@ export default [
   {
     name: 'width',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'height',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'grow',

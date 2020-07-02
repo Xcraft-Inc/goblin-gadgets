@@ -20,12 +20,12 @@ export default [
   {
     name: 'firstSize',
     group: 'size (initial)',
-    type: types.oneOfType([types.size, types.percentage]),
+    type: types.oneOfType([types.pixel, types.percentage]),
   },
   {
     name: 'lastSize',
     group: 'size (initial)',
-    type: types.oneOfType([types.size, types.percentage]),
+    type: types.oneOfType([types.pixel, types.percentage]),
     description: 'Use one of the two properties, but not both.',
   },
 
@@ -33,21 +33,21 @@ export default [
   {
     name: 'firstMinSize',
     group: 'size (limit)',
-    type: types.oneOfType([types.size, types.percentage]),
+    type: types.oneOfType([types.pixel, types.percentage]),
   },
   {
     name: 'firstMaxSize',
     group: 'size (limit)',
-    type: types.oneOfType([types.size, types.percentage]),
+    type: types.oneOfType([types.pixel, types.percentage]),
   },
   {
     name: 'lastMinSize',
     group: 'size (limit)',
-    type: types.oneOfType([types.size, types.percentage]),
+    type: types.oneOfType([types.pixel, types.percentage]),
   },
   {
     name: 'lastMaxSize',
     group: 'size (limit)',
-    type: types.oneOfType([types.size, types.percentage]),
+    type: types.oneOfType([types.pixel, types.percentage]),
   },
 ];

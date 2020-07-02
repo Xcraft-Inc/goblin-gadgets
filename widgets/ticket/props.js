@@ -119,19 +119,19 @@ export default [
   {
     name: 'cornerSize',
     group: 'corner',
-    type: types.size,
+    type: types.pixel,
   },
 
   // Layout.
   {
     name: 'width',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'height',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'grow',

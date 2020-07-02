@@ -194,7 +194,7 @@ export default [
   {
     name: 'triangleShift',
     group: 'aspect',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'backgroundColor',
@@ -211,32 +211,32 @@ export default [
   {
     name: 'width',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'height',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'minWidth',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'minHeight',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'maxWidth',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'maxHeight',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'verticalJustify',
@@ -251,12 +251,12 @@ export default [
   {
     name: 'marginBottom',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'floatingHeight',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'grow',

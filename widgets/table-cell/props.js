@@ -65,12 +65,12 @@ export default [
   {
     name: 'width',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'maxHeight',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'grow',

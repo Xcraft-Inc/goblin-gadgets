@@ -644,7 +644,7 @@ export default [
   {
     name: 'height',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
 
   // Function.

@@ -41,44 +41,44 @@ export default [
   {
     name: 'maxWidth',
     group: 'aspect',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'itemWidth',
     group: 'aspect',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'itemMargin',
     group: 'aspect',
-    type: types.size,
+    type: types.pixel,
   },
 
   // Buttons.
   {
     name: 'buttonsTop',
     group: 'buttons',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'buttonsBottom',
     group: 'buttons',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'buttonsCenter',
     group: 'buttons',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'buttonsSize',
     group: 'buttons',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'buttonsShift',
     group: 'buttons',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'buttonsShape',

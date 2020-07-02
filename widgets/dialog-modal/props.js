@@ -58,41 +58,41 @@ export default [
   {
     name: 'width',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'height',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'left',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'right',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'top',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'bottom',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'center',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'triangleShift',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
 ];

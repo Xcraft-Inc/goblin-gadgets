@@ -467,7 +467,6 @@ export default class TextFieldTypedNC extends Widget {
         type === 'price' ||
         type === 'weight' ||
         type === 'length' ||
-        type === 'pixel' ||
         type === 'number' ||
         type === 'integer' ||
         type === 'double' ||

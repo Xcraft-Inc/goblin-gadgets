@@ -203,7 +203,7 @@ export default [
   {
     name: 'menuItemWidth',
     group: 'menu',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'menuItemTooltips',
@@ -272,12 +272,12 @@ export default [
   {
     name: 'width',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'fieldWidth',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'horizontalSpacing',

@@ -7,7 +7,7 @@ export default [
   {
     name: 'size',
     group: 'aspect',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'look',

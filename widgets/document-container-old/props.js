@@ -5,22 +5,22 @@ export default [
   {
     name: 'width',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'height',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'cornerSize',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'hoverCornerSize',
     group: 'layout',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'grow',
@@ -37,7 +37,7 @@ export default [
   {
     name: 'borderSize',
     group: 'aspect',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'borderColor',

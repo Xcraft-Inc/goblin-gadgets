@@ -150,17 +150,17 @@ export default [
   {
     name: 'itemWidth',
     group: 'aspect',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'itemHeight',
     group: 'aspect',
-    type: types.size,
+    type: types.pixel,
   },
   {
     name: 'margin',
     group: 'aspect',
-    type: types.size,
+    type: types.pixel,
   },
 
   // Events.
