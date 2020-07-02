@@ -8,6 +8,7 @@ import {
   price as PriceConverters,
   weight as WeightConverters,
   length as LengthConverters,
+  pixel as PixelConverters,
   volume as VolumeConverters,
   number as NumberConverters,
   integer as IntegerConverters,
@@ -71,6 +72,8 @@ export default class TextFieldTypedNC extends Widget {
         return WeightConverters.getDisplayed(canonicalValue, this.props.unit);
       case 'length':
         return LengthConverters.getDisplayed(canonicalValue, this.props.unit);
+      case 'pixel':
+        return PixelConverters.getDisplayed(canonicalValue);
       case 'volume':
         return VolumeConverters.getDisplayed(canonicalValue, this.props.unit);
       case 'number':
@@ -144,6 +147,8 @@ export default class TextFieldTypedNC extends Widget {
         return WeightConverters.parseEdited(displayedValue, this.props.unit);
       case 'length':
         return LengthConverters.parseEdited(displayedValue, this.props.unit);
+      case 'pixel':
+        return PixelConverters.parseEdited(displayedValue);
       case 'volume':
         return VolumeConverters.parseEdited(displayedValue, this.props.unit);
       case 'number':
@@ -462,6 +467,7 @@ export default class TextFieldTypedNC extends Widget {
         type === 'price' ||
         type === 'weight' ||
         type === 'length' ||
+        type === 'pixel' ||
         type === 'number' ||
         type === 'integer' ||
         type === 'double' ||

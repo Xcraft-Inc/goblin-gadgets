@@ -154,6 +154,7 @@ class WidgetDocPropertyControl extends Widget {
       this.props.type.type === 'price' ||
       this.props.type.type === 'weight' ||
       this.props.type.type === 'length' ||
+      this.props.type.type === 'pixel' ||
       this.props.type.type === 'volume' ||
       this.props.type.type === 'number' ||
       this.props.type.type === 'integer' ||

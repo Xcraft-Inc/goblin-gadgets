@@ -38,6 +38,7 @@ export default [
       'price',
       'weight',
       'length',
+      'pixel',
       'volume',
       'bool',
       'number',

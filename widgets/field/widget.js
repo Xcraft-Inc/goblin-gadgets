@@ -1546,6 +1546,7 @@ class Field extends Form {
       case 'price':
       case 'weight':
       case 'length':
+      case 'pixel':
       case 'volume':
       case 'number':
       case 'integer':
@@ -1615,6 +1616,7 @@ class Field extends Form {
       case 'price':
       case 'weight':
       case 'length':
+      case 'pixel':
       case 'volume':
       case 'number':
       case 'integer':
