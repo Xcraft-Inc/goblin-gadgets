@@ -171,11 +171,12 @@ class WidgetDocPropertyControl extends Widget {
         <React.Fragment>
           <TextFieldTypedNC
             type={this.props.type.type}
+            grow="1"
+            width="unset"
             shape="smooth"
             horizontalSpacing="overlap"
             restrictsToList={restrictsToList}
             rows={multiline ? 2 : null}
-            grow="1"
             value={selectedId}
             onChange={this.onChange}
             menuType="wrap"
