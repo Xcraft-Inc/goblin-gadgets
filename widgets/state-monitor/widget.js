@@ -4,6 +4,7 @@ import * as styles from './styles';
 import Tree from 'goblin-gadgets/widgets/tree/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
+import Frame from 'goblin-laboratory/widgets/frame/widget';
 import T from 't';
 
 /******************************************************************************/
@@ -271,6 +272,24 @@ class StateMonitor extends Widget {
         </div>
       );
     }
+  }
+
+  render_NEW() {
+    const state = this.props.showed ? this.props.state : null;
+
+    return (
+      <div className={this.styles.classNames.stateMonitor}>
+        <Frame
+          labId={this.context.labId}
+          store={this.context.store}
+          currentTheme="default-dark"
+          themeContext="polypheme"
+        >
+          {this.renderFilter(state)}
+          {this.renderTree(state)}
+        </Frame>
+      </div>
+    );
   }
 
   render() {
