@@ -49,11 +49,11 @@ class WidgetDoc extends Widget {
       return (
         <div className={this.styles.classNames.closeButton}>
           <Button
-            width="90px"
-            height="90px"
+            width="50px"
+            height="50px"
             border="none"
             glyph="solid/times"
-            glyphSize="300%"
+            glyphSize="200%"
             onClick={this.props.onClose}
             tooltip="Close"
           />
