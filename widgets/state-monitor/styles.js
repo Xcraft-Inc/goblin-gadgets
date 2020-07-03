@@ -12,6 +12,7 @@ export default function styles(theme, props) {
     display: 'flex',
     flexDirection: 'column',
     overflow: 'hidden',
+    color: '#0f0',
   };
 
   const filter = {
