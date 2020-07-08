@@ -50,7 +50,9 @@ export default function wrapRawInput(Component, valueName = 'value') {
       if (this.props.parse) {
         value = this.props.parse(value);
       }
-      this.props.onChange(value);
+      if (this.props.onChange) {
+        this.props.onChange(value);
+      }
       return value;
     }
 
