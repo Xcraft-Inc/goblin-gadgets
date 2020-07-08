@@ -293,7 +293,10 @@ class ColorPicker extends Widget {
         direction="horizontal"
         grow={isVertical ? null : '1'}
         width={isVertical ? '105px' : null}
-        value={(value * 100) / range}
+        min={0}
+        max={range}
+        step={1}
+        value={value}
         gliderSize={gliderSize}
         cabSize={cabSize}
         cabType={cabType}
@@ -301,9 +304,7 @@ class ColorPicker extends Widget {
         gradientColor1={sliderColor1}
         gradientColor2={sliderColor2}
         changeMode="immediate"
-        onChange={(value) =>
-          this.onColorChanged(key, Math.round((value * range) / 100))
-        }
+        onChange={(value) => this.onColorChanged(key, value)}
       />
     );
   }
