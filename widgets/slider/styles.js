@@ -7,10 +7,6 @@ function px(n) {
   return n + 'px';
 }
 
-function pc(n) {
-  return n + '%';
-}
-
 /******************************************************************************/
 
 export const propNames = [
@@ -189,6 +185,22 @@ export default function styles(theme, props) {
     boxShadow: glider.boxShadow,
   };
 
+  const tooltip = {
+    position: 'absolute',
+    display: 'flex',
+    flexDirection: isHorizontal ? 'row' : 'column',
+    justifyContent: 'center',
+    alignItems: isHorizontal ? null : 'flex-start',
+  };
+
+  const tooltipLabel = {
+    padding: '5px',
+    border: `1px solid ${theme.palette.tooltipBorder}`,
+    borderRadius: '3px',
+    backgroundColor: theme.palette.tooltipBackground,
+    color: theme.palette.tooltipText,
+  };
+
   const fullscreen = {
     zIndex: 999,
     position: 'fixed',
@@ -212,6 +224,8 @@ export default function styles(theme, props) {
     rainbowShadow,
     bar,
     cab,
+    tooltip,
+    tooltipLabel,
     fullscreen,
   };
 }

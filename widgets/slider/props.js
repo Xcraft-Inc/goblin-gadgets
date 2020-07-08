@@ -9,6 +9,24 @@ export default [
     description: 'Value between 0 and 100.',
   },
   {
+    name: 'min',
+    group: 'aspect',
+    type: types.number,
+    description: 'Default value is 0.',
+  },
+  {
+    name: 'max',
+    group: 'aspect',
+    type: types.number,
+    description: 'Default value is 100.',
+  },
+  {
+    name: 'step',
+    group: 'aspect',
+    type: types.number,
+    description: 'Default value is 1.',
+  },
+  {
     name: 'colorBar',
     group: 'aspect',
     type: types.color,
@@ -53,6 +71,11 @@ export default [
     group: 'aspect',
     type: types.bool,
   },
+  {
+    name: 'displayTooltipWhileDragging',
+    group: 'aspect',
+    type: types.bool,
+  },
 
   // Layout.
   {
@@ -74,6 +97,11 @@ export default [
   // Function.
   {
     name: 'onChange',
+    group: 'function',
+    type: types.function,
+  },
+  {
+    name: 'formatTooltip',
     group: 'function',
     type: types.function,
   },

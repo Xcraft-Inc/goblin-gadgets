@@ -7,6 +7,7 @@ import {
 } from 'xcraft-core-utils/lib/prop-types';
 import * as styles from './styles';
 import {TranslatableDiv} from 'nabu/helpers/element-helpers';
+import Label from 'goblin-gadgets/widgets/label/widget';
 import wrapRawInput from 'goblin-gadgets/widgets/input-wrapper/widget.js';
 
 /******************************************************************************/
@@ -50,6 +51,37 @@ class Slider extends Widget {
     return this.props.direction === 'horizontal';
   }
 
+  valueToSlider(value) {
+    const min = this.props.min || 0;
+    const max = this.props.max || 100;
+
+    const s = min;
+    const d = max - min;
+    value = ((value - s) / d) * 100;
+
+    value = Math.max(value, 0);
+    value = Math.min(value, 100);
+
+    return value;
+  }
+
+  sliderToValue(value) {
+    const min = this.props.min || 0;
+    const max = this.props.max || 100;
+
+    const s = min;
+    const d = max - min;
+    value = s + (value / 100) * d;
+
+    const step = this.props.step || 1;
+    value = Math.round(value / step) * step;
+
+    value = Math.max(value, min);
+    value = Math.min(value, max);
+
+    return value;
+  }
+
   changeValue(e, mouse) {
     const rect = this.sliderNode.getBoundingClientRect();
     const sliderThickness = 24; // as defined in style!
@@ -65,8 +97,7 @@ class Slider extends Widget {
       value = ((bottom - e.clientY) * 100) / height;
     }
 
-    value = Math.max(value, 0);
-    value = Math.min(value, 100);
+    value = this.sliderToValue(value);
 
     // Call input-wrapper:
     switch (mouse) {
@@ -135,6 +166,41 @@ class Slider extends Widget {
     }
   }
 
+  renderTooltip(hasCab, cabValue) {
+    if (
+      !this.props.displayTooltipWhileDragging ||
+      !hasCab ||
+      !this.isDragging
+    ) {
+      return null;
+    }
+
+    const style = {};
+    if (this.props.direction === 'horizontal') {
+      style.top = '20px';
+      style.left = `calc(${pc(cabValue)} - 100px)`;
+      style.width = '200px';
+    } else {
+      style.bottom = `calc(${pc(cabValue)} - 25px)`;
+      style.left = '20px';
+      style.width = '100px';
+      style.height = '50px';
+    }
+
+    let text = this.props.value;
+    if (this.props.formatTooltip) {
+      text = this.props.formatTooltip(text);
+    }
+
+    return (
+      <div className={this.styles.classNames.tooltip} style={style}>
+        <div className={this.styles.classNames.tooltipLabel}>
+          <Label text={text} justify="center" />
+        </div>
+      </div>
+    );
+  }
+
   renderWhileDragging() {
     if (!this.isDragging || !this.sliderNode) {
       return null;
@@ -151,9 +217,7 @@ class Slider extends Widget {
 
   render() {
     const hasCab = this.props.value !== null && this.props.value !== undefined;
-    const cabValue = hasCab
-      ? Math.max(Math.min(this.props.value, 100), 0)
-      : null; // 0..100
+    const cabValue = hasCab ? this.valueToSlider(this.props.value) : null; // 0..100
 
     const gliderThickness = {
       small: 4,
@@ -200,6 +264,7 @@ class Slider extends Widget {
             {this.renderGlider()}
             <div className={this.styles.classNames.bar} style={barStyle} />
             <div className={this.styles.classNames.cab} style={cabStyle} />
+            {this.renderTooltip(hasCab, cabValue)}
           </div>
           {this.renderWhileDragging()}
         </TranslatableDiv>

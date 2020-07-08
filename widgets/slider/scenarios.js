@@ -6,6 +6,7 @@ export default [
       colorBar: '#f00',
       width: '150px',
       value: 25,
+      displayTooltipWhileDragging: true,
     },
   },
   {
@@ -15,6 +16,7 @@ export default [
       colorBar: '#f00',
       height: '150px',
       value: 25,
+      displayTooltipWhileDragging: true,
     },
   },
   {
