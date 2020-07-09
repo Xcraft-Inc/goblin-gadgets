@@ -10,6 +10,7 @@ export default function styles() {
   const scenarios = {
     minHeight: '34px',
     margin: '0px 20px 20px 20px',
+    flexShrink: 0,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'baseline',
