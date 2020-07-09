@@ -44,6 +44,18 @@ export default [
     },
   },
   {
+    name: 'step',
+    props: {
+      direction: 'horizontal',
+      width: '300px',
+      min: -1,
+      max: 1,
+      step: 0.1,
+      value: 0,
+      displayValue: 'always',
+    },
+  },
+  {
     name: 'empty',
     props: {},
   },

@@ -9,6 +9,7 @@ import * as styles from './styles';
 import {TranslatableDiv} from 'nabu/helpers/element-helpers';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import wrapRawInput from 'goblin-gadgets/widgets/input-wrapper/widget.js';
+const BigNumber = require('bignumber.js');
 
 /******************************************************************************/
 
@@ -18,6 +19,32 @@ function px(n) {
 
 function pc(n) {
   return n + '%';
+}
+
+const parseFormat = {
+  decimalSeparator: '.',
+  groupSeparator: '',
+  groupSize: 0,
+  secondaryGroupSize: 0,
+  fractionGroupSeparator: ' ',
+  fractionGroupSize: 0,
+};
+
+function configBigNumber() {
+  BigNumber.config({FORMAT: parseFormat, DECIMAL_PLACES: 9});
+}
+
+// See https://github.com/MikeMcl/bignumber.js/
+function toRange(value, min, max) {
+  if (value.isLessThan(min)) {
+    return min;
+  }
+
+  if (value.isGreaterThan(max)) {
+    return max;
+  }
+
+  return value;
 }
 
 /******************************************************************************/
@@ -51,35 +78,49 @@ class Slider extends Widget {
     return this.props.direction === 'horizontal';
   }
 
-  valueToSlider(value) {
-    const min = this.props.min || 0;
-    const max = this.props.max || 100;
-
-    const s = min;
-    const d = max - min;
-    value = ((value - s) / d) * 100;
-
-    value = Math.max(value, 0);
-    value = Math.min(value, 100);
-
-    return value;
+  get min() {
+    return new BigNumber(this.props.min || 0);
   }
 
+  get max() {
+    return new BigNumber(this.props.max || 100);
+  }
+
+  get range() {
+    return this.max.minus(this.min);
+  }
+
+  get step() {
+    return new BigNumber(this.props.step || 1);
+  }
+
+  // [min..max] -> [0..100]
+  valueToSlider(value) {
+    configBigNumber();
+    value = new BigNumber(value);
+
+    value = value.minus(this.min).dividedBy(this.range).multipliedBy(100);
+
+    value = toRange(value, 0, 100);
+
+    return value.toNumber();
+  }
+
+  // [0..100] -> [min..max]
   sliderToValue(value) {
-    const min = this.props.min || 0;
-    const max = this.props.max || 100;
+    configBigNumber();
+    value = new BigNumber(value);
 
-    const s = min;
-    const d = max - min;
-    value = s + (value / 100) * d;
+    value = value.dividedBy(100).multipliedBy(this.range).plus(this.min);
 
-    const step = this.props.step || 1;
-    value = Math.round(value / step) * step;
+    value = value
+      .dividedBy(this.step)
+      .integerValue(BigNumber.ROUND_FLOOR)
+      .multipliedBy(this.step);
 
-    value = Math.max(value, min);
-    value = Math.min(value, max);
+    value = toRange(value, this.min, this.max);
 
-    return value;
+    return value.toNumber();
   }
 
   changeValue(e, mouse) {
