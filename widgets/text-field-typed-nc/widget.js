@@ -262,6 +262,10 @@ export default class TextFieldTypedNC extends Widget {
   }
 
   incNumber(inc) {
+    if (!this.props.onChange) {
+      return;
+    }
+
     let n = this.props.value || 0;
     if (typeof n === 'string') {
       n = parseInt(n);
