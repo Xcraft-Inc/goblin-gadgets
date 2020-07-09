@@ -119,7 +119,7 @@ class Slider extends Widget {
     const sliderThickness = 24; // as defined in style!
 
     let value;
-    if (this.props.direction === 'horizontal') {
+    if (this.isHorizontal) {
       const left = rect.left + sliderThickness / 2;
       const width = rect.width - sliderThickness;
       value = ((e.clientX - left) * 100) / width;
@@ -169,8 +169,7 @@ class Slider extends Widget {
   /******************************************************************************/
 
   renderRainbowFragment(color1, color2) {
-    const horizontal = this.props.direction === 'horizontal';
-    const a = horizontal ? '90deg' : '0deg';
+    const a = this.isHorizontal ? '90deg' : '0deg';
 
     const style = {
       background: `linear-gradient(${a}, ${color1}, ${color2})`,
@@ -209,7 +208,7 @@ class Slider extends Widget {
     }
 
     const style = {};
-    if (this.props.direction === 'horizontal') {
+    if (this.isHorizontal) {
       style.bottom = '10px';
       style.left = `calc(${pc(cabValue)} - 100px)`;
       style.width = '200px';
@@ -274,7 +273,7 @@ class Slider extends Widget {
     const cabStyle = {};
 
     if (hasCab) {
-      if (this.props.direction === 'horizontal') {
+      if (this.isHorizontal) {
         barStyle.width = `calc(${pc(cabValue)} + ${px(gliderThickness / 2)})`;
         cabStyle.left = `calc(${pc(cabValue)} - ${px(cabWidth / 2)})`;
       } else {
