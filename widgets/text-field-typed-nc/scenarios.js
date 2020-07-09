@@ -27,11 +27,47 @@ export default [
     },
   },
   {
+    name: 'number',
+    props: {
+      type: 'number',
+      min: 0,
+      max: 10,
+      step: 0.5,
+      value: 5,
+      tooltip: 'Quantité',
+    },
+  },
+  {
     name: 'integer',
     props: {
       type: 'integer',
-      value: '10',
+      min: 1,
+      max: 10,
+      step: 1,
+      value: 1,
+      tooltip: 'Nombre de copies',
+    },
+  },
+  {
+    name: 'percent',
+    props: {
+      type: 'percent',
+      min: '0',
+      max: '10',
+      step: '1',
+      value: '0.1',
       tooltip: 'Quantité',
+    },
+  },
+  {
+    name: 'price',
+    props: {
+      type: 'price',
+      min: '0',
+      max: '100',
+      step: '10',
+      value: '75',
+      tooltip: 'Prix HT',
     },
   },
   {
