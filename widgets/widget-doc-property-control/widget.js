@@ -131,6 +131,8 @@ class WidgetDocPropertyControl extends Widget {
   get currentValue() {
     if (this.props.value !== null && typeof this.props.value === 'object') {
       return this.props.value.get('value');
+    } else if (typeof this.props.value === 'number') {
+      return this.props.value + '';
     } else {
       return this.props.value;
     }
