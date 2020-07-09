@@ -41,6 +41,21 @@ function getTextFieldShape(shape, hideButton) {
   return textFieldShapes[shape || 'smooth'];
 }
 
+function parseValue(value) {
+  if (typeof value === 'string') {
+    value = parseFloat(value);
+    if (isNaN(value)) {
+      value = 0;
+    }
+  } else if (typeof value === 'number') {
+    // ok
+  } else {
+    value = null;
+  }
+
+  return value;
+}
+
 /******************************************************************************/
 
 export default class TextFieldTypedNC extends Widget {
@@ -261,46 +276,45 @@ export default class TextFieldTypedNC extends Widget {
     }
   }
 
+  get value() {
+    return parseValue(this.props.value);
+  }
+
+  get min() {
+    return parseValue(this.props.min);
+  }
+
+  get max() {
+    return parseValue(this.props.max);
+  }
+
   incNumber(inc) {
     if (!this.props.onChange) {
       return;
     }
 
-    let n = this.props.value || 0;
-    if (typeof n === 'string') {
-      n = parseInt(n);
-      if (isNaN(n)) {
-        n = 0;
-      }
-    }
+    let n = parseValue(this.props.value || this.min || 0);
 
     n += (this.props.step || 1) * inc;
+    n = Math.round(n * 1000) / 1000;
 
-    if (typeof this.props.min === 'number') {
-      n = Math.max(n, this.props.min);
+    if (this.min !== null) {
+      n = Math.max(n, this.min);
     }
 
-    if (typeof this.props.max === 'number') {
-      n = Math.min(n, this.props.max);
+    if (this.max !== null) {
+      n = Math.min(n, this.max);
     }
 
     this.props.onChange(n);
   }
 
   get isPlusEnabled() {
-    return (
-      this.props.max === null ||
-      this.props.max === undefined ||
-      this.props.value < this.props.max
-    );
+    return this.max === null || this.value === null || this.value < this.max;
   }
 
   get isMinusEnabled() {
-    return (
-      this.props.min === null ||
-      this.props.min === undefined ||
-      this.props.value > this.props.min
-    );
+    return this.min === null || this.value === null || this.value > this.min;
   }
 
   handleColorChanged(color) {
@@ -445,6 +459,11 @@ export default class TextFieldTypedNC extends Widget {
   }
 
   renderDefault(otherProps, width, tooltip, justify) {
+    const type = this.props.type;
+    if ((type === 'price' || type === 'percent') && this.props.step) {
+      return this.renderNumber(otherProps, width, tooltip, justify);
+    }
+
     return (
       <TextFieldNC
         {...otherProps}
