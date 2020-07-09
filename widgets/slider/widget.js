@@ -166,35 +166,36 @@ class Slider extends Widget {
     }
   }
 
-  renderTooltip(hasCab, cabValue) {
+  renderValue(hasCab, cabValue) {
     if (
-      !this.props.displayTooltipWhileDragging ||
-      !hasCab ||
-      !this.isDragging
+      !this.props.displayValue ||
+      this.props.displayValue === 'never' ||
+      (this.props.displayValue === 'dragging' && !this.isDragging) ||
+      !hasCab
     ) {
       return null;
     }
 
     const style = {};
     if (this.props.direction === 'horizontal') {
-      style.top = '20px';
+      style.bottom = '10px';
       style.left = `calc(${pc(cabValue)} - 100px)`;
       style.width = '200px';
     } else {
       style.bottom = `calc(${pc(cabValue)} - 25px)`;
-      style.left = '20px';
+      style.right = '10px';
       style.width = '100px';
       style.height = '50px';
     }
 
     let text = this.props.value;
-    if (this.props.formatTooltip) {
-      text = this.props.formatTooltip(text);
+    if (this.props.getDisplayedValue) {
+      text = this.props.getDisplayedValue(text);
     }
 
     return (
-      <div className={this.styles.classNames.tooltip} style={style}>
-        <div className={this.styles.classNames.tooltipLabel}>
+      <div className={this.styles.classNames.value} style={style}>
+        <div className={this.styles.classNames.valueLabel}>
           <Label text={text} justify="center" />
         </div>
       </div>
@@ -263,8 +264,8 @@ class Slider extends Widget {
           <div className={this.styles.classNames.inside}>
             {this.renderGlider()}
             <div className={this.styles.classNames.bar} style={barStyle} />
+            {this.renderValue(hasCab, cabValue)}
             <div className={this.styles.classNames.cab} style={cabStyle} />
-            {this.renderTooltip(hasCab, cabValue)}
           </div>
           {this.renderWhileDragging()}
         </TranslatableDiv>

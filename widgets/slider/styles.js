@@ -185,20 +185,24 @@ export default function styles(theme, props) {
     boxShadow: glider.boxShadow,
   };
 
-  const tooltip = {
+  const value = {
     position: 'absolute',
     display: 'flex',
     flexDirection: isHorizontal ? 'row' : 'column',
     justifyContent: 'center',
-    alignItems: isHorizontal ? null : 'flex-start',
+    alignItems: isHorizontal ? null : 'flex-end',
   };
 
-  const tooltipLabel = {
-    padding: '5px',
-    border: `1px solid ${theme.palette.tooltipBorder}`,
-    borderRadius: '3px',
-    backgroundColor: theme.palette.tooltipBackground,
-    color: theme.palette.tooltipText,
+  const valueBackgroundColor = isDark ? '#333' : '#eee';
+  const valueTextColor = isDark ? '#eee' : '#222';
+  const valueShadowColor = isDark ? 'black' : 'rgba(0,0,0,0.5)';
+
+  const valueLabel = {
+    padding: '2px',
+    borderRadius: '20px',
+    boxShadow: `0px 5px 10px 3px ${valueShadowColor}`,
+    backgroundColor: valueBackgroundColor,
+    color: valueTextColor,
   };
 
   const fullscreen = {
@@ -224,8 +228,8 @@ export default function styles(theme, props) {
     rainbowShadow,
     bar,
     cab,
-    tooltip,
-    tooltipLabel,
+    value,
+    valueLabel,
     fullscreen,
   };
 }
