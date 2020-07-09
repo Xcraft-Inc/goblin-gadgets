@@ -371,30 +371,38 @@ class Field extends Form {
   }
 
   renderReadonlyBool() {
-    const WiredCheckbox = this.mapWidget(
-      Checkbox,
-      (value) => {
-        return {checked: value};
-      },
-      this.fullPath
-    );
+    const {
+      kind,
+      show,
+      grow,
+      height,
+      labelText,
+      labelGlyph,
+      labelWidth = defaultLabelWidth,
+      horizontalSpacing,
+      verticalSpacing,
+      verticalJustify,
+      width,
+      subkind,
+      ...otherProps
+    } = this.props;
 
     return (
       <LabelRow
-        show={this.props.show}
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        labelGlyph={this.props.labelGlyph}
-        labelWidth={this.props.labelWidth || defaultLabelWidth}
-        horizontalSpacing={this.props.horizontalSpacing}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
+        show={show}
+        grow={grow}
+        width={width}
+        height={height}
+        labelGlyph={labelGlyph}
+        labelWidth={labelWidth || defaultLabelWidth}
+        horizontalSpacing={horizontalSpacing}
+        verticalSpacing={verticalSpacing}
+        verticalJustify={verticalJustify}
       >
-        <WiredCheckbox
-          kind={this.props.subkind}
-          glyph={this.props.glyph}
-          text={this.props.labelText}
+        <Checkbox
+          kind={subkind}
+          text={labelText}
+          {...otherProps}
           tooltip={this.props.tooltip || this.props.hintText}
           readonly={true}
         />
@@ -993,41 +1001,40 @@ class Field extends Form {
   }
 
   renderEditBool() {
-    const WiredCheckbox = this.mapWidget(
-      Checkbox,
-      (value) => {
-        return {checked: value};
-      },
-      this.fullPath
-    );
+    const {
+      kind,
+      show,
+      grow,
+      height,
+      labelText,
+      labelGlyph,
+      labelWidth = defaultLabelWidth,
+      horizontalSpacing,
+      verticalSpacing,
+      verticalJustify,
+      width,
+      subkind,
+      ...otherProps
+    } = this.props;
 
     return (
       <LabelRow
-        show={this.props.show}
-        grow={this.props.grow}
-        width={this.props.width}
-        height={this.props.height}
-        labelGlyph={this.props.labelGlyph}
-        labelWidth={this.props.labelWidth || defaultLabelWidth}
-        horizontalSpacing={this.props.horizontalSpacing}
-        verticalSpacing={this.props.verticalSpacing}
-        verticalJustify={this.props.verticalJustify}
+        show={show}
+        grow={grow}
+        width={width}
+        height={height}
+        labelGlyph={labelGlyph}
+        labelWidth={labelWidth || defaultLabelWidth}
+        horizontalSpacing={horizontalSpacing}
+        verticalSpacing={verticalSpacing}
+        verticalJustify={verticalJustify}
       >
-        <WiredCheckbox
-          kind={this.props.subkind}
-          heightStrategy={
-            this.props.verticalSpacing === 'compact' ? 'compact' : null
-          }
-          glyph={this.props.glyph}
-          text={this.props.labelText}
+        <Checkbox
+          kind={subkind}
+          heightStrategy={verticalSpacing === 'compact' ? 'compact' : null}
+          text={labelText}
+          {...otherProps}
           tooltip={this.props.tooltip || this.props.hintText}
-          onChange={() => {
-            const checked = this.getBackendValue(this.fullPath);
-            this.setBackendValue(this.fullPath, !checked);
-            if (this.props.onClick) {
-              this.props.onClick();
-            }
-          }}
         />
       </LabelRow>
     );
