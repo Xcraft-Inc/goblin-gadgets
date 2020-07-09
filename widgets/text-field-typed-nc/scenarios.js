@@ -27,6 +27,14 @@ export default [
     },
   },
   {
+    name: 'integer',
+    props: {
+      type: 'integer',
+      value: '10',
+      tooltip: 'Quantité',
+    },
+  },
+  {
     name: 'volume',
     props: {
       type: 'volume',
