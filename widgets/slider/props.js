@@ -47,11 +47,6 @@ export default [
     group: 'aspect',
     type: types.bool,
   },
-  {
-    name: 'displayValue',
-    group: 'aspect',
-    type: types.enum(['', 'never', 'dragging', 'always']),
-  },
 
   // Value.
   {
@@ -77,6 +72,11 @@ export default [
     group: 'value',
     type: types.number,
     description: 'Default value is 1.',
+  },
+  {
+    name: 'displayValue',
+    group: 'value',
+    type: types.enum(['', 'never', 'dragging', 'always']),
   },
   {
     name: 'getDisplayedValue',
