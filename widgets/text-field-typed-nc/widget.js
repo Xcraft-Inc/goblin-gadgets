@@ -273,22 +273,29 @@ export default class TextFieldTypedNC extends Widget {
         n = 0;
       }
     }
-    this.props.onChange(n + inc);
+
+    n += (this.props.step || 1) * inc;
+
+    if (typeof this.props.min === 'number') {
+      n = Math.max(n, this.props.min);
+    }
+
+    if (typeof this.props.max === 'number') {
+      n = Math.min(n, this.props.max);
+    }
+
+    this.props.onChange(n);
   }
 
   get isPlusEnabled() {
     return (
-      this.props.max === null ||
-      this.props.max === undefined ||
-      this.props.value < this.props.max
+      typeof this.props.max !== 'number' || this.props.value < this.props.max
     );
   }
 
   get isMinusEnabled() {
     return (
-      this.props.min === null ||
-      this.props.min === undefined ||
-      this.props.value > this.props.min
+      typeof this.props.min !== 'number' || this.props.value > this.props.min
     );
   }
 

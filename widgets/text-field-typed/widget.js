@@ -22,6 +22,7 @@ export default Widget.connect((state, props) => {
   let defaultValue = props.defaultValue;
   let min = props.min;
   let max = props.max;
+  let step = props.step;
 
   const entityName = props.entity;
   if (entityName) {
@@ -36,6 +37,7 @@ export default Widget.connect((state, props) => {
       defaultValue = conf.get('defaultValue');
       min = conf.get('min');
       max = conf.get('max');
+      step = conf.get('step');
     }
   }
 
@@ -44,5 +46,6 @@ export default Widget.connect((state, props) => {
     defaultValue,
     min,
     max,
+    step,
   };
 })(Component);

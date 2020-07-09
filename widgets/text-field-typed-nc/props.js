@@ -49,6 +49,11 @@ export default [
     type: types.any,
   },
   {
+    name: 'step',
+    group: 'type',
+    type: types.any,
+  },
+  {
     name: 'changeComboMode',
     group: 'functionality',
     type: types.enum(['', 'whenClosed']),
