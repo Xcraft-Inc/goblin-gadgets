@@ -98,28 +98,19 @@ class Slider extends Widget {
   valueToSlider(value) {
     configBigNumber();
     value = new BigNumber(value);
-
     value = value.minus(this.min).dividedBy(this.range).multipliedBy(100);
-
     value = toRange(value, 0, 100);
-
     return value.toNumber();
   }
 
   // [0..100] -> [min..max]
+  // prettier-ignore
   sliderToValue(value) {
     configBigNumber();
     value = new BigNumber(value);
-
     value = value.dividedBy(100).multipliedBy(this.range).plus(this.min);
-
-    value = value
-      .dividedBy(this.step)
-      .integerValue(BigNumber.ROUND_FLOOR)
-      .multipliedBy(this.step);
-
+    value = value.dividedBy(this.step).integerValue(BigNumber.ROUND_HALF_UP).multipliedBy(this.step);
     value = toRange(value, this.min, this.max);
-
     return value.toNumber();
   }
 
