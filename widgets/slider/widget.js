@@ -148,6 +148,7 @@ class Slider extends Widget {
 
   onDragDown(e) {
     if (this.props.onChange && this.sliderNode && !this.props.disabled) {
+      e.target.setPointerCapture(e.pointerId);
       this.isDragging = true;
       this.changeValue(e, 'down');
     }
@@ -164,6 +165,7 @@ class Slider extends Widget {
       this.changeValue(e, 'up');
     }
     this.isDragging = false;
+    e.target.releasePointerCapture(e.pointerId);
   }
 
   /******************************************************************************/
@@ -233,20 +235,6 @@ class Slider extends Widget {
     );
   }
 
-  renderWhileDragging() {
-    if (!this.isDragging || !this.sliderNode) {
-      return null;
-    }
-
-    return (
-      <div
-        className={this.styles.classNames.fullscreen}
-        onMouseMove={this.onDragMove}
-        onMouseUp={this.onDragUp}
-      />
-    );
-  }
-
   render() {
     const hasCab = this.props.value !== null && this.props.value !== undefined;
     const cabValue = hasCab ? this.valueToSlider(this.props.value) : null; // 0..100
@@ -289,7 +277,9 @@ class Slider extends Widget {
       <div
         ref={(node) => (this.sliderNode = node)}
         className={this.styles.classNames.slider}
-        onMouseDown={this.onDragDown}
+        onPointerDown={this.onDragDown}
+        onPointerMove={this.onDragMove}
+        onPointerUp={this.onDragUp}
       >
         <TranslatableDiv title={this.props.tooltip}>
           <div className={this.styles.classNames.inside}>
@@ -298,7 +288,6 @@ class Slider extends Widget {
             {this.renderValue(hasCab, cabValue)}
             <div className={this.styles.classNames.cab} style={cabStyle} />
           </div>
-          {this.renderWhileDragging()}
         </TranslatableDiv>
       </div>
     );
