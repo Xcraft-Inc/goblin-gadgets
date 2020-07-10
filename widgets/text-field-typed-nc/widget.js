@@ -68,8 +68,7 @@ export default class TextFieldTypedNC extends Widget {
     this.incNumber = this.incNumber.bind(this);
     this.handleDateClicked = this.handleDateClicked.bind(this);
     this.handleTimeChanged = this.handleTimeChanged.bind(this);
-    this.handleDateUpDown = this.handleDateUpDown.bind(this);
-    this.handleTimeUpDown = this.handleTimeUpDown.bind(this);
+    this.handleUpDown = this.handleUpDown.bind(this);
     this.handleColorChanged = this.handleColorChanged.bind(this);
   }
 
@@ -199,6 +198,76 @@ export default class TextFieldTypedNC extends Widget {
     }
   }
 
+  incEdited(edited, cursorPosition, direction) {
+    switch (this.props.type) {
+      case 'date':
+        return DateConverters.incEdited(
+          edited,
+          cursorPosition,
+          direction,
+          1,
+          this.props.minDate,
+          this.props.maxDate
+        );
+      case 'time':
+        return TimeConverters.incEdited(
+          edited,
+          cursorPosition,
+          direction,
+          1,
+          this.props.minTime,
+          this.props.maxTime
+        );
+      case 'datetime':
+        return DateTimeConverters.incEdited(
+          edited,
+          cursorPosition,
+          direction,
+          1,
+          this.props.minDate,
+          this.props.maxDate
+        );
+      case 'number':
+        return NumberConverters.incEdited(
+          edited,
+          cursorPosition,
+          direction,
+          this.props.step,
+          this.props.min,
+          this.props.max
+        );
+      case 'integer':
+        return IntegerConverters.incEdited(
+          edited,
+          cursorPosition,
+          direction,
+          this.props.step,
+          this.props.min,
+          this.props.max
+        );
+      case 'percent':
+        return PercentConverters.incEdited(
+          edited,
+          cursorPosition,
+          direction,
+          this.props.step,
+          this.props.min,
+          this.props.max
+        );
+      case 'price':
+        return PriceConverters.incEdited(
+          edited,
+          cursorPosition,
+          direction,
+          this.props.step,
+          this.props.min,
+          this.props.max
+        );
+      default:
+        return null;
+    }
+  }
+
   // Called by InputWrapper.
   format(value) {
     return this.getDisplayed(value);
@@ -234,37 +303,12 @@ export default class TextFieldTypedNC extends Widget {
     }
   }
 
-  handleDateUpDown(e, onChangeAndSelect) {
+  handleUpDown(e, onChangeAndSelect) {
     if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
       const cursorPosition =
         (e.target.selectionStart + e.target.selectionEnd) / 2;
-      const inc = e.key === 'ArrowUp' ? 1 : -1;
-      const result = DateConverters.incEdited(
-        e.target.value,
-        cursorPosition,
-        inc
-      );
-      if (result.edited) {
-        onChangeAndSelect(
-          result.edited,
-          result.selectionStart,
-          result.selectionEnd
-        );
-      }
-      e.preventDefault();
-    }
-  }
-
-  handleTimeUpDown(e, onChangeAndSelect) {
-    if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
-      const cursorPosition =
-        (e.target.selectionStart + e.target.selectionEnd) / 2;
-      const inc = e.key === 'ArrowUp' ? 1 : -1;
-      const result = TimeConverters.incEdited(
-        e.target.value,
-        cursorPosition,
-        inc
-      );
+      const direction = e.key === 'ArrowUp' ? 1 : -1;
+      const result = this.incEdited(e.target.value, cursorPosition, direction);
       if (result.edited) {
         onChangeAndSelect(
           result.edited,
@@ -288,25 +332,21 @@ export default class TextFieldTypedNC extends Widget {
     return parseValue(this.props.max);
   }
 
-  incNumber(inc) {
+  incNumber(direction) {
     if (!this.props.onChange) {
       return;
     }
 
     let n = parseValue(this.props.value || this.min || 0);
+    n = this.getDisplayed(n);
 
-    n += (this.props.step || 1) * inc;
-    n = Math.round(n * 1000) / 1000;
-
-    if (this.min !== null) {
-      n = Math.max(n, this.min);
+    const result = this.incEdited(n, 0, direction);
+    if (result.edited) {
+      n = this.parseEdited(result.edited);
+      if (!n.error) {
+        this.props.onChange(n.value);
+      }
     }
-
-    if (this.max !== null) {
-      n = Math.min(n, this.max);
-    }
-
-    this.props.onChange(n);
   }
 
   get isPlusEnabled() {
@@ -358,7 +398,7 @@ export default class TextFieldTypedNC extends Widget {
           parse={this.parse}
           check={this.check}
           horizontalSpacing="overlap"
-          onKeyDown={this.handleDateUpDown}
+          onKeyDown={this.handleUpDown}
         />
       </ButtonCombo>
     );
@@ -396,7 +436,7 @@ export default class TextFieldTypedNC extends Widget {
           parse={this.parse}
           check={this.check}
           horizontalSpacing="overlap"
-          onKeyDown={this.handleTimeUpDown}
+          onKeyDown={this.handleUpDown}
         />
       </ButtonCombo>
     );
@@ -414,6 +454,7 @@ export default class TextFieldTypedNC extends Widget {
           parse={this.parse}
           check={this.check}
           horizontalSpacing="overlap"
+          onKeyDown={this.handleUpDown}
         />
         <Button
           kind="combo"
