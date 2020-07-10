@@ -137,6 +137,13 @@ export default function styles(theme, props) {
     color = theme.palette.text;
   }
 
+  if (kind === 'root-sample') {
+    display = 'flex';
+    flexDirection = 'column';
+    flexGrow = '1';
+    backgroundColor = theme.palette.rootBackground;
+  }
+
   if (kind === 'configurator-header') {
     if (!height) {
       throw new Error(
