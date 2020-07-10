@@ -20,9 +20,9 @@ export default class ResizableContainer extends Widget {
       dragging: null,
     };
 
-    this.onMouseDown = this.onMouseDown.bind(this);
-    this.onMouseMove = this.onMouseMove.bind(this);
-    this.onMouseUp = this.onMouseUp.bind(this);
+    this.onPointerDown = this.onPointerDown.bind(this);
+    this.onPointerMove = this.onPointerMove.bind(this);
+    this.onPointerUp = this.onPointerUp.bind(this);
   }
 
   //#region get/set
@@ -58,9 +58,11 @@ export default class ResizableContainer extends Widget {
     this.size = this.getSize(nextProps);
   }
 
-  onMouseDown(e) {
+  onPointerDown(e) {
     // Mouse left button pressed ?
     if (e.buttons === 1) {
+      e.target.setPointerCapture(e.pointerId);
+
       const cornerRect = this.buttonCornerNode.getBoundingClientRect();
       const heightRect = this.buttonHeightNode.getBoundingClientRect();
       const widthRect = this.buttonWidthNode.getBoundingClientRect();
@@ -75,7 +77,7 @@ export default class ResizableContainer extends Widget {
     }
   }
 
-  onMouseMove(e) {
+  onPointerMove(e) {
     if (this.dragging) {
       const containerRect = this.containerNode.getBoundingClientRect();
 
@@ -94,8 +96,9 @@ export default class ResizableContainer extends Widget {
     }
   }
 
-  onMouseUp() {
+  onPointerUp(e) {
     if (this.dragging) {
+      e.target.releasePointerCapture(e.pointerId);
       this.dragging = null;
 
       if (this.props.onChange) {
@@ -191,10 +194,10 @@ export default class ResizableContainer extends Widget {
       <div
         ref={(node) => (this.containerNode = node)}
         className={this.styles.classNames.resizableContainer}
-        onMouseDown={this.onMouseDown}
-        onMouseMove={this.onMouseMove}
-        onMouseUp={this.onMouseUp}
-        onMouseLeave={this.onMouseUp}
+        onPointerDown={this.onPointerDown}
+        onPointerMove={this.onPointerMove}
+        onPointerUp={this.onPointerUp}
+        onPointerLeave={this.onPointerUp}
       >
         <div
           className={
