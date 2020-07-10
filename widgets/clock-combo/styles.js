@@ -110,22 +110,9 @@ export default function styles(theme) {
     },
   };
 
-  // Use a big size, for accept quick dragging.
-  // This allows the mouse not to leave the <div>.
   const cursorDragged = {
     zIndex: 2,
     position: 'absolute',
-    width: '1048px',
-    height: '1048px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    cursor: 'ns-resize',
-    // backgroundColor: 'rgba(255,0,0,0.2)', // for debugging
-  };
-
-  const cursorDraggedInside = {
     width: '48px',
     height: '48px',
     backgroundColor: theme.palette.base,
@@ -137,6 +124,7 @@ export default function styles(theme) {
     alignItems: 'center',
     borderRadius: '24px',
     transform: 'scale(1.2)',
+    cursor: 'ns-resize',
   };
 
   const guideHidden = {
@@ -177,7 +165,6 @@ export default function styles(theme) {
     vsep,
     cursor,
     cursorDragged,
-    cursorDraggedInside,
     guideHidden,
     guideShowed,
     clock,

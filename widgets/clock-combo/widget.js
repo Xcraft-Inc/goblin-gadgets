@@ -112,6 +112,8 @@ class ClockCombo extends Widget {
   }
 
   handleCursorDown(e, type) {
+    e.target.setPointerCapture(e.pointerId);
+
     this.cursorType = type;
     this.cursorTime = this.time;
     this.cursorY = 0;
@@ -126,12 +128,14 @@ class ClockCombo extends Widget {
     }
   }
 
-  handleCursorUp() {
+  handleCursorUp(e) {
     if (this.cursorY !== null) {
       this.cursorType = null;
       this.cursorY = null;
       this.props.onChange(this.localTime);
       this.localTime = null;
+
+      e.target.releasePointerCapture(e.pointerId);
     }
     if (this.whellInUse) {
       this.whellInUse = false;
@@ -227,7 +231,7 @@ class ClockCombo extends Widget {
 
     if (type === this.cursorType) {
       // Cursor is moving.
-      const y = 500 + 24 - this.cursorY;
+      const y = 24 - this.cursorY;
       const style = {
         top: `calc(50% - ${y}px)`,
       };
@@ -236,13 +240,10 @@ class ClockCombo extends Widget {
         <div
           className={this.styles.classNames.cursorDragged}
           style={process ? style : null}
-          onMouseMove={this.handleCursorMove}
-          onMouseUp={this.handleCursorUp}
-          onMouseLeave={this.handleCursorUp}
+          onPointerMove={this.handleCursorMove}
+          onPointerUp={this.handleCursorUp}
         >
-          <div className={this.styles.classNames.cursorDraggedInside}>
-            {time}
-          </div>
+          {time}
         </div>
       );
     } else {
@@ -250,7 +251,7 @@ class ClockCombo extends Widget {
       return (
         <div
           className={this.styles.classNames.cursor}
-          onMouseDown={(e) => this.handleCursorDown(e, type)}
+          onPointerDown={(e) => this.handleCursorDown(e, type)}
         >
           {time}
         </div>

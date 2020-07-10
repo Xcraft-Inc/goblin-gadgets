@@ -186,6 +186,8 @@ export default class AnalogClock extends Widget {
       return;
     }
 
+    e.target.setPointerCapture(e.pointerId);
+
     const initialMinutes = TimeConverters.getMinutes(this.props.fixedTime);
     const mouseMinutes = this.getMouseMinutes(e);
     const additionalMinutes = trunc30(mouseMinutes - initialMinutes);
@@ -214,26 +216,25 @@ export default class AnalogClock extends Widget {
     }
   }
 
-  onDragUp() {
+  onDragUp(e) {
     if (this.draggingAdditionalMinutes !== null) {
       this.props.onTimeChanged(
         this.getDraggingTime(this.draggingAdditionalMinutes)
       );
+      this.hoverMinutes = null;
       this.draggingAdditionalMinutes = null;
 
       if (this.props.onDragEnded) {
         this.props.onDragEnded();
       }
+
+      e.target.releasePointerCapture(e.pointerId);
     }
   }
 
   onDragOut() {
     this.hoverMinutes = null;
     this.draggingAdditionalMinutes = null;
-
-    if (this.props.onDragEnded) {
-      this.props.onDragEnded();
-    }
   }
 
   /******************************************************************************/
@@ -331,10 +332,10 @@ export default class AnalogClock extends Widget {
       <div
         ref={(node) => (this.draggingLayerNode = node)}
         className={this.styles.classNames.draggingLayer}
-        onMouseDown={this.onDragDown}
-        onMouseMove={this.onDragMove}
-        onMouseUp={this.onDragUp}
-        onMouseOut={this.onDragOut}
+        onPointerDown={this.onDragDown}
+        onPointerMove={this.onDragMove}
+        onPointerUp={this.onDragUp}
+        onPointerOut={this.onDragOut}
       />
     );
   }
