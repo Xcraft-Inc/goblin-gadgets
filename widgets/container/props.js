@@ -108,6 +108,7 @@ export default [
       'right',
       'roadbook-tickets',
       'root',
+      'root-sample',
       'row',
       'row-draggable',
       'row-field',
