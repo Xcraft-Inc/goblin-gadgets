@@ -3,7 +3,7 @@ import Props from './props';
 import Widget from 'goblin-laboratory/widgets/widget';
 import * as styles from './styles';
 import {time as TimeConverters} from 'xcraft-core-converters';
-import svg from '../helpers/svg-helpers';
+import geom from '../helpers/geom-helpers';
 
 import {
   makePropTypes,
@@ -167,7 +167,7 @@ export default class AnalogClock extends Widget {
       y: rect.top + rect.height / 2,
     };
     const mouse = {x: e.clientX, y: e.clientY};
-    let angle = svg.computeAngleDegFromPoints(center, mouse) + 90;
+    let angle = geom.computeAngleDegFromPoints(center, mouse) + 90;
     if (angle < 0) {
       angle += 360;
     }

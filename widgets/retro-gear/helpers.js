@@ -1,5 +1,7 @@
 import {ColorManipulator} from 'goblin-theme';
 import svg from '../helpers/svg-helpers';
+import geom from '../helpers/geom-helpers';
+import px from '../helpers/px-helpers';
 
 /******************************************************************************/
 
@@ -17,9 +19,9 @@ function _getRadius(r, toothThickness) {
 
 // Outer teeth and axis.
 function _getGearLightPath(cx, cy, r, toothThickness, toothCount) {
-  cx = svg.toInt(cx);
-  cy = svg.toInt(cy);
-  r = svg.toInt(r);
+  cx = px.toInt(cx);
+  cy = px.toInt(cy);
+  r = px.toInt(r);
   r = _getRadius(r, toothThickness);
   const rs = r.r4 + (r.r5 - r.r4) * 0.4;
 
@@ -33,9 +35,9 @@ function _getGearLightPath(cx, cy, r, toothThickness, toothCount) {
     const r1 = i % 2 === 0 ? r.r5 : r.r4;
     const r2 = i % 2 !== 0 ? r.r5 : r.r4;
     const as = i % 2 === 0 ? a2 : -a2;
-    const p1 = svg.rotatePointDeg({x: cx, y: cy}, a - a2, {x: cx + r1, y: cy});
-    const s1 = svg.rotatePointDeg({x: cx, y: cy}, a + as, {x: cx + rs, y: cy});
-    const p2 = svg.rotatePointDeg({x: cx, y: cy}, a + a2, {x: cx + r2, y: cy});
+    const p1 = geom.rotatePointDeg({x: cx, y: cy}, a - a2, {x: cx + r1, y: cy});
+    const s1 = geom.rotatePointDeg({x: cx, y: cy}, a + as, {x: cx + rs, y: cy});
+    const p2 = geom.rotatePointDeg({x: cx, y: cy}, a + a2, {x: cx + r2, y: cy});
     if (i === 0) {
       svg.ma(path, p1.x, p1.y);
     } else {
@@ -54,18 +56,10 @@ function _getGearLightPath(cx, cy, r, toothThickness, toothCount) {
   return svg.getPath(path);
 }
 
-function _degToRad(angle) {
-  return (angle * Math.PI) / 180;
-}
-
-function _radToDeg(angle) {
-  return (angle * 180) / Math.PI;
-}
-
 function _getMagicAdjust(r1, r2, a) {
   // Thank you Anne for this magic formula!
-  a = _degToRad(a);
-  return _radToDeg(Math.asin((r2 * Math.sin(a)) / r1) - a);
+  a = geom.degToRad(a);
+  return geom.radToDeg(Math.asin((r2 * Math.sin(a)) / r1) - a);
 }
 
 function _getGearDarkHolePath(path, cx, cy, r, type) {
@@ -78,10 +72,10 @@ function _getGearDarkHolePath(path, cx, cy, r, type) {
     const m = _getMagicAdjust(r1, r2, (b - c) / 2);
     // prettier-ignore
     for (let a = 0; a < 360; a += b) {
-      const p1 = svg.rotatePointDeg({x: cx, y: cy}, a + m, {x: cx + r1, y: cy});
-      const p2 = svg.rotatePointDeg({x: cx, y: cy}, a, {x: cx + r2, y: cy});
-      const p3 = svg.rotatePointDeg({x: cx, y: cy}, a + c - m, {x: cx + r1, y: cy});
-      const p4 = svg.rotatePointDeg({x: cx, y: cy}, a + c, {x: cx + r2, y: cy});
+      const p1 = geom.rotatePointDeg({x: cx, y: cy}, a + m, {x: cx + r1, y: cy});
+      const p2 = geom.rotatePointDeg({x: cx, y: cy}, a, {x: cx + r2, y: cy});
+      const p3 = geom.rotatePointDeg({x: cx, y: cy}, a + c - m, {x: cx + r1, y: cy});
+      const p4 = geom.rotatePointDeg({x: cx, y: cy}, a + c, {x: cx + r2, y: cy});
       svg.ma(path, p1.x, p1.y);
       svg.la(path, p2.x, p2.y);
       svg.aa(path, r2, p4.x, p4.y, 1);
@@ -95,7 +89,7 @@ function _getGearDarkHolePath(path, cx, cy, r, type) {
     const x = (r.r2 + r.r3) / 2;
     const rr = (r.r3 - r.r2) * 0.3;
     for (let a = 0; a < 360; a += b) {
-      const c = svg.rotatePointDeg({x: cx, y: cy}, a, {x: cx + x, y: cy});
+      const c = geom.rotatePointDeg({x: cx, y: cy}, a, {x: cx + x, y: cy});
       svg.circle(path, c.x, c.y, rr);
     }
   }
@@ -103,9 +97,9 @@ function _getGearDarkHolePath(path, cx, cy, r, type) {
 
 // Openwork interior.
 function _getGearDarkPath(cx, cy, r, type, toothThickness) {
-  cx = svg.toInt(cx);
-  cy = svg.toInt(cy);
-  r = svg.toInt(r);
+  cx = px.toInt(cx);
+  cy = px.toInt(cy);
+  r = px.toInt(r);
   r = _getRadius(r, toothThickness);
 
   const path = svg.createPath();

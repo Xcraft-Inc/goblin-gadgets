@@ -1,17 +1,18 @@
 import {Unit} from 'goblin-theme';
 import * as TicketHelpers from '../ticket/ticket-helpers.js';
 import svg from '../helpers/svg-helpers';
+import px from '../helpers/px-helpers';
 
 /******************************************************************************/
 
 function getHoverPath(theme, shape, hoverShape, width, height) {
-  const r = svg.toInt(theme.shapes.ticketCornerRadius);
-  const t = svg.toInt(theme.shapes.ticketHoverThickness);
-  const i = svg.toInt(
+  const r = px.toInt(theme.shapes.ticketCornerRadius);
+  const t = px.toInt(theme.shapes.ticketHoverThickness);
+  const i = px.toInt(
     Unit.multiply(Unit.multiply(theme.shapes.ticketCornerRadius, r), 1 / t)
   );
-  const w = svg.toInt(width);
-  const h = svg.toInt(height);
+  const w = px.toInt(width);
+  const h = px.toInt(height);
 
   const path = svg.createPath();
   if (hoverShape === 'first') {

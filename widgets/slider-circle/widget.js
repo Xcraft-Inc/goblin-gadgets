@@ -6,88 +6,9 @@ import {
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
 import * as styles from './styles';
-import {color as ColorConverters} from 'xcraft-core-converters';
 import wrapRawInput from 'goblin-gadgets/widgets/input-wrapper/widget.js';
-
-/******************************************************************************/
-
-function clipAngleDeg(angle) {
-  // Retourne un angle normalisé, c'est-à-dire compris entre 0 et 360°.
-  angle = angle % 360.0;
-  return angle < 0.0 ? 360.0 + angle : angle;
-}
-
-function degToRad(angle) {
-  return (angle * Math.PI) / 180.0;
-}
-
-function radToDeg(angle) {
-  return (angle * 180.0) / Math.PI;
-}
-
-function rotatePointDeg(center, angle, p) {
-  return rotatePointRad(center, degToRad(angle), p);
-}
-
-function rotatePointRad(center, angle, p) {
-  //	Fait tourner un point autour d'un centre.
-  //	L'angle est exprimé en radians.
-  //	Un angle positif est horaire (CW), puisque Y va de haut en bas.
-
-  const a = {x: 0, y: 0};
-  const b = {x: 0, y: 0};
-
-  a.x = p.x - center.x;
-  a.y = p.y - center.y;
-
-  const sin = Math.sin(angle);
-  const cos = Math.cos(angle);
-
-  b.x = a.x * cos - a.y * sin;
-  b.y = a.x * sin + a.y * cos;
-
-  b.x += center.x;
-  b.y += center.y;
-
-  return b;
-}
-
-function computeAngleDegFromPoints(c, a) {
-  return radToDeg(computeAngleRadFromXY(a.x - c.x, a.y - c.y));
-}
-
-//	Calcule l'angle d'un triangle rectangle.
-//	L'angle est anti-horaire (CCW), compris entre 0 et 2*PI.
-//	Pour obtenir un angle horaire (CW), il suffit de passer -y.
-//
-//	    ^
-//	    |
-//	  y o----o
-//	    |  / |
-//	    |/)a |
-//	----o----o-->
-//	    |    x
-//	    |
-function computeAngleRadFromXY(x, y) {
-  if (x === 0.0 && y === 0.0) {
-    return 0.0;
-  }
-
-  return Math.atan2(y, x);
-}
-
-/******************************************************************************/
-
-function px(n) {
-  return n + 'px';
-}
-
-function n(n) {
-  if (typeof n === 'string' && n.endsWith('px')) {
-    return parseInt(n.substring(0, n.length - 2));
-  }
-  return n;
-}
+import geom from '../helpers/geom-helpers';
+import px from '../helpers/px-helpers';
 
 /******************************************************************************/
 
@@ -122,11 +43,11 @@ class SliderCircle extends Widget {
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    const w = n(this.props.width);
-    const h = n(this.props.height);
+    const w = px.toInt(this.props.width);
+    const h = px.toInt(this.props.height);
 
-    const a = computeAngleDegFromPoints({x: w / 2, y: h / 2}, {x, y});
-    const value = clipAngleDeg(a + 90);
+    const a = geom.computeAngleDegFromPoints({x: w / 2, y: h / 2}, {x, y});
+    const value = geom.clipAngleDeg(a + 90);
 
     // Call input-wrapper:
     switch (mouse) {
@@ -180,8 +101,8 @@ class SliderCircle extends Widget {
   }
 
   render() {
-    const w = n(this.props.width);
-    const h = n(this.props.height);
+    const w = px.toInt(this.props.width);
+    const h = px.toInt(this.props.height);
     const hasCab = this.props.value !== null && this.props.value !== undefined;
     const cabValue = hasCab
       ? Math.max(Math.min(this.props.value, 360), 0)
@@ -199,14 +120,14 @@ class SliderCircle extends Widget {
       large: 18,
     }[this.props.cabSize || 'default'];
 
-    const p = rotatePointDeg({x: w / 2, y: h / 2}, cabValue, {
+    const p = geom.rotatePointDeg({x: w / 2, y: h / 2}, cabValue, {
       x: w / 2,
       y: h / 2 - h / 2 + gliderThickness / 2,
     });
 
     const cabStyle = {
-      left: px(p.x - cabThickness / 2),
-      top: px(p.y - cabThickness / 2),
+      left: px.toPx(p.x - cabThickness / 2),
+      top: px.toPx(p.y - cabThickness / 2),
       display: hasCab ? null : 'none',
     };
 

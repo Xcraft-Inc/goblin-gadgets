@@ -6,18 +6,8 @@ import {
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
 import * as styles from './styles';
-import {color as ColorConverters} from 'xcraft-core-converters';
 import wrapRawInput from 'goblin-gadgets/widgets/input-wrapper/widget.js';
-
-/******************************************************************************/
-
-function px(n) {
-  return n + 'px';
-}
-
-function pc(n) {
-  return n + '%';
-}
+import px from '../helpers/px-helpers';
 
 /******************************************************************************/
 
@@ -197,14 +187,14 @@ class SliderXY extends Widget {
     }
 
     const cabStyle = {
-      left: `calc(${pc(cabValueX)} - ${px(cabThickness / 2)})`,
-      bottom: `calc(${pc(cabValueY)} - ${px(cabThickness / 2)})`,
+      left: `calc(${px.toPc(cabValueX)} - ${px.toPx(cabThickness / 2)})`,
+      bottom: `calc(${px.toPc(cabValueY)} - ${px.toPx(cabThickness / 2)})`,
       display: hasCab ? null : 'none',
     };
 
     const cabDraggingStyle = {
-      left: `calc(${pc(cabValueX)} - ${px(cabThickness / 4)})`,
-      bottom: `calc(${pc(cabValueY)} - ${px(cabThickness / 4)})`,
+      left: `calc(${px.toPc(cabValueX)} - ${px.toPx(cabThickness / 4)})`,
+      bottom: `calc(${px.toPc(cabValueY)} - ${px.toPx(cabThickness / 4)})`,
     };
 
     return (

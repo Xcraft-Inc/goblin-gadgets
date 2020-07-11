@@ -1,4 +1,5 @@
 import svg from '../helpers/svg-helpers';
+import px from '../helpers/px-helpers';
 
 /******************************************************************************/
 
@@ -22,7 +23,7 @@ import svg from '../helpers/svg-helpers';
 function _getFramePath(dy, place) {
   const path = svg.createPath();
 
-  dy = svg.toInt(dy);
+  dy = px.toInt(dy);
   const r = 10;
   const b = 0.552284749831; // (4/3)*tan(pi/8) = 4*(sqrt(2)-1)/3
   const rb = r * b;

@@ -1,4 +1,5 @@
 import svg from '../helpers/svg-helpers';
+import px from '../helpers/px-helpers';
 
 /******************************************************************************/
 
@@ -16,10 +17,10 @@ import svg from '../helpers/svg-helpers';
 
 // prettier-ignore
 export default function getPath(width, height, cornerSize, borderSize) {
-  const b = svg.toValue(borderSize) / 2;
-  const w = svg.toValue(width ) - b*2;
-  const h = svg.toValue(height) - b*2;
-  const c = svg.toValue(cornerSize);
+  const b = px.toValue(borderSize) / 2;
+  const w = px.toValue(width ) - b*2;
+  const h = px.toValue(height) - b*2;
+  const c = px.toValue(cornerSize);
 
   const path = svg.createPath();
 

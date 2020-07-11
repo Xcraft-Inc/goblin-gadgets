@@ -1,15 +1,6 @@
 import {Unit, ColorManipulator} from 'goblin-theme';
 import {ColorHelpers} from 'goblin-theme';
-
-/******************************************************************************/
-
-function px(n) {
-  return n + 'px';
-}
-
-function pc(n) {
-  return n + '%';
-}
+import px from '../helpers/px-helpers';
 
 /******************************************************************************/
 
@@ -67,7 +58,7 @@ export default function styles(theme, props) {
   };
 
   if (marginSize !== 'zero' && marginStyle === 'shadow') {
-    sliderXY.borderRadius = px(insideMargin);
+    sliderXY.borderRadius = px.toPx(insideMargin);
     sliderXY.boxShadow = isDark
       ? '#444 0px -2px 2px inset'
       : '#bbb 0px 2px 5px inset';
@@ -75,27 +66,27 @@ export default function styles(theme, props) {
 
   const inside = {
     position: 'absolute',
-    left: px(insideMargin),
-    right: px(insideMargin),
-    bottom: px(insideMargin),
-    top: px(insideMargin),
+    left: px.toPx(insideMargin),
+    right: px.toPx(insideMargin),
+    bottom: px.toPx(insideMargin),
+    top: px.toPx(insideMargin),
     display: 'flex',
     flexDirection: 'row',
   };
 
   const cab = {
     position: 'absolute',
-    width: px(cabThickness),
-    height: px(cabThickness),
-    borderRadius: px(cabThickness / 2),
+    width: px.toPx(cabThickness),
+    height: px.toPx(cabThickness),
+    borderRadius: px.toPx(cabThickness / 2),
     background: 'white',
     boxShadow: '0px 3px 4px 0px rgba(0,0,0,0.6)',
   };
 
   const cabDragging = {
     ...cab,
-    width: px(cabThickness / 2),
-    height: px(cabThickness / 2),
+    width: px.toPx(cabThickness / 2),
+    height: px.toPx(cabThickness / 2),
   };
 
   const fullscreen = {
