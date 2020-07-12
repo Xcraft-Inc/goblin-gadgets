@@ -3,6 +3,8 @@ import Widget from 'goblin-laboratory/widgets/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import Separator from 'goblin-gadgets/widgets/separator/widget';
 import {Unit} from 'goblin-theme';
+const px = Unit.toPx;
+const n = Unit.toValue;
 import * as styles from './styles';
 
 /******************************************************************************/
@@ -32,10 +34,10 @@ export default class FlatList extends Widget {
     this.itemHeight = null;
     this.itemWidth = null;
 
-    this.menuItemWidth =
-      Unit.parse(this.props.menuItemWidth || this.props.containerWidth).value -
-      Unit.parse(this.context.theme.shapes.menuPadding).value * 2 +
-      'px';
+    this.menuItemWidth = px(
+      n(this.props.menuItemWidth || this.props.containerWidth) -
+        n(this.context.theme.shapes.menuPadding) * 2
+    );
 
     this.previousProps = {};
 
@@ -130,9 +132,9 @@ export default class FlatList extends Widget {
     if (itemCount && itemWidth && itemHeight && maxHeight) {
       let maxRows = Math.floor(maxHeight / itemHeight);
       const columnCount = Math.max(Math.ceil(itemCount / maxRows), 1);
-      this.containerStyle.width = itemWidth * columnCount + 'px';
+      this.containerStyle.width = px(itemWidth * columnCount);
       maxRows = Math.ceil(itemCount / columnCount);
-      this.containerStyle.height = maxRows * itemHeight + 'px';
+      this.containerStyle.height = px(maxRows * itemHeight);
     }
   }
 
@@ -180,8 +182,8 @@ export default class FlatList extends Widget {
         kind="flat-list-combo-item"
         justify={'flex-start'}
         text={item.text}
-        height={this.itemHeight + 'px'}
-        width={this.itemWidth + 'px'}
+        height={px(this.itemHeight)}
+        width={px(this.itemWidth)}
         border={'none'}
         onClick={() => this.onClickedItem(item)}
       />

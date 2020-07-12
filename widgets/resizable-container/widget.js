@@ -1,6 +1,8 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import * as styles from './styles';
+import {Unit} from 'goblin-theme';
+const px = Unit.toPx;
 
 /******************************************************************************/
 
@@ -121,8 +123,8 @@ export default class ResizableContainer extends Widget {
   // Button at bottom right, for resizing width and height.
   renderButtonCorner() {
     const style = {
-      left: this.size.dx + 12 + 'px',
-      top: this.size.dy + 12 + 'px',
+      left: px(this.size.dx + 12),
+      top: px(this.size.dy + 12),
     };
     this.adjustButtonStyle(style, 'corner');
 
@@ -140,7 +142,7 @@ export default class ResizableContainer extends Widget {
   renderButtonHeight() {
     const style = {
       left: '-10px',
-      top: this.size.dy + 12 + 'px',
+      top: px(this.size.dy + 12),
     };
     this.adjustButtonStyle(style, 'height');
 
@@ -157,8 +159,8 @@ export default class ResizableContainer extends Widget {
   // Button at top right, for resizing width.
   renderButtonWidth() {
     const style = {
-      left: this.size.dx + 12 + 'px',
-      top: '-10px',
+      left: px(this.size.dx + 12),
+      top: px(-10),
     };
     this.adjustButtonStyle(style, 'width');
 
@@ -185,8 +187,8 @@ export default class ResizableContainer extends Widget {
 
   render() {
     const boxStyle = {
-      width: this.size.dx + 'px',
-      height: this.size.dy + 'px',
+      width: px(this.size.dx),
+      height: px(this.size.dy),
       // backgroundColor: this.dragging ? 'rgba(255,0,0,0.1)' : null,
     };
 

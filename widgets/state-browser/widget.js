@@ -7,6 +7,8 @@ import * as styles from './styles';
 import Shredder from 'xcraft-core-shredder';
 import withC from 'goblin-laboratory/widgets/connect-helpers/with-c';
 import T from 't';
+import {Unit} from 'goblin-theme';
+const n = Unit.toValue;
 
 /******************************************************************************/
 
@@ -28,10 +30,10 @@ let StateBrowser = class StateBrowser extends Widget {
     // Initialize with props or default value.
     let {itemHeight, itemWidth} = this.props;
     if (itemWidth) {
-      itemWidth = parseInt(itemWidth.split('px')[0]);
+      itemWidth = n(itemWidth);
     }
     if (itemHeight) {
-      itemHeight = parseInt(itemHeight.split('px')[0]);
+      itemHeight = n(itemHeight);
     }
     this.item = {width: itemWidth || 300, height: itemHeight || 32};
   }

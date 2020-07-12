@@ -1,3 +1,6 @@
+import {Unit} from 'goblin-theme';
+const px = Unit.toPx;
+
 /******************************************************************************/
 
 export const propNames = ['height'];
@@ -24,8 +27,8 @@ export default function styles(theme, props) {
   const sortButton = {
     zIndex: '8',
     position: 'absolute',
-    top: '0px',
-    height: height + 'px',
+    top: px(0),
+    height: px(height),
   };
 
   /******************************************************************************/
@@ -35,8 +38,8 @@ export default function styles(theme, props) {
     'position': 'absolute',
     'top': '5px',
     'height': `calc(${height} - 4px)`,
-    'width': buttonWidth + 'px',
-    'minWidth': buttonWidth + 'px',
+    'width': px(buttonWidth),
+    'minWidth': px(buttonWidth),
     'borderRadius': '100px 100px 0px 0px',
     'boxSizing': 'border-box',
     'borderLeft': '3px dashed transparent',
@@ -80,8 +83,8 @@ export default function styles(theme, props) {
     'position': 'absolute',
     'top': '5px',
     'height': `calc(${height} - 4px)`,
-    'width': buttonWidth + 'px',
-    'minWidth': buttonWidth + 'px',
+    'width': px(buttonWidth),
+    'minWidth': px(buttonWidth),
     'borderRadius': `${buttonWidth - 12}px 0px 0px 0px`,
     'boxSizing': 'border-box',
     'borderRight': `${markWidth}px solid transparent`,

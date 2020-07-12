@@ -13,6 +13,7 @@ import {
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
 import {Unit} from 'goblin-theme';
+const px = Unit.toPx;
 import * as RectHelpers from '../helpers/rect-helpers.js';
 import * as styles from './styles';
 
@@ -66,7 +67,7 @@ export default class DialogModal extends Widget {
           color={color}
           left="0px"
           top="0px"
-          radius={radius + 'px'}
+          radius={px(radius)}
           toothCount={tooths}
           rotationDuration={duration + 's'}
           rotationDirection={direction}

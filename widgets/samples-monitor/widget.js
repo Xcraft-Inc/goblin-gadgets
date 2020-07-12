@@ -6,6 +6,7 @@ import Button from 'goblin-gadgets/widgets/button/widget';
 import Combo from 'goblin-gadgets/widgets/combo/widget';
 import Separator from 'goblin-gadgets/widgets/separator/widget';
 import {Unit} from 'goblin-theme';
+const px = Unit.toPx;
 import Shredder from 'xcraft-core-shredder';
 import {ColorManipulator} from 'goblin-theme';
 import helpers from './helpers';
@@ -226,10 +227,10 @@ export default class SamplesMonitor extends Widget {
 
   renderSampleName(ox, oy, dx, dy, channel, color, index) {
     const style = {
-      left: ox + 'px',
-      width: dx + 'px',
-      top: oy + 'px',
-      height: dy + 'px',
+      left: px(ox),
+      width: px(dx),
+      top: px(oy),
+      height: px(dy),
       color: color || this.strokeColors[0],
     };
 
@@ -452,7 +453,7 @@ export default class SamplesMonitor extends Widget {
 
     const rect = this.agingButton.getBoundingClientRect();
     const left = Unit.sub(
-      rect.left - 120 - 26 + 'px',
+      px(rect.left - 120 - 26),
       this.context.theme.shapes.flyingBalloonTriangleSize
     );
 

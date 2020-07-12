@@ -3,6 +3,8 @@ import Widget from 'goblin-laboratory/widgets/widget';
 import ResizableContainer from 'goblin-gadgets/widgets/resizable-container/widget';
 import Frame from 'goblin-laboratory/widgets/frame/widget';
 import * as styles from './styles';
+import {Unit} from 'goblin-theme';
+const px = Unit.toPx;
 
 /******************************************************************************/
 
@@ -51,12 +53,12 @@ class WidgetDocPreviewContainer extends Widget {
 
     if (this.props.container === 'div') {
       if (width) {
-        style.minWidth = width + 'px';
-        style.maxWidth = width + 'px';
+        style.minWidth = px(width);
+        style.maxWidth = px(width);
       }
       if (height) {
-        style.minHeight = height + 'px';
-        style.maxHeight = height + 'px';
+        style.minHeight = px(height);
+        style.maxHeight = px(height);
       }
       return <div style={style}>{this.props.children}</div>;
     }

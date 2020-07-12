@@ -1,4 +1,5 @@
 import {Unit} from 'goblin-theme';
+const px = Unit.toPx;
 
 export const propNames = [
   'top',
@@ -85,7 +86,7 @@ export default function styles(theme, props) {
     animationTimingFunction: steps ? 'cubic-bezier(0.5, 0.5, 0, 1)' : null,
   };
 
-  const shadowRadius = Unit.sub(radius, toothThickness + 'px');
+  const shadowRadius = Unit.sub(radius, px(toothThickness));
   const shadowSize = Unit.multiply(shadowRadius, 2);
 
   const shadow1 = {

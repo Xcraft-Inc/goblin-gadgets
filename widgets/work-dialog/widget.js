@@ -4,6 +4,7 @@ import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import ComboHelpers from 'goblin-gadgets/widgets/helpers/combo-helpers';
 import {Unit} from 'goblin-theme';
+const px = Unit.toPx;
 
 import DialogModal from 'goblin-gadgets/widgets/dialog-modal/widget';
 import Container from 'goblin-gadgets/widgets/container/widget';
@@ -132,7 +133,7 @@ class WorkDialog extends Widget {
   render() {
     const n = this.props.data.length;
     const dialogHeight = Unit.add(
-      Math.min(n * 38, 800) + 130 + 'px', // 38 is approximative height per line
+      px(Math.min(n * 38, 800) + 130), // 38 is approximative height per line
       Unit.multiply(this.context.theme.shapes.floatingPadding, 2)
     );
     const result = ComboHelpers.verticalDeclipping(

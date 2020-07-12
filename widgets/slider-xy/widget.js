@@ -10,6 +10,7 @@ import wrapRawInput from 'goblin-gadgets/widgets/input-wrapper/widget.js';
 import {Unit} from 'goblin-theme';
 const px = Unit.toPx;
 const pc = Unit.toPc;
+const n = Unit.toValue;
 
 /******************************************************************************/
 
@@ -53,9 +54,7 @@ class SliderXY extends Widget {
       typeof this.props.width === 'string' &&
       this.props.width.endsWith('px')
     ) {
-      const width = parseInt(
-        this.props.width.substring(0, this.props.width.length - 2)
-      );
+      const width = n(this.props.width);
 
       // Compute insideMargin, according to style.
       const insideMargin = {

@@ -5,6 +5,7 @@ import RetroGear from 'goblin-gadgets/widgets/retro-gear/widget';
 import AnalogClock from 'goblin-gadgets/widgets/analog-clock/widget';
 import {ColorManipulator} from 'goblin-theme';
 import {Unit} from 'goblin-theme';
+const px = Unit.toPx;
 
 /******************************************************************************/
 
@@ -30,7 +31,7 @@ export default class RetroPanel extends Widget {
           color={color}
           left="0px"
           top="0px"
-          radius={radius + 'px'}
+          radius={px(radius)}
           type={type}
           toothCount={tooths}
           toothThickness={thickness}

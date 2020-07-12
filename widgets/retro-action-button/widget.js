@@ -4,6 +4,7 @@ import MouseTrap from 'mousetrap';
 import * as ShortcutHelpers from '../helpers/shortcut-helpers.js';
 import {TranslatableDiv} from 'nabu/helpers/element-helpers';
 import {Unit} from 'goblin-theme';
+const px = Unit.toPx;
 
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Badge from 'goblin-gadgets/widgets/badge/widget';
@@ -298,12 +299,7 @@ export default class RetroActionButton extends Widget {
 
     return (
       <div className={this.styles.classNames.screwLeft}>
-        <RetroScrew
-          radius={r + 'px'}
-          top={top + 'px'}
-          left={x + 'px'}
-          angle={angle}
-        />
+        <RetroScrew radius={px(r)} top={px(top)} left={px(x)} angle={angle} />
       </div>
     );
   }
@@ -322,12 +318,7 @@ export default class RetroActionButton extends Widget {
 
     return (
       <div className={this.styles.classNames.screwLeft}>
-        <RetroScrew
-          radius={r + 'px'}
-          top={top + 'px'}
-          right={x + 'px'}
-          angle={angle}
-        />
+        <RetroScrew radius={px(r)} top={px(top)} right={px(x)} angle={angle} />
       </div>
     );
   }

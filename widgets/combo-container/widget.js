@@ -2,6 +2,8 @@ import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import Triangle from 'goblin-gadgets/widgets/triangle/widget';
 import * as styles from './styles';
+import {Unit} from 'goblin-theme';
+const n = Unit.toValue;
 
 /******************************************************************************/
 
@@ -12,8 +14,7 @@ export default class ComboContainer extends Widget {
 
     this.reset();
     if (this.props.triangleSize) {
-      const triangle = this.props.triangleSize.split('px');
-      this.triangleSize = parseInt(triangle[0]);
+      this.triangleSize = n(this.props.triangleSize);
     } else {
       this.triangleSize = 10;
     }

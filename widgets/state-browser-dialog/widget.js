@@ -6,6 +6,8 @@ import Button from 'goblin-gadgets/widgets/button/widget';
 import T from 't';
 import TT from 'nabu/t/widget';
 import withC from 'goblin-laboratory/widgets/connect-helpers/with-c';
+import {Unit} from 'goblin-theme';
+const px = Unit.toPx;
 
 /******************************************************************************/
 
@@ -230,9 +232,9 @@ class StateBrowserDialog extends Widget {
       <DialogModal
         width="850px"
         height="600px"
-        left={r.right + 40 + 'px'}
-        center={centerY + 'px'}
-        triangleShift={shiftY + 'px'}
+        left={px(r.right + 40)}
+        center={px(centerY)}
+        triangleShift={px(shiftY)}
         backgroundClose={true}
         close={this.onClose}
       >

@@ -2,6 +2,7 @@ import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import * as styles from './styles';
 import {Unit} from 'goblin-theme';
+const px = Unit.toPx;
 
 import CarouselButton from '../carousel-button/widget';
 import CarouselBullet from '../carousel-bullet/widget';
@@ -379,7 +380,7 @@ export default class Carousel extends Widget {
 
   renderPages() {
     const bandStyle = {
-      left: this.leftPosition + 'px',
+      left: px(this.leftPosition),
     };
 
     return (
@@ -449,7 +450,7 @@ export default class Carousel extends Widget {
 
   render() {
     const carouselStyle = {
-      maxWidth: this.carouselWidth - this.itemMargin * 2 + 'px',
+      maxWidth: px(this.carouselWidth - this.itemMargin * 2),
     };
 
     return (

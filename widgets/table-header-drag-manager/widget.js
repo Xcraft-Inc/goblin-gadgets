@@ -4,6 +4,7 @@ import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import * as styles from './styles';
 import {Unit} from 'goblin-theme';
+const px = Unit.toPx;
 
 /******************************************************************************/
 
@@ -151,7 +152,7 @@ export default class TableHeaderDragManager extends Widget {
   onDragWidthEnd() {
     const x = this.props.widthChanged;
     if (x) {
-      const width = this.newWidth - this.marginRight + 'px';
+      const width = px(this.newWidth - this.marginRight);
       x(this.index, width);
     }
 

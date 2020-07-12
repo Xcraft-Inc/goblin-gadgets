@@ -9,6 +9,7 @@ import {
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
 import {Unit} from 'goblin-theme';
+const px = Unit.toPx;
 
 /******************************************************************************/
 
@@ -230,10 +231,10 @@ class DialogResizable extends Widget {
     return (
       <DialogResizableNC
         {...otherProps}
-        horizontal={rectangle.horizontal + 'px'}
-        vertical={rectangle.vertical + 'px'}
-        width={rectangle.width + 'px'}
-        height={rectangle.height + 'px'}
+        horizontal={px(rectangle.horizontal)}
+        vertical={px(rectangle.vertical)}
+        width={px(rectangle.width)}
+        height={px(rectangle.height)}
         resizing={!!this.resizingElement}
         onMinimize={this.onMinimize}
         onRestore={this.onRestore}
@@ -252,10 +253,10 @@ class DialogResizable extends Widget {
     return (
       <DialogResizableNC
         {...otherProps}
-        horizontal={this.props.rectangle.horizontal + 'px'}
-        vertical={this.props.rectangle.vertical + 'px'}
-        width={this.props.rectangle.width + 'px'}
-        height={this.props.rectangle.height + 'px'}
+        horizontal={px(this.props.rectangle.horizontal)}
+        vertical={px(this.props.rectangle.vertical)}
+        width={px(this.props.rectangle.width)}
+        height={px(this.props.rectangle.height)}
         resizing={false}
         onMinimize={this.onMinimize}
         onRestore={this.onRestore}
@@ -284,10 +285,10 @@ class DialogResizable extends Widget {
     return (
       <DialogResizableNC
         {...otherProps}
-        horizontal={rectangle.horizontal + 'px'}
-        vertical={rectangle.vertical + 'px'}
-        width={rectangle.width + 'px'}
-        height={rectangle.height + 'px'}
+        horizontal={px(rectangle.horizontal)}
+        vertical={px(rectangle.vertical)}
+        width={px(rectangle.width)}
+        height={px(rectangle.height)}
         resizing={true}
         opacity={0.3}
         onMinimize={this.onMinimize}

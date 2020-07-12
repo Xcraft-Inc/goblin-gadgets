@@ -1,4 +1,5 @@
 import {Unit} from 'goblin-theme';
+const px = Unit.toPx;
 import {ColorManipulator} from 'goblin-theme';
 
 export const propNames = [
@@ -146,8 +147,8 @@ export default function styles(theme, props) {
 
   const clockGear3 = {
     ...clockGear2,
-    right: ccx + 'px',
-    bottom: ccy + 'px',
+    right: px(ccx),
+    bottom: px(ccy),
   };
 
   const clockGear4 = {
@@ -157,11 +158,11 @@ export default function styles(theme, props) {
   const s = 400;
   const clock = {
     'position': 'absolute',
-    'right': ccx - s / 2 + 'px',
-    'bottom': ccy - s / 2 + 'px',
-    'width': s + 'px',
-    'height': s + 'px',
-    'borderRadius': s / 2 + 'px',
+    'right': px(ccx - s / 2),
+    'bottom': px(ccy - s / 2),
+    'width': px(s),
+    'height': px(s),
+    'borderRadius': px(s / 2),
     'transition': '0.5s cubic-bezier(0.6, 5, 0.5, 0.2)', // fun bounce
     ':hover': {
       transform: 'scale(1.1)',

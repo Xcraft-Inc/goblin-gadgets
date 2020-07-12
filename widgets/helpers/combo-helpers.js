@@ -1,6 +1,8 @@
 //T:2019-02-27
 const ReactDOM = require('react-dom');
 const {Unit} = require('goblin-theme');
+const px = Unit.toPx;
+const n = Unit.toValue;
 
 function getFlyingOffset() {
   if (
@@ -12,8 +14,8 @@ function getFlyingOffset() {
     const node = ReactDOM.findDOMNode(flyingDialog);
     const rect = node.getBoundingClientRect();
     return {
-      left: rect.left + 'px',
-      top: rect.top + 'px',
+      left: px(rect.left),
+      top: px(rect.top),
     };
   } else {
     return {
@@ -32,9 +34,9 @@ function getComboRightLocation(
 ) {
   const rect = node.getBoundingClientRect();
 
-  const left = Unit.add(rect.right + 'px', triangleSize);
+  const left = Unit.add(px(rect.right), triangleSize);
   const height = itemCount * Unit.parse(itemHeight).value;
-  const top = Unit.add(rect.top - height / 2 + 'px', Unit.multiply(padding, 2));
+  const top = Unit.add(px(rect.top - height / 2), Unit.multiply(padding, 2));
 
   const offset = getFlyingOffset();
 
@@ -61,24 +63,24 @@ function getComboLocation(
   // Compute horizontal position according to component.
   let center;
   if (x) {
-    center = x + 'px';
+    center = px(x);
   } else {
-    center = (rect.left + rect.right) / 2 + 'px';
+    center = px((rect.left + rect.right) / 2);
   }
 
   // Puts the menu under the component if it's in the upper half of the window.
   let topValue, bottomValue;
   if (y) {
-    topValue = Unit.add(window.innerHeight - y + 'px', triangleSize);
-    bottomValue = Unit.add(y + 'px', triangleSize);
+    topValue = Unit.add(px(window.innerHeight - y), triangleSize);
+    bottomValue = Unit.add(px(y), triangleSize);
   } else {
-    topValue = Unit.add(window.innerHeight - rect.top + 'px', triangleSize);
-    bottomValue = Unit.add(rect.bottom + 'px', triangleSize);
+    topValue = Unit.add(px(window.innerHeight - rect.top), triangleSize);
+    bottomValue = Unit.add(px(rect.bottom), triangleSize);
   }
 
   const tv = Unit.parse(triangleSize).value;
-  const underMax = window.innerHeight - rect.bottom - tv - 20 + 'px';
-  const overMax = rect.top - tv - 20 + 'px';
+  const underMax = px(window.innerHeight - rect.bottom - tv - 20);
+  const overMax = px(rect.top - tv - 20);
   const underside = (rect.top + rect.bottom) / 2 < window.innerHeight * 0.67;
   let maxHeight = underside ? underMax : overMax;
 
@@ -86,16 +88,16 @@ function getComboLocation(
   if (itemCount && itemHeight) {
     if (!itemWidth) {
       // If itemWidth is undefined, take the width of component.
-      itemWidth = Unit.sub(rect.width + 'px', Unit.multiply(padding, 2));
+      itemWidth = Unit.sub(px(rect.width), Unit.multiply(padding, 2));
       itemWidth = Unit.sub(itemWidth, '1px');
     }
     let maxRows = Math.floor(
       Unit.parse(maxHeight).value / Unit.parse(itemHeight).value
     );
     const columnCount = Math.max(Math.ceil(itemCount / maxRows), 1);
-    width = Unit.parse(itemWidth).value * columnCount + 'px';
+    width = px(n(itemWidth) * columnCount);
     maxRows = Math.ceil(itemCount / columnCount);
-    maxHeight = maxRows * Unit.parse(itemHeight).value + 'px';
+    maxHeight = px(maxRows * n(itemHeight));
   }
 
   let triangleShift = null;
@@ -122,20 +124,20 @@ function getComboLocation(
 function getSelectLocation(node, triangleSize, padding) {
   const rect = node.getBoundingClientRect();
 
-  const topValue = Unit.add(window.innerHeight - rect.top + 'px', triangleSize);
-  const bottomValue = Unit.add(rect.bottom + 'px', triangleSize);
+  const topValue = Unit.add(px(window.innerHeight - rect.top), triangleSize);
+  const bottomValue = Unit.add(px(rect.bottom), triangleSize);
 
   const tv = Unit.parse(triangleSize).value;
-  const underMax = window.innerHeight - rect.bottom - tv - 20 + 'px';
-  const overMax = rect.top - tv - 20 + 'px';
+  const underMax = px(window.innerHeight - rect.bottom - tv - 20);
+  const overMax = px(rect.top - tv - 20);
   const underside = (rect.top + rect.bottom) / 2 < window.innerHeight / 2;
 
-  const width = Unit.sub(rect.width + 'px', Unit.multiply(padding, 2));
+  const width = Unit.sub(px(rect.width), Unit.multiply(padding, 2));
 
   const offset = getFlyingOffset();
 
   return {
-    left: Unit.sub(rect.left + 'px', offset.left),
+    left: Unit.sub(px(rect.left), offset.left),
     width: width,
     top: underside ? Unit.sub(bottomValue, offset.top) : null,
     bottom: underside ? null : Unit.sub(topValue, offset.top),
@@ -146,11 +148,11 @@ function getSelectLocation(node, triangleSize, padding) {
 // Compute the location for a menu.
 function getMenuLocation(triangleSize, x, y) {
   // Compute horizontal position according to component.
-  const center = x + 'px';
+  const center = px(x);
 
   // Puts the menu under the component if it's in the upper half of the window.
-  const topValue = Unit.add(window.innerHeight - y + 'px', triangleSize);
-  const bottomValue = Unit.add(y + 'px', triangleSize);
+  const topValue = Unit.add(px(window.innerHeight - y), triangleSize);
+  const bottomValue = Unit.add(px(y), triangleSize);
   const underside = y < window.innerHeight * 0.67;
   const offset = getFlyingOffset();
 
@@ -165,8 +167,8 @@ function getMenuLocation(triangleSize, x, y) {
 function getVerticalDialogLocation(node, triangleSize) {
   const rect = node.getBoundingClientRect();
 
-  const left = Unit.add(rect.right + 'px', triangleSize);
-  const center = (rect.top + rect.bottom) / 2 + 'px';
+  const left = Unit.add(px(rect.right), triangleSize);
+  const center = px((rect.top + rect.bottom) / 2);
 
   return {
     left: left,
@@ -186,18 +188,18 @@ function horizontalDeclipping(width, center, distanceFromEdge) {
     const leftShift = w / 2 + p - c;
     if (leftShift > 0) {
       const newCenter = c + leftShift;
-      return {triangleShift: leftShift + 'px', center: newCenter + 'px'};
+      return {triangleShift: px(leftShift), center: px(newCenter)};
     }
 
     // Compute triangleShift if dialog is out of right window border.
     const rightShift = c + w / 2 + p - window.innerWidth;
     if (rightShift > 0) {
       const newCenter = c - rightShift;
-      return {triangleShift: '-' + rightShift + 'px', center: newCenter + 'px'};
+      return {triangleShift: px(-rightShift), center: px(newCenter)};
     }
   }
 
-  return {triangleShift: '0px', center: center};
+  return {triangleShift: px(0), center: center};
 }
 
 // Declipping dialog-modal when it's out of window.
@@ -212,7 +214,7 @@ function verticalDeclipping(height, center, distanceFromEdge) {
     const topShift = h / 2 + p - c;
     if (topShift > 0) {
       const newCenter = c + topShift;
-      return {triangleShift: '-' + topShift + 'px', center: newCenter + 'px'};
+      return {triangleShift: px(-topShift), center: px(newCenter)};
     }
 
     // Compute triangleShift if dialog is out of bottom window border.
@@ -220,13 +222,13 @@ function verticalDeclipping(height, center, distanceFromEdge) {
     if (bottomShift > 0) {
       const newCenter = c - bottomShift;
       return {
-        triangleShift: bottomShift + 'px',
-        center: newCenter + 'px',
+        triangleShift: px(bottomShift),
+        center: px(newCenter),
       };
     }
   }
 
-  return {triangleShift: '0px', center: center};
+  return {triangleShift: px(0), center: center};
 }
 
 //-----------------------------------------------------------------------------

@@ -2,6 +2,8 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import * as styles from './styles';
+import {Unit} from 'goblin-theme';
+const px = Unit.toPx;
 
 /******************************************************************************/
 
@@ -56,12 +58,12 @@ class Accordion extends Widget {
         maxHeight = 'none';
         opacity = '1';
       } else {
-        maxHeight = this.divRef.scrollHeight + 'px';
+        maxHeight = px(this.divRef.scrollHeight);
         opacity = '1';
       }
     } else if (this.state.isExpanded) {
       if (this.divRef) {
-        maxHeight = this.divRef.scrollHeight + 'px';
+        maxHeight = px(this.divRef.scrollHeight);
         opacity = '1';
       }
     }
