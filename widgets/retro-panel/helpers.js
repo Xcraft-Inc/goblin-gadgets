@@ -1,14 +1,14 @@
 import {ColorManipulator} from 'goblin-theme';
 import svg from '../helpers/svg-helpers';
-import px from '../helpers/px-helpers';
+import {Unit} from 'goblin-theme';
 
 /******************************************************************************/
 
 function _getPath(dx, dy, r, m) {
-  dx = px.toInt(dx);
-  dy = px.toInt(dy);
-  r = px.toInt(r);
-  m = px.toInt(m);
+  dx = Unit.toInt(dx);
+  dy = Unit.toInt(dy);
+  r = Unit.toInt(r);
+  m = Unit.toInt(m);
 
   const path = svg.createPath();
 

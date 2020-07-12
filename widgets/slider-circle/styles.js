@@ -1,6 +1,5 @@
-import {Unit, ColorManipulator} from 'goblin-theme';
-import {ColorHelpers} from 'goblin-theme';
-import px from '../helpers/px-helpers';
+import {Unit} from 'goblin-theme';
+const px = Unit.toPx;
 
 /******************************************************************************/
 
@@ -48,10 +47,10 @@ export default function styles(theme, props) {
 
   const inside = {
     position: 'absolute',
-    left: px.toPx(gliderThickness),
-    right: px.toPx(gliderThickness),
-    bottom: px.toPx(gliderThickness),
-    top: px.toPx(gliderThickness),
+    left: px(gliderThickness),
+    right: px(gliderThickness),
+    bottom: px(gliderThickness),
+    top: px(gliderThickness),
     borderRadius: '100%',
     backgroundColor: theme.palette.calendarBackground,
     display: 'flex',
@@ -60,9 +59,9 @@ export default function styles(theme, props) {
 
   const cab = {
     position: 'absolute',
-    width: px.toPx(cabThickness),
-    height: px.toPx(cabThickness),
-    borderRadius: px.toPx(cabThickness / 2),
+    width: px(cabThickness),
+    height: px(cabThickness),
+    borderRadius: px(cabThickness / 2),
     background: 'white',
     boxShadow: '0px 3px 4px 0px rgba(0,0,0,0.6)',
   };

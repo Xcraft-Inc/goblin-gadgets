@@ -1,7 +1,7 @@
 import {ColorManipulator} from 'goblin-theme';
 import svg from '../helpers/svg-helpers';
 import geom from '../helpers/geom-helpers';
-import px from '../helpers/px-helpers';
+import {Unit} from 'goblin-theme';
 
 /******************************************************************************/
 
@@ -19,9 +19,9 @@ function _getRadius(r, toothThickness) {
 
 // Outer teeth and axis.
 function _getGearLightPath(cx, cy, r, toothThickness, toothCount) {
-  cx = px.toInt(cx);
-  cy = px.toInt(cy);
-  r = px.toInt(r);
+  cx = Unit.toInt(cx);
+  cy = Unit.toInt(cy);
+  r = Unit.toInt(r);
   r = _getRadius(r, toothThickness);
   const rs = r.r4 + (r.r5 - r.r4) * 0.4;
 
@@ -97,9 +97,9 @@ function _getGearDarkHolePath(path, cx, cy, r, type) {
 
 // Openwork interior.
 function _getGearDarkPath(cx, cy, r, type, toothThickness) {
-  cx = px.toInt(cx);
-  cy = px.toInt(cy);
-  r = px.toInt(r);
+  cx = Unit.toInt(cx);
+  cy = Unit.toInt(cy);
+  r = Unit.toInt(r);
   r = _getRadius(r, toothThickness);
 
   const path = svg.createPath();

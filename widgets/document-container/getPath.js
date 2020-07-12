@@ -1,5 +1,7 @@
 import svg from '../helpers/svg-helpers';
-import px from '../helpers/px-helpers';
+
+import {Unit} from 'goblin-theme';
+const n = Unit.toValue;
 
 /******************************************************************************/
 
@@ -17,10 +19,10 @@ import px from '../helpers/px-helpers';
 
 // prettier-ignore
 export default function getPath(width, height, cornerSize, borderSize) {
-  const b = px.toValue(borderSize) / 2;
-  const w = px.toValue(width ) - b*2;
-  const h = px.toValue(height) - b*2;
-  const c = px.toValue(cornerSize);
+  const b = n(borderSize) / 2;
+  const w = n(width ) - b*2;
+  const h = n(height) - b*2;
+  const c = n(cornerSize);
 
   const path = svg.createPath();
 

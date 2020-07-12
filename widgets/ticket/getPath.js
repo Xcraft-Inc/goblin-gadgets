@@ -1,6 +1,7 @@
 import * as TicketHelpers from './ticket-helpers.js';
 import svg from '../helpers/svg-helpers';
-import px from '../helpers/px-helpers';
+import {Unit} from 'goblin-theme';
+const n = Unit.toValue;
 
 // Draw _n_n_n_n_n_n_n_n_n_n_n_n_n_
 function horizontalDash(path, r, len, dx) {
@@ -18,10 +19,10 @@ function horizontalDash(path, r, len, dx) {
 /******************************************************************************/
 
 function getOutlinePath(theme, shape, width, height) {
-  const r = px.toInt(theme.shapes.ticketCornerRadius);
-  const s = px.toInt(theme.shapes.ticketLineRadius);
-  const w = px.toInt(width);
-  const h = px.toInt(height);
+  const r = n(theme.shapes.ticketCornerRadius);
+  const s = n(theme.shapes.ticketLineRadius);
+  const w = n(width);
+  const h = n(height);
 
   const hasTopSerration = TicketHelpers.hasTopSerration(shape);
   const hasBottomSerration = TicketHelpers.hasBottomSerration(shape);
@@ -70,9 +71,9 @@ function getOutlinePath(theme, shape, width, height) {
 /******************************************************************************/
 
 function getCornerPath(width, height, position, size) {
-  const w = px.toInt(width);
-  const h = px.toInt(height);
-  const s = px.toInt(size);
+  const w = n(width);
+  const h = n(height);
+  const s = n(size);
 
   const path = svg.createPath();
 

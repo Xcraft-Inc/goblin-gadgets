@@ -9,7 +9,9 @@ import * as styles from './styles';
 import {TranslatableDiv} from 'nabu/helpers/element-helpers';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import wrapRawInput from 'goblin-gadgets/widgets/input-wrapper/widget.js';
-import px from '../helpers/px-helpers';
+import {Unit} from 'goblin-theme';
+const px = Unit.toPx;
+const pc = Unit.toPc;
 const BigNumber = require('bignumber.js');
 
 /******************************************************************************/
@@ -205,10 +207,10 @@ class Slider extends Widget {
     const style = {};
     if (this.isHorizontal) {
       style.bottom = '10px';
-      style.left = `calc(${px.toPc(cabValue)} - 100px)`;
+      style.left = `calc(${pc(cabValue)} - 100px)`;
       style.width = '200px';
     } else {
-      style.bottom = `calc(${px.toPc(cabValue)} - 25px)`;
+      style.bottom = `calc(${pc(cabValue)} - 25px)`;
       style.right = '10px';
       style.width = '100px';
       style.height = '50px';
@@ -255,17 +257,11 @@ class Slider extends Widget {
 
     if (hasCab) {
       if (this.isHorizontal) {
-        barStyle.width = `calc(${px.toPc(cabValue)} + ${px.toPx(
-          gliderThickness / 2
-        )})`;
-        cabStyle.left = `calc(${px.toPc(cabValue)} - ${px.toPx(cabWidth / 2)})`;
+        barStyle.width = `calc(${pc(cabValue)} + ${px(gliderThickness / 2)})`;
+        cabStyle.left = `calc(${pc(cabValue)} - ${px(cabWidth / 2)})`;
       } else {
-        barStyle.height = `calc(${px.toPc(cabValue)} + ${px.toPx(
-          gliderThickness / 2
-        )})`;
-        cabStyle.bottom = `calc(${px.toPc(cabValue)} - ${px.toPx(
-          cabWidth / 2
-        )})`;
+        barStyle.height = `calc(${pc(cabValue)} + ${px(gliderThickness / 2)})`;
+        cabStyle.bottom = `calc(${pc(cabValue)} - ${px(cabWidth / 2)})`;
       }
     } else {
       barStyle.display = 'none';

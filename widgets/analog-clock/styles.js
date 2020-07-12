@@ -1,5 +1,7 @@
 import {ColorManipulator} from 'goblin-theme';
-import px from '../helpers/px-helpers';
+import {Unit} from 'goblin-theme';
+const px = Unit.toPx;
+const n = Unit.toValue;
 
 export const propNames = ['look', 'size', 'limit', 'transition'];
 
@@ -32,11 +34,11 @@ function d(value, limit, min = 1) {
 
 function getRotatableSegment(radius, width, length) {
   return {
-    right: px.toPx(-width / 2),
-    top: px.toPx(-radius),
-    width: px.toPx(width),
-    height: px.toPx(length),
-    transformOrigin: `${px.toPx(width / 2)} ${px.toPx(radius)}`,
+    right: px(-width / 2),
+    top: px(-radius),
+    width: px(width),
+    height: px(length),
+    transformOrigin: `${px(width / 2)} ${px(radius)}`,
   };
 }
 
@@ -50,7 +52,7 @@ export default function styles(theme, props) {
     transition = '1.0s ease-out',
   } = props;
 
-  const s = px.toValue(size); // width and height (square)
+  const s = n(size); // width and height (square)
   const f = s / 180; // magic factor for scaling constant dimensions
 
   let borderThickness = 0; // thickness of border
@@ -109,8 +111,8 @@ export default function styles(theme, props) {
     dialBorderBottomColor = '#aaa';
     dialBorderLeftColor   = '#ccc';
     dialBackground1       = '#fff';
-    dialShadow1           = `${px.toPx(6 * f)} ${px.toPx(6 * f)} ${px.toPx(20 * f)} ${px.toPx(5 * f)} rgba(0,0,0,0.9)`;
-    dialShadow2           = `inset ${px.toPx(6 * f)} ${px.toPx(6 * f)} ${px.toPx(24 * f)} 0px rgba(0,0,0,0.9)`;
+    dialShadow1           = `${px(6 * f)} ${px(6 * f)} ${px(20 * f)} ${px(5 * f)} rgba(0,0,0,0.9)`;
+    dialShadow2           = `inset ${px(6 * f)} ${px(6 * f)} ${px(24 * f)} 0px rgba(0,0,0,0.9)`;
 
     fixedMarkLength15 = 20 * f;
     fixedMarkWidth15  =  6 * f;
@@ -147,8 +149,8 @@ export default function styles(theme, props) {
     dialBorderBottomColor = '#aaa';
     dialBorderLeftColor   = '#ccc';
     dialBackground1       = '#fff';
-    dialShadow1           = `${px.toPx(6 * f)} ${px.toPx(6 * f)} ${px.toPx(20 * f)} ${px.toPx(5 * f)} rgba(0,0,0,0.9)`;
-    dialShadow2           = `inset ${px.toPx(6 * f)} ${px.toPx(6 * f)} ${px.toPx(24 * f)} 0px rgba(0,0,0,0.9)`;
+    dialShadow1           = `${px(6 * f)} ${px(6 * f)} ${px(20 * f)} ${px(5 * f)} rgba(0,0,0,0.9)`;
+    dialShadow2           = `inset ${px(6 * f)} ${px(6 * f)} ${px(24 * f)} 0px rgba(0,0,0,0.9)`;
 
     fixedMarkLength15 = 10 * f;
     fixedMarkWidth15  =  1 * f;
@@ -186,7 +188,7 @@ export default function styles(theme, props) {
     dialBorderLeftColor   = '#555';
     dialBackground1       = 'radial-gradient(at 50% 50%, rgba(0,0,0,0.7), rgba(0,0,0,1) 65%)';
     dialBackground2       = 'radial-gradient(at 30% 30%, rgba(255,255,255,0.5), rgba(255,255,255,0) 24%)';
-    dialShadow1           = `${px.toPx(6 * f)} ${px.toPx(6 * f)} ${px.toPx(20 * f)} ${px.toPx(5 * f)} rgba(0,0,0,0.9)`;
+    dialShadow1           = `${px(6 * f)} ${px(6 * f)} ${px(20 * f)} ${px(5 * f)} rgba(0,0,0,0.9)`;
 
     fixedMarkLength15 = 20 * f;
     fixedMarkWidth15  =  6 * f;
@@ -259,8 +261,8 @@ export default function styles(theme, props) {
     dialBorderLeftColor   = rc;
     dialBackground1 = `radial-gradient(at 50% 50%, ${ColorManipulator.fade(theme.palette.chrome, 0.7)}, ${ColorManipulator.darken(theme.palette.base, 0.2)} 65%)`;
     dialBackground2 = 'radial-gradient(at 30% 30%, rgba(255,255,255,0.5), rgba(255,255,255,0.0) 24%)';
-    dialShadow1     = `${px.toPx(6 * f)} ${px.toPx(6 * f)} ${px.toPx(20 * f)} ${px.toPx(5 * f)} rgba(0,0,0,0.9)`;
-    dialShadow2     = `inset ${px.toPx(6 * f)} ${px.toPx(6 * f)} ${px.toPx(24 * f)} 0px rgba(0,0,0,0.9)`;
+    dialShadow1     = `${px(6 * f)} ${px(6 * f)} ${px(20 * f)} ${px(5 * f)} rgba(0,0,0,0.9)`;
+    dialShadow2     = `inset ${px(6 * f)} ${px(6 * f)} ${px(24 * f)} 0px rgba(0,0,0,0.9)`;
 
     fixedMarkLength15 = 20 * f;
     fixedMarkWidth15  = 20 * f;
@@ -284,10 +286,10 @@ export default function styles(theme, props) {
     watchPointerColorS       = theme.palette.chrome;
     watchPointerBorder       = '1px solid black';
     watchPointerRadius       = 4 * f;
-    watchPointerShadow       = `0px 0px ${px.toPx(5 * f)} ${px.toPx(2 * f)} rgba(0,0,0,0.5)`;
+    watchPointerShadow       = `0px 0px ${px(5 * f)} ${px(2 * f)} rgba(0,0,0,0.5)`;
     watchPointerCenterRadius = 6 * f;
     watchPointerCenterColor  = rc;
-    watchPointerCenterBorder = `${px.toPx(0.3 * f)} solid black`;
+    watchPointerCenterBorder = `${px(0.3 * f)} solid black`;
     //
   } else if (look === 'transparent') {
     //-------------//
@@ -349,8 +351,8 @@ export default function styles(theme, props) {
     dialBorderLeftColor   = rc;
     dialBackground1 = `radial-gradient(at 50% 50%, ${ColorManipulator.fade(theme.palette.chrome, 0.7)}, ${ColorManipulator.darken(theme.palette.base, 0.2)} 65%)`;
     dialBackground2 = 'radial-gradient(at 30% 30%, rgba(255,255,255,0.5), rgba(255,255,255,0.0) 24%)';
-    dialShadow1     = `${px.toPx(6 * f)} ${px.toPx(6 * f)} ${px.toPx(20 * f)} ${px.toPx(5 * f)} rgba(0,0,0,0.9)`;
-    dialShadow2     = `inset ${px.toPx(6 * f)} ${px.toPx(6 * f)} ${px.toPx(24 * f)} 0px rgba(0,0,0,0.9)`;
+    dialShadow1     = `${px(6 * f)} ${px(6 * f)} ${px(20 * f)} ${px(5 * f)} rgba(0,0,0,0.9)`;
+    dialShadow2     = `inset ${px(6 * f)} ${px(6 * f)} ${px(24 * f)} 0px rgba(0,0,0,0.9)`;
 
     fixedMarkLength15 =   15 * f;
     fixedMarkWidth15  =    6 * f;
@@ -377,10 +379,10 @@ export default function styles(theme, props) {
     watchPointerColorS       = theme.palette.chrome;
     watchPointerBorder       = '1px solid black';
     watchPointerRadius       = 1 * f;
-    watchPointerShadow       = `0px 0px ${px.toPx(5 * f)} ${px.toPx(2 * f)} rgba(0,0,0,0.5)`;
+    watchPointerShadow       = `0px 0px ${px(5 * f)} ${px(2 * f)} rgba(0,0,0,0.5)`;
     watchPointerCenterRadius = 6 * f;
     watchPointerCenterColor  = rc;
-    watchPointerCenterBorder = `${px.toPx(0.3 * f)} solid black`;
+    watchPointerCenterBorder = `${px(0.3 * f)} solid black`;
     //
   } else if (look === 'ring') {
     //-----------//
@@ -394,8 +396,8 @@ export default function styles(theme, props) {
     dialBorderRightColor  = rc;
     dialBorderBottomColor = rc;
     dialBorderLeftColor   = rc;
-    dialShadow1     = `0px 0px ${px.toPx(20 * f)} ${px.toPx(2 * f)} rgba(0,0,0,0.9)`;
-    dialShadow2     = `inset 0px 0px ${px.toPx(12 * f)} 0px rgba(0,0,0,0.9)`;
+    dialShadow1     = `0px 0px ${px(20 * f)} ${px(2 * f)} rgba(0,0,0,0.9)`;
+    dialShadow2     = `inset 0px 0px ${px(12 * f)} 0px rgba(0,0,0,0.9)`;
 
     fixedMarkLength15 = 10 * f;
     fixedMarkWidth15  =  3 * f;
@@ -415,7 +417,7 @@ export default function styles(theme, props) {
     watchPointerColorHM      = rc;
     watchPointerColorS       = "red";
     watchPointerRadius       = 4 * f;
-    watchPointerShadow       = `0px 0px ${px.toPx(5 * f)} ${px.toPx(2 * f)} rgba(0,0,0,0.5)`;
+    watchPointerShadow       = `0px 0px ${px(5 * f)} ${px(2 * f)} rgba(0,0,0,0.5)`;
     watchPointerCenterRadius = 6 * f;
     watchPointerCenterColor  = rc;
     //
@@ -448,7 +450,7 @@ export default function styles(theme, props) {
     watchPointerColorHM      = '#eee';
     watchPointerColorS       = "red";
     watchPointerRadius       = 4 * f;
-    watchPointerShadow       = `0px 0px ${px.toPx(2 * f)} ${px.toPx(1 * f)} rgba(0,0,0,0.5)`;
+    watchPointerShadow       = `0px 0px ${px(2 * f)} ${px(1 * f)} rgba(0,0,0,0.5)`;
     watchPointerCenterRadius = 6 * f;
     watchPointerCenterColor  = '#eee';
     //
@@ -466,8 +468,8 @@ export default function styles(theme, props) {
     dialBorderLeftColor   = rc;
     dialBackground1 = `radial-gradient(at 50% 50%, ${ColorManipulator.fade(theme.palette.chrome, 0.8)}, ${ColorManipulator.darken(theme.palette.base, 0.2)} 100%)`;
     dialBackground2 = 'radial-gradient(at 30% 30%, rgba(255,255,255,0.5), rgba(255,255,255,0.0) 24%)';
-    dialShadow1     = `${px.toPx(6 * f)} ${px.toPx(6 * f)} ${px.toPx(20 * f)} ${px.toPx(5 * f)} rgba(0,0,0,0.9)`;
-    dialShadow2     = `inset ${px.toPx(6 * f)} ${px.toPx(6 * f)} ${px.toPx(24 * f)} 0px rgba(0,0,0,0.9)`;
+    dialShadow1     = `${px(6 * f)} ${px(6 * f)} ${px(20 * f)} ${px(5 * f)} rgba(0,0,0,0.9)`;
+    dialShadow2     = `inset ${px(6 * f)} ${px(6 * f)} ${px(24 * f)} 0px rgba(0,0,0,0.9)`;
 
     fixedMarkLength15 = 10 * f;
     fixedMarkWidth15  =  3 * f;
@@ -488,7 +490,7 @@ export default function styles(theme, props) {
     watchPointerColorS       = "red";
     watchPointerBorder       = '1px solid black';
     watchPointerRadius       = 10 * f;
-    watchPointerShadow       = `0px 0px ${px.toPx(5 * f)} ${px.toPx(2 * f)} rgba(0,0,0,0.5)`;
+    watchPointerShadow       = `0px 0px ${px(5 * f)} ${px(2 * f)} rgba(0,0,0,0.5)`;
     //
   }
 
@@ -514,9 +516,9 @@ export default function styles(theme, props) {
 
   const analogClock = {
     position: 'relative',
-    width: px.toPx(s),
-    height: px.toPx(s),
-    borderRadius: px.toPx(s / 2),
+    width: px(s),
+    height: px(s),
+    borderRadius: px(s / 2),
   };
 
   // Center of clock, used for all dials, fixed marks and watch pointers.
@@ -524,21 +526,21 @@ export default function styles(theme, props) {
     position: 'absolute',
     width: '0px',
     height: '0px',
-    left: px.toPx(s / 2),
-    right: px.toPx(s / 2),
-    top: px.toPx(s / 2),
-    bottom: px.toPx(s / 2),
+    left: px(s / 2),
+    right: px(s / 2),
+    top: px(s / 2),
+    bottom: px(s / 2),
     transition,
   };
 
   // White dial, with an outer shadow.
   const dial1 = {
     position: 'absolute',
-    width: px.toPx(s),
-    height: px.toPx(s),
-    left: px.toPx(-s / 2),
-    top: px.toPx(-s / 2),
-    borderRadius: px.toPx(s),
+    width: px(s),
+    height: px(s),
+    left: px(-s / 2),
+    top: px(-s / 2),
+    borderRadius: px(s),
     background: dialBackground1,
     boxShadow: dialShadow1,
     transition,
@@ -547,16 +549,16 @@ export default function styles(theme, props) {
   // Silver dial, with an inner shadow.
   const dial2 = {
     position: 'absolute',
-    width: px.toPx(s),
-    height: px.toPx(s),
-    left: px.toPx(-s / 2),
-    top: px.toPx(-s / 2),
+    width: px(s),
+    height: px(s),
+    left: px(-s / 2),
+    top: px(-s / 2),
     boxSizing: 'border-box',
-    borderRadius: px.toPx(s),
-    borderTop: `${px.toPx(borderThickness)} solid ${dialBorderTopColor}`,
-    borderRight: `${px.toPx(borderThickness)} solid ${dialBorderRightColor}`,
-    borderBottom: `${px.toPx(borderThickness)} solid ${dialBorderBottomColor}`,
-    borderLeft: `${px.toPx(borderThickness)} solid ${dialBorderLeftColor}`,
+    borderRadius: px(s),
+    borderTop: `${px(borderThickness)} solid ${dialBorderTopColor}`,
+    borderRight: `${px(borderThickness)} solid ${dialBorderRightColor}`,
+    borderBottom: `${px(borderThickness)} solid ${dialBorderBottomColor}`,
+    borderLeft: `${px(borderThickness)} solid ${dialBorderLeftColor}`,
     background: dialBackground2,
     boxShadow: dialShadow2,
     transition,
@@ -575,7 +577,7 @@ export default function styles(theme, props) {
     backgroundColor: fixedMarkColor,
     boxSizing: 'border-box',
     border: fixedMarkBorder,
-    borderRadius: px.toPx(fixedMarkRadius15),
+    borderRadius: px(fixedMarkRadius15),
     transition,
   };
 
@@ -590,7 +592,7 @@ export default function styles(theme, props) {
     backgroundColor: fixedMarkColor,
     boxSizing: 'border-box',
     border: fixedMarkBorder,
-    borderRadius: px.toPx(fixedMarkRadius5),
+    borderRadius: px(fixedMarkRadius5),
     transition,
   };
 
@@ -605,7 +607,7 @@ export default function styles(theme, props) {
     backgroundColor: fixedMarkColor,
     boxSizing: 'border-box',
     border: fixedMarkWidth1 ? fixedMarkBorder : null,
-    borderRadius: px.toPx(fixedMarkRadius1),
+    borderRadius: px(fixedMarkRadius1),
     transition,
   };
 
@@ -636,7 +638,7 @@ export default function styles(theme, props) {
     backgroundColor: watchPointerColorHM,
     boxSizing: 'border-box',
     border: watchPointerBorder,
-    borderRadius: px.toPx(watchPointerRadius),
+    borderRadius: px(watchPointerRadius),
     boxShadow: watchPointerShadow,
     transition: transitionWatchPointer,
   };
@@ -651,7 +653,7 @@ export default function styles(theme, props) {
     backgroundColor: watchPointerColorHM,
     boxSizing: 'border-box',
     border: watchPointerBorder,
-    borderRadius: px.toPx(watchPointerRadius),
+    borderRadius: px(watchPointerRadius),
     boxShadow: watchPointerShadow,
     transition: transitionWatchPointer,
   };
@@ -671,7 +673,7 @@ export default function styles(theme, props) {
     backgroundColor: watchPointerColorS,
     boxSizing: 'border-box',
     border: watchPointerBorder,
-    borderRadius: px.toPx(watchPointerRadius),
+    borderRadius: px(watchPointerRadius),
     boxShadow: watchPointerShadow,
     transition: transitionWatchPointer,
   };
@@ -679,14 +681,14 @@ export default function styles(theme, props) {
   // Small red dot centered.
   const watchPointerCenter = {
     position: 'absolute',
-    left: px.toPx(-watchPointerCenterRadius),
-    top: px.toPx(-watchPointerCenterRadius),
-    width: px.toPx(watchPointerCenterRadius * 2),
-    height: px.toPx(watchPointerCenterRadius * 2),
+    left: px(-watchPointerCenterRadius),
+    top: px(-watchPointerCenterRadius),
+    width: px(watchPointerCenterRadius * 2),
+    height: px(watchPointerCenterRadius * 2),
     backgroundColor: watchPointerCenterColor,
     boxSizing: 'border-box',
     border: watchPointerCenterBorder,
-    borderRadius: px.toPx(watchPointerCenterRadius),
+    borderRadius: px(watchPointerCenterRadius),
     boxShadow: watchPointerCenterRadius ? watchPointerShadow : null,
     transition,
   };
@@ -695,20 +697,20 @@ export default function styles(theme, props) {
 
   const draggingLayer = {
     position: 'absolute',
-    width: px.toPx(s),
-    height: px.toPx(s),
-    left: px.toPx(-s / 2),
-    top: px.toPx(-s / 2),
-    borderRadius: px.toPx(s),
+    width: px(s),
+    height: px(s),
+    left: px(-s / 2),
+    top: px(-s / 2),
+    borderRadius: px(s),
     cursor: 'pointer',
   };
 
   const digitalTimeShowed = {
     position: 'absolute',
-    bottom: px.toPx(-s * 0.25),
-    left: px.toPx(-s * 0.25),
-    width: px.toPx(s * 0.5),
-    height: px.toPx(30 * f),
+    bottom: px(-s * 0.25),
+    left: px(-s * 0.25),
+    width: px(s * 0.5),
+    height: px(30 * f),
     color: watchPointerColorHM,
     fontSize: `${s * 0.5}%`,
     display: 'flex',

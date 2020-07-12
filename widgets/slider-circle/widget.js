@@ -8,7 +8,9 @@ import {
 import * as styles from './styles';
 import wrapRawInput from 'goblin-gadgets/widgets/input-wrapper/widget.js';
 import geom from '../helpers/geom-helpers';
-import px from '../helpers/px-helpers';
+import {Unit} from 'goblin-theme';
+const px = Unit.toPx;
+const n = Unit.toValue;
 
 /******************************************************************************/
 
@@ -43,8 +45,8 @@ class SliderCircle extends Widget {
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    const w = px.toInt(this.props.width);
-    const h = px.toInt(this.props.height);
+    const w = n(this.props.width);
+    const h = n(this.props.height);
 
     const a = geom.computeAngleDegFromPoints({x: w / 2, y: h / 2}, {x, y});
     const value = geom.clipAngleDeg(a + 90);
@@ -101,8 +103,8 @@ class SliderCircle extends Widget {
   }
 
   render() {
-    const w = px.toInt(this.props.width);
-    const h = px.toInt(this.props.height);
+    const w = n(this.props.width);
+    const h = n(this.props.height);
     const hasCab = this.props.value !== null && this.props.value !== undefined;
     const cabValue = hasCab
       ? Math.max(Math.min(this.props.value, 360), 0)
@@ -126,8 +128,8 @@ class SliderCircle extends Widget {
     });
 
     const cabStyle = {
-      left: px.toPx(p.x - cabThickness / 2),
-      top: px.toPx(p.y - cabThickness / 2),
+      left: px(p.x - cabThickness / 2),
+      top: px(p.y - cabThickness / 2),
       display: hasCab ? null : 'none',
     };
 
