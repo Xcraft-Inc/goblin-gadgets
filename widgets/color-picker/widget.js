@@ -569,6 +569,7 @@ class ColorPicker extends Widget {
         <TranslatableDiv
           className={this.styles.classNames.sampleUp}
           style={styleUp}
+          workitemId={this.context.desktopId || this.getNearestId()}
           title={T('Remet la couleur initiale')}
           onClick={() => this.changeColor(this.initialColor, true)}
         >
@@ -577,6 +578,7 @@ class ColorPicker extends Widget {
         <TranslatableDiv
           className={this.styles.classNames.sampleDown}
           style={styleDown}
+          workitemId={this.context.desktopId || this.getNearestId()}
           title={T('Couleur choisie')}
         >
           {this.initialColor === canonical ? null : canonical}
