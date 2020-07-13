@@ -180,6 +180,7 @@ class WidgetDocPropertyControl extends Widget {
             restrictsToList={restrictsToList}
             rows={multiline ? 2 : null}
             value={selectedId}
+            step={1}
             onChange={this.onChange}
             menuType="wrap"
             menuItemWidth="200px"

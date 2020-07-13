@@ -263,6 +263,15 @@ export default class TextFieldTypedNC extends Widget {
           this.props.min,
           this.props.max
         );
+      case 'pixel':
+        return PixelConverters.incEdited(
+          edited,
+          cursorPosition,
+          direction,
+          this.props.step,
+          this.props.min,
+          this.props.max
+        );
       default:
         return null;
     }
@@ -337,7 +346,10 @@ export default class TextFieldTypedNC extends Widget {
       return;
     }
 
-    let n = parseValue(this.props.value || this.min || 0);
+    let n =
+      this.props.value !== null && this.props.value !== undefined
+        ? this.props.value
+        : this.min || 0;
     n = this.getDisplayed(n);
 
     const result = this.incEdited(n, 0, direction);
@@ -501,7 +513,10 @@ export default class TextFieldTypedNC extends Widget {
 
   renderDefault(otherProps, width, tooltip, justify) {
     const type = this.props.type;
-    if ((type === 'price' || type === 'percent') && this.props.step) {
+    if (
+      (type === 'price' || type === 'percent' || type === 'pixel') &&
+      this.props.step
+    ) {
       return this.renderNumber(otherProps, width, tooltip, justify);
     }
 
@@ -545,7 +560,8 @@ export default class TextFieldTypedNC extends Widget {
         type === 'number' ||
         type === 'integer' ||
         type === 'double' ||
-        type === 'percent'
+        type === 'percent' ||
+        type === 'pixel'
           ? 'right'
           : 'left';
     }
@@ -554,6 +570,7 @@ export default class TextFieldTypedNC extends Widget {
       switch (type) {
         case 'number':
         case 'integer':
+        case 'pixel':
           width = '90px';
           break;
         case 'datetime':

@@ -4,7 +4,7 @@ export default [
     props: {
       type: 'date',
       value: '2019-12-25',
-      width: '120px',
+      width: '140px',
       tooltip: 'Date de facturation',
     },
   },
@@ -68,6 +68,17 @@ export default [
       step: '5',
       value: '75',
       tooltip: 'Prix HT',
+    },
+  },
+  {
+    name: 'pixel',
+    props: {
+      type: 'pixel',
+      min: '0',
+      max: '500',
+      step: '10',
+      value: '120px',
+      tooltip: 'Largeur en pixels',
     },
   },
   {
