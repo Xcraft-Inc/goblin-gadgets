@@ -5,7 +5,7 @@ export default [
   {
     name: 'value',
     group: 'aspect',
-    type: types.number,
+    type: types.string,
     description: 'Values XY between 0 and 100 (by example "50;0").',
   },
   {
