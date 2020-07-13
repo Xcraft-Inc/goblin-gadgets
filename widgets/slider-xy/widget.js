@@ -126,6 +126,7 @@ class SliderXY extends Widget {
 
   onDragDown(e) {
     if (this.props.onChange && this.sliderNode && !this.props.disabled) {
+      e.target.setPointerCapture(e.pointerId);
       this.isDragging = true;
       this.changeValue(e, 'down');
     }
@@ -142,6 +143,7 @@ class SliderXY extends Widget {
       this.changeValue(e, 'up');
     }
     this.isDragging = false;
+    e.target.releasePointerCapture(e.pointerId);
   }
 
   /******************************************************************************/
@@ -154,20 +156,6 @@ class SliderXY extends Widget {
         ref={(node) => (this.canvasNode = node)}
         width={width}
         height={width}
-      />
-    );
-  }
-
-  renderWhileDragging() {
-    if (!this.isDragging || !this.sliderNode) {
-      return null;
-    }
-
-    return (
-      <div
-        className={this.styles.classNames.fullscreen}
-        onMouseMove={this.onDragMove}
-        onMouseUp={this.onDragUp}
       />
     );
   }
@@ -205,7 +193,9 @@ class SliderXY extends Widget {
             ? this.styles.classNames.sliderXYdragging
             : this.styles.classNames.sliderXY
         }
-        onMouseDown={this.onDragDown}
+        onPointerDown={this.onDragDown}
+        onPointerMove={this.onDragMove}
+        onPointerUp={this.onDragUp}
       >
         <div
           ref={(node) => (this.sliderNode = node)}
@@ -221,7 +211,6 @@ class SliderXY extends Widget {
             style={this.isDragging ? cabDraggingStyle : cabStyle}
           />
         </div>
-        {this.renderWhileDragging()}
       </div>
     );
   }

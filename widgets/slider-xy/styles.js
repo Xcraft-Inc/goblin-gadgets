@@ -88,18 +88,6 @@ export default function styles(theme, props) {
     height: px(cabThickness / 2),
   };
 
-  const fullscreen = {
-    zIndex: 999,
-    position: 'fixed',
-    display: 'flex',
-    visibility: 'visible',
-    top: '0px',
-    left: '0px',
-    width: '100%',
-    height: '100%',
-    // backgroundColor: 'rgba(255,0,0,0.5)',
-  };
-
   /******************************************************************************/
 
   return {
@@ -108,7 +96,6 @@ export default function styles(theme, props) {
     inside,
     cab,
     cabDragging,
-    fullscreen,
   };
 }
 

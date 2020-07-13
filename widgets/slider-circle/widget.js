@@ -68,6 +68,7 @@ class SliderCircle extends Widget {
 
   onDragDown(e) {
     if (this.props.onChange && this.sliderNode && !this.props.disabled) {
+      e.target.setPointerCapture(e.pointerId);
       this.isDragging = true;
       this.changeValue(e, 'down');
     }
@@ -84,23 +85,10 @@ class SliderCircle extends Widget {
       this.changeValue(e, 'up');
     }
     this.isDragging = false;
+    e.target.releasePointerCapture(e.pointerId);
   }
 
   /******************************************************************************/
-
-  renderWhileDragging() {
-    if (!this.isDragging || !this.sliderNode) {
-      return null;
-    }
-
-    return (
-      <div
-        className={this.styles.classNames.fullscreen}
-        onMouseMove={this.onDragMove}
-        onMouseUp={this.onDragUp}
-      />
-    );
-  }
 
   render() {
     const w = n(this.props.width);
@@ -137,11 +125,12 @@ class SliderCircle extends Widget {
       <div
         ref={(node) => (this.sliderNode = node)}
         className={this.styles.classNames.sliderCircle}
-        onMouseDown={this.onDragDown}
+        onPointerDown={this.onDragDown}
+        onPointerMove={this.onDragMove}
+        onPointerUp={this.onDragUp}
       >
         <div className={this.styles.classNames.inside} />
         <div className={this.styles.classNames.cab} style={cabStyle} />
-        {this.renderWhileDragging()}
       </div>
     );
   }
