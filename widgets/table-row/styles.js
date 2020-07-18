@@ -19,6 +19,7 @@ export function mapProps(props) {
     return {
       ...otherProps,
       backgroundColor: row.get('backgroundColor'),
+      color: row.get('color'),
     };
   }
   return otherProps;
@@ -29,6 +30,7 @@ export function mapProps(props) {
 export default function styles(theme, props) {
   const {
     backgroundColor,
+    color,
     topSeparator,
     bottomSeparator,
     isLast,
@@ -55,7 +57,7 @@ export default function styles(theme, props) {
     'display': 'flex',
     'flexDirection': 'row',
     'padding': paddingTop + ' ' + m + ' ' + paddingBottom + ' ' + m,
-    'color': selected ? theme.palette.tableSelectedText : null,
+    'color': selected ? theme.palette.tableSelectedText : color,
     'backgroundColor': selected
       ? TableHelpers.getSelectedBackgroundColor(theme, 'none')
       : TableHelpers.getBackgroundColor(theme, backgroundColor, 'none'),
