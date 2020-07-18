@@ -254,10 +254,17 @@ export default class TableNC extends Widget {
       .toArray();
   }
 
-  renderHeader(header, isSortable) {
+  renderHeader(data, header, isSortable) {
     if (this.hasHeader(header)) {
+      const style = {};
+      const headerStyle = data.get('headerStyle');
+      if (headerStyle) {
+        style.backgroundColor = headerStyle.get('backgroundColor');
+        style.color = headerStyle.get('color');
+      }
+
       return (
-        <div className={this.styles.classNames.header}>
+        <div className={this.styles.classNames.header} style={style}>
           {this.renderHeaderCells(header, isSortable)}
         </div>
       );
@@ -288,11 +295,11 @@ export default class TableNC extends Widget {
       return (
         <div>
           {this.renderPostHeader(postHeader, header, isSortable)}
-          {this.renderHeader(header, isSortable)}
+          {this.renderHeader(data, header, isSortable)}
         </div>
       );
     } else {
-      return this.renderHeader(header, isSortable);
+      return this.renderHeader(data, header, isSortable);
     }
   }
 
