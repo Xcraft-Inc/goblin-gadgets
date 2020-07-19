@@ -162,6 +162,7 @@ export default [
       'box',
       'box-left',
       'business',
+      'center',
       'draft',
       'footer',
       'full',

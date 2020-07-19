@@ -1046,6 +1046,9 @@ export default function styles(theme, props) {
     display = 'flex';
     flexDirection = 'row';
     flexGrow = grow;
+    if (subkind === 'center') {
+      alignItems = 'center';
+    }
   }
 
   if (kind === 'row-draggable') {
