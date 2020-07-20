@@ -1,5 +1,5 @@
-//T:2019-02-27:Nothing to translate !
 import React from 'react';
+import withC from 'goblin-laboratory/widgets/connect-helpers/with-c';
 import Widget from 'goblin-laboratory/widgets/widget';
 import Props from './props';
 import {
@@ -10,7 +10,7 @@ import * as styles from './styles';
 
 /******************************************************************************/
 
-export default class Gauge extends Widget {
+class Gauge extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
@@ -25,6 +25,13 @@ export default class Gauge extends Widget {
     );
   }
 }
+
+/******************************************************************************/
+
+const GaugeConnected = withC(Gauge);
+GaugeConnected.displayName = 'Gauge';
+
+export default GaugeConnected;
 
 /******************************************************************************/
 
