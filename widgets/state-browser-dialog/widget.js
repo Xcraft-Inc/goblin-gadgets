@@ -4,7 +4,7 @@ import DialogModal from 'goblin-gadgets/widgets/dialog-modal/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import T from 't';
-import TT from 'nabu/t/widget';
+import TT from 'goblin-nabu/widgets/t/widget';
 import withC from 'goblin-laboratory/widgets/connect-helpers/with-c';
 import {Unit} from 'goblin-theme';
 const px = Unit.toPx;

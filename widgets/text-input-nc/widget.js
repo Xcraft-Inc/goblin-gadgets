@@ -14,7 +14,7 @@ import {
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
 import Label from 'goblin-gadgets/widgets/label/widget';
-import T from 'nabu/t/widget';
+import T from 'goblin-nabu/widgets/t/widget';
 import * as styles from './styles';
 
 /******************************************************************************/

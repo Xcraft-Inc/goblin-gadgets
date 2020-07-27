@@ -4,7 +4,7 @@ import React from 'react';
 import Props from './props';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import Widget from 'goblin-laboratory/widgets/widget';
-import T from 'nabu/t/widget';
+import T from 'goblin-nabu/widgets/t/widget';
 import {ColorHelpers} from 'goblin-theme';
 import {TranslatableDiv} from 'nabu/helpers/element-helpers';
 import {

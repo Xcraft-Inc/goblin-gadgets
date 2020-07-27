@@ -3,7 +3,7 @@ import Widget from 'goblin-laboratory/widgets/widget';
 import {ColorHelpers} from 'goblin-theme';
 import {Unit} from 'goblin-theme';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import T from 'nabu/t/widget';
+import T from 'goblin-nabu/widgets/t/widget';
 import * as styles from './styles';
 import RetroScrew from 'goblin-gadgets/widgets/retro-screw/widget';
 
