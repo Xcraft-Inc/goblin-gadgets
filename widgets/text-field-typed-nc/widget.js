@@ -468,20 +468,24 @@ export default class TextFieldTypedNC extends Widget {
           horizontalSpacing="overlap"
           onKeyDown={this.handleUpDown}
         />
-        <Button
-          kind="combo"
-          glyph="solid/minus"
-          horizontalSpacing="overlap"
-          disabled={!this.isMinusEnabled}
-          onClick={() => this.incNumber(-1)}
-        />
-        <Button
-          kind="combo"
-          glyph="solid/plus"
-          horizontalSpacing={this.props.horizontalSpacing}
-          disabled={!this.isPlusEnabled}
-          onClick={() => this.incNumber(1)}
-        />
+        {otherProps.readonly === true ? null : (
+          <React.Fragment>
+            <Button
+              kind="combo"
+              glyph="solid/minus"
+              horizontalSpacing="overlap"
+              disabled={!this.isMinusEnabled}
+              onClick={() => this.incNumber(-1)}
+            />
+            <Button
+              kind="combo"
+              glyph="solid/plus"
+              horizontalSpacing={this.props.horizontalSpacing}
+              disabled={!this.isPlusEnabled}
+              onClick={() => this.incNumber(1)}
+            />
+          </React.Fragment>
+        )}
       </div>
     );
   }
