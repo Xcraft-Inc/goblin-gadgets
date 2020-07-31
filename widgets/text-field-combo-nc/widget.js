@@ -266,7 +266,7 @@ class TextFieldComboNC extends Widget {
         width={this.props.fieldWidth}
         grow={this.props.fieldWidth ? null : '1'}
         rows={this.props.rows}
-        readonly={this.props.restrictsToList}
+        readonly={this.props.restrictsToList || this.props.readonly}
         disabled={this.props.disabled}
         required={this.props.required}
         embeddedFocus={true}
