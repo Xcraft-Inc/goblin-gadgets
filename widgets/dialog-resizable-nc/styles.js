@@ -102,6 +102,7 @@ export default function styles(theme, props) {
     height: titleBarHeight,
     margin: `0px ${b1}`,
     backgroundColor: borderColor,
+    color: ColorManipulator.emphasize(borderColor, 0.8),
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
