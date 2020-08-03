@@ -129,11 +129,6 @@ export default [
     group: 'aspect',
     type: types.enum(['', 'baseline', 'center']),
   },
-  {
-    name: 'aspect',
-    group: 'aspect',
-    type: types.enum(['', 'searchable']),
-  },
 
   // Function.
   {

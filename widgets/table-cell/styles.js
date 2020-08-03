@@ -18,7 +18,6 @@ export const propNames = [
   'textAlign',
   'simpleHeader',
   'verticalAlign',
-  'aspect',
 ];
 
 export function mapProps(props) {
@@ -47,7 +46,6 @@ export default function styles(theme, props) {
     textAlign,
     simpleHeader,
     verticalAlign,
-    aspect,
   } = props;
 
   let minWidth = null;
@@ -117,21 +115,6 @@ export default function styles(theme, props) {
         maxWidth = Unit.sub(maxWidth, paddingRight);
       }
     }
-  }
-
-  if (aspect === 'searchable') {
-    const mv = '13px';
-    const mh = '5px';
-    marginTop = Unit.sub(marginTop, mv);
-    marginBottom = Unit.sub(marginBottom, mv);
-    marginLeft = Unit.sub(marginLeft, mh);
-    paddingTop = Unit.add(paddingTop, mv);
-    paddingBottom = Unit.add(paddingBottom, mv);
-    paddingLeft = Unit.add(paddingLeft, mh);
-    backgroundColor = ColorManipulator.fade(
-      theme.palette.markdownHiliteBackground,
-      0.4
-    );
   }
 
   if (isSortable) {
