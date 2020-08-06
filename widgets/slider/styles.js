@@ -11,7 +11,7 @@ export const propNames = [
   'grow',
   'width',
   'height',
-  'colorBar',
+  'barColor',
   'gradient',
   'gradientColor1',
   'gradientColor2',
@@ -28,7 +28,7 @@ export default function styles(theme, props) {
     grow,
     width,
     height,
-    colorBar,
+    barColor,
     gradient,
     gradientColor1,
     gradientColor2,
@@ -40,7 +40,9 @@ export default function styles(theme, props) {
 
   const isDark = theme.colors.isDarkTheme;
   const isHorizontal = direction === 'horizontal';
-  const barColor = colorBar ? ColorHelpers.getMarkColor(theme, colorBar) : null;
+  const barFinalColor = barColor
+    ? ColorHelpers.getMarkColor(theme, barColor)
+    : null;
 
   const sliderThickness = 24;
 
@@ -92,8 +94,8 @@ export default function styles(theme, props) {
 
   const bar = {
     ...glider,
-    backgroundColor: barColor,
-    opacity: barColor ? 1 : 0,
+    backgroundColor: barFinalColor,
+    opacity: barFinalColor ? 1 : 0,
   };
 
   const cab = {
@@ -126,7 +128,7 @@ export default function styles(theme, props) {
       barPosition === 'end' ? `0px ${r} ${r} 0px` : `${r} 0px 0px ${r}`;
     bar.right = null;
     bar.boxShadow = `${ColorManipulator.darken(
-      colorBar,
+      barColor,
       0.6
     )} 0px -3px 6px inset`;
 
@@ -150,7 +152,7 @@ export default function styles(theme, props) {
       barPosition === 'end' ? `${r} ${r} 0px 0px` : `0px 0px ${r} ${r}`;
     bar.top = null;
     bar.boxShadow = `${ColorManipulator.darken(
-      colorBar,
+      barColor,
       0.6
     )} -3px 0px 6px inset`;
 

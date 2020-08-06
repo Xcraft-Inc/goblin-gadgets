@@ -3,7 +3,7 @@ export default [
     name: 'horizontal',
     props: {
       direction: 'horizontal',
-      colorBar: '#f00',
+      barColor: '#f00',
       width: '150px',
       value: 25,
       displayValue: 'dragging',
@@ -13,7 +13,7 @@ export default [
     name: 'vertical',
     props: {
       direction: 'vertical',
-      colorBar: '#f00',
+      barColor: '#f00',
       height: '150px',
       value: 25,
       displayValue: 'dragging',

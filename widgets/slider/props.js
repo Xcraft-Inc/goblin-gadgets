@@ -3,7 +3,7 @@ import {types} from 'goblin-gadgets/types/types.js';
 export default [
   // Aspect.
   {
-    name: 'colorBar',
+    name: 'barColor',
     group: 'aspect',
     type: types.color,
   },
