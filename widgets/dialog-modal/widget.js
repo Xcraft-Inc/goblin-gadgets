@@ -51,6 +51,10 @@ export default class DialogModal extends Widget {
       return;
     }
 
+    if (window.document.showCombo) {
+      return;
+    }
+
     const rect = this.divNode.getBoundingClientRect();
     if (!RectHelpers.isInside(rect, e.clientX, e.clientY)) {
       // If the mouse is outside the menu combo, close it.

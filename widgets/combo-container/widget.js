@@ -19,6 +19,15 @@ export default class ComboContainer extends Widget {
       this.triangleSize = 10;
     }
     this.childrenProps = {};
+
+    this.handleClose = this.handleClose.bind(this);
+  }
+
+  handleClose(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    this.props.onClose();
   }
 
   reset() {
@@ -45,6 +54,9 @@ export default class ComboContainer extends Widget {
   calculateSafeArea() {
     let justifyContent = '';
 
+    const offsetX = this.props.parentRect ? this.props.parentRect.left : 0;
+    const offsetY = this.props.parentRect ? this.props.parentRect.top : 0;
+
     if (this.positionInfo.centerX > window.innerWidth / 2) {
       this.horizontalPositionStyle = {
         minWidth: (window.innerWidth - this.positionInfo.centerX) * 2,
@@ -56,25 +68,31 @@ export default class ComboContainer extends Widget {
     }
     if (this.side === 'bottom') {
       this.safeAreaStyle = {
-        top: this.positionInfo.bottom + this.triangleSize,
+        top: this.positionInfo.bottom + this.triangleSize - offsetY,
+        left: -offsetX,
         justifyContent,
         alignItems: 'flex-start',
       };
       this.triangleContainerStyle = {
-        top: this.positionInfo.bottom + 1,
-        left: this.positionInfo.centerX,
+        top: this.positionInfo.bottom + 1 - offsetY,
+        left: this.positionInfo.centerX - offsetX,
       };
       this.childrenProps.maxHeight =
         window.innerHeight - this.positionInfo.bottom + this.triangleSize;
     } else {
       this.safeAreaStyle = {
-        bottom: window.innerHeight - this.positionInfo.top + this.triangleSize,
+        bottom:
+          window.innerHeight -
+          this.positionInfo.top +
+          this.triangleSize -
+          offsetY,
+        left: -offsetX,
         justifyContent,
         alignItems: 'flex-end',
       };
       this.triangleContainerStyle = {
-        bottom: window.innerHeight - this.positionInfo.top + 1,
-        left: this.positionInfo.centerX,
+        bottom: window.innerHeight - this.positionInfo.top + 1 - offsetY,
+        left: this.positionInfo.centerX - offsetX,
       };
       this.childrenProps.maxHeight = this.positionInfo.top - this.triangleSize;
     }
@@ -120,7 +138,7 @@ export default class ComboContainer extends Widget {
       <React.Fragment>
         <div
           className={this.styles.classNames.fullScreen}
-          onClick={this.props.onClose}
+          onClick={this.handleClose}
         ></div>
         <div
           style={this.safeAreaStyle}

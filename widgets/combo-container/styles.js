@@ -1,7 +1,10 @@
-export const propNames = ['horizontalMargin'];
+import {Unit} from 'goblin-theme';
+const px = Unit.toPx;
+
+export const propNames = ['horizontalMargin', 'parentRect'];
 
 export default function styles(theme, props) {
-  const {horizontalMargin} = props;
+  const {horizontalMargin, parentRect} = props;
 
   const safeArea = {
     display: 'flex',
@@ -27,12 +30,20 @@ export default function styles(theme, props) {
     },
   };
 
+  let left = 0;
+  let top = 0;
+
+  if (parentRect) {
+    left = -parentRect.left;
+    top = -parentRect.top;
+  }
+
   const fullScreen = {
     position: 'fixed',
-    left: 0,
-    right: 0,
-    bottom: 0,
-    top: 0,
+    left: px(left),
+    top: px(top),
+    width: '100vw',
+    height: '100vh',
     zIndex: 2,
   };
 

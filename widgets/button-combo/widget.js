@@ -47,6 +47,8 @@ export default class ButtonCombo extends Widget {
     if (this.props.onShowCombo) {
       this.props.onShowCombo();
     }
+
+    window.document.showCombo = true;
   }
 
   hideCombo() {
@@ -66,6 +68,8 @@ export default class ButtonCombo extends Widget {
         this.props.onColorChanged(this.color);
       }
     }
+
+    window.document.showCombo = false;
   }
 
   onChange(item) {
@@ -153,6 +157,7 @@ export default class ButtonCombo extends Widget {
   renderComboList() {
     return (
       <ComboContainer
+        parentRect={this.props.parentRect}
         show={this.state.showCombo}
         positionRef={this.node}
         onClose={this.hideCombo}
@@ -179,6 +184,7 @@ export default class ButtonCombo extends Widget {
 
     return (
       <ComboContainer
+        parentRect={this.props.parentRect}
         show={this.state.showCombo}
         positionRef={this.node}
         onClose={this.hideCombo}
@@ -204,6 +210,7 @@ export default class ButtonCombo extends Widget {
 
     return (
       <ComboContainer
+        parentRect={this.props.parentRect}
         show={this.state.showCombo}
         positionRef={this.node}
         onClose={this.hideCombo}
@@ -218,6 +225,7 @@ export default class ButtonCombo extends Widget {
 
     return (
       <ComboContainer
+        parentRect={this.props.parentRect}
         show={this.state.showCombo}
         positionRef={this.node}
         onClose={this.hideCombo}
