@@ -94,7 +94,7 @@ class Slider extends Widget {
     configBigNumber();
     value = new BigNumber(value);
     value = value.minus(this.min).dividedBy(this.range).multipliedBy(100);
-    value = toRange(value, 0, 100);
+    value = toRange(value, new BigNumber(0), new BigNumber(100));
     return value.toNumber();
   }
 
