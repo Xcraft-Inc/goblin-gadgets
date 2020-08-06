@@ -8,6 +8,11 @@ export default [
     type: types.color,
   },
   {
+    name: 'barPosition',
+    group: 'aspect',
+    type: types.enum(['', 'start', 'end']),
+  },
+  {
     name: 'direction',
     group: 'aspect',
     type: types.enum(['vertical', 'horizontal']),

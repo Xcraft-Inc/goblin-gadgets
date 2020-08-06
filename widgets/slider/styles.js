@@ -18,6 +18,7 @@ export const propNames = [
   'gliderSize',
   'cabSize',
   'cabType',
+  'barPosition',
 ];
 
 export default function styles(theme, props) {
@@ -34,6 +35,7 @@ export default function styles(theme, props) {
     gliderSize = 'default',
     cabSize = 'default',
     cabType = 'round',
+    barPosition = 'start',
   } = props;
 
   const isDark = theme.colors.isDarkTheme;
@@ -120,7 +122,8 @@ export default function styles(theme, props) {
     glider.flexDirection = 'row';
 
     const r = px(gliderThickness / 2);
-    bar.borderRadius = `${r} 0px 0px ${r}`;
+    bar.borderRadius =
+      barPosition === 'end' ? `0px ${r} ${r} 0px` : `${r} 0px 0px ${r}`;
     bar.right = null;
     bar.boxShadow = `${ColorManipulator.darken(
       colorBar,
@@ -143,7 +146,8 @@ export default function styles(theme, props) {
     glider.flexDirection = 'column-reverse';
 
     const r = px(gliderThickness / 2);
-    bar.borderRadius = `0px 0px ${r} ${r}`;
+    bar.borderRadius =
+      barPosition === 'end' ? `${r} ${r} 0px 0px` : `0px 0px ${r} ${r}`;
     bar.top = null;
     bar.boxShadow = `${ColorManipulator.darken(
       colorBar,

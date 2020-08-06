@@ -257,10 +257,26 @@ class Slider extends Widget {
 
     if (hasCab) {
       if (this.isHorizontal) {
-        barStyle.width = `calc(${pc(cabValue)} + ${px(gliderThickness / 2)})`;
+        if (this.props.barPosition === 'end') {
+          barStyle.left = pc(cabValue);
+          barStyle.width = `calc(${pc(100 - cabValue)} + ${px(
+            gliderThickness / 2
+          )})`;
+        } else {
+          barStyle.width = `calc(${pc(cabValue)} + ${px(gliderThickness / 2)})`;
+        }
         cabStyle.left = `calc(${pc(cabValue)} - ${px(cabWidth / 2)})`;
       } else {
-        barStyle.height = `calc(${pc(cabValue)} + ${px(gliderThickness / 2)})`;
+        if (this.props.barPosition === 'end') {
+          barStyle.bottom = pc(cabValue);
+          barStyle.height = `calc(${pc(100 - cabValue)} + ${px(
+            gliderThickness / 2
+          )})`;
+        } else {
+          barStyle.height = `calc(${pc(cabValue)} + ${px(
+            gliderThickness / 2
+          )})`;
+        }
         cabStyle.bottom = `calc(${pc(cabValue)} - ${px(cabWidth / 2)})`;
       }
     } else {
