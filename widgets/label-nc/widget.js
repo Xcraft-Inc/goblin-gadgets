@@ -6,7 +6,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import Widget from 'goblin-laboratory/widgets/widget';
 import T from 'goblin-nabu/widgets/t/widget';
 import {ColorHelpers} from 'goblin-theme';
-import {TranslatableDiv} from 'nabu/helpers/element-helpers';
+import {TranslatableDiv} from 'goblin-nabu/widgets/helpers/element-helpers';
 import {
   makePropTypes,
   makeDefaultProps,
