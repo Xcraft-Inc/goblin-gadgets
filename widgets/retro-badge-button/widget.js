@@ -2,7 +2,7 @@ import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import MouseTrap from 'mousetrap';
 import * as ShortcutHelpers from '../helpers/shortcut-helpers.js';
-import {TranslatableDiv} from 'nabu/helpers/element-helpers';
+import {TranslatableDiv} from 'goblin-nabu/widgets/helpers/element-helpers';
 import {Unit} from 'goblin-theme';
 
 import Label from 'goblin-gadgets/widgets/label/widget';

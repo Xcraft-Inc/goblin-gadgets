@@ -5,7 +5,10 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import Widget from 'goblin-laboratory/widgets/widget';
 import MouseTrap from 'mousetrap';
 import * as ShortcutHelpers from '../helpers/shortcut-helpers.js';
-import {TranslatableDiv, TranslatableA} from 'nabu/helpers/element-helpers';
+import {
+  TranslatableDiv,
+  TranslatableA,
+} from 'goblin-nabu/widgets/helpers/element-helpers';
 import {
   makePropTypes,
   makeDefaultProps,

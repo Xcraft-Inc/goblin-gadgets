@@ -6,7 +6,7 @@ import {
   makeDefaultProps,
 } from 'xcraft-core-utils/lib/prop-types';
 import * as styles from './styles';
-import {TranslatableDiv} from 'nabu/helpers/element-helpers';
+import {TranslatableDiv} from 'goblin-nabu/widgets/helpers/element-helpers';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import wrapRawInput from 'goblin-gadgets/widgets/input-wrapper/widget.js';
 import {Unit} from 'goblin-theme';

@@ -12,7 +12,7 @@ import Button from 'goblin-gadgets/widgets/button/widget';
 import Separator from 'goblin-gadgets/widgets/separator/widget';
 import {color as ColorConverters} from 'xcraft-core-converters';
 import T from 't';
-import {TranslatableDiv} from 'nabu/helpers/element-helpers';
+import {TranslatableDiv} from 'goblin-nabu/widgets/helpers/element-helpers';
 import MouseTrap from 'mousetrap';
 
 /******************************************************************************/

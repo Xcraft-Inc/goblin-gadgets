@@ -1,5 +1,5 @@
 import {Unit} from 'goblin-theme';
-const TableHelpers = require('gadgets/helpers/table-helpers');
+const TableHelpers = require('goblin-gadgets/widgets/helpers/table-helpers.js');
 
 /******************************************************************************/
 

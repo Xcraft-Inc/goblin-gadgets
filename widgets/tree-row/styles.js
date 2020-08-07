@@ -1,6 +1,6 @@
 //T:2019-02-27
 
-const TableHelpers = require('gadgets/helpers/table-helpers');
+const TableHelpers = require('goblin-gadgets/widgets/helpers/table-helpers.js');
 
 /******************************************************************************/
 
