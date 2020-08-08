@@ -10,7 +10,7 @@ export default [
   {
     name: 'barPosition',
     group: 'aspect',
-    type: types.enum(['', 'start', 'end']),
+    type: types.enum(['', 'start', 'middle', 'end']),
   },
   {
     name: 'direction',
@@ -57,8 +57,8 @@ export default [
   {
     name: 'value',
     group: 'value',
-    type: types.number,
-    description: 'Value between 0 and 100.',
+    type: types.oneOfType([types.number, types.string]),
+    description: 'Value between 0 and 100, or two values separate by ";".',
   },
   {
     name: 'min',

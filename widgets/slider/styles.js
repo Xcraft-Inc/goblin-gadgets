@@ -125,7 +125,11 @@ export default function styles(theme, props) {
 
     const r = px(gliderThickness / 2);
     bar.borderRadius =
-      barPosition === 'end' ? `0px ${r} ${r} 0px` : `${r} 0px 0px ${r}`;
+      barPosition === 'middle'
+        ? '0px'
+        : barPosition === 'end'
+        ? `0px ${r} ${r} 0px`
+        : `${r} 0px 0px ${r}`;
     bar.right = null;
     bar.boxShadow = `${ColorManipulator.darken(
       barColor,
@@ -149,7 +153,11 @@ export default function styles(theme, props) {
 
     const r = px(gliderThickness / 2);
     bar.borderRadius =
-      barPosition === 'end' ? `${r} ${r} 0px 0px` : `0px 0px ${r} ${r}`;
+      barPosition === 'middle'
+        ? '0px'
+        : barPosition === 'end'
+        ? `${r} ${r} 0px 0px`
+        : `0px 0px ${r} ${r}`;
     bar.top = null;
     bar.boxShadow = `${ColorManipulator.darken(
       barColor,

@@ -56,6 +56,18 @@ export default [
     },
   },
   {
+    name: 'double',
+    props: {
+      direction: 'horizontal',
+      barColor: '#0f0',
+      barPosition: 'middle',
+      width: '500px',
+      min: 0,
+      max: 100,
+      value: '20;80',
+    },
+  },
+  {
     name: 'empty',
     props: {},
   },

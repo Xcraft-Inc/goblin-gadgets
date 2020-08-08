@@ -89,6 +89,22 @@ class Slider extends Widget {
     return new BigNumber(this.props.step || 1);
   }
 
+  get hasTwoValues() {
+    return (
+      typeof this.props.value === 'string' && this.props.value.includes(';')
+    );
+  }
+
+  get value1() {
+    const a = this.props.value.split(';');
+    return parseFloat(a[0]);
+  }
+
+  get value2() {
+    const a = this.props.value.split(';');
+    return parseFloat(a[1]);
+  }
+
   // [min..max] -> [0..100]
   valueToSlider(value) {
     configBigNumber();
@@ -109,7 +125,7 @@ class Slider extends Widget {
     return value.toNumber();
   }
 
-  changeValue(e, mouse) {
+  eventToValue(e) {
     const rect = this.sliderNode.getBoundingClientRect();
     const sliderThickness = 24; // as defined in style!
 
@@ -124,7 +140,23 @@ class Slider extends Widget {
       value = ((bottom - e.clientY) * 100) / height;
     }
 
-    value = this.sliderToValue(value);
+    return this.sliderToValue(value);
+  }
+
+  changeValue(e, mouse) {
+    let value = this.eventToValue(e);
+
+    if (this.hasTwoValues) {
+      let value1, value2;
+      if (this.draggingValue2) {
+        value2 = value;
+        value1 = Math.min(this.value1, value2);
+      } else {
+        value1 = value;
+        value2 = Math.max(this.value2, value1);
+      }
+      value = `${value1};${value2}`;
+    }
 
     // Call input-wrapper:
     switch (mouse) {
@@ -144,6 +176,14 @@ class Slider extends Widget {
   onDragDown(e) {
     if (this.props.onChange && this.sliderNode && !this.props.disabled) {
       e.target.setPointerCapture(e.pointerId);
+
+      this.draggingValue2 = false;
+      if (this.hasTwoValues) {
+        const middle = (this.value1 + this.value2) / 2;
+        const value = this.eventToValue(e);
+        this.draggingValue2 = value > middle;
+      }
+
       this.isDragging = true;
       this.changeValue(e, 'down');
     }
@@ -231,8 +271,20 @@ class Slider extends Widget {
   }
 
   render() {
-    const hasCab = this.props.value !== null && this.props.value !== undefined;
-    const cabValue = hasCab ? this.valueToSlider(this.props.value) : null; // 0..100
+    let hasCab = false;
+    let cabValue = null;
+    let hasCab2 = false;
+    let cabValue2 = null;
+
+    if (this.hasTwoValues) {
+      hasCab = true;
+      cabValue = this.valueToSlider(this.value1); // 0..100
+      hasCab2 = true;
+      cabValue2 = this.valueToSlider(this.value2); // 0..100
+    } else {
+      hasCab = this.props.value !== null && this.props.value !== undefined;
+      cabValue = hasCab ? this.valueToSlider(this.props.value) : null; // 0..100
+    }
 
     const gliderThickness = {
       small: 4,
@@ -254,6 +306,7 @@ class Slider extends Widget {
 
     const barStyle = {};
     const cabStyle = {};
+    const cabStyle2 = {};
 
     if (hasCab) {
       if (this.isHorizontal) {
@@ -284,6 +337,24 @@ class Slider extends Widget {
       cabStyle.display = 'none';
     }
 
+    if (hasCab2) {
+      if (this.isHorizontal) {
+        if (this.props.barPosition === 'middle') {
+          barStyle.left = pc(cabValue);
+          barStyle.width = `calc(${pc(cabValue2 - cabValue)})`;
+        }
+        cabStyle2.left = `calc(${pc(cabValue2)} - ${px(cabWidth / 2)})`;
+      } else {
+        if (this.props.barPosition === 'middle') {
+          barStyle.bottom = pc(cabValue);
+          barStyle.height = `calc(${pc(cabValue2 - cabValue)})`;
+        }
+        cabStyle2.bottom = `calc(${pc(cabValue2)} - ${px(cabWidth / 2)})`;
+      }
+    } else {
+      cabStyle2.display = 'none';
+    }
+
     return (
       <div
         ref={(node) => (this.sliderNode = node)}
@@ -298,6 +369,7 @@ class Slider extends Widget {
             <div className={this.styles.classNames.bar} style={barStyle} />
             {this.renderValue(hasCab, cabValue)}
             <div className={this.styles.classNames.cab} style={cabStyle} />
+            <div className={this.styles.classNames.cab} style={cabStyle2} />
           </div>
         </TranslatableDiv>
       </div>
