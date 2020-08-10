@@ -39,21 +39,25 @@ class CheckList extends Widget {
 
   getNewValue(name) {
     if (this.props.value) {
-      const array = this.value;
-      const index = array.indexOf(name);
-      if (index === -1) {
-        array.push(name); // add name if it's not present
+      if (this.props.selectionMode === 'single') {
+        return name;
       } else {
-        array.splice(index, 1); // remove name if it's present
-      }
-      // Return a value in same order that props.list.
-      const orderedArray = [];
-      for (const item of this.allValue.split(',')) {
-        if (array.indexOf(item) !== -1) {
-          orderedArray.push(item);
+        const array = this.value;
+        const index = array.indexOf(name);
+        if (index === -1) {
+          array.push(name); // add name if it's not present
+        } else {
+          array.splice(index, 1); // remove name if it's present
         }
+        // Return a value in same order that props.list.
+        const orderedArray = [];
+        for (const item of this.allValue.split(',')) {
+          if (array.indexOf(item) !== -1) {
+            orderedArray.push(item);
+          }
+        }
+        return orderedArray.join(',');
       }
-      return orderedArray.join(',');
     } else {
       return name;
     }
