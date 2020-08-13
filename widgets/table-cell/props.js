@@ -12,7 +12,7 @@ export default [
   {
     name: 'text',
     group: 'main',
-    type: types.nabu,
+    type: types.any,
     defaultValue: '',
   },
   {
