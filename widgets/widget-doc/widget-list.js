@@ -94,6 +94,10 @@ import ColorPicker from 'goblin-gadgets/widgets/color-picker/widget';
 import colorPickerProps from 'goblin-gadgets/widgets/color-picker/props';
 import colorPickerScenarios from 'goblin-gadgets/widgets/color-picker/scenarios';
 
+import Smiley from 'goblin-gadgets/widgets/smiley/widget';
+import smileyProps from 'goblin-gadgets/widgets/smiley/props';
+import smileyScenarios from 'goblin-gadgets/widgets/smiley/scenarios';
+
 const widgetList = [
   {
     name: 'Button',
@@ -262,6 +266,13 @@ const widgetList = [
     widgetPath: 'goblin-gadgets/widgets/color-picker/widget',
     props: colorPickerProps,
     scenarios: colorPickerScenarios,
+  },
+  {
+    name: 'Smiley',
+    widget: Smiley,
+    widgetPath: 'goblin-gadgets/widgets/smiley/widget',
+    props: smileyProps,
+    scenarios: smileyScenarios,
   },
 ];
 
