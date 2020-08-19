@@ -18,6 +18,8 @@ export default [
     name: 'satisfaction',
     group: 'smile',
     type: types.number,
+    min: 0,
+    max: 100,
     description: '0 = unhappy, 100 = happy',
   },
   {

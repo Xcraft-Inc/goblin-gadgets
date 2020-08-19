@@ -27,6 +27,8 @@ export default [
     name: 'hue',
     group: 'aspect',
     type: types.number,
+    min: 0,
+    max: 360,
   },
   {
     name: 'disabled',
@@ -75,5 +77,7 @@ export default [
     name: 'throttleDelay',
     group: 'functionality',
     type: types.number,
+    min: 0,
+    max: 10000,
   },
 ];

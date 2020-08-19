@@ -6,6 +6,8 @@ export default [
     name: 'value',
     group: 'aspect',
     type: types.number,
+    min: 0,
+    max: 360,
     description: 'Value between 0 and 360.',
   },
   {
@@ -60,5 +62,7 @@ export default [
     name: 'throttleDelay',
     group: 'functionality',
     type: types.number,
+    min: 0,
+    max: 10000,
   },
 ];

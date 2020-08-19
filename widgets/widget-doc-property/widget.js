@@ -19,6 +19,8 @@ class WidgetDocProperty extends Widget {
           widgetId={this.props.widgetId}
           path={this.props.path}
           type={this.props.prop.type}
+          min={this.props.prop.min}
+          max={this.props.prop.max}
         />
       </div>
     );

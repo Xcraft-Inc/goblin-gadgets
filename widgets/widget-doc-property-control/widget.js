@@ -211,6 +211,8 @@ class WidgetDocPropertyControl extends Widget {
         <React.Fragment>
           <TextFieldTypedNC
             type={this.props.type.type}
+            min={this.props.min}
+            max={this.props.max}
             grow="1"
             width="unset"
             shape="smooth"

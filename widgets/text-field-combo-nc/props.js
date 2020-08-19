@@ -181,6 +181,8 @@ export default [
     name: 'rows',
     group: 'text',
     type: types.number,
+    min: 1,
+    max: 20,
   },
 
   // Menu.

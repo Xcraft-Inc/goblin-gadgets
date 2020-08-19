@@ -134,6 +134,8 @@ export default [
     name: 'maxLines',
     group: 'aspect',
     type: types.number,
+    min: 1,
+    max: 20,
   },
   {
     name: 'skipEmptyLines',

@@ -58,7 +58,8 @@ export default [
     name: 'value',
     group: 'value',
     type: types.oneOfType([types.number, types.string]),
-    description: 'Value between 0 and 100, or two values separate by ";".',
+    description:
+      'Value between "min" and "max", or two values separate by ";".',
   },
   {
     name: 'min',
@@ -125,5 +126,7 @@ export default [
     name: 'throttleDelay',
     group: 'functionality',
     type: types.number,
+    min: 0,
+    max: 10000,
   },
 ];

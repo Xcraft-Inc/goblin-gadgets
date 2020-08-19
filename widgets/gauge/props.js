@@ -6,6 +6,8 @@ export default [
     name: 'value',
     group: 'aspect',
     type: types.number,
+    min: 0,
+    max: 100,
     description: 'Value between 0 and 100.',
   },
   {

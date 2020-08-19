@@ -24,6 +24,8 @@ import {
 import TextFieldNC from 'goblin-gadgets/widgets/text-field-nc/widget';
 import ButtonCombo from 'goblin-gadgets/widgets/button-combo/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
+import Slider from 'goblin-gadgets/widgets/slider/widget';
+import Separator from 'goblin-gadgets/widgets/separator/widget';
 import Props from './props';
 
 /******************************************************************************/
@@ -65,7 +67,8 @@ export default class TextFieldTypedNC extends Widget {
     this.format = this.format.bind(this);
     this.parse = this.parse.bind(this);
     this.check = this.check.bind(this);
-    this.incNumber = this.incNumber.bind(this);
+    this.handleIncNumber = this.handleIncNumber.bind(this);
+    this.handleSliderNumber = this.handleSliderNumber.bind(this);
     this.handleDateClicked = this.handleDateClicked.bind(this);
     this.handleTimeChanged = this.handleTimeChanged.bind(this);
     this.handleUpDown = this.handleUpDown.bind(this);
@@ -341,7 +344,7 @@ export default class TextFieldTypedNC extends Widget {
     return parseValue(this.props.max);
   }
 
-  incNumber(direction) {
+  handleIncNumber(direction) {
     if (!this.props.onChange) {
       return;
     }
@@ -359,6 +362,14 @@ export default class TextFieldTypedNC extends Widget {
         this.props.onChange(n.value);
       }
     }
+  }
+
+  handleSliderNumber(value) {
+    if (!this.props.onChange) {
+      return;
+    }
+
+    this.props.onChange(value);
   }
 
   get isPlusEnabled() {
@@ -455,38 +466,65 @@ export default class TextFieldTypedNC extends Widget {
     );
   }
 
+  renderNumberSlider() {
+    if (this.props.min === undefined || this.props.max === undefined) {
+      return null;
+    }
+
+    return (
+      <React.Fragment>
+        <Separator kind="exact" height="10px" />
+        <Slider
+          direction="horizontal"
+          grow="1"
+          barColor={this.context.theme.palette.base}
+          min={this.props.min}
+          max={this.props.max}
+          step={1}
+          changeMode="throttled"
+          throttleDelay={20}
+          value={this.props.value}
+          onChange={this.handleSliderNumber}
+        />
+      </React.Fragment>
+    );
+  }
+
   renderNumber(otherProps, width, tooltip, justify) {
     return (
       <div className={this.styles.classNames.textFieldNCNumber}>
-        <TextFieldNC
-          {...otherProps}
-          width={width}
-          tooltip={tooltip}
-          justify={justify}
-          format={this.format}
-          parse={this.parse}
-          check={this.check}
-          horizontalSpacing="overlap"
-          onKeyDown={this.handleUpDown}
-        />
-        {otherProps.readonly === true ? null : (
-          <React.Fragment>
-            <Button
-              kind="combo"
-              glyph="solid/minus"
-              horizontalSpacing="overlap"
-              disabled={!this.isMinusEnabled}
-              onClick={() => this.incNumber(-1)}
-            />
-            <Button
-              kind="combo"
-              glyph="solid/plus"
-              horizontalSpacing={this.props.horizontalSpacing}
-              disabled={!this.isPlusEnabled}
-              onClick={() => this.incNumber(1)}
-            />
-          </React.Fragment>
-        )}
+        <div className={this.styles.classNames.textFieldNCNumberField}>
+          <TextFieldNC
+            {...otherProps}
+            width={width}
+            tooltip={tooltip}
+            justify={justify}
+            format={this.format}
+            parse={this.parse}
+            check={this.check}
+            horizontalSpacing="overlap"
+            onKeyDown={this.handleUpDown}
+          />
+          {otherProps.readonly === true ? null : (
+            <React.Fragment>
+              <Button
+                kind="combo"
+                glyph="solid/minus"
+                horizontalSpacing="overlap"
+                disabled={!this.isMinusEnabled}
+                onClick={() => this.handleIncNumber(-1)}
+              />
+              <Button
+                kind="combo"
+                glyph="solid/plus"
+                horizontalSpacing={this.props.horizontalSpacing}
+                disabled={!this.isPlusEnabled}
+                onClick={() => this.handleIncNumber(1)}
+              />
+            </React.Fragment>
+          )}
+        </div>
+        {this.renderNumberSlider()}
       </div>
     );
   }

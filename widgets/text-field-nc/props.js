@@ -32,7 +32,9 @@ export default [
   {
     name: 'throttleDelay',
     group: 'functionality',
-    type: types.number, // TODO positive number
+    type: types.number,
+    min: 0,
+    max: 10000,
   },
   ...props,
 ];

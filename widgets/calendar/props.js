@@ -136,6 +136,8 @@ export default [
     name: 'monthCount',
     group: 'aspect',
     type: types.number,
+    min: 1,
+    max: 12,
   },
   {
     name: 'itemsShape',

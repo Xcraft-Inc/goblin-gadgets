@@ -36,6 +36,8 @@ export default [
     name: 'limit',
     group: 'aspect',
     type: types.number,
+    min: 0,
+    max: 10,
   },
 
   // Time.
