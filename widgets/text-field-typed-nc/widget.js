@@ -479,7 +479,11 @@ export default class TextFieldTypedNC extends Widget {
   }
 
   renderNumberSlider() {
-    if (this.props.min === undefined || this.props.max === undefined) {
+    if (
+      this.props.min === undefined ||
+      this.props.max === undefined ||
+      this.props.hasSlider !== 'yes'
+    ) {
       return null;
     }
 

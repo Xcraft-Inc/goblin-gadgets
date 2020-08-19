@@ -215,6 +215,7 @@ class WidgetDocPropertyControl extends Widget {
             grow="1"
             width="unset"
             shape="smooth"
+            hasSlider={this.props.type.type === 'number' ? 'yes' : null}
             horizontalSpacing="overlap"
             restrictsToList={restrictsToList}
             rows={multiline ? 2 : null}

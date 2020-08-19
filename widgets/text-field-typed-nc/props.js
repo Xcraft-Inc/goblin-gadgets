@@ -29,6 +29,12 @@ export default [
     required: true,
   },
   {
+    name: 'hasSlider',
+    group: 'type',
+    type: types.enum(['', 'yes']),
+    description: 'Only for type = "number"',
+  },
+  {
     name: 'required',
     group: 'type',
     type: types.bool,
