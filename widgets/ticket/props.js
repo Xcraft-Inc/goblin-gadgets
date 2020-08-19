@@ -38,6 +38,8 @@ export default [
     name: 'opacity',
     group: 'main',
     type: types.number,
+    min: 0,
+    max: 1,
   },
   {
     name: 'cursor',

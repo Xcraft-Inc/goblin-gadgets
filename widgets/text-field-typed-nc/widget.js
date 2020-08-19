@@ -201,6 +201,18 @@ export default class TextFieldTypedNC extends Widget {
     }
   }
 
+  get numberDefaultStep() {
+    const delta = this.props.max - this.props.min;
+
+    if (delta <= 1) {
+      return 0.01;
+    } else if (delta >= 1000) {
+      return 10;
+    } else {
+      return 1;
+    }
+  }
+
   incEdited(edited, cursorPosition, direction) {
     switch (this.props.type) {
       case 'date':
@@ -235,7 +247,7 @@ export default class TextFieldTypedNC extends Widget {
           edited,
           cursorPosition,
           direction,
-          this.props.step,
+          this.props.step || this.numberDefaultStep,
           this.props.min,
           this.props.max
         );
@@ -480,7 +492,7 @@ export default class TextFieldTypedNC extends Widget {
           barColor={this.context.theme.palette.base}
           min={this.props.min}
           max={this.props.max}
-          step={1}
+          step={this.props.step || this.numberDefaultStep}
           changeMode="throttled"
           throttleDelay={20}
           value={this.props.value}
