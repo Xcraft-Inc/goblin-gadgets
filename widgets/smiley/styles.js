@@ -35,6 +35,7 @@ export default function styles(theme, props) {
   const happy = satisfaction >= 50;
 
   mainColor = ColorHelpers.getMarkColor(theme, mainColor);
+  topColor = ColorHelpers.getMarkColor(theme, topColor);
 
   /******************************************************************************/
 
