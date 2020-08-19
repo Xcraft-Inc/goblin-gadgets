@@ -158,7 +158,7 @@ class WidgetDocPropertyControl extends Widget {
       <React.Fragment>
         <TextFieldTypedNC
           type={this.props.type.type}
-          width="64px"
+          width="28px"
           horizontalSpacing="overlap"
           restrictsToList={restrictsToList}
           rows={multiline ? 2 : null}

@@ -40,9 +40,9 @@ export default function styles(theme, props) {
 
   const isDark = theme.colors.isDarkTheme;
   const isHorizontal = direction === 'horizontal';
-  const barFinalColor = barColor
-    ? ColorHelpers.getMarkColor(theme, barColor)
-    : null;
+  const barFinalColor = ColorHelpers.getMarkColor(theme, barColor);
+  const gradientFinalColor1 = ColorHelpers.getMarkColor(theme, gradientColor1);
+  const gradientFinalColor2 = ColorHelpers.getMarkColor(theme, gradientColor2);
 
   const sliderThickness = 24;
 
@@ -108,7 +108,7 @@ export default function styles(theme, props) {
 
   if (gradient === '1to2') {
     const a = isHorizontal ? '90deg' : '0deg';
-    glider.background = `linear-gradient(${a}, ${gradientColor1}, ${gradientColor2})`;
+    glider.background = `linear-gradient(${a}, ${gradientFinalColor1}, ${gradientFinalColor2})`;
   }
 
   if (isHorizontal) {
@@ -132,7 +132,7 @@ export default function styles(theme, props) {
         : `${r} 0px 0px ${r}`;
     bar.right = null;
     bar.boxShadow = `${ColorManipulator.darken(
-      barColor,
+      barFinalColor,
       0.6
     )} 0px -3px 6px inset`;
 
@@ -160,7 +160,7 @@ export default function styles(theme, props) {
         : `0px 0px ${r} ${r}`;
     bar.top = null;
     bar.boxShadow = `${ColorManipulator.darken(
-      barColor,
+      barFinalColor,
       0.6
     )} -3px 0px 6px inset`;
 
