@@ -4,29 +4,11 @@ const n = Unit.toValue;
 
 import {ColorHelpers} from 'goblin-theme';
 import {color as ColorConverters} from 'xcraft-core-converters';
-import geom from '../helpers/geom-helpers';
 
 /******************************************************************************/
 
 function adjust(satisfaction, happyValue, unhappyValue) {
   return (happyValue - unhappyValue) * (satisfaction / 100) + unhappyValue;
-}
-
-function changeColor(color, hueShift, saturationFactor = 1, lightFactor = 1) {
-  const analysis = ColorConverters.analysisFromCanonical(color);
-
-  const hue = geom.clipAngleDeg(analysis.h + hueShift);
-
-  const newAnalysis = {
-    mode: 'HSL',
-    h: hue,
-    s: analysis.s * saturationFactor,
-    l: analysis.l * lightFactor,
-  };
-
-  return ColorConverters.toRGB(
-    ColorConverters.analysisToCanonical(newAnalysis)
-  );
 }
 
 /******************************************************************************/
@@ -58,10 +40,10 @@ export default function styles(theme, props) {
 
   // Main circle.
   if (!topColor) {
-    topColor = changeColor(mainColor, -30);
+    topColor = ColorConverters.changeColor(mainColor, -30);
   }
 
-  const borderColor = changeColor(mainColor, 0, 1, 0.5);
+  const borderColor = ColorConverters.changeColor(mainColor, 0, 1, 0.5);
 
   const smiley = {
     position: 'relative',
