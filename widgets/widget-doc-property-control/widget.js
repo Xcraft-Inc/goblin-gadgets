@@ -148,8 +148,46 @@ class WidgetDocPropertyControl extends Widget {
 
   /******************************************************************************/
 
+  renderColor(list, restrictsToList, multiline) {
+    let selectedId = this.currentValue;
+    if (selectedId === undefined) {
+      selectedId = null;
+    }
+
+    return (
+      <React.Fragment>
+        <TextFieldTypedNC
+          type={this.props.type.type}
+          width="64px"
+          horizontalSpacing="overlap"
+          restrictsToList={restrictsToList}
+          rows={multiline ? 2 : null}
+          value={selectedId}
+          step={1}
+          onChange={this.onChange}
+          menuType="wrap"
+          menuItemWidth="200px"
+        />
+        <TextFieldComboNC
+          shape="smooth"
+          horizontalSpacing="tiny"
+          restrictsToList={restrictsToList}
+          rows={multiline ? 2 : null}
+          grow="1"
+          list={list}
+          selectedId={selectedId}
+          onChange={this.onChange}
+          menuType="wrap"
+          menuItemWidth="200px"
+        />
+      </React.Fragment>
+    );
+  }
+
   renderCombo(list, restrictsToList, multiline) {
-    if (
+    if (this.props.type.type === 'color') {
+      return this.renderColor(list, restrictsToList, multiline);
+    } else if (
       this.props.type.type === 'date' ||
       this.props.type.type === 'time' ||
       this.props.type.type === 'datetime' ||

@@ -106,12 +106,15 @@ export default class ButtonCombo extends Widget {
 
   renderButtonColor() {
     const color = ColorConverters.toRGB(this.props.value);
+    const active = !!color;
+    const glyph = active ? null : 'solid/ban';
 
     return (
       <Button
         width={this.props.width}
-        active={true}
+        active={active}
         activeColor={color}
+        glyph={glyph}
         tooltip={this.props.tooltip}
         onClick={() => (this.props.readonly ? null : this.showCombo())}
       />
