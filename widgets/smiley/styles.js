@@ -153,11 +153,11 @@ export default function styles(theme, props) {
     position: 'absolute',
     left: px(s * 0.25),
     right: px(s * 0.25),
-    top: px(s * 0.1),
+    top: px(s * 0.05),
     bottom: px(s * 0.4),
     borderRadius: px(s),
     background: `linear-gradient(180deg, white, ${reflexionColor})`,
-    transform: 'scaleX(1.6)',
+    transform: 'scaleX(1.5)',
     opacity: reflexionOpacity,
   };
 
