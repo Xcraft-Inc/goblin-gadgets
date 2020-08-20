@@ -23,6 +23,7 @@ export default [
       'integer',
       'double',
       'percent',
+      'percentage',
       'delay',
       'color',
     ]),

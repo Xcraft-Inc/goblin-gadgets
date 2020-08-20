@@ -30,6 +30,18 @@ import Props from './props';
 
 /******************************************************************************/
 
+// type = "percent"
+// Standard use of PercentConverters (scale = 100).
+// Canonical values are "0.12" for displayValue = "12%"
+
+// type = "percentage"
+// Special use of PercentConverters (scale = 1).
+// Canonical values are "12%" for displayValue = "12%"
+// This type exists for historical reasons. Some properties require values
+// like "55%", and not "0.55".
+
+/******************************************************************************/
+
 function getTextFieldShape(shape, hideButton) {
   const textFieldShapes = hideButton
     ? {
@@ -110,6 +122,12 @@ export default class TextFieldTypedNC extends Widget {
         return PercentConverters.getDisplayed(
           canonicalValue,
           this.props.decimals
+        );
+      case 'percentage':
+        return PercentConverters.getDisplayed(
+          canonicalValue,
+          this.props.decimals,
+          1
         );
       case 'delay':
         return DelayConverters.getDisplayed(canonicalValue, this.props.unit);
@@ -200,6 +218,13 @@ export default class TextFieldTypedNC extends Widget {
           this.props.min,
           this.props.max
         );
+      case 'percentage':
+        return PercentConverters.parseEdited(
+          displayedValue,
+          this.props.min,
+          this.props.max,
+          1
+        );
       case 'delay':
         return DelayConverters.parseEdited(displayedValue, this.props.unit);
       case 'color':
@@ -276,6 +301,16 @@ export default class TextFieldTypedNC extends Widget {
           this.props.step,
           this.props.min,
           this.props.max
+        );
+      case 'percentage':
+        return PercentConverters.incEdited(
+          edited,
+          cursorPosition,
+          direction,
+          this.props.step,
+          this.props.min,
+          this.props.max,
+          1
         );
       case 'price':
         return PriceConverters.incEdited(
@@ -392,6 +427,7 @@ export default class TextFieldTypedNC extends Widget {
     if (
       this.props.type === 'price' ||
       this.props.type === 'percent' ||
+      this.props.type === 'percentage' ||
       this.props.type === 'pixel'
     ) {
       const p = this.parseEdited(value + '');
@@ -593,7 +629,10 @@ export default class TextFieldTypedNC extends Widget {
   renderDefault(otherProps, width, tooltip, justify) {
     const type = this.props.type;
     if (
-      (type === 'price' || type === 'percent' || type === 'pixel') &&
+      (type === 'price' ||
+        type === 'percent' ||
+        type === 'percentage' ||
+        type === 'pixel') &&
       this.props.step
     ) {
       return this.renderNumber(otherProps, width, tooltip, justify);
@@ -640,6 +679,7 @@ export default class TextFieldTypedNC extends Widget {
         type === 'integer' ||
         type === 'double' ||
         type === 'percent' ||
+        type === 'percentage' ||
         type === 'pixel'
           ? 'right'
           : 'left';
@@ -687,6 +727,7 @@ export default class TextFieldTypedNC extends Widget {
       case 'integer':
       case 'price':
       case 'percent':
+      case 'percentage':
       case 'pixel':
         return this.renderNumber(otherProps, width, tooltip, justify);
       case 'color':

@@ -199,19 +199,13 @@ class WidgetDocPropertyControl extends Widget {
       this.props.type.type === 'integer' ||
       this.props.type.type === 'double' ||
       this.props.type.type === 'percent' ||
+      this.props.type.type === 'percentage' ||
       this.props.type.type === 'delay'
     ) {
       let selectedId = this.currentValue;
       if (selectedId === undefined) {
         selectedId = null;
       }
-
-      const hasSlider =
-        this.props.type.type === 'number' ||
-        this.props.type.type === 'integer' ||
-        this.props.type.type === 'price' ||
-        this.props.type.type === 'percent' ||
-        this.props.type.type === 'pixel';
 
       return (
         <React.Fragment>
@@ -224,7 +218,7 @@ class WidgetDocPropertyControl extends Widget {
             grow="1"
             width="unset"
             shape="smooth"
-            hasSlider={hasSlider ? 'yes' : null}
+            hasSlider="yes"
             horizontalSpacing="overlap"
             restrictsToList={restrictsToList}
             rows={multiline ? 2 : null}

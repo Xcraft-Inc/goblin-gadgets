@@ -258,6 +258,9 @@ export default [
     name: 'glyphSize',
     group: 'glyph',
     type: types.percentage,
+    min: 20,
+    max: 500,
+    step: 10,
   },
 
   // Layout.
@@ -296,6 +299,9 @@ export default [
     name: 'fontSize',
     group: 'text',
     type: types.percentage,
+    min: 20,
+    max: 500,
+    step: 10,
   },
   {
     name: 'fontWeight',
