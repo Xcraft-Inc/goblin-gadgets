@@ -363,7 +363,7 @@ class WidgetDocPreview extends Widget {
           props[propName].type === undefined
         ) {
           console.error(
-            `Bad description for property '${propName}' in scenario.js. A map like this '{type: 'number', value: 3} is required.'`
+            `Bad description for property '${propName}' in scenario.js. A map like this '{type: 'number', value: 3}' is required.`
           );
         }
         // If oneOfType, replace {type: 'percentage', value: '10%'} by '10%'.
