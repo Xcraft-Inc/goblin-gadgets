@@ -37,4 +37,15 @@ export default [
     min: 10,
     max: 1000,
   },
+
+  // Layout.
+  {
+    name: 'step',
+    group: 'xcraft.ch',
+    type: types.number,
+    min: 1,
+    max: 7,
+    description:
+      'This component is didactic. The different steps correspond to the xcraft.ch documentation.',
+  },
 ];
