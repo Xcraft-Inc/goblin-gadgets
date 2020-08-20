@@ -12,11 +12,15 @@ export default [
     name: 'size',
     group: 'main',
     type: types.pixel,
+    min: 0,
+    max: 200,
   },
   {
     name: 'shift',
     group: 'main',
     type: types.pixel,
+    min: -500,
+    max: 500,
   },
   {
     name: 'color',
@@ -29,11 +33,15 @@ export default [
     name: 'parentSimulatorHeight',
     group: 'simulation',
     type: types.pixel,
+    min: 0,
+    max: 1000,
   },
   {
     name: 'parentSimulatorWidth',
     group: 'simulation',
     type: types.pixel,
+    min: 0,
+    max: 1000,
     description:
       'Height and width of the parent, only for simulation. Normally, these values are not specified.',
   },

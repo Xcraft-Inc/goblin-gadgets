@@ -18,6 +18,8 @@ export default [
     name: 'width',
     group: 'layout',
     type: types.pixel,
+    min: 520,
+    max: 1000,
   },
 
   // Function.

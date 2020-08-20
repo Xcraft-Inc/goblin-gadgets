@@ -122,6 +122,8 @@ export default [
     name: 'cornerSize',
     group: 'corner',
     type: types.pixel,
+    min: 0,
+    max: 100,
   },
 
   // Layout.
@@ -129,11 +131,15 @@ export default [
     name: 'width',
     group: 'layout',
     type: types.pixel,
+    min: 0,
+    max: 1000,
   },
   {
     name: 'height',
     group: 'layout',
     type: types.pixel,
+    min: 0,
+    max: 1000,
   },
   {
     name: 'grow',

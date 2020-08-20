@@ -39,7 +39,7 @@ export default [
     group: 'aspect',
     type: types.number,
     min: 0,
-    max: 10,
+    max: 5,
   },
 
   // Time.

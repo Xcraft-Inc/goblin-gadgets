@@ -206,6 +206,8 @@ export default [
     name: 'menuItemWidth',
     group: 'menu',
     type: types.pixel,
+    min: 0,
+    max: 1000,
   },
   {
     name: 'menuItemTooltips',
@@ -275,11 +277,15 @@ export default [
     name: 'width',
     group: 'layout',
     type: types.pixel,
+    min: 0,
+    max: 1000,
   },
   {
     name: 'fieldWidth',
     group: 'layout',
     type: types.pixel,
+    min: 0,
+    max: 1000,
   },
   {
     name: 'horizontalSpacing',

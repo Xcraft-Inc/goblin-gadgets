@@ -6,6 +6,8 @@ export default [
     name: 'labelWidth',
     group: 'label',
     type: types.pixel,
+    min: 0,
+    max: 500,
   },
   {
     name: 'labelText',
@@ -59,11 +61,15 @@ export default [
     name: 'width',
     group: 'layout',
     type: types.pixel,
+    min: 0,
+    max: 1000,
   },
   {
     name: 'height',
     group: 'layout',
     type: types.pixel,
+    min: 0,
+    max: 1000,
   },
   {
     name: 'horizontalSpacing',

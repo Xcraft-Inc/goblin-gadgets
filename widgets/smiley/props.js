@@ -20,6 +20,7 @@ export default [
     type: types.number,
     min: 0,
     max: 100,
+    step: 10,
     description: '0 = unhappy, 100 = happy',
   },
   {
@@ -33,5 +34,7 @@ export default [
     name: 'size',
     group: 'layout',
     type: types.pixel,
+    min: 10,
+    max: 1000,
   },
 ];

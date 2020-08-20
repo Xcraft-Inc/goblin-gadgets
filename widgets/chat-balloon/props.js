@@ -47,6 +47,8 @@ export default [
     name: 'width',
     group: 'layout',
     type: types.pixel,
+    min: 0,
+    max: 1000,
   },
 
   // Main.

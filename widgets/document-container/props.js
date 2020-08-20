@@ -6,16 +6,22 @@ export default [
     name: 'width',
     group: 'layout',
     type: types.pixel,
+    min: 0,
+    max: 1000,
   },
   {
     name: 'height',
     group: 'layout',
     type: types.pixel,
+    min: 0,
+    max: 1000,
   },
   {
     name: 'cornerSize',
     group: 'layout',
     type: types.pixel,
+    min: 0,
+    max: 100,
   },
   {
     name: 'grow',
@@ -38,6 +44,8 @@ export default [
     name: 'borderSize',
     group: 'aspect',
     type: types.pixel,
+    min: 0,
+    max: 20,
   },
   {
     name: 'borderColor',
