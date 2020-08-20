@@ -36,14 +36,15 @@ export default [
   {
     name: 'badge',
     props: {
+      kind: 'view-tab-right',
       text: 'Notifications',
       glyph: 'solid/rocket',
       glyphPosition: 'right',
-      badgeValue: '3',
+      badgeValue: 3,
       badgeShape: 'circle',
       badgeSize: 1.5,
       badgePush: true,
-      width: '160px',
+      width: '180px',
     },
   },
   {

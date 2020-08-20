@@ -41,10 +41,10 @@ class OneOfTypeControl extends Widget {
   get currentType() {
     if (this.props.value !== null && typeof this.props.value === 'object') {
       return this.props.value.get('type');
-    } else if (this.props.type.type === 'oneOfType') {
-      return this.props.type.types[0].type;
+    } else if (this.props.value !== null && this.props.value !== undefined) {
+      return typeof this.props.value;
     } else {
-      return this.props.type.type;
+      return this.props.type.types[0].type;
     }
   }
 
