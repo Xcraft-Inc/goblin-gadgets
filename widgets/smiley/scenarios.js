@@ -21,7 +21,7 @@ export default [
     name: 'orange',
     props: {
       size: '200px',
-      mainColor: '#fa0',
+      mainColor: '#fe0',
       topColor: '#f00',
       satisfaction: 0,
     },
@@ -30,9 +30,8 @@ export default [
     name: 'green',
     props: {
       size: '200px',
-      mainColor: '#0a0',
-      topColor: '#ff0',
-      satisfaction: 50,
+      mainColor: 'HSL(95,100,100)',
+      satisfaction: 75,
     },
   },
   {
@@ -40,8 +39,8 @@ export default [
     props: {
       size: '200px',
       mainColor: '#08f',
-      topColor: '#0ff',
-      satisfaction: 75,
+      topColor: 'HSL(180,29,99)',
+      satisfaction: 50,
     },
   },
   {
@@ -49,7 +48,7 @@ export default [
     props: {
       size: '200px',
       mainColor: '#f0f',
-      topColor: '#0ff',
+      topColor: 'HSL(180,50,100)',
     },
   },
   {

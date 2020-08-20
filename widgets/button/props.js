@@ -347,6 +347,9 @@ export default [
   {
     name: 'badgeSize',
     group: 'badge',
-    type: types.percentage,
+    type: types.number,
+    min: 0.2,
+    max: 4,
+    step: 0.1,
   },
 ];

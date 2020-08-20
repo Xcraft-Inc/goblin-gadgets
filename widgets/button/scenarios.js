@@ -34,6 +34,19 @@ export default [
     },
   },
   {
+    name: 'badge',
+    props: {
+      text: 'Notifications',
+      glyph: 'solid/rocket',
+      glyphPosition: 'right',
+      badgeValue: '3',
+      badgeShape: 'circle',
+      badgeSize: 1.5,
+      badgePush: true,
+      width: '160px',
+    },
+  },
+  {
     name: 'empty',
     props: {},
   },
