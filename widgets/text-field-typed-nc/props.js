@@ -32,7 +32,7 @@ export default [
     name: 'hasSlider',
     group: 'type',
     type: types.enum(['', 'yes']),
-    description: 'Only for type = "number"',
+    description: 'Only for numeric types.',
   },
   {
     name: 'required',

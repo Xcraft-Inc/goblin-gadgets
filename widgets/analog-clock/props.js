@@ -8,6 +8,8 @@ export default [
     name: 'size',
     group: 'aspect',
     type: types.pixel,
+    min: 10,
+    max: 1000,
   },
   {
     name: 'look',

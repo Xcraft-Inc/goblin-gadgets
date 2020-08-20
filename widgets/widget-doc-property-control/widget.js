@@ -206,16 +206,25 @@ class WidgetDocPropertyControl extends Widget {
         selectedId = null;
       }
 
+      const hasSlider =
+        this.props.type.type === 'number' ||
+        this.props.type.type === 'integer' ||
+        this.props.type.type === 'price' ||
+        this.props.type.type === 'percent' ||
+        this.props.type.type === 'pixel';
+
       return (
         <React.Fragment>
           <TextFieldTypedNC
             type={this.props.type.type}
             min={this.props.min}
             max={this.props.max}
+            step={this.props.step}
+            log={this.props.log}
             grow="1"
             width="unset"
             shape="smooth"
-            hasSlider={this.props.type.type === 'number' ? 'yes' : null}
+            hasSlider={hasSlider ? 'yes' : null}
             horizontalSpacing="overlap"
             restrictsToList={restrictsToList}
             rows={multiline ? 2 : null}

@@ -21,6 +21,8 @@ class WidgetDocProperty extends Widget {
           type={this.props.prop.type}
           min={this.props.prop.min}
           max={this.props.prop.max}
+          step={this.props.prop.step}
+          log={this.props.prop.log}
         />
       </div>
     );

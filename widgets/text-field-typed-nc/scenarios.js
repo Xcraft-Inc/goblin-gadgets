@@ -30,6 +30,7 @@ export default [
     name: 'number',
     props: {
       type: 'number',
+      hasSlider: 'yes',
       min: 0,
       max: 10,
       step: 0.5,
@@ -41,6 +42,7 @@ export default [
     name: 'integer',
     props: {
       type: 'integer',
+      hasSlider: 'yes',
       min: 1,
       max: 10,
       step: 1,
@@ -52,8 +54,9 @@ export default [
     name: 'percent',
     props: {
       type: 'percent',
-      min: '0',
-      max: '1',
+      hasSlider: 'yes',
+      min: 0,
+      max: 1,
       step: '0.05',
       value: '0.1',
       tooltip: 'Quantité',
@@ -63,8 +66,9 @@ export default [
     name: 'price',
     props: {
       type: 'price',
-      min: '0',
-      max: '100',
+      hasSlider: 'yes',
+      min: 0,
+      max: 100,
       step: '5',
       value: '75',
       tooltip: 'Prix HT',
@@ -74,8 +78,9 @@ export default [
     name: 'pixel',
     props: {
       type: 'pixel',
-      min: '0',
-      max: '500',
+      hasSlider: 'yes',
+      min: 0,
+      max: 500,
       step: '10',
       value: '120px',
       tooltip: 'Largeur en pixels',

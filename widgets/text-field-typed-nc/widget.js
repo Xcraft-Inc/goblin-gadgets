@@ -45,12 +45,16 @@ function getTextFieldShape(shape, hideButton) {
 
 function parseValue(value) {
   if (typeof value === 'string') {
+    if (value.endsWith('px')) {
+      value = value.substring(0, value.length - 2);
+    }
+
     value = parseFloat(value);
     if (isNaN(value)) {
       value = 0;
     }
   } else if (typeof value === 'number') {
-    // ok
+    // value ok
   } else {
     value = null;
   }
@@ -68,7 +72,7 @@ export default class TextFieldTypedNC extends Widget {
     this.parse = this.parse.bind(this);
     this.check = this.check.bind(this);
     this.handleIncNumber = this.handleIncNumber.bind(this);
-    this.handleSliderNumber = this.handleSliderNumber.bind(this);
+    this.handleSliderChanged = this.handleSliderChanged.bind(this);
     this.handleDateClicked = this.handleDateClicked.bind(this);
     this.handleTimeChanged = this.handleTimeChanged.bind(this);
     this.handleUpDown = this.handleUpDown.bind(this);
@@ -165,7 +169,11 @@ export default class TextFieldTypedNC extends Widget {
       case 'length':
         return LengthConverters.parseEdited(displayedValue, this.props.unit);
       case 'pixel':
-        return PixelConverters.parseEdited(displayedValue);
+        return PixelConverters.parseEdited(
+          displayedValue,
+          this.props.min,
+          this.props.max
+        );
       case 'volume':
         return VolumeConverters.parseEdited(displayedValue, this.props.unit);
       case 'number':
@@ -376,9 +384,21 @@ export default class TextFieldTypedNC extends Widget {
     }
   }
 
-  handleSliderNumber(value) {
+  handleSliderChanged(value) {
     if (!this.props.onChange) {
       return;
+    }
+
+    if (
+      this.props.type === 'price' ||
+      this.props.type === 'percent' ||
+      this.props.type === 'pixel'
+    ) {
+      const p = this.parseEdited(value + '');
+      if (p.error) {
+        return;
+      }
+      value = p.value;
     }
 
     this.props.onChange(value);
@@ -478,7 +498,7 @@ export default class TextFieldTypedNC extends Widget {
     );
   }
 
-  renderNumberSlider() {
+  renderSlider() {
     if (
       this.props.min === undefined ||
       this.props.max === undefined ||
@@ -494,13 +514,13 @@ export default class TextFieldTypedNC extends Widget {
           direction="horizontal"
           grow="1"
           barColor={this.context.theme.palette.base}
-          min={this.props.min}
-          max={this.props.max}
+          min={this.min}
+          max={this.max}
           step={this.props.step || this.numberDefaultStep}
+          value={this.value}
           changeMode="throttled"
           throttleDelay={20}
-          value={this.props.value}
-          onChange={this.handleSliderNumber}
+          onChange={this.handleSliderChanged}
         />
       </React.Fragment>
     );
@@ -540,7 +560,7 @@ export default class TextFieldTypedNC extends Widget {
             </React.Fragment>
           )}
         </div>
-        {this.renderNumberSlider()}
+        {this.renderSlider()}
       </div>
     );
   }
@@ -665,6 +685,9 @@ export default class TextFieldTypedNC extends Widget {
         return this.renderTime(otherProps, width, tooltip, justify, shape);
       case 'number':
       case 'integer':
+      case 'price':
+      case 'percent':
+      case 'pixel':
         return this.renderNumber(otherProps, width, tooltip, justify);
       case 'color':
         return this.renderColor(otherProps, width, tooltip);

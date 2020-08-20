@@ -153,16 +153,22 @@ export default [
     name: 'itemWidth',
     group: 'aspect',
     type: types.pixel,
+    min: 10,
+    max: 100,
   },
   {
     name: 'itemHeight',
     group: 'aspect',
     type: types.pixel,
+    min: 10,
+    max: 100,
   },
   {
     name: 'margin',
     group: 'aspect',
     type: types.pixel,
+    min: 0,
+    max: 50,
   },
 
   // Events.
