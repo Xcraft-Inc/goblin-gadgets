@@ -37,8 +37,8 @@ import Props from './props';
 // type = "percentage"
 // Special use of PercentConverters (scale = 1).
 // Canonical values are "12%" for displayValue = "12%"
-// This type exists for historical reasons. Some properties require values
-// like "55%", and not "0.55".
+// This type exists for historical reasons. Some widgets have properties which
+// require "55%", and not "0.55" (by example Button.glyphSize).
 
 /******************************************************************************/
 
