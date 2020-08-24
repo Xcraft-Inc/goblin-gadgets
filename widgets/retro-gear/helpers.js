@@ -151,6 +151,6 @@ function getElements(
 
 /******************************************************************************/
 
-module.exports = {
+export default {
   getElements,
 };

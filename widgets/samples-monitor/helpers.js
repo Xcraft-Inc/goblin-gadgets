@@ -140,7 +140,7 @@ function getGridElements(ox, oy, dx, dy, nx, ny, strokeColor) {
 
 /******************************************************************************/
 
-module.exports = {
+export default {
   getScreenElements,
   getSampleElements,
   getGridElements,

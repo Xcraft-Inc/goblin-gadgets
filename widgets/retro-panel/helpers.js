@@ -52,6 +52,6 @@ function getElements(dx, dy, r = 50, m = 100, color) {
 
 /******************************************************************************/
 
-module.exports = {
+export default {
   getElements,
 };

@@ -100,7 +100,7 @@ function getPlace(place) {
 
 /******************************************************************************/
 
-module.exports = {
+export default {
   getFrameElements,
   getPlace,
 };
