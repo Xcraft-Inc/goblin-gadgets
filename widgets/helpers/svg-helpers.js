@@ -129,7 +129,7 @@ function renderElements(style, elements, shadow) {
 
 /******************************************************************************/
 
-module.exports = {
+export default {
   createPath,
   getPath,
 
