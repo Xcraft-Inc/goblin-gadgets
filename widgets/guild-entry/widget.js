@@ -1,5 +1,4 @@
 import React from 'react';
-import withC from 'goblin-laboratory/widgets/connect-helpers/with-c';
 import Widget from 'goblin-laboratory/widgets/widget';
 import Props from './props';
 import {
