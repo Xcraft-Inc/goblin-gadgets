@@ -16,6 +16,10 @@ export default class RetroIlluminatedButton extends Widget {
   }
 
   renderGlyph(glyph) {
+    if (!glyph) {
+      return null;
+    }
+
     const glyphClass = this.styles.classNames.glyph;
     let glyphStyle = null;
 

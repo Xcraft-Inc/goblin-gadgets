@@ -98,6 +98,10 @@ import Smiley from 'goblin-gadgets/widgets/smiley/widget';
 import smileyProps from 'goblin-gadgets/widgets/smiley/props';
 import smileyScenarios from 'goblin-gadgets/widgets/smiley/scenarios';
 
+import GuildEntry from 'goblin-gadgets/widgets/guild-entry/widget';
+import guildEntryProps from 'goblin-gadgets/widgets/guild-entry/props';
+import guildEntryScenarios from 'goblin-gadgets/widgets/guild-entry/scenarios';
+
 const widgetList = [
   {
     name: 'Button',
@@ -273,6 +277,13 @@ const widgetList = [
     widgetPath: 'goblin-gadgets/widgets/smiley/widget',
     props: smileyProps,
     scenarios: smileyScenarios,
+  },
+  {
+    name: 'GuildEntry',
+    widget: GuildEntry,
+    widgetPath: 'goblin-gadgets/widgets/guild-entry/widget',
+    props: guildEntryProps,
+    scenarios: guildEntryScenarios,
   },
 ];
 
