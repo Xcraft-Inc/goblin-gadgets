@@ -102,6 +102,10 @@ import GuildEntry from 'goblin-gadgets/widgets/guild-entry/widget';
 import guildEntryProps from 'goblin-gadgets/widgets/guild-entry/props';
 import guildEntryScenarios from 'goblin-gadgets/widgets/guild-entry/scenarios';
 
+import GuildUserProfile from 'goblin-gadgets/widgets/guild-user-profile/widget';
+import guildUserProfileProps from 'goblin-gadgets/widgets/guild-user-profile/props';
+import guildUserProfileScenarios from 'goblin-gadgets/widgets/guild-user-profile/scenarios';
+
 import GuildUserLogo from 'goblin-gadgets/widgets/guild-user-logo/widget';
 import guildUserLogoProps from 'goblin-gadgets/widgets/guild-user-logo/props';
 import guildUserLogoScenarios from 'goblin-gadgets/widgets/guild-user-logo/scenarios';
@@ -288,6 +292,13 @@ const widgetList = [
     widgetPath: 'goblin-gadgets/widgets/guild-entry/widget',
     props: guildEntryProps,
     scenarios: guildEntryScenarios,
+  },
+  {
+    name: 'GuildUserProfile',
+    widget: GuildUserProfile,
+    widgetPath: 'goblin-gadgets/widgets/guild-user-profile/widget',
+    props: guildUserProfileProps,
+    scenarios: guildUserProfileScenarios,
   },
   {
     name: 'GuildUserLogo',
