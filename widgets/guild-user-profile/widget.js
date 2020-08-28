@@ -12,6 +12,7 @@ import Button from 'goblin-gadgets/widgets/button/widget';
 import TextField from 'goblin-gadgets/widgets/text-field/widget';
 import TextFieldTyped from 'goblin-gadgets/widgets/text-field-typed/widget';
 import TextFieldCombo from 'goblin-gadgets/widgets/text-field-combo/widget';
+import Separator from 'goblin-gadgets/widgets/separator/widget';
 import GuildUserLogo from 'goblin-gadgets/widgets/guild-user-logo/widget';
 
 /******************************************************************************/
@@ -98,6 +99,18 @@ export default class GuildUserProfile extends Widget {
   }
 
   renderFields() {
+    return (
+      <div className={this.styles.classNames.fields}>
+        {this.renderTitle(T('Données personnelles'))}
+        {this.renderField(T('Initiales'), this.props.initials, '60px')}
+        {this.renderField(T('Pseudo'), this.props.pseudo)}
+        {this.renderField(T('Prénom'), this.props.firstName)}
+        {this.renderField(T('Nom'), this.props.lastName)}
+      </div>
+    );
+  }
+
+  renderLogo() {
     const logoShapes = [
       {id: 'circle', glyph: 'solid/circle', text: T('Cercle')},
       {id: 'hexagon', glyph: 'solid/hexagon', text: T('Hexagone')},
@@ -109,33 +122,31 @@ export default class GuildUserProfile extends Widget {
     ];
 
     return (
-      <div className={this.styles.classNames.fields}>
-        {this.renderTitle(T('Données personnelles'))}
-        {this.renderField(T('Initiales'), this.props.initials, '60px')}
-        {this.renderField(T('Pseudo'), this.props.pseudo)}
-        {this.renderField(T('Prénom'), this.props.firstName)}
-        {this.renderField(T('Nom'), this.props.lastName)}
-        {this.renderTitle(T('Logo personnel'))}
-        {this.renderFieldTyped(
-          T('Couleur'),
-          this.props.logoColor,
-          'color',
-          '60px'
-        )}
-        {this.renderFieldCombo(T('Forme'), this.props.logoShape, logoShapes)}
-      </div>
-    );
-  }
-
-  renderLogo() {
-    return (
       <div className={this.styles.classNames.logo}>
+        <TextFieldCombo
+          width="150px"
+          shape="rounded"
+          selectedId={this.props.logoShape || 'circle'}
+          list={logoShapes}
+        />
+        <Separator kind="exact" height="40px" />
         <GuildUserLogo
           size="150px"
           shape={this.props.logoShape}
           color={this.props.logoColor}
           initials={this.logoInitials}
         />
+        <Separator kind="exact" height="40px" />
+        <TextFieldTyped
+          width="32px"
+          shape="rounded"
+          value={this.props.logoColor || '#f00'}
+          type="color"
+        />
+        <div className={this.styles.classNames.logoTopLine} />
+        <div className={this.styles.classNames.logoTopCircle} />
+        <div className={this.styles.classNames.logoBottomLine} />
+        <div className={this.styles.classNames.logoBottomCircle} />
       </div>
     );
   }

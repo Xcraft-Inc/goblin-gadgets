@@ -112,6 +112,7 @@ export default class ButtonCombo extends Widget {
     return (
       <Button
         width={this.props.width}
+        shape={this.props.shape}
         active={active}
         activeColor={color}
         glyph={glyph}

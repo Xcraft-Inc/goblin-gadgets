@@ -19,7 +19,6 @@ export default function styles(theme, props) {
     display: 'flex',
     flexDirection: 'column',
     background: `radial-gradient(at 50% 50%, ${centerColor}, ${cornerColor} 88%)`,
-    transition: 'all 2s ease-out',
   };
 
   const header = {
@@ -41,6 +40,8 @@ export default function styles(theme, props) {
     justifyContent: 'center',
   };
 
+  /******************************************************************************/
+
   const fields = {
     flexGrow: 1,
     display: 'flex',
@@ -53,7 +54,6 @@ export default function styles(theme, props) {
   const title = {
     display: 'flex',
     flexDirection: 'row',
-    marginTop: '40px',
     marginBottom: '10px',
     fontSize: '150%',
   };
@@ -64,13 +64,56 @@ export default function styles(theme, props) {
     marginBottom: '-1px',
   };
 
+  /******************************************************************************/
+
   const logo = {
+    position: 'relative',
     flexGrow: 1,
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
   };
+
+  const logoTopLine = {
+    position: 'absolute',
+    width: '2px',
+    left: 'calc(50% - 1px)',
+    top: 'calc(50% - 115px)',
+    height: '65px',
+    backgroundColor: '#000',
+  };
+
+  const logoTopCircle = {
+    position: 'absolute',
+    width: '12px',
+    height: '12px',
+    left: 'calc(50% - 6px)',
+    top: 'calc(50% - 50px)',
+    borderRadius: '6px',
+    backgroundColor: '#000',
+  };
+
+  const logoBottomLine = {
+    position: 'absolute',
+    width: '2px',
+    left: 'calc(50% - 1px)',
+    top: 'calc(50% + 50px)',
+    height: '65px',
+    backgroundColor: '#000',
+  };
+
+  const logoBottomCircle = {
+    position: 'absolute',
+    width: '12px',
+    height: '12px',
+    left: 'calc(50% - 6px)',
+    top: 'calc(50% + 50px)',
+    borderRadius: '6px',
+    backgroundColor: '#000',
+  };
+
+  /******************************************************************************/
 
   const footer = {
     width: '100%',
@@ -99,6 +142,10 @@ export default function styles(theme, props) {
     title,
     field,
     logo,
+    logoTopLine,
+    logoTopCircle,
+    logoBottomLine,
+    logoBottomCircle,
     footer,
     buttons,
   };
