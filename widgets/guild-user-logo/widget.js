@@ -7,6 +7,7 @@ import {
 } from 'xcraft-core-utils/lib/prop-types';
 import * as styles from './styles';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import GuildHelpers from '../guild-user-logo/guild-helpers';
 
 /******************************************************************************/
 
@@ -17,9 +18,10 @@ export default class GuildUserLogo extends Widget {
   }
 
   renderGlyph() {
+    const glyph = GuildHelpers.getLogoShape(this.props.shape);
     return (
       <div className={this.styles.classNames.glyph}>
-        <FontAwesomeIcon icon={['fas', this.props.shape || 'hexagon']} />
+        <FontAwesomeIcon icon={['fas', glyph]} />
       </div>
     );
   }

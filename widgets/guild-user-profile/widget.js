@@ -14,6 +14,7 @@ import TextFieldTyped from 'goblin-gadgets/widgets/text-field-typed/widget';
 import TextFieldCombo from 'goblin-gadgets/widgets/text-field-combo/widget';
 import Separator from 'goblin-gadgets/widgets/separator/widget';
 import GuildUserLogo from 'goblin-gadgets/widgets/guild-user-logo/widget';
+import GuildHelpers from '../guild-user-logo/guild-helpers';
 
 /******************************************************************************/
 
@@ -24,25 +25,12 @@ export default class GuildUserProfile extends Widget {
   }
 
   get logoInitials() {
-    let text = this.props.initials;
-
-    if (!text) {
-      const c1 = this.props.firstName
-        ? this.props.firstName.substring(0, 1)
-        : '';
-      const c2 = this.props.lastName ? this.props.lastName.substring(0, 1) : '';
-      text = c1 + c2;
-    }
-
-    if (!text) {
-      text = this.props.pseudo;
-    }
-
-    if (!text) {
-      text = ' ';
-    }
-
-    return text.toUpperCase();
+    return GuildHelpers.getLogoInitials(
+      this.props.initials,
+      this.props.pseudo,
+      this.props.firstName,
+      this.props.lastName
+    );
   }
 
   renderHeader() {
@@ -143,7 +131,7 @@ export default class GuildUserProfile extends Widget {
         <TextFieldCombo
           width="150px"
           shape="rounded"
-          selectedId={this.props.logoShape || 'hexagon'}
+          selectedId={GuildHelpers.getLogoShape(this.props.logoShape)}
           list={logoShapes}
         />
         <Separator kind="exact" height="40px" />
@@ -157,7 +145,7 @@ export default class GuildUserProfile extends Widget {
         <TextFieldTyped
           width="32px"
           shape="rounded"
-          value={this.props.logoColor || '#7abd24'}
+          value={GuildHelpers.getLogoColor(this.props.logoColor)}
           type="color"
         />
         <div className={this.styles.classNames.logoTopLine} />

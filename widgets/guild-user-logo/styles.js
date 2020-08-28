@@ -1,18 +1,16 @@
-import {ColorManipulator} from 'goblin-theme';
 import {ColorHelpers} from 'goblin-theme';
 import {Unit} from 'goblin-theme';
+import GuildHelpers from '../guild-user-logo/guild-helpers';
 
 /******************************************************************************/
 
 export const propNames = ['size', 'color', 'shape', 'initials'];
 
 export default function styles(theme, props) {
-  const {
-    size = '50px',
-    color = '#7abd24',
-    shape = 'hexagon',
-    initials = '?',
-  } = props;
+  let {size = '50px', color, shape, initials = '?'} = props;
+
+  color = GuildHelpers.getLogoColor(color);
+  shape = GuildHelpers.getLogoShape(shape);
 
   const guildUserLogo = {
     position: 'relative',

@@ -31,12 +31,7 @@ export default class GuildEntry extends Widget {
       <div className={this.styles.classNames.header}>
         <Label width="42px" />
         <Label text={text} justify="center" grow="1" />
-        <GuildUserLogo
-          size="32px"
-          initials="D"
-          shape="hexagon"
-          color="#7abd24"
-        />
+        <GuildUserLogo size="32px" initials="D" shape="" color="" />
         <Label width="10px" />
       </div>
     );

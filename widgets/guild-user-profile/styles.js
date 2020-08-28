@@ -1,5 +1,5 @@
 import {ColorManipulator} from 'goblin-theme';
-import {ColorHelpers} from 'goblin-theme';
+import GuildHelpers from '../guild-user-logo/guild-helpers';
 import {Unit} from 'goblin-theme';
 const px = Unit.toPx;
 
@@ -8,7 +8,7 @@ const px = Unit.toPx;
 export const propNames = ['width', 'height', 'grow', 'logoShape'];
 
 export default function styles(theme, props) {
-  const {width, height, grow, logoShape = 'hexagon'} = props;
+  const {width, height, grow, logoShape = GuildHelpers.getLogoShape()} = props;
 
   const cornerColor = ColorManipulator.darken(theme.palette.base, 0.6);
   const centerColor = ColorManipulator.lighten(theme.palette.base, 0.1);
