@@ -11,6 +11,7 @@ import Label from 'goblin-gadgets/widgets/label/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import RetroIlluminatedButton from 'goblin-gadgets/widgets/retro-illuminated-button/widget';
 import GuildUserLogo from 'goblin-gadgets/widgets/guild-user-logo/widget';
+import GuildHelpers from '../guild-user-logo/guild-helpers';
 
 /******************************************************************************/
 
@@ -26,12 +27,19 @@ export default class GuildEntry extends Widget {
 
   renderHeader() {
     const text = `${this.props.appName} — Administrateur: ${this.props.guildMaster}`;
+    const tooltip = GuildHelpers.getLogoTooltip(null, '', '', '', 'Dupond');
 
     return (
       <div className={this.styles.classNames.header}>
         <Label width="42px" />
         <Label text={text} justify="center" grow="1" />
-        <GuildUserLogo size="32px" initials="D" shape="" color="" />
+        <GuildUserLogo
+          size="32px"
+          initials="D"
+          shape=""
+          color=""
+          tooltip={tooltip}
+        />
         <Label width="10px" />
       </div>
     );

@@ -6,6 +6,7 @@ export default [
       shape: 'circle',
       color: '#f00',
       initials: 'JDN',
+      tooltip: 'Jean-Daniel Nicoud',
     },
   },
   {
@@ -15,6 +16,7 @@ export default [
       shape: 'hexagon',
       color: '#a0ff24',
       initials: 'PA',
+      tooltip: 'Paula Allaman',
     },
   },
   {
@@ -24,6 +26,7 @@ export default [
       shape: 'heart',
       color: '#ff4eae',
       initials: 'H',
+      tooltip: 'Hector',
     },
   },
   {
@@ -33,6 +36,7 @@ export default [
       shape: 'triangle',
       color: '#4e73ff',
       initials: 'KZ',
+      tooltip: 'Karl Zürcher',
     },
   },
   {

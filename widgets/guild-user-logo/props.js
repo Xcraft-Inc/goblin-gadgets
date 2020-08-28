@@ -8,9 +8,15 @@ export default [
     type: types.string,
   },
   {
+    name: 'tooltip',
+    group: 'aspect',
+    type: types.nabu,
+  },
+  {
     name: 'shape',
     group: 'aspect',
     type: types.enum([
+      '',
       'circle',
       'hexagon',
       'square',

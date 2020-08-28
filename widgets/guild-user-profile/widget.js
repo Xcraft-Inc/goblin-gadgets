@@ -33,6 +33,16 @@ export default class GuildUserProfile extends Widget {
     );
   }
 
+  get logoTooltip() {
+    return GuildHelpers.getLogoTooltip(
+      null,
+      this.props.initials,
+      this.props.pseudo,
+      this.props.firstName,
+      this.props.lastName
+    );
+  }
+
   renderHeader() {
     const text = T('Edition de votre profil');
 
@@ -45,6 +55,7 @@ export default class GuildUserProfile extends Widget {
           shape={this.props.logoShape}
           color={this.props.logoColor}
           initials={this.logoInitials}
+          tooltip={this.logoTooltip}
         />
         <Label width="10px" />
       </div>
@@ -140,6 +151,7 @@ export default class GuildUserProfile extends Widget {
           shape={this.props.logoShape}
           color={this.props.logoColor}
           initials={this.logoInitials}
+          tooltip={this.logoTooltip}
         />
         <Separator kind="exact" height="40px" />
         <TextFieldTyped

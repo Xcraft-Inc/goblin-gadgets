@@ -1,3 +1,6 @@
+import T from 't';
+import StringBuilder from 'goblin-nabu/lib/string-builder.js';
+
 //-----------------------------------------------------------------------------
 
 // With "Xavier", return "X".
@@ -35,6 +38,27 @@ function getLogoInitials(initials, pseudo, firstName, lastName) {
 
 //-----------------------------------------------------------------------------
 
+function _addPrefix(text, prefix) {
+  if (!text) {
+    return text;
+  }
+
+  return (prefix || '- ') + text;
+}
+
+function getLogoTooltip(title, initials, pseudo, firstName, lastName) {
+  title = title || T('Logo de votre profil');
+
+  const name = StringBuilder.joinWords(firstName, lastName);
+
+  return StringBuilder.join(
+    [title, _addPrefix(initials), _addPrefix(pseudo), _addPrefix(name)],
+    '\n'
+  );
+}
+
+//-----------------------------------------------------------------------------
+
 function getLogoShape(shape) {
   return shape || 'hexagon'; // default shape
 }
@@ -47,6 +71,7 @@ function getLogoColor(color) {
 
 module.exports = {
   getLogoInitials,
+  getLogoTooltip,
   getLogoShape,
   getLogoColor,
 };
