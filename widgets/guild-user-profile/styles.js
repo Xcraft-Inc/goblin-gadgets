@@ -1,15 +1,17 @@
 import {ColorManipulator} from 'goblin-theme';
 import {ColorHelpers} from 'goblin-theme';
+import {Unit} from 'goblin-theme';
+const px = Unit.toPx;
 
 /******************************************************************************/
 
-export const propNames = ['width', 'height', 'grow'];
+export const propNames = ['width', 'height', 'grow', 'logoShape'];
 
 export default function styles(theme, props) {
-  const {width, height, grow} = props;
+  const {width, height, grow, logoShape = 'hexagon'} = props;
 
-  const cornerColor = ColorManipulator.darken(theme.palette.base, 0.3);
-  const centerColor = ColorManipulator.lighten(theme.palette.base, 0.2);
+  const cornerColor = ColorManipulator.darken(theme.palette.base, 0.6);
+  const centerColor = ColorManipulator.lighten(theme.palette.base, 0.1);
 
   const guildUserProfile = {
     width: width,
@@ -18,7 +20,7 @@ export default function styles(theme, props) {
     justifyContent: 'center',
     display: 'flex',
     flexDirection: 'column',
-    background: `radial-gradient(at 50% 50%, ${centerColor}, ${cornerColor} 88%)`,
+    background: `radial-gradient(at 50% 40%, ${centerColor}, ${cornerColor} 88%)`,
   };
 
   const header = {
@@ -75,12 +77,18 @@ export default function styles(theme, props) {
     alignItems: 'center',
   };
 
+  // Vertical positions, relative to center:
+  const topStart = -115;
+  const topEnd = -50;
+  const bottomStart = 115;
+  const bottomEnd = logoShape === 'triangle' ? 60 : 50;
+
   const logoTopLine = {
     position: 'absolute',
     width: '2px',
     left: 'calc(50% - 1px)',
-    top: 'calc(50% - 115px)',
-    height: '65px',
+    top: `calc(50% - ${px(-topStart)})`,
+    height: px(-topStart + topEnd),
     backgroundColor: '#000',
   };
 
@@ -89,7 +97,7 @@ export default function styles(theme, props) {
     width: '12px',
     height: '12px',
     left: 'calc(50% - 6px)',
-    top: 'calc(50% - 50px)',
+    top: `calc(50% - ${px(-topEnd)})`,
     borderRadius: '6px',
     backgroundColor: '#000',
   };
@@ -98,8 +106,8 @@ export default function styles(theme, props) {
     position: 'absolute',
     width: '2px',
     left: 'calc(50% - 1px)',
-    top: 'calc(50% + 50px)',
-    height: '65px',
+    top: `calc(50% + ${px(bottomEnd)})`,
+    height: px(bottomStart - bottomEnd),
     backgroundColor: '#000',
   };
 
@@ -108,7 +116,7 @@ export default function styles(theme, props) {
     width: '12px',
     height: '12px',
     left: 'calc(50% - 6px)',
-    top: 'calc(50% + 50px)',
+    top: `calc(50% + ${px(bottomEnd)})`,
     borderRadius: '6px',
     backgroundColor: '#000',
   };

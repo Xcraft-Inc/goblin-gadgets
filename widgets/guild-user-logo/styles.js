@@ -9,8 +9,8 @@ export const propNames = ['size', 'color', 'shape', 'initials'];
 export default function styles(theme, props) {
   const {
     size = '50px',
-    color = '#f00',
-    shape = 'circle',
+    color = '#7abd24',
+    shape = 'hexagon',
     initials = '?',
   } = props;
 

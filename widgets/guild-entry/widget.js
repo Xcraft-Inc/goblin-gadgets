@@ -10,6 +10,7 @@ import T from 't';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import RetroIlluminatedButton from 'goblin-gadgets/widgets/retro-illuminated-button/widget';
+import GuildUserLogo from 'goblin-gadgets/widgets/guild-user-logo/widget';
 
 /******************************************************************************/
 
@@ -28,7 +29,15 @@ export default class GuildEntry extends Widget {
 
     return (
       <div className={this.styles.classNames.header}>
-        <Label text={text} justify="center" />
+        <Label width="42px" />
+        <Label text={text} justify="center" grow="1" />
+        <GuildUserLogo
+          size="32px"
+          initials="D"
+          shape="hexagon"
+          color="#7abd24"
+        />
+        <Label width="10px" />
       </div>
     );
   }

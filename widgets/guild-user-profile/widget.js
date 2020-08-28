@@ -50,7 +50,15 @@ export default class GuildUserProfile extends Widget {
 
     return (
       <div className={this.styles.classNames.header}>
-        <Label text={text} justify="center" />
+        <Label width="42px" />
+        <Label text={text} justify="center" grow="1" />
+        <GuildUserLogo
+          size="32px"
+          shape={this.props.logoShape}
+          color={this.props.logoColor}
+          initials={this.logoInitials}
+        />
+        <Label width="10px" />
       </div>
     );
   }
@@ -106,6 +114,15 @@ export default class GuildUserProfile extends Widget {
         {this.renderField(T('Pseudo'), this.props.pseudo)}
         {this.renderField(T('Prénom'), this.props.firstName)}
         {this.renderField(T('Nom'), this.props.lastName)}
+        <Separator kind="exact" height="50px" />
+        {this.renderTitle(T('Interface'))}
+        {this.renderFieldCombo(T('Thème'), 'default', [
+          'Dark',
+          'Default',
+          'Dragula',
+          'Green',
+          'Red',
+        ])}
       </div>
     );
   }
@@ -126,7 +143,7 @@ export default class GuildUserProfile extends Widget {
         <TextFieldCombo
           width="150px"
           shape="rounded"
-          selectedId={this.props.logoShape || 'circle'}
+          selectedId={this.props.logoShape || 'hexagon'}
           list={logoShapes}
         />
         <Separator kind="exact" height="40px" />
@@ -140,7 +157,7 @@ export default class GuildUserProfile extends Widget {
         <TextFieldTyped
           width="32px"
           shape="rounded"
-          value={this.props.logoColor || '#f00'}
+          value={this.props.logoColor || '#7abd24'}
           type="color"
         />
         <div className={this.styles.classNames.logoTopLine} />

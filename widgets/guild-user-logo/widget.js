@@ -19,7 +19,7 @@ export default class GuildUserLogo extends Widget {
   renderGlyph() {
     return (
       <div className={this.styles.classNames.glyph}>
-        <FontAwesomeIcon icon={['fas', this.props.shape || 'circle']} />
+        <FontAwesomeIcon icon={['fas', this.props.shape || 'hexagon']} />
       </div>
     );
   }
