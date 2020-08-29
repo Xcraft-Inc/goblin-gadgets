@@ -270,7 +270,7 @@ class WidgetDocPreview extends Widget {
           text="Scale"
           widgetId={this.props.widgetId}
           path="settings.scale"
-          list={[1, 1.5, 2, 3, 4]}
+          list={[0.5, 0.75, 0.9, 1, 1.5, 2, 3, 4]}
         />
         <SettingsList
           text="Color"
