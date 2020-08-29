@@ -17,22 +17,27 @@ function _extractFirstLetters(text) {
 }
 
 function getLogoInitials(initials, pseudo, firstName, lastName) {
+  // Priority 1: Initials
   let text = initials;
 
+  // Priority 2: Pseudo
+  if (!text) {
+    text = _extractFirstLetters(pseudo);
+  }
+
+  // Priority 3: First and last names
   if (!text) {
     const c1 = _extractFirstLetters(firstName);
     const c2 = _extractFirstLetters(lastName);
     text = c1 + c2;
   }
 
-  if (!text) {
-    text = pseudo;
-  }
-
+  // Priority 4: Empty logo
   if (!text) {
     text = ' ';
   }
 
+  // The content of the logo is always in capitals.
   return text.toUpperCase();
 }
 
