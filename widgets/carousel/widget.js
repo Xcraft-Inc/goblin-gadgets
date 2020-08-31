@@ -1,4 +1,7 @@
 import React from 'react';
+import props from './props';
+import scenarios from './scenarios';
+import {registerWidget} from 'goblin-gadgets/widgets/widget-doc/widget-list';
 import Widget from 'goblin-laboratory/widgets/widget';
 import * as styles from './styles';
 import {Unit} from 'goblin-theme';
@@ -484,3 +487,5 @@ export default class Carousel extends Widget {
 }
 
 /******************************************************************************/
+
+registerWidget(Carousel, props, scenarios);

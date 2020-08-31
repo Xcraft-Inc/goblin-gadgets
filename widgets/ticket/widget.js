@@ -1,7 +1,9 @@
 //T:2019-02-27
 import React from 'react';
-import Props from './props';
 import Widget from 'goblin-laboratory/widgets/widget';
+import props from './props';
+import scenarios from './scenarios';
+import {registerWidget} from 'goblin-gadgets/widgets/widget-doc/widget-list';
 
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Badge from 'goblin-gadgets/widgets/badge/widget';
@@ -11,11 +13,6 @@ import {Unit} from 'goblin-theme';
 import getPath from './getPath';
 import {ColorHelpers} from 'goblin-theme';
 import * as styles from './styles';
-
-import {
-  makePropTypes,
-  makeDefaultProps,
-} from 'xcraft-core-utils/lib/prop-types';
 
 /******************************************************************************/
 
@@ -385,5 +382,4 @@ export default class Ticket extends Widget {
 }
 /******************************************************************************/
 
-Ticket.propTypes = makePropTypes(Props);
-Ticket.defaultProps = makeDefaultProps(Props);
+registerWidget(Ticket, props, scenarios);

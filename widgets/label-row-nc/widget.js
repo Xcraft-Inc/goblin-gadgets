@@ -1,12 +1,8 @@
 import React from 'react';
-import Props from './props';
+import props from './props';
+import scenarios from './scenarios';
+import {registerWidget} from 'goblin-gadgets/widgets/widget-doc/widget-list';
 import Widget from 'goblin-laboratory/widgets/widget';
-
-import {
-  makePropTypes,
-  makeDefaultProps,
-} from 'xcraft-core-utils/lib/prop-types';
-
 import Container from 'goblin-gadgets/widgets/container/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 
@@ -82,5 +78,4 @@ export default class LabelRowNC extends Widget {
 
 /******************************************************************************/
 
-LabelRowNC.propTypes = makePropTypes(Props);
-LabelRowNC.defaultProps = makeDefaultProps(Props);
+registerWidget(LabelRowNC, props, scenarios);

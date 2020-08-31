@@ -1,5 +1,8 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
+import props from './props';
+import scenarios from './scenarios';
+import {registerWidget} from 'goblin-gadgets/widgets/widget-doc/widget-list';
 import T from 't';
 import {
   date as DateConverters,
@@ -17,16 +20,13 @@ import {
   delay as DelayConverters,
   color as ColorConverters,
 } from 'xcraft-core-converters';
-import {
-  makePropTypes,
-  makeDefaultProps,
-} from 'xcraft-core-utils/lib/prop-types';
 import TextFieldNC from 'goblin-gadgets/widgets/text-field-nc/widget';
 import ButtonCombo from 'goblin-gadgets/widgets/button-combo/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import Slider from 'goblin-gadgets/widgets/slider/widget';
 import Separator from 'goblin-gadgets/widgets/separator/widget';
 import Props from './props';
+import * as styles from './styles';
 
 /******************************************************************************/
 
@@ -79,6 +79,7 @@ function parseValue(value) {
 export default class TextFieldTypedNC extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
 
     this.format = this.format.bind(this);
     this.parse = this.parse.bind(this);
@@ -740,5 +741,4 @@ export default class TextFieldTypedNC extends Widget {
 
 /******************************************************************************/
 
-TextFieldTypedNC.propTypes = makePropTypes(Props);
-TextFieldTypedNC.defaultProps = makeDefaultProps(Props);
+registerWidget(TextFieldTypedNC, props, scenarios);

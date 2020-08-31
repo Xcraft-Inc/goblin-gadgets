@@ -1,12 +1,9 @@
-//T:2019-02-27
 import React from 'react';
-import Props from './props';
+import props from './props';
+import scenarios from './scenarios';
+import {registerWidget} from 'goblin-gadgets/widgets/widget-doc/widget-list';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import Widget from 'goblin-laboratory/widgets/widget';
-import {
-  makePropTypes,
-  makeDefaultProps,
-} from 'xcraft-core-utils/lib/prop-types';
 import * as styles from './styles';
 
 /******************************************************************************/
@@ -241,8 +238,7 @@ class Container extends Widget {
 
 /******************************************************************************/
 
-Container.propTypes = makePropTypes(Props);
-Container.defaultProps = makeDefaultProps(Props);
+registerWidget(Container, props, scenarios);
 
 /******************************************************************************/
 export default Container;

@@ -3,16 +3,14 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import MouseTrap from 'mousetrap';
-import Props from './props';
+import props from './props';
+import scenarios from './scenarios';
+import {registerWidget} from 'goblin-gadgets/widgets/widget-doc/widget-list';
 import {
   TranslatableDiv,
   TranslatableTextarea,
   TranslatableInput,
 } from 'goblin-nabu/widgets/helpers/element-helpers';
-import {
-  makePropTypes,
-  makeDefaultProps,
-} from 'xcraft-core-utils/lib/prop-types';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import T from 'goblin-nabu/widgets/t/widget';
 import * as styles from './styles';
@@ -223,5 +221,4 @@ export default class TextInputNC extends Widget {
 
 /******************************************************************************/
 
-TextInputNC.propTypes = makePropTypes(Props);
-TextInputNC.defaultProps = makeDefaultProps(Props);
+registerWidget(TextInputNC, props, scenarios);

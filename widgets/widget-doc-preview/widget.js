@@ -127,7 +127,6 @@ function getFunction(name) {
 class WidgetDocPreviewSettingsSwitch extends Widget {
   constructor() {
     super(...arguments);
-    this.styles = styles;
 
     this.onClick = this.onClick.bind(this);
   }
@@ -205,6 +204,8 @@ const SettingsList = Widget.connectWidget((state, props) => {
 class WidgetDocPreview extends Widget {
   constructor() {
     super(...arguments);
+    this.styles = styles;
+
     this.onChange = this.onChange.bind(this);
   }
 

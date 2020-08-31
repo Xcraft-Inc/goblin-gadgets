@@ -1,10 +1,8 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
-import Props from './props';
-import {
-  makePropTypes,
-  makeDefaultProps,
-} from 'xcraft-core-utils/lib/prop-types';
+import props from './props';
+import scenarios from './scenarios';
+import {registerWidget} from 'goblin-gadgets/widgets/widget-doc/widget-list';
 import * as styles from './styles';
 import wrapRawInput from 'goblin-gadgets/widgets/input-wrapper/widget.js';
 import geom from '../helpers/geom-helpers';
@@ -138,8 +136,7 @@ class SliderCircle extends Widget {
 
 /******************************************************************************/
 
-SliderCircle.propTypes = makePropTypes(Props);
-SliderCircle.defaultProps = makeDefaultProps(Props);
+registerWidget(SliderCircle, props, scenarios);
 
 /******************************************************************************/
 

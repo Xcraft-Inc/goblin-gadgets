@@ -1,12 +1,10 @@
 import React from 'react';
-import Props from './props';
+import props from './props';
+import scenarios from './scenarios';
+import {registerWidget} from 'goblin-gadgets/widgets/widget-doc/widget-list';
 import Widget from 'goblin-laboratory/widgets/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
-import {
-  makePropTypes,
-  makeDefaultProps,
-} from 'xcraft-core-utils/lib/prop-types';
 import T from 't';
 import * as styles from './styles';
 
@@ -196,5 +194,4 @@ export default class DialogResizableNC extends Widget {
 
 /******************************************************************************/
 
-DialogResizableNC.propTypes = makePropTypes(Props);
-DialogResizableNC.defaultProps = makeDefaultProps(Props);
+registerWidget(DialogResizableNC, props, scenarios);

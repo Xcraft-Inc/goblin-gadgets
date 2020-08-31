@@ -1,4 +1,7 @@
 import React from 'react';
+import props from './props';
+import scenarios from './scenarios';
+import {registerWidget} from 'goblin-gadgets/widgets/widget-doc/widget-list';
 import Widget from 'goblin-laboratory/widgets/widget';
 import * as styles from './styles';
 import throttle from 'lodash/throttle';
@@ -647,6 +650,11 @@ class ColorPicker extends Widget {
     );
   }
 }
+
+/******************************************************************************/
+
+registerWidget(ColorPicker, props, scenarios);
+
 /******************************************************************************/
 
 export default Widget.connect((state) => {

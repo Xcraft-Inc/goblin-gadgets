@@ -1,13 +1,10 @@
 import T from 't';
 import React from 'react';
-import Props from './props';
+import props from './props';
+import scenarios from './scenarios';
+import {registerWidget} from 'goblin-gadgets/widgets/widget-doc/widget-list';
 import Widget from 'goblin-laboratory/widgets/widget';
 import KeyTrap from 'goblin-gadgets/widgets/key-trap.js';
-
-import {
-  makePropTypes,
-  makeDefaultProps,
-} from 'xcraft-core-utils/lib/prop-types';
 
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
@@ -887,5 +884,4 @@ export default Widget.connect((state, props) => {
   return {showTips: props.useTips && tipsRank !== -1};
 })(Calendar);
 
-Calendar.propTypes = makePropTypes(Props);
-Calendar.defaultProps = makeDefaultProps(Props);
+registerWidget(Calendar, props, scenarios);

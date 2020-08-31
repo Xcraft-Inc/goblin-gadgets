@@ -1,13 +1,11 @@
 import React from 'react';
-import Props from './props';
+import props from './props';
+import scenarios from './scenarios';
+import {registerWidget} from 'goblin-gadgets/widgets/widget-doc/widget-list';
 import Widget from 'goblin-laboratory/widgets/widget';
 import DialogResizableNC from 'goblin-gadgets/widgets/dialog-resizable-nc/widget';
 import KeyTrap from 'goblin-gadgets/widgets/key-trap.js';
 import _ from 'lodash';
-import {
-  makePropTypes,
-  makeDefaultProps,
-} from 'xcraft-core-utils/lib/prop-types';
 import {Unit} from 'goblin-theme';
 const px = Unit.toPx;
 
@@ -336,5 +334,4 @@ export default Widget.connect((state, props) => {
 
 /******************************************************************************/
 
-DialogResizable.propTypes = makePropTypes(Props);
-DialogResizable.defaultProps = makeDefaultProps(Props);
+registerWidget(DialogResizable, props, scenarios);

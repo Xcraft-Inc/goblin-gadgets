@@ -1,10 +1,8 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
-import Props from './props';
-import {
-  makePropTypes,
-  makeDefaultProps,
-} from 'xcraft-core-utils/lib/prop-types';
+import props from './props';
+import scenarios from './scenarios';
+import {registerWidget} from 'goblin-gadgets/widgets/widget-doc/widget-list';
 import * as styles from './styles';
 import T from 't';
 import Label from 'goblin-gadgets/widgets/label/widget';
@@ -201,5 +199,4 @@ export default class GuildUserProfile extends Widget {
 
 /******************************************************************************/
 
-GuildUserProfile.propTypes = makePropTypes(Props);
-GuildUserProfile.defaultProps = makeDefaultProps(Props);
+registerWidget(GuildUserProfile, props, scenarios);

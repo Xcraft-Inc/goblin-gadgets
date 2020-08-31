@@ -1,5 +1,8 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
+import props from './props';
+import scenarios from './scenarios';
+import {registerWidget} from 'goblin-gadgets/widgets/widget-doc/widget-list';
 import KeyTrap from 'goblin-gadgets/widgets/key-trap.js';
 import {isShredder} from 'xcraft-core-shredder';
 
@@ -324,6 +327,10 @@ class TextFieldComboNC extends Widget {
     );
   }
 }
+
+/******************************************************************************/
+
+registerWidget(TextFieldComboNC, props, scenarios);
 
 /******************************************************************************/
 

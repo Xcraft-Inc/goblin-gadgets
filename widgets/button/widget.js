@@ -1,6 +1,8 @@
 //T:2019-02-27
 import React from 'react';
-import Props from './props';
+import props from './props';
+import scenarios from './scenarios';
+import {registerWidget} from 'goblin-gadgets/widgets/widget-doc/widget-list';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import Widget from 'goblin-laboratory/widgets/widget';
 import MouseTrap from 'mousetrap';
@@ -9,11 +11,6 @@ import {
   TranslatableDiv,
   TranslatableA,
 } from 'goblin-nabu/widgets/helpers/element-helpers';
-import {
-  makePropTypes,
-  makeDefaultProps,
-} from 'xcraft-core-utils/lib/prop-types';
-
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Badge from 'goblin-gadgets/widgets/badge/widget';
 import RetroIlluminatedButton from 'goblin-gadgets/widgets/retro-illuminated-button/widget';
@@ -401,5 +398,4 @@ export default class Button extends Widget {
 
 /******************************************************************************/
 
-Button.propTypes = makePropTypes(Props);
-Button.defaultProps = makeDefaultProps(Props);
+registerWidget(Button, props, scenarios);

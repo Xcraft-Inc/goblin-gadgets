@@ -1,16 +1,12 @@
-//T:2019-02-27
-
 import React from 'react';
-import Props from './props';
+import props from './props';
+import scenarios from './scenarios';
+import {registerWidget} from 'goblin-gadgets/widgets/widget-doc/widget-list';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import Widget from 'goblin-laboratory/widgets/widget';
 import T from 'goblin-nabu/widgets/t/widget';
 import {ColorHelpers} from 'goblin-theme';
 import {TranslatableDiv} from 'goblin-nabu/widgets/helpers/element-helpers';
-import {
-  makePropTypes,
-  makeDefaultProps,
-} from 'xcraft-core-utils/lib/prop-types';
 import Markdown from 'goblin-gadgets/widgets/markdown/widget';
 import * as styles from './styles';
 
@@ -315,5 +311,4 @@ export default class LabelNC extends Widget {
 
 /******************************************************************************/
 
-LabelNC.propTypes = makePropTypes(Props);
-LabelNC.defaultProps = makeDefaultProps(Props);
+registerWidget(LabelNC, props, scenarios);

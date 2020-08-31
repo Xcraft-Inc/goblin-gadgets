@@ -1,10 +1,8 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
-import Props from './props';
-import {
-  makePropTypes,
-  makeDefaultProps,
-} from 'xcraft-core-utils/lib/prop-types';
+import props from './props';
+import scenarios from './scenarios';
+import {registerWidget} from 'goblin-gadgets/widgets/widget-doc/widget-list';
 import * as styles from './styles';
 import {TranslatableDiv} from 'goblin-nabu/widgets/helpers/element-helpers';
 import Label from 'goblin-gadgets/widgets/label/widget';
@@ -379,8 +377,7 @@ class Slider extends Widget {
 
 /******************************************************************************/
 
-Slider.propTypes = makePropTypes(Props);
-Slider.defaultProps = makeDefaultProps(Props);
+registerWidget(Slider, props, scenarios);
 
 /******************************************************************************/
 

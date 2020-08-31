@@ -1,10 +1,8 @@
 import React from 'react';
-import Props from './props';
+import props from './props';
+import scenarios from './scenarios';
+import {registerWidget} from 'goblin-gadgets/widgets/widget-doc/widget-list';
 import Widget from 'goblin-laboratory/widgets/widget';
-import {
-  makePropTypes,
-  makeDefaultProps,
-} from 'xcraft-core-utils/lib/prop-types';
 import getPath from './getPath';
 import * as styles from './styles';
 
@@ -52,7 +50,4 @@ export default class DocumentContainer extends Widget {
 
 /******************************************************************************/
 
-DocumentContainer.propTypes = makePropTypes(Props);
-DocumentContainer.defaultProps = makeDefaultProps(Props);
-
-/******************************************************************************/
+registerWidget(DocumentContainer, props, scenarios);

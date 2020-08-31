@@ -1,10 +1,8 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
-import Props from './props';
-import {
-  makePropTypes,
-  makeDefaultProps,
-} from 'xcraft-core-utils/lib/prop-types';
+import props from './props';
+import scenarios from './scenarios';
+import {registerWidget} from 'goblin-gadgets/widgets/widget-doc/widget-list';
 import * as styles from './styles';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import GuildHelpers from '../guild-user-logo/guild-helpers';
@@ -50,5 +48,4 @@ export default class GuildUserLogo extends Widget {
 
 /******************************************************************************/
 
-GuildUserLogo.propTypes = makePropTypes(Props);
-GuildUserLogo.defaultProps = makeDefaultProps(Props);
+registerWidget(GuildUserLogo, props, scenarios);

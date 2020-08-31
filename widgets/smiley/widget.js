@@ -1,5 +1,8 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
+import props from './props';
+import scenarios from './scenarios';
+import {registerWidget} from 'goblin-gadgets/widgets/widget-doc/widget-list';
 import * as styles from './styles';
 import Label from 'goblin-gadgets/widgets/label/widget';
 
@@ -65,3 +68,5 @@ export default class Smiley extends Widget {
 }
 
 /******************************************************************************/
+
+registerWidget(Smiley, props, scenarios);
