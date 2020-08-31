@@ -161,6 +161,9 @@ export default function styles(theme, props) {
     ':focus ~ .flying-balloon': {
       visibility: 'visible',
     },
+    ':placeholder': {
+      color: 'red',
+    },
   };
 
   const focus = {
@@ -211,10 +214,6 @@ export default function styles(theme, props) {
     border: 'none',
     resize: 'none',
     fontFamily: 'sans-serif',
-  };
-
-  input['::placeholder'] = {
-    color: theme.palette.hintTextColor,
   };
 
   const readonlyStyle = {
