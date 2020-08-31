@@ -162,7 +162,7 @@ export default function styles(theme, props) {
       visibility: 'visible',
     },
     ':placeholder': {
-      color: 'red',
+      color: theme.palette.hintTextColor,
     },
   };
 
