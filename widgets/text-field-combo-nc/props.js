@@ -133,7 +133,7 @@ addType('dataList', {
   restrictsToList: true,
   samples: samples,
   samplesData: samplesList,
-  propType: PropTypes.object,
+  propType: PropTypes.array,
 });
 
 /******************************************************************************/
