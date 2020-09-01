@@ -38,7 +38,7 @@ class ColorPicker extends Widget {
       editedColor: null,
       info: null,
       warning: null,
-      lastColors: this.props.lastColors,
+      lastColors: this.props.lastColors ? this.props.lastColors : [],
     };
 
     this.onColorChanged = throttle(this.onColorChanged, 50).bind(this);
