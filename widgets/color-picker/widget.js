@@ -134,10 +134,12 @@ class ColorPicker extends Widget {
     }
     this.lastColors = lastColors;
 
-    this.doFor(this.props.clientSessionId, 'set-last-colors-picker', {
-      splitterId: this.props.id,
-      state: lastColors,
-    });
+    if (this.props.clientSessionId) {
+      this.doFor(this.props.clientSessionId, 'set-last-colors-picker', {
+        splitterId: this.props.id,
+        state: lastColors,
+      });
+    }
   }
 
   changeColor(canonical) {
