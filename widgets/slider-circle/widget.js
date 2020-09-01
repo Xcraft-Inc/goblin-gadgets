@@ -52,14 +52,22 @@ class SliderCircle extends Widget {
     // Call input-wrapper:
     switch (mouse) {
       case 'down':
-        this.props.onFocus();
-        this.props.onChange(value);
+        if (this.props.onFocus) {
+          this.props.onFocus();
+        }
+        if (this.props.onChange) {
+          this.props.onChange(value);
+        }
         break;
       case 'move':
-        this.props.onChange(value);
+        if (this.props.onChange) {
+          this.props.onChange(value);
+        }
         break;
       case 'up':
-        this.props.onBlur(value);
+        if (this.props.onBlur) {
+          this.props.onBlur(value);
+        }
         break;
     }
   }
