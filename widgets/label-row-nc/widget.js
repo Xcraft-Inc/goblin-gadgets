@@ -78,4 +78,4 @@ export default class LabelRowNC extends Widget {
 
 /******************************************************************************/
 
-registerWidget(LabelRowNC, props, scenarios);
+registerWidget(LabelRowNC, props, scenarios, false);
