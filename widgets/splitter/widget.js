@@ -10,6 +10,12 @@ import * as styles from './styles';
 
 /******************************************************************************/
 
+function isDefined(value) {
+  return value !== null && value !== undefined;
+}
+
+/******************************************************************************/
+
 class Splitter extends Widget {
   constructor() {
     super(...arguments);
@@ -355,11 +361,15 @@ class Splitter extends Widget {
 
     if (this.unit === '%') {
       if (this.master === 'first') {
-        firstPaneStyle.flexGrow = this.positions.first;
-        lastPaneStyle.flexGrow = 100 - this.positions.first;
+        if (isDefined(this.positions.first)) {
+          firstPaneStyle.flexGrow = this.positions.first;
+          lastPaneStyle.flexGrow = 100 - this.positions.first;
+        }
       } else {
-        lastPaneStyle.flexGrow = this.positions.last;
-        firstPaneStyle.flexGrow = 100 - this.positions.last;
+        if (isDefined(this.positions.last)) {
+          lastPaneStyle.flexGrow = this.positions.last;
+          firstPaneStyle.flexGrow = 100 - this.positions.last;
+        }
       }
 
       firstPaneStyle.flexShrink = 1;
@@ -369,25 +379,29 @@ class Splitter extends Widget {
       lastPaneStyle.flexBasis = '0%';
     } else {
       if (this.master === 'first') {
-        if (this.props.kind === 'vertical') {
-          firstPaneStyle.width = this.positions.first + this.unit;
-        } else {
-          firstPaneStyle.height = this.positions.first + this.unit;
-        }
+        if (isDefined(this.positions.first)) {
+          if (this.props.kind === 'vertical') {
+            firstPaneStyle.width = this.positions.first + this.unit;
+          } else {
+            firstPaneStyle.height = this.positions.first + this.unit;
+          }
 
-        lastPaneStyle.flexGrow = 1;
-        lastPaneStyle.flexShrink = 1;
-        lastPaneStyle.flexBasis = '0%';
+          lastPaneStyle.flexGrow = 1;
+          lastPaneStyle.flexShrink = 1;
+          lastPaneStyle.flexBasis = '0%';
+        }
       } else {
-        if (this.props.kind === 'vertical') {
-          lastPaneStyle.width = this.positions.last + this.unit;
-        } else {
-          lastPaneStyle.height = this.positions.last + this.unit;
-        }
+        if (isDefined(this.positions.last)) {
+          if (this.props.kind === 'vertical') {
+            lastPaneStyle.width = this.positions.last + this.unit;
+          } else {
+            lastPaneStyle.height = this.positions.last + this.unit;
+          }
 
-        firstPaneStyle.flexGrow = 1;
-        firstPaneStyle.flexShrink = 1;
-        firstPaneStyle.flexBasis = '0%';
+          firstPaneStyle.flexGrow = 1;
+          firstPaneStyle.flexShrink = 1;
+          firstPaneStyle.flexBasis = '0%';
+        }
       }
     }
 
@@ -420,7 +434,7 @@ class Splitter extends Widget {
 
 /******************************************************************************/
 
-export default Widget.connect((state, props) => {
+const ConnectedSplitter = Widget.connect((state, props) => {
   const userSession = Widget.getUserSession(state);
   const clientSessionId = userSession.get('id');
   const data = userSession.get(`splitters.${props.id}`);
@@ -429,6 +443,9 @@ export default Widget.connect((state, props) => {
   return {clientSessionId, position};
 })(Splitter);
 
+export default ConnectedSplitter;
+
 /******************************************************************************/
 
-registerWidget(Splitter, props, scenarios);
+ConnectedSplitter.displayName = 'Splitter';
+registerWidget(ConnectedSplitter, props, scenarios);
