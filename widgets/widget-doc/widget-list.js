@@ -19,6 +19,7 @@ export function registerWidget(
   widget.defaultProps = makeDefaultProps(props);
 
   if (useWithWidgetDoc) {
-    widgetList.push({name: widget.name, widget, props, scenarios});
+    const name = widget.displayName || widget.name;
+    widgetList.push({name, widget, props, scenarios});
   }
 }
