@@ -222,6 +222,37 @@ class WidgetDocPreview extends Widget {
   renderCode() {
     const widgetName = this.widgetInfo.name;
 
+    let code2 = '';
+    code2 += `<${widgetName}`;
+    code2 += this.props.props
+      .map((value, propName) => {
+        const propDef = this.widgetInfo.props.find(
+          (prop) => prop.name === propName
+        );
+        if (propDef.type.samplesData) {
+          value = JSON.stringify(propDef.type.samplesData[value]);
+        } else if (typeof value === 'string') {
+          value = `"${value}"`;
+        } else {
+          value = `{${JSON.stringify(value)}}`;
+        }
+        value = value ? value.replace(/\n/gi, '\\n') : '';
+        return ` ${propName}=${value}`;
+      })
+      .join('');
+    code2 += '/>';
+
+    return (
+      <div className={this.styles.classNames.container}>
+        <TextFieldNC rows={3} onChange={this.onChange} value={code2} />
+      </div>
+    );
+  }
+
+  renderCode_OLD() {
+    const widgetName = this.widgetInfo.name;
+
+    // widgetInfo.widgetPath no longer exists!
     const code1 = `import ${widgetName} from '${this.widgetInfo.widgetPath}'`;
 
     let code2 = '';
