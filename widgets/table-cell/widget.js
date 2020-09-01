@@ -1,14 +1,11 @@
 import React from 'react';
-import Props from './props';
+import props from './props';
+import {registerWidget} from 'goblin-gadgets/widgets/widget-doc/widget-list';
 import Widget from 'goblin-laboratory/widgets/widget';
 import Shredder from 'xcraft-core-shredder';
 import * as styles from './styles';
 import {converters as Converters} from 'xcraft-core-converters';
 import Label from 'goblin-gadgets/widgets/label/widget';
-import {
-  makePropTypes,
-  makeDefaultProps,
-} from 'xcraft-core-utils/lib/prop-types';
 
 /******************************************************************************/
 
@@ -139,5 +136,4 @@ export default class TableCell extends Widget {
 
 /******************************************************************************/
 
-TableCell.propTypes = makePropTypes(Props);
-TableCell.defaultProps = makeDefaultProps(Props);
+registerWidget(TableCell, props, null, false);

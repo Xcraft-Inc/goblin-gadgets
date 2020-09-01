@@ -1,10 +1,7 @@
 import React from 'react';
-import Props from './props';
+import props from './props';
+import {registerWidget} from 'goblin-gadgets/widgets/widget-doc/widget-list';
 import Widget from 'goblin-laboratory/widgets/widget';
-import {
-  makePropTypes,
-  makeDefaultProps,
-} from 'xcraft-core-utils/lib/prop-types';
 import * as styles from './styles';
 
 /******************************************************************************/
@@ -36,7 +33,4 @@ export default class Triangle extends Widget {
 
 /******************************************************************************/
 
-Triangle.propTypes = makePropTypes(Props);
-Triangle.defaultProps = makeDefaultProps(Props);
-
-/******************************************************************************/
+registerWidget(Triangle, props, null, false);

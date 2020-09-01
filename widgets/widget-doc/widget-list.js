@@ -9,9 +9,16 @@ const widgetList = [];
 
 export default widgetList;
 
-export function registerWidget(widget, props, scenarios) {
+export function registerWidget(
+  widget,
+  props,
+  scenarios,
+  useWithWidgetDoc = true
+) {
   widget.propTypes = makePropTypes(props);
   widget.defaultProps = makeDefaultProps(props);
 
-  widgetList.push({name: widget.name, widget, props, scenarios});
+  if (useWithWidgetDoc) {
+    widgetList.push({name: widget.name, widget, props, scenarios});
+  }
 }

@@ -1,11 +1,7 @@
-//T:2019-02-27
 import React from 'react';
-import Props from './props';
+import props from './props';
+import {registerWidget} from 'goblin-gadgets/widgets/widget-doc/widget-list';
 import Widget from 'goblin-laboratory/widgets/widget';
-import {
-  makePropTypes,
-  makeDefaultProps,
-} from 'xcraft-core-utils/lib/prop-types';
 import * as styles from './styles';
 
 /******************************************************************************/
@@ -41,5 +37,4 @@ export default class FullScreen extends Widget {
 
 /******************************************************************************/
 
-FullScreen.propTypes = makePropTypes(Props);
-FullScreen.defaultProps = makeDefaultProps(Props);
+registerWidget(FullScreen, props, null, false);

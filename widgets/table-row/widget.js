@@ -1,12 +1,9 @@
 import React from 'react';
-import Props from './props';
+import props from './props';
+import {registerWidget} from 'goblin-gadgets/widgets/widget-doc/widget-list';
 import Widget from 'goblin-laboratory/widgets/widget';
 import TableCell from 'goblin-gadgets/widgets/table-cell/widget';
 import * as styles from './styles';
-import {
-  makePropTypes,
-  makeDefaultProps,
-} from 'xcraft-core-utils/lib/prop-types';
 import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
 
 /******************************************************************************/
@@ -141,5 +138,4 @@ export default Widget.connectWidget((state, props) => {
 
 /******************************************************************************/
 
-TableRow.propTypes = makePropTypes(Props);
-TableRow.defaultProps = makeDefaultProps(Props);
+registerWidget(TableRow, props, null, false);

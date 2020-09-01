@@ -1,12 +1,9 @@
 import React from 'react';
-import Props from './props';
+import props from './props';
+import {registerWidget} from 'goblin-gadgets/widgets/widget-doc/widget-list';
 import Widget from 'goblin-laboratory/widgets/widget';
 import TextInputNC from '../text-input-nc/widget';
 import FlyingBalloon from 'goblin-gadgets/widgets/flying-balloon/widget';
-import {
-  makePropTypes,
-  makeDefaultProps,
-} from 'xcraft-core-utils/lib/prop-types';
 
 /******************************************************************************/
 
@@ -55,5 +52,4 @@ export default class TextInputInfoNC extends Widget {
 
 /******************************************************************************/
 
-TextInputInfoNC.propTypes = makePropTypes(Props);
-TextInputInfoNC.defaultProps = makeDefaultProps(Props);
+registerWidget(TextInputInfoNC, props, null, false);

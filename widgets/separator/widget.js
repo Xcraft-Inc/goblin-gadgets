@@ -1,11 +1,8 @@
 import React from 'react';
-import Props from './props';
+import props from './props';
+import {registerWidget} from 'goblin-gadgets/widgets/widget-doc/widget-list';
 import Widget from 'goblin-laboratory/widgets/widget';
 import * as styles from './styles';
-import {
-  makePropTypes,
-  makeDefaultProps,
-} from 'xcraft-core-utils/lib/prop-types';
 
 /******************************************************************************/
 
@@ -27,5 +24,4 @@ export default class Separator extends Widget {
 
 /******************************************************************************/
 
-Separator.propTypes = makePropTypes(Props);
-Separator.defaultProps = makeDefaultProps(Props);
+registerWidget(Separator, props, null, false);
