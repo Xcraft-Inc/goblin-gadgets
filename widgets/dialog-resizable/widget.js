@@ -334,4 +334,4 @@ export default Widget.connect((state, props) => {
 
 /******************************************************************************/
 
-registerWidget(DialogResizable, props, scenarios);
+registerWidget(DialogResizable, props, scenarios, false);
