@@ -7,7 +7,13 @@ module.exports = function parseCode(code) {
   while ((match = regex.exec(code)) !== null) {
     const propName = match[1];
     let propValue = match[2] || match[3];
-    propValue = eval(propValue);
+
+    try {
+      propValue = eval(propValue);
+    } catch (ex) {
+      propValue = '...';
+    }
+
     props[propName] = propValue;
   }
   return props;
