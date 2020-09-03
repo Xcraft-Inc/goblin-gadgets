@@ -227,11 +227,7 @@ class Table extends Widget {
 
 /******************************************************************************/
 
-registerWidget(Table, props, scenarios);
-
-/******************************************************************************/
-
-export default Widget.connectWidget((state) => {
+const ConnectedTable = Widget.connectWidget((state) => {
   if (!state) {
     return {};
   }
@@ -244,3 +240,10 @@ export default Widget.connectWidget((state) => {
     isAllDeselected: state.get('isAllDeselected'),
   };
 })(Table);
+
+export default ConnectedTable;
+
+/******************************************************************************/
+
+ConnectedTable.displayName = 'Table';
+registerWidget(ConnectedTable, props, scenarios);
