@@ -223,6 +223,9 @@ class StackNavigationWidget extends Widget {
     const stack = navigationState.get('stack');
     const operation = navigationState.get('operation');
     const operationParams = navigationState.get('operationParams');
+    if (stack.length === 0) {
+      return null;
+    }
     const lastScreen = stack.get(stack.length - 1);
 
     let beforeLastScreen = null;
