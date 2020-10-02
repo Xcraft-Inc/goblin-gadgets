@@ -15,6 +15,8 @@ export default function ReadonlyLabel(props) {
   return (
     <Container
       kind="row-field"
+      subkind={props.subkind}
+      backgroundColor={props.backgroundColor}
       grow={props.grow}
       width={props.width}
       height={props.height}

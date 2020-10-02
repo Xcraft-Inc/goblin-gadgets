@@ -750,6 +750,11 @@ export default function styles(theme, props) {
       leftMargin = Unit.multiply(m, -1);
       topMargin = Unit.multiply(halfMargin, -1);
       bottomMargin = '0px';
+    } else if (subkind === 'border-box') {
+      padding = m;
+      borderWidth = '1px';
+      borderStyle = 'solid';
+      borderColor = theme.palette.buttonBorder;
     }
     if (verticalSpacing === 'compact') {
       minHeight = '20px';

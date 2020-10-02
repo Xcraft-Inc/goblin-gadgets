@@ -159,6 +159,7 @@ export default [
     type: types.enum([
       '',
       'archived',
+      'border-box',
       'box',
       'box-left',
       'business',
