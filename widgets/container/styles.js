@@ -751,7 +751,7 @@ export default function styles(theme, props) {
       topMargin = Unit.multiply(halfMargin, -1);
       bottomMargin = '0px';
     } else if (subkind === 'border-box') {
-      padding = m;
+      padding = Unit.multiply(m, 0.5) + ' ' + m;
       borderWidth = '1px';
       borderStyle = 'solid';
       borderColor = theme.palette.buttonBorder;
