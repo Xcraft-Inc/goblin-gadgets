@@ -47,7 +47,7 @@ export default function styles(theme, props) {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     width,
     flexGrow: flexGrow,
     flexShrink: flexShrink,
@@ -87,8 +87,10 @@ export default function styles(theme, props) {
   };
 
   const nabuTextFieldStyle = {
+    flexBasis: '0',
+    flexShrink: '0',
+    flexGrow: '1',
     width: '100%',
-    height: '34px',
   };
 
   return {
