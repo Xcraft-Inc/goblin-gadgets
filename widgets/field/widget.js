@@ -672,6 +672,7 @@ class Field extends Form {
       grow,
       fieldWidth,
       kind,
+      type,
       ...otherProps
     } = this.props;
 

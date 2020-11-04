@@ -54,42 +54,26 @@ class NabuTextField extends Form {
     const textFieldShape = this.props.shape || 'smooth';
     const fieldGrow = this.props.fieldWidth ? null : '1';
 
+    const {
+      fieldWidth,
+      fieldJustify,
+      rows,
+      disabled,
+      verticalSpacing,
+      ...otherProps
+    } = this.props;
+
     const props = {
-      id: this.props.id,
       model: translationId ? `backend.${translationId}.text` : null,
-      parser: this.props.parser,
-      errors: this.props.errors,
-      beforeChange: this.props.beforeChange,
-      onDebouncedChange: this.props.onDebouncedChange,
-      updateOn: this.props.updateOn,
-      getDisplayValue: this.props.getDisplayValue,
-      getGlyph: this.props.getGlyph,
-      getWarning: this.props.getWarning,
-      getInfo: this.props.getInfo,
-      field: this.props.field,
-      type: this.props.type,
       grow: fieldGrow,
-      width: this.props.fieldWidth,
-      justify: this.props.fieldJustify,
-      hintText: this.props.hintText,
-      value: this.props.value,
-      hinter: this.props.hinter,
-      tooltip: this.props.tooltip,
-      messageInfo: this.props.messageInfo,
-      messageWarning: this.props.messageWarning,
-      filterKeys: this.props.filterKeys,
-      horizontalSpacing: this.props.horizontalSpacing,
+      width: fieldWidth,
+      justify: fieldJustify,
       shape: textFieldShape,
-      tabIndex: this.props.tabIndex,
-      defaultValue: this.props.defaultValue,
-      rows: this.props.rows || '1',
+      rows: rows || '1',
       readonly: visibleReadonly,
-      disabled: this.props.disabled || !translationId,
-      selectAllOnFocus: this.props.selectAllOnFocus,
-      defaultFocus: this.props.defaultFocus,
-      verticalSpacing: this.props.verticalSpacing || 'compact',
-      visibility: this.props.visibility,
-      required: this.props.required,
+      disabled: disabled || !translationId,
+      verticalSpacing: verticalSpacing || 'compact',
+      ...otherProps,
     };
 
     if (displayValue) {
