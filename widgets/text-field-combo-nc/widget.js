@@ -300,6 +300,7 @@ class TextFieldComboNC extends Widget {
 
     return (
       <ButtonCombo
+        parentRect={this.props.parentRect}
         width={this.props.width}
         grow={this.props.grow}
         menuType={this.props.menuType}
