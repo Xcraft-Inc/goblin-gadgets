@@ -364,6 +364,7 @@ export default [
     name: 'triangleColor',
     group: 'triangle',
     type: types.color,
+    description: "Only with kind='main-tab' and active='true'.",
   },
   {
     name: 'triangleSize',
