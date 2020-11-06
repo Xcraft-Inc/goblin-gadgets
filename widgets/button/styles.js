@@ -62,6 +62,8 @@ export const propNames = [
   'bottom',
   'busy',
   'focusable',
+  'triangleSize',
+  'triangleColor',
 ];
 
 export function mapProps(props) {
@@ -105,6 +107,8 @@ export default function styles(theme, props) {
     bottom,
     busy,
     focusable,
+    triangleSize,
+    triangleColor,
   } = props;
 
   const m = Unit.multiply(theme.shapes.containerMargin, 0.5);
@@ -995,15 +999,17 @@ export default function styles(theme, props) {
 
   // Generate a triangle with subtle css, see:
   // https://css-tricks.com/snippets/css/css-triangle/
-  const d = theme.shapes.mainTabTriangleSize;
+  const d = triangleSize || theme.shapes.mainTabTriangleSize;
   const triangleStyle = {
     position: 'absolute',
     right: '50%',
     bottom: '0px',
-    borderLeft: d + ' solid transparent',
-    borderRight: d + ' solid transparent',
-    borderBottom: d + ' solid ' + theme.palette.viewTabBackground,
-    margin: '0px -' + d + ' 0px 0px',
+    borderLeft: `${d} solid transparent`,
+    borderRight: `${d} solid transparent`,
+    borderBottom: `${d} solid ${
+      triangleColor || theme.palette.viewTabBackground
+    }`,
+    margin: `0px -${d} 0px 0px`,
     userSelect: 'none',
   };
 

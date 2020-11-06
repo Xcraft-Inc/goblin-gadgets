@@ -358,4 +358,18 @@ export default [
     max: 4,
     step: 0.1,
   },
+
+  // Triangle.
+  {
+    name: 'triangleColor',
+    group: 'triangle',
+    type: types.color,
+  },
+  {
+    name: 'triangleSize',
+    group: 'triangle',
+    type: types.pixel,
+    min: 0,
+    max: 20,
+  },
 ];
