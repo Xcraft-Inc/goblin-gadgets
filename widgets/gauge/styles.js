@@ -65,6 +65,7 @@ export const propNames = [
   'width',
   'height',
   'color',
+  'displayZero',
 ];
 
 export default function styles(theme, props) {
@@ -78,6 +79,7 @@ export default function styles(theme, props) {
     width,
     height,
     color,
+    displayZero,
   } = props;
 
   const gaugeValue = Math.max(Math.min(value, 100), 0); // 0..100
@@ -155,7 +157,7 @@ export default function styles(theme, props) {
         ? 'calc(100% - 2px)'
         : `calc(${gaugeValue}% - 2px)`;
     content.boxShadow = theme.palette.ticketGaugeContentShadow;
-    if (gaugeValue === 0) {
+    if (gaugeValue === 0 && !displayZero) {
       gauge.border = '1px solid ' + theme.palette.ticketGaugeEmptyBorder;
       gauge.backgroundColor = null;
       gauge.boxShadow = null;

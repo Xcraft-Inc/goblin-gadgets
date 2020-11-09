@@ -47,6 +47,11 @@ export default [
     group: 'aspect',
     type: types.bool,
   },
+  {
+    name: 'displayZero',
+    group: 'aspect',
+    type: types.bool,
+  },
 
   // Layout.
   {
