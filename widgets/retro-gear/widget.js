@@ -11,7 +11,10 @@ export default class RetroGear extends Widget {
   }
 
   render() {
-    if (!this.context.theme.look.accessories.includes('gears')) {
+    if (
+      !this.props.force &&
+      !this.context.theme.look.accessories.includes('gears')
+    ) {
       return null;
     }
 
