@@ -203,7 +203,7 @@ class TranslatableTextField extends Widget {
   /******************************************************************************/
 
   renderTextField() {
-    const {shape, list, defaultValue, ...other} = this.props;
+    const {shape, list, model, defaultValue, ...other} = this.props;
 
     const s = shape || 'smooth';
     const textFieldShapes = {
@@ -211,7 +211,7 @@ class TranslatableTextField extends Widget {
       rounded: 'left-rounded',
     };
     const textFieldShape = textFieldShapes[s];
-    const nabuId = `${this.context.entityId}${this.props.model}`;
+    const nabuId = `${this.context.entityId}${model}`;
 
     return (
       <NabuTextField
