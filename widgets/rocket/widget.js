@@ -24,7 +24,10 @@ export default class Rocket extends Widget {
   }
 
   renderOverflow() {
-    if (this.props.startedCount < this.props.totalCount) {
+    if (
+      !this.props.totalCount ||
+      this.props.startedCount < this.props.totalCount
+    ) {
       return null;
     }
 
