@@ -37,8 +37,7 @@ export default class Launcher extends Widget {
     return (
       <div className={this.styles.classNames.launcher}>
         <LauncherBlob
-          kind="wave"
-          look={this.props.look}
+          kind={this.props.blobKind}
           color="rgba(255,255,255,0.08)"
           duration="30s"
         />

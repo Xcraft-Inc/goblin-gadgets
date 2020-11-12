@@ -30,14 +30,12 @@ export default class LauncherBlob extends Widget {
   }
 
   render() {
-    if (this.props.look === 'simple' || this.props.look === 'serious') {
-      return null;
-    }
-
     if (this.props.kind === 'wave') {
       return this.renderWave();
-    } else {
+    } else if (this.props.kind === 'blob') {
       return this.renderBlob();
+    } else {
+      return null;
     }
   }
 }
