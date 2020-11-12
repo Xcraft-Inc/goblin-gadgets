@@ -36,6 +36,7 @@ export default function styles(theme, props) {
   const backgroundColor = theme.palette[color + 'Background'];
 
   const widgetDocPreviewContainer = {
+    position: 'relative',
     margin: '10px 0px',
     flexGrow: 1,
     display: 'flex',
