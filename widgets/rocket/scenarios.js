@@ -1,0 +1,41 @@
+export default [
+  {
+    name: 'default',
+    props: {
+      size: '200px',
+      look: 'clearline',
+      kind: 'default',
+      disabled: false,
+      textColor: '#eee',
+      background: 'linear-gradient(180deg, #56b4ff, #9651c6)',
+      backgroundHover: 'linear-gradient(180deg, #72d5ea, #a988ed)',
+      gaugeColor: '#9651c6',
+      startedCount: 3,
+      totalCount: 5,
+      title: 'Aventure',
+      subtitle: 'Décollage',
+      glyph: 'solid/rocket',
+    },
+  },
+  {
+    name: 'simple',
+    props: {
+      size: '100px',
+      look: 'clearline',
+      kind: 'default',
+      disabled: false,
+      textColor: '#fff',
+      background: '#da6c29',
+      backgroundHover: '#ef894b',
+      gaugeColor: '#333',
+      startedCount: 0,
+      totalCount: 0,
+      title: 'Valider',
+      glyph: 'solid/check',
+    },
+  },
+  {
+    name: 'empty',
+    props: {},
+  },
+];

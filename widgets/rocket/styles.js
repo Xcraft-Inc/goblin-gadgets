@@ -43,7 +43,7 @@ export default function styles(theme, props) {
     'flexDirection': 'column',
     'justifyContent': 'center',
     'alignSelf': 'center',
-    'color': disabled ? '#ccc' : '#eee',
+    //? 'color': disabled ? '#ccc' : '#eee',
     'margin': `0px ${m}`,
     'boxShadow': isSmooth ? `0px 0px ${rs1} ${rs2} rgba(0,0,0,1)` : null,
     'background': background,
@@ -68,6 +68,11 @@ export default function styles(theme, props) {
     margin: '0px 0px 10px 0px',
     alignSelf: 'center',
     opacity: disabled ? 0.2 : 1,
+  };
+
+  const glyph = {
+    ...icon,
+    display: 'flex',
   };
 
   const im = px(s / 12);
@@ -132,6 +137,7 @@ export default function styles(theme, props) {
     rocket,
     icon,
     iconShadow,
+    glyph,
     subtitle,
     gauge,
     ratio,
