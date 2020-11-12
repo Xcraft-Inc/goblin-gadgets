@@ -3,7 +3,7 @@
 export const propNames = ['color', 'duration', 'direction'];
 
 export default function styles(theme, props) {
-  const {color = '#204261', duration = '60s', direction = 'normal'} = props;
+  const {color = 'red', duration = '60s', direction = 'normal'} = props;
 
   const keyframesBlob = {
     '0%': {transform: 'scale(1) translate(10px, -15px)'},
