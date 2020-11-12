@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 const r1 = [
   {
     id: 'fact',
-    size: '100px',
     title: 'Facturation',
     glyph: 'solid/check',
     textColor: '#eee',
@@ -15,7 +14,6 @@ const r1 = [
   },
   {
     id: 'sal',
-    size: '100px',
     title: 'Salaires',
     glyph: 'solid/rocket',
     textColor: '#eee',
@@ -24,7 +22,6 @@ const r1 = [
   },
   {
     id: 'compta',
-    size: '100px',
     title: 'Comptabilité',
     glyph: 'solid/car',
     textColor: '#eee',
@@ -36,7 +33,6 @@ const r1 = [
 const r2 = [
   {
     id: 'r1',
-    size: '150px',
     title: 'Bragon',
     subtitle: 'Chevalier',
     glyph: 'solid/square',
@@ -50,7 +46,6 @@ const r2 = [
   },
   {
     id: 'r2',
-    size: '150px',
     title: 'Mara',
     subtitle: 'Princesse',
     glyph: 'solid/circle',
@@ -67,7 +62,6 @@ const r2 = [
 const r3 = [
   {
     id: 's',
-    size: '250px',
     title: 'Vérification',
     glyph: 'solid/check',
     kind: 'toy',
@@ -120,6 +114,13 @@ export default [
     name: 'background',
     group: 'aspect',
     type: types.string,
+  },
+  {
+    name: 'rocketSize',
+    group: 'aspect',
+    type: types.pixel,
+    min: 50,
+    max: 500,
   },
 
   // Blob.

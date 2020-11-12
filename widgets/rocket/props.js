@@ -70,11 +70,15 @@ export default [
     name: 'startedCount',
     group: 'gauge',
     type: types.number,
+    min: 0,
+    max: 100,
   },
   {
     name: 'totalCount',
     group: 'gauge',
     type: types.number,
+    min: 0,
+    max: 100,
   },
 
   // Function.
