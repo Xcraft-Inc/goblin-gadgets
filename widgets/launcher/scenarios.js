@@ -3,10 +3,20 @@ export default [
     name: 'default',
     props: {
       blobKind: 'wave',
-      blobColor: 'rgba(255,255,255,0.1)',
-      background: '#082e4d',
+      blobColor: 'rgba(255,255,255,0.08)',
+      background: 'linear-gradient(180deg, #052036, #082e4d 20%)',
       rocketSize: '150px',
       rockets: 'R1',
+    },
+  },
+  {
+    name: 'westeros',
+    props: {
+      blobKind: 'wave',
+      blobColor: 'rgba(0,0,0,0.1)',
+      background: 'linear-gradient(150deg, #011526 30%, #c853ff)',
+      rocketSize: '200px',
+      rockets: 'R2',
     },
   },
   {
@@ -16,7 +26,7 @@ export default [
       blobColor: 'orange',
       background: 'purple',
       rocketSize: '200px',
-      rockets: 'R2',
+      rockets: 'R3',
     },
   },
   {
@@ -26,7 +36,7 @@ export default [
       blobColor: 'red',
       background: '#aaa',
       rocketSize: '250px',
-      rockets: 'R3',
+      rockets: 'R4',
     },
   },
   {

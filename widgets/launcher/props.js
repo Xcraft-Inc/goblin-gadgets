@@ -6,37 +6,63 @@ import PropTypes from 'prop-types';
 const r1 = [
   {
     id: 'fact',
+    kind: 'toy',
     title: 'Facturation',
     glyph: 'solid/bicycle',
-    iconShadow: true,
+    iconShadow: 'default',
     textColor: '#eee',
-    background: '#74ae56',
-    backgroundHover: 'red',
-    shadow: true,
+    background: 'linear-gradient(180deg, #77b258 70%, #04a1c3)',
+    backgroundHover: 'linear-gradient(180deg, #77b258 70%, #04a1c3)',
+    shadow: 'strong',
   },
   {
     id: 'sal',
+    kind: 'toy',
     title: 'Salaires',
     glyph: 'solid/rocket',
-    iconShadow: true,
+    iconShadow: 'default',
     textColor: '#eee',
-    background: '#fdac4c',
-    backgroundHover: 'red',
-    shadow: true,
+    background: 'linear-gradient(180deg, #f4a649 70%, #ff4605)',
+    backgroundHover: 'linear-gradient(180deg, #f4a649 70%, #ff4605)',
+    shadow: 'strong',
   },
   {
     id: 'compta',
+    kind: 'toy',
     title: 'Comptabilité',
     glyph: 'solid/car',
-    iconShadow: true,
+    iconShadow: 'default',
     textColor: '#eee',
-    background: '#559dd8',
-    backgroundHover: 'red',
-    shadow: true,
+    background: 'linear-gradient(180deg, #549dd7 70%, #515cc1)',
+    backgroundHover: 'linear-gradient(180deg, #549dd7 70%, #515cc1)',
+    shadow: 'strong',
   },
 ];
 
 const r2 = [
+  {
+    id: 'r1',
+    title: 'epsitec',
+    glyph: 'solid/plus',
+    textColor: '#eee',
+    background: 'linear-gradient(125deg, #e6316e, #fe8506)',
+    backgroundHover: 'linear-gradient(90deg, #e6316e, #fe8506)',
+    shadow: 'light',
+    iconShadow: 'none',
+  },
+  {
+    id: 'r2',
+    title: 'polyphème',
+    glyph: 'solid/bicycle',
+    textColor: '#eee',
+    background: 'linear-gradient(125deg, #e6316e, #fe8506)',
+    backgroundHover: 'linear-gradient(90deg, #e6316e, #fe8506)',
+    shadow: 'light',
+    iconShadow: 'none',
+  },
+];
+
+const r3 = [
   {
     id: 'r1',
     title: 'Bragon',
@@ -65,7 +91,7 @@ const r2 = [
   },
 ];
 
-const r3 = [
+const r4 = [
   {
     id: 's',
     title: 'Vérification',
@@ -83,12 +109,14 @@ const samplesData = {
   R1: r1,
   R2: r2,
   R3: r3,
+  R4: r4,
 };
 
 const samples = [
   {id: 'R1', text: 'Crésus'},
-  {id: 'R2', text: 'BD'},
-  {id: 'R3', text: 'Single'},
+  {id: 'R2', text: 'Westeros'},
+  {id: 'R3', text: 'BD'},
+  {id: 'R4', text: 'Single'},
 ];
 
 addType('rockets', {
