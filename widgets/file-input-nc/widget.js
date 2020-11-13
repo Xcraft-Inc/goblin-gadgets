@@ -63,7 +63,7 @@ export default class FileInputNC extends Widget {
             multiple
           />
           <label htmlFor={this.id} className={this.styles.classNames.label}>
-            <Label text={label} glyph="solid/upload" />
+            <Label text={label} glyph="solid/upload" cursor="pointer" />
           </label>
         </React.Fragment>
       );
@@ -80,7 +80,7 @@ export default class FileInputNC extends Widget {
           className={this.styles.classNames.inputfile}
         />
         <label htmlFor={this.id} className={this.styles.classNames.label}>
-          <Label text={label} glyph="solid/upload" />
+          <Label text={label} glyph="solid/upload" cursor="pointer" />
         </label>
       </React.Fragment>
     );

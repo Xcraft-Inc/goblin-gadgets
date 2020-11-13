@@ -26,6 +26,7 @@ export default function styles(theme) {
 
   const label = {
     display: 'inline-block',
+    cursor: 'pointer',
   };
 
   return {
