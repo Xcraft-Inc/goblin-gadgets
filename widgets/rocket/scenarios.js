@@ -40,7 +40,7 @@ export default [
       kind: 'default',
       disabled: false,
       textColor: '#fff',
-      background: '#2671fa',
+      background: 'linear-gradient(-45deg, #0088ff 50%, #ffaa00 50%)',
       backgroundHover: '#588ceb',
       title: 'Démarrer',
       glyph: 'solid/car',

@@ -114,7 +114,7 @@ export default [
   {
     name: 'background',
     group: 'aspect',
-    type: types.string,
+    type: types.background,
   },
   {
     name: 'rocketSize',
