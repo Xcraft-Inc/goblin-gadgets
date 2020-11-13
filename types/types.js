@@ -201,6 +201,31 @@ const types = {
     ],
   },
 
+  background: {
+    type: 'string',
+    widget: 'combo',
+    restrictsToList: false,
+    samples: [
+      '',
+      '#000000',
+      '#FF0000',
+      '#00FF00',
+      '#0000FF',
+      '#FF8000',
+      '#FFFFFF',
+      '#888888',
+      'orange',
+      'pink',
+      'purple',
+      'linear-gradient(180deg, #56b4ff, #9651c6)',
+      'linear-gradient(180deg, black, purple)',
+      'linear-gradient(90deg, #ffff00, #ff0088)',
+      'linear-gradient(-45deg, #00aaaa 50%, #aa00aa 50%)',
+      'radial-gradient(#2288ff, #000088)',
+      'radial-gradient(at 0% 0%, #ffaa00, #000088 80%)',
+    ],
+  },
+
   pixel: {
     type: 'pixel',
     widget: 'combo',
