@@ -15,16 +15,14 @@ export default function styles(theme, props) {
   };
 
   const keyframesWave = {
-    '0%': {transform: 'translate(37.5%, 24%) scale(4,0.7) rotate(0deg)'},
-    '20%': {transform: 'translate(30%, 34%) scale(4,1) rotate(1deg)'},
-    '24%': {transform: 'translate(26%, 26%) scale(4,0.7) rotate(-1deg)'},
-    '30%': {transform: 'translate(20%, 28%) scale(4,0.7) rotate(0deg)'},
-    '45%': {transform: 'translate(19%, 36%) scale(4,1.0) rotate(5deg)'},
-    '70%': {transform: 'translate(10%, 32%) scale(4,0.75) rotate(-1deg)'},
-    '74%': {transform: 'translate(6%, 26%) scale(4,0.6) rotate(0deg)'},
-    '80%': {transform: 'translate(-13%, 35%) scale(4,1) rotate(-10deg)'},
-    '85%': {transform: 'translate(-33%, 46%) scale(4,1.2) rotate(0deg)'},
-    '100%': {transform: 'translate(37.5%, 24%) scale(4,0.7) rotate(0deg)'},
+    '0%': {transform: 'scale(2,2) translateX(25%) rotate(0deg)'},
+    '20%': {transform: 'scale(3,2) translateX(13%) rotate(-4deg)'},
+    '30%': {transform: 'scale(2.5,2) translateX(6%) rotate(1deg)'},
+    '50%': {transform: 'scale(2,2) translateX(-3%) rotate(-5deg)'},
+    '60%': {transform: 'scale(3,2) translateX(-16%) rotate(-7deg)'},
+    '70%': {transform: 'scale(3.5,2) translateX(-16%) rotate(5deg)'},
+    '85%': {transform: 'scale(2.5,2) translateX(-22%) rotate(-3deg)'},
+    '100%': {transform: 'scale(2,2) translateX(-25%) rotate(0deg)'},
   };
 
   const launcherBlob = {
@@ -43,10 +41,9 @@ export default function styles(theme, props) {
     position: 'absolute',
     left: 0,
     right: 0,
-    top: 0,
-    bottom: 0,
+    top: 'calc(50% - 20px)',
     fill: color,
-    transformOrigin: '50% 50%',
+    transformOrigin: 'top',
     animation: `${duration} ease-in-out infinite ${direction}`,
     animationDirection: 'alternate',
     animationName: keyframesWave,
