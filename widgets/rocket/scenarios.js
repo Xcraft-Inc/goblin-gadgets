@@ -14,7 +14,8 @@ export default [
       title: 'Aventure',
       subtitle: 'Décollage',
       glyph: 'solid/rocket',
-      iconShadow: true,
+      iconShadow: 'default',
+      shadow: 'light',
     },
   },
   {

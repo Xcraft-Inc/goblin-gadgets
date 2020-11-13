@@ -17,7 +17,7 @@ export default [
   {
     name: 'shadow',
     group: 'aspect',
-    type: types.bool,
+    type: types.enum(['none', 'light', 'strong']),
   },
   {
     name: 'kind',
@@ -64,7 +64,7 @@ export default [
   {
     name: 'iconShadow',
     group: 'content',
-    type: types.bool,
+    type: types.enum(['none', 'default']),
   },
   {
     name: 'glyph',

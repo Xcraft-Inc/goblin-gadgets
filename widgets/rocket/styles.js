@@ -21,8 +21,8 @@ export default function styles(theme, props) {
   const {
     size = '200px',
     kind = 'default',
-    shadow = false,
-    iconShadow = false,
+    shadow = 'none',
+    iconShadow = 'none',
     disabled = false,
     crossed = false,
     background = 'red',
@@ -37,10 +37,32 @@ export default function styles(theme, props) {
 
   const rr1 = px(s / 20);
   const rr2 = px(s / 5);
-  const rs1 = px(s / 10);
-  const rs2 = px(s / 40);
   const m = px(s / 20);
   const hm = px(s / 5);
+
+  const rs1 = {
+    none: px(0),
+    light: px(s / 13),
+    strong: px(0),
+  }[shadow];
+
+  const rs2 = {
+    none: px(0),
+    light: px(s / 7.7),
+    strong: px(s / 10),
+  }[shadow];
+
+  const rs3 = {
+    none: px(0),
+    light: px(0),
+    strong: px(s / 40),
+  }[shadow];
+
+  const rs4 = {
+    none: 0,
+    light: 0.5,
+    strong: 1,
+  }[shadow];
 
   const rocket = {
     'position': 'relative',
@@ -52,7 +74,7 @@ export default function styles(theme, props) {
     'justifyContent': 'center',
     'alignSelf': 'center',
     'margin': `0px ${m}`,
-    'boxShadow': shadow ? `0px 0px ${rs1} ${rs2} rgba(0,0,0,1)` : null,
+    'boxShadow': shadow ? `0px ${rs1} ${rs2} ${rs3} rgba(0,0,0,${rs4})` : null,
     'background': background,
     'transformOrigin': 'bottom',
     'transition': disabled
@@ -92,7 +114,7 @@ export default function styles(theme, props) {
   const is2 = px(s / 5);
 
   const iconShadowStyle = {
-    display: iconShadow ? null : 'none',
+    display: iconShadow === 'default' ? null : 'none',
     position: 'absolute',
     left: '50%',
     right: '50%',

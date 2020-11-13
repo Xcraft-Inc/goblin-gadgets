@@ -22,8 +22,8 @@ export default class Launcher extends Widget {
       <Rocket
         key={index}
         size={this.props.rocketSize || '200px'}
-        {...rocket}
         onClick={() => this.props.onLaunchRocket(rocket.id)}
+        {...rocket}
       />
     );
   }
