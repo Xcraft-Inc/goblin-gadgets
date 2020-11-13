@@ -6,26 +6,34 @@ const n = Unit.toValue;
 
 export const propNames = [
   'size',
-  'look',
   'kind',
+  'shadow',
+  'iconShadow',
   'disabled',
+  'crossed',
   'background',
   'backgroundHover',
+  'startedCount',
+  'totalCount',
 ];
 
 export default function styles(theme, props) {
   const {
     size = '200px',
-    look = 'smooth',
     kind = 'default',
+    shadow = false,
+    iconShadow = false,
     disabled = false,
+    crossed = false,
     background = 'red',
     backgroundHover = 'orange',
+    startedCount = 0,
+    totalCount = 0,
   } = props;
 
   const s = n(size);
-  const isSmooth = look === 'smooth';
-  const isSerious = look === 'serious';
+  const hover =
+    !disabled && !crossed && (!totalCount || startedCount < totalCount);
 
   const rr1 = px(s / 20);
   const rr2 = px(s / 5);
@@ -43,16 +51,17 @@ export default function styles(theme, props) {
     'flexDirection': 'column',
     'justifyContent': 'center',
     'alignSelf': 'center',
-    //? 'color': disabled ? '#ccc' : '#eee',
     'margin': `0px ${m}`,
-    'boxShadow': isSmooth ? `0px 0px ${rs1} ${rs2} rgba(0,0,0,1)` : null,
+    'boxShadow': shadow ? `0px 0px ${rs1} ${rs2} rgba(0,0,0,1)` : null,
     'background': background,
     'transformOrigin': 'bottom',
-    'transition': disabled ? null : '0.5s ease-in-out',
+    'transition': disabled
+      ? null
+      : 'background 0.5s ease-in-out, margin 0.5s ease-in-out, transform 0.5s ease-in-out, opacity 0.5s ease-in-out',
     ':hover': {
-      background: disabled ? null : backgroundHover,
-      margin: disabled ? null : `0px ${hm}`,
-      transform: disabled ? null : 'scale(1.3)',
+      background: hover ? backgroundHover : null,
+      margin: hover ? `0px ${hm}` : null,
+      transform: hover ? 'scale(1.3)' : null,
     },
     ':hover .gear-hover': {
       transition: 'cubic-bezier(0.37, 3.43, 0.55, 1) 0.4s',
@@ -62,10 +71,10 @@ export default function styles(theme, props) {
   };
 
   const icon = {
-    position: 'relative',
+    position: 'absolute',
+    top: px(s * 0.15),
     width: px(s * 0.5),
     height: px(s * 0.5),
-    margin: '0px 0px 10px 0px',
     alignSelf: 'center',
     opacity: disabled ? 0.2 : 1,
   };
@@ -75,19 +84,29 @@ export default function styles(theme, props) {
     display: 'flex',
   };
 
-  const im = px(s / 12);
-  const is1 = px(s / 6);
-  const is2 = px(s / 24);
+  const iconSvg = {
+    position: 'absolute',
+  };
 
-  const iconShadow = {
-    display: isSerious ? 'none' : null,
+  const is1 = px(s / 4);
+  const is2 = px(s / 5);
+
+  const iconShadowStyle = {
+    display: iconShadow ? null : 'none',
+    position: 'absolute',
+    left: '50%',
+    right: '50%',
+    top: '50%',
+    bottom: '50%',
+    boxShadow: `0px 0px ${is1} ${is2} rgba(0,0,0,0.8)`,
+  };
+
+  const title = {
     position: 'absolute',
     left: '0px',
     right: '0px',
-    top: '0px',
-    bottom: '0px',
-    margin: im,
-    boxShadow: `0px 0px ${is1} ${is2} rgba(0,0,0,0.8)`,
+    bottom: px(s * 0.15),
+    opacity: disabled ? 0.2 : 1,
   };
 
   const subtitle = {
@@ -95,6 +114,7 @@ export default function styles(theme, props) {
     left: '0px',
     right: '0px',
     bottom: px(s * 0.06),
+    opacity: disabled ? 0.2 : 1,
   };
 
   const gauge = {
@@ -111,16 +131,16 @@ export default function styles(theme, props) {
     bottom: px(s * -0.25),
   };
 
-  const crossed = {
+  const crossedStyle = {
     position: 'absolute',
-    left: '-30px',
-    right: '-30px',
-    top: '90px',
-    bottom: '90px',
+    left: px(s * -0.15),
+    right: px(s * -0.15),
+    top: px(s * 0.45),
+    bottom: px(s * 0.45),
     transform: 'rotate(-45deg)',
     backgroundColor: 'red',
-    borderRadius: '10px',
-    boxShadow: '0px 10px 20px 0px black',
+    borderRadius: px(s * 0.05),
+    boxShadow: `0px ${px(s * 0.05)} ${px(s * 0.1)} 0px black`,
   };
 
   const gear = {
@@ -136,12 +156,14 @@ export default function styles(theme, props) {
   return {
     rocket,
     icon,
-    iconShadow,
+    iconSvg,
+    iconShadow: iconShadowStyle,
     glyph,
+    title,
     subtitle,
     gauge,
     ratio,
-    crossed,
+    crossed: crossedStyle,
     gear,
   };
 }

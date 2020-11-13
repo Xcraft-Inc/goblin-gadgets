@@ -49,6 +49,14 @@ export default class Rocket extends Widget {
     );
   }
 
+  renderCrossed() {
+    if (!this.props.crossed) {
+      return null;
+    }
+
+    return <div className={this.styles.classNames.crossed} />;
+  }
+
   renderGauge() {
     if (!this.props.startedCount || !this.props.totalCount) {
       return null;
@@ -94,7 +102,7 @@ export default class Rocket extends Widget {
       <div className={this.styles.classNames.icon}>
         <div className={this.styles.classNames.iconShadow} />
         <img
-          className={this.styles.classNames.icon}
+          className={this.styles.classNames.iconSvg}
           src={this.props.icon}
           alt=""
         />
@@ -111,6 +119,7 @@ export default class Rocket extends Widget {
 
     return (
       <div className={this.styles.classNames.glyph}>
+        <div className={this.styles.classNames.iconShadow} />
         <Label
           grow="1"
           glyph={this.props.glyph}
@@ -126,13 +135,15 @@ export default class Rocket extends Widget {
   renderTitle() {
     const fontSize = `${this.size * 0.75}%`;
     return (
-      <Label
-        text={this.props.title}
-        textColor={this.props.textColor}
-        fontSize={fontSize}
-        justify="center"
-        wrap="no"
-      />
+      <div className={this.styles.classNames.title}>
+        <Label
+          text={this.props.title}
+          textColor={this.props.textColor}
+          fontSize={fontSize}
+          justify="center"
+          wrap="no"
+        />
+      </div>
     );
   }
 
@@ -163,6 +174,7 @@ export default class Rocket extends Widget {
         {this.renderSubtitle()}
         {this.renderGauge()}
         {this.renderOverflow()}
+        {this.renderCrossed()}
       </div>
     );
   }

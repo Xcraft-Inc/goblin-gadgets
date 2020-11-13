@@ -7,26 +7,32 @@ const r1 = [
   {
     id: 'fact',
     title: 'Facturation',
-    glyph: 'solid/check',
+    glyph: 'solid/bicycle',
+    iconShadow: true,
     textColor: '#eee',
     background: '#74ae56',
     backgroundHover: 'red',
+    shadow: true,
   },
   {
     id: 'sal',
     title: 'Salaires',
     glyph: 'solid/rocket',
+    iconShadow: true,
     textColor: '#eee',
     background: '#fdac4c',
     backgroundHover: 'red',
+    shadow: true,
   },
   {
     id: 'compta',
     title: 'Comptabilité',
     glyph: 'solid/car',
+    iconShadow: true,
     textColor: '#eee',
     background: '#559dd8',
     backgroundHover: 'red',
+    shadow: true,
   },
 ];
 
@@ -104,11 +110,6 @@ export default [
     group: 'aspect',
     type: types.rockets,
     description: 'The list of rockets.',
-  },
-  {
-    name: 'look',
-    group: 'aspect',
-    type: types.enum(['simple', 'smooth', 'clearline', 'serious']),
   },
   {
     name: 'background',

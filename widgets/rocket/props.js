@@ -15,9 +15,9 @@ export default [
     type: types.color,
   },
   {
-    name: 'look',
+    name: 'shadow',
     group: 'aspect',
-    type: types.enum(['simple', 'smooth', 'clearline', 'serious']),
+    type: types.bool,
   },
   {
     name: 'kind',
@@ -26,6 +26,11 @@ export default [
   },
   {
     name: 'disabled',
+    group: 'aspect',
+    type: types.bool,
+  },
+  {
+    name: 'crossed',
     group: 'aspect',
     type: types.bool,
   },
@@ -39,24 +44,31 @@ export default [
     group: 'aspect',
     type: types.string,
   },
+
+  // Content.
   {
     name: 'title',
-    group: 'aspect',
+    group: 'content',
     type: types.nabu,
   },
   {
     name: 'subtitle',
-    group: 'aspect',
+    group: 'content',
     type: types.nabu,
   },
   {
     name: 'icon',
-    group: 'aspect',
+    group: 'content',
     type: types.string,
   },
   {
+    name: 'iconShadow',
+    group: 'content',
+    type: types.bool,
+  },
+  {
     name: 'glyph',
-    group: 'aspect',
+    group: 'content',
     type: types.glyph,
   },
 
