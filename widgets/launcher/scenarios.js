@@ -2,6 +2,7 @@ export default [
   {
     name: 'default',
     props: {
+      title: 'Crésus',
       blobKind: 'wave',
       blobColor: 'rgba(255,255,255,0.08)',
       background: 'linear-gradient(180deg, #052036, #082e4d 20%)',
@@ -12,6 +13,7 @@ export default [
   {
     name: 'westeros',
     props: {
+      title: 'Epsitec',
       blobKind: 'wave',
       blobColor: 'rgba(0,0,0,0.1)',
       background: 'linear-gradient(150deg, #011526 30%, #c853ff)',

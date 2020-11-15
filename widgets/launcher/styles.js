@@ -18,6 +18,17 @@ export default function styles(theme, props) {
     transition: '0.5s ease-in-out',
   };
 
+  const title = {
+    position: 'absolute',
+    left: '0px',
+    right: '0px',
+    top: '5%',
+    display: 'flex',
+    flexDirection: 'row',
+    textTransform: 'uppercase',
+    color: '#eee',
+  };
+
   const rockets = {
     display: 'flex',
     flexDirection: 'row',
@@ -28,6 +39,7 @@ export default function styles(theme, props) {
 
   return {
     launcher,
+    title,
     rockets,
   };
 }

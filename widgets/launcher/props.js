@@ -134,6 +134,11 @@ addType('rockets', {
 export default [
   // Aspect.
   {
+    name: 'title',
+    group: 'aspect',
+    type: types.string,
+  },
+  {
     name: 'rockets',
     group: 'aspect',
     type: types.rockets,
