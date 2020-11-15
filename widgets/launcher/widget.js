@@ -37,6 +37,9 @@ export default class Launcher extends Widget {
       <Rocket
         key={index}
         size={this.props.rocketSize || '200px'}
+        textColor={this.props.rocketTextColor || '#fff'}
+        shadow={this.props.rocketShadow || 'none'}
+        iconShadow={this.props.rocketIconShadow || 'none'}
         onClick={() => this.props.onLaunchRocket(rocket.id)}
         {...rocket}
       />

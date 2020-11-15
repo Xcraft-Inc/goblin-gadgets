@@ -43,24 +43,28 @@ export default function styles(theme, props) {
   const rs1 = {
     none: px(0),
     light: px(s / 13),
+    deep: px(s / 10),
     strong: px(0),
   }[shadow];
 
   const rs2 = {
     none: px(0),
     light: px(s / 7.7),
+    deep: px(s / 6.2),
     strong: px(s / 10),
   }[shadow];
 
   const rs3 = {
     none: px(0),
     light: px(0),
+    deep: px(s / 100),
     strong: px(s / 40),
   }[shadow];
 
   const rs4 = {
     none: 0,
     light: 0.5,
+    deep: 1,
     strong: 1,
   }[shadow];
 
@@ -112,15 +116,16 @@ export default function styles(theme, props) {
 
   const is1 = px(s / 4);
   const is2 = px(s / 5);
+  const is3 = iconShadow === 'light' ? 0.4 : 0.8;
 
   const iconShadowStyle = {
-    display: iconShadow === 'default' ? null : 'none',
+    display: iconShadow === 'none' ? 'none' : null,
     position: 'absolute',
     left: '50%',
     right: '50%',
     top: '50%',
     bottom: '50%',
-    boxShadow: `0px 0px ${is1} ${is2} rgba(0,0,0,0.8)`,
+    boxShadow: `0px 0px ${is1} ${is2} rgba(0,0,0,${is3})`,
   };
 
   const title = {
