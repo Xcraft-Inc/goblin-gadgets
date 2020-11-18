@@ -23,6 +23,38 @@ export default class Rocket extends Widget {
     return n(this.props.size || '200px');
   }
 
+  renderAdditional() {
+    if (!this.props.onAdditional) {
+      return null;
+    }
+
+    const fontSize = `${this.size * 0.75}%`;
+    const glyphSize = `${this.size * 2.0}%`;
+
+    return (
+      <div
+        className={this.styles.classNames.additional}
+        onClick={this.props.onAdditional}
+      >
+        <Label
+          grow="1"
+          text={this.props.additionalText}
+          textColor={this.props.textColor}
+          fontSize={fontSize}
+          glyph={
+            this.props.additionalText
+              ? null
+              : this.props.additionalGlyph || 'solid/times'
+          }
+          glyphColor={this.props.textColor}
+          glyphSize={glyphSize}
+          justify="center"
+          glyphPosition="center"
+        />
+      </div>
+    );
+  }
+
   renderOverflow() {
     if (
       !this.props.totalCount ||
@@ -162,12 +194,18 @@ export default class Rocket extends Widget {
     );
   }
 
+  renderBox() {
+    return <div className={`box-hover ${this.styles.classNames.box}`} />;
+  }
+
   render() {
     return (
       <div
         className={this.styles.classNames.rocket}
         onClick={this.props.onClick}
       >
+        {this.renderAdditional()}
+        {this.renderBox()}
         {this.renderIcon()}
         {this.renderGlyph()}
         {this.renderTitle()}

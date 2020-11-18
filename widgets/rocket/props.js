@@ -93,6 +93,28 @@ export default [
     max: 100,
   },
 
+  // Additional.
+  {
+    name: 'additionalText',
+    group: 'additional',
+    type: types.nabu,
+  },
+  {
+    name: 'additionalGlyph',
+    group: 'additional',
+    type: types.glyph,
+  },
+  {
+    name: 'additionalAnimation',
+    group: 'additional',
+    type: types.enum(['none', 'zoom', 'shift', 'parkinson']),
+  },
+  {
+    name: 'onAdditional',
+    group: 'additional',
+    type: types.function,
+  },
+
   // Function.
   {
     name: 'onClick',

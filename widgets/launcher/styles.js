@@ -35,6 +35,7 @@ export default function styles(theme, props) {
     justifyContent: 'center',
     alignSelf: 'center',
     margin: 'auto',
+    paddingTop: '5%',
   };
 
   return {
