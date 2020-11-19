@@ -243,18 +243,18 @@ export default function styles(theme, props) {
     const keyframes = {
       '0%': {transform: 'rotate(4deg) translate(0%, 0%)'},
       '10%': {transform: 'rotate(-4deg) translate(2%, -1%)'},
-      '20%': {transform: 'rotate(4deg) translate(-4%, 3%)'},
+      '20%': {transform: 'rotate(4deg) translate(-1%, 2%)'},
       '30%': {transform: 'rotate(-4deg) translate(0%, -2%)'},
-      '40%': {transform: 'rotate(4deg) translate(3%, 0%)'},
+      '40%': {transform: 'rotate(4deg) translate(2%, 0%)'},
       '50%': {transform: 'rotate(-4deg) translate(-1%, 1%)'},
-      '60%': {transform: 'rotate(4deg) translate(2%, -3%)'},
-      '70%': {transform: 'rotate(-4deg) translate(-2%, 2%)'},
-      '80%': {transform: 'rotate(4deg) translate(3%, -1%)'},
-      '90%': {transform: 'rotate(-4deg) translate(-1%, 3%)'},
+      '60%': {transform: 'rotate(4deg) translate(1%, -2%)'},
+      '70%': {transform: 'rotate(-4deg) translate(-2%, 1%)'},
+      '80%': {transform: 'rotate(4deg) translate(2%, -1%)'},
+      '90%': {transform: 'rotate(-4deg) translate(-1%, 2%)'},
       '100%': {transform: 'rotate(4deg) translate(0%, 0%)'},
     };
     transition = '0.3 ease-out';
-    animation = '1.2s ease-in-out infinite';
+    animation = '1.2s ease-in-out infinite reverse';
     animationName = keyframes;
   }
 
