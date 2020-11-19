@@ -107,7 +107,7 @@ export default [
   {
     name: 'additionalAnimation',
     group: 'additional',
-    type: types.enum(['none', 'zoom', 'shift', 'parkinson']),
+    type: types.enum(['none', 'zoom', 'shift', 'dancing', 'parkinson']),
   },
   {
     name: 'onAdditional',
