@@ -51,6 +51,8 @@ export default class AnalogClock extends Widget {
       draggingAdditionalMinutes: null,
     };
 
+    this.seconds = 0;
+
     this.start = this.start.bind(this);
     this.updateAngles = this.updateAngles.bind(this);
     this.onMouseOver = this.onMouseOver.bind(this);
@@ -99,7 +101,9 @@ export default class AnalogClock extends Widget {
     if (!this.props.fixedTime) {
       // Calculates the initial delay corresponding to the rest of the time to wait
       // until the first synchronous second.
-      const ms = Date.now();
+      this.seconds = 0;
+      this.serverTick = this.props.serverTick;
+      const ms = this.serverTick || Date.now();
       const initialDelay = 1000 - (ms % 1000);
       this.timer1 = setTimeout(() => this.start(), initialDelay);
     }
@@ -129,13 +133,29 @@ export default class AnalogClock extends Widget {
   // Starts a timer synchronized with system seconds.
   // So, precisely at each change of second, the watch pointer jumps.
   start() {
-    this.timer2 = setInterval(() => this.updateAngles(), 1000); // one tick each second
+    this.timer2 = setInterval(() => {
+      if (this.serverTick) {
+        if (this.serverTick !== this.props.serverTick) {
+          this.seconds = 0;
+          this.serverTick = this.props.serverTick;
+        } else {
+          this.seconds++;
+        }
+      }
+      this.updateAngles();
+    }, 1000); // one tick each second
     this.updateAngles();
   }
 
+  getNow() {
+    const timestamp = this.serverTick
+      ? this.serverTick + this.seconds * 1000
+      : Date.now();
+    return TimeConverters.jsToCanonical(new Date(timestamp));
+  }
+
   updateAngles() {
-    const now = TimeConverters.getNowCanonical('exact');
-    this.angles = computeAngles(now);
+    this.angles = computeAngles(this.getNow());
   }
 
   onMouseOver() {
@@ -273,7 +293,7 @@ export default class AnalogClock extends Widget {
         );
       }
     } else {
-      time = TimeConverters.getNowCanonical('exact');
+      time = this.getNow();
     }
     time = TimeConverters.getDisplayed(time);
 

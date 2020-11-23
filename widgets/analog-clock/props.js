@@ -55,6 +55,13 @@ export default [
     group: 'time',
     type: types.bool,
   },
+  {
+    name: 'serverTick',
+    group: 'time',
+    type: types.number,
+    description:
+      'This property can be used in order to sync the lock with a master (for each minute)',
+  },
 
   // Function.
   {
