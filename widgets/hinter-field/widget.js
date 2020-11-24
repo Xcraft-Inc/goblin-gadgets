@@ -43,7 +43,7 @@ class HinterFieldSearch extends Widget {
       type: 'FOCUS',
       path: this.props.hinter,
     });
-    this.props.onShow();
+    this.props.onFocus();
     const state = this.getWidgetState();
     const value = state.get(this.props.hinter);
     if (value && value !== '') {
@@ -82,6 +82,7 @@ class HinterFieldControl extends Widget {
     this.clear = this.clear.bind(this);
     this.show = this.show.bind(this);
     this.hide = this.hide.bind(this);
+    this.focus = this.focus.bind(this);
   }
 
   add(searchValue) {
@@ -97,6 +98,13 @@ class HinterFieldControl extends Widget {
   }
 
   show() {
+    this.doFor(this.workitemId, `setDetail`, {
+      type: this.props.hinter,
+      entityId: this.props.selectedId,
+    });
+  }
+
+  focus() {
     this.doFor(this.workitemId, `showHinter`, {
       type: this.props.hinter,
     });
@@ -131,6 +139,8 @@ class HinterFieldControl extends Widget {
           onClear={this.clear}
           onShow={this.show}
           onHide={this.hide}
+          onFocus={this.focus}
+          selectedId={selectedId}
           selectedValue={C(selectedValuePath)}
           selectedGlyph={C(selectedGlyphPath)}
           selectedGlyphColor={C(selectedGlyphColorPath)}
