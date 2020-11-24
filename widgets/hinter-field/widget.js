@@ -56,7 +56,6 @@ class HinterFieldSearch extends Widget {
       type: 'BLUR',
       path: this.props.hinter,
     });
-    this.props.onHide();
   }
 
   render() {
