@@ -123,7 +123,6 @@ class HinterFieldControl extends Widget {
       selectedGlyphColorPath = `${summariesPath}.glyphColor`;
     }
 
-    // FIXME: Set context.model for compatibility with navToHinter
     return (
       <WithModel model={`backend.${this.workitemId}`}>
         <HinterFieldSearch
