@@ -51,7 +51,9 @@ export default class AnalogClock extends Widget {
       draggingAdditionalMinutes: null,
     };
 
-    this.seconds = 0;
+    this._delta = 0;
+    this._timestamp = 0;
+    this._serverTick = 0;
 
     this.start = this.start.bind(this);
     this.updateAngles = this.updateAngles.bind(this);
@@ -101,9 +103,12 @@ export default class AnalogClock extends Widget {
     if (!this.props.fixedTime) {
       // Calculates the initial delay corresponding to the rest of the time to wait
       // until the first synchronous second.
-      this.seconds = 0;
-      this.serverTick = this.props.serverTick;
-      const ms = this.serverTick || Date.now();
+      this._serverTick = this.props.serverTick;
+      if (this._serverTick) {
+        this._delta = Date.now() - this._serverTick;
+        this._timestamp = Date.now() - this._delta;
+      }
+      const ms = this._serverTick ? this._timestamp : Date.now();
       const initialDelay = 1000 - (ms % 1000);
       this.timer1 = setTimeout(() => this.start(), initialDelay);
     }
@@ -134,13 +139,12 @@ export default class AnalogClock extends Widget {
   // So, precisely at each change of second, the watch pointer jumps.
   start() {
     this.timer2 = setInterval(() => {
-      if (this.serverTick) {
-        if (this.serverTick !== this.props.serverTick) {
-          this.seconds = 0;
-          this.serverTick = this.props.serverTick;
-        } else {
-          this.seconds++;
+      if (this._serverTick) {
+        if (this._serverTick !== this.props.serverTick) {
+          this._serverTick = this.props.serverTick;
+          this._delta = Date.now() - this._serverTick;
         }
+        this._timestamp = Date.now() - this._delta;
       }
       this.updateAngles();
     }, 1000); // one tick each second
@@ -148,9 +152,7 @@ export default class AnalogClock extends Widget {
   }
 
   getNow() {
-    const timestamp = this.serverTick
-      ? this.serverTick + this.seconds * 1000
-      : Date.now();
+    const timestamp = this._serverTick ? this._timestamp : Date.now();
     return TimeConverters.jsToCanonical(new Date(timestamp));
   }
 
