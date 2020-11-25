@@ -21,11 +21,6 @@ export default [
 
   // Aspect
   {
-    name: 'textColor',
-    group: 'aspect',
-    type: types.color,
-  },
-  {
     name: 'glyphColor',
     group: 'aspect',
     type: types.color,
