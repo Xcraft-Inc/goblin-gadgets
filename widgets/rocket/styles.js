@@ -259,10 +259,11 @@ export default function styles(theme, props) {
   }
 
   const additional = {
+    'zIndex': 1,
     'position': 'absolute',
     'left': '0px',
     'right': '0px',
-    'top': px(s * -0.45),
+    'bottom': px(s * -0.45),
     'height': px(s * 0.4),
     'borderRadius': kind === 'toy' ? rr2 : rr1,
     'boxShadow': shadow ? `0px ${rs1} ${rs2} ${rs3} rgba(0,0,0,${rs4})` : null,
