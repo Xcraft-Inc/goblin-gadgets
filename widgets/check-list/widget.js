@@ -20,7 +20,7 @@ class CheckList extends Widget {
   get value() {
     if (this.props.value) {
       if (this.props.value._state) {
-        return this.props.value.toArray();
+        return this.props.value.valueSeq().toArray();
       } else {
         return this.props.value.split(',');
       }

@@ -102,6 +102,7 @@ class GlyphsDialog extends Widget {
             : false;
         return this.renderGlyphButton(glyph, selected ? true : false, index++);
       })
+      .valueSeq()
       .toArray();
   }
 
@@ -174,6 +175,7 @@ class GlyphsDialog extends Widget {
       .map((glyph) => {
         return this.renderGlyphSample(glyph, dndEnable, index++);
       })
+      .valueSeq()
       .toArray();
   }
 

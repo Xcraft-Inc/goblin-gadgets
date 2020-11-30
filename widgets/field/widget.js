@@ -1050,8 +1050,8 @@ class Field extends Form {
           visibleDate: calendar.get('visibleDate', null),
           startDate: calendar.get('startDate', null),
           endDate: calendar.get('endDate', null),
-          dates: calendar.get('dates', []).toArray(),
-          badges: calendar.get('badges', []).toArray(),
+          dates: calendar.get('dates', []).valueSeq().toArray(),
+          badges: calendar.get('badges', []).valueSeq().toArray(),
         };
       },
       this.fullPath
@@ -1074,7 +1074,7 @@ class Field extends Form {
       CalendarBoards,
       (calendarBoards) => {
         return {
-          boards: calendarBoards.get('boards', []).toArray(),
+          boards: calendarBoards.get('boards', []).valueSeq().toArray(),
           selectedDate: calendarBoards.get('selectedDate'),
           selectedId: calendarBoards.get('selectedId'),
         };

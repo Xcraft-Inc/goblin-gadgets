@@ -45,7 +45,7 @@ class CalendarRecurrence extends Widget {
 
   get addDates() {
     if (this.props.addDates) {
-      return this.props.addDates.toArray();
+      return this.props.addDates.valueSeq().toArray();
     } else {
       return [];
     }
@@ -78,7 +78,7 @@ class CalendarRecurrence extends Widget {
     const startDate = DateConverters.moveAtBeginningOfMonth(this.visibleDate);
     const endDate = DateConverters.moveAtEndingOfMonth(this.visibleDate);
     const addDates = this.addDates;
-    const cronDates = this.props.cronDates.toArray();
+    const cronDates = this.props.cronDates.valueSeq().toArray();
     const datesOfMonth = [];
     for (const d of cronDates) {
       if (d >= startDate && d <= endDate) {
@@ -104,7 +104,7 @@ class CalendarRecurrence extends Widget {
   get listDates() {
     const array = [];
     const addDates = this.addDates;
-    const cronDates = this.props.cronDates.toArray();
+    const cronDates = this.props.cronDates.valueSeq().toArray();
     for (const d of cronDates) {
       if (addDates.indexOf(d) === -1) {
         array.push({type: 'base', date: d});

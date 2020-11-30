@@ -18,7 +18,7 @@ function onlyUnique(value, index, self) {
 
 function pushIds(ids, row) {
   if (row) {
-    for (const item of row.toArray()) {
+    for (const item of row.valueSeq().toArray()) {
       ids.push(item.get('id'));
       const subRows = item.get('rows');
       if (subRows) {
@@ -129,6 +129,7 @@ export default class Tree extends Widget {
   isAllSelected(data) {
     const rows = data
       .get('rows')
+      .valueSeq()
       .toArray()
       .map((row) => row.get('id'));
     const uniques = rows.filter(onlyUnique);
@@ -187,6 +188,7 @@ export default class Tree extends Widget {
         const isLast = index === header.size - 1;
         return this.renderHeaderCell(column, isLast, index++);
       })
+      .valueSeq()
       .toArray();
   }
 

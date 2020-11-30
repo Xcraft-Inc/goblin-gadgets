@@ -90,6 +90,7 @@ class TableRow extends Widget {
           index++
         );
       })
+      .valueSeq()
       .toArray();
   }
 
@@ -106,7 +107,10 @@ class TableRow extends Widget {
         onClick={() => this.onSelectionChanged(rowId)}
         onDoubleClick={() => this.onDoubleClick(rowId)}
       >
-        {this.renderRowCells(this.props.header.toArray(), this.props.row)}
+        {this.renderRowCells(
+          this.props.header.valueSeq().toArray(),
+          this.props.row
+        )}
       </div>
     );
   }

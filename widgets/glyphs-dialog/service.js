@@ -14,6 +14,7 @@ const logicState = {};
 function getGlyphOrder(list, id) {
   const glyphs = list
     .sort((a, b) => a.get('order', 0) - b.get('order', 0))
+    .valueSeq()
     .toArray();
   if (id) {
     for (let i = 0; i < glyphs.length; i++) {

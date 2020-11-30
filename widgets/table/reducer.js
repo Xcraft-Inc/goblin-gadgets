@@ -28,6 +28,7 @@ function rowIds(state) {
   const rowIds = state
     .get('sortedRows')
     .map((row) => row.get('row').get('id'))
+    .valueSeq()
     .toArray();
   return [...new Set(rowIds)];
 }
@@ -149,6 +150,7 @@ export default (state = initialState, action = {}) => {
       const sortedRows = state.get('sortedRows');
       const rowIds = sortedRows
         .map((row) => row.get('row').get('id'))
+        .valueSeq()
         .toArray();
 
       const selectedId = state.get('selectedIds.0');

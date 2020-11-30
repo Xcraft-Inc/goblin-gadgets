@@ -109,6 +109,7 @@ export default class TreeRow extends Widget {
           index++
         );
       })
+      .valueSeq()
       .toArray();
   }
 
@@ -122,7 +123,10 @@ export default class TreeRow extends Widget {
         className={`${this.props.hoverClass} ${rowClass}`}
       >
         {this.renderExpandButton()}
-        {this.renderRowCells(this.props.header.toArray(), this.props.row)}
+        {this.renderRowCells(
+          this.props.header.valueSeq().toArray(),
+          this.props.row
+        )}
       </div>
     );
   }

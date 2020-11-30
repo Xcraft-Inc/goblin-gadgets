@@ -162,6 +162,7 @@ class Wizard extends Form {
       .map((widget) => {
         return this.renderMenuItem(widget.get('id'), index++);
       })
+      .valueSeq()
       .toArray();
   }
 
@@ -248,6 +249,7 @@ class Wizard extends Form {
       .map((property) => {
         return this.renderProperty(property, index++);
       })
+      .valueSeq()
       .toArray();
   }
 
@@ -824,6 +826,7 @@ class Wizard extends Form {
       .map((preview) => {
         return this.renderPreviewSetting(preview, index++);
       })
+      .valueSeq()
       .toArray();
   }
 

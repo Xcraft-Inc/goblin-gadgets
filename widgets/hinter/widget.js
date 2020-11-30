@@ -125,8 +125,10 @@ class Hinter extends Widget {
 
   renderList() {
     const result = [];
-    const rows = this.props.rows.toArray();
-    const glyphs = this.props.glyphs ? this.props.glyphs.toArray() : [];
+    const rows = this.props.rows.valueSeq().toArray();
+    const glyphs = this.props.glyphs
+      ? this.props.glyphs.valueSeq().toArray()
+      : [];
     for (let index = 0; index < rows.length; index++) {
       const row = rows[index];
       const glyph = index < glyphs.length ? glyphs[index] : null;

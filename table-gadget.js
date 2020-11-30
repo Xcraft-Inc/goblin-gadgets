@@ -11,14 +11,14 @@ exports.xcraftCommands = function () {
     name: 'table',
     events: {
       syncSelect: (state) => {
-        const rowIds = state.get('selectedIds', []).toArray();
+        const rowIds = state.get('selectedIds', []).valueSeq().toArray();
         return {
           selectedIds: rowIds,
           //? rows: state.get('data.rows').filter((r) => rowIds.includes(r.get('id'))),
         };
       },
       select: (state) => {
-        const rowIds = state.get('selectedIds', []).toArray();
+        const rowIds = state.get('selectedIds', []).valueSeq().toArray();
         return {
           selectedIds: rowIds,
           //? rows: state.get('data.rows').filter((r) => rowIds.includes(r.get('id'))),

@@ -136,7 +136,7 @@ class Table extends Widget {
   }
 
   onSortingChanged(columnName) {
-    let sortingColumns = this.props.sortingColumns.toArray();
+    let sortingColumns = this.props.sortingColumns.valueSeq().toArray();
     if (sortingColumns.length > 0 && sortingColumns[0] === columnName) {
       sortingColumns[0] = '!' + columnName;
       sortingColumns = sortingColumns.concat();

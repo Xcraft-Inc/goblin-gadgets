@@ -222,6 +222,7 @@ export default class TableNC extends Widget {
           index++
         );
       })
+      .valueSeq()
       .toArray();
   }
 
@@ -251,6 +252,7 @@ export default class TableNC extends Widget {
         const isLast = index === header.size - 1;
         return this.renderHeaderCell(column, isSortable, isLast, index++);
       })
+      .valueSeq()
       .toArray();
   }
 

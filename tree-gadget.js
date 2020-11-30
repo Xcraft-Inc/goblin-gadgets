@@ -11,12 +11,12 @@ exports.xcraftCommands = function () {
     events: {
       select: (state) => {
         return {
-          selectedIds: state.get('selectedIds', []).toArray(),
+          selectedIds: state.get('selectedIds', []).valueSeq().toArray(),
         };
       },
       selectAll: (state) => {
         return {
-          selectedIds: state.get('selectedIds', []).toArray(),
+          selectedIds: state.get('selectedIds', []).valueSeq().toArray(),
         };
       },
       deselectAll: () => {
@@ -33,6 +33,7 @@ exports.xcraftCommands = function () {
         let rows = state
           .get('data.rows')
           .map((row) => row.get('id'))
+          .valueSeq()
           .toArray();
         rows = [...new Set(rows)];
         return state.set('selectedIds', rows);
