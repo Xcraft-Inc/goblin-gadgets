@@ -44,7 +44,11 @@ function isAllDeselected(state) {
 }
 
 function updateAfterChangingRows(state) {
-  state = state.set('sortedRows', getSortedRows(state));
+  const list = getSortedRows(state);
+  if (list.length === 1) {
+    state = state.set('selectedIds', [list[0].row.get('id')]);
+  }
+  state = state.set('sortedRows', list);
   state = state.set('isAllSelected', isAllSelected(state));
   state = state.set('isAllDeselected', isAllDeselected(state));
   return state;
@@ -104,6 +108,7 @@ export default (state = initialState, action = {}) => {
     case 'FILTER': {
       state = state.set('filter', action.value);
       state = updateAfterChangingRows(state);
+      state = updateAfterChangingSelection(state);
       return state;
     }
 
