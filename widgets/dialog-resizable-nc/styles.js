@@ -46,7 +46,7 @@ export default function styles(theme, props) {
   const b1 = borderSize;
   const b2 = Unit.multiply(borderSize, 2);
   const r = borderRadius;
-  const hbc = ColorManipulator.lighten(theme.palette.base, 0.5);
+  const hbc = theme.palette.chrome;
 
   /******************************************************************************/
 

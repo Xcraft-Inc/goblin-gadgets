@@ -89,9 +89,9 @@ export default class DialogResizableNC extends Widget {
         </div>
         {this.props.onMinimize ? (
           <Button
-            glyph="regular/window-minimize"
+            glyph="solid/compress"
             border="none"
-            tooltip={T('Réduire')}
+            tooltip={T('Taille minimale')}
             onClick={this.onMinimize}
           />
         ) : null}
@@ -105,9 +105,9 @@ export default class DialogResizableNC extends Widget {
         ) : null}
         {this.props.onMaximize ? (
           <Button
-            glyph="regular/window-maximize"
+            glyph="solid/expand"
             border="none"
-            tooltip={T('Agrandir')}
+            tooltip={T('Taille maximale')}
             onClick={this.onMaximize}
           />
         ) : null}

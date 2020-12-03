@@ -8,6 +8,7 @@ import KeyTrap from 'goblin-gadgets/widgets/key-trap.js';
 import _ from 'lodash';
 import {Unit} from 'goblin-theme';
 const px = Unit.toPx;
+const n = Unit.toValue;
 
 /******************************************************************************/
 
@@ -39,20 +40,21 @@ class DialogResizable extends Widget {
       rectangle = this.props.rectangle;
     } else {
       rectangle = {
-        horizontal: Unit.parse(this.props.horizontal).value,
-        vertical: Unit.parse(this.props.vertical).value,
-        width: Unit.parse(this.props.width).value,
-        height: Unit.parse(this.props.height).value,
+        horizontal: n(this.props.horizontal),
+        vertical: n(this.props.vertical),
+        width: n(this.props.width),
+        height: n(this.props.height),
       };
     }
+    this.initialRectangle = rectangle;
 
     this.state = {
       rectangle: rectangle,
       resizingElement: null,
     };
 
-    this.minWidth = Unit.parse(this.props.minWidth || '100px').value;
-    this.minHeight = Unit.parse(this.props.minHeight || '100px').value;
+    this.minWidth = n(this.props.minWidth || '100px');
+    this.minHeight = n(this.props.minHeight || '100px');
 
     this.startingRectangle = null;
     this.originX = null;
@@ -122,13 +124,13 @@ class DialogResizable extends Widget {
   }
 
   onRestore() {
-    const rectangle = {
-      ...this.rectangle,
-      width: Unit.parse(this.props.width).value,
-      height: Unit.parse(this.props.height).value,
-    };
-    this.rectangle = rectangle;
-    this.changeRectangle(rectangle);
+    //? const rectangle = {
+    //?   ...this.rectangle,
+    //?   width: n(this.props.width),
+    //?   height: n(this.props.height),
+    //? };
+    this.rectangle = this.initialRectangle;
+    this.changeRectangle(this.initialRectangle);
   }
 
   onMaximize() {
