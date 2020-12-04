@@ -291,6 +291,7 @@ export default function styles(theme, props) {
 
     if (theme.look.name === 'retro') {
       minWidth = Unit.add(theme.shapes.taskButtonWidth, '50px');
+      alignItems = 'center';
     }
   }
 
