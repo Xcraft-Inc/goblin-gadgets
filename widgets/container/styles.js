@@ -310,6 +310,8 @@ export default function styles(theme, props) {
       minWidth = Unit.add(theme.shapes.taskButtonWidth, '50px');
       maxWidth = Unit.add(theme.shapes.taskButtonWidth, '50px');
       alignItems = 'center';
+      margin = '-20px 0px 0px 0px';
+      padding = '20px 0px 0px 0px';
     }
   }
 
