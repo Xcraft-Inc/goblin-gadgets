@@ -11,7 +11,8 @@ class List extends Widget {
     this.renderItem = this.renderItem.bind(this);
     this.estimateItemSize = this.estimateItemSize.bind(this);
 
-    this._height = 40;
+    this._height0 = 40;
+    this._height = this._height0;
     this._threshold = 80;
     this._fetchInternal = this._fetchInternal.bind(this);
     this._fetch = throttle(this._fetchInternal, 200).bind(this);
@@ -138,7 +139,7 @@ class List extends Widget {
        * height of 0.
        */
       if (cache['0'] === 0) {
-        cache['0'] = 40;
+        cache['0'] = this._height0;
       }
     } else if (state) {
       /* Use the cached cache, then it's possible to restore a mostly good
@@ -167,7 +168,7 @@ class List extends Widget {
       this._listRef.cacheSizes();
       this._height = this._listRef.cache['0'];
     } else {
-      this._height = 40;
+      this._height = this._height0;
     }
 
     return this._height;
