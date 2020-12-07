@@ -186,6 +186,7 @@ class List extends Widget {
         type={this.props.type || 'variable'}
         itemRenderer={this.renderItem}
         itemSizeEstimator={this.estimateItemSize}
+        useTranslate3d={true}
       />
     );
   }
