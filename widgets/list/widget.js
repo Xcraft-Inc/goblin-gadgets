@@ -125,7 +125,7 @@ class List extends Widget {
 
   estimateItemSize(index, cache) {
     let state = null;
-    let inputCache = cache.hasOwnProperty('0');
+    let inputCache = cache['0'] !== undefined;
 
     if (!inputCache) {
       state = this.getWidgetCacheState(this.widgetId);
