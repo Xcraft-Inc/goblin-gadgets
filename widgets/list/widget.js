@@ -3,11 +3,6 @@ import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import ReactList from 'react-list';
 import throttle from 'lodash/throttle';
-import {isImmutable} from 'immutable';
-
-function get(obj, key) {
-  return isImmutable(obj) ? obj.get(key) : obj[key];
-}
 
 class List extends Widget {
   constructor() {
@@ -153,14 +148,19 @@ class List extends Widget {
       cache = state.get('cache');
     }
 
-    if (get(cache, index) > 0) {
-      this._height = get(cache, index);
+    let height;
+    const isImm = !!cache.get;
+
+    height = isImm ? cache.get(index) : cache[index];
+    if (height > 0) {
+      this._height = height;
       return this._height;
     }
 
-    if (get(cache, '0')) {
-      this._height = get(cache, '0');
-    } else if (this._listRef) {
+    height = isImm ? cache.get('0') : cache['0'];
+    if (height) {
+      this._height = height;
+    } else if (this._listRef && this._listRef.items) {
       /* Generate cache even for uniform list, then it's possible to compute
        * a correct scroller height value.
        */
