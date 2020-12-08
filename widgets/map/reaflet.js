@@ -205,4 +205,4 @@ L.MakiMarkers.icon = function (options) {
   return new L.MakiMarkers.Icon(options);
 };
 
-module.exports = L;
+export default L;

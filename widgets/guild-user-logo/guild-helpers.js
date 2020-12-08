@@ -74,9 +74,4 @@ function getLogoColor(color) {
 
 //-----------------------------------------------------------------------------
 
-module.exports = {
-  getLogoInitials,
-  getLogoTooltip,
-  getLogoShape,
-  getLogoColor,
-};
+export default {getLogoInitials, getLogoTooltip, getLogoShape, getLogoColor};

@@ -122,7 +122,7 @@ function getCornerPath(width, height, position, size) {
 
 /******************************************************************************/
 
-module.exports = {
+export default {
   getOutlinePath,
   getCornerPath,
 };
