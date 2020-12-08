@@ -24,7 +24,7 @@ export default class DialogModal extends Widget {
     this.onCloseCombo = this.onCloseCombo.bind(this);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     KeyTrap.bind('Escape', this.onCloseCombo);
     KeyTrap.bind('Enter', this.onCloseCombo);
   }

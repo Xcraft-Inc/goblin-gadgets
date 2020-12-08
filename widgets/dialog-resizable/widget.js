@@ -91,7 +91,7 @@ class DialogResizable extends Widget {
   }
   //#endregion
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     KeyTrap.bind('Escape', this.onCloseDialog);
     KeyTrap.bind('Enter', this.onCloseDialog);
   }

@@ -56,7 +56,7 @@ export default class ResizableContainer extends Widget {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.size = this.getSize(nextProps);
   }
 

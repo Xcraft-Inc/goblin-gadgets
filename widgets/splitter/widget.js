@@ -108,7 +108,7 @@ class Splitter extends Widget {
     return positions;
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     // If the splitter has been moved, nothing is changed anymore to keep the choice of the user.
     // If the properties have changed radically (kind, unit or master), we still make the change.
     const nextInitials = this.getInitials(nextProps);

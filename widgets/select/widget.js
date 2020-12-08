@@ -21,7 +21,7 @@ class Select extends Widget {
     this.onCloseCombo = this.onCloseCombo.bind(this);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     MouseTrap.bind('esc', this.onCloseCombo);
   }
 

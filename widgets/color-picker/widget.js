@@ -100,7 +100,7 @@ class ColorPicker extends Widget {
     this.editedColor = color;
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.updateColor(this.props.color);
     MouseTrap.bind('return', this.onTextValidate);
   }

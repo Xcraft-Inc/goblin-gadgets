@@ -40,7 +40,7 @@ class Combo extends Widget {
     });
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     window.document.combo = 'visible';
 
     KeyTrap.bind('Escape', this.onCloseCombo);

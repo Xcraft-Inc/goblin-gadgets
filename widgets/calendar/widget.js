@@ -94,7 +94,7 @@ class Calendar extends Widget {
 
   /******************************************************************************/
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (this.props.onEscKey) {
       KeyTrap.bind('Escape', this.onEscKey);
     }

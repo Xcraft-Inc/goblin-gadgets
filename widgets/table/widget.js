@@ -9,7 +9,7 @@ import MouseTrap from 'mousetrap';
 /******************************************************************************/
 
 class SelectionUpdaterNC extends Widget {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (this.props.selectedIds) {
       this.doAs('table-gadget', 'syncSelect', {
         selectedIds: this.props.selectedIds,
@@ -85,7 +85,7 @@ class Table extends Widget {
     }
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.initialiseData();
 
     if (this.props.useKeyUpDown) {
