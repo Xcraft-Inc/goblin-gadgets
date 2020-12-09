@@ -87,20 +87,20 @@ export default class DialogResizableNC extends Widget {
             cursor="move"
           />
         </div>
+        {this.props.onRestore ? (
+          <Button
+            glyph="solid/undo"
+            border="none"
+            tooltip={T('Restaurer')}
+            onClick={this.onRestore}
+          />
+        ) : null}
         {this.props.onMinimize ? (
           <Button
             glyph="solid/compress"
             border="none"
             tooltip={T('Taille minimale')}
             onClick={this.onMinimize}
-          />
-        ) : null}
-        {this.props.onRestore ? (
-          <Button
-            glyph="regular/square"
-            border="none"
-            tooltip={T('Restaurer')}
-            onClick={this.onRestore}
           />
         ) : null}
         {this.props.onMaximize ? (

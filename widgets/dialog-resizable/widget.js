@@ -29,6 +29,15 @@ function clipRectangle(rectangle) {
   rectangle.vertical = Math.min(rectangle.vertical, v);
 }
 
+function compareRectangle(r1, r2) {
+  return (
+    r1.horizontal === r2.horizontal &&
+    r1.vertical === r2.vertical &&
+    r1.width === r2.width &&
+    r1.height === r2.height
+  );
+}
+
 /******************************************************************************/
 
 class DialogResizable extends Widget {
@@ -113,33 +122,48 @@ class DialogResizable extends Widget {
     });
   }
 
-  onMinimize() {
-    const rectangle = {
+  get minimalRectangle() {
+    return {
       ...this.rectangle,
       width: this.minWidth,
       height: this.minHeight,
     };
-    this.rectangle = rectangle;
-    this.changeRectangle(rectangle);
   }
 
-  onRestore() {
-    //? const rectangle = {
-    //?   ...this.rectangle,
-    //?   width: n(this.props.width),
-    //?   height: n(this.props.height),
-    //? };
-    this.rectangle = this.initialRectangle;
-    this.changeRectangle(this.initialRectangle);
-  }
-
-  onMaximize() {
-    const rectangle = {
+  get maximalRectangle() {
+    return {
       horizontal: 0,
       vertical: 0,
       width: window.visualViewport.width,
       height: window.visualViewport.height,
     };
+  }
+
+  get minimizeEnable() {
+    return !compareRectangle(this.rectangle, this.minimalRectangle);
+  }
+
+  get restoreEnable() {
+    return !compareRectangle(this.rectangle, this.initialRectangle);
+  }
+
+  get maximizeEnable() {
+    return !compareRectangle(this.rectangle, this.maximalRectangle);
+  }
+
+  onMinimize() {
+    const rectangle = this.minimalRectangle;
+    this.rectangle = rectangle;
+    this.changeRectangle(rectangle);
+  }
+
+  onRestore() {
+    this.rectangle = this.initialRectangle;
+    this.changeRectangle(this.initialRectangle);
+  }
+
+  onMaximize() {
+    const rectangle = this.maximalRectangle;
     this.rectangle = rectangle;
     this.changeRectangle(rectangle);
   }
@@ -236,9 +260,9 @@ class DialogResizable extends Widget {
         width={px(rectangle.width)}
         height={px(rectangle.height)}
         resizing={!!this.resizingElement}
-        onMinimize={this.onMinimize}
-        onRestore={this.onRestore}
-        onMaximize={this.onMaximize}
+        onMinimize={this.minimizeEnable ? this.onMinimize : null}
+        onRestore={this.restoreEnable ? this.onRestore : null}
+        onMaximize={this.maximizeEnable ? this.onMaximize : null}
         onCloseDialog={this.props.onCloseDialog ? this.onCloseDialog : null}
         onMouseDown={this.onMouseDown}
         onMouseMove={this.onMouseMove}
@@ -258,9 +282,9 @@ class DialogResizable extends Widget {
         width={px(this.props.rectangle.width)}
         height={px(this.props.rectangle.height)}
         resizing={false}
-        onMinimize={this.onMinimize}
-        onRestore={this.onRestore}
-        onMaximize={this.onMaximize}
+        onMinimize={this.minimizeEnable ? this.onMinimize : null}
+        onRestore={this.restoreEnable ? this.onRestore : null}
+        onMaximize={this.maximizeEnable ? this.onMaximize : null}
         onCloseDialog={this.props.onCloseDialog ? this.onCloseDialog : null}
         onMouseDown={this.onMouseDown}
         onMouseMove={this.onMouseMove}
@@ -291,9 +315,9 @@ class DialogResizable extends Widget {
         height={px(rectangle.height)}
         resizing={true}
         opacity={0.3}
-        onMinimize={this.onMinimize}
-        onRestore={this.onRestore}
-        onMaximize={this.onMaximize}
+        onMinimize={this.minimizeEnable ? this.onMinimize : null}
+        onRestore={this.restoreEnable ? this.onRestore : null}
+        onMaximize={this.maximizeEnable ? this.onMaximize : null}
         onCloseDialog={this.props.onCloseDialog ? this.onCloseDialog : null}
         onMouseDown={this.onMouseDown}
         onMouseMove={this.onMouseMove}
