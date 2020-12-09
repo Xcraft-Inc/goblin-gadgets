@@ -1,5 +1,5 @@
 import T from 't';
-import * as StringBuilder from 'goblin-nabu/lib/string-builder.js';
+import StringBuilder from 'goblin-nabu/lib/string-builder.js';
 
 //-----------------------------------------------------------------------------
 
