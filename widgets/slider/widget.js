@@ -10,7 +10,7 @@ import wrapRawInput from 'goblin-gadgets/widgets/input-wrapper/widget.js';
 import {Unit} from 'goblin-theme';
 const px = Unit.toPx;
 const pc = Unit.toPc;
-const BigNumber = require('bignumber.js');
+const {BigNumber} = require('bignumber.js');
 
 /******************************************************************************/
 
