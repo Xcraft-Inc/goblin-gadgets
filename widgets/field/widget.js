@@ -483,6 +483,14 @@ class Field extends Form {
     };
 
     const Action = (props) => {
+      const openEntityWorkitem = () => {
+        const service = this.context.id.split('@')[0];
+        this.doAs(service, 'open-entity-workitem', {
+          entityId: props.entityId,
+          desktopId: this.context.desktopId,
+        });
+      };
+
       return !!props.entityId && !this.props.disableAdd ? (
         <Button
           kind="combo"
@@ -491,16 +499,7 @@ class Field extends Form {
           horizontalSpacing={this.props.horizontalSpacing}
           glyph="solid/pencil"
           tooltip={T('Editer')}
-          onClick={() => {
-            {
-              const entity = this.getModelValue(props.entityId, true);
-              const service = this.context.id.split('@')[0];
-              this.doAs(service, 'open-entity-workitem', {
-                entity: entity,
-                desktopId: this.context.desktopId,
-              });
-            }
-          }}
+          onClick={openEntityWorkitem}
         />
       ) : null;
     };
