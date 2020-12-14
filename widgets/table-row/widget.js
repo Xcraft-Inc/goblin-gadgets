@@ -95,6 +95,10 @@ class TableRow extends Widget {
   }
 
   render() {
+    if (!this.props.row) {
+      return null;
+    }
+
     const rowId = this.props.row.get('id');
 
     return (
@@ -124,6 +128,9 @@ export default Widget.connectWidget((state, props) => {
   }
 
   const row = state.get(`sortedRows.${props.rowIndex}`);
+  if (!row) {
+    return {};
+  }
   const id = row.get('row').get('id');
   const selectedIds = state.get('selectedIds');
   const selected = selectedIds ? selectedIds.includes(id) : false;
@@ -136,7 +143,6 @@ export default Widget.connectWidget((state, props) => {
     bottomSeparator: row.get('bottomSeparator'),
     isLast: row.get('isLast'),
     selected,
-    x: id, //?
   };
 })(TableRow);
 
