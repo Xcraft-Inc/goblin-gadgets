@@ -114,7 +114,7 @@ export default function styles(theme, props) {
     width: px(s * 0.5),
     height: px(s * 0.5),
     alignSelf: 'center',
-    opacity: disabled ? 0.2 : 1,
+    opacity: disabled ? 0.4 : 1,
   };
 
   const glyph = {
@@ -145,7 +145,7 @@ export default function styles(theme, props) {
     left: '0px',
     right: '0px',
     bottom: px(s * 0.15),
-    opacity: disabled ? 0.2 : 1,
+    // opacity: disabled ? 0.2 : 1,
   };
 
   const subtitle = {
@@ -153,7 +153,7 @@ export default function styles(theme, props) {
     left: '0px',
     right: '0px',
     bottom: px(s * 0.06),
-    opacity: disabled ? 0.2 : 1,
+    // opacity: disabled ? 0.2 : 1,
   };
 
   const gauge = {
