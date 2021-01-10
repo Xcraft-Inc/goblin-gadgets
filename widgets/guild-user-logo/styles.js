@@ -22,7 +22,7 @@ export default function styles(theme, props) {
     'alignItems': 'center',
     'transition': theme.transitions.hover,
     ':hover': {
-      transform: 'scale(1.1)',
+      transform: onClick ? 'scale(1.1)' : null,
     },
   };
 
