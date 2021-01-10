@@ -4,22 +4,26 @@ import GuildHelpers from '../guild-user-logo/guild-helpers';
 
 /******************************************************************************/
 
-export const propNames = ['size', 'color', 'shape', 'initials'];
+export const propNames = ['size', 'color', 'shape', 'initials', 'onClick'];
 
 export default function styles(theme, props) {
-  let {size = '50px', color, shape, initials = '?'} = props;
+  let {size = '50px', color, shape, initials = '?', onClick} = props;
 
   color = GuildHelpers.getLogoColor(color);
   shape = GuildHelpers.getLogoShape(shape);
 
   const guildUserLogo = {
-    position: 'relative',
-    width: size,
-    height: size,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    'position': 'relative',
+    'width': size,
+    'height': size,
+    'display': 'flex',
+    'flexDirection': 'column',
+    'justifyContent': 'center',
+    'alignItems': 'center',
+    'transition': theme.transitions.hover,
+    ':hover': {
+      transform: 'scale(1.1)',
+    },
   };
 
   const glyph = {

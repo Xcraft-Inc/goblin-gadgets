@@ -38,6 +38,7 @@ export default class GuildUserLogo extends Widget {
       <TranslatableDiv
         className={this.styles.classNames.guildUserLogo}
         title={this.props.tooltip}
+        onClick={this.props.onClick ? this.props.onClick : null}
       >
         {this.renderGlyph()}
         {this.renderInitials()}
