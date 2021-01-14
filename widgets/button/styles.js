@@ -982,7 +982,9 @@ export default function styles(theme, props) {
       opacity: 1.0,
     };
     boxStyle[':active'] = {
-      backgroundColor: ColorManipulator.darken(backgroundColor, 0.1),
+      backgroundColor: backgroundColor
+        ? ColorManipulator.darken(backgroundColor, 0.1)
+        : 'rgba(0, 0, 0, 0.1)',
     };
   }
 
