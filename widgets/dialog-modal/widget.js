@@ -93,11 +93,11 @@ export default class DialogModal extends Widget {
     const d2 = d1 / (t1 / t2); // duration (s)
 
     return (
-      <React.Fragment>
+      <>
         {this.renderGear('gear1', color, r1, t1, d1, 'cw')}
         {this.renderGear('gear2', color, r2, t2, d2, 'ccw')}
         {this.renderGear('gear3', color, 700, 50, 250, 'ccw')}
-      </React.Fragment>
+      </>
     );
   }
 
@@ -112,7 +112,7 @@ export default class DialogModal extends Widget {
     const backgroundBrigtness = lum < 0.3 ? 'light' : 'dark';
 
     return (
-      <React.Fragment>
+      <>
         <RetroScrew
           backgroundBrigtness={backgroundBrigtness}
           radius="8px"
@@ -141,7 +141,7 @@ export default class DialogModal extends Widget {
           right="15px"
           angle="0deg"
         />
-      </React.Fragment>
+      </>
     );
   }
 

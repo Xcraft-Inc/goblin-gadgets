@@ -13,7 +13,7 @@ let Fragment = class Fragment extends Widget {
     if (this.props.show === false) {
       return null;
     }
-    return <React.Fragment>{this.props.children}</React.Fragment>;
+    return <>{this.props.children}</>;
   }
 };
 

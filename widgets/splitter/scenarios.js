@@ -14,14 +14,14 @@ export default [
       firstMaxSize: {type: 'percentage'},
       lastMaxSize: {type: 'percentage'},
       children: (
-        <React.Fragment>
+        <>
           <Container width="100%" height="100%" backgroundColor="aliceblue">
             <Label text="40%" />
           </Container>
           <Container width="100%" height="100%" backgroundColor="lemonchiffon">
             <Label text="" />
           </Container>
-        </React.Fragment>
+        </>
       ),
     },
   },
@@ -36,14 +36,14 @@ export default [
       firstMaxSize: {type: 'percentage'},
       lastMaxSize: {type: 'percentage'},
       children: (
-        <React.Fragment>
+        <>
           <Container width="100%" height="100%" backgroundColor="aliceblue">
             <Label text="" />
           </Container>
           <Container width="100%" height="100%" backgroundColor="lemonchiffon">
             <Label text="40%" />
           </Container>
-        </React.Fragment>
+        </>
       ),
     },
   },
@@ -58,14 +58,14 @@ export default [
       firstMaxSize: {type: 'pixel'},
       lastMaxSize: {type: 'pixel'},
       children: (
-        <React.Fragment>
+        <>
           <Container width="100%" height="100%" backgroundColor="aliceblue">
             <Label text="120px" />
           </Container>
           <Container width="100%" height="100%" backgroundColor="lemonchiffon">
             <Label text="" />
           </Container>
-        </React.Fragment>
+        </>
       ),
     },
   },
@@ -80,14 +80,14 @@ export default [
       firstMaxSize: {type: 'pixel'},
       lastMaxSize: {type: 'pixel'},
       children: (
-        <React.Fragment>
+        <>
           <Container width="100%" height="100%" backgroundColor="aliceblue">
             <Label text="" />
           </Container>
           <Container width="100%" height="100%" backgroundColor="lemonchiffon">
             <Label text="120px" />
           </Container>
-        </React.Fragment>
+        </>
       ),
     },
   },
@@ -102,14 +102,14 @@ export default [
       firstMaxSize: {type: 'percentage'},
       lastMaxSize: {type: 'percentage'},
       children: (
-        <React.Fragment>
+        <>
           <Container width="100%" height="100%" backgroundColor="aliceblue">
             <Label text="40%" />
           </Container>
           <Container width="100%" height="100%" backgroundColor="lemonchiffon">
             <Label text="" />
           </Container>
-        </React.Fragment>
+        </>
       ),
     },
   },
@@ -124,14 +124,14 @@ export default [
       firstMaxSize: {type: 'percentage'},
       lastMaxSize: {type: 'percentage'},
       children: (
-        <React.Fragment>
+        <>
           <Container width="100%" height="100%" backgroundColor="aliceblue">
             <Label text="" />
           </Container>
           <Container width="100%" height="100%" backgroundColor="lemonchiffon">
             <Label text="40%" />
           </Container>
-        </React.Fragment>
+        </>
       ),
     },
   },
@@ -146,14 +146,14 @@ export default [
       firstMaxSize: {type: 'pixel'},
       lastMaxSize: {type: 'pixel'},
       children: (
-        <React.Fragment>
+        <>
           <Container width="100%" height="100%" backgroundColor="aliceblue">
             <Label text="120px" />
           </Container>
           <Container width="100%" height="100%" backgroundColor="lemonchiffon">
             <Label text="" />
           </Container>
-        </React.Fragment>
+        </>
       ),
     },
   },
@@ -168,14 +168,14 @@ export default [
       firstMaxSize: {type: 'pixel'},
       lastMaxSize: {type: 'pixel'},
       children: (
-        <React.Fragment>
+        <>
           <Container width="100%" height="100%" backgroundColor="aliceblue">
             <Label text="" />
           </Container>
           <Container width="100%" height="100%" backgroundColor="lemonchiffon">
             <Label text="120px" />
           </Container>
-        </React.Fragment>
+        </>
       ),
     },
   },

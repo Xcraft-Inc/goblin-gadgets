@@ -69,12 +69,12 @@ export default class RetroPanel extends Widget {
     const m = 'coutinuous';
 
     return (
-      <React.Fragment>
+      <>
         {this.renderGear('fourGear1', color, r1, t, t1, 60, d1, m, 'cw')}
         {this.renderGear('fourGear2', color, r2, t, t2, 60, d2, m, 'ccw')}
         {this.renderGear('fourGear3', color, r3, t, t3, 60, d3, m, 'cw')}
         {this.renderGear('fourGear4', color, r4, t, t4, 60, d4, m, 'ccw')}
-      </React.Fragment>
+      </>
     );
   }
 
@@ -104,7 +104,7 @@ export default class RetroPanel extends Widget {
     const m = 'steps';
 
     return (
-      <React.Fragment>
+      <>
         {this.renderGear('clockGear1', color, r1, t, t1, 30, d1, m, 'cw')}
         {this.renderGear('clockGear2', color, r2, t, t2, 30, d2, m, 'ccw')}
         {this.renderGear('clockGear3', color, r3, t, t3, 30, d3, m, 'cw')}
@@ -112,7 +112,7 @@ export default class RetroPanel extends Widget {
         <div className={this.styles.classNames.clock}>
           <AnalogClock look="royal" size="400px" transition="none" />
         </div>
-      </React.Fragment>
+      </>
     );
   }
 
@@ -144,7 +144,7 @@ export default class RetroPanel extends Widget {
         : this.props.radius;
 
     return (
-      <React.Fragment>
+      <>
         <RetroScrew
           backgroundBrigtness={backgroundBrigtness}
           radius={r}
@@ -173,7 +173,7 @@ export default class RetroPanel extends Widget {
           right={d}
           angle="-70deg"
         />
-      </React.Fragment>
+      </>
     );
   }
 
@@ -198,7 +198,7 @@ export default class RetroPanel extends Widget {
     switch (this.props.kind) {
       case 'metal-plate':
         return (
-          <React.Fragment>
+          <>
             <div
               className={this.styles.classNames.retroPanelMetalPlateAbsolute}
             />
@@ -206,7 +206,7 @@ export default class RetroPanel extends Widget {
             {this.renderTitle()}
             {this.renderHomeGadget()}
             {this.props.children}
-          </React.Fragment>
+          </>
         );
       default:
         return null;

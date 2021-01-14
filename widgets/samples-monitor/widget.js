@@ -114,11 +114,11 @@ export default class SamplesMonitor extends Widget {
     }
 
     return (
-      <React.Fragment>
+      <>
         <div className={this.styles.classNames.foregroundCRT1} />
         <div className={this.styles.classNames.foregroundCRT2} />
         <div className={this.styles.classNames.foregroundCRT3} />
-      </React.Fragment>
+      </>
     );
   }
 
@@ -138,11 +138,11 @@ export default class SamplesMonitor extends Widget {
     const screenElements = helpers.getScreenElements(w - 4, h - 4);
 
     return (
-      <React.Fragment>
+      <>
         {svg.renderElements(this.styles.classNames.screen, screenElements)}
         {this.renderFlare()}
         <div className={this.styles.classNames.border} />
-      </React.Fragment>
+      </>
     );
   }
 
@@ -355,11 +355,7 @@ export default class SamplesMonitor extends Widget {
       max,
     };
 
-    return (
-      <React.Fragment>
-        {this.renderSamples(ox, oy, dx, dy, channel)}
-      </React.Fragment>
-    );
+    return <>{this.renderSamples(ox, oy, dx, dy, channel)}</>;
   }
 
   renderChannels(w, h, channels) {
@@ -378,12 +374,12 @@ export default class SamplesMonitor extends Widget {
     }
 
     return (
-      <React.Fragment>
+      <>
         <div ref={(x) => (this.agingButton = x)}>
           <Button glyph="solid/chevron-left" onClick={this.onAgingMenuToggle} />
         </div>
         <Separator kind="exact" height="30px" />
-      </React.Fragment>
+      </>
     );
   }
 

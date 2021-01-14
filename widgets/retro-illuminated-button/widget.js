@@ -94,7 +94,7 @@ export default class RetroIlluminatedButton extends Widget {
     }
 
     return (
-      <React.Fragment>
+      <>
         <div className={this.styles.classNames.queue} />
         <div className={this.styles.classNames.queueEnd} />
         <RetroScrew
@@ -102,7 +102,7 @@ export default class RetroIlluminatedButton extends Widget {
           bottom="-55px"
           radius="10px"
         />
-      </React.Fragment>
+      </>
     );
   }
 
@@ -112,12 +112,12 @@ export default class RetroIlluminatedButton extends Widget {
     }
 
     return (
-      <React.Fragment>
+      <>
         <RetroScrew top="-5px" left="-5px" angle="35deg" />
         <RetroScrew top="-5px" right="-5px" angle="-70deg" />
         <RetroScrew bottom="-5px" left="-5px" angle="10deg" />
         <RetroScrew bottom="-5px" right="-5px" angle="-20deg" />
-      </React.Fragment>
+      </>
     );
   }
 

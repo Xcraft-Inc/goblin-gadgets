@@ -37,12 +37,12 @@ export default class RetroGear extends Widget {
       return svg.renderElements(this.styles.classNames.gear, elements);
     } else {
       return (
-        <React.Fragment>
+        <>
           <div className={this.styles.classNames.shadow1} />
           <div className={this.styles.classNames.shadow2} />
           {svg.renderElements(this.styles.classNames.gear, elements)}
           <div className={this.styles.classNames.shadow3} />
-        </React.Fragment>
+        </>
       );
     }
   }

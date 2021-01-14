@@ -165,10 +165,10 @@ class StackNavigationWidget extends Widget {
 
   renderFixStack(screen, Component, stack) {
     return (
-      <React.Fragment>
+      <>
         {this.renderBelow(0, stack)}
         {this.renderFix(screen, Component)}
-      </React.Fragment>
+      </>
     );
   }
 
@@ -195,7 +195,7 @@ class StackNavigationWidget extends Widget {
     const beforeLastAnimation = animations ? animations.beforeLast : null;
 
     return (
-      <React.Fragment>
+      <>
         {this.renderBelow(1, stack)}
         {beforeLastScreen && beforeLastAnimation ? (
           <AnimatedContainer
@@ -214,7 +214,7 @@ class StackNavigationWidget extends Widget {
         >
           {this.renderComponent(lastScreen, lastComponent)}
         </AnimatedContainer>
-      </React.Fragment>
+      </>
     );
   }
 

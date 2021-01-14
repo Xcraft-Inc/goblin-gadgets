@@ -50,7 +50,7 @@ export default class HinterFieldNC extends Widget {
     const required =
       this.props.required !== undefined ? this.props.required : true;
     return (
-      <React.Fragment>
+      <>
         <TextFieldNC
           shape={this.enableAdd ? 'left-smooth' : 'smooth'}
           autoFocus={this.props.autoFocus}
@@ -70,7 +70,7 @@ export default class HinterFieldNC extends Widget {
           changeMode="immediate"
         />
         {this.renderSearchButtonAdd()}
-      </React.Fragment>
+      </>
     );
   }
 
@@ -124,7 +124,7 @@ export default class HinterFieldNC extends Widget {
 
   renderSelection() {
     return (
-      <React.Fragment>
+      <>
         <Label
           kind="combo-text-markdown"
           shape={
@@ -140,7 +140,7 @@ export default class HinterFieldNC extends Widget {
         />
         {this.renderSelectionButtonClear()}
         {this.renderSelectionButtonShow()}
-      </React.Fragment>
+      </>
     );
   }
 

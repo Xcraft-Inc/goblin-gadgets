@@ -49,7 +49,7 @@ function getComponent(name) {
       );
     case 'button-10':
       return (
-        <React.Fragment>
+        <>
           <Button text="000" />
           <Button text="111" />
           <Button text="222" />
@@ -60,11 +60,11 @@ function getComponent(name) {
           <Button text="777" />
           <Button text="888" />
           <Button text="999" />
-        </React.Fragment>
+        </>
       );
     case 'carousel-panes':
       return (
-        <React.Fragment>
+        <>
           <CarouselItem
             width="200px"
             height="300px"
@@ -95,18 +95,18 @@ function getComponent(name) {
             itemMargin="10px"
             backgroundColor="blue"
           />
-        </React.Fragment>
+        </>
       );
     case 'two-boxes':
       return (
-        <React.Fragment>
+        <>
           <Container width="100%" height="100%" backgroundColor="aliceblue" />
           <Container
             width="100%"
             height="100%"
             backgroundColor="lemonchiffon"
           />
-        </React.Fragment>
+        </>
       );
   }
   return name;

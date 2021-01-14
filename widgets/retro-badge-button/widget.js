@@ -144,10 +144,10 @@ export default class RetroBadgeButton extends Widget {
     const r = '8px';
 
     return (
-      <React.Fragment>
+      <>
         <RetroScrew radius={r} top={x} left={x} angle="25deg" />
         <RetroScrew radius={r} top={x} right={x} angle="-40deg" />
-      </React.Fragment>
+      </>
     );
   }
 

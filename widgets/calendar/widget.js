@@ -529,7 +529,7 @@ class Calendar extends Widget {
 
   renderTitleButton(headerMonth, headerYear) {
     return (
-      <React.Fragment>
+      <>
         <div className={this.styles.classNames.headerTitleSajex} />
         <div ref={this.setRefMonths}>
           <Button
@@ -548,7 +548,7 @@ class Calendar extends Widget {
           />
         </div>
         <div className={this.styles.classNames.headerTitleSajex} />
-      </React.Fragment>
+      </>
     );
   }
 

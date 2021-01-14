@@ -545,7 +545,7 @@ export default class TextFieldTypedNC extends Widget {
     }
 
     return (
-      <React.Fragment>
+      <>
         <Separator kind="exact" height="10px" />
         <Slider
           direction="horizontal"
@@ -559,7 +559,7 @@ export default class TextFieldTypedNC extends Widget {
           throttleDelay={20}
           onChange={this.handleSliderChanged}
         />
-      </React.Fragment>
+      </>
     );
   }
 
@@ -579,7 +579,7 @@ export default class TextFieldTypedNC extends Widget {
             onKeyDown={this.handleUpDown}
           />
           {otherProps.readonly === true ? null : (
-            <React.Fragment>
+            <>
               <Button
                 kind="combo"
                 glyph="solid/minus"
@@ -594,7 +594,7 @@ export default class TextFieldTypedNC extends Widget {
                 disabled={!this.isPlusEnabled}
                 onClick={() => this.handleIncNumber(1)}
               />
-            </React.Fragment>
+            </>
           )}
         </div>
         {this.renderSlider()}

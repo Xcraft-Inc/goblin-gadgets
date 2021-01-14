@@ -196,7 +196,7 @@ class Table extends Widget {
   render() {
     if (this.props.id) {
       return (
-        <React.Fragment>
+        <>
           <SelectionUpdater id={this.props.id} />
           <TableNC
             {...this.props}
@@ -207,7 +207,7 @@ class Table extends Widget {
             onSelectAll={this.onSelectAll}
             onDeselectAll={this.onDeselectAll}
           />
-        </React.Fragment>
+        </>
       );
     } else {
       return (

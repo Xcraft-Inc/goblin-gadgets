@@ -14,10 +14,10 @@ export default class RetroScrew extends Widget {
     }
 
     return (
-      <React.Fragment>
+      <>
         <div className={this.styles.classNames.screw} />
         <div className={this.styles.classNames.slot} />
-      </React.Fragment>
+      </>
     );
   }
 }

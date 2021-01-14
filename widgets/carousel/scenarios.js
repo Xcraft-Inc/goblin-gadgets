@@ -6,7 +6,7 @@ import Button from '../button/widget';
 
 function getChildren(width, height, itemMargin) {
   return (
-    <React.Fragment>
+    <>
       <CarouselItem
         width={width}
         height={height}
@@ -47,7 +47,7 @@ function getChildren(width, height, itemMargin) {
       >
         <Button text="5/5" />
       </CarouselItem>
-    </React.Fragment>
+    </>
   );
 }
 

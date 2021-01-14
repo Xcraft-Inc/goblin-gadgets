@@ -263,10 +263,10 @@ export default class RetroActionButton extends Widget {
     );
 
     return (
-      <React.Fragment>
+      <>
         {svg.renderElements(this.styles.classNames[styleLeft], elementLeft)}
         {svg.renderElements(this.styles.classNames[styleRight], elementRight)}
-      </React.Fragment>
+      </>
     );
   }
 

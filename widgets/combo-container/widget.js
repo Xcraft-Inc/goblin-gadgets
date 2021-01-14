@@ -135,7 +135,7 @@ export default class ComboContainer extends Widget {
       React.cloneElement(child, {...this.childrenProps})
     );
     return (
-      <React.Fragment>
+      <>
         <div
           className={this.styles.classNames.fullScreen}
           onClick={this.handleClose}
@@ -161,7 +161,7 @@ export default class ComboContainer extends Widget {
             color={this.context.theme.palette.comboItemBackground}
           />
         </div>
-      </React.Fragment>
+      </>
     );
   }
 

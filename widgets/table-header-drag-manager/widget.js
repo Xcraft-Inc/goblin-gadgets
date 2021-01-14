@@ -235,7 +235,7 @@ export default class TableHeaderDragManager extends Widget {
     };
 
     return (
-      <React.Fragment>
+      <>
         <div
           className={this.styles.classNames.fullscreen}
           onMouseMove={this.onDragWidthMove}
@@ -245,7 +245,7 @@ export default class TableHeaderDragManager extends Widget {
           className={this.styles.classNames.widthDragged}
           style={styleColumn}
         />
-      </React.Fragment>
+      </>
     );
   }
 
@@ -270,7 +270,7 @@ export default class TableHeaderDragManager extends Widget {
     };
 
     return (
-      <React.Fragment>
+      <>
         <div
           className={this.styles.classNames.fullscreen}
           onMouseMove={this.onDragColumnMove}
@@ -288,7 +288,7 @@ export default class TableHeaderDragManager extends Widget {
             style={styleInserting}
           />
         ) : null}
-      </React.Fragment>
+      </>
     );
   }
 
@@ -375,7 +375,7 @@ export default class TableHeaderDragManager extends Widget {
 
   render() {
     return (
-      <React.Fragment>
+      <>
         <div
           ref={(node) => (this.componentNode = node)}
           className={this.styles.classNames.tableHeaderDragManager}
@@ -384,7 +384,7 @@ export default class TableHeaderDragManager extends Widget {
         </div>
         {this.renderDraggingWidth()}
         {this.renderDraggingColumn()}
-      </React.Fragment>
+      </>
     );
   }
 }

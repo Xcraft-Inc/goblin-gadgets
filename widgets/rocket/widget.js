@@ -99,7 +99,7 @@ export default class Rocket extends Widget {
     const fontSize = `${this.size * 0.75}%`;
 
     return (
-      <React.Fragment>
+      <>
         <div className={this.styles.classNames.gauge}>
           <Gauge
             kind="mission"
@@ -121,7 +121,7 @@ export default class Rocket extends Widget {
             justify="center"
           />
         </div>
-      </React.Fragment>
+      </>
     );
   }
 

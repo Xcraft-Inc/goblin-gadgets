@@ -52,7 +52,7 @@ export default class FileInputNC extends Widget {
     }
     if (this.props.multiple) {
       return (
-        <React.Fragment>
+        <>
           <input
             id={this.id}
             type="file"
@@ -65,12 +65,12 @@ export default class FileInputNC extends Widget {
           <label htmlFor={this.id} className={this.styles.classNames.label}>
             <Label text={label} glyph="solid/upload" cursor="pointer" />
           </label>
-        </React.Fragment>
+        </>
       );
     }
 
     return (
-      <React.Fragment>
+      <>
         <input
           id={this.id}
           type="file"
@@ -82,7 +82,7 @@ export default class FileInputNC extends Widget {
         <label htmlFor={this.id} className={this.styles.classNames.label}>
           <Label text={label} glyph="solid/upload" cursor="pointer" />
         </label>
-      </React.Fragment>
+      </>
     );
   }
 }

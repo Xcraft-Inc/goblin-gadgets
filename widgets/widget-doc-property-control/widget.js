@@ -69,7 +69,7 @@ class OneOfTypeControl extends Widget {
     });
 
     return (
-      <React.Fragment>
+      <>
         <ButtonCombo
           horizontalSpacing="tiny"
           comboGlyph="solid/ellipsis-v"
@@ -85,7 +85,7 @@ class OneOfTypeControl extends Widget {
           value={this.currentValue}
           isOneOfType={true}
         />
-      </React.Fragment>
+      </>
     );
   }
 }
@@ -155,7 +155,7 @@ class WidgetDocPropertyControl extends Widget {
     }
 
     return (
-      <React.Fragment>
+      <>
         <TextFieldTypedNC
           type={this.props.type.type}
           width="28px"
@@ -179,7 +179,7 @@ class WidgetDocPropertyControl extends Widget {
           menuType="wrap"
           menuItemWidth="200px"
         />
-      </React.Fragment>
+      </>
     );
   }
 
@@ -208,7 +208,7 @@ class WidgetDocPropertyControl extends Widget {
       }
 
       return (
-        <React.Fragment>
+        <>
           <TextFieldTypedNC
             type={this.props.type.type}
             min={this.props.min}
@@ -235,7 +235,7 @@ class WidgetDocPropertyControl extends Widget {
             menuType="wrap"
             menuItemWidth="200px"
           />
-        </React.Fragment>
+        </>
       );
     } else {
       let selectedId = this.currentValue;
@@ -299,14 +299,14 @@ class WidgetDocPropertyControl extends Widget {
         );
       case 'checkbox':
         return (
-          <React.Fragment>
+          <>
             <CheckboxNC
               kind="big"
               checked={this.currentValue}
               onChange={this.onChange}
             />
             <Label grow="1" />
-          </React.Fragment>
+          </>
         );
       case 'combo': {
         const list = this.props.type.samples || this.props.type.values;
