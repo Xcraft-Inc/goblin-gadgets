@@ -125,7 +125,7 @@ export default class DialogResizableNC extends Widget {
 
   renderBorders() {
     return (
-      <React.Fragment>
+      <>
         <div
           className={this.styles.classNames.borderTopLeft}
           onMouseDown={(e) => this.onMouseDown(e, 'top+left')}
@@ -158,7 +158,7 @@ export default class DialogResizableNC extends Widget {
           className={`bottom-hover ${this.styles.classNames.borderBottom}`}
           onMouseDown={(e) => this.onMouseDown(e, 'bottom')}
         />
-      </React.Fragment>
+      </>
     );
   }
 
@@ -177,14 +177,14 @@ export default class DialogResizableNC extends Widget {
   render() {
     if (this.props.resizing) {
       return (
-        <React.Fragment>
+        <>
           {this.renderDialog()}
           <div
             className={this.styles.classNames.fullscreen}
             onMouseMove={this.onMouseMove}
             onMouseUp={this.onMouseUp}
           />
-        </React.Fragment>
+        </>
       );
     } else {
       return this.renderDialog();

@@ -335,10 +335,10 @@ class DialogResizable extends Widget {
         // During resizing, draw the original dialog (not yet moved) and
         // a skeleton of the new dialog.
         return (
-          <React.Fragment>
+          <>
             {this.renderOriginal()}
             {this.renderResizing()}
-          </React.Fragment>
+          </>
         );
       } else {
         return this.renderFinal();
