@@ -31,6 +31,11 @@ export default [
     group: 'aspect',
     type: types.color,
   },
+  {
+    name: 'uri',
+    group: 'aspect',
+    type: types.string,
+  },
 
   // Layout.
   {

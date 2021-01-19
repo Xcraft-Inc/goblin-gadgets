@@ -33,7 +33,7 @@ export default class GuildUserLogo extends Widget {
     return <div className={this.styles.classNames.text}>{text}</div>;
   }
 
-  render() {
+  renderLogo() {
     return (
       <TranslatableDiv
         className={this.styles.classNames.guildUserLogo}
@@ -44,6 +44,30 @@ export default class GuildUserLogo extends Widget {
         {this.renderInitials()}
       </TranslatableDiv>
     );
+  }
+
+  renderUri() {
+    return (
+      <TranslatableDiv
+        className={this.styles.classNames.guildUserLogo}
+        title={this.props.tooltip}
+        onClick={this.props.onClick ? this.props.onClick : null}
+      >
+        <img
+          className={this.styles.classNames.photo}
+          src={this.props.uri}
+          alt="gravatar"
+        />
+      </TranslatableDiv>
+    );
+  }
+
+  render() {
+    if (this.props.uri) {
+      return this.renderUri();
+    } else {
+      return this.renderLogo();
+    }
   }
 }
 

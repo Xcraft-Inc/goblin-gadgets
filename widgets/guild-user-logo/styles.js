@@ -70,12 +70,19 @@ export default function styles(theme, props) {
       '-1px -1px 0px #000, 0px -1px 0px #000, 1px -1px 0px #000, -1px 0px 0px #000, 0px 0px 0px #000, 1px 0px 0px #000, -1px 1px 0px #000, 0px 1px 0px #000, 1px 1px 0px #000',
   };
 
+  const photo = {
+    margin: '0px',
+    width: '100%',
+    transition: theme.transitions.hover,
+  };
+
   /******************************************************************************/
 
   return {
     guildUserLogo,
     glyph,
     text,
+    photo,
   };
 }
 
