@@ -32,7 +32,7 @@ export default class SamplesMonitor extends Widget {
 
   //#region get/set
   get mode() {
-    return this.state.mode;
+    return this.props.mode || this.state.mode;
   }
 
   set mode(value) {
@@ -75,6 +75,9 @@ export default class SamplesMonitor extends Widget {
   }
 
   get strokeColors() {
+    if (this.props.strokeColors) {
+      return this.props.strokeColors;
+    }
     if (this.isRetro) {
       return [
         '#15f2b6',
@@ -147,10 +150,10 @@ export default class SamplesMonitor extends Widget {
   }
 
   renderGrid(w, h, channels) {
-    let ox = 40;
-    let oy = 40;
-    const dx = w - 80;
-    const dy = h - 80;
+    let ox = this.props.chartMarginLeft || 40;
+    let oy = this.props.chartMarginLeft || 40;
+    const dx = w - (this.props.chartMarginRight || 80);
+    const dy = h - (this.props.chartMarginRight || 80);
 
     const channelCount =
       this.mode === 'separate' || this.mode === 'all'
@@ -256,11 +259,14 @@ export default class SamplesMonitor extends Widget {
   }
 
   renderSeparateChannels(w, h, channels) {
-    let ox = 40;
-    let oy = 40;
+    let ox = this.props.chartMarginLeft || 40;
+    let oy = this.props.chartMarginLeft || 40;
     const my = 5;
-    const dx = w - 80;
-    const dy = (h - 80 + my) / Math.max(channels.length, 1) - my;
+    const dx = w - (this.props.chartMarginRight || 80);
+    const dy =
+      (h - (this.props.chartMarginRight || 80) + my) /
+        Math.max(channels.length, 1) -
+      my;
 
     const result = [];
     let index = 0;
@@ -285,10 +291,10 @@ export default class SamplesMonitor extends Widget {
   }
 
   renderStackedChannels(w, h, channels) {
-    let ox = 40;
-    let oy = 40;
-    const dx = w - 80;
-    const dy = h - 80;
+    let ox = this.props.chartMarginLeft || 40;
+    let oy = this.props.chartMarginLeft || 40;
+    const dx = w - (this.props.chartMarginRight || 80);
+    const dy = h - (this.props.chartMarginRight || 80);
 
     const result = [];
     let index = 0;
@@ -332,10 +338,10 @@ export default class SamplesMonitor extends Widget {
   }
 
   renderGroupedChannels(w, h, channels) {
-    let ox = 40;
-    let oy = 40;
-    const dx = w - 80;
-    const dy = h - 80;
+    let ox = this.props.chartMarginLeft || 40;
+    let oy = this.props.chartMarginLeft || 40;
+    const dx = w - (this.props.chartMarginRight || 80);
+    const dy = h - (this.props.chartMarginRight || 80);
 
     const samples = [];
     samples.length = 100;
@@ -500,7 +506,7 @@ export default class SamplesMonitor extends Widget {
           {this.renderCRT(w, h)}
           {this.renderScreen(w, h)}
         </div>
-        {this.renderRightPanel()}
+        {!this.props.disableRightPanel && this.renderRightPanel()}
         {this.renderAgingMenu()}
       </div>
     );

@@ -2,12 +2,12 @@ import {ColorManipulator} from 'goblin-theme';
 
 /******************************************************************************/
 
-export const propNames = ['width', 'height', 'showed', 'aging'];
+export const propNames = ['width', 'height', 'look', 'showed', 'aging'];
 
 export default function styles(theme, props) {
   const {width, height, showed, aging = 'old'} = props;
 
-  const look = theme.look.name;
+  const look = props.look || theme.look.name;
 
   let monitor = {};
   let tube = {};
@@ -478,6 +478,68 @@ export default function styles(theme, props) {
       borderLeft: '2px solid #ddd',
       borderRight: '2px solid #222',
     };
+  }
+
+  /******************************************************************************/
+
+  //---------\
+  //  SIMPLE  >
+  //---------/
+  if (look === 'simple') {
+    monitor = {
+      width: width,
+      height: height,
+      display: 'flex',
+      flexDirection: 'row',
+      overflow: 'hidden',
+    };
+
+    tube = {
+      position: 'relative',
+      flexGrow: 1,
+    };
+
+    channels = {
+      position: 'absolute',
+      left: '0px',
+      right: '0px',
+      top: '0px',
+      bottom: '0px',
+    };
+
+    sampleName = {
+      position: 'absolute',
+      fontSize: '75%',
+      textTransform: 'uppercase',
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    };
+
+    panel = {
+      margin: '0px',
+      width: '47px',
+      padding: '33px 0px',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+    };
+
+    grid = {
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
+    };
+
+    samples = {
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
+    };
+
+    flare = {};
+    border = {};
   }
 
   /******************************************************************************/
