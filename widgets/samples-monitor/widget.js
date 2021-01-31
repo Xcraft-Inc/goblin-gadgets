@@ -150,10 +150,10 @@ export default class SamplesMonitor extends Widget {
   }
 
   renderGrid(w, h, channels) {
-    let ox = this.props.chartMarginLeft || 40;
-    let oy = this.props.chartMarginLeft || 40;
-    const dx = w - (this.props.chartMarginRight || 80);
-    const dy = h - (this.props.chartMarginRight || 80);
+    let ox = this.styles.props.chart.marginLeft;
+    let oy = this.styles.props.chart.marginLeft;
+    const dx = w - this.styles.props.chart.marginRight;
+    const dy = h - this.styles.props.chart.marginRight;
 
     const channelCount =
       this.mode === 'separate' || this.mode === 'all'
@@ -259,12 +259,12 @@ export default class SamplesMonitor extends Widget {
   }
 
   renderSeparateChannels(w, h, channels) {
-    let ox = this.props.chartMarginLeft || 40;
-    let oy = this.props.chartMarginLeft || 40;
+    let ox = this.styles.props.chart.marginLeft;
+    let oy = this.styles.props.chart.marginLeft;
     const my = 5;
-    const dx = w - (this.props.chartMarginRight || 80);
+    const dx = w - this.styles.props.chart.marginRight;
     const dy =
-      (h - (this.props.chartMarginRight || 80) + my) /
+      (h - this.styles.props.chart.marginRight + my) /
         Math.max(channels.length, 1) -
       my;
 
@@ -291,10 +291,10 @@ export default class SamplesMonitor extends Widget {
   }
 
   renderStackedChannels(w, h, channels) {
-    let ox = this.props.chartMarginLeft || 40;
-    let oy = this.props.chartMarginLeft || 40;
-    const dx = w - (this.props.chartMarginRight || 80);
-    const dy = h - (this.props.chartMarginRight || 80);
+    let ox = this.styles.props.chart.marginLeft;
+    let oy = this.styles.props.chart.marginLeft;
+    const dx = w - this.styles.props.chart.marginRight;
+    const dy = h - this.styles.props.chart.marginRight;
 
     const result = [];
     let index = 0;
@@ -338,10 +338,10 @@ export default class SamplesMonitor extends Widget {
   }
 
   renderGroupedChannels(w, h, channels) {
-    let ox = this.props.chartMarginLeft || 40;
-    let oy = this.props.chartMarginLeft || 40;
-    const dx = w - (this.props.chartMarginRight || 80);
-    const dy = h - (this.props.chartMarginRight || 80);
+    let ox = this.styles.props.chart.marginLeft;
+    let oy = this.styles.props.chart.marginLeft;
+    const dx = w - this.styles.props.chart.marginRight;
+    const dy = h - this.styles.props.chart.marginRight;
 
     const samples = [];
     samples.length = 100;

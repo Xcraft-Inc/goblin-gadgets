@@ -3,16 +3,25 @@ import {ColorManipulator} from 'goblin-theme';
 /******************************************************************************/
 
 export const propNames = [
+  'chartMargin',
   'backgroundColor',
   'width',
   'height',
   'look',
+  'disableRightPanel',
   'showed',
   'aging',
 ];
 
 export default function styles(theme, props) {
-  const {backgroundColor, width, height, showed, aging = 'old'} = props;
+  const {
+    backgroundColor,
+    width,
+    height,
+    disableRightPanel,
+    showed,
+    aging = 'old',
+  } = props;
 
   const look = theme.look.name;
 
@@ -31,6 +40,12 @@ export default function styles(theme, props) {
   let samples = {};
   let flare = {};
   let border = {};
+
+  const chartMargin = props.chartMargin || 40;
+  let chart = {
+    marginLeft: chartMargin,
+    marginRight: disableRightPanel ? chartMargin : 2 * chartMargin,
+  };
 
   /******************************************************************************/
 
@@ -507,6 +522,7 @@ export default function styles(theme, props) {
     samples,
     flare,
     border,
+    chart,
   };
 }
 
