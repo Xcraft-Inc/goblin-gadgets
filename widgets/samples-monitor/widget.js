@@ -497,7 +497,7 @@ export default class SamplesMonitor extends Widget {
       throw new Error('SamplesMonitor: Undefined width or height');
     }
 
-    const w = Unit.parse(ww).value - 50;
+    const w = Unit.parse(ww).value - (!this.props.disableRightPanel ? 50 : 0);
     const h = Unit.parse(hh).value;
 
     return (
