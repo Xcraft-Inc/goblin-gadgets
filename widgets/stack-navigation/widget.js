@@ -142,6 +142,8 @@ class StackNavigationWidget extends Widget {
         key={screen.get('key')}
         animation="none"
         fitContent={this.props.fitContent}
+        height={this.props.height}
+        width={this.props.width}
       >
         {this.renderComponent(screen, Component)}
       </AnimatedContainer>
@@ -202,6 +204,8 @@ class StackNavigationWidget extends Widget {
             key={beforeLastScreen.get('key')}
             animation={beforeLastAnimation || 'none'}
             fitContent={this.props.fitContent}
+            height={this.props.height}
+            width={this.props.width}
           >
             {this.renderComponent(beforeLastScreen, beforeLastComponent)}
           </AnimatedContainer>
@@ -211,6 +215,8 @@ class StackNavigationWidget extends Widget {
           animation={animations ? animations.last : 'none'}
           onAnimationEnd={this.handleAnimationEnd}
           fitContent={this.props.fitContent}
+          height={this.props.height}
+          width={this.props.width}
         >
           {this.renderComponent(lastScreen, lastComponent)}
         </AnimatedContainer>

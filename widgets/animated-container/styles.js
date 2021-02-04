@@ -2,10 +2,10 @@ import getAnimation from './animations';
 
 /******************************************************************************/
 
-export const propNames = ['animation'];
+export const propNames = ['animation', 'width', 'height'];
 
 export default function styles(theme, props) {
-  const {animation} = props;
+  const {animation, width, height} = props;
 
   const a = getAnimation(animation);
 
@@ -15,6 +15,8 @@ export default function styles(theme, props) {
     animationTimingFunction: a.timingFunction,
     animationIterationCount: 1,
     animationFillMode: 'forwards',
+    width,
+    height,
   };
 
   const fillParent = {
