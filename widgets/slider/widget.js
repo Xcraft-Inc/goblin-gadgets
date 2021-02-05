@@ -8,7 +8,7 @@ import {TranslatableDiv} from 'goblin-nabu/widgets/helpers/element-helpers';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import wrapRawInput from 'goblin-gadgets/widgets/input-wrapper/widget.js';
 import {Unit} from 'goblin-theme';
-const px = Unit.toPx;
+const to = Unit.to;
 const pc = Unit.toPc;
 const {BigNumber} = require('bignumber.js');
 
@@ -242,16 +242,17 @@ class Slider extends Widget {
       return null;
     }
 
+    const {cssUnit = 'px'} = this.props;
     const style = {};
     if (this.isHorizontal) {
-      style.bottom = '10px';
-      style.left = `calc(${pc(cabValue)} - 100px)`;
-      style.width = '200px';
+      style.bottom = to(10, cssUnit);
+      style.left = `calc(${pc(cabValue)} - ${to(100, cssUnit)})`;
+      style.width = to(200, cssUnit);
     } else {
-      style.bottom = `calc(${pc(cabValue)} - 25px)`;
-      style.right = '10px';
-      style.width = '100px';
-      style.height = '50px';
+      style.bottom = `calc(${pc(cabValue)} - ${to(25, cssUnit)})`;
+      style.right = to(10, cssUnit);
+      style.width = to(100, cssUnit);
+      style.height = to(50, cssUnit);
     }
 
     let text = this.props.value;
@@ -262,7 +263,7 @@ class Slider extends Widget {
     return (
       <div className={this.styles.classNames.value} style={style}>
         <div className={this.styles.classNames.valueLabel}>
-          <Label text={text} justify="center" />
+          <Label cssUnit={cssUnit} text={text} justify="center" />
         </div>
       </div>
     );
@@ -273,6 +274,7 @@ class Slider extends Widget {
     let cabValue = null;
     let hasCab2 = false;
     let cabValue2 = null;
+    const {cssUnit = 'px'} = this.props;
 
     if (this.hasTwoValues) {
       hasCab = true;
@@ -310,25 +312,34 @@ class Slider extends Widget {
       if (this.isHorizontal) {
         if (this.props.barPosition === 'end') {
           barStyle.left = pc(cabValue);
-          barStyle.width = `calc(${pc(100 - cabValue)} + ${px(
-            gliderThickness / 2
+          barStyle.width = `calc(${pc(100 - cabValue)} + ${to(
+            gliderThickness / 2,
+            cssUnit
           )})`;
         } else {
-          barStyle.width = `calc(${pc(cabValue)} + ${px(gliderThickness / 2)})`;
+          barStyle.width = `calc(${pc(cabValue)} + ${to(
+            gliderThickness / 2,
+            cssUnit
+          )})`;
         }
-        cabStyle.left = `calc(${pc(cabValue)} - ${px(cabWidth / 2)})`;
+        cabStyle.left = `calc(${pc(cabValue)} - ${to(cabWidth / 2, cssUnit)})`;
       } else {
         if (this.props.barPosition === 'end') {
           barStyle.bottom = pc(cabValue);
-          barStyle.height = `calc(${pc(100 - cabValue)} + ${px(
-            gliderThickness / 2
+          barStyle.height = `calc(${pc(100 - cabValue)} + ${to(
+            gliderThickness / 2,
+            cssUnit
           )})`;
         } else {
-          barStyle.height = `calc(${pc(cabValue)} + ${px(
-            gliderThickness / 2
+          barStyle.height = `calc(${pc(cabValue)} + ${to(
+            gliderThickness / 2,
+            cssUnit
           )})`;
         }
-        cabStyle.bottom = `calc(${pc(cabValue)} - ${px(cabWidth / 2)})`;
+        cabStyle.bottom = `calc(${pc(cabValue)} - ${to(
+          cabWidth / 2,
+          cssUnit
+        )})`;
       }
     } else {
       barStyle.display = 'none';
@@ -341,13 +352,19 @@ class Slider extends Widget {
           barStyle.left = pc(cabValue);
           barStyle.width = `calc(${pc(cabValue2 - cabValue)})`;
         }
-        cabStyle2.left = `calc(${pc(cabValue2)} - ${px(cabWidth / 2)})`;
+        cabStyle2.left = `calc(${pc(cabValue2)} - ${to(
+          cabWidth / 2,
+          cssUnit
+        )})`;
       } else {
         if (this.props.barPosition === 'middle') {
           barStyle.bottom = pc(cabValue);
           barStyle.height = `calc(${pc(cabValue2 - cabValue)})`;
         }
-        cabStyle2.bottom = `calc(${pc(cabValue2)} - ${px(cabWidth / 2)})`;
+        cabStyle2.bottom = `calc(${pc(cabValue2)} - ${to(
+          cabWidth / 2,
+          cssUnit
+        )})`;
       }
     } else {
       cabStyle2.display = 'none';

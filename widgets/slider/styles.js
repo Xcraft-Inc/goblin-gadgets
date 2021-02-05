@@ -1,7 +1,7 @@
 import {ColorManipulator} from 'goblin-theme';
 import {ColorHelpers} from 'goblin-theme';
 import {Unit} from 'goblin-theme';
-const px = Unit.toPx;
+const to = Unit.to;
 
 /******************************************************************************/
 
@@ -19,6 +19,7 @@ export const propNames = [
   'cabSize',
   'cabType',
   'barPosition',
+  'cssUnit',
 ];
 
 export default function styles(theme, props) {
@@ -36,6 +37,7 @@ export default function styles(theme, props) {
     cabSize = 'default',
     cabType = 'round',
     barPosition = 'start',
+    cssUnit = 'px',
   } = props;
 
   const isDark = theme.colors.isDarkTheme;
@@ -68,26 +70,26 @@ export default function styles(theme, props) {
     position: 'relative',
     flexGrow: grow,
     backgroundColor: isDark ? '#000' : '#eee',
-    borderRadius: px(sliderThickness / 2),
+    borderRadius: to(sliderThickness / 2, cssUnit),
     opacity: disabled ? 0.4 : 1,
     cursor: disabled ? null : 'pointer',
   };
 
   const inside = {
     position: 'absolute',
-    left: px(sliderThickness / 2),
-    right: px(sliderThickness / 2),
-    bottom: px(sliderThickness / 2),
-    top: px(sliderThickness / 2),
+    left: to(sliderThickness / 2, cssUnit),
+    right: to(sliderThickness / 2, cssUnit),
+    bottom: to(sliderThickness / 2, cssUnit),
+    top: to(sliderThickness / 2, cssUnit),
   };
 
   const glider = {
     position: 'absolute',
-    left: px(-gliderThickness / 2),
-    right: px(-gliderThickness / 2),
-    bottom: px(-gliderThickness / 2),
-    top: px(-gliderThickness / 2),
-    borderRadius: px(gliderThickness / 2),
+    left: to(-gliderThickness / 2, cssUnit),
+    right: to(-gliderThickness / 2, cssUnit),
+    bottom: to(-gliderThickness / 2, cssUnit),
+    top: to(-gliderThickness / 2, cssUnit),
+    borderRadius: to(gliderThickness / 2, cssUnit),
     background: '#ddd',
     display: 'flex',
   };
@@ -100,9 +102,9 @@ export default function styles(theme, props) {
 
   const cab = {
     position: 'absolute',
-    width: px(cabThickness),
-    height: px(cabThickness),
-    borderRadius: px(cabThickness / 2),
+    width: to(cabThickness, cssUnit),
+    height: to(cabThickness, cssUnit),
+    borderRadius: to(cabThickness / 2, cssUnit),
     background: 'white',
   };
 
@@ -113,67 +115,75 @@ export default function styles(theme, props) {
 
   if (isHorizontal) {
     slider.width = width;
-    slider.minWidth = '50px';
-    slider.minHeight = px(sliderThickness);
-    slider.maxHeight = px(sliderThickness);
+    slider.minWidth = to(50, cssUnit);
+    slider.minHeight = to(sliderThickness, cssUnit);
+    slider.maxHeight = to(sliderThickness, cssUnit);
     slider.boxShadow = isDark
-      ? '#444 0px -2px 2px inset'
-      : '#bbb 0px 2px 5px inset';
+      ? `#444 ${to(0, cssUnit)} ${to(-2, cssUnit)} ${to(2, cssUnit)} inset`
+      : `#bbb ${to(0, cssUnit)} ${to(2, cssUnit)} ${to(5, cssUnit)} inset`;
 
-    glider.boxShadow = 'rgba(0,0,0,0.5) 0px 2px 2px inset';
+    glider.boxShadow =
+      `rgba(0,0,0,0.5) ` +
+      `${to(0, cssUnit)} ${to(2, cssUnit)} ${to(2, cssUnit)} inset`;
     glider.flexDirection = 'row';
 
-    const r = px(gliderThickness / 2);
+    const r = to(gliderThickness / 2, cssUnit);
     bar.borderRadius =
       barPosition === 'middle'
-        ? '0px'
+        ? to(0, cssUnit)
         : barPosition === 'end'
-        ? `0px ${r} ${r} 0px`
-        : `${r} 0px 0px ${r}`;
+        ? `${to(0, cssUnit)} ${r} ${r} ${to(0, cssUnit)}`
+        : `${r} ${to(0, cssUnit)} ${to(0, cssUnit)} ${r}`;
     bar.right = null;
-    bar.boxShadow = `${ColorManipulator.darken(
-      barFinalColor,
-      0.6
-    )} 0px -3px 6px inset`;
+    bar.boxShadow =
+      `${ColorManipulator.darken(barFinalColor, 0.6)} ` +
+      `${to(0, cssUnit)} ${to(-3, cssUnit)} ${to(6, cssUnit)} inset`;
 
-    cab.width = px(cabWidth);
-    cab.bottom = px(-cabThickness / 2 + 1);
-    cab.boxShadow = '0px 3px 4px 0px rgba(0,0,0,0.6)';
+    cab.width = to(cabWidth, cssUnit);
+    cab.bottom = to(-cabThickness / 2 + 1, cssUnit);
+    cab.boxShadow =
+      `${to(0, cssUnit)} ${to(3, cssUnit)} ` +
+      `${to(4, cssUnit)} ${to(0, cssUnit)} ` +
+      `rgba(0,0,0,0.6)`;
   } else {
     slider.height = height;
-    slider.minHeight = '50px';
-    slider.minWidth = px(sliderThickness);
-    slider.maxWidth = px(sliderThickness);
+    slider.minHeight = to(50, cssUnit);
+    slider.minWidth = to(sliderThickness, cssUnit);
+    slider.maxWidth = to(sliderThickness, cssUnit);
     slider.boxShadow = isDark
-      ? '#444 -2px 0px 2px inset'
-      : '#bbb 2px 0px 5px inset';
+      ? `#444 ${to(-2, cssUnit)} ${to(0, cssUnit)} ${to(2, cssUnit)} inset`
+      : `#bbb ${to(2, cssUnit)} ${to(0, cssUnit)} ${to(5, cssUnit)} inset`;
 
-    glider.boxShadow = 'rgba(0,0,0,0.5) 2px 0px 2px inset';
+    glider.boxShadow =
+      `rgba(0,0,0,0.5) ` +
+      `${to(2, cssUnit)} ${to(0, cssUnit)} ${to(2, cssUnit)} inset`;
     glider.flexDirection = 'column-reverse';
 
-    const r = px(gliderThickness / 2);
+    const r = to(gliderThickness / 2, cssUnit);
     bar.borderRadius =
       barPosition === 'middle'
-        ? '0px'
+        ? to(0, cssUnit)
         : barPosition === 'end'
-        ? `${r} ${r} 0px 0px`
-        : `0px 0px ${r} ${r}`;
+        ? `${r} ${r} ${to(0, cssUnit)} ${to(0, cssUnit)}`
+        : `${to(0, cssUnit)} ${to(0, cssUnit)} ${r} ${r}`;
     bar.top = null;
-    bar.boxShadow = `${ColorManipulator.darken(
-      barFinalColor,
-      0.6
-    )} -3px 0px 6px inset`;
+    bar.boxShadow =
+      `${ColorManipulator.darken(barFinalColor, 0.6)} ` +
+      `${to(-3, cssUnit)} ${to(0, cssUnit)} ${to(6, cssUnit)} inset`;
 
-    cab.height = px(cabWidth);
-    cab.left = px(-cabThickness / 2 - 1);
-    cab.boxShadow = '3px 0px 4px 0px rgba(0,0,0,0.6)';
+    cab.height = to(cabWidth, cssUnit);
+    cab.left = to(-cabThickness / 2 - 1, cssUnit);
+    cab.boxShadow =
+      `${to(3, cssUnit)} ${to(0, cssUnit)} ` +
+      `${to(4, cssUnit)} ${to(0, cssUnit)} ` +
+      `rgba(0,0,0,0.6)`;
   }
 
   const rainbow = {
     ...glider,
     padding: isHorizontal
-      ? `0px ${px(gliderThickness / 2)}`
-      : `${px(gliderThickness / 2)} 0px`,
+      ? `${to(0, cssUnit)} ${to(gliderThickness / 2, cssUnit)}`
+      : `${to(gliderThickness / 2, cssUnit)} ${to(0, cssUnit)}`,
     background: '#f00',
     boxShadow: 'unset',
   };
@@ -187,11 +197,11 @@ export default function styles(theme, props) {
 
   const rainbowShadow = {
     position: 'absolute',
-    left: px(0),
-    right: px(0),
-    bottom: px(0),
-    top: px(0),
-    borderRadius: px(gliderThickness / 2),
+    left: to(0, cssUnit),
+    right: to(0, cssUnit),
+    bottom: to(0, cssUnit),
+    top: to(0, cssUnit),
+    borderRadius: to(gliderThickness / 2, cssUnit),
     boxShadow: glider.boxShadow,
   };
 
@@ -208,9 +218,11 @@ export default function styles(theme, props) {
   const valueShadowColor = isDark ? 'black' : 'rgba(0,0,0,0.5)';
 
   const valueLabel = {
-    padding: '2px',
-    borderRadius: '20px',
-    boxShadow: `0px 5px 10px 3px ${valueShadowColor}`,
+    padding: to(2, cssUnit),
+    borderRadius: to(20, cssUnit),
+    boxShadow:
+      `${to(0, cssUnit)} ${to(5, cssUnit)} ` +
+      `${to(10, cssUnit)} ${to(3, cssUnit)} ${valueShadowColor}`,
     backgroundColor: valueBackgroundColor,
     color: valueTextColor,
   };
