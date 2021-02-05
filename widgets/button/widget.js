@@ -17,6 +17,8 @@ import RetroIlluminatedButton from 'goblin-gadgets/widgets/retro-illuminated-but
 import RetroBadgeButton from 'goblin-gadgets/widgets/retro-badge-button/widget';
 import RetroActionButton from 'goblin-gadgets/widgets/retro-action-button/widget';
 import * as styles from './styles';
+import {Unit} from 'goblin-theme';
+const to = Unit.to;
 
 /******************************************************************************/
 
@@ -191,6 +193,7 @@ export default class Button extends Widget {
     if (this.props.shortcut) {
       return (
         <Label
+          cssUnit={this.props.cssUnit}
           key="shortcut"
           shortcut={true}
           kind={this.props.kind}
@@ -246,13 +249,18 @@ export default class Button extends Widget {
   }
 
   renderRetro() {
+    const {cssUnit = 'px'} = this.props;
+
     switch (this.props.kind) {
       case 'task-logo':
         return (
           <RetroIlluminatedButton
             width={this.context.theme.shapes.taskButtonWidth}
             height={this.context.theme.shapes.taskButtonHeight}
-            margin="20px 0px 40px 0px"
+            margin={
+              `${to(20, cssUnit)} ${to(0, cssUnit)} ` +
+              `${to(40, cssUnit)} ${to(0, cssUnit)}`
+            }
             material="opal"
             border="silver"
             screws="four"
@@ -272,7 +280,7 @@ export default class Button extends Widget {
           <RetroIlluminatedButton
             width={this.context.theme.shapes.taskButtonWidth}
             height={this.context.theme.shapes.taskButtonHeight}
-            margin="5px 0px"
+            margin={`${to(5, cssUnit)} ${to(0, cssUnit)}`}
             material="opal"
             border="gold"
             queue="bottom"
@@ -289,7 +297,7 @@ export default class Button extends Widget {
       case 'secondary-action':
         return <RetroActionButton {...this.props} />;
       case 'view-tab-right':
-        return <RetroBadgeButton height="42px" {...this.props} />;
+        return <RetroBadgeButton height={to(42, cssUnit)} {...this.props} />;
       default:
         return null;
     }
