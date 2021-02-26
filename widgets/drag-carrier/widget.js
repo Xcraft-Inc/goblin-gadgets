@@ -626,7 +626,7 @@ class DragCarrier extends Widget {
 
   renderTooMany(n, index) {
     const text = T(
-      '{Et encore {numberOfItems} autres…}',
+      'Et encore {numberOfItems} autres…',
       `lors d'un drag&drop de beaucoup d'éléments`,
       {
         numberOfItems: n,
