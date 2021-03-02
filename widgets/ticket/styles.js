@@ -1,5 +1,6 @@
 import {Unit} from 'goblin-theme';
 import * as TicketHelpers from '../ticket/ticket-helpers.js';
+import getPath from './getPath';
 
 /******************************************************************************/
 
@@ -16,6 +17,8 @@ export const propNames = [
   'cursor',
   'color',
   'hideContent',
+  'cornerPosition',
+  'cornerSize',
 ];
 
 /******************************************************************************/
@@ -33,6 +36,13 @@ export default function styles(theme, props) {
   const radius = TicketHelpers.getRadius(props.shape, r);
 
   const boxOpacity = props.visibility === false ? 0 : props.opacity;
+
+  const outlinePath = getPath.getOutlinePath(
+    theme,
+    props.shape,
+    props.width,
+    props.height
+  );
 
   const box = {
     flexGrow: props.grow,
@@ -52,6 +62,10 @@ export default function styles(theme, props) {
     fill: theme.palette.ticketShadow,
   };
 
+  const shadowPath = {
+    d: `path("${outlinePath}")`,
+  };
+
   const farShadow = {
     position: 'absolute',
     width: props.width,
@@ -66,6 +80,10 @@ export default function styles(theme, props) {
     transition: theme.transitions.easeOut(),
   };
 
+  const shapePath = {
+    d: `path("${outlinePath}")`,
+  };
+
   const hatchDef = {
     position: 'absolute',
   };
@@ -73,6 +91,19 @@ export default function styles(theme, props) {
   const hatch = {
     position: 'absolute',
     transition: theme.transitions.easeOut(),
+  };
+
+  const hatchPath = {
+    d: `path("${outlinePath}")`,
+  };
+
+  const cornerPath = {
+    d: `path("${getPath.getCornerPath(
+      props.width,
+      props.height,
+      props.cornerPosition,
+      props.cornerSize || '20px'
+    )}")`,
   };
 
   const vp = props.kind === 'thin' ? '0px' : theme.shapes.ticketVerticalPadding;
@@ -289,9 +320,13 @@ export default function styles(theme, props) {
     box,
     farShadow,
     shadow,
+    shadowPath,
     shape,
+    shapePath,
     hatch,
+    hatchPath,
     hatchDef,
+    cornerPath,
     content,
     rectShadow,
     rectFarShadow,

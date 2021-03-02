@@ -122,8 +122,11 @@ export default function styles(theme, props) {
     top: '0px',
     fill: hoverShape ? theme.palette.ticketHover : 'transparent',
     transition: theme.transitions.easeOut(),
-    path: getHoverPath(theme, shape, hoverShape, width, height),
     //- ':hover': {fill: theme.palette.ticketHover},
+  };
+
+  const hoverPath = {
+    d: `path("${getHoverPath(theme, shape, hoverShape, width, height)}")`,
   };
 
   const hasTopSerration = TicketHelpers.hasTopSerration(hoverShape);
@@ -196,6 +199,7 @@ export default function styles(theme, props) {
 
   return {
     hover,
+    hoverPath,
     rectHover,
   };
 }

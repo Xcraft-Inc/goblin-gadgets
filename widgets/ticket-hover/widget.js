@@ -17,7 +17,7 @@ export default class TicketHover extends Widget {
     const h = this.props.height;
     return (
       <svg width={w} height={h} className={this.styles.classNames.hover}>
-        <path d={this.styles.props.hover.path} />
+        <path className={this.styles.classNames.hoverPath} />
       </svg>
     );
   }

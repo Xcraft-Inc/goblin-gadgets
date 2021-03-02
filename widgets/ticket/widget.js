@@ -10,7 +10,6 @@ import Badge from 'goblin-gadgets/widgets/badge/widget';
 import TicketHover from 'goblin-gadgets/widgets/ticket-hover/widget';
 import {TranslatableDiv} from 'goblin-nabu/widgets/helpers/element-helpers';
 import {Unit} from 'goblin-theme';
-import getPath from './getPath';
 import {ColorHelpers} from 'goblin-theme';
 import * as styles from './styles';
 
@@ -59,26 +58,6 @@ export default class Ticket extends Widget {
     if (x) {
       x(e);
     }
-  }
-
-  getPath() {
-    if (
-      !this.path ||
-      this.lastShape !== this.props.shape ||
-      this.lastWidth !== this.props.width ||
-      this.lastHeight !== this.props.height
-    ) {
-      this.path = getPath.getOutlinePath(
-        this.context.theme,
-        this.props.shape,
-        this.props.width,
-        this.props.height
-      );
-      this.lastShape = this.props.shape;
-      this.lastWidth = this.props.width;
-      this.lastHeight = this.props.height;
-    }
-    return this.path;
   }
 
   getPatternId() {
@@ -147,14 +126,7 @@ export default class Ticket extends Widget {
         className={this.styles.classNames.hatch}
         style={{fill: color}}
       >
-        <path
-          d={getPath.getCornerPath(
-            this.props.width,
-            this.props.height,
-            this.props.cornerPosition,
-            this.props.cornerSize || '20px'
-          )}
-        />
+        <path className={this.styles.classNames.cornerPath} />
       </svg>
     );
   }
@@ -164,9 +136,12 @@ export default class Ticket extends Widget {
     const boxClass = styles.classNames.box;
     const farShadowClass = styles.classNames.farShadow;
     const shadowClass = styles.classNames.shadow;
+    const shadowPathClass = styles.classNames.shadowPath;
     const shapeClass = styles.classNames.shape;
+    const shapePathClass = styles.classNames.shapePath;
     const hatchDefClass = styles.classNames.hatchDef;
     const hatchClass = styles.classNames.hatch;
+    const hatchPathClass = styles.classNames.hatchPath;
     const flashClass = styles.classNames.flash;
     const contentClass = styles.classNames.content;
 
@@ -191,12 +166,12 @@ export default class Ticket extends Widget {
     ) : null;
     const htmlShadow = this.props.shadow ? null : (
       <svg width={w} height={h} className={shadowClass}>
-        <path d={this.getPath()} />
+        <path className={shadowPathClass} />
       </svg>
     );
     const htmlShape = (
       <svg width={w} height={h} className={shapeClass}>
-        <path d={this.getPath()} />
+        <path className={shapePathClass} />
       </svg>
     );
 
@@ -236,7 +211,7 @@ export default class Ticket extends Widget {
           className={hatchClass}
           style={{fill: `url(#${this.getPatternId()})`}}
         >
-          <path d={this.getPath()} />
+          <path className={hatchPathClass} />
         </svg>
       );
     }
