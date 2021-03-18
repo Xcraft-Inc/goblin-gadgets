@@ -8,6 +8,29 @@ import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
 
 /******************************************************************************/
 
+//TODO: Make a better styling
+class CopyButton extends Widget {
+  constructor() {
+    super(...arguments);
+    this.button = React.createRef();
+  }
+
+  render() {
+    const copyToClipBoard = () => {
+      Widget.copyTextToClipboard(this.props.content);
+      this.button.current.innerText = `${this.props.content} ✅`;
+      setTimeout(() => {
+        this.button.current.innerText = this.props.content;
+      }, 1000);
+    };
+    return (
+      <div ref={this.button} onClick={copyToClipBoard}>
+        {this.props.content}
+      </div>
+    );
+  }
+}
+
 class TableRow extends Widget {
   constructor() {
     super(...arguments);
@@ -75,7 +98,18 @@ class TableRow extends Widget {
     const h = Widget.shred(header);
     return h
       .map((column) => {
-        const text = row.get(column.get('name'));
+        let text = row.get(column.get('name'));
+        const action = column.get('action', null);
+        if (action) {
+          switch (action) {
+            case 'copy':
+              {
+                const content = row.get(column.get('name'));
+                text = <CopyButton content={content} />;
+              }
+              break;
+          }
+        }
         const isLast = index === h.size - 1;
 
         return this.renderRowCell(
