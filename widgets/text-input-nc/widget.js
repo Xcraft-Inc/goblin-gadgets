@@ -126,6 +126,7 @@ export default class TextInputNC extends Widget {
         className={`${this.styles.classNames.textarea} mousetrap ${this.styles.classNames.input}`}
         value={value}
         defaultValue={this.props.defaultValue}
+        name={this.props.name}
         rows={this.props.rows}
         disabled={this.props.disabled || this.props.readonly}
         onRef={this.setInput}
@@ -145,6 +146,7 @@ export default class TextInputNC extends Widget {
         type={type || 'text'}
         value={value}
         defaultValue={this.props.defaultValue}
+        name={this.props.name}
         disabled={this.props.disabled || this.props.readonly}
         inputRef={this.setInput}
         onChange={this.onChange}
