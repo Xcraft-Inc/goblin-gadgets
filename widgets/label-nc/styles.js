@@ -64,6 +64,7 @@ export const propNames = [
   'buttonBackgroundColor',
   'fontWeight',
   'fontStyle',
+  'fontFamily',
   'userSelect',
   'cssUnit',
 ];
@@ -117,6 +118,7 @@ export default function styles(theme, props) {
     buttonBackgroundColor,
     fontWeight,
     fontStyle,
+    fontFamily,
     userSelect,
     cssUnit = 'px',
   } = props;
@@ -1141,6 +1143,7 @@ export default function styles(theme, props) {
     fontSize: Unit.multiply(textSize, theme.typo.fontScale),
     fontWeight: textWeight,
     fontStyle: fontStyle,
+    fontFamily: fontFamily,
     color: textColor,
     textTransform: textTransform,
     overflow: textOverflow,

@@ -280,6 +280,11 @@ export default [
     type: types.fontStyle,
   },
   {
+    name: 'fontFamily',
+    group: 'text',
+    type: types.string,
+  },
+  {
     name: 'textTransform',
     group: 'text',
     type: types.textTransform,
