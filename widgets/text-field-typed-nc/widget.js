@@ -630,10 +630,7 @@ export default class TextFieldTypedNC extends Widget {
   renderDefault(otherProps, width, tooltip, justify) {
     const type = this.props.type;
     if (
-      (type === 'price' ||
-        type === 'percent' ||
-        type === 'percentage' ||
-        type === 'pixel') &&
+      (type === 'percent' || type === 'percentage' || type === 'pixel') &&
       this.props.step
     ) {
       return this.renderNumber(otherProps, width, tooltip, justify);
@@ -726,7 +723,6 @@ export default class TextFieldTypedNC extends Widget {
         return this.renderTime(otherProps, width, tooltip, justify, shape);
       case 'number':
       case 'integer':
-      case 'price':
       case 'percent':
       case 'percentage':
       case 'pixel':
