@@ -104,6 +104,7 @@ export default class TableNC extends Widget {
               hintText={T('Filtre')}
               value={this.props.filter}
               onChange={this.onFilterChanged}
+              autoFocus={this.props.autoFocus}
               horizontalSpacing="overlap"
             />
             <Button
@@ -129,6 +130,7 @@ export default class TableNC extends Widget {
               glyph={glyph}
               hintText={T('Filtre')}
               value={this.props.filter}
+              autoFocus={this.props.autoFocus}
               onChange={this.onFilterChanged}
             />
           </div>
