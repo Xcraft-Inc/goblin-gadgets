@@ -334,6 +334,7 @@ export default class TableNC extends Widget {
         useKeyUpDown={this.props.useKeyUpDown}
         selectionChanged={this.onSelectionChanged}
         onDoubleClick={this.onDoubleClick}
+        displaySelectedOnly={this.props.displaySelectedOnly}
       />
     );
   }
