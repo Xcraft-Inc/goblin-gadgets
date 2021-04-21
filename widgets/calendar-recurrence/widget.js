@@ -11,20 +11,20 @@ import CalendarList from 'goblin-gadgets/widgets/calendar-list/widget';
 /******************************************************************************/
 
 const getCronDates = (props) => {
-  const today = DateConverters.getNowCanonical();
+  const from = props.startDate || DateConverters.getNowCanonical();
   return CronHelpers.computeCronDates(
-    today,
-    DateConverters.addMonths(today, 24),
+    from,
+    DateConverters.addMonths(DateConverters.getNowCanonical(), 24),
     props.days
   );
 };
 
 //Build a cache of checked days for 24 month;
 //This is only for displaying stuff
-const memo = (func) => {
+/*const memo = (func) => {
   let cache = {};
   return function (props) {
-    const cacheKey = props.days;
+    const cacheKey = `${props.startDate || ''}|${props.days}`;
     if (cache[cacheKey]) {
       return cache[cacheKey];
     } else {
@@ -33,8 +33,8 @@ const memo = (func) => {
       return result;
     }
   };
-};
-const rememberDates = memo(getCronDates);
+};*/
+const rememberDates = getCronDates; //memo(getCronDates);
 
 class CalendarRecurrence extends Widget {
   constructor() {
@@ -132,8 +132,13 @@ class CalendarRecurrence extends Widget {
     const addDates = this.addDates;
     const cronDates = rememberDates(this.props);
     for (const d of cronDates) {
-      if (addDates.indexOf(d) === -1) {
-        array.push({type: 'base', date: d});
+      if (d >= this.props.startDate) {
+        if (this.props.endDate && d > this.props.endDate) {
+          continue;
+        }
+        if (addDates.indexOf(d) === -1) {
+          array.push({type: 'base', date: d});
+        }
       }
     }
     for (const d of addDates) {
@@ -151,8 +156,11 @@ class CalendarRecurrence extends Widget {
       <Container kind="row">
         <Calendar
           monthCount={1}
-          startDate={this.props.startDate}
-          endDate={this.props.endDate}
+          startDate={this.props.startDate || DateConverters.getNowCanonical()}
+          endDate={
+            this.props.endDate ||
+            DateConverters.addMonths(DateConverters.getNowCanonical(), 24)
+          }
           visibleDate={this.visibleDate}
           dates={this.calendarDates}
           readonly={this.props.readonly}
