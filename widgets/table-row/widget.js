@@ -169,6 +169,9 @@ export default Widget.connectWidget((state, props) => {
   const selectedIds = state.get('selectedIds');
   const selected = selectedIds ? selectedIds.includes(id) : false;
 
+  if (props.displaySelectedOnly && !selected) {
+    return {};
+  }
   return {
     row: row.get('row'),
     index: props.rowIndex,

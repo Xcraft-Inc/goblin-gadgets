@@ -3,12 +3,38 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import {date as DateConverters} from 'xcraft-core-converters';
-
+import {CronHelpers} from 'goblin-toolbox';
 import Container from 'goblin-gadgets/widgets/container/widget';
 import Calendar from 'goblin-gadgets/widgets/calendar/widget';
 import CalendarList from 'goblin-gadgets/widgets/calendar-list/widget';
 
 /******************************************************************************/
+
+const getCronDates = (props) => {
+  const from = props.startDate || DateConverters.getNowCanonical();
+  return CronHelpers.computeCronDates(
+    from,
+    DateConverters.addMonths(DateConverters.getNowCanonical(), 24),
+    props.days
+  );
+};
+
+//Build a cache of checked days for 24 month;
+//This is only for displaying stuff
+/*const memo = (func) => {
+  let cache = {};
+  return function (props) {
+    const cacheKey = `${props.startDate || ''}|${props.days}`;
+    if (cache[cacheKey]) {
+      return cache[cacheKey];
+    } else {
+      let result = func(props);
+      cache[cacheKey] = result;
+      return result;
+    }
+  };
+};*/
+const rememberDates = getCronDates; //memo(getCronDates);
 
 class CalendarRecurrence extends Widget {
   constructor() {
@@ -78,7 +104,7 @@ class CalendarRecurrence extends Widget {
     const startDate = DateConverters.moveAtBeginningOfMonth(this.visibleDate);
     const endDate = DateConverters.moveAtEndingOfMonth(this.visibleDate);
     const addDates = this.addDates;
-    const cronDates = this.props.cronDates.valueSeq().toArray();
+    const cronDates = rememberDates(this.props);
     const datesOfMonth = [];
     for (const d of cronDates) {
       if (d >= startDate && d <= endDate) {
@@ -104,10 +130,15 @@ class CalendarRecurrence extends Widget {
   get listDates() {
     const array = [];
     const addDates = this.addDates;
-    const cronDates = this.props.cronDates.valueSeq().toArray();
+    const cronDates = rememberDates(this.props);
     for (const d of cronDates) {
-      if (addDates.indexOf(d) === -1) {
-        array.push({type: 'base', date: d});
+      if (d >= this.props.startDate) {
+        if (this.props.endDate && d > this.props.endDate) {
+          continue;
+        }
+        if (addDates.indexOf(d) === -1) {
+          array.push({type: 'base', date: d});
+        }
       }
     }
     for (const d of addDates) {
@@ -125,8 +156,11 @@ class CalendarRecurrence extends Widget {
       <Container kind="row">
         <Calendar
           monthCount={1}
-          startDate={this.props.startDate}
-          endDate={this.props.endDate}
+          startDate={this.props.startDate || DateConverters.getNowCanonical()}
+          endDate={
+            this.props.endDate ||
+            DateConverters.addMonths(DateConverters.getNowCanonical(), 24)
+          }
           visibleDate={this.visibleDate}
           dates={this.calendarDates}
           readonly={this.props.readonly}
@@ -145,4 +179,5 @@ class CalendarRecurrence extends Widget {
 }
 
 /******************************************************************************/
+
 export default CalendarRecurrence;

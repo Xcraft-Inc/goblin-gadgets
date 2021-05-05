@@ -26,6 +26,10 @@ export default class TableNC extends Widget {
     this.onDeselectAll = this.onDeselectAll.bind(this);
   }
 
+  get readonly() {
+    return this.props.readonly === true;
+  }
+
   onFilterChanged(value) {
     const f = this.props.onFilterChanged;
     if (f) {
@@ -48,6 +52,9 @@ export default class TableNC extends Widget {
   }
 
   onSelectionChanged(id) {
+    if (this.readonly) {
+      return;
+    }
     const f = this.props.onSelectionChanged;
     if (f) {
       f(id);
@@ -62,6 +69,9 @@ export default class TableNC extends Widget {
   }
 
   onSelectAll() {
+    if (this.readonly) {
+      return;
+    }
     const f = this.props.onSelectAll;
     if (f) {
       f();
@@ -69,6 +79,9 @@ export default class TableNC extends Widget {
   }
 
   onDeselectAll() {
+    if (this.readonly) {
+      return;
+    }
     const f = this.props.onDeselectAll;
     if (f) {
       f();
@@ -104,6 +117,7 @@ export default class TableNC extends Widget {
               hintText={T('Filtre')}
               value={this.props.filter}
               onChange={this.onFilterChanged}
+              autoFocus={this.props.autoFocus}
               horizontalSpacing="overlap"
             />
             <Button
@@ -129,6 +143,7 @@ export default class TableNC extends Widget {
               glyph={glyph}
               hintText={T('Filtre')}
               value={this.props.filter}
+              autoFocus={this.props.autoFocus}
               onChange={this.onFilterChanged}
             />
           </div>
@@ -319,6 +334,7 @@ export default class TableNC extends Widget {
         useKeyUpDown={this.props.useKeyUpDown}
         selectionChanged={this.onSelectionChanged}
         onDoubleClick={this.onDoubleClick}
+        displaySelectedOnly={this.props.displaySelectedOnly}
       />
     );
   }

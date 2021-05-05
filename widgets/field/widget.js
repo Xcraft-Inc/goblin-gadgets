@@ -1099,7 +1099,6 @@ class Field extends Form {
           endDate: r.get('endDate'),
           days: r.get('days'),
           addDates: r.get('addDates'),
-          cronDates: r.get('cronDates'),
         };
       },
       this.fullPath
