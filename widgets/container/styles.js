@@ -1055,6 +1055,14 @@ export default function styles(theme, props) {
     flexGrow = grow;
   }
 
+  if (kind === 'column-minus-margin') {
+    display = 'flex';
+    flexDirection = 'column';
+    flexGrow = grow;
+    margin = Unit.multiply(m, -1);
+    padding = m;
+  }
+
   if (kind === 'row') {
     display = 'flex';
     flexDirection = 'row';

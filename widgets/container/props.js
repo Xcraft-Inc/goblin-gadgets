@@ -73,6 +73,7 @@ export default [
       'boxes',
       'chronos-events',
       'column',
+      'column-minus-margin',
       'column-full',
       'compact-row',
       'content',
