@@ -65,9 +65,6 @@ export default [
     type: types.enum([
       '',
       'actions',
-      'actions-lines',
-      'actions-line-primary',
-      'actions-line-secondary',
       'archived',
       'box',
       'boxes',

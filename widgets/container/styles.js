@@ -525,42 +525,6 @@ export default function styles(theme, props) {
     boxShadow = subkind === 'no-shadow' ? null : theme.shapes.actionShadow;
   }
 
-  if (kind === 'actions-lines') {
-    minHeight = Unit.add(
-      Unit.add(
-        theme.shapes.secondaryActionHeight,
-        theme.shapes.secondaryActionSpacing
-      ),
-      theme.shapes.actionHeight
-    );
-    display = 'flex';
-    flexDirection = 'column';
-    justifyContent = 'flex-start';
-    alignItems = 'stretch';
-    padding = m;
-    borderStyle = 'none';
-    backgroundColor = theme.palette.actionBackground;
-    borderTopWidth = '1px';
-    borderTopStyle = 'solid';
-    borderTopColor = theme.palette.actionBorder;
-    boxShadow = subkind === 'no-shadow' ? null : theme.shapes.actionShadow;
-  }
-
-  if (kind === 'actions-line-secondary') {
-    minHeight = theme.shapes.secondaryActionHeight;
-    display = 'flex';
-    flexDirection = 'row';
-    alignContent = 'flex-start';
-    margin = '0px 0px ' + theme.shapes.secondaryActionSpacing + ' 0px';
-  }
-
-  if (kind === 'actions-line-primary') {
-    minHeight = theme.shapes.actionHeight;
-    display = 'flex';
-    flexDirection = 'row';
-    justifyContent = 'flex-start';
-  }
-
   if (kind === 'panes') {
     if (props.subkind !== 'no-overlay') {
       overflowY = isWebkit ? 'overlay' : 'auto';
