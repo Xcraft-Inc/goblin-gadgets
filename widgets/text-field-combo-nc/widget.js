@@ -152,6 +152,7 @@ class TextFieldComboNC extends Widget {
     if (this.list.length > 0 || this.list.size > 0) {
       this.list = this.list.map((item) => {
         switch (typeof item) {
+          case 'number':
           case 'string':
             item = {
               id: item,
