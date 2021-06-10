@@ -19,12 +19,14 @@ function getRows(state, parentKey) {
 
     const row = {id, key};
 
-    if (value !== null) {
-      if (typeof value === 'object') {
-        row.rows = getRows(value, id);
-      } else {
-        row.value = value.toString();
-      }
+    if (value === null) {
+      row.value = 'null';
+    } else if (value === undefined) {
+      row.value = 'undefined';
+    } else if (typeof value === 'object') {
+      row.rows = getRows(value, id);
+    } else {
+      row.value = value.toString();
     }
 
     rows.push(row);
