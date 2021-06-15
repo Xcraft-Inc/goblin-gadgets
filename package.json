@@ -16,7 +16,8 @@
   },
   "dependencies": {
     "xcraft-core-goblin": "^4.0.1",
-    "xcraft-core-utils": "^3.0.0"
+    "xcraft-core-utils": "^3.0.0",
+    "goblin-toolbox": "^0.0.1"
   },
   "devDependencies": {
     "mocha": "^5.2.0",
