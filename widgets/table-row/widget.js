@@ -12,20 +12,39 @@ import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
 class CopyButton extends Widget {
   constructor() {
     super(...arguments);
-    this.button = React.createRef();
+
+    this.state = {
+      showIcon: false,
+    };
+
+    this.copyToClipBoard = this.copyToClipBoard.bind(this);
+  }
+
+  componentWillUnmount() {
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+      this.timeout = null;
+    }
+  }
+
+  copyToClipBoard() {
+    Widget.copyTextToClipboard(this.props.content);
+    this.setState({showIcon: true});
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+      this.timeout = null;
+    }
+    this.timeout = setTimeout(() => {
+      this.timeout = null;
+      this.setState({showIcon: false});
+    }, 1000);
   }
 
   render() {
-    const copyToClipBoard = () => {
-      Widget.copyTextToClipboard(this.props.content);
-      this.button.current.innerText = `${this.props.content} ✅`;
-      setTimeout(() => {
-        this.button.current.innerText = this.props.content;
-      }, 1000);
-    };
     return (
-      <div ref={this.button} onClick={copyToClipBoard}>
+      <div ref={this.button} onClick={this.copyToClipBoard}>
         {this.props.content}
+        {this.state.showIcon && `✅`}
       </div>
     );
   }
@@ -105,7 +124,7 @@ class TableRow extends Widget {
             case 'copy':
               {
                 const content = row.get(column.get('name'));
-                text = <CopyButton content={content} />;
+                text = () => <CopyButton content={content} />;
               }
               break;
           }
