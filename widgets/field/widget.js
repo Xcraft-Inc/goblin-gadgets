@@ -116,7 +116,7 @@ class Field extends Form {
 
     return (
       <LabelRow
-        show={C(this.props.model, this.isShowed)}
+        show={show !== undefined ? show : C(this.props.model, this.isShowed)}
         labelText={labelText}
         labelWrap={labelWrap}
         labelGlyph={labelGlyph}
