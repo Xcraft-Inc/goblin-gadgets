@@ -99,7 +99,7 @@ class Field extends Form {
   //#region Readonly
   renderReadonlyField() {
     const {
-      show,
+      show = C(this.props.model, this.isShowed),
       labelText,
       labelWrap,
       labelGlyph,
@@ -116,7 +116,7 @@ class Field extends Form {
 
     return (
       <LabelRow
-        show={show !== undefined ? show : C(this.props.model, this.isShowed)}
+        show={show}
         labelText={labelText}
         labelWrap={labelWrap}
         labelGlyph={labelGlyph}
@@ -142,7 +142,7 @@ class Field extends Form {
 
   renderReadonlyTranslatable() {
     const {
-      show,
+      show = C(this.props.model, this.isShowed),
       labelText,
       labelWrap,
       labelGlyph,
@@ -159,7 +159,7 @@ class Field extends Form {
 
     return (
       <LabelRow
-        show={C(this.props.model, this.isShowed)}
+        show={show}
         labelText={labelText}
         labelWrap={labelWrap}
         labelGlyph={labelGlyph}
@@ -215,7 +215,7 @@ class Field extends Form {
 
   renderReadonlyTyped() {
     const {
-      show,
+      show = C(this.props.model, this.isShowed),
       labelText,
       labelWrap,
       labelGlyph,
@@ -231,7 +231,7 @@ class Field extends Form {
 
     return (
       <LabelRow
-        show={C(this.props.model, this.isShowed)}
+        show={show}
         labelText={labelText}
         labelWrap={labelWrap}
         labelGlyph={labelGlyph}
@@ -412,7 +412,7 @@ class Field extends Form {
 
   renderReadonlyHinter() {
     const {
-      show,
+      show = C(this.props.model, this.isShowed),
       labelText,
       labelWrap,
       labelGlyph,
@@ -428,7 +428,7 @@ class Field extends Form {
 
     return (
       <LabelRow
-        show={C(this.props.model, this.isShowed)}
+        show={show}
         labelText={labelText}
         labelWrap={labelWrap}
         labelGlyph={labelGlyph}
