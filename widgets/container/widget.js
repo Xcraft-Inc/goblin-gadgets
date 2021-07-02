@@ -5,6 +5,7 @@ import {registerWidget} from 'goblin-gadgets/widgets/widget-doc/widget-list';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import Widget from 'goblin-laboratory/widgets/widget';
 import * as styles from './styles';
+import Spinner from 'goblin-gadgets/widgets/spinner/widget';
 
 /******************************************************************************/
 
@@ -168,13 +169,32 @@ class Container extends Widget {
     if (this.props.busy) {
       const busyBoxClass = this.styles.classNames.busyBox;
       const busyGlyphClass = this.styles.classNames.busyGlyph;
-      return (
-        <div className={busyBoxClass}>
-          <div className={busyGlyphClass}>
-            <FontAwesomeIcon icon={[`fas`, 'spinner']} size={'2x'} pulse />
+
+      if (this.props.busyLook === 'small') {
+        return (
+          <div className={busyBoxClass}>
+            <div className={busyGlyphClass}>
+              <Spinner size="60px" thickness="6px" />
+            </div>
           </div>
-        </div>
-      );
+        );
+      } else if (this.props.busyLook === 'large') {
+        return (
+          <div className={busyBoxClass}>
+            <div className={busyGlyphClass}>
+              <Spinner />
+            </div>
+          </div>
+        );
+      } else {
+        return (
+          <div className={busyBoxClass}>
+            <div className={busyGlyphClass}>
+              <FontAwesomeIcon icon={[`fas`, 'spinner']} size={'2x'} pulse />
+            </div>
+          </div>
+        );
+      }
     } else {
       return null;
     }

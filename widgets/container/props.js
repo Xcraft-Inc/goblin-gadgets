@@ -45,6 +45,11 @@ export default [
     type: types.bool,
   },
   {
+    name: 'busyLook',
+    group: 'aspect',
+    type: types.enum(['', 'old', 'small', 'large']),
+  },
+  {
     name: 'isDragged',
     group: 'aspect',
     type: types.bool,
