@@ -170,7 +170,7 @@ export default [
   {
     name: 'selectedId',
     group: 'text',
-    type: types.string,
+    type: types.oneOfType([types.number, types.string]),
   },
   {
     name: 'hintText',
