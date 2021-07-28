@@ -107,7 +107,7 @@ class StackNavigationWidget extends Widget {
     const Component = this.props.widgets[widget];
 
     if (!Component) {
-      console.warn(
+      console.error(
         `No widget defined for screen '${widget}'. You should check the 'widgets' prop given to 'StackNavigation'.`
       );
     }
