@@ -65,6 +65,31 @@ function getPluginProps(propsToFilter) {
 
 /******************************************************************************/
 
+function getComboList(props, fieldName) {
+  if (fieldName.startsWith('.')) {
+    fieldName = fieldName.substring(1); // remove "."
+  }
+
+  const valuesInfo = props.entitySchema.get(`${fieldName}.valuesInfo`);
+  if (!valuesInfo) {
+    return null; // TODO: Fix!
+  }
+
+  const result = [];
+  valuesInfo.forEach((value, id) => {
+    const item = {
+      id,
+      text: value.get('text'),
+      glyph: value.get('glyph'),
+      color: value.get('color'),
+    };
+    result.push(item);
+  });
+  return result;
+}
+
+/******************************************************************************/
+
 class Field extends Form {
   constructor() {
     super(...arguments);
@@ -92,6 +117,18 @@ class Field extends Form {
 
   isShowed(value) {
     return Boolean(this.props.showStrategy === 'alwaysVisible' || value);
+  }
+
+  getComboList() {
+    if (this.props.listModel) {
+      return C(this.props.listModel);
+    } else if (this.props.list) {
+      return this.props.list;
+    } else if (this.props.propsForList) {
+      return getComboList(this.props.propsForList, this.props.model);
+    } else {
+      return null;
+    }
   }
 
   /******************************************************************************/
@@ -358,9 +395,7 @@ class Field extends Form {
           readonly={true}
           restrictsToList={this.props.restrictsToList}
           required={this.props.required}
-          list={
-            this.props.listModel ? C(this.props.listModel) : this.props.list
-          }
+          list={this.getComboList()}
           menuType="wrap"
           menuItemWidth={this.props.menuItemWidth}
           comboTextTransform="none"
@@ -887,9 +922,7 @@ class Field extends Form {
           readonly={false}
           restrictsToList={this.props.restrictsToList}
           required={this.props.required}
-          list={
-            this.props.listModel ? C(this.props.listModel) : this.props.list
-          }
+          list={this.getComboList()}
           menuType="wrap"
           menuItemWidth={this.props.menuItemWidth}
           comboTextTransform="none"
