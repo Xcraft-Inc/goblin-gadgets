@@ -74,7 +74,7 @@ function _normalizeModel(model) {
 }
 
 function _getComboList(entitySchema, model) {
-  if (!entitySchema) {
+  if (!entitySchema || !model) {
     return null;
   }
 
@@ -98,7 +98,7 @@ function _getComboList(entitySchema, model) {
 }
 
 function _getLabelText(entitySchema, model) {
-  if (!entitySchema) {
+  if (!entitySchema || !model) {
     return null;
   }
 
