@@ -65,12 +65,12 @@ function getPluginProps(propsToFilter) {
 
 /******************************************************************************/
 
-function getComboList(props, fieldName) {
-  if (fieldName.startsWith('.')) {
-    fieldName = fieldName.substring(1); // remove "."
+function getComboList(entitySchema, model) {
+  if (model.startsWith('.')) {
+    model = model.substring(1); // remove "."
   }
 
-  const valuesInfo = props.entitySchema.get(`${fieldName}.valuesInfo`);
+  const valuesInfo = entitySchema.get(`${model}.valuesInfo`);
   if (!valuesInfo) {
     return null; // TODO: Fix!
   }
@@ -86,6 +86,14 @@ function getComboList(props, fieldName) {
     result.push(item);
   });
   return result;
+}
+
+function getLabelText(entitySchema, model) {
+  if (model.startsWith('.')) {
+    model = model.substring(1); // remove "."
+  }
+
+  return entitySchema.get(`${model}.text`, '');
 }
 
 /******************************************************************************/
@@ -124,11 +132,33 @@ class Field extends Form {
       return C(this.props.listModel);
     } else if (this.props.list) {
       return this.props.list;
-    } else if (this.props.propsForList) {
-      return getComboList(this.props.propsForList, this.props.model);
     } else {
-      return null;
+      const entityId = this.context.entityId; // by example "portfolio@e564950b-cd9f-4d35-abd0-b85bf93017f1"
+      if (entityId) {
+        const type = entityId.split('@', 2)[0];
+        const entitySchema = this.getSchema(type);
+        if (entitySchema) {
+          return getComboList(entitySchema, this.props.model);
+        }
+      }
     }
+    return null;
+  }
+
+  getLabelText() {
+    if (this.props.labelText) {
+      return this.props.labelText;
+    } else {
+      const entityId = this.context.entityId; // by example "portfolio@e564950b-cd9f-4d35-abd0-b85bf93017f1"
+      if (entityId) {
+        const type = entityId.split('@', 2)[0];
+        const entitySchema = this.getSchema(type);
+        if (entitySchema) {
+          return getLabelText(entitySchema, this.props.model);
+        }
+      }
+    }
+    return null;
   }
 
   /******************************************************************************/
@@ -137,7 +167,6 @@ class Field extends Form {
   renderReadonlyField() {
     const {
       show = C(this.props.model, this.isShowed),
-      labelText,
       labelWrap,
       labelGlyph,
       labelWidth = defaultLabelWidth,
@@ -154,7 +183,7 @@ class Field extends Form {
     return (
       <LabelRow
         show={show}
-        labelText={labelText}
+        labelText={this.getLabelText()}
         labelWrap={labelWrap}
         labelGlyph={labelGlyph}
         labelWidth={labelWidth}
@@ -180,7 +209,6 @@ class Field extends Form {
   renderReadonlyTranslatable() {
     const {
       show = C(this.props.model, this.isShowed),
-      labelText,
       labelWrap,
       labelGlyph,
       labelWidth = defaultLabelWidth,
@@ -197,7 +225,7 @@ class Field extends Form {
     return (
       <LabelRow
         show={show}
-        labelText={labelText}
+        labelText={this.getLabelText()}
         labelWrap={labelWrap}
         labelGlyph={labelGlyph}
         labelWidth={labelWidth}
@@ -253,7 +281,6 @@ class Field extends Form {
   renderReadonlyTyped() {
     const {
       show = C(this.props.model, this.isShowed),
-      labelText,
       labelWrap,
       labelGlyph,
       labelWidth = defaultLabelWidth,
@@ -269,7 +296,7 @@ class Field extends Form {
     return (
       <LabelRow
         show={show}
-        labelText={labelText}
+        labelText={this.getLabelText()}
         labelWrap={labelWrap}
         labelGlyph={labelGlyph}
         labelWidth={labelWidth}
@@ -293,7 +320,6 @@ class Field extends Form {
   renderReadonlyTimeInterval() {
     const {
       show,
-      labelText,
       labelWrap,
       labelGlyph,
       labelWidth = defaultLabelWidth,
@@ -309,7 +335,7 @@ class Field extends Form {
       <LabelRow
         show={show}
         width={width}
-        labelText={labelText}
+        labelText={this.getLabelText()}
         labelWrap={labelWrap}
         labelGlyph={labelGlyph}
         labelWidth={labelWidth}
@@ -331,7 +357,6 @@ class Field extends Form {
   renderReadonlyDateInterval() {
     const {
       show,
-      labelText,
       labelWrap,
       labelGlyph,
       labelWidth = defaultLabelWidth,
@@ -347,7 +372,7 @@ class Field extends Form {
       <LabelRow
         show={show}
         width={width}
-        labelText={labelText}
+        labelText={this.getLabelText()}
         labelWrap={labelWrap}
         labelGlyph={labelGlyph}
         labelWidth={labelWidth}
@@ -373,7 +398,7 @@ class Field extends Form {
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
-        labelText={this.props.labelText}
+        labelText={this.getLabelText()}
         labelWrap={this.props.labelWrap}
         labelGlyph={this.props.labelGlyph}
         labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -411,7 +436,6 @@ class Field extends Form {
       show,
       grow,
       height,
-      labelText,
       labelGlyph,
       labelWidth = defaultLabelWidth,
       horizontalSpacing,
@@ -436,7 +460,7 @@ class Field extends Form {
       >
         <Checkbox
           kind={subkind}
-          text={labelText}
+          text={this.getLabelText()}
           {...otherProps}
           tooltip={this.props.tooltip || this.props.hintText}
           readonly={true}
@@ -448,7 +472,6 @@ class Field extends Form {
   renderReadonlyHinter() {
     const {
       show = C(this.props.model, this.isShowed),
-      labelText,
       labelWrap,
       labelGlyph,
       labelWidth = defaultLabelWidth,
@@ -464,7 +487,7 @@ class Field extends Form {
     return (
       <LabelRow
         show={show}
-        labelText={labelText}
+        labelText={this.getLabelText()}
         labelWrap={labelWrap}
         labelGlyph={labelGlyph}
         labelWidth={labelWidth}
@@ -548,7 +571,7 @@ class Field extends Form {
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
-        labelText={this.props.labelText}
+        labelText={this.getLabelText()}
         labelWrap={this.props.labelWrap}
         labelGlyph={this.props.labelGlyph}
         labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -654,7 +677,6 @@ class Field extends Form {
   renderEditField() {
     const {
       show,
-      labelText,
       labelWrap,
       labelGlyph,
       labelWidth = defaultLabelWidth,
@@ -671,7 +693,7 @@ class Field extends Form {
     return (
       <LabelRow
         show={show}
-        labelText={labelText}
+        labelText={this.getLabelText()}
         labelWrap={labelWrap}
         labelGlyph={labelGlyph}
         labelWidth={labelWidth}
@@ -695,7 +717,6 @@ class Field extends Form {
   renderEditTranslatable() {
     const {
       show,
-      labelText,
       labelWrap,
       labelGlyph,
       labelWidth = defaultLabelWidth,
@@ -713,7 +734,7 @@ class Field extends Form {
     return (
       <LabelRow
         show={show}
-        labelText={labelText}
+        labelText={this.getLabelText()}
         labelWrap={labelWrap}
         labelGlyph={labelGlyph}
         labelWidth={labelWidth}
@@ -766,7 +787,6 @@ class Field extends Form {
   renderEditTyped() {
     const {
       show,
-      labelText,
       labelWrap,
       labelGlyph,
       labelWidth = defaultLabelWidth,
@@ -782,7 +802,7 @@ class Field extends Form {
     return (
       <LabelRow
         show={show}
-        labelText={labelText}
+        labelText={this.getLabelText()}
         labelWrap={labelWrap}
         labelGlyph={labelGlyph}
         labelWidth={labelWidth}
@@ -826,7 +846,6 @@ class Field extends Form {
     //- );
     const {
       show,
-      labelText,
       labelWrap,
       labelGlyph,
       labelWidth = defaultLabelWidth,
@@ -842,7 +861,7 @@ class Field extends Form {
       <LabelRow
         show={show}
         width={width}
-        labelText={labelText}
+        labelText={this.getLabelText()}
         labelWrap={labelWrap}
         labelGlyph={labelGlyph}
         labelWidth={labelWidth}
@@ -863,7 +882,6 @@ class Field extends Form {
   renderEditDateInterval() {
     const {
       show,
-      labelText,
       labelWrap,
       labelGlyph,
       labelWidth = defaultLabelWidth,
@@ -879,7 +897,7 @@ class Field extends Form {
       <LabelRow
         show={show}
         width={width}
-        labelText={labelText}
+        labelText={this.getLabelText()}
         labelWrap={labelWrap}
         labelGlyph={labelGlyph}
         labelWidth={labelWidth}
@@ -904,7 +922,7 @@ class Field extends Form {
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
-        labelText={this.props.labelText}
+        labelText={this.getLabelText()}
         labelWrap={this.props.labelWrap}
         labelGlyph={this.props.labelGlyph}
         labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -1008,7 +1026,7 @@ class Field extends Form {
         grow={this.props.grow}
         width={this.props.width}
         height={this.props.height}
-        labelText={this.props.labelText}
+        labelText={this.getLabelText()}
         labelWrap={this.props.labelWrap}
         labelGlyph={this.props.labelGlyph}
         labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -1039,7 +1057,6 @@ class Field extends Form {
       show,
       grow,
       height,
-      labelText,
       labelGlyph,
       labelWidth = defaultLabelWidth,
       horizontalSpacing,
@@ -1065,7 +1082,7 @@ class Field extends Form {
         <Checkbox
           kind={subkind}
           heightStrategy={verticalSpacing === 'compact' ? 'compact' : null}
-          text={labelText}
+          text={this.getLabelText()}
           {...otherProps}
           tooltip={this.props.tooltip || this.props.hintText}
         />
@@ -1345,7 +1362,7 @@ class Field extends Form {
           grow={this.props.grow}
           width={this.props.width}
           height={this.props.height}
-          labelText={this.props.labelText}
+          labelText={this.getLabelText()}
           labelWrap={this.props.labelWrap}
           labelGlyph={this.props.labelGlyph}
           labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -1365,7 +1382,6 @@ class Field extends Form {
   renderEditHinter() {
     const {
       show,
-      labelText,
       labelWrap,
       labelGlyph,
       labelWidth = defaultLabelWidth,
@@ -1381,7 +1397,7 @@ class Field extends Form {
     return (
       <LabelRow
         show={show}
-        labelText={labelText}
+        labelText={this.getLabelText()}
         labelWrap={labelWrap}
         labelGlyph={labelGlyph}
         labelWidth={labelWidth}
@@ -1407,7 +1423,7 @@ class Field extends Form {
             grow={this.props.grow}
             width={this.props.width}
             height={this.props.height}
-            labelText={this.props.labelText}
+            labelText={this.getLabelText()}
             labelWrap={this.props.labelWrap}
             labelGlyph={this.props.labelGlyph}
             labelWidth={this.props.labelWidth || defaultLabelWidth}
@@ -1457,7 +1473,6 @@ class Field extends Form {
   renderFileInput() {
     const {
       show,
-      labelText,
       labelWrap,
       labelGlyph,
       labelWidth = defaultLabelWidth,
@@ -1472,7 +1487,7 @@ class Field extends Form {
     return (
       <LabelRow
         show={show}
-        labelText={labelText}
+        labelText={this.getLabelText()}
         labelWrap={labelWrap}
         labelGlyph={labelGlyph}
         labelWidth={labelWidth}
@@ -1490,7 +1505,6 @@ class Field extends Form {
   renderDirectoryInput() {
     const {
       show,
-      labelText,
       labelWrap,
       labelGlyph,
       labelWidth = defaultLabelWidth,
@@ -1505,7 +1519,7 @@ class Field extends Form {
     return (
       <LabelRow
         show={show}
-        labelText={labelText}
+        labelText={this.getLabelText()}
         labelWrap={labelWrap}
         labelGlyph={labelGlyph}
         labelWidth={labelWidth}
@@ -1523,7 +1537,6 @@ class Field extends Form {
   renderEditStateBrowser() {
     let {
       show,
-      labelText,
       labelWrap,
       labelGlyph,
       labelWidth = defaultLabelWidth,
@@ -1549,7 +1562,7 @@ class Field extends Form {
     return (
       <LabelRow
         show={show}
-        labelText={labelText}
+        labelText={this.getLabelText()}
         labelWrap={labelWrap}
         labelGlyph={labelGlyph}
         labelWidth={labelWidth}
