@@ -65,14 +65,23 @@ function getPluginProps(propsToFilter) {
 
 /******************************************************************************/
 
-function getComboList(entitySchema, model) {
+function _normalizeModel(model) {
   if (model.startsWith('.')) {
-    model = model.substring(1); // remove "."
+    return model.substring(1); // remove "."
+  } else {
+    return model;
+  }
+}
+
+function _getComboList(entitySchema, model) {
+  if (!entitySchema) {
+    return null;
   }
 
+  model = _normalizeModel(model);
   const valuesInfo = entitySchema.get(`${model}.valuesInfo`);
   if (!valuesInfo) {
-    return null; // TODO: Fix!
+    return null;
   }
 
   const result = [];
@@ -88,12 +97,13 @@ function getComboList(entitySchema, model) {
   return result;
 }
 
-function getLabelText(entitySchema, model) {
-  if (model.startsWith('.')) {
-    model = model.substring(1); // remove "."
+function _getLabelText(entitySchema, model) {
+  if (!entitySchema) {
+    return null;
   }
 
-  return entitySchema.get(`${model}.text`, '');
+  model = _normalizeModel(model);
+  return entitySchema.get(`${model}.text`, null);
 }
 
 /******************************************************************************/
@@ -127,38 +137,33 @@ class Field extends Form {
     return Boolean(this.props.showStrategy === 'alwaysVisible' || value);
   }
 
+  getEntitySchema() {
+    const entityId = this.context.entityId; // by example "portfolio@e564950b-cd9f-4d35-abd0-b85bf93017f1"
+    if (entityId) {
+      const entityType = entityId.split('@', 2)[0]; // by example "portfolio"
+      return this.getSchema(entityType);
+    }
+    return null;
+  }
+
   getComboList() {
     if (this.props.listModel) {
       return C(this.props.listModel);
     } else if (this.props.list) {
       return this.props.list;
     } else {
-      const entityId = this.context.entityId; // by example "portfolio@e564950b-cd9f-4d35-abd0-b85bf93017f1"
-      if (entityId) {
-        const type = entityId.split('@', 2)[0];
-        const entitySchema = this.getSchema(type);
-        if (entitySchema) {
-          return getComboList(entitySchema, this.props.model);
-        }
-      }
+      const entitySchema = this.getEntitySchema();
+      return _getComboList(entitySchema, this.props.model);
     }
-    return null;
   }
 
   getLabelText() {
     if (this.props.labelText) {
       return this.props.labelText;
     } else {
-      const entityId = this.context.entityId; // by example "portfolio@e564950b-cd9f-4d35-abd0-b85bf93017f1"
-      if (entityId) {
-        const type = entityId.split('@', 2)[0];
-        const entitySchema = this.getSchema(type);
-        if (entitySchema) {
-          return getLabelText(entitySchema, this.props.model);
-        }
-      }
+      const entitySchema = this.getEntitySchema();
+      return _getLabelText(entitySchema, this.props.model);
     }
-    return null;
   }
 
   /******************************************************************************/
