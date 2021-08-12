@@ -542,7 +542,7 @@ class Field extends Form {
         },
         `backend.${props.entityId}`
       );
-      return <Info />;
+      return <Info userSelect="text" />;
     };
 
     const Action = (props) => {
@@ -1201,7 +1201,7 @@ class Field extends Form {
         },
         `backend.${props.entityId}`
       );
-      return <Info />;
+      return <Info userSelect="text" />;
     };
 
     const EntityViewer = this.mapWidget(Viewer, 'entityId', this.fullPath);

@@ -221,6 +221,7 @@ export default function styles(theme, props) {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    userSelect: 'text',
   };
 
   /******************************************************************************/
