@@ -907,6 +907,11 @@ export default function styles(theme, props) {
     }
   }
 
+  if (kind === 'alert') {
+    textPaddingTop = to(6, cssUnit);
+    textPaddingBottom = to(6, cssUnit);
+  }
+
   if (kind === 'flat-combo') {
     if (active) {
       textColorFromKind = disabled

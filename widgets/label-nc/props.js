@@ -31,6 +31,7 @@ export default [
     type: types.enum([
       '',
       'action',
+      'alert',
       'big-center',
       'button-footer',
       'button-notification',
