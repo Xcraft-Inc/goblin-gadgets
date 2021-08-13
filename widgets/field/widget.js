@@ -97,6 +97,22 @@ function _getComboList(entitySchema, model) {
   return result;
 }
 
+function _getKind(entitySchema, model) {
+  if (!entitySchema || !model) {
+    return null;
+  }
+
+  model = _normalizeModel(model);
+  const type = entitySchema.get(`${model}.type`, null);
+
+  let kind = type;
+  if (type === 'enum') {
+    kind = 'combo';
+  }
+
+  return kind;
+}
+
 function _getLabelText(entitySchema, model) {
   if (!entitySchema || !model) {
     return null;
@@ -144,6 +160,15 @@ class Field extends Form {
       return this.getSchema(entityType);
     }
     return null;
+  }
+
+  getKind() {
+    if (this.props.kind) {
+      return this.props.kind;
+    } else {
+      const entitySchema = this.getEntitySchema();
+      return _getKind(entitySchema, this.props.model);
+    }
   }
 
   getComboList() {
@@ -199,7 +224,7 @@ class Field extends Form {
         grow={grow || (fieldWidth ? null : '1')}
       >
         <TextField
-          type={kind}
+          type={this.getKind()}
           selectAllOnFocus={true}
           width={fieldWidth}
           grow={fieldWidth ? null : '1'}
@@ -241,7 +266,7 @@ class Field extends Form {
         grow={grow || (fieldWidth ? null : '1')}
       >
         <TranslatableTextField
-          type={kind}
+          type={this.getKind()}
           selectAllOnFocus={true}
           width={fieldWidth}
           grow={fieldWidth ? null : '1'}
@@ -311,7 +336,7 @@ class Field extends Form {
         width={width}
       >
         <TextFieldTyped
-          type={kind}
+          type={this.getKind()}
           selectAllOnFocus={true}
           width={fieldWidth}
           {...otherProps}
@@ -709,7 +734,7 @@ class Field extends Form {
         grow={grow || (fieldWidth ? null : '1')}
       >
         <TextField
-          type={kind}
+          type={this.getKind()}
           width={fieldWidth}
           grow={fieldWidth ? null : '1'}
           {...otherProps}
@@ -750,7 +775,7 @@ class Field extends Form {
         grow={grow || (fieldWidth ? null : '1')}
       >
         <TranslatableTextField
-          type={kind}
+          type={this.getKind()}
           width={fieldWidth}
           grow={fieldWidth ? null : '1'}
           {...otherProps}
@@ -817,7 +842,7 @@ class Field extends Form {
         width={width}
       >
         <TextFieldTyped
-          type={kind}
+          type={this.getKind()}
           selectAllOnFocus={true}
           width={fieldWidth}
           {...otherProps}
@@ -1591,7 +1616,7 @@ class Field extends Form {
   //#endregion
 
   renderReadonly() {
-    switch (this.props.kind) {
+    switch (this.getKind()) {
       case 'field':
       case 'string':
         return this.renderReadonlyField();
@@ -1661,7 +1686,7 @@ class Field extends Form {
   }
 
   renderEdit() {
-    switch (this.props.kind) {
+    switch (this.getKind()) {
       case 'field':
       case 'string':
         return this.renderEditField();
