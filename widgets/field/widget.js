@@ -122,6 +122,15 @@ function _getLabelText(entitySchema, model) {
   return entitySchema.get(`${model}.text`, null);
 }
 
+function _getTooltip(entitySchema, model) {
+  if (!entitySchema || !model) {
+    return null;
+  }
+
+  model = _normalizeModel(model);
+  return entitySchema.get(`${model}.description`, null);
+}
+
 /******************************************************************************/
 
 class Field extends Form {
@@ -191,6 +200,15 @@ class Field extends Form {
     }
   }
 
+  getTooltip() {
+    let tooltip = this.props.tooltip || this.props.hintText;
+    if (!tooltip) {
+      const entitySchema = this.getEntitySchema();
+      tooltip = _getTooltip(entitySchema, this.props.model);
+    }
+    return tooltip;
+  }
+
   /******************************************************************************/
 
   //#region Readonly
@@ -230,7 +248,7 @@ class Field extends Form {
           grow={fieldWidth ? null : '1'}
           {...otherProps}
           readonly={true}
-          tooltip={this.props.tooltip || this.props.hintText}
+          tooltip={this.getTooltip()}
         />
       </LabelRow>
     );
@@ -272,7 +290,7 @@ class Field extends Form {
           grow={fieldWidth ? null : '1'}
           {...otherProps}
           readonly={true}
-          tooltip={this.props.tooltip || this.props.hintText}
+          tooltip={this.getTooltip()}
         />
       </LabelRow>
     );
@@ -341,7 +359,7 @@ class Field extends Form {
           width={fieldWidth}
           {...otherProps}
           readonly={true}
-          tooltip={this.props.tooltip || this.props.hintText}
+          tooltip={this.getTooltip()}
         />
       </LabelRow>
     );
@@ -378,7 +396,7 @@ class Field extends Form {
           {...otherProps}
           readonly={true}
           entityFullPath={this.context.model}
-          tooltip={this.props.tooltip || this.props.hintText}
+          tooltip={this.getTooltip()}
         />
       </LabelRow>
     );
@@ -415,7 +433,7 @@ class Field extends Form {
           {...otherProps}
           readonly={true}
           entityFullPath={this.context.model}
-          tooltip={this.props.tooltip || this.props.hintText}
+          tooltip={this.getTooltip()}
         />
       </LabelRow>
     );
@@ -441,7 +459,7 @@ class Field extends Form {
           shape={this.props.shape}
           getGlyph={this.props.getGlyph}
           hintText={this.props.hintText}
-          tooltip={this.props.tooltip || this.props.hintText}
+          tooltip={this.getTooltip()}
           width={this.props.fieldWidth}
           hideButtonCombo={this.props.hideButtonCombo}
           selectedId={
@@ -492,7 +510,7 @@ class Field extends Form {
           kind={subkind}
           text={this.getLabelText()}
           {...otherProps}
-          tooltip={this.props.tooltip || this.props.hintText}
+          tooltip={this.getTooltip()}
           readonly={true}
         />
       </LabelRow>
@@ -738,7 +756,7 @@ class Field extends Form {
           width={fieldWidth}
           grow={fieldWidth ? null : '1'}
           {...otherProps}
-          tooltip={this.props.tooltip || this.props.hintText}
+          tooltip={this.getTooltip()}
         />
       </LabelRow>
     );
@@ -779,7 +797,7 @@ class Field extends Form {
           width={fieldWidth}
           grow={fieldWidth ? null : '1'}
           {...otherProps}
-          tooltip={this.props.tooltip || this.props.hintText}
+          tooltip={this.getTooltip()}
         />
       </LabelRow>
     );
@@ -846,7 +864,7 @@ class Field extends Form {
           selectAllOnFocus={true}
           width={fieldWidth}
           {...otherProps}
-          tooltip={this.props.tooltip || this.props.hintText}
+          tooltip={this.getTooltip()}
         />
       </LabelRow>
     );
@@ -903,7 +921,7 @@ class Field extends Form {
           selectAllOnFocus={true}
           {...otherProps}
           entityFullPath={this.context.model}
-          tooltip={this.props.tooltip || this.props.hintText}
+          tooltip={this.getTooltip()}
         />
       </LabelRow>
     );
@@ -939,7 +957,7 @@ class Field extends Form {
           selectAllOnFocus={true}
           {...otherProps}
           entityFullPath={this.context.model}
-          tooltip={this.props.tooltip || this.props.hintText}
+          tooltip={this.getTooltip()}
         />
       </LabelRow>
     );
@@ -964,7 +982,7 @@ class Field extends Form {
           shape={this.props.shape}
           getGlyph={this.props.getGlyph}
           hintText={this.props.hintText}
-          tooltip={this.props.tooltip || this.props.hintText}
+          tooltip={this.getTooltip()}
           width={this.props.fieldWidth}
           selectedId={C(this.props.model)}
           readonly={false}
@@ -1114,7 +1132,7 @@ class Field extends Form {
           heightStrategy={verticalSpacing === 'compact' ? 'compact' : null}
           text={this.getLabelText()}
           {...otherProps}
-          tooltip={this.props.tooltip || this.props.hintText}
+          tooltip={this.getTooltip()}
         />
       </LabelRow>
     );
@@ -1139,7 +1157,7 @@ class Field extends Form {
     return (
       <Dynamic
         grow="1"
-        tooltip={this.props.tooltip}
+        tooltip={this.getTooltip()}
         dateClicked={this.props.dateClicked}
         visibleDateChanged={this.props.visibleDateChanged}
         monthCount={this.props.monthCount}
@@ -1164,7 +1182,7 @@ class Field extends Form {
     return (
       <Dynamic
         grow="1"
-        tooltip={this.props.tooltip}
+        tooltip={this.getTooltip()}
         onBoardChanged={this.props.onBoardChanged}
       />
     );
@@ -1474,7 +1492,7 @@ class Field extends Form {
                     }
                     getGlyph={this.props.getGlyph}
                     hintText={this.props.hintText}
-                    tooltip={this.props.tooltip || this.props.hintText}
+                    tooltip={this.getTooltip()}
                     hinter={this.props.hinter}
                     comboType={this.props.hinter}
                     width={this.props.fieldWidth}
