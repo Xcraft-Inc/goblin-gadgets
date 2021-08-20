@@ -191,6 +191,16 @@ class Field extends Form {
     }
   }
 
+  getRestrictsToList() {
+    if (this.props.listModel || this.props.list) {
+      return this.props.restrictsToList;
+    } else {
+      const entitySchema = this.getEntitySchema();
+      const list = _getComboList(entitySchema, this.props.model);
+      return !!list;
+    }
+  }
+
   getLabelText() {
     if (this.props.labelText) {
       return this.props.labelText;
@@ -466,7 +476,7 @@ class Field extends Form {
             this.props.selectedId ? this.props.selectedId : C(this.props.model)
           }
           readonly={true}
-          restrictsToList={this.props.restrictsToList}
+          restrictsToList={this.getRestrictsToList()}
           required={this.props.required}
           list={this.getComboList()}
           menuType="wrap"
@@ -986,7 +996,7 @@ class Field extends Form {
           width={this.props.fieldWidth}
           selectedId={C(this.props.model)}
           readonly={false}
-          restrictsToList={this.props.restrictsToList}
+          restrictsToList={this.getRestrictsToList()}
           required={this.props.required}
           list={this.getComboList()}
           menuType="wrap"
