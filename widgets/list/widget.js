@@ -62,6 +62,8 @@ class List extends Widget {
       bottom,
       cache: this._listRef.cache,
     });
+
+    this._listRef = null;
   }
 
   _fetchInternal() {
