@@ -152,10 +152,11 @@ export default class LabelNC extends Widget {
           return (
             <Markdown
               key={index}
-              source={source}
               markdownVerticalSpacing={this.props.markdownVerticalSpacing}
               textColor={this.props.textColor}
-            />
+            >
+              {source}
+            </Markdown>
           );
         } else {
           const hasEol1 = text.includes('\n');
