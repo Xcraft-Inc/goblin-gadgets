@@ -119,7 +119,7 @@ class List extends Widget {
         index={index}
         listId={this.props.id}
         itemId={`${index}-item`}
-        height={this._height}
+        busyHeight={this._height}
         data={this.props.data}
       />
     );
