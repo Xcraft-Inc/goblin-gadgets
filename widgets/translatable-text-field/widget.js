@@ -343,10 +343,10 @@ class TranslatableTextField extends Widget {
     }
 
     const boxClass = this.showCombo
-      ? this.styles.classNames.shadowBox
+      ? this.styles.classNames.translatableTextFieldShadow
       : this.focus
-      ? this.styles.classNames.focusedBox
-      : this.styles.classNames.box;
+      ? this.styles.classNames.translatableTextFieldFocused
+      : this.styles.classNames.translatableTextField;
 
     return (
       <div disabled={this.props.disabled} className={boxClass}>
@@ -359,6 +359,7 @@ class TranslatableTextField extends Widget {
 }
 
 /******************************************************************************/
+
 export default Widget.connect((state, props) => {
   const locales = state.get('backend.nabu.locales');
 

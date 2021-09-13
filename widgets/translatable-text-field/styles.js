@@ -43,7 +43,7 @@ export default function styles(theme, props) {
     borderRadius = theme.shapes.actionRadius;
   }
 
-  const boxStyle = {
+  const translatableTextField = {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -61,16 +61,16 @@ export default function styles(theme, props) {
     opacity: opacity,
   };
 
-  const shadowBoxStyle = {...boxStyle};
-  shadowBoxStyle.boxShadow = theme.shapes.comboShadow;
-  shadowBoxStyle.borderRadius = borderRadius;
+  const translatableTextFieldShadow = {...translatableTextField};
+  translatableTextFieldShadow.boxShadow = theme.shapes.comboShadow;
+  translatableTextFieldShadow.borderRadius = borderRadius;
 
-  const focusedBoxStyle = {...boxStyle};
-  focusedBoxStyle.boxShadow =
+  const translatableTextFieldFocused = {...translatableTextField};
+  translatableTextFieldFocused.boxShadow =
     theme.shapes.focusedShadow + theme.palette.focused;
-  focusedBoxStyle.borderRadius = borderRadius;
+  translatableTextFieldFocused.borderRadius = borderRadius;
 
-  const comboBoxStyle = {
+  const comboBox = {
     position: 'absolute',
     right: comboDirection === 'right' ? null : '0px',
     left: comboDirection === 'right' ? '0px' : null,
@@ -82,11 +82,11 @@ export default function styles(theme, props) {
     boxShadow: theme.shapes.calendarShadow,
   };
 
-  const emptyComboStyle = {
+  const emptyCombo = {
     margin: theme.shapes.containerMargin,
   };
 
-  const nabuTextFieldStyle = {
+  const nabuTextField = {
     flexBasis: '0',
     flexShrink: '0',
     flexGrow: '1',
@@ -94,12 +94,12 @@ export default function styles(theme, props) {
   };
 
   return {
-    box: boxStyle,
-    shadowBox: shadowBoxStyle,
-    focusedBox: focusedBoxStyle,
-    comboBox: comboBoxStyle,
-    emptyCombo: emptyComboStyle,
-    nabuTextField: nabuTextFieldStyle,
+    translatableTextField,
+    translatableTextFieldShadow,
+    translatableTextFieldFocused,
+    comboBox,
+    emptyCombo,
+    nabuTextField,
   };
 }
 
