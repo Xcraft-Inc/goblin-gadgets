@@ -100,6 +100,8 @@ export default function styles(theme, props) {
     border: `1px solid ${theme.palette.textFieldBorderColor}`,
   };
 
+  /******************************************************************************/
+
   const editBackground = {
     position: 'fixed',
     left: '0px',
@@ -116,7 +118,6 @@ export default function styles(theme, props) {
     right: '10vw',
     top: '10vh',
     bottom: '10vh',
-    padding: '50px',
     display: 'flex',
     flexDirection: 'column',
     borderRadius: '4px',
@@ -125,10 +126,25 @@ export default function styles(theme, props) {
     zIndex: 10,
   };
 
+  const editTitle = {
+    height: '40px',
+    backgroundColor: theme.palette.base,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+  };
+
+  const editField = {
+    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    padding: '50px',
+  };
+
   const editClose = {
     position: 'absolute',
-    right: '0px',
-    top: '0px',
+    right: '4px',
+    top: '4px',
   };
 
   /******************************************************************************/
@@ -141,8 +157,11 @@ export default function styles(theme, props) {
     emptyCombo,
     nabuTextField,
     toolbar,
+
     editBackground,
     edit,
+    editTitle,
+    editField,
     editClose,
   };
 }

@@ -6,6 +6,7 @@ import MouseTrap from 'mousetrap';
 import ComboHelpers from 'goblin-gadgets/widgets/helpers/combo-helpers';
 import {Unit} from 'goblin-theme';
 import Button from 'goblin-gadgets/widgets/button/widget';
+import Label from 'goblin-gadgets/widgets/label/widget';
 import Combo from 'goblin-gadgets/widgets/combo/widget';
 import Select from 'goblin-gadgets/widgets/select/widget';
 
@@ -396,20 +397,29 @@ class TranslatableTextField extends Widget {
       <>
         <div className={this.styles.classNames.editBackground} />
         <div className={this.styles.classNames.edit}>
-          <NabuTextField
-            nabuId={nabuId}
-            localeName={this.state.selectedValue || this.props.defaultValue}
-            workitemId={this.props.id || this.context.id}
-            embeddedFocus={true}
-            className={this.styles.classNames.nabuTextField}
-            stretchHeight={true}
-          />
-          <div className={this.styles.classNames.editClose}>
-            <Button
-              border="none"
-              glyph="solid/times"
-              onClick={this.onHideEdit}
+          <div className={this.styles.classNames.editTitle}>
+            <Label
+              text={this.props.defaultValue}
+              textColor={this.context.theme.palette.light}
             />
+          </div>
+          <div className={this.styles.classNames.editField}>
+            <NabuTextField
+              nabuId={nabuId}
+              localeName={this.state.selectedValue || this.props.defaultValue}
+              workitemId={this.props.id || this.context.id}
+              embeddedFocus={true}
+              className={this.styles.classNames.nabuTextField}
+              stretchHeight={true}
+            />
+            <div className={this.styles.classNames.editClose}>
+              <Button
+                border="none"
+                glyph="solid/times"
+                glyphColor={this.context.theme.palette.light}
+                onClick={this.onHideEdit}
+              />
+            </div>
           </div>
         </div>
       </>
