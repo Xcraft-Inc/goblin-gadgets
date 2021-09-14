@@ -47,7 +47,7 @@ export default function styles(theme, props) {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+    alignItems: 'stretch',
     width,
     flexGrow: flexGrow,
     flexShrink: flexShrink,
@@ -93,6 +93,46 @@ export default function styles(theme, props) {
     width: '100%',
   };
 
+  const toolbar = {
+    marginLeft: '-1px',
+    display: 'flex',
+    flexDirection: 'column',
+    border: `1px solid ${theme.palette.textFieldBorderColor}`,
+  };
+
+  const editBackground = {
+    position: 'fixed',
+    left: '0px',
+    right: '0px',
+    top: '0px',
+    bottom: '0px',
+    backgroundColor: 'rgba(255,255,255,0.8)',
+    zIndex: 10,
+  };
+
+  const edit = {
+    position: 'fixed',
+    left: '10vw',
+    right: '10vw',
+    top: '10vh',
+    bottom: '10vh',
+    padding: '50px',
+    display: 'flex',
+    flexDirection: 'column',
+    borderRadius: '4px',
+    backgroundColor: theme.palette.light,
+    boxShadow: 'rgba(0,0,0,0.5) 0px 10px 50px 25px',
+    zIndex: 10,
+  };
+
+  const editClose = {
+    position: 'absolute',
+    right: '0px',
+    top: '0px',
+  };
+
+  /******************************************************************************/
+
   return {
     translatableTextField,
     translatableTextFieldShadow,
@@ -100,6 +140,10 @@ export default function styles(theme, props) {
     comboBox,
     emptyCombo,
     nabuTextField,
+    toolbar,
+    editBackground,
+    edit,
+    editClose,
   };
 }
 
