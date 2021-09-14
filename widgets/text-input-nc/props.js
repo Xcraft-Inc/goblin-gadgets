@@ -114,6 +114,11 @@ export default [
     max: 1000,
   },
   {
+    name: 'stretchHeight',
+    group: 'layout',
+    type: types.bool,
+  },
+  {
     name: 'grow',
     group: 'layout',
     type: types.grow,

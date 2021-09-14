@@ -43,11 +43,11 @@ export default function styles(theme, props) {
     borderRadius = theme.shapes.actionRadius;
   }
 
-  const boxStyle = {
+  const translatableTextField = {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+    alignItems: 'stretch',
     width,
     flexGrow: flexGrow,
     flexShrink: flexShrink,
@@ -61,16 +61,16 @@ export default function styles(theme, props) {
     opacity: opacity,
   };
 
-  const shadowBoxStyle = {...boxStyle};
-  shadowBoxStyle.boxShadow = theme.shapes.comboShadow;
-  shadowBoxStyle.borderRadius = borderRadius;
+  const translatableTextFieldShadow = {...translatableTextField};
+  translatableTextFieldShadow.boxShadow = theme.shapes.comboShadow;
+  translatableTextFieldShadow.borderRadius = borderRadius;
 
-  const focusedBoxStyle = {...boxStyle};
-  focusedBoxStyle.boxShadow =
+  const translatableTextFieldFocused = {...translatableTextField};
+  translatableTextFieldFocused.boxShadow =
     theme.shapes.focusedShadow + theme.palette.focused;
-  focusedBoxStyle.borderRadius = borderRadius;
+  translatableTextFieldFocused.borderRadius = borderRadius;
 
-  const comboBoxStyle = {
+  const comboBox = {
     position: 'absolute',
     right: comboDirection === 'right' ? null : '0px',
     left: comboDirection === 'right' ? '0px' : null,
@@ -82,24 +82,88 @@ export default function styles(theme, props) {
     boxShadow: theme.shapes.calendarShadow,
   };
 
-  const emptyComboStyle = {
+  const emptyCombo = {
     margin: theme.shapes.containerMargin,
   };
 
-  const nabuTextFieldStyle = {
+  const nabuTextField = {
     flexBasis: '0',
     flexShrink: '0',
     flexGrow: '1',
     width: '100%',
   };
 
+  const toolbar = {
+    marginLeft: '-1px',
+    display: 'flex',
+    flexDirection: 'column',
+    border: `1px solid ${theme.palette.textFieldBorderColor}`,
+  };
+
+  /******************************************************************************/
+
+  const editBackground = {
+    position: 'fixed',
+    left: '0px',
+    right: '0px',
+    top: '0px',
+    bottom: '0px',
+    backgroundColor: 'rgba(255,255,255,0.8)',
+    zIndex: 10,
+  };
+
+  const edit = {
+    position: 'fixed',
+    left: '10vw',
+    right: '10vw',
+    top: '10vh',
+    bottom: '10vh',
+    display: 'flex',
+    flexDirection: 'column',
+    borderRadius: '4px',
+    backgroundColor: theme.palette.light,
+    boxShadow: 'rgba(0,0,0,0.5) 0px 10px 50px 25px',
+    zIndex: 10,
+  };
+
+  const editTitle = {
+    height: '40px',
+    borderRadius: '4px 4px 0px 0px',
+    backgroundColor: theme.palette.base,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+  };
+
+  const editField = {
+    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    padding: '50px',
+  };
+
+  const editClose = {
+    position: 'absolute',
+    right: '4px',
+    top: '4px',
+  };
+
+  /******************************************************************************/
+
   return {
-    box: boxStyle,
-    shadowBox: shadowBoxStyle,
-    focusedBox: focusedBoxStyle,
-    comboBox: comboBoxStyle,
-    emptyCombo: emptyComboStyle,
-    nabuTextField: nabuTextFieldStyle,
+    translatableTextField,
+    translatableTextFieldShadow,
+    translatableTextFieldFocused,
+    comboBox,
+    emptyCombo,
+    nabuTextField,
+    toolbar,
+
+    editBackground,
+    edit,
+    editTitle,
+    editField,
+    editClose,
   };
 }
 
