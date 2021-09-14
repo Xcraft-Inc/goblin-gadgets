@@ -1,6 +1,7 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import ReactDOM from 'react-dom';
+import * as styles from './styles';
 
 import MouseTrap from 'mousetrap';
 import ComboHelpers from 'goblin-gadgets/widgets/helpers/combo-helpers';
@@ -13,8 +14,7 @@ import Select from 'goblin-gadgets/widgets/select/widget';
 import {isShredder} from 'xcraft-core-shredder';
 import NabuTextField from './text-field';
 import ToNabuObject from 'goblin-nabu/widgets/helpers/t.js';
-
-import * as styles from './styles';
+import T from 't';
 
 /******************************************************************************/
 
@@ -227,6 +227,36 @@ class TranslatableTextField extends Widget {
     }
   }
 
+  getLocale(list, locale) {
+    for (const x of list) {
+      if (x.value !== locale) {
+        return x;
+      }
+    }
+    return null;
+  }
+
+  getPrimaryLocale(list) {
+    return this.state.selectedValue || this.props.defaultValue;
+  }
+
+  getSecondaryLocale(list) {
+    const p = this.getPrimaryLocale(list);
+    const s = 'de_CH';
+    const de = this.getLocale(list, s);
+
+    if (p === 'fr_CH' && de) {
+      return s;
+    }
+
+    for (const x of list) {
+      if (x.value !== p) {
+        return x.value;
+      }
+    }
+    return null;
+  }
+
   /******************************************************************************/
 
   renderTextField() {
@@ -377,42 +407,72 @@ class TranslatableTextField extends Widget {
     }
   }
 
-  renderEdit(list) {
-    if (!this.showEdit) {
+  renderEditClose() {
+    return (
+      <div className={this.styles.classNames.editClose}>
+        <Button
+          border="none"
+          glyph="solid/times"
+          glyphColor={this.context.theme.palette.light}
+          onClick={this.onHideEdit}
+        />
+      </div>
+    );
+  }
+
+  renderEditLocale(list, locale) {
+    if (!locale) {
       return null;
     }
 
     const nabuId = `${this.context.entityId}${this.props.model}`;
 
-    const v = this.state.selectedValue || this.props.defaultValue;
-    const s = list.find((x) => x.value === v);
-    const title = s ? s.text : null;
+    const selected = list.find((x) => x.value === locale);
+    const title = selected ? selected.text : null;
+
+    return (
+      <div className={this.styles.classNames.editLocale}>
+        <div className={this.styles.classNames.editTitle}>
+          <Label text={title} textColor={this.context.theme.palette.light} />
+        </div>
+        <div className={this.styles.classNames.editField}>
+          <NabuTextField
+            nabuId={nabuId}
+            localeName={locale}
+            workitemId={this.props.id || this.context.id}
+            embeddedFocus={true}
+            className={this.styles.classNames.nabuTextField}
+            stretchHeight={true}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  renderEdit(list) {
+    if (!this.showEdit) {
+      return null;
+    }
+
+    const locale = this.state.selectedValue || this.props.defaultValue;
+    const selected = list.find((x) => x.value === locale);
+    const title = selected ? selected.text : null;
 
     return (
       <>
         <div className={this.styles.classNames.editBackground} />
         <div className={this.styles.classNames.edit}>
-          <div className={this.styles.classNames.editTitle}>
-            <Label text={title} textColor={this.context.theme.palette.light} />
-          </div>
-          <div className={this.styles.classNames.editField}>
-            <NabuTextField
-              nabuId={nabuId}
-              localeName={this.state.selectedValue || this.props.defaultValue}
-              workitemId={this.props.id || this.context.id}
-              embeddedFocus={true}
-              className={this.styles.classNames.nabuTextField}
-              stretchHeight={true}
+          <div className={this.styles.classNames.editHeader}>
+            <Label
+              text={T('Edition')}
+              textColor={this.context.theme.palette.light}
             />
-            <div className={this.styles.classNames.editClose}>
-              <Button
-                border="none"
-                glyph="solid/times"
-                glyphColor={this.context.theme.palette.light}
-                onClick={this.onHideEdit}
-              />
-            </div>
           </div>
+          <div className={this.styles.classNames.editLocales}>
+            {this.renderEditLocale(list, this.getPrimaryLocale(list))}
+            {this.renderEditLocale(list, this.getSecondaryLocale(list))}
+          </div>
+          {this.renderEditClose()}
         </div>
       </>
     );
