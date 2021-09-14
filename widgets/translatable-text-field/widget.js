@@ -367,16 +367,7 @@ class TranslatableTextField extends Widget {
     );
   }
 
-  renderCombo() {
-    let list = this.props.list || [];
-    if (isShredder(list)) {
-      list = list.toJS();
-    }
-    list = list.map((locale) => ({
-      value: locale.name,
-      text: locale.text || locale.name,
-    }));
-
+  renderCombo(list) {
     if (this.showCombo) {
       if (this.props.menuType === 'combo' || this.props.menuType === 'wrap') {
         return this.renderComboCombo(list);
@@ -386,22 +377,23 @@ class TranslatableTextField extends Widget {
     }
   }
 
-  renderEdit() {
+  renderEdit(list) {
     if (!this.showEdit) {
       return null;
     }
 
     const nabuId = `${this.context.entityId}${this.props.model}`;
 
+    const v = this.state.selectedValue || this.props.defaultValue;
+    const s = list.find((x) => x.value === v);
+    const title = s ? s.text : null;
+
     return (
       <>
         <div className={this.styles.classNames.editBackground} />
         <div className={this.styles.classNames.edit}>
           <div className={this.styles.classNames.editTitle}>
-            <Label
-              text={this.props.defaultValue}
-              textColor={this.context.theme.palette.light}
-            />
+            <Label text={title} textColor={this.context.theme.palette.light} />
           </div>
           <div className={this.styles.classNames.editField}>
             <NabuTextField
@@ -431,6 +423,15 @@ class TranslatableTextField extends Widget {
       return null;
     }
 
+    let list = this.props.list || [];
+    if (isShredder(list)) {
+      list = list.toJS();
+    }
+    list = list.map((locale) => ({
+      value: locale.name,
+      text: locale.text || locale.name,
+    }));
+
     const boxClass = this.showCombo
       ? this.styles.classNames.translatableTextFieldShadow
       : this.focus
@@ -441,8 +442,8 @@ class TranslatableTextField extends Widget {
       <div disabled={this.props.disabled} className={boxClass}>
         {this.renderTextField()}
         {this.renderToolbar()}
-        {this.renderCombo()}
-        {this.renderEdit()}
+        {this.renderCombo(list)}
+        {this.renderEdit(list)}
       </div>
     );
   }
