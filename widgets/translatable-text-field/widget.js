@@ -1,6 +1,6 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
-import ReactDOM from 'react-dom';
+import * as styles from './styles';
 
 import MouseTrap from 'mousetrap';
 import ComboHelpers from 'goblin-gadgets/widgets/helpers/combo-helpers';
@@ -8,13 +8,11 @@ import {Unit} from 'goblin-theme';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Combo from 'goblin-gadgets/widgets/combo/widget';
-import Select from 'goblin-gadgets/widgets/select/widget';
 
 import {isShredder} from 'xcraft-core-shredder';
 import NabuTextField from './text-field';
 import ToNabuObject from 'goblin-nabu/widgets/helpers/t.js';
-
-import * as styles from './styles';
+import T from 't';
 
 /******************************************************************************/
 
@@ -28,8 +26,34 @@ class TranslatableTextField extends Widget {
     super(...arguments);
     this.styles = styles;
 
+    this.mainButtonDiv = null;
+    this.primaryButtonDiv = null;
+    this.secondaryButtonDiv = null;
+
+    const primaryLocale = this.props.defaultValue;
+    let secondaryLocale = null;
+
+    let list = this.props.list || [];
+    if (isShredder(list)) {
+      list = list.toJS();
+    }
+    list = list.map((locale) => ({
+      value: locale.name,
+      text: locale.text || locale.name,
+    }));
+    this.list = list;
+
+    for (const x of list) {
+      if (x.value !== primaryLocale) {
+        secondaryLocale = x.value;
+        break;
+      }
+    }
+
     this.state = {
-      showCombo: false,
+      primaryLocale: primaryLocale,
+      secondaryLocale: secondaryLocale,
+      showCombo: null,
       showEdit: false,
       focus: false,
     };
@@ -61,6 +85,24 @@ class TranslatableTextField extends Widget {
   }
 
   //#region get/set
+  get primaryLocale() {
+    return this.state.primaryLocale;
+  }
+  set primaryLocale(value) {
+    this.setState({
+      primaryLocale: value,
+    });
+  }
+
+  get secondaryLocale() {
+    return this.state.secondaryLocale;
+  }
+  set secondaryLocale(value) {
+    this.setState({
+      secondaryLocale: value,
+    });
+  }
+
   get showCombo() {
     return this.state.showCombo;
   }
@@ -101,35 +143,40 @@ class TranslatableTextField extends Widget {
   //   return false;
   // }
 
-  onShowCombo() {
+  onShowCombo(position) {
     if (!this.props.list) {
       return;
     }
-    const node = ReactDOM.findDOMNode(this);
 
-    const itemCount = this.props.list.size
-      ? this.props.list.size
-      : this.props.list.length; // FIXME: pouèrk !
+    let node = this.mainButtonDiv;
+    switch (position) {
+      case 'primary':
+        node = this.primaryButtonDiv;
+        break;
+      case 'secondary':
+        node = this.secondaryButtonDiv;
+        break;
+    }
+
+    if (!node) {
+      return;
+    }
+
+    const itemCount = this.list.length;
 
     this.comboLocation = ComboHelpers.getComboLocation(
       node,
       this.context.theme.shapes.flyingBalloonTriangleSize,
       this.context.theme.shapes.flyingBalloonPadding,
       itemCount,
-      this.props.menuItemWidth,
+      '200px',
       this.context.theme.shapes.menuButtonHeight, // height of Button kind='combo-wrap-item'
       null,
       null,
       Unit.multiply(this.context.theme.shapes.dialogDistanceFromEdge, 2)
     );
 
-    this.selectLocation = ComboHelpers.getSelectLocation(
-      node,
-      this.context.theme.shapes.flyingBalloonTriangleSize,
-      this.context.theme.shapes.flyingBalloonPadding
-    );
-
-    this.showCombo = true;
+    this.showCombo = position || 'main';
 
     const x = this.props.onShowCombo;
     if (x) {
@@ -138,7 +185,7 @@ class TranslatableTextField extends Widget {
   }
 
   onHideCombo() {
-    this.showCombo = false;
+    this.showCombo = null;
   }
 
   onShowEdit() {
@@ -183,7 +230,7 @@ class TranslatableTextField extends Widget {
 
   onMouseUp() {
     if (this.props.readonly) {
-      this.onShowCombo();
+      this.onShowCombo('main');
     }
   }
 
@@ -193,44 +240,48 @@ class TranslatableTextField extends Widget {
     }
 
     e.preventDefault();
-    this.onShowCombo();
+    this.onShowCombo('mainb');
   }
 
-  setValue(value) {
-    this.setState({
-      selectedValue: value,
-    });
+  /******************************************************************************/
+
+  getLocale() {
+    if (this.showCombo === 'primary') {
+      return this.primaryLocale;
+    } else if (this.showCombo === 'secondary') {
+      return this.secondaryLocale;
+    } else {
+      return this.primaryLocale;
+    }
+  }
+
+  setLocale(value) {
+    if (this.showCombo === 'primary') {
+      this.primaryLocale = value;
+    } else if (this.showCombo === 'secondary') {
+      this.secondaryLocale = value;
+    } else {
+      this.primaryLocale = value;
+    }
   }
 
   getItem(item) {
-    const active =
-      this.state.selectedValue === item.value ||
-      (!this.state.selectedValue && this.props.defaultValue === item.value);
+    const currentLocale = this.getLocale();
+    const active = currentLocale === item.value;
 
-    if (this.props.menuType === 'wrap') {
-      return {
-        text: item.text,
-        value: item.value,
-        glyph: item.glyph,
-        color: item.color,
-        active: active,
-        action: () => this.setValue(item.value),
-      };
-    } else {
-      return {
-        text: item.text,
-        value: item.value,
-        glyph: active ? 'check' : 'none',
-        active: active,
-        action: () => this.setValue(item.value),
-      };
-    }
+    return {
+      text: item.text,
+      value: item.value,
+      glyph: active ? 'check' : 'none',
+      active: active,
+      action: () => this.setLocale(item.value),
+    };
   }
 
   /******************************************************************************/
 
   renderTextField() {
-    const {shape, list, model, defaultValue, ...other} = this.props;
+    const {shape, model, defaultValue, ...other} = this.props;
 
     const s = shape || 'smooth';
     const textFieldShapes = {
@@ -243,7 +294,7 @@ class TranslatableTextField extends Widget {
     return (
       <NabuTextField
         nabuId={nabuId}
-        localeName={this.state.selectedValue || defaultValue}
+        localeName={this.primaryLocale}
         workitemId={this.props.id || this.context.id}
         shape={textFieldShape}
         embeddedFocus={true}
@@ -257,21 +308,20 @@ class TranslatableTextField extends Widget {
   }
 
   renderButtonCombo() {
-    let glyph = 'solid/flag';
-    if (this.props.comboGlyph) {
-      glyph = this.props.comboGlyph;
-    }
+    const glyph = this.props.comboGlyph || 'solid/flag';
 
     return (
-      <Button
-        width="32px"
-        height="32px"
-        border="none"
-        glyph={glyph}
-        glyphSize="100%"
-        disabled={this.props.disabled}
-        onClick={this.onShowCombo}
-      />
+      <div ref={(x) => (this.mainButtonDiv = x)}>
+        <Button
+          width="32px"
+          height="32px"
+          border="none"
+          glyph={glyph}
+          glyphSize="100%"
+          disabled={this.props.disabled}
+          onClick={() => this.onShowCombo('main')}
+        />
+      </div>
     );
   }
 
@@ -280,14 +330,12 @@ class TranslatableTextField extends Widget {
       return null;
     }
 
-    const glyph = 'solid/pen';
-
     return (
       <Button
         width="32px"
         height="32px"
         border="none"
-        glyph={glyph}
+        glyph="solid/pen"
         glyphSize="100%"
         disabled={this.props.disabled}
         onClick={this.onShowEdit}
@@ -304,19 +352,22 @@ class TranslatableTextField extends Widget {
     );
   }
 
-  renderComboCombo(list) {
+  /******************************************************************************/
+
+  renderCombo() {
+    if (!this.showCombo || !this.comboLocation) {
+      return null;
+    }
+
     const x = [];
-    for (var item of list) {
+    for (var item of this.list) {
       x.push(this.getItem(item));
     }
+
     return (
       <Combo
-        menuType={this.props.menuType}
-        menuItemWidth={
-          this.props.menuType === 'wrap'
-            ? this.comboLocation.menuItemWidth
-            : this.props.menuItemWidth
-        }
+        menuType="combo"
+        menuItemWidth="200px"
         menuItemTooltips={this.props.menuItemTooltips}
         left={this.comboLocation.center}
         triangleShift={this.comboLocation.triangleShift}
@@ -331,119 +382,119 @@ class TranslatableTextField extends Widget {
     );
   }
 
-  renderComboSelect(list) {
-    const x = [];
-    let index = 0;
-    let defaultIndex = null;
+  /******************************************************************************/
 
-    for (let item of list) {
-      if (
-        this.state.selectedValue === item.value ||
-        (!this.state.selectedValue && this.props.defaultValue === item.value)
-      ) {
-        defaultIndex = index;
-      }
-      x.push({
-        text: item.text,
-        action: () => this.setValue(item.value),
-      });
-      index++;
-    }
-
+  renderEditClose() {
     return (
-      <Select
-        menuType={this.props.menuType}
-        menuItemWidth={this.props.menuItemWidth}
-        left={this.selectLocation.left}
-        width={this.selectLocation.width}
-        top={this.selectLocation.top}
-        bottom={this.selectLocation.bottom}
-        maxHeight={this.selectLocation.maxHeight}
-        list={x}
-        defaultIndex={defaultIndex}
-        comboTextTransform={this.props.comboTextTransform}
-        close={this.onHideCombo}
-      />
+      <div className={this.styles.classNames.editClose}>
+        <Button
+          border="none"
+          glyph="solid/times"
+          glyphColor={this.context.theme.palette.light}
+          onClick={this.onHideEdit}
+        />
+      </div>
     );
   }
 
-  renderCombo(list) {
-    if (this.showCombo) {
-      if (this.props.menuType === 'combo' || this.props.menuType === 'wrap') {
-        return this.renderComboCombo(list);
-      } else {
-        return this.renderComboSelect(list);
-      }
-    }
-  }
-
-  renderEdit(list) {
-    if (!this.showEdit) {
+  renderEditLocale(position, locale) {
+    if (!locale) {
       return null;
     }
 
     const nabuId = `${this.context.entityId}${this.props.model}`;
 
-    const v = this.state.selectedValue || this.props.defaultValue;
-    const s = list.find((x) => x.value === v);
-    const title = s ? s.text : null;
+    const selected = this.list.find((x) => x.value === locale);
+    const title = selected ? selected.text : null;
+
+    return (
+      <div className={this.styles.classNames.editLocale}>
+        <div className={this.styles.classNames.editTitle}>
+          <Label
+            text={title}
+            justify="center"
+            textColor={this.context.theme.palette.light}
+            grow="1"
+          />
+          <div
+            ref={(x) => {
+              if (position === 'primary') {
+                this.primaryButtonDiv = x;
+              } else {
+                this.secondaryButtonDiv = x;
+              }
+            }}
+          >
+            <Button
+              width="32px"
+              height="32px"
+              border="none"
+              glyph="solid/flag"
+              glyphSize="100%"
+              glyphColor={this.context.theme.palette.light}
+              onClick={() => this.onShowCombo(position)}
+            />
+          </div>
+        </div>
+        <div className={this.styles.classNames.editField}>
+          <NabuTextField
+            nabuId={nabuId}
+            localeName={locale}
+            workitemId={this.props.id || this.context.id}
+            embeddedFocus={true}
+            className={this.styles.classNames.nabuTextField}
+            stretchHeight={true}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  renderEdit() {
+    if (!this.showEdit) {
+      return null;
+    }
 
     return (
       <>
         <div className={this.styles.classNames.editBackground} />
         <div className={this.styles.classNames.edit}>
-          <div className={this.styles.classNames.editTitle}>
-            <Label text={title} textColor={this.context.theme.palette.light} />
-          </div>
-          <div className={this.styles.classNames.editField}>
-            <NabuTextField
-              nabuId={nabuId}
-              localeName={this.state.selectedValue || this.props.defaultValue}
-              workitemId={this.props.id || this.context.id}
-              embeddedFocus={true}
-              className={this.styles.classNames.nabuTextField}
-              stretchHeight={true}
+          <div className={this.styles.classNames.editHeader}>
+            <Label
+              text={T('Edition')}
+              textColor={this.context.theme.palette.light}
             />
-            <div className={this.styles.classNames.editClose}>
-              <Button
-                border="none"
-                glyph="solid/times"
-                glyphColor={this.context.theme.palette.light}
-                onClick={this.onHideEdit}
-              />
-            </div>
           </div>
+          <div className={this.styles.classNames.editLocales}>
+            {this.renderEditLocale('primary', this.primaryLocale)}
+            {this.renderEditLocale('secondary', this.secondaryLocale)}
+          </div>
+          {this.renderEditClose()}
         </div>
       </>
     );
   }
+
+  /******************************************************************************/
 
   render() {
     if (this.props.show === false) {
       return null;
     }
 
-    let list = this.props.list || [];
-    if (isShredder(list)) {
-      list = list.toJS();
-    }
-    list = list.map((locale) => ({
-      value: locale.name,
-      text: locale.text || locale.name,
-    }));
-
-    const boxClass = this.showCombo
-      ? this.styles.classNames.translatableTextFieldShadow
-      : this.focus
-      ? this.styles.classNames.translatableTextFieldFocused
-      : this.styles.classNames.translatableTextField;
+    const boxClass =
+      this.showCombo === 'main'
+        ? this.styles.classNames.translatableTextFieldShadow
+        : this.focus
+        ? this.styles.classNames.translatableTextFieldFocused
+        : this.styles.classNames.translatableTextField;
 
     return (
-      <div disabled={this.props.disabled} className={boxClass}>
+      <div className={boxClass} disabled={this.props.disabled}>
         {this.renderTextField()}
         {this.renderToolbar()}
-        {this.renderCombo(list)}
-        {this.renderEdit(list)}
+        {this.renderEdit()}
+        {this.renderCombo()}
       </div>
     );
   }

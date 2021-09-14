@@ -1,5 +1,5 @@
 import * as SpacingHelpers from 'goblin-gadgets/widgets/helpers/spacing-helpers';
-import {Unit} from 'goblin-theme';
+import {ColorManipulator, Unit} from 'goblin-theme';
 
 /******************************************************************************/
 
@@ -126,7 +126,7 @@ export default function styles(theme, props) {
     zIndex: 10,
   };
 
-  const editTitle = {
+  const editHeader = {
     height: '40px',
     borderRadius: '4px 4px 0px 0px',
     backgroundColor: theme.palette.base,
@@ -135,11 +135,37 @@ export default function styles(theme, props) {
     justifyContent: 'center',
   };
 
-  const editField = {
+  const editLocales = {
+    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'row',
+    margin: '50px',
+  };
+
+  const editLocale = {
     flexGrow: 1,
     display: 'flex',
     flexDirection: 'column',
-    padding: '50px',
+    margin: '0px 10px',
+  };
+
+  const editTitle = {
+    height: '40px',
+    borderRadius: '4px 4px 0px 0px',
+    // backgroundColor: ColorManipulator.darken(theme.palette.light, 0.3),
+    backgroundColor: theme.palette.textFieldBorderColor,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '0px 4px',
+  };
+
+  const editField = {
+    marginTop: '-1px',
+    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',
   };
 
   const editClose = {
@@ -161,6 +187,9 @@ export default function styles(theme, props) {
 
     editBackground,
     edit,
+    editHeader,
+    editLocales,
+    editLocale,
     editTitle,
     editField,
     editClose,

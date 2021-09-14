@@ -120,31 +120,6 @@ function getComboLocation(
   };
 }
 
-// Compute the location for a select-menu.
-function getSelectLocation(node, triangleSize, padding) {
-  const rect = node.getBoundingClientRect();
-
-  const topValue = Unit.add(px(window.innerHeight - rect.top), triangleSize);
-  const bottomValue = Unit.add(px(rect.bottom), triangleSize);
-
-  const tv = Unit.parse(triangleSize).value;
-  const underMax = px(window.innerHeight - rect.bottom - tv - 20);
-  const overMax = px(rect.top - tv - 20);
-  const underside = (rect.top + rect.bottom) / 2 < window.innerHeight / 2;
-
-  const width = Unit.sub(px(rect.width), Unit.multiply(padding, 2));
-
-  const offset = getFlyingOffset();
-
-  return {
-    left: Unit.sub(px(rect.left), offset.left),
-    width: width,
-    top: underside ? Unit.sub(bottomValue, offset.top) : null,
-    bottom: underside ? null : Unit.sub(topValue, offset.top),
-    maxHeight: underside ? underMax : overMax,
-  };
-}
-
 // Compute the location for a menu.
 function getMenuLocation(triangleSize, x, y) {
   // Compute horizontal position according to component.
@@ -236,7 +211,6 @@ function verticalDeclipping(height, center, distanceFromEdge) {
 module.exports = {
   getComboRightLocation,
   getComboLocation,
-  getSelectLocation,
   getMenuLocation,
   getVerticalDialogLocation,
   horizontalDeclipping,
