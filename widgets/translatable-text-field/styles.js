@@ -157,6 +157,8 @@ export default function styles(theme, props) {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
+    alignItems: 'center',
+    padding: '0px 4px',
   };
 
   const editField = {
