@@ -6,6 +6,7 @@ import {Unit} from 'goblin-theme';
 export const propNames = [
   'grow',
   'width',
+  'stretchHeight',
   'visibility',
   'horizontalSpacing',
   'shape',
@@ -32,6 +33,7 @@ export default function styles(theme, props) {
   const {
     grow,
     width,
+    stretchHeight,
     visibility,
     horizontalSpacing,
     shape,
@@ -200,6 +202,7 @@ export default function styles(theme, props) {
 
   const textarea = {
     width: '100%',
+    height: stretchHeight ? 'calc(100% - 16px)' : null,
     flexGrow: 1,
     fontSize: '100%',
     paddingTop: '8px',
