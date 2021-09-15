@@ -18,6 +18,7 @@
     "immutable": "4.0.0-rc.14",
     "xcraft-core-goblin": "^4.0.1",
     "xcraft-core-utils": "^3.0.0",
+    "goblin-nabu": "^1.0.1",
     "goblin-toolbox": "^0.0.1"
   },
   "devDependencies": {
