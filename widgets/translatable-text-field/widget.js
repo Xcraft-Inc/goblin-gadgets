@@ -51,7 +51,6 @@ class TranslatableTextField extends Widget {
     this.list = list;
 
     this.state = {
-      currentLocale: this.props.defaultValue,
       showCombo: null,
       showEdit: false,
       focus: false,
@@ -84,15 +83,6 @@ class TranslatableTextField extends Widget {
   }
 
   //#region get/set
-  get currentLocale() {
-    return this.state.currentLocale;
-  }
-  set currentLocale(value) {
-    this.setState({
-      currentLocale: value,
-    });
-  }
-
   get showCombo() {
     return this.state.showCombo;
   }
@@ -285,7 +275,7 @@ class TranslatableTextField extends Widget {
     } else if (this.showCombo === 'secondary') {
       return this.getSecondaryLocale();
     } else {
-      return this.currentLocale;
+      return this.getPrimaryLocale();
     }
   }
 
@@ -295,13 +285,12 @@ class TranslatableTextField extends Widget {
     } else if (this.showCombo === 'secondary') {
       this.setSecondaryLocale(value);
     } else {
-      this.currentLocale = value;
+      this.setPrimaryLocale(value);
     }
   }
 
   getItem(item) {
-    const currentLocale = this.getLocale();
-    const active = currentLocale === item.value;
+    const active = item.value === this.getLocale();
 
     return {
       text: item.text,
@@ -328,7 +317,7 @@ class TranslatableTextField extends Widget {
     return (
       <NabuTextField
         nabuId={nabuId}
-        localeName={this.currentLocale}
+        localeName={this.getPrimaryLocale()}
         workitemId={this.props.id || this.context.id}
         shape={textFieldShape}
         embeddedFocus={true}
@@ -342,7 +331,7 @@ class TranslatableTextField extends Widget {
   }
 
   renderButtonCombo() {
-    const text = localeToText(this.currentLocale);
+    const text = localeToText(this.getPrimaryLocale());
 
     return (
       <div ref={(x) => (this.mainButtonDiv = x)}>
@@ -353,24 +342,6 @@ class TranslatableTextField extends Widget {
           border="none"
           text={text}
           fontSize="80%"
-          disabled={this.props.disabled}
-          onClick={() => this.onShowCombo('main')}
-        />
-      </div>
-    );
-  }
-
-  renderButtonCombo_OLD() {
-    const glyph = this.props.comboGlyph || 'solid/flag';
-
-    return (
-      <div ref={(x) => (this.mainButtonDiv = x)}>
-        <Button
-          width="32px"
-          height="32px"
-          border="none"
-          glyph={glyph}
-          glyphSize="100%"
           disabled={this.props.disabled}
           onClick={() => this.onShowCombo('main')}
         />
