@@ -354,12 +354,14 @@ class TranslatableTextField extends Widget {
       return null;
     }
 
+    const glyph = this.props.readonly ? 'solid/eye' : 'solid/pen';
+
     return (
       <Button
         width="32px"
         height="32px"
         border="none"
-        glyph="solid/pen"
+        glyph={glyph}
         glyphSize="100%"
         disabled={this.props.disabled}
         onClick={this.onShowEdit}
@@ -471,6 +473,7 @@ class TranslatableTextField extends Widget {
             embeddedFocus={true}
             className={this.styles.classNames.nabuTextField}
             stretchHeight={true}
+            readonly={this.props.readonly}
           />
         </div>
       </div>
