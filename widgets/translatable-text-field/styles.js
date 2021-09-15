@@ -102,44 +102,10 @@ export default function styles(theme, props) {
 
   /******************************************************************************/
 
-  const editBackground = {
-    position: 'fixed',
-    left: '0px',
-    right: '0px',
-    top: '0px',
-    bottom: '0px',
-    backgroundColor: 'rgba(255,255,255,0.8)',
-    zIndex: 10,
-  };
-
   const edit = {
-    position: 'fixed',
-    left: '10vw',
-    right: '10vw',
-    top: '10vh',
-    bottom: '10vh',
-    display: 'flex',
-    flexDirection: 'column',
-    borderRadius: '4px',
-    backgroundColor: theme.palette.light,
-    boxShadow: 'rgba(0,0,0,0.5) 0px 10px 50px 25px',
-    zIndex: 10,
-  };
-
-  const editHeader = {
-    height: '40px',
-    borderRadius: '4px 4px 0px 0px',
-    backgroundColor: theme.palette.base,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-  };
-
-  const editLocales = {
     flexGrow: 1,
     display: 'flex',
     flexDirection: 'row',
-    margin: '50px',
   };
 
   const editLocale = {
@@ -152,7 +118,6 @@ export default function styles(theme, props) {
   const editTitle = {
     height: '40px',
     borderRadius: '4px 4px 0px 0px',
-    // backgroundColor: ColorManipulator.darken(theme.palette.light, 0.3),
     backgroundColor: theme.palette.textFieldBorderColor,
     display: 'flex',
     flexDirection: 'row',
@@ -185,10 +150,7 @@ export default function styles(theme, props) {
     nabuTextField,
     toolbar,
 
-    editBackground,
     edit,
-    editHeader,
-    editLocales,
     editLocale,
     editTitle,
     editField,
