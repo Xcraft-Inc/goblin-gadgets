@@ -1,6 +1,5 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
-import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 const prettier = require('prettier/standalone');
 
 class GoblinEditor extends Widget {
@@ -23,7 +22,7 @@ class GoblinEditor extends Widget {
         [],
         [
           {
-            range: new monaco.Range(3, 1, 3, 1),
+            range: new this.monaco.Range(3, 1, 3, 1),
             options: {
               isWholeLine: true,
               className: 'prettierError',
@@ -44,8 +43,11 @@ class GoblinEditor extends Widget {
     this.editorElement = component;
   }
 
-  componentDidMount() {
-    this.init();
+  componentWillMount() {
+    import('monaco-editor/esm/vs/editor/editor.api').then((mod) => {
+      this.monaco = mod;
+      this.init();
+    });
   }
 
   componentWillUnmount() {
@@ -66,7 +68,7 @@ class GoblinEditor extends Widget {
   init() {
     const templateSrc = this.props.source;
 
-    const model = monaco.editor.createModel(templateSrc, 'javascript');
+    const model = this.monaco.editor.createModel(templateSrc, 'javascript');
     this.model = model;
     this._subscription = model.onDidChangeContent(() => {
       if (this.props.onUpdate) {
@@ -75,7 +77,7 @@ class GoblinEditor extends Widget {
       }
     });
 
-    this.editor = monaco.editor.create(this.editorElement, {
+    this.editor = this.monaco.editor.create(this.editorElement, {
       language: 'javascript',
       lineNumbers: 'on',
       scrollbar: {
@@ -90,7 +92,7 @@ class GoblinEditor extends Widget {
     if (this.props.onUpdate) {
       this.props.onUpdate(templateSrc);
     }
-    monaco.editor.setTheme('vs');
+    this.monaco.editor.setTheme('vs');
     this.format();
   }
 
