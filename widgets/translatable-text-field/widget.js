@@ -30,9 +30,6 @@ class TranslatableTextField extends Widget {
     this.primaryButtonDiv = null;
     this.secondaryButtonDiv = null;
 
-    const primaryLocale = this.props.defaultValue;
-    let secondaryLocale = null;
-
     let list = this.props.list || [];
     if (isShredder(list)) {
       list = list.toJS();
@@ -43,16 +40,8 @@ class TranslatableTextField extends Widget {
     }));
     this.list = list;
 
-    for (const x of list) {
-      if (x.value !== primaryLocale) {
-        secondaryLocale = x.value;
-        break;
-      }
-    }
-
     this.state = {
-      primaryLocale: primaryLocale,
-      secondaryLocale: secondaryLocale,
+      currentLocale: this.props.defaultValue,
       showCombo: null,
       showEdit: false,
       focus: false,
@@ -85,21 +74,12 @@ class TranslatableTextField extends Widget {
   }
 
   //#region get/set
-  get primaryLocale() {
-    return this.state.primaryLocale;
+  get currentLocale() {
+    return this.state.currentLocale;
   }
-  set primaryLocale(value) {
+  set currentLocale(value) {
     this.setState({
-      primaryLocale: value,
-    });
-  }
-
-  get secondaryLocale() {
-    return this.state.secondaryLocale;
-  }
-  set secondaryLocale(value) {
-    this.setState({
-      secondaryLocale: value,
+      currentLocale: value,
     });
   }
 
@@ -127,6 +107,50 @@ class TranslatableTextField extends Widget {
   set focus(value) {
     this.setState({
       focus: value,
+    });
+  }
+  //#endregion
+
+  //#region state in user session
+  getPrimaryLocale() {
+    let locale = this.props.translatableState.get('primaryLocale', null);
+    if (!locale) {
+      locale = this.props.defaultValue;
+    }
+    return locale;
+  }
+
+  getSecondaryLocale() {
+    let locale = this.props.translatableState.get('secondaryLocale', null);
+    if (!locale) {
+      const primaryLocale = this.getPrimaryLocale();
+      for (const x of this.list) {
+        if (x.value !== primaryLocale) {
+          locale = x.value;
+          break;
+        }
+      }
+    }
+    return locale;
+  }
+
+  setPrimaryLocale(locale) {
+    const newState = {
+      primaryLocale: locale,
+      secondaryLocale: this.getSecondaryLocale(),
+    };
+    this.doFor(this.props.clientSessionId, 'set-translatable-text-field', {
+      state: newState,
+    });
+  }
+
+  setSecondaryLocale(locale) {
+    const newState = {
+      primaryLocale: this.getPrimaryLocale(),
+      secondaryLocale: locale,
+    };
+    this.doFor(this.props.clientSessionId, 'set-translatable-text-field', {
+      state: newState,
     });
   }
   //#endregion
@@ -247,21 +271,21 @@ class TranslatableTextField extends Widget {
 
   getLocale() {
     if (this.showCombo === 'primary') {
-      return this.primaryLocale;
+      return this.getPrimaryLocale();
     } else if (this.showCombo === 'secondary') {
-      return this.secondaryLocale;
+      return this.getSecondaryLocale();
     } else {
-      return this.primaryLocale;
+      return this.currentLocale;
     }
   }
 
   setLocale(value) {
     if (this.showCombo === 'primary') {
-      this.primaryLocale = value;
+      this.setPrimaryLocale(value);
     } else if (this.showCombo === 'secondary') {
-      this.secondaryLocale = value;
+      this.setSecondaryLocale(value);
     } else {
-      this.primaryLocale = value;
+      this.currentLocale = value;
     }
   }
 
@@ -294,7 +318,7 @@ class TranslatableTextField extends Widget {
     return (
       <NabuTextField
         nabuId={nabuId}
-        localeName={this.primaryLocale}
+        localeName={this.currentLocale}
         workitemId={this.props.id || this.context.id}
         shape={textFieldShape}
         embeddedFocus={true}
@@ -466,8 +490,8 @@ class TranslatableTextField extends Widget {
             />
           </div>
           <div className={this.styles.classNames.editLocales}>
-            {this.renderEditLocale('primary', this.primaryLocale)}
-            {this.renderEditLocale('secondary', this.secondaryLocale)}
+            {this.renderEditLocale('primary', this.getPrimaryLocale())}
+            {this.renderEditLocale('secondary', this.getSecondaryLocale())}
           </div>
           {this.renderEditClose()}
         </div>
@@ -509,12 +533,18 @@ export default Widget.connect((state, props) => {
     return {};
   }
 
-  const selectedLocaleId = Widget.getUserSession(state).get('locale');
+  const userSession = Widget.getUserSession(state);
+  const clientSessionId = userSession.get('id');
+  const translatableState = userSession.get('translatableTextField');
+
+  const selectedLocaleId = userSession.get('locale');
   const defaultLocale =
     locales.find((locale) => locale.get('id') === selectedLocaleId) ||
     locales.first();
 
   return {
+    clientSessionId,
+    translatableState,
     list: locales,
     defaultValue: defaultLocale.get('name'),
   };
