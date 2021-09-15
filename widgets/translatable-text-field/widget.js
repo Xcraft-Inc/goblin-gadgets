@@ -8,6 +8,7 @@ import {Unit} from 'goblin-theme';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Combo from 'goblin-gadgets/widgets/combo/widget';
+import DialogModal from 'goblin-gadgets/widgets/dialog-modal/widget';
 
 import {isShredder} from 'xcraft-core-shredder';
 import NabuTextField from './text-field';
@@ -486,22 +487,24 @@ class TranslatableTextField extends Widget {
     }
 
     return (
-      <>
-        <div className={this.styles.classNames.editBackground} />
+      <DialogModal
+        id="goblin-gadgets/translatable-text-field"
+        resizable={true}
+        zIndex="10"
+        title={T('Edition')}
+        minWidth="600px"
+        minHeight="400px"
+        width="1000px"
+        height="600px"
+        horizontal="0px"
+        vertical="0px"
+        close={this.onHideEdit}
+      >
         <div className={this.styles.classNames.edit}>
-          <div className={this.styles.classNames.editHeader}>
-            <Label
-              text={T('Edition')}
-              textColor={this.context.theme.palette.light}
-            />
-          </div>
-          <div className={this.styles.classNames.editLocales}>
-            {this.renderEditLocale('primary', this.getPrimaryLocale())}
-            {this.renderEditLocale('secondary', this.getSecondaryLocale())}
-          </div>
-          {this.renderEditClose()}
+          {this.renderEditLocale('primary', this.getPrimaryLocale())}
+          {this.renderEditLocale('secondary', this.getSecondaryLocale())}
         </div>
-      </>
+      </DialogModal>
     );
   }
 
