@@ -1,7 +1,7 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
-import prettier from 'prettier';
+const prettier = require('prettier/standalone');
 
 class GoblinEditor extends Widget {
   constructor() {
