@@ -21,6 +21,16 @@ function WrapT(...args) {
   return ToNabuObject(...args);
 }
 
+function localeToText(locale) {
+  if (locale) {
+    return locale.substring(0, 2).toUpperCase();
+  } else {
+    return null;
+  }
+}
+
+/******************************************************************************/
+
 class TranslatableTextField extends Widget {
   constructor() {
     super(...arguments);
@@ -36,7 +46,7 @@ class TranslatableTextField extends Widget {
     }
     list = list.map((locale) => ({
       value: locale.name,
-      text: locale.text || locale.name,
+      text: `${localeToText(locale.name)} — ${locale.text}`,
     }));
     this.list = list;
 
@@ -332,6 +342,25 @@ class TranslatableTextField extends Widget {
   }
 
   renderButtonCombo() {
+    const text = localeToText(this.currentLocale);
+
+    return (
+      <div ref={(x) => (this.mainButtonDiv = x)}>
+        <Button
+          kind="compact"
+          width="32px"
+          height="32px"
+          border="none"
+          text={text}
+          fontSize="80%"
+          disabled={this.props.disabled}
+          onClick={() => this.onShowCombo('main')}
+        />
+      </div>
+    );
+  }
+
+  renderButtonCombo_OLD() {
     const glyph = this.props.comboGlyph || 'solid/flag';
 
     return (
@@ -431,6 +460,8 @@ class TranslatableTextField extends Widget {
     const selected = this.list.find((x) => x.value === locale);
     const title = selected ? selected.text : null;
 
+    const l = localeToText(locale);
+
     return (
       <div className={this.styles.classNames.editLocale}>
         <div className={this.styles.classNames.editTitle}>
@@ -450,11 +481,12 @@ class TranslatableTextField extends Widget {
             }}
           >
             <Button
+              kind="compact"
               width="32px"
               height="32px"
               border="none"
-              glyph="solid/flag"
-              glyphSize="100%"
+              text={l}
+              fontSize="80%"
               glyphColor={this.context.theme.palette.light}
               onClick={() => this.onShowCombo(position)}
             />

@@ -75,6 +75,7 @@ export default [
       'combo',
       'combo-item',
       'combo-wrap-item',
+      'compact',
       'container',
       'desk-title',
       'disabled-light',
