@@ -16,14 +16,14 @@
   },
   "dependencies": {
     "immutable": "4.0.0-rc.14",
-    "xcraft-core-goblin": "^4.0.1",
-    "xcraft-core-utils": "^3.0.0",
-    "goblin-nabu": "^1.0.1",
+    "xcraft-core-goblin": "^5.0.0",
+    "xcraft-core-utils": "^4.0.0",
+    "goblin-nabu": "^2.0.0",
     "goblin-toolbox": "^0.0.1"
   },
   "devDependencies": {
     "@fortawesome/react-fontawesome": "^0.1.9",
-    "goblin-theme": "^1.0.0",
+    "goblin-theme": "^2.0.0",
     "leaflet": "1.2.0",
     "mocha": "^5.2.0",
     "monaco-editor": "^0.27.0",
@@ -36,7 +36,7 @@
     "react-markdown": "^7.0.1",
     "react-pivottable": "^0.7.0",
     "scroll-into-view-if-needed": "^1.4.0",
-    "xcraft-core-shredder": "^4.0.0",
+    "xcraft-core-shredder": "^5.0.0",
     "xcraft-dev-prettier": "^2.0.0",
     "xcraft-dev-rules": "^2.0.0"
   },
