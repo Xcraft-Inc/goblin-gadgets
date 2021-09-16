@@ -384,6 +384,14 @@ class TranslatableTextField extends Widget {
 
     const x = [];
     for (var item of this.list) {
+      if (
+        (this.showCombo === 'primary' &&
+          item.value === this.getPrimaryLocale()) ||
+        (this.showCombo === 'secondary' &&
+          item.value === this.getSecondaryLocale())
+      ) {
+        continue;
+      }
       x.push(this.getItem(item));
     }
 
