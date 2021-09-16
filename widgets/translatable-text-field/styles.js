@@ -61,14 +61,11 @@ export default function styles(theme, props) {
     opacity: opacity,
   };
 
-  const translatableTextFieldShadow = {...translatableTextField};
-  translatableTextFieldShadow.boxShadow = theme.shapes.comboShadow;
-  translatableTextFieldShadow.borderRadius = borderRadius;
-
-  const translatableTextFieldFocused = {...translatableTextField};
-  translatableTextFieldFocused.boxShadow =
-    theme.shapes.focusedShadow + theme.palette.focused;
-  translatableTextFieldFocused.borderRadius = borderRadius;
+  const translatableTextFieldFocused = {
+    ...translatableTextField,
+    boxShadow: theme.shapes.focusedShadow + theme.palette.focused,
+    borderRadius,
+  };
 
   const comboBox = {
     position: 'absolute',
@@ -143,7 +140,6 @@ export default function styles(theme, props) {
 
   return {
     translatableTextField,
-    translatableTextFieldShadow,
     translatableTextFieldFocused,
     comboBox,
     emptyCombo,

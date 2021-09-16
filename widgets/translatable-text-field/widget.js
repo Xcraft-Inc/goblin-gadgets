@@ -59,9 +59,6 @@ class TranslatableTextField extends Widget {
 
     this.comboLocation = null;
 
-    this.renderTextField = this.renderTextField.bind(this);
-    this.renderButton = this.renderButtonCombo.bind(this);
-    this.renderCombo = this.renderCombo.bind(this);
     this.onFocus = this.onFocus.bind(this);
     this.onBlur = this.onBlur.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
@@ -70,6 +67,7 @@ class TranslatableTextField extends Widget {
     this.onHideCombo = this.onHideCombo.bind(this);
     this.onShowEdit = this.onShowEdit.bind(this);
     this.onHideEdit = this.onHideEdit.bind(this);
+    this.swapLocales = this.swapLocales.bind(this);
   }
 
   componentDidMount() {
@@ -154,19 +152,17 @@ class TranslatableTextField extends Widget {
       state: newState,
     });
   }
-  //#endregion
 
-  // get focus () {
-  //   const state = this.getState ();
-  //   const parentModel = this.context.model;
-  //   const model = this.props.model;
-  //   const forms = Widget.shred (state.forms);
-  //   const form = forms.get (`${parentModel}${model}`);
-  //   if (form) {
-  //     return form.get ('focus');
-  //   }
-  //   return false;
-  // }
+  swapLocales() {
+    const newState = {
+      primaryLocale: this.getSecondaryLocale(),
+      secondaryLocale: this.getPrimaryLocale(),
+    };
+    this.doFor(this.props.clientSessionId, 'set-translatable-text-field', {
+      state: newState,
+    });
+  }
+  //#endregion
 
   onShowCombo(position) {
     if (!this.props.list) {
@@ -388,6 +384,14 @@ class TranslatableTextField extends Widget {
 
     const x = [];
     for (var item of this.list) {
+      if (
+        (this.showCombo === 'primary' &&
+          item.value === this.getPrimaryLocale()) ||
+        (this.showCombo === 'secondary' &&
+          item.value === this.getSecondaryLocale())
+      ) {
+        continue;
+      }
       x.push(this.getItem(item));
     }
 
@@ -435,19 +439,23 @@ class TranslatableTextField extends Widget {
     const title = selected ? selected.text : null;
 
     const l = localeToText(locale);
+    const isPrimary = position === 'primary';
 
     return (
       <div className={this.styles.classNames.editLocale}>
         <div className={this.styles.classNames.editTitle}>
-          <Label
-            text={title}
-            justify="center"
-            textColor={this.context.theme.palette.light}
-            grow="1"
+          <Label text={title} justify="center" grow="1" />
+          <Button
+            kind="compact"
+            width="32px"
+            height="32px"
+            border="none"
+            glyph={isPrimary ? 'solid/chevron-right' : 'solid/chevron-left'}
+            onClick={this.swapLocales}
           />
           <div
             ref={(x) => {
-              if (position === 'primary') {
+              if (isPrimary) {
                 this.primaryButtonDiv = x;
               } else {
                 this.secondaryButtonDiv = x;
@@ -461,7 +469,6 @@ class TranslatableTextField extends Widget {
               border="none"
               text={l}
               fontSize="80%"
-              glyphColor={this.context.theme.palette.light}
               onClick={() => this.onShowCombo(position)}
             />
           </div>
@@ -515,12 +522,9 @@ class TranslatableTextField extends Widget {
       return null;
     }
 
-    const boxClass =
-      this.showCombo === 'main'
-        ? this.styles.classNames.translatableTextFieldShadow
-        : this.focus
-        ? this.styles.classNames.translatableTextFieldFocused
-        : this.styles.classNames.translatableTextField;
+    const boxClass = this.focus
+      ? this.styles.classNames.translatableTextFieldFocused
+      : this.styles.classNames.translatableTextField;
 
     return (
       <div className={boxClass} disabled={this.props.disabled}>
