@@ -164,18 +164,6 @@ class TranslatableTextField extends Widget {
   }
   //#endregion
 
-  // get focus () {
-  //   const state = this.getState ();
-  //   const parentModel = this.context.model;
-  //   const model = this.props.model;
-  //   const forms = Widget.shred (state.forms);
-  //   const form = forms.get (`${parentModel}${model}`);
-  //   if (form) {
-  //     return form.get ('focus');
-  //   }
-  //   return false;
-  // }
-
   onShowCombo(position) {
     if (!this.props.list) {
       return;
@@ -526,12 +514,9 @@ class TranslatableTextField extends Widget {
       return null;
     }
 
-    const boxClass =
-      this.showCombo === 'main'
-        ? this.styles.classNames.translatableTextFieldShadow
-        : this.focus
-        ? this.styles.classNames.translatableTextFieldFocused
-        : this.styles.classNames.translatableTextField;
+    const boxClass = this.focus
+      ? this.styles.classNames.translatableTextFieldFocused
+      : this.styles.classNames.translatableTextField;
 
     return (
       <div className={boxClass} disabled={this.props.disabled}>
