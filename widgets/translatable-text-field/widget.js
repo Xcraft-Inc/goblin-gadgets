@@ -14,6 +14,7 @@ import {isShredder} from 'xcraft-core-shredder';
 import NabuTextField from './text-field';
 import ToNabuObject from 'goblin-nabu/widgets/helpers/t.js';
 import T from 't';
+import SchemaHelpers from 'goblin-toolbox/lib/schema-helpers';
 
 /******************************************************************************/
 
@@ -28,23 +29,6 @@ function localeToText(locale) {
   } else {
     return null;
   }
-}
-
-function _normalizeModel(model) {
-  if (model.startsWith('.')) {
-    return model.substring(1); // remove "."
-  } else {
-    return model;
-  }
-}
-
-function _getLabelText(entitySchema, model) {
-  if (!entitySchema || !model) {
-    return null;
-  }
-
-  model = _normalizeModel(model);
-  return entitySchema.get(`${model}.text`, null);
 }
 
 /******************************************************************************/
@@ -192,7 +176,7 @@ class TranslatableTextField extends Widget {
 
   getLabelText() {
     const entitySchema = this.getEntitySchema();
-    return _getLabelText(entitySchema, this.props.model);
+    return SchemaHelpers.getLabelText(entitySchema, this.props.model);
   }
 
   /******************************************************************************/

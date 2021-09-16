@@ -32,6 +32,7 @@ import DirectoryInput from 'goblin-gadgets/widgets/directory-input/widget';
 import StateBrowser from 'goblin-gadgets/widgets/state-browser/widget';
 
 import Plugin from 'goblin-desktop/widgets/plugin/widget';
+import SchemaHelpers from 'goblin-toolbox/lib/schema-helpers';
 
 import importer from 'goblin_importer';
 import HinterField from 'goblin-gadgets/widgets/hinter-field/widget';
@@ -61,74 +62,6 @@ function getPluginProps(propsToFilter) {
     }
     return props;
   }, {});
-}
-
-/******************************************************************************/
-
-function _normalizeModel(model) {
-  if (model.startsWith('.')) {
-    return model.substring(1); // remove "."
-  } else {
-    return model;
-  }
-}
-
-function _getComboList(entitySchema, model) {
-  if (!entitySchema || !model) {
-    return null;
-  }
-
-  model = _normalizeModel(model);
-  const valuesInfo = entitySchema.get(`${model}.valuesInfo`);
-  if (!valuesInfo) {
-    return null;
-  }
-
-  const result = [];
-  valuesInfo.forEach((value, id) => {
-    const item = {
-      id,
-      text: value.get('text'),
-      glyph: value.get('glyph'),
-      color: value.get('color'),
-    };
-    result.push(item);
-  });
-  return result;
-}
-
-function _getKind(entitySchema, model) {
-  if (!entitySchema || !model) {
-    return null;
-  }
-
-  model = _normalizeModel(model);
-  const type = entitySchema.get(`${model}.type`, null);
-
-  let kind = type;
-  if (type === 'enum') {
-    kind = 'combo';
-  }
-
-  return kind;
-}
-
-function _getLabelText(entitySchema, model) {
-  if (!entitySchema || !model) {
-    return null;
-  }
-
-  model = _normalizeModel(model);
-  return entitySchema.get(`${model}.text`, null);
-}
-
-function _getTooltip(entitySchema, model) {
-  if (!entitySchema || !model) {
-    return null;
-  }
-
-  model = _normalizeModel(model);
-  return entitySchema.get(`${model}.description`, null);
 }
 
 /******************************************************************************/
@@ -175,8 +108,7 @@ class Field extends Form {
     if (this.props.kind) {
       return this.props.kind;
     } else {
-      const entitySchema = this.getEntitySchema();
-      return _getKind(entitySchema, this.props.model);
+      return SchemaHelpers.getKind(this.getEntitySchema(), this.props.model);
     }
   }
 
@@ -186,8 +118,10 @@ class Field extends Form {
     } else if (this.props.list) {
       return this.props.list;
     } else {
-      const entitySchema = this.getEntitySchema();
-      return _getComboList(entitySchema, this.props.model);
+      return SchemaHelpers.getComboList(
+        this.getEntitySchema(),
+        this.props.model
+      );
     }
   }
 
@@ -195,8 +129,10 @@ class Field extends Form {
     if (this.props.listModel || this.props.list) {
       return this.props.restrictsToList;
     } else {
-      const entitySchema = this.getEntitySchema();
-      const list = _getComboList(entitySchema, this.props.model);
+      const list = SchemaHelpers.getComboList(
+        this.getEntitySchema(),
+        this.props.model
+      );
       return !!list;
     }
   }
@@ -205,16 +141,20 @@ class Field extends Form {
     if (this.props.labelText) {
       return this.props.labelText;
     } else {
-      const entitySchema = this.getEntitySchema();
-      return _getLabelText(entitySchema, this.props.model);
+      return SchemaHelpers.getLabelText(
+        this.getEntitySchema(),
+        this.props.model
+      );
     }
   }
 
   getTooltip() {
     let tooltip = this.props.tooltip || this.props.hintText;
     if (!tooltip) {
-      const entitySchema = this.getEntitySchema();
-      tooltip = _getTooltip(entitySchema, this.props.model);
+      tooltip = SchemaHelpers.getTooltip(
+        this.getEntitySchema(),
+        this.props.model
+      );
     }
     return tooltip;
   }
