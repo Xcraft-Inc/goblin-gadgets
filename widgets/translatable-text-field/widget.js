@@ -30,6 +30,23 @@ function localeToText(locale) {
   }
 }
 
+function _normalizeModel(model) {
+  if (model.startsWith('.')) {
+    return model.substring(1); // remove "."
+  } else {
+    return model;
+  }
+}
+
+function _getLabelText(entitySchema, model) {
+  if (!entitySchema || !model) {
+    return null;
+  }
+
+  model = _normalizeModel(model);
+  return entitySchema.get(`${model}.text`, null);
+}
+
 /******************************************************************************/
 
 class TranslatableTextField extends Widget {
@@ -163,6 +180,22 @@ class TranslatableTextField extends Widget {
     });
   }
   //#endregion
+
+  getEntitySchema() {
+    const entityId = this.context.entityId; // by example "portfolio@e564950b-cd9f-4d35-abd0-b85bf93017f1"
+    if (entityId) {
+      const entityType = entityId.split('@', 2)[0]; // by example "portfolio"
+      return this.getSchema(entityType);
+    }
+    return null;
+  }
+
+  getLabelText() {
+    const entitySchema = this.getEntitySchema();
+    return _getLabelText(entitySchema, this.props.model);
+  }
+
+  /******************************************************************************/
 
   onShowCombo(position) {
     if (!this.props.list) {
@@ -415,19 +448,6 @@ class TranslatableTextField extends Widget {
 
   /******************************************************************************/
 
-  renderEditClose() {
-    return (
-      <div className={this.styles.classNames.editClose}>
-        <Button
-          border="none"
-          glyph="solid/times"
-          glyphColor={this.context.theme.palette.light}
-          onClick={this.onHideEdit}
-        />
-      </div>
-    );
-  }
-
   renderEditLocale(position, locale) {
     if (!locale) {
       return null;
@@ -498,7 +518,7 @@ class TranslatableTextField extends Widget {
         id="goblin-gadgets/translatable-text-field"
         resizable={true}
         zIndex="10"
-        title={T('Edition')}
+        title={this.getLabelText() || T('Edition')}
         minWidth="600px"
         minHeight="400px"
         width="1000px"
