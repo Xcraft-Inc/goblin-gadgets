@@ -3,11 +3,26 @@ import Widget from 'goblin-laboratory/widgets/widget';
 import Form from 'goblin-laboratory/widgets/form';
 
 import TextField from 'goblin-gadgets/widgets/text-field/widget';
+import Markdown from 'goblin-gadgets/widgets/markdown/widget';
+import C from 'goblin-laboratory/widgets/connect-helpers/c';
+import withC from 'goblin-laboratory/widgets/connect-helpers/with-c';
 
 const {
   computeMessageId,
   computeTranslationId,
 } = require('goblin-nabu/lib/helpers.js');
+
+/******************************************************************************/
+
+const MarkdownConnected = withC(Markdown, {source: 'onChange'});
+
+const MarkdownFinal = (props) => {
+  let {value, model, ...otherProps} = props;
+  if (model) {
+    value = C(model);
+  }
+  return <MarkdownConnected {...otherProps} source={value} />;
+};
 
 /******************************************************************************/
 
@@ -81,11 +96,19 @@ class NabuTextField extends Form {
       props.selectedId = this.props.selectedId;
     }
 
-    return (
-      <Form {...this.formConfig} className={this.props.className}>
-        <TextField {...props} />
-      </Form>
-    );
+    if (this.props.preview) {
+      return (
+        <Form {...this.formConfig} className={this.props.className}>
+          <MarkdownFinal {...props} />
+        </Form>
+      );
+    } else {
+      return (
+        <Form {...this.formConfig} className={this.props.className}>
+          <TextField {...props} />
+        </Form>
+      );
+    }
   }
 }
 

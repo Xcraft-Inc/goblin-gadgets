@@ -107,6 +107,7 @@ export default function styles(theme, props) {
 
   const editLocale = {
     flexGrow: 1,
+    flexBasis: 0,
     display: 'flex',
     flexDirection: 'column',
     margin: '0px 10px',
@@ -124,16 +125,19 @@ export default function styles(theme, props) {
   };
 
   const editField = {
-    marginTop: '-1px',
+    margin: '-1px 0px 10px 0px',
     flexGrow: 1,
+    flexBasis: 0,
     display: 'flex',
     flexDirection: 'column',
   };
 
-  const editClose = {
-    position: 'absolute',
-    right: '4px',
-    top: '4px',
+  const editMarkdown = {
+    flexGrow: 1,
+    flexBasis: 0,
+    overflowY: 'auto',
+    padding: '10px',
+    border: `1px solid ${theme.palette.textFieldBorderColor}`,
   };
 
   /******************************************************************************/
@@ -150,7 +154,7 @@ export default function styles(theme, props) {
     editLocale,
     editTitle,
     editField,
-    editClose,
+    editMarkdown,
   };
 }
 

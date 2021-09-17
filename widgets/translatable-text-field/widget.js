@@ -477,7 +477,22 @@ class TranslatableTextField extends Widget {
             />
           </div>
         </div>
-        <div className={this.styles.classNames.editField}>
+        {this.props.readonly ? null : (
+          <div className={this.styles.classNames.editField}>
+            <NabuTextField
+              nabuId={nabuId}
+              localeName={locale}
+              workitemId={this.props.id || this.context.id}
+              embeddedFocus={true}
+              className={this.styles.classNames.nabuTextField}
+              stretchHeight={true}
+              readonly={this.props.readonly}
+              changeMode="throttled"
+              throttleDelay={20}
+            />
+          </div>
+        )}
+        <div className={this.styles.classNames.editMarkdown}>
           <NabuTextField
             nabuId={nabuId}
             localeName={locale}
@@ -485,7 +500,7 @@ class TranslatableTextField extends Widget {
             embeddedFocus={true}
             className={this.styles.classNames.nabuTextField}
             stretchHeight={true}
-            readonly={this.props.readonly}
+            preview={true}
           />
         </div>
       </div>
