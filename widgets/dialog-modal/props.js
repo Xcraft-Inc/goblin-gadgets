@@ -49,6 +49,11 @@ export default [
     type: types.bool,
   },
   {
+    name: 'enterKeyStaysInside',
+    group: 'main',
+    type: types.bool,
+  },
+  {
     name: 'close',
     group: 'main',
     type: types.function,

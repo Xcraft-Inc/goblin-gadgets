@@ -102,13 +102,17 @@ class DialogResizable extends Widget {
 
   UNSAFE_componentWillMount() {
     KeyTrap.bind('Escape', this.onCloseDialog);
-    KeyTrap.bind('Enter', this.onCloseDialog);
+    if (!this.props.enterKeyStaysInside) {
+      KeyTrap.bind('Enter', this.onCloseDialog);
+    }
   }
 
   componentWillUnmount() {
     super.componentWillUnmount();
     KeyTrap.unbind('Escape', this.onCloseDialog);
-    KeyTrap.unbind('Enter', this.onCloseDialog);
+    if (!this.props.enterKeyStaysInside) {
+      KeyTrap.unbind('Enter', this.onCloseDialog);
+    }
   }
 
   changeRectangle(rectangle) {

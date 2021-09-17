@@ -26,13 +26,17 @@ export default class DialogModal extends Widget {
 
   UNSAFE_componentWillMount() {
     KeyTrap.bind('Escape', this.onCloseCombo);
-    KeyTrap.bind('Enter', this.onCloseCombo);
+    if (!this.props.enterKeyStaysInside) {
+      KeyTrap.bind('Enter', this.onCloseCombo);
+    }
   }
 
   componentWillUnmount() {
     super.componentWillUnmount();
     KeyTrap.unbind('Escape', this.onCloseCombo);
-    KeyTrap.unbind('Enter', this.onCloseCombo);
+    if (!this.props.enterKeyStaysInside) {
+      KeyTrap.unbind('Enter', this.onCloseCombo);
+    }
   }
 
   onCloseCombo() {
@@ -239,6 +243,7 @@ export default class DialogModal extends Widget {
               horizontal="0px"
               vertical="0px"
               drawChildrenWhileResizing={true}
+              enterKeyStaysInside={this.props.enterKeyStaysInside}
               onCloseDialog={this.onCloseCombo}
             >
               {this.renderScrews()}
