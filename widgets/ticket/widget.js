@@ -134,9 +134,6 @@ export default class Ticket extends Widget {
   renderTicket() {
     const styles = this.styles;
     const boxClass = styles.classNames.box;
-    const farShadowClass = styles.classNames.farShadow;
-    const shadowClass = styles.classNames.shadow;
-    const shadowPathClass = styles.classNames.shadowPath;
     const shapeClass = styles.classNames.shape;
     const shapePathClass = styles.classNames.shapePath;
     const hatchDefClass = styles.classNames.hatchDef;
@@ -161,14 +158,7 @@ export default class Ticket extends Widget {
         throw new Error('Undefined ticket width or height');
       }
     }
-    const htmlFarShadow = this.props.shadow ? (
-      <div className={farShadowClass} />
-    ) : null;
-    const htmlShadow = this.props.shadow ? null : (
-      <svg width={w} height={h} className={shadowClass}>
-        <path className={shadowPathClass} />
-      </svg>
-    );
+
     const htmlShape = (
       <svg width={w} height={h} className={shapeClass}>
         <path className={shapePathClass} />
@@ -228,8 +218,6 @@ export default class Ticket extends Widget {
         onTouchStart={this.onMouseDown}
         onTouchEnd={this.onMouseUp}
       >
-        {htmlFarShadow}
-        {htmlShadow}
         {htmlShape}
         {htmlHatchDef}
         {htmlHatch}

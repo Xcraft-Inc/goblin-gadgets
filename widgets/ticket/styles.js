@@ -19,6 +19,7 @@ export const propNames = [
   'hideContent',
   'cornerPosition',
   'cornerSize',
+  'shadow',
 ];
 
 /******************************************************************************/
@@ -56,28 +57,13 @@ export default function styles(theme, props) {
     opacity: boxOpacity,
   };
 
-  const shadow = {
-    position: 'absolute',
-    top: theme.shapes.ticketShadowShift,
-    fill: theme.palette.ticketShadow,
-  };
-
-  const shadowPath = {
-    d: `path("${outlinePath}")`,
-  };
-
-  const farShadow = {
-    position: 'absolute',
-    width: props.width,
-    height: props.height,
-    borderRadius: '10px',
-    boxShadow: '0px 10px 23px 4px rgba(0, 0, 0, 0.3)',
-  };
-
   const shape = {
     position: 'absolute',
     fill: props.color,
     transition: theme.transitions.easeOut(),
+    filter: props.shadow
+      ? 'drop-shadow(0px 10px 16px rgba(0, 0, 0, 0.3))'
+      : 'drop-shadow(0px  2px  1px rgba(0, 0, 0, 0.3))',
   };
 
   const shapePath = {
@@ -318,9 +304,6 @@ export default function styles(theme, props) {
 
   return {
     box,
-    farShadow,
-    shadow,
-    shadowPath,
     shape,
     shapePath,
     hatch,
