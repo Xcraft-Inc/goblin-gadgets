@@ -13,11 +13,11 @@ export default class Markdown extends Widget {
   }
 
   render() {
+    const {source, ...rest} = this.props;
     return (
-      <ReactMarkdown
-        className={this.styles.classNames.markdown}
-        {...this.props}
-      />
+      <ReactMarkdown className={this.styles.classNames.markdown} {...rest}>
+        {source}
+      </ReactMarkdown>
     );
   }
 }
