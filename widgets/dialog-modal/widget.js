@@ -47,7 +47,7 @@ export default class DialogModal extends Widget {
   }
 
   onBackgroundClick(e) {
-    if (!this.props.backgroundClose) {
+    if (!this.props.backgroundClose || !this.divNode) {
       return;
     }
 
@@ -227,10 +227,7 @@ export default class DialogModal extends Widget {
           onMouseDown={this.onBackgroundClick}
           onTouchStart={this.onBackgroundClick}
         >
-          <div
-            ref={(node) => (this.divNode = node)}
-            className={this.styles.classNames.dialogModal}
-          >
+          <div className={this.styles.classNames.dialogModal}>
             <DialogResizable
               id={this.props.id}
               zIndex={this.props.zIndex}

@@ -536,7 +536,6 @@ class TranslatableTextField extends Widget {
       <DialogModal
         id="goblin-gadgets/translatable-text-field"
         resizable={true}
-        backgroundClose={true}
         enterKeyStaysInside={true}
         zIndex="10"
         title={this.getLabelText() || T('Edition')}
