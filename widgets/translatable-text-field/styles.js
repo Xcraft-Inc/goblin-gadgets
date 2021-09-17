@@ -1,5 +1,5 @@
 import * as SpacingHelpers from 'goblin-gadgets/widgets/helpers/spacing-helpers';
-import {ColorManipulator, Unit} from 'goblin-theme';
+import {Unit} from 'goblin-theme';
 
 /******************************************************************************/
 
@@ -10,6 +10,7 @@ export const propNames = [
   'shape',
   'width',
   'comboDirection',
+  'rows',
 ];
 
 export default function styles(theme, props) {
@@ -20,6 +21,7 @@ export default function styles(theme, props) {
     shape,
     width,
     comboDirection,
+    rows,
   } = props;
 
   let flexGrow = grow;
@@ -84,9 +86,9 @@ export default function styles(theme, props) {
   };
 
   const nabuTextField = {
-    flexBasis: '0',
-    flexShrink: '0',
-    flexGrow: '1',
+    flexBasis: 0,
+    flexShrink: 0,
+    flexGrow: 1,
     width: '100%',
   };
 
@@ -140,6 +142,18 @@ export default function styles(theme, props) {
     border: `1px solid ${theme.palette.textFieldBorderColor}`,
   };
 
+  const editReadonly = {
+    border: `1px solid ${theme.palette.textFieldBorderColor}`,
+    flexBasis: 0,
+    flexShrink: 0,
+    flexGrow: 1,
+    width: '100%',
+    height: Unit.multiply('20px', rows || 10),
+    fontSize: '75%',
+    padding: '0px 10px',
+    overflowY: 'auto',
+  };
+
   /******************************************************************************/
 
   return {
@@ -155,6 +169,7 @@ export default function styles(theme, props) {
     editTitle,
     editField,
     editMarkdown,
+    editReadonly,
   };
 }
 

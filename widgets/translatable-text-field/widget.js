@@ -328,20 +328,40 @@ class TranslatableTextField extends Widget {
     const textFieldShape = textFieldShapes[s];
     const nabuId = `${this.context.entityId}${model}`;
 
-    return (
-      <NabuTextField
-        nabuId={nabuId}
-        localeName={this.getPrimaryLocale()}
-        workitemId={this.props.id || this.context.id}
-        shape={textFieldShape}
-        embeddedFocus={true}
-        onFocus={this.onFocus}
-        onBlur={this.onBlur}
-        onMouseUp={this.onMouseUp}
-        className={this.styles.classNames.nabuTextField}
-        {...other}
-      />
-    );
+    if (this.props.readonly && this.props.rows && this.props.rows > 1) {
+      return (
+        <div className={this.styles.classNames.editReadonly}>
+          <NabuTextField
+            nabuId={nabuId}
+            localeName={this.getPrimaryLocale()}
+            workitemId={this.props.id || this.context.id}
+            shape={textFieldShape}
+            embeddedFocus={true}
+            onFocus={this.onFocus}
+            onBlur={this.onBlur}
+            onMouseUp={this.onMouseUp}
+            className={this.styles.classNames.nabuTextField}
+            preview={true}
+            {...other}
+          />
+        </div>
+      );
+    } else {
+      return (
+        <NabuTextField
+          nabuId={nabuId}
+          localeName={this.getPrimaryLocale()}
+          workitemId={this.props.id || this.context.id}
+          shape={textFieldShape}
+          embeddedFocus={true}
+          onFocus={this.onFocus}
+          onBlur={this.onBlur}
+          onMouseUp={this.onMouseUp}
+          className={this.styles.classNames.nabuTextField}
+          {...other}
+        />
+      );
+    }
   }
 
   renderButtonCombo() {
