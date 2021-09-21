@@ -9,6 +9,7 @@ import Button from 'goblin-gadgets/widgets/button/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Combo from 'goblin-gadgets/widgets/combo/widget';
 import DialogModal from 'goblin-gadgets/widgets/dialog-modal/widget';
+import Splitter from 'goblin-gadgets/widgets/splitter/widget';
 
 import {isShredder} from 'xcraft-core-shredder';
 import NabuTextField from './text-field';
@@ -452,12 +453,10 @@ class TranslatableTextField extends Widget {
 
   /******************************************************************************/
 
-  renderEditLocale(position, locale) {
+  renderEditLocaleTitle(position, locale) {
     if (!locale) {
       return null;
     }
-
-    const nabuId = `${this.context.entityId}${this.props.model}`;
 
     const selected = this.list.find((x) => x.value === locale);
     const title = selected ? selected.text : null;
@@ -466,38 +465,61 @@ class TranslatableTextField extends Widget {
     const isPrimary = position === 'primary';
 
     return (
-      <div className={this.styles.classNames.editLocale}>
-        <div className={this.styles.classNames.editTitle}>
-          <Label text={title} justify="center" grow="1" />
+      <div className={this.styles.classNames.editTitle}>
+        <Label text={title} justify="center" grow="1" />
+        <Button
+          kind="compact"
+          width="32px"
+          height="32px"
+          border="none"
+          glyph={isPrimary ? 'solid/chevron-right' : 'solid/chevron-left'}
+          onClick={this.swapLocales}
+        />
+        <div
+          ref={(x) => {
+            if (isPrimary) {
+              this.primaryButtonDiv = x;
+            } else {
+              this.secondaryButtonDiv = x;
+            }
+          }}
+        >
           <Button
             kind="compact"
             width="32px"
             height="32px"
             border="none"
-            glyph={isPrimary ? 'solid/chevron-right' : 'solid/chevron-left'}
-            onClick={this.swapLocales}
+            text={l}
+            fontSize="80%"
+            onClick={() => this.onShowCombo(position)}
           />
-          <div
-            ref={(x) => {
-              if (isPrimary) {
-                this.primaryButtonDiv = x;
-              } else {
-                this.secondaryButtonDiv = x;
-              }
-            }}
-          >
-            <Button
-              kind="compact"
-              width="32px"
-              height="32px"
-              border="none"
-              text={l}
-              fontSize="80%"
-              onClick={() => this.onShowCombo(position)}
+        </div>
+      </div>
+    );
+  }
+
+  renderEditLocaleUp(position, locale) {
+    if (!locale) {
+      return null;
+    }
+
+    const nabuId = `${this.context.entityId}${this.props.model}`;
+
+    return (
+      <div className={this.styles.classNames.editLocale}>
+        {this.props.readonly ? (
+          <div className={this.styles.classNames.editMarkdown}>
+            <NabuTextField
+              nabuId={nabuId}
+              localeName={locale}
+              workitemId={this.props.id || this.context.id}
+              embeddedFocus={true}
+              className={this.styles.classNames.nabuTextField}
+              stretchHeight={true}
+              preview={true}
             />
           </div>
-        </div>
-        {this.props.readonly ? null : (
+        ) : (
           <div className={this.styles.classNames.editField}>
             <NabuTextField
               nabuId={nabuId}
@@ -506,12 +528,25 @@ class TranslatableTextField extends Widget {
               embeddedFocus={true}
               className={this.styles.classNames.nabuTextField}
               stretchHeight={true}
-              readonly={this.props.readonly}
+              readonly={false}
               changeMode="throttled"
               throttleDelay={20}
             />
           </div>
         )}
+      </div>
+    );
+  }
+
+  renderEditLocaleDown(position, locale) {
+    if (!locale || this.props.readonly) {
+      return null;
+    }
+
+    const nabuId = `${this.context.entityId}${this.props.model}`;
+
+    return (
+      <div className={this.styles.classNames.editLocale}>
         <div className={this.styles.classNames.editMarkdown}>
           <NabuTextField
             nabuId={nabuId}
@@ -539,6 +574,7 @@ class TranslatableTextField extends Widget {
         enterKeyStaysInside={true}
         zIndex="10"
         title={this.getLabelText() || T('Edition')}
+        margin="0px"
         minWidth="600px"
         minHeight="400px"
         width="1000px"
@@ -547,10 +583,30 @@ class TranslatableTextField extends Widget {
         vertical="0px"
         close={this.onHideEdit}
       >
-        <div className={this.styles.classNames.edit}>
-          {this.renderEditLocale('primary', this.getPrimaryLocale())}
-          {this.renderEditLocale('secondary', this.getSecondaryLocale())}
+        <div className={this.styles.classNames.editTitles}>
+          {this.renderEditLocaleTitle('primary', this.getPrimaryLocale())}
+          {this.renderEditLocaleTitle('secondary', this.getSecondaryLocale())}
         </div>
+        {this.props.readonly ? (
+          <div className={this.styles.classNames.editSingle}>
+            {this.renderEditLocaleUp('primary', this.getPrimaryLocale())}
+            {this.renderEditLocaleUp('secondary', this.getSecondaryLocale())}
+          </div>
+        ) : (
+          <Splitter kind="horizontal" firstSize="50%">
+            <div className={this.styles.classNames.editUp}>
+              {this.renderEditLocaleUp('primary', this.getPrimaryLocale())}
+              {this.renderEditLocaleUp('secondary', this.getSecondaryLocale())}
+            </div>
+            <div className={this.styles.classNames.editDown}>
+              {this.renderEditLocaleDown('primary', this.getPrimaryLocale())}
+              {this.renderEditLocaleDown(
+                'secondary',
+                this.getSecondaryLocale()
+              )}
+            </div>
+          </Splitter>
+        )}
       </DialogModal>
     );
   }

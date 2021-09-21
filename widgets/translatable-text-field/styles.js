@@ -101,7 +101,28 @@ export default function styles(theme, props) {
 
   /******************************************************************************/
 
-  const edit = {
+  const editTitles = {
+    margin: '30px 30px 0px 30px',
+    display: 'flex',
+    flexDirection: 'row',
+  };
+
+  const editUp = {
+    margin: '0px 30px 5px 30px',
+    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'row',
+  };
+
+  const editDown = {
+    margin: '5px 30px 30px 30px',
+    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'row',
+  };
+
+  const editSingle = {
+    margin: ' 0px 30px 30px 30px',
     flexGrow: 1,
     display: 'flex',
     flexDirection: 'row',
@@ -116,6 +137,9 @@ export default function styles(theme, props) {
   };
 
   const editTitle = {
+    margin: '0px 10px',
+    flexGrow: 1,
+    flexBasis: 0,
     height: '40px',
     borderRadius: '4px 4px 0px 0px',
     backgroundColor: theme.palette.textFieldBorderColor,
@@ -123,11 +147,10 @@ export default function styles(theme, props) {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: '0px 4px',
   };
 
   const editField = {
-    margin: '-1px 0px 10px 0px',
+    margin: '-1px 0px 0px 0px',
     flexGrow: 1,
     flexBasis: 0,
     display: 'flex',
@@ -164,7 +187,10 @@ export default function styles(theme, props) {
     nabuTextField,
     toolbar,
 
-    edit,
+    editTitles,
+    editUp,
+    editDown,
+    editSingle,
     editLocale,
     editTitle,
     editField,

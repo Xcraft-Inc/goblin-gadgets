@@ -116,4 +116,11 @@ export default [
     min: 0,
     max: 1000,
   },
+  {
+    name: 'margin',
+    group: 'layout',
+    type: types.pixel,
+    min: 0,
+    max: 100,
+  },
 ];

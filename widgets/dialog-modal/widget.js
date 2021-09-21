@@ -232,7 +232,7 @@ export default class DialogModal extends Widget {
               id={this.props.id}
               zIndex={this.props.zIndex}
               titleBarText={title}
-              margin={retro ? '40px' : '30px'}
+              margin={this.props.margin || (retro ? '40px' : '30px')}
               minWidth={minWidth}
               minHeight={minHeight}
               width={width}
