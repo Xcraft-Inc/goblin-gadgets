@@ -95,7 +95,11 @@ export default class TextFieldTypedNC extends Widget {
   getDisplayed(canonicalValue) {
     switch (this.props.type) {
       case 'date':
-        return DateConverters.getDisplayed(canonicalValue);
+        return DateConverters.getDisplayed(
+          canonicalValue,
+          null,
+          this.props.shift
+        );
       case 'time':
         return TimeConverters.getDisplayed(canonicalValue);
       case 'datetime':
@@ -156,7 +160,8 @@ export default class TextFieldTypedNC extends Widget {
           null,
           this.props.minDate,
           this.props.maxDate,
-          this.props.mode
+          this.props.mode,
+          this.props.shift
         );
       case 'time':
         return TimeConverters.parseEdited(

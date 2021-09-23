@@ -30,6 +30,11 @@ export default [
     required: true,
   },
   {
+    name: 'shift',
+    group: 'type',
+    type: types.number,
+  },
+  {
     name: 'hasSlider',
     group: 'type',
     type: types.enum(['', 'yes']),

@@ -112,6 +112,14 @@ class Field extends Form {
     }
   }
 
+  getShift() {
+    if (this.props.shift) {
+      return this.props.shift;
+    } else {
+      return SchemaHelpers.getShift(this.getEntitySchema(), this.props.model);
+    }
+  }
+
   getComboList() {
     if (this.props.listModel) {
       return C(this.props.listModel);
@@ -305,6 +313,7 @@ class Field extends Form {
       >
         <TextFieldTyped
           type={this.getKind()}
+          shift={this.getShift()}
           selectAllOnFocus={true}
           width={fieldWidth}
           {...otherProps}
@@ -811,6 +820,7 @@ class Field extends Form {
       >
         <TextFieldTyped
           type={this.getKind()}
+          shift={this.getShift()}
           selectAllOnFocus={true}
           width={fieldWidth}
           {...otherProps}
