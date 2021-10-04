@@ -77,6 +77,9 @@ export default function wrapRawInput(Component, valueName = 'value') {
 
     validate(value) {
       let newValue = this.changeValue(value);
+      if (this.props.onValidate) {
+        this.props.onValidate(newValue);
+      }
       if (this.props.format) {
         newValue = this.props.format(newValue);
       }
