@@ -1,6 +1,7 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
-const prettier = require('prettier/standalone');
+import prettier from 'prettier/standalone';
+import babelParser from 'prettier/parser-babel';
 
 class GoblinEditor extends Widget {
   constructor() {
@@ -14,7 +15,7 @@ class GoblinEditor extends Widget {
   format() {
     let src = this.model.getValue();
     try {
-      src = prettier.format(src, {parser: 'babel'});
+      src = prettier.format(src, {parser: 'babel', plugins: [babelParser]});
       this.model.setValue(src);
     } catch (err) {
       console.error(err.stack);
