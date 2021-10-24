@@ -42,10 +42,10 @@ class CopyButton extends Widget {
 
   render() {
     return (
-      <div ref={this.button} onClick={this.copyToClipBoard}>
+      <span ref={this.button} onClick={this.copyToClipBoard}>
         {this.props.content}
         {this.state.showIcon && `✅`}
-      </div>
+      </span>
     );
   }
 }
