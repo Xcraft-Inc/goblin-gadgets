@@ -1,3 +1,4 @@
+import {ColorHelpers} from 'goblin-theme';
 import {Unit} from 'goblin-theme';
 const px = Unit.toPx;
 const n = Unit.toValue;
@@ -18,6 +19,9 @@ export default function styles(theme, props) {
     const t = n(size) / 10;
     thickness = px(Math.trunc(t) + 1);
   }
+
+  rimColor = ColorHelpers.getMarkColor(theme, rimColor);
+  segmentColor = ColorHelpers.getMarkColor(theme, segmentColor);
 
   const keyframes = {
     '0%': {transform: 'rotate(0deg)'},
