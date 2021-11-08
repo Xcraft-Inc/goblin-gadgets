@@ -13,6 +13,7 @@ import {
 } from 'goblin-nabu/widgets/helpers/element-helpers';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import Badge from 'goblin-gadgets/widgets/badge/widget';
+import Spinner from 'goblin-gadgets/widgets/spinner/widget';
 import RetroIlluminatedButton from 'goblin-gadgets/widgets/retro-illuminated-button/widget';
 import RetroBadgeButton from 'goblin-gadgets/widgets/retro-badge-button/widget';
 import RetroActionButton from 'goblin-gadgets/widgets/retro-action-button/widget';
@@ -151,6 +152,22 @@ export default class Button extends Widget {
   }
 
   renderBusy() {
+    if (this.props.busy) {
+      const busyBoxClass = this.styles.classNames.busyBox;
+      const busyGlyphClass = this.styles.classNames.busyGlyph;
+      return (
+        <div className={busyBoxClass}>
+          <div className={busyGlyphClass}>
+            <Spinner size="24px" thickness="3px" />
+          </div>
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
+
+  renderBusy_OLD() {
     if (this.props.busy) {
       const busyBoxClass = this.styles.classNames.busyBox;
       const busyGlyphClass = this.styles.classNames.busyGlyph;
