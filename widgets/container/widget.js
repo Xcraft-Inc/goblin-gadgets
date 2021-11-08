@@ -2,7 +2,6 @@ import React from 'react';
 import props from './props';
 import scenarios from './scenarios';
 import {registerWidget} from 'goblin-gadgets/widgets/widget-doc/widget-list';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import Widget from 'goblin-laboratory/widgets/widget';
 import * as styles from './styles';
 import Spinner from 'goblin-gadgets/widgets/spinner/widget';
@@ -190,7 +189,7 @@ class Container extends Widget {
         return (
           <div className={busyBoxClass}>
             <div className={busyGlyphClass}>
-              <FontAwesomeIcon icon={[`fas`, 'spinner']} size={'2x'} pulse />
+              <Spinner size="100px" thickness="10px" />
             </div>
           </div>
         );
