@@ -173,7 +173,7 @@ class Container extends Widget {
         return (
           <div className={busyBoxClass}>
             <div className={busyGlyphClass}>
-              <Spinner size="60px" thickness="6px" />
+              <Spinner size="60px" />
             </div>
           </div>
         );
@@ -189,7 +189,7 @@ class Container extends Widget {
         return (
           <div className={busyBoxClass}>
             <div className={busyGlyphClass}>
-              <Spinner size="100px" thickness="10px" />
+              <Spinner size="100px" />
             </div>
           </div>
         );
