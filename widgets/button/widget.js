@@ -158,7 +158,7 @@ export default class Button extends Widget {
       return (
         <div className={busyBoxClass}>
           <div className={busyGlyphClass}>
-            <Spinner size="24px" thickness="3px" />
+            <Spinner size="24px" />
           </div>
         </div>
       );

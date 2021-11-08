@@ -15,7 +15,8 @@ export default function styles(theme, props) {
   } = props;
 
   if (!thickness) {
-    thickness = px(n(size) / 10);
+    const t = n(size) / 10;
+    thickness = px(Math.trunc(t) + 1);
   }
 
   const keyframes = {
