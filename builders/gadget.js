@@ -2,7 +2,7 @@
 //T:2019-02-27
 
 const Goblin = require('xcraft-core-goblin');
-const {jsify} = require('xcraft-core-utils').string;
+const common = require('goblin-workshop').common;
 
 module.exports = (config) => {
   const {name, initialState, actions, events, gadgets} = config;
@@ -30,28 +30,7 @@ module.exports = (config) => {
   ) {
     const childrenGadgets = {};
     if (gadgets) {
-      for (const key of Object.keys(gadgets)) {
-        const gadget = gadgets[key];
-        const newGadgetId = `${gadget.type}@${quest.goblin.id}`;
-
-        childrenGadgets[key] = {id: newGadgetId, type: gadget.type};
-
-        if (gadgets[key].onActions) {
-          for (const handler of Object.keys(gadgets[key].onActions)) {
-            quest.goblin.defer(
-              quest.sub(`*::${newGadgetId}.${handler}`, function* (err, {msg}) {
-                yield quest.me[jsify(`${key}-${handler}`)](msg.data);
-              })
-            );
-          }
-        }
-
-        yield quest.create(`${gadget.type}-gadget`, {
-          id: newGadgetId,
-          desktopId,
-          options: gadget.options,
-        });
-      }
+      yield common.createGadgets(quest, goblinName, gadgets, childrenGadgets);
     }
 
     quest.do({id: quest.goblin.id, initialState, childrenGadgets});
