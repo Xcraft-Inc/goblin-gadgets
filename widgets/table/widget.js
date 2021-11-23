@@ -72,6 +72,7 @@ class Table extends Widget {
         data: this.props.data,
         sortingColumns: this.props.selectedIds,
         selectedIds,
+        id: this.props.id,
       });
     }
   }

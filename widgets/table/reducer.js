@@ -78,13 +78,14 @@ const initialState = new Shredder({
 export default (state = initialState, action = {}) => {
   switch (action.type) {
     case 'INITIALISE': {
-      let {data, selectedIds} = action;
+      let {data, selectedIds, id} = action;
 
       if (!Shredder.isShredder(data)) {
         data = new Shredder(data);
       }
 
       state = state.set('data', data);
+      state = state.set('id', id);
 
       const defaultSortingColumns = data.get('defaultSortingColumns');
       if (defaultSortingColumns) {
