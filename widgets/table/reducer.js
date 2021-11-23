@@ -176,6 +176,17 @@ export default (state = initialState, action = {}) => {
       state = updateAfterChangingSelection(state);
       return state;
     }
+
+    case 'DESELECT': {
+      const id = action.rowId;
+      const selectedIds = state.get('selectedIds', []);
+      if (selectedIds.includes(id)) {
+        state = state.unpush('selectedIds', id);
+      }
+
+      state = updateAfterChangingSelection(state);
+      return state;
+    }
   }
   return state;
 };
