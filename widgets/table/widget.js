@@ -121,6 +121,7 @@ class Table extends Widget {
     this.dispatch({
       type: 'MOVE_SELECTION',
       direction,
+      mode: this.props.selectionMode,
     });
   }
 

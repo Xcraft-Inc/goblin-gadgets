@@ -151,6 +151,11 @@ export default (state = initialState, action = {}) => {
     }
 
     case 'MOVE_SELECTION': {
+      const mode = action.mode;
+      if (mode === 'multi') {
+        return state;
+      }
+
       const {direction} = action;
 
       const sortedRows = state.get('sortedRows');
