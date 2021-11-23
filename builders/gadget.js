@@ -66,13 +66,12 @@ module.exports = (config) => {
       //Register gagdet quest handlers
       if (gadgets[key].onActions) {
         for (const handler of Object.keys(gadgets[key].onActions)) {
-          logicHandlers[`${key}-${handler}`] = gadgets[key].onActions[handler];
+          const questName = common.jsifyQuestName(`${key}-${handler}`);
+          logicHandlers[questName] = gadgets[key].onActions[handler];
 
-          Goblin.registerQuest(goblinName, `${key}-${handler}`, function (
-            quest
-          ) {
+          Goblin.registerQuest(goblinName, questName, function* (quest) {
             quest.do();
-            quest.me.update();
+            yield quest.me.update();
           });
         }
       }
