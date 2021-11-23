@@ -78,13 +78,14 @@ const initialState = new Shredder({
 export default (state = initialState, action = {}) => {
   switch (action.type) {
     case 'INITIALISE': {
-      let {data, selectedIds} = action;
+      let {data, selectedIds, id} = action;
 
       if (!Shredder.isShredder(data)) {
         data = new Shredder(data);
       }
 
       state = state.set('data', data);
+      state = state.set('id', id);
 
       const defaultSortingColumns = data.get('defaultSortingColumns');
       if (defaultSortingColumns) {
@@ -150,6 +151,11 @@ export default (state = initialState, action = {}) => {
     }
 
     case 'MOVE_SELECTION': {
+      const mode = action.mode;
+      if (mode === 'multi') {
+        return state;
+      }
+
       const {direction} = action;
 
       const sortedRows = state.get('sortedRows');
@@ -167,6 +173,17 @@ export default (state = initialState, action = {}) => {
       if (id) {
         state = state.set('selectedIds', [id]);
       }
+      state = updateAfterChangingSelection(state);
+      return state;
+    }
+
+    case 'DESELECT': {
+      const id = action.rowId;
+      const selectedIds = state.get('selectedIds', []);
+      if (selectedIds.includes(id)) {
+        state = state.unpush('selectedIds', id);
+      }
+
       state = updateAfterChangingSelection(state);
       return state;
     }

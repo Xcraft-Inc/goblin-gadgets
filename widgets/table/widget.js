@@ -72,6 +72,7 @@ class Table extends Widget {
         data: this.props.data,
         sortingColumns: this.props.selectedIds,
         selectedIds,
+        id: this.props.id,
       });
     }
   }
@@ -120,6 +121,7 @@ class Table extends Widget {
     this.dispatch({
       type: 'MOVE_SELECTION',
       direction,
+      mode: this.props.selectionMode,
     });
   }
 
