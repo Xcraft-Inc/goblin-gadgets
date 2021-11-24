@@ -73,6 +73,18 @@ exports.xcraftCommands = function () {
             }
         }
       },
+      deselect: (state, action) => {
+        const id = action.rowId;
+        const selectedIds = state.get('selectedIds', []);
+        if (selectedIds.includes(id)) {
+          state = state.unpush('selectedIds', id);
+        }
+
+        return state;
+      },
+      deselectAll: (state) => {
+        return state.set('selectedIds', []);
+      },
       doubleClick: (state) => {
         // NOP, see doubleClick in events ---^
         return state;
