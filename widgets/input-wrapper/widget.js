@@ -8,6 +8,9 @@ import throttle from 'lodash/throttle';
  * @param {Component} Component - The raw input to wrap
  * @param {string} valueName - (optional) Can be used to rename the 'value' prop
  * @returns {Component} A new component
+ *
+ * To make the wrapper work, the raw input must accept the following props:
+ * onChange, onFocus, onBlur and optionally onValidate
  */
 export default function wrapRawInput(Component, valueName = 'value') {
   /**
