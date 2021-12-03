@@ -85,6 +85,14 @@ exports.xcraftCommands = function () {
       deselectAll: (state) => {
         return state.set('selectedIds', []);
       },
+      selectAll: (state) => {
+        const rowIds = state
+          .get('sortedRows')
+          .map((row) => row.get('row').get('id'))
+          .valueSeq()
+          .toArray();
+        return state.set('selectedIds', rowIds);
+      },
       doubleClick: (state) => {
         // NOP, see doubleClick in events ---^
         return state;
