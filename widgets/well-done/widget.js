@@ -62,8 +62,8 @@ class WellDone extends Widget {
 
     return {
       position: 'absolute',
-      left: '40%',
-      top: '50%',
+      left: 'calc(50% - 150px)',
+      bottom: '160px',
       transform,
       animation,
       animationDelay,
@@ -114,8 +114,8 @@ class WellDone extends Widget {
   renderBoxBack(hidden) {
     const style = {
       position: 'absolute',
-      left: '40%',
-      top: '50%',
+      bottom: '0px',
+      left: 'calc(50% - 150px)',
       width: '300px',
       visibility: hidden ? 'hidden' : 'visible',
     };
@@ -126,8 +126,8 @@ class WellDone extends Widget {
   renderBoxFront(hidden) {
     const style = {
       position: 'absolute',
-      left: '40%',
-      top: '50%',
+      bottom: '0px',
+      left: 'calc(50% - 150px)',
       width: '300px',
       visibility: hidden ? 'hidden' : 'visible',
     };
