@@ -20,6 +20,7 @@ export default function styles(theme, props) {
     'flexDirection': 'column',
     'justifyContent': 'center',
     'alignItems': 'center',
+    'cursor': onClick ? 'pointer' : null,
     'transition': theme.transitions.hover,
     ':hover': {
       transform: onClick ? 'scale(1.1)' : null,
