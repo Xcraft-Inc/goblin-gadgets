@@ -132,7 +132,7 @@ export default class GuildUserProfile extends Widget {
       {id: 'triangle', glyph: 'solid/triangle', text: T('Triangle')},
       {id: 'certificate', glyph: 'solid/certificate', text: T('Fleur')},
       {id: 'star', glyph: 'solid/star', text: T('Etoile')},
-      {id: 'heart', glyph: 'solid/heart', text: T('Coeur')},
+      {id: 'heart', glyph: 'solid/heart', text: T('Cœur')},
     ];
 
     return (
