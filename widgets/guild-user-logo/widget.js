@@ -26,11 +26,14 @@ export default class GuildUserLogo extends Widget {
   }
 
   renderInitials() {
-    const text = this.props.initials
-      ? this.props.initials.substring(0, 3)
-      : '?';
+    const i = GuildHelpers.getLogoInitials(
+      this.props.initials,
+      this.props.pseudo,
+      this.props.firstName,
+      this.props.lastName
+    );
 
-    return <div className={this.styles.classNames.text}>{text}</div>;
+    return <div className={this.styles.classNames.text}>{i}</div>;
   }
 
   renderLogo() {

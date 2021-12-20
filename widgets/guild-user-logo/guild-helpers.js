@@ -38,7 +38,7 @@ function getLogoInitials(initials, pseudo, firstName, lastName) {
   }
 
   // The content of the logo is always in capitals.
-  return text.toUpperCase();
+  return text.substring(0, 3).toUpperCase();
 }
 
 //-----------------------------------------------------------------------------

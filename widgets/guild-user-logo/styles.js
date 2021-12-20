@@ -4,11 +4,35 @@ import GuildHelpers from '../guild-user-logo/guild-helpers';
 
 /******************************************************************************/
 
-export const propNames = ['size', 'color', 'shape', 'initials', 'onClick'];
+export const propNames = [
+  'size',
+  'color',
+  'shape',
+  'initials',
+  'pseudo',
+  'firstName',
+  'lastName',
+  'onClick',
+];
 
 export default function styles(theme, props) {
-  let {size = '50px', color, shape, initials = '?', onClick} = props;
+  let {
+    size = '50px',
+    color,
+    shape,
+    initials,
+    pseudo,
+    firstName,
+    lastName,
+    onClick,
+  } = props;
 
+  initials = GuildHelpers.getLogoInitials(
+    initials,
+    pseudo,
+    firstName,
+    lastName
+  );
   color = GuildHelpers.getLogoColor(color);
   shape = GuildHelpers.getLogoShape(shape);
 
