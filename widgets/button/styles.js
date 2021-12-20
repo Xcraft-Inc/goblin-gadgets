@@ -545,6 +545,7 @@ export default function styles(theme, props) {
     const w = Unit.multiply(to(theme.shapes.lineHeight, cssUnit), 0.8);
     boxWidth = w;
     boxMinWidth = w;
+    boxSizing = 'content-box';
     activeColor = theme.palette.comboActiveBackground;
     borderActiveColor = theme.palette.comboActiveBackground;
     if (disabled) {

@@ -258,6 +258,7 @@ class ColorPicker extends Widget {
           onBlur={this.onTextChanged}
         />
         <Button
+          kind="combo"
           glyph="solid/eye-dropper"
           tooltip={T('Colle la couleur contenue dans le bloc-notes')}
           onClick={this.onPaste}

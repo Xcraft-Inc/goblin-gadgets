@@ -1,5 +1,4 @@
 import * as SpacingHelpers from 'goblin-gadgets/widgets/helpers/spacing-helpers';
-import {Unit} from 'goblin-theme';
 
 /******************************************************************************/
 
@@ -9,18 +8,10 @@ export const propNames = [
   'horizontalSpacing',
   'shape',
   'width',
-  'comboDirection',
 ];
 
 export default function styles(theme, props) {
-  const {
-    grow,
-    visibility,
-    horizontalSpacing,
-    shape,
-    width,
-    comboDirection,
-  } = props;
+  const {grow, visibility, horizontalSpacing, shape, width} = props;
 
   let flexGrow = grow;
   let flexShrink = null;
