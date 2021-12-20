@@ -1070,7 +1070,7 @@ export default function styles(theme, props) {
   };
 
   return {
-    box: boxStyle,
+    button: boxStyle,
     triangle: triangleStyle,
     busyBox: busyBoxStyle,
     busyGlyph: busyGlyphStyle,

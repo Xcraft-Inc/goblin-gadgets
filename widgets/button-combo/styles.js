@@ -43,7 +43,7 @@ export default function styles(theme, props) {
     borderRadius = theme.shapes.actionRadius;
   }
 
-  const box = {
+  const buttonCombo = {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -61,36 +61,21 @@ export default function styles(theme, props) {
     opacity: opacity,
   };
 
-  const shadowBox = {...box};
-  shadowBox.boxShadow = theme.shapes.comboShadow;
-  shadowBox.borderRadius = borderRadius;
+  const buttonComboShadow = {...buttonCombo};
+  buttonComboShadow.boxShadow = theme.shapes.comboShadow;
+  buttonComboShadow.borderRadius = borderRadius;
 
-  const focusedBox = {...box};
-  focusedBox.boxShadow = theme.shapes.focusedShadow + theme.palette.focused;
-  focusedBox.borderRadius = borderRadius;
+  const buttonComboFocused = {...buttonCombo};
+  buttonComboFocused.boxShadow =
+    theme.shapes.focusedShadow + theme.palette.focused;
+  buttonComboFocused.borderRadius = borderRadius;
 
-  const comboBox = {
-    position: 'absolute',
-    right: comboDirection === 'right' ? null : '0px',
-    left: comboDirection === 'right' ? '0px' : null,
-    top: Unit.add(theme.shapes.lineHeight, '1px'),
-    marginTop: theme.shapes.lineSpacing,
-    zIndex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    boxShadow: theme.shapes.calendarShadow,
-  };
-
-  const emptyCombo = {
-    margin: theme.shapes.containerMargin,
-  };
+  /******************************************************************************/
 
   return {
-    box,
-    shadowBox,
-    focusedBox,
-    comboBox,
-    emptyCombo,
+    buttonCombo,
+    buttonComboShadow,
+    buttonComboFocused,
   };
 }
 

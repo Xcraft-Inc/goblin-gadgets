@@ -258,7 +258,7 @@ export default class Button extends Widget {
       return null;
     }
     const result = [];
-    const boxStyle = Object.assign({}, this.styles.props.box);
+    const boxStyle = Object.assign({}, this.styles.props.button);
     result.push(this.renderLabel(boxStyle));
     result.push(this.renderShortcut(boxStyle));
     result.push(this.renderFocusedForeground());
@@ -342,7 +342,7 @@ export default class Button extends Widget {
       propsTabIndex.tabIndex = 0;
     }
 
-    const boxClass = this.styles.classNames.box;
+    const boxClass = this.styles.classNames.button;
 
     if (this.props.kind === 'container' || this.props.kind === 'box') {
       return (

@@ -262,10 +262,10 @@ export default class ButtonCombo extends Widget {
     }
 
     const boxClass = this.state.showCombo
-      ? this.styles.classNames.shadowBox
+      ? this.styles.classNames.buttonComboShadow
       : this.props.focus
-      ? this.styles.classNames.focusedBox
-      : this.styles.classNames.box;
+      ? this.styles.classNames.buttonComboFocused
+      : this.styles.classNames.buttonCombo;
 
     return (
       <span
