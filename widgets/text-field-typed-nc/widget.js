@@ -366,6 +366,9 @@ export default class TextFieldTypedNC extends Widget {
 
   handleDateClicked(date) {
     if (this.props.onChange) {
+      if (this.props.shift) {
+        date = DateConverters.addDays(date, -this.props.shift);
+      }
       this.props.onChange(date);
     }
   }
