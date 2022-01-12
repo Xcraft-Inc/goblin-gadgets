@@ -4,8 +4,6 @@
 const Goblin = require('xcraft-core-goblin');
 
 module.exports = (config) => {
-  const {common} = require('goblin-workshop');
-
   const {name, initialState, actions, events, gadgets} = config;
   const goblinName = `${name}-gadget`;
 
@@ -31,6 +29,7 @@ module.exports = (config) => {
   ) {
     const childrenGadgets = {};
     if (gadgets) {
+      const {common} = require('goblin-workshop');
       yield common.createGadgets(quest, goblinName, gadgets, childrenGadgets);
     }
 
@@ -67,7 +66,8 @@ module.exports = (config) => {
       //Register gagdet quest handlers
       if (gadgets[key].onActions) {
         for (const handler of Object.keys(gadgets[key].onActions)) {
-          const questName = common.jsifyQuestName(`${key}-${handler}`);
+          const {jsify} = require('xcraft-core-utils/lib/string.js');
+          const questName = jsify(`${key}-${handler}`);
           logicHandlers[questName] = gadgets[key].onActions[handler];
 
           Goblin.registerQuest(goblinName, questName, function* (quest) {
