@@ -31,7 +31,6 @@ import FileInput from 'goblin-gadgets/widgets/file-input/widget';
 import DirectoryInput from 'goblin-gadgets/widgets/directory-input/widget';
 import StateBrowser from 'goblin-gadgets/widgets/state-browser/widget';
 
-import Plugin from 'goblin-desktop/widgets/plugin/widget';
 import SchemaHelpers from 'goblin-toolbox/lib/schema-helpers';
 
 import importer from 'goblin_importer';
@@ -604,7 +603,7 @@ class Field extends Form {
         );
         FinalPlugin = this.mapWidget(WiredPlugin, 'entityIds', this.fullPath);
       } else {
-        FinalPlugin = Plugin;
+        FinalPlugin = widgetImporter('plugin');
       }
 
       const FinalContainer = this.mapWidget(
@@ -1238,7 +1237,7 @@ class Field extends Form {
         WiredPlugin = Widget.Wired(CustomPlugin)(pluginId);
         FinalPlugin = this.mapWidget(WiredPlugin, 'entityIds', this.fullPath);
       } else {
-        FinalPlugin = Plugin;
+        FinalPlugin = widgetImporter('plugin');
       }
 
       return (
