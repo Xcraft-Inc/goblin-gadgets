@@ -2,9 +2,10 @@
 //T:2019-02-27
 
 const Goblin = require('xcraft-core-goblin');
-const common = require('goblin-workshop').common;
 
 module.exports = (config) => {
+  const {common} = require('goblin-workshop');
+
   const {name, initialState, actions, events, gadgets} = config;
   const goblinName = `${name}-gadget`;
 
