@@ -42,6 +42,7 @@ export default class GuildUserLogo extends Widget {
         className={this.styles.classNames.guildUserLogo}
         title={this.props.tooltip}
         onClick={this.props.onClick ? this.props.onClick : null}
+        workitemId={this.context.desktopId}
       >
         {this.renderGlyph()}
         {this.renderInitials()}
@@ -55,6 +56,7 @@ export default class GuildUserLogo extends Widget {
         className={this.styles.classNames.guildUserLogo}
         title={this.props.tooltip}
         onClick={this.props.onClick ? this.props.onClick : null}
+        workitemId={this.context.desktopId}
       >
         <img
           className={this.styles.classNames.photo}
