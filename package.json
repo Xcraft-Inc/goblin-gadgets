@@ -26,7 +26,7 @@
     "goblin-theme": "^2.0.0",
     "leaflet": "1.2.0",
     "mocha": "^5.2.0",
-    "monaco-editor": "^0.27.0",
+    "monaco-editor": "^0.31.1",
     "mousetrap": "^1.6.1",
     "prettier": "2.0.4",
     "prop-types": "^15.5.10",
