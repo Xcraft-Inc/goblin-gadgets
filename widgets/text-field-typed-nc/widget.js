@@ -625,6 +625,7 @@ export default class TextFieldTypedNC extends Widget {
         node={this.node}
         horizontalSpacing={this.props.horizontalSpacing}
         shape={this.props.shape}
+        pallet={this.props.pallet}
         comboGlyph="solid/square"
         comboGlyphHide="regular/square"
         hideButtonCombo={this.props.hideButtonCombo}

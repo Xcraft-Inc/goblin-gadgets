@@ -24,7 +24,7 @@ export default [
     name: 'cyan',
     props: {
       width: '520px',
-      color: 'CMYK(0,50,100,0)',
+      color: 'CMYK(50,0,0,0)',
     },
   },
   {

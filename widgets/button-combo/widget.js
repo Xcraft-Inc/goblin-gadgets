@@ -235,6 +235,7 @@ export default class ButtonCombo extends Widget {
         onClose={this.hideCombo}
       >
         <ColorPicker
+          pallet={this.props.pallet}
           color={color}
           width="500px"
           onChange={this.handleColorChanged}

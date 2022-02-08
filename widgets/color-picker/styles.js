@@ -9,6 +9,7 @@ export default function styles(theme, props) {
 
   const isDark = theme.colors.isDarkTheme;
   const r = theme.shapes.smoothRadius;
+  const rs = Unit.multiply(r, 3);
 
   const colorPicker = {
     flexGrow: grow,
@@ -95,11 +96,32 @@ export default function styles(theme, props) {
     height: '126px',
   };
 
-  const rs = Unit.multiply(r, 3);
+  const pallets = {
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    flexGrow: 1,
+    flexWrap: 'wrap',
+    flexBasis: 0,
+    flexShrink: 1,
+    alignContent: 'flex-start',
+  };
+
+  const pallet = {
+    'margin': '2px',
+    'width': '32px',
+    'height': '32px',
+    'border': `1px solid ${theme.palette.buttonBorder}`,
+    'borderRadius': rs,
+    ':hover': {
+      border: `1px solid ${isDark ? 'white' : 'black'}`,
+    },
+  };
+
   const samples = {
     height: '100%',
     width: '110px',
-    minWidth: '20px',
+    minWidth: '110px',
     marginLeft: '10px',
     border: `1px solid ${theme.palette.buttonBorder}`,
     borderRadius: rs,
@@ -165,6 +187,8 @@ export default function styles(theme, props) {
     composantHslSliders,
     composantHslCircle,
     composantHslSquare,
+    pallets,
+    pallet,
     samples,
     sampleUp,
     sampleDown,

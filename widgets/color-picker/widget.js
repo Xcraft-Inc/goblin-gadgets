@@ -39,6 +39,7 @@ class ColorPicker extends Widget {
       info: null,
       warning: null,
       lastColors: this.props.lastColors ? this.props.lastColors : [],
+      showPallet: false,
     };
 
     this.onColorChanged = throttle(this.onColorChanged, 50).bind(this);
@@ -93,6 +94,15 @@ class ColorPicker extends Widget {
       lastColors: value,
     });
   }
+
+  get showPallet() {
+    return this.state.showPallet;
+  }
+  set showPallet(value) {
+    this.setState({
+      showPallet: value,
+    });
+  }
   //#endregion
 
   updateColor(color) {
@@ -102,6 +112,9 @@ class ColorPicker extends Widget {
 
   UNSAFE_componentWillMount() {
     this.updateColor(this.props.color);
+    if (this.props.pallet) {
+      this.showPallet = true;
+    }
     MouseTrap.bind('return', this.onTextValidate);
   }
 
@@ -113,6 +126,9 @@ class ColorPicker extends Widget {
   componentDidUpdate(prevProps) {
     if (prevProps.color !== this.props.color) {
       this.updateColor(this.props.color);
+    }
+    if (!prevProps.pallet && this.props.pallet) {
+      this.showPallet = true;
     }
   }
 
@@ -156,6 +172,13 @@ class ColorPicker extends Widget {
   }
 
   onColorChanged(key, value) {
+    if (key === 'mode') {
+      this.showPallet = value === 'PALLET';
+      if (value === 'PALLET') {
+        return;
+      }
+    }
+
     const analysis = {...this.analysis};
     analysis[key] = value;
     this.analysis = analysis;
@@ -217,7 +240,11 @@ class ColorPicker extends Widget {
   }
 
   get mode() {
-    return this.analysis ? this.analysis.mode : null;
+    return this.showPallet && this.props.pallet
+      ? 'PALLET'
+      : this.analysis
+      ? this.analysis.mode
+      : null;
   }
 
   /******************************************************************************/
@@ -238,6 +265,9 @@ class ColorPicker extends Widget {
   renderModes() {
     return (
       <div className={this.styles.classNames.modes}>
+        {this.props.pallet
+          ? this.renderMode('solid/th', T('Palette'), 'PALLET')
+          : null}
         {this.renderMode(
           'solid/palette',
           T('Teinte Saturation Luminosité'),
@@ -376,6 +406,32 @@ class ColorPicker extends Widget {
         </div>
       );
     }
+  }
+
+  renderComposantsPalletOne(color, index) {
+    const bc = ColorConverters.toRGB(color);
+    const style = {
+      backgroundColor: bc,
+    };
+
+    return (
+      <div
+        key={index}
+        className={this.styles.classNames.pallet}
+        style={style}
+        onClick={() => this.changeColor(color, true)}
+      ></div>
+    );
+  }
+
+  renderComposantsPallet() {
+    return (
+      <div className={this.styles.classNames.pallets}>
+        {this.props.pallet.map((color, index) =>
+          this.renderComposantsPalletOne(color, index)
+        )}
+      </div>
+    );
   }
 
   renderComposantsRGB() {
@@ -536,6 +592,8 @@ class ColorPicker extends Widget {
 
   renderComposants() {
     switch (this.mode) {
+      case 'PALLET':
+        return this.renderComposantsPallet();
       case 'RGB':
         return this.renderComposantsRGB();
       case 'CMYK':
