@@ -84,6 +84,10 @@ export default (state = initialState, action = {}) => {
         data = new Shredder(data);
       }
 
+      if (data.equals(state.get('data'))) {
+        return state;
+      }
+
       state = state.set('data', data);
       state = state.set('id', id);
 
