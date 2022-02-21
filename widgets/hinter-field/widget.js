@@ -94,9 +94,6 @@ class HinterFieldControl extends Widget {
 
   clear() {
     this.props.onChange(null);
-    this.doFor(this.workitemId, `clear-${this.props.hinter}`, {
-      previousValue: this.props.selectedId,
-    });
   }
 
   show() {
