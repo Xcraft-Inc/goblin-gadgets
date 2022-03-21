@@ -86,10 +86,10 @@ const logicHandlers = {
 };
 
 const quests = {
-  create: function (quest, desktopId, clientToken, screens) {
+  create: function (quest, desktopId, servicesArgs, screens) {
     quest.goblin.setX('desktopId', desktopId);
     quest.goblin.setX('screens', screens);
-    quest.goblin.setX('clientToken', clientToken);
+    quest.goblin.setX('servicesArgs', servicesArgs);
     quest.do();
   },
 
@@ -126,17 +126,17 @@ const quests = {
   _initService: function* (quest, screen) {
     let {service, serviceId, serviceArgs} = screen;
     const desktopId = quest.goblin.getX('desktopId');
-    const clientToken = quest.goblin.getX('clientToken');
+    const servicesArgs = quest.goblin.getX('servicesArgs');
 
     if (!serviceId && service) {
       serviceId = `${service}@${quest.uuidV4()}`;
     }
     if (serviceId) {
       yield quest.create(serviceId, {
+        ...servicesArgs,
         ...serviceArgs,
         id: serviceId,
         desktopId,
-        clientToken,
       });
     }
     return serviceId;
