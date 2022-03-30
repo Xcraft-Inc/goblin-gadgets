@@ -88,7 +88,9 @@ class Table extends Widget {
 
   UNSAFE_componentWillMount() {
     this.initialiseData();
+  }
 
+  componentDidMount() {
     if (this.props.useKeyUpDown) {
       MouseTrap.bind('up', this.onKeyUp, 'keydown');
       MouseTrap.bind('down', this.onKeyDown, 'keydown');
