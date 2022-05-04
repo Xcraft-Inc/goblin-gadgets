@@ -4,7 +4,7 @@ import props from './props';
 import scenarios from './scenarios';
 import {registerWidget} from 'goblin-gadgets/widgets/widget-doc/widget-list';
 import TableNC from '../table-nc/widget';
-import MouseTrap from 'mousetrap';
+import KeyTrap from 'goblin-gadgets/widgets/key-trap.js';
 
 /******************************************************************************/
 
@@ -92,16 +92,16 @@ class Table extends Widget {
 
   componentDidMount() {
     if (this.props.useKeyUpDown) {
-      MouseTrap.bind('up', this.onKeyUp, 'keydown');
-      MouseTrap.bind('down', this.onKeyDown, 'keydown');
+      KeyTrap.bind('ArrowUp', this.onKeyUp);
+      KeyTrap.bind('ArrowDown', this.onKeyDown);
     }
   }
 
   componentWillUnmount() {
     super.componentWillUnmount();
     if (this.props.useKeyUpDown) {
-      MouseTrap.unbind('up');
-      MouseTrap.unbind('down');
+      KeyTrap.unbind('ArrowUp');
+      KeyTrap.unbind('ArrowDown');
     }
   }
 
