@@ -182,8 +182,13 @@ export default class ButtonCombo extends Widget {
 
   renderComboCalendar() {
     let date = this.props.value;
-    if (!date) {
-      date = DateConverters.getNowCanonical();
+    if (this.props.shift && date) {
+      // Si date = "2022-04-01" et shift = -1 --> "2022-03-31"
+      date = DateConverters.addDays(date, this.props.shift);
+    }
+    let visibleDate = date;
+    if (!visibleDate) {
+      visibleDate = DateConverters.getNowCanonical();
     }
 
     return (
@@ -197,10 +202,10 @@ export default class ButtonCombo extends Widget {
           margin={this.context.theme.spacing.lineSpacing}
           frame={false}
           shadow={true}
-          visibleDate={date}
+          visibleDate={visibleDate}
           startDate={this.props.minDate}
           endDate={this.props.maxDate}
-          dates={this.props.value ? [this.props.value] : null}
+          dates={date ? [date] : null}
           useTips={this.props.useTips !== undefined ? this.props.useTips : true}
           dateClicked={this.handleDateClicked}
           onEscKey={this.hideCombo}

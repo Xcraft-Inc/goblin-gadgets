@@ -25,7 +25,6 @@ import ButtonCombo from 'goblin-gadgets/widgets/button-combo/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import Slider from 'goblin-gadgets/widgets/slider/widget';
 import Separator from 'goblin-gadgets/widgets/separator/widget';
-import Props from './props';
 import * as styles from './styles';
 
 /******************************************************************************/
@@ -367,6 +366,7 @@ export default class TextFieldTypedNC extends Widget {
   handleDateClicked(date) {
     if (this.props.onChange) {
       if (this.props.shift) {
+        // Si date = "2022-03-31" et shift = -1 --> "2022-04-01"
         date = DateConverters.addDays(date, -this.props.shift);
       }
       this.props.onChange(date);
@@ -475,6 +475,7 @@ export default class TextFieldTypedNC extends Widget {
         grow={this.props.grow}
         comboType="calendar"
         value={this.props.value}
+        shift={this.props.shift}
         minDate={this.props.minDate}
         maxDate={this.props.maxDate}
         readonly={this.props.readonly}
