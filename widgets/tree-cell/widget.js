@@ -14,11 +14,19 @@ export default class TreeCell extends Widget {
     this.styles = styles;
 
     this.onMouseDown = this.onMouseDown.bind(this);
+    this.onClick = this.onClick.bind(this);
     this.onDoubleClick = this.onDoubleClick.bind(this);
   }
 
   onMouseDown() {
     const x = this.props.selectionChanged;
+    if (x) {
+      x(this.props.rowId);
+    }
+  }
+
+  onClick() {
+    const x = this.props.onClick;
     if (x) {
       x(this.props.rowId);
     }
@@ -31,7 +39,7 @@ export default class TreeCell extends Widget {
     }
   }
 
-  render() {
+  renderLabel() {
     let glyph = null;
     let glyphColor = null;
     let text = null;
@@ -65,6 +73,27 @@ export default class TreeCell extends Widget {
         />
       </div>
     );
+  }
+
+  // Table accept a function in text, to render a specific component.
+  renderFunction() {
+    return (
+      <div
+        key={this.props.index}
+        className={this.styles.classNames.cell}
+        onClick={this.onClick}
+      >
+        {this.props.text()}
+      </div>
+    );
+  }
+
+  render() {
+    if (typeof this.props.text === 'function') {
+      return this.renderFunction();
+    } else {
+      return this.renderLabel();
+    }
   }
 }
 

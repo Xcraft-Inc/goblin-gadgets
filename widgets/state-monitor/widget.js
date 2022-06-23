@@ -1,5 +1,6 @@
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
+import Form from 'goblin-laboratory/widgets/form';
 import * as styles from './styles';
 import Tree from 'goblin-gadgets/widgets/tree/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
@@ -7,6 +8,23 @@ import Button from 'goblin-gadgets/widgets/button/widget';
 import T from 't';
 
 /******************************************************************************/
+
+function onCopyToClipboard(text) {
+  Form.copyTextToClipboard(text);
+}
+
+function renderCopyButton(text) {
+  return (
+    <Button
+      glyph="solid/copy"
+      tooltip={T('Copy to clipboard')}
+      width="32px"
+      height="32px"
+      border="none"
+      onClick={() => onCopyToClipboard(text)}
+    />
+  );
+}
 
 function getRows(state, parentKey) {
   const rows = [];
@@ -26,7 +44,9 @@ function getRows(state, parentKey) {
     } else if (typeof value === 'object') {
       row.rows = getRows(value, id);
     } else {
-      row.value = value.toString();
+      const text = value.toString();
+      row.value = text;
+      row.copy = () => renderCopyButton(text);
     }
 
     rows.push(row);
@@ -136,6 +156,10 @@ class StateMonitor extends Widget {
           grow: '1',
           textAlign: 'left',
           indent: 'space',
+        },
+        {
+          name: 'copy',
+          width: '32px',
         },
       ],
       rows: [],
