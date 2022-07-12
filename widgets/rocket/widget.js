@@ -50,6 +50,7 @@ export default class Rocket extends Widget {
           glyphSize={glyphSize}
           justify="center"
           glyphPosition="center"
+          cursor="inherit"
         />
       </div>
     );
@@ -119,6 +120,7 @@ export default class Rocket extends Widget {
             grow="1"
             fontSize={fontSize}
             justify="center"
+            cursor="inherit"
           />
         </div>
       </>
@@ -159,6 +161,7 @@ export default class Rocket extends Widget {
           glyphSize={glyphSize}
           justify="center"
           glyphPosition="center"
+          cursor="inherit"
         />
       </div>
     );
@@ -174,6 +177,7 @@ export default class Rocket extends Widget {
           fontSize={fontSize}
           justify="center"
           wrap="no"
+          cursor="inherit"
         />
       </div>
     );
@@ -189,13 +193,10 @@ export default class Rocket extends Widget {
           fontSize={fontSize}
           justify="center"
           wrap="no"
+          cursor="inherit"
         />
       </div>
     );
-  }
-
-  renderBox() {
-    return <div className={`box-hover ${this.styles.classNames.box}`} />;
   }
 
   render() {
@@ -205,11 +206,12 @@ export default class Rocket extends Widget {
         onClick={this.props.onClick}
       >
         {this.renderAdditional()}
-        {this.renderBox()}
         {this.renderIcon()}
-        {this.renderGlyph()}
-        {this.renderTitle()}
-        {this.renderSubtitle()}
+        <div className={`box-hover ${this.styles.classNames.box}`}>
+          {this.renderGlyph()}
+          {this.renderTitle()}
+          {this.renderSubtitle()}
+        </div>
         {this.renderGauge()}
         {this.renderOverflow()}
         {this.renderCrossed()}

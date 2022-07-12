@@ -12,17 +12,14 @@ export default function styles(theme, props) {
     top: '0px',
     bottom: '0px',
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     background: background,
     overflow: 'hidden',
     transition: '0.5s ease-in-out',
   };
 
   const title = {
-    position: 'absolute',
-    left: '0px',
-    right: '0px',
-    top: '5%',
+    margin: '20px 0px 0px 0px ',
     display: 'flex',
     flexDirection: 'row',
     textTransform: 'uppercase',
@@ -30,12 +27,13 @@ export default function styles(theme, props) {
   };
 
   const rockets = {
+    flexGrow: 1,
+    padding: '10px 10px 0px 10px',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
-    alignSelf: 'center',
-    margin: 'auto',
-    paddingTop: '5%',
+    flexWrap: 'wrap',
+    overflowY: 'auto',
   };
 
   return {

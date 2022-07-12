@@ -36,6 +36,7 @@ export default function styles(theme, props) {
     transformOrigin: '50% 50%',
     animation: `${duration} ease-in-out infinite ${direction}`,
     animationName: keyframesBlob,
+    pointerEvents: 'none',
   };
 
   const launcherWave = {
@@ -49,6 +50,7 @@ export default function styles(theme, props) {
     animation: `${duration} ease-in-out infinite ${direction}`,
     animationDirection: 'alternate',
     animationName: keyframesWave,
+    pointerEvents: 'none',
   };
 
   return {

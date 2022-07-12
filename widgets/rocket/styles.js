@@ -40,7 +40,7 @@ export default function styles(theme, props) {
   const rr1 = px(s / 20);
   const rr2 = px(s / 5);
   const m = px(s / 20);
-  const hm = px(s / 5);
+  const mb = px(s / 1.8);
 
   const rs1 = {
     none: px(0),
@@ -78,17 +78,14 @@ export default function styles(theme, props) {
     'flexDirection': 'column',
     'justifyContent': 'center',
     'alignSelf': 'center',
-    'margin': `0px ${m}`,
+    'margin': `0px ${m} ${mb} ${m}`,
     'transformOrigin': 'bottom',
     'transition': disabled
       ? null
       : 'background 0.5s ease-in-out, margin 0.5s ease-in-out, transform 0.5s ease-in-out, opacity 0.5s ease-in-out',
-    ':hover': {
-      margin: hover ? `0px ${hm}` : null,
-      transform: hover ? 'scale(1.3)' : null,
-    },
     ':hover .box-hover': {
       background: hover ? backgroundHover : null,
+      transform: hover ? 'scale(1.05)' : null,
     },
     ':hover .gear-hover': {
       transition: 'cubic-bezier(0.37, 3.43, 0.55, 1) 0.4s',
@@ -106,6 +103,8 @@ export default function styles(theme, props) {
     borderRadius: kind === 'toy' ? rr2 : rr1,
     boxShadow: shadow ? `0px ${rs1} ${rs2} ${rs3} rgba(0,0,0,${rs4})` : null,
     background: background,
+    cursor: disabled ? null : 'pointer',
+    transition: disabled ? null : 'transform 0.2s ease-in-out',
   };
 
   const icon = {
@@ -118,8 +117,13 @@ export default function styles(theme, props) {
   };
 
   const glyph = {
-    ...icon,
+    position: 'absolute',
+    top: px(s * 0.15),
+    left: '0px',
+    right: '0px',
+    height: px(s * 0.5),
     display: 'flex',
+    opacity: disabled ? 0.4 : 1,
   };
 
   const iconSvg = {
@@ -192,7 +196,7 @@ export default function styles(theme, props) {
     transform: 'scale(0.5)',
   };
 
-  let transition, animation, animationName;
+  let transition, additionnalAnimation, additionnalAnimationName;
   if (additionalAnimation === 'parkinson') {
     const keyframes = {
       '0%': {transform: 'translate(0%, 0%) rotate(0deg)'},
@@ -217,8 +221,8 @@ export default function styles(theme, props) {
       '95%': {transform: 'translate(1%, 0.2%) rotate(0.5deg)'},
       '100%': {transform: 'translate(-0.5%, -0.6%) rotate(0deg)'},
     };
-    animation = '1s ease-in-out infinite reverse';
-    animationName = keyframes;
+    additionnalAnimation = '1s ease-in-out infinite reverse';
+    additionnalAnimationName = keyframes;
   } else if (additionalAnimation === 'zoom') {
     const keyframes = {
       '0%': {transform: 'scale(1)'},
@@ -226,8 +230,8 @@ export default function styles(theme, props) {
       '100%': {transform: 'scale(1)'},
     };
     transition = '0.1 ease-out';
-    animation = '0.6s ease-in-out infinite';
-    animationName = keyframes;
+    additionnalAnimation = '0.6s ease-in-out infinite';
+    additionnalAnimationName = keyframes;
   } else if (additionalAnimation === 'shift') {
     const keyframes = {
       '0%': {transform: 'translateX(0%)'},
@@ -237,8 +241,8 @@ export default function styles(theme, props) {
       '100%': {transform: 'translateX(0%)'},
     };
     transition = '0.1 ease-out';
-    animation = '0.4s ease-in-out infinite';
-    animationName = keyframes;
+    additionnalAnimation = '0.4s ease-in-out infinite';
+    additionnalAnimationName = keyframes;
   } else if (additionalAnimation === 'dancing') {
     const keyframes = {
       '0%': {transform: 'rotate(4deg) translate(0%, 0%)'},
@@ -254,8 +258,8 @@ export default function styles(theme, props) {
       '100%': {transform: 'rotate(4deg) translate(0%, 0%)'},
     };
     transition = '0.3 ease-out';
-    animation = '1.2s ease-in-out infinite reverse';
-    animationName = keyframes;
+    additionnalAnimation = '1.2s ease-in-out infinite reverse';
+    additionnalAnimationName = keyframes;
   }
 
   const additional = {
@@ -272,10 +276,11 @@ export default function styles(theme, props) {
     'flexDirection': 'row',
     'justifyContent': 'center',
     'alignSelf': 'center',
+    'cursor': disabled ? null : 'pointer',
     'transition': transition,
     ':hover': {
-      animation,
-      animationName,
+      animation: additionnalAnimation,
+      animationName: additionnalAnimationName,
     },
   };
 
