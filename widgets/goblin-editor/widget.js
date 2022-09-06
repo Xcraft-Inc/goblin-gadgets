@@ -10,6 +10,7 @@ class GoblinEditor extends Widget {
     this.init = this.init.bind(this);
     this.format = this.format.bind(this);
     this.editorElement = undefined;
+    this.tempSrc = null;
   }
 
   format() {
@@ -36,6 +37,10 @@ class GoblinEditor extends Widget {
   }
 
   setSource(src) {
+    if (!this.model) {
+      this.tempSrc = src;
+      return;
+    }
     this.model.setValue(src);
     this.format();
   }
@@ -94,7 +99,12 @@ class GoblinEditor extends Widget {
       this.props.onUpdate(templateSrc);
     }
     this.monaco.editor.setTheme('vs');
-    this.format();
+
+    if (this.tempSrc) {
+      this.setSource(this.tempSrc);
+    } else {
+      this.format();
+    }
   }
 
   render() {
