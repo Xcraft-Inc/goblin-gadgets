@@ -93,6 +93,13 @@ class HinterFieldControl extends Widget {
   }
 
   clear() {
+    const service = this.workitemId.split('@', 1)[0];
+    const action = `clear-${this.props.hinter}`;
+    if (this.canDo(`${service}.${action}`)) {
+      this.doFor(this.workitemId, action, {
+        previousValue: this.props.selectedId,
+      });
+    }
     this.props.onChange(null);
   }
 
