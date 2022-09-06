@@ -9,6 +9,7 @@ class GoblinEditor extends Widget {
     this.assign = this.assign.bind(this);
     this.init = this.init.bind(this);
     this.format = this.format.bind(this);
+    this.setSource = this.setSource.bind(this);
     this.editorElement = undefined;
     this.tempSrc = null;
   }
@@ -67,14 +68,14 @@ class GoblinEditor extends Widget {
   }
 
   destroy() {
+    this._subscription && this._subscription.dispose();
     if (this.editor) {
-      this.editor.dispose();
       const model = this.editor.getModel();
       if (model) {
         model.dispose();
       }
+      this.editor.dispose();
     }
-    this._subscription && this._subscription.dispose();
   }
 
   init() {
