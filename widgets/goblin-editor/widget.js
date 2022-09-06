@@ -9,8 +9,10 @@ class GoblinEditor extends Widget {
     this.assign = this.assign.bind(this);
     this.init = this.init.bind(this);
     this.format = this.format.bind(this);
+    this.setSource = this.setSource.bind(this);
     this.editorElement = undefined;
     this.tempSrc = null;
+    this.initDone = false;
   }
 
   format() {
@@ -37,7 +39,7 @@ class GoblinEditor extends Widget {
   }
 
   setSource(src) {
-    if (!this.model) {
+    if (!this.initDone) {
       this.tempSrc = src;
       return;
     }
@@ -53,6 +55,9 @@ class GoblinEditor extends Widget {
     import('monaco-editor/esm/vs/editor/editor.api').then((mod) => {
       this.monaco = mod;
       this.init();
+      if (this.tempSrc !== null) {
+        this.setSource(this.tempSrc);
+      }
     });
   }
 
@@ -61,14 +66,17 @@ class GoblinEditor extends Widget {
   }
 
   destroy() {
+    this._subscription && this._subscription.dispose();
     if (this.editor) {
-      this.editor.dispose();
       const model = this.editor.getModel();
       if (model) {
         model.dispose();
       }
+      this.editor.dispose();
     }
-    this._subscription && this._subscription.dispose();
+    this.editorElement = undefined;
+    this.tempSrc = null;
+    this.initDone = false;
   }
 
   init() {
@@ -99,12 +107,8 @@ class GoblinEditor extends Widget {
       this.props.onUpdate(templateSrc);
     }
     this.monaco.editor.setTheme('vs');
-
-    if (this.tempSrc) {
-      this.setSource(this.tempSrc);
-    } else {
-      this.format();
-    }
+    this.format();
+    this.initDone = true;
   }
 
   render() {
