@@ -16,12 +16,12 @@ class CommandButton extends Widget {
       !this.registry[command]
     ) {
       //show the bad command in UI as a disabled button
-      return <Button {...others} disabled="true" text={command} />;
+      return <Button {...others} disabled={true} text={command} />;
     }
 
     if (!this.canDo(command)) {
       if (showDisabled) {
-        return <Button {...others} disabled="true" />;
+        return <Button {...others} disabled={true} />;
       } else {
         return null;
       }
