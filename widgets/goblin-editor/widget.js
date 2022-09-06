@@ -37,12 +37,12 @@ class GoblinEditor extends Widget {
   }
 
   setSource(src) {
-    if (!this.model) {
+    if (this.model) {
+      this.model.setValue(src);
+      this.format();
+    } else {
       this.tempSrc = src;
-      return;
     }
-    this.model.setValue(src);
-    this.format();
   }
 
   assign(component) {
@@ -58,6 +58,12 @@ class GoblinEditor extends Widget {
 
   componentWillUnmount() {
     this.destroy();
+  }
+
+  componentDidUpdate() {
+    if (!this.model.getValue().length) {
+      this.setSource(this.props.source);
+    }
   }
 
   destroy() {
