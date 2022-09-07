@@ -12,10 +12,12 @@ class GoblinEditor extends Widget {
     this.setSource = this.setSource.bind(this);
     this.editorElement = undefined;
     this.tempSrc = null;
+    this.initDone = false;
+    this.monaco = null;
   }
 
-  format() {
-    let src = this.model.getValue();
+  format(source) {
+    let src = source || this.model.getValue();
     try {
       src = prettier.format(src, {parser: 'babel', plugins: [babelParser]});
       this.model.setValue(src);
@@ -39,10 +41,10 @@ class GoblinEditor extends Widget {
 
   setSource(src) {
     if (this.model) {
-      this.model.setValue(src);
-      this.format();
+      this.format(src);
     } else {
       this.tempSrc = src;
+      this.init();
     }
   }
 
@@ -50,7 +52,7 @@ class GoblinEditor extends Widget {
     this.editorElement = component;
   }
 
-  componentWillMount() {
+  componentDidMount() {
     import('monaco-editor/esm/vs/editor/editor.api').then((mod) => {
       this.monaco = mod;
       this.init();
@@ -62,6 +64,9 @@ class GoblinEditor extends Widget {
   }
 
   componentDidUpdate() {
+    if (!this.init()) {
+      return;
+    }
     if (!this.model.getValue().length) {
       this.setSource(this.props.source);
     }
@@ -79,7 +84,19 @@ class GoblinEditor extends Widget {
   }
 
   init() {
+    if (this.initDone) {
+      return true;
+    }
+    if (!this.monaco) {
+      return false;
+    }
+
     const templateSrc = this.props.source;
+
+    /* Init only when a non-empty source is provided (via setSource or via props) */
+    if (!templateSrc && !this.tempSrc) {
+      return false;
+    }
 
     const model = this.monaco.editor.createModel(templateSrc, 'javascript');
     this.model = model;
@@ -112,6 +129,8 @@ class GoblinEditor extends Widget {
     } else {
       this.format();
     }
+
+    this.initDone = true;
   }
 
   render() {
