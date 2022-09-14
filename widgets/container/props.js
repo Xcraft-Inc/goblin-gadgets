@@ -47,7 +47,7 @@ export default [
   {
     name: 'busyLook',
     group: 'aspect',
-    type: types.enum(['', 'old', 'small', 'large']),
+    type: types.enum(['', 'old', 'very-small', 'small', 'large']),
   },
   {
     name: 'isDragged',

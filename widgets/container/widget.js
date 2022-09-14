@@ -169,7 +169,15 @@ class Container extends Widget {
       const busyBoxClass = this.styles.classNames.busyBox;
       const busyGlyphClass = this.styles.classNames.busyGlyph;
 
-      if (this.props.busyLook === 'small') {
+      if (this.props.busyLook === 'very-small') {
+        return (
+          <div className={busyBoxClass}>
+            <div className={busyGlyphClass}>
+              <Spinner size="40px" />
+            </div>
+          </div>
+        );
+      } else if (this.props.busyLook === 'small') {
         return (
           <div className={busyBoxClass}>
             <div className={busyGlyphClass}>
