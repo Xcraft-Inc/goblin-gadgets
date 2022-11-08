@@ -459,6 +459,11 @@ export default function styles(theme, props) {
 
   /******************************************************************************/
 
+  smiley.boxSizing = 'unset';
+  smile.boxSizing = 'unset';
+
+  /******************************************************************************/
+
   const documentation = {
     position: 'absolute',
     left: 0,
