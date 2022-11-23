@@ -599,7 +599,7 @@ class Field extends Form {
       if (this.props.pluginType) {
         const CustomPlugin = widgetImporter(`plugin-${this.props.pluginType}`);
         WiredPlugin = Widget.Wired(CustomPlugin)(
-          `${this.props.plugin}-plugin@readonly@${this.context.id}`
+          `${this.props.plugin}-plugin@${this.context.id}`
         );
         FinalPlugin = this.mapWidget(WiredPlugin, 'entityIds', this.fullPath);
       } else {
@@ -629,7 +629,7 @@ class Field extends Form {
         >
           <FinalPlugin
             {...pluginProps}
-            id={`${this.props.plugin}-plugin@readonly@${this.context.id}`}
+            id={`${this.props.plugin}-plugin@${this.context.id}`}
             readonly={true}
             embeddedLevel={
               this.props.embeddedLevel ? this.props.embeddedLevel + 1 : 1
@@ -1229,9 +1229,7 @@ class Field extends Form {
     if (this.props.plugin) {
       let WiredPlugin = null;
       let FinalPlugin = null;
-      const pluginId = `${this.props.plugin}-plugin@${
-        this.props.mode ? `${this.props.mode}@` : ''
-      }${this.context.id}`;
+      const pluginId = `${this.props.plugin}-plugin@${this.context.id}`;
       if (this.props.pluginType) {
         const CustomPlugin = widgetImporter(`plugin-${this.props.pluginType}`);
         WiredPlugin = Widget.Wired(CustomPlugin)(pluginId);
