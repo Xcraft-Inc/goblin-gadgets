@@ -100,6 +100,17 @@ export default [
     max: 20,
   },
   {
+    name: 'autoRows',
+    group: 'text',
+    type: types.bool,
+  },
+  {
+    name: 'maxRows',
+    group: 'text',
+    type: types.number,
+    min: 1,
+  },
+  {
     name: 'justify',
     group: 'text',
     type: types.textJustify,

@@ -119,6 +119,10 @@ export default class TextInputNC extends Widget {
   }
 
   renderInputMultiline(value) {
+    let rows = this.props.rows;
+    if (this.props.autoRows) {
+      rows = value.split('\n', this.props.maxRows).length;
+    }
     return (
       <TranslatableTextarea
         msgid={this.props.hintText}
@@ -127,7 +131,7 @@ export default class TextInputNC extends Widget {
         value={value}
         defaultValue={this.props.defaultValue}
         name={this.props.name}
-        rows={this.props.rows}
+        rows={rows}
         disabled={this.props.disabled || this.props.readonly}
         onRef={this.setInput}
         onChange={this.onChange}
@@ -169,7 +173,7 @@ export default class TextInputNC extends Widget {
 
   renderInput() {
     let type = this.props.inputType;
-    if (!type && this.props.rows) {
+    if (!type && (this.props.rows || this.props.autoRows)) {
       type = 'textarea';
     }
 
