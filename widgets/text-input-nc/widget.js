@@ -122,6 +122,10 @@ export default class TextInputNC extends Widget {
     let rows = this.props.rows;
     if (this.props.autoRows) {
       rows = value.split('\n', this.props.maxRows).length;
+      const minRows = this.props.minRows;
+      if (minRows && rows < minRows) {
+        rows = minRows;
+      }
     }
     return (
       <TranslatableTextarea

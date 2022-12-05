@@ -105,6 +105,12 @@ export default [
     type: types.bool,
   },
   {
+    name: 'minRows',
+    group: 'text',
+    type: types.number,
+    min: 0,
+  },
+  {
     name: 'maxRows',
     group: 'text',
     type: types.number,
