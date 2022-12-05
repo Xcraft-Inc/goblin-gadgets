@@ -19,7 +19,8 @@
     "xcraft-core-goblin": "^5.0.0",
     "xcraft-core-utils": "^4.0.0",
     "goblin-nabu": "^2.0.0",
-    "goblin-toolbox": "^1.0.0"
+    "goblin-toolbox": "^1.0.0",
+    "remark-gfm": "^3.0.1"
   },
   "devDependencies": {
     "@fortawesome/react-fontawesome": "^0.1.9",
