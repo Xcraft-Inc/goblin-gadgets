@@ -820,7 +820,7 @@ class Field extends Form {
         <TextFieldTyped
           type={this.getKind()}
           shift={this.getShift()}
-          selectAllOnFocus={true}
+          // selectAllOnFocus={true}
           width={fieldWidth}
           {...otherProps}
           tooltip={this.getTooltip()}
