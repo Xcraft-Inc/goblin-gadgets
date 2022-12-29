@@ -77,6 +77,23 @@ export default [
     group: 'aspect',
     type: types.dataPallet,
   },
+  {
+    name: 'borderRadius',
+    group: 'aspect',
+    type: types.pixel,
+    min: 0,
+    max: 50,
+  },
+  {
+    name: 'frame',
+    group: 'aspect',
+    type: types.enum(['shadow', 'no']),
+  },
+  {
+    name: 'backgroundColor',
+    group: 'aspect',
+    type: types.color,
+  },
 
   // Layout.
   {
@@ -90,6 +107,33 @@ export default [
     type: types.pixel,
     min: 520,
     max: 1000,
+  },
+
+  // Functionality.
+  {
+    name: 'showHSL',
+    group: 'functionality',
+    type: types.enum(['yes', 'no']),
+  },
+  {
+    name: 'showRGB',
+    group: 'functionality',
+    type: types.enum(['yes', 'no']),
+  },
+  {
+    name: 'showCMYK',
+    group: 'functionality',
+    type: types.enum(['yes', 'no']),
+  },
+  {
+    name: 'showG',
+    group: 'functionality',
+    type: types.enum(['yes', 'no']),
+  },
+  {
+    name: 'showPaste',
+    group: 'functionality',
+    type: types.enum(['yes', 'no']),
   },
 
   // Function.

@@ -2,14 +2,21 @@ import {Unit} from 'goblin-theme';
 
 /******************************************************************************/
 
-export const propNames = ['grow', 'width'];
+export const propNames = [
+  'grow',
+  'width',
+  'frame',
+  'backgroundColor',
+  'borderRadius',
+];
 
 export default function styles(theme, props) {
-  const {grow, width = '400px'} = props;
+  const {grow, width = '400px', frame, backgroundColor, borderRadius} = props;
 
   const isDark = theme.colors.isDarkTheme;
-  const r = theme.shapes.smoothRadius;
-  const rs = Unit.multiply(r, 3);
+  const r = borderRadius || theme.shapes.smoothRadius;
+  const rs = borderRadius || Unit.multiply(r, 3);
+  const noFrame = frame === 'no';
 
   const colorPicker = {
     flexGrow: grow,
@@ -19,8 +26,8 @@ export default function styles(theme, props) {
     display: 'flex',
     flexDirection: 'column',
     borderRadius: r,
-    backgroundColor: theme.palette.calendarBackground,
-    boxShadow: theme.shapes.flyingShadow,
+    backgroundColor: backgroundColor || theme.palette.calendarBackground,
+    boxShadow: noFrame ? null : theme.shapes.flyingShadow,
   };
 
   const modes = {
@@ -37,7 +44,9 @@ export default function styles(theme, props) {
     flexDirection: 'row',
     flexGrow: 1,
     alignItems: 'center',
-    background: isDark
+    background: noFrame
+      ? null
+      : isDark
       ? 'linear-gradient(180deg, rgba(0,0,0,0.70), transparent 20px)'
       : 'linear-gradient(180deg, rgba(0,0,0,0.15), transparent 20px)',
   };

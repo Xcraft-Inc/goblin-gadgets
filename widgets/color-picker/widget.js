@@ -250,6 +250,10 @@ class ColorPicker extends Widget {
   /******************************************************************************/
 
   renderMode(glyph, tooltip, mode) {
+    if (this.props[`show${mode}`] === 'no') {
+      return null;
+    }
+
     return (
       <Button
         border="none"
@@ -287,12 +291,14 @@ class ColorPicker extends Widget {
           onChange={this.onTextEdited}
           onBlur={this.onTextChanged}
         />
-        <Button
-          kind="combo"
-          glyph="solid/eye-dropper"
-          tooltip={T('Colle la couleur contenue dans le bloc-notes')}
-          onClick={this.onPaste}
-        />
+        {this.props.showPaste === 'no' ? null : (
+          <Button
+            kind="combo"
+            glyph="solid/eye-dropper"
+            tooltip={T('Colle la couleur contenue dans le bloc-notes')}
+            onClick={this.onPaste}
+          />
+        )}
       </div>
     );
   }
