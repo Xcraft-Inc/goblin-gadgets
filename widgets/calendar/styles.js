@@ -70,6 +70,7 @@ export default function styles(theme, props) {
     border: border,
     boxShadow: shadow ? theme.shapes.calendarShadow : null,
     borderRadius: theme.shapes.smoothRadius,
+    boxSizing: 'content-box',
   };
 
   const calendarTips = {
