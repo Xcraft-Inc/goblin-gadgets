@@ -424,6 +424,7 @@ export default function styles(theme, props) {
     display = 'flex';
     flexDirection = 'column';
     margin = '0px';
+    right = theme.shapes.viewSpacing;
     borderLeftWidth = theme.shapes.viewSpacing;
     borderLeftStyle = 'solid';
     borderLeftColor = theme.palette.rootBackground;
