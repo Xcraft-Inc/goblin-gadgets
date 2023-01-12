@@ -74,6 +74,10 @@ class List extends Widget {
     const range = this._listRef ? this._listRef.getVisibleRange() : [0, 0];
     const {count} = this.props;
 
+    if (range[0] === 0 && range[1] === 0) {
+      this._listRef.updateFrame();
+    }
+
     /* Ensure to test against the right list id. Because the fetching is
      * executed by a setTimeout, it's possible that an other list will
      * be presented.
