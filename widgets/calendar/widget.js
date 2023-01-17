@@ -327,8 +327,6 @@ class Calendar extends Widget {
 
   onDateClicked(date) {
     if (
-      date >= this.startVisibleDate &&
-      date <= this.endVisibleDate &&
       date >= this.startDate &&
       date <= this.endDate &&
       !this.props.readonly
@@ -364,6 +362,7 @@ class Calendar extends Widget {
     active,
     selected,
     dimmed,
+    disabled,
     hidden,
     weekend,
     subkind,
@@ -394,6 +393,7 @@ class Calendar extends Widget {
             text={d}
             tooltip={tooltip}
             dimmed={dimmed}
+            disabled={disabled}
             selected={selected}
             hover={this.props.hoverDates ? this.props.hoverDates[date] : null}
             date={date}
@@ -424,13 +424,14 @@ class Calendar extends Widget {
             subkind={subkind}
             active={active}
             dimmed={dimmed}
+            disabled={disabled}
             selected={selected}
             badgePosition="top-right"
             badgeValue={badgeValue}
             badgeColor={badgeColor}
             badgeShape="circle"
             badgeSize="0.8"
-            onClick={dimmed ? null : () => this.onDateClicked(date)}
+            onClick={() => this.onDateClicked(date)}
           />
         </div>
       );
@@ -439,6 +440,8 @@ class Calendar extends Widget {
 
   // Return an array of 7 buttons, for a week.
   renderButtons(startOfMonth, firstDate) {
+    const startVisibleDate = this.startVisibleDate;
+    const endVisibleDate = this.endVisibleDate;
     const line = [];
     let i = 0;
     for (i = 0; i < 7; ++i) {
@@ -446,6 +449,7 @@ class Calendar extends Widget {
       let active = false;
       let selected = false;
       let dimmed = false;
+      let disabled = false;
       let hidden = false;
       let weekend = false;
       let subkind = null;
@@ -476,11 +480,14 @@ class Calendar extends Widget {
         }
       }
       if (firstDate < this.startDate || firstDate > this.endDate) {
-        dimmed = true;
+        disabled = true;
       }
       if (i >= 5) {
         // saturday or sunday ?
         weekend = true;
+      }
+      if (firstDate < startVisibleDate || firstDate > endVisibleDate) {
+        dimmed = true;
       }
 
       const button = this.renderButton(
@@ -488,6 +495,7 @@ class Calendar extends Widget {
         active,
         selected,
         dimmed,
+        disabled,
         hidden,
         weekend,
         subkind,

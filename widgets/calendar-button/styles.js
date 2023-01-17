@@ -119,7 +119,7 @@ export default function styles(theme, props) {
   transition = null;
   backgroundColor = 'transparent';
   if (dimmed) {
-    backgroundHoverColor = theme.palette.calendarBackground; // no visible hover effect
+    backgroundHoverColor = ColorManipulator.lighten(activeColor, 0.8);
     activeColor = theme.palette.calendarBackground;
   } else {
     backgroundHoverColor = ColorManipulator.lighten(activeColor, 0.3);
