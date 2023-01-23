@@ -70,9 +70,7 @@ export default class CheckboxNC extends Widget {
     const {checked, ...otherProps} = this.props;
 
     let kind, border, glyph, glyphColor, active;
-    if (this.props.kind === 'switch') {
-      // kind = 'check-button';
-      // glyph = checked ? 'light/toggle-on' : 'light/toggle-off'; // [ o] [x ]
+    if (this.props.kind === 'on-off') {
       return (
         <SwitchOnOff
           checked={this.props.checked}
@@ -80,6 +78,9 @@ export default class CheckboxNC extends Widget {
           onClick={this.onChange}
         />
       );
+    } else if (this.props.kind === 'switch') {
+      kind = 'check-button';
+      glyph = checked ? 'light/toggle-on' : 'light/toggle-off'; // [ o] [x ]
     } else if (this.props.kind === 'big') {
       kind = null;
       glyph = 'solid/check';
