@@ -3,28 +3,28 @@ export default [
     name: 'default',
     props: {
       checked: false,
-      width: '30px',
+      width: '60px',
     },
   },
   {
     name: 'ON',
     props: {
       checked: true,
-      width: '40px',
+      width: '100px',
     },
   },
   {
     name: 'OFF',
     props: {
       checked: false,
-      width: '40px',
+      width: '100px',
     },
   },
   {
     name: 'Big',
     props: {
       checked: false,
-      width: '100px',
+      width: '200px',
     },
   },
   {

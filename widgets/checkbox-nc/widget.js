@@ -6,6 +6,7 @@ import scenarios from './scenarios';
 import {registerWidget} from 'goblin-gadgets/widgets/widget-doc/widget-list';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
+import SwitchOnOff from 'goblin-gadgets/widgets/switch-on-off/widget';
 
 /******************************************************************************/
 
@@ -70,8 +71,15 @@ export default class CheckboxNC extends Widget {
 
     let kind, border, glyph, glyphColor, active;
     if (this.props.kind === 'switch') {
-      kind = 'check-button';
-      glyph = checked ? 'light/toggle-on' : 'light/toggle-off'; // [ o] [x ]
+      // kind = 'check-button';
+      // glyph = checked ? 'light/toggle-on' : 'light/toggle-off'; // [ o] [x ]
+      return (
+        <SwitchOnOff
+          checked={this.props.checked}
+          disabled={this.props.disabled}
+          onClick={this.onChange}
+        />
+      );
     } else if (this.props.kind === 'big') {
       kind = null;
       glyph = 'solid/check';
