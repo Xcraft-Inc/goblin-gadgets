@@ -1,9 +1,9 @@
 /******************************************************************************/
 
-export const propNames = ['kind'];
+export const propNames = ['kind', 'hide'];
 
 export default function styles(theme, props) {
-  const {kind} = props;
+  const {kind, hide} = props;
 
   const container = {
     display: 'flex',
@@ -20,6 +20,10 @@ export default function styles(theme, props) {
     cursor: kind === 'vertical' ? 'col-resize' : 'row-resize',
     backgroundColor: theme.palette.splitterBackgroundHover,
   };
+
+  if (hide) {
+    resizerDragging.display = 'none';
+  }
 
   const resizer = {
     ...resizerDragging,
