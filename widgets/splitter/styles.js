@@ -15,8 +15,8 @@ export default function styles(theme, props) {
 
   const resizerDragging = {
     zIndex: 1,
-    width: kind === 'vertical' ? theme.shapes.splitterSize : null,
-    height: kind === 'horizontal' ? theme.shapes.splitterSize : null,
+    minWidth: kind === 'vertical' ? theme.shapes.splitterSize : null,
+    minHeight: kind === 'horizontal' ? theme.shapes.splitterSize : null,
     cursor: kind === 'vertical' ? 'col-resize' : 'row-resize',
     backgroundColor: theme.palette.splitterBackgroundHover,
   };
