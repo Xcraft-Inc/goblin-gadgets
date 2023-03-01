@@ -22,6 +22,18 @@ export default [
     description: 'Hide the splitter.',
   },
 
+  // Overflow.
+  {
+    name: 'firstOverflow',
+    group: 'overflow',
+    type: types.enum(['hidden', 'visible']),
+  },
+  {
+    name: 'lastOverflow',
+    group: 'overflow',
+    type: types.enum(['hidden', 'visible']),
+  },
+
   // Size (initial).
   {
     name: 'firstSize',

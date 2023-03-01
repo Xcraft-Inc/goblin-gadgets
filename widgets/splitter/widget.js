@@ -351,12 +351,12 @@ class Splitter extends Widget {
 
     const firstPaneStyle = {
       display: 'flex',
-      overflow: 'hidden',
+      overflow: this.props.firstOverflow ?? 'hidden',
     };
 
     const lastPaneStyle = {
       display: 'flex',
-      overflow: 'hidden',
+      overflow: this.props.lastOverflow ?? 'hidden',
     };
 
     if (this.props.hide) {
