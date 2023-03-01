@@ -15,6 +15,12 @@ export default [
     group: 'main',
     type: types.component,
   },
+  {
+    name: 'hide',
+    group: 'main',
+    type: types.bool,
+    description: 'Hide the splitter.',
+  },
 
   // Size (initial).
   {
