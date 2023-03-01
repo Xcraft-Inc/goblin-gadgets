@@ -359,6 +359,10 @@ class Splitter extends Widget {
       overflow: 'hidden',
     };
 
+    if (this.props.hide) {
+      lastPaneStyle.display = 'none';
+    }
+
     if (this.unit === '%') {
       if (this.master === 'first') {
         if (isDefined(this.positions.first)) {
