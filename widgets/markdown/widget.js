@@ -3,6 +3,7 @@ import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import remarkSupersub from 'remark-supersub';
 import * as styles from './styles';
 
 /******************************************************************************/
@@ -18,7 +19,7 @@ export default class Markdown extends Widget {
     return (
       <ReactMarkdown
         className={this.styles.classNames.markdown}
-        remarkPlugins={[remarkGfm]}
+        remarkPlugins={[remarkGfm, remarkSupersub]}
         {...rest}
       >
         {source}
