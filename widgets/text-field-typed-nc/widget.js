@@ -121,7 +121,10 @@ export default class TextFieldTypedNC extends Widget {
       case 'integer':
         return IntegerConverters.getDisplayed(canonicalValue);
       case 'double':
-        return DoubleConverters.getDisplayed(canonicalValue);
+        return DoubleConverters.getDisplayed(
+          canonicalValue,
+          this.props.decimals
+        );
       case 'percent':
         return PercentConverters.getDisplayed(
           canonicalValue,
@@ -212,11 +215,7 @@ export default class TextFieldTypedNC extends Widget {
           this.props.max
         );
       case 'double':
-        return DoubleConverters.parseEdited(
-          displayedValue,
-          this.props.min,
-          this.props.max
-        );
+        return DoubleConverters.parseEdited(displayedValue);
       case 'percent':
         return PercentConverters.parseEdited(
           displayedValue,
