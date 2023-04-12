@@ -40,7 +40,7 @@
     "scroll-into-view-if-needed": "^1.4.0",
     "xcraft-core-shredder": "^5.0.0",
     "xcraft-dev-prettier": "^2.0.0",
-    "xcraft-dev-rules": "^2.0.0"
+    "xcraft-dev-rules": "^4.1.0"
   },
   "prettier": "xcraft-dev-prettier"
 }
