@@ -67,6 +67,8 @@ export default [
   },
   {
     name: 'empty',
-    props: {},
+    props: {
+      list: [],
+    },
   },
 ];
