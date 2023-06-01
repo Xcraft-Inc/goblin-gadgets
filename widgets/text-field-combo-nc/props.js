@@ -3,13 +3,13 @@ import {propsList} from '../../types/props-list.js';
 import {array, object, union} from 'xcraft-core-stones';
 
 const samples = [
-  {id: 'team', text: 'Collaborateurs'},
-  {id: 'colors', text: 'Couleurs'},
-  {id: 'months', text: 'Mois'},
-  {id: 'transports', text: 'Moyens de transport'},
-  {id: 'localities', text: 'Localités'},
-  {id: 'strange', text: 'Bizarre'},
-  {id: 'multiline', text: 'Multiligne'},
+  {value: 'team', text: 'Collaborateurs'},
+  {value: 'colors', text: 'Couleurs'},
+  {value: 'months', text: 'Mois'},
+  {value: 'transports', text: 'Moyens de transport'},
+  {value: 'localities', text: 'Localités'},
+  {value: 'strange', text: 'Bizarre'},
+  {value: 'multiline', text: 'Multiligne'},
 ];
 
 const samplesList = {

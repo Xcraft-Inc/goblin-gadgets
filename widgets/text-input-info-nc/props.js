@@ -10,9 +10,9 @@ addType('checkFunction', {
   widget: 'combo',
   restrictsToList: true,
   samples: [
-    {id: 'T1', text: 'Test length 5/10/15'},
-    {id: 'T2', text: 'Test empty'},
-    {id: 'T3', text: 'Test password'},
+    {value: 'T1', text: 'Test length 5/10/15'},
+    {value: 'T2', text: 'Test empty'},
+    {value: 'T3', text: 'Test password'},
   ],
   samplesData: {
     T1: function (value) {

@@ -480,11 +480,11 @@ const t5 = {
 /******************************************************************************/
 
 const samples = [
-  {id: 'T1', text: 'Petite table'},
-  {id: 'T2', text: 'Moyenne table'},
-  {id: 'T3', text: 'Grande table'},
-  {id: 'T4', text: 'Table avec filtre et tri'},
-  {id: 'T5', text: 'Table à plusieurs niveaux'},
+  {value: 'T1', text: 'Petite table'},
+  {value: 'T2', text: 'Moyenne table'},
+  {value: 'T3', text: 'Grande table'},
+  {value: 'T4', text: 'Table avec filtre et tri'},
+  {value: 'T5', text: 'Table à plusieurs niveaux'},
 ];
 
 const samplesData = {
@@ -498,9 +498,9 @@ const samplesData = {
 /******************************************************************************/
 
 const selectedIds = [
-  {id: 'S1', text: 'Premier sélectionné'},
-  {id: 'S2', text: 'Deuxième sélectionné'},
-  {id: 'S12', text: 'Premier et deuxième sélectionnés'},
+  {value: 'S1', text: 'Premier sélectionné'},
+  {value: 'S2', text: 'Deuxième sélectionné'},
+  {value: 'S12', text: 'Premier et deuxième sélectionnés'},
 ];
 
 const selectedIdsData = {
@@ -534,10 +534,10 @@ addType('sortingColumns', {
   widget: 'combo',
   restrictsToList: true,
   samples: [
-    {id: 'S1', text: 'Column 1'},
-    {id: 'S2', text: 'Column 2, 1'},
-    {id: 'S3', text: 'Column 3, 1'},
-    {id: 'S4', text: 'Column 4, 1'},
+    {value: 'S1', text: 'Column 1'},
+    {value: 'S2', text: 'Column 2, 1'},
+    {value: 'S3', text: 'Column 3, 1'},
+    {value: 'S4', text: 'Column 4, 1'},
   ],
   samplesData: {
     S1: new Shredder(['column1']),

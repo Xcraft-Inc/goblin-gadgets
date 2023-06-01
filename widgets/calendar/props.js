@@ -6,8 +6,8 @@ import {array, object, union} from 'xcraft-core-stones';
 /******************************************************************************/
 
 const samplesDates = [
-  {id: 'march2019', text: 'March 2019'},
-  {id: 'april2019', text: 'April 2019'},
+  {value: 'march2019', text: 'March 2019'},
+  {value: 'april2019', text: 'April 2019'},
 ];
 
 const samplesDatesList = {
@@ -43,8 +43,8 @@ addType('dataDates', {
 /******************************************************************************/
 
 const samplesBadges = [
-  {id: 'march2019', text: 'March 2019'},
-  {id: 'april2019', text: 'April 2019'},
+  {value: 'march2019', text: 'March 2019'},
+  {value: 'april2019', text: 'April 2019'},
 ];
 
 const samplesBadgesList = {

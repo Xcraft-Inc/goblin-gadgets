@@ -2,7 +2,7 @@ import {types, addType} from 'goblin-gadgets/types/types.js';
 import {object} from 'xcraft-core-stones';
 import {propsList} from '../../types/props-list.js';
 
-const samples = [{id: 'T1', text: 'Petite table'}];
+const samples = [{value: 'T1', text: 'Petite table'}];
 
 const samplesData = {
   T1: {

@@ -5,10 +5,10 @@ import {array, object, union} from 'xcraft-core-stones';
 /******************************************************************************/
 
 const samples = [
-  {id: 'pallet1', text: 'rouge, vert, bleu'},
-  {id: 'pallet2', text: '9 couleurs pastels'},
-  {id: 'pallet3', text: '18 couleurs vives'},
-  {id: 'pallet4', text: 'mélange'},
+  {value: 'pallet1', text: 'rouge, vert, bleu'},
+  {value: 'pallet2', text: '9 couleurs pastels'},
+  {value: 'pallet3', text: '18 couleurs vives'},
+  {value: 'pallet4', text: 'mélange'},
 ];
 
 const samplesList = {

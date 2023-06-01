@@ -96,10 +96,10 @@ const samplesData = {
 };
 
 const samples = [
-  {id: 'R1', text: 'Crésus'},
-  {id: 'R2', text: 'Westeros'},
-  {id: 'R3', text: 'BD'},
-  {id: 'R4', text: 'Single'},
+  {value: 'R1', text: 'Crésus'},
+  {value: 'R2', text: 'Westeros'},
+  {value: 'R3', text: 'BD'},
+  {value: 'R4', text: 'Single'},
 ];
 
 addType('rockets', {
