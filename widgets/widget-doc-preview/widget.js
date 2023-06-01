@@ -15,6 +15,52 @@ import * as styles from './styles';
 
 /******************************************************************************/
 
+function stringifyChildren(children) {
+  if (typeof children === 'string') {
+    return children;
+  }
+  if (React.isValidElement(children)) {
+    return stringifyReactElement(children);
+  }
+  if (Array.isArray(children)) {
+    return children.map((value) => stringifyChildren(value)).join('');
+  }
+  return `{${JSON.stringify(children)}}`;
+}
+
+function stringifyElement(elementName, props) {
+  let code = `<${elementName}`;
+  for (const [name, value] of Object.entries(props)) {
+    if (name === 'children') {
+      continue;
+    }
+    code += ` ${name}=${stringifyPropValue(value)}`;
+  }
+  if ('children' in props) {
+    code += '>';
+    code += stringifyChildren(props.children);
+    code += `</${elementName}>`;
+  } else {
+    code += '/>';
+  }
+  return code;
+}
+
+function stringifyReactElement(element) {
+  const elementName = element.type.displayName || element.type.name || '';
+  return stringifyElement(elementName, element.props);
+}
+
+function stringifyPropValue(value) {
+  if (typeof value === 'string') {
+    return `"${value}"`;
+  }
+  if (React.isValidElement(value)) {
+    return `{${stringifyReactElement(value)}}`;
+  }
+  return `{${JSON.stringify(value)}}`;
+}
+
 function getComponent(name) {
   switch (name) {
     case 'short-text':
@@ -206,10 +252,10 @@ class WidgetDocPreview extends Widget {
     super(...arguments);
     this.styles = styles;
 
-    this.onChange = this.onChange.bind(this);
+    this.handleCodeChange = this.handleCodeChange.bind(this);
   }
 
-  onChange(value) {
+  handleCodeChange(value) {
     const props = parseCode(value);
 
     this.dispatch({
@@ -222,29 +268,23 @@ class WidgetDocPreview extends Widget {
   renderCode() {
     const widgetName = this.widgetInfo.name;
 
-    let code2 = '';
-    code2 += `<${widgetName}`;
-    code2 += this.props.props
-      .map((value, propName) => {
-        const propDef = this.widgetInfo.props.find(
-          (prop) => prop.name === propName
-        );
-        if (propDef.type.samplesData) {
-          value = JSON.stringify(propDef.type.samplesData[value]);
-        } else if (typeof value === 'string') {
-          value = `"${value}"`;
-        } else {
-          value = `{${JSON.stringify(value)}}`;
-        }
-        value = value ? value.replace(/\n/gi, '\\n') : '';
-        return ` ${propName}=${value}`;
-      })
-      .join('');
-    code2 += '/>';
+    const props = this.props.props.toJS();
+    for (const [propName, value] of Object.entries(props)) {
+      const propDef = this.widgetInfo.props.find(
+        (prop) => prop.name === propName
+      );
+      const samplesData = propDef.type.samplesData;
+      if (samplesData && value in samplesData) {
+        props[propName] = propDef.type.samplesData[value];
+      }
+    }
+
+    const code = stringifyElement(widgetName, props);
+    const code2 = code.replace(/\n/gi, '\\n');
 
     return (
       <div className={this.styles.classNames.container}>
-        <TextFieldNC rows={3} onChange={this.onChange} value={code2} />
+        <TextFieldNC rows={3} onChange={this.handleCodeChange} value={code2} />
       </div>
     );
   }
@@ -278,7 +318,7 @@ class WidgetDocPreview extends Widget {
     return (
       <div className={this.styles.classNames.container}>
         <pre className={this.styles.classNames.code}>{code1}</pre>
-        <TextFieldNC rows={3} onChange={this.onChange} value={code2} />
+        <TextFieldNC rows={3} onChange={this.handleCodeChange} value={code2} />
       </div>
     );
   }
