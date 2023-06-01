@@ -4,8 +4,14 @@ export default function styles() {
     flexDirection: 'column',
   };
 
+  const title = {
+    marginTop: '18px',
+    marginBottom: '18px',
+  };
+
   return {
     container,
+    title,
   };
 }
 

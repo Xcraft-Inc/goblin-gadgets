@@ -22,7 +22,7 @@ export default function styles(theme) {
 
   const panes = {
     overflow: 'hidden',
-    padding: `0px ${m}`,
+    padding: `${m} ${m} 0px ${m}`,
     display: 'flex',
     flexDirection: 'column',
     flexGrow: 1,
@@ -39,6 +39,8 @@ export default function styles(theme) {
   };
 
   const paneSettings = {
+    minHeight: '175px',
+    flexBasis: '220px',
     overflowY: 'auto',
     display: 'flex',
     flexDirection: 'column',
@@ -50,7 +52,7 @@ export default function styles(theme) {
   };
 
   const paneSamples = {
-    minHeight: '555px',
+    minHeight: '190px',
     flexGrow: 1,
     display: 'flex',
     flexDirection: 'column',

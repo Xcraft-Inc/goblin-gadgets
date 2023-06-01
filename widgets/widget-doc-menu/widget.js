@@ -50,7 +50,7 @@ export default class WidgetDocMenu extends Widget {
         kind="menu-item"
         glyphPosition="right"
         justify="between"
-        textTransform="none"
+        // textTransform="none"
         onClick={() => this.setSelectedWidget(widget.name)}
       />
     );
@@ -63,10 +63,12 @@ export default class WidgetDocMenu extends Widget {
         horizontalSpacing="large"
         backgroundColor={this.context.theme.palette.footerBackground}
       >
-        <Container kind="pane-header">
-          <Label text="Widgets" kind="pane-header" />
-        </Container>
         <Container kind="panes">
+          <Label
+            text="Widgets"
+            kind="pane-header"
+            className={this.styles.classNames.title}
+          />
           {widgetList
             .sort((w1, w2) => compareStrings(w1.name, w2.name))
             .map((widget) => this.renderWidgetListItem(widget))}

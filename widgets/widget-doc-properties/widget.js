@@ -287,9 +287,10 @@ class WidgetDocProperties extends Widget {
   render() {
     return (
       <Container kind="view" width="670px" horizontalSpacing="large">
-        <Container kind="pane-header">
+        {/* <Container kind="pane-header">
           <Label text="Properties" kind="pane-header" />
         </Container>
+        <Label text="Properties" kind="title" bottomSpacing="large" /> */}
         {this.renderFilter()}
         {this.renderScenarios()}
         <Container kind="panes">{this.renderGroups()}</Container>

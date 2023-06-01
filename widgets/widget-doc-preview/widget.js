@@ -456,9 +456,9 @@ class WidgetDocPreview extends Widget {
   render() {
     return (
       <Container kind="view" grow="1">
-        <Container kind="pane-header">
+        {/* <Container kind="pane-header">
           <Label text="Preview" kind="pane-header" />
-        </Container>
+        </Container> */}
         {this.renderPreview()}
       </Container>
     );
