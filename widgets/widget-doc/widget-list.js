@@ -1,7 +1,4 @@
-import {
-  makePropTypes,
-  makeDefaultProps,
-} from 'xcraft-core-utils/lib/prop-types';
+import {makePropTypes, makeDefaultProps} from '../../types/prop-types.js';
 
 const widgetList = [];
 
