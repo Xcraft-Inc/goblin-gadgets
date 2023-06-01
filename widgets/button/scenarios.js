@@ -40,7 +40,7 @@ export default [
       text: 'Notifications',
       glyph: 'solid/rocket',
       glyphPosition: 'right',
-      badgeValue: {type: 'number', value: 3},
+      badgeValue: 3,
       badgeShape: 'circle',
       badgeSize: 1.5,
       badgePush: true,

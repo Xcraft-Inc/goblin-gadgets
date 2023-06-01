@@ -7,12 +7,9 @@ export default [
     name: 'V%',
     props: {
       kind: 'vertical',
-      firstSize: {type: 'percentage', value: '40%'},
-      lastSize: {type: 'percentage'},
-      firstMinSize: {type: 'percentage', value: '10%'},
-      lastMinSize: {type: 'percentage', value: '10%'},
-      firstMaxSize: {type: 'percentage'},
-      lastMaxSize: {type: 'percentage'},
+      firstSize: '40%',
+      firstMinSize: '10%',
+      lastMinSize: '10%',
       children: (
         <>
           <Container width="100%" height="100%" backgroundColor="aliceblue">
@@ -29,12 +26,9 @@ export default [
     name: 'V%',
     props: {
       kind: 'vertical',
-      firstSize: {type: 'percentage'},
-      lastSize: {type: 'percentage', value: '40%'},
-      firstMinSize: {type: 'percentage', value: '10%'},
-      lastMinSize: {type: 'percentage', value: '10%'},
-      firstMaxSize: {type: 'percentage'},
-      lastMaxSize: {type: 'percentage'},
+      lastSize: '40%',
+      firstMinSize: '10%',
+      lastMinSize: '10%',
       children: (
         <>
           <Container width="100%" height="100%" backgroundColor="aliceblue">
@@ -51,12 +45,9 @@ export default [
     name: 'Vpx',
     props: {
       kind: 'vertical',
-      firstSize: {type: 'pixel', value: '120px'},
-      lastSize: {type: 'pixel'},
-      firstMinSize: {type: 'pixel', value: '10px'},
-      lastMinSize: {type: 'pixel', value: '10px'},
-      firstMaxSize: {type: 'pixel'},
-      lastMaxSize: {type: 'pixel'},
+      firstSize: '120px',
+      firstMinSize: '10px',
+      lastMinSize: '10px',
       children: (
         <>
           <Container width="100%" height="100%" backgroundColor="aliceblue">
@@ -73,12 +64,9 @@ export default [
     name: 'Vpx',
     props: {
       kind: 'vertical',
-      firstSize: {type: 'pixel'},
-      lastSize: {type: 'pixel', value: '120px'},
-      firstMinSize: {type: 'pixel', value: '10px'},
-      lastMinSize: {type: 'pixel', value: '10px'},
-      firstMaxSize: {type: 'pixel'},
-      lastMaxSize: {type: 'pixel'},
+      lastSize: '120px',
+      firstMinSize: '10px',
+      lastMinSize: '10px',
       children: (
         <>
           <Container width="100%" height="100%" backgroundColor="aliceblue">
@@ -95,12 +83,9 @@ export default [
     name: 'H%',
     props: {
       kind: 'horizontal',
-      firstSize: {type: 'percentage', value: '40%'},
-      lastSize: {type: 'percentage'},
-      firstMinSize: {type: 'percentage', value: '10%'},
-      lastMinSize: {type: 'percentage', value: '10%'},
-      firstMaxSize: {type: 'percentage'},
-      lastMaxSize: {type: 'percentage'},
+      firstSize: '40%',
+      firstMinSize: '10%',
+      lastMinSize: '10%',
       children: (
         <>
           <Container width="100%" height="100%" backgroundColor="aliceblue">
@@ -117,12 +102,9 @@ export default [
     name: 'H%',
     props: {
       kind: 'horizontal',
-      firstSize: {type: 'percentage'},
-      lastSize: {type: 'percentage', value: '40%'},
-      firstMinSize: {type: 'percentage', value: '10%'},
-      lastMinSize: {type: 'percentage', value: '10%'},
-      firstMaxSize: {type: 'percentage'},
-      lastMaxSize: {type: 'percentage'},
+      lastSize: '40%',
+      firstMinSize: '10%',
+      lastMinSize: '10%',
       children: (
         <>
           <Container width="100%" height="100%" backgroundColor="aliceblue">
@@ -139,12 +121,9 @@ export default [
     name: 'Hpx',
     props: {
       kind: 'horizontal',
-      firstSize: {type: 'pixel', value: '120px'},
-      lastSize: {type: 'pixel'},
-      firstMinSize: {type: 'pixel', value: '10px'},
-      lastMinSize: {type: 'pixel', value: '10px'},
-      firstMaxSize: {type: 'pixel'},
-      lastMaxSize: {type: 'pixel'},
+      firstSize: '120px',
+      firstMinSize: '10px',
+      lastMinSize: '10px',
       children: (
         <>
           <Container width="100%" height="100%" backgroundColor="aliceblue">
@@ -161,12 +140,9 @@ export default [
     name: 'Hpx',
     props: {
       kind: 'horizontal',
-      firstSize: {type: 'pixel'},
-      lastSize: {type: 'pixel', value: '120px'},
-      firstMinSize: {type: 'pixel', value: '10px'},
-      lastMinSize: {type: 'pixel', value: '10px'},
-      firstMaxSize: {type: 'pixel'},
-      lastMaxSize: {type: 'pixel'},
+      lastSize: '120px',
+      firstMinSize: '10px',
+      lastMinSize: '10px',
       children: (
         <>
           <Container width="100%" height="100%" backgroundColor="aliceblue">
