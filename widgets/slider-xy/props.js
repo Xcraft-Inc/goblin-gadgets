@@ -1,87 +1,67 @@
+// @ts-check
 import {types} from 'goblin-gadgets/types/types.js';
+import {propsList} from '../../types/props-list.js';
 
-export default [
-  // Aspect.
-  {
-    name: 'value',
-    group: 'aspect',
-    type: types.string,
-    description: 'Values XY between 0 and 100 (by example "50;0").',
-  },
-  {
-    name: 'marginSize',
-    group: 'aspect',
-    type: types.enum(['', 'zero', 'small', 'default', 'large']),
-  },
-  {
-    name: 'marginStyle',
-    group: 'aspect',
-    type: types.enum(['', 'none', 'shadow']),
-  },
-  {
-    name: 'cabSize',
-    group: 'aspect',
-    type: types.enum(['', 'small', 'default', 'large']),
-  },
-  {
-    name: 'hue',
-    group: 'aspect',
-    type: types.number,
-    min: 0,
-    max: 360,
-  },
-  {
-    name: 'disabled',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'draggingScale',
-    group: 'aspect',
-    type: types.number,
+export default propsList({
+  ['aspect']: {
+    value: {
+      type: types.string,
+      description: 'Values XY between 0 and 100 (by example "50;0").',
+    },
+    marginSize: {
+      type: types.enumeration('', 'zero', 'small', 'default', 'large'),
+    },
+    marginStyle: {
+      type: types.enumeration('', 'none', 'shadow'),
+    },
+    cabSize: {
+      type: types.enumeration('', 'small', 'default', 'large'),
+    },
+    hue: {
+      type: types.number,
+      min: 0,
+      max: 360,
+    },
+    disabled: {
+      type: types.boolean,
+    },
+    draggingScale: {
+      type: types.number,
+    },
   },
 
-  // Layout.
-  {
-    name: 'grow',
-    group: 'layout',
-    type: types.grow,
-  },
-  {
-    name: 'width',
-    group: 'layout',
-    type: types.pixel,
-    min: 0,
-    max: 1000,
-  },
-  {
-    name: 'height',
-    group: 'layout',
-    type: types.pixel,
-    min: 0,
-    max: 1000,
+  ['layout']: {
+    grow: {
+      type: types.grow,
+    },
+    width: {
+      type: types.pixel,
+      min: 0,
+      max: 1000,
+    },
+    height: {
+      type: types.pixel,
+      min: 0,
+      max: 1000,
+    },
   },
 
-  // Function.
-  {
-    name: 'onChange',
-    group: 'function',
-    type: types.function,
+  ['function']: {
+    onChange: {
+      type: types.function,
+    },
   },
 
-  // Functionality.
-  {
-    name: 'changeMode',
-    group: 'functionality',
-    type: types.enum(['blur', 'throttled', 'immediate', 'passthrough']),
-    description:
-      "'blur': onChange is called only on blur.\n'throttled': onChange is called on blur and every X ms (see 'throttleDelay').\n'immediate': onChange is called on each key press.\n'passthrough': value and onChange are directly given to the underlying input.",
+  ['functionality']: {
+    changeMode: {
+      type: types.enumeration('blur', 'throttled', 'immediate', 'passthrough'),
+      description:
+        "'blur': onChange is called only on blur.\n'throttled': onChange is called on blur and every X ms (see 'throttleDelay').\n'immediate': onChange is called on each key press.\n'passthrough': value and onChange are directly given to the underlying input.",
+    },
+    throttleDelay: {
+      type: types.number,
+      min: 0,
+      max: 10000,
+    },
   },
-  {
-    name: 'throttleDelay',
-    group: 'functionality',
-    type: types.number,
-    min: 0,
-    max: 10000,
-  },
-];
+});

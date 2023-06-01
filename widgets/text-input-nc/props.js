@@ -1,143 +1,99 @@
-import {types} from 'goblin-gadgets/types/types.js';
+// @ts-check
+import {propsList} from '../../types/props-list.js';
+import {types} from '../../types/types.js';
 
-export default [
-  // Aspect.
-  {
-    name: 'inputType',
-    group: 'aspect',
-    type: types.enum(['', 'textarea', 'password']),
-  },
-  {
-    name: 'active',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'required',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'wrong',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'disabled',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'tooltip',
-    group: 'aspect',
-    type: types.nabu,
-  },
-  {
-    name: 'shape',
-    group: 'aspect',
-    type: types.shape,
-  },
-  {
-    name: 'show',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'visibility',
-    group: 'aspect',
-    type: types.bool,
+export default propsList({
+  ['aspect']: {
+    inputType: {
+      type: types.enumeration('', 'textarea', 'password'),
+    },
+    active: {
+      type: types.boolean,
+    },
+    required: {
+      type: types.boolean,
+    },
+    wrong: {
+      type: types.boolean,
+    },
+    disabled: {
+      type: types.boolean,
+    },
+    tooltip: {
+      type: types.nabu,
+    },
+    shape: {
+      type: types.shape,
+    },
+    show: {
+      type: types.boolean,
+    },
+    visibility: {
+      type: types.boolean,
+    },
   },
 
-  // Event.
-  {
-    name: 'onUpDown',
-    group: 'event',
-    type: types.function,
-  },
-  {
-    name: 'onChange',
-    group: 'event',
-    type: types.function,
-  },
-  {
-    name: 'onFocus',
-    group: 'event',
-    type: types.function,
-  },
-  {
-    name: 'onBlur',
-    group: 'event',
-    type: types.function,
-  },
-  {
-    name: 'onValidate',
-    group: 'event',
-    type: types.function,
-    description: 'When "enter" is pressed.',
+  ['event']: {
+    onUpDown: {
+      type: types.function,
+    },
+    onChange: {
+      type: types.function,
+    },
+    onFocus: {
+      type: types.function,
+    },
+    onBlur: {
+      type: types.function,
+    },
+    onValidate: {
+      type: types.function,
+      description: 'When "enter" is pressed.',
+    },
   },
 
-  // Text.
-  {
-    name: 'value',
-    group: 'text',
-    type: types.nabu,
-  },
-  {
-    name: 'hintText',
-    group: 'text',
-    type: types.nabu,
-  },
-  {
-    name: 'readonly',
-    group: 'text',
-    type: types.bool,
-  },
-  {
-    name: 'rows',
-    group: 'text',
-    type: types.number,
-    min: 1,
-    max: 20,
-  },
-  {
-    name: 'autoRows',
-    group: 'text',
-    type: types.bool,
-  },
-  {
-    name: 'minRows',
-    group: 'text',
-    type: types.number,
-    min: 0,
-  },
-  {
-    name: 'maxRows',
-    group: 'text',
-    type: types.number,
-    min: 1,
-  },
-  {
-    name: 'justify',
-    group: 'text',
-    type: types.textJustify,
+  ['text']: {
+    value: {
+      type: types.nabu,
+    },
+    hintText: {
+      type: types.nabu,
+    },
+    readonly: {
+      type: types.boolean,
+    },
+    rows: {
+      type: types.number,
+      min: 1,
+      max: 20,
+    },
+    autoRows: {
+      type: types.boolean,
+    },
+    minRows: {
+      type: types.number,
+      min: 0,
+    },
+    maxRows: {
+      type: types.number,
+      min: 1,
+    },
+    justify: {
+      type: types.textJustify,
+    },
   },
 
-  // Layout.
-  {
-    name: 'width',
-    group: 'layout',
-    type: types.pixel,
-    min: 0,
-    max: 1000,
+  ['layout']: {
+    width: {
+      type: types.pixel,
+      min: 0,
+      max: 1000,
+    },
+    stretchHeight: {
+      type: types.boolean,
+    },
+    grow: {
+      type: types.grow,
+    },
   },
-  {
-    name: 'stretchHeight',
-    group: 'layout',
-    type: types.bool,
-  },
-  {
-    name: 'grow',
-    group: 'layout',
-    type: types.grow,
-  },
-];
+});

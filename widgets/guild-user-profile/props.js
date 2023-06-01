@@ -1,73 +1,59 @@
+// @ts-check
 import {types} from 'goblin-gadgets/types/types.js';
+import {propsList} from '../../types/props-list.js';
 
-export default [
-  // Perso.
-  {
-    name: 'initials',
-    group: 'perso',
-    type: types.string,
-  },
-  {
-    name: 'pseudo',
-    group: 'perso',
-    type: types.string,
-  },
-  {
-    name: 'firstName',
-    group: 'perso',
-    type: types.string,
-  },
-  {
-    name: 'lastName',
-    group: 'perso',
-    type: types.string,
+export default propsList({
+  ['perso']: {
+    initials: {
+      type: types.string,
+    },
+    pseudo: {
+      type: types.string,
+    },
+    firstName: {
+      type: types.string,
+    },
+    lastName: {
+      type: types.string,
+    },
   },
 
-  // Logo.
-  {
-    name: 'logoShape',
-    group: 'logo',
-    type: types.enum([
-      'circle',
-      'hexagon',
-      'square',
-      'triangle',
-      'certificate',
-      'star',
-      'heart',
-    ]),
-  },
-  {
-    name: 'logoColor',
-    group: 'logo',
-    type: types.color,
+  ['logo']: {
+    logoShape: {
+      type: types.enumeration(
+        'circle',
+        'hexagon',
+        'square',
+        'triangle',
+        'certificate',
+        'star',
+        'heart'
+      ),
+    },
+    logoColor: {
+      type: types.color,
+    },
   },
 
-  // Layout.
-  {
-    name: 'width',
-    group: 'layout',
-    type: types.pixel,
-    min: 0,
-    max: 1000,
-  },
-  {
-    name: 'height',
-    group: 'layout',
-    type: types.pixel,
-    min: 0,
-    max: 1000,
-  },
-  {
-    name: 'grow',
-    group: 'layout',
-    type: types.grow,
+  ['layout']: {
+    width: {
+      type: types.pixel,
+      min: 0,
+      max: 1000,
+    },
+    height: {
+      type: types.pixel,
+      min: 0,
+      max: 1000,
+    },
+    grow: {
+      type: types.grow,
+    },
   },
 
-  // Function.
-  {
-    name: 'onClose',
-    group: 'function',
-    type: types.function,
+  ['function']: {
+    onClose: {
+      type: types.function,
+    },
   },
-];
+});

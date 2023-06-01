@@ -1,65 +1,50 @@
+// @ts-check
 import {types} from 'goblin-gadgets/types/types.js';
+import {propsList} from '../../types/props-list.js';
 
-export default [
-  // Content.
-  {
-    name: 'dateTime',
-    group: 'content',
-    type: types.nabu,
-    defaultValue: '',
-  },
-  {
-    name: 'message',
-    group: 'content',
-    type: types.nabu,
-    defaultValue: '',
+export default propsList({
+  ['content']: {
+    dateTime: {
+      type: types.nabu,
+      defaultValue: '',
+    },
+    message: {
+      type: types.nabu,
+      defaultValue: '',
+    },
   },
 
-  // Aspect.
-  {
-    name: 'type',
-    group: 'aspect',
-    type: types.enum(['', 'sended', 'received']),
+  ['aspect']: {
+    type: {
+      type: types.enumeration('', 'sended', 'received'),
+    },
+    look: {
+      type: types.enumeration('', 'whatsapp', 'smooth', 'round'),
+    },
+    dateTimeColor: {
+      type: types.color,
+    },
+    backgroundColor: {
+      type: types.color,
+    },
+    textColor: {
+      type: types.color,
+    },
   },
-  {
-    name: 'look',
-    group: 'aspect',
-    type: types.enum(['', 'whatsapp', 'smooth', 'round']),
-  },
-  {
-    name: 'dateTimeColor',
-    group: 'aspect',
-    type: types.color,
-  },
-  {
-    name: 'backgroundColor',
-    group: 'aspect',
-    type: types.color,
-  },
-  {
-    name: 'textColor',
-    group: 'aspect',
-    type: types.color,
+  ['Layout']: {
+    width: {
+      type: types.pixel,
+      min: 0,
+      max: 1000,
+    },
   },
 
-  // Layout.
-  {
-    name: 'width',
-    group: 'layout',
-    type: types.pixel,
-    min: 0,
-    max: 1000,
+  ['main']: {
+    children: {
+      type: types.component,
+    },
+    onDocument: {
+      type: types.function,
+    },
   },
-
-  // Main.
-  {
-    name: 'children',
-    group: 'main',
-    type: types.component,
-  },
-  {
-    name: 'onDocument',
-    group: 'main',
-    type: types.function,
-  },
-];
+});

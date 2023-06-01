@@ -1,3 +1,4 @@
+// @ts-check
 import {types, addType} from 'goblin-gadgets/types/types.js';
 import {object} from 'xcraft-core-stones';
 import {propsList} from '../../types/props-list.js';
@@ -181,65 +182,49 @@ addType('dataTree', {
 
 /******************************************************************************/
 
-export default [
-  // Main.
-  {
-    name: 'data',
-    group: 'main',
-    type: types.dataTree,
-    description: 'The data of tree.',
-  },
-  {
-    name: 'selectionMode',
-    group: 'main',
-    type: types.enum(['none', 'single', 'multi']),
-  },
-  {
-    name: 'selection',
-    group: 'aspect',
-    type: types.bool,
+export default propsList({
+  ['main']: {
+    data: {
+      type: types.dataTree,
+      description: 'The data of tree.',
+    },
+    selectionMode: {
+      type: types.enumeration('none', 'single', 'multi'),
+    },
   },
 
-  // Aspect.
-  {
-    name: 'frame',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'hasButtons',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'headerWithoutHorizontalSeparator',
-    group: 'aspect',
-    type: types.bool,
+  ['aspect']: {
+    selection: {
+      type: types.boolean,
+    },
+    frame: {
+      type: types.boolean,
+    },
+    hasButtons: {
+      type: types.boolean,
+    },
+    headerWithoutHorizontalSeparator: {
+      type: types.boolean,
+    },
   },
 
-  // Layout.
-  {
-    name: 'grow',
-    group: 'layout',
-    type: types.grow,
-  },
-  {
-    name: 'height',
-    group: 'layout',
-    type: types.pixel,
-    min: 0,
-    max: 1000,
+  ['layout']: {
+    grow: {
+      type: types.grow,
+    },
+    height: {
+      type: types.pixel,
+      min: 0,
+      max: 1000,
+    },
   },
 
-  // Function.
-  {
-    name: 'onClick',
-    group: 'function',
-    type: types.function,
+  ['function']: {
+    onClick: {
+      type: types.function,
+    },
+    selectionChanged: {
+      type: types.function,
+    },
   },
-  {
-    name: 'selectionChanged',
-    group: 'function',
-    type: types.function,
-  },
-];
+});

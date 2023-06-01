@@ -1,3 +1,4 @@
+// @ts-check
 import {types, addType} from 'goblin-gadgets/types/types.js';
 import {propsList} from '../../types/props-list.js';
 import {array, object, union} from 'xcraft-core-stones';
@@ -138,163 +139,112 @@ addType('dataList', {
 
 /******************************************************************************/
 
-export default [
-  // Event.
-  {
-    name: 'onChange',
-    group: 'event',
-    type: types.function,
-  },
-  {
-    name: 'onShowCombo',
-    group: 'event',
-    type: types.function,
+export default propsList({
+  ['event']: {
+    onChange: {
+      type: types.function,
+    },
+    onShowCombo: {
+      type: types.function,
+    },
   },
 
-  // Text.
-  {
-    name: 'value',
-    group: 'text',
-    type: types.nabu,
-  },
-  {
-    name: 'readonly',
-    group: 'text',
-    type: types.bool,
-  },
-  {
-    name: 'restrictsToList',
-    group: 'text',
-    type: types.bool,
-  },
-  {
-    name: 'selectedId',
-    group: 'text',
-    type: types.oneOfType([types.number, types.string]),
-  },
-  {
-    name: 'hintText',
-    group: 'text',
-    type: types.nabu,
-  },
-  {
-    name: 'rows',
-    group: 'text',
-    type: types.number,
-    min: 1,
-    max: 20,
+  ['text']: {
+    // value: {
+    //   type: types.nabu,
+    // },
+    readonly: {
+      type: types.boolean,
+    },
+    restrictsToList: {
+      type: types.boolean,
+    },
+    selectedId: {
+      type: types.union(types.number, types.string),
+    },
+    hintText: {
+      type: types.nabu,
+    },
+    rows: {
+      type: types.number,
+      min: 1,
+      max: 20,
+    },
   },
 
-  // Menu.
-  {
-    name: 'list',
-    group: 'menu',
-    type: types.dataList,
-    required: true,
-  },
-  {
-    name: 'menuType',
-    group: 'menu',
-    type: types.enum(['', 'menu', 'wrap']),
-  },
-  {
-    name: 'flyingBalloonAnchor',
-    group: 'menu',
-    type: types.enum(['', 'top', 'bottom', 'left', 'right']),
-  },
-  {
-    name: 'menuItemWidth',
-    group: 'menu',
-    type: types.pixel,
-    min: 0,
-    max: 1000,
-  },
-  {
-    name: 'menuItemTooltips',
-    group: 'menu',
-    type: types.bool,
-  },
-  {
-    name: 'comboGlyph',
-    group: 'menu',
-    type: types.glyph,
-  },
-  {
-    name: 'comboTextTransform',
-    group: 'menu',
-    type: types.enum(['', 'none']),
-  },
-  {
-    name: 'hideButtonCombo',
-    group: 'menu',
-    type: types.bool,
+  ['menu']: {
+    list: {
+      type: types.dataList,
+      required: true,
+    },
+    menuType: {
+      type: types.enumeration('', 'menu', 'wrap'),
+    },
+    flyingBalloonAnchor: {
+      type: types.enumeration('', 'top', 'bottom', 'left', 'right'),
+    },
+    menuItemWidth: {
+      type: types.pixel,
+      min: 0,
+      max: 1000,
+    },
+    menuItemTooltips: {
+      type: types.boolean,
+    },
+    comboGlyph: {
+      type: types.glyph,
+    },
+    comboTextTransform: {
+      type: types.enumeration('', 'none'),
+    },
+    hideButtonCombo: {
+      type: types.boolean,
+    },
   },
 
-  // Aspect.
-  {
-    name: 'shape',
-    group: 'aspect',
-    type: types.shape,
-  },
-  {
-    name: 'tooltip',
-    group: 'aspect',
-    type: types.nabu,
-  },
-  {
-    name: 'required',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'disabled',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'visibility',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'autoFocus',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'selectAllOnFocus',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'show',
-    group: 'aspect',
-    type: types.bool,
+  ['aspect']: {
+    shape: {
+      type: types.shape,
+    },
+    tooltip: {
+      type: types.nabu,
+    },
+    required: {
+      type: types.boolean,
+    },
+    disabled: {
+      type: types.boolean,
+    },
+    visibility: {
+      type: types.boolean,
+    },
+    autoFocus: {
+      type: types.boolean,
+    },
+    selectAllOnFocus: {
+      type: types.boolean,
+    },
+    show: {
+      type: types.boolean,
+    },
   },
 
-  // Layout.
-  {
-    name: 'width',
-    group: 'layout',
-    type: types.pixel,
-    min: 0,
-    max: 1000,
+  ['layout']: {
+    width: {
+      type: types.pixel,
+      min: 0,
+      max: 1000,
+    },
+    fieldWidth: {
+      type: types.pixel,
+      min: 0,
+      max: 1000,
+    },
+    horizontalSpacing: {
+      type: types.horizontalSpacing,
+    },
+    grow: {
+      type: types.grow,
+    },
   },
-  {
-    name: 'fieldWidth',
-    group: 'layout',
-    type: types.pixel,
-    min: 0,
-    max: 1000,
-  },
-  {
-    name: 'horizontalSpacing',
-    group: 'layout',
-    type: types.horizontalSpacing,
-  },
-  {
-    name: 'grow',
-    group: 'layout',
-    type: types.grow,
-  },
-];
+});

@@ -1,71 +1,55 @@
+// @ts-check
 import {types} from 'goblin-gadgets/types/types.js';
+import {propsList} from '../../types/props-list.js';
 
 /******************************************************************************/
 
-export default [
-  // Main.
-  {
-    name: 'kind',
-    group: 'main',
-    type: types.enum(['vertical', 'horizontal']),
-    description: "Use container 'resizable' to see the splitter.",
-  },
-  {
-    name: 'children',
-    group: 'main',
-    type: types.component,
-  },
-  {
-    name: 'hide',
-    group: 'main',
-    type: types.bool,
-    description: 'Hide the splitter.',
+export default propsList({
+  ['main']: {
+    kind: {
+      type: types.enumeration('vertical', 'horizontal'),
+      description: "Use container 'resizable' to see the splitter.",
+    },
+    children: {
+      type: types.component,
+    },
+    hide: {
+      type: types.boolean,
+      description: 'Hide the splitter.',
+    },
   },
 
-  // Overflow.
-  {
-    name: 'firstOverflow',
-    group: 'overflow',
-    type: types.enum(['hidden', 'visible']),
-  },
-  {
-    name: 'lastOverflow',
-    group: 'overflow',
-    type: types.enum(['hidden', 'visible']),
+  ['overflow']: {
+    firstOverflow: {
+      type: types.enumeration('hidden', 'visible'),
+    },
+    lastOverflow: {
+      type: types.enumeration('hidden', 'visible'),
+    },
   },
 
-  // Size (initial).
-  {
-    name: 'firstSize',
-    group: 'size (initial)',
-    type: types.oneOfType([types.pixel, types.percentage]),
-  },
-  {
-    name: 'lastSize',
-    group: 'size (initial)',
-    type: types.oneOfType([types.pixel, types.percentage]),
-    description: 'Use one of the two properties, but not both.',
+  ['size (initial)']: {
+    firstSize: {
+      type: types.union(types.pixel, types.percentage),
+    },
+    lastSize: {
+      type: types.union(types.pixel, types.percentage),
+      description: 'Use one of the two properties, but not both.',
+    },
   },
 
-  // Size (limit).
-  {
-    name: 'firstMinSize',
-    group: 'size (limit)',
-    type: types.oneOfType([types.pixel, types.percentage]),
+  ['size (limit)']: {
+    firstMinSize: {
+      type: types.union(types.pixel, types.percentage),
+    },
+    firstMaxSize: {
+      type: types.union(types.pixel, types.percentage),
+    },
+    lastMinSize: {
+      type: types.union(types.pixel, types.percentage),
+    },
+    lastMaxSize: {
+      type: types.union(types.pixel, types.percentage),
+    },
   },
-  {
-    name: 'firstMaxSize',
-    group: 'size (limit)',
-    type: types.oneOfType([types.pixel, types.percentage]),
-  },
-  {
-    name: 'lastMinSize',
-    group: 'size (limit)',
-    type: types.oneOfType([types.pixel, types.percentage]),
-  },
-  {
-    name: 'lastMaxSize',
-    group: 'size (limit)',
-    type: types.oneOfType([types.pixel, types.percentage]),
-  },
-];
+});

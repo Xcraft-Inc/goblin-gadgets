@@ -73,135 +73,97 @@ addType('dataBadges', {
 
 /******************************************************************************/
 
-export default [
+export default propsList({
   // Dates.
-  {
-    name: 'startDate',
-    group: 'dates',
-    type: types.date,
-  },
-  {
-    name: 'endDate',
-    group: 'dates',
-    type: types.date,
-  },
-  {
-    name: 'visibleDate',
-    group: 'dates',
-    type: types.date,
-  },
-  {
-    name: 'selectedDate',
-    group: 'dates',
-    type: types.date,
-  },
-  {
-    name: 'hoverDates',
-    group: 'dates',
-    type: types.dataDates,
-  },
-  {
-    name: 'dates',
-    group: 'dates',
-    type: types.dataDates,
-  },
-  {
-    name: 'badges',
-    group: 'dates',
-    type: types.dataBadges,
+  ['dates']: {
+    startDate: {
+      type: types.date,
+    },
+    endDate: {
+      type: types.date,
+    },
+    visibleDate: {
+      type: types.date,
+    },
+    selectedDate: {
+      type: types.date,
+    },
+    hoverDates: {
+      type: types.dataDates,
+    },
+    dates: {
+      type: types.dataDates,
+    },
+    badges: {
+      type: types.dataBadges,
+    },
   },
 
-  // Aspect.
-  {
-    name: 'frame',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'shadow',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'readonly',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'navigator',
-    group: 'aspect',
-    type: types.enum(['', 'standard']),
-  },
-  {
-    name: 'hideDaysOutOfMonth',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'monthCount',
-    group: 'aspect',
-    type: types.number,
-    min: 1,
-    max: 4,
-  },
-  {
-    name: 'itemsShape',
-    group: 'aspect',
-    type: types.enum(['', 'square', 'round']),
-  },
-  {
-    name: 'ItemComponent',
-    group: 'aspect',
-    type: types.function,
-  },
-  {
-    name: 'itemWidth',
-    group: 'aspect',
-    type: types.pixel,
-    min: 10,
-    max: 100,
-  },
-  {
-    name: 'itemHeight',
-    group: 'aspect',
-    type: types.pixel,
-    min: 10,
-    max: 100,
-  },
-  {
-    name: 'margin',
-    group: 'aspect',
-    type: types.pixel,
-    min: 0,
-    max: 50,
+  ['aspect']: {
+    // Aspect.
+    frame: {
+      type: types.boolean,
+    },
+    shadow: {
+      type: types.boolean,
+    },
+    readonly: {
+      type: types.boolean,
+    },
+    navigator: {
+      type: types.enumeration('', 'standard'),
+    },
+    hideDaysOutOfMonth: {
+      type: types.boolean,
+    },
+    monthCount: {
+      type: types.number,
+      min: 1,
+      max: 4,
+    },
+    itemsShape: {
+      type: types.enumeration('', 'square', 'round'),
+    },
+    ItemComponent: {
+      type: types.function,
+    },
+    itemWidth: {
+      type: types.pixel,
+      min: 10,
+      max: 100,
+    },
+    itemHeight: {
+      type: types.pixel,
+      min: 10,
+      max: 100,
+    },
+    margin: {
+      type: types.pixel,
+      min: 0,
+      max: 50,
+    },
   },
 
-  // Events.
-  {
-    name: 'visibleDateChanged',
-    group: 'events',
-    type: types.function,
-  },
-  {
-    name: 'dateClicked',
-    group: 'events',
-    type: types.function,
-  },
-  {
-    name: 'onChangeTips',
-    group: 'events',
-    type: types.function,
+  ['events']: {
+    // Events.
+    visibleDateChanged: {
+      type: types.function,
+    },
+    dateClicked: {
+      type: types.function,
+    },
+    onChangeTips: {
+      type: types.function,
+    },
   },
 
-  // Tips.
-  {
-    name: 'useTips',
-    group: 'tips',
-    type: types.bool,
+  ['tips']: {
+    // Tips.
+    useTips: {
+      type: types.boolean,
+    },
+    tipsRank: {
+      type: types.number,
+    },
   },
-  {
-    name: 'tipsRank',
-    group: 'tips',
-    type: types.number,
-  },
-];
+});

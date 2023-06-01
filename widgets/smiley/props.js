@@ -1,51 +1,45 @@
+// @ts-check
 import {types} from 'goblin-gadgets/types/types.js';
+import {propsList} from '../../types/props-list.js';
 
-export default [
-  // Aspect.
-  {
-    name: 'mainColor',
-    group: 'aspect',
-    type: types.color,
-  },
-  {
-    name: 'topColor',
-    group: 'aspect',
-    type: types.color,
+export default propsList({
+  ['aspect']: {
+    mainColor: {
+      type: types.color,
+    },
+    topColor: {
+      type: types.color,
+    },
   },
 
-  // Smile.
-  {
-    name: 'satisfaction',
-    group: 'smile',
-    type: types.number,
-    min: 0,
-    max: 100,
-    step: 10,
-    description: '0 = unhappy, 100 = happy',
-  },
-  {
-    name: 'transition',
-    group: 'smile',
-    type: types.transition,
+  ['smile']: {
+    satisfaction: {
+      type: types.number,
+      min: 0,
+      max: 100,
+      step: 10,
+      description: '0 = unhappy, 100 = happy',
+    },
+    transition: {
+      type: types.transition,
+    },
   },
 
-  // Layout.
-  {
-    name: 'size',
-    group: 'layout',
-    type: types.pixel,
-    min: 10,
-    max: 1000,
+  ['layout']: {
+    size: {
+      type: types.pixel,
+      min: 10,
+      max: 1000,
+    },
   },
 
-  // Layout.
-  {
-    name: 'step',
-    group: 'xcraft.ch',
-    type: types.number,
-    min: 1,
-    max: 7,
-    description:
-      'This component is didactic. The different steps correspond to the xcraft.ch documentation.',
+  ['xcraft.ch']: {
+    step: {
+      type: types.number,
+      min: 1,
+      max: 7,
+      description:
+        'This component is didactic. The different steps correspond to the xcraft.ch documentation.',
+    },
   },
-];
+});

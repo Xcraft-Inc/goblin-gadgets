@@ -1,114 +1,85 @@
+// @ts-check
 import {types} from 'goblin-gadgets/types/types.js';
+import {propsList} from '../../types/props-list.js';
 
-export default [
-  // Aspect
-  {
-    name: 'show',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'visibility',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'readonly',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'disabled',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'required',
-    group: 'aspect',
-    type: types.bool,
+export default propsList({
+  ['aspect']: {
+    show: {
+      type: types.boolean,
+    },
+    visibility: {
+      type: types.boolean,
+    },
+    readonly: {
+      type: types.boolean,
+    },
+    disabled: {
+      type: types.boolean,
+    },
+    required: {
+      type: types.boolean,
+    },
   },
 
-  // Event
-  {
-    name: 'onSearchChange',
-    group: 'event',
-    type: types.function,
-  },
-  {
-    name: 'onAdd',
-    group: 'event',
-    type: types.function,
-  },
-  {
-    name: 'onClear',
-    group: 'event',
-    type: types.function,
-  },
-  {
-    name: 'onShow',
-    group: 'event',
-    type: types.function,
+  ['event']: {
+    onSearchChange: {
+      type: types.function,
+    },
+    onAdd: {
+      type: types.function,
+    },
+    onClear: {
+      type: types.function,
+    },
+    onShow: {
+      type: types.function,
+    },
   },
 
-  // Glyph
-  {
-    name: 'selectedGlyph',
-    group: 'glyph',
-    type: types.glyph,
-  },
-  {
-    name: 'selectedGlyphColor',
-    group: 'glyph',
-    type: types.color,
+  ['glyph']: {
+    selectedGlyph: {
+      type: types.glyph,
+    },
+    selectedGlyphColor: {
+      type: types.color,
+    },
   },
 
-  // Text
-  {
-    name: 'searchValue',
-    group: 'text',
-    type: types.string,
-    description: 'Use this property for editing a search value.',
-  },
-  {
-    name: 'selectedValue',
-    group: 'text',
-    type: types.string,
-    description: 'Use this property for showing a selected value.',
-  },
-  {
-    name: 'hintText',
-    group: 'text',
-    type: types.nabu,
-  },
-  {
-    name: 'tooltip',
-    group: 'text',
-    type: types.nabu,
-  },
-  {
-    name: 'wrap',
-    group: 'text',
-    type: types.enum([
-      '',
-      'no',
-      'no-end',
-      'no-strict',
-      'yes',
-      'yes-permissive',
-    ]),
+  ['text']: {
+    searchValue: {
+      type: types.string,
+      description: 'Use this property for editing a search value.',
+    },
+    selectedValue: {
+      type: types.string,
+      description: 'Use this property for showing a selected value.',
+    },
+    hintText: {
+      type: types.nabu,
+    },
+    tooltip: {
+      type: types.nabu,
+    },
+    wrap: {
+      type: types.enumeration(
+        '',
+        'no',
+        'no-end',
+        'no-strict',
+        'yes',
+        'yes-permissive'
+      ),
+    },
   },
 
-  // Layout
-  {
-    name: 'width',
-    group: 'layout',
-    type: types.pixel,
-    min: 0,
-    max: 1000,
+  ['layout']: {
+    width: {
+      type: types.pixel,
+      min: 0,
+      max: 1000,
+    },
+    grow: {
+      type: types.grow,
+    },
   },
-  {
-    name: 'grow',
-    group: 'layout',
-    type: types.grow,
-  },
-];
+});

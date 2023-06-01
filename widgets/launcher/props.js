@@ -1,3 +1,4 @@
+// @ts-check
 import {types, addType} from 'goblin-gadgets/types/types.js';
 import {propsList} from '../../types/props-list.js';
 import {array} from 'xcraft-core-stones';
@@ -113,65 +114,49 @@ addType('rockets', {
 
 /******************************************************************************/
 
-export default [
-  // Aspect.
-  {
-    name: 'title',
-    group: 'aspect',
-    type: types.string,
-  },
-  {
-    name: 'background',
-    group: 'aspect',
-    type: types.background,
+export default propsList({
+  ['aspect']: {
+    title: {
+      type: types.string,
+    },
+    background: {
+      type: types.background,
+    },
   },
 
-  // Rockets.
-  {
-    name: 'rockets',
-    group: 'rockets',
-    type: types.rockets,
-    description: 'The list of rockets.',
-  },
-  {
-    name: 'rocketSize',
-    group: 'rockets',
-    type: types.pixel,
-    min: 50,
-    max: 500,
-  },
-  {
-    name: 'rocketTextColor',
-    group: 'rockets',
-    type: types.color,
-  },
-  {
-    name: 'rocketShadow',
-    group: 'rockets',
-    type: types.enum(['none', 'light', 'deep', 'strong']),
-  },
-  {
-    name: 'rocketIconShadow',
-    group: 'rockets',
-    type: types.enum(['none', 'default', 'light']),
+  ['rockets']: {
+    rockets: {
+      type: types.rockets,
+      description: 'The list of rockets.',
+    },
+    rocketSize: {
+      type: types.pixel,
+      min: 50,
+      max: 500,
+    },
+    rocketTextColor: {
+      type: types.color,
+    },
+    rocketShadow: {
+      type: types.enumeration('none', 'light', 'deep', 'strong'),
+    },
+    rocketIconShadow: {
+      type: types.enumeration('none', 'default', 'light'),
+    },
   },
 
-  // Blob.
-  {
-    name: 'blobKind',
-    group: 'blob',
-    type: types.enum(['none', 'blob', 'wave']),
-  },
-  {
-    name: 'blobColor',
-    group: 'blob',
-    type: types.string,
+  ['blob']: {
+    blobKind: {
+      type: types.enumeration('none', 'blob', 'wave'),
+    },
+    blobColor: {
+      type: types.string,
+    },
   },
 
-  // Function.
-  {
-    name: 'onLaunchRocket',
-    group: 'function',
-    type: types.function,
+  ['function']: {
+    onLaunchRocket: {
+      type: types.function,
+    },
   },
-];
+});

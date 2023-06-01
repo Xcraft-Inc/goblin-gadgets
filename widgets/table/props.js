@@ -1,3 +1,4 @@
+// @ts-check
 import {types, addType} from 'goblin-gadgets/types/types.js';
 import Shredder from 'xcraft-core-shredder';
 import {propsList} from '../../types/props-list.js';
@@ -549,108 +550,77 @@ addType('sortingColumns', {
 
 /******************************************************************************/
 
-export default [
-  // Main.
-  {
-    name: 'data',
-    group: 'main',
-    type: types.dataTable,
-    description: 'The data of table.',
-  },
-  {
-    name: 'selectedIds',
-    group: 'main',
-    type: types.selectedIds,
-  },
-  {
-    name: 'selectionMode',
-    group: 'main',
-    type: types.enum(['none', 'single', 'multi']),
-  },
-  {
-    name: 'filter',
-    group: 'main',
-    type: types.string,
-  },
-  {
-    name: 'sortingColumns',
-    group: 'main',
-    type: types.sortingColumns,
-    description: "Only for data with sorting: 'enable'.",
-  },
-  {
-    name: 'useKeyUpDown',
-    group: 'main',
-    type: types.bool,
-    description: "Work only widh connected widget (don't work with WidgetDoc).",
-  },
-  {
-    name: 'widgetId',
-    group: 'main',
-    type: types.string,
+export default propsList({
+  ['main']: {
+    data: {
+      type: types.dataTable,
+      description: 'The data of table.',
+    },
+    selectedIds: {
+      type: types.selectedIds,
+    },
+    selectionMode: {
+      type: types.enumeration('none', 'single', 'multi'),
+    },
+    filter: {
+      type: types.string,
+    },
+    sortingColumns: {
+      type: types.sortingColumns,
+      description: "Only for data with sorting: 'enable'.",
+    },
+    useKeyUpDown: {
+      type: types.boolean,
+      description:
+        "Work only widh connected widget (don't work with WidgetDoc).",
+    },
+    widgetId: {
+      type: types.string,
+    },
   },
 
-  // Aspect.
-  {
-    name: 'frame',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'hasButtons',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'headerWithoutHorizontalSeparator',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'widgetDocPreview',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'compactMargins',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'simpleHeader',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'fontSizeStrategy',
-    group: 'aspect',
-    type: types.enum(['', 'decrease']),
-    description: 'Only for multi-level tables.',
-  },
-  {
-    name: 'cellFormat',
-    group: 'aspect',
-    type: types.enum(['singleLine', 'original']),
+  ['aspect']: {
+    frame: {
+      type: types.boolean,
+    },
+    hasButtons: {
+      type: types.boolean,
+    },
+    headerWithoutHorizontalSeparator: {
+      type: types.boolean,
+    },
+    widgetDocPreview: {
+      type: types.boolean,
+    },
+    compactMargins: {
+      type: types.boolean,
+    },
+    simpleHeader: {
+      type: types.boolean,
+    },
+    fontSizeStrategy: {
+      type: types.enumeration('', 'decrease'),
+      description: 'Only for multi-level tables.',
+    },
+    cellFormat: {
+      type: types.enumeration('singleLine', 'original'),
+    },
   },
 
-  // Layout.
-  {
-    name: 'grow',
-    group: 'layout',
-    type: types.grow,
-  },
-  {
-    name: 'height',
-    group: 'layout',
-    type: types.pixel,
-    min: 0,
-    max: 1000,
+  ['Laylayoutout']: {
+    grow: {
+      type: types.grow,
+    },
+    height: {
+      type: types.pixel,
+      min: 0,
+      max: 1000,
+    },
   },
 
-  // Function.
-  {
-    name: 'onSelectionChanged',
-    group: 'function',
-    type: types.function,
+  ['function']: {
+    onSelectionChanged: {
+      type: types.function,
+    },
   },
-];
+});

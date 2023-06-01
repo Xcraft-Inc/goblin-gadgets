@@ -1,3 +1,4 @@
+// @ts-check
 import {types, addType} from 'goblin-gadgets/types/types.js';
 import textInputNCProps from '../text-input-nc/props';
 import {func} from 'xcraft-core-stones';
@@ -41,22 +42,19 @@ addType('checkFunction', {
 
 /******************************************************************************/
 
-export default [
-  {
-    name: 'check',
-    group: 'info',
-    type: types.checkFunction,
-    description: 'Function to validate the text entered by the user.',
+const ownProps = propsList({
+  ['info']: {
+    check: {
+      type: types.checkFunction,
+      description: 'Function to validate the text entered by the user.',
+    },
+    warning: {
+      type: types.nabu,
+    },
+    info: {
+      type: types.nabu,
+    },
   },
-  {
-    name: 'warning',
-    group: 'info',
-    type: types.nabu,
-  },
-  {
-    name: 'info',
-    group: 'info',
-    type: types.nabu,
-  },
-  ...textInputNCProps,
-];
+});
+
+export default [...textInputNCProps, ...ownProps];

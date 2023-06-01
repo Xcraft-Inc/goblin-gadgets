@@ -1,377 +1,273 @@
-import {types} from 'goblin-gadgets/types/types.js';
+// @ts-check
+import {propsList} from '../../types/props-list.js';
+import {types} from '../../types/types.js';
 
-export default [
-  // Main.
-  {
-    name: 'text',
-    group: 'main',
-    type: types.nabu,
-    defaultValue: '',
-  },
-  {
-    name: 'children',
-    group: 'main',
-    type: types.component,
-  },
-  {
-    name: 'onDoubleClick',
-    group: 'main',
-    type: types.function,
-    description: "Works only with kind 'container' and 'box'.",
-  },
-  {
-    name: 'onClick',
-    group: 'main',
-    type: types.function,
-  },
-  {
-    name: 'onRightClick',
-    group: 'main',
-    type: types.function,
-  },
-  {
-    name: 'onMouseDown',
-    group: 'main',
-    type: types.function,
-  },
-  {
-    name: 'onMouseUp',
-    group: 'main',
-    type: types.function,
-  },
-  {
-    name: 'onMouseOver',
-    group: 'main',
-    type: types.function,
-  },
-  {
-    name: 'onMouseOut',
-    group: 'main',
-    type: types.function,
-  },
-  {
-    name: 'disabled',
-    group: 'main',
-    type: types.bool,
+export default propsList({
+  ['main']: {
+    text: {
+      type: types.nabu,
+    },
+    children: {
+      type: types.component,
+    },
+    onDoubleClick: {
+      type: types.function,
+      description: "Works only with kind 'container' and 'box'.",
+    },
+    onClick: {
+      type: types.function,
+    },
+    onRightClick: {
+      type: types.function,
+    },
+    onMouseDown: {
+      type: types.function,
+    },
+    onMouseUp: {
+      type: types.function,
+    },
+    onMouseOver: {
+      type: types.function,
+    },
+    onMouseOut: {
+      type: types.function,
+    },
+    disabled: {
+      type: types.boolean,
+    },
   },
 
-  // Aspect.
-  {
-    name: 'kind',
-    group: 'aspect',
-    type: types.enum([
-      '',
-      'action',
-      'button-notification',
-      'button-footer',
-      'box',
-      'calendar',
-      'calendar-list',
-      'calendar-navigator',
-      'calendar-title',
-      'check-button',
-      'chronos-navigator',
-      'chronos-navigator',
-      'combo',
-      'combo-item',
-      'combo-wrap-item',
-      'compact',
-      'container',
-      'desk-title',
-      'disabled-light',
-      'dynamic-toolbar',
-      'dynamic-toolbar-left',
-      'dynamic-toolbar-top-left',
-      'dynamic-toolbar-top-right',
-      'flat-list-combo-item',
-      'glyph-item',
-      'hover',
-      'identity',
-      'label',
-      'main-tab',
-      'main-tab-right',
-      'menu-item',
-      'notification-close',
-      'notification-extend',
-      'pane-navigator',
-      'pane-hnavigator',
-      'pane-vnavigator',
-      'pane-warning',
-      'plugin-dark',
-      'plugin-light',
-      'recurrence',
-      'round',
-      'secondary-action',
-      'subaction',
-      'table-action',
-      'table-action-frame',
-      'task-bar',
-      'task-tab',
-      'task-logo',
-      'task-show-footer',
-      'text',
-      'thin-left',
-      'thin-right',
-      'toolbar',
-      'tree-expand',
-      'view-tab',
-      'view-tab-first',
-      'view-tab-last',
-      'view-tab-single',
-      'view-tab-right',
-      'warning',
-    ]),
-  },
-  {
-    name: 'subkind',
-    group: 'aspect',
-    type: types.enum(['', 'add', 'sub', 'base']),
-    description: "Only with kind='calendar' and active='true'.",
-  },
-  {
-    name: 'heightStrategy',
-    group: 'aspect',
-    type: types.enum(['', 'compact', 'space']),
-  },
-  {
-    name: 'textColor',
-    group: 'aspect',
-    type: types.color,
-  },
-  {
-    name: 'active',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'focused',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'focusable',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'readonly',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'busy',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'border',
-    group: 'aspect',
-    type: types.enum(['', 'none']),
-  },
-  {
-    name: 'shape',
-    group: 'aspect',
-    type: types.shape,
-  },
-  {
-    name: 'tooltip',
-    group: 'aspect',
-    type: types.nabu,
-  },
-  {
-    name: 'shortcut',
-    group: 'aspect',
-    type: types.shortcut,
-  },
-  {
-    name: 'justify',
-    group: 'aspect',
-    type: types.justify,
-  },
-  {
-    name: 'backgroundColor',
-    group: 'aspect',
-    type: types.color,
-  },
-  {
-    name: 'activeColor',
-    group: 'aspect',
-    type: types.color,
-  },
-  {
-    name: 'cursor',
-    group: 'aspect',
-    type: types.cursor,
-  },
-  {
-    name: 'show',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'visibility',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'toAnchor',
-    group: 'aspect',
-    type: types.string,
-  },
-  {
-    name: 'place',
-    group: 'aspect',
-    type: types.place,
+  ['aspect']: {
+    kind: {
+      type: types.enumeration(
+        '',
+        'action',
+        'button-notification',
+        'button-footer',
+        'box',
+        'calendar',
+        'calendar-list',
+        'calendar-navigator',
+        'calendar-title',
+        'check-button',
+        'chronos-navigator',
+        'chronos-navigator',
+        'combo',
+        'combo-item',
+        'combo-wrap-item',
+        'compact',
+        'container',
+        'desk-title',
+        'disabled-light',
+        'dynamic-toolbar',
+        'dynamic-toolbar-left',
+        'dynamic-toolbar-top-left',
+        'dynamic-toolbar-top-right',
+        'flat-list-combo-item',
+        'glyph-item',
+        'hover',
+        'identity',
+        'label',
+        'main-tab',
+        'main-tab-right',
+        'menu-item',
+        'notification-close',
+        'notification-extend',
+        'pane-navigator',
+        'pane-hnavigator',
+        'pane-vnavigator',
+        'pane-warning',
+        'plugin-dark',
+        'plugin-light',
+        'recurrence',
+        'round',
+        'secondary-action',
+        'subaction',
+        'table-action',
+        'table-action-frame',
+        'task-bar',
+        'task-tab',
+        'task-logo',
+        'task-show-footer',
+        'text',
+        'thin-left',
+        'thin-right',
+        'toolbar',
+        'tree-expand',
+        'view-tab',
+        'view-tab-first',
+        'view-tab-last',
+        'view-tab-single',
+        'view-tab-right',
+        'warning'
+      ),
+    },
+    subkind: {
+      type: types.enumeration('', 'add', 'sub', 'base'),
+      description: "Only with kind='calendar' and active='true'.",
+    },
+    heightStrategy: {
+      type: types.enumeration('', 'compact', 'space'),
+    },
+    textColor: {
+      type: types.color,
+    },
+    active: {
+      type: types.boolean,
+    },
+    focused: {
+      type: types.boolean,
+    },
+    focusable: {
+      type: types.boolean,
+    },
+    readonly: {
+      type: types.boolean,
+    },
+    busy: {
+      type: types.boolean,
+    },
+    border: {
+      type: types.enumeration('', 'none'),
+    },
+    shape: {
+      type: types.shape,
+    },
+    tooltip: {
+      type: types.nabu,
+    },
+    shortcut: {
+      type: types.shortcut,
+    },
+    justify: {
+      type: types.justify,
+    },
+    backgroundColor: {
+      type: types.color,
+    },
+    activeColor: {
+      type: types.color,
+    },
+    cursor: {
+      type: types.cursor,
+    },
+    show: {
+      type: types.boolean,
+    },
+    visibility: {
+      type: types.boolean,
+    },
+    toAnchor: {
+      type: types.string,
+    },
+    place: {
+      type: types.place,
+    },
   },
 
-  // Glyph.
-  {
-    name: 'glyphColor',
-    group: 'glyph',
-    type: types.color,
-  },
-  {
-    name: 'glyph',
-    group: 'glyph',
-    type: types.glyph,
-  },
-  {
-    name: 'glyphRotate',
-    group: 'glyph',
-    type: types.angle,
-  },
-  {
-    name: 'glyphFlip',
-    group: 'glyph',
-    type: types.enum(['', 'horizontal', 'vertical']),
-  },
-  {
-    name: 'glyphSpin',
-    group: 'glyph',
-    type: types.enum(['', 'yes']),
-  },
-  {
-    name: 'glyphPosition',
-    group: 'glyph',
-    type: types.enum(['', 'left', 'right']),
-  },
-  {
-    name: 'glyphSize',
-    group: 'glyph',
-    type: types.percentage,
-    min: 20,
-    max: 500,
-    step: 10,
+  ['glyph']: {
+    glyphColor: {
+      type: types.color,
+    },
+    glyph: {
+      type: types.glyph,
+    },
+    glyphRotate: {
+      type: types.angle,
+    },
+    glyphFlip: {
+      type: types.enumeration('', 'horizontal', 'vertical'),
+    },
+    glyphSpin: {
+      type: types.enumeration('', 'yes'),
+    },
+    glyphPosition: {
+      type: types.enumeration('', 'left', 'right'),
+    },
+    glyphSize: {
+      type: types.percentage,
+      min: 20,
+      max: 500,
+      step: 10,
+    },
   },
 
-  // Layout.
-  {
-    name: 'width',
-    group: 'layout',
-    type: types.pixel,
-    min: 0,
-    max: 1000,
-  },
-  {
-    name: 'height',
-    group: 'layout',
-    type: types.pixel,
-    min: 0,
-    max: 1000,
-  },
-  {
-    name: 'grow',
-    group: 'layout',
-    type: types.grow,
-  },
-  {
-    name: 'horizontalSpacing',
-    group: 'layout',
-    type: types.horizontalSpacing,
-  },
-  {
-    name: 'vpos',
-    group: 'layout',
-    type: types.enum(['', 'top', 'first-line']),
+  ['layout']: {
+    width: {
+      type: types.pixel,
+      min: 0,
+      max: 1000,
+    },
+    height: {
+      type: types.pixel,
+      min: 0,
+      max: 1000,
+    },
+    grow: {
+      type: types.grow,
+    },
+    horizontalSpacing: {
+      type: types.horizontalSpacing,
+    },
+    vpos: {
+      type: types.enumeration('', 'top', 'first-line'),
+    },
   },
 
-  // Text.
-  {
-    name: 'fontSize',
-    group: 'text',
-    type: types.percentage,
-    min: 20,
-    max: 500,
-    step: 10,
-  },
-  {
-    name: 'fontWeight',
-    group: 'text',
-    type: types.fontWeight,
-  },
-  {
-    name: 'fontStyle',
-    group: 'text',
-    type: types.fontStyle,
-  },
-  {
-    name: 'textTransform',
-    group: 'text',
-    type: types.textTransform,
-  },
-  {
-    name: 'wrap',
-    group: 'text',
-    type: types.enum(['', 'no', 'no-strict', 'yes', 'yes-permissive']),
+  ['text']: {
+    fontSize: {
+      type: types.percentage,
+      min: 20,
+      max: 500,
+      step: 10,
+    },
+    fontWeight: {
+      type: types.fontWeight,
+    },
+    fontStyle: {
+      type: types.fontStyle,
+    },
+    textTransform: {
+      type: types.textTransform,
+    },
+    wrap: {
+      type: types.enumeration('', 'no', 'no-strict', 'yes', 'yes-permissive'),
+    },
   },
 
-  // Badge.
-  {
-    name: 'badgeValue',
-    group: 'badge',
-    type: types.oneOfType([types.number, types.string]),
-  },
-  {
-    name: 'badgePush',
-    group: 'badge',
-    type: types.bool,
-  },
-  {
-    name: 'badgePosition',
-    group: 'badge',
-    type: types.enum(['', 'top-right', 'over']),
-  },
-  {
-    name: 'badgeShape',
-    group: 'badge',
-    type: types.enum(['', 'circle']),
-  },
-  {
-    name: 'badgeColor',
-    group: 'badge',
-    type: types.enum(['', 'red', 'green', 'dark']),
-  },
-  {
-    name: 'badgeSize',
-    group: 'badge',
-    type: types.number,
-    min: 0.2,
-    max: 4,
-    step: 0.1,
+  ['badge']: {
+    badgeValue: {
+      type: types.union(types.number, types.string),
+    },
+    badgePush: {
+      type: types.boolean,
+    },
+    badgePosition: {
+      type: types.enumeration('', 'top-right', 'over'),
+    },
+    badgeShape: {
+      type: types.enumeration('', 'circle'),
+    },
+    badgeColor: {
+      type: types.enumeration('', 'red', 'green', 'dark'),
+    },
+    badgeSize: {
+      type: types.number,
+      min: 0.2,
+      max: 4,
+      step: 0.1,
+    },
   },
 
-  // Triangle.
-  {
-    name: 'triangleColor',
-    group: 'triangle',
-    type: types.color,
-    description: "Only with kind='main-tab' and active='true'.",
+  ['triangle']: {
+    triangleColor: {
+      type: types.color,
+      description: "Only with kind='main-tab' and active='true'.",
+    },
+    triangleSize: {
+      type: types.pixel,
+      min: 0,
+      max: 20,
+    },
   },
-  {
-    name: 'triangleSize',
-    group: 'triangle',
-    type: types.pixel,
-    min: 0,
-    max: 20,
-  },
-];
+});

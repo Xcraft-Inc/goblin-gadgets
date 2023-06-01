@@ -1,48 +1,40 @@
+// @ts-check
 import {types} from 'goblin-gadgets/types/types.js';
+import {propsList} from '../../types/props-list.js';
 
-export default [
-  // Aspect.
-  {
-    name: 'initials',
-    group: 'aspect',
-    type: types.string,
-  },
-  {
-    name: 'tooltip',
-    group: 'aspect',
-    type: types.nabu,
-  },
-  {
-    name: 'shape',
-    group: 'aspect',
-    type: types.enum([
-      '',
-      'circle',
-      'hexagon',
-      'square',
-      'triangle',
-      'certificate',
-      'star',
-      'heart',
-    ]),
-  },
-  {
-    name: 'color',
-    group: 'aspect',
-    type: types.color,
-  },
-  {
-    name: 'uri',
-    group: 'aspect',
-    type: types.string,
+export default propsList({
+  ['aspect']: {
+    initials: {
+      type: types.string,
+    },
+    tooltip: {
+      type: types.nabu,
+    },
+    shape: {
+      type: types.enumeration(
+        '',
+        'circle',
+        'hexagon',
+        'square',
+        'triangle',
+        'certificate',
+        'star',
+        'heart'
+      ),
+    },
+    color: {
+      type: types.color,
+    },
+    uri: {
+      type: types.string,
+    },
   },
 
-  // Layout.
-  {
-    name: 'size',
-    group: 'layout',
-    type: types.pixel,
-    min: 20,
-    max: 400,
+  ['layout']: {
+    size: {
+      type: types.pixel,
+      min: 20,
+      max: 400,
+    },
   },
-];
+});

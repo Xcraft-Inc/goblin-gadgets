@@ -1,124 +1,89 @@
+// @ts-check
 import {types} from 'goblin-gadgets/types/types.js';
+import {propsList} from '../../types/props-list.js';
 
-export default [
-  // Aspect.
-  {
-    name: 'size',
-    group: 'aspect',
-    type: types.pixel,
-    min: 50,
-    max: 500,
-  },
-  {
-    name: 'textColor',
-    group: 'aspect',
-    type: types.color,
-  },
-  {
-    name: 'shadow',
-    group: 'aspect',
-    type: types.enum(['none', 'light', 'deep', 'strong']),
-  },
-  {
-    name: 'kind',
-    group: 'aspect',
-    type: types.enum(['default', 'toy']),
-  },
-  {
-    name: 'disabled',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'crossed',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'background',
-    group: 'aspect',
-    type: types.background,
-  },
-  {
-    name: 'backgroundHover',
-    group: 'aspect',
-    type: types.background,
+export default propsList({
+  ['aspect']: {
+    size: {
+      type: types.pixel,
+      min: 50,
+      max: 500,
+    },
+    textColor: {
+      type: types.color,
+    },
+    shadow: {
+      type: types.enumeration('none', 'light', 'deep', 'strong'),
+    },
+    kind: {
+      type: types.enumeration('default', 'toy'),
+    },
+    disabled: {
+      type: types.boolean,
+    },
+    crossed: {
+      type: types.boolean,
+    },
+    background: {
+      type: types.background,
+    },
+    backgroundHover: {
+      type: types.background,
+    },
   },
 
-  // Content.
-  {
-    name: 'title',
-    group: 'content',
-    type: types.nabu,
-  },
-  {
-    name: 'subtitle',
-    group: 'content',
-    type: types.nabu,
-  },
-  {
-    name: 'icon',
-    group: 'content',
-    type: types.string,
-  },
-  {
-    name: 'iconShadow',
-    group: 'content',
-    type: types.enum(['none', 'default', 'light']),
-  },
-  {
-    name: 'glyph',
-    group: 'content',
-    type: types.glyph,
+  ['content']: {
+    title: {
+      type: types.nabu,
+    },
+    subtitle: {
+      type: types.nabu,
+    },
+    icon: {
+      type: types.string,
+    },
+    iconShadow: {
+      type: types.enumeration('none', 'default', 'light'),
+    },
+    glyph: {
+      type: types.glyph,
+    },
   },
 
-  // Gauge.
-  {
-    name: 'gaugeColor',
-    group: 'gauge',
-    type: types.color,
-  },
-  {
-    name: 'startedCount',
-    group: 'gauge',
-    type: types.number,
-    min: 0,
-    max: 100,
-  },
-  {
-    name: 'totalCount',
-    group: 'gauge',
-    type: types.number,
-    min: 0,
-    max: 100,
+  ['gauge']: {
+    gaugeColor: {
+      type: types.color,
+    },
+    startedCount: {
+      type: types.number,
+      min: 0,
+      max: 100,
+    },
+    totalCount: {
+      type: types.number,
+      min: 0,
+      max: 100,
+    },
   },
 
-  // Additional.
-  {
-    name: 'additionalText',
-    group: 'additional',
-    type: types.nabu,
-  },
-  {
-    name: 'additionalGlyph',
-    group: 'additional',
-    type: types.glyph,
-  },
-  {
-    name: 'additionalAnimation',
-    group: 'additional',
-    type: types.enum(['none', 'zoom', 'shift', 'dancing', 'parkinson']),
-  },
-  {
-    name: 'onAdditional',
-    group: 'additional',
-    type: types.function,
+  ['additional']: {
+    additionalText: {
+      type: types.nabu,
+    },
+    additionalGlyph: {
+      type: types.glyph,
+    },
+    additionalAnimation: {
+      type: types.enumeration('none', 'zoom', 'shift', 'dancing', 'parkinson'),
+    },
+    onAdditional: {
+      type: types.function,
+    },
   },
 
-  // Function.
-  {
-    name: 'onClick',
-    group: 'function',
-    type: types.function,
+  ['function']: {
+    onClick: {
+      type: types.function,
+    },
   },
-];
+});

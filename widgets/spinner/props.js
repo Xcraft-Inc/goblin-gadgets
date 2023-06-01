@@ -1,31 +1,27 @@
+// @ts-check
 import {types} from 'goblin-gadgets/types/types.js';
+import {propsList} from '../../types/props-list.js';
 
-export default [
-  // Aspect.
-  {
-    name: 'rimColor',
-    group: 'aspect',
-    type: types.color,
-  },
-  {
-    name: 'segmentColor',
-    group: 'aspect',
-    type: types.color,
+export default propsList({
+  ['aspect']: {
+    rimColor: {
+      type: types.color,
+    },
+    segmentColor: {
+      type: types.color,
+    },
   },
 
-  // Layout.
-  {
-    name: 'size',
-    group: 'layout',
-    type: types.pixel,
-    min: 20,
-    max: 1000,
+  ['layout']: {
+    size: {
+      type: types.pixel,
+      min: 20,
+      max: 1000,
+    },
+    thickness: {
+      type: types.pixel,
+      min: 1,
+      max: 100,
+    },
   },
-  {
-    name: 'thickness',
-    group: 'layout',
-    type: types.pixel,
-    min: 1,
-    max: 100,
-  },
-];
+});

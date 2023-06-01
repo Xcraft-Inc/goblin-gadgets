@@ -1,191 +1,138 @@
+// @ts-check
 import {types} from 'goblin-gadgets/types/types.js';
+import {propsList} from '../../types/props-list.js';
 
-export default [
-  // Main
-  {
-    name: 'checked',
-    group: 'main',
-    type: types.bool,
-    default: false,
-  },
-  {
-    name: 'onChange',
-    group: 'main',
-    type: types.function,
-  },
-  {
-    name: 'disabled',
-    group: 'main',
-    type: types.bool,
+export default propsList({
+  ['main']: {
+    checked: {
+      type: types.boolean,
+      // default: false,
+    },
+    onChange: {
+      type: types.function,
+    },
+    disabled: {
+      type: types.boolean,
+    },
   },
 
-  // Text
-  {
-    name: 'text',
-    group: 'text',
-    type: types.nabu,
-    defaultValue: '',
-  },
-  {
-    name: 'textColor',
-    group: 'text',
-    type: types.color,
-  },
-  {
-    name: 'fontSize',
-    group: 'text',
-    type: types.percentage,
-  },
-  {
-    name: 'fontWeight',
-    group: 'text',
-    type: types.fontWeight,
-  },
-  {
-    name: 'fontStyle',
-    group: 'text',
-    type: types.fontStyle,
-  },
-  {
-    name: 'textTransform',
-    group: 'text',
-    type: types.textTransform,
-  },
-  {
-    name: 'wrap',
-    group: 'text',
-    type: types.enum(['', 'no', 'no-strict', 'yes', 'yes-permissive']),
+  ['text']: {
+    text: {
+      type: types.nabu,
+      defaultValue: '',
+    },
+    textColor: {
+      type: types.color,
+    },
+    fontSize: {
+      type: types.percentage,
+    },
+    fontWeight: {
+      type: types.fontWeight,
+    },
+    fontStyle: {
+      type: types.fontStyle,
+    },
+    textTransform: {
+      type: types.textTransform,
+    },
+    wrap: {
+      type: types.enumeration('', 'no', 'no-strict', 'yes', 'yes-permissive'),
+    },
   },
 
-  // Glyph
-  {
-    name: 'glyphColor',
-    group: 'glyph',
-    type: types.color,
-  },
-  {
-    name: 'glyphFlip',
-    group: 'glyph',
-    type: types.enum(['', 'horizontal', 'vertical']),
-  },
-  {
-    name: 'glyphSpin',
-    group: 'glyph',
-    type: types.enum(['', 'yes']),
-  },
-  {
-    name: 'glyphSize',
-    group: 'glyph',
-    type: types.percentage,
+  ['glyph']: {
+    glyphColor: {
+      type: types.color,
+    },
+    glyphFlip: {
+      type: types.enumeration('', 'horizontal', 'vertical'),
+    },
+    glyphSpin: {
+      type: types.enumeration('', 'yes'),
+    },
+    glyphSize: {
+      type: types.percentage,
+    },
   },
 
-  // Aspect
-  {
-    name: 'kind',
-    group: 'aspect',
-    type: types.enum(['', 'big', 'active', 'check-button', 'radio', 'switch']),
-  },
-  {
-    name: 'look',
-    group: 'aspect',
-    type: types.enum(['', 'modern', 'retro']),
-  },
-  {
-    name: 'backgroundBrigtness',
-    group: 'aspect',
-    type: types.enum(['', 'light', 'dark']),
-  },
-  {
-    name: 'readonly',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'focusable',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'busy',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'backgroundColor',
-    group: 'aspect',
-    type: types.color,
-  },
-  {
-    name: 'activeColor',
-    group: 'aspect',
-    type: types.color,
-  },
-  {
-    name: 'cursor',
-    group: 'aspect',
-    type: types.cursor,
-  },
-  {
-    name: 'show',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'visibility',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'toAnchor',
-    group: 'aspect',
-    type: types.string,
+  ['aspect']: {
+    kind: {
+      type: types.enumeration(
+        '',
+        'big',
+        'active',
+        'check-button',
+        'radio',
+        'switch'
+      ),
+    },
+    look: {
+      type: types.enumeration('', 'modern', 'retro'),
+    },
+    backgroundBrigtness: {
+      type: types.enumeration('', 'light', 'dark'),
+    },
+    readonly: {
+      type: types.boolean,
+    },
+    focusable: {
+      type: types.boolean,
+    },
+    busy: {
+      type: types.boolean,
+    },
+    backgroundColor: {
+      type: types.color,
+    },
+    activeColor: {
+      type: types.color,
+    },
+    cursor: {
+      type: types.cursor,
+    },
+    show: {
+      type: types.boolean,
+    },
+    visibility: {
+      type: types.boolean,
+    },
+    toAnchor: {
+      type: types.string,
+    },
   },
 
-  // Layout
-  {
-    name: 'width',
-    group: 'layout',
-    type: types.pixel,
-    min: 0,
-    max: 1000,
-  },
-  {
-    name: 'height',
-    group: 'layout',
-    type: types.pixel,
-    min: 0,
-    max: 1000,
-  },
-  {
-    name: 'grow',
-    group: 'layout',
-    type: types.grow,
+  ['layout']: {
+    width: {
+      type: types.pixel,
+      min: 0,
+      max: 1000,
+    },
+    height: {
+      type: types.pixel,
+      min: 0,
+      max: 1000,
+    },
+    grow: {
+      type: types.grow,
+    },
   },
 
-  // Badge
-  {
-    name: 'badgeValue',
-    group: 'badge',
-    type: types.oneOfType([types.number, types.string]),
+  ['badge']: {
+    badgeValue: {
+      type: types.union(types.number, types.string),
+    },
+    badgePush: {
+      type: types.boolean,
+    },
+    badgePosition: {
+      type: types.enumeration('', 'top-right', 'over'),
+    },
+    badgeShape: {
+      type: types.enumeration('', 'circle'),
+    },
+    badgeColor: {
+      type: types.enumeration('', 'red', 'green'),
+    },
   },
-  {
-    name: 'badgePush',
-    group: 'badge',
-    type: types.bool,
-  },
-  {
-    name: 'badgePosition',
-    group: 'badge',
-    type: types.enum(['', 'top-right', 'over']),
-  },
-  {
-    name: 'badgeShape',
-    group: 'badge',
-    type: types.enum(['', 'circle']),
-  },
-  {
-    name: 'badgeColor',
-    group: 'badge',
-    type: types.enum(['', 'red', 'green']),
-  },
-];
+});

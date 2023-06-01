@@ -1,27 +1,22 @@
+// @ts-check
 import {types} from 'goblin-gadgets/types/types.js';
+import {propsList} from '../../types/props-list.js';
 
 /******************************************************************************/
 
-export default [
-  // Main.
-  {
-    name: 'children',
-    group: 'main',
-    type: types.component,
+export default propsList({
+  ['main']: {
+    children: {
+      type: types.component,
+    },
+    zIndex: {
+      type: types.union(types.number, types.string),
+    },
+    backgroundColor: {
+      type: types.color,
+    },
+    onClick: {
+      type: types.function,
+    },
   },
-  {
-    name: 'zIndex',
-    group: 'main',
-    type: types.oneOfType([types.number, types.string]),
-  },
-  {
-    name: 'backgroundColor',
-    group: 'main',
-    type: types.color,
-  },
-  {
-    name: 'onClick',
-    group: 'main',
-    type: types.function,
-  },
-];
+});

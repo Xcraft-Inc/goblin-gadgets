@@ -1,3 +1,4 @@
+// @ts-check
 import {types, addType} from 'goblin-gadgets/types/types.js';
 import {propsList} from '../../types/props-list.js';
 import {array, object, union} from 'xcraft-core-stones';
@@ -65,81 +66,59 @@ addType('dataPallet', {
 
 /******************************************************************************/
 
-export default [
-  // Aspect.
-  {
-    name: 'color',
-    group: 'aspect',
-    type: types.richColor,
-  },
-  {
-    name: 'pallet',
-    group: 'aspect',
-    type: types.dataPallet,
-  },
-  {
-    name: 'borderRadius',
-    group: 'aspect',
-    type: types.pixel,
-    min: 0,
-    max: 50,
-  },
-  {
-    name: 'frame',
-    group: 'aspect',
-    type: types.enum(['shadow', 'no']),
-  },
-  {
-    name: 'backgroundColor',
-    group: 'aspect',
-    type: types.color,
+export default propsList({
+  ['aspect']: {
+    color: {
+      type: types.richColor,
+    },
+    pallet: {
+      type: types.dataPallet,
+    },
+    borderRadius: {
+      type: types.pixel,
+      min: 0,
+      max: 50,
+    },
+    frame: {
+      type: types.enumeration('shadow', 'no'),
+    },
+    backgroundColor: {
+      type: types.color,
+    },
   },
 
-  // Layout.
-  {
-    name: 'grow',
-    group: 'layout',
-    type: types.grow,
-  },
-  {
-    name: 'width',
-    group: 'layout',
-    type: types.pixel,
-    min: 520,
-    max: 1000,
+  ['layout']: {
+    grow: {
+      type: types.grow,
+    },
+    width: {
+      type: types.pixel,
+      min: 520,
+      max: 1000,
+    },
   },
 
-  // Functionality.
-  {
-    name: 'showHSL',
-    group: 'functionality',
-    type: types.enum(['yes', 'no']),
-  },
-  {
-    name: 'showRGB',
-    group: 'functionality',
-    type: types.enum(['yes', 'no']),
-  },
-  {
-    name: 'showCMYK',
-    group: 'functionality',
-    type: types.enum(['yes', 'no']),
-  },
-  {
-    name: 'showG',
-    group: 'functionality',
-    type: types.enum(['yes', 'no']),
-  },
-  {
-    name: 'showPaste',
-    group: 'functionality',
-    type: types.enum(['yes', 'no']),
+  ['functionality']: {
+    showHSL: {
+      type: types.enumeration('yes', 'no'),
+    },
+    showRGB: {
+      type: types.enumeration('yes', 'no'),
+    },
+    showCMYK: {
+      type: types.enumeration('yes', 'no'),
+    },
+    showG: {
+      type: types.enumeration('yes', 'no'),
+    },
+    showPaste: {
+      type: types.enumeration('yes', 'no'),
+    },
   },
 
-  // Function.
-  {
-    name: 'onChange',
-    group: 'function',
-    type: types.function,
+  ['function']: {
+    onChange: {
+      type: types.function,
+    },
   },
-];
+});

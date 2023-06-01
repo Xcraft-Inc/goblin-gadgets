@@ -1,136 +1,99 @@
+// @ts-check
 import {types} from 'goblin-gadgets/types/types.js';
+import {propsList} from '../../types/props-list.js';
 
-export default [
-  // Aspect.
-  {
-    name: 'barColor',
-    group: 'aspect',
-    type: types.color,
-  },
-  {
-    name: 'barPosition',
-    group: 'aspect',
-    type: types.enum(['', 'start', 'middle', 'end']),
-  },
-  {
-    name: 'direction',
-    group: 'aspect',
-    type: types.enum(['vertical', 'horizontal']),
-  },
-  {
-    name: 'gliderSize',
-    group: 'aspect',
-    type: types.enum(['', 'small', 'default', 'large']),
-  },
-  {
-    name: 'cabSize',
-    group: 'aspect',
-    type: types.enum(['', 'small', 'default', 'large']),
-  },
-  {
-    name: 'cabType',
-    group: 'aspect',
-    type: types.enum(['', 'round', 'thin']),
-  },
-  {
-    name: 'gradient',
-    group: 'aspect',
-    type: types.enum(['', '1to2', 'rainbow']),
-  },
-  {
-    name: 'gradientColor1',
-    group: 'aspect',
-    type: types.color,
-  },
-  {
-    name: 'gradientColor2',
-    group: 'aspect',
-    type: types.color,
-  },
-  {
-    name: 'disabled',
-    group: 'aspect',
-    type: types.bool,
+export default propsList({
+  ['aspect']: {
+    barColor: {
+      type: types.color,
+    },
+    barPosition: {
+      type: types.enumeration('', 'start', 'middle', 'end'),
+    },
+    direction: {
+      type: types.enumeration('vertical', 'horizontal'),
+    },
+    gliderSize: {
+      type: types.enumeration('', 'small', 'default', 'large'),
+    },
+    cabSize: {
+      type: types.enumeration('', 'small', 'default', 'large'),
+    },
+    cabType: {
+      type: types.enumeration('', 'round', 'thin'),
+    },
+    gradient: {
+      type: types.enumeration('', '1to2', 'rainbow'),
+    },
+    gradientColor1: {
+      type: types.color,
+    },
+    gradientColor2: {
+      type: types.color,
+    },
+    disabled: {
+      type: types.boolean,
+    },
   },
 
-  // Value.
-  {
-    name: 'value',
-    group: 'value',
-    type: types.oneOfType([types.number, types.string]),
-    description:
-      'Value between "min" and "max", or two values separate by ";".',
-  },
-  {
-    name: 'min',
-    group: 'value',
-    type: types.number,
-    description: 'Default value is 0.',
-  },
-  {
-    name: 'max',
-    group: 'value',
-    type: types.number,
-    description: 'Default value is 100.',
-  },
-  {
-    name: 'step',
-    group: 'value',
-    type: types.number,
-    description: 'Default value is 1.',
-  },
-  {
-    name: 'displayValue',
-    group: 'value',
-    type: types.enum(['', 'never', 'dragging', 'always']),
-  },
-  {
-    name: 'getDisplayedValue',
-    group: 'value',
-    type: types.function,
+  ['value']: {
+    value: {
+      type: types.union(types.number, types.string),
+      description:
+        'Value between "min" and "max", or two values separate by ";".',
+    },
+    min: {
+      type: types.number,
+      description: 'Default value is 0.',
+    },
+    max: {
+      type: types.number,
+      description: 'Default value is 100.',
+    },
+    step: {
+      type: types.number,
+      description: 'Default value is 1.',
+    },
+    displayValue: {
+      type: types.enumeration('', 'never', 'dragging', 'always'),
+    },
+    getDisplayedValue: {
+      type: types.function,
+    },
   },
 
-  // Layout.
-  {
-    name: 'grow',
-    group: 'layout',
-    type: types.grow,
-  },
-  {
-    name: 'width',
-    group: 'layout',
-    type: types.pixel,
-    min: 0,
-    max: 1000,
-  },
-  {
-    name: 'height',
-    group: 'layout',
-    type: types.pixel,
-    min: 0,
-    max: 1000,
+  ['layout']: {
+    grow: {
+      type: types.grow,
+    },
+    width: {
+      type: types.pixel,
+      min: 0,
+      max: 1000,
+    },
+    height: {
+      type: types.pixel,
+      min: 0,
+      max: 1000,
+    },
   },
 
-  // Function.
-  {
-    name: 'onChange',
-    group: 'function',
-    type: types.function,
+  ['function']: {
+    onChange: {
+      type: types.function,
+    },
   },
 
-  // Functionality.
-  {
-    name: 'changeMode',
-    group: 'functionality',
-    type: types.enum(['blur', 'throttled', 'immediate', 'passthrough']),
-    description:
-      "'blur': onChange is called only on blur.\n'throttled': onChange is called on blur and every X ms (see 'throttleDelay').\n'immediate': onChange is called on each key press.\n'passthrough': value and onChange are directly given to the underlying input.",
+  ['functionality']: {
+    changeMode: {
+      type: types.enumeration('blur', 'throttled', 'immediate', 'passthrough'),
+      description:
+        "'blur': onChange is called only on blur.\n'throttled': onChange is called on blur and every X ms (see 'throttleDelay').\n'immediate': onChange is called on each key press.\n'passthrough': value and onChange are directly given to the underlying input.",
+    },
+    throttleDelay: {
+      type: types.number,
+      min: 0,
+      max: 10000,
+    },
   },
-  {
-    name: 'throttleDelay',
-    group: 'functionality',
-    type: types.number,
-    min: 0,
-    max: 10000,
-  },
-];
+});

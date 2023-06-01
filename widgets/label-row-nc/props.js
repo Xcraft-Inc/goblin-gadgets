@@ -1,94 +1,72 @@
+// @ts-check
 import {types} from 'goblin-gadgets/types/types.js';
+import {propsList} from '../../types/props-list.js';
 
-export default [
-  // Label
-  {
-    name: 'labelWidth',
-    group: 'label',
-    type: types.pixel,
-    min: 0,
-    max: 500,
-  },
-  {
-    name: 'labelText',
-    group: 'label',
-    type: types.nabu,
-  },
-  {
-    name: 'labelWrap',
-    group: 'label',
-    type: types.enum([
-      '',
-      'no',
-      'no-end',
-      'no-strict',
-      'yes',
-      'yes-permissive',
-    ]),
-  },
-  {
-    name: 'labelGlyph',
-    group: 'label',
-    type: types.glyph,
+export default propsList({
+  ['label']: {
+    labelWidth: {
+      type: types.pixel,
+      min: 0,
+      max: 500,
+    },
+    labelText: {
+      type: types.nabu,
+    },
+    labelWrap: {
+      type: types.enumeration(
+        '',
+        'no',
+        'no-end',
+        'no-strict',
+        'yes',
+        'yes-permissive'
+      ),
+    },
+    labelGlyph: {
+      type: types.glyph,
+    },
   },
 
-  // Main
-  {
-    name: 'children',
-    group: 'main',
-    type: types.component,
+  ['main']: {
+    children: {
+      type: types.component,
+    },
   },
 
-  // Aspect
-  {
-    name: 'disabled',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'show',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'visibility',
-    group: 'aspect',
-    type: types.bool,
+  ['aspect']: {
+    disabled: {
+      type: types.boolean,
+    },
+    show: {
+      type: types.boolean,
+    },
+    visibility: {
+      type: types.boolean,
+    },
   },
 
-  // Layout
-  {
-    name: 'width',
-    group: 'layout',
-    type: types.pixel,
-    min: 0,
-    max: 1000,
+  ['layout']: {
+    width: {
+      type: types.pixel,
+      min: 0,
+      max: 1000,
+    },
+    height: {
+      type: types.pixel,
+      min: 0,
+      max: 1000,
+    },
+    horizontalSpacing: {
+      type: types.horizontalSpacing,
+    },
+    verticalSpacing: {
+      type: types.verticalSpacing,
+    },
+    verticalJustify: {
+      type: types.enumeration('', 'center', 'top'),
+    },
+    grow: {
+      type: types.grow,
+    },
   },
-  {
-    name: 'height',
-    group: 'layout',
-    type: types.pixel,
-    min: 0,
-    max: 1000,
-  },
-  {
-    name: 'horizontalSpacing',
-    group: 'layout',
-    type: types.horizontalSpacing,
-  },
-  {
-    name: 'verticalSpacing',
-    group: 'layout',
-    type: types.verticalSpacing,
-  },
-  {
-    name: 'verticalJustify',
-    group: 'layout',
-    type: types.enum(['', 'center', 'top']),
-  },
-  {
-    name: 'grow',
-    group: 'layout',
-    type: types.grow,
-  },
-];
+});

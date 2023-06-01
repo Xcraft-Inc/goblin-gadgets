@@ -1,145 +1,109 @@
+// @ts-check
 import {types} from 'goblin-gadgets/types/types.js';
+import {propsList} from '../../types/props-list.js';
 
 /******************************************************************************/
 
-export default [
-  // Main.
-  {
-    name: 'rowId',
-    group: 'main',
-    type: types.oneOfType([types.number, types.string]),
-  },
-  {
-    name: 'text',
-    group: 'main',
-    type: types.any,
-    defaultValue: '',
-  },
-  {
-    name: 'glyph',
-    group: 'main',
-    type: types.glyph,
-  },
-  {
-    name: 'cellFormat',
-    group: 'main',
-    type: types.enum(['', 'original']),
-  },
-  {
-    name: 'type',
-    group: 'main',
-    type: types.enum([
-      'string',
-      'markdown',
-      'enum',
-      'date',
-      'time',
-      'datetime',
-      'price',
-      'weight',
-      'length',
-      'pixel',
-      'volume',
-      'bool',
-      'number',
-      'percent',
-      'delay',
-      'month',
-      'dow',
-      'quarter',
-      'semester',
-    ]),
-  },
-  {
-    name: 'index',
-    group: 'main',
-    type: types.oneOfType([types.number, types.string]),
-  },
-  {
-    name: 'children',
-    group: 'main',
-    type: types.component,
+export default propsList({
+  ['main']: {
+    rowId: {
+      type: types.union(types.number, types.string),
+    },
+    text: {
+      type: types.any,
+      defaultValue: '',
+    },
+    glyph: {
+      type: types.glyph,
+    },
+    cellFormat: {
+      type: types.enumeration('', 'original'),
+    },
+    type: {
+      type: types.enumeration(
+        'string',
+        'markdown',
+        'enum',
+        'date',
+        'time',
+        'datetime',
+        'price',
+        'weight',
+        'length',
+        'pixel',
+        'volume',
+        'bool',
+        'number',
+        'percent',
+        'delay',
+        'month',
+        'dow',
+        'quarter',
+        'semester'
+      ),
+    },
+    index: {
+      type: types.union(types.number, types.string),
+    },
+    children: {
+      type: types.component,
+    },
   },
 
-  // Layout.
-  {
-    name: 'width',
-    group: 'layout',
-    type: types.pixel,
-    min: 0,
-    max: 1000,
-  },
-  {
-    name: 'maxHeight',
-    group: 'layout',
-    type: types.pixel,
-    min: 0,
-    max: 1000,
-  },
-  {
-    name: 'grow',
-    group: 'layout',
-    type: types.grow,
+  ['layout']: {
+    width: {
+      type: types.pixel,
+      min: 0,
+      max: 1000,
+    },
+    maxHeight: {
+      type: types.pixel,
+      min: 0,
+      max: 1000,
+    },
+    grow: {
+      type: types.grow,
+    },
   },
 
-  // Aspect.
-  {
-    name: 'isSortable',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'isHeader',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'isLast',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'simpleHeader',
-    group: 'aspect',
-    type: types.bool,
-  },
-  {
-    name: 'level',
-    group: 'aspect',
-    type: types.number,
-    min: 0,
-    max: 10,
-  },
-  {
-    name: 'textAlign',
-    group: 'aspect',
-    type: types.enum(['', 'right', 'left', 'center']),
-  },
-  {
-    name: 'horizontalSpacing',
-    group: 'aspect',
-    type: types.horizontalSpacing,
-  },
-  {
-    name: 'fontSizeStrategy',
-    group: 'aspect',
-    type: types.enum(['', 'decrease']),
-  },
-  {
-    name: 'indent',
-    group: 'aspect',
-    type: types.enum(['', 'space']),
-  },
-  {
-    name: 'verticalAlign',
-    group: 'aspect',
-    type: types.enum(['', 'baseline', 'center']),
+  ['aspect']: {
+    isSortable: {
+      type: types.boolean,
+    },
+    isHeader: {
+      type: types.boolean,
+    },
+    isLast: {
+      type: types.boolean,
+    },
+    simpleHeader: {
+      type: types.boolean,
+    },
+    level: {
+      type: types.number,
+      min: 0,
+      max: 10,
+    },
+    textAlign: {
+      type: types.enumeration('', 'right', 'left', 'center'),
+    },
+    horizontalSpacing: {
+      type: types.horizontalSpacing,
+    },
+    fontSizeStrategy: {
+      type: types.enumeration('', 'decrease'),
+    },
+    indent: {
+      type: types.enumeration('', 'space'),
+    },
+    verticalAlign: {
+      type: types.enumeration('', 'baseline', 'center'),
+    },
   },
 
-  // Function.
-  {
-    name: 'onClick',
-    group: 'function',
-    type: types.function,
+  ['function']: {
+    onClick: {
+      type: types.function,
+    },
   },
-];
+});
