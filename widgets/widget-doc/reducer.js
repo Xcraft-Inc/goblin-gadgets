@@ -4,6 +4,7 @@ const initialState = new Shredder({
   selectedWidget: null,
   requiredProps: {},
   props: {},
+  selectedTypeProps: {},
   settings: {
     scale: 1,
     color: 'pane',
@@ -24,6 +25,7 @@ export default (state = initialState, action = {}) => {
   if (action.type === 'INIT') {
     state = state.set('requiredProps', action.requiredProps);
     state = state.set('props', action.defaultProps);
+    state = state.set('selectedTypeProps', action.selectedTypeProps);
     return state;
   }
 
@@ -36,22 +38,22 @@ export default (state = initialState, action = {}) => {
   }
 
   if (action.type === 'SET_PROP') {
-    if (!action.path.startsWith('props.')) {
-      throw new Error(`WidgetDoc.SET_PROP: invalid path '${action.path}'`);
+    if (action.typeName) {
+      state = state.set(`selectedTypeProps.${action.path}`, action.typeName);
     }
-    return state.set(action.path, action.value);
+    return state.set(`props.${action.path}`, action.value);
+  }
+
+  if (action.type === 'SET_PROP_TYPE') {
+    return state.set(`selectedTypeProps.${action.path}`, action.typeName);
   }
 
   if (action.type === 'DEL_PROP') {
-    if (!action.path.startsWith('props.')) {
-      throw new Error(`WidgetDoc.DEL_PROP: invalid path '${action.path}'`);
-    }
-    const requiredPath = action.path.replace(/props./, 'requiredProps.'); // replace "props.Button.kind" by "requiredProps.Button.kind"
-    const requiredValue = state.get(requiredPath);
+    const requiredValue = state.get(`requiredProps.${action.path}`);
     if (requiredValue) {
-      return state.set(action.path, requiredValue);
+      return state.set(`props.${action.path}`, requiredValue);
     } else {
-      return state.del(action.path);
+      return state.del(`props.${action.path}`);
     }
   }
 

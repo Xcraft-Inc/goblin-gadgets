@@ -7,6 +7,7 @@ import WidgetDocProperties from '../widget-doc-properties/widget';
 import WidgetDocPreview from '../widget-doc-preview/widget';
 import widgetList from '../widget-doc/widget-list';
 import * as styles from './styles';
+import {UnionType} from 'xcraft-core-stones';
 
 /******************************************************************************/
 
@@ -17,10 +18,12 @@ class WidgetDoc extends Widget {
 
     const requiredProps = {};
     const defaultProps = {};
+    const selectedTypeProps = {};
 
     for (const widget of widgetList) {
       const widgetRequiredProps = {};
       const widgetDefaultProps = {};
+      const widgetSelectedTypeProps = {};
 
       for (const propDef of widget.props) {
         if (propDef.required) {
@@ -34,14 +37,44 @@ class WidgetDoc extends Widget {
         const scenario = widget.scenarios[0];
         if (scenario) {
           for (const [propName, propValue] of Object.entries(scenario.props)) {
-            widgetDefaultProps[propName] = propValue;
+            let value = propValue;
+
+            const propDef = widget.props.find(({name}) => name === propName);
+            if (!propDef) {
+              throw new Error(
+                `Bad prop '${propName}' in scenarios.js of '${widget.name}'`
+              );
+            }
+
+            const samplesData = propDef.type.samplesData;
+            if (samplesData && propValue in samplesData) {
+              value = samplesData[propValue];
+            }
+
+            widgetDefaultProps[propName] = value;
+
+            const type = propDef.type.type;
+            if (type instanceof UnionType) {
+              const subType = type.findType(value);
+              if (!subType) {
+                throw new Error(
+                  `Bad type for prop '${propName}' in scenarios.js of '${widget.name}'`
+                );
+              }
+              widgetSelectedTypeProps[propName] = subType.name;
+            }
           }
         }
       }
       defaultProps[widget.name] = widgetDefaultProps;
     }
 
-    this.dispatch({type: 'INIT', requiredProps, defaultProps});
+    this.dispatch({
+      type: 'INIT',
+      requiredProps,
+      defaultProps,
+      selectedTypeProps,
+    });
   }
 
   renderCloseButton() {

@@ -1,5 +1,6 @@
 import {types, addType} from 'goblin-gadgets/types/types.js';
-import PropTypes from 'prop-types';
+import {propsList} from '../../types/props-list.js';
+import {array, object, union} from 'xcraft-core-stones';
 
 /******************************************************************************/
 
@@ -55,12 +56,11 @@ const samplesList = {
 };
 
 addType('dataPallet', {
-  type: 'dataPallet',
+  type: union(array, object),
   widget: 'combo',
   restrictsToList: true,
   samples: samples,
   samplesData: samplesList,
-  propType: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 });
 
 /******************************************************************************/

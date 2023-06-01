@@ -1,11 +1,12 @@
 import {types, addType} from 'goblin-gadgets/types/types.js';
-import PropTypes from 'prop-types';
 import textInputNCProps from '../text-input-nc/props';
+import {func} from 'xcraft-core-stones';
+import {propsList} from '../../types/props-list.js';
 
 /******************************************************************************/
 
 addType('checkFunction', {
-  type: 'checkFunction',
+  type: func,
   widget: 'combo',
   restrictsToList: true,
   samples: [
@@ -36,7 +37,6 @@ addType('checkFunction', {
       }
     },
   },
-  propType: PropTypes.func,
 });
 
 /******************************************************************************/

@@ -1,22 +1,37 @@
 'use strict';
 
-const types = {
+import {
+  string,
+  enumeration,
+  percentage,
+  any,
+  boolean,
+  number,
+  date,
+  time,
+  union,
+  object,
+  func,
+} from 'xcraft-core-stones';
+import {component} from './ui-types.js';
+import {nabu} from './data-types.js';
+
+export const types = {
   any: {
-    type: 'any',
+    type: any,
     widget: 'text-field',
   },
 
-  bool: {
-    type: 'bool',
+  boolean: {
+    type: boolean,
     defaultValue: false,
     widget: 'checkbox',
   },
 
   string: {
-    type: 'string',
+    type: string,
     defaultValue: '',
-    widget: 'combo',
-    restrictsToList: false,
+    widget: 'text-field',
     samples: [
       '',
       "D'accord",
@@ -28,11 +43,10 @@ const types = {
   },
 
   nabu: {
-    type: 'nabu',
+    type: nabu,
     defaultValue: '',
     widget: 'combo',
     multiline: true,
-    restrictsToList: false,
     samples: [
       '',
       "D'accord",
@@ -63,10 +77,9 @@ const types = {
   },
 
   number: {
-    type: 'number',
+    type: number,
     defaultValue: 0,
-    widget: 'combo',
-    restrictsToList: false,
+    widget: 'number',
     samples: [
       {id: null, text: ''},
       {id: 0, text: '0'},
@@ -81,9 +94,8 @@ const types = {
   },
 
   date: {
-    type: 'date',
-    widget: 'combo',
-    restrictsToList: false,
+    type: date,
+    widget: 'date',
     samples: [
       {id: null, text: ''},
       {id: '1969-07-21', text: 'Premiers pas sur la lune'},
@@ -96,9 +108,8 @@ const types = {
   },
 
   time: {
-    type: 'time',
-    widget: 'combo',
-    restrictsToList: false,
+    type: time,
+    widget: 'time',
     samples: [
       {id: null, text: ''},
       {id: '08:00:00', text: 'Au travail'},
@@ -110,25 +121,24 @@ const types = {
     ],
   },
 
-  enum: (values) => ({
-    type: 'enum',
+  enumeration: (...values) => ({
+    type: enumeration(...values),
     defaultValue: values[0],
     widget: 'combo',
     restrictsToList: true,
     values: values,
   }),
 
-  oneOfType: (types) => ({
-    type: 'oneOfType',
+  union: (...types) => ({
+    type: union(...types.map((t) => t.type)),
     defaultValue: types[0].defaultValue,
     widget: 'oneOfType',
     types,
   }),
 
   component: {
-    type: 'component',
+    type: component,
     widget: 'combo',
-    restrictsToList: false,
     samples: [
       'short-text',
       'long-text',
@@ -142,18 +152,15 @@ const types = {
   },
 
   function: {
-    type: 'function',
+    type: func,
     widget: 'combo',
-    restrictsToList: false,
     samples: ['alert', 'log'],
   },
 
   color: {
-    type: 'color',
-    widget: 'combo',
-    restrictsToList: false,
+    type: string,
+    widget: 'color',
     samples: [
-      '',
       'base',
       'primary',
       'secondary',
@@ -179,11 +186,9 @@ const types = {
   },
 
   richColor: {
-    type: 'richColor',
-    widget: 'combo',
-    restrictsToList: false,
+    type: string,
+    widget: 'color',
     samples: [
-      '',
       '#000000',
       '#FF0000',
       '#00FF00',
@@ -204,11 +209,9 @@ const types = {
   },
 
   background: {
-    type: 'string',
+    type: string,
     widget: 'combo',
-    restrictsToList: false,
     samples: [
-      '',
       '#000000',
       '#FF0000',
       '#00FF00',
@@ -229,9 +232,8 @@ const types = {
   },
 
   pixel: {
-    type: 'pixel',
+    type: string,
     widget: 'combo',
-    restrictsToList: false,
     samples: [
       {id: null, text: ''},
       {id: '0px', text: '0 px'},
@@ -249,11 +251,15 @@ const types = {
   },
 
   glyph: {
-    type: 'glyph',
+    type: union(
+      string,
+      object({
+        glyph: string,
+        color: string,
+      })
+    ),
     widget: 'combo',
-    restrictsToList: false,
     samples: [
-      '',
       'solid/check',
       'solid/times',
       'solid/bicycle',
@@ -264,84 +270,66 @@ const types = {
   },
 
   shape: {
-    type: 'shape',
-    widget: 'combo',
-    restrictsToList: true,
-    samples: [
-      '',
+    type: enumeration(
       'rounded',
       'left-rounded',
       'right-rounded',
       'smooth',
       'left-smooth',
-      'right-smooth',
-    ],
+      'right-smooth'
+    ),
+    widget: 'combo',
   },
 
   angle: {
-    type: 'angle',
+    type: string,
     widget: 'combo',
-    restrictsToList: false,
-    samples: ['', '90', '180', '270'],
+    samples: ['0', '90', '180', '270'],
   },
 
   percentage: {
-    type: 'percentage',
-    widget: 'combo',
-    restrictsToList: false,
-    samples: ['', '10%', '25%', '50%', '75%', '90%', '100%', '150%', '200%'],
+    type: percentage,
+    widget: 'percentage',
+    samples: ['0%', '10%', '25%', '50%', '75%', '90%', '100%', '150%', '200%'],
   },
 
   horizontalSpacing: {
-    type: 'horizontalSpacing',
-    widget: 'combo',
-    restrictsToList: true,
-    samples: [
-      '',
+    type: enumeration(
       'overlap',
       'zero',
       'tiny',
       'compact',
       'large',
       'big',
-      'double',
-    ],
+      'double'
+    ),
+    widget: 'combo',
   },
 
   verticalSpacing: {
-    type: 'verticalSpacing',
+    type: enumeration('overlap', 'compact', 'normal', 'large'),
     widget: 'combo',
-    restrictsToList: true,
-    samples: ['', 'overlap', 'compact', 'normal', 'large'],
   },
 
   shortcut: {
-    type: 'shortcut',
+    type: string,
     widget: 'combo',
-    restrictsToList: false,
-    samples: ['', '_ctrl_+A', '_shift_+A', '_alt_+A'],
+    samples: ['_ctrl_+A', '_shift_+A', '_alt_+A'],
   },
 
   grow: {
-    type: 'grow',
+    type: union(number, string),
     widget: 'combo',
-    restrictsToList: false,
-    samples: ['', '0.5', '1'],
+    samples: ['1', '2'],
   },
 
   fontStyle: {
-    type: 'fontStyle',
+    type: enumeration('italic', 'oblique'),
     widget: 'combo',
-    restrictsToList: true,
-    samples: ['', 'italic', 'oblique'],
   },
 
   cursor: {
-    type: 'cursor',
-    widget: 'combo',
-    restrictsToList: true,
-    samples: [
-      '',
+    type: enumeration(
       'default',
       'none',
       'pointer',
@@ -353,15 +341,15 @@ const types = {
       'ew-resize',
       'ns-resize',
       'grab',
-    ],
+      'inherit'
+    ),
+    widget: 'combo',
   },
 
   fontWeight: {
-    type: 'fontWeight',
+    type: string,
     widget: 'combo',
-    restrictsToList: false,
     samples: [
-      '',
       'normal',
       'bold',
       'bolder',
@@ -381,32 +369,32 @@ const types = {
   },
 
   textTransform: {
-    type: 'textTransform',
+    type: enumeration('capitalize', 'uppercase', 'lowercase'),
     widget: 'combo',
-    restrictsToList: true,
-    samples: ['', 'capitalize', 'uppercase', 'lowercase'],
   },
 
   justify: {
-    type: 'justify',
+    type: enumeration(
+      'start',
+      'center',
+      'end',
+      'around',
+      'between',
+      'flex-start',
+      'none'
+    ),
     widget: 'combo',
-    restrictsToList: true,
-    samples: ['', 'start', 'center', 'end', 'around', 'between', 'none'],
   },
 
   textJustify: {
-    type: 'textJustify',
+    type: enumeration('left', 'center', 'right'),
     widget: 'combo',
-    restrictsToList: true,
-    samples: ['', 'left', 'center', 'right'],
   },
 
   place: {
-    type: 'place',
+    type: string,
     widget: 'combo',
-    restrictsToList: false,
     samples: [
-      '',
       '1/1',
       '1/2',
       '2/2',
@@ -425,31 +413,31 @@ const types = {
   },
 
   transition: {
-    type: 'transition',
+    type: string,
     widget: 'combo',
-    restrictsToList: false,
     samples: [
-      '',
       '0.0s ease-out',
       '0.2s ease-out',
       '0.5s ease-out',
       '1.0s ease-out',
     ],
   },
+
+  /** @deprecated use types.union */
+  oneOfType: (t) => types.union(...t),
+
+  /** @deprecated use types.enumeration */
+  enum: (values) => types.enumeration(...values),
+
+  /** @deprecated use types.boolean */
+  get bool() {
+    return types.boolean;
+  },
 };
 
-//-----------------------------------------------------------------------------
-
-function addType(name, type) {
+export function addType(name, type) {
   if (types.name) {
     throw new Error(`Type ${name} is already defined`);
   }
   types[name] = type;
 }
-
-//-----------------------------------------------------------------------------
-
-module.exports = {
-  types,
-  addType,
-};

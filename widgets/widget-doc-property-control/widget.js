@@ -23,34 +23,14 @@ class OneOfTypeControl extends Widget {
   }
 
   onChangeType(item) {
-    const value = {
-      value: undefined,
-      type: item.id,
-    };
-    this.dispatch({type: 'SET_PROP', path: this.props.path, value});
-  }
-
-  get currentValue() {
-    if (this.props.value !== null && typeof this.props.value === 'object') {
-      return this.props.value.get('value');
-    } else {
-      return this.props.value;
-    }
-  }
-
-  get currentType() {
-    if (this.props.value !== null && typeof this.props.value === 'object') {
-      return this.props.value.get('type');
-    } else if (this.props.value !== null && this.props.value !== undefined) {
-      return typeof this.props.value;
-    } else {
-      return this.props.type.types[0].type;
-    }
+    const value = undefined;
+    const typeName = item.id;
+    this.dispatch({type: 'SET_PROP', path: this.props.path, value, typeName});
   }
 
   getType() {
     for (let i = 0; i < this.props.type.types.length; i++) {
-      if (this.props.type.types[i].type === this.currentType) {
+      if (this.props.type.types[i].type.name === this.props.selectedType) {
         return this.props.type.types[i];
       }
     }
@@ -60,11 +40,11 @@ class OneOfTypeControl extends Widget {
   render() {
     const list = this.props.type.types.map((item) => {
       return {
-        id: item.type,
-        text: item.type,
+        id: item.type.name,
+        text: item.type.name,
         value: item,
         action: this.onChangeType,
-        active: this.currentType === item.type,
+        active: this.props.selectedType === item.type.name,
       };
     });
 
@@ -74,7 +54,7 @@ class OneOfTypeControl extends Widget {
           horizontalSpacing="tiny"
           comboGlyph="solid/ellipsis-v"
           list={list}
-          selectedId={this.currentType}
+          selectedId={this.props.selectedType}
           menuType="wrap"
           menuItemWidth="200px"
         />
@@ -82,7 +62,7 @@ class OneOfTypeControl extends Widget {
           widgetId={this.props.widgetId}
           path={this.props.path}
           type={this.getType()}
-          value={this.currentValue}
+          value={this.props.value}
           isOneOfType={true}
         />
       </>
@@ -107,49 +87,32 @@ class WidgetDocPropertyControl extends Widget {
   }
 
   onChange(value) {
+    let typeName;
     if (this.props.isOneOfType) {
-      value = {
-        value,
-        type: this.props.type.type,
-      };
+      typeName = this.props.type.type.name;
     }
-    this.dispatch({type: 'SET_PROP', path: this.props.path, value});
+    this.dispatch({type: 'SET_PROP', path: this.props.path, value, typeName});
   }
 
   clear() {
-    if (this.props.isOneOfType) {
-      const value = {
-        value: undefined,
-        type: this.props.type.type,
-      };
-      this.dispatch({type: 'SET_PROP', path: this.props.path, value});
-    } else {
-      this.dispatch({type: 'DEL_PROP', path: this.props.path});
-    }
+    this.dispatch({type: 'DEL_PROP', path: this.props.path});
   }
 
-  get currentValue() {
-    if (this.props.value !== null && typeof this.props.value === 'object') {
-      return this.props.value.get('value');
-    } else if (typeof this.props.value === 'number') {
-      return this.props.value + '';
-    } else {
-      return this.props.value;
-    }
-  }
-
-  get currentType() {
-    if (this.props.value !== null && typeof this.props.value === 'object') {
-      return this.props.value.get('type');
-    } else {
-      return this.props.type.type;
-    }
+  getComboList() {
+    const type = this.props.type;
+    const list = type.samples || type.type.values;
+    const comboList = list.map((item) =>
+      item && typeof item === 'object'
+        ? {...item, id: item.value}
+        : {id: item, text: item}
+    );
+    return comboList;
   }
 
   /******************************************************************************/
 
-  renderColor(list, restrictsToList, multiline) {
-    let selectedId = this.currentValue;
+  renderColor() {
+    let selectedId = this.props.value;
     if (selectedId === undefined) {
       selectedId = null;
     }
@@ -157,11 +120,10 @@ class WidgetDocPropertyControl extends Widget {
     return (
       <>
         <TextFieldTypedNC
-          type={this.props.type.type}
+          type="color"
           width="28px"
           horizontalSpacing="overlap"
-          restrictsToList={restrictsToList}
-          rows={multiline ? 2 : null}
+          restrictsToList={false}
           value={selectedId}
           onChange={this.onChange}
           menuType="wrap"
@@ -170,10 +132,9 @@ class WidgetDocPropertyControl extends Widget {
         <TextFieldComboNC
           shape="smooth"
           horizontalSpacing="tiny"
-          restrictsToList={restrictsToList}
-          rows={multiline ? 2 : null}
+          restrictsToList={false}
           grow="1"
-          list={list}
+          list={this.getComboList()}
           selectedId={selectedId}
           onChange={this.onChange}
           menuType="wrap"
@@ -183,96 +144,86 @@ class WidgetDocPropertyControl extends Widget {
     );
   }
 
-  renderCombo(list, restrictsToList, multiline) {
-    if (this.props.type.type === 'color') {
-      return this.renderColor(list, restrictsToList, multiline);
-    } else if (
-      this.props.type.type === 'date' ||
-      this.props.type.type === 'time' ||
-      this.props.type.type === 'datetime' ||
-      this.props.type.type === 'price' ||
-      this.props.type.type === 'weight' ||
-      this.props.type.type === 'length' ||
-      this.props.type.type === 'pixel' ||
-      this.props.type.type === 'volume' ||
-      this.props.type.type === 'number' ||
-      this.props.type.type === 'integer' ||
-      this.props.type.type === 'double' ||
-      this.props.type.type === 'percent' ||
-      this.props.type.type === 'percentage' ||
-      this.props.type.type === 'delay'
-    ) {
-      let selectedId = this.currentValue;
-      if (selectedId === undefined) {
-        selectedId = null;
-      }
+  renderCombo() {
+    let selectedId = this.props.value;
+    if (selectedId === undefined) {
+      selectedId = '';
+    } else if (typeof selectedId === 'object') {
+      // When the scenarios returns a react fragment for property 'children' (by example),
+      // the value received here is a Shredder. In this case, the combo will display 'object'.
+      selectedId = 'object';
+    } else if (typeof selectedId === 'function') {
+      // When the scenarios returns a function for property 'onAdd' (by example),
+      // the value received here is a function. In this case, the combo will display 'function'.
+      selectedId = 'function';
+    }
 
-      return (
-        <>
-          <TextFieldTypedNC
-            type={this.props.type.type}
-            min={this.props.min}
-            max={this.props.max}
-            step={this.props.step}
-            log={this.props.log}
-            grow="1"
-            width="unset"
-            shape="smooth"
-            hasSlider="yes"
-            horizontalSpacing="overlap"
-            restrictsToList={restrictsToList}
-            rows={multiline ? 2 : null}
-            value={selectedId}
-            onChange={this.onChange}
-            menuType="wrap"
-            menuItemWidth="200px"
-          />
-          <ButtonCombo
-            horizontalSpacing="tiny"
-            list={list}
-            selectedId={selectedId}
-            onChange={this.onChangeCombo}
-            menuType="wrap"
-            menuItemWidth="200px"
-          />
-        </>
-      );
-    } else {
-      let selectedId = this.currentValue;
-      if (selectedId === undefined) {
-        selectedId = '';
-      } else if (typeof selectedId === 'object') {
-        // When the scenarios returns a react fragment for property 'children' (by example),
-        // the value received here is a Shredder. In this case, the combo will display 'object'.
-        selectedId = 'object';
-      } else if (typeof selectedId === 'function') {
-        // When the scenarios returns a function for property 'onAdd' (by example),
-        // the value received here is a function. In this case, the combo will display 'function'.
-        selectedId = 'function';
-      }
+    const type = this.props.type;
+    const restrictsToList =
+      type.restrictsToList || type.type.name === 'enumeration';
+    const multiline = type.multiline;
 
-      return (
-        <TextFieldComboNC
-          shape="smooth"
-          horizontalSpacing="tiny"
-          restrictsToList={restrictsToList}
-          rows={multiline ? 2 : null}
+    return (
+      <TextFieldComboNC
+        shape="smooth"
+        horizontalSpacing="tiny"
+        restrictsToList={restrictsToList}
+        rows={multiline ? 2 : null}
+        grow="1"
+        list={this.getComboList()}
+        selectedId={selectedId}
+        onChange={this.onChange}
+        menuType="wrap"
+        menuItemWidth="200px"
+      />
+    );
+  }
+
+  renderTyped(widgetType) {
+    let selectedId = this.props.value;
+    if (selectedId === undefined) {
+      selectedId = null;
+    }
+
+    const restrictsToList = this.props.type.type.name === 'enumeration';
+
+    return (
+      <>
+        <TextFieldTypedNC
+          type={widgetType}
+          min={this.props.min}
+          max={this.props.max}
+          step={this.props.step}
+          log={this.props.log}
           grow="1"
-          list={list}
-          selectedId={selectedId}
+          width="unset"
+          shape="smooth"
+          hasSlider="yes"
+          horizontalSpacing="overlap"
+          restrictsToList={restrictsToList}
+          // rows={multiline ? 2 : null}
+          value={selectedId}
           onChange={this.onChange}
           menuType="wrap"
           menuItemWidth="200px"
         />
-      );
-    }
+        <ButtonCombo
+          horizontalSpacing="tiny"
+          list={this.getComboList()}
+          selectedId={selectedId}
+          onChange={this.onChangeCombo}
+          menuType="wrap"
+          menuItemWidth="200px"
+        />
+      </>
+    );
   }
 
   renderControl() {
     const widget = this.props.type.widget;
     if (!widget) {
       throw new Error(
-        `Controller is not defined for type ${this.props.type.type}`
+        `Controller is not defined for type ${this.props.type.type.name}`
       );
     }
 
@@ -284,6 +235,7 @@ class WidgetDocPropertyControl extends Widget {
             path={this.props.path}
             type={this.props.type}
             value={this.props.value}
+            selectedType={this.props.selectedType}
           />
         );
       case 'text-field':
@@ -292,7 +244,7 @@ class WidgetDocPropertyControl extends Widget {
           <TextFieldNC
             horizontalSpacing="tiny"
             shape="smooth"
-            value={this.currentValue || ''}
+            value={this.props.value || ''}
             onChange={this.onChange}
             grow="1"
           />
@@ -302,17 +254,34 @@ class WidgetDocPropertyControl extends Widget {
           <>
             <CheckboxNC
               kind="big"
-              checked={this.currentValue}
+              checked={this.props.value}
               onChange={this.onChange}
             />
             <Label grow="1" />
           </>
         );
       case 'combo': {
-        const list = this.props.type.samples || this.props.type.values;
-        const restrictsToList = this.props.type.restrictsToList;
-        const multiline = this.props.type.multiline;
-        return this.renderCombo(list, restrictsToList, multiline);
+        return this.renderCombo();
+      }
+      case 'color': {
+        return this.renderColor();
+      }
+      // case 'typed':
+      case 'date':
+      case 'time':
+      case 'datetime':
+      case 'price':
+      case 'weight':
+      case 'length':
+      case 'pixel':
+      case 'volume':
+      case 'number':
+      case 'integer':
+      case 'double':
+      case 'percent':
+      case 'percentage':
+      case 'delay': {
+        return this.renderTyped(widget);
       }
     }
   }
@@ -321,12 +290,12 @@ class WidgetDocPropertyControl extends Widget {
     return (
       <div className={this.styles.classNames.widgetDocPropertyControl}>
         {this.renderControl()}
-        {this.props.type.type !== 'oneOfType' && (
+        {!this.props.isOneOfType && (
           <Button
             kind="combo"
             glyph="solid/eraser"
             onClick={this.clear}
-            visibility={this.currentValue !== undefined}
+            visibility={this.props.value !== undefined}
           />
         )}
       </div>
@@ -338,6 +307,7 @@ class WidgetDocPropertyControl extends Widget {
 
 export default Widget.connectWidget((state, props) => {
   return {
-    value: state.get(props.path),
+    value: state.get('props').get(props.path),
+    selectedType: state.get('selectedTypeProps').get(props.path),
   };
 })(WidgetDocPropertyControl);

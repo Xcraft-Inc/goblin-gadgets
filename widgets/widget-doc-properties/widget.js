@@ -7,6 +7,7 @@ import TextInputNC from 'goblin-gadgets/widgets/text-input-nc/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import WidgetDocProperty from '../widget-doc-property/widget';
 import * as styles from './styles';
+import {UnionType} from 'xcraft-core-stones';
 
 /******************************************************************************/
 
@@ -70,6 +71,7 @@ class WidgetDocProperties extends Widget {
   shouldWeShow(prop) {
     if (this.filter) {
       const f = this.filter.toLowerCase();
+      const typeName = prop.type.type.name;
       if (prop.name.toLowerCase().includes(f)) {
         return true;
       } else if (
@@ -82,10 +84,10 @@ class WidgetDocProperties extends Widget {
         prop.type.defaultValue.toLowerCase().includes(f)
       ) {
         return true;
-      } else if (prop.type.type === f) {
+      } else if (typeName === f) {
         return true;
       } else if (
-        prop.type.type === 'enum' &&
+        typeName === 'enum' &&
         prop.type.values.find((e) => e.includes(f))
       ) {
         return true;
@@ -112,14 +114,41 @@ class WidgetDocProperties extends Widget {
   }
 
   setScenario(scenario) {
-    for (const prop of this.properties) {
-      const path = `props.${this.props.selectedWidget}.${prop.name}`;
+    const properties = this.properties;
+    for (const prop of properties) {
+      const path = `${this.props.selectedWidget}.${prop.name}`;
       this.dispatch({type: 'DEL_PROP', path: path});
     }
 
     for (const [propName, propValue] of Object.entries(scenario.props)) {
-      const path = `props.${this.props.selectedWidget}.${propName}`;
-      this.dispatch({type: 'SET_PROP', path: path, value: propValue});
+      let value = propValue;
+      let typeName;
+
+      const propDef = properties.find(({name}) => name === propName);
+      if (!propDef) {
+        throw new Error(
+          `Bad prop '${propName}' in scenarios.js of '${this.props.selectedWidget}'`
+        );
+      }
+
+      const samplesData = propDef.type.samplesData;
+      if (samplesData && propValue in samplesData) {
+        value = samplesData[propValue];
+      }
+
+      const type = propDef.type.type;
+      if (type instanceof UnionType) {
+        const subType = type.findType(value);
+        if (!subType) {
+          throw new Error(
+            `Bad type for prop '${propName}' in scenarios.js of '${this.props.selectedWidget}'`
+          );
+        }
+        typeName = subType.name;
+      }
+
+      const path = `${this.props.selectedWidget}.${propName}`;
+      this.dispatch({type: 'SET_PROP', path, value, typeName});
     }
   }
 
@@ -213,7 +242,7 @@ class WidgetDocProperties extends Widget {
         key={index}
         widgetId={this.props.widgetId}
         prop={prop}
-        path={`props.${this.props.selectedWidget}`}
+        path={`${this.props.selectedWidget}.${prop.name}`}
       />
     );
   }

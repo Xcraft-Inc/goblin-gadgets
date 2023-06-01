@@ -381,28 +381,18 @@ class WidgetDocPreview extends Widget {
       const propDef = this.widgetInfo.props.find(
         (prop) => prop.name === propName
       );
+      const typeName = propDef.type.type.name;
       if (!propDef) {
         continue;
       }
-      if (propDef.type.type === 'component') {
+      if (typeName === 'component') {
         props[propName] = getComponent(props[propName]);
-      } else if (propDef.type.type === 'function') {
+      } else if (typeName === 'function') {
         props[propName] = getFunction(props[propName]);
-      } else if (propDef.type.type === 'oneOfType') {
-        // 'type' is required, but not 'value'.
-        if (
-          typeof props[propName] !== 'object' ||
-          props[propName].type === undefined
-        ) {
-          console.error(
-            `Bad description for property '${propName}' in scenario.js. A map like this '{type: 'number', value: 3}' is required.`
-          );
-        }
-        // If oneOfType, replace {type: 'percentage', value: '10%'} by '10%'.
-        props[propName] = props[propName].value;
       }
-      if (propDef.type.samplesData) {
-        props[propName] = propDef.type.samplesData[props[propName]];
+      const samplesData = propDef.type.samplesData;
+      if (samplesData && props[propName] in samplesData) {
+        props[propName] = samplesData[props[propName]];
       }
     }
     key = this.props.theme ? this.props.theme + key : key;

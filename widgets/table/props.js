@@ -1,6 +1,7 @@
 import {types, addType} from 'goblin-gadgets/types/types.js';
-import PropTypes from 'prop-types';
 import Shredder from 'xcraft-core-shredder';
+import {propsList} from '../../types/props-list.js';
+import {object} from 'xcraft-core-stones';
 
 /******************************************************************************/
 
@@ -511,27 +512,25 @@ const selectedIdsData = {
 /******************************************************************************/
 
 addType('dataTable', {
-  type: 'dataTable',
+  type: object,
   defaultValue: 'T1',
   widget: 'combo',
   restrictsToList: true,
   samples: samples,
   samplesData: samplesData,
-  propType: PropTypes.object,
 });
 
 addType('selectedIds', {
-  type: 'selectedIds',
+  type: object,
   defaultValue: 'S1',
   widget: 'combo',
   restrictsToList: true,
   samples: selectedIds,
   samplesData: selectedIdsData,
-  propType: PropTypes.object,
 });
 
 addType('sortingColumns', {
-  type: 'sortingColumns',
+  type: object,
   widget: 'combo',
   restrictsToList: true,
   samples: [
@@ -546,7 +545,6 @@ addType('sortingColumns', {
     S3: new Shredder(['column3', 'column1']),
     S4: new Shredder(['column4', 'column1']),
   },
-  propType: PropTypes.object,
 });
 
 /******************************************************************************/

@@ -3,6 +3,7 @@ import Widget from 'goblin-laboratory/widgets/widget';
 import Label from 'goblin-gadgets/widgets/label/widget';
 import WidgetDocPropertyControl from '../widget-doc-property-control/widget';
 import * as styles from './styles';
+import fullTypeName from 'xcraft-core-stones/full-type-name.js';
 
 /******************************************************************************/
 
@@ -29,16 +30,19 @@ class WidgetDocProperty extends Widget {
   }
 
   renderType() {
-    let t = this.props.prop.type.type;
-    if (this.props.value !== null && typeof this.props.value === 'object') {
-      t = this.props.value.get('type');
-      if (typeof t === 'symbol') {
-        t = 'component'; // <React.Fragment>
-      }
-    } else if (t === 'oneOfType') {
-      t = this.props.prop.type.types[0].type;
+    let t = fullTypeName(this.props.prop.type.type);
+    if (t === 'enumeration') {
+      t = 'enum';
     }
-    return <Label className={this.styles.classNames.type} wrap="no" text={t} />;
+    t = t.replace('<any>', '');
+    return (
+      <Label
+        className={this.styles.classNames.type}
+        wrap="no"
+        text={t}
+        tooltip={t}
+      />
+    );
   }
 
   renderRequiredOrDefaultValue() {
@@ -101,8 +105,4 @@ class WidgetDocProperty extends Widget {
 
 /******************************************************************************/
 
-export default Widget.connectWidget((state, props) => {
-  const path = `${props.path}.${props.prop.name}`;
-  const value = state.get(path);
-  return {path, value};
-})(WidgetDocProperty);
+export default WidgetDocProperty;

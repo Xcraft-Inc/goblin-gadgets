@@ -1,5 +1,6 @@
 import {types, addType} from 'goblin-gadgets/types/types.js';
-import PropTypes from 'prop-types';
+import {propsList} from '../../types/props-list.js';
+import {array} from 'xcraft-core-stones';
 
 /******************************************************************************/
 
@@ -102,13 +103,12 @@ const samples = [
 ];
 
 addType('rockets', {
-  type: 'rockets',
+  type: array,
   defaultValue: 'R1',
   widget: 'combo',
   restrictsToList: true,
   samples: samples,
   samplesData: samplesData,
-  propType: PropTypes.array,
 });
 
 /******************************************************************************/

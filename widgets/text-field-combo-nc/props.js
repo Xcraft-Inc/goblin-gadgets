@@ -1,5 +1,6 @@
 import {types, addType} from 'goblin-gadgets/types/types.js';
-import PropTypes from 'prop-types';
+import {propsList} from '../../types/props-list.js';
+import {array, object, union} from 'xcraft-core-stones';
 
 const samples = [
   {id: 'team', text: 'Collaborateurs'},
@@ -127,13 +128,12 @@ const samplesList = {
 /******************************************************************************/
 
 addType('dataList', {
-  type: 'dataList',
+  type: union(array, object),
   //? defaultValue: 'T1',
   widget: 'combo',
   restrictsToList: true,
   samples: samples,
   samplesData: samplesList,
-  propType: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 });
 
 /******************************************************************************/

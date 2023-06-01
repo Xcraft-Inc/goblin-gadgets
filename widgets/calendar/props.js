@@ -1,5 +1,7 @@
+// @ts-check
 import {types, addType} from 'goblin-gadgets/types/types.js';
-import PropTypes from 'prop-types';
+import {propsList} from '../../types/props-list.js';
+import {array, object, union} from 'xcraft-core-stones';
 
 /******************************************************************************/
 
@@ -31,12 +33,11 @@ const samplesDatesList = {
 };
 
 addType('dataDates', {
-  type: 'dataDates',
+  type: union(array, object),
   widget: 'combo',
   restrictsToList: true,
   samples: samplesDates,
   samplesData: samplesDatesList,
-  propType: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 });
 
 /******************************************************************************/
@@ -63,12 +64,11 @@ const samplesBadgesList = {
 };
 
 addType('dataBadges', {
-  type: 'dataBadges',
+  type: array,
   widget: 'combo',
   restrictsToList: true,
   samples: samplesBadges,
   samplesData: samplesBadgesList,
-  propType: PropTypes.array,
 });
 
 /******************************************************************************/

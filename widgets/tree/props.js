@@ -1,6 +1,6 @@
 import {types, addType} from 'goblin-gadgets/types/types.js';
-import PropTypes from 'prop-types';
-import Shredder from 'xcraft-core-shredder';
+import {object} from 'xcraft-core-stones';
+import {propsList} from '../../types/props-list.js';
 
 const samples = [{id: 'T1', text: 'Petite table'}];
 
@@ -171,13 +171,12 @@ const samplesData = {
 /******************************************************************************/
 
 addType('dataTree', {
-  type: 'dataTree',
+  type: object,
   defaultValue: 'T1',
   widget: 'combo',
   restrictsToList: true,
   samples: samples,
   samplesData: samplesData,
-  propType: PropTypes.object,
 });
 
 /******************************************************************************/
