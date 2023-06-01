@@ -28,7 +28,7 @@ export default class LabelRowNC extends Widget {
         text={this.props.labelText}
         width={this.props.labelWidth || '120px'}
         wrap={this.props.labelWrap || 'no'}
-        justify="left"
+        justify="start"
         disabled={this.props.disabled}
         visibility={this.props.visibility}
       />
