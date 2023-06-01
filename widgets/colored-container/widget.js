@@ -7,7 +7,7 @@ import * as styles from './styles';
 
 /******************************************************************************/
 
-export default class ColorerContainer extends Widget {
+export default class ColoredContainer extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
@@ -24,4 +24,4 @@ export default class ColorerContainer extends Widget {
 
 /******************************************************************************/
 
-registerWidget(ColorerContainer, props, scenarios);
+registerWidget(ColoredContainer, props, scenarios);
