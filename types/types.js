@@ -365,7 +365,7 @@ export const types = {
   },
 
   textTransform: {
-    type: enumeration('capitalize', 'uppercase', 'lowercase'),
+    type: enumeration('capitalize', 'uppercase', 'lowercase', 'none'),
     widget: 'combo',
   },
 
