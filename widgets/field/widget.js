@@ -262,12 +262,13 @@ class Field extends Form {
 
     const GadgetLoader = (props) => {
       if (props.available) {
-        const gadgetInfo = this.getBackendValue(target, true);
+        const gadgetInfo = this.getState(target, true);
         const type = gadgetInfo.get('type');
         const Gadget = widgetImporter(type);
-        const WiredGadget = Widget.Wired(Gadget)(gadgetInfo.get('id'));
+        const WiredGadget = Widget.Wired(Gadget);
         return (
           <WiredGadget
+            id={gadgetInfo.get('id')}
             readonly={true}
             {...this.props}
             widgetId={gadgetInfo.get('id')}
@@ -598,9 +599,14 @@ class Field extends Form {
       let FinalPlugin = null;
       if (this.props.pluginType) {
         const CustomPlugin = widgetImporter(`plugin-${this.props.pluginType}`);
-        WiredPlugin = Widget.Wired(CustomPlugin)(
-          `${this.props.plugin}-plugin@${this.context.id}`
+        let CustomPluginWired = Widget.Wired(CustomPlugin);
+        WiredPlugin = (props) => (
+          <CustomPluginWired
+            id={`${this.props.plugin}-plugin@${this.context.id}`}
+            {...props}
+          />
         );
+
         FinalPlugin = this.mapWidget(WiredPlugin, 'entityIds', this.fullPath);
       } else {
         FinalPlugin = widgetImporter('plugin');
@@ -770,12 +776,13 @@ class Field extends Form {
 
     const GadgetLoader = (props) => {
       if (props.available) {
-        const gadgetInfo = this.getBackendValue(target, true);
+        const gadgetInfo = this.getState(target, true);
         const type = gadgetInfo.get('type');
         const Gadget = widgetImporter(type);
-        const WiredGadget = Widget.Wired(Gadget)(gadgetInfo.get('id'));
+        const WiredGadget = Widget.Wired(Gadget);
         return (
           <WiredGadget
+            id={gadgetInfo.get('id')}
             {...this.props}
             parentId={parentId}
             widgetId={gadgetInfo.get('id')}
@@ -1232,7 +1239,8 @@ class Field extends Form {
       const pluginId = `${this.props.plugin}-plugin@${this.context.id}`;
       if (this.props.pluginType) {
         const CustomPlugin = widgetImporter(`plugin-${this.props.pluginType}`);
-        WiredPlugin = Widget.Wired(CustomPlugin)(pluginId);
+        let CustomPluginWired = Widget.Wired(CustomPlugin);
+        WiredPlugin = (props) => <CustomPluginWired id={pluginId} {...props} />;
         FinalPlugin = this.mapWidget(WiredPlugin, 'entityIds', this.fullPath);
       } else {
         FinalPlugin = widgetImporter('plugin');

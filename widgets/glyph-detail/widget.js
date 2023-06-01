@@ -24,12 +24,12 @@ class GlyphDetail extends Widget {
   }
 
   onEdit() {
-    const contact = this.getEntityById(this.props.entityId).toJS();
+    const contact = this.getBackendState(this.props.entityId).toJS();
     this.do('edit', {contact});
   }
 
   onDelete() {
-    const contact = this.getEntityById(this.props.entityId).toJS();
+    const contact = this.getBackendState(this.props.entityId).toJS();
     this.do('delete', {contact});
   }
 
