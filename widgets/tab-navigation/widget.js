@@ -18,6 +18,9 @@ class TabNavigation extends Widget {
 
   render() {
     const {currentWidget, widgets} = this.props;
+    if (!currentWidget) {
+      return null;
+    }
     if (!(currentWidget in widgets)) {
       throw new Error(`Unknown widget '${currentWidget}'`);
     }
