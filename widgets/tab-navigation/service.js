@@ -60,7 +60,8 @@ class TabNavigation extends Elf {
   /** @type {NavigationViews} */
   views;
 
-  loadedServices = new Set();
+  /** @type {Map<string,string?>} */
+  loadedServices = new Map();
 
   /**
    * @param {string} id
@@ -83,13 +84,13 @@ class TabNavigation extends Elf {
 
   async _loadService(tab) {
     if (this.loadedServices.has(tab)) {
-      return;
+      return this.loadedServices.get(tab);
     }
-    this.loadedServices.add(tab);
 
     const view = this.views[tab];
     const ServiceClass = view.service;
     if (!ServiceClass) {
+      this.loadedServices.set(tab, null);
       return;
     }
     const serviceId = `${Elf.goblinName(ServiceClass)}@${Elf.uuid()}`;
@@ -99,6 +100,8 @@ class TabNavigation extends Elf {
       this.desktopId,
       ...serviceArgs
     );
+    this.loadedServices.set(tab, serviceId);
+    return serviceId;
   }
 
   async setTab(tab) {

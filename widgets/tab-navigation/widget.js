@@ -25,17 +25,14 @@ class TabNavigation extends Widget {
       throw new Error(`Unknown widget '${currentWidget}'`);
     }
     const Component = this.props.widgets[this.props.currentWidget];
-    const serviceId = this.props.currentServiceId;
+    const serviceId =
+      this.props.currentServiceId || this.props.widgetsProps?.id;
     let widgetProps = this.props.currentWidgetProps;
     if (widgetProps) {
       widgetProps = widgetProps.toObject();
     }
     return (
-      <Component
-        serviceId={serviceId}
-        {...widgetProps}
-        {...this.props.widgetsProps}
-      />
+      <Component {...widgetProps} {...this.props.widgetsProps} id={serviceId} />
     );
   }
 }
