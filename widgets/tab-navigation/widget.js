@@ -5,6 +5,7 @@ import Widget from 'goblin-laboratory/widgets/widget';
 class TabNavigation extends Widget {
   constructor() {
     super(...arguments);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
   }
 
   static get wiring() {
@@ -14,6 +15,32 @@ class TabNavigation extends Widget {
       currentServiceId: 'currentServiceId',
       currentWidgetProps: 'currentWidgetProps',
     };
+  }
+
+  componentDidMount() {
+    window.addEventListener('keydown', this.handleKeyDown);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.handleKeyDown);
+  }
+
+  handleKeyDown(event) {
+    if (event.ctrlKey) {
+      if (event.key === '§') {
+        this.switchTab();
+      } else if (event.key === '°') {
+        this.reverseSwitchTab();
+      }
+    }
+  }
+
+  switchTab() {
+    this.doFor(this.props.id, 'switchTab');
+  }
+
+  reverseSwitchTab() {
+    this.doFor(this.props.id, 'switchTab', {reverse: true});
   }
 
   render() {

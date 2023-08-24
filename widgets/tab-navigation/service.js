@@ -115,6 +115,25 @@ class TabNavigation extends Elf {
     this.do({tab, serviceId, widget, widgetProps});
   }
 
+  async switchTab(reverse) {
+    const currentTab = this.state.currentTab;
+    const tabs = Object.keys(this.views);
+    let index = tabs.indexOf(currentTab);
+    if (reverse) {
+      index--;
+      if (index < 0) {
+        index = tabs.length - 1;
+      }
+    } else {
+      index++;
+      if (index >= tabs.length) {
+        index = 0;
+      }
+    }
+    const newTab = tabs[index];
+    await this.setTab(newTab);
+  }
+
   delete() {}
 }
 
