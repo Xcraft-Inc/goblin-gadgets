@@ -1,6 +1,6 @@
 {
   "name": "goblin-gadgets",
-  "version": "3.2.6",
+  "version": "3.2.7",
   "description": "Gadgets library",
   "main": "./builders/builders.js",
   "scripts": {
