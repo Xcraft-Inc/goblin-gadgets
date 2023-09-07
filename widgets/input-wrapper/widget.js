@@ -7,12 +7,17 @@ import throttle from 'lodash/throttle';
  *
  * @param {Component} Component - The raw input to wrap
  * @param {string} valueName - (optional) Can be used to rename the 'value' prop
+ * @param {boolean} forwardRef - (optional) Can be used to forward ref to a sub component via a props called 'forwardedRef'
  * @returns {Component} A new component
  *
  * To make the wrapper work, the raw input must accept the following props:
  * onChange, onFocus, onBlur and optionally onValidate
  */
-export default function wrapRawInput(Component, valueName = 'value') {
+export default function wrapRawInput(
+  Component,
+  valueName = 'value',
+  forwardRef = false
+) {
   /**
    * InputWrapper memorises the raw (text) value displayed in the input and
    * only exposes the canonical value, that can be any JS value.
@@ -27,7 +32,7 @@ export default function wrapRawInput(Component, valueName = 'value') {
    * `throttleDelay`: (optional).
    * other props are given to the underlying input.
    */
-  return class InputWrapper extends Widget {
+  class InputWrapper extends Widget {
     constructor() {
       super(...arguments);
       this.changeValue = this.changeValue.bind(this);
@@ -153,5 +158,13 @@ export default function wrapRawInput(Component, valueName = 'value') {
         />
       );
     }
-  };
+  }
+
+  if (!forwardRef) {
+    return InputWrapper;
+  }
+
+  return React.forwardRef((props, ref) => (
+    <InputWrapper forwardedRef={ref} {...props} />
+  ));
 }
