@@ -808,12 +808,12 @@ class Wizard extends Form {
     if (type === 'bool') {
       return [
         this.renderPreviewSettingBool(preview, index),
-        <Label width="20px" />,
+        <Label key={index + '-1'} width="20px" />,
       ];
     } else {
       return [
         this.renderPreviewSettingList(preview, index),
-        <Label width="20px" />,
+        <Label key={index + '-1'} width="20px" />,
       ];
     }
   }

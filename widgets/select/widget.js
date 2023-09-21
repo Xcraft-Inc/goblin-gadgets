@@ -1,6 +1,5 @@
 //T:2019-02-27
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Widget from 'goblin-laboratory/widgets/widget';
 import MouseTrap from 'mousetrap';
 import * as RectHelpers from '../helpers/rect-helpers.js';
@@ -15,7 +14,7 @@ class Select extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
-
+    this.comboContainer = null;
     this.onMouseDown = this.onMouseDown.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onCloseCombo = this.onCloseCombo.bind(this);
@@ -38,8 +37,7 @@ class Select extends Widget {
   }
 
   onMouseDown(e) {
-    const node = ReactDOM.findDOMNode(this);
-    const rect = node.children[0].getBoundingClientRect();
+    const rect = this.comboContainer.getBoundingClientRect();
     if (!RectHelpers.isInside(rect, e.clientX, e.clientY)) {
       // If the mouse is outside the menu combo, close it.
       this.onCloseCombo();
@@ -91,7 +89,7 @@ class Select extends Widget {
         onMouseDown={this.onMouseDown}
         onTouchStart={this.onMouseDown}
       >
-        <div className={comboClass}>
+        <div ref={(ref) => (this.comboContainer = ref)} className={comboClass}>
           <Container
             kind="flying-combo"
             trianglePosition={this.props.top ? 'top' : 'bottom'}

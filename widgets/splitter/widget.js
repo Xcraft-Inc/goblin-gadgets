@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Widget from 'goblin-laboratory/widgets/widget';
 import props from './props';
 import scenarios from './scenarios';
@@ -209,8 +208,7 @@ class Splitter extends Widget {
   }
 
   getOffset(x, y) {
-    const node = ReactDOM.findDOMNode(this.resizerNode);
-    const rect = node.getBoundingClientRect();
+    const rect = this.resizerNode.getBoundingClientRect();
     if (this.props.kind === 'vertical') {
       if (x >= rect.left && x <= rect.right) {
         return x - rect.left;
@@ -228,17 +226,10 @@ class Splitter extends Widget {
     if (offset !== -1) {
       this.offset = offset;
 
-      const containerNode = ReactDOM.findDOMNode(this.containerNode);
-      this.containerRect = containerNode.getBoundingClientRect();
-
-      const firstPaneNode = ReactDOM.findDOMNode(this.firstPaneNode);
-      this.firstPaneRect = firstPaneNode.getBoundingClientRect();
-
-      const resizerNode = ReactDOM.findDOMNode(this.resizerNode);
-      this.resizerRect = resizerNode.getBoundingClientRect();
-
-      const lastPaneNode = ReactDOM.findDOMNode(this.lastPaneNode);
-      this.lastPaneRect = lastPaneNode.getBoundingClientRect();
+      this.containerRect = this.containerNode.getBoundingClientRect();
+      this.firstPaneRect = this.firstPaneNode.getBoundingClientRect();
+      this.resizerRect = this.resizerNode.getBoundingClientRect();
+      this.lastPaneRect = this.lastPaneNode.getBoundingClientRect();
 
       this.positions = {...this.positions, isDragging: true};
       this.hasChanging = true;
