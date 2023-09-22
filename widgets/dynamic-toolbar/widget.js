@@ -1,6 +1,5 @@
 //T:2019-02-27
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Widget from 'goblin-laboratory/widgets/widget';
 import Button from 'goblin-gadgets/widgets/button/widget';
 import * as styles from './styles';
@@ -21,6 +20,7 @@ class DynamicToolbar extends Widget {
     };
 
     this.toolbar = null;
+    this.toolbarButton = null;
     this.counter = 0;
 
     this.onShowToolbar = this.onShowToolbar.bind(this);
@@ -38,11 +38,11 @@ class DynamicToolbar extends Widget {
   }
 
   onShowToolbar() {
-    const node = ReactDOM.findDOMNode(this.toolbarButton);
-    const rect = node.getBoundingClientRect();
-    this.ToolbarLeft = rect.left;
-    this.ToolbarTop = rect.top;
-
+    if (this.toolbarButton) {
+      const rect = this.toolbarButton.getBoundingClientRect();
+      this.ToolbarLeft = rect.left;
+      this.ToolbarTop = rect.top;
+    }
     this.counter = 5;
     this.showToolbar = true;
   }
@@ -57,17 +57,17 @@ class DynamicToolbar extends Widget {
 
     let x = e.clientX;
     let y = e.clientY;
-
-    const node = ReactDOM.findDOMNode(this.toolbar);
-    const rect = node.getBoundingClientRect();
-    const margin = this.props.detectMargin ? this.props.detectMargin : 20;
-    if (
-      x < rect.left - margin ||
-      x > rect.right + margin ||
-      y < rect.top - margin ||
-      y > rect.bottom + margin
-    ) {
-      this.showToolbar = false;
+    if (this.toolbar) {
+      const rect = this.toolbar.getBoundingClientRect();
+      const margin = this.props.detectMargin ? this.props.detectMargin : 20;
+      if (
+        x < rect.left - margin ||
+        x > rect.right + margin ||
+        y < rect.top - margin ||
+        y > rect.bottom + margin
+      ) {
+        this.showToolbar = false;
+      }
     }
   }
 
