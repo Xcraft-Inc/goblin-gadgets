@@ -1317,10 +1317,10 @@ class Field extends Form {
     const ComboIds = (props) => {
       const disabled = this.readonly ? {disabled: true} : null;
       let currentValue = '';
-      if (props.currentValue != null) {
+      if (props.currentValue !== null) {
         // currentValue is not null nor undefined
         currentValue = props.currentValue;
-      } else if (this.props.defaultValue != null) {
+      } else if (this.props.defaultValue !== null) {
         // defaultValue is not null nor undefined
         currentValue = this.props.defaultValue;
       }
