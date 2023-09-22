@@ -1,28 +1,25 @@
 //T:2019-02-27
-const ReactDOM = require('react-dom');
 const {Unit} = require('goblin-theme');
 const px = Unit.toPx;
 const n = Unit.toValue;
 
 function getFlyingOffset() {
-  if (
-    window.document.flyingDialogs &&
-    window.document.flyingDialogs.length > 0
-  ) {
-    const flyingDialog =
-      window.document.flyingDialogs[window.document.flyingDialogs.length - 1];
-    const node = ReactDOM.findDOMNode(flyingDialog);
-    const rect = node.getBoundingClientRect();
-    return {
-      left: px(rect.left),
-      top: px(rect.top),
-    };
-  } else {
-    return {
-      left: '0px',
-      top: '0px',
-    };
+  const flyingDialogs = window.document.flyingDialogs;
+  if (flyingDialogs && flyingDialogs.length > 0) {
+    const flyingDialog = flyingDialogs[flyingDialogs.length - 1];
+    const node = flyingDialog.ref;
+    if (node) {
+      const rect = node.getBoundingClientRect();
+      return {
+        left: px(rect.left),
+        top: px(rect.top),
+      };
+    }
   }
+  return {
+    left: '0px',
+    top: '0px',
+  };
 }
 
 function getComboRightLocation(

@@ -1,6 +1,5 @@
 //T:2019-02-27
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Widget from 'goblin-laboratory/widgets/widget';
 import {Unit} from 'goblin-theme';
 import DragCarrier from 'goblin-gadgets/widgets/drag-carrier/widget';
@@ -19,7 +18,10 @@ function isInside(rect, x, y) {
 }
 
 function getBoundingRect(theme, container) {
-  const node = ReactDOM.findDOMNode(container);
+  const node = container.ref;
+  if (!node) {
+    return null;
+  }
   return node.getBoundingClientRect();
 }
 
@@ -31,10 +33,12 @@ function findDragController(theme, x, y) {
   let minSurface = Number.MAX_SAFE_INTEGER;
   for (var container of window.document.dragControllers) {
     const rect = getBoundingRect(theme, container);
-    const surface = rect.width * rect.height;
-    if (isInside(rect, x, y) && surface < minSurface) {
-      dc = container.props.dragController;
-      minSurface = surface;
+    if (rect) {
+      const surface = rect.width * rect.height;
+      if (isInside(rect, x, y) && surface < minSurface) {
+        dc = container.props.dragController;
+        minSurface = surface;
+      }
     }
   }
   return dc;
@@ -51,6 +55,7 @@ class DragCab extends Widget {
       dragInProcess: false,
       dragStarting: false,
     };
+    this.ref = null;
 
     this.dragWidth = 0;
     this.dragHeight = 0;
@@ -121,10 +126,12 @@ class DragCab extends Widget {
       this.skip = true;
       return;
     }
-    const node = ReactDOM.findDOMNode(this);
+    if (!this.ref) {
+      return;
+    }
     if (this.props.dragWidthtDetect) {
       const w = Unit.parse(this.props.dragWidthtDetect).value;
-      const rect = node.getBoundingClientRect();
+      const rect = this.ref.getBoundingClientRect();
       if (e.clientX > rect.left + w) {
         this.skip = true;
         return;
@@ -132,7 +139,7 @@ class DragCab extends Widget {
     }
     if (this.props.dragHeightDetect) {
       const h = Unit.parse(this.props.dragHeightDetect).value;
-      const rect = node.getBoundingClientRect();
+      const rect = this.ref.getBoundingClientRect();
       if (e.clientY > rect.top + h) {
         this.skip = true;
         return;
@@ -144,8 +151,8 @@ class DragCab extends Widget {
       return; // if drag prohibited, don't initiate drag & drop ?
     }
 
-    this.dragWidth = node.clientWidth;
-    this.dragHeight = node.clientHeight;
+    this.dragWidth = this.ref.clientWidth;
+    this.dragHeight = this.ref.clientHeight;
     this.dragInProcess = true;
   }
 
@@ -240,6 +247,7 @@ class DragCab extends Widget {
 
       return (
         <div
+          ref={(ref) => (this.ref = ref)}
           key={index}
           style={boxStyle}
           data-id={this.props.dragOwnerId}
@@ -260,6 +268,7 @@ class DragCab extends Widget {
     } else {
       return (
         <div
+          ref={(ref) => (this.ref = ref)}
           key={index}
           style={boxStyle}
           data-id={this.props.dragOwnerId}

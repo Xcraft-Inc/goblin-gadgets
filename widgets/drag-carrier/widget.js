@@ -1,7 +1,6 @@
 //T:2019-02-27
 import T from 't';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Widget from 'goblin-laboratory/widgets/widget';
 import MouseTrap from 'mousetrap';
 import {Unit} from 'goblin-theme';
@@ -117,16 +116,14 @@ class DragCarrier extends Widget {
 
   componentDidMount() {
     super.componentDidMount();
-    if (
-      window.document.flyingDialogs &&
-      window.document.flyingDialogs.length > 0
-    ) {
-      const flyingDialog =
-        window.document.flyingDialogs[window.document.flyingDialogs.length - 1];
-      const node = ReactDOM.findDOMNode(flyingDialog);
-      this.flyingDialogRect = node.getBoundingClientRect();
+    const flyingDialogs = window.document.flyingDialogs;
+    if (flyingDialogs && flyingDialogs.length > 0) {
+      const flyingDialog = flyingDialogs[flyingDialogs.length - 1];
+      const node = flyingDialog.ref;
+      if (node) {
+        this.flyingDialogRect = node.getBoundingClientRect();
+      }
     }
-
     MouseTrap.bind('esc', this.onKeyEsc, 'keydown');
   }
 
@@ -353,11 +350,14 @@ class DragCarrier extends Widget {
   getParentRect(container) {
     const dragParentId = container.props.dragOwnerId;
     const parent = this.findParentId(dragParentId);
-    if (parent) {
-      const parentNode = ReactDOM.findDOMNode(parent);
-      return parentNode.getBoundingClientRect();
+    if (!parent) {
+      return null;
     }
-    return null;
+    const parentNode = parent.ref;
+    if (!parentNode) {
+      return null;
+    }
+    return parentNode.getBoundingClientRect();
   }
 
   findViewId(id) {
@@ -374,21 +374,24 @@ class DragCarrier extends Widget {
   getViewParentRect(container) {
     const dragParentId = container.props.viewParentId;
     const parent = this.findViewId(dragParentId);
-    if (parent) {
-      let parentNode = ReactDOM.findDOMNode(parent);
-      if (parent.props.backToClass) {
-        // Moves back to a parent whose class begins with a given name.
-        // Typically, "firstPane" finds the name "firstPane_1pucuno".
-        // See note [DispatchBacklogDetail.1]
-        while (
-          !parentNode.classList[0].startsWith(parent.props.backToClass + '_')
-        ) {
-          parentNode = parentNode.parentNode;
-        }
-      }
-      return parentNode.getBoundingClientRect();
+    if (!parent) {
+      return null;
     }
-    return null;
+    let parentNode = parent.ref;
+    if (!parentNode) {
+      return null;
+    }
+    if (parent.props.backToClass) {
+      // Moves back to a parent whose class begins with a given name.
+      // Typically, "firstPane" finds the name "firstPane_1pucuno".
+      // See note [DispatchBacklogDetail.1]
+      while (
+        !parentNode.classList[0].startsWith(parent.props.backToClass + '_')
+      ) {
+        parentNode = parentNode.parentNode;
+      }
+    }
+    return parentNode.getBoundingClientRect();
   }
 
   find(x, y) {
@@ -397,16 +400,18 @@ class DragCarrier extends Widget {
     for (var container of window.document.dragControllers) {
       const dc = container.props.dragController;
       if (dc === dragController) {
-        const node = ReactDOM.findDOMNode(container);
-        const rect = node.getBoundingClientRect();
-        const vpr = this.getViewParentRect(container);
-        const pr = this.getParentRect(container);
-        const parentRect = clip(vpr, pr);
-        if (isInside(parentRect, x, y) && isInside(rect, x, y)) {
-          if (this.props.direction === 'horizontal') {
-            return this.findH(container, node, x, parentRect);
-          } else {
-            return this.findV(container, node, y, parentRect);
+        const node = container.ref;
+        if (node) {
+          const rect = node.getBoundingClientRect();
+          const vpr = this.getViewParentRect(container);
+          const pr = this.getParentRect(container);
+          const parentRect = clip(vpr, pr);
+          if (isInside(parentRect, x, y) && isInside(rect, x, y)) {
+            if (this.props.direction === 'horizontal') {
+              return this.findH(container, node, x, parentRect);
+            } else {
+              return this.findV(container, node, y, parentRect);
+            }
           }
         }
       }
@@ -452,14 +457,16 @@ class DragCarrier extends Widget {
     for (var container of window.document.dragControllers) {
       const dc = container.props.dragController;
       if (dc === this.props.dragController) {
-        const node = ReactDOM.findDOMNode(container);
-        const rect = this.findNodeOrigin(
-          container,
-          node,
-          this.props.dragOwnerId
-        );
-        if (rect) {
-          return rect;
+        const node = container.ref;
+        if (node) {
+          const rect = this.findNodeOrigin(
+            container,
+            node,
+            this.props.dragOwnerId
+          );
+          if (rect) {
+            return rect;
+          }
         }
       }
     }
@@ -550,10 +557,12 @@ class DragCarrier extends Widget {
       this.startX = x;
       this.startY = y;
       const dragCab = this.searchDragCab(this.props.dragOwnerId);
-      const node = ReactDOM.findDOMNode(dragCab);
-      const rect = node.getBoundingClientRect();
-      this.offsetX = x - rect.left;
-      this.offsetY = y - rect.top;
+      const node = dragCab.ref;
+      if (node) {
+        const rect = node.getBoundingClientRect();
+        this.offsetX = x - rect.left;
+        this.offsetY = y - rect.top;
+      }
       this.rectOrigin = this.findOrigin();
     }
     this.moveCount++;

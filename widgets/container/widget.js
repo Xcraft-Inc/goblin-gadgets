@@ -12,7 +12,7 @@ class Container extends Widget {
   constructor() {
     super(...arguments);
     this.styles = styles;
-
+    this.ref = null;
     this.panelBottoms = [];
     // TODO: remove this code, it does nothing
     //this.handleScroll = this.handleScroll.bind(this);
@@ -243,6 +243,7 @@ class Container extends Widget {
     ) {
       return (
         <div
+          ref={(ref) => (this.ref = ref)}
           key={index}
           disabled={disabled}
           className={boxClass}
@@ -256,6 +257,7 @@ class Container extends Widget {
     } else {
       return (
         <div
+          ref={(ref) => (this.ref = ref)}
           key={index}
           disabled={disabled}
           className={boxClass}
