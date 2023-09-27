@@ -2,6 +2,7 @@
 import T from 't';
 import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
+import stateMapperToProps from 'goblin-laboratory/widgets/state-mapper-to-props/widget';
 import _ from 'lodash';
 import * as styles from './styles';
 
@@ -33,7 +34,7 @@ class ScrollableLinkableContainer extends Widget {
 
     const id = this.props.id || this.context.id;
 
-    const LoadWidget = this.mapWidget(
+    const LoadWidget = stateMapperToProps(
       (props) => {
         if (!props.widgetId) {
           this.dispatch({

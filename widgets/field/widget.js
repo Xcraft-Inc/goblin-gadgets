@@ -3,6 +3,7 @@
 import React from 'react';
 import Form from 'goblin-laboratory/widgets/form';
 import Widget from 'goblin-laboratory/widgets/widget';
+import StateLoader from 'goblin-laboratory/widgets/state-loader/widget.js';
 import T from 't';
 import C from 'goblin-laboratory/widgets/connect-helpers/c';
 
@@ -35,6 +36,7 @@ import SchemaHelpers from 'goblin-toolbox/lib/schema-helpers';
 
 import importer from 'goblin_importer';
 import HinterField from 'goblin-gadgets/widgets/hinter-field/widget';
+import stateMapperToProps from 'goblin-laboratory/widgets/state-mapper-to-props/widget.js';
 const widgetImporter = importer('widget');
 
 /******************************************************************************/
@@ -259,29 +261,22 @@ class Field extends Form {
       : `${this.context.model}.gadgets.${this.props.name}`;
 
     const parentId = this.context.id || this.context.model;
-
-    const GadgetLoader = (props) => {
-      if (props.available) {
-        const gadgetInfo = this.getState(target, true);
-        const type = gadgetInfo.get('type');
-        const Gadget = widgetImporter(type);
-        const WiredGadget = Widget.Wired(Gadget);
-        return (
-          <WiredGadget
-            id={gadgetInfo.get('id')}
-            readonly={true}
-            {...this.props}
-            widgetId={gadgetInfo.get('id')}
-            parentId={parentId}
-          />
-        );
-      } else {
-        return null;
-      }
-    };
-    const DisplayGadget = this.mapWidget(GadgetLoader, 'available', target);
-
-    return <DisplayGadget />;
+    const gadgetInfo = this.getState(target, true);
+    let WiredGadget;
+    if (gadgetInfo) {
+      const type = gadgetInfo.get('type');
+      const Gadget = widgetImporter(type);
+      WiredGadget = Widget.Wired(Gadget);
+    }
+    return gadgetInfo ? (
+      <WiredGadget
+        id={gadgetInfo.get('id')}
+        readonly={true}
+        {...this.props}
+        widgetId={gadgetInfo.get('id')}
+        parentId={parentId}
+      />
+    ) : null;
   }
 
   renderReadonlyTyped() {
@@ -511,41 +506,38 @@ class Field extends Form {
 
   renderReadonlyEntity() {
     const summary = this.props.summary || 'info';
-    const Viewer = (props) => {
-      if (!props.entityId) {
-        return (
-          <Label
-            grow="1"
-            empty={true}
-            horizontalSpacing={this.props.horizontalSpacing}
-          />
-        );
+
+    const mapper = (state) => {
+      const entityId = state.get(this.fullPath);
+      if (!entityId) {
+        return {
+          grow: '1',
+          empty: true,
+          horizontalSpacing: this.props.horizontalSpacing,
+        };
       }
-      const Info = this.mapWidget(
-        Label,
-        (entity) => {
-          let glyph = 'solid/spinner';
-          let glyphColor = null;
-          let text = T('Chargement...');
-          if (entity) {
-            glyph = entity.get('meta.summaries.glyph');
-            glyphColor = entity.get('meta.summaries.glyphColor');
-            text = entity.get(`meta.summaries.${summary}`);
-          }
-          return {
-            kind: 'combo-text-markdown',
-            glyph,
-            glyphColor,
-            text,
-            grow: '1',
-            justify: this.props.justify,
-            wrap: this.props.wrap,
-          };
-        },
-        `backend.${props.entityId}`
-      );
-      return <Info userSelect="text" />;
+      const entity = state.get(`backend.${entityId}`);
+      let glyph = 'solid/spinner';
+      let glyphColor = null;
+      let text = T('Chargement...');
+      if (entity) {
+        glyph = entity.get('meta.summaries.glyph');
+        glyphColor = entity.get('meta.summaries.glyphColor');
+        text = entity.get(`meta.summaries.${summary}`);
+      }
+      return {
+        kind: 'combo-text-markdown',
+        userSelect: 'text',
+        glyph,
+        glyphColor,
+        text,
+        grow: '1',
+        justify: this.props.justify,
+        wrap: this.props.wrap,
+      };
     };
+
+    const EntityViewer = stateMapperToProps(Label, mapper, '');
 
     const Action = (props) => {
       const openEntityWorkitem = () => {
@@ -569,8 +561,7 @@ class Field extends Form {
       ) : null;
     };
 
-    const EntityViewer = this.mapWidget(Viewer, 'entityId', this.fullPath);
-    const EntityAction = this.mapWidget(Action, 'entityId', this.fullPath);
+    const EntityAction = stateMapperToProps(Action, 'entityId', this.fullPath);
 
     return (
       <LabelRow
@@ -606,13 +597,16 @@ class Field extends Form {
             {...props}
           />
         );
-
-        FinalPlugin = this.mapWidget(WiredPlugin, 'entityIds', this.fullPath);
+        FinalPlugin = stateMapperToProps(
+          WiredPlugin,
+          'entityIds',
+          this.fullPath
+        );
       } else {
         FinalPlugin = widgetImporter('plugin');
       }
 
-      const FinalContainer = this.mapWidget(
+      const FinalContainer = stateMapperToProps(
         Container,
         (value) => {
           const length = value ? value.length : 0;
@@ -667,7 +661,7 @@ class Field extends Form {
             verticalJustify={this.props.verticalJustify}
           >
             {props.entityIds.map((entityId, index) => {
-              const Item = this.mapWidget(
+              const Item = stateMapperToProps(
                 this.props.item,
                 (state) => (state ? state : null),
                 `backend.${entityId}`
@@ -677,7 +671,7 @@ class Field extends Form {
           </Container>
         );
       };
-      const FinalItems = this.mapWidget(Items, 'entityIds', this.fullPath);
+      const FinalItems = stateMapperToProps(Items, 'entityIds', this.fullPath);
       return <FinalItems />;
     } else {
       throw new Error('Property plugin is required in this case!');
@@ -773,28 +767,21 @@ class Field extends Form {
       : `${this.context.model}.gadgets.${this.props.name}`;
 
     const parentId = this.context.id || this.context.model;
-
-    const GadgetLoader = (props) => {
-      if (props.available) {
-        const gadgetInfo = this.getState(target, true);
-        const type = gadgetInfo.get('type');
-        const Gadget = widgetImporter(type);
-        const WiredGadget = Widget.Wired(Gadget);
-        return (
-          <WiredGadget
-            id={gadgetInfo.get('id')}
-            {...this.props}
-            parentId={parentId}
-            widgetId={gadgetInfo.get('id')}
-          />
-        );
-      } else {
-        return null;
-      }
-    };
-    const DisplayGadget = this.mapWidget(GadgetLoader, 'available', target);
-
-    return <DisplayGadget />;
+    const gadgetInfo = this.getState(target, true);
+    let WiredGadget;
+    if (gadgetInfo) {
+      const type = gadgetInfo.get('type');
+      const Gadget = widgetImporter(type);
+      WiredGadget = Widget.Wired(Gadget);
+    }
+    return gadgetInfo ? (
+      <WiredGadget
+        id={gadgetInfo.get('id')}
+        {...this.props}
+        parentId={parentId}
+        widgetId={gadgetInfo.get('id')}
+      />
+    ) : null;
   }
 
   renderEditTyped() {
@@ -977,7 +964,7 @@ class Field extends Form {
   }
 
   renderEditRadio() {
-    const WiredRadioList = this.mapWidget(
+    const WiredRadioList = stateMapperToProps(
       RadioList,
       (value) => {
         if (value && value !== '') {
@@ -1022,7 +1009,7 @@ class Field extends Form {
   }
 
   renderCheckList() {
-    const WiredCheckList = this.mapWidget(
+    const WiredCheckList = stateMapperToProps(
       CheckList,
       (value) => {
         if (value && value !== '') {
@@ -1105,7 +1092,7 @@ class Field extends Form {
   }
 
   renderCalendar() {
-    const Dynamic = this.mapWidget(
+    const Dynamic = stateMapperToProps(
       Calendar,
       (calendar) => {
         // FIXME: calendar is undefined!
@@ -1133,7 +1120,7 @@ class Field extends Form {
   }
 
   renderCalendarBoards() {
-    const Dynamic = this.mapWidget(
+    const Dynamic = stateMapperToProps(
       CalendarBoards,
       (calendarBoards) => {
         return {
@@ -1155,7 +1142,7 @@ class Field extends Form {
   }
 
   renderCalendarRecurrence() {
-    const WiredCalendarRecurrence = this.mapWidget(
+    const WiredCalendarRecurrence = stateMapperToProps(
       CalendarRecurrence,
       (r) => {
         return {
@@ -1187,34 +1174,28 @@ class Field extends Form {
 
   renderEditEntity() {
     const summary = this.props.summary || 'info';
-    const Viewer = (props) => {
-      if (!props.entityId) {
-        return <Label grow="1" empty={true} />;
+    const mapper = (state) => {
+      const entityId = state.get(this.fullPath);
+      if (!entityId) {
+        return {grow: '1', empty: true};
       }
-      const Info = this.mapWidget(
-        Label,
-        (entity) => {
-          let glyph = 'solid/spinner';
-          let glyphColor = null;
-          let text = T('chargement...');
-          if (entity) {
-            glyph = entity.get('meta.summaries.glyph');
-            glyphColor = entity.get('meta.summaries.glyphColor');
-            text = entity.get(`meta.summaries.${summary}`);
-          }
-          return {
-            glyph,
-            glyphColor,
-            text,
-          };
-        },
-        `backend.${props.entityId}`
-      );
-      return <Info userSelect="text" />;
+      const entity = state.get(`backend.${entityId}`);
+      let glyph = 'solid/spinner';
+      let glyphColor = null;
+      let text = T('chargement...');
+      if (entity) {
+        glyph = entity.get('meta.summaries.glyph');
+        glyphColor = entity.get('meta.summaries.glyphColor');
+        text = entity.get(`meta.summaries.${summary}`);
+      }
+      return {
+        glyph,
+        glyphColor,
+        text,
+        userSelect: 'text',
+      };
     };
-
-    const EntityViewer = this.mapWidget(Viewer, 'entityId', this.fullPath);
-
+    const EntityViewer = stateMapperToProps(Label, mapper, '');
     return (
       <Container
         kind="row-field"
@@ -1241,7 +1222,11 @@ class Field extends Form {
         const CustomPlugin = widgetImporter(`plugin-${this.props.pluginType}`);
         let CustomPluginWired = Widget.Wired(CustomPlugin);
         WiredPlugin = (props) => <CustomPluginWired id={pluginId} {...props} />;
-        FinalPlugin = this.mapWidget(WiredPlugin, 'entityIds', this.fullPath);
+        FinalPlugin = stateMapperToProps(
+          WiredPlugin,
+          'entityIds',
+          this.fullPath
+        );
       } else {
         FinalPlugin = widgetImporter('plugin');
       }
@@ -1285,7 +1270,7 @@ class Field extends Form {
             verticalJustify={this.props.verticalJustify}
           >
             {props.entityIds.map((entityId, index) => {
-              const Item = this.mapWidget(
+              const Item = stateMapperToProps(
                 this.props.item,
                 (state) => (state ? state : null),
                 `backend.${entityId}`
@@ -1295,7 +1280,7 @@ class Field extends Form {
           </Container>
         );
       };
-      const FinalItems = this.mapWidget(Items, 'entityIds', this.fullPath);
+      const FinalItems = stateMapperToProps(Items, 'entityIds', this.fullPath);
       return <FinalItems />;
     } else {
       throw new Error('Property plugin or item is required in this case!');
@@ -1344,7 +1329,7 @@ class Field extends Form {
           {...disabled}
         >
           {props.entityIds.map((entityId, index) => {
-            const WiredOption = this.mapWidget(
+            const WiredOption = stateMapperToProps(
               Option,
               (state) => {
                 const id = state.get('id');
@@ -1363,9 +1348,9 @@ class Field extends Form {
       );
     };
 
-    let FinalCombo = this.mapWidget(ComboIds, 'entityIds', this.fullPath);
+    let FinalCombo = stateMapperToProps(ComboIds, 'entityIds', this.fullPath);
     if (targetPath) {
-      FinalCombo = this.mapWidget(FinalCombo, 'currentValue', targetPath);
+      FinalCombo = stateMapperToProps(FinalCombo, 'currentValue', targetPath);
     }
 
     if (this.props.labelText) {
@@ -1475,7 +1460,7 @@ class Field extends Form {
       }
     };
 
-    const HinterField = this.mapWidget(
+    const HinterField = stateMapperToProps(
       CompleteHinter,
       'content',
       this.fullPath
