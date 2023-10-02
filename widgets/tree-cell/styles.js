@@ -89,7 +89,7 @@ export default function styles(theme, props) {
     //- );
 
     if (indent === 'space') {
-      if (textAlign === 'end') {
+      if (textAlign === 'right') {
         paddingRight = Unit.multiply(theme.shapes.tablePadding, level);
       } else {
         paddingLeft = Unit.multiply(theme.shapes.tablePadding, level);

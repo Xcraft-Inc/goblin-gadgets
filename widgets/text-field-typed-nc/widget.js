@@ -688,8 +688,8 @@ export default class TextFieldTypedNC extends Widget {
         type === 'percent' ||
         type === 'percentage' ||
         type === 'pixel'
-          ? 'end'
-          : 'start';
+          ? 'right'
+          : 'left';
     }
 
     if (!width) {
