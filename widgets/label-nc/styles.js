@@ -959,7 +959,7 @@ export default function styles(theme, props) {
     textOverflow = 'hidden';
     textTextOverflow = 'ellipsis';
     textWhiteSpace = 'nowrap';
-    textAlign = 'left';
+    textAlign = 'start';
     textDirection = 'rtl';
   } else if (textWrap === 'no-strict') {
     linesOverflow = 'hidden';

@@ -69,12 +69,12 @@ class WorkDialog extends Widget {
         {
           name: 'title',
           width: '200px',
-          textAlign: 'left',
+          textAlign: 'start',
         },
         {
           name: 'description',
           width: '300px',
-          textAlign: 'left',
+          textAlign: 'start',
         },
       ],
       rows: [],

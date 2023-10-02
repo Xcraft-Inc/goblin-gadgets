@@ -32,7 +32,7 @@ export default [
     name: 'quantity',
     props: {
       width: '100px',
-      justify: 'right',
+      justify: 'end',
       value: '5.2',
       tooltip: 'Quantité',
     },

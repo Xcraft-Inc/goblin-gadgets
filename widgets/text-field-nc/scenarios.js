@@ -40,7 +40,7 @@ export default [
     props: {
       value: '125.30',
       width: '120px',
-      justify: 'right',
+      justify: 'end',
     },
   },
   {

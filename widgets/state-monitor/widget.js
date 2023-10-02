@@ -149,12 +149,12 @@ class StateMonitor extends Widget {
         {
           name: 'key',
           grow: '1',
-          textAlign: 'left',
+          textAlign: 'start',
         },
         {
           name: 'value',
           grow: '1',
-          textAlign: 'left',
+          textAlign: 'start',
           indent: 'space',
         },
         {
