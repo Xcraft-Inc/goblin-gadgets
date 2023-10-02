@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Widget from 'goblin-laboratory/widgets/widget';
 import props from './props';
 import scenarios from './scenarios';
@@ -52,6 +53,13 @@ class Table extends Widget {
     this.onDeselectAll = this.onDeselectAll.bind(this);
     this.onKeyUp = this.onKeyUp.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
+  }
+
+  static get contextTypes() {
+    return {
+      ...Widget.contextTypes,
+      id: PropTypes.string,
+    };
   }
 
   static get wiring() {

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Widget from 'goblin-laboratory/widgets/widget';
 import HinterFieldNC from '../hinter-field-nc/widget';
 import withC from 'goblin-laboratory/widgets/connect-helpers/with-c';
@@ -82,6 +83,13 @@ class HinterFieldControl extends Widget {
     this.show = this.show.bind(this);
     this.hide = this.hide.bind(this);
     this.focus = this.focus.bind(this);
+  }
+
+  static get contextTypes() {
+    return {
+      ...Widget.contextTypes,
+      id: PropTypes.string,
+    };
   }
 
   add(searchValue) {

@@ -1,6 +1,7 @@
 //T:2019-02-27
 import T from 't';
 import React from 'react';
+import PropTypes from 'prop-types';
 import Widget from 'goblin-laboratory/widgets/widget';
 import stateMapperToProps from 'goblin-laboratory/widgets/state-mapper-to-props/widget';
 import _ from 'lodash';
@@ -14,6 +15,13 @@ class ScrollableLinkableContainer extends Widget {
     this.styles = styles;
 
     this.handleScroll = _.debounce(this.handleScroll.bind(this), 500);
+  }
+
+  static get contextTypes() {
+    return {
+      ...Widget.contextTypes,
+      id: PropTypes.string,
+    };
   }
 
   handleScroll(e) {

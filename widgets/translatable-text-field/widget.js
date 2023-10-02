@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Widget from 'goblin-laboratory/widgets/widget';
 import * as styles from './styles';
 
@@ -70,6 +71,13 @@ class TranslatableTextField extends Widget {
     this.onShowEdit = this.onShowEdit.bind(this);
     this.onHideEdit = this.onHideEdit.bind(this);
     this.swapLocales = this.swapLocales.bind(this);
+  }
+
+  static get contextTypes() {
+    return {
+      ...Widget.contextTypes,
+      id: PropTypes.string,
+    };
   }
 
   componentDidMount() {
