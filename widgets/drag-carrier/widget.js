@@ -1,6 +1,7 @@
 //T:2019-02-27
 import T from 't';
 import React from 'react';
+import PropTypes from 'prop-types';
 import Widget from 'goblin-laboratory/widgets/widget';
 import MouseTrap from 'mousetrap';
 import {Unit} from 'goblin-theme';
@@ -112,6 +113,13 @@ class DragCarrier extends Widget {
     this.onMouseMove = this.onMouseMove.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
     this.onKeyEsc = this.onKeyEsc.bind(this);
+  }
+
+  static get contextTypes() {
+    return {
+      ...Widget.contextTypes,
+      dragServiceId: PropTypes.string,
+    };
   }
 
   componentDidMount() {
@@ -396,7 +404,7 @@ class DragCarrier extends Widget {
 
   find(x, y) {
     const dragCab = this.searchDragCab(this.props.dragOwnerId);
-    const dragController = dragCab.read('dragController');
+    const dragController = dragCab.props.dragController;
     for (var container of window.document.dragControllers) {
       const dc = container.props.dragController;
       if (dc === dragController) {

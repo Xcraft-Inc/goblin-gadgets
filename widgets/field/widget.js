@@ -1,9 +1,9 @@
 //T:2019-02-27
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import Form from 'goblin-laboratory/widgets/form';
 import Widget from 'goblin-laboratory/widgets/widget';
-import StateLoader from 'goblin-laboratory/widgets/state-loader/widget.js';
 import T from 't';
 import C from 'goblin-laboratory/widgets/connect-helpers/c';
 
@@ -75,6 +75,15 @@ class Field extends Form {
     this.isShowed = this.isShowed.bind(this);
   }
 
+  static get contextTypes() {
+    return {
+      ...Widget.contextTypes,
+      id: PropTypes.string,
+      entityId: PropTypes.string,
+      dragServiceId: PropTypes.string,
+    };
+  }
+
   get readonly() {
     return this.props.readonly || this.context.readonly;
   }
@@ -102,6 +111,7 @@ class Field extends Form {
       const entityType = entityId.split('@', 2)[0]; // by example "portfolio"
       return this.getSchema(entityType);
     }
+    console.warn('getEntitySchema returned null ! (entityId undefined)');
     return null;
   }
 
