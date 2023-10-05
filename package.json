@@ -27,6 +27,7 @@
   "devDependencies": {
     "@fortawesome/react-fontawesome": "^0.1.9",
     "goblin-theme": "^2.0.0",
+    "goblin-laboratory": "^4.0.0",
     "leaflet": "1.2.0",
     "mocha": "^5.2.0",
     "monaco-editor": "^0.31.1",
