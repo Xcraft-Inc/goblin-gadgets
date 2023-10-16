@@ -75,7 +75,7 @@ class Wizard extends Form {
   }
 
   getGlobalSettingValue(id) {
-    return this.getModelValue(`.globalSettings.${id}.value`);
+    return this.getBackendState(`${this.props.id}.globalSettings.${id}.value`);
   }
 
   setGlobalSettingValue(id, value) {
@@ -91,21 +91,21 @@ class Wizard extends Form {
   }
 
   get widgets() {
-    return this.getModelValue('.properties');
+    return this.getBackendState(`${this.props.id}.properties`);
   }
 
   get properties() {
-    return this.getModelValue('.properties').get(this.widget);
+    return this.getBackendState(`${this.props.id}.properties`).get(this.widget);
   }
 
   get previewSettings() {
-    return this.getModelValue('.previewSettings').filter(
+    return this.getBackendState(`${this.props.id}.previewSettings`).filter(
       (preview) => preview.size > 0
     );
   }
 
   getPreviewSettingValue(id) {
-    return this.getModelValue(`.previewSettings.${id}.value`);
+    return this.getBackendState(`${this.props.id}.previewSettings.${id}.value`);
   }
 
   setPreviewSettingValue(id, value) {
@@ -225,7 +225,10 @@ class Wizard extends Form {
             width="32px"
             focusable={true}
             onChange={() => {
-              this.setModelValue(model, !this.getModelValue(model));
+              this.setModelValue(
+                model,
+                !this.getBackendState(this.props.id + model)
+              );
             }}
           />
         </Container>
