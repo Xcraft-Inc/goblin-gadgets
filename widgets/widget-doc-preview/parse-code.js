@@ -6,7 +6,7 @@ module.exports = function parseCode(code) {
   const [_, name, propsStr, children] = matchComponent;
 
   // Match propName, opening brace for propValue and propValue
-  const propsRegex = /\s+(\w+)=(?:("[^"]*")|{(.*?(?=}[ /]))})/g;
+  const propsRegex = /\s+(\w+)=(?:("[^"]*")|{(.*?(?=}))})/g;
 
   let match;
   const props = {};
