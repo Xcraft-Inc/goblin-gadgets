@@ -28,6 +28,14 @@ describe('goblin.gadgets', function () {
       });
     });
 
+    it('parseCode other string', function () {
+      const code = `<Button text='hello "world"'/>`;
+      const res = parseCode(code);
+      assert.deepStrictEqual(res, {
+        text: 'hello "world"',
+      });
+    });
+
     it('parseCode boolean', function () {
       const code = `<Button visibility={true} show={true}/>`;
       const res = parseCode(code);
