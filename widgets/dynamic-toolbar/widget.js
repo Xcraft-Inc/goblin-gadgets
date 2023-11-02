@@ -19,8 +19,8 @@ class DynamicToolbar extends Widget {
       showToolbar: false,
     };
 
-    this.toolbar = null;
-    this.toolbarButton = null;
+    this.toolbar = React.createRef();
+    this.toolbarButton = React.createRef();
     this.counter = 0;
 
     this.onShowToolbar = this.onShowToolbar.bind(this);
@@ -38,8 +38,9 @@ class DynamicToolbar extends Widget {
   }
 
   onShowToolbar() {
-    if (this.toolbarButton) {
-      const rect = this.toolbarButton.getBoundingClientRect();
+    if (this.toolbarButton.current) {
+      const rect = this.toolbarButton.current.getBoundingClientRect();
+
       this.ToolbarLeft = rect.left;
       this.ToolbarTop = rect.top;
     }
@@ -57,8 +58,9 @@ class DynamicToolbar extends Widget {
 
     let x = e.clientX;
     let y = e.clientY;
-    if (this.toolbar) {
-      const rect = this.toolbar.getBoundingClientRect();
+    if (this.toolbar.current) {
+      const rect = this.toolbar.current.getBoundingClientRect();
+
       const margin = this.props.detectMargin ? this.props.detectMargin : 20;
       if (
         x < rect.left - margin ||
@@ -75,14 +77,13 @@ class DynamicToolbar extends Widget {
   renderHoverButton() {
     const style = this.styles.classNames.hoverButton;
     return (
-      <div className={style}>
+      <div className={style} ref={this.toolbarButton}>
         <Button
           width="24px"
           height="24px"
           kind="dynamic-toolbar-top-left"
           glyph={this.props.glyph || 'solid/ellipsis-h'}
           mouseOver={this.onShowToolbar}
-          ref={(node) => (this.toolbarButton = node)}
         />
       </div>
     );
@@ -106,7 +107,7 @@ class DynamicToolbar extends Widget {
       : this.styles.classNames.boxHidden; // toolbar hidden to left
 
     return (
-      <div className={boxClass} ref={(x) => (this.toolbar = x)}>
+      <div className={boxClass} ref={this.toolbar}>
         {this.props.children}
       </div>
     );
