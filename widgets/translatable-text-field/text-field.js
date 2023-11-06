@@ -84,7 +84,7 @@ class NabuTextField extends Form {
       width: fieldWidth,
       justify: fieldJustify,
       shape: textFieldShape,
-      rows: rows || '1',
+      rows: rows || 1,
       readonly: visibleReadonly,
       disabled: disabled || !translationId,
       verticalSpacing: verticalSpacing || 'compact',
