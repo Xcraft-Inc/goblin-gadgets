@@ -76,6 +76,7 @@ class TranslatableTextField extends Widget {
   static get contextTypes() {
     return {
       ...Widget.contextTypes,
+      entityId: PropTypes.string,
       id: PropTypes.string,
     };
   }
