@@ -32,6 +32,7 @@ export default class Button extends Widget {
       focus: false,
     };
 
+    this.setRef = this.setRef.bind(this);
     this.onFocus = this.onFocus.bind(this);
     this.onBlur = this.onBlur.bind(this);
     this.onMouseDown = this.onMouseDown.bind(this);
@@ -40,6 +41,7 @@ export default class Button extends Widget {
     this.onMouseOut = this.onMouseOut.bind(this);
     this.onKeySpace = this.onKeySpace.bind(this);
     this.onClick = this.onClick.bind(this);
+    this.ref = null;
   }
 
   componentDidMount() {
@@ -49,6 +51,10 @@ export default class Button extends Widget {
   componentWillUnmount() {
     super.componentWillUnmount();
     MouseTrap.unbind('space');
+  }
+
+  setRef(ref) {
+    this.ref = ref;
   }
 
   get focus() {
@@ -362,6 +368,7 @@ export default class Button extends Widget {
           onMouseOut={this.onMouseOut}
           onClick={this.onClick}
           className={boxClass}
+          divRef={this.setRef}
         >
           {this.props.children}
         </TranslatableDiv>
@@ -384,6 +391,7 @@ export default class Button extends Widget {
           onClick={this.onClick}
           className={boxClass}
           href={window.location.hash + '#' + this.props.toAnchor}
+          onRef={this.setRef}
         >
           {this.renderLayout()}
           {this.renderTriangle()}
@@ -409,6 +417,7 @@ export default class Button extends Widget {
           onMouseOut={this.onMouseOut}
           onClick={this.onClick}
           className={boxClass}
+          divRef={this.setRef}
         >
           {this.renderLayout()}
           {this.renderTriangle()}
