@@ -9,13 +9,13 @@ export const propNames = ['size', 'rimColor', 'segmentColor', 'thickness'];
 
 export default function styles(theme, props) {
   let {
-    size = '160px',
+    size = null,
     rimColor = 'rgba(0, 0, 0, 0.2)',
     segmentColor = '#000',
-    thickness,
+    thickness = '15%',
   } = props;
 
-  if (!thickness) {
+  if (!thickness && size) {
     const t = n(size) / 10;
     thickness = px(Math.trunc(t) + 1);
   }
@@ -29,14 +29,24 @@ export default function styles(theme, props) {
   };
 
   const spinner = {
-    width: size,
-    height: size,
-    border: `${thickness} solid ${rimColor}`,
-    borderLeft: `${thickness} solid ${segmentColor}`,
     borderRadius: '50%',
     boxSizing: 'border-box',
     animation: '1.1s infinite linear',
     animationName: keyframes,
+
+    aspectRatio: '1/1',
+    width: size || 'auto',
+    height: size || 'auto',
+    maxWidth: '100%',
+    margin: '10%',
+    backgroundImage: `conic-gradient(${rimColor} 80%, ${segmentColor} 20%)`,
+
+    /* 0.5px's are needed to avoid hard-stopping */
+    mask: `radial-gradient(
+      farthest-side,
+      transparent calc(100% - ${thickness} - 0.5px),
+      #000 calc(100% - ${thickness} + 0.5px)
+    )`,
   };
 
   /******************************************************************************/

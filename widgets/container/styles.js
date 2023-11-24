@@ -1418,14 +1418,21 @@ export default function styles(theme, props) {
     width: '100%',
     height: '100%',
     display: 'flex',
+    justifyContent: 'center',
     top: 0,
     left: 0,
     backgroundColor: busyBackgroundColor || theme.palette.busyBackground,
   };
 
   const busyGlyphStyle = {
-    margin: 'auto',
     color: theme.palette.busyForeground,
+
+    aspectRatio: '1/1',
+    width: 'auto',
+    maxWidth: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
   };
 
   return {
