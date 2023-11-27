@@ -1435,11 +1435,22 @@ export default function styles(theme, props) {
     justifyContent: 'center',
   };
 
+  const busyGlyphMaxStyle = {
+    aspectRratio: '1/1',
+    height: 'auto',
+    width: 'auto',
+    margin: '10%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  };
+
   return {
     box: boxStyle,
     triangle: triangleStyle,
     busyBox: busyBoxStyle,
     busyGlyph: busyGlyphStyle,
+    busyGlyphMax: busyGlyphMaxStyle,
   };
 }
 

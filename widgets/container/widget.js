@@ -167,6 +167,7 @@ class Container extends Widget {
   renderBusy() {
     if (this.props.busy) {
       const busyBoxClass = this.styles.classNames.busyBox;
+      const busyGlyphMaxClass = this.styles.classNames.busyGlyphMax;
       const busyGlyphClass = this.styles.classNames.busyGlyph;
 
       if (this.props.busyLook === 'smallest') {
@@ -205,7 +206,9 @@ class Container extends Widget {
         return (
           <div className={busyBoxClass}>
             <div className={busyGlyphClass}>
-              <Spinner />
+              <div className={busyGlyphMaxClass}>
+                <Spinner />
+              </div>
             </div>
           </div>
         );

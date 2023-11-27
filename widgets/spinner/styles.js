@@ -12,7 +12,7 @@ export default function styles(theme, props) {
     size = null,
     rimColor = 'rgba(0, 0, 0, 0.2)',
     segmentColor = '#000',
-    thickness = '15%',
+    thickness = '20%',
   } = props;
 
   if (!thickness && size) {
@@ -35,11 +35,13 @@ export default function styles(theme, props) {
     animationName: keyframes,
 
     aspectRatio: '1/1',
-    width: size || 'auto',
-    height: size || 'auto',
-    maxWidth: '100%',
     margin: '10%',
     backgroundImage: `conic-gradient(${rimColor} 80%, ${segmentColor} 20%)`,
+
+    width: size || '100%',
+    height: size || '100%',
+    maxWidth: size ? null : '200px',
+    maxHeight: size ? null : '200px',
 
     /* 0.5px's are needed to avoid hard-stopping */
     mask: `radial-gradient(
