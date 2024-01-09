@@ -40,8 +40,8 @@ export default function styles(theme, props) {
 
     width: size || '100%',
     height: size || '100%',
-    maxWidth: size ? null : '200px',
-    maxHeight: size ? null : '200px',
+    maxWidth: size ? null : '160px',
+    maxHeight: size ? null : '160px',
 
     /* 0.5px's are needed to avoid hard-stopping */
     mask: `radial-gradient(
