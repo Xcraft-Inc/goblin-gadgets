@@ -25,6 +25,7 @@
     "remark-supersub": "^1.0.0"
   },
   "devDependencies": {
+    "bignumber.js": "^8.1.1",
     "css-loader": "^6.10.0",
     "@fortawesome/react-fontawesome": "^0.1.9",
     "goblin-theme": "^2.0.0",
