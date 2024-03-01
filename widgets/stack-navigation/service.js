@@ -48,7 +48,10 @@ const logicHandlers = {
   },
   _startBackAnimation: (state, action) => {
     const backCount = action.get('backCount');
-    return state.set('operation', 'back').set('operationParams', {backCount});
+    return state
+      .set('operation', 'back')
+      .set('operationParams', {backCount})
+      .set('backAnimationId', action.get('correlationId'));
   },
   _endBackAnimation: (state) => {
     let stack = state.get('stack');
@@ -57,7 +60,8 @@ const logicHandlers = {
     return state
       .set('operation', null)
       .set('operationParams', null)
-      .set('stack', stack);
+      .set('stack', stack)
+      .set('backAnimationId', null);
   },
 
   _replace: (state, action) => {
@@ -205,7 +209,7 @@ const quests = {
 
   // --- Back -------------------------------------------------------------------
 
-  back: function* (quest, backCount) {
+  back: function* (quest, backCount, waitEnd, next) {
     const state = quest.goblin.getState();
 
     const operation = state.get('operation');
@@ -222,7 +226,27 @@ const quests = {
     const screenForAnimation = stack.get(stack.length - backCount);
     const animations = screenForAnimation.get('animations');
     if (animations && animations.get('back')) {
-      yield quest.me._startBackAnimation({backCount});
+      let unsub = null;
+      let correlationId = null;
+      if (waitEnd) {
+        const waitDone = next.parallel();
+        correlationId = require('uuid').v4();
+        unsub = quest.sub(`*::${quest.goblin.id}.back-finished`, function (
+          _,
+          {msg, resp}
+        ) {
+          if (msg.data.correlationId === correlationId) {
+            waitDone();
+          }
+        });
+      }
+
+      yield quest.me._startBackAnimation({backCount, correlationId});
+
+      if (waitEnd) {
+        yield next.sync();
+        unsub();
+      }
     } else {
       yield quest.me._back();
       yield quest.me._killServices({stack, count: backCount, skipCount: 0});
@@ -245,8 +269,14 @@ const quests = {
     // Pop stack first and kill after
     // Using a quest.do here doesn't work: the kill is done before pop...
     yield quest.me._endBackAnimation();
-
     yield quest.me._killServices({stack, count: backCount, skipCount: 0});
+
+    const backAnimationId = state.get('backAnimationId');
+    if (backAnimationId) {
+      quest.evt('back-finished', {
+        correlationId: backAnimationId,
+      });
+    }
   },
 
   _endBackAnimation: function (quest) {
