@@ -230,7 +230,7 @@ const quests = {
       let correlationId = null;
       if (waitEnd) {
         const waitDone = next.parallel();
-        correlationId = require('uuid').v4();
+        correlationId = quest.uuidV4();
         unsub = quest.sub(`*::${quest.goblin.id}.back-finished`, function (
           _,
           {msg, resp}
