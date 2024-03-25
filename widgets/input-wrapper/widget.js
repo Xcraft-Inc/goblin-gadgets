@@ -54,6 +54,12 @@ export default function wrapRawInput(
       );
     }
 
+    componentWillUnmount() {
+      if (this.state.edit) {
+        this.changeValue(this.state.raw);
+      }
+    }
+
     changeValue(value) {
       if (this.props.parse) {
         value = this.props.parse(value);
