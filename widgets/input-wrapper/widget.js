@@ -114,6 +114,10 @@ export default function wrapRawInput(
       } else if (this.props.changeMode === 'immediate') {
         this.changeValue(value);
       }
+      //handle case of injected events
+      if (!this.state.edit) {
+        this.changeValue(value);
+      }
     }
 
     handleFocus(...args) {
