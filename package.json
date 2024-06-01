@@ -16,13 +16,13 @@
   },
   "dependencies": {
     "immutable": "4.0.0-rc.14",
-    "xcraft-core-goblin": "^5.0.0",
-    "xcraft-core-stones": "^0.4.0",
-    "xcraft-core-utils": "^4.0.0",
     "goblin-nabu": "^2.0.0",
     "goblin-toolbox": "^1.0.0",
     "remark-gfm": "^3.0.1",
-    "remark-supersub": "^1.0.0"
+    "remark-supersub": "^1.0.0",
+    "xcraft-core-goblin": "^5.0.0",
+    "xcraft-core-stones": "^0.4.0",
+    "xcraft-core-utils": "^4.0.0"
   },
   "devDependencies": {
     "bignumber.js": "^8.1.1",
