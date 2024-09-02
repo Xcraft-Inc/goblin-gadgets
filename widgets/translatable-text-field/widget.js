@@ -17,6 +17,8 @@ import NabuTextField from './text-field';
 import ToNabuObject from 'goblin-nabu/widgets/helpers/t.js';
 import T from 't';
 import SchemaHelpers from 'goblin-toolbox/lib/schema-helpers';
+import ModelContext from 'goblin-laboratory/widgets/with-model/context.js';
+import joinModels from 'goblin-laboratory/widgets/connect-helpers/join-models';
 
 /******************************************************************************/
 
@@ -76,19 +78,14 @@ class TranslatableTextField extends Widget {
   static get contextTypes() {
     return {
       ...Widget.contextTypes,
-      entityId: PropTypes.string,
       id: PropTypes.string,
     };
   }
 
   componentDidMount() {
-    const nabuId = `${this.context.entityId}${this.props.model}`;
-
-    this.doFor(this.context.entityId, 'change', {
-      path: this.props.model.startsWith('.')
-        ? this.props.model.slice(1)
-        : this.props.model,
-      newValue: WrapT(nabuId, null, null, null, true),
+    this.doFor(this.props.entityId, 'change', {
+      path: this.props.modelPath,
+      newValue: WrapT(this.props.nabuId, null, null, null, true),
     });
   }
 
@@ -176,7 +173,7 @@ class TranslatableTextField extends Widget {
   //#endregion
 
   getEntitySchema() {
-    const entityId = this.context.entityId; // by example "portfolio@e564950b-cd9f-4d35-abd0-b85bf93017f1"
+    const entityId = this.props.entityId; // by example "portfolio@e564950b-cd9f-4d35-abd0-b85bf93017f1"
     if (entityId) {
       const entityType = entityId.split('@', 2)[0]; // by example "portfolio"
       return this.getSchema(entityType);
@@ -336,7 +333,7 @@ class TranslatableTextField extends Widget {
       rounded: 'left-rounded',
     };
     const textFieldShape = textFieldShapes[s];
-    const nabuId = `${this.context.entityId}${model}`;
+    const nabuId = this.props.nabuId;
 
     if (this.props.readonly && this.props.rows && this.props.rows > 1) {
       return (
@@ -512,7 +509,7 @@ class TranslatableTextField extends Widget {
       return null;
     }
 
-    const nabuId = `${this.context.entityId}${this.props.model}`;
+    const nabuId = this.props.nabuId;
 
     return (
       <div className={this.styles.classNames.editLocale}>
@@ -552,7 +549,7 @@ class TranslatableTextField extends Widget {
       return null;
     }
 
-    const nabuId = `${this.context.entityId}${this.props.model}`;
+    const nabuId = this.props.nabuId;
 
     return (
       <div className={this.styles.classNames.editLocale}>
@@ -666,4 +663,22 @@ export default Widget.connect((state, props) => {
     list: locales,
     defaultValue: defaultLocale.get('name'),
   };
-})(TranslatableTextField);
+})((props) => (
+  <ModelContext.Consumer>
+    {(model) => {
+      // backend.entityId.xyz
+      const fullModel = joinModels(model, props.model);
+      let [_, entityId, ...modelPath] = fullModel.split('.');
+      modelPath = modelPath.join('.');
+      const nabuId = `${entityId}.${modelPath}`;
+      return (
+        <TranslatableTextField
+          {...props}
+          nabuId={nabuId}
+          entityId={entityId}
+          modelPath={modelPath}
+        />
+      );
+    }}
+  </ModelContext.Consumer>
+));
