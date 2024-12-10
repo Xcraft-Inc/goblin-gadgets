@@ -55,6 +55,7 @@ class TabNavigationLogic extends Elf.Spirit {
 }
 
 class TabNavigation extends Elf {
+  logic = Elf.getLogic(TabNavigationLogic);
   state = new TabNavigationState();
 
   /** @type {NavigationViews} */
@@ -72,14 +73,14 @@ class TabNavigation extends Elf {
   async create(id, desktopId, views) {
     this.desktopId = desktopId;
     this.views = views;
-    this.do({id});
+    this.logic.create(id);
     const firstTab = Object.keys(views)[0];
     await this.setTab(firstTab);
     return this;
   }
 
   async change(path, newValue) {
-    this.do({path, newValue});
+    this.logic.change(path, newValue);
   }
 
   async _loadService(tab) {
@@ -112,7 +113,7 @@ class TabNavigation extends Elf {
     const view = this.views[tab];
     const widget = view.widget;
     const widgetProps = view.widgetProps;
-    this.do({tab, serviceId, widget, widgetProps});
+    this.logic.setTab(tab, serviceId, widget, widgetProps);
   }
 
   async switchTab(reverse) {
