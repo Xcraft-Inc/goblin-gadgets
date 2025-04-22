@@ -16,8 +16,8 @@ const logicState = {
 /******************************************************************************/
 
 const logicHandlers = {
-  init: (state) => {
-    return state;
+  create: (state, action) => {
+    return state.set('id', action.get('id'));
   },
 
   show: (state, action) => {
@@ -37,8 +37,9 @@ const logicHandlers = {
 
 /******************************************************************************/
 
-Goblin.registerQuest(goblinName, 'init', async function (
+Goblin.registerQuest(goblinName, 'create', async function (
   quest,
+  id,
   desktopId,
   labId
 ) {
@@ -47,10 +48,10 @@ Goblin.registerQuest(goblinName, 'init', async function (
 
   await quest.warehouse.subscribe({
     feed: quest.getDesktop(),
-    branches: [goblinName],
+    branches: [id],
   });
 
-  quest.do({status: false});
+  quest.do({id});
 });
 
 /******************************************************************************/
@@ -104,7 +105,4 @@ Goblin.registerQuest(goblinName, 'showWindow', async function (quest) {
 });
 
 /******************************************************************************/
-
-// Singleton
 module.exports = Goblin.configure(goblinName, logicState, logicHandlers);
-Goblin.createSingle(goblinName);

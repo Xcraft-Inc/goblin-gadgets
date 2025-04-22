@@ -51,7 +51,7 @@ class PopupDispatcher extends Widget {
   /******************************************************************************/
 
   renderPopup(item, index) {
-    const {popup, params} = this.props;
+    const {id, popup, params} = this.props;
 
     const show = popup === item.popup;
 
@@ -82,7 +82,7 @@ class PopupDispatcher extends Widget {
         enableBackgroundClickForCancel={item.enableBackgroundClickForCancel}
         onClose={() => this.handleClose(item)}
       >
-        {item.render({popup, params})}
+        {item.render({id, popup, params})}
       </PopupContainer>
     );
   }
@@ -96,8 +96,8 @@ class PopupDispatcher extends Widget {
 
 /******************************************************************************/
 
-export default Widget.connect((state) => {
-  const serviceState = state.get('backend.popup-dispatcher');
+export default Widget.connect((state, props) => {
+  const serviceState = state.get(`backend.${props.id}`);
   if (!serviceState) {
     return {};
   }
