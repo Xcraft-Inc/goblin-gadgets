@@ -46,7 +46,7 @@ class PopupDispatcher extends Widget {
   }
 
   handleClose(item) {
-    this.doFor('popup-dispatcher', 'hide', {popup: item.popup});
+    this.doFor(this.props.id, 'hide', {popup: item.popup});
   }
   /******************************************************************************/
 
