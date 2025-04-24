@@ -47,7 +47,7 @@ Goblin.registerQuest(goblinName, 'create', async function (
   quest.goblin.setX('labId', labId);
 
   await quest.warehouse.subscribe({
-    feed: quest.getDesktop(),
+    feed: desktopId,
     branches: [id],
   });
 
