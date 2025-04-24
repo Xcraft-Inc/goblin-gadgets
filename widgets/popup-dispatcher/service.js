@@ -74,14 +74,9 @@ Goblin.registerQuest(goblinName, 'prompt', async function (
   return result;
 });
 
-Goblin.registerQuest(goblinName, 'hide', function (quest, popup, result) {
+Goblin.registerQuest(goblinName, 'hide', function (quest, result) {
   const state = quest.goblin.getState();
-  const currentPopup = state.get('popup');
-  if (currentPopup && currentPopup !== popup) {
-    quest.log.err(`Attempt to close an unopened popup '${popup}'`);
-    return;
-  }
-
+  const popup = state.get('popup');
   quest.do({popup});
   quest.evt(`<${popup}.done>`, result);
 });
