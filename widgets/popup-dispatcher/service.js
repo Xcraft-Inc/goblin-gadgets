@@ -87,6 +87,9 @@ Goblin.registerQuest(goblinName, 'setParams', function (quest, params) {
 
 Goblin.registerQuest(goblinName, 'showWindow', async function (quest) {
   const labId = quest.goblin.getX('labId');
+  if (!labId) {
+    return;
+  }
   const winId = `wm@${labId}`;
   try {
     const wmAPI = quest.getAPI(winId);
