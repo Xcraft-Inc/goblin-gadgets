@@ -102,5 +102,7 @@ Goblin.registerQuest(goblinName, 'showWindow', async function (quest) {
   }
 });
 
+Goblin.registerQuest(goblinName, 'delete', function (quest) {});
+
 /******************************************************************************/
 module.exports = Goblin.configure(goblinName, logicState, logicHandlers);
