@@ -74,7 +74,6 @@ class LabelTextField extends Widget {
         width={this.props.labelWidth}
         disabled={this.props.disabled}
         wrap="no"
-        justify="left"
       />
     );
   }
