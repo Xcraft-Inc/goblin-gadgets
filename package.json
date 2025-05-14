@@ -29,7 +29,7 @@
     "goblin-theme": "^2.0.0",
     "goblin-laboratory": "^4.0.0",
     "leaflet": "1.2.0",
-    "mocha": "^10.7.3",
+    "mocha": "^11.2.2",
     "monaco-editor": "^0.31.1",
     "mousetrap": "^1.6.1",
     "prettier": "2.0.4",
