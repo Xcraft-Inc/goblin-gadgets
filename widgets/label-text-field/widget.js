@@ -130,6 +130,7 @@ class LabelTextField extends Widget {
       visibility: this.props.visibility,
       required: this.props.required,
       className: this.props.className,
+      autoFocus: this.props.autoFocus,
     };
 
     if (displayValue) {
