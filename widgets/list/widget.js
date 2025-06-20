@@ -3,6 +3,7 @@ import React from 'react';
 import Widget from 'goblin-laboratory/widgets/widget';
 import ReactList from 'react-list';
 import throttle from 'lodash/throttle';
+import CheckboxNC from '../checkbox-nc/widget.js';
 
 class List extends Widget {
   constructor() {
@@ -113,19 +114,32 @@ class List extends Widget {
     this.doAs('list', 'fetch', {range});
   }
 
+  select = (index) => {
+    this.doFor(this.props.id, 'toggle-select', {rowId: index});
+  };
+
   renderItem(index) {
     setTimeout(this._fetch, 0);
 
     const Item = this.props.renderItem;
+    const enableSelection = this.props.enableSelection;
+    const select = () => this.select(index);
     return (
-      <Item
-        key={index}
-        index={index}
-        listId={this.props.id}
-        itemId={`${index}-item`}
-        busyHeight={this._height}
-        data={this.props.data}
-      />
+      <div style={{display: 'flex'}} key={index}>
+        {enableSelection ? (
+          <CheckboxNC
+            checked={this.props.selected.get(index, false)}
+            onChange={select}
+          />
+        ) : null}
+        <Item
+          index={index}
+          listId={this.props.id}
+          itemId={`${index}-item`}
+          busyHeight={this._height}
+          data={this.props.data}
+        />
+      </div>
     );
   }
 
@@ -207,5 +221,7 @@ export default Widget.connect((state, props) => {
     contentIndex: state.get(`backend.${props.id}.options.contentIndex`),
     entityId: state.get(`backend.${props.id}.options.entityId`),
     path: state.get(`backend.${props.id}.options.path`),
+    enableSelection: state.get(`backend.${props.id}.enableSelection`),
+    selected: state.get(`backend.${props.id}.selected`),
   };
 })(List);
