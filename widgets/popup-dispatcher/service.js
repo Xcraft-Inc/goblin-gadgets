@@ -74,7 +74,7 @@ Goblin.registerQuest(goblinName, 'prompt', async function (
   return result;
 });
 
-Goblin.registerQuest(goblinName, 'hide', function (quest, result) {
+Goblin.registerQuest(goblinName, 'hide', function (quest, result = {}) {
   const state = quest.goblin.getState();
   const popup = state.get('popup');
   quest.evt(`<${popup}.done>`, result);
