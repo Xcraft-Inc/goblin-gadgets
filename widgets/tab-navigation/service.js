@@ -71,7 +71,6 @@ class TabNavigation extends Elf {
    * @returns {Promise<this>}
    */
   async create(id, desktopId, views) {
-    this.desktopId = desktopId;
     this.views = views;
     this.logic.create(id);
     const firstTab = Object.keys(views)[0];
