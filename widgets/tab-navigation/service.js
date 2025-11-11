@@ -98,7 +98,7 @@ class TabNavigation extends Elf {
     const serviceArgs = view.serviceArgs || [];
     await new ServiceClass(this).create(
       serviceId,
-      this.desktopId,
+      await this.winDesktopId(),
       ...serviceArgs
     );
     this.loadedServices.set(tab, serviceId);
