@@ -150,9 +150,12 @@ export default function styles(theme, props) {
     inset: '0',
     overflow: 'hidden',
     backgroundColor: showed ? screenBackground : null,
-    transition: theme.transitions.openClosePopup,
     opacity: showed ? 1 : 0,
     pointerEvents: showed ? 'auto' : 'none',
+  };
+
+  const popupContainerTransition = {
+    transition: theme.transitions.openClosePopup,
   };
 
   const window = {
@@ -175,8 +178,11 @@ export default function styles(theme, props) {
     flexDirection: 'column',
     overflow: 'hidden',
     transformOrigin: origin || 'bottom',
-    transition: `${transitionScope} ${theme.transitions.openClosePopup}`,
     transform: showed ? null : 'scale(0.5)', // (*)
+  };
+
+  const windowTransition = {
+    transition: `${transitionScope} ${theme.transitions.openClosePopup}`,
   };
 
   // (*)  Ne pas faire:
@@ -239,7 +245,9 @@ export default function styles(theme, props) {
 
   return {
     popupContainer,
+    popupContainerTransition,
     window,
+    windowTransition,
     windowTriangle,
     triangle: triangleStyle,
   };

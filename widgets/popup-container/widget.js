@@ -21,6 +21,16 @@ export default class PopupContainer extends Widget {
     super(...arguments);
     this.styles = styles;
     this.onBackgroundClick = this.onBackgroundClick.bind(this);
+    this.state = {
+      mounted: false,
+    };
+  }
+
+  componentDidMount() {
+    // Use setTimeout to wait for React completes the render cycle
+    setTimeout(() => {
+      this.setState({mounted: true});
+    }, 0);
   }
 
   onBackgroundClick(e) {
@@ -48,15 +58,22 @@ export default class PopupContainer extends Widget {
   }
 
   render() {
+    let containerClassName = this.styles.classNames.popupContainer;
+    let windowClassName = this.styles.classNames.window;
+    if (this.state.mounted) {
+      containerClassName = `${this.styles.classNames.popupContainer} ${this.styles.classNames.popupContainerTransition}`;
+      windowClassName = `${this.styles.classNames.window} ${this.styles.classNames.windowTransition}`;
+    }
+
     return (
       <div
-        className={this.styles.classNames.popupContainer}
+        className={containerClassName}
         onMouseDown={this.onBackgroundClick}
         onTouchStart={this.onBackgroundClick}
       >
         <div
           ref={(node) => (this.divWindow = node)}
-          className={this.styles.classNames.window}
+          className={windowClassName}
         >
           {this.props.children}
         </div>
