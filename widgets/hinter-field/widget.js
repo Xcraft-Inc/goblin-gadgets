@@ -57,6 +57,14 @@ class HinterFieldSearch extends Widget {
       type: 'BLUR',
       path: this.props.hinter,
     });
+
+    if (this.props.clearSearchValueOnBlur) {
+      this.dispatchTo(this.widgetId, {
+        type: 'CHANGE',
+        path: this.props.hinter,
+        newValue: '',
+      });
+    }
   }
 
   render() {
