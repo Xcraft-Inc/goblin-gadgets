@@ -8,17 +8,20 @@ import FlyingBalloon from 'goblin-gadgets/widgets/flying-balloon/widget';
 /******************************************************************************/
 
 export default class TextInputInfoNC extends Widget {
-  renderFlyingBalloon() {
-    let warning = this.props.warning;
-    let info = this.props.info;
-
+  getCheckProps() {
     if (this.props.check) {
-      const checkProps = this.props.check(this.props.value);
-      if (checkProps) {
-        warning = checkProps.warning;
-        info = checkProps.info;
-      }
+      return this.props.check(this.props.value) || {};
     }
+    return {};
+  }
+
+  renderFlyingBalloon(checkProps) {
+    const warning = Object.prototype.hasOwnProperty.call(checkProps, 'warning')
+      ? checkProps.warning
+      : this.props.warning;
+    const info = Object.prototype.hasOwnProperty.call(checkProps, 'info')
+      ? checkProps.info
+      : this.props.info;
 
     if (warning || info) {
       const trianglePosition = {
@@ -44,8 +47,11 @@ export default class TextInputInfoNC extends Widget {
   }
 
   render() {
+    const checkProps = this.getCheckProps();
     return (
-      <TextInputNC {...this.props}>{this.renderFlyingBalloon()}</TextInputNC>
+      <TextInputNC {...this.props} wrong={this.props.wrong || checkProps.wrong}>
+        {this.renderFlyingBalloon(checkProps)}
+      </TextInputNC>
     );
   }
 }
