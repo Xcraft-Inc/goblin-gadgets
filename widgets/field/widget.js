@@ -299,6 +299,7 @@ class Field extends Form {
       verticalSpacing,
       verticalJustify,
       width,
+      grow,
       fieldWidth,
       kind,
       ...otherProps
@@ -315,12 +316,14 @@ class Field extends Form {
         verticalSpacing={verticalSpacing}
         verticalJustify={verticalJustify}
         width={width}
+        grow={grow}
       >
         <TextFieldTyped
           type={this.getKind()}
           shift={this.getShift()}
           selectAllOnFocus={true}
           width={fieldWidth}
+          grow={grow}
           {...otherProps}
           readonly={true}
           tooltip={this.getTooltip()}
@@ -804,6 +807,7 @@ class Field extends Form {
       verticalSpacing,
       verticalJustify,
       width,
+      grow,
       fieldWidth,
       kind,
       ...otherProps
@@ -820,12 +824,14 @@ class Field extends Form {
         verticalSpacing={verticalSpacing}
         verticalJustify={verticalJustify}
         width={width}
+        grow={grow}
       >
         <TextFieldTyped
           type={this.getKind()}
           shift={this.getShift()}
           selectAllOnFocus={true}
           width={fieldWidth}
+          grow={grow}
           {...otherProps}
           tooltip={this.getTooltip()}
         />
