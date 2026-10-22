@@ -1619,6 +1619,7 @@ class Field extends Form {
       case 'percent':
       case 'delay':
       case 'color':
+      case 'email':
         return this.renderReadonlyTyped();
       case 'time-interval':
         return this.renderReadonlyTimeInterval();
@@ -1689,6 +1690,7 @@ class Field extends Form {
       case 'percent':
       case 'delay':
       case 'color':
+      case 'email':
         return this.renderEditTyped();
       case 'time-interval':
         return this.renderEditTimeInterval();

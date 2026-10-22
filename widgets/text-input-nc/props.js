@@ -5,7 +5,7 @@ import {types} from '../../types/types.js';
 export default propsList({
   ['aspect']: {
     inputType: {
-      type: types.enumeration('', 'textarea', 'password'),
+      type: types.enumeration('', 'textarea', 'password', 'email'),
     },
     active: {
       type: types.boolean,

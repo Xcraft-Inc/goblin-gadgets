@@ -26,6 +26,7 @@ import Button from 'goblin-gadgets/widgets/button/widget';
 import Slider from 'goblin-gadgets/widgets/slider/widget';
 import Separator from 'goblin-gadgets/widgets/separator/widget';
 import * as styles from './styles';
+import EmailConverters from './email.js';
 
 /******************************************************************************/
 
@@ -140,6 +141,8 @@ export default class TextFieldTypedNC extends Widget {
         return DelayConverters.getDisplayed(canonicalValue, this.props.unit);
       case 'color':
         return ColorConverters.getDisplayed(canonicalValue);
+      case 'email':
+        return EmailConverters.getDisplayed(canonicalValue);
       default:
         throw new Error(`Invalid type ${this.props.type}`);
     }
@@ -233,6 +236,8 @@ export default class TextFieldTypedNC extends Widget {
         return DelayConverters.parseEdited(displayedValue, this.props.unit);
       case 'color':
         return ColorConverters.parseEdited(displayedValue);
+      case 'email':
+        return EmailConverters.parseEdited(displayedValue);
       default:
         throw new Error(`Invalid type ${this.type}`);
     }
@@ -359,6 +364,7 @@ export default class TextFieldTypedNC extends Widget {
     return {
       info,
       warning: error,
+      wrong: this.props.type === 'email' && Boolean(error),
     };
   }
 
@@ -648,6 +654,7 @@ export default class TextFieldTypedNC extends Widget {
     return (
       <TextFieldNC
         {...otherProps}
+        inputType={type === 'email' ? 'email' : undefined}
         width={width}
         tooltip={tooltip}
         justify={justify}
@@ -692,7 +699,7 @@ export default class TextFieldTypedNC extends Widget {
           : 'left';
     }
 
-    if (!width) {
+    if (!width && !this.props.grow) {
       switch (type) {
         case 'number':
         case 'integer':

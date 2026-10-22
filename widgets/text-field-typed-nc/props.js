@@ -26,7 +26,8 @@ const ownProps = propsList({
         'percent',
         'percentage',
         'delay',
-        'color'
+        'color',
+        'email'
       ),
       required: true,
     },

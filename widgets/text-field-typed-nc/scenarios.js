@@ -99,6 +99,15 @@ export default [
     },
   },
   {
+    name: 'email',
+    props: {
+      type: 'email',
+      value: 'info@example.com',
+      width: '240px',
+      tooltip: 'Adresse e-mail',
+    },
+  },
+  {
     name: 'empty',
     props: {},
   },
