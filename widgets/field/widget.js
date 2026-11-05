@@ -195,7 +195,6 @@ class Field extends Form {
       grow,
       fieldWidth,
       kind,
-      model,
       ...otherProps
     } = this.props;
 
