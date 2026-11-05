@@ -59,6 +59,7 @@ export const propNames = [
   'value',
   'direction',
   'flash',
+  'infinite',
   'kind',
   'disabled',
   'gradient',
@@ -68,11 +69,14 @@ export const propNames = [
   'displayZero',
 ];
 
+const infiniteSize = 30;
+
 export default function styles(theme, props) {
   const {
     value,
     direction,
     flash,
+    infinite,
     kind,
     disabled,
     gradient,
@@ -82,7 +86,7 @@ export default function styles(theme, props) {
     displayZero,
   } = props;
 
-  const gaugeValue = Math.max(Math.min(value, 100), 0); // 0..100
+  const gaugeValue = infinite ? 100 : Math.max(Math.min(value, 100), 0); // 0..100
 
   const gauge = {
     position: 'relative',
@@ -104,11 +108,27 @@ export default function styles(theme, props) {
     },
   };
 
+  const keyframesInfinite =
+    direction === 'horizontal'
+      ? {
+          '0%': {left: `-${infiniteSize}%`},
+          '100%': {left: '100%'},
+        }
+      : {
+          '0%': {bottom: `-${infiniteSize}%`},
+          '100%': {bottom: '100%'},
+        };
+
   const content = {
     position: 'absolute',
     height: direction === 'horizontal' ? '100%' : gaugeValue + '%',
     width: direction === 'horizontal' ? gaugeValue + '%' : '100%',
-    backgroundColor: getColor(theme, gradient, color, gaugeValue),
+    backgroundColor: getColor(
+      theme,
+      gradient,
+      color,
+      infinite ? 100 : gaugeValue
+    ),
     animationName: flash ? keyframes : null,
     animationDuration: '1s',
     animationIterationCount: 'infinite',
@@ -163,6 +183,34 @@ export default function styles(theme, props) {
       gauge.boxShadow = null;
       content.visibility = 'hidden';
       gloss.visibility = 'hidden';
+    }
+  }
+
+  if (infinite) {
+    gauge.overflow = 'hidden';
+
+    if (direction === 'horizontal') {
+      content.width = `${infiniteSize}%`;
+      content.height = 'calc(100% - 2px)';
+      content.bottom = '1px';
+    } else {
+      content.width = 'calc(100% - 2px)';
+      content.height = `${infiniteSize}%`;
+      content.left = '1px';
+    }
+
+    content.visibility = 'visible';
+    content.animationName = keyframesInfinite;
+    content.animationDuration = '1.5s';
+    content.animationTimingFunction = 'ease-in-out';
+    content.animationIterationCount = 'infinite';
+
+    gloss.visibility = 'hidden';
+
+    if (kind !== 'mission') {
+      gauge.border = null;
+      gauge.backgroundColor = theme.palette.ticketGaugeBackground;
+      gauge.boxShadow = theme.palette.ticketGaugeBackgroundShadow;
     }
   }
 

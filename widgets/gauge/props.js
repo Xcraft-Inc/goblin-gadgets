@@ -35,6 +35,9 @@ export default propsList({
     flash: {
       type: types.boolean,
     },
+    infinite: {
+      type: types.boolean,
+    },
     displayZero: {
       type: types.boolean,
     },
