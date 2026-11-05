@@ -20,6 +20,7 @@ import TextField from 'goblin-gadgets/widgets/text-field/widget';
 import TranslatableTextField from 'goblin-gadgets/widgets/translatable-text-field/widget';
 import LabelRow from 'goblin-gadgets/widgets/label-row/widget';
 import TextFieldTyped from 'goblin-gadgets/widgets/text-field-typed/widget';
+import EmailsField from 'goblin-gadgets/widgets/emails-field/widget';
 import TextFieldCombo from 'goblin-gadgets/widgets/text-field-combo/widget';
 import TextFieldTimeInterval from 'goblin-gadgets/widgets/text-field-time-interval/widget';
 import TextFieldDateInterval from 'goblin-gadgets/widgets/text-field-date-interval/widget';
@@ -194,6 +195,7 @@ class Field extends Form {
       grow,
       fieldWidth,
       kind,
+      model,
       ...otherProps
     } = this.props;
 
@@ -834,6 +836,47 @@ class Field extends Form {
           grow={grow}
           {...otherProps}
           tooltip={this.getTooltip()}
+        />
+      </LabelRow>
+    );
+  }
+
+  renderEmails() {
+    const {
+      show,
+      labelWrap,
+      labelGlyph,
+      labelWidth = defaultLabelWidth,
+      horizontalSpacing,
+      verticalSpacing,
+      verticalJustify,
+      width,
+      grow,
+      fieldWidth,
+      kind,
+      model,
+      ...otherProps
+    } = this.props;
+
+    return (
+      <LabelRow
+        show={show}
+        labelText={this.getLabelText()}
+        labelWrap={labelWrap}
+        labelGlyph={labelGlyph}
+        labelWidth={labelWidth}
+        horizontalSpacing={horizontalSpacing}
+        verticalSpacing={verticalSpacing}
+        verticalJustify={verticalJustify}
+        width={width}
+        grow={grow || (fieldWidth ? null : '1')}
+      >
+        <EmailsField
+          {...otherProps}
+          model={model}
+          width={fieldWidth}
+          grow={fieldWidth ? null : '1'}
+          readonly={this.readonly}
         />
       </LabelRow>
     );
@@ -1621,6 +1664,8 @@ class Field extends Form {
       case 'color':
       case 'email':
         return this.renderReadonlyTyped();
+      case 'emails':
+        return this.renderEmails();
       case 'time-interval':
         return this.renderReadonlyTimeInterval();
       case 'date-interval':
@@ -1692,6 +1737,8 @@ class Field extends Form {
       case 'color':
       case 'email':
         return this.renderEditTyped();
+      case 'emails':
+        return this.renderEmails();
       case 'time-interval':
         return this.renderEditTimeInterval();
       case 'date-interval':
