@@ -3,7 +3,7 @@
 const assert = require('assert');
 const EmailConverters = require('../widgets/text-field-typed-nc/email.js');
 
-describe('email converter', function () {
+describe('goblin.gadgets.email-converter', function () {
   it('accepts and trims a valid email address', function () {
     assert.deepStrictEqual(
       EmailConverters.parseEdited('  user+pod@example.com  '),
